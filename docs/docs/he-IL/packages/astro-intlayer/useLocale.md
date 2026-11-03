@@ -123,6 +123,6 @@ const { locale, availableLocales } = useLocale();
 
 ## תיעוד קשור
 
-- [אינטגרציית `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/intlayer.md)
-- [הוק `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/useIntlayer.md)
-- [הוק `useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/useDictionary.md)
+- [אינטגרציית `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/intlayer.md)
+- [הוק `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/useIntlayer.md)
+- [הוק `useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/useDictionary.md)

@@ -114,9 +114,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-באמצעות הגדרה זו, כל הקבצים לפי שפה ייווצרו כאשר שפת ברירת המחדל מוגדרת לאנגלית. הדבר כולל גם יצירה של קובצי `.content` באמצעות פקודת `extract` והמהדר. (עיינו ב[מהדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md) או ב[פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md) למידע נוסף.)
+באמצעות הגדרה זו, כל הקבצים לפי שפה ייווצרו כאשר שפת ברירת המחדל מוגדרת לאנגלית. הדבר כולל גם יצירה של קובצי `.content` באמצעות פקודת `extract` והמהדר. (עיינו ב[מהדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md) או ב[פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md) למידע נוסף.)
 
-- [מהדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md)
+- [מהדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md)
 
 ## קובץ יחיד עם מספר תרגומים
 
@@ -272,6 +272,6 @@ console.log(JSON.stringify(intlayerFr, null, 2));
 
 ### יצירת תרגום אוטומטית
 
-השתמשו ב-[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md) כדי למלא אוטומטית תרגומים חסרים בהתבסס על השירותים המועדפים עליכם.
+השתמשו ב-[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md) כדי למלא אוטומטית תרגומים חסרים בהתבסס על השירותים המועדפים עליכם.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)

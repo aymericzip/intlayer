@@ -60,9 +60,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-כדי ללמוד עוד על ה-CMS, עיין ב[תיעוד הרשמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md).
+כדי ללמוד עוד על ה-CMS, עיין ב[תיעוד הרשמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md).
 
-- [Intlayer CMS: החצנת התוכן הרב-לשוני שלך](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [Intlayer CMS: החצנת התוכן הרב-לשוני שלך](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 ## שימוש ב-Husky
 
@@ -99,9 +99,9 @@ npx intlayer build                          # כדי להבטיח שהמילונ
 npx intlayer fill --unpushed --mode complete    # ממלא רק תוכן חסר, אינו מעדכן תוכן קיים
 ```
 
-> למידע נוסף על פקודות Intlayer CLI והשימוש בהן, עיין ב[תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md).
+> למידע נוסף על פקודות Intlayer CLI והשימוש בהן, עיין ב[תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md).
 
-- [תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
+- [תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)
 
 > אם יש לך מספר אפליקציות במאגר המשתמשות במופעי Intlayer נפרדים, תוכל להשתמש בארגומנט `--base-dir` באופן הבא:
 
@@ -201,6 +201,6 @@ jobs:
 
 > כברירת מחדל, הארגומנט `--git-diff` מסנן מילונים הכוללים שינויים מענף הבסיס (ברירת מחדל `origin/main`) לענף הנוכחי (ברירת מחדל: `HEAD`).
 
-> למידע נוסף על פקודות Intlayer CLI והשימוש בהן, עיין ב[תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md).
+> למידע נוסף על פקודות Intlayer CLI והשימוש בהן, עיין ב[תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md).
 
-- [תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
+- [תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)

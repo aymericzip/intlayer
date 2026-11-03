@@ -111,7 +111,7 @@ style="border:none;"
 עבור בנצ'מרק זה, השווינו בין הספריות הבאות:
 
 - `Base App` (ללא ספריית i18n)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/solid-intlayer/exports.md) (גרסה 9.5.10)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/solid-intlayer/exports.md) (גרסה 9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (גרסה 2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (גרסה 26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (גרסה 1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (גרסה 7.2.0)

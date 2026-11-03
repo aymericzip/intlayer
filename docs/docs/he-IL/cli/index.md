@@ -108,9 +108,9 @@ bun add intlayer-cli -g
 
 ## חבילת intlayer-cli
 
-חבילת `intlayer-cli` נועדה לבצע טרנספילציה (transpile) של [הצהרות ה-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md) שלך למילונים.
+חבילת `intlayer-cli` נועדה לבצע טרנספילציה (transpile) של [הצהרות ה-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md) שלך למילונים.
 
-- [הצהרות Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [הצהרות Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 חבילה זו תבצע טרנספילציה לכל קובצי Intlayer, כגון `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [ראה כיצד להצהיר על קובצי הצהרת Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
@@ -127,65 +127,65 @@ Intlayer תומך במספר פורמטים של קובצי תצורה:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-כדי לראות כיצד להגדיר שפות זמינות או פרמטרים נוספים, עיין ב[תיעוד התצורה כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+כדי לראות כיצד להגדיר שפות זמינות או פרמטרים נוספים, עיין ב[תיעוד התצורה כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד התצורה כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד התצורה כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 ## הרצת פקודות intlayer
 
 ### אימות (Authentication)
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/login.md)**, התחבר ל-Intlayer CMS וקבל הרשאות גישה
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/login.md)**, התחבר ל-Intlayer CMS וקבל הרשאות גישה
 
-> `intlayer login` מנפיק **מפתח גישה** (`clientId` / `clientSecret`) שכל פקודה הדורשת הרשאות משתמשת בו. הסוד הוא אישור בצד השרת ולעולם אינו מגיע לבאנדל צד-הלקוח שלך. ראה [שמירה על בטיחות מפתח הגישה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/login.md#keeping-the-access-key-safe).
+> `intlayer login` מנפיק **מפתח גישה** (`clientId` / `clientSecret`) שכל פקודה הדורשת הרשאות משתמשת בו. הסוד הוא אישור בצד השרת ולעולם אינו מגיע לבאנדל צד-הלקוח שלך. ראה [שמירה על בטיחות מפתח הגישה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/login.md#keeping-the-access-key-safe).
 
-- [שמירה על בטיחות מפתח הגישה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/login.md#keeping-the-access-key-safe)
+- [שמירה על בטיחות מפתח הגישה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/login.md#keeping-the-access-key-safe)
 
 ### פקודות ליבה
 
-- [Build Dictionaries (בניית מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/build.md)
-- [Watch Dictionaries (האזנה למילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/watch.md)
-- [Create Standalone Bundle (יצירת באנדל עצמאי)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/standalone.md)
-- [Check CLI Version (בדיקת גרסת CLI)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/version.md)
-- [List Projects (הצגת רשימת פרויקטים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/list_projects.md)
+- [Build Dictionaries (בניית מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/build.md)
+- [Watch Dictionaries (האזנה למילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/watch.md)
+- [Create Standalone Bundle (יצירת באנדל עצמאי)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/standalone.md)
+- [Check CLI Version (בדיקת גרסת CLI)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/version.md)
+- [List Projects (הצגת רשימת פרויקטים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/list_projects.md)
 
 ### ניהול מילונים
 
-- [Push Dictionaries (העלאת מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/push.md)
-- [Pull Dictionaries (משיכת מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/pull.md)
-- [Fill Dictionaries (השלמת מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md)
-- [Test Missing Translations (בדיקת תרגומים חסרים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/test.md)
-- [List Content Declaration Files (הצגת קובצי הצהרת תוכן)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/list.md)
+- [Push Dictionaries (העלאת מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/push.md)
+- [Pull Dictionaries (משיכת מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/pull.md)
+- [Fill Dictionaries (השלמת מילונים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md)
+- [Test Missing Translations (בדיקת תרגומים חסרים)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/test.md)
+- [List Content Declaration Files (הצגת קובצי הצהרת תוכן)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/list.md)
 
 ### ניהול רכיבים
 
-- **[Extract Strings (חילוץ מחרוזות)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)**, חלץ מחרוזות מרכיבים לתוך קובץ .content סמוך לרכיב
+- **[Extract Strings (חילוץ מחרוזות)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)**, חלץ מחרוזות מרכיבים לתוך קובץ .content סמוך לרכיב
 
 ### תצורה
 
-- [Initialize Intlayer (אתחול Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/init.md)
-- [Set Up Infrastructure (הגדרת תשתית)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/infra.md)
-- [Upgrade Intlayer Packages (שדרוג חבילות Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/upgrade.md)
-- [Manage Configuration (ניהול תצורה)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/configuration.md)
+- [Initialize Intlayer (אתחול Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/init.md)
+- [Set Up Infrastructure (הגדרת תשתית)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/infra.md)
+- [Upgrade Intlayer Packages (שדרוג חבילות Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/upgrade.md)
+- [Manage Configuration (ניהול תצורה)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/configuration.md)
 
 ### ניהול תיעוד
 
-- [Translate Document (תרגום מסמך)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/doc-translate.md)
-- [Review Document (סקירת מסמך)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/doc-review.md)
+- [Translate Document (תרגום מסמך)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/doc-translate.md)
+- [Review Document (סקירת מסמך)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/doc-review.md)
 
 ### עורך וסנכרון בזמן אמת (Editor & Live Sync)
 
-- [Editor Commands (פקודות עורך)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/editor.md)
-- [Live Sync Commands (פקודות סנכרון חי)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/live.md)
+- [Editor Commands (פקודות עורך)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/editor.md)
+- [Live Sync Commands (פקודות סנכרון חי)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/live.md)
 
 ### ביקורת ואבחון
 
-- **[Scan Website (סריקת אתר)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/scan.md)**, מדידת גודל עמוד וביקורת תקינות i18n/SEO של כל כתובת URL ציבורית
+- **[Scan Website (סריקת אתר)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/scan.md)**, מדידת גודל עמוד וביקורת תקינות i18n/SEO של כל כתובת URL ציבורית
 
 ### כלי פיתוח
 
-- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/sdk.md)
-- [Debug Intlayer Command (ניפוי שגיאות בפקודת Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/debug.md)
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/sdk.md)
+- [Debug Intlayer Command (ניפוי שגיאות בפקודת Intlayer)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/debug.md)
 
 ## שימוש בפקודות intlayer ב-`package.json`
 

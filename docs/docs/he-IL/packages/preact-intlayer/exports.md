@@ -44,13 +44,13 @@ npm install preact-intlayer
 
 ### הוקים (Hooks)
 
-| הוק             | תיאור                                                                                      | תיעוד קשור                                                                                                           |
-| --------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.               | -                                                                                                                    |
-| `useDictionary` | מעבד אובייקטים הדומים למילונים (מפתח, תוכן). מעבד תרגומי `t()`, ריבוי (enumerations) ועוד. | -                                                                                                                    |
-| `useLocale`     | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                    | -                                                                                                                    |
-| `usePathname`   | הוק המחזיר את הנתיב הנוכחי עם הסרת מקטע השפה. מגיב לניווט בדפדפן דרך `popstate`.           | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/preact-intlayer/usePathname.md) |
-| `t`             | בוחר תוכן בהתבסס על השפה הנוכחית.                                                          | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md)               |
+| הוק             | תיאור                                                                                      | תיעוד קשור                                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.               | -                                                                                                                       |
+| `useDictionary` | מעבד אובייקטים הדומים למילונים (מפתח, תוכן). מעבד תרגומי `t()`, ריבוי (enumerations) ועוד. | -                                                                                                                       |
+| `useLocale`     | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                    | -                                                                                                                       |
+| `usePathname`   | הוק המחזיר את הנתיב הנוכחי עם הסרת מקטע השפה. מגיב לניווט בדפדפן דרך `popstate`.           | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/preact-intlayer/usePathname.md) |
+| `t`             | בוחר תוכן בהתבסס על השפה הנוכחית.                                                          | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md)               |
 
 ### רכיבים
 

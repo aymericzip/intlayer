@@ -88,18 +88,18 @@ Intlayer מותאם לעבוד בצורה מושלמת עם Astro ומציע **�
 </Accordion>
 <Accordion header="סוכני AI">
 
-מיקום משותף (co-location) של תוכן **מפחית את ההקשר הנדרש** עבור מודלי שפה גדולים (LLMs). כמו כן, Intlayer מגיע עם חבילת כלים, כגון **CLI** לבדיקת תרגומים חסרים, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)**, ו-**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**, כדי להפוך את חוויית הפיתוח (DX) לחלקה עוד יותר עבור סוכני AI.
+מיקום משותף (co-location) של תוכן **מפחית את ההקשר הנדרש** עבור מודלי שפה גדולים (LLMs). כמו כן, Intlayer מגיע עם חבילת כלים, כגון **CLI** לבדיקת תרגומים חסרים, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)**, ו-**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)**, כדי להפוך את חוויית הפיתוח (DX) לחלקה עוד יותר עבור סוכני AI.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)
 
 </Accordion>
 <Accordion header="אוטומציה">
 
-השתמשו באוטומציה כדי לתרגם בתהליך ה-CI/CD שלכם באמצעות ה-LLM לבחירתכם בעלות ספק ה-AI שלכם. Intlayer מציע גם **מהדר (compiler)** לאוטומציה של חילוץ תוכן, וכן [פלטפורמת רשת](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) שתסייע **לתרגם ברקע**.
+השתמשו באוטומציה כדי לתרגם בתהליך ה-CI/CD שלכם באמצעות ה-LLM לבחירתכם בעלות ספק ה-AI שלכם. Intlayer מציע גם **מהדר (compiler)** לאוטומציה של חילוץ תוכן, וכן [פלטפורמת רשת](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md) שתסייע **לתרגם ברקע**.
 
-- [פלטפורמת רשת](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [פלטפורמת רשת](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="ביצועים">
@@ -109,10 +109,10 @@ Intlayer מותאם לעבוד בצורה מושלמת עם Astro ומציע **�
 </Accordion>
 <Accordion header="הרחבה לעבודה עם צוותים שאינם מפתחים">
 
-מעבר להיותו פתרון i18n בלבד, Intlayer מספק **[עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) באחסון עצמי (self-hosted)** ו-**[CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)** שיעזרו לכם לנהל את התוכן הרב-לשוני שלכם ב**זמן אמת**, מה שהופך את שיתוף הפעולה עם מתרגמים, כותבי תוכן וחברי צוות אחרים לפשוט וחלק. ניתן לאחסן תוכן באופן מקומי ו/או מרחוק.
+מעבר להיותו פתרון i18n בלבד, Intlayer מספק **[עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) באחסון עצמי (self-hosted)** ו-**[CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)** שיעזרו לכם לנהל את התוכן הרב-לשוני שלכם ב**זמן אמת**, מה שהופך את שיתוף הפעולה עם מתרגמים, כותבי תוכן וחברי צוות אחרים לפשוט וחלק. ניתן לאחסן תוכן באופן מקומי ו/או מרחוק.
 
-- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -163,7 +163,7 @@ bun add intlayer astro-intlayer
 ```
 
 - **intlayer**
-  חבילת הליבה המספקת כלי בינאום לניהול הגדרות, תרגום, [הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md), טרנספילציה ו-[פקודות CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md).
+  חבילת הליבה המספקת כלי בינאום לניהול הגדרות, תרגום, [הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md), טרנספילציה ו-[פקודות CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md).
 
 - **astro-intlayer**
   כוללת את תוסף האינטגרציה ל-Astro לשילוב Intlayer עם [ה-bundler של Vite](https://vite.dev/guide/why.html#why-bundle-for-production), middleware שמפענח את ה-locale של כל בקשה לתוך `Astro.locals.intlayer`, ואת ההוקים `useIntlayer` / `useDictionary` / `useLocale`. אותו נתיב ייבוא מפוענח למימוש השרת ב-frontmatter של `.astro` ולמימוש הלקוח (המבוסס על `vanilla-intlayer`) בבלוקי `<script>`.
@@ -214,9 +214,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> באמצעות קובץ הגדרות זה, תוכלו להגדיר כתובות URL מותאמות לשפה, הפניות מחדש של middleware, שמות של עוגיות (cookies), את המיקום והסיומת של הצהרות התוכן שלכם, לבטל לוגים של Intlayer במסוף, ועוד. לרשימה מלאה של הפרמטרים הזמינים, עיינו ב-[תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+> באמצעות קובץ הגדרות זה, תוכלו להגדיר כתובות URL מותאמות לשפה, הפניות מחדש של middleware, שמות של עוגיות (cookies), את המיקום והסיומת של הצהרות התוכן שלכם, לבטל לוגים של Intlayer במסוף, ועוד. לרשימה מלאה של הפרמטרים הזמינים, עיינו ב-[תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 </Step>
 <Step number={3} title="שילוב Intlayer בהגדרות ה-Astro שלכם">
@@ -263,9 +263,9 @@ export default appContent;
 
 > ניתן להגדיר את הצהרות התוכן שלכם בכל מקום באפליקציה כל עוד הן כלולות בספריית `contentDir` (כברירת מחדל, `./src`), ומתאימות לסיומת קובץ הצהרת התוכן (כברירת מחדל, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
-> לפרטים נוספים, עיינו ב-[תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+> לפרטים נוספים, עיינו ב-[תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 </Step>
 <Step number={5} title="שימוש בתוכן שלכם ב-Astro">
@@ -568,22 +568,22 @@ export const GET: APIRoute = ({ site }) => {
 
 המשיכו להשתמש ב-framework המועדף עליכם כדי לבנות את האפליקציה שלכם.
 
-- [Intlayer עם React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_react.md)
-- [Intlayer עם Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_vue.md)
-- [Intlayer עם Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_svelte.md)
-- [Intlayer עם Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_solid.md)
-- [Intlayer עם Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_preact.md)
-- [Intlayer עם Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_lit.md)
+- [Intlayer עם React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_react.md)
+- [Intlayer עם Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_vue.md)
+- [Intlayer עם Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_svelte.md)
+- [Intlayer עם Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_solid.md)
+- [Intlayer עם Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_preact.md)
+- [Intlayer עם Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="חילוץ תוכן הרכיבים שלכם" isOptional={true}>
 
 אם יש לכם בסיס קוד קיים, המרה של אלפי קבצים עלולה לגזול זמן רב.
 
-כדי להקל על תהליך זה, Intlayer מציע [מהדר (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md) / [מחלץ (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md) כדי להמיר את הרכיבים שלכם ולחלץ את התוכן.
+כדי להקל על תהליך זה, Intlayer מציע [מהדר (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md) / [מחלץ (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md) כדי להמיר את הרכיבים שלכם ולחלץ את התוכן.
 
-- [מהדר (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md)
-- [מחלץ (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)
+- [מהדר (compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md)
+- [מחלץ (extractor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)
 
 כדי להגדיר זאת, תוכלו להוסיף מקטע `compiler` בקובץ `intlayer.config.ts` שלכם:
 
@@ -715,16 +715,16 @@ Intlayer משתמש בהרחבת מודולים (module augmentation) כדי ל�
 - **תצוגה מקדימה מוטמעת (Inline previews)** של תוכן מתורגם.
 - **פעולות מהירות (Quick actions)** ליצירה ועדכון פשוטים של תרגומים.
 
-לפרטים נוספים על אופן השימוש בהרחבה, עיינו ב-[תיעוד הרחבת ה-VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md).
+לפרטים נוספים על אופן השימוש בהרחבה, עיינו ב-[תיעוד הרחבת ה-VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md).
 
-- [תיעוד הרחבת ה-VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
+- [תיעוד הרחבת ה-VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)
 
 ### הרחבה נוספת
 
-להמשך, תוכלו להטמיע את [העורך החזותי (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) או להעביר את התוכן שלכם לניהול חיצוני באמצעות [ה-CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md).
+להמשך, תוכלו להטמיע את [העורך החזותי (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) או להעביר את התוכן שלכם לניהול חיצוני באמצעות [ה-CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md).
 
-- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 ## שאלות נפוצות
 
@@ -738,68 +738,68 @@ Astro מספקת אפשרות `i18n` ברמת הניתוב המטפלת בקיד
 - **`i18next`** או **`vue-i18n` / `svelte-i18n`** בתוך islands: ספרייה מלאה לכל framework של island, כל אחת עם קטלוג נפרד משלה.
 - **`Intlayer`**: שכבת תוכן אחת המשותפת לדפי Astro ולכל framework של island, מקומפלת בזמן הבנייה, בעלת טיפוסיות מלאה, עם תרגום באמצעות AI, עורך חזותי ו-CMS.
 
-היתרון הייחודי ל-Astro הוא שאותו מילון משרת הן דף `.astro` והן island של React, Vue, Svelte, Solid, Preact או Lit, במקום ספריית i18n נפרדת לכל סביבת ריצה של island. ראו [מדוע כדאי לבחור ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/interest_of_intlayer.md).
+היתרון הייחודי ל-Astro הוא שאותו מילון משרת הן דף `.astro` והן island של React, Vue, Svelte, Solid, Preact או Lit, במקום ספריית i18n נפרדת לכל סביבת ריצה של island. ראו [מדוע כדאי לבחור ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/interest_of_intlayer.md).
 
-- [מדוע כדאי לבחור ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/interest_of_intlayer.md)
+- [מדוע כדאי לבחור ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/interest_of_intlayer.md)
 
 </Question>
 <Question title="בכמה מגדיל ה-i18n את גודל החבילה (bundle size) של Astro שלי?">
 
-הרבה פחות מהגדרה מבוססת מרחבי שמות (namespaces), מכיוון שדף לעולם אינו מוריד קטלוג שאינו מרנדר. דפי Astro מרונדרים בזמן הבנייה, ולכן הם שולחים HTML מתורגם וללא מילון כלל; רק ה-islands מקבלים מילון. המהדר בזמן הבנייה מפענח את קריאות התוכן לערכים המדויקים שבהם הרכיב משתמש, ו-[מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md) מפצלים את השאר לפי שפה. בהשוואה לחלופות הנפוצות, Intlayer מקטין את גודל החבילה והדפים בעד 50%. ראו [אופטימיזציית חבילה (bundle optimization)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md) ואת [מבחן הביצועים (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/index.md).
+הרבה פחות מהגדרה מבוססת מרחבי שמות (namespaces), מכיוון שדף לעולם אינו מוריד קטלוג שאינו מרנדר. דפי Astro מרונדרים בזמן הבנייה, ולכן הם שולחים HTML מתורגם וללא מילון כלל; רק ה-islands מקבלים מילון. המהדר בזמן הבנייה מפענח את קריאות התוכן לערכים המדויקים שבהם הרכיב משתמש, ו-[מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md) מפצלים את השאר לפי שפה. בהשוואה לחלופות הנפוצות, Intlayer מקטין את גודל החבילה והדפים בעד 50%. ראו [אופטימיזציית חבילה (bundle optimization)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md) ואת [מבחן הביצועים (benchmark)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/index.md).
 
-- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md)
-- [אופטימיזציית חבילה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
-- [מבחן ביצועים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/index.md)
+- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md)
+- [אופטימיזציית חבילה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
+- [מבחן ביצועים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/index.md)
 
 </Question>
 <Question title="האם ניתן להגר מ-`i18next` או ממילון ידני מבלי לשכתב את הרכיבים שלי?">
 
-במידה רבה, כן. פעלו לפי [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md) כדי להעביר את התוכן. ניתן גם להגר באופן הדרגתי: [תוסף סנכרון JSON (sync JSON plugin)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md) שומר על קטלוגי ה-JSON הקיימים שלכם כמקור האמת ומייצר מהם מילוני Intlayer, כך ששתי השכבות נשארות מסונכרנות בזמן שאתם מעבירים רכיבים בזה אחר זה.
+במידה רבה, כן. פעלו לפי [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md) כדי להעביר את התוכן. ניתן גם להגר באופן הדרגתי: [תוסף סנכרון JSON (sync JSON plugin)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md) שומר על קטלוגי ה-JSON הקיימים שלכם כמקור האמת ומייצר מהם מילוני Intlayer, כך ששתי השכבות נשארות מסונכרנות בזמן שאתם מעבירים רכיבים בזה אחר זה.
 
-- [מדריך הגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md)
-- [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md)
+- [מדריך הגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md)
+- [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md)
 
 </Question>
 <Question title="האם אוכל לשמור על קובצי תרגום ה-JSON הקיימים שלי?">
 
-כן. [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md) שומר על קובצי `/messages/{locale}/{namespace}.json` שלכם כמקור האמת ומפיק מהם מילוני Intlayer, בשני הכיוונים. [תוסף סנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md) מבצע את אותה פעולה עבור קטלוגי gettext, ו-[קבצים לפי שפה (per-locale files)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md) מאפשרים לכם לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ אחד.
+כן. [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md) שומר על קובצי `/messages/{locale}/{namespace}.json` שלכם כמקור האמת ומפיק מהם מילוני Intlayer, בשני הכיוונים. [תוסף סנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md) מבצע את אותה פעולה עבור קטלוגי gettext, ו-[קבצים לפי שפה (per-locale files)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md) מאפשרים לכם לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ אחד.
 
-- [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md)
-- [תוסף סנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md)
-- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md)
+- [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md)
+- [תוסף סנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md)
+- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md)
 
 </Question>
 <Question title="האם עליי להעביר את התוכן שלי מפתח אחר מפתח?">
 
 לא. הריצו את `npx intlayer extract` ו-Intlayer יקרא את הרכיבים שלכם, ישלוף את המחרוזות המוצגות למשתמש ויכתוב קובץ `.content` לצד כל רכיב, כך שתבדקו diff במקום להעתיק מחרוזות לקטלוג באופן ידני. שלב 15 במדריך זה מפרט את התהליך.
 
-עבור צינור עבודה (pipeline) אוטומטי לחלוטין, [המהדר של Intlayer (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md) מבצע את אותה פעולה בזמן הבנייה: הוא סורק את קוד המקור של ה-JSX, TSX, Vue ו-Svelte שלכם בכל שינוי, מייצר את המילונים ושומר אותם מסונכרנים באמצעות החלפת מודולים חמה (HMR), כך שאין שום מפתחות לתחזק ידנית.
+עבור צינור עבודה (pipeline) אוטומטי לחלוטין, [המהדר של Intlayer (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md) מבצע את אותה פעולה בזמן הבנייה: הוא סורק את קוד המקור של ה-JSX, TSX, Vue ו-Svelte שלכם בכל שינוי, מייצר את המילונים ושומר אותם מסונכרנים באמצעות החלפת מודולים חמה (HMR), כך שאין שום מפתחות לתחזק ידנית.
 
-- [המהדר של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md)
+- [המהדר של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md)
 
-ישנן שתי מגבלות שכדאי להכיר לפני הפעלת המהדר. הוא פועל באמצעות ניתוח סטטי (static analysis), ולכן מחרוזות שקיימות רק בזמן ריצה, כמו קודי שגיאה מ-API או שדות CMS, אינן נגישות עבורו. בנוסף, עליו להבדיל בין טקסט המוצג למשתמש לבין לוגיקת אפליקציה כגון `className="active"` או קוד סטטוס, מה שדורש מספר ביאורים (annotations) בבסיס קוד גדול. [פקודת החילוץ (extract command)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md) נמנעת משתיהן בכך שהיא משאירה אתכם בתהליך הבקרה.
+ישנן שתי מגבלות שכדאי להכיר לפני הפעלת המהדר. הוא פועל באמצעות ניתוח סטטי (static analysis), ולכן מחרוזות שקיימות רק בזמן ריצה, כמו קודי שגיאה מ-API או שדות CMS, אינן נגישות עבורו. בנוסף, עליו להבדיל בין טקסט המוצג למשתמש לבין לוגיקת אפליקציה כגון `className="active"` או קוד סטטוס, מה שדורש מספר ביאורים (annotations) בבסיס קוד גדול. [פקודת החילוץ (extract command)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md) נמנעת משתיהן בכך שהיא משאירה אתכם בתהליך הבקרה.
 
-- [פקודת חילוץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)
+- [פקודת חילוץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)
 
 </Question>
 <Question title="אילו כלי עורך וסוכני AI זמינים?">
 
 חמישה כלים, כולם אופציונליים:
 
-- **[הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)**: קפיצה ממפתח `useIntlayer` אל קובץ התוכן שמצהיר עליו, חילוץ תוכן מרכיב, והרצת build, fill, test, push ו-pull מתוך לוח הפקודות (command palette) או מלשונית Intlayer ייעודית.
-- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**: אותה רמת מודעות בכל עורך התומך ב-LSP, עם מעבר להגדרה (go to definition), מציאת כל המופעים (find all references), תצוגה מקדימה בריחוף (hover preview) של ערך מתורגם, השלמה אוטומטית של מפתחות ושדות, ואזהרה כאשר מפתח אינו מוצהר בשום מקום. הוא גם מפענח קריאות של `i18next`, `react-i18next`, `next-intl` ו-`use-intl`, מה שעוזר בזמן ההגירה.
-- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer ל-Cursor, VS Code, Claude Desktop, Claude Code ו-ChatGPT, כך שעוזר AI עונה מתוך תיעוד עדכני במקום לנחש, ויכול להריץ פקודות כמו `intlayer fill` בעצמו.
-- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**: מיומנויות ממוקדות כמו `intlayer-config`, `intlayer-cli` ו-`intlayer-content`, בנוסף למיומנות ייעודית לכל framework, המלמדות סוכן AI את הגדרות הניתוב שלכם ואת טיפוסי צומתי התוכן (content node types).
-- **[תוסף ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/eslint.md)**: הכלל `no-raw-text` מתריע על מחרוזות מקודדות (hardcoded), עם כללים נוספים עבור מפתחות מילון סטטיים ותוכן שאינו בשימוש.
+- **[הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)**: קפיצה ממפתח `useIntlayer` אל קובץ התוכן שמצהיר עליו, חילוץ תוכן מרכיב, והרצת build, fill, test, push ו-pull מתוך לוח הפקודות (command palette) או מלשונית Intlayer ייעודית.
+- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)**: אותה רמת מודעות בכל עורך התומך ב-LSP, עם מעבר להגדרה (go to definition), מציאת כל המופעים (find all references), תצוגה מקדימה בריחוף (hover preview) של ערך מתורגם, השלמה אוטומטית של מפתחות ושדות, ואזהרה כאשר מפתח אינו מוצהר בשום מקום. הוא גם מפענח קריאות של `i18next`, `react-i18next`, `next-intl` ו-`use-intl`, מה שעוזר בזמן ההגירה.
+- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer ל-Cursor, VS Code, Claude Desktop, Claude Code ו-ChatGPT, כך שעוזר AI עונה מתוך תיעוד עדכני במקום לנחש, ויכול להריץ פקודות כמו `intlayer fill` בעצמו.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)**: מיומנויות ממוקדות כמו `intlayer-config`, `intlayer-cli` ו-`intlayer-content`, בנוסף למיומנות ייעודית לכל framework, המלמדות סוכן AI את הגדרות הניתוב שלכם ואת טיפוסי צומתי התוכן (content node types).
+- **[תוסף ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/eslint.md)**: הכלל `no-raw-text` מתריע על מחרוזות מקודדות (hardcoded), עם כללים נוספים עבור מפתחות מילון סטטיים ותוכן שאינו בשימוש.
 
 </Question>
 <Question title="האם Intlayer פועל בתוך Astro islands?">
 
-כן. `astro-intlayer` מכסה את צד ה-`.astro`, ולכל framework של island יש קישור (binding) משלו, כך ש-island מקבל את ה-locale הפעיל מהדף במקום לפענח אותו מחדש. קיימים מדריכים ייעודיים עבור [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_react.md), [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_vue.md) ו-[Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_svelte.md), בין היתר.
+כן. `astro-intlayer` מכסה את צד ה-`.astro`, ולכל framework של island יש קישור (binding) משלו, כך ש-island מקבל את ה-locale הפעיל מהדף במקום לפענח אותו מחדש. קיימים מדריכים ייעודיים עבור [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_react.md), [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_vue.md) ו-[Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_svelte.md), בין היתר.
 
-- [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_react.md)
-- [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_vue.md)
-- [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_astro_svelte.md)
+- [Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_react.md)
+- [Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_vue.md)
+- [Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_astro_svelte.md)
 
 </Question>
 <Question title="האם התוכן המתורגם נשלח כ-HTML סטטי?">
@@ -819,36 +819,36 @@ Astro מספקת אפשרות `i18n` ברמת הניתוב המטפלת בקיד
 </Question>
 <Question title="כיצד לתרגם אתר Astro באופן אוטומטי באמצעות AI?">
 
-הריצו את `npx intlayer fill`. פקודה זו משלימה תרגומים חסרים באמצעות ה-LLM לבחירתכם, תוך שימוש בספק ובמפתח ה-API שלכם, והדגל `--git-diff` מגביל את ההרצה רק לתוכן שהשתנה ב-branch. ראו [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md) ו-[אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md).
+הריצו את `npx intlayer fill`. פקודה זו משלימה תרגומים חסרים באמצעות ה-LLM לבחירתכם, תוך שימוש בספק ובמפתח ה-API שלכם, והדגל `--git-diff` מגביל את ההרצה רק לתוכן שהשתנה ב-branch. ראו [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md) ו-[אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/CI_CD.md).
 
-- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md)
-- [אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md)
+- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md)
+- [אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/CI_CD.md)
 
 </Question>
 <Question title="האם Intlayer תומך בריבוי (plurals), מגדר ותוכן Markdown?">
 
-כן: [צורות ריבוי (plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md), [תוכן מבוסס מגדר (gender-based content)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md), תנאים, [שילוב ערכים (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md) ו-[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md), דבר הנוח במיוחד ב-Astro עבור דפי תוכן ארוכים. [מעצבים (Formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md) מטפלים במספרים, תאריכים ומטבעות.
+כן: [צורות ריבוי (plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/plurial.md), [תוכן מבוסס מגדר (gender-based content)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md), תנאים, [שילוב ערכים (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md) ו-[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md), דבר הנוח במיוחד ב-Astro עבור דפי תוכן ארוכים. [מעצבים (Formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/formatters.md) מטפלים במספרים, תאריכים ומטבעות.
 
-- [צורות ריבוי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md)
-- [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)
-- [שילוב ערכים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)
-- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md)
-- [מעצבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md)
+- [צורות ריבוי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/plurial.md)
+- [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md)
+- [שילוב ערכים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md)
+- [מעצבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/formatters.md)
 
 </Question>
 <Question title="כיצד מתרגמים יכולים לערוך את התוכן מבלי לגעת בקוד?">
 
-באמצעות [העורך החזותי (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md), הפועל על התשתית שלכם ומאפשר לכל אדם לערוך טקסט ישירות באפליקציה הפועלת, או [ה-CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md), שמנהל תוכן חיצונית כך שניתן לשנותו ללא צורך ב-deployment.
+באמצעות [העורך החזותי (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md), הפועל על התשתית שלכם ומאפשר לכל אדם לערוך טקסט ישירות באפליקציה הפועלת, או [ה-CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md), שמנהל תוכן חיצונית כך שניתן לשנותו ללא צורך ב-deployment.
 
-- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Question>
 <Question title="האם Intlayer חינמי ובקוד פתוח?">
 
-כן, תחת רישיון Apache 2.0, כולל שימוש מסחרי. ה-CMS המנוהל (hosted) הוא שירות אופציונלי בתשלום שניתן גם [לאחסנו באופן עצמאי (self-hosted)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md).
+כן, תחת רישיון Apache 2.0, כולל שימוש מסחרי. ה-CMS המנוהל (hosted) הוא שירות אופציונלי בתשלום שניתן גם [לאחסנו באופן עצמאי (self-hosted)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md).
 
-- [אחסון עצמאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
+- [אחסון עצמאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)
 
 </Question>
 

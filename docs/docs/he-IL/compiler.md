@@ -73,10 +73,10 @@ author: aymericzip
 
 - [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
 
-כחלופה, כדי להפוך את תהליך ה-i18n שלך לאוטומטי תוך שמירה על שליטה מלאה בתוכן שלך, Intlayer מספק גם פקודת חילוץ אוטומטית `intlayer extract` (ראה [תיעוד CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)), או את הפקודה `Intlayer: extract content to Dictionary` מתוך הרחבת Intlayer ל-VS Code (ראה [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)).
+כחלופה, כדי להפוך את תהליך ה-i18n שלך לאוטומטי תוך שמירה על שליטה מלאה בתוכן שלך, Intlayer מספק גם פקודת חילוץ אוטומטית `intlayer extract` (ראה [תיעוד CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)), או את הפקודה `Intlayer: extract content to Dictionary` מתוך הרחבת Intlayer ל-VS Code (ראה [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)).
 
-- [תיעוד CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)
-- [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
+- [תיעוד CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)
+- [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)
 
 ## שימוש
 
@@ -110,9 +110,9 @@ export default defineConfig({
 
 > התוסף העצמאי `intlayerCompiler()` עדיין מיוצא עבור הגדרות מתקדמות. רישומו לצד `intlayer()` הוא בטוח, שכן המהדר מונע כפילויות של עצמו ורץ פעם אחת בלבד.
 
-ראה את המדריך המלא: [תרגום Vite ו-React עם Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_vite+react.md)
+ראה את המדריך המלא: [תרגום Vite ו-React עם Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_vite+react.md)
 
-- [תרגום Vite ו-React עם Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_vite+react.md)
+- [תרגום Vite ו-React עם Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_vite+react.md)
 
 #### תמיכה בפריימוורקים
 
@@ -399,6 +399,6 @@ pnpm intlayer extract
 bun x intlayer extract
 ```
 
-> לפרטים נוספים, עיין ב[תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md).
+> לפרטים נוספים, עיין ב[תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md).
 
-- [תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
+- [תיעוד ה-CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)

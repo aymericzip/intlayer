@@ -731,9 +731,9 @@ export default config;
 
 מגדיר הגדרות הקשורות ל-Intlayer analytics: איסוף נתונים על איזה תוכן מוצג בפועל למשתמשים (צפיות בדפים, חשיפות תוכן) והפעלת בדיקות A/B של תוכן.
 
-אנליטיקה פועלת במודל opt-out: היא מופעלת כברירת מחדל, ומתחילה לאסוף נתונים ברגע שחבילת [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/analytics.md) מותקנת **ו-** מוגדר מפתח פרויקט (`editor.clientId`) לשיוך. הגדירו את `analytics.enabled` ל-`false`, או הימנעו מהתקנת החבילה, וכל מנגנון האנליטיקה ינופה (dead-code-eliminated) מתוך ה-bundle של האפליקציה שלכם.
+אנליטיקה פועלת במודל opt-out: היא מופעלת כברירת מחדל, ומתחילה לאסוף נתונים ברגע שחבילת [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/analytics.md) מותקנת **ו-** מוגדר מפתח פרויקט (`editor.clientId`) לשיוך. הגדירו את `analytics.enabled` ל-`false`, או הימנעו מהתקנת החבילה, וכל מנגנון האנליטיקה ינופה (dead-code-eliminated) מתוך ה-bundle של האפליקציה שלכם.
 
-- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/analytics.md)
+- [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/analytics.md)
 
 | שדה             | תיאור                                                            | טיפוס     | ברירת מחדל | דוגמה   | הערה                                                                                                                            |
 | --------------- | ---------------------------------------------------------------- | --------- | ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -751,7 +751,7 @@ export default config;
 | `enableProxy` | מפעיל את פרוקסי ניתוב השפות (middleware) של Intlayer.                                                                                                             | `boolean` &#124; <br/> `undefined`                                                                                                                                                                           | `undefined` (auto)     | `true`                                                                                                                                                                                             | • לא מוגדר (אוטומטי): הפרוקסי רץ, אך שרתי פיתוח ותצוגה מקדימה מתעלמים מהשפה השמורה ב-cookies/headers כמקור להפניה. קידומות שפה עדיין מפוענחות (`/en` → `/`), השפה עדיין נשמרת, וזיהוי `Accept-Language` עדיין חל. ייצור מתנהג כמו `true`.<br/>• `true`: התנהגות מלאה בכל סביבה, כולל הפניות מונעות-אחסון.<br/>• `false`: ללא ניתוב שפות; נהלו זאת בעצמכם. ב-Next.js, ה-middleware של `intlayerProxy` הופך ל-pass-through. |
 | `storage`     | תצורה לשמירת השפה בלקוח.                                                                                                                                          | `false` &#124; <br/> `'cookie'` &#124; <br/> `'localStorage'` &#124; <br/> `'sessionStorage'` &#124; <br/> `'header'` &#124; <br/> `CookiesAttributes` &#124; <br/> `StorageAttributes` &#124; <br/> `Array` | `['cookie', 'header']` | `'localStorage'` <br/> `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                                 | ראו טבלת אפשרויות אחסון להלן.                                                                                                                                                                                                                                                                                                                                                                                             |
 | `basePath`    | נתיב הבסיס עבור כתובות ה-URL של האפליקציה.                                                                                                                        | `string`                                                                                                                                                                                                     | `''`                   | `'/my-app'`                                                                                                                                                                                        | אם האפליקציה נמצאת ב-`https://example.com/my-app`, ה-basePath הוא `'/my-app'` וכתובות ה-URL הופכות ל-`https://example.com/my-app/en`.                                                                                                                                                                                                                                                                                     |
-| `rewrite`     | כללי שכתוב URL מותאמים אישית העוקפים את מצב הניתוב המוגדר עבור נתיבים ספציפיים. תומך בפרמטרים דינמיים של `[param]`.                                               | `Record<string, StrictModeLocaleMap<string>>`                                                                                                                                                                | `undefined`            | ראו דוגמה להלן                                                                                                                                                                                     | • כללי שכתוב מקבלים עדיפות על פני `mode`.<br/>• עובד עם Next.js ו-Vite.<br/>• הפונקציה `getLocalizedUrl()` מחילה אוטומטית כללים תואמים.<br/>• ראו [שכתוב כתובות מותאם אישית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/custom_url_rewrites.md).                                                                                                                                                       |
+| `rewrite`     | כללי שכתוב URL מותאמים אישית העוקפים את מצב הניתוב המוגדר עבור נתיבים ספציפיים. תומך בפרמטרים דינמיים של `[param]`.                                               | `Record<string, StrictModeLocaleMap<string>>`                                                                                                                                                                | `undefined`            | ראו דוגמה להלן                                                                                                                                                                                     | • כללי שכתוב מקבלים עדיפות על פני `mode`.<br/>• עובד עם Next.js ו-Vite.<br/>• הפונקציה `getLocalizedUrl()` מחילה אוטומטית כללים תואמים.<br/>• ראו [שכתוב כתובות מותאם אישית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/custom_url_rewrites.md).                                                                                                                                                    |
 | `domains`     | ממפה שפות לשמות מארח של דומיין עבור ניתוב מבוסס דומיין. כאשר מוגדר, כתובות URL עבור שפה מסוימת משתמשות בדומיין זה כבסיס (URL מוחלט) ולא מתווספת קידומת שפה לנתיב. | `Partial<Record<Locale, string>>`                                                                                                                                                                            | `undefined`            | `{ zh: 'intlayer.zh', fr: 'intlayer.org' }`                                                                                                                                                        | • הפרוטוקול מוגדר כ-`https://` כברירת מחדל אם אינו כלול בשם המארח.<br/>• הדומיין עצמו מזהה את השפה, כך שלא מתווספת קידומת כגון `/zh/`.<br/>• `getLocalizedUrl('/', 'zh')` מחזיר `https://intlayer.zh/`.                                                                                                                                                                                                                   |
 
 **דוגמת `rewrite`**:
@@ -979,9 +979,9 @@ export default config;
 1. **ערכי ברירת מחדל**: הגדרת ערכי ברירת מחדל בעת יצירת קובצי הצהרת תוכן
 2. **התנהגות Fallback**: אספקת ערכי fallback כאשר שדות מסוימים אינם מוגדרים, מה שמאפשר להגדיר התנהגות פעולות מילון באופן גלובלי
 
-למידע נוסף על קובצי הצהרת תוכן וכיצד מוחלים ערכי תצורה, עיינו ב[תיעוד קובצי תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+למידע נוסף על קובצי הצהרת תוכן וכיצד מוחלים ערכי תצורה, עיינו ב[תיעוד קובצי תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [תיעוד קובצי תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [תיעוד קובצי תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 | שדה                         | תיאור                                                                                                                   | טיפוס                                                                                                           | ברירת מחדל     | דוגמה                                                                                       | הערה                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1116,51 +1116,51 @@ Intlayer תומך במספר ספקי AI לגמישות וחופש בחירה מ
 </Question>
 <Question title="כמה בינאום (i18n) מוסיף לגודל ה-bundle שלי?">
 
-הרבה פחות מהגדרה המבוססת על namespaces, מכיוון שדף אינו מוריד לעולם קטלוג שאינו מרונדר בו. תוכן מרונדר בשרת פותר את התוכן שלו בשרת, והמהדר בזמן הבנייה מחליף קריאות `useIntlayer` בערכי המילון המדויקים שבהם הרכיב משתמש, כך שמפתחות ושפות שאינם בשימוש מושמטים. [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md) מפצלים את השאר לפי שפה. בהשוואה לחלופות המקובלות, Intlayer מפחית את גודל ה-bundle וגודל הדף בעד 50%. ראו [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md) ואת ה-[benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/index.md).
+הרבה פחות מהגדרה המבוססת על namespaces, מכיוון שדף אינו מוריד לעולם קטלוג שאינו מרונדר בו. תוכן מרונדר בשרת פותר את התוכן שלו בשרת, והמהדר בזמן הבנייה מחליף קריאות `useIntlayer` בערכי המילון המדויקים שבהם הרכיב משתמש, כך שמפתחות ושפות שאינם בשימוש מושמטים. [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md) מפצלים את השאר לפי שפה. בהשוואה לחלופות המקובלות, Intlayer מפחית את גודל ה-bundle וגודל הדף בעד 50%. ראו [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md) ואת ה-[benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/index.md).
 
-- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md)
-- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
-- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/index.md)
+- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md)
+- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
+- [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/index.md)
 
 </Question>
 <Question title="האם ניתן להגר מ-`i18next`,‏ `next-intl` או `react-i18next` מבלי לשכתב את הרכיבים שלי?">
 
-כן, וישנם שני מסלולים. ניתן להגר את התוכן בהדרגה בעזרת [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md) או [מדריך ההגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-intl_to_intlayer.md). לחלופין, תוכלו לשמור על ה-API הקיים שלכם לחלוטין: [מתאמי התאימות (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/index.md) חושפים בדיוק את אותו ה-API של `i18next`,‏ `react-i18next`,‏ `next-intl`,‏ `next-i18next`,‏ `react-intl`,‏ `use-intl`,‏ `vue-i18n` ו-`Lingui`, אך מופעלים על ידי מילוני Intlayer, כך שרק ה-imports משתנים וקוד הרכיב נשאר זהה.
+כן, וישנם שני מסלולים. ניתן להגר את התוכן בהדרגה בעזרת [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md) או [מדריך ההגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-intl_to_intlayer.md). לחלופין, תוכלו לשמור על ה-API הקיים שלכם לחלוטין: [מתאמי התאימות (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/index.md) חושפים בדיוק את אותו ה-API של `i18next`,‏ `react-i18next`,‏ `next-intl`,‏ `next-i18next`,‏ `react-intl`,‏ `use-intl`,‏ `vue-i18n` ו-`Lingui`, אך מופעלים על ידי מילוני Intlayer, כך שרק ה-imports משתנים וקוד הרכיב נשאר זהה.
 
-- [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md)
-- [מדריך ההגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-intl_to_intlayer.md)
-- [מתאמי תאימות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/index.md)
+- [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md)
+- [מדריך ההגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-intl_to_intlayer.md)
+- [מתאמי תאימות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/index.md)
 
 </Question>
 <Question title="האם ניתן לשמור על קובצי תרגום ה-JSON הקיימים שלי?">
 
-כן. ה-[תוסף לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md) שומר על קובצי ה-`/messages/{locale}/{namespace}.json` שלכם כמקור האמת ומייצר מהם מילוני Intlayer, בשני הכיוונים. [תוסף לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md) עושה את אותו הדבר עבור קטלוגי gettext, ו-[קבצים לפי שפה (per locale files)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md) מאפשרים לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ יחיד.
+כן. ה-[תוסף לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md) שומר על קובצי ה-`/messages/{locale}/{namespace}.json` שלכם כמקור האמת ומייצר מהם מילוני Intlayer, בשני הכיוונים. [תוסף לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md) עושה את אותו הדבר עבור קטלוגי gettext, ו-[קבצים לפי שפה (per locale files)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md) מאפשרים לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ יחיד.
 
-- [תוסף לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md)
-- [תוסף לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md)
-- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md)
+- [תוסף לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md)
+- [תוסף לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md)
+- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md)
 
 </Question>
 <Question title="האם עליי להעביר את התוכן שלי מפתח אחר מפתח?">
 
-לא. הריצו `npx intlayer extract` ו-Intlayer יקרא את קובצי המקור שלכם, ישלוף את המחרוזות הפונות למשתמש ויכתוב קובץ `.content` לצד כל אחד מהם, כך שתוכלו לבדוק diff במקום להעתיק מחרוזות לקטלוג אחת אחת. עיינו ב[פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md).
+לא. הריצו `npx intlayer extract` ו-Intlayer יקרא את קובצי המקור שלכם, ישלוף את המחרוזות הפונות למשתמש ויכתוב קובץ `.content` לצד כל אחד מהם, כך שתוכלו לבדוק diff במקום להעתיק מחרוזות לקטלוג אחת אחת. עיינו ב[פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md).
 
-- [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)
+- [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)
 
-עבור צינור אוטומטי לחלוטין, ה-[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md) מבצע את אותה פעולה בזמן הבנייה על קוד מקור של JSX, TSX, Vue ו-Svelte, ומייצר את המילונים בכל שינוי כך שאין מפתחות לתחזק ידנית. הוא פועל באמצעות ניתוח סטטי, ולכן מחרוזות שקיימות רק בזמן ריצה נותרות מחוץ להישג ידו, והוא דורש מעט הערות (annotations) כדי להבדיל בין טקסט הפונה למשתמש לבין לוגיקת אפליקציה.
+עבור צינור אוטומטי לחלוטין, ה-[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md) מבצע את אותה פעולה בזמן הבנייה על קוד מקור של JSX, TSX, Vue ו-Svelte, ומייצר את המילונים בכל שינוי כך שאין מפתחות לתחזק ידנית. הוא פועל באמצעות ניתוח סטטי, ולכן מחרוזות שקיימות רק בזמן ריצה נותרות מחוץ להישג ידו, והוא דורש מעט הערות (annotations) כדי להבדיל בין טקסט הפונה למשתמש לבין לוגיקת אפליקציה.
 
-- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md)
+- [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md)
 
 </Question>
 <Question title="אילו כלי עורך וסוכני AI זמינים?">
 
 חמישה כלים, כולם אופציונליים:
 
-- **[תוסף VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)**: קפיצה ישירה ממפתח ב-`useIntlayer` אל קובץ התוכן שמצהיר עליו, חילוץ תוכן מרכיב, והרצת build, fill, test, push ו-pull מלוח הפקודות או מלשונית Intlayer ייעודית.
-- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**: אותה מודעות בכל עורך התומך ב-LSP, עם go to definition, חיפוש כל ההפניות, תצוגה מקדימה בריחוף של ערך מתורגם, השלמה אוטומטית של מפתחות ושדות, והתרעה כאשר מפתח אינו מוצהר בשום מקום. הוא גם מפענח קריאות של `i18next`,‏ `react-i18next`,‏ `next-intl` ו-`use-intl`, מה שמסייע בזמן תהליך ההגירה.
-- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer עבור Cursor, VS Code, Claude Desktop, Claude Code ו-ChatGPT, כך שעוזר יכול לענות מתוך התיעוד העדכני במקום לנחש, ויכול להריץ פקודות כגון `intlayer fill` בעצמו.
-- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**: מיומנויות ממוקדות כגון `intlayer-config`,‏ `intlayer-cli` ו-`intlayer-content`, בתוספת מיומנות ייעודית לכל framework, המלמדות סוכן על תצורת הניתוב שלכם ועל סוגי צומתי התוכן.
-- **[תוסף ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/eslint.md)**: כלל `no-raw-text` מתריע על מחרוזות מוטמעות בקוד (hardcoded), עם כללים נוספים למפתחות מילון סטטיים ולתוכן שאינו בשימוש.
+- **[תוסף VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)**: קפיצה ישירה ממפתח ב-`useIntlayer` אל קובץ התוכן שמצהיר עליו, חילוץ תוכן מרכיב, והרצת build, fill, test, push ו-pull מלוח הפקודות או מלשונית Intlayer ייעודית.
+- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)**: אותה מודעות בכל עורך התומך ב-LSP, עם go to definition, חיפוש כל ההפניות, תצוגה מקדימה בריחוף של ערך מתורגם, השלמה אוטומטית של מפתחות ושדות, והתרעה כאשר מפתח אינו מוצהר בשום מקום. הוא גם מפענח קריאות של `i18next`,‏ `react-i18next`,‏ `next-intl` ו-`use-intl`, מה שמסייע בזמן תהליך ההגירה.
+- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer עבור Cursor, VS Code, Claude Desktop, Claude Code ו-ChatGPT, כך שעוזר יכול לענות מתוך התיעוד העדכני במקום לנחש, ויכול להריץ פקודות כגון `intlayer fill` בעצמו.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)**: מיומנויות ממוקדות כגון `intlayer-config`,‏ `intlayer-cli` ו-`intlayer-content`, בתוספת מיומנות ייעודית לכל framework, המלמדות סוכן על תצורת הניתוב שלכם ועל סוגי צומתי התוכן.
+- **[תוסף ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/eslint.md)**: כלל `no-raw-text` מתריע על מחרוזות מוטמעות בקוד (hardcoded), עם כללים נוספים למפתחות מילון סטטיים ולתוכן שאינו בשימוש.
 
 </Question>
 <Question title="כיצד אוכל להוסיף שפה חדשה לאפליקציה שלי?">
@@ -1190,17 +1190,17 @@ Intlayer תומך במספר ספקי AI לגמישות וחופש בחירה מ
 </Question>
 <Question title="מה ההבדל בין מצבי importMode של static, dynamic ו-fetch?">
 
-`"static"`, ברירת המחדל, מייבא מילונים באופן סטטי כך שהם נארזים ב-bundle ונקראים סינכרונית. `"dynamic"` מייבא אותם דרך Suspense, כך ששפה מורדת רק כאשר רכיב מרנדר אותה, מה שמתאים במיוחד למאגרי תוכן גדולים. `"fetch"` שולף אותם מ-API של live sync ונסוג ל-`"dynamic"` במקרה של כשל. ראו [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md) ו-[מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md).
+`"static"`, ברירת המחדל, מייבא מילונים באופן סטטי כך שהם נארזים ב-bundle ונקראים סינכרונית. `"dynamic"` מייבא אותם דרך Suspense, כך ששפה מורדת רק כאשר רכיב מרנדר אותה, מה שמתאים במיוחד למאגרי תוכן גדולים. `"fetch"` שולף אותם מ-API של live sync ונסוג ל-`"dynamic"` במקרה של כשל. ראו [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md) ו-[מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md).
 
-- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
-- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md)
+- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
+- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md)
 
 </Question>
 <Question title="היכן מגדירים את ספק ה-AI ומפתח ה-API עבור תרגום אוטומטי?">
 
-או בקובץ ההגדרות או בשורת הפקודה באמצעות `--provider`,‏ `--model` ו-`--api-key`. המפתח נשאר שלכם: קריאות התרגום יוצאות מהמחשב שלכם או מרץ ה-CI שלכם ישירות לספק שבחרתם, כך ששום דבר אינו מנותב דרך צד שלישי. עיינו ב[פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md).
+או בקובץ ההגדרות או בשורת הפקודה באמצעות `--provider`,‏ `--model` ו-`--api-key`. המפתח נשאר שלכם: קריאות התרגום יוצאות מהמחשב שלכם או מרץ ה-CI שלכם ישירות לספק שבחרתם, כך ששום דבר אינו מנותב דרך צד שלישי. עיינו ב[פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md).
 
-- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md)
+- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md)
 
 </Question>
 <Question title="האם עליי להפעיל מחדש את שרת הפיתוח לאחר שינוי ההגדרות?">

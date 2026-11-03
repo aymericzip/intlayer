@@ -34,14 +34,14 @@ author: aymericzip
 
 הפונקציה `getDictionaryAsync` טוענת **מקטע שפה בודד (locale chunk)** של מילון ומחזירה את התוכן המפוענח שלו.
 
-היא המקבילה של [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getDictionary.md) עבור מפות הטוענים לכל שפה שנוצרות בתוך `.intlayer/dynamic_dictionaries/`: במקום לקבל מילון המכיל את כל השפות, היא מקבלת את מפת הטוענים וממתינה (await) רק למקטע הנדרש לשפה המבוקשת.
+היא המקבילה של [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getDictionary.md) עבור מפות הטוענים לכל שפה שנוצרות בתוך `.intlayer/dynamic_dictionaries/`: במקום לקבל מילון המכיל את כל השפות, היא מקבלת את מפת הטוענים וממתינה (await) רק למקטע הנדרש לשפה המבוקשת.
 
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getDictionary.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getDictionary.md)
 
-> בקוד האפליקציה בדרך כלל קוראים ל-[`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayerAsync.md), ולא לפונקציה זו. [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md) משכתבים כל קריאת `getIntlayerAsync('key', locale)` לקריאת `getDictionaryAsync(loaderMap, 'key', locale)`. `getDictionaryAsync` מיוצאת עבור טוענים מותאמים אישית ועבור כלי פיתוח שבונים מפות טוענים משלהם.
+> בקוד האפליקציה בדרך כלל קוראים ל-[`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayerAsync.md), ולא לפונקציה זו. [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md) משכתבים כל קריאת `getIntlayerAsync('key', locale)` לקריאת `getDictionaryAsync(loaderMap, 'key', locale)`. `getDictionaryAsync` מיוצאת עבור טוענים מותאמים אישית ועבור כלי פיתוח שבונים מפות טוענים משלהם.
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayerAsync.md)
-- [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayerAsync.md)
+- [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
 
 **תכונות עיקריות:**
 
@@ -74,7 +74,7 @@ getDictionaryAsync(
   - **חובה**: כן
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **תיאור**: השפה שלפיה יש לפענח את התוכן, או אובייקט בורר (`{ item }`, `{ variant }`, אופציונלית עם `locale`). ראה [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md).
+  - **תיאור**: השפה שלפיה יש לפענח את התוכן, או אובייקט בורר (`{ item }`, `{ variant }`, אופציונלית עם `locale`). ראה [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md).
   - **סוג**: `LocalesValues | DictionarySelector`
   - **חובה**: לא (אופציונלי), ברירת המחדל היא ה-`defaultLocale` המוגדר.
 
@@ -135,9 +135,9 @@ const promoBanner = await getDictionaryAsync(bannerLoaderMap, "banner", {
 
 ## פונקציות קשורות
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayerAsync.md)
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getDictionary.md)
-- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getDictionary.md)
+- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

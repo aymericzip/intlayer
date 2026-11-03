@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## פונקציות קשורות
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedPath.md)
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)

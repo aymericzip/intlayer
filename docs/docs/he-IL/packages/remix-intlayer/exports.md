@@ -42,9 +42,9 @@ npm install remix-intlayer
 import { intlayer } from "remix-intlayer";
 ```
 
-| פונקציה    | תיאור                                                                                                                                                        | תיעוד קשור                                                                                                              |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `intlayer` | תוכנת תיווך לנתב של Remix 3 המטפלת בניתוב מבוסס שפה (הפניות ושכתובים פנימיים), מפענחת את שפת הבקשה, שומרת אותה בעוגיות/כותרות, ומבססת את היקף קונטקסט הבקשה. | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/intlayerMiddleware.md) |
+| פונקציה    | תיאור                                                                                                                                                        | תיעוד קשור                                                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer` | תוכנת תיווך לנתב של Remix 3 המטפלת בניתוב מבוסס שפה (הפניות ושכתובים פנימיים), מפענחת את שפת הבקשה, שומרת אותה בעוגיות/כותרות, ומבססת את היקף קונטקסט הבקשה. | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/intlayerMiddleware.md) |
 
 ### קונטקסט (Context)
 
@@ -54,10 +54,10 @@ import { intlayer } from "remix-intlayer";
 import { Intlayer, INTLAYER_CONTEXT_PROPERTY } from "remix-intlayer";
 ```
 
-| ייצוא                       | טיפוס        | תיאור                                                                                                                         | תיעוד קשור                                                                                                    |
-| --------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `Intlayer`                  | `ContextKey` | מפתח RequestContext המחזיק את ה-`IntlayerState` (`locale`, `defaultLocale`, `availableLocales`) עבור הבקשה הנוכחית.           | [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/Intlayer.md) |
-| `INTLAYER_CONTEXT_PROPERTY` | `string`     | שם המאפיין (`'intlayer'`) המותקן ישירות על קונטקסט הבקשה, המאפשר גישה דרך `context.intlayer` וכן דרך `context.get(Intlayer)`. | -                                                                                                             |
+| ייצוא                       | טיפוס        | תיאור                                                                                                                         | תיעוד קשור                                                                                                       |
+| --------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `Intlayer`                  | `ContextKey` | מפתח RequestContext המחזיק את ה-`IntlayerState` (`locale`, `defaultLocale`, `availableLocales`) עבור הבקשה הנוכחית.           | [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/Intlayer.md) |
+| `INTLAYER_CONTEXT_PROPERTY` | `string`     | שם המאפיין (`'intlayer'`) המותקן ישירות על קונטקסט הבקשה, המאפשר גישה דרך `context.intlayer` וכן דרך `context.get(Intlayer)`. | -                                                                                                                |
 
 ### הוקים (Hooks)
 
@@ -67,11 +67,11 @@ import { Intlayer, INTLAYER_CONTEXT_PROPERTY } from "remix-intlayer";
 import { useIntlayer, useDictionary, useLocale } from "remix-intlayer";
 ```
 
-| הוק             | תיאור                                                                                                    | תיעוד קשור                                                                                                              |
-| --------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | בוחר מילון אחד לפי המפתח שלו ומחזיר את תוכנו עבור שפת הבקשה המטופלת. קורא אוטומטית מקונטקסט/אחסון הבקשה. | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/useIntlayer.md)     |
-| `useDictionary` | מעבד אובייקט מילון מיובא ומחזיר את תוכנו עבור שפת הבקשה הנוכחית. תומך בדריסות בוררים (selectors).        | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/useDictionary.md) |
-| `useLocale`     | מחזיר את השפה שפוענחה של הבקשה הנוכחית, לצד `defaultLocale` ו-`availableLocales` שהוגדרו.                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/useLocale.md)         |
+| הוק             | תיאור                                                                                                    | תיעוד קשור                                                                                                                 |
+| --------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | בוחר מילון אחד לפי המפתח שלו ומחזיר את תוכנו עבור שפת הבקשה המטופלת. קורא אוטומטית מקונטקסט/אחסון הבקשה. | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/useIntlayer.md)     |
+| `useDictionary` | מעבד אובייקט מילון מיובא ומחזיר את תוכנו עבור שפת הבקשה הנוכחית. תומך בדריסות בוררים (selectors).        | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/useDictionary.md) |
+| `useLocale`     | מחזיר את השפה שפוענחה של הבקשה הנוכחית, לצד `defaultLocale` ו-`availableLocales` שהוגדרו.                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/useLocale.md)         |
 
 ### כלי עזר (Utilities)
 

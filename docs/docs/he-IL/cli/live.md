@@ -22,9 +22,9 @@ author: aymericzip
 
 # פקודות סנכרון חי (Live Sync commands)
 
-סנכרון חי (Live Sync) מאפשר לאפליקציה שלך לשקף שינויי תוכן מה-CMS בזמן ריצה. אין צורך בבנייה מחדש (rebuild) או פריסה מחדש (redeploy). כאשר התכונה מופעלת, העדכונים מוזרמים לשרת Live Sync שמרענן את המילונים שהאפליקציה שלך קוראת. ראה [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) לפרטים נוספים.
+סנכרון חי (Live Sync) מאפשר לאפליקציה שלך לשקף שינויי תוכן מה-CMS בזמן ריצה. אין צורך בבנייה מחדש (rebuild) או פריסה מחדש (redeploy). כאשר התכונה מופעלת, העדכונים מוזרמים לשרת Live Sync שמרענן את המילונים שהאפליקציה שלך קוראת. ראה [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md) לפרטים נוספים.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 ```json fileName="package.json"
 "scripts": {

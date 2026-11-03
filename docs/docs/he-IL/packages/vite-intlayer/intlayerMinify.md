@@ -30,9 +30,9 @@ author: aymericzip
 
 `intlayerMinify` הוא תוסף Vite הדוחס קובצי JSON של מילונים מהודרים במהלך בניית ייצור (production build). הוא מסיר את כל הרווחים הלבנים המיותרים, ובשילוב עם `intlayerPrune`, משנה באופן אופציונלי את שמות שדות התוכן לכינויים אלפביתיים קצרים (`a`, `b`, `c`, …) כדי להקטין עוד יותר את גודל ה-bundle.
 
-> התוסף כבר כלול ומוגדר אוטומטית בעת שימוש ב-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md). עליך לרשום אותו ידנית רק אם אתה מרכיב את מחסנית התוספים בעצמך.
+> התוסף כבר כלול ומוגדר אוטומטית בעת שימוש ב-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md). עליך לרשום אותו ידנית רק אם אתה מרכיב את מחסנית התוספים בעצמך.
 
-- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md)
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md)
 
 ## שימוש
 

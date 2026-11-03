@@ -75,17 +75,17 @@ getMultilingualUrls(
   - `options.locales?: Locales[]`
     - **תיאור**: מערך של שפות נתמכות. אם אינו מסופק, נעשה שימוש בשפות המוגדרות מתוך תצורת הפרויקט שלך.
     - **סוג**: `Locales[]`
-    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md#middleware)
+    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md#middleware)
 
   - `options.defaultLocale?: Locales`
     - **תיאור**: שפת ברירת המחדל של האפליקציה. אם אינה מסופקת, נעשה שימוש בשפת ברירת המחדל המוגדרת מתוך תצורת הפרויקט שלך.
     - **סוג**: `Locales`
-    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md#middleware)
+    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md#middleware)
 
   - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
     - **תיאור**: מצב ניתוב כתובות ה-URL עבור טיפול בשפות. אם אינו מסופק, נעשה שימוש במצב המוגדר מתוך תצורת הפרויקט שלך.
     - **סוג**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md#middleware)
+    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md#middleware)
     - **מצבים**:
       - `prefix-no-default`: אין קידומת עבור שפת ברירת המחדל, קידומת עבור כל השאר
       - `prefix-all`: קידומת עבור כל השפות, כולל ברירת המחדל

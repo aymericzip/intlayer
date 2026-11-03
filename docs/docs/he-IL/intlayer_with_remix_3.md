@@ -76,10 +76,10 @@ Intlayer ממקמת את הגדרות התוכן (`.content.ts`) לצד לוגי
 </Accordion>
 <Accordion header="עורך חזותי ואינטגרציית CMS">
 
-מעבר לתהליכי עבודה מוטי-קוד (code-first), Intlayer מספקת [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) באחסון עצמי ו-[Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) המאפשרים לעורכים, מתרגמים ואנשי תוכן ללא רקע טכני לעדכן תכנים מבלי לפרוס מחדש את הקוד.
+מעבר לתהליכי עבודה מוטי-קוד (code-first), Intlayer מספקת [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) באחסון עצמי ו-[Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md) המאפשרים לעורכים, מתרגמים ואנשי תוכן ללא רקע טכני לעדכן תכנים מבלי לפרוס מחדש את הקוד.
 
-- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך חזותי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [Remote CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -205,9 +205,9 @@ const config = {
 module.exports = config;
 ```
 
-> להגדרות תצורה נוספות (כגון מצב קפדני strict mode או העדפות אחסון ניתוב), עיינו ב[תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+> להגדרות תצורה נוספות (כגון מצב קפדני strict mode או העדפות אחסון ניתוב), עיינו ב[תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד ההגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 </Step>
 <Step number={3} title="הצהרה על התוכן הרב-לשוני שלכם">
@@ -244,9 +244,9 @@ const homeContent = {
 export default homeContent;
 ```
 
-> Intlayer תומכת גם בפורמטים JSON, YAML ו-CommonJS להצהרת תוכן. ראו את [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+> Intlayer תומכת גם בפורמטים JSON, YAML ו-CommonJS להצהרת תוכן. ראו את [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="בניית מילוני Intlayer">

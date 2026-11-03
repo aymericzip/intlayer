@@ -56,17 +56,17 @@ import "vue-intlayer";
 import "vue-intlayer";
 ```
 
-| Composable             | תיאור                                                                                         | תיעוד קשור                                                                                                            |
-| ---------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.                  | -                                                                                                                     |
-| `useDictionary`        | מעבד אובייקטים הדומים למילונים (מפתח, תוכן). מעבד תרגומי `t()`, ריבוי (enumerations) ועוד.    | -                                                                                                                     |
-| `useDictionaryAsync`   | זהה ל-`useDictionary`, אך מטפל במילונים אסינכרוניים.                                          | -                                                                                                                     |
-| `useDictionaryDynamic` | זהה ל-`useDictionary`, אך מטפל במילונים דינמיים.                                              | -                                                                                                                     |
-| `useLocale`            | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                       | -                                                                                                                     |
-| `usePathname`          | מחזיר את הנתיב הנוכחי כ-`ComputedRef<string>` כאשר מקטע השפה מוסר. מגיב ל-`popstate`.         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vue-intlayer/usePathname.md)     |
-| `useRewriteURL`        | ‏Composable צד-לקוח לניהול שכתוב כתובות URL. מעדכן אוטומטית את ה-URL אם קיים כלל שכתוב מקומי. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vue-intlayer/useRewriteURL.md) |
-| `useIntl`              | מחזיר את אובייקט ה-Intl עבור השפה הנוכחית.                                                    | -                                                                                                                     |
-| `useLoadDynamic`       | ‏Composable לטעינת מילונים דינמיים.                                                           | -                                                                                                                     |
+| Composable             | תיאור                                                                                         | תיעוד קשור                                                                                                               |
+| ---------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.                  | -                                                                                                                        |
+| `useDictionary`        | מעבד אובייקטים הדומים למילונים (מפתח, תוכן). מעבד תרגומי `t()`, ריבוי (enumerations) ועוד.    | -                                                                                                                        |
+| `useDictionaryAsync`   | זהה ל-`useDictionary`, אך מטפל במילונים אסינכרוניים.                                          | -                                                                                                                        |
+| `useDictionaryDynamic` | זהה ל-`useDictionary`, אך מטפל במילונים דינמיים.                                              | -                                                                                                                        |
+| `useLocale`            | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                       | -                                                                                                                        |
+| `usePathname`          | מחזיר את הנתיב הנוכחי כ-`ComputedRef<string>` כאשר מקטע השפה מוסר. מגיב ל-`popstate`.         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vue-intlayer/usePathname.md)     |
+| `useRewriteURL`        | ‏Composable צד-לקוח לניהול שכתוב כתובות URL. מעדכן אוטומטית את ה-URL אם קיים כלל שכתוב מקומי. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vue-intlayer/useRewriteURL.md) |
+| `useIntl`              | מחזיר את אובייקט ה-Intl עבור השפה הנוכחית.                                                    | -                                                                                                                        |
+| `useLoadDynamic`       | ‏Composable לטעינת מילונים דינמיים.                                                           | -                                                                                                                        |
 
 ### פונקציות
 

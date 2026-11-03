@@ -32,9 +32,9 @@ author: aymericzip
 
 `intlayerProxy` הוא תוסף Vite הרושם תוכנת תיווך (middleware) לניתוב שפות עבור **כל סביבה**: שרת פיתוח, שרת תצוגה מקדימה (preview) ו-SSR בייצור (Nitro / TanStack Start).
 
-> **החל מ-Intlayer גרסה 9** `intlayerProxy` נכלל אוטומטית בתוך תוסף ה-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md) הראשי ומופעל כברירת מחדל באמצעות `routing.enableProxy: true`. עליך לרשום אותו בנפרד רק אם אתה זקוק לשליטה ברמה נמוכה יותר או משתמש בו מחוץ להגדרת ה-`intlayer()` הסטנדרטית.
+> **החל מ-Intlayer גרסה 9** `intlayerProxy` נכלל אוטומטית בתוך תוסף ה-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md) הראשי ומופעל כברירת מחדל באמצעות `routing.enableProxy: true`. עליך לרשום אותו בנפרד רק אם אתה זקוק לשליטה ברמה נמוכה יותר או משתמש בו מחוץ להגדרת ה-`intlayer()` הסטנדרטית.
 
-- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md)
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md)
 
 ## שימוש
 

@@ -139,6 +139,6 @@ export default config;
 
 ### שילוב עם TypeScript
 
-הפונקציה `t` בטוחה מבחינת טיפוסים כאשר נעשה בה שימוש עם מילונים מוגדרים. לפרטים נוספים, עיין ב-[תיעוד TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+הפונקציה `t` בטוחה מבחינת טיפוסים כאשר נעשה בה שימוש עם מילונים מוגדרים. לפרטים נוספים, עיין ב-[תיעוד TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)

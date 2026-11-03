@@ -194,9 +194,9 @@ GET intlayer.zh/about
 
 תוסף ה-Vite של `intlayerProxy` מחיל את אותה הלוגיקה בזמן פיתוח:
 
-> החל מ-Intlayer v9, ה-`intlayerProxy()` ארוז ישירות בתוך התוסף `intlayer()` ומופעל כברירת מחדל דרך האפשרות `routing.enableProxy` (`true` כברירת מחדל). רישומו בנפרד כפי שמוצג להלן הוא כעת אופציונלי. הוא נשמר לצורך תאימות לאחור ועבור מערכות שצריכות לשלוט בסדר התוספים. הגדירו `routing.enableProxy: false` כדי לבטל. עיינו ב[הערות שחרור גרסה v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/releases/v9.md).
+> החל מ-Intlayer v9, ה-`intlayerProxy()` ארוז ישירות בתוך התוסף `intlayer()` ומופעל כברירת מחדל דרך האפשרות `routing.enableProxy` (`true` כברירת מחדל). רישומו בנפרד כפי שמוצג להלן הוא כעת אופציונלי. הוא נשמר לצורך תאימות לאחור ועבור מערכות שצריכות לשלוט בסדר התוספים. הגדירו `routing.enableProxy: false` כדי לבטל. עיינו ב[הערות שחרור גרסה v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/releases/v9.md).
 
-- [הערות שחרור גרסה v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/releases/v9.md)
+- [הערות שחרור גרסה v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/releases/v9.md)
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";

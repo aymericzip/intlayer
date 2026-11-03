@@ -80,7 +80,7 @@ Intlayer תומך בתוכן טקסט עשיר המוגדר באמצעות תח�
     └── markdown-file.es.content.md
     ```
 
-    תוכל להוסיף ב-front-matter כל מאפיין המוגדר ב[הגדרת המילון](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+    תוכל להוסיף ב-front-matter כל מאפיין המוגדר ב[הגדרת המילון](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
   </Tab>
   <Tab label="עטיפה ידנית" value="manual-wrapping">

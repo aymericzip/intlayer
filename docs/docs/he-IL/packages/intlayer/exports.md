@@ -59,13 +59,13 @@ bun add intlayer
 import "intlayer";
 ```
 
-| משתנה              | טיפוס                  | תיאור                                                                                                  | תיעוד קשור                                                                                                              |
-| ------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `configuration`    | `IntlayerConfig`       | אובייקט התצורה של Intlayer.                                                                            | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getConfiguration.md) |
-| `getConfiguration` | `() => IntlayerConfig` | מחזיר את אובייקט התצורה של Intlayer. (**הוצא משימוש (Deprecated)**: השתמש ב-`configuration` במקום זאת) | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getConfiguration.md) |
-| `locales`          | `Locales[]`            | רשימת כל השפות הנתמכות.                                                                                | -                                                                                                                       |
-| `requiredLocales`  | `Locales[]`            | רשימת כל שפות החובה.                                                                                   | -                                                                                                                       |
-| `defaultLocale`    | `Locales`              | שפת ברירת המחדל.                                                                                       | -                                                                                                                       |
+| משתנה              | טיפוס                  | תיאור                                                                                                  | תיעוד קשור                                                                                                                 |
+| ------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `configuration`    | `IntlayerConfig`       | אובייקט התצורה של Intlayer.                                                                            | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getConfiguration.md) |
+| `getConfiguration` | `() => IntlayerConfig` | מחזיר את אובייקט התצורה של Intlayer. (**הוצא משימוש (Deprecated)**: השתמש ב-`configuration` במקום זאת) | [getConfiguration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getConfiguration.md) |
+| `locales`          | `Locales[]`            | רשימת כל השפות הנתמכות.                                                                                | -                                                                                                                          |
+| `requiredLocales`  | `Locales[]`            | רשימת כל שפות החובה.                                                                                   | -                                                                                                                          |
+| `defaultLocale`    | `Locales`              | שפת ברירת המחדל.                                                                                       | -                                                                                                                          |
 
 ### טיפוסים (Types)
 
@@ -93,21 +93,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| פונקציה                  | טיפוס      | תיאור                                                                                                 | תיעוד קשור                                                                                                                  |
-| ------------------------ | ---------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `t` / `getTranslation`   | `Function` | בוחרת תוכן בהתבסס על השפה הנוכחית.                                                                    | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md)                      |
-| `enu` / `getEnumeration` | `Function` | בוחרת תוכן בהתבסס על כמות (quantity).                                                                 | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md)                      |
-| `cond` / `getCondition`  | `Function` | בוחרת תוכן בהתבסס על תנאי בוליאני.                                                                    | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/condition.md)                          |
-| `gender`                 | `Function` | בוחרת תוכן בהתבסס על מגדר.                                                                            | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)                                |
-| `insert`                 | `Function` | משלבת ערכים לתוך מחרוזת תוכן.                                                                         | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)                          |
-| `nest` / `getNesting`    | `Function` | מקננת מילון אחר.                                                                                      | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/nesting.md)                              |
-| `md`                     | `Function` | מעבדת תוכן Markdown.                                                                                  | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md)                            |
-| `html`                   | `Function` | מעבדת תוכן HTML.                                                                                      | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/html.md)                                    |
-| `file`                   | `Function` | מטפלת בתוכן קובץ.                                                                                     | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/file.md)                                    |
-| `getDictionary`          | `Function` | מעבדת אובייקטים שנראים כמו מילונים (key, content). היא מעבדת תרגומי `t()`, ריבוי (enumerations) וכו'. | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getDictionary.md)           |
-| `getDictionaryAsync`     | `Function` | טוענת מקטע (chunk) שפה בודד של מילון מתוך מפת טוענים לכל שפה, ולאחר מכן מעבדת אותו.                   | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getDictionaryAsync.md) |
-| `getIntlayer`            | `Function` | מבוססת על `getDictionary`, אך מזריקה גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.                        | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayer.md)               |
-| `getIntlayerAsync`       | `Function` | המקבילה האסינכרונית של `getIntlayer`, הטוענת רק את השפה המבוקשת. עבור metadata, טוענים ופונקציות שרת. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayerAsync.md)     |
+| פונקציה                  | טיפוס      | תיאור                                                                                                 | תיעוד קשור                                                                                                                     |
+| ------------------------ | ---------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `t` / `getTranslation`   | `Function` | בוחרת תוכן בהתבסס על השפה הנוכחית.                                                                    | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md)                      |
+| `enu` / `getEnumeration` | `Function` | בוחרת תוכן בהתבסס על כמות (quantity).                                                                 | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md)                      |
+| `cond` / `getCondition`  | `Function` | בוחרת תוכן בהתבסס על תנאי בוליאני.                                                                    | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/condition.md)                          |
+| `gender`                 | `Function` | בוחרת תוכן בהתבסס על מגדר.                                                                            | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md)                                |
+| `insert`                 | `Function` | משלבת ערכים לתוך מחרוזת תוכן.                                                                         | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md)                          |
+| `nest` / `getNesting`    | `Function` | מקננת מילון אחר.                                                                                      | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/nesting.md)                              |
+| `md`                     | `Function` | מעבדת תוכן Markdown.                                                                                  | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md)                            |
+| `html`                   | `Function` | מעבדת תוכן HTML.                                                                                      | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/html.md)                                    |
+| `file`                   | `Function` | מטפלת בתוכן קובץ.                                                                                     | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | מעבדת אובייקטים שנראים כמו מילונים (key, content). היא מעבדת תרגומי `t()`, ריבוי (enumerations) וכו'. | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | טוענת מקטע (chunk) שפה בודד של מילון מתוך מפת טוענים לכל שפה, ולאחר מכן מעבדת אותו.                   | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | מבוססת על `getDictionary`, אך מזריקה גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.                        | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | המקבילה האסינכרונית של `getIntlayer`, הטוענת רק את השפה המבוקשת. עבור metadata, טוענים ופונקציות שרת. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayerAsync.md)     |
 
 ### כלי עזר לבינאום (Localization Utilities)
 
@@ -117,21 +117,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| פונקציה                | טיפוס      | תיאור                                    | תיעוד קשור                                                                                                                      |
-| ---------------------- | ---------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `getLocale`            | `Function` | מזהה את השפה מתוך מחרוזת או נתיב.        | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocale.md)                       |
-| `getLocaleLang`        | `Function` | מחלצת את חלק השפה מתוך locale.           | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocaleLang.md)               |
-| `getLocaleName`        | `Function` | מחזירה את שם התצוגה של שפה.              | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocaleName.md)               |
-| `getLocalizedPath`     | `Function` | מפענחת נתיב קנוני לנתיב מותאם שפה.       | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedPath.md)         |
-| `getCanonicalPath`     | `Function` | מפענחת נתיב מותאם שפה לנתיב קנוני.       | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getCanonicalPath.md)         |
-| `getLocalizedUrl`      | `Function` | מייצרת כתובת URL מותאמת שפה.             | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)           |
-| `getMultilingualUrls`  | `Function` | מייצרת כתובות URL עבור כל השפות הנתמכות. | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getMultilingualUrls.md)   |
-| `getPathWithoutLocale` | `Function` | מסירה את קידומת השפה מנתיב.              | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPathWithoutLocale.md) |
-| `getPrefix`            | `Function` | מחלצת את קידומת השפה מנתיב.              | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPrefix.md)                       |
-| `comparePaths`         | `Function` | משווה בין שני נתיבים תוך התעלמות מהשפה.  | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/comparePaths.md)                 |
-| `normalizePath`        | `Function` | מנרמלת נתיב לנתיב בלתי תלוי בשפה.        | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/comparePaths.md)                 |
-| `getHTMLTextDir`       | `Function` | מחזירה את כיוון הטקסט (LTR/RTL).         | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getHTMLTextDir.md)             |
-| `validatePrefix`       | `Function` | מאמתת קידומת שפה.                        | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/validatePrefix.md)             |
+| פונקציה                | טיפוס      | תיאור                                    | תיעוד קשור                                                                                                                         |
+| ---------------------- | ---------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `getLocale`            | `Function` | מזהה את השפה מתוך מחרוזת או נתיב.        | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocale.md)                       |
+| `getLocaleLang`        | `Function` | מחלצת את חלק השפה מתוך locale.           | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocaleLang.md)               |
+| `getLocaleName`        | `Function` | מחזירה את שם התצוגה של שפה.              | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocaleName.md)               |
+| `getLocalizedPath`     | `Function` | מפענחת נתיב קנוני לנתיב מותאם שפה.       | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedPath.md)         |
+| `getCanonicalPath`     | `Function` | מפענחת נתיב מותאם שפה לנתיב קנוני.       | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getCanonicalPath.md)         |
+| `getLocalizedUrl`      | `Function` | מייצרת כתובת URL מותאמת שפה.             | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)           |
+| `getMultilingualUrls`  | `Function` | מייצרת כתובות URL עבור כל השפות הנתמכות. | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getMultilingualUrls.md)   |
+| `getPathWithoutLocale` | `Function` | מסירה את קידומת השפה מנתיב.              | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPathWithoutLocale.md) |
+| `getPrefix`            | `Function` | מחלצת את קידומת השפה מנתיב.              | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | משווה בין שני נתיבים תוך התעלמות מהשפה.  | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | מנרמלת נתיב לנתיב בלתי תלוי בשפה.        | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/comparePaths.md)                 |
+| `getHTMLTextDir`       | `Function` | מחזירה את כיוון הטקסט (LTR/RTL).         | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getHTMLTextDir.md)             |
+| `validatePrefix`       | `Function` | מאמתת קידומת שפה.                        | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/validatePrefix.md)             |
 
 ### כלי עזר לדפדפן (Browser Utilities)
 

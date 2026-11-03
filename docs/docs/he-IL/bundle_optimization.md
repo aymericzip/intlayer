@@ -58,7 +58,7 @@ author: aymericzip
 
 4. **תוכן לא מנוצל ומילולי מדי.** ב-Vite וב-Next.js,‏ Intlayer [מנקה (purges)](#purging-unused-field-removal) את שדות המילון שהקוד שלכם אינו קורא לעולם ו-[ממזער (minifies)](#minification-field-key-renaming) את המפתחות הנותרים.
 
-5. **תוכן כפול.** מילונים החולקים את אותו המפתח, בין אם הם מגיעים ממספר קובצי `.content` או ממקורות מקומיים ומרוחקים ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)), ממוזגים למילון יחיד.
+5. **תוכן כפול.** מילונים החולקים את אותו המפתח, בין אם הם מגיעים ממספר קובצי `.content` או ממקורות מקומיים ומרוחקים ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)), ממוזגים למילון יחיד.
 
 ## כיצד זה פועל
 
@@ -322,9 +322,9 @@ export default config;
 
 > שמירה על ערך ברירת המחדל (`undefined`) עבור `optimize` מומלצת במרבית המקרים.
 
-> עיינו במדריך ההגדרות לכל האפשרויות: [הגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+> עיינו במדריך ההגדרות לכל האפשרויות: [הגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
-- [הגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [הגדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 ### אפשרויות בנייה
 
@@ -521,9 +521,9 @@ const content = useDictionaryAsync({
 });
 ```
 
-> עיינו בתיעוד ה-CMS לפרטים נוספים: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+> עיינו בתיעוד ה-CMS לפרטים נוספים: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 > במצב fetch, ניקוי (purge) ומזעור (minify) אינם מוחלים כיוון שה-JSON מוגש מ-API מרוחק באמצעות שמות השדות המקוריים.
 

@@ -35,9 +35,9 @@ author: aymericzip
 
 הפונקציה `getLocalizedPath` מתרגמת נתיב קנוני (נתיב אפליקציה פנימי): היא מפענחת את כללי השכתוב המותאמים אישית, ולאחר מכן מחילה את קידומת השפה של מצב הניתוב שלך. היא שימושית במיוחד ליצירת כתובות URL ידידותיות ל-SEO המשתנות בהתאם לשפה.
 
-היא המקבילה היחסית של [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md), ועבור קלט יחסי שתיהן מחזירות את אותו הערך. בשונה מ-`getLocalizedUrl`, היא לעולם אינה מחזירה כתובת URL מוחלטת: תצורת ה-`domains` אינה נלקחת בחשבון, כך ששפה המוגשת מדומיין משלה עדיין תניב נתיב בלבד. קלט מוחלט מתקבל, אך ה-origin שלו מושמט, ורק הנתיב, מחרוזת השאילתה וה-hash נשמרים.
+היא המקבילה היחסית של [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md), ועבור קלט יחסי שתיהן מחזירות את אותו הערך. בשונה מ-`getLocalizedUrl`, היא לעולם אינה מחזירה כתובת URL מוחלטת: תצורת ה-`domains` אינה נלקחת בחשבון, כך ששפה המוגשת מדומיין משלה עדיין תניב נתיב בלבד. קלט מוחלט מתקבל, אך ה-origin שלו מושמט, ורק הנתיב, מחרוזת השאילתה וה-hash נשמרים.
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)
 
 **תכונות עיקריות:**
 
@@ -107,9 +107,9 @@ const home = getLocalizedPath("/", Locales.FRENCH);
 //    ^? '/fr'
 ```
 
-אותו דיוק טיפוסים זורם גם ל-[`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md), אשר מחילה את כללי השכתוב לפני הוספת קידומת השפה.
+אותו דיוק טיפוסים זורם גם ל-[`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md), אשר מחילה את כללי השכתוב לפני הוספת קידומת השפה.
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)
 
 שני מקרים נשארים מורחבים ל-`string`, מכיוון שלא ניתן לפענח אותם בזמן הידור:
 
@@ -176,6 +176,6 @@ getLocalizedPath("/about");
 
 ## פונקציות קשורות
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getCanonicalPath.md)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPathWithoutLocale.md)
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getCanonicalPath.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPathWithoutLocale.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)

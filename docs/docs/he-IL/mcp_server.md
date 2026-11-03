@@ -59,7 +59,7 @@ author: aymericzip
 - **שילוב חכם עם ה-CLI**
   גישה והרצה של פקודות Intlayer CLI ישירות מממשק ה-IDE שלך. באמצעות שרת ה-MCP, תוכל לאפשר לעוזר ה-AI שלך להריץ פקודות כגון `intlayer dictionaries build` כדי לעדכן את המילונים שלך, או `intlayer dictionaries fill` כדי למלא תרגומים חסרים.
 
-  > צפה ברשימה המלאה של פקודות ואפשרויות ב[תיעוד של Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md).
+  > צפה ברשימה המלאה של פקודות ואפשרויות ב[תיעוד של Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md).
 
 ## שרת מקומי (stdio) לעומת שרת מרוחק (Streamable HTTP)
 

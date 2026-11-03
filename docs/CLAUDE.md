@@ -44,6 +44,7 @@ Doc are multilingual.
 - INDONESIAN
 - VIETNAMESE
 - UKRAINIAN
+- HEBREW_ISRAEL
 
 Structure:
 

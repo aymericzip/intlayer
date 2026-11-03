@@ -23,9 +23,9 @@ author: aymericzip
 
 # @intlayer/react-i18next: מתאם תאימות עבור react-i18next
 
-למדריך מלא ומפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_react-i18next_to_intlayer.md).
+למדריך מלא ומפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_react-i18next_to_intlayer.md).
 
-- [מדריך הגירה מ-react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_react-i18next_to_intlayer.md)
+- [מדריך הגירה מ-react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_react-i18next_to_intlayer.md)
 
 שימוש במתאם התאימות של Intlayer מאפשר לכם להגר מ-`react-i18next` ללא כל שינוי בייבואי קוד המקור שלכם.
 

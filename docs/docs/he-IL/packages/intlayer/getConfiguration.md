@@ -55,9 +55,9 @@ author: aymericzip
   - `content`: הגדרות הקשורות לקובצי תוכן, תיקיות ותבניות (patterns).
   - `editor`: תצורות ייעודיות לעורך (editor).
 
-לפרטים נוספים, עיין ב-[תיעוד תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+לפרטים נוספים, עיין ב-[תיעוד תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 ## דוגמאות שימוש
 

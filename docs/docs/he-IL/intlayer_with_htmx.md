@@ -173,9 +173,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> לרשימת האפשרויות המלאה, עיינו ב[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+> לרשימת האפשרויות המלאה, עיינו ב[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 </Step>
 <Step number={3} title="הצהרת התוכן שלכם">
@@ -218,9 +218,9 @@ const appContent = {
 export default appContent;
 ```
 
-> הצהרות תוכן יכולות להימצא בכל מקום תחת `contentDir` (כברירת מחדל `./src`) ולהתאים לסיומת `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. ראו את [תיעוד הצהרת התוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+> הצהרות תוכן יכולות להימצא בכל מקום תחת `contentDir` (כברירת מחדל `./src`) ולהתאים לסיומת `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`. ראו את [תיעוד הצהרת התוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [תיעוד הצהרת התוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [תיעוד הצהרת התוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 </Step>
 <Step number={4} title="רישום ה-Middleware של Intlayer">
@@ -647,15 +647,15 @@ export default config;
 - **תצוגה מקדימה מוטבעת (Inline previews)** של תוכן מתורגם.
 - **פעולות מהירות (Quick actions)** ליצירה ועדכון קלים של תרגומים.
 
-לפרטים נוספים על אופן השימוש בתוסף, עיינו ב[תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md).
+לפרטים נוספים על אופן השימוש בתוסף, עיינו ב[תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md).
 
-- [תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
+- [תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)
 
 ### הרחבה נוספת
 
-להרחבה נוספת, תוכלו להוציא את התוכן שלכם החוצה באמצעות ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md), כך שמתרגמים יוכלו לעדכן טקסטים ללא צורך בפריסה מחודשת (deployment).
+להרחבה נוספת, תוכלו להוציא את התוכן שלכם החוצה באמצעות ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md), כך שמתרגמים יוכלו לעדכן טקסטים ללא צורך בפריסה מחודשת (deployment).
 
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 ## שאלות נפוצות
 
@@ -678,10 +678,10 @@ export default config;
 </Question>
 <Question title="כיצד ניתן לבצע לוקליזציה גם לכתובת ה-URL, עבור SEO?">
 
-הגישו את הדפים שלכם תחת קידומת שפה (לדוגמה `/he/cart` או `/fr/cart`) וקראו את השפה מתוך הנתיב ב-route handler שלכם, ולא מתוך העוגייה, עבור רינדור הדף המלא. מקטעים (fragments) יכולים להמשיך להשתמש בעוגייה או בכותרת. ראו [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md) עבור אפשרויות ניתוב ו[שכתוב כתובות URL מותאם אישית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/custom_url_rewrites.md).
+הגישו את הדפים שלכם תחת קידומת שפה (לדוגמה `/he/cart` או `/fr/cart`) וקראו את השפה מתוך הנתיב ב-route handler שלכם, ולא מתוך העוגייה, עבור רינדור הדף המלא. מקטעים (fragments) יכולים להמשיך להשתמש בעוגייה או בכותרת. ראו [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md) עבור אפשרויות ניתוב ו[שכתוב כתובות URL מותאם אישית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/custom_url_rewrites.md).
 
-- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
-- [שכתוב כתובות URL מותאם אישית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/custom_url_rewrites.md)
+- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
+- [שכתוב כתובות URL מותאם אישית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/custom_url_rewrites.md)
 
 </Question>
 <Question title="כיצד מטפלים בשפות הנכתבות מימין לשמאל (RTL)?">
@@ -696,65 +696,65 @@ export default config;
 </Question>
 <Question title="האם אותו התוכן יכול לשרת גם את תגובות ה-API שלי?">
 
-כן. האינטגרציות לצד-השרת חושפות את `t()` ואת `getIntlayer()` לכל handler, כך שהודעת שגיאה המוצגת ב-toast ותווית המרונדרת לתוך מקטע מגיעות מאותו תוכן מוצהר. ראו את המדריכים עבור [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_hono.md) ו-[Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_elysia.md).
+כן. האינטגרציות לצד-השרת חושפות את `t()` ואת `getIntlayer()` לכל handler, כך שהודעת שגיאה המוצגת ב-toast ותווית המרונדרת לתוך מקטע מגיעות מאותו תוכן מוצהר. ראו את המדריכים עבור [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_express.md), [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_fastify.md), [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_hono.md) ו-[Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_elysia.md).
 
-- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_express.md)
-- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_fastify.md)
-- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_hono.md)
-- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_elysia.md)
+- [Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_express.md)
+- [Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_fastify.md)
+- [Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_hono.md)
+- [Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_elysia.md)
 
 </Question>
 <Question title="האם עליי להעביר את התוכן שלי מפתח אחר מפתח?">
 
-לא. הריצו `npx intlayer extract` ו-Intlayer יקרא את קובצי המקור שלכם, ישלוף את המחרוזות המוצגות למשתמש ויכתוב קובץ `.content` לצד כל קובץ מקור, כך שתוכלו לסקור diff במקום להעתיק מחרוזות לקטלוג אחת אחת. ראו את [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md).
+לא. הריצו `npx intlayer extract` ו-Intlayer יקרא את קובצי המקור שלכם, ישלוף את המחרוזות המוצגות למשתמש ויכתוב קובץ `.content` לצד כל קובץ מקור, כך שתוכלו לסקור diff במקום להעתיק מחרוזות לקטלוג אחת אחת. ראו את [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md).
 
-- [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)
+- [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)
 
 </Question>
 <Question title="האם אוכל לשמור על קובצי תרגום ה-JSON הקיימים שלי?">
 
-כן. [תוסף סנכרון ה-JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md) שומר על קובצי ה-`/messages/{locale}/{namespace}.json` כמקור האמת ומייצר מהם מילוני Intlayer בשני הכיוונים. [תוסף סנכרון ה-PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md) עושה את אותו הדבר עבור קטלוגי gettext, ו[קבצים לפי שפה (per locale files)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md) מאפשרים לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ אחד.
+כן. [תוסף סנכרון ה-JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md) שומר על קובצי ה-`/messages/{locale}/{namespace}.json` כמקור האמת ומייצר מהם מילוני Intlayer בשני הכיוונים. [תוסף סנכרון ה-PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md) עושה את אותו הדבר עבור קטלוגי gettext, ו[קבצים לפי שפה (per locale files)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md) מאפשרים לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ אחד.
 
-- [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md)
-- [תוסף סנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md)
-- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md)
+- [תוסף סנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md)
+- [תוסף סנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md)
+- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md)
 
 </Question>
 <Question title="כיצד מתרגמים את האפליקציה באופן אוטומטי באמצעות AI?">
 
-הריצו `npx intlayer fill`, אשר ממלא תרגומים חסרים בעזרת מודל ה-LLM לבחירתכם, תוך שימוש בספק ובמפתח ה-API שלכם. הוסיפו את הדגל `--git-diff` כדי לתרגם רק את התוכן שהשתנה בענף הנוכחי. ראו את [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md) ו[אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md).
+הריצו `npx intlayer fill`, אשר ממלא תרגומים חסרים בעזרת מודל ה-LLM לבחירתכם, תוך שימוש בספק ובמפתח ה-API שלכם. הוסיפו את הדגל `--git-diff` כדי לתרגם רק את התוכן שהשתנה בענף הנוכחי. ראו את [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md) ו[אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/CI_CD.md).
 
-- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md)
-- [אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md)
+- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md)
+- [אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/CI_CD.md)
 
 </Question>
 <Question title="האם Intlayer תומך במגדר, תנאים וערכים מוטמעים?">
 
-כן: [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md), תנאים, [ספירות (enumerations)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md), [הטמעות (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md) עבור ערכים משתנים, ו[מעצבים (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md) עבור מספרים, תאריכים ומטבעות.
+כן: [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md), תנאים, [ספירות (enumerations)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md), [הטמעות (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md) עבור ערכים משתנים, ו[מעצבים (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/formatters.md) עבור מספרים, תאריכים ומטבעות.
 
-- [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)
-- [ספירות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md)
-- [הטמעות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)
-- [מעצבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md)
+- [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md)
+- [ספירות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md)
+- [הטמעות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md)
+- [מעצבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/formatters.md)
 
 </Question>
 <Question title="אילו כלי עריכה וסוכני AI זמינים?">
 
 חמישה כלים, כולם אופציונליים:
 
-- **[תוסף ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)**: קפיצה ממפתח אל קובץ התוכן שמצהיר עליו, חילוץ תוכן מקובץ, והרצת build, fill, test, push ו-pull מלוח הפקודות.
-- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**: אותה רמת מודעות בכל עורך שתומך ב-LSP, עם מעבר להגדרה (go to definition), תצוגה מקדימה בריחוף עכבר של ערך מתורגם, השלמה אוטומטית של מפתחות, ואזהרה כאשר מפתח אינו מוצהר בשום מקום.
-- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer עבור Cursor, VS Code, Claude Desktop, Claude Code ו-ChatGPT.
-- **[כישורי סוכנים (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**: כישורים ממוקדים כגון `intlayer-config`, `intlayer-cli` ו-`intlayer-content`.
-- **[תוסף ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/eslint.md)**: הכלל `no-raw-text` מסמן מחרוזות מקודדות (hardcoded).
+- **[תוסף ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)**: קפיצה ממפתח אל קובץ התוכן שמצהיר עליו, חילוץ תוכן מקובץ, והרצת build, fill, test, push ו-pull מלוח הפקודות.
+- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)**: אותה רמת מודעות בכל עורך שתומך ב-LSP, עם מעבר להגדרה (go to definition), תצוגה מקדימה בריחוף עכבר של ערך מתורגם, השלמה אוטומטית של מפתחות, ואזהרה כאשר מפתח אינו מוצהר בשום מקום.
+- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer עבור Cursor, VS Code, Claude Desktop, Claude Code ו-ChatGPT.
+- **[כישורי סוכנים (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)**: כישורים ממוקדים כגון `intlayer-config`, `intlayer-cli` ו-`intlayer-content`.
+- **[תוסף ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/eslint.md)**: הכלל `no-raw-text` מסמן מחרוזות מקודדות (hardcoded).
 
 </Question>
 <Question title="האם Intlayer חינמי ובקוד פתוח?">
 
-כן, תחת רישיון Apache 2.0, כולל שימוש מסחרי. מערכת ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) המאוחסנת היא שירות אופציונלי בתשלום שניתן גם [לארח עצמאית (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md).
+כן, תחת רישיון Apache 2.0, כולל שימוש מסחרי. מערכת ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md) המאוחסנת היא שירות אופציונלי בתשלום שניתן גם [לארח עצמאית (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md).
 
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
-- [אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
+- [אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)
 
 </Question>
 

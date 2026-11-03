@@ -201,10 +201,10 @@ npx intlayer init infra
 npx intlayer init infra --mode compose
 ```
 
-אותו שלב מוצע על ידי `npx intlayer init --interactive`. עיין ב[מדריך `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/infra.md) עבור הגדרות תוכנית ההתקנה, וב[מדריך האירוח העצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md) עבור מה שכל מצב מגדיר.
+אותו שלב מוצע על ידי `npx intlayer init --interactive`. עיין ב[מדריך `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/infra.md) עבור הגדרות תוכנית ההתקנה, וב[מדריך האירוח העצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md) עבור מה שכל מצב מגדיר.
 
-- [מדריך `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/infra.md)
-- [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
+- [מדריך `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/infra.md)
+- [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)
 
 ## דוגמה לפלט:
 

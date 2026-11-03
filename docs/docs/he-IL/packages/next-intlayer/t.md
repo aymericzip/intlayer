@@ -229,8 +229,8 @@ const text = t(translations);
 
 הפונקציה `t` ב-`next-intlayer` היא כלי רב-עוצמה ונוח לניהול תרגומים מוטבעים ביישומי ה-Next.js שלך. על ידי שילובה ביעילות, תוכל לשפר את יכולות הבינאום של היישום שלך ולהעניק חוויה טובה יותר למשתמשים בכל רחבי העולם.
 
-למידע נוסף על שימוש מתקדם ותכונות נוספות, עיין ב-[תיעוד next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md).
+למידע נוסף על שימוש מתקדם ותכונות נוספות, עיין ב-[תיעוד next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md).
 
-- [תיעוד next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
+- [תיעוד next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
 
 **הערה**: זכור להגדיר את ה-`IntlayerProvider` (או `IntlayerClientProvider` ו-`IntlayerServerProvider`) שלך כראוי כדי להבטיח שהשפה הנוכחית מועברת בצורה תקינה לרכיבים שלך. הדבר חיוני כדי שהפונקציה `t` תחזיר את התרגומים הנכונים.

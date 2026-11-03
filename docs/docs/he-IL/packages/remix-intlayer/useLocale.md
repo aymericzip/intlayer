@@ -101,6 +101,6 @@ router.get("/api/locale-info", () => {
 
 ## תיעוד קשור
 
-- [תוכנת תיווך `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/intlayerMiddleware.md)
-- [הוק `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/useIntlayer.md)
-- [הוק `useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/useDictionary.md)
+- [תוכנת תיווך `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/intlayerMiddleware.md)
+- [הוק `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/useIntlayer.md)
+- [הוק `useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/useDictionary.md)

@@ -44,9 +44,9 @@ npm install solid-intlayer
 import "solid-intlayer";
 ```
 
-| רכיב               | תיאור                                                         | תיעוד קשור                                                                                                                    |
-| ------------------ | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `IntlayerProvider` | הספק הראשי שעוטף את היישום שלך ומספק את הקונטקסט של Intlayer. | [IntlayerProvider](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/solid-intlayer/IntlayerProvider.md) |
+| רכיב               | תיאור                                                         | תיעוד קשור                                                                                                                       |
+| ------------------ | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `IntlayerProvider` | הספק הראשי שעוטף את היישום שלך ומספק את הקונטקסט של Intlayer. | [IntlayerProvider](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/solid-intlayer/IntlayerProvider.md) |
 
 ### הוקים (Hooks)
 
@@ -56,18 +56,18 @@ import "solid-intlayer";
 import "solid-intlayer";
 ```
 
-| הוק                    | תיאור                                                                                      | תיעוד קשור                                                                                                              |
-| ---------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת ביצועים של המילון מתוך ההצהרה שנוצרה.       | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/solid-intlayer/useIntlayer.md)     |
-| `useDictionary`        | מעבד אובייקטים הדומים למילונים (מפתח, תוכן). מעבד תרגומי `t()`, ריבוי (enumerations) ועוד. | -                                                                                                                       |
-| `useDictionaryAsync`   | זהה ל-`useDictionary`, אך מטפל במילונים אסינכרוניים.                                       | -                                                                                                                       |
-| `useDictionaryDynamic` | זהה ל-`useDictionary`, אך מטפל במילונים דינמיים.                                           | -                                                                                                                       |
-| `useLocale`            | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                    | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/solid-intlayer/useLocale.md)         |
-| `usePathname`          | מחזיר את הנתיב הנוכחי כ-`Accessor<string>` כאשר מקטע השפה מוסר. מגיב ל-`popstate`.         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/solid-intlayer/usePathname.md)     |
-| `useRewriteURL`        | הוק צד-לקוח לניהול שכתוב כתובות URL. מעדכן אוטומטית את ה-URL אם קיים כלל שכתוב מקומי.      | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/solid-intlayer/useRewriteURL.md) |
-| `useIntl`              | מחזיר את אובייקט ה-Intl עבור השפה הנוכחית.                                                 | -                                                                                                                       |
-| `useLoadDynamic`       | הוק לטעינת מילונים דינמיים.                                                                | -                                                                                                                       |
-| `t`                    | בוחר תוכן בהתבסס על השפה הנוכחית.                                                          | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md)                  |
+| הוק                    | תיאור                                                                                      | תיעוד קשור                                                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת ביצועים של המילון מתוך ההצהרה שנוצרה.       | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/solid-intlayer/useIntlayer.md)     |
+| `useDictionary`        | מעבד אובייקטים הדומים למילונים (מפתח, תוכן). מעבד תרגומי `t()`, ריבוי (enumerations) ועוד. | -                                                                                                                          |
+| `useDictionaryAsync`   | זהה ל-`useDictionary`, אך מטפל במילונים אסינכרוניים.                                       | -                                                                                                                          |
+| `useDictionaryDynamic` | זהה ל-`useDictionary`, אך מטפל במילונים דינמיים.                                           | -                                                                                                                          |
+| `useLocale`            | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                    | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | מחזיר את הנתיב הנוכחי כ-`Accessor<string>` כאשר מקטע השפה מוסר. מגיב ל-`popstate`.         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/solid-intlayer/usePathname.md)     |
+| `useRewriteURL`        | הוק צד-לקוח לניהול שכתוב כתובות URL. מעדכן אוטומטית את ה-URL אם קיים כלל שכתוב מקומי.      | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/solid-intlayer/useRewriteURL.md) |
+| `useIntl`              | מחזיר את אובייקט ה-Intl עבור השפה הנוכחית.                                                 | -                                                                                                                          |
+| `useLoadDynamic`       | הוק לטעינת מילונים דינמיים.                                                                | -                                                                                                                          |
+| `t`                    | בוחר תוכן בהתבסס על השפה הנוכחית.                                                          | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md)                  |
 
 ### רכיבים
 

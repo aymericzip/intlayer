@@ -97,9 +97,9 @@ bun add --dev @intlayer/lsp
 
 התקן את [הרחבת Intlayer ל-VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). שרת השפה מובנה החל מגרסה v8.12.0 ומתחיל לפעול אוטומטית, **אין צורך בהגדרה נוספת**.
 
-ראה את [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md) עבור שאר התכונות שלה.
+ראה את [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md) עבור שאר התכונות שלה.
 
-- [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
+- [תיעוד הרחבת VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

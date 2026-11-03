@@ -64,10 +64,10 @@ getIntlayer(
   - **חובה**: כן
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **תיאור**: השפה שלפיה יש לפענח את התוכן, או אובייקט בורר עבור [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md).
+  - **תיאור**: השפה שלפיה יש לפענח את התוכן, או אובייקט בורר עבור [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md).
     - `'fr'`: שפה
-    - `{ item: 2 }`: פריט בתוך [אוסף (collection)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/collections.md) (השמט את `item` כדי לקבל את כל הפריטים כמערך)
-    - `{ variant: 'black-friday' }`: [גרסה בעלת שם (named variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md) (השמט כדי לקבל את ברירת המחדל `default`)
+    - `{ item: 2 }`: פריט בתוך [אוסף (collection)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/collections.md) (השמט את `item` כדי לקבל את כל הפריטים כמערך)
+    - `{ variant: 'black-friday' }`: [גרסה בעלת שם (named variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md) (השמט כדי לקבל את ברירת המחדל `default`)
     - `{ variant: { id: 'prod_abc', userId: '123' } }`: גרסה מובנית
     - כל בורר יכול לכלול שפה: `{ item: 2, locale: 'fr' }`
   - **סוג**: `LocalesValues | DictionarySelector`
@@ -116,9 +116,9 @@ const { title } = getIntlayer("app", "fr"); // "Bonjour"
 
 1. **שפת הבקשה הנוכחית**, בשרת, כאשר אינטגרציה של Intlayer מטפלת בה: תוכנות הביניים (middlewares) של `express-intlayer`, `fastify-intlayer`, `hono-intlayer`, `adonis-intlayer` ו-`elysia-intlayer`, תוכנות הביניים של `remix-intlayer` ו-`astro-intlayer`, ו-`IntlayerProvider` / `setLocale` ברכיבי React Server Components. כל בקשה מפוענחת מתוך העוגיות והכותרות שלה, כך שמשתמשים במקביל לעולם אינם חולקים שפה.
 2. **השפה השמורה בדפדפן** (עוגייה, `localStorage`, `sessionStorage`), השפה שבורר השפות שומר.
-3. **ה-`defaultLocale`** שהוצהר בתוך [התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md) שלך.
+3. **ה-`defaultLocale`** שהוצהר בתוך [התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md) שלך.
 
-- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 ```typescript
 import { getIntlayer } from "intlayer";
@@ -126,9 +126,9 @@ import { getIntlayer } from "intlayer";
 const { title } = getIntlayer("app"); // שפת הבקשה, אחרת השפה השמורה, אחרת שפת ברירת המחדל
 ```
 
-אותו סדר פענוח חל גם על `getDictionary`, על הקריאות שמשוכתבות על ידי [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md), ועל `useIntlayer` / `useDictionaryDynamic` המרונדרים מחוץ לספק (provider). העברה מפורשת של שפה תמיד קודמת לכל.
+אותו סדר פענוח חל גם על `getDictionary`, על הקריאות שמשוכתבות על ידי [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md), ועל `useIntlayer` / `useDictionaryDynamic` המרונדרים מחוץ לספק (provider). העברה מפורשת של שפה תמיד קודמת לכל.
 
-- [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
+- [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
 
 > `getIntlayer` אינה ריאקטיבית: לאחר החלפת שפה, קרא לה שוב כדי לקרוא את השפה החדשה. בדף המרונדר בשרת, קריאה המתבצעת מחוץ לכל ספק מרנדרת את שפת ברירת המחדל בשרת ואת השפה השמורה בדפדפן, מה שעלול לגרום לאי-התאמה בהידרציה (hydration mismatch). עטוף בספק של הפריימוורק שלך, או העבר את השפה ישירות במקרה זה.
 
@@ -175,16 +175,16 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 
 ### גודל הבאנדל
 
-`getIntlayer` קוראת את המילון הממוזג, המכיל את **כל** השפות. בבאנדלים של צד הלקוח, [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md) משכתבים את הקריאה כך שרק התוכן הנדרש יישלח. כאשר אתה קורא תוכן מחוץ לרינדור (metadata, טוענים, פונקציות שרת) וברצונך לטעון שפה בודדת לפי דרישה, השתמש ב-[`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayerAsync.md) במקום זאת.
+`getIntlayer` קוראת את המילון הממוזג, המכיל את **כל** השפות. בבאנדלים של צד הלקוח, [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md) משכתבים את הקריאה כך שרק התוכן הנדרש יישלח. כאשר אתה קורא תוכן מחוץ לרינדור (metadata, טוענים, פונקציות שרת) וברצונך לטעון שפה בודדת לפי דרישה, השתמש ב-[`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayerAsync.md) במקום זאת.
 
-- [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayerAsync.md)
+- [תוספי הבנייה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayerAsync.md)
 
 ## פונקציות קשורות
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayerAsync.md)
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getDictionary.md)
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/react-intlayer/useIntlayer.md)
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

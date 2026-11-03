@@ -34,9 +34,9 @@ author: aymericzip
 
 הפונקציה `comparePaths` משווה שני נתיבי URL או שמות נתיבים (pathnames) לצורך שוויון תוך התעלמות ממקטע השפה (locale segment), הפרוטוקול/מארח (host), מחרוזת השאילתה (query string), ה-hash ולוכסנים מסיימים (trailing slashes). זוהי הדרך המומלצת לקבוע אם קישור ניווט מצביע על הדף הנוכחי, למשל כדי להדגיש את הקישור הפעיל, מבלי שתצטרך לכתוב לוגיקת נרמול משלך (הנוטה לשגיאות).
 
-באופן פנימי היא עושה שימוש חוזר ב-[`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPathWithoutLocale.md) כדי להסיר את מקטע השפה, כך שהיא מכבדת את מצב הניתוב (routing mode) ואת השפות שהוגדרו בפרויקט שלך.
+באופן פנימי היא עושה שימוש חוזר ב-[`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPathWithoutLocale.md) כדי להסיר את מקטע השפה, כך שהיא מכבדת את מצב הניתוב (routing mode) ואת השפות שהוגדרו בפרויקט שלך.
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPathWithoutLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPathWithoutLocale.md)
 
 החבילה מייצאת גם את פונקציית העזר הבסיסית [`normalizePath`](#normalizepath), אשר מחזירה את שם הנתיב הקנוני והבלתי תלוי בשפה המשמש להשוואה.
 
@@ -147,9 +147,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## פונקציות קשורות
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPathWithoutLocale.md)
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPrefix.md)
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

@@ -23,9 +23,9 @@ author: aymericzip
 
 הפקודה `editor` עוטפת מחדש את פקודות `intlayer-editor`.
 
-> כדי שתוכל להשתמש בפקודת `editor`, חבילת `intlayer-editor` חייבת להיות מותקנת. (ראה [העורך הוויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)).
+> כדי שתוכל להשתמש בפקודת `editor`, חבילת `intlayer-editor` חייבת להיות מותקנת. (ראה [העורך הוויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)).
 
-- [העורך הוויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
+- [העורך הוויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
 
 ```json fileName="package.json"
 "scripts": {

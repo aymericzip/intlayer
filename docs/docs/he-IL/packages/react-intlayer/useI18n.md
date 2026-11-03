@@ -75,9 +75,9 @@ author: aymericzip
 
 ## מילון
 
-כל מפתחות המילון חייבים להיות מוצהרים בקובצי הצהרת תוכן כדי לשפר את בטיחות הטיפוסים ולמנוע שגיאות. [הוראות הגדרה ניתן למצוא כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+כל מפתחות המילון חייבים להיות מוצהרים בקובצי הצהרת תוכן כדי לשפר את בטיחות הטיפוסים ולמנוע שגיאות. [הוראות הגדרה ניתן למצוא כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [הוראות הגדרה ניתן למצוא כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [הוראות הגדרה ניתן למצוא כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 ## דוגמאות שימוש ב-React
 
@@ -180,6 +180,6 @@ const ServerComponentExample = () => {
 
 ## משאבים נוספים
 
-- **עורך ויזואלי של Intlayer**: לחוויית ניהול תוכן אינטואיטיבית יותר, עיין בתיעוד העורך הוויזואלי [כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md).
+- **עורך ויזואלי של Intlayer**: לחוויית ניהול תוכן אינטואיטיבית יותר, עיין בתיעוד העורך הוויזואלי [כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md).
 
 סעיף זה מכסה באופן ספציפי את השילוב של ההוק `useI18n` ביישומי React, תוך פישוט תהליך הלוקליזציה והבטחת עקביות התוכן בין שפות שונות.

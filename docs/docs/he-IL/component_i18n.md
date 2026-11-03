@@ -187,10 +187,10 @@ export function ClientComponent() {
 
 ## מדריכים והפניות קשורים
 
-- הגדרת React (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_vite+react.md
-- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_react_router_v7.md
-- TanStack Start: https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_tanstack.md
-- הגדרת Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md
+- הגדרת React (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_react_router_v7.md
+- TanStack Start: https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_tanstack.md
+- הגדרת Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md
 - מדוע Intlayer מול next-intl מול next-i18next: https://github.com/aymericzip/intlayer/blob/main/docs/blog/he/next-i18next_vs_next-intl_vs_intlayer.md
 
 דפים אלו כוללים הגדרה מלאה מקצה לקצה, providers, ניתוב ועזרי SEO.

@@ -61,13 +61,13 @@ author: aymericzip
 
 Intlayer מותאם לעבודה עם **Server Components** לרינדור יעיל ותואם באופן מלא ל-[**Turbopack**](https://nextjs.org/docs/architecture/turbopack). הוא אינו חוסם רינדור סטטי ומציע middleware לצד כל התכונות הנדרשות לבינאום (i18n) בהיקף נרחב.
 
-> Intlayer תואם ל-Next.js 12, 13, 14, 15 ו-16. אם אתם משתמשים ב-Next.js Pages Router, תוכלו לעיין ב[מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_page_router.md).
-> ניתוב לפי שפה (Locale routing) שימושי עבור SEO, גודל ה-bundle וביצועים. אם אינכם זקוקים לו, תוכלו לעיין ב[מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md).
-> עבור Next.js 12, 13, 14 ו-15 עם App Router, עיינו ב[מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_14.md).
+> Intlayer תואם ל-Next.js 12, 13, 14, 15 ו-16. אם אתם משתמשים ב-Next.js Pages Router, תוכלו לעיין ב[מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_page_router.md).
+> ניתוב לפי שפה (Locale routing) שימושי עבור SEO, גודל ה-bundle וביצועים. אם אינכם זקוקים לו, תוכלו לעיין ב[מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md).
+> עבור Next.js 12, 13, 14 ו-15 עם App Router, עיינו ב[מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_14.md).
 
-- [Next.js Pages Router i18n: מדריך תרגום מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_page_router.md)
-- [מדריך](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md)
-- [Next.js 14 i18n, מדריך מלא לתרגום האפליקציה שלכם](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_14.md)
+- [Next.js Pages Router i18n: מדריך תרגום מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_page_router.md)
+- [מדריך](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md)
+- [Next.js 14 i18n, מדריך מלא לתרגום האפליקציה שלכם](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_14.md)
 
 </Accordion>
 <Accordion header="גודל ה-Bundle">
@@ -82,18 +82,18 @@ Intlayer מותאם לעבודה עם **Server Components** לרינדור יע�
 </Accordion>
 <Accordion header="סוכן AI">
 
-הצמדת התוכן (co-location) **מפחיתה את ההקשר (context) הדרוש** למודלי שפה גדולים (LLMs). בנוסף, Intlayer מגיע עם חבילת כלים, כגון **CLI** לבדיקת תרגומים חסרים, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)** ו-**[כישורי סוכן (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**, כדי להפוך את חוויית המפתח (DX) לחלקה אף יותר עבור סוכני AI.
+הצמדת התוכן (co-location) **מפחיתה את ההקשר (context) הדרוש** למודלי שפה גדולים (LLMs). בנוסף, Intlayer מגיע עם חבילת כלים, כגון **CLI** לבדיקת תרגומים חסרים, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)** ו-**[כישורי סוכן (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)**, כדי להפוך את חוויית המפתח (DX) לחלקה אף יותר עבור סוכני AI.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)
+- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)
 
 </Accordion>
 <Accordion header="אוטומציה">
 
-השתמשו באוטומציה כדי לתרגם בצינור ה-CI/CD שלכם באמצעות ה-LLM לבחירתכם, בעלות ספק ה-AI שלכם. Intlayer מציע גם **מהדר (compiler)** לאוטומציה של חילוץ תוכן, וכן [פלטפורמת אינטרנט](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) המסייעת **לתרגם ברקע**.
+השתמשו באוטומציה כדי לתרגם בצינור ה-CI/CD שלכם באמצעות ה-LLM לבחירתכם, בעלות ספק ה-AI שלכם. Intlayer מציע גם **מהדר (compiler)** לאוטומציה של חילוץ תוכן, וכן [פלטפורמת אינטרנט](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md) המסייעת **לתרגם ברקע**.
 
-- [פלטפורמת אינטרנט](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [פלטפורמת אינטרנט](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="ביצועים">
@@ -103,10 +103,10 @@ Intlayer מותאם לעבודה עם **Server Components** לרינדור יע�
 </Accordion>
 <Accordion header="הרחבת היקף העבודה עם צוותים שאינם מפתחים">
 
-יותר מסתם פתרון i18n,‏ Intlayer מספק **[עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) באחסון עצמי (self-hosted)** ו-**[CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)** כדי לעזור לכם לנהל את התוכן הרב-לשוני שלכם **בזמן אמת**, מה שהופך את שיתוף הפעולה עם מתרגמים, כותבי תוכן וחברי צוות אחרים לחלק ופשוט. ניתן לאחסן תוכן באופן מקומי ו/או מרחוק.
+יותר מסתם פתרון i18n,‏ Intlayer מספק **[עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) באחסון עצמי (self-hosted)** ו-**[CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)** כדי לעזור לכם לנהל את התוכן הרב-לשוני שלכם **בזמן אמת**, מה שהופך את שיתוף הפעולה עם מתרגמים, כותבי תוכן וחברי צוות אחרים לחלק ופשוט. ניתן לאחסן תוכן באופן מקומי ו/או מרחוק.
 
-- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [CMS מלא](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -183,7 +183,7 @@ bun add intlayer next-intlayer
 
 - **intlayer**
 
-  חבילת הליבה המספקת כלי בינאום לניהול תצורה, תרגום, [הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md), טרנספילציה ו-[פקודות CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md).
+  חבילת הליבה המספקת כלי בינאום לניהול תצורה, תרגום, [הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md), טרנספילציה ו-[פקודות CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md).
 
 - **next-intlayer**
 
@@ -218,9 +218,9 @@ bun add intlayer next-intlayer
 └── tsconfig.json
 ```
 
-> אם אינכם מעוניינים בניתוב לפי שפה (locale routing), ניתן להשתמש ב-Intlayer כ-provider / hook פשוט. ראו [מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md) לפרטים נוספים.
+> אם אינכם מעוניינים בניתוב לפי שפה (locale routing), ניתן להשתמש ב-Intlayer כ-provider / hook פשוט. ראו [מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md) לפרטים נוספים.
 
-- [מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md)
+- [מדריך זה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md)
 
 צרו קובץ תצורה כדי להגדיר את השפות של האפליקציה שלכם:
 
@@ -242,9 +242,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> באמצעות קובץ תצורה זה, תוכלו להגדיר כתובות URL מקומיות, הפניות middleware, שמות עוגיות, את המיקום והסיומת של הצהרות התוכן שלכם, לבטל יומני רישום של Intlayer במסוף ועוד. לרשימה מלאה של הפרמטרים הזמינים, עיינו ב[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+> באמצעות קובץ תצורה זה, תוכלו להגדיר כתובות URL מקומיות, הפניות middleware, שמות עוגיות, את המיקום והסיומת של הצהרות התוכן שלכם, לבטל יומני רישום של Intlayer במסוף ועוד. לרשימה מלאה של הפרמטרים הזמינים, עיינו ב[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 </Step>
 <Step number={3} title="שילוב Intlayer בהגדרות Next.js">
@@ -285,13 +285,13 @@ export const config = {
 };
 ```
 
-> ה-`intlayerMiddleware` משמש לזיהוי השפה המועדפת על המשתמש והפנייתו לכתובת ה-URL המתאימה כפי שהוגדר ב[תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md). בנוסף, הוא מאפשר לשמור את השפה המועדפת של המשתמש בעוגייה.
+> ה-`intlayerMiddleware` משמש לזיהוי השפה המועדפת על המשתמש והפנייתו לכתובת ה-URL המתאימה כפי שהוגדר ב[תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md). בנוסף, הוא מאפשר לשמור את השפה המועדפת של המשתמש בעוגייה.
 
-- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
-> החל מגרסה 9 של Intlayer, ה-middleware מכבד את האפשרות `routing.enableProxy` (`true` כברירת מחדל). הגדירו `routing.enableProxy: false` בתצורה שלכם כדי להפוך אותו למעביר ישיר (pass-through) מבלי להסיר קובץ זה. ראו את [הערות השחרור של v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/releases/v9.md).
+> החל מגרסה 9 של Intlayer, ה-middleware מכבד את האפשרות `routing.enableProxy` (`true` כברירת מחדל). הגדירו `routing.enableProxy: false` בתצורה שלכם כדי להפוך אותו למעביר ישיר (pass-through) מבלי להסיר קובץ זה. ראו את [הערות השחרור של v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/releases/v9.md).
 
-- [הערות השחרור של v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/releases/v9.md)
+- [הערות השחרור של v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/releases/v9.md)
 
 > התאימו את הפרמטר `matcher` כך שיתאים לנתיבי האפליקציה שלכם. לפרטים נוספים, עיינו ב[תיעוד של Next.js לגבי הגדרת ה-matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
 
@@ -461,9 +461,9 @@ export default pageContent;
 
 > הצהרות התוכן שלכם יכולות להיות מוגדרות בכל מקום באפליקציה שלכם, כל עוד הן נכללות בתיקייה `contentDir` (כברירת מחדל, `./src`) ותואמות לסיומת קובץ הצהרת התוכן (כברירת מחדל, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
-> לפרטים נוספים, עיינו ב[תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+> לפרטים נוספים, עיינו ב[תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 </Step>
 <Step number={7} title="שימוש בתוכן בקוד שלכם">
@@ -608,9 +608,9 @@ const ServerComponentExample: FC = () => {
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
-> למידע נוסף על Hook ה-`useIntlayer`, עיינו ב[תיעוד](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/useIntlayer.md).
+> למידע נוסף על Hook ה-`useIntlayer`, עיינו ב[תיעוד](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/next-intlayer/useIntlayer.md).
 
-- [תיעוד Hook ה-useIntlayer | next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/useIntlayer.md)
+- [תיעוד Hook ה-useIntlayer | next-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/next-intlayer/useIntlayer.md)
 
 </Step>
 <Step number={8} title="בינאום המטא-דאטה שלכם" isOptional={true}>
@@ -839,9 +839,9 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-> דרך חלופית היא להשתמש בפונקציה `setLocale` המסופקת על ידי Hook ה-`useLocale`. פונקציה זו לא תאפשר ביצוע prefetch לדף. ראו את [תיעוד Hook ה-useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/useLocale.md) לפרטים נוספים.
+> דרך חלופית היא להשתמש בפונקציה `setLocale` המסופקת על ידי Hook ה-`useLocale`. פונקציה זו לא תאפשר ביצוע prefetch לדף. ראו את [תיעוד Hook ה-useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/next-intlayer/useLocale.md) לפרטים נוספים.
 
-- [תיעוד Hook ה-useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/useLocale.md)
+- [תיעוד Hook ה-useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/next-intlayer/useLocale.md)
 
 > תוכלו גם להגדיר פונקציה באפשרות `onLocaleChange` כדי להפעיל פונקציה מותאמת אישית בעת שינוי השפה.
 
@@ -862,19 +862,19 @@ return (
 
 > הפניות לתיעוד:
 >
-> - [Hook ה-`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/useLocale.md)
-> - [הפונקציה `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocaleName.md)
-> - [הפונקציה `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
-> - [הפונקציה `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getHTMLTextDir.md)
+> - [Hook ה-`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/next-intlayer/useLocale.md)
+> - [הפונקציה `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocaleName.md)
+> - [הפונקציה `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)
+> - [הפונקציה `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getHTMLTextDir.md)
 > - [מאפיין `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [מאפיין `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [מאפיין `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [מאפיין `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-- [Hook ה-useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/useLocale.md)
-- [הפונקציה getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocaleName.md)
-- [הפונקציה getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
-- [הפונקציה getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getHTMLTextDir.md)
+- [Hook ה-useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/next-intlayer/useLocale.md)
+- [הפונקציה getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocaleName.md)
+- [הפונקציה getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)
+- [הפונקציה getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getHTMLTextDir.md)
 
 </Step>
 <Step number={11} title="יצירת רכיב Link מקומי" isOptional={true}>
@@ -1049,16 +1049,16 @@ Intlayer עושה שימוש ב-module augmentation כדי להפיק תועלת
 - **תצוגה מקדימה מוטמעת (Inline previews)** של תוכן מתורגם.
 - **פעולות מהירות (Quick actions)** ליצירה ועדכון פשוטים של תרגומים.
 
-לפרטים נוספים על אופן השימוש בהרחבה, עיינו ב[תיעוד של הרחבת VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md).
+לפרטים נוספים על אופן השימוש בהרחבה, עיינו ב[תיעוד של הרחבת VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md).
 
-- [תיעוד הרחבת VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
+- [תיעוד הרחבת VS Code של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)
 
 ### להעמיק עוד
 
-כדי להעמיק עוד, תוכלו ליישם את ה[עורך הויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) או להעביר את התוכן שלכם לניהול חיצוני באמצעות ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md).
+כדי להעמיק עוד, תוכלו ליישם את ה[עורך הויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) או להעביר את התוכן שלכם לניהול חיצוני באמצעות ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md).
 
-- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 ## שאלות נפוצות
 
@@ -1072,68 +1072,68 @@ Intlayer עושה שימוש ב-module augmentation כדי להפיק תועלת
 - **`Lingui`**: מונחה חילוץ (extraction driven), עם הודעות ICU המהודרות בזמן בנייה.
 - **`Intlayer`**: הפתרון המתקדם ביותר. תוכן מוצהר בכל מקום בבסיס הקוד שלכם ([לצד כל רכיב או באופן מרוכז](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)), מהודר בזמן בנייה למילונים נפרדים לכל רכיב, בעל טיפוסיות מלאה, עם תרגום מבוסס AI, עורך ויזואלי ו-CMS כלולים.
 
-ההבדל המעשי הוא מה שמגיע לדפדפן. ספריות מבוססות namespace שולחות קטלוגי JSON שלמים לדף, בעוד ש-Intlayer שולח רק את התוכן שהרכיבים המרונדרים צורכים בפועל, מה שמפחית את גודל ה-bundle והדף בעד 50%. ראו [למה Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/interest_of_intlayer.md) ואת [מבחן הביצועים של i18n ב-Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/nextjs.md).
+ההבדל המעשי הוא מה שמגיע לדפדפן. ספריות מבוססות namespace שולחות קטלוגי JSON שלמים לדף, בעוד ש-Intlayer שולח רק את התוכן שהרכיבים המרונדרים צורכים בפועל, מה שמפחית את גודל ה-bundle והדף בעד 50%. ראו [למה Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/interest_of_intlayer.md) ואת [מבחן הביצועים של i18n ב-Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/nextjs.md).
 
-- [למה Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/interest_of_intlayer.md)
-- [מבחן ביצועים של i18n ב-Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/nextjs.md)
+- [למה Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/interest_of_intlayer.md)
+- [מבחן ביצועים של i18n ב-Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/nextjs.md)
 
 </Question>
 <Question title="כמה נפח מוסיף בינאום (i18n) לגודל ה-bundle שלי ב-Next.js?">
 
-הרבה פחות מהגדרה מבוססת namespace, מכיוון שדף לעולם אינו מוריד קטלוג שאינו מרנדר. Server Components פותרים את התוכן שלהם בשרת, ומהדר זמן הבנייה מחליף קריאות ל-`useIntlayer` ברשומות המילון המדויקות שהרכיב משתמש בהן, כך שמפתחות שאינם בשימוש ושפות שאינן נחוצות מושמטים, ו-[מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md) מפצלים את השאר לפי שפה. בהשוואה לחלופות המקובלות, Intlayer מפחית את גודל ה-bundle והדף בעד 50%. ראו [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md) ואת [מבחן הביצועים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/nextjs.md).
+הרבה פחות מהגדרה מבוססת namespace, מכיוון שדף לעולם אינו מוריד קטלוג שאינו מרנדר. Server Components פותרים את התוכן שלהם בשרת, ומהדר זמן הבנייה מחליף קריאות ל-`useIntlayer` ברשומות המילון המדויקות שהרכיב משתמש בהן, כך שמפתחות שאינם בשימוש ושפות שאינן נחוצות מושמטים, ו-[מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md) מפצלים את השאר לפי שפה. בהשוואה לחלופות המקובלות, Intlayer מפחית את גודל ה-bundle והדף בעד 50%. ראו [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md) ואת [מבחן הביצועים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/nextjs.md).
 
-- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md)
-- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
-- [מבחן ביצועים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/nextjs.md)
+- [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md)
+- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
+- [מבחן ביצועים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/nextjs.md)
 
 </Question>
 <Question title="האם ניתן להגר מ-next-intl,‏ next-i18next או i18next מבלי לכתוב מחדש את הרכיבים שלי?">
 
-כן, וישנם שני מסלולים. תוכלו להגר את התוכן בהדרגה בעזרת [מדריך ההגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-intl_to_intlayer.md) או [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md). לחלופין, תוכלו לשמור על ה-API הנוכחי שלכם במלואו: [מתאמי התאימות (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/index.md) חושפים בדיוק את אותו ה-API כמו `next-intl`,‏ `react-i18next` ו-`react-intl`, אך מוגשים באמצעות מילוני Intlayer, כך שרק הייבוא משתנה וקוד הרכיב נשאר בעינו.
+כן, וישנם שני מסלולים. תוכלו להגר את התוכן בהדרגה בעזרת [מדריך ההגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-intl_to_intlayer.md) או [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md). לחלופין, תוכלו לשמור על ה-API הנוכחי שלכם במלואו: [מתאמי התאימות (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/index.md) חושפים בדיוק את אותו ה-API כמו `next-intl`,‏ `react-i18next` ו-`react-intl`, אך מוגשים באמצעות מילוני Intlayer, כך שרק הייבוא משתנה וקוד הרכיב נשאר בעינו.
 
-- [מדריך הגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-intl_to_intlayer.md)
-- [מדריך הגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md)
-- [מתאמי תאימות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/index.md)
+- [מדריך הגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-intl_to_intlayer.md)
+- [מדריך הגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md)
+- [מתאמי תאימות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/index.md)
 
 </Question>
 <Question title="האם ניתן לשמור על קובצי תרגום ה-JSON הקיימים שלי?">
 
-כן. ה-[פלאגין לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md) שומר על קובצי `/messages/{locale}/{namespace}.json` שלכם כמקור האמת ומייצר מהם מילוני Intlayer, בשני הכיוונים. [פלאגין לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md) עושה את אותו הדבר עבור קטלוגי gettext, ו-[קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md) מאפשרים לכם לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ אחד.
+כן. ה-[פלאגין לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md) שומר על קובצי `/messages/{locale}/{namespace}.json` שלכם כמקור האמת ומייצר מהם מילוני Intlayer, בשני הכיוונים. [פלאגין לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md) עושה את אותו הדבר עבור קטלוגי gettext, ו-[קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md) מאפשרים לכם לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ אחד.
 
-- [פלאגין לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md)
-- [פלאגין לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md)
-- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md)
+- [פלאגין לסנכרון JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-json.md)
+- [פלאגין לסנכרון PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/plugins/sync-po.md)
+- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md)
 
 </Question>
 <Question title="האם אני חייב להעביר את התוכן שלי מפתח אחר מפתח?">
 
-לא. הריצו `npx intlayer extract` ו-Intlayer יקרא את קובצי המקור שלכם, יחלץ את המחרוזות הפונות למשתמש ויכתוב קובץ `.content` לצד כל אחד מהם, כך שתוכלו לבדוק diff במקום להעתיק מחרוזות לקטלוג אחת אחת. ראו את [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md).
+לא. הריצו `npx intlayer extract` ו-Intlayer יקרא את קובצי המקור שלכם, יחלץ את המחרוזות הפונות למשתמש ויכתוב קובץ `.content` לצד כל אחד מהם, כך שתוכלו לבדוק diff במקום להעתיק מחרוזות לקטלוג אחת אחת. ראו את [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md).
 
-- [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)
+- [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/extract.md)
 
-עבור צינור אוטומטי לחלוטין, ה-[מהדר של Intlayer (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md) עושה את אותו הדבר בזמן בנייה על מקורות JSX, TSX, Vue ו-Svelte, ומייצר את המילונים בכל שינוי כך שאין מפתחות שצריך לתחזק ידנית. הוא פועל באמצעות ניתוח סטטי, כך שמחרוזות שקיימות רק בזמן ריצה נשארות מחוץ להישג ידו, והוא זקוק למספר הערות כדי להבדיל בין טקסט הפונה למשתמש לבין לוגיקת האפליקציה.
+עבור צינור אוטומטי לחלוטין, ה-[מהדר של Intlayer (Intlayer Compiler)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md) עושה את אותו הדבר בזמן בנייה על מקורות JSX, TSX, Vue ו-Svelte, ומייצר את המילונים בכל שינוי כך שאין מפתחות שצריך לתחזק ידנית. הוא פועל באמצעות ניתוח סטטי, כך שמחרוזות שקיימות רק בזמן ריצה נשארות מחוץ להישג ידו, והוא זקוק למספר הערות כדי להבדיל בין טקסט הפונה למשתמש לבין לוגיקת האפליקציה.
 
-- [מהדר Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md)
+- [מהדר Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compiler.md)
 
 </Question>
 <Question title="אילו כלי עורך וסוכן AI זמינים?">
 
 חמישה כלים, כולם אופציונליים:
 
-- **[הרחבה ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)**: קפיצה ממפתח ב-`useIntlayer` לקובץ התוכן שמצהיר עליו, חילוץ תוכן מקומפוננטה, והרצת build, fill, test, push ו-pull מפלטת הפקודות או מלשונית Intlayer ייעודית.
-- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**: אותה מודעות בכל עורך התומך ב-LSP, עם מעבר להגדרה (go to definition), חיפוש כל ההפניות, תצוגה מקדימה בריחוף (hover) של ערך מתורגם, השלמה אוטומטית של מפתחות ושדות, ואזהרה כאשר מפתח אינו מוצהר בשום מקום. הוא גם מפענח קריאות של `i18next`,‏ `react-i18next`,‏ `next-intl` ו-`use-intl`, מה שעוזר במהלך ההגירה.
-- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer עבור Cursor,‏ VS Code,‏ Claude Desktop,‏ Claude Code ו-ChatGPT, כך שעוזר יענה מתוך תיעוד עדכני במקום לנחש, ויוכל להריץ פקודות כמו `intlayer fill` בעצמו.
-- **[כישורי סוכן (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**: כישורים ממוקדים כגון `intlayer-config`,‏ `intlayer-cli` ו-`intlayer-content`, בתוספת אחד לכל framework, המלמדים סוכן את הגדרות הניתוב שלכם ואת סוגי צמתי התוכן.
-- **[פלאגין ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/eslint.md)**: הכלל `no-raw-text` מסמן מחרוזות מוקלדות בקוד (hardcoded), עם כללים נוספים למפתחות מילון סטטיים ותוכן שאינו בשימוש.
+- **[הרחבה ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)**: קפיצה ממפתח ב-`useIntlayer` לקובץ התוכן שמצהיר עליו, חילוץ תוכן מקומפוננטה, והרצת build, fill, test, push ו-pull מפלטת הפקודות או מלשונית Intlayer ייעודית.
+- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)**: אותה מודעות בכל עורך התומך ב-LSP, עם מעבר להגדרה (go to definition), חיפוש כל ההפניות, תצוגה מקדימה בריחוף (hover) של ערך מתורגם, השלמה אוטומטית של מפתחות ושדות, ואזהרה כאשר מפתח אינו מוצהר בשום מקום. הוא גם מפענח קריאות של `i18next`,‏ `react-i18next`,‏ `next-intl` ו-`use-intl`, מה שעוזר במהלך ההגירה.
+- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer עבור Cursor,‏ VS Code,‏ Claude Desktop,‏ Claude Code ו-ChatGPT, כך שעוזר יענה מתוך תיעוד עדכני במקום לנחש, ויוכל להריץ פקודות כמו `intlayer fill` בעצמו.
+- **[כישורי סוכן (Agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)**: כישורים ממוקדים כגון `intlayer-config`,‏ `intlayer-cli` ו-`intlayer-content`, בתוספת אחד לכל framework, המלמדים סוכן את הגדרות הניתוב שלכם ואת סוגי צמתי התוכן.
+- **[פלאגין ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/eslint.md)**: הכלל `no-raw-text` מסמן מחרוזות מוקלדות בקוד (hardcoded), עם כללים נוספים למפתחות מילון סטטיים ותוכן שאינו בשימוש.
 
 </Question>
 <Question title="באילו גרסאות של Next.js תומך Intlayer?">
 
-Next.js 12, 13, 14, 15 ו-16. מדריך זה עוסק ב-Next.js 14. עבור Next.js 16, עקבו אחר [מדריך Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md). עבור Next.js 15, עקבו אחר [מדריך Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_15.md). עבור ה-Pages Router, עקבו אחר [מדריך Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_page_router.md).
+Next.js 12, 13, 14, 15 ו-16. מדריך זה עוסק ב-Next.js 14. עבור Next.js 16, עקבו אחר [מדריך Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md). עבור Next.js 15, עקבו אחר [מדריך Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_15.md). עבור ה-Pages Router, עקבו אחר [מדריך Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_page_router.md).
 
-- [מדריך Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md)
-- [מדריך Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_15.md)
-- [מדריך Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_page_router.md)
+- [מדריך Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md)
+- [מדריך Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_15.md)
+- [מדריך Pages Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_page_router.md)
 
 </Question>
 <Question title="האם Intlayer פועל עם React Server Components?">
@@ -1143,10 +1143,10 @@ Next.js 12, 13, 14, 15 ו-16. מדריך זה עוסק ב-Next.js 14. עבור N
 </Question>
 <Question title="האם אני חייב לשים את השפה ב-URL, כמו /fr/about?">
 
-לא. `routing.mode` מקבל `"prefix-no-default"` (ברירת המחדל, `/about` עבור שפת ברירת המחדל ו-`/fr/about` עבור האחרות), `"prefix-all"`, `"no-prefix"` (נפתר מעוגייה, כותרת או דומיין) ו-`"search-params"` (`/about?locale=fr`). ההגדרה `routing.domains` ממפה כל שפה לדומיין משלה. ראו את [הפניית התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md) ואת [המדריך ללא נתיב שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md).
+לא. `routing.mode` מקבל `"prefix-no-default"` (ברירת המחדל, `/about` עבור שפת ברירת המחדל ו-`/fr/about` עבור האחרות), `"prefix-all"`, `"no-prefix"` (נפתר מעוגייה, כותרת או דומיין) ו-`"search-params"` (`/about?locale=fr`). ההגדרה `routing.domains` ממפה כל שפה לדומיין משלה. ראו את [הפניית התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md) ואת [המדריך ללא נתיב שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md).
 
-- [הפניית תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
-- [מדריך ללא נתיב שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md)
+- [הפניית תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
+- [מדריך ללא נתיב שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="כיצד אוכל להוסיף תגיות hreflang ומטא-דאטה מותאם לשפות עבור SEO?">
@@ -1166,45 +1166,45 @@ Next.js 12, 13, 14, 15 ו-16. מדריך זה עוסק ב-Next.js 14. עבור N
 </Question>
 <Question title="כיצד אוכל לתרגם את האפליקציה באופן אוטומטי באמצעות AI?">
 
-הריצו `npx intlayer fill`. הפקודה משלימה תרגומים חסרים באמצעות ה-LLM לבחירתכם, תוך שימוש בספק ובמפתח ה-API שלכם, והדגל `--git-diff` מגביל את ההרצה לתוכן שהשתנה בענף הנוכחי. ראו את [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md) ו-[שילוב CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md).
+הריצו `npx intlayer fill`. הפקודה משלימה תרגומים חסרים באמצעות ה-LLM לבחירתכם, תוך שימוש בספק ובמפתח ה-API שלכם, והדגל `--git-diff` מגביל את ההרצה לתוכן שהשתנה בענף הנוכחי. ראו את [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md) ו-[שילוב CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/CI_CD.md).
 
-- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md)
-- [שילוב CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md)
+- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md)
+- [שילוב CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/CI_CD.md)
 
 </Question>
 <Question title="האם Intlayer תומך בריבוי (plurals), מגדר וטקסט עשיר?">
 
-כן: [צורות רבים (plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md), [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md), תנאים, [החדרות (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md) ו-[מעצבים (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md) עבור מספרים, תאריכים ומטבעות.
+כן: [צורות רבים (plural forms)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/plurial.md), [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md), תנאים, [החדרות (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md) ו-[מעצבים (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/formatters.md) עבור מספרים, תאריכים ומטבעות.
 
-- [צורות רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md)
-- [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)
-- [החדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)
-- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md)
-- [מעצבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md)
+- [צורות רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/plurial.md)
+- [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md)
+- [החדרות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md)
+- [מעצבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/formatters.md)
 
 </Question>
 <Question title="כיצד מתרגמים יכולים לערוך את התוכן מבלי לגעת בקוד?">
 
-באמצעות ה-[עורך הויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md), הפועל על התשתית שלכם ומאפשר לכל אחד לערוך טקסט ישירות באפליקציה הפועלת, או באמצעות ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md), המחצין את התוכן כך שניתן לשנותו ללא פריסה מחדש.
+באמצעות ה-[עורך הויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md), הפועל על התשתית שלכם ומאפשר לכל אחד לערוך טקסט ישירות באפליקציה הפועלת, או באמצעות ה-[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md), המחצין את התוכן כך שניתן לשנותו ללא פריסה מחדש.
 
-- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Question>
 <Question title="מהי העלות של העורך הויזואלי? האם זה מכביד אם אינני זקוק לו?">
 
-ל-[עורך הויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) יש **אפס השפעה (zero cost)** על האפליקציה שלכם אם אינו מוגדר. הלוגיקה הנוספת נטענת רק אם הופעלה ונחוצה במפורש.
+ל-[עורך הויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) יש **אפס השפעה (zero cost)** על האפליקציה שלכם אם אינו מוגדר. הלוגיקה הנוספת נטענת רק אם הופעלה ונחוצה במפורש.
 
-- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
+- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
 
 אם הוא מופעל, ההשפעה קלה במיוחד (+5 KB, נטען דינמית רק בעת הפעלה) מכיוון שהלוגיקה הראשית מנוהלת על ידי עורך השרת ב-[app.intlayer.org](https://app.intlayer.org) או דרך חבילת `intlayer-editor`. אם אתם זקוקים להגדרת תרגום פשוטה בלבד ללא עריכה ויזואלית, Intlayer אינו מוסיף שום עומס לאפליקציה שלכם.
 
 </Question>
 <Question title="האם Intlayer חינמי ובקוד פתוח?">
 
-כן, תחת רישיון Apache 2.0, כולל שימוש מסחרי. ה-CMS המאוחסן הוא שירות אופציונלי בתשלום שניתן גם [לארח עצמאית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md).
+כן, תחת רישיון Apache 2.0, כולל שימוש מסחרי. ה-CMS המאוחסן הוא שירות אופציונלי בתשלום שניתן גם [לארח עצמאית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md).
 
-- [אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
+- [אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)
 
 </Question>
 

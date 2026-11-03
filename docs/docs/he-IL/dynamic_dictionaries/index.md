@@ -29,10 +29,10 @@ author: aymericzip
 
 Intlayer תומך בשני מנגנונים להבעת תוכן החורג ממילון סטטי בודד לכל מפתח. כל אחד מהם מוצהר באמצעות **שדה מטא-דאטה ברמה העליונה** בקובץ התוכן; אין צורך בפונקציית עטיפה (wrapper function).
 
-| תכונה                                                                                                                       | שדה מטא-דאטה                            | בורר (Selector) ב-`useIntlayer`                 |
-| :-------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :---------------------------------------------- |
-| [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/collections.md) | `item: N`                               | `{ item: N }`                                   |
-| [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md)       | `variant: "name"` _או_ `variant: { … }` | `{ variant: "name" }` _או_ `{ variant: { … } }` |
+| תכונה                                                                                                                          | שדה מטא-דאטה                            | בורר (Selector) ב-`useIntlayer`                 |
+| :----------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :---------------------------------------------- |
+| [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/collections.md) | `item: N`                               | `{ item: N }`                                   |
+| [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md)       | `variant: "name"` _או_ `variant: { … }` | `{ variant: "name" }` _או_ `{ variant: { … } }` |
 
 שניהם משתלבים עם ארגומנט השפה (locale) ותומכים בטעינה בררנית / עצלה (lazy loading) באמצעות `importMode`.
 

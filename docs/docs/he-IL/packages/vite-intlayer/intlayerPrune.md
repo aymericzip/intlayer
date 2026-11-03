@@ -32,9 +32,9 @@ author: aymericzip
 
 `intlayerPrune` הוא תוסף Vite המסיר שדות תוכן שאינם בשימוש מקובצי JSON של מילונים מהודרים במהלך בניית ייצור (production build). במקום לשלוח כל שדה מכל מילון, רק השדות שניגשים אליהם בפועל בקוד המקור שלך נכללים ב-bundle.
 
-> התוסף כבר כלול ומוגדר אוטומטית בעת שימוש ב-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md). עליך לרשום אותו ידנית רק אם אתה מרכיב את מחסנית התוספים בעצמך.
+> התוסף כבר כלול ומוגדר אוטומטית בעת שימוש ב-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md). עליך לרשום אותו ידנית רק אם אתה מרכיב את מחסנית התוספים בעצמך.
 
-- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md)
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md)
 
 ## שימוש
 

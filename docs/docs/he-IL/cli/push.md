@@ -40,9 +40,9 @@ pnpm intlayer dictionary push
 bun x intlayer dictionary push
 ```
 
-אם [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) מותקן, תוכל גם להעלות מילונים לעורך. פקודה זו תאפשר להפוך את המילונים לזמינים ב[עורך](https://app.intlayer.org/). בדרך זו תוכל לשתף את המילונים שלך עם הצוות שלך ולערוך את התוכן ללא צורך בעריכת קוד האפליקציה.
+אם [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) מותקן, תוכל גם להעלות מילונים לעורך. פקודה זו תאפשר להפוך את המילונים לזמינים ב[עורך](https://app.intlayer.org/). בדרך זו תוכל לשתף את המילונים שלך עם הצוות שלך ולערוך את התוכן ללא צורך בעריכת קוד האפליקציה.
 
-- [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
+- [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
 
 ## כינויים (Aliases):
 

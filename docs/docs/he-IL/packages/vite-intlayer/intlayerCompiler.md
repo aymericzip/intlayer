@@ -30,9 +30,9 @@ author: aymericzip
 
 `intlayerCompiler` הוא תוסף Vite הסורק קובצי מקור של רכיבים לאיתור **הצהרות תוכן מוטבעות של Intlayer**, תוכן המוגדר ישירות בתוך רכיב ולא בקובץ `.content.ts` נפרד, וכותב אותן לקובצי JSON של מילונים במהלך שלב הטרנספורמציה (transform phase).
 
-> **החל מ-Intlayer גרסה 9** `intlayerCompiler` נכלל אוטומטית בתוך תוסף ה-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md) הראשי כאשר גם `compiler.enabled` מוגדר כ-`true` וגם `compiler.output` מוגדר בתצורת ה-Intlayer שלך. עליך לרשום אותו בנפרד רק כאשר אתה מעוניין בשליטה מלאה על תצורה ייעודית של המהדר.
+> **החל מ-Intlayer גרסה 9** `intlayerCompiler` נכלל אוטומטית בתוך תוסף ה-[`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md) הראשי כאשר גם `compiler.enabled` מוגדר כ-`true` וגם `compiler.output` מוגדר בתצורת ה-Intlayer שלך. עליך לרשום אותו בנפרד רק כאשר אתה מעוניין בשליטה מלאה על תצורה ייעודית של המהדר.
 
-- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayer.md)
+- [`intlayer()`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayer.md)
 
 ## שימוש
 

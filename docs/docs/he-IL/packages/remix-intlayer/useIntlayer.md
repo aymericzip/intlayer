@@ -90,6 +90,6 @@ useIntlayer(key, localeOrSelector?)
 
 ## תיעוד קשור
 
-- [תוכנת תיווך `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/intlayerMiddleware.md)
-- [הוק `useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/useDictionary.md)
-- [הוק `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/remix-intlayer/useLocale.md)
+- [תוכנת תיווך `intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/intlayerMiddleware.md)
+- [הוק `useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/useDictionary.md)
+- [הוק `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/remix-intlayer/useLocale.md)

@@ -77,9 +77,9 @@ author: aymericzip
 
 חשוב מאוד שכל מפתחות התוכן יוגדרו בתוך קובצי הצהרת תוכן כדי למנוע שגיאות בזמן ריצה ולהבטיח בטיחות טיפוסים. גישה זו גם מקלה על שילוב TypeScript לצורך אימות בזמן הידור.
 
-הנחיות להגדרת קובצי הצהרת תוכן זמינות [כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+הנחיות להגדרת קובצי הצהרת תוכן זמינות [כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [קובצי הצהרת תוכן (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [קובצי הצהרת תוכן (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 ## דוגמת שימוש ב-Next.js
 
@@ -187,6 +187,6 @@ const ServerComponentExample: FC = () => {
 
 ## מידע נוסף
 
-- **העורך הוויזואלי של Intlayer**: למד כיצד להשתמש בעורך הוויזואלי לניהול תוכן קל יותר [כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md).
+- **העורך הוויזואלי של Intlayer**: למד כיצד להשתמש בעורך הוויזואלי לניהול תוכן קל יותר [כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md).
 
 תיעוד זה מתאר את השימוש בהוק `useIntlayer` ספציפית בתוך סביבות Next.js, ומספק פתרון איתן לניהול בינאום בכל יישומי ה-Next.js שלך.

@@ -133,9 +133,9 @@ npx intlayer init infra --mode compose
     Upgrade   docker compose pull && docker compose up -d
 ```
 
-כאשר מציינים דומיין (למשל `example.org`), תוכנית ההתקנה מציעה את `https://cms.example.org`, `https://back.example.org` ו-`https://s3.example.org/intlayer` עבור לוח הבקרה, ה-API ואחסון האובייקטים, כותבת אותם לקובץ הסביבה ומשנה את פקודת ההפעלה לבנייה מתוך המאגר, שכן תמונת לוח הבקרה המפורסמת פועלת רק על `localhost`. ראה [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md#custom-domain).
+כאשר מציינים דומיין (למשל `example.org`), תוכנית ההתקנה מציעה את `https://cms.example.org`, `https://back.example.org` ו-`https://s3.example.org/intlayer` עבור לוח הבקרה, ה-API ואחסון האובייקטים, כותבת אותם לקובץ הסביבה ומשנה את פקודת ההפעלה לבנייה מתוך המאגר, שכן תמונת לוח הבקרה המפורסמת פועלת רק על `localhost`. ראה [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md#custom-domain).
 
-- [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md#custom-domain)
+- [Custom domain](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md#custom-domain)
 
 ## הגדרות תוכנית ההתקנה
 
@@ -160,9 +160,9 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose  | המיקום שבו ייכתבו `docker-compose.yml` ו-`.env`  |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | שניהם    | Git ref שממנו נמשכים קובץ ה-compose ותבנית ה-env |
 
-> משתני הפורטים משנים רק את צד ה-**host** של המיפוי. לתמונות המפורסמות יש את `http://localhost:3000`, `http://localhost:3100` ו-`http://localhost:9000` מהודרים לתוך הבאנדל של לוח הבקרה, לכן שמור על ברירות המחדל אלא אם אתה בונה תמונות משלך: ראה [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md#limitations).
+> משתני הפורטים משנים רק את צד ה-**host** של המיפוי. לתמונות המפורסמות יש את `http://localhost:3000`, `http://localhost:3100` ו-`http://localhost:9000` מהודרים לתוך הבאנדל של לוח הבקרה, לכן שמור על ברירות המחדל אלא אם אתה בונה תמונות משלך: ראה [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md#limitations).
 
-- [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md#limitations)
+- [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md#limitations)
 
 ## דרישות
 
@@ -174,10 +174,10 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 - הרצה חוזרת של הפקודה בטוחה לחלוטין: קובץ סביבה קיים לעולם אינו נדרס, כך שהיא משמשת גם כנתיב שדרוג (תוכנית ההתקנה מושכת את התמונות העדכניות ביותר ושומרת על הסודות שלך).
 - תוכנית ההתקנה מורדת לספרייה זמנית ונמחקת ברגע שהיא מסתיימת, ללא קשר לתוצאה.
 - קוד היציאה של הפקודה הוא זה של תוכנית ההתקנה. אם ההורדה עצמה נכשלת, ה-CLI מדפיס את פקודת `curl … | sh` (או `irm … | iex`) המקבילה כדי שתוכל להריץ את תוכנית ההתקנה ישירות.
-- מצבי Docker דורשים שירות דואר (mailer) כדי לשלוח הודעות אימייל להתחברות. תוכנית ההתקנה שואלת על כך; אם תדלג על השאלה (או תריץ ללא טרמינל אינטראקטיבי, שבו מדלגים על השאלות לחלוטין), הגדר את Resend או SMTP בקובץ הסביבה שנוצר: ראה [שירות דואר גלובלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md#global-mailer).
+- מצבי Docker דורשים שירות דואר (mailer) כדי לשלוח הודעות אימייל להתחברות. תוכנית ההתקנה שואלת על כך; אם תדלג על השאלה (או תריץ ללא טרמינל אינטראקטיבי, שבו מדלגים על השאלות לחלוטין), הגדר את Resend או SMTP בקובץ הסביבה שנוצר: ראה [שירות דואר גלובלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md#global-mailer).
 
 ## נושאים קשורים
 
-- [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
-- [אתחול Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/init.md)
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [מדריך אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)
+- [אתחול Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)

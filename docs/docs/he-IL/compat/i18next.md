@@ -25,9 +25,9 @@ author: aymericzip
 
 # @intlayer/i18next: מתאם תאימות עבור i18next
 
-למדריך מפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md).
+למדריך מפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md).
 
-- [מדריך הגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md)
+- [מדריך הגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_i18next_to_intlayer.md)
 
 Intlayer משכפלת בצורה מושלמת את מאפייני זמן הריצה המרכזיים של `i18next`. באמצעות חבילת התאימות, אפליקציות ה-Vanilla או המודולים הפנימיים שלכם יכולים להמשיך להשתמש בתחביר המוכר.
 

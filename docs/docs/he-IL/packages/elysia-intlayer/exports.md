@@ -57,9 +57,9 @@ bun add intlayer elysia-intlayer
 import { intlayer } from "elysia-intlayer";
 ```
 
-| פונקציה    | תיאור                                                                                                                                                                                                                                                                       | תיעוד קשור                                                                                                     |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `intlayer` | תוסף Elysia המשלב את Intlayer באפליקציית ה-Elysia שלך. מטפל בזיהוי שפה מאחסון (עוגייה, כותרת) ולאחר מכן מ-`Accept-Language`, מזריק אובייקט `intlayer` החושף את `locale`, `t`, `getIntlayer` ו-`getDictionary` לתוך הקשר הנתיב, ומגדיר את הקשר הבקשה של `AsyncLocalStorage`. | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/elysia-intlayer/intlayer.md) |
+| פונקציה    | תיאור                                                                                                                                                                                                                                                                       | תיעוד קשור                                                                                                        |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `intlayer` | תוסף Elysia המשלב את Intlayer באפליקציית ה-Elysia שלך. מטפל בזיהוי שפה מאחסון (עוגייה, כותרת) ולאחר מכן מ-`Accept-Language`, מזריק אובייקט `intlayer` החושף את `locale`, `t`, `getIntlayer` ו-`getDictionary` לתוך הקשר הנתיב, ומגדיר את הקשר הבקשה של `AsyncLocalStorage`. | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/elysia-intlayer/intlayer.md) |
 
 ### פונקציות
 
@@ -69,11 +69,11 @@ import { intlayer } from "elysia-intlayer";
 import { t, getIntlayer, getDictionary } from "elysia-intlayer";
 ```
 
-| פונקציה         | תיאור                                                                                                                                                                                                               | תיעוד קשור                                                                                             |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `t`             | פונקציית תרגום גלובלית המאחזרת תוכן עבור השפה הנוכחית ב-Elysia. משתמשת ב-`AsyncLocalStorage` כדי לגשת להקשר הבקשה שהוגדר על ידי תוסף `intlayer`, וחוזרת לשפת ברירת המחדל מחוצה לו. ניתנת לגישה גם דרך `intlayer.t`. | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md) |
-| `getIntlayer`   | מאחזרת מילון לפי המפתח שלו מתוך ההצהרה שנוצרה ומחזירה את התוכן שלו עבור השפה הנוכחית. גרסה מותאמת של `getDictionary`. משתמשת ב-`AsyncLocalStorage` לגישה להקשר הבקשה. ניתנת לגישה גם דרך `intlayer.getIntlayer`.    | -                                                                                                      |
-| `getDictionary` | מעבדת אובייקטי מילון ומחזירה תוכן עבור השפה הנוכחית. מעבדת תרגומי `t()`, ריבוי, markdown, HTML וכו'. משתמשת ב-`AsyncLocalStorage` לגישה להקשר הבקשה. ניתנת לגישה גם דרך `intlayer.getDictionary`.                   | -                                                                                                      |
+| פונקציה         | תיאור                                                                                                                                                                                                               | תיעוד קשור                                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `t`             | פונקציית תרגום גלובלית המאחזרת תוכן עבור השפה הנוכחית ב-Elysia. משתמשת ב-`AsyncLocalStorage` כדי לגשת להקשר הבקשה שהוגדר על ידי תוסף `intlayer`, וחוזרת לשפת ברירת המחדל מחוצה לו. ניתנת לגישה גם דרך `intlayer.t`. | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md) |
+| `getIntlayer`   | מאחזרת מילון לפי המפתח שלו מתוך ההצהרה שנוצרה ומחזירה את התוכן שלו עבור השפה הנוכחית. גרסה מותאמת של `getDictionary`. משתמשת ב-`AsyncLocalStorage` לגישה להקשר הבקשה. ניתנת לגישה גם דרך `intlayer.getIntlayer`.    | -                                                                                                         |
+| `getDictionary` | מעבדת אובייקטי מילון ומחזירה תוכן עבור השפה הנוכחית. מעבדת תרגומי `t()`, ריבוי, markdown, HTML וכו'. משתמשת ב-`AsyncLocalStorage` לגישה להקשר הבקשה. ניתנת לגישה גם דרך `intlayer.getDictionary`.                   | -                                                                                                         |
 
 ### טיפוסים (Types)
 
@@ -134,5 +134,5 @@ console.log(
 
 ## תיעוד קשור
 
-- [תרגם את אתר ה-Elysia backend שלך באמצעות Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_elysia.md)
-- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תרגם את אתר ה-Elysia backend שלך באמצעות Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_elysia.md)
+- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)

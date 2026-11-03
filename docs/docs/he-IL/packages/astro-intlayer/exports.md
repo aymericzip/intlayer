@@ -57,9 +57,9 @@ export default defineConfig({
 });
 ```
 
-| פונקציה    | תיאור                                                                                                                                                                                      | תיעוד קשור                                                                                                    |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| `intlayer` | אינטגרציית Astro המכינה מילונים, מגדירה תוספי Vite (כינויים, פרוקסי לניתוב, ניפוי prune), רושמת אוטומטית middleware לבקשות, ומפיקה דפים שעברו prerender בכתובות URL משוכתבות ומותאמות שפה. | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/intlayer.md) |
+| פונקציה    | תיאור                                                                                                                                                                                      | תיעוד קשור                                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `intlayer` | אינטגרציית Astro המכינה מילונים, מגדירה תוספי Vite (כינויים, פרוקסי לניתוב, ניפוי prune), רושמת אוטומטית middleware לבקשות, ומפיקה דפים שעברו prerender בכתובות URL משוכתבות ומותאמות שפה. | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/intlayer.md) |
 
 ### הוקים (שרת ולקוח)
 
@@ -69,11 +69,11 @@ export default defineConfig({
 import { useIntlayer, useDictionary, useLocale } from "astro-intlayer";
 ```
 
-| הוק             | תיאור                                                                                                                                                                                       | תיעוד קשור                                                                                                              |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | בוחר מילון אחד לפי המפתח שלו ומחזיר את תוכנו המתורגם. ב-frontmatter של `.astro`, הוא קורא את שפת הבקשה מתוך `Astro.locals`. ב-`<script>` של הלקוח, הוא קורא מתוך חנות הלקוח (client store). | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/useIntlayer.md)     |
-| `useDictionary` | מעבד אובייקט מילון ומחזיר תוכן עבור השפה המפוענחת. עובד הן ב-frontmatter והן בסקריפטים של הלקוח.                                                                                            | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/useDictionary.md) |
-| `useLocale`     | מחזיר את השפה הנוכחית, שפת ברירת המחדל, השפות הזמינות ופונקציה לעדכון השפה.                                                                                                                 | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/useLocale.md)         |
+| הוק             | תיאור                                                                                                                                                                                       | תיעוד קשור                                                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | בוחר מילון אחד לפי המפתח שלו ומחזיר את תוכנו המתורגם. ב-frontmatter של `.astro`, הוא קורא את שפת הבקשה מתוך `Astro.locals`. ב-`<script>` של הלקוח, הוא קורא מתוך חנות הלקוח (client store). | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/useIntlayer.md)     |
+| `useDictionary` | מעבד אובייקט מילון ומחזיר תוכן עבור השפה המפוענחת. עובד הן ב-frontmatter והן בסקריפטים של הלקוח.                                                                                            | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/useDictionary.md) |
+| `useLocale`     | מחזיר את השפה הנוכחית, שפת ברירת המחדל, השפות הזמינות ופונקציה לעדכון השפה.                                                                                                                 | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/useLocale.md)         |
 
 ### תוכנת תיווך (astro-intlayer/middleware)
 
@@ -83,9 +83,9 @@ import { useIntlayer, useDictionary, useLocale } from "astro-intlayer";
 import { onRequest } from "astro-intlayer/middleware";
 ```
 
-| ייצוא       | טיפוס               | תיאור                                                                                                                                         | תיעוד קשור                                                                                                      |
-| ----------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `onRequest` | `MiddlewareHandler` | תוכנת תיווך של Astro המזהה את שפת הבקשה ומצרפת את `Astro.locals.intlayer`. נרשמת אוטומטית על ידי `intlayer()`, או מיובאת ידנית להרכבה עצמאית. | [onRequest](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/onRequest.md) |
+| ייצוא       | טיפוס               | תיאור                                                                                                                                         | תיעוד קשור                                                                                                         |
+| ----------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `onRequest` | `MiddlewareHandler` | תוכנת תיווך של Astro המזהה את שפת הבקשה ומצרפת את `Astro.locals.intlayer`. נרשמת אוטומטית על ידי `intlayer()`, או מיובאת ידנית להרכבה עצמאית. | [onRequest](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/onRequest.md) |
 
 ### כלי עזר (Utilities)
 

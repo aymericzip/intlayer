@@ -110,8 +110,8 @@ style="border:none;"
 עבור בנצ'מרק זה, השווינו בין הספריות הבאות:
 
 - `Base App` (ללא ספריית i18n)
-- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vue-intlayer/exports.md) (גרסה 9.5.10)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/vue-i18n.md) (גרסה 9.5.10)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vue-intlayer/exports.md) (גרסה 9.5.10)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/vue-i18n.md) (גרסה 9.5.10)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (גרסה 11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (גרסה 3.8.2)
 - [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (גרסה 7.2.0)

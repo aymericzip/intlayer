@@ -279,24 +279,24 @@ export default {
 
 - **ערכים פרימיטיביים**: מחרוזות (strings), מספרים, בוליאניים, null, undefined
 - **צמתים מטיפוס מוגדר (Typed nodes)**: סוגי תוכן מיוחדים כגון תרגומים, תנאים, markdown וכו'
-- **פונקציות**: תוכן דינמי שניתן להעריך בזמן ריצה [ראה שליפת פונקציה (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/function_fetching.md)
+- **פונקציות**: תוכן דינמי שניתן להעריך בזמן ריצה [ראה שליפת פונקציה (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/function_fetching.md)
 - **תוכן מקונן (Nested content)**: הפניות למילונים אחרים
 
 #### סוגי תוכן (Content Types)
 
 Intlayer תומך במגוון סוגי תוכן באמצעות צמתים בעלי טיפוס ייעודי:
 
-- **תוכן תרגום (Translation Content)**: טקסט רב-לשוני עם ערכים ספציפיים לכל שפה [ראה תוכן תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md)
-- **תוכן תנאי (Condition Content)**: תוכן מותנה המבוסס על ביטויים בוליאניים [ראה תוכן תנאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/condition.md)
-- **תוכן רשימה (Enumeration Content)**: תוכן המשתנה בהתאם לערכים ממוספרים [ראה תוכן רשימה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md)
-- **תוכן רבים (Plural Content)**: תוכן המשתנה בהתאם לכללי ריבוי [ראה תוכן רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md)
-- **תוכן הטמעה (Insertion Content)**: תוכן שניתן להטמיע בתוך תוכן אחר [ראה תוכן הטמעה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)
-- **תוכן Markdown**: תוכן טקסט עשיר בפורמט Markdown [ראה תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md)
-- **תוכן HTML**: תוכן HTML עשיר עם אפשרות לרכיבים מותאמים אישית [ראה תוכן HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/html.md)
-- **תוכן מקונן (Nested Content)**: הפניות למילונים אחרים [ראה תוכן מקונן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/nesting.md)
-- **תוכן מגדרי (Gender Content)**: תוכן המשתנה בהתאם למגדר [ראה תוכן מגדרי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)
-- **תוכן Select**: תוכן המשתנה בהתאם לערך מחרוזת שרירותי [ראה תוכן Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/select.md)
-- **תוכן קובץ (File Content)**: הפניות לקבצים חיצוניים [ראה תוכן קובץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/file.md)
+- **תוכן תרגום (Translation Content)**: טקסט רב-לשוני עם ערכים ספציפיים לכל שפה [ראה תוכן תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md)
+- **תוכן תנאי (Condition Content)**: תוכן מותנה המבוסס על ביטויים בוליאניים [ראה תוכן תנאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/condition.md)
+- **תוכן רשימה (Enumeration Content)**: תוכן המשתנה בהתאם לערכים ממוספרים [ראה תוכן רשימה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md)
+- **תוכן רבים (Plural Content)**: תוכן המשתנה בהתאם לכללי ריבוי [ראה תוכן רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/plurial.md)
+- **תוכן הטמעה (Insertion Content)**: תוכן שניתן להטמיע בתוך תוכן אחר [ראה תוכן הטמעה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md)
+- **תוכן Markdown**: תוכן טקסט עשיר בפורמט Markdown [ראה תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md)
+- **תוכן HTML**: תוכן HTML עשיר עם אפשרות לרכיבים מותאמים אישית [ראה תוכן HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/html.md)
+- **תוכן מקונן (Nested Content)**: הפניות למילונים אחרים [ראה תוכן מקונן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/nesting.md)
+- **תוכן מגדרי (Gender Content)**: תוכן המשתנה בהתאם למגדר [ראה תוכן מגדרי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md)
+- **תוכן Select**: תוכן המשתנה בהתאם לערך מחרוזת שרירותי [ראה תוכן Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/select.md)
+- **תוכן קובץ (File Content)**: הפניות לקבצים חיצוניים [ראה תוכן קובץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/file.md)
 
 ## מבנה מילון
 
@@ -398,9 +398,9 @@ Intlayer תומך במגוון סוגי תוכן באמצעות צמתים בע�
 - אין להשתמש בצומתי תרגום (`t()`) בתוך התוכן בעת שימוש במאפיין זה
 - אם המאפיין חסר, המילון יטופל כמילון רב-לשוני
 
-> ראה [הצהרת תוכן לפי שפה ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md) למידע נוסף.
+> ראה [הצהרת תוכן לפי שפה ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md) למידע נוסף.
 
-- [הצהרת תוכן לפי שפה ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md)
+- [הצהרת תוכן לפי שפה ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md)
 
 **דוגמה:**
 
@@ -511,9 +511,9 @@ export default aboutPageMetaContent;
 - `{{fileName}}` – שם הקובץ (למשל `example`)
 - `{{key}}` – מפתח המילון (למשל `example`)
 
-> ראה [הגדרת Auto-Fill ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/autoFill.md) למידע נוסף.
+> ראה [הגדרת Auto-Fill ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/autoFill.md) למידע נוסף.
 
-- [הגדרת Auto-Fill ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/autoFill.md)
+- [הגדרת Auto-Fill ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/autoFill.md)
 
 ##### `priority` (number)
 
@@ -540,9 +540,9 @@ export default aboutPageMetaContent;
 
 #### `item` (number)
 
-בשימוש בשילוב עם [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/collections.md), שדה זה מגדיר את מיקום הפריט בתוך אוסף. הוא מאפשר לבנות אוספים סדורים של פריטים מתורגמים שניתן לבחור לפי אינדקס בזמן ריצה.
+בשימוש בשילוב עם [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/collections.md), שדה זה מגדיר את מיקום הפריט בתוך אוסף. הוא מאפשר לבנות אוספים סדורים של פריטים מתורגמים שניתן לבחור לפי אינדקס בזמן ריצה.
 
-- [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/collections.md)
+- [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/collections.md)
 
 **דוגמה:**
 
@@ -557,15 +557,15 @@ export default aboutPageMetaContent;
 }
 ```
 
-> ראה [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/collections.md) למידע נוסף.
+> ראה [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/collections.md) למידע נוסף.
 
-- [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/collections.md)
+- [קולקציות (Collections)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/collections.md)
 
 #### `variant` (string)
 
-בשימוש בשילוב עם [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md), שדה זה מגדיר חלופות תוכן בעלות שם. הוא מאפשר לך לעבור בין וריאציות שונות של אותו מפתח מילון בזמן ריצה ללא שינויי קוד (למשל, עבור מבחני A/B, באנרים עונתיים). אם לא צוין, הוא נחשב לגרסת ברירת המחדל.
+בשימוש בשילוב עם [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md), שדה זה מגדיר חלופות תוכן בעלות שם. הוא מאפשר לך לעבור בין וריאציות שונות של אותו מפתח מילון בזמן ריצה ללא שינויי קוד (למשל, עבור מבחני A/B, באנרים עונתיים). אם לא צוין, הוא נחשב לגרסת ברירת המחדל.
 
-- [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md)
+- [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md)
 
 **דוגמה:**
 
@@ -580,9 +580,9 @@ export default aboutPageMetaContent;
 }
 ```
 
-> ראה [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md) למידע נוסף.
+> ראה [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md) למידע נוסף.
 
-- [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md)
+- [וריאציות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md)
 
 ### מאפייני CMS
 
@@ -656,9 +656,9 @@ multilingualContent: t({
 });
 ```
 
-> ראה [תיעוד תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md) למידע נוסף.
+> ראה [תיעוד תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md) למידע נוסף.
 
-- [תיעוד תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md)
+- [תיעוד תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md)
 
 ### תוכן תנאי (`cond`)
 
@@ -673,9 +673,9 @@ conditionalContent: cond({
 });
 ```
 
-> ראה [תיעוד תנאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/condition.md) למידע נוסף.
+> ראה [תיעוד תנאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/condition.md) למידע נוסף.
 
-- [תיעוד תנאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/condition.md)
+- [תיעוד תנאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/condition.md)
 
 ### תוכן רבים (`plural`)
 
@@ -690,9 +690,9 @@ pluralContent: plural({
 });
 ```
 
-> ראה [תיעוד רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md) למידע נוסף.
+> ראה [תיעוד רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/plurial.md) למידע נוסף.
 
-- [תיעוד רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md)
+- [תיעוד רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/plurial.md)
 
 ### תוכן רשימה (`enu`)
 
@@ -708,9 +708,9 @@ statusContent: enu({
 });
 ```
 
-> ראה [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md) למידע נוסף.
+> ראה [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md) למידע נוסף.
 
-- [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md)
+- [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md)
 
 ### תוכן הטמעה (`insert`)
 
@@ -722,9 +722,9 @@ import { insert } from "intlayer";
 insertionContent: insert("This text can be inserted anywhere");
 ```
 
-> ראה [תיעוד Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md) למידע נוסף.
+> ראה [תיעוד Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md) למידע נוסף.
 
-- [תיעוד Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)
+- [תיעוד Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md)
 
 ### תוכן מקונן (`nest`)
 
@@ -736,9 +736,9 @@ import { nest } from "intlayer";
 nestedContent: nest("about-page");
 ```
 
-> ראה [תוכן מקונן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/nesting.md) למידע נוסף.
+> ראה [תוכן מקונן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/nesting.md) למידע נוסף.
 
-- [תוכן מקונן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/nesting.md)
+- [תוכן מקונן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/nesting.md)
 
 ### תוכן Markdown (`md`)
 
@@ -757,9 +757,9 @@ localizedMarkdownContent: t({
 });
 ```
 
-> ראה [תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md) למידע נוסף.
+> ראה [תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md) למידע נוסף.
 
-- [תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md)
+- [תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md)
 
 ### תוכן HTML (`html`)
 
@@ -778,9 +778,9 @@ localizedHtmlContent: t({
 });
 ```
 
-> ראה [תוכן HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/html.md) למידע נוסף.
+> ראה [תוכן HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/html.md) למידע נוסף.
 
-- [תוכן HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/html.md)
+- [תוכן HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/html.md)
 
 ### תוכן מגדרי (`gender`)
 
@@ -796,9 +796,9 @@ genderContent: gender({
 });
 ```
 
-> ראה [תוכן מגדרי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md) למידע נוסף.
+> ראה [תוכן מגדרי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md) למידע נוסף.
 
-- [תוכן מגדרי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)
+- [תוכן מגדרי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md)
 
 ### תוכן Select (`select`)
 
@@ -817,9 +817,9 @@ selectContent: select({
 
 השתמש בו כאשר המבחין (discriminant) אינו כמות (`enu`), אינו בוליאני (`cond`) ואינו מגדר (`gender`). עדיף להשתמש בו על פני אינדוקס של אובייקט רגיל עם ערך בזמן ריצה: גישה מחושבת דינמית אינה ניתנת לפענוח סטטי על ידי הקומפיילר של Intlayer.
 
-> ראה [תוכן Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/select.md) למידע נוסף.
+> ראה [תוכן Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/select.md) למידע נוסף.
 
-- [תוכן Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/select.md)
+- [תוכן Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/select.md)
 
 ### תוכן קובץ (`file`)
 
@@ -831,9 +831,9 @@ import { file } from "intlayer";
 fileContent: file("./path/to/content.txt");
 ```
 
-> ראה [תוכן קובץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/file.md) למידע נוסף.
+> ראה [תוכן קובץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/file.md) למידע נוסף.
 
-- [תוכן קובץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/file.md)
+- [תוכן קובץ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/file.md)
 
 ## יצירת קובצי תוכן
 

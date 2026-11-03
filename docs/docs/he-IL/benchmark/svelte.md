@@ -110,7 +110,7 @@ style="border:none;"
 עבור בנצ'מרק זה, השווינו בין הספריות הבאות:
 
 - `Base App` (ללא ספריית i18n)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/svelte-intlayer/exports.md) (גרסה 9.5.10)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/svelte-intlayer/exports.md) (גרסה 9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (גרסה 4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (גרסה 7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (גרסה 2.25.1)

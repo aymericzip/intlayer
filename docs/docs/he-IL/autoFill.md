@@ -120,9 +120,9 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-להלן דוגמה של [קובץ הצהרת תוכן לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md) המשתמש בהוראת `fill`.
+להלן דוגמה של [קובץ הצהרת תוכן לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md) המשתמש בהוראת `fill`.
 
-- [קובץ הצהרת תוכן לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md)
+- [קובץ הצהרת תוכן לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/per_locale_file.md)
 
 כאשר תריצו את הפקודה הבאה:
 

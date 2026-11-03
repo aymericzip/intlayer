@@ -581,9 +581,9 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## קישורים שימושיים
 
-- [תיעוד Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
-- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
-- [CMS SDK: `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
+- [תיעוד Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
+- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
+- [CMS SDK: `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
 - [שחרורי אפליקציית שולחן עבודה](https://github.com/aymericzip/intlayer/releases/latest)
 - Docker Hub: [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all), [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend), [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend), מראה ב-GHCR תחת `ghcr.io/aymericzip/intlayer/`
 - [`docker/selfhost/`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost): Dockerfile, `docker-compose.yml` ו-`.env.template`

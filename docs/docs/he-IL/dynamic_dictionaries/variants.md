@@ -738,9 +738,9 @@ const dictionary = {
 export default dictionary;
 ```
 
-עיין ב[אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md) לפרטים על מצבי `static`, `dynamic` ו-`fetch`.
+עיין ב[אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md) לפרטים על מצבי `static`, `dynamic` ו-`fetch`.
 
-- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
+- [אופטימיזציית bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/bundle_optimization.md)
 
 ## תרחישי שימוש נפוצים
 

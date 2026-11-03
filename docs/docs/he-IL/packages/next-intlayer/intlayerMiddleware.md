@@ -73,6 +73,6 @@ export const config = {
 
 ## תצורה
 
-להגדרת ה-middleware, ניתן להגדיר את אפשרות ה-`routing` בקובץ `intlayer.config.ts`. ראה [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md) לפרטים נוספים.
+להגדרת ה-middleware, ניתן להגדיר את אפשרות ה-`routing` בקובץ `intlayer.config.ts`. ראה [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md) לפרטים נוספים.
 
-- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)

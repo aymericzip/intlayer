@@ -74,7 +74,7 @@ author: aymericzip
 
 ## מילון
 
-כל אובייקטי המילון צריכים להיות מוצהרים בקובצי תוכן מובנים כדי להבטיח בטיחות טיפוסים ולמנוע שגיאות בזמן ריצה. ניתן למצוא את [הוראות ההגדרה כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md). להלן דוגמה להצהרת תוכן:
+כל אובייקטי המילון צריכים להיות מוצהרים בקובצי תוכן מובנים כדי להבטיח בטיחות טיפוסים ולמנוע שגיאות בזמן ריצה. ניתן למצוא את [הוראות ההגדרה כאן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md). להלן דוגמה להצהרת תוכן:
 
 ```typescript fileName="component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -100,7 +100,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-- [קובצי הצהרת תוכן (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [קובצי הצהרת תוכן (.content.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 ## דוגמת שימוש ברכיב לקוח של React
 

@@ -146,15 +146,15 @@ export default defineConfig({
 intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
 ```
 
-עיין ב-[תיעוד intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayerProxy.md) לעיון בהתנהגות הניתוב המלאה.
+עיין ב-[תיעוד intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayerProxy.md) לעיון בהתנהגות הניתוב המלאה.
 
-- [תיעוד intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayerProxy.md)
+- [תיעוד intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayerProxy.md)
 
 ### 5. מהדר מאוגד (גרסאות 9+)
 
-כאשר `compiler.enabled` מוגדר כ-`true` **וגם** `compiler.output` מוגדר בתצורת ה-Intlayer שלך, `intlayer()` רושם את `intlayerCompiler` אוטומטית. המהדר מחלץ הצהרות תוכן מוטבעות שנכתבו ישירות בתוך קובצי הרכיבים וכותב אותן למילונים בזמן הטרנספורמציה (transform time). עיין ב-[תיעוד intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayerCompiler.md).
+כאשר `compiler.enabled` מוגדר כ-`true` **וגם** `compiler.output` מוגדר בתצורת ה-Intlayer שלך, `intlayer()` רושם את `intlayerCompiler` אוטומטית. המהדר מחלץ הצהרות תוכן מוטבעות שנכתבו ישירות בתוך קובצי הרכיבים וכותב אותן למילונים בזמן הטרנספורמציה (transform time). עיין ב-[תיעוד intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayerCompiler.md).
 
-- [תיעוד intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/intlayerCompiler.md)
+- [תיעוד intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/vite-intlayer/intlayerCompiler.md)
 
 ### 6. אופטימיזציות בנייה
 

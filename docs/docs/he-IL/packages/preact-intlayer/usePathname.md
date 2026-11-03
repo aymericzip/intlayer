@@ -116,5 +116,5 @@ export default Sidebar;
 
 ## תיעוד קשור
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/preact-intlayer/exports.md)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getPathWithoutLocale.md)
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getPathWithoutLocale.md)

@@ -50,14 +50,14 @@ author: aymericzip
 
 ## כיצד היא מאפשרת בדיקות A/B על תוכן
 
-Intlayer כבר מאפשרת לכם להגדיר [גרסאות תוכן (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md) (למשל, מילון `hero-banner` עם גרסת ברירת מחדל וגרסת `black_friday`). חבילת `@intlayer/analytics` סוגרת את המעגל:
+Intlayer כבר מאפשרת לכם להגדיר [גרסאות תוכן (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md) (למשל, מילון `hero-banner` עם גרסת ברירת מחדל וגרסת `black_friday`). חבילת `@intlayer/analytics` סוגרת את המעגל:
 
 1. `useExperiment(experimentKey, variants)` מקצה באופן דטרמיניסטי כל סשן אנונימי לגרסה מסוימת, כפונקציה טהורה של מזהה הסשן ומפתח הניסוי. כך ההקצאה נשארת **יציבה לאורך כל הסשן** ואינה דורשת **סבב תקשורת לשרת** לפני הרינדור הראשוני (ללא הבהוב וללא layout shift).
 2. כל אירוע `content_exposure` נושא עמו את ה-`variant` שהוצגה.
 3. `useConversion()` מאפשר לכם לשייך יעד (כגון `"cta_click"`) לאותה גרסה.
 4. נקודת הקצה של תוצאות הניסוי בלוח הבקרה משווה את שיעורי ההמרה לכל גרסה, כולל מובהקות סטטיסטית (z-test).
 
-- [גרסאות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md)
+- [גרסאות (Variants)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md)
 
 ## התקנה
 
@@ -138,9 +138,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-הסרת ההתקנה של `@intlayer/analytics` משיגה את אותה תוצאה כמו `enabled: false`. ראו את [מדריך התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md#analytics-configuration) עבור רשימת השדות המלאה.
+הסרת ההתקנה של `@intlayer/analytics` משיגה את אותה תוצאה כמו `enabled: false`. ראו את [מדריך התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md#analytics-configuration) עבור רשימת השדות המלאה.
 
-- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md#analytics-configuration)
+- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md#analytics-configuration)
 
 ## שימוש
 
@@ -621,7 +621,7 @@ export default config;
 
 הגדרת משקולות (weights) היא אופציונלית. העבירו משקל אחד לכל גרסה כדי להטות את החלוקה, למשל: `useExperiment("homepage-hero", ["default", "black_friday"], [9, 1])`.
 
-רכיב הבן קורא לאחר מכן את ה-[Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md) התואמת של המילון:
+רכיב הבן קורא לאחר מכן את ה-[Variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md) התואמת של המילון:
 
 ```tsx fileName="HeroBanner.tsx"
 import { useIntlayer } from "react-intlayer";
@@ -638,13 +638,13 @@ export const HeroBanner = ({ variant }: { variant: string }) => {
 };
 ```
 
-- [גרסה (Variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md)
+- [גרסה (Variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md)
 
 > קריאת ה-variant ברכיב **בן (child)** היא מה שמאפשר לזה לעבוד מחוץ ל-React: ב-Vue, Svelte, Solid ו-Angular הסלקטור המועבר ל-`useIntlayer` נלכד בעת אתחול הרכיב, ולכן הקריאה חייבת להתרחש ברכיב שמורכב רק לאחר שהגרסה ידועה.
 
-אם הניסוי מכסה דף שלם ולא מילון בודד, העלו (hoist) את הגרסה ל-provider במקום זאת. ראו [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md#ambient-variant). כל `useIntlayer` מתחתיו יפוענח לפיה ללא כל שינוי בקוד הקורא.
+אם הניסוי מכסה דף שלם ולא מילון בודד, העלו (hoist) את הגרסה ל-provider במקום זאת. ראו [Ambient variant](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md#ambient-variant). כל `useIntlayer` מתחתיו יפוענח לפיה ללא כל שינוי בקוד הקורא.
 
-- [גרסה סביבתית (Ambient variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/variants.md#ambient-variant)
+- [גרסה סביבתית (Ambient variant)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/variants.md#ambient-variant)
 
 אם אתם זקוקים להקצאה הגולמית מחוץ לרכיב, פנו ישירות ללקוח:
 
@@ -699,7 +699,7 @@ const variant = client?.getVariant("homepage-hero", [
 | `GET`  | `/api/analytics/content-stats`              | סך הכול חשיפות לכל תוכן, מקובצות לפי מפתח מילון / נתיב מפתח / שפה.             |
 | `GET`  | `/api/analytics/experiments/:experimentKey` | שיעורי המרה ומובהקות סטטיסטית לכל גרסה עבור ניסוי A/B.                         |
 
-תוכלו גם לקרוא לנקודות קצה אלו באופן תכנותי באמצעות [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md):
+תוכלו גם לקרוא לנקודות קצה אלו באופן תכנותי באמצעות [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md):
 
 ```ts fileName="analytics.ts"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -710,14 +710,14 @@ const cms = createIntlayerCMS();
 const { data: audience } = await analyticsEndpoint(cms).getAudience(30);
 ```
 
-- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 > **בצד השרת בלבד.** `createIntlayerCMS()` מאמת באמצעות `clientId` בתוספת `clientSecret`, והסוד לעולם אינו זמין בדפדפן. קטע קוד זה ישלח בקשות לא מאומתות אם ירוץ שם. שמרו אותו ב-route handler, ב-server action או בסקריפט.
 
 ## קישורים שימושיים
 
-- [מילונים דינמיים - אוספים וגרסאות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md)
-- [Intlayer CMS - CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
-- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
-- [מדריך אירוח עצמי (Self-Hosting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
+- [מילונים דינמיים - אוספים וגרסאות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md)
+- [Intlayer CMS - CMS SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
+- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
+- [מדריך אירוח עצמי (Self-Hosting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)

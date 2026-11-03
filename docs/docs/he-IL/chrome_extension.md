@@ -138,12 +138,12 @@ author: aymericzip
 </Question>
 <Question title="כיצד ניתן לתקן את הבעיות שנמצאו בביקורת?">
 
-רוב הבדיקות ממופות להגדרת ניתוב או מטא-דאטה. עם Intlayer, תגיות hreflang, קנוניות, `x-default`, קישורים מותאמים, מפת אתר ו-robots.txt מופקים מתוך ה[תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md) שלך. עיין במדריך השילוב עבור הפריימוורק שלך, למשל [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nuxt.md) או [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_tanstack.md).
+רוב הבדיקות ממופות להגדרת ניתוב או מטא-דאטה. עם Intlayer, תגיות hreflang, קנוניות, `x-default`, קישורים מותאמים, מפת אתר ו-robots.txt מופקים מתוך ה[תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md) שלך. עיין במדריך השילוב עבור הפריימוורק שלך, למשל [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md), [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nuxt.md) או [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_tanstack.md).
 
-- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
-- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_16.md)
-- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nuxt.md)
-- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_tanstack.md)
+- [תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_16.md)
+- [Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nuxt.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_tanstack.md)
 
 </Question>
 
@@ -151,6 +151,6 @@ author: aymericzip
 
 ## כלים קשורים
 
-- [הרחבה ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
-- [שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)
-- [שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)
+- [הרחבה ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)
+- [שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)
+- [שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)

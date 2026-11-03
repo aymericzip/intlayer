@@ -206,6 +206,6 @@ app.get("/morning", (c) => {
 
 ## סיכום
 
-הפונקציה `t` היא כלי רב-עוצמה עבור בינאום צד שרת. שימוש יעיל בה מאפשר ליצור אפליקציה נגישה וידידותית יותר למשתמשים מכל רחבי העולם. לשימוש מתקדם ואפשרויות תצורה מפורטות, עיין ב-[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+הפונקציה `t` היא כלי רב-עוצמה עבור בינאום צד שרת. שימוש יעיל בה מאפשר ליצור אפליקציה נגישה וידידותית יותר למשתמשים מכל רחבי העולם. לשימוש מתקדם ואפשרויות תצורה מפורטות, עיין ב-[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תצורת Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תצורת Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)

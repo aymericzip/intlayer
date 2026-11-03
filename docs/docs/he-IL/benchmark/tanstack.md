@@ -110,10 +110,10 @@ history:
 עבור בנצ'מרק זה, השווינו בין הספריות הבאות:
 
 - `Base App` (ללא ספריית i18n)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/react-intlayer/exports.md) (גרסה 9.5.10)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/next-intl.md) (גרסה 9.5.10)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/lingui.md) (גרסה 9.5.10)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/react-i18next.md) (גרסה 9.5.10)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/react-intlayer/exports.md) (גרסה 9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/next-intl.md) (גרסה 9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/lingui.md) (גרסה 9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/react-i18next.md) (גרסה 9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (גרסה 17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (גרסה 4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (גרסה 6.6.0)

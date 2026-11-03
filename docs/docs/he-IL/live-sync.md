@@ -33,9 +33,9 @@ author: aymericzip
 
 # Intlayer Live Sync (סנכרון חי)
 
-Live Sync מאפשר לאפליקציה שלכם לשקף שינויי תוכן מ-[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) בזמן ריצה, ללא צורך בבנייה מחדש או בפריסה מחדש. כאשר התכונה מופעלת, עדכונים מוזרמים לשרת Live Sync המרענן את המילונים שהאפליקציה שלכם קוראת.
+Live Sync מאפשר לאפליקציה שלכם לשקף שינויי תוכן מ-[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md) בזמן ריצה, ללא צורך בבנייה מחדש או בפריסה מחדש. כאשר התכונה מופעלת, עדכונים מוזרמים לשרת Live Sync המרענן את המילונים שהאפליקציה שלכם קוראת.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 ## תוכן עניינים
 
@@ -184,7 +184,7 @@ export default config;
 
 ## קישורים שימושיים
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
-- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
-- [מדריך אירוח עצמי (Self-Hosting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
+- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [מדריך תצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
+- [מדריך אירוח עצמי (Self-Hosting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)

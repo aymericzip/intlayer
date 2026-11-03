@@ -50,16 +50,16 @@ import "angular-intlayer";
 
 ### Hooks
 
-| Hook                   | תיאור                                                                                                        | תיעוד קשור                                                                                                            |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.                                 | -                                                                                                                     |
-| `useDictionary`        | מעבד אובייקטים שנראים כמו מילונים (key, content). הוא מעבד תרגומי `t()`, ריבוי וכו'.                         | -                                                                                                                     |
-| `useDictionaryAsync`   | זהה ל-`useDictionary`, אך מטפל במילונים אסינכרוניים.                                                         | -                                                                                                                     |
-| `useDictionaryDynamic` | זהה ל-`useDictionary`, אך מטפל במילונים דינמיים.                                                             | -                                                                                                                     |
-| `useLocale`            | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                                      | -                                                                                                                     |
-| `usePathname`          | מחזיר את שם הנתיב הנוכחי כ-`Signal<string>` כאשר מקטע השפה הוסר. ריאקטיבי ל-`popstate` באמצעות `DestroyRef`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/angular-intlayer/usePathname.md) |
-| `useIntl`              | מחזיר את אובייקט ה-Intl עבור השפה הנוכחית.                                                                   | -                                                                                                                     |
-| `useLoadDynamic`       | Hook לטעינת מילונים דינמיים.                                                                                 | -                                                                                                                     |
+| Hook                   | תיאור                                                                                                        | תיעוד קשור                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | מבוסס על `useDictionary`, אך מזריק גרסה מותאמת של המילון מתוך ההצהרה שנוצרה.                                 | -                                                                                                                        |
+| `useDictionary`        | מעבד אובייקטים שנראים כמו מילונים (key, content). הוא מעבד תרגומי `t()`, ריבוי וכו'.                         | -                                                                                                                        |
+| `useDictionaryAsync`   | זהה ל-`useDictionary`, אך מטפל במילונים אסינכרוניים.                                                         | -                                                                                                                        |
+| `useDictionaryDynamic` | זהה ל-`useDictionary`, אך מטפל במילונים דינמיים.                                                             | -                                                                                                                        |
+| `useLocale`            | מחזיר את השפה הנוכחית ופונקציה להגדרתה.                                                                      | -                                                                                                                        |
+| `usePathname`          | מחזיר את שם הנתיב הנוכחי כ-`Signal<string>` כאשר מקטע השפה הוסר. ריאקטיבי ל-`popstate` באמצעות `DestroyRef`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | מחזיר את אובייקט ה-Intl עבור השפה הנוכחית.                                                                   | -                                                                                                                        |
+| `useLoadDynamic`       | Hook לטעינת מילונים דינמיים.                                                                                 | -                                                                                                                        |
 
 ### רכיבים (Components)
 

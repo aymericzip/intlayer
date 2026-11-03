@@ -72,12 +72,12 @@ type GetPrefixResult = {
   - `options.defaultLocale?: Locales`
     - **תיאור**: שפת ברירת המחדל של האפליקציה. אם אינה מסופקת, נעשה שימוש בשפת ברירת המחדל המוגדרת מתוך תצורת הפרויקט שלך.
     - **סוג**: `Locales`
-    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md#middleware)
+    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md#middleware)
 
   - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
     - **תיאור**: מצב ניתוב כתובות ה-URL לטיפול בשפות. אם אינו מסופק, נעשה שימוש במצב המוגדר מתוך תצורת הפרויקט שלך.
     - **סוג**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md#middleware)
+    - **ברירת מחדל**: [`תצורת הפרויקט`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md#middleware)
     - **מצבים**:
       - `prefix-no-default`: מחזירה מחרוזות ריקות כאשר השפה תואמת לשפת ברירת המחדל
       - `prefix-all`: מחזירה קידומת לכל השפות כולל ברירת המחדל
@@ -170,8 +170,8 @@ console.log(`Current locale: ${localePrefix}`);
 
 ## פונקציות קשורות
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getLocalizedUrl.md)
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getMultilingualUrls.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

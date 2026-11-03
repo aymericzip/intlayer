@@ -130,11 +130,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> למידע נוסף על תצורה, בקר ב-[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+> למידע נוסף על תצורה, בקר ב-[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md).
 
-- [תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+- [תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
 
 ## תיעוד קשור
 
-- [ייצואי חבילת elysia-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/elysia-intlayer/exports.md)
-- [תרגם את אתר ה-Elysia backend שלך באמצעות Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_elysia.md)
+- [ייצואי חבילת elysia-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/elysia-intlayer/exports.md)
+- [תרגם את אתר ה-Elysia backend שלך באמצעות Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_elysia.md)

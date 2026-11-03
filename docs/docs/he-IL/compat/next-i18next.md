@@ -23,9 +23,9 @@ author: aymericzip
 
 # @intlayer/next-i18next: מתאם תאימות עבור next-i18next
 
-למדריך מלא ומפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-i18next_to_intlayer.md).
+למדריך מלא ומפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-i18next_to_intlayer.md).
 
-- [מדריך הגירה מ-next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-i18next_to_intlayer.md)
+- [מדריך הגירה מ-next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-i18next_to_intlayer.md)
 
 Intlayer מטפלת בכל מימושי Pages Router ו-App Router ב-Next.js בצורה שקופה. שימוש במתאם מאפשר לכם להגר את מימוש ה-`next-i18next` שלכם ללא שכתוב קוד כלל.
 

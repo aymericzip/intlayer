@@ -142,7 +142,7 @@ export default config;
 Intlayer אוכף זאת מעבר לתיעוד גרידא:
 
 - `clientSecret` **מוסר מהתצורה שהבאנדלר שלך מטמיע**, כך שהוא לעולם אינו יכול להגיע לבאנדל של הדפדפן בכל שילוב פריימוורק שבו תשתמש. הוא נקרא אך ורק בצד השרת, בזמן ריצה, מתוך משתני הסביבה.
-- `clientId` שונה: זהו מפתח הפרויקט ה**ציבורי**, בטוח להפצה, ומשמש את [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/analytics.md#how-events-are-authenticated) כדי לקבל אסימון קצר-מועד לקליטת נתונים בלבד (ingest-only).
+- `clientId` שונה: זהו מפתח הפרויקט ה**ציבורי**, בטוח להפצה, ומשמש את [`@intlayer/analytics`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/analytics.md#how-events-are-authenticated) כדי לקבל אסימון קצר-מועד לקליטת נתונים בלבד (ingest-only).
 
 הערת שורה (commenting out) על `clientId` מספיקה כדי להשבית כל התנהגות הדורשת אישורים (אחזור מילונים מרוחקים, גישת CMS, אנליטיקה) גם כאשר משתני הסביבה עדיין מוגדרים.
 
@@ -237,12 +237,12 @@ bun x intlayer login --verbose
 1. הוסף את האישורים לקובץ ה-`.env` שלך
 2. הגדר את קובץ ה-`intlayer.config.*` שלך עם האישורים
 3. השתמש בפקודות CLI כדי לנהל את המילונים שלך:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/push.md)
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/pull.md)
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md)
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/fill.md)
 
 ## ראה גם
 
-- [תיעוד CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
-- [תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [תיעוד CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)
+- [תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)

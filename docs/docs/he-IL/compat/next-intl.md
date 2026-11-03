@@ -23,9 +23,9 @@ author: aymericzip
 
 # @intlayer/next-intl: מתאם תאימות עבור next-intl
 
-למדריך מלא ומפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-intl_to_intlayer.md).
+למדריך מלא ומפורט שלב אחר שלב, אנא עיינו ב[מדריך ההגירה המלא מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-intl_to_intlayer.md).
 
-- [מדריך הגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_next-intl_to_intlayer.md)
+- [מדריך הגירה מ-next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_next-intl_to_intlayer.md)
 
 הגירה מ-`next-intl` ל-Intlayer מאפשרת לכם לשמור על הניתוב (routing) והתחביר באפליקציה שלכם ללא כל הפרעה.
 

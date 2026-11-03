@@ -35,11 +35,11 @@ Benchmark Bloom היא חבילת בדיקות ביצועים המודדת את 
 
 מצאו את הדוחות המפורטים והתיעוד הטכני עבור כל framework למטה:
 
-- [**דוח בנצ'מרק עבור Next.js**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/nextjs.md)
-- [**דוח בנצ'מרק עבור TanStack Start**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/tanstack.md)
-- [**דוח בנצ'מרק עבור Vue**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/vue.md)
-- [**דוח בנצ'מרק עבור Solid**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/solid.md)
-- [**דוח בנצ'מרק עבור Svelte**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/benchmark/svelte.md)
+- [**דוח בנצ'מרק עבור Next.js**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/nextjs.md)
+- [**דוח בנצ'מרק עבור TanStack Start**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/tanstack.md)
+- [**דוח בנצ'מרק עבור Vue**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/vue.md)
+- [**דוח בנצ'מרק עבור Solid**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/solid.md)
+- [**דוח בנצ'מרק עבור Svelte**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/benchmark/svelte.md)
 
 > כדי להבין מהיכן הגיעו הספריות הללו, קראו את ההיסטוריה של JavaScript i18n.
 

@@ -32,9 +32,9 @@ author: aymericzip
 
 הפונקציה `getEnumeration` (המוכרת גם בכינוי `enu`) מאחזרת תוכן המתאים לכמות מסוימת בהתבסס על תנאים שהוגדרו מראש באובייקט ריבוי (enumeration). התנאים מוגדרים כמפתחות, והעדיפות שלהם נקבעת לפי סדר הופעתם באובייקט.
 
-לפרטים נוספים על אופן הגדרת ריבוי (enumerations), עיין ב-[תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md).
+לפרטים נוספים על אופן הגדרת ריבוי (enumerations), עיין ב-[תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md).
 
-- [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md)
+- [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md)
 
 ## פרמטרים
 

@@ -33,9 +33,9 @@ author: aymericzip
 
 הפונקציה `getDictionary` מפענחת **אובייקט מילון שאתה מעביר בעצמך** ומחזירה את התוכן המפוענח שלו עבור שפה נתונה. היא סורקת את התוכן במעבר יחיד ומחילה כל תוסף מפענח (interpreter plugin) לפי הצורך, תוך פענוח תרגומי `t()`, ריבוי (enumerations), תנאים, שילובים (insertions), קינון (nesting), צומתי Markdown, HTML וקובצי תוכן.
 
-בשונה מ-[`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayer.md), אשר מחפשת מילון לפי מפתח (key) ברישום שנוצר מראש, `getDictionary` מקבלת את אובייקט המילון עצמו. זה הופך אותה לכלי המתאים ביותר עבור תוכן שנבנה בזמן ריצה (runtime), נמשך מ-API או מ-CMS, או מוגדר ישירות (inline) בתוך בדיקה.
+בשונה מ-[`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayer.md), אשר מחפשת מילון לפי מפתח (key) ברישום שנוצר מראש, `getDictionary` מקבלת את אובייקט המילון עצמו. זה הופך אותה לכלי המתאים ביותר עבור תוכן שנבנה בזמן ריצה (runtime), נמשך מ-API או מ-CMS, או מוגדר ישירות (inline) בתוך בדיקה.
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayer.md)
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayer.md)
 
 **תכונות עיקריות:**
 
@@ -62,7 +62,7 @@ getDictionary(
   - **חובה**: כן
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **תיאור**: השפה שלפיה יש לפענח את התוכן, או אובייקט בורר (`{ item }`, `{ variant }`, אופציונלית עם `locale`). ראה [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dynamic_dictionaries/index.md).
+  - **תיאור**: השפה שלפיה יש לפענח את התוכן, או אובייקט בורר (`{ item }`, `{ variant }`, אופציונלית עם `locale`). ראה [מילונים דינמיים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dynamic_dictionaries/index.md).
   - **סוג**: `LocalesValues | DictionarySelector`
   - **חובה**: לא (אופציונלי), ברירת המחדל היא ה-`defaultLocale` המוגדר.
 
@@ -126,9 +126,9 @@ const allItems = getDictionary(blogPostGroup, { locale: "fr" });
 
 ## פונקציות קשורות
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getIntlayer.md)
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/intlayer/getDictionaryAsync.md)
-- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/react-intlayer/useDictionary.md)
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/intlayer/getDictionaryAsync.md)
+- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/react-intlayer/useDictionary.md)
 
 ## TypeScript
 

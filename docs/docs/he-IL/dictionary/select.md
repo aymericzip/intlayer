@@ -370,16 +370,16 @@ select({
 
 מקרה ה-`other` של ICU מקבל את השם `fallback`, שהוא השם המקובל ב-Intlayer עבור תפיסת ברירת מחדל (catch-all). הארגומנט השני שומר את שם משתנה ה-ICU כך שההודעה ניתנת לייצוא חוזר בדיוק לאותה מחרוזת ICU.
 
-> הודעת `select` של ICU שמקריה הם ערכי מגדר (`male` / `female` / `other`) מיובאת במקום זאת כצומת [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md).
+> הודעת `select` של ICU שמקריה הם ערכי מגדר (`male` / `female` / `other`) מיובאת במקום זאת כצומת [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md).
 
-- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)
+- [`gender`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/gender.md)
 
 ## משאבים נוספים
 
 למידע מפורט יותר על הגדרות ושימוש, עיין במשאבים הבאים:
 
-- [תיעוד Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
-- [תיעוד React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_create_react_app.md)
-- [תיעוד Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_15.md)
+- [תיעוד Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)
+- [תיעוד React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_create_react_app.md)
+- [תיעוד Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_15.md)
 
 משאבים אלה מציעים תובנות נוספות לגבי ההגדרה והשימוש ב-Intlayer בסביבות ובפריימוורקים שונים.

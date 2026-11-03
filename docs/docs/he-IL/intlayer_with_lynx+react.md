@@ -64,18 +64,18 @@ Intlayer מותאם לפעולה מושלמת עם Lynx ו-React על ידי מ�
 </Accordion>
 <Accordion header="סוכני AI">
 
-מיקום התוכן לצד הקוד (co-location) **מפחית את ההקשר (context) הנדרש** עבור מודלי שפה גדולים (LLMs). ‏Intlayer מגיע גם עם חבילת כלים, כגון **CLI** לבדיקת תרגומים חסרים, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)**, ו**[כישורי סוכנים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**, כדי להפוך את חוויית המפתח (DX) לחלקה אף יותר עבור סוכני AI.
+מיקום התוכן לצד הקוד (co-location) **מפחית את ההקשר (context) הנדרש** עבור מודלי שפה גדולים (LLMs). ‏Intlayer מגיע גם עם חבילת כלים, כגון **CLI** לבדיקת תרגומים חסרים, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)**, ו**[כישורי סוכנים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)**, כדי להפוך את חוויית המפתח (DX) לחלקה אף יותר עבור סוכני AI.
 
-- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)
-- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)
-- [כישורי סוכנים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)
+- [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/lsp.md)
+- [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/mcp_server.md)
+- [כישורי סוכנים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/agent_skills.md)
 
 </Accordion>
 <Accordion header="אוטומציה">
 
-השתמשו באוטומציה כדי לתרגם בצינור ה-CI/CD שלכם באמצעות מודל ה-LLM לבחירתכם בעלות ספק ה-AI שלכם. Intlayer מציע גם **מהדר (compiler)** לאוטומציה של חילוץ תוכן, וכן [פלטפורמת ווב](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) המסייעת **לתרגם ברקע**.
+השתמשו באוטומציה כדי לתרגם בצינור ה-CI/CD שלכם באמצעות מודל ה-LLM לבחירתכם בעלות ספק ה-AI שלכם. Intlayer מציע גם **מהדר (compiler)** לאוטומציה של חילוץ תוכן, וכן [פלטפורמת ווב](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md) המסייעת **לתרגם ברקע**.
 
-- [פלטפורמת ווב](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [פלטפורמת ווב](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="ביצועים">
@@ -85,10 +85,10 @@ Intlayer מותאם לפעולה מושלמת עם Lynx ו-React על ידי מ�
 </Accordion>
 <Accordion header="צמיחה ועבודה עם אנשי צוות שאינם מפתחים">
 
-יותר מסתם פתרון i18n, ‏Intlayer מספק **[עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) באירוח עצמי** ו**[מערכת CMS מלאה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)** כדי לעזור לכם לנהל את התוכן הרב-לשוני שלכם **בזמן אמת**, מה שהופך את שיתוף הפעולה עם מתרגמים, כותבי תוכן וחברי צוות אחרים לפשוט וזורם. ניתן לאחסן תוכן באופן מקומי ו/או מרחוק.
+יותר מסתם פתרון i18n, ‏Intlayer מספק **[עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) באירוח עצמי** ו**[מערכת CMS מלאה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)** כדי לעזור לכם לנהל את התוכן הרב-לשוני שלכם **בזמן אמת**, מה שהופך את שיתוף הפעולה עם מתרגמים, כותבי תוכן וחברי צוות אחרים לפשוט וזורם. ניתן לאחסן תוכן באופן מקומי ו/או מרחוק.
 
-- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [מערכת CMS מלאה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [עורך ויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [מערכת CMS מלאה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -173,7 +173,7 @@ export default config;
 - להגדיר את **רשימת השפות הנתמכות** שלכם.
 - לקבוע שפת **ברירת מחדל**.
 - בהמשך, תוכלו להוסיף אפשרויות מתקדמות יותר (למשל, לוגים, תיקיות תוכן מותאמות אישית וכו').
-- ראו את [תיעוד תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md) לפרטים נוספים.
+- ראו את [תיעוד תצורת Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/configuration.md) לפרטים נוספים.
 
 </Step>
 <Step number={3} title="הוספת תוסף Intlayer ל-Bundler של Lynx">
@@ -323,9 +323,9 @@ export default appContent;
 }
 ```
 
-> לפרטים נוספים על הצהרות תוכן, עיינו ב[תיעוד התוכן של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+> לפרטים נוספים על הצהרות תוכן, עיינו ב[תיעוד התוכן של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md).
 
-- [תיעוד התוכן של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+- [תיעוד התוכן של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/content_file.md)
 
 </Step>
 <Step number={6} title="שימוש ב-Intlayer ברכיבים שלכם">
@@ -427,9 +427,9 @@ export const LocaleSwitcher: FC = () => {
 
 פעולה זו מפעילה רינדור מחדש של כל הרכיבים המשתמשים בתוכן של Intlayer, וכעת הם יציגו תרגומים עבור השפה החדשה.
 
-> עיינו ב[תיעוד של `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/react-intlayer/useLocale.md) לפרטים נוספים.
+> עיינו ב[תיעוד של `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/react-intlayer/useLocale.md) לפרטים נוספים.
 
-- [תיעוד של `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/react-intlayer/useLocale.md)
+- [תיעוד של `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/react-intlayer/useLocale.md)
 
 </Step>
 
@@ -478,12 +478,12 @@ Intlayer מייצר הגדרות טיפוסים בתיקייה מוסתרת (כ�
 - **תצוגה מקדימה מוטבעת (Inline previews)** של תוכן מתורגם.
 - **פעולות מהירות (Quick actions)** ליצירה ועדכון קלים של תרגומים.
 
-לפרטים נוספים על אופן השימוש בתוסף, עיינו ב[תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md).
+לפרטים נוספים על אופן השימוש בתוסף, עיינו ב[תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md).
 
-- [תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
+- [תיעוד התוסף של Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/vs_code_extension.md)
 
 ## הרחבה נוספת
 
-- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
+- [עורך ויזואלי של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)

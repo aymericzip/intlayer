@@ -122,9 +122,9 @@ Intlayer מנסה לבצע אופטימיזציה על פני כל הממדים 
 עבור בנצ'מרק זה, השווינו בין הספריות הבאות:
 
 - `Base App` (ללא ספריית i18n)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/exports.md) (גרסה 9.5.10)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/next-intl.md) (גרסה 9.5.10)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/next-i18next.md) (גרסה 9.5.10)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/next-intlayer/exports.md) (גרסה 9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/next-intl.md) (גרסה 9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/next-i18next.md) (גרסה 9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (גרסה 16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (גרסה 4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (גרסה 6.6.0)

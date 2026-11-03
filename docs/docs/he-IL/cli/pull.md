@@ -40,9 +40,9 @@ pnpm intlayer pull
 bun x intlayer pull
 ```
 
-אם [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md) מותקן, תוכל גם למשוך מילונים מהעורך. בדרך זו תוכל לדרוס את תוכן המילונים שלך לצרכי האפליקציה שלך.
+אם [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) מותקן, תוכל גם למשוך מילונים מהעורך. בדרך זו תוכל לדרוס את תוכן המילונים שלך לצרכי האפליקציה שלך.
 
-- [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_visual_editor.md)
+- [עורך Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md)
 
 ## כינויים (Aliases):
 

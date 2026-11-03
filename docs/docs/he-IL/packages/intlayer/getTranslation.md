@@ -32,9 +32,9 @@ author: aymericzip
 
 הפונקציה `getTranslation` (המוכרת גם בכינוי `t` או `getTranslationContent`) מאחזרת את התוכן המתאים לשפה ספציפית מתוך קבוצת תכנים מותאמת לשפות. אם השפה שצוינה אינה נמצאת, היא חוזרת כברירת מחדל ומחזירה את התוכן של שפת ברירת המחדל המוגדרת בפרויקט.
 
-לפרטים נוספים על אופן הגדרת תרגומים, עיין ב-[תיעוד Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md).
+לפרטים נוספים על אופן הגדרת תרגומים, עיין ב-[תיעוד Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md).
 
-- [תיעוד Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md)
+- [תיעוד Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md)
 
 ## פרמטרים
 

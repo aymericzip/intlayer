@@ -439,9 +439,9 @@ loadJSON({
 - `intlayer content push` כדי לדחוף את קובצי ה-JSON המסונכרנים
 - `intlayer content pull` כדי למשוך את קובצי ה-JSON המסונכרנים
 
-ראו [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md) לפרטים נוספים.
+ראו [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md) לפרטים נוספים.
 
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)
 
 ## מגבלות נוכחיות
 

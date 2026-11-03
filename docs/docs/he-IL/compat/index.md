@@ -40,13 +40,13 @@ author: aymericzip
 
 בחרו את הספרייה הקיימת שלכם למטה כדי לראות כיצד להגר בצורה חלקה:
 
-- [Vue I18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/vue-i18n.md)
-- [React Intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/react-intl.md)
-- [Svelte I18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/svelte-i18n.md)
-- [React i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/react-i18next.md)
-- [NuxtJS I18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/nuxtjs-i18n.md)
-- [NGX Translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/ngx-translate.md)
-- [Next Intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/next-intl.md)
-- [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/next-i18next.md)
-- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/i18next.md)
-- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/lingui.md)
+- [Vue I18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/vue-i18n.md)
+- [React Intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/react-intl.md)
+- [Svelte I18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/svelte-i18n.md)
+- [React i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/react-i18next.md)
+- [NuxtJS I18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/nuxtjs-i18n.md)
+- [NGX Translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/ngx-translate.md)
+- [Next Intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/next-intl.md)
+- [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/next-i18next.md)
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/i18next.md)
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/lingui.md)

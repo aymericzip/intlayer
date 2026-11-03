@@ -32,9 +32,9 @@ author: aymericzip
 
 ב-Intlayer, תוכן רבים מושג באמצעות הפונקציה `plural`, הממפה קטגוריות ריבוי של CLDR (`zero`, `one`, `two`, `few`, `many`, `other`) לתוכן המתאים להן. הקטגוריה הנכונה נבחרת אוטומטית על פי השפה הפעילה וערך הספירה (count), באמצעות ממשק ה-API המובנה של הפלטפורמה [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
 
-בניגוד ל-[`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md), אשר בוחר תוכן על בסיס טווחים מספריים שאתה מגדיר בעצמך, `plural` מאציל את הבחירה לכללי ה-CLDR. זה מה שמאפשר לו להתרחב לשפות בעלות כללי ריבוי מורכבים (כגון רוסית, פולנית, ערבית או עברית), מבלי שתצטרך לכתוב ידנית לוגיקת מודולו.
+בניגוד ל-[`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md), אשר בוחר תוכן על בסיס טווחים מספריים שאתה מגדיר בעצמך, `plural` מאציל את הבחירה לכללי ה-CLDR. זה מה שמאפשר לו להתרחב לשפות בעלות כללי ריבוי מורכבים (כגון רוסית, פולנית, ערבית או עברית), מבלי שתצטרך לכתוב ידנית לוגיקת מודולו.
 
-- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md)
+- [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md)
 
 ## מתי להשתמש ב-`plural` לעומת `enu`
 
@@ -384,10 +384,10 @@ totalOpenings: plural({
 
 למידע מפורט יותר על הגדרות ושימוש, עיין במשאבים הבאים:
 
-- [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/enumeration.md)
-- [תיעוד Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)
-- [תיעוד Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
-- [תיעוד React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_create_react_app.md)
-- [תיעוד Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_15.md)
+- [תיעוד Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/enumeration.md)
+- [תיעוד Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/insertion.md)
+- [תיעוד Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)
+- [תיעוד React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_create_react_app.md)
+- [תיעוד Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_15.md)
 
 משאבים אלה מספקים תובנות נוספות לגבי ההגדרה והשימוש ב-Intlayer בסביבות ובפריימוורקים שונים.

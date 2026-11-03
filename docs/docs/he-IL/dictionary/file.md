@@ -279,10 +279,10 @@ export default myMultilingualContent;
 
 למידע נוסף על הגדרה ושימוש בהטמעת קבצים ב-Intlayer, עיין במשאבים הבאים:
 
-- [תיעוד Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/index.md)
-- [תיעוד React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_create_react_app.md)
-- [תיעוד Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_with_nextjs_15.md)
-- [תיעוד תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md)
-- [תיעוד תוכן תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/translation.md)
+- [תיעוד Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/cli/index.md)
+- [תיעוד React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_create_react_app.md)
+- [תיעוד Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_with_nextjs_15.md)
+- [תיעוד תוכן Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/markdown.md)
+- [תיעוד תוכן תרגום](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/translation.md)
 
 משאבים אלה מספקים תובנות נוספות לגבי הטמעת קבצים, ניהול תוכן והאינטגרציה של Intlayer עם מגוון פריימוורקים.

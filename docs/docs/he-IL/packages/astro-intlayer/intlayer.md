@@ -72,6 +72,6 @@ import intlayer from "astro-intlayer";
 
 ## תיעוד קשור
 
-- [הוק `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/useIntlayer.md)
-- [הוק `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/useLocale.md)
-- [תוכנת תיווך `onRequest`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/astro-intlayer/onRequest.md)
+- [הוק `useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/useIntlayer.md)
+- [הוק `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/useLocale.md)
+- [תוכנת תיווך `onRequest`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/packages/astro-intlayer/onRequest.md)
