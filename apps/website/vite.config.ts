@@ -443,7 +443,7 @@ export default defineConfig(async ({ mode }) => {
       ],
     },
     // Bundle server deps so Redact can redirect their React imports too.
-    ssr: { noExternal: true },
+    // ssr: { noExternal: true },
     plugins: [
       rawMarkdownPlugin,
       mdRawRewritePlugin,
@@ -513,7 +513,7 @@ export default defineConfig(async ({ mode }) => {
       react({ compiler: true }),
       // Swaps the React runtime for TanStack Redact; must follow start + react.
       // Activity and fragment refs are unused (audited); stubbing them trims the runtime.
-      redact({ features: { activity: false, fragmentRefs: false } }),
+      // redact({ features: { activity: false, fragmentRefs: false } }),
       // visualizer(),
     ],
     build: {
