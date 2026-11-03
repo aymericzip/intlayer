@@ -2,6 +2,7 @@ import { GREY, GREY_LIGHT } from '@intlayer/config/colors';
 import { colorize, logger } from '@intlayer/config/logger';
 import { mutateScore, type Score, toScorePercent } from './calculateScore';
 import { getTechnologyGlobalNames } from './detection/detectTechnologies';
+import { toAbsoluteScanUrl } from './detection/url';
 import { fetchText } from './fetchText';
 import { byteLength, extractScriptUrls } from './parseHtml';
 import { runScanChecks, type ScanPageInput } from './runScanChecks';
@@ -221,12 +222,12 @@ const fetchScripts = async (
  * `puppeteer`; when `puppeteer` is missing the scan transparently falls back to
  * a `basic` fetch-based pass and logs a recommendation to install it.
  *
- * @param targetUrl - The absolute URL to scan.
+ * @param inputUrl - The URL or bare domain to scan (`https://` is assumed).
  * @param options - {@link ScanOptions} controlling depth, timeout and UA.
  * @returns The {@link ScanResult} including score, page size and per-check events.
  */
 export const scanWebsite = async (
-  targetUrl: string,
+  inputUrl: string,
   options: ScanOptions = {}
 ): Promise<ScanResult> => {
   const {
@@ -235,6 +236,7 @@ export const scanWebsite = async (
     userAgent = DEFAULT_USER_AGENT,
   } = options;
 
+  const targetUrl = toAbsoluteScanUrl(inputUrl);
   const origin = new URL(targetUrl).origin;
   const fetchOptions = { userAgent, timeoutMs };
 

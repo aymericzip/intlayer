@@ -1299,7 +1299,10 @@ export const setAPI = (): Command => {
     .description(
       'Scan a website to measure its page size and audit its i18n / SEO health'
     )
-    .argument('<url>', 'URL of the website to scan')
+    .argument(
+      '<url>',
+      'URL or domain of the website to scan (e.g. intlayer.org)'
+    )
     .option('--no-deep', 'Disable the deeper puppeteer-based render scan')
     .option('--json', 'Output the results as JSON');
 
