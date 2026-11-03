@@ -50,6 +50,7 @@
     "@tanstack/react-router-ssr-query": "1.167.3",
     "@tanstack/react-start": "1.169.4",
     "@tanstack/react-virtual": "3.14.25",
+    "@tanstack/redact": "0.2.5",
     "@tanstack/router-plugin": "1.168.48",
     "@tanstack/start-static-server-functions": "1.167.44",
     "defu": "6.1.7",

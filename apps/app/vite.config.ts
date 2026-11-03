@@ -36,6 +36,7 @@ import {
 } from '@intlayer/design-system/routes';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import { redact } from '@tanstack/redact/vite';
 import react from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
@@ -401,6 +402,8 @@ export default defineConfig(({ mode }) => {
     preview: {
       headers,
     },
+    // Bundle server deps so Redact can redirect their React imports too.
+    ssr: { noExternal: true },
     plugins: [
       nitro({
         preset: 'bun',
@@ -454,6 +457,8 @@ export default defineConfig(({ mode }) => {
         pages: getLocalizedPages(isSelfHosted),
       }),
       react({ compiler: true }),
+      // Swaps the React runtime for TanStack Redact; must follow start + react.
+      redact(),
       wasm(),
     ],
     build: {
