@@ -1,6 +1,7 @@
 import { Loader } from '@intlayer/design-system/loader';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { Toaster } from '@intlayer/design-system/toaster';
+import { getGoogleAnalyticsHeadScripts } from '@intlayer/design-system/utils';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
@@ -23,6 +24,14 @@ import { getOgImageUrl } from '#utils/ogImage';
 import { getRootStructuredDataScripts } from '#utils/structuredData';
 
 const localeRoute = getRouteApi('/{-$locale}');
+
+/**
+ * Deferred GA4 tag; empty when `VITE_GOOGLE_ANALYTICS_ID` is unset (local dev,
+ * previews).
+ */
+const googleAnalyticsScripts = getGoogleAnalyticsHeadScripts(
+  import.meta.env.VITE_GOOGLE_ANALYTICS_ID
+);
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -127,7 +136,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
             ]
           : []),
       ],
-      scripts: [...structuredDataScripts],
+      scripts: [...structuredDataScripts, ...googleAnalyticsScripts],
     };
   },
   shellComponent: RootDocument,
@@ -142,7 +151,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth text-text leading-6 transition md:flex">
+      <body className="text-text relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth leading-6 transition md:flex">
         <IntlayerProvider locale={locale}>
           <PostHogProvider>
             <AnimatePresenceProvider>

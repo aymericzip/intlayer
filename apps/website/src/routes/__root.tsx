@@ -7,6 +7,7 @@ import {
   WellKnown_AiCatalog_Path,
 } from '@intlayer/design-system/routes';
 import { Toaster } from '@intlayer/design-system/toaster';
+import { getGoogleAnalyticsHeadScripts } from '@intlayer/design-system/utils';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
@@ -35,30 +36,12 @@ const localeRoute = getRouteApi('/{-$locale}');
 const googleAnalyticsId: string | undefined = import.meta.env
   .VITE_GOOGLE_ANALYTICS_ID;
 
-/**
- * gtag.js loader + bootstrap. SPA navigations are reported through GA4 enhanced
- * measurement ("page changes based on browser history events").
- */
 const cspNonce = import.meta.env.VITE_CSP_NONCE;
 
-const googleAnalyticsScripts = googleAnalyticsId
-  ? [
-      {
-        src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`,
-        async: true,
-        nonce: cspNonce,
-      },
-      {
-        children: [
-          'window.dataLayer = window.dataLayer || [];',
-          'function gtag(){dataLayer.push(arguments);}',
-          "gtag('js', new Date());",
-          `gtag('config', '${googleAnalyticsId}');`,
-        ].join(''),
-        nonce: cspNonce,
-      },
-    ]
-  : [];
+const googleAnalyticsScripts = getGoogleAnalyticsHeadScripts(
+  googleAnalyticsId,
+  cspNonce
+);
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -214,7 +197,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex">
+      <body className="bg-background relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth leading-8 transition md:flex">
         <IntlayerProvider locale={locale}>
           <AnimatePresenceProvider>
             <ReactQueryProvider>
