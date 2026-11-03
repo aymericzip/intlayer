@@ -51,6 +51,11 @@ export const ensureIntlayerBundle = async (
 
 type LoadContentDeclarationOptions = {
   logError?: boolean;
+  /**
+   * Content to load instead of reading the file from disk. Only supported
+   * for JSON, JS and TS content declarations.
+   */
+  code?: string;
 };
 
 // Initialize a module-level cache
@@ -103,11 +108,18 @@ export const loadContentDeclaration = async (
   bundleFilePath?: string,
   options?: LoadContentDeclarationOptions
 ): Promise<Dictionary | undefined> => {
-  if (extname(path) === '.md' || extname(path) === '.mdx') {
+  const isMarkdown = extname(path) === '.md' || extname(path) === '.mdx';
+  const isYaml = extname(path) === '.yaml' || extname(path) === '.yml';
+
+  if (typeof options?.code === 'string' && (isMarkdown || isYaml)) {
+    return undefined;
+  }
+
+  if (isMarkdown) {
     return loadMarkdownContentDeclaration(path, configuration);
   }
 
-  if (extname(path) === '.yaml' || extname(path) === '.yml') {
+  if (isYaml) {
     return loadYamlContentDeclaration(path);
   }
 
@@ -122,6 +134,7 @@ export const loadContentDeclaration = async (
   try {
     const dictionary = await loadExternalFile(path, {
       logError: options?.logError,
+      code: options?.code,
       projectRequire: build.require ?? getProjectRequire(),
       buildOptions: {
         packages: undefined, // It fixes the import of ESM packages in the content declaration
