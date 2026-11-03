@@ -5,6 +5,7 @@ const chatFormSectionContent = {
   content: {
     relatedFilesLabel: t({
       ar: 'ملفات ذات صلة:',
+      'he-IL': 'קבצים קשורים:',
       de: 'Verwandte Dateien:',
       en: 'Related files:',
       'en-GB': 'Related files:',

@@ -17,6 +17,8 @@ export default {
       pt: 'Intlayer Translate é uma ferramenta de tradução baseada em IA projetada para traduzir com precisão aplicativos com muito contexto.',
       hi: 'Intlayer Translate एक एआई-संचालित अनुवाद उपकरण है जिसे संदर्भ-भारी अनुप्रयोगों का सटीक अनुवाद करने के लिए डिज़ाइन किया गया है।',
       ar: 'Intlayer Translate هي أداة ترجمة مدعومة بالذكاء الاصطناعي مصممة لترجمة التطبيقات الغنية بالسياق بدقة.',
+      'he-IL':
+        'Intlayer Translate הוא כלי תרגום מבוסס AI שנועד לתרגם בדיוק אפליקציות עשירות בהקשר.',
       ru: 'Intlayer Translate — это инструмент перевода на базе ИИ, предназначенный для точного перевода приложений с большим количеством контекста.',
       tr: 'Intlayer Translate, bağlam açısından yoğun uygulamaları doğru bir şekilde çevirmek için tasarlanmış, yapay zeka destekli bir çeviri aracıdır.',
       pl: 'Intlayer Translate to oparte na sztucznej inteligencji narzędzie do tłumaczenia zaprojektowane w celu precyzyjnego tłumaczenia aplikacji z dużym kontekstem.',

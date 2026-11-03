@@ -5,6 +5,7 @@ const changePasswordContent = {
   content: {
     title: t({
       ar: 'تغيير كلمة المرور',
+      'he-IL': 'שינוי סיסמה',
       de: 'Passwort ändern',
       en: 'Change password',
       'en-GB': 'Change password',
@@ -25,6 +26,7 @@ const changePasswordContent = {
     }),
     title2: t({
       ar: 'غير كلمة المرور الخاصة بك',
+      'he-IL': 'שנו את הסיסמה שלכם',
       de: 'Ändern Sie Ihr Passwort',
       en: 'Change your password',
       'en-GB': 'Change your password',
@@ -45,6 +47,7 @@ const changePasswordContent = {
     }),
     description: t({
       ar: 'غيّر كلمة المرور الخاصة بك للوصول إلى حسابك.',
+      'he-IL': 'שנו את הסיסמה שלכם כדי לגשת לחשבון.',
       de: 'Ändern Sie Ihr Passwort, um auf Ihr Konto zuzugreifen.',
       en: 'Change your password to access your account.',
       'en-GB': 'Change your password to access your account.',
@@ -66,6 +69,7 @@ const changePasswordContent = {
     metadata: {
       title: t({
         ar: 'تغيير كلمة المرور | Intlayer',
+        'he-IL': 'שינוי סיסמה | Intlayer',
         de: 'Passwort ändern | Intlayer',
         en: 'Change Password | Intlayer',
         'en-GB': 'Change Password | Intlayer',
@@ -86,6 +90,8 @@ const changePasswordContent = {
       }),
       description: t({
         ar: 'قم بتأمين حسابك عن طريق تغيير كلمة المرور الحالية. حافظ على أمان حسابك في Intlayer مع كلمة مرور جديدة.',
+        'he-IL':
+          'אבטחו את החשבון שלכם על ידי שינוי הסיסמה הנוכחית. שמרו על חשבון ה-Intlayer שלכם בטוח עם סיסמה חדשה.',
         de: 'Sichern Sie Ihr Konto, indem Sie Ihr aktuelles Passwort ändern. Halten Sie Ihr Intlayer-Konto mit einem neuen Passwort sicher.',
         en: 'Secure your account by changing your current password. Keep your Intlayer account safe with a new password.',
         'en-GB':
@@ -109,6 +115,13 @@ const changePasswordContent = {
         ar: [
           'تغيير كلمة المرور',
           'أمان الحساب',
+          'Intlayer',
+          'React',
+          'JavaScript',
+        ],
+        'he-IL': [
+          'שינוי סיסמה',
+          'אבטחת החשבון',
           'Intlayer',
           'React',
           'JavaScript',

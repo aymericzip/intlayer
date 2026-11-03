@@ -5,6 +5,8 @@ const demoYoutubeContent = {
   content: {
     howToInternationalize: t({
       ar: 'يوتيوب تجريبي - كيفية تعريب تطبيقك باستخدام Intlayer',
+      'he-IL':
+        'הדגמה ב-YouTube - כיצד לבצע בינאום לאפליקציה שלכם באמצעות Intlayer',
       de: 'Demo YouTube – Wie Sie Ihre Anwendung mit Intlayer internationalisieren',
       en: 'Demo YouTube - How to Internationalize your application using Intlayer',
       'en-GB':

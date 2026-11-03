@@ -13,6 +13,7 @@ const sendInvitationModalContent = {
       es: 'Enviar invitación de afiliado',
       de: 'Affiliate-Einladung senden',
       ar: 'إرسال دعوة انضمام',
+      'he-IL': 'שליחת הזמנת שותף',
       it: 'Invia invito di affiliazione',
       'en-GB': 'Send Affiliate Invitation',
       pt: 'Enviar convite de afiliado',
@@ -34,6 +35,8 @@ const sendInvitationModalContent = {
       es: 'Invite a alguien a unirse al programa de afiliados. Recibirán un correo electrónico con un enlace para completar su configuración.',
       de: 'Laden Sie jemanden ein, am Affiliate-Programm teilzunehmen. Sie erhalten eine E-Mail mit einem Link zur Vervollständigung ihrer Einrichtung.',
       ar: 'قم بدعوة شخص ما للانضمام إلى برنامج الشراكة. سيتلقون بريدًا إلكترونيًا يحتوي على رابط لإكمال الإعداد الخاص بهم.',
+      'he-IL':
+        'הזמינו מישהו להצטרף לתוכנית השותפים. הוא יקבל אימייל עם קישור להשלמת ההגדרה.',
       it: "Invita qualcuno a unirsi al programma di affiliazione. Riceveranno un'e-mail con un link per completare la configurazione.",
       'en-GB':
         'Invite someone to join the affiliate program. They will receive an email with a link to complete their setup.',

@@ -5,6 +5,7 @@ const content = {
   content: {
     invalidPasswordLengthError: t({
       ar: 'يجب أن تحتوي كلمة المرور الخاصة بك على 8 أحرف على الأقل',
+      'he-IL': 'הסיסמה חייבת להכיל לפחות 8 תווים',
       de: 'Ihr Passwort muss mindestens 8 Zeichen lang sein',
       en: 'Your password must be at least 8 characters',
       'en-GB': 'Your password must be at least 8 characters',
@@ -26,6 +27,7 @@ const content = {
 
     requiredErrorNewPassword: t({
       ar: 'يرجى إدخال كلمة المرور الجديدة',
+      'he-IL': 'אנא הזינו את הסיסמה החדשה שלכם',
       de: 'Bitte geben Sie Ihr neues Passwort ein',
       en: 'Please enter your new password',
       'en-GB': 'Please enter your new password',
@@ -47,6 +49,7 @@ const content = {
 
     invalidTypeErrorNewPassword: t({
       ar: 'يرجى إدخال كلمة مرور جديدة صالحة',
+      'he-IL': 'אנא הזינו סיסמה חדשה תקינה',
       de: 'Bitte geben Sie ein gültiges neues Passwort ein',
       en: 'Please enter a valid new password',
       'en-GB': 'Please enter a valid new password',
@@ -68,6 +71,7 @@ const content = {
 
     requiredErrorNewPasswordConfirmation: t({
       ar: 'يرجى إدخال كلمة المرور الجديدة مرة أخرى',
+      'he-IL': 'אנא הזינו שוב את הסיסמה החדשה',
       de: 'Bitte geben Sie Ihr neues Passwort erneut ein',
       en: 'Please enter your new password again',
       'en-GB': 'Please enter your new password again',
@@ -89,6 +93,7 @@ const content = {
 
     invalidTypeErrorNewPasswordConfirmation: t({
       ar: 'يرجى إدخال كلمة مرور جديدة صالحة مرة أخرى',
+      'he-IL': 'אנא הזינו שוב סיסמה חדשה תקינה',
       de: 'Bitte geben Sie erneut ein gültiges neues Passwort ein',
       en: 'Please enter a valid new password again',
       'en-GB': 'Please enter a valid new password again',
@@ -110,6 +115,7 @@ const content = {
 
     passwordNotMatchError: t({
       ar: 'يجب أن تتطابق كلمة المرور الجديدة مع تأكيد كلمة المرور',
+      'he-IL': 'הסיסמה החדשה ואימות הסיסמה חייבים להיות זהים',
       de: 'Das neue Passwort und die Bestätigung des Passworts müssen übereinstimmen',
       en: 'New password and password confirmation must match',
       'en-GB': 'New password and password confirmation must match',

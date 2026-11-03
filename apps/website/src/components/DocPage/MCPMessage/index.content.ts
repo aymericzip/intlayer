@@ -5,6 +5,7 @@ const mCPMessageContent = {
   content: {
     title: t({
       ar: 'أضف MCP Server إلى مساعدك الذكي',
+      'he-IL': 'הוסיפו את שרת ה-MCP לעוזר ה-AI שלכם',
       de: 'MCP Server zu Ihrem AI-Assistenten hinzufügen',
       en: 'Add the MCP Server to your AI Assistant',
       'en-GB': 'Add the MCP Server to your AI Assistant',
@@ -25,6 +26,8 @@ const mCPMessageContent = {
     }),
     description: t({
       ar: 'بدءاً من الدمج مع خادم MCP Intlayer ، يمكن لمساعدك الذكي الاسترجاع من جميع المستندات مباشرة من ChatGPT ، DeepSeek ، Cursor ، VSCode ، إلخ.',
+      'he-IL':
+        'שילוב שרת ה-MCP של Intlayer בעוזר ה-AI המועדף עליכם מאפשר לשלוף את כל התיעוד ישירות מ-ChatGPT, DeepSeek, Cursor, VSCode ועוד.',
       de: 'Durch die Integration des Intlayer MCP-Servers in Ihren bevorzugten AI-Assistenten können Sie alle Dokumente direkt von ChatGPT, DeepSeek, Cursor, VSCode usw. abrufen.',
       en: 'By integrating the Intlayer MCP Server to your favourite AI assistant can retrieve all the doc directly from ChatGPT, DeepSeek, Cursor, VSCode, etc.',
       'en-GB':
@@ -49,6 +52,7 @@ const mCPMessageContent = {
         en: 'See MCP Server doc',
         fr: 'Voir la documentation du serveur MCP',
         ar: 'عرض الوثائق الخاصة بالخادم MCP',
+        'he-IL': 'צפייה בתיעוד שרת ה-MCP',
         de: 'Dokumentation des MCP-Servers ansehen',
         es: 'Ver la documentación del servidor MCP',
         it: 'Vedi la documentazione del server MCP',
@@ -69,6 +73,7 @@ const mCPMessageContent = {
         en: 'See MCP Server doc',
         fr: 'Voir la documentation du serveur MCP',
         ar: 'عرض الوثائق الخاصة بالخادم MCP',
+        'he-IL': 'צפייה בתיעוד שרת ה-MCP',
         de: 'Dokumentation des MCP-Servers ansehen',
         es: 'Ver la documentación del servidor MCP',
         it: 'Vedi la documentazione del server MCP',

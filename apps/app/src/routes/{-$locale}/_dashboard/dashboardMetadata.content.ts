@@ -17,6 +17,7 @@ const dashboardMetadataContent = {
         pt: 'Painel | Intlayer',
         hi: 'डैशबोर्ड | Intlayer',
         ar: 'لوحة التحكم | Intlayer',
+        'he-IL': 'לוח בקרה | Intlayer',
         ru: 'Приборная панель | Intlayer',
         tr: 'Dashboard | Intlayer',
         pl: 'Panel | Intlayer',
@@ -38,6 +39,7 @@ const dashboardMetadataContent = {
         pt: 'Gerencie seus projetos e dicionários no painel do Intlayer.',
         hi: 'Intlayer डैशボード में अपने प्रोजेक्ट और शब्दकोशों को प्रबंधित करें।',
         ar: 'قم بإدارة مشاريعك وقواميسك في لوحة تحكم Intlayer.',
+        'he-IL': 'נהלו את הפרויקטים והמילונים שלכם בלוח הבקרה של Intlayer.',
         ru: 'Управляйте своими проектами и словарями в панели управления Intlayer.',
         tr: 'Intlayer kontrol panelinde projelerinizi ve sözlüklerinizi yönetin.',
         pl: 'Zarządzaj swoimi projektami i słownikami w panelu Intlayer.',
@@ -114,6 +116,7 @@ const dashboardMetadataContent = {
 
         hi: ['Intlayer', 'डैशबोर्ड', 'स्थानीयकरण', 'अंतर्राष्ट्रीयकरण', 'i18n', 'CMS'],
         ar: ['Intlayer', 'لوحة التحكم', 'الترجمة', 'التدويل', 'i18n', 'CMS'],
+        'he-IL': ['Intlayer', 'לוח בקרה', 'לוקליזציה', 'בינאום', 'i18n', 'CMS'],
 
         ru: [
           'Intlayer',

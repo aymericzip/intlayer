@@ -15,6 +15,7 @@ const lastUsedIndicatorContent = {
       pt: 'Último acesso',
       hi: 'पिछली बार उपयोग किया गया',
       ar: 'آخر استخدام',
+      'he-IL': 'בשימוש אחרון',
       ru: 'Последний вход',
       'en-GB': 'Last used',
       tr: 'Son kullanılan',

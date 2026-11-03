@@ -5,6 +5,7 @@ const searchTriggerContent: Dictionary = {
   content: {
     noContentText: t({
       ar: 'لم يتم العثور على نتائج',
+      'he-IL': 'לא נמצאו תוצאות',
       de: 'Keine Ergebnisse gefunden',
       en: 'No results found',
       'en-GB': 'No results found',
@@ -37,6 +38,7 @@ const searchTriggerContent: Dictionary = {
         pt: 'Pesquisar',
         hi: 'खोजें',
         ar: 'بحث',
+        'he-IL': 'חיפוש',
         ru: 'Поиск',
         tr: 'Ara',
         pl: 'Szukaj',
@@ -57,6 +59,7 @@ const searchTriggerContent: Dictionary = {
         pt: 'Pesquisar...',
         hi: 'खोजें...',
         ar: 'بحث...',
+        'he-IL': 'חיפוש...',
         ru: 'Поиск...',
         tr: 'Ara...',
         pl: 'Szukaj...',
@@ -79,6 +82,7 @@ const searchTriggerContent: Dictionary = {
         pt: 'Clique para ver',
         hi: 'देखने के लिए क्लिक करें',
         ar: 'انقر لعرض',
+        'he-IL': 'לחצו לצפייה',
         ru: 'Нажмите, чтобы просмотреть',
         tr: 'Görüntülemek için tıklayın',
         pl: 'Kliknij, aby wyświetlić',

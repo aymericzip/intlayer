@@ -5,6 +5,7 @@ const metadataContent = {
   content: {
     title: t({
       ar: 'عرض حي لمحرر Intlayer المرئي ونظام إدارة المحتوى | Intlayer',
+      'he-IL': 'הדגמה חיה של העורך הוויזואלי וה-CMS של Intlayer | Intlayer',
       de: 'Live-Demo des visuellen Intlayer-Editors & CMS | Intlayer',
       en: 'Live Demo of the Intlayer Visual Editor & CMS | Intlayer',
       'en-GB': 'Live Demo of the Intlayer Visual Editor & CMS | Intlayer',
@@ -25,6 +26,8 @@ const metadataContent = {
     }),
     description: t({
       ar: 'جرب محرر Intlayer الإلكتروني الجديد. مكن فرقك من السيطرة على المحتوى الخاص بك وتحويل تطبيقك إلى نظام إدارة محتوى.',
+      'he-IL':
+        'נסו את העורך המקוון החדש של Intlayer. אפשרו לצוותים שלכם לשלוט בתוכן והפכו את האפליקציה שלכם ל-CMS.',
       de: 'Probieren Sie den neuen Intlayer-Online-Editor aus. Ermöglichen Sie Ihren Teams, die Kontrolle über Ihre Inhalte zu übernehmen und Ihre Anwendung in ein CMS zu verwandeln.',
       en: 'Try the new Intlayer online editor. Empower your teams to take control of your content and transform your application into a CMS.',
       'en-GB':
@@ -51,6 +54,16 @@ const metadataContent = {
         'عرض توضيحي',
         'محرر إلكتروني',
         'جرب',
+        'CMS',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      'he-IL': [
+        'הדגמה',
+        'הדגמה',
+        'עורך מקוון',
+        'ניסיון',
         'CMS',
         'Intlayer',
         'React',

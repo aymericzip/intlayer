@@ -16,6 +16,7 @@ const profileDashboardContent = {
       pt: 'Editor Intlayer - Playground',
       hi: 'इन्टलैयार एडिटर - प्लेग्राउंड',
       ar: 'المحرر المرئي - Playground',
+      'he-IL': 'העורך של Intlayer - Playground',
       ru: 'Редактор Intlayer - Playground',
       tr: 'Intlayer Editör - Playground',
       pl: 'Edytor Intlayer — Środowisko testowe',
@@ -37,6 +38,8 @@ const profileDashboardContent = {
       pt: 'Através deste playground, você pode testar o editor visual do Intlayer interagindo com o site.',
       hi: 'इस प्लेग्राउंड के माध्यम से, आप वेबसाइट के साथ बातचीत करके Intlayer विज़ुअल एडिटर का परीक्षण कर सकते हैं।',
       ar: 'من خلال هذا الملعب، يمكنك اختبار محرر Intlayer المرئي عن طريق التفاعل مع الموقع الإلكتروني.',
+      'he-IL':
+        'דרך ה-Playground הזה תוכלו לבדוק את העורך הוויזואלי של Intlayer באמצעות אינטראקציה עם האתר.',
       ru: 'Через эту площадку вы можете протестировать визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
       tr: 'Bu Playground aracılığıyla, web sitesiyle etkileşimde bulunarak Intlayer görsel düzenleyicisini test edebilirsiniz.',
       pl: 'Dzięki temu środowisku testowemu możesz przetestować wizualny edytor Intlayer, wchodząc w interakcję z witryną.',

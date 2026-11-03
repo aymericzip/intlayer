@@ -5,6 +5,7 @@ export const useAskResetPasswordSchemaContent = {
   content: {
     requiredErrorEmail: t({
       ar: 'يرجى إدخال عنوان بريدك الإلكتروني',
+      'he-IL': 'אנא הזינו את כתובת האימייל שלכם',
       de: 'Bitte geben Sie Ihre E-Mail-Adresse ein',
       en: 'Please enter your email address',
       'en-GB': 'Please enter your email address',
@@ -26,6 +27,7 @@ export const useAskResetPasswordSchemaContent = {
 
     invalidTypeErrorEmail: t({
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
+      'he-IL': 'אנא הזינו כתובת אימייל תקינה',
       de: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
       en: 'Please enter a valid email address',
       'en-GB': 'Please enter a valid email address',
@@ -47,6 +49,7 @@ export const useAskResetPasswordSchemaContent = {
 
     invalidLengthErrorEmail: t({
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
+      'he-IL': 'אנא הזינו כתובת אימייל תקינה',
       de: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
       en: 'Please enter a valid email address',
       'en-GB': 'Please enter a valid email address',

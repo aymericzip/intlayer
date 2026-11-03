@@ -5,6 +5,7 @@ const dashboardOverviewContent = {
   content: {
     title: t({
       ar: 'نظرة عامة',
+      'he-IL': 'סקירה כללית',
       de: 'Übersicht',
       en: 'Overview',
       'en-GB': 'Overview',
@@ -26,6 +27,7 @@ const dashboardOverviewContent = {
     metadata: {
       title: t({
         ar: 'نظرة عامة | Intlayer',
+        'he-IL': 'סקירה כללית | Intlayer',
         de: 'Übersicht | Intlayer',
         en: 'Overview | Intlayer',
         'en-GB': 'Overview | Intlayer',
@@ -46,6 +48,8 @@ const dashboardOverviewContent = {
       }),
       description: t({
         ar: 'رؤى مركزية حول توطين مشروعك: اللغات والمفاتيح والترجمات المفقودة.',
+        'he-IL':
+          'תובנות מרוכזות על הלוקליזציה של הפרויקט שלכם: שפות, מפתחות ותרגומים חסרים.',
         de: 'Zentrale Einblicke in die Lokalisierung Ihres Projekts: Sprachen, Schlüssel und fehlende Übersetzungen.',
         en: 'Centralized insights about your project localization: locales, keys and missing translations.',
         'en-GB':
@@ -68,6 +72,7 @@ const dashboardOverviewContent = {
       keywords: [
         t({
           ar: 'نظرة عامة',
+          'he-IL': 'סקירה כללית',
           de: 'Übersicht',
           en: 'overview',
           'en-GB': 'overview',
@@ -88,6 +93,7 @@ const dashboardOverviewContent = {
         }),
         t({
           ar: 'توطين',
+          'he-IL': 'לוקליזציה',
           de: 'Lokalisierung',
           en: 'localization',
           'en-GB': 'localisation',
@@ -110,6 +116,7 @@ const dashboardOverviewContent = {
     },
     noProjectSelected: t({
       ar: 'حدد مشروعًا لعرض رؤاه.',
+      'he-IL': 'בחרו פרויקט כדי לראות את התובנות שלו.',
       de: 'Wählen Sie ein Projekt, um seine Einblicke anzuzeigen.',
       en: 'Select a project to see its insights.',
       'en-GB': 'Select a project to see its insights.',
@@ -130,6 +137,7 @@ const dashboardOverviewContent = {
     }),
     statLocales: t({
       ar: 'اللغات',
+      'he-IL': 'שפות',
       de: 'Sprachen',
       en: 'Locales',
       'en-GB': 'Locales',
@@ -150,6 +158,7 @@ const dashboardOverviewContent = {
     }),
     statDictionaries: t({
       ar: 'القواميس',
+      'he-IL': 'מילונים',
       de: 'Wörterbücher',
       en: 'Dictionaries',
       'en-GB': 'Dictionaries',
@@ -170,6 +179,7 @@ const dashboardOverviewContent = {
     }),
     statKeys: t({
       ar: 'المفاتيح',
+      'he-IL': 'מפתחות',
       de: 'Schlüssel',
       en: 'Keys',
       'en-GB': 'Keys',
@@ -190,6 +200,7 @@ const dashboardOverviewContent = {
     }),
     statCompletion: t({
       ar: 'الاكتمال',
+      'he-IL': 'השלמה',
       de: 'Vollständigkeit',
       en: 'Completion',
       'en-GB': 'Completion',
@@ -210,6 +221,7 @@ const dashboardOverviewContent = {
     }),
     translationHealth: t({
       ar: 'حالة الترجمة',
+      'he-IL': 'מצב התרגום',
       de: 'Übersetzungsstatus',
       en: 'Translation health',
       'en-GB': 'Translation health',
@@ -230,6 +242,7 @@ const dashboardOverviewContent = {
     }),
     missingTranslations: t({
       ar: 'الترجمات المفقودة',
+      'he-IL': 'תרגומים חסרים',
       de: 'Fehlende Übersetzungen',
       en: 'Missing translations',
       'en-GB': 'Missing translations',
@@ -250,6 +263,7 @@ const dashboardOverviewContent = {
     }),
     dictionariesWithMissing: t({
       ar: 'قواميس بها ترجمات ناقصة',
+      'he-IL': 'מילונים עם תרגומים חסרים',
       de: 'Wörterbücher mit fehlenden Übersetzungen',
       en: 'Dictionaries with missing translations',
       'en-GB': 'Dictionaries with missing translations',
@@ -270,6 +284,7 @@ const dashboardOverviewContent = {
     }),
     fullyTranslatedLocales: t({
       ar: 'لغات مكتملة الترجمة',
+      'he-IL': 'שפות מתורגמות במלואן',
       de: 'Vollständig übersetzte Sprachen',
       en: 'Fully translated locales',
       'en-GB': 'Fully translated locales',
@@ -290,6 +305,7 @@ const dashboardOverviewContent = {
     }),
     completionByLocale: t({
       ar: 'الاكتمال حسب اللغة',
+      'he-IL': 'השלמה לפי שפה',
       de: 'Vollständigkeit nach Sprache',
       en: 'Completion by locale',
       'en-GB': 'Completion by locale',
@@ -310,6 +326,7 @@ const dashboardOverviewContent = {
     }),
     defaultTag: t({
       ar: 'افتراضي',
+      'he-IL': 'ברירת מחדל',
       de: 'Standard',
       en: 'Default',
       'en-GB': 'Default',
@@ -330,6 +347,7 @@ const dashboardOverviewContent = {
     }),
     completeTag: t({
       ar: 'مكتمل',
+      'he-IL': 'הושלם',
       de: 'Vollständig',
       en: 'Complete',
       'en-GB': 'Complete',
@@ -350,6 +368,7 @@ const dashboardOverviewContent = {
     }),
     recentActivity: t({
       ar: 'النشاط الأخير',
+      'he-IL': 'פעילות אחרונה',
       de: 'Letzte Aktivität',
       en: 'Recent activity',
       'en-GB': 'Recent activity',
@@ -370,6 +389,7 @@ const dashboardOverviewContent = {
     }),
     noActivity: t({
       ar: 'لا يوجد نشاط حتى الآن.',
+      'he-IL': 'עדיין אין פעילות.',
       de: 'Noch keine Aktivität.',
       en: 'No activity yet.',
       'en-GB': 'No activity yet.',
@@ -390,6 +410,7 @@ const dashboardOverviewContent = {
     }),
     teamAndConfig: t({
       ar: 'الفريق والإعدادات',
+      'he-IL': 'צוות ותצורה',
       de: 'Team & Konfiguration',
       en: 'Team & configuration',
       'en-GB': 'Team & configuration',
@@ -410,6 +431,7 @@ const dashboardOverviewContent = {
     }),
     members: t({
       ar: 'الأعضاء',
+      'he-IL': 'חברים',
       de: 'Mitglieder',
       en: 'Members',
       'en-GB': 'Members',
@@ -430,6 +452,7 @@ const dashboardOverviewContent = {
     }),
     environments: t({
       ar: 'البيئات',
+      'he-IL': 'סביבות',
       de: 'Umgebungen',
       en: 'Environments',
       'en-GB': 'Environments',
@@ -450,6 +473,7 @@ const dashboardOverviewContent = {
     }),
     autoFill: t({
       ar: 'التعبئة التلقائية',
+      'he-IL': 'מילוי אוטומטי',
       de: 'Auto-Ausfüllen',
       en: 'Auto-fill',
       'en-GB': 'Auto-fill',
@@ -470,6 +494,7 @@ const dashboardOverviewContent = {
     }),
     aiAssistant: t({
       ar: 'الذكاء الاصطناعي',
+      'he-IL': 'AI',
       de: 'KI',
       en: 'AI',
       'en-GB': 'AI',
@@ -490,6 +515,7 @@ const dashboardOverviewContent = {
     }),
     repository: t({
       ar: 'المستودع',
+      'he-IL': 'מאגר',
       de: 'Repository',
       en: 'Repository',
       'en-GB': 'Repository',
@@ -510,6 +536,7 @@ const dashboardOverviewContent = {
     }),
     scanner: t({
       ar: 'الماسح',
+      'he-IL': 'סורק',
       de: 'Scanner',
       en: 'Scanner',
       'en-GB': 'Scanner',
@@ -530,6 +557,7 @@ const dashboardOverviewContent = {
     }),
     enabled: t({
       ar: 'مُفعّل',
+      'he-IL': 'מופעל',
       de: 'Aktiviert',
       en: 'Enabled',
       'en-GB': 'Enabled',
@@ -550,6 +578,7 @@ const dashboardOverviewContent = {
     }),
     disabled: t({
       ar: 'مُعطّل',
+      'he-IL': 'מושבת',
       de: 'Deaktiviert',
       en: 'Disabled',
       'en-GB': 'Disabled',
@@ -570,6 +599,7 @@ const dashboardOverviewContent = {
     }),
     notConfigured: t({
       ar: 'غير مُهيّأ',
+      'he-IL': 'לא הוגדר',
       de: 'Nicht konfiguriert',
       en: 'Not configured',
       'en-GB': 'Not configured',
@@ -590,6 +620,7 @@ const dashboardOverviewContent = {
     }),
     notConnected: t({
       ar: 'غير متصل',
+      'he-IL': 'לא מחובר',
       de: 'Nicht verbunden',
       en: 'Not connected',
       'en-GB': 'Not connected',
@@ -610,6 +641,7 @@ const dashboardOverviewContent = {
     }),
     fillMissingAction: t({
       ar: 'تعبئة الترجمات المفقودة',
+      'he-IL': 'מילוי תרגומים חסרים',
       de: 'Fehlende Übersetzungen ausfüllen',
       en: 'Fill missing translations',
       'en-GB': 'Fill missing translations',
@@ -630,6 +662,7 @@ const dashboardOverviewContent = {
     }),
     viewDictionariesAction: t({
       ar: 'عرض القواميس',
+      'he-IL': 'צפייה במילונים',
       de: 'Wörterbücher anzeigen',
       en: 'View dictionaries',
       'en-GB': 'View dictionaries',
@@ -650,6 +683,7 @@ const dashboardOverviewContent = {
     }),
     aiUsage: t({
       ar: 'استخدام الذكاء الاصطناعي',
+      'he-IL': 'שימוש ב-AI',
       de: 'KI-Nutzung',
       en: 'AI usage',
       'en-GB': 'AI usage',
@@ -670,6 +704,7 @@ const dashboardOverviewContent = {
     }),
     aiNoData: t({
       ar: 'لا توجد بيانات استخدام للذكاء الاصطناعي بعد.',
+      'he-IL': 'עדיין אין נתוני שימוש ב-AI.',
       de: 'Noch keine KI-Nutzungsdaten.',
       en: 'No AI usage data yet.',
       'en-GB': 'No AI usage data yet.',
@@ -690,6 +725,7 @@ const dashboardOverviewContent = {
     }),
     aiTotalConversations: t({
       ar: 'إجمالي المحادثات',
+      'he-IL': 'סך השיחות',
       de: 'Gespräche gesamt',
       en: 'Total conversations',
       'en-GB': 'Total conversations',
@@ -710,6 +746,7 @@ const dashboardOverviewContent = {
     }),
     aiTotalTokens: t({
       ar: 'إجمالي الرموز المستخدمة',
+      'he-IL': 'סך הטוקנים שנוצלו',
       de: 'Token gesamt',
       en: 'Total tokens used',
       'en-GB': 'Total tokens used',
@@ -730,6 +767,7 @@ const dashboardOverviewContent = {
     }),
     aiInputTokens: t({
       ar: 'رموز الإدخال',
+      'he-IL': 'טוקני קלט',
       de: 'Eingabe-Token',
       en: 'Input tokens',
       'en-GB': 'Input tokens',
@@ -750,6 +788,7 @@ const dashboardOverviewContent = {
     }),
     aiOutputTokens: t({
       ar: 'رموز الإخراج',
+      'he-IL': 'טוקני פלט',
       de: 'Ausgabe-Token',
       en: 'Output tokens',
       'en-GB': 'Output tokens',
@@ -770,6 +809,7 @@ const dashboardOverviewContent = {
     }),
     aiModel: t({
       ar: 'النموذج',
+      'he-IL': 'מודל',
       de: 'Modell',
       en: 'Model',
       'en-GB': 'Model',
@@ -790,6 +830,7 @@ const dashboardOverviewContent = {
     }),
     aiConversations: t({
       ar: 'محادثات',
+      'he-IL': 'שיחות',
       de: 'Gespräche',
       en: 'conversations',
       'en-GB': 'conversations',

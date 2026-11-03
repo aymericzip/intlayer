@@ -20,6 +20,7 @@ export const locales = [
   Locales.INDONESIAN,
   Locales.VIETNAMESE,
   Locales.UKRAINIAN,
+  Locales.HEBREW_ISRAEL,
 ];
 export const defaultLocale = Locales.ENGLISH;
 

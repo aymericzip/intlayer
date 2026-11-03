@@ -10,6 +10,7 @@ const appContent = {
       fr: 'Un panier rendu sur le serveur, remplacé par htmx',
       es: 'Un carrito renderizado en el servidor, intercambiado por htmx',
       ar: 'سلة تُعرض على الخادم ويستبدلها htmx',
+      'he-IL': 'עגלה שמרונדרת בשרת ומוחלפת על ידי htmx',
     }),
 
     localeLabel: t({
@@ -17,6 +18,7 @@ const appContent = {
       fr: 'Langue',
       es: 'Idioma',
       ar: 'اللغة',
+      'he-IL': 'שפה',
     }),
 
     greeting: insert(
@@ -25,6 +27,7 @@ const appContent = {
         fr: 'Bon retour, {{name}}.',
         es: 'Bienvenido de nuevo, {{name}}.',
         ar: 'مرحبًا بعودتك يا {{name}}.',
+        'he-IL': 'ברוכים השבים, {{name}}.',
       })
     ),
 
@@ -34,6 +37,7 @@ const appContent = {
         fr: 'Articles dans votre panier : {{count}}',
         es: 'Artículos en tu carrito: {{count}}',
         ar: 'المنتجات في سلتك: {{count}}',
+        'he-IL': 'פריטים בעגלה שלכם: {{count}}',
       })
     ),
 
@@ -42,6 +46,7 @@ const appContent = {
       fr: 'Total',
       es: 'Total',
       ar: 'الإجمالي',
+      'he-IL': 'סה״כ',
     }),
 
     addItem: t({
@@ -49,6 +54,7 @@ const appContent = {
       fr: 'Ajouter un article',
       es: 'Añadir un artículo',
       ar: 'أضف منتجًا',
+      'he-IL': 'הוספת פריט',
     }),
 
     emptyCart: t({
@@ -56,6 +62,7 @@ const appContent = {
       fr: 'Vider le panier',
       es: 'Vaciar el carrito',
       ar: 'أفرغ السلة',
+      'he-IL': 'ריקון העגלה',
     }),
   },
 } satisfies Dictionary;

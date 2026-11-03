@@ -5,6 +5,7 @@ const applicationTemplateMessageContent = {
   content: {
     title: t({
       ar: 'عرض قالب التطبيق على GitHub',
+      'he-IL': 'צפייה בתבנית האפליקציה ב-GitHub',
       de: 'Anwendungsvorlage auf GitHub ansehen',
       en: 'See the application template on GitHub',
       'en-GB': 'See the application template on GitHub',
@@ -25,6 +26,7 @@ const applicationTemplateMessageContent = {
     }),
     description: t({
       ar: 'هذه الصفحة لديها قالب تطبيق متاح.',
+      'he-IL': 'לדף הזה יש תבנית אפליקציה זמינה.',
       de: 'Für diese Seite ist eine Anwendungsvorlage verfügbar.',
       en: 'This page has an application template available.',
       'en-GB': 'This page has an application template available.',
@@ -45,6 +47,7 @@ const applicationTemplateMessageContent = {
     }),
     label: t({
       ar: 'عرض قالب التطبيق',
+      'he-IL': 'צפייה בתבנית האפליקציה',
       de: 'Anwendungsvorlage ansehen',
       en: 'See the application template',
       'en-GB': 'See the application template',

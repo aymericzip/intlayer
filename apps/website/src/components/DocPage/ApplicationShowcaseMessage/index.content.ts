@@ -5,6 +5,7 @@ const applicationShowcaseMessageContent = {
   content: {
     title: t({
       ar: 'عرض تطبيق العرض',
+      'he-IL': 'צפייה באפליקציית ה-Showcase',
       de: 'Showcase-Anwendung ansehen',
       en: 'See the showcase application',
       'en-GB': 'See the showcase application',
@@ -25,6 +26,7 @@ const applicationShowcaseMessageContent = {
     }),
     description: t({
       ar: 'هذه الصفحة ترتبط بعرض مباشر للقالب.',
+      'he-IL': 'הדף הזה מקשר להדגמה חיה של התבנית.',
       de: 'Diese Seite verlinkt auf eine Live-Demo der Vorlage.',
       en: 'This page links to a live demo of the template.',
       'en-GB': 'This page links to a live demo of the template.',
@@ -45,6 +47,7 @@ const applicationShowcaseMessageContent = {
     }),
     label: t({
       ar: 'عرض تطبيق العرض',
+      'he-IL': 'צפייה באפליקציית ה-Showcase',
       de: 'Showcase ansehen',
       en: 'See showcase application',
       'en-GB': 'See showcase application',

@@ -15,6 +15,8 @@ const metadataContent = {
       zh: '面向 SSR 的跨框架 Markdown 与 MDX 渲染器 | Intlayer',
       ja: 'SSR対応のクロスフレームワークMarkdown・MDXレンダラー | Intlayer',
       ar: 'محرك عرض Markdown و MDX متعدد الأطر لـ SSR | Intlayer',
+      'he-IL':
+        'Renderer חוצה פריימוורקים ל-Markdown ול-MDX עבור SSR | Intlayer',
       hi: 'SSR के लिए क्रॉस-फ्रेमवर्क Markdown और MDX रेंडरर | Intlayer',
       ko: 'SSR을 위한 크로스 프레임워크 Markdown 및 MDX 렌더러 | Intlayer',
       tr: 'SSR için çapraz framework Markdown ve MDX renderer | Intlayer',
@@ -36,6 +38,8 @@ const metadataContent = {
       zh: '零依赖的 Markdown 与 MDX 引擎，比 markdown-to-jsx 快 5 倍。服务端解析、带类型的 frontmatter、全局与按节点覆盖，适用于 React、Next.js、Vue、Svelte、Solid、Preact 和 Angular。',
       ja: '依存関係のないMarkdown・MDXエンジン。markdown-to-jsxより5倍高速。サーバー側解析、型付きフロントマター、全体およびノード単位の上書きに対応し、React、Next.js、Vue、Svelte、Solid、Preact、Angularで動作します。',
       ar: 'محرك Markdown وMDX بلا تبعيات، أسرع بـ 5 مرات من markdown-to-jsx. تحليل على الخادم، frontmatter مُنمَّط، وتجاوزات عامة ولكل عقدة، لـ React وNext.js وVue وSvelte وSolid وPreact وAngular.',
+      'he-IL':
+        'מנוע Markdown ו-MDX ללא תלויות, מהיר פי 5 מ-markdown-to-jsx. ניתוח בצד השרת, frontmatter עם טיפוסים, דריסות גלובליות ולכל צומת, עבור React, Next.js, Vue, Svelte, Solid, Preact ו-Angular.',
       hi: 'बिना निर्भरता वाला Markdown और MDX इंजन, markdown-to-jsx से 5× तेज़। सर्वर-साइड पार्सिंग, टाइप्ड frontmatter, वैश्विक और नोड-वार ओवरराइड — React, Next.js, Vue, Svelte, Solid, Preact और Angular के लिए।',
       ko: '의존성 없는 Markdown 및 MDX 엔진으로 markdown-to-jsx보다 5배 빠릅니다. 서버 사이드 파싱, 타입이 지정된 프론트매터, 전역 및 노드별 오버라이드를 React, Next.js, Vue, Svelte, Solid, Preact, Angular에서 제공합니다.',
       tr: "Bağımlılıksız bir Markdown ve MDX motoru; markdown-to-jsx'ten 5 kat hızlı. Sunucu tarafı ayrıştırma, tipli frontmatter, küresel ve düğüm bazlı geçersiz kılmalar; React, Next.js, Vue, Svelte, Solid, Preact ve Angular için.",
@@ -154,6 +158,16 @@ const metadataContent = {
         'Markdown متعدد الأطر',
         'Markdown لـ Svelte',
         'Markdown لـ Vue',
+      ],
+      'he-IL': [
+        'Renderer ל-Markdown',
+        'Renderer ל-MDX',
+        'Markdown ל-JSX',
+        'Markdown ב-SSR',
+        'frontmatter עם טיפוסים',
+        'Markdown חוצה פריימוורקים',
+        'Markdown ב-Svelte',
+        'Markdown ב-Vue',
       ],
       hi: [
         'Markdown रेंडरर',

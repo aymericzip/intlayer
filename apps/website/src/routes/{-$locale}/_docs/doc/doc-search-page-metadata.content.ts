@@ -5,6 +5,7 @@ const metadataContent = {
   content: {
     title: t({
       ar: 'البحث في وثائق Intlayer | Intlayer',
+      'he-IL': 'חיפוש בתיעוד של Intlayer | Intlayer',
       de: 'Intlayer-Dokumentation durchsuchen | Intlayer',
       en: 'Search the Intlayer Documentation | Intlayer',
       'en-GB': 'Search the Intlayer Documentation | Intlayer',
@@ -26,6 +27,8 @@ const metadataContent = {
 
     description: t({
       ar: 'ابحث في وثائق Intlayer عن الأدلة ومراجع الـ API وأمثلة التكامل مع React وNext.js وVue وSvelte.',
+      'he-IL':
+        'חפשו בתיעוד של Intlayer מדריכים, תיעוד API ודוגמאות שילוב עבור React, Next.js, Vue ו-Svelte.',
       de: 'Durchsuchen Sie die Intlayer-Dokumentation nach Guides, API-Referenzen und Integrationsbeispielen für React, Next.js, Vue und Svelte.',
       en: 'Search the Intlayer documentation for guides, API references and integration examples for React, Next.js, Vue and Svelte.',
       'en-GB':

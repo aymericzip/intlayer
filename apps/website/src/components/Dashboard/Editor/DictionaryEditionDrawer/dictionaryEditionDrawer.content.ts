@@ -16,6 +16,7 @@ const dictionaryEditionDrawerContent = {
         pt: 'Abrir o dicionário no editor',
         hi: 'एडिटर में शब्दकोश खोलने के लिए क्लिक करें',
         ar: 'انقر لفتح قاموس في المحرر',
+        'he-IL': 'פתיחת המילון בעורך',
         ru: 'Нажмите, чтобы открыть словарь в редакторе',
         'en-GB': 'Click to open the dictionary in the editor',
         tr: 'Sözlüğü düzenleyicide aç',
@@ -36,6 +37,7 @@ const dictionaryEditionDrawerContent = {
         pt: 'Clique para abrir o dicionário no editor',
         hi: 'एडिटर में शब्दकोश खोलने के लिए क्लिक करें',
         ar: 'انقر لفتح قاموس في المحرر',
+        'he-IL': 'לחצו לפתיחת המילון בעורך',
         ru: 'Нажмите, чтобы открыть словарь в редакторе',
         'en-GB': 'Click to open the dictionary in the editor',
         tr: 'Sözlüğü düzenleyicide açmak için tıklayın',
@@ -47,6 +49,7 @@ const dictionaryEditionDrawerContent = {
     },
     backButtonText: t({
       ar: 'قائمة القوامل',
+      'he-IL': 'רשימת מילונים',
       de: 'Wörterbuchliste',
       en: 'Dictionary list',
       'en-GB': 'Dictionary list',
@@ -67,6 +70,7 @@ const dictionaryEditionDrawerContent = {
     }),
     modalTitle: t({
       ar: 'تحرير قاموس',
+      'he-IL': 'עריכת מילון',
       de: 'Wörterbuch bearbeiten',
       en: 'Edit dictionary',
       'en-GB': 'Edit dictionary',
@@ -87,6 +91,7 @@ const dictionaryEditionDrawerContent = {
     }),
     noDictionaryFocused: t({
       ar: 'لا يوجد قاموس مرتبط',
+      'he-IL': 'אין מילון במוקד',
       de: 'Kein Wörterbuch ausgewählt',
       en: 'No dictionary focused',
       'en-GB': 'No dictionary focused',
@@ -107,6 +112,7 @@ const dictionaryEditionDrawerContent = {
     }),
     focusedDictionaryNotFound: t({
       ar: 'لا يوجد قاموس مرتبط',
+      'he-IL': 'המילון שבמוקד לא נמצא',
       de: 'Ausgewähltes Wörterbuch nicht gefunden',
       en: 'Focused dictionary not found',
       'en-GB': 'Focused dictionary not found',

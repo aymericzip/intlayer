@@ -16,6 +16,7 @@ const addPasskeySchemaContent = {
         pt: 'O nome é obrigatório',
         hi: 'नाम आवश्यक है',
         ar: 'الاسم مطلوب',
+        'he-IL': 'נדרש שם',
         ru: 'Имя обязательно',
         tr: 'İsim gereklidir',
         pl: 'Imię jest wymagane',

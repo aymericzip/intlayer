@@ -16,6 +16,7 @@ const localeSwitcherContent = {
       pt: 'Mudar idioma',
       hi: 'भाषा स्विचर',
       ar: 'مبدل اللغة',
+      'he-IL': 'החלפת שפה',
       ru: 'Переключатель языка',
     }),
 
@@ -33,6 +34,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisar idioma',
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
+        'he-IL': 'חיפוש שפה',
         ru: 'Поиск языка',
       }),
       placeholder: t({
@@ -48,6 +50,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisar um idioma',
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
+        'he-IL': 'חיפוש שפה',
         ru: 'Поиск языка',
       }),
       ariaLabel: t({
@@ -63,6 +66,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisa de idioma',
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
+        'he-IL': 'חיפוש שפה',
         ru: 'Поиск языка',
       }),
     },

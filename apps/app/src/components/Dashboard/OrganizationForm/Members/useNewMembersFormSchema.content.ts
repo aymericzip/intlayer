@@ -16,6 +16,7 @@ const content = {
       pt: 'Por favor, insira um endereço de e-mail válido',
       hi: 'कृपया एक मान्य ईमेल पता दर्ज करें',
       ar: 'يرجى إدخال عنوان بريد إلكتروني صالح',
+      'he-IL': 'אנא הזינו כתובת אימייל תקינה',
       ru: 'Пожалуйста, введите правильный адрес электронной почты',
       tr: 'Lütfen geçerli bir e-posta adresi girin',
       pl: 'Proszę podać prawidłowy adres e-mail.',

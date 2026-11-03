@@ -6,6 +6,8 @@ const longPressMessageContent = {
     message: insert(
       t({
         ar: '{{longPress}} / {{modifierClick}} لتعديل القاموس {{dictionaryKey}}',
+        'he-IL':
+          '{{longPress}} / {{modifierClick}} כדי לערוך את המילון {{dictionaryKey}}',
         de: '{{longPress}} / {{modifierClick}}, um das Wörterbuch {{dictionaryKey}} zu bearbeiten',
         en: '{{longPress}} / {{modifierClick}} to edit the {{dictionaryKey}} dictionary',
         'en-GB':
@@ -28,6 +30,7 @@ const longPressMessageContent = {
     ),
     longPress: t({
       ar: 'ضغط مطوّل',
+      'he-IL': 'לחיצה ארוכה',
       de: 'Lange drücken',
       en: 'Long press',
       'en-GB': 'Long press',
@@ -49,6 +52,7 @@ const longPressMessageContent = {
     modifierClick: insert(
       t({
         ar: '{{modifierKey}} + نقرة',
+        'he-IL': '{{modifierKey}} + לחיצה',
         de: '{{modifierKey}} + Klick',
         en: '{{modifierKey}} + click',
         'en-GB': '{{modifierKey}} + click',

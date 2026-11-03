@@ -21,6 +21,7 @@ const siteStackSectionContent = {
       id: 'Perutean URL',
       vi: 'Định tuyến URL',
       ar: 'توجيه الروابط',
+      'he-IL': 'ניתוב URL',
       uk: 'Маршрутизація URL',
     }),
     stackTitle: t({
@@ -41,6 +42,7 @@ const siteStackSectionContent = {
       id: 'Stack terdeteksi',
       vi: 'Công nghệ phát hiện được',
       ar: 'التقنيات المكتشفة',
+      'he-IL': 'סטאק שזוהה',
       uk: 'Виявлений стек',
     }),
     noTechnology: t({
@@ -61,6 +63,7 @@ const siteStackSectionContent = {
       id: 'Tidak ada framework, pustaka i18n, atau TMS yang terdeteksi.',
       vi: 'Không phát hiện framework, thư viện i18n hay TMS nào.',
       ar: 'لم يتم اكتشاف أي إطار عمل أو مكتبة i18n أو نظام TMS.',
+      'he-IL': 'לא זוהו פריימוורק, ספריית i18n או TMS.',
       uk: 'Фреймворк, i18n-бібліотеку чи TMS не виявлено.',
     }),
     defaultLocale: t({
@@ -81,6 +84,7 @@ const siteStackSectionContent = {
       id: 'Bahasa bawaan',
       vi: 'Ngôn ngữ mặc định',
       ar: 'اللغة الافتراضية',
+      'he-IL': 'שפת ברירת מחדל',
       uk: 'Мова за замовчуванням',
     }),
     strategies: {
@@ -102,6 +106,7 @@ const siteStackSectionContent = {
         id: 'Prefiks bahasa di setiap URL (/en/…, /fr/…)',
         vi: 'Tiền tố ngôn ngữ trên mọi URL (/en/…, /fr/…)',
         ar: 'بادئة اللغة في كل رابط (/en/…، /fr/…)',
+        'he-IL': 'קידומת שפה בכל URL (/en/…, /fr/…)',
         uk: 'Префікс мови в кожному URL (/en/…, /fr/…)',
       }),
       'prefix-no-default': t({
@@ -122,6 +127,7 @@ const siteStackSectionContent = {
         id: 'Prefiks bahasa, kecuali untuk bahasa bawaan',
         vi: 'Tiền tố ngôn ngữ, trừ ngôn ngữ mặc định',
         ar: 'بادئة اللغة باستثناء اللغة الافتراضية',
+        'he-IL': 'קידומת שפה, למעט שפת ברירת המחדל',
         uk: 'Префікс мови, окрім мови за замовчуванням',
       }),
       'search-params': t({
@@ -142,6 +148,7 @@ const siteStackSectionContent = {
         id: 'Bahasa dalam parameter kueri (?lang=fr)',
         vi: 'Ngôn ngữ trong tham số truy vấn (?lang=fr)',
         ar: 'اللغة في معامل الاستعلام (?lang=fr)',
+        'he-IL': 'שפה בפרמטר שאילתה (?lang=fr)',
         uk: 'Мова в параметрі запиту (?lang=fr)',
       }),
       subdomain: t({
@@ -162,6 +169,7 @@ const siteStackSectionContent = {
         id: 'Subdomain per bahasa (fr.example.com)',
         vi: 'Tên miền phụ theo ngôn ngữ (fr.example.com)',
         ar: 'نطاق فرعي لكل لغة (fr.example.com)',
+        'he-IL': 'תת-דומיין לשפה (fr.example.com)',
         uk: 'Піддомен для кожної мови (fr.example.com)',
       }),
       domain: t({
@@ -182,6 +190,7 @@ const siteStackSectionContent = {
         id: 'Satu domain per bahasa (example.fr, example.de)',
         vi: 'Mỗi ngôn ngữ một tên miền (example.fr, example.de)',
         ar: 'نطاق لكل لغة (example.fr، example.de)',
+        'he-IL': 'דומיין אחד לכל שפה (example.fr, example.de)',
         uk: 'Окремий домен для кожної мови (example.fr, example.de)',
       }),
       'no-prefix': t({
@@ -202,6 +211,7 @@ const siteStackSectionContent = {
         id: 'Tanpa bahasa di URL (berbasis cookie atau header)',
         vi: 'Không có ngôn ngữ trong URL (dựa trên cookie hoặc header)',
         ar: 'لا توجد لغة في الرابط (اعتمادًا على ملف تعريف الارتباط أو الترويسة)',
+        'he-IL': 'אין שפה ב-URL (מבוסס cookie או header)',
         uk: 'Мова не вказана в URL (cookie або заголовок)',
       }),
       unknown: t({
@@ -222,6 +232,7 @@ const siteStackSectionContent = {
         id: 'Tidak terdeteksi',
         vi: 'Không phát hiện được',
         ar: 'لم يتم الاكتشاف',
+        'he-IL': 'לא זוהה',
         uk: 'Не визначено',
       }),
     },
@@ -244,6 +255,7 @@ const siteStackSectionContent = {
         id: 'Framework',
         vi: 'Framework',
         ar: 'إطار عمل',
+        'he-IL': 'פריימוורק',
         uk: 'Фреймворк',
       }),
       'i18n-library': t({
@@ -264,6 +276,7 @@ const siteStackSectionContent = {
         id: 'Pustaka i18n',
         vi: 'Thư viện i18n',
         ar: 'مكتبة i18n',
+        'he-IL': 'ספריית i18n',
         uk: 'i18n-бібліотека',
       }),
       tms: t({
@@ -284,6 +297,7 @@ const siteStackSectionContent = {
         id: 'TMS',
         vi: 'TMS',
         ar: 'TMS',
+        'he-IL': 'TMS',
         uk: 'TMS',
       }),
       'translation-proxy': t({
@@ -304,6 +318,7 @@ const siteStackSectionContent = {
         id: 'Proksi terjemahan',
         vi: 'Proxy dịch thuật',
         ar: 'وكيل ترجمة',
+        'he-IL': 'פרוקסי תרגום',
         uk: 'Проксі перекладу',
       }),
       cms: t({
@@ -324,6 +339,7 @@ const siteStackSectionContent = {
         id: 'CMS',
         vi: 'CMS',
         ar: 'CMS',
+        'he-IL': 'CMS',
         uk: 'CMS',
       }),
     },

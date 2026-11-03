@@ -5,6 +5,7 @@ const content = {
   content: {
     requiredErrorName: t({
       ar: 'الرجاء إدخال اسم لمفتاح الوصول الخاص بك',
+      'he-IL': 'אנא הזינו שם למפתח הגישה שלכם',
       de: 'Bitte geben Sie einen Namen für Ihren Zugriffsschlüssel ein',
       en: 'Please enter a name for your access key',
       'en-GB': 'Please enter a name for your access key',
@@ -26,6 +27,7 @@ const content = {
 
     invalidTypeErrorName: t({
       ar: 'الرجاء إدخال اسم صالح لمفتاح الوصول الخاص بك',
+      'he-IL': 'אנא הזינו שם תקין למפתח הגישה שלכם',
       de: 'Bitte geben Sie einen gültigen Namen für Ihren Zugriffsschlüssel ein',
       en: 'Please enter a valid name for your access key',
       'en-GB': 'Please enter a valid name for your access key',
@@ -47,6 +49,7 @@ const content = {
 
     invalidDateErrorName: t({
       ar: 'الرجاء إدخال تاريخ صالح لتاريخ انتهاء صلاحية مفتاح الوصول الخاص بك',
+      'he-IL': 'אנא הזינו תאריך תקין לתפוגת מפתח הגישה שלכם',
       de: 'Bitte geben Sie ein gültiges Datum für das Ablaufdatum Ihres Zugriffsschlüssels ein',
       en: 'Please enter a valid date for your access key expiration date',
       'en-GB': 'Please enter a valid date for your access key expiration date',

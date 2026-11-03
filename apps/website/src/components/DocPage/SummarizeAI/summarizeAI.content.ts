@@ -14,6 +14,7 @@ const summarizeAIContent = {
       ko: '이 문서를 원하는 AI 어시스턴트에 참조하세요',
       zh: '将此文档参考到您的 AI 助手',
       ar: 'استخدم هذه الصفحة والموفر AI الذي تريده',
+      'he-IL': 'הפנו את עוזר ה-AI המועדף עליכם למסמך הזה',
       'en-GB': 'Reference this doc to your favorite AI assistant',
       hi: 'इस दस्तावेज़ को अपने पसंदीदा AI एसिस्टेंट के साथ संदर्भित करें',
       ru: 'Ссылайтесь на этот документ на ваш любимый ассистент AI',
@@ -34,6 +35,8 @@ const summarizeAIContent = {
       ko: '이 페이지와 원하는 AI 어시스턴트를 사용하여 문서를 요약합니다',
       zh: '使用您最喜欢的AI助手总结文档，并引用此页面和AI提供商',
       ar: 'استخدم مساعدك المفضل للملخص واستخدم هذه الصفحة والموفر AI الذي تريده',
+      'he-IL':
+        'שאלו את שאלתכם וקבלו סיכום של המסמך על ידי הפניה לדף הזה ולספק ה-AI שתבחרו',
       'en-GB':
         'Ask your question and get a summary of the document by referencing this page and the AI provider of your choice',
       hi: 'अपने प्रश्न को पूछें और दस्तावेज़ का सारांश प्राप्त करें, इस पृष्ठ और आपके चुने हुए AI प्रदाता का उपयोग करके',
@@ -47,6 +50,7 @@ const summarizeAIContent = {
     summarizeLabel: insert(
       t({
         ar: 'استخدم {{provider}} للملخص',
+        'he-IL': 'סיכום באמצעות {{provider}}',
         de: 'Resumieren mit {{provider}}',
         en: 'Summarize using {{provider}}',
         'en-GB': 'Summarize using {{provider}}',
@@ -69,6 +73,7 @@ const summarizeAIContent = {
     summarizeMessage: insert(
       t({
         ar: 'استخدم {{url}} للملخص',
+        'he-IL': 'סכם את המסמך הבא: {{url}}',
         de: 'Resumieren Sie das folgende Dokument : {{url}}',
         en: 'Summarize the following doc : {{url}}',
         'en-GB': 'Summarize the following doc : {{url}}',

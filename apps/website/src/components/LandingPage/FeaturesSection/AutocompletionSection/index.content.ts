@@ -6,6 +6,7 @@ const markdownSectionContent = {
   content: {
     input: t({
       ar: 'عزيزي العميل،\n\nأرغب في الكتابة إليكم ',
+      'he-IL': 'לקוח יקר,\n\nאני כותב אליך ',
       de: 'Sehr geehrte Kundin,\n\nIch schreibe Ihnen ',
       en: 'Dear customer,\n\nI am writing to you ',
       'en-GB': 'Dear customer,\n\nI am writing to you ',
@@ -26,6 +27,7 @@ const markdownSectionContent = {
     }),
     suggestion: t({
       ar: 'لتأكيد طلبك',
+      'he-IL': 'כדי לאשר את הזמנתך',
       de: 'um Bestellung zu bestätigen',
       en: 'to confirm your order',
       'en-GB': 'to confirm your order',
@@ -46,6 +48,7 @@ const markdownSectionContent = {
     }),
     ariaLabel: t({
       ar: 'محرر الإكمال التلقائي',
+      'he-IL': 'עורך עם השלמה אוטומטית',
       de: 'Autovervollständigungs-Editor',
       en: 'Autocompletion editor',
       'en-GB': 'Autocompletion editor',

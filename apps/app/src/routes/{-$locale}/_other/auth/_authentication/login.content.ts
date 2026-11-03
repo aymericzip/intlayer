@@ -16,6 +16,7 @@ const signInContent = {
       pt: 'Entrar',
       hi: 'साइन इन',
       ar: 'تسجيل الدخول',
+      'he-IL': 'התחברות',
       ru: 'Войти',
       tr: 'Giriş Yap',
       pl: 'Zaloguj się',
@@ -36,6 +37,7 @@ const signInContent = {
       pt: 'Entrar',
       hi: 'साइन इन',
       ar: 'تسجيل الدخول',
+      'he-IL': 'התחברות',
       ru: 'Войти',
       tr: 'Giriş Yap',
       pl: 'Zaloguj się',
@@ -56,6 +58,7 @@ const signInContent = {
       pt: 'Insira seu email e senha para entrar.',
       hi: 'लॉग इन करने के लिए अपनी ईमेल और पासवर्ड दर्ज करें।',
       ar: 'أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول.',
+      'he-IL': 'הזינו את האימייל והסיסמה שלכם כדי להתחבר.',
       ru: 'Введите свой адрес электронной почты и пароль, чтобы войти.',
       tr: 'Giriş yapmak için e-posta adresinizi ve şifrenizi girin.',
       pl: 'Wprowadź swój adres e-mail i hasło, aby się zalogować.',
@@ -66,6 +69,7 @@ const signInContent = {
     metadata: {
       title: t({
         ar: 'تسجيل الدخول | Intlayer',
+        'he-IL': 'התחברות | Intlayer',
         de: 'Anmelden | Intlayer',
         en: 'Login | Intlayer',
         'en-GB': 'Login | Intlayer',
@@ -86,6 +90,8 @@ const signInContent = {
       }),
       description: t({
         ar: 'قم بتسجيل الدخول إلى حساب Intlayer الخاص بك للوصول إلى المحتوى الحصري وإدارة تفضيلاتك.',
+        'he-IL':
+          'התחברו לחשבון ה-Intlayer שלכם כדי לגשת לתוכן בלעדי ולנהל את ההעדפות שלכם.',
         de: 'Melden Sie sich bei Ihrem Intlayer-Konto an, um auf exklusive Inhalte zuzugreifen und Ihre Einstellungen zu verwalten.',
         en: 'Log in to your Intlayer account to access exclusive content and manage your preferences.',
         'en-GB':
@@ -114,6 +120,7 @@ const signInContent = {
           'مصادقة',
           'تسجيل الدخول',
         ],
+        'he-IL': ['התחברות', 'חשבון', 'Intlayer', 'גישה', 'אימות', 'התחברות'],
         de: [
           'Anmelden',
           'Konto',

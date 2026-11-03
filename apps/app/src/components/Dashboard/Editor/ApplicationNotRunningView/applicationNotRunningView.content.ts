@@ -6,6 +6,8 @@ const applicationNotRunningViewContent = {
     connectionError: insert(
       t({
         ar: 'فشل الاتصال بـ {{applicationUrl}}. يرجى التأكد من تشغيل تطبيقك. (الخطأ: {{error}})',
+        'he-IL':
+          'ההתחברות אל {{applicationUrl}} נכשלה. אנא ודאו שהאפליקציה שלכם פועלת. (שגיאה: {{error}})',
         de: 'Verbindung zu {{applicationUrl}} fehlgeschlagen. Stellen Sie sicher, dass Ihre Anwendung läuft. (Fehler: {{error}})',
         en: 'Failed to connect to {{applicationUrl}}. Please ensure your application is running. (Error: {{error}})',
         'en-GB':
@@ -29,6 +31,8 @@ const applicationNotRunningViewContent = {
     fetchError: insert(
       t({
         ar: 'فشل جلب تطبيق العميل. حالة الاستجابة: {{status}} {{statusText}}',
+        'he-IL':
+          'טעינת אפליקציית הלקוח נכשלה. סטטוס התגובה: {{status}} {{statusText}}',
         de: 'Abrufen der Client-Anwendung fehlgeschlagen. Antwortstatus: {{status}} {{statusText}}',
         en: 'Failed to fetch client application. Response status: {{status}} {{statusText}}',
         'en-GB':
@@ -51,6 +55,7 @@ const applicationNotRunningViewContent = {
     ),
     title: t({
       ar: 'التطبيق غير متاح',
+      'he-IL': 'האפליקציה שלכם אינה נגישה',
       de: 'Ihre Anwendung ist nicht zugänglich',
       en: 'Your application is not accessible',
       'en-GB': 'Your application is not accessible',
@@ -71,6 +76,7 @@ const applicationNotRunningViewContent = {
     }),
     description: t({
       ar: 'لاستخدام محرك المحتوى، يجب عليك التأكد من أن التطبيق يعمل.',
+      'he-IL': 'כדי להשתמש ב-CMS, עליכם לוודא שהאפליקציה פועלת.',
       de: 'Um den CMS zu verwenden, müssen Sie sicherstellen, dass die Anwendung läuft.',
       en: 'To use the CMS, you need to ensure that the application is running.',
       'en-GB':
@@ -92,6 +98,7 @@ const applicationNotRunningViewContent = {
     }),
     urlLabel: t({
       ar: 'رابط تطبيق العميل:',
+      'he-IL': 'כתובת אפליקציית הלקוח:',
       de: 'URL der Client-Anwendung:',
       en: 'Client Application URL:',
       'en-GB': 'Client Application URL:',
@@ -112,6 +119,7 @@ const applicationNotRunningViewContent = {
     }),
     urlLinkLabel: t({
       ar: 'رابط التطبيق',
+      'he-IL': 'כתובת האפליקציה',
       de: 'Anwendungs-URL',
       en: 'Application URL',
       'en-GB': 'Application URL',
@@ -132,6 +140,7 @@ const applicationNotRunningViewContent = {
     }),
     tipsTitle: t({
       ar: 'نصائح:',
+      'he-IL': 'טיפים:',
       de: 'Tipps:',
       en: 'Tips:',
       'en-GB': 'Tips:',
@@ -166,6 +175,7 @@ const applicationNotRunningViewContent = {
           pt: 'Certifique-se de que o campo de configuração `editor.cmsUrl` esteja definido como `{{editorUrl}}`.',
           ru: 'Убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `{{editorUrl}}`.',
           ar: 'تأكد من تعيين حقل التكوين `editor.cmsUrl` إلى `{{editorUrl}}`.',
+          'he-IL': 'ודאו ששדה התצורה `editor.cmsUrl` מוגדר ל-`{{editorUrl}}`.',
           hi: 'सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड `{{editorUrl}}` पर सेट है।',
           tr: '`editor.cmsUrl` yapılandırma alanının `{{editorUrl}}` olarak ayarlandığından emin olun.',
           pl: 'Upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `{{editorUrl}}`.',
@@ -189,6 +199,8 @@ const applicationNotRunningViewContent = {
           pt: 'Certifique-se de que o campo de configuração `editor.applicationUrl` esteja definido como `{{applicationUrl}}`.',
           ru: 'Убедитесь, что поле конфигурации `editor.applicationUrl` установлено на `{{applicationUrl}}`.',
           ar: 'تأكد من تعيين حقل التكوين `editor.applicationUrl` إلى `{{applicationUrl}}`.',
+          'he-IL':
+            'ודאו ששדה התצורה `editor.applicationUrl` מוגדר ל-`{{applicationUrl}}`.',
           hi: 'सुनिश्चित करें कि `editor.applicationUrl` कॉन्फ़िगरेशन फ़ील्ड `{{applicationUrl}}` पर सेट है।',
           tr: '`editor.applicationUrl` yapılandırma alanının `{{applicationUrl}}` olarak ayarlandığından emin olun.',
           pl: 'Upewnij się, że pole konfiguracji `editor.applicationUrl` jest ustawione na `{{applicationUrl}}`.',
@@ -211,6 +223,8 @@ const applicationNotRunningViewContent = {
         pt: "Certifique-se de que o cabeçalho CSP ('Content-Security-Policy') não bloqueie o iframe do editor (Obrigatório: `frame-ancestors` e `connect-src`). Verifique a console (F12) para mais detalhes.",
         ru: "Убедитесь, что заголовок CSP ('Content-Security-Policy') не блокирует iframe редактора (Требуется: `frame-ancestors` и `connect-src`). Проверьте консоль (F12) для получения дополнительных сведений.",
         ar: "تأكد من أن ترويسة CSP ('Content-Security-Policy') لا تحظر إطار iframe الخاص بالمحرر (مطلوب: `frame-ancestors` و `connect-src`). تحقق من وحدة التحكم (F12) لمزيد من التفاصيل.",
+        'he-IL':
+          "ודאו שכותרת ה-CSP ('Content-Security-Policy') אינה חוסמת את ה-iframe של העורך (נדרש: `frame-ancestors` ו-`connect-src`). בדקו את הקונסול (F12) לפרטים נוספים.",
         hi: "सुनिश्चित करें कि CSP ('Content-Security-Policy') हेडर संपादक के iframe को ब्लॉक नहीं करता है (आवश्यक: `frame-ancestors` और `connect-src`)। अधिक जानकारी के लिए कंसोल (F12) की जांच करें।",
         tr: "CSP ('Content-Security-Policy') başlığının düzenleyicinin iframe'ini engellemediğinden emin olun (Gerekli: `frame-ancestors` ve `connect-src`). Daha fazla detay için konsolu (F12) kontrol edin.",
         pl: "Upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje ramki iframe edytora (Wymagane: `frame-ancestors` i `connect-src`). Sprawdź konsolę (F12), aby uzyskać więcej szczegółów.",
@@ -232,6 +246,7 @@ const applicationNotRunningViewContent = {
         pt: 'Clique aqui para acessar a documentação do CMS',
         ru: 'Нажмите, чтобы перейти к документации CMS',
         ar: 'انقر هنا للوصول إلى وثائق محرك المحتوى',
+        'he-IL': 'לחצו למעבר לתיעוד ה-CMS',
         hi: 'क्या आप CMS के डॉक्यूमेंट पर जाना चाहते हैं?',
         it: 'Fai clic qui per accedere alla documentazione del CMS',
         tr: 'CMS belgelerine gitmek için tıklayın',
@@ -246,6 +261,7 @@ const applicationNotRunningViewContent = {
         fr: 'Voir comment configurer le CMS',
         de: 'Siehe, wie man den CMS konfiguriert',
         ar: 'انظر كيفية تكوين محرك المحتوى',
+        'he-IL': 'ראו כיצד להגדיר את ה-CMS',
         hi: 'CMS को कॉन्फ़िगर करने के बारे में देखें',
         it: 'Vedi come configurare il CMS',
         ja: 'CMSの設定方法を見る',

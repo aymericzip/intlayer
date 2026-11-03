@@ -16,6 +16,7 @@ const navTitlesContent = {
       pt: 'Ir para a seção',
       hi: 'सेक्शन पर जाएं',
       ar: 'اذهب إلى القسم',
+      'he-IL': 'מעבר לסעיף',
       ru: 'Перейти к разделу',
       tr: 'Bölüme git',
       pl: 'Przejdź do sekcji',

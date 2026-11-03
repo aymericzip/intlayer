@@ -16,6 +16,7 @@ const twoFactorAuthContent = {
       pt: 'Autenticação de dos fatores',
       hi: 'दो-कारक प्रमाणीकरण',
       ar: 'المصادقة الثنائية',
+      'he-IL': 'אימות דו-שלבי',
       ru: 'Двухфакторная аутентификация',
       tr: 'İki faktörlü kimlik doğrulama',
       pl: 'Uwierzytelnianie dwuskładnikowe',
@@ -36,6 +37,7 @@ const twoFactorAuthContent = {
       pt: 'Verifique sua identidade',
       hi: 'अपनी पहचान सत्यापित करें',
       ar: 'تحقق من هويتك',
+      'he-IL': 'אמתו את זהותכם',
       ru: 'Подтвердите свою личность',
       tr: 'Kimliğinizi doğrulayın',
       pl: 'Zweryfikuj swoją tożsamość',
@@ -57,6 +59,8 @@ const twoFactorAuthContent = {
       pt: 'Insira o código de verificação do seu aplicativo autenticador ou use um código de backup para concluir seu login.',
       hi: 'अपने प्रमाणक ऐप से सत्यापन कोड दर्ज करें या अपना लॉगिन पूरा करने के लिए बैकअप код का उपयोग करें।',
       ar: 'أدخل رمز التحقق من تطبيق المصادقة أو استخدم رمز النسخ الاحتياطي لإكمال تسجيل الدخول.',
+      'he-IL':
+        'הזינו את קוד האימות מאפליקציית האימות שלכם או השתמשו בקוד גיבוי כדי להשלים את ההתחברות.',
       ru: 'Введите код подтверждения из вашего приложения аутентификации или используйте резервный код для завершения входа.',
       tr: 'Kimlik doğrulama uygulamanızdan doğrulama kodunu girin veya girişinizi tamamlamak için yedek kod kullanın.',
       pl: 'Wprowadź kod weryfikacyjny z aplikacji uwierzytelniającej lub użyj kodu zapasowego, aby dokończyć logowanie.',
@@ -67,6 +71,7 @@ const twoFactorAuthContent = {
     metadata: {
       title: t({
         ar: 'المصادقة الثنائية | Intlayer',
+        'he-IL': 'אימות דו-שלבי | Intlayer',
         de: 'Zwei-Faktor-Authentifizierung | Intlayer',
         en: 'Two-Factor Authentication | Intlayer',
         'en-GB': 'Two-Factor Authentication | Intlayer',
@@ -87,6 +92,8 @@ const twoFactorAuthContent = {
       }),
       description: t({
         ar: 'أكمل تسجيل الدخول بإدخال رمز التحقق من تطبيق المصادقة أو استخدم رمز النسخ الاحتياطي.',
+        'he-IL':
+          'השלימו את ההתחברות על ידי הזנת קוד האימות מאפליקציית האימות שלכם, או השתמשו בקוד גיבוי.',
         de: 'Schließen Sie die Anmeldung ab, indem Sie den Bestätigungscode aus Ihrer Authentifizierungs-App eingeben oder einen Bestätigungscode verwenden.',
         en: 'Complete your login by entering the verification code from your authenticator app or use a backup code.',
         'en-GB':
@@ -115,6 +122,7 @@ const twoFactorAuthContent = {
           'الأمان',
           'TOTP',
         ],
+        'he-IL': ['אימות דו-שלבי', '2FA', 'Intlayer', 'אימות', 'אבטחה', 'TOTP'],
         de: [
           'Zwei-Faktor-Authentifizierung',
           '2FA',

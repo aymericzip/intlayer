@@ -5,6 +5,7 @@ const asideNavigationContent = {
   content: {
     title: t({
       ar: 'في هذه الصفحة',
+      'he-IL': 'בדף הזה',
       de: 'Auf dieser Seite',
       en: 'In this page',
       'en-GB': 'On this page',
@@ -25,6 +26,7 @@ const asideNavigationContent = {
     }),
     linkLabel: t({
       ar: 'اذهب إلى القسم',
+      'he-IL': 'מעבר לסעיף',
       de: 'Gehe zur Sektion',
       en: 'Go to section',
       'en-GB': 'Go to section',

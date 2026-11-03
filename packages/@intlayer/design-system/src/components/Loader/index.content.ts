@@ -16,6 +16,7 @@ export const loaderContent = {
       pt: 'Ícone animado, o que significa que o site está processando',
       hi: 'एनिमेटेड आइकन, जो कि वेबसाइट को प्रसंस्करण हो रहा है इसका मतलब है',
       ar: 'رمز متحرك، مما يعني أن الموقع الإلكتروني يتم التحميل',
+      'he-IL': 'אייקון מונפש, שמשמעותו שהאתר מעבד',
       ru: 'Анимационный значок, что означает, что сайт обрабатывается',
       tr: 'Web sitesinin işlemde olduğunu belirten animasyonlu simge',
       pl: 'Animowana ikona oznaczająca, że strona przetwarza dane',

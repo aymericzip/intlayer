@@ -1,0 +1,434 @@
+---
+createdAt: 2025-08-23
+updatedAt: 2026-11-03
+priority: 9
+title: "בינאום Hono (i18n), מדריך מלא לתרגום האפליקציה שלך"
+description: "הגדרת Intlayer ב-Hono: זיהוי השפה לפי בקשה באמצעות middleware, תרגום תגובות API והרצה על גבי Node, Bun או סביבות edge."
+keywords:
+  - בינאום
+  - תיעוד
+  - Intlayer
+  - Hono
+  - JavaScript
+  - Backend
+slugs:
+  - doc
+  - environment
+  - hono
+applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "עדכון השימוש ב-API של useIntlayer ב-Solid לגישה ישירה למאפיינים"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "הוספת פקודת init"
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: "היסטוריה ראשונית"
+author: aymericzip
+---
+
+# תרגום אתר צד שרת ב-Hono באמצעות Intlayer
+
+`hono-intlayer` הוא middleware רב-עוצמה לבינאום (i18n) עבור אפליקציות Hono, שנועד להפוך את שירותי ה-backend שלכם לנגישים גלובלית על ידי מתן תגובות מותאמות אישית בהתאם להעדפות הלקוח.
+
+## מקרי שימוש מעשיים
+
+- **הצגת שגיאות צד שרת בשפת המשתמש**: כאשר מתרחשת שגיאה, הצגת הודעות בשפת האם של המשתמש משפרת את ההבנה ומפחיתה תסכול. הדבר שימושי במיוחד עבור הודעות שגיאה דינמיות שעשויות להיות מוצגות ברכיבי front-end כגון toasts או modals.
+
+- **אחזור תוכן רב-לשוני**: עבור אפליקציות שמושכות תוכן ממסד נתונים, בינאום מבטיח שתוכלו להגיש תוכן זה במספר שפות. הדבר חיוני עבור פלטפורמות כגון אתרי מסחר אלקטרוני (e-commerce) או מערכות ניהול תוכן (CMS) שצריכות להציג תיאורי מוצרים, מאמרים ותוכן אחר בשפה המועדפת על המשתמש.
+
+- **שליחת הודעות דוא"ל רב-לשוניות**: בין אם מדובר בהודעות דוא"ל עסקתיות (transactional emails), קמפיינים שיווקיים או התראות, שליחת הודעות דוא"ל בשפת הנמען יכולה להגדיל משמעותית את המעורבות והיעילות.
+
+- **התראות Push רב-לשוניות**: עבור אפליקציות לנייד, שליחת התראות push בשפה המועדפת על המשתמש יכולה לשפר את האינטראקציה ושימור המשתמשים. מגע אישי זה הופך את ההתראות לרלוונטיות יותר ומעודדות לפעולה.
+
+- **תקשורות נוספות**: כל סוג של תקשורת מצד השרת, כגון הודעות SMS, התראות מערכת או עדכוני ממשק משתמש, מרוויח מנוכחותו בשפת המשתמש, מה שמבטיח בהירות ומשפר את חוויית המשתמש הכוללת.
+
+על ידי בינאום ה-backend, האפליקציה שלכם לא רק מכבדת הבדלים תרבותיים אלא גם מתיישרת טוב יותר עם צורכי השוק העולמי, מה שהופך זאת לשלב מפתח בהרחבת השירותים שלכם ברחבי העולם.
+
+## תחילת עבודה
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-hono-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - כיצד לבצע בינאום לאפליקציה שלכם באמצעות Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+ראו את [תבנית האפליקציה](https://github.com/aymericzip/intlayer-hono-template) ב-GitHub.
+
+### התקנה
+
+כדי להתחיל להשתמש ב-`hono-intlayer`, התקינו את החבילה באמצעות npm:
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer init --interactive
+```
+
+> הדגל `--interactive` הוא אופציונלי. השתמשו ב-`intlayer-cli init` אם אתם סוכני AI.
+
+> פקודה זו תזהה את הסביבה שלכם ותתקין את החבילות הנדרשות. לדוגמה:
+
+```bash packageManager="npm"
+npm install intlayer hono-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer hono-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer hono-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer hono-intlayer
+```
+
+### הגדרת תצורה
+
+הגדירו את מאפייני הבינאום על ידי יצירת הקובץ `intlayer.config.ts` בשורש הפרויקט:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH_MEXICO,
+      Locales.SPANISH_SPAIN,
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+### הצהרת התוכן שלכם
+
+צרו ונהלו את הצהרות התוכן שלכם כדי לאחסן תרגומים:
+
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm"]}
+import { t, type Dictionary } from "intlayer";
+
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+} satisfies Dictionary;
+
+export default indexContent;
+```
+
+```javascript fileName="src/index.content.cjs" codeFormat="commonjs"
+const { t } = require("intlayer");
+
+/** @type {import('intlayer').Dictionary} */
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+};
+
+module.exports = indexContent;
+```
+
+```json fileName="src/index.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "index",
+  "content": {
+    "exampleOfContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Example of returned content in English",
+        "fr": "Exemple de contenu renvoyé en français",
+        "es-ES": "Ejemplo de contenido devuelto en español (España)",
+        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+      }
+    }
+  }
+}
+```
+
+> ניתן להגדיר את הצהרות התוכן שלכם בכל מקום באפליקציה, כל עוד הן נכללות בספריית `contentDir` (כברירת מחדל, `./src`) ותואמות לסיומת קובץ הצהרת התוכן (כברירת מחדל, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> לפרטים נוספים, עיינו ב-[תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md).
+
+- [תיעוד הצהרת תוכן](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/content_file.md)
+
+### הגדרת אפליקציית Hono
+
+הגדירו את אפליקציית ה-Hono שלכם לשימוש ב-`hono-intlayer`:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Hono } from "hono";
+import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
+import dictionaryExample from "./index.content";
+
+const app = new Hono();
+
+// טעינת request handler של בינאום
+app.use("*", intlayer());
+
+// נתיבים
+app.get("/t_example", (c) => {
+  return c.text(
+    t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    })
+  );
+});
+
+app.get("/getIntlayer_example", (c) => {
+  return c.json(getIntlayer("index").exampleOfContent);
+});
+
+app.get("/getDictionary_example", (c) => {
+  return c.json(getDictionary(dictionaryExample).exampleOfContent);
+});
+
+export default app;
+```
+
+### תאימות
+
+`hono-intlayer` תואם לחלוטין עם:
+
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/react-intlayer/exports.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/next-intlayer/exports.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/packages/vite-intlayer/exports.md)
+
+הוא גם עובד בצורה חלקה עם כל פתרון בינאום במגוון סביבות, כולל דפדפנים ובקשות API. תוכלו להתאים אישית את ה-middleware לזיהוי השפה באמצעות כותרות (headers) או עוגיות (cookies):
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... אפשרויות תצורה נוספות
+  routing: {
+    storage: [
+      { type: "header", name: "my-locale-header" },
+      { type: "cookie", name: "my-locale-cookie" },
+    ],
+  },
+};
+
+export default config;
+```
+
+כברירת מחדל, `hono-intlayer` יפרש את כותרת ה-`Accept-Language` כדי לקבוע את השפה המועדפת על הלקוח.
+
+> למידע נוסף על תצורה ונושאים מתקדמים, בקרו ב-[תיעוד התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+
+- [תצורת Intlayer (intlayer.config.ts)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+
+### הגדרת TypeScript
+
+`hono-intlayer` מנצל את היכולות החזקות של TypeScript כדי לשפר את תהליך הבינאום. הטיפוסיות הסטטית של TypeScript מבטיחה שכל מפתח תרגום נלקח בחשבון, מה שמפחית את הסיכון לתרגומים חסרים ומשפר את התחזוקתיות.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
+
+וודאו שהטיפוסים שנוצרו אוטומטית (כברירת מחדל ב-`./types/intlayer.d.ts`) נכללים בקובץ ה-`tsconfig.json` שלכם.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... הגדרות ה-TypeScript הקיימות שלכם
+  "include": [
+    // ... הגדרות ה-TypeScript הקיימות שלכם
+    ".intlayer/**/*.ts", // כלול את הטיפוסים שנוצרו אוטומטית
+  ],
+}
+```
+
+### תוסף ל-VS Code
+
+כדי לשפר את חוויית הפיתוח שלכם עם Intlayer, תוכלו להתקין את **תוסף Intlayer הרשמי ל-VS Code**.
+
+- [התקנה מ-VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+תוסף זה מספק:
+
+- **השלמה אוטומטית (Autocompletion)** עבור מפתחות תרגום.
+- **זיהוי שגיאות בזמן אמת** עבור תרגומים חסרים.
+- **תצוגה מקדימה מוטמעת (Inline previews)** של תוכן מתורגם.
+- **פעולות מהירות (Quick actions)** ליצירה ועדכון קלים של תרגומים.
+
+לפרטים נוספים על אופן השימוש בתוסף, עיינו ב-[תיעוד תוסף Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md).
+
+- [תיעוד תוסף Intlayer ל-VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)
+
+### הגדרת Git
+
+מומלץ להתעלם מהקבצים שנוצרים על ידי Intlayer. זה מאפשר לכם להימנע מביצוע commit שלהם למאגר ה-Git שלכם.
+
+לשם כך, תוכלו להוסיף את ההוראה הבאה לקובץ ה-`.gitignore` שלכם:
+
+```plaintext fileName=".gitignore"
+# התעלמות מקבצים שנוצרו על ידי Intlayer
+.intlayer
+```
+
+## שאלות נפוצות
+
+<FAQ>
+
+<Question title="מהם הפתרונות השונים הזמינים לבינאום צד שרת ב-Hono?">
+
+ל-Hono אין שכבת i18n מובנית משלו, ולכן האפשרויות הן ספרייה גנרית כגון `i18next` המחוברת ידנית ל-middleware, או `Intlayer` דרך `hono-intlayer`, שרושמת את ה-middleware עבורכם, מפענחת את השפה לכל בקשה, וחולקת את אותו תוכן מוצהר עם ה-frontend שלכם.
+
+הסיבה לביצוע בינאום ב-backend היא שחלק ניכר מהטקסט שמשתמש קורא אינו עובר כלל דרך ה-frontend: הודעות שגיאה של ה-API, הודעות דוא"ל עסקתיות, התראות push, הודעות SMS וייצוא קובצי PDF. אלו דורשים את שפת הנמען, המפוענחת לכל בקשה ולא לכל סשן.
+
+ראו [למה כדאי להשתמש ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/interest_of_intlayer.md).
+
+- [למה כדאי להשתמש ב-Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/interest_of_intlayer.md)
+
+</Question>
+<Question title="בכמה i18n מגדיל את גודל ה-bundle של שרת ה-Hono שלי?">
+
+מעט מאוד. המילונים מקומפלים מראש ורק השפות שאתם מצהירים עליהן נכללות, כך שאין טעינת קטלוגים באתחול ואין קריאות קבצים בנתיב הבקשה. הדבר חשוב במיוחד בפריסות serverless ו-edge, שבהן גודל החבילה משפיע על זמן ה-cold start. ראו [אופטימיזציית חבילה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md).
+
+- [אופטימיזציית חבילה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/bundle_optimization.md)
+
+</Question>
+<Question title="האם ניתן להגר מ-`i18next` מבלי לשכתב את ה-handlers שלי?">
+
+כן, וישנם שני מסלולים. תוכלו להגר את התוכן בהדרגה עם [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md). או שתוכלו לשמור על ה-API הנוכחי שלכם במלואו: [מתאמי התאימות (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/index.md) חושפים בדיוק את אותו ה-API של `i18next`, אך מוגש באמצעות מילוני Intlayer, כך שה-imports משתנים וקוד ה-handler נשאר ללא שינוי.
+
+- [מדריך ההגירה מ-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/migration_from_i18next_to_intlayer.md)
+- [מתאמי תאימות (compat adapters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compat/index.md)
+
+</Question>
+<Question title="האם אוכל לשמור על קובצי תרגום ה-JSON הקיימים שלי?">
+
+כן. [תוסף sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md) שומר על קובצי ה-`/messages/{locale}/{namespace}.json` שלכם כמקור האמת ומייצר מהם מילוני Intlayer, בשני הכיוונים. [תוסף sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md) עושה את אותו הדבר עבור קטלוגי gettext, ו-[קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md) מאפשרים לכם לפצל תוכן לפי שפה במקום לקבץ את כל השפות בקובץ אחד.
+
+- [תוסף sync JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-json.md)
+- [תוסף sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/plugins/sync-po.md)
+- [קבצים לפי שפה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/per_locale_file.md)
+
+</Question>
+<Question title="האם עליי להעביר את התוכן שלי מפתח אחר מפתח?">
+
+לא. הריצו `npx intlayer extract` ו-Intlayer יקרא את קובצי המקור שלכם, יחלץ את המחרוזות המוצגות למשתמש ויכתוב קובץ `.content` לצד כל אחד מהם, כך שתוכלו לבדוק diff במקום להעתיק מחרוזות לקטלוג אחת בכל פעם. ראו את [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md).
+
+- [פקודת extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/extract.md)
+
+בצד ה-frontend של אותו פרויקט, [הקומפיילר של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md) הולך צעד קדימה ומייצר את המילונים בזמן הבנייה מתוך קוד מקור של JSX, TSX, Vue או Svelte, כך ששני חלקי האפליקציה חולקים שכבת תוכן אחת ללא צורך בתחזוקת מפתחות ידנית.
+
+- [קומפיילר של Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/compiler.md)
+
+</Question>
+<Question title="אילו כלי עריכה וסוכני AI זמינים?">
+
+חמישה כלים, כולם אופציונליים:
+
+- **[תוסף VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/vs_code_extension.md)**: קפיצה ישירה ממפתח `useIntlayer` לקובץ התוכן שמצהיר עליו, חילוץ תוכן מרכיב, והרצת פקודות build, fill, test, push ו-pull מלוח הפקודות או מלשונית Intlayer ייעודית.
+- **[שרת LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/lsp.md)**: אותה מודעות בכל עורך שתומך ב-LSP, עם מעבר להגדרה (go to definition), מציאת כל ההפניות (find all references), תצוגה מקדימה בריחוף (hover preview) של ערך מתורגם, השלמה אוטומטית של מפתחות ושדות, ואזהרה כאשר מפתח אינו מוצהר בשום מקום. הוא גם מפענח קריאות של `i18next`, `react-i18next`, `next-intl` ו-`use-intl`, מה שעוזר במהלך ההגירה.
+- **[שרת MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/mcp_server.md)**: חושף את התיעוד וה-CLI של Intlayer ל-Cursor, VS Code, Claude Desktop, Claude Code ו-ChatGPT, כך שעוזר AI עונה מתוך התיעוד העדכני במקום לנחש, ויכול להריץ פקודות כמו `intlayer fill` בעצמו.
+- **[Agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/agent_skills.md)**: מיומנויות ממוקדות כגון `intlayer-config`, `intlayer-cli` ו-`intlayer-content`, בתוספת מיומנות ייעודית לכל framework, המלמדות את הסוכן על הגדרת הניתוב וסוגי צמתי התוכן שלכם.
+- **[תוסף ESLint](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/eslint.md)**: כלל `no-raw-text` מסמן מחרוזות מקודדות (hardcoded), עם כללים נוספים למפתחות מילון סטטיים ותוכן שאינו בשימוש.
+
+</Question>
+<Question title="כיצד Intlayer יודע באיזו שפה לענות?">
+
+כברירת מחדל `hono-intlayer` קורא את כותרת ה-`Accept-Language` של הבקשה הנכנסת ובוחר את השפה המוצהרת הקרובה ביותר, תוך חזרה לשפת ברירת המחדל שלכם במידת הצורך. תוכלו לשנות את המקור באמצעות `routing.storage`, למשל כותרת מותאמת אישית או עוגייה שהוגדרה על ידי ה-frontend שלכם, כך שה-API יענה בשפה שהמשתמש באמת בחר ולא בזו שהדפדפן שלו מפרסם. ראו את [הפניית התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md).
+
+- [הפניית התצורה](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/configuration.md)
+
+</Question>
+<Question title="האם השפה מבודדת לכל בקשה?">
+
+כן. ה-middleware תוחם את השפה הפעילה לרמת הבקשה (per request), כך ששתי בקשות מקבילות בשפות שונות לעולם לא יקראו את השפה זו של זו. זה מה שהופך קריאות ל-`t()` ו-`getIntlayer()` לבטוחות לחלוטין מתוך שירות ללא צורך בהעברת ארגומנט שפה לאורך כל שרשרת הפונקציות.
+
+</Question>
+<Question title="כיצד אוכל לשלוח הודעות דוא&quot;ל עסקתיות בשפת הנמען?">
+
+הצהירו על תוכן הדוא"ל בקובץ תוכן כמו כל תוכן אחר, ולאחר מכן אחזרו אותו באמצעות `getIntlayer` עבור השפה השמורה של הנמען במקום שפת הבקשה. הדבר חשוב במיוחד עבור תהליכי רקע (jobs) ותורים (queues), שבהם השפה שייכת לרשומת המשתמש ואין בקשה נכנסת שממנה ניתן לקרוא כותרת.
+
+</Question>
+<Question title="כיצד אוכל לתרגם הודעות שגיאה של ה-API?">
+
+עטפו את ההודעה ב-`t()` בנקודה שבה נבנית השגיאה. שפת הבקשה הפעילה תפענח אותה, כך שהלקוח יקבל הודעה שניתן להציג ישירות, וה-frontend שלכם לא יזדקק לקטלוג מקביל של קודי שגיאה.
+
+</Question>
+<Question title="האם זה עובד בסביבות ריצה של edge כמו Cloudflare Workers, Deno או Bun?">
+
+סביבת Hono מיועדת לכולן, ו-Intlayer מפענח תוכן מתוך מילונים שמקומפלים בזמן בנייה במקום לקרוא קובצי קטלוג מהדיסק בזמן ריצה, שזה מה שבדרך כלל נשבר בסביבות edge. שמרו על `dictionary.importMode` בערך ברירת המחדל שלו `"static"` כדי שהתוכן ייארז יחד עם ה-worker.
+
+</Question>
+<Question title="כיצד אוכל לתרגם את תוכן ה-backend באופן אוטומטי באמצעות AI?">
+
+הריצו `npx intlayer fill`. הפקודה משלימה תרגומים חסרים באמצעות ה-LLM לבחירתכם, תוך שימוש בספק ובמפתח ה-API שלכם. הוסיפו את הדגל `--git-diff` כדי לתרגם רק את התוכן שהשתנה בענף. עיינו ב-[פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md) וב-[אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md).
+
+- [פקודת fill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/cli/fill.md)
+- [אינטגרציית CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/CI_CD.md)
+
+</Question>
+<Question title="האם Intlayer תומך בריבוי (plurals), מגדר וערכים מוזרקים בשרת?">
+
+כן: [צורות רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md), [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md), תנאים, [הזרקות (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md) לערכים מוטמעים, [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md) לגוף הודעות דוא"ל, ו-[מעצבים (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md) למספרים, תאריכים ומטבעות.
+
+- [צורות רבים](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/plurial.md)
+- [תוכן מבוסס מגדר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/gender.md)
+- [הזרקות (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/insertion.md)
+- [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/dictionary/markdown.md)
+- [מעצבים (formatters)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/formatters.md)
+
+</Question>
+<Question title="האם אקבל השלמה אוטומטית של TypeScript בשרת?">
+
+כן. Intlayer מייצר את הטיפוסים של המילונים שלכם לתוך `./types/intlayer.d.ts`, כך שמפתח שאינו קיים גורם לשגיאת הידור (compile error) במקום למחרוזת ריקה בזמן ריצה. הריצו `npx intlayer test` ב-CI כדי להכשיל את הבנייה כאשר חסר תוכן בשפה מוצהרת כלשהי.
+
+</Question>
+<Question title="האם ה-frontend וה-backend יכולים לחלוק את אותו התוכן?">
+
+כן, וזו התצורה המקובלת בדרך כלל. `hono-intlayer` עובד לצד `react-intlayer`, `next-intlayer` ו-`vite-intlayer` על אותו תוכן מוצהר, כך שתווית המשמשת גם בתגובת API וגם בדף מוצהרת פעם אחת בלבד. ראו [כיצד Intlayer פועל](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/how_works_intlayer.md).
+
+- [כיצד Intlayer פועל](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/how_works_intlayer.md)
+
+</Question>
+<Question title="האם Intlayer חינמי ובקוד פתוח?">
+
+כן, תחת רישיון Apache 2.0, כולל שימוש מסחרי. [ה-CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md) המאוחסן הוא שירות אופציונלי בתשלום שניתן גם [לאחסנו באופן עצמאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md).
+
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/intlayer_CMS.md)
+- [אחסון עצמאי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he/self_hosting.md)
+
+</Question>
+
+</FAQ>

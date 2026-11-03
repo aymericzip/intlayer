@@ -15,6 +15,7 @@ const cmsSectionContent = {
       pt: 'CMS Headless',
       ru: 'Headless CMS',
       ar: 'نظام إدارة المحتوى (Headless)',
+      'he-IL': 'Headless CMS',
       hi: 'हेडलेस CMS',
       tr: 'Headless CMS',
       pl: 'Headless CMS',
@@ -35,6 +36,7 @@ const cmsSectionContent = {
       pt: 'Conecte seu código local com conteúdo remoto.',
       ru: 'Объедините локальный код с удаленным контентом.',
       ar: 'اربط الكود المحلي بالمحتوى البعيد.',
+      'he-IL': 'גשרו בין הקוד המקומי שלכם לתוכן מרוחק.',
       hi: 'अपने स्थानीय कोड को दूरस्थ सामग्री के साथ जोड़ें।',
       tr: 'Yerel kodunuzu uzak içerikle köprüleyin.',
       pl: 'Połącz lokalny kod z treściami zdalnymi.',
@@ -46,6 +48,8 @@ const cmsSectionContent = {
     description: md(
       t({
         ar: 'أدر المحتوى متعدد اللغات **بدون عبء إضافي**. يتيح لك Intlayer ربط القواميس المحلية بالإدارة عن بُعد، مما يتيح **المزامة الحية** للتحديثات الفورية دون إعادة البناء. استخدم Webhooks لـ CI/CD وأدر إشارات الميزات.',
+        'he-IL':
+          "נהלו תוכן רב-לשוני עם **אפס תקורה**. Intlayer מאפשרת לכם לחבר מילונים מקומיים לניהול מרוחק, ומאפשרת **סנכרון חי** לעדכונים חמים ללא בנייה מחדש. השתמשו ב-webhooks ל-CI/CD, נהלו דגלי פיצ'רים, ותנו ל**תרגום האוטומטי מבוסס AI** (בעבודה) לטפל בכל השאר.",
         de: 'Verwalten Sie mehrsprachige Inhalte ohne Overhead. Intlayer verbindet lokale Wörterbücher mit Remote-Management und ermöglicht **Live Sync** für Hot-Updates ohne Rebuild. Nutzen Sie Webhooks für CI/CD und verwalten Sie Feature Flags.',
         en: 'Manage multilingual content with **zero overhead**. Intlayer allows you to interconnect local dictionaries with remote management, enabling **Live Sync** for hot updates without rebuilding. Use webhooks for CI/CD, manage feature flags, and let the **Auto-Translation AI** (WIP) handle the rest.',
         'en-GB':
@@ -79,6 +83,7 @@ const cmsSectionContent = {
         pt: 'Explorar recursos do CMS',
         ru: 'Изучить функции CMS',
         ar: 'استكشاف ميزات CMS',
+        'he-IL': "גלו את הפיצ'רים של ה-CMS",
         hi: 'CMS सुविधाओं का अन्वेषण करें',
         tr: 'CMS Özelliklerini Keşfet',
         pl: 'Poznaj funkcje CMS',
@@ -99,6 +104,7 @@ const cmsSectionContent = {
         pt: 'Ver CMS',
         ru: 'Смотреть CMS',
         ar: 'شاهد CMS',
+        'he-IL': 'צפייה ב-CMS',
         hi: 'CMS देखें',
         tr: 'CMS gör',
         pl: 'Zobacz CMS',

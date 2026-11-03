@@ -21,6 +21,7 @@ const localizedPagesSectionContent = {
       id: 'Versi terlokalisasi dari halaman ini',
       vi: 'Các phiên bản bản địa hóa của trang này',
       ar: 'النسخ المترجمة من هذه الصفحة',
+      'he-IL': 'גרסאות מותאמות שפה של הדף הזה',
       uk: 'Локалізовані версії цієї сторінки',
     }),
     description: t({
@@ -41,6 +42,7 @@ const localizedPagesSectionContent = {
       id: 'Pilih versi untuk memindainya.',
       vi: 'Chọn một phiên bản để quét.',
       ar: 'اختر نسخة لفحصها.',
+      'he-IL': 'בחרו גרסה כדי לסרוק אותה.',
       uk: 'Виберіть версію, щоб просканувати її.',
     }),
     basePageNote: t({
@@ -62,6 +64,8 @@ const localizedPagesSectionContent = {
       id: 'Anda memindai halaman dasar. Kesalahan i18n biasanya muncul di versi terlokalisasi (tautan balik hreflang hilang, canonical mengarah ke bahasa bawaan, tautan yang belum diterjemahkan…), jadi pindai juga salah satunya.',
       vi: 'Bạn đã quét trang gốc. Lỗi i18n thường xuất hiện ở các phiên bản bản địa hóa (thiếu liên kết ngược hreflang, canonical trỏ về ngôn ngữ mặc định, liên kết chưa bản địa hóa…), vì vậy hãy quét thêm một phiên bản.',
       ar: 'لقد فحصت الصفحة الأساسية. تظهر أخطاء i18n عادةً في النسخ المترجمة (غياب روابط hreflang المتبادلة، أو canonical يشير إلى اللغة الافتراضية، أو روابط غير مترجمة…)، لذا افحص إحداها أيضًا.',
+      'he-IL':
+        'סרקתם את דף הבסיס. שגיאות i18n מופיעות בדרך כלל בגרסאות המותאמות לשפה (קישורי חזרה של hreflang חסרים, canonical שמפנה לשפת ברירת המחדל, קישורים לא מתורגמים…), אז סרקו גם אחת מהן.',
       uk: 'Ви просканували базову сторінку. Помилки i18n зазвичай з’являються на локалізованих версіях (немає зворотних посилань hreflang, canonical вказує на мову за замовчуванням, неперекладені посилання…), тож проскануйте й одну з них.',
     }),
   },

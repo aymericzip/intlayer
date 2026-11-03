@@ -17,6 +17,7 @@ const chatbotContent = {
         pt: 'Clique para abrir o chatbot',
         hi: 'चैटबॉट को खोलने के लिए क्लिक करें',
         ar: 'انقر لفتح الدردشة',
+        'he-IL': "לחצו לפתיחת הצ'אטבוט",
         ru: 'Нажмите, чтобы открыть чат-бота',
         tr: 'Sohbet botunu açmak için tıklayın',
         pl: 'Kliknij, aby otworzyć chatbota',
@@ -27,6 +28,7 @@ const chatbotContent = {
     },
     title: t({
       ar: 'طرح أي شيء',
+      'he-IL': 'שאלו כל דבר',
       de: 'Frage jedenfalls',
       en: 'Ask anything',
       'en-GB': 'Ask anything',

@@ -5,6 +5,7 @@ const useFormSectionSchemaContent = {
   content: {
     questionRequiredError: t({
       ar: 'يرجى إدخال سؤال.',
+      'he-IL': 'אנא הזינו שאלה.',
       de: 'Bitte geben Sie eine Frage ein.',
       en: 'Please enter a question.',
       'en-GB': 'Please enter a question.',
@@ -26,6 +27,7 @@ const useFormSectionSchemaContent = {
 
     questionInvalidTypeError: t({
       ar: 'يجب أن يكون اسم السؤال سلسلة صحيحة.',
+      'he-IL': 'שם השאלה חייב להיות מחרוזת תקינה.',
       de: 'Der Name der Frage muss eine gültige Zeichenfolge sein.',
       en: 'The question name must be a valid string.',
       'en-GB': 'The question name must be a valid string.',

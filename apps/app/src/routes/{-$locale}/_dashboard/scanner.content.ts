@@ -18,6 +18,7 @@ const scannerContent = {
         pt: 'Escaneie seu site em busca de problemas de i18n e SEO',
         hi: 'अपनी वेबसाइट को i18n और SEO समस्याओं के लिए स्कैन करें',
         ar: 'افحص موقعك الإلكتروني بحثاً عن مشكلات i18n وتحسين محركات البحث',
+        'he-IL': 'סרקו את האתר שלכם לאיתור בעיות i18n ו-SEO',
         ru: 'Сканируйте свой сайт на наличие проблем i18n и SEO',
         tr: 'Web sitenizi i18n ve SEO sorunları için tarayın',
         pl: 'Skanuj swoją stronę w poszukiwaniu problemów i18n i SEO',
@@ -94,6 +95,7 @@ const scannerContent = {
         ],
         hi: ['स्कैनर', 'i18n', 'SEO', 'ऑडिट', 'अंतर्राष्ट्रीयकरण', 'स्थानीयकरण'],
         ar: ['ماسح', 'i18n', 'SEO', 'تدقيق', 'تدويل', 'توطين'],
+        'he-IL': ['סורק', 'i18n', 'SEO', 'ביקורת', 'בינאום', 'לוקליזציה'],
         ru: [
           'сканер',
           'i18n',
@@ -150,6 +152,7 @@ const scannerContent = {
       pt: 'Scanner i18n SEO',
       hi: 'i18n SEO स्कैनर',
       ar: 'ماسح i18n SEO',
+      'he-IL': 'סורק SEO של i18n',
       ru: 'Сканер i18n SEO',
       tr: 'i18n SEO Tarayıcı',
       pl: 'Skaner i18n SEO',

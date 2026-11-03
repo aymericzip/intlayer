@@ -5,6 +5,7 @@ const deleteProjectModalContent = {
   content: {
     title: t({
       ar: 'حذف المشروع',
+      'he-IL': 'מחיקת פרויקט',
       de: 'Projekt löschen',
       en: 'Delete Project',
       'en-GB': 'Delete Project',
@@ -26,6 +27,7 @@ const deleteProjectModalContent = {
 
     description: t({
       ar: 'هل أنت متأكد من أنك تريد حذف هذا المشروع؟',
+      'he-IL': 'האם אתם בטוחים שברצונכם למחוק את הפרויקט הזה?',
       de: 'Sind Sie sicher, dass Sie dieses Projekt löschen möchten?',
       en: 'Are you sure you want to delete this Project?',
       'en-GB': 'Are you sure you want to delete this project?',
@@ -59,6 +61,7 @@ const deleteProjectModalContent = {
         pt: 'Excluir',
         hi: 'हटाएं',
         ar: 'حذف',
+        'he-IL': 'מחיקה',
         ru: 'Удалить',
         tr: 'Sil',
         pl: 'Usuń',
@@ -79,6 +82,7 @@ const deleteProjectModalContent = {
         pt: 'Clique para excluir o projeto',
         hi: 'प्रोजेक्ट को हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف المشروع',
+        'he-IL': 'לחצו למחיקת הפרויקט',
         ru: 'Нажмите, чтобы удалить проект',
         tr: 'Projeyi silmek için tıklayın',
         pl: 'Kliknij, aby usunąć projekt',
@@ -102,6 +106,7 @@ const deleteProjectModalContent = {
         pt: 'Cancelar',
         hi: 'रद्द करें',
         ar: 'إلغاء',
+        'he-IL': 'ביטול',
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
         pl: 'Anuluj',
@@ -122,6 +127,7 @@ const deleteProjectModalContent = {
         pt: 'Clique para cancelar',
         hi: 'रद्द करने के लिए क्लिक करें',
         ar: 'انقر لإلغاء',
+        'he-IL': 'לחצו לביטול',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
         pl: 'Kliknij, aby anulować',

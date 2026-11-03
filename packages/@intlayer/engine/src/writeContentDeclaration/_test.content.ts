@@ -33,6 +33,7 @@ const content: Dictionary = {
       fr: 'Bienvenue dans notre application',
       es: 'Bienvenido a nuestra aplicación',
       ar: 'مرحبا بك في تطبيقنا',
+      'he-IL': 'ברוכים הבאים לאפליקציה שלנו',
       de: 'Willkommen in unserer Anwendung',
       hi: 'हमारे अनुप्रयोग में आपका स्वागत है',
       it: 'Benvenuto nella nostra applicazione',
@@ -79,6 +80,7 @@ const content: Dictionary = {
         ko: '안녕하세요, 저는 {{name}} 이고, {{age}} 살입니다!',
         de: 'Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!',
         ar: 'مرحبا, اسمي {{name}} وأنا {{age}} سنة!',
+        'he-IL': 'שלום, קוראים לי {{name}} ואני בן/בת {{age}}!',
       })
     ),
     myFile: file('./file.md'),

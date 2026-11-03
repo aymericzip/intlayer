@@ -18,6 +18,7 @@ const tmsSectionContent = {
       ko: '단어당 비용 지불을 중단하세요. AI로 자동화하세요.',
       zh: '停止按字付费。使用AI自动化。',
       ar: 'توقف عن الدفع لكل كلمة. أتمتة باستخدام الذكاء الاصطناعي.',
+      'he-IL': 'הפסיקו לשלם לפי מילה. עברו לאוטומציה עם AI.',
       it: "Smetti di pagare per parola. Automatizza con l'IA.",
       pt: 'Pare de pagar por palavra. Automatize com IA.',
       hi: 'शब्द के अनुसार भुगतान करना बंद करें। AI के साथ स्वचालित करें।',
@@ -39,6 +40,8 @@ const tmsSectionContent = {
       ko: 'Crowdin 및 Lokalise의 오픈소스 및 자체 호스팅 대안. 현대적인 개발자 워크플로우를 위해 구축되었습니다.',
       zh: 'Crowdin和Lokalise的开源及自托管替代方案。专为现代开发者工作流程而构建。',
       ar: 'البديل مفتوح المصدر والقابل للاستضافة الذاتية لـ Crowdin و Lokalise. مبني لسير عمل المطورين الحديث.',
+      'he-IL':
+        'החלופה בקוד פתוח ובאירוח עצמי ל-Crowdin ול-Lokalise. נבנתה עבור תהליכי עבודה מודרניים של מפתחים.',
       it: "L'alternativa open-source e self-hosted a Crowdin e Lokalise. Costruita per flussi di lavoro moderni per sviluppatori.",
       pt: 'A alternativa open-source e de auto-hospedagem ao Crowdin e Lokalise. Construído para fluxos de trabalho modernos de desenvolvedores.',
       hi: 'Crowdin और Lokalise का ओपन-सोर्स और सेल्फ-होस्टेड विकल्प। आधुनिक डेवलपर वर्कफ़्लो के लिए निर्मित।',
@@ -60,6 +63,8 @@ const tmsSectionContent = {
       ko: '코드 또는 시각적 편집기에서 직접 번역을 관리하세요. AI를 활용하여 즉시 번역하세요. 좌석 제한 없이 팀과 협업하세요.',
       zh: '直接在代码中或通过可视化编辑器管理翻译。利用AI即时翻译。与团队协作，无席位限制。',
       ar: 'إدارة الترجمات مباشرة في الكود أو عبر المحرر المرئي. استفد من الذكاء الاصطناعي للترجمة الفورية. تعاون مع فريقك دون حدود المقاعد.',
+      'he-IL':
+        'נהלו תרגומים ישירות בקוד שלכם או דרך העורך הוויזואלי. השתמשו ב-AI כדי לתרגם באופן מיידי. שתפו פעולה עם הצוות שלכם ללא הגבלת משתמשים.',
       it: "Gestisci le traduzioni direttamente nel tuo codice o tramite l'editor visivo. Sfrutta l'IA per tradurre istantaneamente. Collabora con il tuo team senza limiti di posti.",
       pt: 'Gerencie traduções diretamente no seu código ou via editor visual. Aproveite a IA para traduzir instantaneamente. Colabore com sua equipe sem limites de assentos.',
       hi: 'अपने कोड में या दृश्य संपादक के माध्यम से सीधे अनुवाद प्रबंधित करें। तुरंत अनुवाद करने के लिए AI का लाभ उठाएं। सीट सीमा के बिना अपनी टीम के साथ सहयोग करें।',
@@ -80,6 +85,7 @@ const tmsSectionContent = {
       ko: 'TMS 보기',
       zh: '查看 TMS',
       ar: 'شاهد TMS',
+      'he-IL': 'צפייה ב-TMS',
       it: 'Vedi TMS',
       pt: 'Ver TMS',
       hi: 'TMS देखें',

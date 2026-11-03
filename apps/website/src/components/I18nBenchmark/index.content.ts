@@ -13,6 +13,7 @@ const i18nBenchmarkDictionary = {
       zh: 'I18n 性能基准测试',
       de: 'I18n Performance-Benchmark',
       ar: 'مقياس أداء I18n',
+      'he-IL': "בנצ'מרק ביצועי i18n",
       it: 'Benchmark delle prestazioni I18n',
       'en-GB': 'I18n Performance Benchmark',
       pt: 'Benchmark de Desempenho I18n',
@@ -33,6 +34,8 @@ const i18nBenchmarkDictionary = {
       zh: '比较 React 和 Next.js 中最受欢迎的国际化库的性能。',
       de: 'Vergleichen Sie die Leistung der beliebtesten Internationalisierungsbibliotheken für React und Next.js.',
       ar: 'قارن أداء أشهر مكتبات التدويل لـ React و Next.js.',
+      'he-IL':
+        'השוו את הביצועים של ספריות הבינאום הפופולריות ביותר עבור React ו-Next.js.',
       it: 'Confronta le prestazioni delle librerie di internazionalizzazione più popolari per React e Next.js.',
       'en-GB':
         'Compare the performance of the most popular internationalisation libraries for React and Next.js.',
@@ -54,6 +57,7 @@ const i18nBenchmarkDictionary = {
       zh: '技术',
       de: 'Technologie',
       ar: 'التكنولوجيا',
+      'he-IL': 'טכנולוגיה',
       it: 'Tecnologia',
       'en-GB': 'Technology',
       pt: 'Tecnologia',
@@ -74,6 +78,7 @@ const i18nBenchmarkDictionary = {
       zh: '指标',
       de: 'Metrik',
       ar: 'المقياس',
+      'he-IL': 'מדד',
       it: 'Metrica',
       'en-GB': 'Metric',
       pt: 'Métrica',
@@ -94,6 +99,7 @@ const i18nBenchmarkDictionary = {
       zh: '基础应用',
       de: 'Basis-App',
       ar: 'التطبيق الأساسي',
+      'he-IL': 'אפליקציית בסיס',
       it: 'App di base',
       'en-GB': 'Base App',
       pt: 'Aplicativo Base',
@@ -119,6 +125,7 @@ const i18nBenchmarkDictionary = {
       zh: '查看基准测试',
       de: 'Benchmark ansehen',
       ar: 'عرض مقياس الأداء',
+      'he-IL': "צפייה בבנצ'מרק",
       it: 'Vedi benchmark',
       'en-GB': 'See benchmark',
       pt: 'Ver benchmark',
@@ -139,6 +146,7 @@ const i18nBenchmarkDictionary = {
       zh: '阅读完整报告',
       de: 'Vollständigen Bericht lesen',
       ar: 'اقرأ التقرير الكامل',
+      'he-IL': 'קריאת הדוח המלא',
       it: 'Leggi il rapporto completo',
       'en-GB': 'Read full report',
       pt: 'Ler relatório completo',
@@ -159,6 +167,7 @@ const i18nBenchmarkDictionary = {
       zh: '这个指标是什么？',
       de: 'Was ist diese Metrik?',
       ar: 'ما هو هذا المقياس؟',
+      'he-IL': 'מהו המדד הזה?',
       it: "Cos'è questa metrica?",
       'en-GB': 'What is this metric?',
       pt: 'O que é essa métrica?',
@@ -179,6 +188,7 @@ const i18nBenchmarkDictionary = {
       zh: '为什么这很重要？',
       de: 'Warum ist das wichtig?',
       ar: 'لماذا هو مهم؟',
+      'he-IL': 'למה זה חשוב?',
       it: 'Perché è importante?',
       'en-GB': 'Why is it important?',
       pt: 'Por que é importante?',
@@ -199,6 +209,7 @@ const i18nBenchmarkDictionary = {
       zh: '视图形式',
       de: 'Ansehen als',
       ar: 'عرض كـ',
+      'he-IL': 'הצגה כ',
       it: 'Visualizza come',
       'en-GB': 'View as',
       pt: 'Ver como',
@@ -219,6 +230,7 @@ const i18nBenchmarkDictionary = {
       zh: '图表',
       de: 'Grafik',
       ar: 'رسم بياني',
+      'he-IL': 'גרף',
       it: 'Grafico',
       'en-GB': 'Graph',
       pt: 'Gráfico',
@@ -239,6 +251,7 @@ const i18nBenchmarkDictionary = {
       zh: '表格',
       de: 'Tabelle',
       ar: 'جدول',
+      'he-IL': 'טבלה',
       it: 'Tabella',
       'en-GB': 'Table',
       pt: 'Tabela',
@@ -259,6 +272,7 @@ const i18nBenchmarkDictionary = {
       zh: 'JSON',
       de: 'JSON',
       ar: 'JSON',
+      'he-IL': 'JSON',
       it: 'JSON',
       'en-GB': 'JSON',
       pt: 'JSON',
@@ -279,6 +293,7 @@ const i18nBenchmarkDictionary = {
       zh: '库',
       de: 'Bibliothek',
       ar: 'المكتبة',
+      'he-IL': 'ספרייה',
       it: 'Libreria',
       'en-GB': 'Library',
       pt: 'Biblioteca',
@@ -299,6 +314,7 @@ const i18nBenchmarkDictionary = {
       zh: '值',
       de: 'Wert',
       ar: 'القيمة',
+      'he-IL': 'ערך',
       it: 'Valore',
       'en-GB': 'Value',
       pt: 'Valor',
@@ -319,6 +335,7 @@ const i18nBenchmarkDictionary = {
       zh: '范围',
       de: 'Bereich',
       ar: 'النطاق',
+      'he-IL': 'טווח',
       it: 'Intervallo',
       'en-GB': 'Range',
       pt: 'Intervalo',
@@ -339,6 +356,7 @@ const i18nBenchmarkDictionary = {
       zh: '版本',
       de: 'Version',
       ar: 'الإصدار',
+      'he-IL': 'גרסה',
       it: 'Versione',
       'en-GB': 'Version',
       pt: 'Versão',
@@ -360,6 +378,7 @@ const i18nBenchmarkDictionary = {
         zh: '{{name}} 的包分析',
         de: 'Bundle-Analyse für {{name}}',
         ar: 'تحليل الحزمة لـ {{name}}',
+        'he-IL': 'ניתוח ה-bundle עבור {{name}}',
         it: 'Analisi del bundle per {{name}}',
         'en-GB': 'Bundle analysis for {{name}}',
         pt: 'Análise do bundle para {{name}}',
@@ -383,6 +402,7 @@ const i18nBenchmarkDictionary = {
           zh: '组件大小',
           de: 'Komponentengrößen',
           ar: 'حجم المكونات',
+          'he-IL': 'גודל הקומפוננטות',
           it: 'Dimensione dei componenti',
           'en-GB': 'Components size',
           pt: 'Tamanho dos componentes',
@@ -403,6 +423,8 @@ const i18nBenchmarkDictionary = {
           zh: '每次使用翻译的组件重新渲染时所执行的 JavaScript 代码量。',
           de: 'Das Volumen des JavaScript-Codes, das bei jedem erneuten Rendern einer Komponente mit Übersetzungen ausgeführt wird.',
           ar: 'حجم كود JavaScript الذي يتم تنفيذه في كل إعادة تصيير لمكوّن يستهلك الترجمات.',
+          'he-IL':
+            'נפח קוד ה-JavaScript שמגיעים אליו (ומורץ) בכל רינדור מחדש של קומפוננטה הצורכת תרגומים.',
           it: 'Il volume di codice JavaScript raggiunto (eseguito) durante ogni re-render di un componente che utilizza le traduzioni.',
           'en-GB':
             'The volume of JavaScript code reached (executed) during each component re-render when consuming translations.',
@@ -424,6 +446,8 @@ const i18nBenchmarkDictionary = {
           zh: '将大型本地化对象存储在内存中会增加开销，并可能在重新渲染期间导致性能瓶颈。保持组件精简可确保高效的内存使用并实现更流畅的 UI 更新。',
           de: 'Das Speichern großer Lokalisierungsobjekte im Arbeitsspeicher erhöht den Overhead und kann bei erneuten Renderings zu Engpässen führen. Schlanke Komponenten sorgen für eine effiziente Speichernutzung und flüssigere UI-Updates.',
           ar: 'يؤدي تخزين كائنات الترجمة الكبيرة في الذاكرة إلى زيادة العبء وقد يتسبب في اختناقات في الأداء أثناء إعادة العرض. الحفاظ على المكونات خفيفة يضمن استخدامًا فعالًا للذاكرة وتحديثات واجهة مستخدم أكثر سلاسة.',
+          'he-IL':
+            'אחסון אובייקטי לוקליזציה גדולים בזיכרון מגדיל את התקורה ועלול לגרום לצווארי בקבוק בביצועים במהלך רינדור מחדש. שמירה על קומפוננטות רזות מבטיחה שימוש יעיל בזיכרון ועדכוני ממשק חלקים יותר.',
           it: "Memorizzare grandi oggetti di localizzazione aumenta l'overhead e può causare colli di bottiglia durante il ri-rendering. Mantenere i componenti leggeri garantisce un uso efficiente della memoria e aggiornamenti dell'interfaccia più fluidi.",
           'en-GB':
             'Storing large localization objects in memory increases overhead and can cause performance bottlenecks during re-renders. Keeping components lean ensures efficient memory usage and smoother UI updates.',
@@ -447,6 +471,7 @@ const i18nBenchmarkDictionary = {
           zh: '页面大小',
           de: 'Seitengröße',
           ar: 'حجم الصفحة',
+          'he-IL': 'גודל הדף',
           it: 'Dimensione pagina',
           'en-GB': 'Page size',
           pt: 'Tamanho da página',
@@ -467,6 +492,8 @@ const i18nBenchmarkDictionary = {
           zh: '为首页客户端提供的 JavaScript 包的总 gzip 压缩大小。',
           de: 'Die gesamte gzip-komprimierte Größe des JavaScript-Bundles, das dem Client für die Startseite bereitgestellt wird.',
           ar: 'الحجم الإجمالي المضغوط بتنسيق gzip لحزمة JavaScript المقدمة للعميل للصفحة الرئيسية.',
+          'he-IL':
+            'הגודל הכולל לאחר דחיסת gzip של bundle ה-JavaScript שמוגש ללקוח עבור דף הבית.',
           it: 'La dimensione totale compressa con gzip del bundle JavaScript inviato al client per la home page.',
           'en-GB':
             'The total gzip-compressed size of the JavaScript bundle served to the client for the home page.',
@@ -488,6 +515,8 @@ const i18nBenchmarkDictionary = {
           zh: '直接影响到初始页面加载速度和可交互时间(TTI)。更小的包体积确保更快的用户交互。',
           de: 'Wirkt sich direkt auf die anfängliche Ladezeit der Seite und die Time to Interactive (TTI) aus. Kleinere Bundles gewährleisten eine schnellere Benutzerinteraktion.',
           ar: 'يؤثر بشكل مباشر على سرعة التحميل الأولي للصفحة ووقت التفاعل (TTI). تضمن الحزم الأصغر سرعة تفاعل المستخدم.',
+          'he-IL':
+            'משפיע ישירות על מהירות טעינת הדף הראשונית ועל ה-Time to Interactive (TTI). Bundles קטנים יותר מבטיחים מעורבות משתמשים מהירה יותר.',
           it: "Impatta direttamente la velocità di caricamento iniziale della pagina e il Time to Interactive (TTI). I bundle più piccoli assicurano un coinvolgimento più rapido dell'utente.",
           'en-GB':
             'Directly impacts the initial page load speed and Time to Interactive (TTI). Smaller bundles ensure faster user engagement.',
@@ -511,6 +540,7 @@ const i18nBenchmarkDictionary = {
           zh: '库大小',
           de: 'Bibliotheksgröße',
           ar: 'حجم المكتبة',
+          'he-IL': 'גודל הספרייה',
           it: 'Dimensione libreria',
           'en-GB': 'Library size',
           pt: 'Tamanho da biblioteca',
@@ -531,6 +561,8 @@ const i18nBenchmarkDictionary = {
           zh: '国际化库包的总 gzip 压缩大小。它仅包含 tree-shaking 和压缩（minification）后的提供者（provider）和内容检索逻辑。',
           de: 'Die gesamte gzip-komprimierte Größe des Internationalisierungs-Bibliothekspakets. Es enthält nur den Provider und die Inhaltsabruflogik nach Tree-Shaking und Minimierung.',
           ar: 'الحجم الإجمالي المضغوط بتنسيق gzip لحزمة مكتبة التدويل. وهي تتضمن فقط المزود ومنطق استرداد المحتوى بعد تقليل الحجم (tree-shaking) والضغط (minification).',
+          'he-IL':
+            'הגודל הכולל לאחר דחיסת gzip של ה-bundle של ספריית הבינאום. הוא כולל רק את ה-provider ואת לוגיקת שליפת התוכן לאחר tree-shaking ומיזעור.',
           it: 'La dimensione totale compressa con gzip del bundle della libreria di internazionalizzazione. Include solo il provider e la logica di recupero dei contenuti dopo il tree-shaking e la minificazione.',
           'en-GB':
             'The total gzip-compressed size of the internationalisation library bundle. It only includes the provider and content retrieval logic after tree-shaking and minification.',
@@ -552,6 +584,8 @@ const i18nBenchmarkDictionary = {
           zh: '较小的库大小可减少初始 JavaScript 负载，从而缩短客户端的下载和执行时间。',
           de: 'Eine kleinere Bibliotheksgröße reduziert die anfängliche JavaScript-Nutzlast, was zu schnelleren Download- und Ausführungszeiten auf dem Client führt.',
           ar: 'يقلل حجم المكتبة الأصغر من حمولة JavaScript الأولية، مما يؤدي إلى سرعة التنزيل وأوقات التنفيذ على العميل.',
+          'he-IL':
+            'ספרייה קטנה יותר מקטינה את מטען ה-JavaScript ההתחלתי, מה שמוביל לזמני הורדה והרצה מהירים יותר בצד הלקוח.',
           it: 'Una dimensione della libreria più piccola riduce il payload JavaScript iniziale, portando a tempi di download ed esecuzione più rapidi sul client.',
           'en-GB':
             'A smaller library size reduces the initial JavaScript payload, leading to faster download and execution times on the client.',
@@ -575,6 +609,7 @@ const i18nBenchmarkDictionary = {
           zh: '语言环境泄漏',
           de: 'Locale-Leck',
           ar: 'تسرب اللغة',
+          'he-IL': 'דליפת תוכן בין שפות',
           it: 'Perdita di locale',
           'en-GB': 'Locale leak',
           pt: 'Vazamento de locale',
@@ -595,6 +630,8 @@ const i18nBenchmarkDictionary = {
           zh: '包中属于当前显示语言以外的其他语言的翻译字符串的百分比。',
           de: 'Der Prozentsatz der Übersetzungsstrings im Bundle, die zu anderen Sprachen als der aktuell angezeigten gehören.',
           ar: 'النسبة المئوية لسلاسل الترجمة في الحزمة التي تنتمي إلى لغات أخرى غير اللغة المعروضة حاليًا.',
+          'he-IL':
+            'אחוז מחרוזות התרגום ב-bundle השייכות לשפות שאינן השפה המוצגת כעת.',
           it: 'La percentuale di stringhe di traduzione nel bundle che appartengono ad altre lingue rispetto a quella correntemente visualizzata.',
           'en-GB':
             'The percentage of translation strings in the bundle that belong to languages other than the one currently displayed.',
@@ -616,6 +653,8 @@ const i18nBenchmarkDictionary = {
           zh: '高区域泄漏通过迫使用户下载不必要的翻译数据，浪费了带宽和浏览器内存。',
           de: 'Ein hohes Locale-Leck verschwendet Bandbreite und Browser-Speicher, da Benutzer gezwungen werden, unnötige Übersetzungsdaten herunterzuladen.',
           ar: 'يؤدي تسرب اللغة العالي إلى إهدار النطاق الترددي وذاكرة المتصفح من خلال إجبار المستخدمين على تنزيل بيانات ترجمة غير ضرورية.',
+          'he-IL':
+            'דליפת שפות גבוהה מבזבזת רוחב פס וזיכרון דפדפן בכך שהיא מאלצת משתמשים להוריד נתוני תרגום מיותרים.',
           it: 'Una perdita elevata di locale spreca larghezza di banda e memoria del browser costringendo gli utenti a scaricare dati di traduzione non necessari.',
           'en-GB':
             'High locale leak wastes bandwidth and browser memory by forcing users to download unnecessary translation data.',
@@ -639,6 +678,7 @@ const i18nBenchmarkDictionary = {
           zh: '其他页面内容泄漏',
           de: 'Inhaltsleck anderer Seiten',
           ar: 'تسرب محتوى صفحات أخرى',
+          'he-IL': 'דליפת תוכן מדפים אחרים',
           it: 'Perdita di contenuto di altre pagine',
           'en-GB': 'Other page content leak',
           pt: 'Vazamento de conteúdo de outras páginas',
@@ -659,6 +699,7 @@ const i18nBenchmarkDictionary = {
           zh: '包中属于当前显示页面以外的其他页面的内容的百分比。',
           de: 'Der Prozentsatz der Inhalte im Bundle, die zu anderen Seiten als der aktuell angezeigten gehören.',
           ar: 'النسبة المئوية للمحتوى في الحزمة التي تنتمي إلى صفحات أخرى غير المعروضة حاليًا.',
+          'he-IL': 'אחוז התוכן ב-bundle השייך לדפים אחרים מלבד הדף המוצג כעת.',
           it: 'La percentuale di contenuto nel bundle che appartiene ad altre pagine rispetto a quella attualmente visualizzata.',
           'en-GB':
             'The percentage of content in the bundle that belong to other pages than the one currently displayed.',
@@ -680,6 +721,8 @@ const i18nBenchmarkDictionary = {
           zh: '高页面泄漏通过迫使用户下载不必要的页面数据，浪费了带宽 and 浏览器内存。',
           de: 'Ein hohes Seiten-Leck verschwendet Bandbreite und Browser-Speicher.',
           ar: 'يؤدي تسرب الصفحة العالي إلى إهدار النطاق الترددي وذاكرة المتصفح.',
+          'he-IL':
+            'דליפת דפים גבוהה מבזבזת רוחב פס וזיכרון דפדפן בכך שהיא מאלצת משתמשים להוריד נתוני דפים מיותרים.',
           it: 'Una perdita elevata di pagina spreca larghezza di banda e memoria del browser.',
           'en-GB':
             'High page leak wastes bandwidth and browser memory by forcing users to download unnecessary page data.',
@@ -703,6 +746,7 @@ const i18nBenchmarkDictionary = {
           zh: '反应性',
           de: 'Reaktivität',
           ar: 'التفاعلية',
+          'he-IL': 'ריאקטיביות',
           it: 'Reattività',
           'en-GB': 'Reactivity',
           pt: 'Reatividade',
@@ -723,6 +767,8 @@ const i18nBenchmarkDictionary = {
           zh: '应用程序界面在切换后完全呈现新语言所需的端到端时间。',
           de: 'Die End-to-End-Zeit, die erforderlich ist, damit die Anwendungsschnittstelle nach einem Wechsel eine neue Sprache vollständig berücksichtigt.',
           ar: 'الوقت الإجمالي المطلوب لواجهة التطبيق لتعكس لغة جديدة بالكامل بعد التبديل.',
+          'he-IL':
+            'הזמן מקצה לקצה הנדרש לממשק האפליקציה כדי לשקף במלואו שפה חדשה לאחר החלפה.',
           it: "Il tempo end-to-end necessario affinché l'interfaccia dell'applicazione rifletta completamente una nuova lingua dopo un cambio.",
           'en-GB':
             'The end-to-end time required for the application interface to completely reflect a new language after a switch.',
@@ -744,6 +790,8 @@ const i18nBenchmarkDictionary = {
           zh: '即时的反应性提供了无缝且类似原生应用的体验，避免了在交互过程中出现界面冻结或滞后。',
           de: 'Die sofortige Reaktivität bietet ein nahtloses und natives Erlebnis, um das Einfrieren oder Ruckeln der Benutzeroberfläche zu vermeiden.',
           ar: 'توفر التفاعلية الفورية تجربة سلسة تشبه التطبيقات الأصلية، وتمنع تجميد أو تأخير واجهة المستخدم أثناء التفاعلات.',
+          'he-IL':
+            'ריאקטיביות מיידית מספקת חוויה חלקה ודמוית-נייטיב, ומונעת קפיאה או השהיה של הממשק במהלך אינטראקציות.',
           it: "La reazione quasi istantanea fornisce un'esperienza più fluida e nativa, evitando blocchi o ritardi dell'interfaccia.",
           'en-GB':
             'Instant reactivity provides a seamless and native-like experience, avoiding UI freezing or lagging during interactions.',
@@ -767,6 +815,7 @@ const i18nBenchmarkDictionary = {
           zh: 'React Profiler',
           de: 'React-Profiler',
           ar: 'React Profiler',
+          'he-IL': 'React Profiler',
           it: 'Profiler React',
           'en-GB': 'React Profiler',
           pt: 'Profiler do React',
@@ -787,6 +836,8 @@ const i18nBenchmarkDictionary = {
           zh: '在仅通过 React Profiler 测量的语言更新过程中的孤立的 React 渲染持续时间।',
           de: 'Die isolierte React-Rendering-Dauer während eines Sprach-Updates.',
           ar: 'مدة تقديم React المنعزلة أثناء تحديث اللغة.',
+          'he-IL':
+            'משך הרינדור המבודד של React במהלך עדכון שפה, כפי שנמדד אך ורק על ידי ה-React Profiler.',
           it: "La durata isolata di rendering di React durante l'aggiornamento della lingua.",
           'en-GB':
             'The isolated React rendering duration during a language update as measured purely by the React Profiler.',
@@ -808,6 +859,8 @@ const i18nBenchmarkDictionary = {
           zh: '突显 i18n 库在组件树中导致的确切渲染开销。',
           de: 'Heftet den spezifischen Render-Overhead hervor, der durch die i18n-Bibliothek eingebracht wird.',
           ar: 'يبين الجهد المخصص للتقديم والناجم عن مكون i18n على شجرة العناصر.',
+          'he-IL':
+            'מדגיש את תקורת הרינדור הספציפית שספריית ה-i18n מוסיפה לעץ הקומפוננטות, תוך התעלמות ממגבלות רשת.',
           it: 'Evidenzia il sovraccarico specifico di renderizzazione apportato dalla libreria i18n.',
           'en-GB':
             'Highlights the specific rendering overhead introduced by the i18n library on the component tree, ignoring network constraints.',
@@ -831,6 +884,7 @@ const i18nBenchmarkDictionary = {
           zh: '页面加载',
           de: 'Seitenladezeit',
           ar: 'تحميل الصفحة',
+          'he-IL': 'טעינת הדף',
           it: 'Caricamento pagina',
           'en-GB': 'Page load',
           pt: 'Carregamento da página',
@@ -851,6 +905,8 @@ const i18nBenchmarkDictionary = {
           zh: '初始页面导航过程内使得整个页面可交互所花费的总平均时间。',
           de: 'Die gesamte durchschnittliche Zeit bis zur vollen Interaktivität der Seite beim Erstzugang.',
           ar: 'متوسط الوقت لتصبح الصفحة تفاعلية أثناء التنقل الأولي.',
+          'he-IL':
+            'הזמן הממוצע הכולל שלוקח לדף להפוך לאינטראקטיבי לחלוטין בניווט הראשוני.',
           it: 'Il tempo medio globale che impiega la pagina per essere attivata.',
           'en-GB':
             'The total average time taken for the page to become fully interactive upon initial navigation.',
@@ -872,6 +928,8 @@ const i18nBenchmarkDictionary = {
           zh: '更短的加载耗时具有吸引用户、完成转化及巩固搜索引擎优化(SEO)的重要作用。',
           de: 'Schnelle Ladezeiten sind entscheidend für SEO und Nutzerbindung.',
           ar: 'أوقات التحميل السريعة حاسمة لتحسين محركات البحث والعملاء.',
+          'he-IL':
+            'זמני טעינה מהירים הם קריטיים לשימור משתמשים, לשיעורי המרה ולשיפור הדירוג במנועי חיפוש (SEO).',
           it: 'Tempi di caricamento veloci sono critici per mantenere gli utenti ed il SEO.',
           'en-GB':
             'Fast load times are critical for user retention, conversion rates, and improving Search Engine Optimisation (SEO) rankings.',
@@ -895,6 +953,7 @@ const i18nBenchmarkDictionary = {
           zh: '水合',
           de: 'Hydration',
           ar: 'الهيدراتيشن',
+          'he-IL': 'הידרציה',
           it: 'Idratazione',
           'en-GB': 'Hydration',
           pt: 'Hidratação',
@@ -915,6 +974,8 @@ const i18nBenchmarkDictionary = {
           zh: '框架挂载事件监听器并使服务端渲染的页面在浏览器中变为可交互所需的时间。',
           de: 'Die Zeit, die das Framework benötigt, um Event-Listener anzuhängen und die serverseitig gerenderte Seite im Browser interaktiv zu machen.',
           ar: 'الوقت الذي يستغرقه إطار العمل لربط مستمعي الأحداث وجعل الصفحة المعروضة على الخادم تفاعلية في المتصفح.',
+          'he-IL':
+            'הזמן שלוקח לפריימוורק לצרף מאזיני אירועים ולהפוך את הדף שרונדר בשרת לאינטראקטיבי בדפדפן.',
           it: 'Il tempo impiegato dal framework per collegare gli event listener e rendere interattiva nel browser la pagina renderizzata sul server.',
           'en-GB':
             'The time the framework takes to attach event listeners and make the server-rendered page interactive in the browser.',
@@ -936,6 +997,8 @@ const i18nBenchmarkDictionary = {
           zh: '水合过慢会推迟可交互时间：元素看起来已就绪，但尚未响应点击或输入。',
           de: 'Eine langsame Hydration verzögert die Interaktivität: Elemente wirken bereit, reagieren aber noch nicht auf Klicks oder Eingaben.',
           ar: 'يؤخر الهيدراتيشن البطيء التفاعلية: تبدو العناصر جاهزة لكنها لا تستجيب بعد للنقرات أو الإدخال.',
+          'he-IL':
+            'הידרציה איטית מעכבת את האינטראקטיביות: רכיבים נראים מוכנים אך עדיין אינם מגיבים ללחיצות או לקלט.',
           it: "Un'idratazione lenta ritarda l'interattività: gli elementi sembrano pronti ma non rispondono ancora a clic o input.",
           'en-GB':
             'Slow hydration delays interactivity: elements look ready but do not respond to clicks or input yet.',
@@ -959,6 +1022,7 @@ const i18nBenchmarkDictionary = {
       zh: '暂无数据',
       de: 'Keine Daten verfügbar',
       ar: 'لا توجد بيانات',
+      'he-IL': 'אין נתונים זמינים',
       it: 'Nessun dato disponibile',
       'en-GB': 'No data available',
       pt: 'Nenhum dado disponível',
@@ -979,6 +1043,7 @@ const i18nBenchmarkDictionary = {
       zh: '加载基准测试数据时出错。请稍后再试。',
       de: 'Fehler beim Laden der Benchmark-Daten. Bitte versuchen Sie es später noch einmal.',
       ar: 'خطأ في تحميل بيانات مقياس الأداء. يرجى المحاولة مرة أخرى لاحقًا.',
+      'he-IL': "שגיאה בטעינת נתוני הבנצ'מרק. אנא נסו שוב מאוחר יותר.",
       it: 'Errore durante il caricamento dei dati del benchmark. Riprova più tardi.',
       'en-GB': 'Error loading benchmark data. Please try again later.',
       pt: 'Erro ao carregar os dados do benchmark. Por favor, tente novamente mais tarde.',
@@ -999,6 +1064,7 @@ const i18nBenchmarkDictionary = {
       zh: '加载策略',
       de: 'Ladestrategie',
       ar: 'استراتيجية التحميل',
+      'he-IL': 'אסטרטגיית טעינה',
       it: 'Strategia di caricamento',
       'en-GB': 'Loading strategy',
       pt: 'Estratégia de carregamento',
@@ -1019,6 +1085,7 @@ const i18nBenchmarkDictionary = {
       zh: '动态 JSON 加载',
       de: 'Dynamisches JSON-Laden',
       ar: 'تحميل JSON الديناميكي',
+      'he-IL': 'טעינת JSON דינמית',
       it: 'Caricamento JSON dinamico',
       'en-GB': 'Dynamic JSON loading',
       pt: 'Carregamento JSON dinâmico',
@@ -1039,6 +1106,7 @@ const i18nBenchmarkDictionary = {
       zh: '在运行时懒加载翻译',
       de: 'Lädt Übersetzungen während der Laufzeit verzögert',
       ar: 'تحميل الترجمات ببطء في وقت التشغيل',
+      'he-IL': 'טעינה עצלה של תרגומים בזמן ריצה',
       it: "Carica le traduzioni in modalità lazy durante l'esecuzione",
       'en-GB': 'Lazy-loads translations at runtime',
       pt: 'Carrega as traduções tardiamente em tempo de execução',
@@ -1059,6 +1127,7 @@ const i18nBenchmarkDictionary = {
       zh: '有作用域的 JSON (命名空间)',
       de: 'Gescoptes JSON (Namespacing)',
       ar: 'JSON المحدد (أسماء المحيط)',
+      'he-IL': 'JSON תחום (namespacing)',
       it: 'JSON con ambito (namespacing)',
       'en-GB': 'Scoped JSON (namespacing)',
       pt: 'JSON com escopo (namespacing)',
@@ -1079,6 +1148,7 @@ const i18nBenchmarkDictionary = {
       zh: '每页翻译命名空间',
       de: 'Übersetzungs-Namespaces pro Seite',
       ar: 'مساحات أسماء الترجمة لكل صفحة',
+      'he-IL': 'מרחבי שמות תרגום לכל דף',
       it: 'Spazi dei nomi di traduzione per pagina',
       'en-GB': 'Per-page translation namespaces',
       pt: 'Namespaces de tradução por página',

@@ -16,6 +16,7 @@ const applicationNotRunningViewContent = {
       pt: 'Sua aplicação não está acessível',
       hi: 'आपका एप्लिकेशन उपलब्ध नहीं है',
       ar: 'تطبيقك غير متاح',
+      'he-IL': 'האפליקציה שלכם אינה נגישה',
       ru: 'Ваше приложение недоступно',
     }),
     description: insert(
@@ -33,6 +34,8 @@ const applicationNotRunningViewContent = {
         pt: 'O editor não conseguiu acessar {{applicationUrl}}. Inicie sua aplicação, o editor se conectará automaticamente.',
         hi: 'एडिटर {{applicationUrl}} तक नहीं पहुँच सका। अपना एप्लिकेशन शुरू करें, एडिटर अपने आप कनेक्ट हो जाएगा।',
         ar: 'تعذر على المحرر الوصول إلى {{applicationUrl}}. شغّل تطبيقك، وسيتصل المحرر تلقائيًا.',
+        'he-IL':
+          'העורך לא הצליח להגיע אל {{applicationUrl}}. הפעילו את האפליקציה שלכם, והעורך יתחבר אוטומטית.',
         ru: 'Редактору не удалось подключиться к {{applicationUrl}}. Запустите приложение, и редактор подключится автоматически.',
       })
     ),
@@ -50,6 +53,8 @@ const applicationNotRunningViewContent = {
       pt: 'Se sua aplicação roda em outra URL, atualize o campo `editor.applicationURL` da sua configuração.',
       hi: 'यदि आपका एप्लिकेशन किसी अन्य URL पर चल रहा है, तो अपने कॉन्फ़िगरेशन का `editor.applicationURL` फ़ील्ड अपडेट करें।',
       ar: 'إذا كان تطبيقك يعمل على عنوان URL آخر، فحدّث الحقل `editor.applicationURL` في الإعدادات.',
+      'he-IL':
+        'אם האפליקציה שלכם רצה בכתובת URL אחרת, עדכנו את השדה `editor.applicationURL` בתצורה שלכם.',
       ru: 'Если приложение работает по другому URL, обновите поле `editor.applicationURL` в конфигурации.',
     }),
     retry: t({
@@ -65,6 +70,7 @@ const applicationNotRunningViewContent = {
       pt: 'Tentar novamente',
       hi: 'पुनः प्रयास करें',
       ar: 'إعادة المحاولة',
+      'he-IL': 'ניסיון חוזר',
       ru: 'Повторить',
     }),
     checkingApplicationStatus: t({
@@ -80,6 +86,7 @@ const applicationNotRunningViewContent = {
       pt: 'Verificando o estado da aplicação',
       hi: 'एप्लिकेशन की स्थिति की जांच हो रही है',
       ar: 'جارٍ التحقق من حالة التطبيق',
+      'he-IL': 'בודק את מצב האפליקציה',
       ru: 'Проверка состояния приложения',
     }),
   },

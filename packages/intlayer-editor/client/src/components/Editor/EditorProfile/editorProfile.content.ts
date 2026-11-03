@@ -17,6 +17,7 @@ const editorProfileContent = {
         zh: '登录 Intlayer CMS（运行 intlayer login）',
         'en-GB': 'Log in to the Intlayer CMS (runs intlayer login)',
         ar: 'تسجيل الدخول إلى Intlayer CMS (يشغّل intlayer login)',
+        'he-IL': 'התחברות ל-CMS של Intlayer (מריץ intlayer login)',
         hi: 'Intlayer CMS में लॉग इन करें (intlayer login चलाता है)',
       }),
       title: t({
@@ -32,6 +33,7 @@ const editorProfileContent = {
         zh: '登录',
         'en-GB': 'Login',
         ar: 'تسجيل الدخول',
+        'he-IL': 'התחברות',
         hi: 'लॉग इन',
       }),
       pending: t({
@@ -47,6 +49,7 @@ const editorProfileContent = {
         zh: '正在等待浏览器…',
         'en-GB': 'Waiting for the browser…',
         ar: 'في انتظار المتصفح…',
+        'he-IL': 'ממתין לדפדפן…',
         hi: 'ब्राउज़र की प्रतीक्षा…',
       }),
     },
@@ -64,6 +67,7 @@ const editorProfileContent = {
         zh: '退出 intlayer login 会话',
         'en-GB': 'Log out of the intlayer login session',
         ar: 'تسجيل الخروج من جلسة intlayer login',
+        'he-IL': 'התנתקות מסשן ה-intlayer login',
         hi: 'intlayer login सत्र से लॉग आउट करें',
       }),
       title: t({
@@ -79,6 +83,7 @@ const editorProfileContent = {
         zh: '退出登录',
         'en-GB': 'Logout',
         ar: 'تسجيل الخروج',
+        'he-IL': 'התנתקות',
         hi: 'लॉग आउट',
       }),
     },
@@ -95,6 +100,7 @@ const editorProfileContent = {
       zh: '打开个人资料菜单',
       'en-GB': 'Open the profile menu',
       ar: 'فتح قائمة الملف الشخصي',
+      'he-IL': 'פתיחת תפריט הפרופיל',
       hi: 'प्रोफ़ाइल मेनू खोलें',
     }),
     sessionAuth: t({
@@ -110,6 +116,7 @@ const editorProfileContent = {
       zh: '已通过 intlayer login 登录',
       'en-GB': 'Signed in with intlayer login',
       ar: 'تم تسجيل الدخول باستخدام intlayer login',
+      'he-IL': 'מחובר באמצעות intlayer login',
       hi: 'intlayer login से साइन इन किया गया',
     }),
     accessKeyAuth: t({
@@ -125,6 +132,7 @@ const editorProfileContent = {
       zh: '已通过访问密钥登录',
       'en-GB': 'Signed in with an access key',
       ar: 'تم تسجيل الدخول باستخدام مفتاح وصول',
+      'he-IL': 'מחובר באמצעות מפתח גישה',
       hi: 'एक्सेस की से साइन इन किया गया',
     }),
     project: t({
@@ -140,6 +148,7 @@ const editorProfileContent = {
       zh: '项目',
       'en-GB': 'Project',
       ar: 'المشروع',
+      'he-IL': 'פרויקט',
       hi: 'प्रोजेक्ट',
     }),
   },

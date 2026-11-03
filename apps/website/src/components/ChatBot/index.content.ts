@@ -18,6 +18,7 @@ const chatFormSectionContent = {
         pt: 'Olá! Faça uma pergunta e eu responderei.',
         hi: 'नमस्ते! कुछ प्रश्न करें और मुझे उत्तर देंगे।',
         ar: 'مرحبا! اسمح لي بسؤال وسأقوم بالإجابة.',
+        'he-IL': 'היי! שאלו אותי כל דבר ואנסה לענות.',
         ru: 'Привет! Спросите меня что-нибудь и я помогу тебе.',
         tr: 'Hey! Bana bir şey sor ve cevaplamaya çalışayım.',
         pl: 'Cześć! Zapytaj mnie o cokolwiek, a postaram się odpowiedzieć.',
@@ -28,6 +29,8 @@ const chatFormSectionContent = {
     },
     rateLimitExceededMessage: t({
       ar: 'عدد الطلبات محدود للمستخدمين غير المصرح لهم. يرجى المحاولة مرة أخرى لاحقًا، أو تسجيل الدخول لزيادة الحد وفتح المزيد من المودلات.',
+      'he-IL':
+        'מספר הבקשות מוגבל עבור משתמשים שאינם מחוברים. אנא נסו שוב מאוחר יותר, או התחברו כדי להגדיל את המגבלה ולפתוח מודלים טובים יותר.',
       de: 'Die Anzahl der Anfragen ist für nicht authentifizierte Benutzer begrenzt. Bitte versuchen Sie es später erneut, oder melden Sie sich an, um Ihre Begrenzung zu erhöhen und bessere Modelle zu entsperren.',
       en: 'The number of requests is limited for unauthenticated users. Please try again later, or sign in to increase your limit and unlock better models.',
       'en-GB':
@@ -61,6 +64,7 @@ const chatFormSectionContent = {
         pt: 'Fazer login',
         hi: 'लॉग इन',
         ar: 'تسجيل الدخول',
+        'he-IL': 'התחברות',
         ru: 'Войти',
         tr: 'Giriş yap',
         pl: 'Zaloguj się',
@@ -81,6 +85,7 @@ const chatFormSectionContent = {
         pt: 'Ir para a página de login',
         hi: 'लॉग इन पेज पर जाएं',
         ar: 'الذهاب إلى صفحة التسجيل',
+        'he-IL': 'מעבר לדף ההתחברות',
         ru: 'Перейти на страницу входа',
         tr: 'Giriş sayfasına git',
         pl: 'Przejdź do strony logowania',
@@ -103,6 +108,7 @@ const chatFormSectionContent = {
         pt: 'Mostrar mensagens anteriores',
         hi: 'पिछले संदेश दिखाएं',
         ar: 'عرض الرسائل السابقة',
+        'he-IL': 'הצגת הודעות קודמות',
         ru: 'Показать предыдущие сообщения',
         tr: 'Önceki mesajları göster',
         pl: 'Pokaż wcześniejsze wiadomości',
@@ -123,6 +129,7 @@ const chatFormSectionContent = {
         pt: 'Mostrar as mensagens anteriores desta conversa',
         hi: 'इस चर्चा के पिछले संदेश दिखाएं',
         ar: 'عرض الرسائل السابقة في هذه المحادثة',
+        'he-IL': 'הצגת ההודעות הקודמות של הדיון הזה',
         ru: 'Показать предыдущие сообщения этого обсуждения',
         tr: 'Bu sohbetin önceki mesajlarını göster',
         pl: 'Pokaż wcześniejsze wiadomości tej rozmowy',
@@ -145,6 +152,8 @@ const chatFormSectionContent = {
       pt: 'As discussões são anônimas e regularmente revisadas para resolver problemas comuns. Sinta-se à vontade para compartilhar ideias de funcionalidades, feedback sobre a documentação ou qualquer coisa relacionada ao Intlayer, usamos essas informações para moldar nosso roadmap e melhorar o produto.',
       hi: 'चर्चाएं गुमनाम हैं और सामान्य मुद्दों को संबोधित करने के लिए नियमित रूप से समीक्षा की जाती हैं। फीचर आइडिया, डॉक्यूमेंटेशन पर फीडबैक, या Intlayer से संबंधित कुछ भी साझा करने में संकोच न करें, हम इस इनपुट का उपयोग अपने रोडमैप को आकार देने और उत्पाद को बेहतर बनाने के लिए करते हैं।',
       ar: 'المناقشات مجهولة الهوية ويتم مراجعتها بانتظام لمعالجة المشكلات الشائعة. لا تتردد في مشاركة أفكار الميزات أو التعليقات على الوثائق أو أي شيء يتعلق بـ Intlayer, نستخدم هذه المدخلات لتشكيل خارطة الطريق وتحسين المنتج.',
+      'he-IL':
+        "הדיונים אנונימיים ונבדקים באופן קבוע כדי לטפל בבעיות נפוצות. אל תהססו לשתף רעיונות לפיצ'רים, משוב על התיעוד או כל דבר הקשור ל-Intlayer — אנחנו משתמשים במידע הזה כדי לעצב את מפת הדרכים שלנו ולשפר את המוצר.",
       ru: 'Обсуждения анонимны и регулярно просматриваются для решения распространённых проблем. Не стесняйтесь делиться идеями функций, отзывами о документации или чем-либо, связанным с Intlayer, мы используем эту информацию для формирования нашей дорожной карты и улучшения продукта.',
       tr: 'Tartışmalar anonimdir ve yaygın sorunları ele almak için düzenli olarak incelenir. Özellik fikirleri, belgeleme hakkında geri bildirimler veya Intlayer ile ilgili herhangi bir şeyi paylaşmaktan çekinmeyin, bu girdileri yol haritamızı şekillendirmek ve ürünü geliştirmek için kullanıyoruz.',
       pl: 'Dyskusje są anonimowe i regularnie przeglądane w celu rozwiązania typowych problemów. Podziel się pomysłami na funkcje, opinią o dokumentacji lub czymkolwiek związanym z Intlayer, wykorzystujemy te informacje do kształtowania naszej mapy drogowej i ulepszania produktu.',

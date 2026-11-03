@@ -5,6 +5,7 @@ const deleteDictionaryModalContent = {
   content: {
     title: t({
       ar: 'حذف القاموس',
+      'he-IL': 'מחיקת מילון',
       de: 'Wörterbuch löschen',
       en: 'Delete Dictionary',
       'en-GB': 'Delete Dictionary',
@@ -28,6 +29,7 @@ const deleteDictionaryModalContent = {
       '1': insert(
         t({
           ar: 'هل أنت متأكد من أنك تريد حذف هذا القاموس ({{keys}})؟',
+          'he-IL': 'האם אתם בטוחים שברצונכם למחוק את המילון הזה ({{keys}})?',
           de: 'Sind Sie sicher, dass Sie dieses Wörterbuch ({{keys}}) löschen möchten?',
           en: 'Are you sure you want to delete this dictionary ({{keys}})?',
           'en-GB':
@@ -51,6 +53,8 @@ const deleteDictionaryModalContent = {
       fallback: insert(
         t({
           ar: 'هل أنت متأكد من أنك تريد حذف القواميس المختارة ({{keys}})؟',
+          'he-IL':
+            'האם אתם בטוחים שברצונכם למחוק את המילונים שנבחרו ({{keys}})?',
           de: 'Sind Sie sicher, dass Sie die ausgewählten Wörterbücher ({{keys}}) löschen möchten?',
           en: 'Are you sure you want to delete the selected dictionaries ({{keys}})?',
           'en-GB':
@@ -87,6 +91,7 @@ const deleteDictionaryModalContent = {
         pt: 'Excluir',
         hi: 'हटाएं',
         ar: 'حذف',
+        'he-IL': 'מחיקה',
         ru: 'Удалить',
         tr: 'Sil',
         pl: 'Usuń',
@@ -107,6 +112,7 @@ const deleteDictionaryModalContent = {
         pt: 'Clique para excluir',
         hi: 'हटाने के लिए क्लिक करें',
         ar: 'انقر للحذف',
+        'he-IL': 'לחצו למחיקה',
         ru: 'Нажмите, чтобы удалить',
         tr: 'Silmek için tıklayın',
         pl: 'Kliknij, aby usunąć',
@@ -130,6 +136,7 @@ const deleteDictionaryModalContent = {
         pt: 'Cancelar',
         hi: 'रद्द करें',
         ar: 'إلغاء',
+        'he-IL': 'ביטול',
         ru: 'Отменить',
         tr: 'İptal',
         pl: 'Anuluj',
@@ -150,6 +157,7 @@ const deleteDictionaryModalContent = {
         pt: 'Clique para cancelar',
         hi: 'रद्द करने के लिए क्लिक करें',
         ar: 'انقر لإلغاء',
+        'he-IL': 'לחצו לביטול',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
         pl: 'Kliknij, aby anulować',

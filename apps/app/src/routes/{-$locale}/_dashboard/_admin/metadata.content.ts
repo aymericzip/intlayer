@@ -6,6 +6,7 @@ const metadataContent = {
     metadata: {
       title: t({
         ar: 'لوحة الإدارة | Intlayer',
+        'he-IL': 'פאנל ניהול | Intlayer',
         de: 'Admin-Panel | Intlayer',
         en: 'Admin Panel | Intlayer',
         'en-GB': 'Admin Panel | Intlayer',
@@ -26,6 +27,8 @@ const metadataContent = {
       }),
       description: t({
         ar: 'لوحة تحكم إدارية لـ Intlayer. إدارة إعدادات النظام وأذونات المستخدمين ومراجعة المحتوى وخيارات التكوين المتقدمة لمشاريع Intlayer الخاصة بك.',
+        'he-IL':
+          'פאנל הבקרה הניהולי של Intlayer. נהלו הגדרות מערכת, הרשאות משתמשים, ניהול תוכן ואפשרויות תצורה מתקדמות לפרויקטי ה-Intlayer שלכם.',
         de: 'Administratives Bedienfeld für Intlayer. Verwalten Sie Systemeinstellungen, Benutzerberechtigungen, Inhaltsmoderation und erweiterte Konfigurationsoptionen für Ihre Intlayer-Projekte.',
         en: 'Administrative control panel for Intlayer. Manage system settings, user permissions, content moderation, and advanced configuration options for your Intlayer projects.',
         'en-GB':
@@ -54,6 +57,14 @@ const metadataContent = {
           'إدارة المستخدمين',
           'الأذونات',
           'التكوين',
+        ],
+        'he-IL': [
+          'פאנל ניהול',
+          'ניהול מערכת',
+          'הגדרות מערכת',
+          'ניהול משתמשים',
+          'הרשאות',
+          'תצורה',
         ],
         de: [
           'Admin-Panel',

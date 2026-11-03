@@ -5,6 +5,7 @@ const dashboardContent = {
   content: {
     title: t({
       ar: 'لوحة التحكم',
+      'he-IL': 'לוח בקרה',
       de: 'Armaturenbrett',
       en: 'Dashboard',
       'en-GB': 'Dashboard',
@@ -37,6 +38,7 @@ const dashboardContent = {
         pt: 'Painel | Intlayer',
         hi: 'डैशबोर्ड | Intlayer',
         ar: 'لوحة القيادة | Intlayer',
+        'he-IL': 'לוח בקרה | Intlayer',
         ru: 'Панель управления | Intlayer',
         tr: 'Dashboard | Intlayer',
         pl: 'Panel | Intlayer',
@@ -58,6 +60,8 @@ const dashboardContent = {
         pt: 'Acesse o painel do Intlayer para gerenciar seus projetos, traduções e conteúdo. Seu hub central para gerenciamento de internacionalização.',
         hi: 'अपने प्रोजेक्ट, अनुवाद और सामग्री प्रबंधित करने के लिए Intlayer डैशबोर्ड तक पहुंचें। अंतर्राष्ट्रीयकरण प्रबंधन के लिए आपका केंद्रीय केंद्र।',
         ar: 'قم بالوصول إلى لوحة تحكم Intlayer لإدارة مشاريعك وترجماتك ومحتواك. مركزك المركزي لإدارة التدويل (i18n).',
+        'he-IL':
+          'גשו ללוח הבקרה של Intlayer כדי לנהל את הפרויקטים, התרגומים והתוכן שלכם. המרכז שלכם לניהול בינאום.',
         ru: 'Получите доступ к панели управления Intlayer для управления своими проектами, переводами и контентом. Ваш центральный узел для управления интернационализацией.',
         tr: 'Projelerinizi, çevirilerinizi ve içeriğinizi yönetmek için Intlayer kontrol paneline erişin. Uluslararasılaştırma yönetimi için merkezi merkeziniz.',
         pl: 'Uzyskaj dostęp do panelu Intlayer, aby zarządzać swoimi projektami, tłumaczeniami i treściami. Twoje centralne centrum zarządzania internacjonalizacją.',
@@ -90,6 +94,7 @@ const dashboardContent = {
           'تدويل',
           'إدارة المشاريع',
         ],
+        'he-IL': ['לוח בקרה', 'Intlayer', 'CMS', 'i18n', 'ניהול פרויקטים'],
         ru: [
           'Панель управления',
           'Intlayer',

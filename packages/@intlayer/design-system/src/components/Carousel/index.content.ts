@@ -6,6 +6,7 @@ const carouselContent = {
     goToSlide: insert(
       t({
         ar: 'انتقل إلى الشريحة رقم {{index}}',
+        'he-IL': 'מעבר לשקופית {{index}}',
         de: 'Zu Folie {{index}} wechseln',
         en: 'Go to slide {{index}}',
         'en-GB': 'Go to slide {{index}}',
@@ -36,6 +37,7 @@ const carouselContent = {
       es: 'Diapositiva anterior',
       de: 'Vorherige Folie',
       ar: 'الشريحة السابقة',
+      'he-IL': 'השקופית הקודמת',
       it: 'Diapositiva precedente',
       pt: 'Diapositiva anterior',
       hi: 'पिछली स्लाइड',
@@ -56,6 +58,7 @@ const carouselContent = {
       es: 'Diapositiva siguiente',
       de: 'Nächste Folie',
       ar: 'الشريحة التالية',
+      'he-IL': 'השקופית הבאה',
       it: 'Diapositiva successiva',
       pt: 'Diapositiva seguinte',
       hi: 'अगली स्लाइड',

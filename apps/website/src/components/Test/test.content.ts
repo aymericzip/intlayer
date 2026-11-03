@@ -26,6 +26,7 @@ const content = {
       fr: 'Bienvenue dans notre application',
       es: 'Bienvenido a nuestra aplicación',
       ar: 'مرحبا بك في تطبيقنا',
+      'he-IL': 'ברוכים הבאים לאפליקציה שלנו',
       de: 'Willkommen in unserer Anwendung',
       hi: 'हमारे अनुप्रयोग में आपका स्वागत है',
       it: 'Benvenuto nella nostra applicazione',
@@ -115,6 +116,7 @@ const content = {
     myMultilingualInsertion: insert(
       t({
         ar: 'مرحبا, اسمي {{name}} وأنا {{age}} سنة!',
+        'he-IL': 'שלום, קוראים לי {{name}} ואני בן/בת {{age}}!',
         de: 'Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!',
         en: 'Hello, my name is {{name}} and I am {{age}} years old!',
         'en-GB': 'Hello, my name is {{name}} and I am {{age}} years old!',
@@ -171,6 +173,7 @@ const content = {
       ko: md('## test ko'),
       de: md('## test de'),
       ar: md('## test ar'),
+      'he-IL': md('## test he'),
       text: 'This is the content rendered by a function',
       vi: md('## kiểm tra'),
       uk: md('## тест'),

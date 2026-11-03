@@ -5,6 +5,7 @@ const copyMarkdownMessageContent = {
   content: {
     title: t({
       ar: 'نسخ',
+      'he-IL': 'העתקה',
       de: 'Kopieren',
       en: 'Copy',
       'en-GB': 'Copy',
@@ -25,6 +26,7 @@ const copyMarkdownMessageContent = {
     }),
     description: t({
       ar: 'نسخ الـ Markdown من المستند إلى الحافظة',
+      'he-IL': 'העתקת ה-Markdown של המסמך ללוח',
       de: 'Markdown des Dokuments in die Zwischenablage kopieren',
       en: 'Copy doc Markdown to clipboard',
       'en-GB': 'Copy doc Markdown to clipboard',

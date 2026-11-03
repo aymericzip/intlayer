@@ -5,6 +5,7 @@ const adminBreadcrumbContent = {
   content: {
     home: t({
       ar: 'لوحة التحكم',
+      'he-IL': 'לוח בקרה',
       de: 'Dashboard',
       en: 'Dashboard',
       'en-GB': 'Dashboard',
@@ -25,6 +26,7 @@ const adminBreadcrumbContent = {
     }),
     users: t({
       ar: 'المستخدمون',
+      'he-IL': 'משתמשים',
       de: 'Benutzer',
       en: 'Users',
       'en-GB': 'Users',
@@ -45,6 +47,7 @@ const adminBreadcrumbContent = {
     }),
     organizations: t({
       ar: 'المنظمات',
+      'he-IL': 'ארגונים',
       de: 'Organisationen',
       en: 'Organizations',
       'en-GB': 'Organisations',
@@ -65,6 +68,7 @@ const adminBreadcrumbContent = {
     }),
     projects: t({
       ar: 'المشاريع',
+      'he-IL': 'פרויקטים',
       de: 'Projekte',
       en: 'Projects',
       'en-GB': 'Projects',
@@ -85,6 +89,7 @@ const adminBreadcrumbContent = {
     }),
     dashboard: t({
       ar: 'لوحة التحكم',
+      'he-IL': 'לוח בקרה',
       de: 'Dashboard',
       en: 'Dashboard',
       'en-GB': 'Dashboard',
@@ -105,6 +110,7 @@ const adminBreadcrumbContent = {
     }),
     userDetail: t({
       ar: 'تفاصيل المستخدم',
+      'he-IL': 'פרטי משתמש',
       de: 'Benutzerdetails',
       en: 'User Details',
       'en-GB': 'User Details',

@@ -17,6 +17,7 @@ export const verifyEmailStepContent = {
         pt: 'Verifique seu e-mail',
         hi: 'अपने ईमेल की पुष्टि करें',
         ar: 'تحقق من بريدك الإلكتروني',
+        'he-IL': 'אמתו את האימייל שלכם',
         ru: 'Подтвердите ваш адрес электронной почты',
         tr: 'E-postanızı doğrulayın',
         pl: 'Zweryfikuj swój adres e-mail',
@@ -38,6 +39,8 @@ export const verifyEmailStepContent = {
         pt: 'Enviamos um e-mail para verificar seu endereço de e-mail. Verifique sua caixa de entrada e clique no link para verificar seu e-mail.',
         hi: 'हमने आपको आपके ईमेल पते की पुष्टि करने के लिए एक ईमेल भेजा है। कृपया अपने इनबॉक्स की जांच करें और अपने ईमेल की पुष्टि करने के लिए लिंक पर क्लिक करें।',
         ar: 'لقد أرسلنا إليك بريدًا إلكترونيًا للتحقق من عنوان بريدك الإلكتروني. يرجى التحقق من صندوق الوارد الخاص بك والنقر على الرابط للتحقق من بريدك الإلكتروني.',
+        'he-IL':
+          'שלחנו לכם אימייל לאימות כתובת האימייל שלכם. אנא בדקו את תיבת הדואר הנכנס ולחצו על הקישור כדי לאמת את האימייל.',
         ru: 'Мы отправили вам письмо для подтверждения вашего адреса электронной почты. Пожалуйста, проверьте свой почтовый ящик и нажмите на ссылку, чтобы подтвердить электронную почту.',
         tr: 'E-posta adresinizi doğrulamak için size bir e-posta gönderdik. Lütfen gelen kutunuzu kontrol edin ve e-postanızı doğrulamak için bağlantıya tıklayın.',
         pl: 'Wysłaliśmy Ci wiadomość e-mail z linkiem weryfikacyjnym. Sprawdź swoją skrzynkę odbiorczą i kliknij w link, aby zweryfikować adres e-mail.',

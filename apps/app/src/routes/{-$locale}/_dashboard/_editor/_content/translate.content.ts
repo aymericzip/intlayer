@@ -6,6 +6,7 @@ const translateDashboardContent = {
     metadata: {
       title: t({
         ar: 'ترجمة | لوحة القيادة | Intlayer',
+        'he-IL': 'תרגום | לוח בקרה | Intlayer',
         de: 'Übersetzen | Dashboard | Intlayer',
         en: 'Translate | Dashboard | Intlayer',
         'en-GB': 'Translate | Dashboard | Intlayer',
@@ -26,6 +27,7 @@ const translateDashboardContent = {
       }),
       description: t({
         ar: 'ترجمة محتوى موقعك باستخدام Intlayer.',
+        'he-IL': 'תרגמו את תוכן האתר שלכם באמצעות Intlayer.',
         de: 'Übersetzen Sie Ihre Website-Inhalte mit Intlayer.',
         en: 'Translate your website content using Intlayer.',
         'en-GB': 'Translate your website content using Intlayer.',
@@ -63,6 +65,7 @@ const translateDashboardContent = {
         it: ['Traduci', 'Internazionalizzazione', 'i18n', 'Intlayer', 'CMS'],
         pt: ['Traduzir', 'Internacionalização', 'i18n', 'Intlayer', 'CMS'],
         ar: ['ترجمة', 'تدويل', 'i18n', 'Intlayer', 'نظام إدارة المحتوى'],
+        'he-IL': ['תרגום', 'בינאום', 'i18n', 'Intlayer', 'CMS'],
         ru: ['Перевод', 'Интернационализация', 'i18n', 'Intlayer', 'CMS'],
         tr: ['Çeviri', 'Uluslararasılaştırma', 'i18n', 'Intlayer', 'CMS'],
         pl: ['Tłumaczenie', 'Internacjonalizacja', 'i18n', 'Intlayer', 'CMS'],

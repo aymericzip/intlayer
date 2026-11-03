@@ -5,6 +5,7 @@ const localeSwitcherContent = {
   content: {
     localeSwitcherLabel: t({
       ar: 'مبدل اللغة',
+      'he-IL': 'החלפת שפה',
       de: 'Sprachwechsler',
       en: 'Language switcher',
       'en-GB': 'Language switcher',
@@ -25,6 +26,7 @@ const localeSwitcherContent = {
     }),
     languageListLabel: t({
       ar: 'قائمة اللغات',
+      'he-IL': 'רשימת שפות',
       de: 'Sprachliste',
       en: 'Language list',
       'en-GB': 'Language list',
@@ -46,6 +48,7 @@ const localeSwitcherContent = {
     switchTo: insert(
       t({
         ar: 'التبديل إلى {{locale}}',
+        'he-IL': 'מעבר ל-{{locale}}',
         de: 'Zu {{locale}} wechseln',
         en: 'Switch to {{locale}}',
         'en-GB': 'Switch to {{locale}}',
@@ -79,6 +82,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisar idioma',
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
+        'he-IL': 'חיפוש שפה',
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Szukaj języka',
@@ -99,6 +103,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisar um idioma',
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
+        'he-IL': 'חיפוש שפה',
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Szukaj języka',
@@ -119,6 +124,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisa de idioma',
         hi: 'भाषा खोजें',
         ar: 'بحث اللغة',
+        'he-IL': 'חיפוש שפה',
         ru: 'Поиск языка',
         tr: 'Dil ara',
         pl: 'Wyszukiwanie języka',

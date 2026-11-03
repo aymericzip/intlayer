@@ -16,6 +16,8 @@ const metadataContent = {
       zh: 'AI 翻译管理系统 (TMS) & 开源替代方案 | Intlayer',
       ja: 'AI翻訳管理システム (TMS) & オープンソースの代替案 | Intlayer',
       ar: 'نظام إدارة الترجمة (TMS) بالذكاء الاصطناعي وبديل مفتوح المصدر | Intlayer',
+      'he-IL':
+        'מערכת לניהול תרגומים (TMS) מבוססת AI וחלופה בקוד פתוח | Intlayer',
       hi: 'AI अनुवाद प्रबंधन प्रणाली (TMS) और ओपन सोर्स विकल्प | Intlayer',
       ko: 'AI 번역 관리 시스템 (TMS) & 오픈 소스 대안 | Intlayer',
       tr: 'Yapay Zeka Çeviri Yönetim Sistemi (TMS) ve Açık Kaynak Alternatifi | Intlayer',
@@ -37,6 +39,8 @@ const metadataContent = {
       zh: '停止按字数付费。Crowdin 和 Lokalise 的开源及自托管替代方案。利用 AI 自动化翻译，通过可视化编辑器 or Git 管理内容，并确保类型安全。',
       ja: '文字単価の支払いはもう不要。CrowdinやLokaliseに代わるオープンソースかつセルフホスト可能な選択肢。AIで翻訳を自動化し、ビジュアルエディタやGitで管理し、型安全性を確保します。',
       ar: 'توقف عن الدفع لكل كلمة. البديل مفتوح المصدر والقابل للاستضافة الذاتية لـ Crowdin و Lokalise. أتمتة الترجمات باستخدام الذكاء الاصطناعي، وإدارة المحتوى عبر المحرر المرئي أو Git.',
+      'he-IL':
+        'הפסיקו לשלם לפי מילה. החלופה בקוד פתוח ובאירוח עצמי ל-Crowdin ול-Lokalise. הפכו תרגומים לאוטומטיים עם AI, נהלו תוכן דרך עורך ויזואלי או Git, והבטיחו בטיחות טיפוסים.',
       hi: 'प्रति शब्द भुगतान करना बंद करें। Crowdin और Lokalise का ओपन-सोर्स और सेल्फ-होस्टेड विकल्प। AI के साथ अनुवाद स्वचालित करें, विज़ुअल एडिटर या Git के माध्यम से सामग्री प्रबंधित करें。',
       ko: '단어 당 비용 지불을 중단하세요. Crowdin 및 Lokalise의 오픈 소스 및 자체 호스팅 대안입니다. AI로 번역을 자동화하고, 시각적 편집기나 Git을 통해 콘텐츠를 관리하세요.',
       tr: 'Kelime başına ödemeyi bırakın. Crowdin ve Lokalise için açık kaynaklı ve self-hosted alternatif. Yapay zeka ile çevirileri otomatikleştirin, görsel editör veya Git ile yönetin.',
@@ -164,6 +168,17 @@ const metadataContent = {
         'بديل Lokalise',
         'ترجمة الذكاء الاصطناعي',
         'تعريب قائم على Git',
+        'Intlayer',
+      ],
+      'he-IL': [
+        'מערכת לניהול תרגומים',
+        'TMS',
+        'TMS בקוד פתוח',
+        'חלופה ל-Crowdin',
+        'חלופה ל-Lokalise',
+        'תרגום AI',
+        'לוקליזציה מבוססת Git',
+        'i18n בטוח בטיפוסים',
         'Intlayer',
       ],
       hi: [

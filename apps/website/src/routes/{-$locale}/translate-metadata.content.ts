@@ -15,6 +15,7 @@ const metadataContent = {
       zh: '用于 JSON 翻译 and Markdown 本地化的 AI CLI | Intlayer',
       ja: 'JSON翻訳とMarkdownローカライゼーションのためのAI CLI | Intlayer',
       ar: 'واجهة سطر أوامر بالذكاء الاصطناعي لترجمة JSON و Markdown | Intlayer',
+      'he-IL': 'CLI מבוסס AI לתרגום JSON וללוקליזציה של Markdown | Intlayer',
       hi: 'JSON अनुवाद और Markdown स्थानीयकरण के लिए AI CLI | Intlayer',
       ko: 'JSON 번역 및 Markdown 현지화를 위한 AI CLI | Intlayer',
       tr: 'JSON Çevirisi ve Markdown Yerelleştirme için Yapay Cihan CLI | Intlayer',
@@ -36,6 +37,8 @@ const metadataContent = {
       zh: '使用 Intlayer CLI 自动化您的 i18n 工作流。审核缺失的键，翻译 JSON 文件，并使用 AI（OpenAI, Claude, 本地模型）本地化 Markdown 文档。开源且集成 Git。',
       ja: 'Intlayer CLIでi18nワークフローを自動化。キーの不足を監査し、JSONファイルを翻訳し、AI（OpenAI、Claude、ローカル）を使用してMarkdownドキュメントをローカライズします。オープンソース＆Git統合。',
       ar: 'أتمتة سير عمل i18n باستخدام Intlayer CLI. تدقيق المفاتيح المفقودة، ترجمة ملفات JSON، وتوطين مستندات Markdown باستخدام الذكاء الاصطناعي. مفتوح المصدر ومتكامل مع Git.',
+      'he-IL':
+        'הפכו את תהליך ה-i18n שלכם לאוטומטי עם ה-CLI של Intlayer. בצעו ביקורת למפתחות חסרים, תרגמו קובצי JSON ובצעו לוקליזציה לתיעוד Markdown באמצעות AI (OpenAI, Claude, מקומי). קוד פתוח ומשולב Git.',
       hi: 'Intlayer CLI के साथ अपने i18n कार्यप्रवाह को स्वचालित करें। लुप्त कुंजियों का ऑडिट करें, JSON फ़ाइलों का अनुवाद करें और AI का उपयोग करके Markdown दस्तावेज़ों को स्थानीयकृत करें।',
       ko: 'Intlayer CLI로 i18n 워크플로우를 자동화하세요. 누락된 키를 감사하고, JSON 파일을 번역하며, AI를 사용하여 Markdown 문서를 현지화합니다. 오픈 소스 및 Git 통합.',
       tr: 'Intlayer CLI ile i18n iş akışınızı otomatikleştirin. Eksik anahtarları denetleyin, JSON dosyalarını çevirin ve Markdown belgelerini yapay zeka ile yerelleştirin. Açık Kaynak ve Git entegre.',
@@ -153,6 +156,16 @@ const metadataContent = {
         'إكمال مفاتيح القاموس',
         'تدقيق الترجمة',
         'توطين الوثائق',
+      ],
+      'he-IL': [
+        'CLI לתרגום JSON',
+        'AI לתרגום Markdown',
+        'כלי אוטומציה ל-i18n',
+        'Intlayer CLI',
+        'מילוי מפתחות מילון',
+        'ביקורת תרגום',
+        'לוקליזציה של תיעוד',
+        'לוקליזציה בקוד פתוח',
       ],
       hi: [
         'JSON अनुवाद CLI',

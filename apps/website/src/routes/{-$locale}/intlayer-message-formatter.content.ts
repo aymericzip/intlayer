@@ -15,6 +15,8 @@ const intlayerFormatterMetadata = {
       ko: 'Intlayer 메시지 편집기 및 포맷터 | 타입 안전 i18n 및 실시간 미리보기',
       zh: 'Intlayer 消息格式化与编辑器 | 类型安全 i18n 与实时预览',
       ar: 'محرر ومنسق رسائل Intlayer | تدويل آمن للأنواع ومعاينة حية',
+      'he-IL':
+        'מעצב ועורך הודעות של Intlayer | i18n בטוח בטיפוסים ותצוגה מקדימה חיה',
       it: 'Editor e formattatore di messaggi Intlayer | i18n Type-Safe e anteprima dal vivo',
       pt: 'Editor e Formatador de Mensagens Intlayer | i18n Tipado e Pré-visualização ao Vivo',
       hi: 'Intlayer संदेश संपादक और प्रारूपक | टाइप-सुरक्षित i18n और लाइव पूर्वावलोकन',
@@ -36,6 +38,8 @@ const intlayerFormatterMetadata = {
       ko: '무료 온라인 Intlayer 메시지 편집기 및 포맷터. {{var}} 보간, t(), plural(), enu(), select(), cond() 및 마크다운을 사용하여 타입 안전한 Intlayer 콘텐츠 선언을 빌드, 테스트 및 검증하세요.',
       zh: '免费在线 Intlayer 消息编辑器与格式化工具。利用 {{var}} 插值、t()、plural()、enu()、select()、cond() 和 Markdown 构建、测试并验证类型安全的 Intlayer 内容声明。',
       ar: 'محرر ومنسق رسائل Intlayer مجاني عبر الإنترنت. أنشئ واختبر وتحقق من صحة تصريحات محتوى Intlayer الآمنة للأنواع باستخدام استيفاء {{var}} ودوال t() وplural() وenu() وselect() وcond() وماركداون.',
+      'he-IL':
+        'עורך ומעצב הודעות Intlayer מקוון וחינמי. בנו, בדקו ואמתו הצהרות תוכן בטוחות בטיפוסים של Intlayer עם החלפות {{var}}, ‏t(), ‏plural(), ‏enu(), ‏select(), ‏cond() ו-markdown.',
       it: 'Editor e formattatore online gratuito di Intlayer. Crea, testa e convalida dichiarazioni di contenuto tipizzate di Intlayer con interpolazioni {{var}}, t(), plural(), enu(), select(), cond() e markdown.',
       pt: 'Editor e formatador online gratuito de mensagens Intlayer. Crie, teste e valide declarações de conteúdo tipadas do Intlayer com interpolações {{var}}, t(), plural(), enu(), select(), cond() e markdown.',
       hi: 'मुफ़्त ऑनलाइन Intlayer संदेश संपादक और प्रारूपक। {{var}} इंटरपोलेशन, t(), plural(), enu(), select(), cond(), और मार्कडाउन के साथ टाइप-सुरक्षित Intlayer सामग्री घोषणाओं का निर्माण, परीक्षण और सत्यापन करें।',
@@ -110,6 +114,15 @@ const intlayerFormatterMetadata = {
         '内容声明编辑器',
       ],
       ar: ['محرر intlayer', 'منسق intlayer', 'تدويل آمن للأنواع'],
+      'he-IL': [
+        'עורך intlayer',
+        'מעצב intlayer',
+        'פורמט הודעות intlayer',
+        'עורך הצהרות תוכן',
+        'עורך i18n בטוח בטיפוסים',
+        'בודק רבים של intlayer',
+        'קומפיילר בינאום',
+      ],
       it: [
         'editor intlayer',
         'formattatore intlayer',

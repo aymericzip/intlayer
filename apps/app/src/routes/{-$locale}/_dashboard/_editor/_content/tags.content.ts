@@ -17,6 +17,7 @@ const tagDashboardContent = {
         pt: 'Tags | Painel | Intlayer',
         hi: 'टैग | डैशबोर्ड | Intlayer',
         ar: 'العلامات | لوحة التحكم | Intlayer',
+        'he-IL': 'תגיות | לוח בקרה | Intlayer',
         ru: 'Теги | Приборная панель | Intlayer',
         tr: 'Etiketler | Dashboard | Intlayer',
         pl: 'Tagi | Panel | Intlayer',
@@ -38,6 +39,8 @@ const tagDashboardContent = {
         pt: 'Gerencie e organize suas tags no painel do Intlayer. Crie, edite e exclua tags para categorizar melhor seu conteúdo.',
         hi: 'Intlayer डैशबोर्ड में अपने टैग्स को प्रबंधित और व्यवस्थित करें। अपने कंटेंट को बेहतर तरीके से वर्गीकृत करने के लिए टैग्स बनाएं, संपादित करें और हटाएं।',
         ar: 'قم بإدارة وتنظيم العلامات الخاصة بك في لوحة تحكم Intlayer. أنشئ وعدل واحذف العلامات لتحسين تصنيف المحتوى الخاص بك.',
+        'he-IL':
+          'נהלו וארגנו את התגיות שלכם בלוח הבקרה של Intlayer. צרו, ערכו ומחקו תגיות כדי לסווג את התוכן שלכם טוב יותר.',
         ru: 'Управляйте и организуйте свои теги в панели инструментов Intlayer. Создавайте, редактируйте и удаляйте теги для лучшей категоризации вашего контента.',
         tr: 'Intlayer kontrol panelinde etiketlerinizi yönetin ve düzenleyin. İçeriğinizi daha iyi kategorize etmek için etiketler oluşturun, düzenleyin ve silin.',
         pl: 'Zarządzaj i organizuj swoje tagi w panelu Intlayer. Twórz, edytuj i usuwaj tagi, aby lepiej kategoryzować swoje treści.',
@@ -82,6 +85,7 @@ const tagDashboardContent = {
           'Intlayer',
         ],
         ar: ['الوسوم', 'التنظيم', 'إدارة المحتوى', 'تدويل', 'Intlayer'],
+        'he-IL': ['תגיות', 'ארגון', 'ניהול תוכן', 'i18n', 'Intlayer'],
         ru: ['Теги', 'Организация', 'Управление контентом', 'i18n', 'Intlayer'],
         tr: [
           'Etiketler',

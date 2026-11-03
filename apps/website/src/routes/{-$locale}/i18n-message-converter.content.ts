@@ -15,6 +15,7 @@ const metadataContent = {
       ko: 'i18n 메시지 형식 변환기 | ICU, i18next, Vue, PO 및 Intlayer',
       zh: 'i18n 消息格式转换器 | ICU, i18next, Vue, PO 与 Intlayer',
       ar: 'محول تنسيق رسائل i18n | ICU وi18next وVue وPO وIntlayer',
+      'he-IL': 'ממיר פורמטים של הודעות i18n | ICU, i18next, Vue, PO ו-Intlayer',
       it: 'Convertitore di formati messaggio i18n | ICU, i18next, Vue, PO & Intlayer',
       pt: 'Conversor de formatos de mensagens i18n | ICU, i18next, Vue, PO e Intlayer',
       hi: 'i18n संदेश प्रारूप परिवर्तक | ICU, i18next, Vue, PO और Intlayer',
@@ -36,6 +37,8 @@ const metadataContent = {
       ko: '무료 온라인 i18n 메시지 형식 변환기. ICU MessageFormat, i18next, Vue I18n, Gettext PO 및 Intlayer 간에 번역 문자열, 복수형 및 사전을 쉽게 변환하세요.',
       zh: '免费在线 i18n 消息格式转换器。轻松在 ICU MessageFormat、i18next、Vue I18n、Gettext PO 和 Intlayer 之间转换翻译字符串、复数和字典。',
       ar: 'محول تنسيق رسائل i18n مجاني عبر الإنترنت. يمكنك بسهولة تحويل سلاسل الترجمة وصيغ الجمع والقواميس بين ICU MessageFormat وi18next وVue I18n وGettext PO وIntlayer.',
+      'he-IL':
+        'ממיר מקוון חינמי לפורמטים של הודעות i18n. המירו בקלות מחרוזות תרגום, צורות רבים ומילונים בין ICU MessageFormat, i18next, Vue I18n, Gettext PO ו-Intlayer.',
       it: 'Convertitore online gratuito di formati messaggio i18n. Converti facilmente stringhe di traduzione, plurali e dizionari tra ICU MessageFormat, i18next, Vue I18n, Gettext PO e Intlayer.',
       pt: 'Conversor online gratuito de formatos de mensagens i18n. Converta facilmente strings de tradução, plurais e dicionários entre ICU MessageFormat, i18next, Vue I18n, Gettext PO e Intlayer.',
       hi: 'मुफ़्त ऑनलाइन i18n संदेश प्रारूप परिवर्तक। ICU MessageFormat, i18next, Vue I18n, Gettext PO और Intlayer के बीच अनुवाद स्ट्रिंग्स, बहुवचन और शब्दकोशों को आसानी से बदलें।',
@@ -114,6 +117,16 @@ const metadataContent = {
         '国际化工具',
       ],
       ar: ['محول رسائل i18n', 'محول ICU', 'محول i18next', 'أدوات التدويل'],
+      'he-IL': [
+        'ממיר הודעות i18n',
+        'ממיר ICU MessageFormat',
+        'ממיר i18next',
+        'ממיר רבים של vue-i18n',
+        'ממיר gettext po',
+        'ממיר intlayer',
+        'כלי בינאום',
+        'מיגרציית i18n',
+      ],
       it: [
         'convertitore messaggi i18n',
         'convertitore ICU',

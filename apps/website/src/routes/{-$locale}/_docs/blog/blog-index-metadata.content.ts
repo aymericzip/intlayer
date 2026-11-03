@@ -5,6 +5,7 @@ const metadataContent = {
   content: {
     title: t({
       ar: 'مدونة التدويل: أدلة ودروس i18n | Intlayer',
+      'he-IL': 'בלוג בינאום: מדריכי i18n והדרכות | Intlayer',
       de: 'Internationalisierungs-Blog: i18n-Guides & Tutorials | Intlayer',
       en: 'Internationalization Blog: i18n Guides & Tutorials | Intlayer',
       'en-GB': 'Internationalisation Blog: i18n Guides & Tutorials | Intlayer',
@@ -26,6 +27,8 @@ const metadataContent = {
 
     description: t({
       ar: 'أدلة ودروس ودراسات حالة حول التدويل (i18n) والترجمة والـ SEO متعدد اللغات لتطبيقات React وNext.js وVue وSvelte.',
+      'he-IL':
+        'מדריכים, הדרכות ומקרי בוחן על בינאום (i18n), תרגום ו-SEO רב-לשוני לאפליקציות React, Next.js, Vue ו-Svelte.',
       de: 'Guides, Tutorials und Fallstudien zu Internationalisierung (i18n), Übersetzung und mehrsprachigem SEO für React-, Next.js-, Vue- und Svelte-Anwendungen.',
       en: 'Guides, tutorials and case studies on internationalization (i18n), translation and multilingual SEO for React, Next.js, Vue and Svelte applications.',
       'en-GB':
@@ -52,6 +55,15 @@ const metadataContent = {
         'التدويل',
         'الترجمة',
         'SEO متعدد اللغات',
+        'React',
+        'Next.js',
+        'Intlayer',
+      ],
+      'he-IL': [
+        'בלוג i18n',
+        'בינאום',
+        'תרגום',
+        'SEO רב-לשוני',
         'React',
         'Next.js',
         'Intlayer',

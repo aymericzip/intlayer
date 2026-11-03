@@ -15,6 +15,7 @@ const keyPointsSectionContent = {
       pt: 'A melhor ferramenta gratuita para traduzir aplicativos e documentação.',
       hi: 'ऐप्स और डॉक्स का अनुवाद करने के लिए सर्वश्रेष्ठ मुफ्त टूल।',
       ar: 'أفضل أداة مجانية لترجمة التطبيقات والوثائق.',
+      'he-IL': 'הכלי החינמי הטוב ביותר לתרגום אפליקציות ותיעוד.',
       ru: 'Лучший бесплатный инструмент для перевода приложений и документации.',
       'en-GB': 'The best free tool to translate apps & docs.',
       tr: 'Uygulamaları ve belgeleri çevirmek için en iyi ücretsiz araç.',
@@ -35,6 +36,8 @@ const keyPointsSectionContent = {
       pt: 'Pare de pagar por assinaturas de tradução caras. Intlayer é um pipeline de automação de código aberto que lhe dá controle sobre seu processo i18n.',
       hi: 'महंगे अनुवाद सब्सक्रिप्शन के लिए भुगतान करना बंद करें। Intlayer एक ओपन-सोर्स ऑटोमेशन पाइपलाइन है जो आपको अपनी i18n प्रक्रिया पर नियंत्रण देती है।',
       ar: 'توقف عن الدفع مقابل اشتراكات الترجمة باهظة الثمن. Intlayer هو خط أنابيب أتمتة مفتوح المصدر يمنحك التحكم في عملية i18n الخاصة بك.',
+      'he-IL':
+        'הפסיקו לשלם על מנויי תרגום יקרים. Intlayer הוא צינור אוטומציה בקוד פתוח שנותן לכם שליטה בתהליך ה-i18n שלכם.',
       ru: 'Перестаньте платить за дорогие подписки на перевод. Intlayer — это конвейер автоматизации с открытым исходным кодом, который дает вам контроль над процессом i18n.',
       'en-GB':
         'Stop paying for expensive translation subscriptions. Intlayer is an open-source automation pipeline that gives you control over your i18n process.',
@@ -59,6 +62,7 @@ const keyPointsSectionContent = {
           pt: '100% Gratuito e Sem Assinatura',
           hi: '100% मुफ्त और कोई सदस्यता नहीं',
           ar: 'مجاني 100% وبدون اشتراك',
+          'he-IL': '100% חינם וללא מנוי',
           ru: '100% Бесплатно и Без Подписки',
           'en-GB': '100% Free & No Subscription',
           tr: '%100 Ücretsiz ve Abonelik Yok',
@@ -79,6 +83,8 @@ const keyPointsSectionContent = {
           pt: 'Não aumentamos os custos de IA. Use suas próprias chaves de API ou modelos locais. Não é necessário cartão de crédito.',
           hi: 'हम AI लागत में कोई अतिरिक्त शुल्क नहीं लगाते। अपनी खुद की API कुंजी या स्थानीय मॉडल का उपयोग करें। क्रेडिट कार्ड की आवश्यकता नहीं।',
           ar: 'لا نرفع تكاليف الذكاء الاصطناعي. استخدم مفاتيح API الخاصة بك أو النماذج المحلية. لا حاجة لبطاقة ائتمان.',
+          'he-IL':
+            'אנחנו לא מוסיפים רווח על עלויות ה-AI. השתמשו במפתחות ה-API שלכם או במודלים מקומיים. לא נדרש כרטיס אשראי.',
           ru: 'Мы не накручиваем стоимость ИИ. Используйте собственные API-ключи или локальные модели. Кредитная карта не требуется.',
           'en-GB':
             'We do not mark up AI costs. Use your own API keys or local models. No credit card required.',
@@ -103,6 +109,7 @@ const keyPointsSectionContent = {
           pt: 'Traduz JSON e Markdown',
           hi: 'JSON और Markdown का अनुवाद करता है',
           ar: 'يترجم JSON و Markdown',
+          'he-IL': 'מתרגם JSON ו-Markdown',
           ru: 'Переводит JSON и Markdown',
           'en-GB': 'Translates JSON & Markdown',
           tr: 'JSON ve Markdown Çevirir',
@@ -123,6 +130,8 @@ const keyPointsSectionContent = {
           pt: 'Perfeito para locales de UI (JSON/TS) e arquivos de documentação (MD/MDX). Preserva a estrutura do código.',
           hi: 'UI लोकेल्स (JSON/TS) और डॉक्यूमेंटेशन फाइल्स (MD/MDX) के लिए बिल्कुल सही। कोड संरचना को संरक्षित करता है।',
           ar: 'مثالي لـ UI locales (JSON/TS) وملفات التوثيق (MD/MDX). يحافظ على هيكل الكود.',
+          'he-IL':
+            'מושלם לקובצי שפה של הממשק (JSON/TS) ולקובצי תיעוד (MD/MDX). שומר על מבנה הקוד.',
           ru: 'Идеально для локалей UI (JSON/TS) и файлов документации (MD/MDX). Сохраняет структуру кода.',
           'en-GB':
             'Perfect for UI locales (JSON/TS) and documentation files (MD/MDX). Preserves code structure.',
@@ -147,6 +156,7 @@ const keyPointsSectionContent = {
           pt: 'Divisão de Contexto Inteligente',
           hi: 'स्मार्ट संदर्भ चंकिंग',
           ar: 'تقسيم السياق الذكي',
+          'he-IL': 'פיצול הקשר חכם',
           ru: 'Умное Контекстное Разбиение',
           'en-GB': 'Smart Context Chunking',
           tr: 'Akıllı Bağlam Parçalama',
@@ -167,6 +177,8 @@ const keyPointsSectionContent = {
           pt: 'Divide grandes arquivos de documentação em partes seguras para que você nunca exceda a janela de contexto do modelo.',
           hi: 'बड़ी दस्तावेज़ फ़ाइलों को सुरक्षित हिस्सों में विभाजित करता है ताकि आप कभी भी मॉडल संदर्भ विंडो से अधिक न हों।',
           ar: 'يقسم ملفات التوثيق الكبيرة إلى أجزاء آمنة حتى لا تتجاوز نافذة سياق النموذج أبدًا.',
+          'he-IL':
+            'מפצל קובצי תיעוד גדולים לחלקים בטוחים כך שלעולם לא תחרגו מחלון ההקשר של המודל.',
           ru: 'Разделяет большие файлы документации на безопасные части, чтобы вы никогда не превысили контекстное окно модели.',
           'en-GB':
             'Splits large documentation files into safe chunks so you never exceed the model context window.',
@@ -191,6 +203,7 @@ const keyPointsSectionContent = {
           pt: 'Precisão Sensível ao Contexto',
           hi: 'संदर्भ-जागरूक सटीकता',
           ar: 'دقة مدركة للسياق',
+          'he-IL': 'דיוק מודע הקשר',
           ru: 'Контекстно-Зависимая Точность',
           'en-GB': 'Context-Aware Accuracy',
           tr: 'Bağlam Farkındalıklı Doğruluk',
@@ -211,6 +224,8 @@ const keyPointsSectionContent = {
           pt: 'Injete contexto em nível de aplicativo para terminologia consistente em todo o seu aplicativo.',
           hi: 'अपने पूरे ऐप में सुसंगत शब्दावली के लिए एप्लिकेशन-स्तरीय संदर्भ इंजेक्ट करें।',
           ar: 'أدخل سياقًا على مستوى التطبيق للحصول على مصطلحات متسقة في جميع أنحاء تطبيقك.',
+          'he-IL':
+            'הזריקו הקשר ברמת האפליקציה לטרמינולוגיה עקבית בכל האפליקציה שלכם.',
           ru: 'Внедряйте контекст на уровне приложения для согласованной терминологии во всем вашем приложении.',
           'en-GB':
             'Inject application-level context for consistent terminology across your entire app.',
@@ -235,6 +250,7 @@ const keyPointsSectionContent = {
           pt: 'Audita Traduções Existentes',
           hi: 'मौजूदा अनुवादों का ऑडिट करता है',
           ar: 'يراجع الترجمات الموجودة',
+          'he-IL': 'ביקורת על תרגומים קיימים',
           ru: 'Аудит Существующих Переводов',
           'en-GB': 'Audits Existing Translations',
           tr: 'Mevcut Çevirileri Denetler',
@@ -255,6 +271,8 @@ const keyPointsSectionContent = {
           pt: 'Detecta chaves ausentes ou conteúdo não traduzido. Preenche apenas o que está faltando para economizar tokens.',
           hi: 'गायब कुंजी या अनुवाद नहीं किए गए कंटेंट का पता लगाता है। टोकन बचाने के लिए केवल गायब को भरता है।',
           ar: 'يكتشف المفاتيح المفقودة أو المحتوى غير المترجم. يملأ فقط ما هو مفقود لتوفير الرموز.',
+          'he-IL':
+            'מזהה מפתחות חסרים או תוכן שלא תורגם. ממלא רק את מה שחסר כדי לחסוך בטוקנים.',
           ru: 'Обнаруживает отсутствующие ключи или непереведенный контент. Заполняет только недостающее для экономии токенов.',
           'en-GB':
             "Detects missing keys or untranslated content. It only fills what's missing to save tokens.",
@@ -279,6 +297,7 @@ const keyPointsSectionContent = {
           pt: 'Fluxo de Trabalho Integrado ao Git',
           hi: 'Git-एकीकृत वर्कफ़्लो',
           ar: 'سير عمل متكامل مع Git',
+          'he-IL': 'תהליך עבודה משולב Git',
           ru: 'Git-Интегрированный Рабочий Процесс',
           'en-GB': 'Git-Integrated Workflow',
           tr: 'Git Entegreli İş Akışı',
@@ -299,6 +318,8 @@ const keyPointsSectionContent = {
           pt: 'Execute a tradução apenas em arquivos modificados (git diff). Ideal para pipelines CI/CD.',
           hi: 'केवल संशोधित फ़ाइलों पर अनुवाद चलाएं (git diff)। CI/CD पाइपलाइनों के लिए आदर्श।',
           ar: 'قم بتشغيل الترجمة فقط على الملفات المعدلة (git diff). مثالي لخطوط أنابيب CI/CD.',
+          'he-IL':
+            'הריצו תרגום רק על קבצים ששונו (git diff). אידיאלי ל-pipelines של CI/CD.',
           ru: 'Запускайте перевод только для измененных файлов (git diff). Идеально для CI/CD пайплайнов.',
           'en-GB':
             'Run translation only on modified files (git diff). ideal for CI/CD pipelines.',

@@ -5,6 +5,7 @@ const landingListContent = {
   content: {
     ariaLabel: t({
       ar: 'منتجات Intlayer',
+      'he-IL': 'המוצרים של Intlayer',
       de: 'Intlayer-Produkte',
       en: 'Intlayer products',
       'en-GB': 'Intlayer products',
@@ -25,6 +26,7 @@ const landingListContent = {
     }),
     i18nLib: t({
       ar: 'مكتبة i18n',
+      'he-IL': 'ספריית i18n',
       de: 'i18n-Bibliothek',
       en: 'i18n library',
       'en-GB': 'i18n library',
@@ -48,6 +50,7 @@ const landingListContent = {
     cli: 'ClI',
     abTest: t({
       ar: 'اختبار A/B',
+      'he-IL': 'בדיקת A/B',
       de: 'A/B-Test',
       en: 'A/B test',
       'en-GB': 'A/B test',

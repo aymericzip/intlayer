@@ -17,6 +17,8 @@ export default {
       pt: 'O Intlayer I18n SEO Scanner é uma ferramenta projetada para auditar e melhorar a internacionalização do seu aplicativo e o SEO multilíngue.',
       hi: 'Intlayer I18n SEO स्कैनर एक उपकरण है जिसे आपके एप्लिकेशन के अंतर्राष्ट्रीयकरण और बहुभाषी एसईओ का ऑडिट करने और सुधारने के लिए डिज़ाइन किया गया है।',
       ar: 'Intlayer I18n SEO Scanner هي أداة مصممة لتدقيق وتحسين تدويل تطبيقك وSEO متعدد اللغات.',
+      'he-IL':
+        'סורק ה-SEO של i18n של Intlayer הוא כלי שנועד לבקר ולשפר את הבינאום וה-SEO הרב-לשוני של האפליקציה שלכם.',
       ru: 'Intlayer I18n SEO Scanner — это инструмент, предназначенный для аудита и улучшения интернационализации вашего приложения и многоязычного SEO.',
       tr: "Intlayer I18n SEO Tarayıcı, uygulamanızın uluslararasılaştırmasını ve çok dilli SEO'sunu denetlemek ve iyileştirmek için tasarlanmış bir araçtır.",
       pl: 'Intlayer I18n SEO Scanner to narzędzie przeznaczone do audytu i poprawy internacjonalizacji Twojej aplikacji oraz wielojęzycznego SEO.',

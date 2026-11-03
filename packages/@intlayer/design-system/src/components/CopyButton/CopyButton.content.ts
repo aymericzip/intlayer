@@ -16,6 +16,7 @@ export const copyContentContent = {
       pt: 'Copiar conteúdo',
       hi: 'सामग्री कॉपी करें',
       ar: 'نسخ المحتوى',
+      'he-IL': 'העתקת התוכן',
       ru: 'Копировать содержимое',
       tr: 'İçeriği kopyala',
       pl: 'Kopiuj zawartość',

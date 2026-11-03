@@ -5,6 +5,7 @@ const metadataContent = {
   content: {
     title: t({
       ar: 'الدردشة مع وثائق Intlayer | Intlayer',
+      'he-IL': 'שוחחו עם התיעוד של Intlayer | Intlayer',
       de: 'Chat mit der Intlayer-Dokumentation | Intlayer',
       en: 'Chat with the Intlayer Documentation | Intlayer',
       'en-GB': 'Chat with the Intlayer Documentation | Intlayer',
@@ -26,6 +27,8 @@ const metadataContent = {
 
     description: t({
       ar: 'اطرح أسئلتك حول التدويل مع Intlayer واحصل على إجابات فورية مدعومة بالذكاء الاصطناعي ومستندة إلى الوثائق الرسمية.',
+      'he-IL':
+        'שאלו שאלות על בינאום עם Intlayer וקבלו תשובות מיידיות מבוססות AI, המעוגנות בתיעוד הרשמי.',
       de: 'Stellen Sie Fragen zur Internationalisierung mit Intlayer und erhalten Sie sofortige, KI-gestützte Antworten aus der offiziellen Dokumentation.',
       en: 'Ask questions about internationalization with Intlayer and get instant, AI-powered answers grounded in the official documentation.',
       'en-GB':

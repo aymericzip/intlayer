@@ -5,6 +5,7 @@ const checkingApplicationStatusViewContent = {
   content: {
     checkingApplicationStatus: t({
       ar: 'يتم التحقق من حالة التطبيق',
+      'he-IL': 'בודק את מצב האפליקציה',
       de: 'Status der Anwendung prüfen',
       en: 'Checking application status',
       'en-GB': 'Checking application status',

@@ -17,6 +17,7 @@ const pushDictionariesButtonContent = {
         ko: '{{count}}개의 사전을 CMS에 푸시',
         zh: '将 {{count}} 个字典推送到 CMS',
         ar: 'إرسال {{count}} قواميس إلى نظام إدارة المحتوى',
+        'he-IL': 'דחיפת {{count}} המילונים ל-CMS',
         hi: '{{count}} शब्दकोशों को CMS पर भेजें',
         tr: '{{count}} sözlüğü CMS’e gönder',
       })
@@ -35,6 +36,7 @@ const pushDictionariesButtonContent = {
         ko: 'CMS에 아직 없음: {{count}}개',
         zh: '{{count}} 个尚未在 CMS 中',
         ar: '{{count}} غير موجودة في نظام إدارة المحتوى بعد',
+        'he-IL': '{{count}} עדיין לא ב-CMS',
         hi: '{{count}} अभी CMS में नहीं हैं',
         tr: '{{count}} henüz CMS’de yok',
       })
@@ -53,6 +55,7 @@ const pushDictionariesButtonContent = {
       ko: '열린 탭에서 CMS에 로그인하면 바로 푸시가 시작됩니다.',
       zh: '请在打开的标签页中登录 CMS，随后将立即开始推送。',
       ar: 'سجّل الدخول إلى نظام إدارة المحتوى في التبويب المفتوح، ويبدأ الإرسال مباشرة بعد ذلك.',
+      'he-IL': 'התחברו ל-CMS בכרטיסייה שנפתחה, והדחיפה תתחיל מיד לאחר מכן.',
       hi: 'खुले टैब में CMS में साइन इन करें, उसके तुरंत बाद भेजना शुरू होगा।',
       tr: 'Açılan sekmede CMS’e giriş yapın, gönderim hemen ardından başlar.',
     }),

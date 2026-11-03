@@ -16,6 +16,7 @@ export const setUpOrganizationStepContent = {
       pt: 'Selecione sua organização',
       hi: 'अपने संगठन का चयन करें',
       ar: 'اختر منظمتك',
+      'he-IL': 'בחרו את הארגון שלכם',
       ru: 'Выберите вашу организацию',
       tr: 'Organizasyonunuzu seçin',
       pl: 'Wybierz swoją organizację',

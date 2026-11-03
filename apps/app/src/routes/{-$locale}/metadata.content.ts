@@ -7,6 +7,7 @@ const metadataContent = {
       en: 'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
       'en-GB': 'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
       ar: 'حل i18n و CMS مدعوم بالذكاء الاصطناعي لـ React و Next.js و Vue و Svelte | Intlayer',
+      'he-IL': 'פתרון i18n ו-CMS עבור React, Next.js, Vue, Svelte | Intlayer',
       de: 'i18n-Lösung & KI-CMS für React, Next.js, Vue, Svelte | Intlayer',
       es: 'Solución i18n y CMS para React, Next.js, Vue, Svelte | Intlayer',
       fr: 'Solution i18n & CMS pour React, Next.js, Vue, Svelte | Intlayer',
@@ -26,6 +27,8 @@ const metadataContent = {
 
     description: t({
       ar: 'عزز قابلية التوسع لتطبيقك مع Intlayer: حل للتدويل (i18n) وإدارة المحتوى مدعوم بالذكاء الاصطناعي. مصمم لـ React وNext.js وVue وSvelte والمزيد.',
+      'he-IL':
+        'הגבירו את יכולת ההרחבה של האפליקציה שלכם עם Intlayer: פתרון בינאום (i18n) וניהול תוכן מבוסס AI. מיועד ל-React, Next.js, Vue, Svelte ועוד.',
       de: 'Steigern Sie die Skalierbarkeit Ihrer App mit Intlayer: eine Internationalisierungslösung (i18n) und ein KI-gestütztes Content-Management-System. Für React, Next.js, Vue, Svelte und mehr.',
       en: 'Boost your app scalability with Intlayer: an internationalization (i18n) and content management solution powered by AI. Designed for React, Next.js, Vue, Svelte and more.',
       'en-GB':
@@ -61,6 +64,20 @@ const metadataContent = {
         'React',
         'CMS',
         'نظام إدارة المحتوى',
+      ],
+      'he-IL': [
+        'תרגום',
+        'לוקליזציה',
+        'רב-לשוני',
+        'בינאום',
+        'i18n',
+        'פיתוח ווב',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'מערכת ניהול תוכן',
       ],
       de: [
         'Übersetzung',
@@ -326,6 +343,7 @@ const metadataContent = {
         pt: 'Internacionalização (i18n) Next.js | Intlayer',
         hi: 'अंतर्राष्ट्रीयकरण (i18n) Next.js को आसानी से बनाया गया | Intlayer',
         ar: 'التدويل (i18n) يجعل Next.js سهلًا | Intlayer',
+        'he-IL': 'בינאום (i18n) ב-Next.js | Intlayer',
         ru: 'Интернационализация (i18n) Next.js стала простой | Intlayer',
         tr: "Uluslararasılaştırma (i18n) Next.js'i Kolaylaştırır | Intlayer",
         pl: 'Internacjonalizacja (i18n) w Next.js | Intlayer',

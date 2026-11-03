@@ -6,6 +6,7 @@ const dictionaryDashboardContent = {
     metadata: {
       title: t({
         ar: 'المحتوى | لوحة التحكم | Intlayer',
+        'he-IL': 'תוכן | לוח בקרה | Intlayer',
         de: 'Inhalt | Dashboard | Intlayer',
         en: 'Content | Dashboard | Intlayer',
         'en-GB': 'Content | Dashboard | Intlayer',
@@ -26,6 +27,8 @@ const dictionaryDashboardContent = {
       }),
       description: t({
         ar: 'قم بإدارة إعدادات المحتوى الخاص بك في لوحة تحكم Intlayer. حرر وقم بتحديث وتكوين المحتوى الخاص بك لضمان مطابقته لمعاييرك.',
+        'he-IL':
+          'נהלו את הגדרות התוכן שלכם בלוח הבקרה של Intlayer. ערכו, עדכנו והגדירו את התוכן שלכם כדי לוודא שהוא עומד בסטנדרטים שלכם.',
         de: 'Verwalten Sie Ihre Inhaltseinstellungen im Intlayer-Dashboard. Bearbeiten, aktualisieren und konfigurieren Sie Ihre Inhalte, um sicherzustellen, dass sie Ihren Standards entsprechen.',
         en: 'Manage your content settings in the Intlayer dashboard. Edit, update, and configure your content to ensure it meets your standards.',
         'en-GB':
@@ -58,6 +61,7 @@ const dictionaryDashboardContent = {
         it: ['Contenuto', 'Dizionari', 'Traduzioni', 'i18n', 'CMS'],
         pt: ['Conteúdo', 'Dicionários', 'Traduções', 'i18n', 'CMS'],
         ar: ['المحتوى', 'القواميس', 'الترجمات', 'i18n', 'نظام إدارة المحتوى'],
+        'he-IL': ['תוכן', 'מילונים', 'תרגומים', 'i18n', 'CMS'],
         ru: ['Контент', 'Словари', 'Переводы', 'i18n', 'CMS'],
         tr: ['İçerik', 'Sözlükler', 'Çeviriler', 'i18n', 'CMS'],
         pl: ['Zawartość', 'Słowniki', 'Tłumaczenia', 'i18n', 'CMS'],

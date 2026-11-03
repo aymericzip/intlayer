@@ -7,6 +7,7 @@ const metadataContent = {
       en: 'Reviewer Marketplace | Intlayer',
       'en-GB': 'Reviewer Marketplace | Intlayer',
       ar: 'سوق المراجعين | Intlayer',
+      'he-IL': 'שוק הסוקרים | Intlayer',
       de: 'Reviewer-Marktplatz | Intlayer',
       es: 'Mercado de Revisores | Intlayer',
       fr: 'Marketplace de relecteurs | Intlayer',
@@ -26,6 +27,8 @@ const metadataContent = {
 
     description: t({
       ar: 'اعثر على مترجمين ومراجعين محترفين لتحسين المحتوى متعدد اللغات الخاص بك مع Intlayer.',
+      'he-IL':
+        'מצאו מתרגמים, מגיהים וסוקרים מקצועיים כדי לשפר את התוכן הרב-לשוני שלכם עם Intlayer.',
       de: 'Finden Sie professionelle Übersetzer und Reviewer, um Ihre mehrsprachigen Inhalte mit Intlayer zu verfeinern.',
       en: 'Find professional translators, proofreaders, and reviewers to refine your multilingual content with Intlayer.',
       'en-GB':
@@ -61,6 +64,20 @@ const metadataContent = {
         'React',
         'CMS',
         'نظام إدارة المحتوى',
+      ],
+      'he-IL': [
+        'תרגום',
+        'לוקליזציה',
+        'רב-לשוני',
+        'בינאום',
+        'i18n',
+        'פיתוח ווב',
+        'Next.js',
+        'JavaScript',
+        'Vite',
+        'React',
+        'CMS',
+        'מערכת ניהול תוכן',
       ],
       de: [
         'Übersetzung',
@@ -317,6 +334,7 @@ const metadataContent = {
         en: 'Reviewer Marketplace | Intlayer',
         'en-GB': 'Reviewer Marketplace | Intlayer',
         ar: 'سوق المراجعين | Intlayer',
+        'he-IL': 'שוק הסוקרים | Intlayer',
         de: 'Reviewer-Marktplatz | Intlayer',
         es: 'Mercado de Revisores | Intlayer',
         fr: 'Marketplace de relecteurs | Intlayer',

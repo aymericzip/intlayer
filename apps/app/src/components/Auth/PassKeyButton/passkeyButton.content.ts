@@ -17,6 +17,7 @@ const passkeyButtonContent = {
       pt: 'Entrar com Passkey',
       hi: 'पासकी के साथ साइन इन करें',
       ar: 'تسجيل الدخول باستخدام Passkey',
+      'he-IL': 'התחברות עם מפתח גישה (Passkey)',
       ru: 'Войти с помощью Passkey',
       tr: 'Passkey ile giriş yap',
       pl: 'Zaloguj się przy użyciu Passkey',

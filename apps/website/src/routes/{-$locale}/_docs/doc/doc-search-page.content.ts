@@ -5,6 +5,7 @@ const pageContent = {
   content: {
     title: t({
       ar: 'البحث في المستند',
+      'he-IL': 'חיפוש בתיעוד',
       de: 'In der Dokumentation suchen',
       en: 'Search in doc',
       'en-GB': 'Search in doc',

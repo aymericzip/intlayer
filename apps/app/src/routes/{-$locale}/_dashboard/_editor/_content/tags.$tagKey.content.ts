@@ -17,6 +17,7 @@ const tagDashboardContent = {
         pt: 'Editar tag | Painel | Intlayer',
         hi: 'टैग संपादित करें | डैशボード | Intlayer',
         ar: 'تعديل الوسم | لوحة القيادة | Intlayer',
+        'he-IL': 'עריכת תגית | לוח בקרה | Intlayer',
         ru: 'Редактировать тег | Панель управления | Intlayer',
         tr: 'Etiketi Düzenle | Dashboard | Intlayer',
         pl: 'Edytuj tag | Panel | Intlayer',
@@ -38,6 +39,8 @@ const tagDashboardContent = {
         pt: 'Edite e gerencie suas tags no painel do Intlayer. Atualize nomes de tags, descrições e metadados para uma melhor organização do conteúdo.',
         hi: 'Intlayer डैशबोर्ड में अपने टैग संपादित करें और प्रबंधित करें। बेहतर सामग्री संगठन के लिए टैग नाम, विवरण और मेटाडेटा अपडेट करें।',
         ar: 'قم بتحرير وإدارة علاماتك في لوحة تحكم Intlayer. قم بتحديث أسماء العلامات والأوصاف والبيانات الوصفية لتحسين تنظيم المحتوى.',
+        'he-IL':
+          'ערכו ונהלו את התגיות שלכם בלוח הבקרה של Intlayer. עדכנו שמות תגיות, תיאורים ומטא-נתונים לארגון תוכן טוב יותר.',
         ru: 'Редактируйте и управляйте своими тегами в панели управления Intlayer. Обновляйте названия тегов, описания и метаданные для лучшей организации контента.',
         tr: 'Intlayer kontrol panelinde etiketlerinizi düzenleyin ve yönetin. Daha iyi içerik organizasyonu için etiket adlarını, açıklamalarını ve meta verilerini güncelleyin.',
         pl: 'Edytuj i zarządzaj swoimi tagami w panelu Intlayer. Aktualizuj nazwy tagów, opisy i metadane dla lepszej organizacji treści.',
@@ -100,6 +103,7 @@ const tagDashboardContent = {
           'نظام إدارة المحتوى',
           'البيانات الوصفية',
         ],
+        'he-IL': ['עריכת תגית', 'תגיות', 'ארגון תוכן', 'CMS', 'מטא-נתונים'],
         ru: [
           'Редактировать тег',
           'Теги',
@@ -139,6 +143,7 @@ const tagDashboardContent = {
       pt: 'Editar tag',
       hi: 'टैग संपादित करें',
       ar: 'تعديل الوسم',
+      'he-IL': 'עריכת תגית',
       ru: 'Редактировать тег',
       tr: 'Etiketi Düzenle',
       pl: 'Edytuj tag',

@@ -5,6 +5,7 @@ const content = {
   content: {
     requiredErrorMember: t({
       ar: 'يرجى إضافة عضو واحد على الأقل إلى المشروع',
+      'he-IL': 'אנא הוסיפו לפחות חבר אחד לפרויקט',
       de: 'Bitte fügen Sie mindestens ein Mitglied zum Projekt hinzu',
       en: 'Please add at least one member to the project',
       'en-GB': 'Please add at least one member to the project',
@@ -26,6 +27,7 @@ const content = {
 
     requiredErrorAdmin: t({
       ar: 'يرجى إضافة مسؤول واحد على الأقل إلى المشروع',
+      'he-IL': 'אנא הוסיפו לפחות מנהל אחד לפרויקט',
       de: 'Bitte fügen Sie mindestens einen Administrator zum Projekt hinzu',
       en: 'Please add at least one admin to the project',
       'en-GB': 'Please add at least one admin to the project',

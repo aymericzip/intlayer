@@ -5,6 +5,7 @@ const markdownPreviewContent = {
   content: {
     title: t({
       ar: 'معاينة Markdown',
+      'he-IL': 'תצוגה מקדימה של Markdown',
       de: 'Markdown-Vorschau',
       en: 'Markdown preview',
       'en-GB': 'Markdown preview',
@@ -25,6 +26,7 @@ const markdownPreviewContent = {
     }),
     unknownLoadError: t({
       ar: 'تعذّر تحميل Markdown.',
+      'he-IL': 'לא ניתן היה לטעון את ה-Markdown.',
       de: 'Markdown konnte nicht geladen werden.',
       en: 'Could not load markdown.',
       'en-GB': 'Could not load markdown.',

@@ -16,6 +16,7 @@ const content = {
       pt: 'Por favor, selecione uma organização',
       hi: 'कृपया एक संगठन चुनें',
       ar: 'يرجى اختيار منظمة',
+      'he-IL': 'אנא בחרו ארגון',
       ru: 'Пожалуйста, выберите организацию',
       tr: 'Lütfen bir organizasyon seçin',
       pl: 'Proszę wybrać organizację',

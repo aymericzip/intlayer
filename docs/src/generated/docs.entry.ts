@@ -120,6 +120,7 @@ export const docsEntry = {
     id: readLocale('CI_CD.md', 'id'),
     vi: readLocale('CI_CD.md', 'vi'),
     uk: readLocale('CI_CD.md', 'uk'),
+    'he-IL': readLocale('CI_CD.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/agent_skills.md': {
     en: readLocale('agent_skills.md', 'en'),
@@ -140,6 +141,7 @@ export const docsEntry = {
     id: readLocale('agent_skills.md', 'id'),
     vi: readLocale('agent_skills.md', 'vi'),
     uk: readLocale('agent_skills.md', 'uk'),
+    'he-IL': readLocale('agent_skills.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/analytics.md': {
     en: readLocale('analytics.md', 'en'),
@@ -160,6 +162,7 @@ export const docsEntry = {
     id: readLocale('analytics.md', 'id'),
     vi: readLocale('analytics.md', 'vi'),
     uk: readLocale('analytics.md', 'uk'),
+    'he-IL': readLocale('analytics.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/autoFill.md': {
     en: readLocale('autoFill.md', 'en'),
@@ -180,6 +183,7 @@ export const docsEntry = {
     id: readLocale('autoFill.md', 'id'),
     vi: readLocale('autoFill.md', 'vi'),
     uk: readLocale('autoFill.md', 'uk'),
+    'he-IL': readLocale('autoFill.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/benchmark/index.md': {
     en: readLocale('benchmark/index.md', 'en'),
@@ -200,6 +204,7 @@ export const docsEntry = {
     id: readLocale('benchmark/index.md', 'id'),
     vi: readLocale('benchmark/index.md', 'vi'),
     uk: readLocale('benchmark/index.md', 'uk'),
+    'he-IL': readLocale('benchmark/index.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/benchmark/nextjs.md': {
     en: readLocale('benchmark/nextjs.md', 'en'),
@@ -220,6 +225,7 @@ export const docsEntry = {
     id: readLocale('benchmark/nextjs.md', 'id'),
     vi: readLocale('benchmark/nextjs.md', 'vi'),
     uk: readLocale('benchmark/nextjs.md', 'uk'),
+    'he-IL': readLocale('benchmark/nextjs.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/benchmark/solid.md': {
     en: readLocale('benchmark/solid.md', 'en'),
@@ -240,6 +246,7 @@ export const docsEntry = {
     id: readLocale('benchmark/solid.md', 'id'),
     vi: readLocale('benchmark/solid.md', 'vi'),
     uk: readLocale('benchmark/solid.md', 'uk'),
+    'he-IL': readLocale('benchmark/solid.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/benchmark/svelte.md': {
     en: readLocale('benchmark/svelte.md', 'en'),
@@ -260,6 +267,7 @@ export const docsEntry = {
     id: readLocale('benchmark/svelte.md', 'id'),
     vi: readLocale('benchmark/svelte.md', 'vi'),
     uk: readLocale('benchmark/svelte.md', 'uk'),
+    'he-IL': readLocale('benchmark/svelte.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/benchmark/tanstack.md': {
     en: readLocale('benchmark/tanstack.md', 'en'),
@@ -280,6 +288,7 @@ export const docsEntry = {
     id: readLocale('benchmark/tanstack.md', 'id'),
     vi: readLocale('benchmark/tanstack.md', 'vi'),
     uk: readLocale('benchmark/tanstack.md', 'uk'),
+    'he-IL': readLocale('benchmark/tanstack.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/benchmark/vue.md': {
     en: readLocale('benchmark/vue.md', 'en'),
@@ -300,6 +309,7 @@ export const docsEntry = {
     id: readLocale('benchmark/vue.md', 'id'),
     vi: readLocale('benchmark/vue.md', 'vi'),
     uk: readLocale('benchmark/vue.md', 'uk'),
+    'he-IL': readLocale('benchmark/vue.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/bundle_optimization.md': {
     en: readLocale('bundle_optimization.md', 'en'),
@@ -320,6 +330,7 @@ export const docsEntry = {
     id: readLocale('bundle_optimization.md', 'id'),
     vi: readLocale('bundle_optimization.md', 'vi'),
     uk: readLocale('bundle_optimization.md', 'uk'),
+    'he-IL': readLocale('bundle_optimization.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/chrome_extension.md': {
     en: readLocale('chrome_extension.md', 'en'),
@@ -340,6 +351,7 @@ export const docsEntry = {
     id: readLocale('chrome_extension.md', 'id'),
     vi: readLocale('chrome_extension.md', 'vi'),
     uk: readLocale('chrome_extension.md', 'uk'),
+    'he-IL': readLocale('chrome_extension.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/build.md': {
     en: readLocale('cli/build.md', 'en'),
@@ -360,6 +372,7 @@ export const docsEntry = {
     id: readLocale('cli/build.md', 'id'),
     vi: readLocale('cli/build.md', 'vi'),
     uk: readLocale('cli/build.md', 'uk'),
+    'he-IL': readLocale('cli/build.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/configuration.md': {
     en: readLocale('cli/configuration.md', 'en'),
@@ -380,6 +393,7 @@ export const docsEntry = {
     id: readLocale('cli/configuration.md', 'id'),
     vi: readLocale('cli/configuration.md', 'vi'),
     uk: readLocale('cli/configuration.md', 'uk'),
+    'he-IL': readLocale('cli/configuration.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/debug.md': {
     en: readLocale('cli/debug.md', 'en'),
@@ -400,6 +414,7 @@ export const docsEntry = {
     id: readLocale('cli/debug.md', 'id'),
     vi: readLocale('cli/debug.md', 'vi'),
     uk: readLocale('cli/debug.md', 'uk'),
+    'he-IL': readLocale('cli/debug.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/doc-review.md': {
     en: readLocale('cli/doc-review.md', 'en'),
@@ -420,6 +435,7 @@ export const docsEntry = {
     id: readLocale('cli/doc-review.md', 'id'),
     vi: readLocale('cli/doc-review.md', 'vi'),
     uk: readLocale('cli/doc-review.md', 'uk'),
+    'he-IL': readLocale('cli/doc-review.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/doc-translate.md': {
     en: readLocale('cli/doc-translate.md', 'en'),
@@ -440,6 +456,7 @@ export const docsEntry = {
     id: readLocale('cli/doc-translate.md', 'id'),
     vi: readLocale('cli/doc-translate.md', 'vi'),
     uk: readLocale('cli/doc-translate.md', 'uk'),
+    'he-IL': readLocale('cli/doc-translate.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/editor.md': {
     en: readLocale('cli/editor.md', 'en'),
@@ -460,6 +477,7 @@ export const docsEntry = {
     id: readLocale('cli/editor.md', 'id'),
     vi: readLocale('cli/editor.md', 'vi'),
     uk: readLocale('cli/editor.md', 'uk'),
+    'he-IL': readLocale('cli/editor.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/extract.md': {
     en: readLocale('cli/extract.md', 'en'),
@@ -480,6 +498,7 @@ export const docsEntry = {
     id: readLocale('cli/extract.md', 'id'),
     vi: readLocale('cli/extract.md', 'vi'),
     uk: readLocale('cli/extract.md', 'uk'),
+    'he-IL': readLocale('cli/extract.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/fill.md': {
     en: readLocale('cli/fill.md', 'en'),
@@ -500,6 +519,7 @@ export const docsEntry = {
     id: readLocale('cli/fill.md', 'id'),
     vi: readLocale('cli/fill.md', 'vi'),
     uk: readLocale('cli/fill.md', 'uk'),
+    'he-IL': readLocale('cli/fill.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/index.md': {
     en: readLocale('cli/index.md', 'en'),
@@ -520,6 +540,7 @@ export const docsEntry = {
     id: readLocale('cli/index.md', 'id'),
     vi: readLocale('cli/index.md', 'vi'),
     uk: readLocale('cli/index.md', 'uk'),
+    'he-IL': readLocale('cli/index.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/infra.md': {
     en: readLocale('cli/infra.md', 'en'),
@@ -540,6 +561,7 @@ export const docsEntry = {
     id: readLocale('cli/infra.md', 'id'),
     vi: readLocale('cli/infra.md', 'vi'),
     uk: readLocale('cli/infra.md', 'uk'),
+    'he-IL': readLocale('cli/infra.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/init.md': {
     en: readLocale('cli/init.md', 'en'),
@@ -560,6 +582,7 @@ export const docsEntry = {
     id: readLocale('cli/init.md', 'id'),
     vi: readLocale('cli/init.md', 'vi'),
     uk: readLocale('cli/init.md', 'uk'),
+    'he-IL': readLocale('cli/init.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/list.md': {
     en: readLocale('cli/list.md', 'en'),
@@ -580,6 +603,7 @@ export const docsEntry = {
     id: readLocale('cli/list.md', 'id'),
     vi: readLocale('cli/list.md', 'vi'),
     uk: readLocale('cli/list.md', 'uk'),
+    'he-IL': readLocale('cli/list.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/list_projects.md': {
     en: readLocale('cli/list_projects.md', 'en'),
@@ -600,6 +624,7 @@ export const docsEntry = {
     id: readLocale('cli/list_projects.md', 'id'),
     vi: readLocale('cli/list_projects.md', 'vi'),
     uk: readLocale('cli/list_projects.md', 'uk'),
+    'he-IL': readLocale('cli/list_projects.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/live.md': {
     en: readLocale('cli/live.md', 'en'),
@@ -620,6 +645,7 @@ export const docsEntry = {
     id: readLocale('cli/live.md', 'id'),
     vi: readLocale('cli/live.md', 'vi'),
     uk: readLocale('cli/live.md', 'uk'),
+    'he-IL': readLocale('cli/live.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/login.md': {
     en: readLocale('cli/login.md', 'en'),
@@ -640,6 +666,7 @@ export const docsEntry = {
     id: readLocale('cli/login.md', 'id'),
     vi: readLocale('cli/login.md', 'vi'),
     uk: readLocale('cli/login.md', 'uk'),
+    'he-IL': readLocale('cli/login.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/pull.md': {
     en: readLocale('cli/pull.md', 'en'),
@@ -660,6 +687,7 @@ export const docsEntry = {
     id: readLocale('cli/pull.md', 'id'),
     vi: readLocale('cli/pull.md', 'vi'),
     uk: readLocale('cli/pull.md', 'uk'),
+    'he-IL': readLocale('cli/pull.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/push.md': {
     en: readLocale('cli/push.md', 'en'),
@@ -680,6 +708,7 @@ export const docsEntry = {
     id: readLocale('cli/push.md', 'id'),
     vi: readLocale('cli/push.md', 'vi'),
     uk: readLocale('cli/push.md', 'uk'),
+    'he-IL': readLocale('cli/push.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/scan.md': {
     en: readLocale('cli/scan.md', 'en'),
@@ -700,6 +729,7 @@ export const docsEntry = {
     id: readLocale('cli/scan.md', 'id'),
     vi: readLocale('cli/scan.md', 'vi'),
     uk: readLocale('cli/scan.md', 'uk'),
+    'he-IL': readLocale('cli/scan.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/sdk.md': {
     en: readLocale('cli/sdk.md', 'en'),
@@ -720,6 +750,7 @@ export const docsEntry = {
     id: readLocale('cli/sdk.md', 'id'),
     vi: readLocale('cli/sdk.md', 'vi'),
     uk: readLocale('cli/sdk.md', 'uk'),
+    'he-IL': readLocale('cli/sdk.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/standalone.md': {
     en: readLocale('cli/standalone.md', 'en'),
@@ -740,6 +771,7 @@ export const docsEntry = {
     id: readLocale('cli/standalone.md', 'id'),
     vi: readLocale('cli/standalone.md', 'vi'),
     uk: readLocale('cli/standalone.md', 'uk'),
+    'he-IL': readLocale('cli/standalone.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/test.md': {
     en: readLocale('cli/test.md', 'en'),
@@ -760,6 +792,7 @@ export const docsEntry = {
     id: readLocale('cli/test.md', 'id'),
     vi: readLocale('cli/test.md', 'vi'),
     uk: readLocale('cli/test.md', 'uk'),
+    'he-IL': readLocale('cli/test.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/upgrade.md': {
     en: readLocale('cli/upgrade.md', 'en'),
@@ -780,6 +813,7 @@ export const docsEntry = {
     id: readLocale('cli/upgrade.md', 'id'),
     vi: readLocale('cli/upgrade.md', 'vi'),
     uk: readLocale('cli/upgrade.md', 'uk'),
+    'he-IL': readLocale('cli/upgrade.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/version.md': {
     en: readLocale('cli/version.md', 'en'),
@@ -800,6 +834,7 @@ export const docsEntry = {
     id: readLocale('cli/version.md', 'id'),
     vi: readLocale('cli/version.md', 'vi'),
     uk: readLocale('cli/version.md', 'uk'),
+    'he-IL': readLocale('cli/version.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/cli/watch.md': {
     en: readLocale('cli/watch.md', 'en'),
@@ -820,6 +855,7 @@ export const docsEntry = {
     id: readLocale('cli/watch.md', 'id'),
     vi: readLocale('cli/watch.md', 'vi'),
     uk: readLocale('cli/watch.md', 'uk'),
+    'he-IL': readLocale('cli/watch.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/i18next.md': {
     en: readLocale('compat/i18next.md', 'en'),
@@ -840,6 +876,7 @@ export const docsEntry = {
     id: readLocale('compat/i18next.md', 'id'),
     vi: readLocale('compat/i18next.md', 'vi'),
     uk: readLocale('compat/i18next.md', 'uk'),
+    'he-IL': readLocale('compat/i18next.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/index.md': {
     en: readLocale('compat/index.md', 'en'),
@@ -860,6 +897,7 @@ export const docsEntry = {
     id: readLocale('compat/index.md', 'id'),
     vi: readLocale('compat/index.md', 'vi'),
     uk: readLocale('compat/index.md', 'uk'),
+    'he-IL': readLocale('compat/index.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/lingui.md': {
     en: readLocale('compat/lingui.md', 'en'),
@@ -880,6 +918,7 @@ export const docsEntry = {
     id: readLocale('compat/lingui.md', 'id'),
     vi: readLocale('compat/lingui.md', 'vi'),
     uk: readLocale('compat/lingui.md', 'uk'),
+    'he-IL': readLocale('compat/lingui.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/next-i18next.md': {
     en: readLocale('compat/next-i18next.md', 'en'),
@@ -900,6 +939,7 @@ export const docsEntry = {
     id: readLocale('compat/next-i18next.md', 'id'),
     vi: readLocale('compat/next-i18next.md', 'vi'),
     uk: readLocale('compat/next-i18next.md', 'uk'),
+    'he-IL': readLocale('compat/next-i18next.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/next-intl.md': {
     en: readLocale('compat/next-intl.md', 'en'),
@@ -920,6 +960,7 @@ export const docsEntry = {
     id: readLocale('compat/next-intl.md', 'id'),
     vi: readLocale('compat/next-intl.md', 'vi'),
     uk: readLocale('compat/next-intl.md', 'uk'),
+    'he-IL': readLocale('compat/next-intl.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/ngx-translate.md': {
     en: readLocale('compat/ngx-translate.md', 'en'),
@@ -940,6 +981,7 @@ export const docsEntry = {
     id: readLocale('compat/ngx-translate.md', 'id'),
     vi: readLocale('compat/ngx-translate.md', 'vi'),
     uk: readLocale('compat/ngx-translate.md', 'uk'),
+    'he-IL': readLocale('compat/ngx-translate.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/nuxtjs-i18n.md': {
     en: readLocale('compat/nuxtjs-i18n.md', 'en'),
@@ -960,6 +1002,7 @@ export const docsEntry = {
     id: readLocale('compat/nuxtjs-i18n.md', 'id'),
     vi: readLocale('compat/nuxtjs-i18n.md', 'vi'),
     uk: readLocale('compat/nuxtjs-i18n.md', 'uk'),
+    'he-IL': readLocale('compat/nuxtjs-i18n.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/react-i18next.md': {
     en: readLocale('compat/react-i18next.md', 'en'),
@@ -980,6 +1023,7 @@ export const docsEntry = {
     id: readLocale('compat/react-i18next.md', 'id'),
     vi: readLocale('compat/react-i18next.md', 'vi'),
     uk: readLocale('compat/react-i18next.md', 'uk'),
+    'he-IL': readLocale('compat/react-i18next.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/react-intl.md': {
     en: readLocale('compat/react-intl.md', 'en'),
@@ -1000,6 +1044,7 @@ export const docsEntry = {
     id: readLocale('compat/react-intl.md', 'id'),
     vi: readLocale('compat/react-intl.md', 'vi'),
     uk: readLocale('compat/react-intl.md', 'uk'),
+    'he-IL': readLocale('compat/react-intl.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/svelte-i18n.md': {
     en: readLocale('compat/svelte-i18n.md', 'en'),
@@ -1020,6 +1065,7 @@ export const docsEntry = {
     id: readLocale('compat/svelte-i18n.md', 'id'),
     vi: readLocale('compat/svelte-i18n.md', 'vi'),
     uk: readLocale('compat/svelte-i18n.md', 'uk'),
+    'he-IL': readLocale('compat/svelte-i18n.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compat/vue-i18n.md': {
     en: readLocale('compat/vue-i18n.md', 'en'),
@@ -1040,6 +1086,7 @@ export const docsEntry = {
     id: readLocale('compat/vue-i18n.md', 'id'),
     vi: readLocale('compat/vue-i18n.md', 'vi'),
     uk: readLocale('compat/vue-i18n.md', 'uk'),
+    'he-IL': readLocale('compat/vue-i18n.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/compiler.md': {
     en: readLocale('compiler.md', 'en'),
@@ -1060,6 +1107,7 @@ export const docsEntry = {
     id: readLocale('compiler.md', 'id'),
     vi: readLocale('compiler.md', 'vi'),
     uk: readLocale('compiler.md', 'uk'),
+    'he-IL': readLocale('compiler.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/component_i18n.md': {
     en: readLocale('component_i18n.md', 'en'),
@@ -1080,6 +1128,7 @@ export const docsEntry = {
     id: readLocale('component_i18n.md', 'id'),
     vi: readLocale('component_i18n.md', 'vi'),
     uk: readLocale('component_i18n.md', 'uk'),
+    'he-IL': readLocale('component_i18n.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/configuration.md': {
     en: readLocale('configuration.md', 'en'),
@@ -1100,6 +1149,7 @@ export const docsEntry = {
     id: readLocale('configuration.md', 'id'),
     vi: readLocale('configuration.md', 'vi'),
     uk: readLocale('configuration.md', 'uk'),
+    'he-IL': readLocale('configuration.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/custom_domains.md': {
     en: readLocale('custom_domains.md', 'en'),
@@ -1120,6 +1170,7 @@ export const docsEntry = {
     id: readLocale('custom_domains.md', 'id'),
     vi: readLocale('custom_domains.md', 'vi'),
     uk: readLocale('custom_domains.md', 'uk'),
+    'he-IL': readLocale('custom_domains.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/custom_url_rewrites.md': {
     en: readLocale('custom_url_rewrites.md', 'en'),
@@ -1140,6 +1191,7 @@ export const docsEntry = {
     id: readLocale('custom_url_rewrites.md', 'id'),
     vi: readLocale('custom_url_rewrites.md', 'vi'),
     uk: readLocale('custom_url_rewrites.md', 'uk'),
+    'he-IL': readLocale('custom_url_rewrites.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/condition.md': {
     en: readLocale('dictionary/condition.md', 'en'),
@@ -1160,6 +1212,7 @@ export const docsEntry = {
     id: readLocale('dictionary/condition.md', 'id'),
     vi: readLocale('dictionary/condition.md', 'vi'),
     uk: readLocale('dictionary/condition.md', 'uk'),
+    'he-IL': readLocale('dictionary/condition.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/content_file.md': {
     en: readLocale('dictionary/content_file.md', 'en'),
@@ -1180,6 +1233,7 @@ export const docsEntry = {
     id: readLocale('dictionary/content_file.md', 'id'),
     vi: readLocale('dictionary/content_file.md', 'vi'),
     uk: readLocale('dictionary/content_file.md', 'uk'),
+    'he-IL': readLocale('dictionary/content_file.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/enumeration.md': {
     en: readLocale('dictionary/enumeration.md', 'en'),
@@ -1200,6 +1254,7 @@ export const docsEntry = {
     id: readLocale('dictionary/enumeration.md', 'id'),
     vi: readLocale('dictionary/enumeration.md', 'vi'),
     uk: readLocale('dictionary/enumeration.md', 'uk'),
+    'he-IL': readLocale('dictionary/enumeration.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/file.md': {
     en: readLocale('dictionary/file.md', 'en'),
@@ -1220,6 +1275,7 @@ export const docsEntry = {
     id: readLocale('dictionary/file.md', 'id'),
     vi: readLocale('dictionary/file.md', 'vi'),
     uk: readLocale('dictionary/file.md', 'uk'),
+    'he-IL': readLocale('dictionary/file.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/function_fetching.md': {
     en: readLocale('dictionary/function_fetching.md', 'en'),
@@ -1240,6 +1296,7 @@ export const docsEntry = {
     id: readLocale('dictionary/function_fetching.md', 'id'),
     vi: readLocale('dictionary/function_fetching.md', 'vi'),
     uk: readLocale('dictionary/function_fetching.md', 'uk'),
+    'he-IL': readLocale('dictionary/function_fetching.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/gender.md': {
     en: readLocale('dictionary/gender.md', 'en'),
@@ -1260,6 +1317,7 @@ export const docsEntry = {
     id: readLocale('dictionary/gender.md', 'id'),
     vi: readLocale('dictionary/gender.md', 'vi'),
     uk: readLocale('dictionary/gender.md', 'uk'),
+    'he-IL': readLocale('dictionary/gender.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/html.md': {
     en: readLocale('dictionary/html.md', 'en'),
@@ -1280,6 +1338,7 @@ export const docsEntry = {
     id: readLocale('dictionary/html.md', 'id'),
     vi: readLocale('dictionary/html.md', 'vi'),
     uk: readLocale('dictionary/html.md', 'uk'),
+    'he-IL': readLocale('dictionary/html.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/insertion.md': {
     en: readLocale('dictionary/insertion.md', 'en'),
@@ -1300,6 +1359,7 @@ export const docsEntry = {
     id: readLocale('dictionary/insertion.md', 'id'),
     vi: readLocale('dictionary/insertion.md', 'vi'),
     uk: readLocale('dictionary/insertion.md', 'uk'),
+    'he-IL': readLocale('dictionary/insertion.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/markdown.md': {
     en: readLocale('dictionary/markdown.md', 'en'),
@@ -1320,6 +1380,7 @@ export const docsEntry = {
     id: readLocale('dictionary/markdown.md', 'id'),
     vi: readLocale('dictionary/markdown.md', 'vi'),
     uk: readLocale('dictionary/markdown.md', 'uk'),
+    'he-IL': readLocale('dictionary/markdown.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/nesting.md': {
     en: readLocale('dictionary/nesting.md', 'en'),
@@ -1340,6 +1401,7 @@ export const docsEntry = {
     id: readLocale('dictionary/nesting.md', 'id'),
     vi: readLocale('dictionary/nesting.md', 'vi'),
     uk: readLocale('dictionary/nesting.md', 'uk'),
+    'he-IL': readLocale('dictionary/nesting.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/plurial.md': {
     en: readLocale('dictionary/plurial.md', 'en'),
@@ -1360,6 +1422,7 @@ export const docsEntry = {
     id: readLocale('dictionary/plurial.md', 'id'),
     vi: readLocale('dictionary/plurial.md', 'vi'),
     uk: readLocale('dictionary/plurial.md', 'uk'),
+    'he-IL': readLocale('dictionary/plurial.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/select.md': {
     en: readLocale('dictionary/select.md', 'en'),
@@ -1380,6 +1443,7 @@ export const docsEntry = {
     id: readLocale('dictionary/select.md', 'id'),
     vi: readLocale('dictionary/select.md', 'vi'),
     uk: readLocale('dictionary/select.md', 'uk'),
+    'he-IL': readLocale('dictionary/select.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dictionary/translation.md': {
     en: readLocale('dictionary/translation.md', 'en'),
@@ -1400,6 +1464,7 @@ export const docsEntry = {
     id: readLocale('dictionary/translation.md', 'id'),
     vi: readLocale('dictionary/translation.md', 'vi'),
     uk: readLocale('dictionary/translation.md', 'uk'),
+    'he-IL': readLocale('dictionary/translation.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dynamic_dictionaries/collections.md': {
     en: readLocale('dynamic_dictionaries/collections.md', 'en'),
@@ -1420,6 +1485,7 @@ export const docsEntry = {
     id: readLocale('dynamic_dictionaries/collections.md', 'id'),
     vi: readLocale('dynamic_dictionaries/collections.md', 'vi'),
     uk: readLocale('dynamic_dictionaries/collections.md', 'uk'),
+    'he-IL': readLocale('dynamic_dictionaries/collections.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dynamic_dictionaries/index.md': {
     en: readLocale('dynamic_dictionaries/index.md', 'en'),
@@ -1440,6 +1506,7 @@ export const docsEntry = {
     id: readLocale('dynamic_dictionaries/index.md', 'id'),
     vi: readLocale('dynamic_dictionaries/index.md', 'vi'),
     uk: readLocale('dynamic_dictionaries/index.md', 'uk'),
+    'he-IL': readLocale('dynamic_dictionaries/index.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/dynamic_dictionaries/variants.md': {
     en: readLocale('dynamic_dictionaries/variants.md', 'en'),
@@ -1460,6 +1527,7 @@ export const docsEntry = {
     id: readLocale('dynamic_dictionaries/variants.md', 'id'),
     vi: readLocale('dynamic_dictionaries/variants.md', 'vi'),
     uk: readLocale('dynamic_dictionaries/variants.md', 'uk'),
+    'he-IL': readLocale('dynamic_dictionaries/variants.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/eslint.md': {
     en: readLocale('eslint.md', 'en'),
@@ -1480,6 +1548,7 @@ export const docsEntry = {
     id: readLocale('eslint.md', 'id'),
     vi: readLocale('eslint.md', 'vi'),
     uk: readLocale('eslint.md', 'uk'),
+    'he-IL': readLocale('eslint.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/formatters.md': {
     en: readLocale('formatters.md', 'en'),
@@ -1500,6 +1569,7 @@ export const docsEntry = {
     id: readLocale('formatters.md', 'id'),
     vi: readLocale('formatters.md', 'vi'),
     uk: readLocale('formatters.md', 'uk'),
+    'he-IL': readLocale('formatters.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/how_works_intlayer.md': {
     en: readLocale('how_works_intlayer.md', 'en'),
@@ -1520,6 +1590,7 @@ export const docsEntry = {
     id: readLocale('how_works_intlayer.md', 'id'),
     vi: readLocale('how_works_intlayer.md', 'vi'),
     uk: readLocale('how_works_intlayer.md', 'uk'),
+    'he-IL': readLocale('how_works_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/interest_of_intlayer.md': {
     en: readLocale('interest_of_intlayer.md', 'en'),
@@ -1540,6 +1611,7 @@ export const docsEntry = {
     id: readLocale('interest_of_intlayer.md', 'id'),
     vi: readLocale('interest_of_intlayer.md', 'vi'),
     uk: readLocale('interest_of_intlayer.md', 'uk'),
+    'he-IL': readLocale('interest_of_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_CMS.md': {
     en: readLocale('intlayer_CMS.md', 'en'),
@@ -1560,6 +1632,7 @@ export const docsEntry = {
     id: readLocale('intlayer_CMS.md', 'id'),
     vi: readLocale('intlayer_CMS.md', 'vi'),
     uk: readLocale('intlayer_CMS.md', 'uk'),
+    'he-IL': readLocale('intlayer_CMS.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_visual_editor.md': {
     en: readLocale('intlayer_visual_editor.md', 'en'),
@@ -1580,6 +1653,7 @@ export const docsEntry = {
     id: readLocale('intlayer_visual_editor.md', 'id'),
     vi: readLocale('intlayer_visual_editor.md', 'vi'),
     uk: readLocale('intlayer_visual_editor.md', 'uk'),
+    'he-IL': readLocale('intlayer_visual_editor.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_adonisjs.md': {
     en: readLocale('intlayer_with_adonisjs.md', 'en'),
@@ -1600,6 +1674,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_adonisjs.md', 'id'),
     vi: readLocale('intlayer_with_adonisjs.md', 'vi'),
     uk: readLocale('intlayer_with_adonisjs.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_adonisjs.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_analog.md': {
     en: readLocale('intlayer_with_analog.md', 'en'),
@@ -1620,6 +1695,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_analog.md', 'id'),
     vi: readLocale('intlayer_with_analog.md', 'vi'),
     uk: readLocale('intlayer_with_analog.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_analog.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_angular_19.md': {
     en: readLocale('intlayer_with_angular_19.md', 'en'),
@@ -1640,6 +1716,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_angular_19.md', 'id'),
     vi: readLocale('intlayer_with_angular_19.md', 'vi'),
     uk: readLocale('intlayer_with_angular_19.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_angular_19.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_angular_21.md': {
     en: readLocale('intlayer_with_angular_21.md', 'en'),
@@ -1660,6 +1737,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_angular_21.md', 'id'),
     vi: readLocale('intlayer_with_angular_21.md', 'vi'),
     uk: readLocale('intlayer_with_angular_21.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_angular_21.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_astro.md': {
     en: readLocale('intlayer_with_astro.md', 'en'),
@@ -1680,6 +1758,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_astro.md', 'id'),
     vi: readLocale('intlayer_with_astro.md', 'vi'),
     uk: readLocale('intlayer_with_astro.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_astro.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_astro_lit.md': {
     en: readLocale('intlayer_with_astro_lit.md', 'en'),
@@ -1700,6 +1779,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_astro_lit.md', 'id'),
     vi: readLocale('intlayer_with_astro_lit.md', 'vi'),
     uk: readLocale('intlayer_with_astro_lit.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_astro_lit.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_astro_preact.md': {
     en: readLocale('intlayer_with_astro_preact.md', 'en'),
@@ -1720,6 +1800,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_astro_preact.md', 'id'),
     vi: readLocale('intlayer_with_astro_preact.md', 'vi'),
     uk: readLocale('intlayer_with_astro_preact.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_astro_preact.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_astro_react.md': {
     en: readLocale('intlayer_with_astro_react.md', 'en'),
@@ -1740,6 +1821,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_astro_react.md', 'id'),
     vi: readLocale('intlayer_with_astro_react.md', 'vi'),
     uk: readLocale('intlayer_with_astro_react.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_astro_react.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_astro_solid.md': {
     en: readLocale('intlayer_with_astro_solid.md', 'en'),
@@ -1760,6 +1842,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_astro_solid.md', 'id'),
     vi: readLocale('intlayer_with_astro_solid.md', 'vi'),
     uk: readLocale('intlayer_with_astro_solid.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_astro_solid.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_astro_svelte.md': {
     en: readLocale('intlayer_with_astro_svelte.md', 'en'),
@@ -1780,6 +1863,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_astro_svelte.md', 'id'),
     vi: readLocale('intlayer_with_astro_svelte.md', 'vi'),
     uk: readLocale('intlayer_with_astro_svelte.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_astro_svelte.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_astro_vue.md': {
     en: readLocale('intlayer_with_astro_vue.md', 'en'),
@@ -1800,6 +1884,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_astro_vue.md', 'id'),
     vi: readLocale('intlayer_with_astro_vue.md', 'vi'),
     uk: readLocale('intlayer_with_astro_vue.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_astro_vue.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_create_react_app.md': {
     en: readLocale('intlayer_with_create_react_app.md', 'en'),
@@ -1820,6 +1905,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_create_react_app.md', 'id'),
     vi: readLocale('intlayer_with_create_react_app.md', 'vi'),
     uk: readLocale('intlayer_with_create_react_app.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_create_react_app.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_elysia.md': {
     en: readLocale('intlayer_with_elysia.md', 'en'),
@@ -1840,6 +1926,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_elysia.md', 'id'),
     vi: readLocale('intlayer_with_elysia.md', 'vi'),
     uk: readLocale('intlayer_with_elysia.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_elysia.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_express.md': {
     en: readLocale('intlayer_with_express.md', 'en'),
@@ -1860,6 +1947,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_express.md', 'id'),
     vi: readLocale('intlayer_with_express.md', 'vi'),
     uk: readLocale('intlayer_with_express.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_express.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_fastify.md': {
     en: readLocale('intlayer_with_fastify.md', 'en'),
@@ -1880,6 +1968,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_fastify.md', 'id'),
     vi: readLocale('intlayer_with_fastify.md', 'vi'),
     uk: readLocale('intlayer_with_fastify.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_fastify.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_hono.md': {
     en: readLocale('intlayer_with_hono.md', 'en'),
@@ -1900,6 +1989,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_hono.md', 'id'),
     vi: readLocale('intlayer_with_hono.md', 'vi'),
     uk: readLocale('intlayer_with_hono.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_hono.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_htmx.md': {
     en: readLocale('intlayer_with_htmx.md', 'en'),
@@ -1920,6 +2010,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_htmx.md', 'id'),
     vi: readLocale('intlayer_with_htmx.md', 'vi'),
     uk: readLocale('intlayer_with_htmx.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_htmx.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_lynx+react.md': {
     en: readLocale('intlayer_with_lynx+react.md', 'en'),
@@ -1940,6 +2031,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_lynx+react.md', 'id'),
     vi: readLocale('intlayer_with_lynx+react.md', 'vi'),
     uk: readLocale('intlayer_with_lynx+react.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_lynx+react.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nestjs.md': {
     en: readLocale('intlayer_with_nestjs.md', 'en'),
@@ -1960,6 +2052,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_nestjs.md', 'id'),
     vi: readLocale('intlayer_with_nestjs.md', 'vi'),
     uk: readLocale('intlayer_with_nestjs.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_nestjs.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_14.md': {
     en: readLocale('intlayer_with_nextjs_14.md', 'en'),
@@ -1980,6 +2073,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_nextjs_14.md', 'id'),
     vi: readLocale('intlayer_with_nextjs_14.md', 'vi'),
     uk: readLocale('intlayer_with_nextjs_14.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_nextjs_14.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_15.md': {
     en: readLocale('intlayer_with_nextjs_15.md', 'en'),
@@ -2000,6 +2094,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_nextjs_15.md', 'id'),
     vi: readLocale('intlayer_with_nextjs_15.md', 'vi'),
     uk: readLocale('intlayer_with_nextjs_15.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_nextjs_15.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_16.md': {
     en: readLocale('intlayer_with_nextjs_16.md', 'en'),
@@ -2020,6 +2115,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_nextjs_16.md', 'id'),
     vi: readLocale('intlayer_with_nextjs_16.md', 'vi'),
     uk: readLocale('intlayer_with_nextjs_16.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_nextjs_16.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nextjs_page_router.md': {
     en: readLocale('intlayer_with_nextjs_page_router.md', 'en'),
@@ -2040,6 +2136,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_nextjs_page_router.md', 'id'),
     vi: readLocale('intlayer_with_nextjs_page_router.md', 'vi'),
     uk: readLocale('intlayer_with_nextjs_page_router.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_nextjs_page_router.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_nuxt.md': {
     en: readLocale('intlayer_with_nuxt.md', 'en'),
@@ -2060,6 +2157,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_nuxt.md', 'id'),
     vi: readLocale('intlayer_with_nuxt.md', 'vi'),
     uk: readLocale('intlayer_with_nuxt.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_nuxt.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_react_native+expo.md': {
     en: readLocale('intlayer_with_react_native+expo.md', 'en'),
@@ -2080,6 +2178,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_react_native+expo.md', 'id'),
     vi: readLocale('intlayer_with_react_native+expo.md', 'vi'),
     uk: readLocale('intlayer_with_react_native+expo.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_react_native+expo.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_react_router_v7.md': {
     en: readLocale('intlayer_with_react_router_v7.md', 'en'),
@@ -2100,6 +2199,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_react_router_v7.md', 'id'),
     vi: readLocale('intlayer_with_react_router_v7.md', 'vi'),
     uk: readLocale('intlayer_with_react_router_v7.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_react_router_v7.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_remix_3.md': {
     en: readLocale('intlayer_with_remix_3.md', 'en'),
@@ -2120,6 +2220,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_remix_3.md', 'id'),
     vi: readLocale('intlayer_with_remix_3.md', 'vi'),
     uk: readLocale('intlayer_with_remix_3.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_remix_3.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_solid_start.md': {
     en: readLocale('intlayer_with_solid_start.md', 'en'),
@@ -2140,6 +2241,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_solid_start.md', 'id'),
     vi: readLocale('intlayer_with_solid_start.md', 'vi'),
     uk: readLocale('intlayer_with_solid_start.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_solid_start.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_storybook.md': {
     en: readLocale('intlayer_with_storybook.md', 'en'),
@@ -2160,6 +2262,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_storybook.md', 'id'),
     vi: readLocale('intlayer_with_storybook.md', 'vi'),
     uk: readLocale('intlayer_with_storybook.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_storybook.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_svelte_kit.md': {
     en: readLocale('intlayer_with_svelte_kit.md', 'en'),
@@ -2180,6 +2283,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_svelte_kit.md', 'id'),
     vi: readLocale('intlayer_with_svelte_kit.md', 'vi'),
     uk: readLocale('intlayer_with_svelte_kit.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_svelte_kit.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_tanstack+solid.md': {
     en: readLocale('intlayer_with_tanstack+solid.md', 'en'),
@@ -2200,6 +2304,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_tanstack+solid.md', 'id'),
     vi: readLocale('intlayer_with_tanstack+solid.md', 'vi'),
     uk: readLocale('intlayer_with_tanstack+solid.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_tanstack+solid.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_tanstack.md': {
     en: readLocale('intlayer_with_tanstack.md', 'en'),
@@ -2220,6 +2325,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_tanstack.md', 'id'),
     vi: readLocale('intlayer_with_tanstack.md', 'vi'),
     uk: readLocale('intlayer_with_tanstack.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_tanstack.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vanilla.md': {
     en: readLocale('intlayer_with_vanilla.md', 'en'),
@@ -2240,6 +2346,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vanilla.md', 'id'),
     vi: readLocale('intlayer_with_vanilla.md', 'vi'),
     uk: readLocale('intlayer_with_vanilla.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vanilla.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+lit.md': {
     en: readLocale('intlayer_with_vite+lit.md', 'en'),
@@ -2260,6 +2367,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vite+lit.md', 'id'),
     vi: readLocale('intlayer_with_vite+lit.md', 'vi'),
     uk: readLocale('intlayer_with_vite+lit.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vite+lit.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+preact.md': {
     en: readLocale('intlayer_with_vite+preact.md', 'en'),
@@ -2280,6 +2388,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vite+preact.md', 'id'),
     vi: readLocale('intlayer_with_vite+preact.md', 'vi'),
     uk: readLocale('intlayer_with_vite+preact.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vite+preact.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+react.md': {
     en: readLocale('intlayer_with_vite+react.md', 'en'),
@@ -2300,6 +2409,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vite+react.md', 'id'),
     vi: readLocale('intlayer_with_vite+react.md', 'vi'),
     uk: readLocale('intlayer_with_vite+react.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vite+react.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+solid.md': {
     en: readLocale('intlayer_with_vite+solid.md', 'en'),
@@ -2320,6 +2430,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vite+solid.md', 'id'),
     vi: readLocale('intlayer_with_vite+solid.md', 'vi'),
     uk: readLocale('intlayer_with_vite+solid.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vite+solid.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+svelte.md': {
     en: readLocale('intlayer_with_vite+svelte.md', 'en'),
@@ -2340,6 +2451,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vite+svelte.md', 'id'),
     vi: readLocale('intlayer_with_vite+svelte.md', 'vi'),
     uk: readLocale('intlayer_with_vite+svelte.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vite+svelte.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+vanilla.md': {
     en: readLocale('intlayer_with_vite+vanilla.md', 'en'),
@@ -2360,6 +2472,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vite+vanilla.md', 'id'),
     vi: readLocale('intlayer_with_vite+vanilla.md', 'vi'),
     uk: readLocale('intlayer_with_vite+vanilla.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vite+vanilla.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/intlayer_with_vite+vue.md': {
     en: readLocale('intlayer_with_vite+vue.md', 'en'),
@@ -2380,6 +2493,7 @@ export const docsEntry = {
     id: readLocale('intlayer_with_vite+vue.md', 'id'),
     vi: readLocale('intlayer_with_vite+vue.md', 'vi'),
     uk: readLocale('intlayer_with_vite+vue.md', 'uk'),
+    'he-IL': readLocale('intlayer_with_vite+vue.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/introduction.md': {
     en: readLocale('introduction.md', 'en'),
@@ -2400,6 +2514,7 @@ export const docsEntry = {
     id: readLocale('introduction.md', 'id'),
     vi: readLocale('introduction.md', 'vi'),
     uk: readLocale('introduction.md', 'uk'),
+    'he-IL': readLocale('introduction.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/live-sync.md': {
     en: readLocale('live-sync.md', 'en'),
@@ -2420,6 +2535,7 @@ export const docsEntry = {
     id: readLocale('live-sync.md', 'id'),
     vi: readLocale('live-sync.md', 'vi'),
     uk: readLocale('live-sync.md', 'uk'),
+    'he-IL': readLocale('live-sync.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/locale_mapper.md': {
     en: readLocale('locale_mapper.md', 'en'),
@@ -2440,6 +2556,7 @@ export const docsEntry = {
     id: readLocale('locale_mapper.md', 'id'),
     vi: readLocale('locale_mapper.md', 'vi'),
     uk: readLocale('locale_mapper.md', 'uk'),
+    'he-IL': readLocale('locale_mapper.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/lsp.md': {
     en: readLocale('lsp.md', 'en'),
@@ -2460,6 +2577,7 @@ export const docsEntry = {
     id: readLocale('lsp.md', 'id'),
     vi: readLocale('lsp.md', 'vi'),
     uk: readLocale('lsp.md', 'uk'),
+    'he-IL': readLocale('lsp.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/mcp_server.md': {
     en: readLocale('mcp_server.md', 'en'),
@@ -2480,6 +2598,7 @@ export const docsEntry = {
     id: readLocale('mcp_server.md', 'id'),
     vi: readLocale('mcp_server.md', 'vi'),
     uk: readLocale('mcp_server.md', 'uk'),
+    'he-IL': readLocale('mcp_server.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/migration_from_i18next_to_intlayer.md': {
     en: readLocale('migration_from_i18next_to_intlayer.md', 'en'),
@@ -2500,6 +2619,7 @@ export const docsEntry = {
     id: readLocale('migration_from_i18next_to_intlayer.md', 'id'),
     vi: readLocale('migration_from_i18next_to_intlayer.md', 'vi'),
     uk: readLocale('migration_from_i18next_to_intlayer.md', 'uk'),
+    'he-IL': readLocale('migration_from_i18next_to_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/migration_from_next-i18next_to_intlayer.md': {
     en: readLocale('migration_from_next-i18next_to_intlayer.md', 'en'),
@@ -2520,6 +2640,7 @@ export const docsEntry = {
     id: readLocale('migration_from_next-i18next_to_intlayer.md', 'id'),
     vi: readLocale('migration_from_next-i18next_to_intlayer.md', 'vi'),
     uk: readLocale('migration_from_next-i18next_to_intlayer.md', 'uk'),
+    'he-IL': readLocale('migration_from_next-i18next_to_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/migration_from_next-intl_to_intlayer.md': {
     en: readLocale('migration_from_next-intl_to_intlayer.md', 'en'),
@@ -2540,6 +2661,7 @@ export const docsEntry = {
     id: readLocale('migration_from_next-intl_to_intlayer.md', 'id'),
     vi: readLocale('migration_from_next-intl_to_intlayer.md', 'vi'),
     uk: readLocale('migration_from_next-intl_to_intlayer.md', 'uk'),
+    'he-IL': readLocale('migration_from_next-intl_to_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/migration_from_nuxtjs_i18n_to_intlayer.md': {
     en: readLocale('migration_from_nuxtjs_i18n_to_intlayer.md', 'en'),
@@ -2560,6 +2682,7 @@ export const docsEntry = {
     id: readLocale('migration_from_nuxtjs_i18n_to_intlayer.md', 'id'),
     vi: readLocale('migration_from_nuxtjs_i18n_to_intlayer.md', 'vi'),
     uk: readLocale('migration_from_nuxtjs_i18n_to_intlayer.md', 'uk'),
+    'he-IL': readLocale('migration_from_nuxtjs_i18n_to_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/migration_from_react-i18next_to_intlayer.md': {
     en: readLocale('migration_from_react-i18next_to_intlayer.md', 'en'),
@@ -2580,6 +2703,7 @@ export const docsEntry = {
     id: readLocale('migration_from_react-i18next_to_intlayer.md', 'id'),
     vi: readLocale('migration_from_react-i18next_to_intlayer.md', 'vi'),
     uk: readLocale('migration_from_react-i18next_to_intlayer.md', 'uk'),
+    'he-IL': readLocale('migration_from_react-i18next_to_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/migration_from_vue-i18n_to_intlayer.md': {
     en: readLocale('migration_from_vue-i18n_to_intlayer.md', 'en'),
@@ -2600,6 +2724,7 @@ export const docsEntry = {
     id: readLocale('migration_from_vue-i18n_to_intlayer.md', 'id'),
     vi: readLocale('migration_from_vue-i18n_to_intlayer.md', 'vi'),
     uk: readLocale('migration_from_vue-i18n_to_intlayer.md', 'uk'),
+    'he-IL': readLocale('migration_from_vue-i18n_to_intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/@intlayer_babel/export.md': {
     en: readLocale('packages/@intlayer_babel/export.md', 'en'),
@@ -2620,6 +2745,7 @@ export const docsEntry = {
     id: readLocale('packages/@intlayer_babel/export.md', 'id'),
     vi: readLocale('packages/@intlayer_babel/export.md', 'vi'),
     uk: readLocale('packages/@intlayer_babel/export.md', 'uk'),
+    'he-IL': readLocale('packages/@intlayer_babel/export.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/adonis-intlayer/exports.md': {
     en: readLocale('packages/adonis-intlayer/exports.md', 'en'),
@@ -2640,6 +2766,7 @@ export const docsEntry = {
     id: readLocale('packages/adonis-intlayer/exports.md', 'id'),
     vi: readLocale('packages/adonis-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/adonis-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/adonis-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/adonis-intlayer/intlayer.md': {
     en: readLocale('packages/adonis-intlayer/intlayer.md', 'en'),
@@ -2660,6 +2787,7 @@ export const docsEntry = {
     id: readLocale('packages/adonis-intlayer/intlayer.md', 'id'),
     vi: readLocale('packages/adonis-intlayer/intlayer.md', 'vi'),
     uk: readLocale('packages/adonis-intlayer/intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/adonis-intlayer/intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/adonis-intlayer/t.md': {
     en: readLocale('packages/adonis-intlayer/t.md', 'en'),
@@ -2680,6 +2808,7 @@ export const docsEntry = {
     id: readLocale('packages/adonis-intlayer/t.md', 'id'),
     vi: readLocale('packages/adonis-intlayer/t.md', 'vi'),
     uk: readLocale('packages/adonis-intlayer/t.md', 'uk'),
+    'he-IL': readLocale('packages/adonis-intlayer/t.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/angular-intlayer/exports.md': {
     en: readLocale('packages/angular-intlayer/exports.md', 'en'),
@@ -2700,6 +2829,7 @@ export const docsEntry = {
     id: readLocale('packages/angular-intlayer/exports.md', 'id'),
     vi: readLocale('packages/angular-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/angular-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/angular-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/angular-intlayer/usePathname.md': {
     en: readLocale('packages/angular-intlayer/usePathname.md', 'en'),
@@ -2720,6 +2850,7 @@ export const docsEntry = {
     id: readLocale('packages/angular-intlayer/usePathname.md', 'id'),
     vi: readLocale('packages/angular-intlayer/usePathname.md', 'vi'),
     uk: readLocale('packages/angular-intlayer/usePathname.md', 'uk'),
+    'he-IL': readLocale('packages/angular-intlayer/usePathname.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/astro-intlayer/exports.md': {
     en: readLocale('packages/astro-intlayer/exports.md', 'en'),
@@ -2740,6 +2871,7 @@ export const docsEntry = {
     id: readLocale('packages/astro-intlayer/exports.md', 'id'),
     vi: readLocale('packages/astro-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/astro-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/astro-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/astro-intlayer/intlayer.md': {
     en: readLocale('packages/astro-intlayer/intlayer.md', 'en'),
@@ -2760,6 +2892,7 @@ export const docsEntry = {
     id: readLocale('packages/astro-intlayer/intlayer.md', 'id'),
     vi: readLocale('packages/astro-intlayer/intlayer.md', 'vi'),
     uk: readLocale('packages/astro-intlayer/intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/astro-intlayer/intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/astro-intlayer/onRequest.md': {
     en: readLocale('packages/astro-intlayer/onRequest.md', 'en'),
@@ -2780,6 +2913,7 @@ export const docsEntry = {
     id: readLocale('packages/astro-intlayer/onRequest.md', 'id'),
     vi: readLocale('packages/astro-intlayer/onRequest.md', 'vi'),
     uk: readLocale('packages/astro-intlayer/onRequest.md', 'uk'),
+    'he-IL': readLocale('packages/astro-intlayer/onRequest.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/astro-intlayer/useDictionary.md': {
     en: readLocale('packages/astro-intlayer/useDictionary.md', 'en'),
@@ -2800,6 +2934,7 @@ export const docsEntry = {
     id: readLocale('packages/astro-intlayer/useDictionary.md', 'id'),
     vi: readLocale('packages/astro-intlayer/useDictionary.md', 'vi'),
     uk: readLocale('packages/astro-intlayer/useDictionary.md', 'uk'),
+    'he-IL': readLocale('packages/astro-intlayer/useDictionary.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/astro-intlayer/useIntlayer.md': {
     en: readLocale('packages/astro-intlayer/useIntlayer.md', 'en'),
@@ -2820,6 +2955,7 @@ export const docsEntry = {
     id: readLocale('packages/astro-intlayer/useIntlayer.md', 'id'),
     vi: readLocale('packages/astro-intlayer/useIntlayer.md', 'vi'),
     uk: readLocale('packages/astro-intlayer/useIntlayer.md', 'uk'),
+    'he-IL': readLocale('packages/astro-intlayer/useIntlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/astro-intlayer/useLocale.md': {
     en: readLocale('packages/astro-intlayer/useLocale.md', 'en'),
@@ -2840,6 +2976,7 @@ export const docsEntry = {
     id: readLocale('packages/astro-intlayer/useLocale.md', 'id'),
     vi: readLocale('packages/astro-intlayer/useLocale.md', 'vi'),
     uk: readLocale('packages/astro-intlayer/useLocale.md', 'uk'),
+    'he-IL': readLocale('packages/astro-intlayer/useLocale.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/elysia-intlayer/exports.md': {
     en: readLocale('packages/elysia-intlayer/exports.md', 'en'),
@@ -2860,6 +2997,7 @@ export const docsEntry = {
     id: readLocale('packages/elysia-intlayer/exports.md', 'id'),
     vi: readLocale('packages/elysia-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/elysia-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/elysia-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/elysia-intlayer/intlayer.md': {
     en: readLocale('packages/elysia-intlayer/intlayer.md', 'en'),
@@ -2880,6 +3018,7 @@ export const docsEntry = {
     id: readLocale('packages/elysia-intlayer/intlayer.md', 'id'),
     vi: readLocale('packages/elysia-intlayer/intlayer.md', 'vi'),
     uk: readLocale('packages/elysia-intlayer/intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/elysia-intlayer/intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/express-intlayer/exports.md': {
     en: readLocale('packages/express-intlayer/exports.md', 'en'),
@@ -2900,6 +3039,7 @@ export const docsEntry = {
     id: readLocale('packages/express-intlayer/exports.md', 'id'),
     vi: readLocale('packages/express-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/express-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/express-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/express-intlayer/intlayer.md': {
     en: readLocale('packages/express-intlayer/intlayer.md', 'en'),
@@ -2920,6 +3060,7 @@ export const docsEntry = {
     id: readLocale('packages/express-intlayer/intlayer.md', 'id'),
     vi: readLocale('packages/express-intlayer/intlayer.md', 'vi'),
     uk: readLocale('packages/express-intlayer/intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/express-intlayer/intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/express-intlayer/t.md': {
     en: readLocale('packages/express-intlayer/t.md', 'en'),
@@ -2940,6 +3081,7 @@ export const docsEntry = {
     id: readLocale('packages/express-intlayer/t.md', 'id'),
     vi: readLocale('packages/express-intlayer/t.md', 'vi'),
     uk: readLocale('packages/express-intlayer/t.md', 'uk'),
+    'he-IL': readLocale('packages/express-intlayer/t.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/fastify-intlayer/exports.md': {
     en: readLocale('packages/fastify-intlayer/exports.md', 'en'),
@@ -2960,6 +3102,7 @@ export const docsEntry = {
     id: readLocale('packages/fastify-intlayer/exports.md', 'id'),
     vi: readLocale('packages/fastify-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/fastify-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/fastify-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/fastify-intlayer/intlayer.md': {
     en: readLocale('packages/fastify-intlayer/intlayer.md', 'en'),
@@ -2980,6 +3123,7 @@ export const docsEntry = {
     id: readLocale('packages/fastify-intlayer/intlayer.md', 'id'),
     vi: readLocale('packages/fastify-intlayer/intlayer.md', 'vi'),
     uk: readLocale('packages/fastify-intlayer/intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/fastify-intlayer/intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/hono-intlayer/exports.md': {
     en: readLocale('packages/hono-intlayer/exports.md', 'en'),
@@ -3000,6 +3144,7 @@ export const docsEntry = {
     id: readLocale('packages/hono-intlayer/exports.md', 'id'),
     vi: readLocale('packages/hono-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/hono-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/hono-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/hono-intlayer/intlayer.md': {
     en: readLocale('packages/hono-intlayer/intlayer.md', 'en'),
@@ -3020,6 +3165,7 @@ export const docsEntry = {
     id: readLocale('packages/hono-intlayer/intlayer.md', 'id'),
     vi: readLocale('packages/hono-intlayer/intlayer.md', 'vi'),
     uk: readLocale('packages/hono-intlayer/intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/hono-intlayer/intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/hono-intlayer/t.md': {
     en: readLocale('packages/hono-intlayer/t.md', 'en'),
@@ -3040,6 +3186,7 @@ export const docsEntry = {
     id: readLocale('packages/hono-intlayer/t.md', 'id'),
     vi: readLocale('packages/hono-intlayer/t.md', 'vi'),
     uk: readLocale('packages/hono-intlayer/t.md', 'uk'),
+    'he-IL': readLocale('packages/hono-intlayer/t.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer-cli/exports.md': {
     en: readLocale('packages/intlayer-cli/exports.md', 'en'),
@@ -3060,6 +3207,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer-cli/exports.md', 'id'),
     vi: readLocale('packages/intlayer-cli/exports.md', 'vi'),
     uk: readLocale('packages/intlayer-cli/exports.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer-cli/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/comparePaths.md': {
     en: readLocale('packages/intlayer/comparePaths.md', 'en'),
@@ -3080,6 +3228,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/comparePaths.md', 'id'),
     vi: readLocale('packages/intlayer/comparePaths.md', 'vi'),
     uk: readLocale('packages/intlayer/comparePaths.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/comparePaths.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/exports.md': {
     en: readLocale('packages/intlayer/exports.md', 'en'),
@@ -3100,6 +3249,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/exports.md', 'id'),
     vi: readLocale('packages/intlayer/exports.md', 'vi'),
     uk: readLocale('packages/intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getCanonicalPath.md': {
     en: readLocale('packages/intlayer/getCanonicalPath.md', 'en'),
@@ -3120,6 +3270,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getCanonicalPath.md', 'id'),
     vi: readLocale('packages/intlayer/getCanonicalPath.md', 'vi'),
     uk: readLocale('packages/intlayer/getCanonicalPath.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getCanonicalPath.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getConfiguration.md': {
     en: readLocale('packages/intlayer/getConfiguration.md', 'en'),
@@ -3140,6 +3291,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getConfiguration.md', 'id'),
     vi: readLocale('packages/intlayer/getConfiguration.md', 'vi'),
     uk: readLocale('packages/intlayer/getConfiguration.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getConfiguration.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getDictionary.md': {
     en: readLocale('packages/intlayer/getDictionary.md', 'en'),
@@ -3160,6 +3312,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getDictionary.md', 'id'),
     vi: readLocale('packages/intlayer/getDictionary.md', 'vi'),
     uk: readLocale('packages/intlayer/getDictionary.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getDictionary.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getDictionaryAsync.md': {
     en: readLocale('packages/intlayer/getDictionaryAsync.md', 'en'),
@@ -3180,6 +3333,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getDictionaryAsync.md', 'id'),
     vi: readLocale('packages/intlayer/getDictionaryAsync.md', 'vi'),
     uk: readLocale('packages/intlayer/getDictionaryAsync.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getDictionaryAsync.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getEnumeration.md': {
     en: readLocale('packages/intlayer/getEnumeration.md', 'en'),
@@ -3200,6 +3354,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getEnumeration.md', 'id'),
     vi: readLocale('packages/intlayer/getEnumeration.md', 'vi'),
     uk: readLocale('packages/intlayer/getEnumeration.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getEnumeration.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getHTMLTextDir.md': {
     en: readLocale('packages/intlayer/getHTMLTextDir.md', 'en'),
@@ -3220,6 +3375,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getHTMLTextDir.md', 'id'),
     vi: readLocale('packages/intlayer/getHTMLTextDir.md', 'vi'),
     uk: readLocale('packages/intlayer/getHTMLTextDir.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getHTMLTextDir.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getIntlayer.md': {
     en: readLocale('packages/intlayer/getIntlayer.md', 'en'),
@@ -3240,6 +3396,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getIntlayer.md', 'id'),
     vi: readLocale('packages/intlayer/getIntlayer.md', 'vi'),
     uk: readLocale('packages/intlayer/getIntlayer.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getIntlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getIntlayerAsync.md': {
     en: readLocale('packages/intlayer/getIntlayerAsync.md', 'en'),
@@ -3260,6 +3417,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getIntlayerAsync.md', 'id'),
     vi: readLocale('packages/intlayer/getIntlayerAsync.md', 'vi'),
     uk: readLocale('packages/intlayer/getIntlayerAsync.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getIntlayerAsync.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocale.md': {
     en: readLocale('packages/intlayer/getLocale.md', 'en'),
@@ -3280,6 +3438,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getLocale.md', 'id'),
     vi: readLocale('packages/intlayer/getLocale.md', 'vi'),
     uk: readLocale('packages/intlayer/getLocale.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getLocale.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocaleLang.md': {
     en: readLocale('packages/intlayer/getLocaleLang.md', 'en'),
@@ -3300,6 +3459,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getLocaleLang.md', 'id'),
     vi: readLocale('packages/intlayer/getLocaleLang.md', 'vi'),
     uk: readLocale('packages/intlayer/getLocaleLang.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getLocaleLang.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocaleName.md': {
     en: readLocale('packages/intlayer/getLocaleName.md', 'en'),
@@ -3320,6 +3480,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getLocaleName.md', 'id'),
     vi: readLocale('packages/intlayer/getLocaleName.md', 'vi'),
     uk: readLocale('packages/intlayer/getLocaleName.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getLocaleName.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocalizedPath.md': {
     en: readLocale('packages/intlayer/getLocalizedPath.md', 'en'),
@@ -3340,6 +3501,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getLocalizedPath.md', 'id'),
     vi: readLocale('packages/intlayer/getLocalizedPath.md', 'vi'),
     uk: readLocale('packages/intlayer/getLocalizedPath.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getLocalizedPath.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getLocalizedUrl.md': {
     en: readLocale('packages/intlayer/getLocalizedUrl.md', 'en'),
@@ -3360,6 +3522,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getLocalizedUrl.md', 'id'),
     vi: readLocale('packages/intlayer/getLocalizedUrl.md', 'vi'),
     uk: readLocale('packages/intlayer/getLocalizedUrl.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getLocalizedUrl.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getMultilingualUrls.md': {
     en: readLocale('packages/intlayer/getMultilingualUrls.md', 'en'),
@@ -3380,6 +3543,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getMultilingualUrls.md', 'id'),
     vi: readLocale('packages/intlayer/getMultilingualUrls.md', 'vi'),
     uk: readLocale('packages/intlayer/getMultilingualUrls.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getMultilingualUrls.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getPathWithoutLocale.md': {
     en: readLocale('packages/intlayer/getPathWithoutLocale.md', 'en'),
@@ -3400,6 +3564,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getPathWithoutLocale.md', 'id'),
     vi: readLocale('packages/intlayer/getPathWithoutLocale.md', 'vi'),
     uk: readLocale('packages/intlayer/getPathWithoutLocale.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getPathWithoutLocale.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getPrefix.md': {
     en: readLocale('packages/intlayer/getPrefix.md', 'en'),
@@ -3420,6 +3585,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getPrefix.md', 'id'),
     vi: readLocale('packages/intlayer/getPrefix.md', 'vi'),
     uk: readLocale('packages/intlayer/getPrefix.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getPrefix.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/getTranslation.md': {
     en: readLocale('packages/intlayer/getTranslation.md', 'en'),
@@ -3440,6 +3606,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/getTranslation.md', 'id'),
     vi: readLocale('packages/intlayer/getTranslation.md', 'vi'),
     uk: readLocale('packages/intlayer/getTranslation.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/getTranslation.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/intlayer/validatePrefix.md': {
     en: readLocale('packages/intlayer/validatePrefix.md', 'en'),
@@ -3460,6 +3627,7 @@ export const docsEntry = {
     id: readLocale('packages/intlayer/validatePrefix.md', 'id'),
     vi: readLocale('packages/intlayer/validatePrefix.md', 'vi'),
     uk: readLocale('packages/intlayer/validatePrefix.md', 'uk'),
+    'he-IL': readLocale('packages/intlayer/validatePrefix.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/lynx-intlayer/exports.md': {
     en: readLocale('packages/lynx-intlayer/exports.md', 'en'),
@@ -3480,6 +3648,7 @@ export const docsEntry = {
     id: readLocale('packages/lynx-intlayer/exports.md', 'id'),
     vi: readLocale('packages/lynx-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/lynx-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/lynx-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/exports.md': {
     en: readLocale('packages/next-intlayer/exports.md', 'en'),
@@ -3500,6 +3669,7 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/exports.md', 'id'),
     vi: readLocale('packages/next-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/next-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/next-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/intlayerMiddleware.md': {
     en: readLocale('packages/next-intlayer/intlayerMiddleware.md', 'en'),
@@ -3523,6 +3693,10 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/intlayerMiddleware.md', 'id'),
     vi: readLocale('packages/next-intlayer/intlayerMiddleware.md', 'vi'),
     uk: readLocale('packages/next-intlayer/intlayerMiddleware.md', 'uk'),
+    'he-IL': readLocale(
+      'packages/next-intlayer/intlayerMiddleware.md',
+      'he-IL'
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/t.md': {
     en: readLocale('packages/next-intlayer/t.md', 'en'),
@@ -3543,6 +3717,7 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/t.md', 'id'),
     vi: readLocale('packages/next-intlayer/t.md', 'vi'),
     uk: readLocale('packages/next-intlayer/t.md', 'uk'),
+    'he-IL': readLocale('packages/next-intlayer/t.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useDictionary.md': {
     en: readLocale('packages/next-intlayer/useDictionary.md', 'en'),
@@ -3563,6 +3738,7 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/useDictionary.md', 'id'),
     vi: readLocale('packages/next-intlayer/useDictionary.md', 'vi'),
     uk: readLocale('packages/next-intlayer/useDictionary.md', 'uk'),
+    'he-IL': readLocale('packages/next-intlayer/useDictionary.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useIntlayer.md': {
     en: readLocale('packages/next-intlayer/useIntlayer.md', 'en'),
@@ -3583,6 +3759,7 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/useIntlayer.md', 'id'),
     vi: readLocale('packages/next-intlayer/useIntlayer.md', 'vi'),
     uk: readLocale('packages/next-intlayer/useIntlayer.md', 'uk'),
+    'he-IL': readLocale('packages/next-intlayer/useIntlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useLocale.md': {
     en: readLocale('packages/next-intlayer/useLocale.md', 'en'),
@@ -3603,6 +3780,7 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/useLocale.md', 'id'),
     vi: readLocale('packages/next-intlayer/useLocale.md', 'vi'),
     uk: readLocale('packages/next-intlayer/useLocale.md', 'uk'),
+    'he-IL': readLocale('packages/next-intlayer/useLocale.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/usePathname.md': {
     en: readLocale('packages/next-intlayer/usePathname.md', 'en'),
@@ -3623,6 +3801,7 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/usePathname.md', 'id'),
     vi: readLocale('packages/next-intlayer/usePathname.md', 'vi'),
     uk: readLocale('packages/next-intlayer/usePathname.md', 'uk'),
+    'he-IL': readLocale('packages/next-intlayer/usePathname.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/next-intlayer/useRewriteURL.md': {
     en: readLocale('packages/next-intlayer/useRewriteURL.md', 'en'),
@@ -3643,6 +3822,7 @@ export const docsEntry = {
     id: readLocale('packages/next-intlayer/useRewriteURL.md', 'id'),
     vi: readLocale('packages/next-intlayer/useRewriteURL.md', 'vi'),
     uk: readLocale('packages/next-intlayer/useRewriteURL.md', 'uk'),
+    'he-IL': readLocale('packages/next-intlayer/useRewriteURL.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/nuxt-intlayer/exports.md': {
     en: readLocale('packages/nuxt-intlayer/exports.md', 'en'),
@@ -3663,6 +3843,7 @@ export const docsEntry = {
     id: readLocale('packages/nuxt-intlayer/exports.md', 'id'),
     vi: readLocale('packages/nuxt-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/nuxt-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/nuxt-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/preact-intlayer/exports.md': {
     en: readLocale('packages/preact-intlayer/exports.md', 'en'),
@@ -3683,6 +3864,7 @@ export const docsEntry = {
     id: readLocale('packages/preact-intlayer/exports.md', 'id'),
     vi: readLocale('packages/preact-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/preact-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/preact-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/preact-intlayer/usePathname.md': {
     en: readLocale('packages/preact-intlayer/usePathname.md', 'en'),
@@ -3703,6 +3885,7 @@ export const docsEntry = {
     id: readLocale('packages/preact-intlayer/usePathname.md', 'id'),
     vi: readLocale('packages/preact-intlayer/usePathname.md', 'vi'),
     uk: readLocale('packages/preact-intlayer/usePathname.md', 'uk'),
+    'he-IL': readLocale('packages/preact-intlayer/usePathname.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/IntlayerProvider.md': {
     en: readLocale('packages/react-intlayer/IntlayerProvider.md', 'en'),
@@ -3723,6 +3906,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/IntlayerProvider.md', 'id'),
     vi: readLocale('packages/react-intlayer/IntlayerProvider.md', 'vi'),
     uk: readLocale('packages/react-intlayer/IntlayerProvider.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/IntlayerProvider.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/MarkdownRenderer.md': {
     en: readLocale('packages/react-intlayer/MarkdownRenderer.md', 'en'),
@@ -3743,6 +3927,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/MarkdownRenderer.md', 'id'),
     vi: readLocale('packages/react-intlayer/MarkdownRenderer.md', 'vi'),
     uk: readLocale('packages/react-intlayer/MarkdownRenderer.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/MarkdownRenderer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/exports.md': {
     en: readLocale('packages/react-intlayer/exports.md', 'en'),
@@ -3763,6 +3948,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/exports.md', 'id'),
     vi: readLocale('packages/react-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/react-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/t.md': {
     en: readLocale('packages/react-intlayer/t.md', 'en'),
@@ -3783,6 +3969,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/t.md', 'id'),
     vi: readLocale('packages/react-intlayer/t.md', 'vi'),
     uk: readLocale('packages/react-intlayer/t.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/t.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useDictionary.md': {
     en: readLocale('packages/react-intlayer/useDictionary.md', 'en'),
@@ -3803,6 +3990,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/useDictionary.md', 'id'),
     vi: readLocale('packages/react-intlayer/useDictionary.md', 'vi'),
     uk: readLocale('packages/react-intlayer/useDictionary.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/useDictionary.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useI18n.md': {
     en: readLocale('packages/react-intlayer/useI18n.md', 'en'),
@@ -3823,6 +4011,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/useI18n.md', 'id'),
     vi: readLocale('packages/react-intlayer/useI18n.md', 'vi'),
     uk: readLocale('packages/react-intlayer/useI18n.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/useI18n.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useIntlayer.md': {
     en: readLocale('packages/react-intlayer/useIntlayer.md', 'en'),
@@ -3843,6 +4032,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/useIntlayer.md', 'id'),
     vi: readLocale('packages/react-intlayer/useIntlayer.md', 'vi'),
     uk: readLocale('packages/react-intlayer/useIntlayer.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/useIntlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useLocale.md': {
     en: readLocale('packages/react-intlayer/useLocale.md', 'en'),
@@ -3863,6 +4053,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/useLocale.md', 'id'),
     vi: readLocale('packages/react-intlayer/useLocale.md', 'vi'),
     uk: readLocale('packages/react-intlayer/useLocale.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/useLocale.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/usePathname.md': {
     en: readLocale('packages/react-intlayer/usePathname.md', 'en'),
@@ -3883,6 +4074,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/usePathname.md', 'id'),
     vi: readLocale('packages/react-intlayer/usePathname.md', 'vi'),
     uk: readLocale('packages/react-intlayer/usePathname.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/usePathname.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-intlayer/useRewriteURL.md': {
     en: readLocale('packages/react-intlayer/useRewriteURL.md', 'en'),
@@ -3903,6 +4095,7 @@ export const docsEntry = {
     id: readLocale('packages/react-intlayer/useRewriteURL.md', 'id'),
     vi: readLocale('packages/react-intlayer/useRewriteURL.md', 'vi'),
     uk: readLocale('packages/react-intlayer/useRewriteURL.md', 'uk'),
+    'he-IL': readLocale('packages/react-intlayer/useRewriteURL.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/react-native-intlayer/exports.md': {
     en: readLocale('packages/react-native-intlayer/exports.md', 'en'),
@@ -3923,6 +4116,7 @@ export const docsEntry = {
     id: readLocale('packages/react-native-intlayer/exports.md', 'id'),
     vi: readLocale('packages/react-native-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/react-native-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/react-native-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/remix-intlayer/Intlayer.md': {
     en: readLocale('packages/remix-intlayer/Intlayer.md', 'en'),
@@ -3943,6 +4137,7 @@ export const docsEntry = {
     id: readLocale('packages/remix-intlayer/Intlayer.md', 'id'),
     vi: readLocale('packages/remix-intlayer/Intlayer.md', 'vi'),
     uk: readLocale('packages/remix-intlayer/Intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/remix-intlayer/Intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/remix-intlayer/exports.md': {
     en: readLocale('packages/remix-intlayer/exports.md', 'en'),
@@ -3963,6 +4158,7 @@ export const docsEntry = {
     id: readLocale('packages/remix-intlayer/exports.md', 'id'),
     vi: readLocale('packages/remix-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/remix-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/remix-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/remix-intlayer/intlayerMiddleware.md': {
     en: readLocale('packages/remix-intlayer/intlayerMiddleware.md', 'en'),
@@ -3986,6 +4182,10 @@ export const docsEntry = {
     id: readLocale('packages/remix-intlayer/intlayerMiddleware.md', 'id'),
     vi: readLocale('packages/remix-intlayer/intlayerMiddleware.md', 'vi'),
     uk: readLocale('packages/remix-intlayer/intlayerMiddleware.md', 'uk'),
+    'he-IL': readLocale(
+      'packages/remix-intlayer/intlayerMiddleware.md',
+      'he-IL'
+    ),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/remix-intlayer/useDictionary.md': {
     en: readLocale('packages/remix-intlayer/useDictionary.md', 'en'),
@@ -4006,6 +4206,7 @@ export const docsEntry = {
     id: readLocale('packages/remix-intlayer/useDictionary.md', 'id'),
     vi: readLocale('packages/remix-intlayer/useDictionary.md', 'vi'),
     uk: readLocale('packages/remix-intlayer/useDictionary.md', 'uk'),
+    'he-IL': readLocale('packages/remix-intlayer/useDictionary.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/remix-intlayer/useIntlayer.md': {
     en: readLocale('packages/remix-intlayer/useIntlayer.md', 'en'),
@@ -4026,6 +4227,7 @@ export const docsEntry = {
     id: readLocale('packages/remix-intlayer/useIntlayer.md', 'id'),
     vi: readLocale('packages/remix-intlayer/useIntlayer.md', 'vi'),
     uk: readLocale('packages/remix-intlayer/useIntlayer.md', 'uk'),
+    'he-IL': readLocale('packages/remix-intlayer/useIntlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/remix-intlayer/useLocale.md': {
     en: readLocale('packages/remix-intlayer/useLocale.md', 'en'),
@@ -4046,6 +4248,7 @@ export const docsEntry = {
     id: readLocale('packages/remix-intlayer/useLocale.md', 'id'),
     vi: readLocale('packages/remix-intlayer/useLocale.md', 'vi'),
     uk: readLocale('packages/remix-intlayer/useLocale.md', 'uk'),
+    'he-IL': readLocale('packages/remix-intlayer/useLocale.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/IntlayerProvider.md': {
     en: readLocale('packages/solid-intlayer/IntlayerProvider.md', 'en'),
@@ -4066,6 +4269,7 @@ export const docsEntry = {
     id: readLocale('packages/solid-intlayer/IntlayerProvider.md', 'id'),
     vi: readLocale('packages/solid-intlayer/IntlayerProvider.md', 'vi'),
     uk: readLocale('packages/solid-intlayer/IntlayerProvider.md', 'uk'),
+    'he-IL': readLocale('packages/solid-intlayer/IntlayerProvider.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/exports.md': {
     en: readLocale('packages/solid-intlayer/exports.md', 'en'),
@@ -4086,6 +4290,7 @@ export const docsEntry = {
     id: readLocale('packages/solid-intlayer/exports.md', 'id'),
     vi: readLocale('packages/solid-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/solid-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/solid-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/useIntlayer.md': {
     en: readLocale('packages/solid-intlayer/useIntlayer.md', 'en'),
@@ -4106,6 +4311,7 @@ export const docsEntry = {
     id: readLocale('packages/solid-intlayer/useIntlayer.md', 'id'),
     vi: readLocale('packages/solid-intlayer/useIntlayer.md', 'vi'),
     uk: readLocale('packages/solid-intlayer/useIntlayer.md', 'uk'),
+    'he-IL': readLocale('packages/solid-intlayer/useIntlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/useLocale.md': {
     en: readLocale('packages/solid-intlayer/useLocale.md', 'en'),
@@ -4126,6 +4332,7 @@ export const docsEntry = {
     id: readLocale('packages/solid-intlayer/useLocale.md', 'id'),
     vi: readLocale('packages/solid-intlayer/useLocale.md', 'vi'),
     uk: readLocale('packages/solid-intlayer/useLocale.md', 'uk'),
+    'he-IL': readLocale('packages/solid-intlayer/useLocale.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/usePathname.md': {
     en: readLocale('packages/solid-intlayer/usePathname.md', 'en'),
@@ -4146,6 +4353,7 @@ export const docsEntry = {
     id: readLocale('packages/solid-intlayer/usePathname.md', 'id'),
     vi: readLocale('packages/solid-intlayer/usePathname.md', 'vi'),
     uk: readLocale('packages/solid-intlayer/usePathname.md', 'uk'),
+    'he-IL': readLocale('packages/solid-intlayer/usePathname.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/solid-intlayer/useRewriteURL.md': {
     en: readLocale('packages/solid-intlayer/useRewriteURL.md', 'en'),
@@ -4166,6 +4374,7 @@ export const docsEntry = {
     id: readLocale('packages/solid-intlayer/useRewriteURL.md', 'id'),
     vi: readLocale('packages/solid-intlayer/useRewriteURL.md', 'vi'),
     uk: readLocale('packages/solid-intlayer/useRewriteURL.md', 'uk'),
+    'he-IL': readLocale('packages/solid-intlayer/useRewriteURL.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/svelte-intlayer/exports.md': {
     en: readLocale('packages/svelte-intlayer/exports.md', 'en'),
@@ -4186,6 +4395,7 @@ export const docsEntry = {
     id: readLocale('packages/svelte-intlayer/exports.md', 'id'),
     vi: readLocale('packages/svelte-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/svelte-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/svelte-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/svelte-intlayer/usePathname.md': {
     en: readLocale('packages/svelte-intlayer/usePathname.md', 'en'),
@@ -4206,6 +4416,7 @@ export const docsEntry = {
     id: readLocale('packages/svelte-intlayer/usePathname.md', 'id'),
     vi: readLocale('packages/svelte-intlayer/usePathname.md', 'vi'),
     uk: readLocale('packages/svelte-intlayer/usePathname.md', 'uk'),
+    'he-IL': readLocale('packages/svelte-intlayer/usePathname.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/svelte-intlayer/useRewriteURL.md': {
     en: readLocale('packages/svelte-intlayer/useRewriteURL.md', 'en'),
@@ -4226,6 +4437,7 @@ export const docsEntry = {
     id: readLocale('packages/svelte-intlayer/useRewriteURL.md', 'id'),
     vi: readLocale('packages/svelte-intlayer/useRewriteURL.md', 'vi'),
     uk: readLocale('packages/svelte-intlayer/useRewriteURL.md', 'uk'),
+    'he-IL': readLocale('packages/svelte-intlayer/useRewriteURL.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/exports.md': {
     en: readLocale('packages/vite-intlayer/exports.md', 'en'),
@@ -4246,6 +4458,7 @@ export const docsEntry = {
     id: readLocale('packages/vite-intlayer/exports.md', 'id'),
     vi: readLocale('packages/vite-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/vite-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/vite-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/intlayer.md': {
     en: readLocale('packages/vite-intlayer/intlayer.md', 'en'),
@@ -4266,6 +4479,7 @@ export const docsEntry = {
     id: readLocale('packages/vite-intlayer/intlayer.md', 'id'),
     vi: readLocale('packages/vite-intlayer/intlayer.md', 'vi'),
     uk: readLocale('packages/vite-intlayer/intlayer.md', 'uk'),
+    'he-IL': readLocale('packages/vite-intlayer/intlayer.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/intlayerCompiler.md': {
     en: readLocale('packages/vite-intlayer/intlayerCompiler.md', 'en'),
@@ -4286,6 +4500,7 @@ export const docsEntry = {
     id: readLocale('packages/vite-intlayer/intlayerCompiler.md', 'id'),
     vi: readLocale('packages/vite-intlayer/intlayerCompiler.md', 'vi'),
     uk: readLocale('packages/vite-intlayer/intlayerCompiler.md', 'uk'),
+    'he-IL': readLocale('packages/vite-intlayer/intlayerCompiler.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/intlayerMinify.md': {
     en: readLocale('packages/vite-intlayer/intlayerMinify.md', 'en'),
@@ -4306,6 +4521,7 @@ export const docsEntry = {
     id: readLocale('packages/vite-intlayer/intlayerMinify.md', 'id'),
     vi: readLocale('packages/vite-intlayer/intlayerMinify.md', 'vi'),
     uk: readLocale('packages/vite-intlayer/intlayerMinify.md', 'uk'),
+    'he-IL': readLocale('packages/vite-intlayer/intlayerMinify.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/intlayerProxy.md': {
     en: readLocale('packages/vite-intlayer/intlayerProxy.md', 'en'),
@@ -4326,6 +4542,7 @@ export const docsEntry = {
     id: readLocale('packages/vite-intlayer/intlayerProxy.md', 'id'),
     vi: readLocale('packages/vite-intlayer/intlayerProxy.md', 'vi'),
     uk: readLocale('packages/vite-intlayer/intlayerProxy.md', 'uk'),
+    'he-IL': readLocale('packages/vite-intlayer/intlayerProxy.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vite-intlayer/intlayerPrune.md': {
     en: readLocale('packages/vite-intlayer/intlayerPrune.md', 'en'),
@@ -4346,6 +4563,7 @@ export const docsEntry = {
     id: readLocale('packages/vite-intlayer/intlayerPrune.md', 'id'),
     vi: readLocale('packages/vite-intlayer/intlayerPrune.md', 'vi'),
     uk: readLocale('packages/vite-intlayer/intlayerPrune.md', 'uk'),
+    'he-IL': readLocale('packages/vite-intlayer/intlayerPrune.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vue-intlayer/exports.md': {
     en: readLocale('packages/vue-intlayer/exports.md', 'en'),
@@ -4366,6 +4584,7 @@ export const docsEntry = {
     id: readLocale('packages/vue-intlayer/exports.md', 'id'),
     vi: readLocale('packages/vue-intlayer/exports.md', 'vi'),
     uk: readLocale('packages/vue-intlayer/exports.md', 'uk'),
+    'he-IL': readLocale('packages/vue-intlayer/exports.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vue-intlayer/usePathname.md': {
     en: readLocale('packages/vue-intlayer/usePathname.md', 'en'),
@@ -4386,6 +4605,7 @@ export const docsEntry = {
     id: readLocale('packages/vue-intlayer/usePathname.md', 'id'),
     vi: readLocale('packages/vue-intlayer/usePathname.md', 'vi'),
     uk: readLocale('packages/vue-intlayer/usePathname.md', 'uk'),
+    'he-IL': readLocale('packages/vue-intlayer/usePathname.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/packages/vue-intlayer/useRewriteURL.md': {
     en: readLocale('packages/vue-intlayer/useRewriteURL.md', 'en'),
@@ -4406,6 +4626,7 @@ export const docsEntry = {
     id: readLocale('packages/vue-intlayer/useRewriteURL.md', 'id'),
     vi: readLocale('packages/vue-intlayer/useRewriteURL.md', 'vi'),
     uk: readLocale('packages/vue-intlayer/useRewriteURL.md', 'uk'),
+    'he-IL': readLocale('packages/vue-intlayer/useRewriteURL.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/per_locale_file.md': {
     en: readLocale('per_locale_file.md', 'en'),
@@ -4426,6 +4647,7 @@ export const docsEntry = {
     id: readLocale('per_locale_file.md', 'id'),
     vi: readLocale('per_locale_file.md', 'vi'),
     uk: readLocale('per_locale_file.md', 'uk'),
+    'he-IL': readLocale('per_locale_file.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/plugins/sync-json.md': {
     en: readLocale('plugins/sync-json.md', 'en'),
@@ -4446,6 +4668,7 @@ export const docsEntry = {
     id: readLocale('plugins/sync-json.md', 'id'),
     vi: readLocale('plugins/sync-json.md', 'vi'),
     uk: readLocale('plugins/sync-json.md', 'uk'),
+    'he-IL': readLocale('plugins/sync-json.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/plugins/sync-po.md': {
     en: readLocale('plugins/sync-po.md', 'en'),
@@ -4466,6 +4689,7 @@ export const docsEntry = {
     id: readLocale('plugins/sync-po.md', 'id'),
     vi: readLocale('plugins/sync-po.md', 'vi'),
     uk: readLocale('plugins/sync-po.md', 'uk'),
+    'he-IL': readLocale('plugins/sync-po.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/readme.md': {
     en: readLocale('readme.md', 'en'),
@@ -4486,6 +4710,7 @@ export const docsEntry = {
     id: readLocale('readme.md', 'id'),
     vi: readLocale('readme.md', 'vi'),
     uk: readLocale('readme.md', 'uk'),
+    'he-IL': readLocale('readme.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/releases/v6.md': {
     en: readLocale('releases/v6.md', 'en'),
@@ -4506,6 +4731,7 @@ export const docsEntry = {
     id: readLocale('releases/v6.md', 'id'),
     vi: readLocale('releases/v6.md', 'vi'),
     uk: readLocale('releases/v6.md', 'uk'),
+    'he-IL': readLocale('releases/v6.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/releases/v7.md': {
     en: readLocale('releases/v7.md', 'en'),
@@ -4526,6 +4752,7 @@ export const docsEntry = {
     id: readLocale('releases/v7.md', 'id'),
     vi: readLocale('releases/v7.md', 'vi'),
     uk: readLocale('releases/v7.md', 'uk'),
+    'he-IL': readLocale('releases/v7.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/releases/v8.md': {
     en: readLocale('releases/v8.md', 'en'),
@@ -4546,6 +4773,7 @@ export const docsEntry = {
     id: readLocale('releases/v8.md', 'id'),
     vi: readLocale('releases/v8.md', 'vi'),
     uk: readLocale('releases/v8.md', 'uk'),
+    'he-IL': readLocale('releases/v8.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/releases/v9.md': {
     en: readLocale('releases/v9.md', 'en'),
@@ -4566,6 +4794,7 @@ export const docsEntry = {
     id: readLocale('releases/v9.md', 'id'),
     vi: readLocale('releases/v9.md', 'vi'),
     uk: readLocale('releases/v9.md', 'uk'),
+    'he-IL': readLocale('releases/v9.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/self_hosting.md': {
     en: readLocale('self_hosting.md', 'en'),
@@ -4586,6 +4815,7 @@ export const docsEntry = {
     id: readLocale('self_hosting.md', 'id'),
     vi: readLocale('self_hosting.md', 'vi'),
     uk: readLocale('self_hosting.md', 'uk'),
+    'he-IL': readLocale('self_hosting.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/testing.md': {
     en: readLocale('testing.md', 'en'),
@@ -4606,6 +4836,7 @@ export const docsEntry = {
     id: readLocale('testing.md', 'id'),
     vi: readLocale('testing.md', 'vi'),
     uk: readLocale('testing.md', 'uk'),
+    'he-IL': readLocale('testing.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './docs/en/vs_code_extension.md': {
     en: readLocale('vs_code_extension.md', 'en'),
@@ -4626,5 +4857,6 @@ export const docsEntry = {
     id: readLocale('vs_code_extension.md', 'id'),
     vi: readLocale('vs_code_extension.md', 'vi'),
     uk: readLocale('vs_code_extension.md', 'uk'),
+    'he-IL': readLocale('vs_code_extension.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

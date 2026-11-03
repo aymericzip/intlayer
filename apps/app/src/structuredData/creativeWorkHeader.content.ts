@@ -16,6 +16,7 @@ export default {
       pt: 'Desenvolvedores, Gerentes de Conteúdo',
       hi: 'डेवलपर्स, सामग्री प्रबंधक',
       ar: 'المطورون ومديرو المحتوى',
+      'he-IL': 'מפתחים, מנהלי תוכן',
       ru: 'Разработчики, менеджеры контента',
       tr: 'Geliştiriciler, İçerik Yöneticileri',
       pl: 'Programiści, Menedżerowie treści',

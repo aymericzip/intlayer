@@ -18,6 +18,8 @@ const longPressMessageContent = {
         'en-GB':
           '{{longPress}} / {{modifierClick}} to edit the {{dictionaryKey}} dictionary',
         ar: '{{longPress}} / {{modifierClick}} لتعديل القاموس {{dictionaryKey}}',
+        'he-IL':
+          '{{longPress}} / {{modifierClick}} כדי לערוך את המילון {{dictionaryKey}}',
         hi: '{{dictionaryKey}} डिक्शनरी संपादित करने के लिए {{longPress}} / {{modifierClick}}',
       })
     ),
@@ -34,6 +36,7 @@ const longPressMessageContent = {
       zh: '长按',
       'en-GB': 'Long press',
       ar: 'ضغط مطوّل',
+      'he-IL': 'לחיצה ארוכה',
       hi: 'देर तक दबाएँ',
     }),
     modifierClick: insert(
@@ -50,6 +53,7 @@ const longPressMessageContent = {
         zh: '{{modifierKey}} + 点击',
         'en-GB': '{{modifierKey}} + click',
         ar: '{{modifierKey}} + نقرة',
+        'he-IL': '{{modifierKey}} + לחיצה',
         hi: '{{modifierKey}} + क्लिक',
       })
     ),

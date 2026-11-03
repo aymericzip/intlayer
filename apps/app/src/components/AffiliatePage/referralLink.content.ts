@@ -14,6 +14,7 @@ const referralLinkContent = {
       es: 'Tu enlace de referido',
       de: 'Ihr Empfehlungslink',
       ar: 'رابط الإحالة الخاص بك',
+      'he-IL': 'קישור ההפניה שלכם',
       it: 'Il tuo link di affiliazione',
       'en-GB': 'Your referral link',
       pt: 'Seu link de referência',
@@ -35,6 +36,8 @@ const referralLinkContent = {
       es: 'Comparte este enlace. Cuando alguien se suscribe a través de tu enlace, ganas una comisión.',
       de: 'Teilen Sie diesen Link. Wenn jemand über Ihren Link ein Abonnement abschließt, erhalten Sie eine Provision.',
       ar: 'شارك هذا الرابط. عندما يشترك شخص ما عبر رابطك، تكسب عمولة.',
+      'he-IL':
+        'שתפו את הקישור הזה. כשמישהו נרשם למנוי דרך הקישור שלכם, אתם מרוויחים עמלה.',
       it: 'Condividi questo link. Quando qualcuno si iscrive tramite il tuo link, guadagni una commissione.',
       'en-GB':
         'Share this link. When someone subscribes via your link, you earn a commission.',

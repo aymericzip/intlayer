@@ -5,6 +5,7 @@ const deleteOrganizationModalContent = {
   content: {
     title: t({
       ar: 'حذف المنظمة',
+      'he-IL': 'מחיקת ארגון',
       de: 'Organisation löschen',
       en: 'Delete Organization',
       'en-GB': 'Delete organization',
@@ -26,6 +27,7 @@ const deleteOrganizationModalContent = {
 
     description: t({
       ar: 'هل أنت متأكد من أنك تريد حذف هذا المنظمة؟',
+      'he-IL': 'האם אתם בטוחים שברצונכם למחוק את הארגון הזה?',
       de: 'Sind Sie sicher, dass Sie diese Organisation löschen möchten?',
       en: 'Are you sure you want to delete this Organization?',
       'en-GB': 'Are you sure you want to delete this organization?',
@@ -59,6 +61,7 @@ const deleteOrganizationModalContent = {
         pt: 'Excluir',
         hi: 'हटाएं',
         ar: 'حذف',
+        'he-IL': 'מחיקה',
         ru: 'Удалить',
         tr: 'Sil',
         pl: 'Usuń',
@@ -79,6 +82,7 @@ const deleteOrganizationModalContent = {
         pt: 'Clique para excluir a organização',
         hi: 'संगठन को हटाने के लिए क्लिक करें',
         ar: 'انقر لحذف المنظمة',
+        'he-IL': 'לחצו למחיקת הארגון',
         ru: 'Нажмите, чтобы удалить организацию',
         tr: 'Organizasyonu silmek için tıklayın',
         pl: 'Kliknij, aby usunąć organizację',
@@ -102,6 +106,7 @@ const deleteOrganizationModalContent = {
         pt: 'Cancelar',
         hi: 'रद्द करें',
         ar: 'إلغاء',
+        'he-IL': 'ביטול',
         ru: 'Отменить',
         tr: 'İptal etmek için tıklayın',
         pl: 'Anuluj',
@@ -122,6 +127,7 @@ const deleteOrganizationModalContent = {
         pt: 'Clique para cancelar',
         hi: 'रद्द करने के लिए क्लिक करें',
         ar: 'انقر لإلغاء',
+        'he-IL': 'לחצו לביטול',
         ru: 'Нажмите, чтобы отменить',
         tr: 'İptal etmek için tıklayın',
         pl: 'Kliknij, aby anulować',

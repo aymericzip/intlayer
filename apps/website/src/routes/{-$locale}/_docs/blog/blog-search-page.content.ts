@@ -5,6 +5,7 @@ const pageContent = {
   content: {
     title: t({
       ar: 'البحث في المدونة',
+      'he-IL': 'חיפוש בבלוג',
       de: 'Im Blog suchen',
       en: 'Search in blog',
       'en-GB': 'Search in blog',

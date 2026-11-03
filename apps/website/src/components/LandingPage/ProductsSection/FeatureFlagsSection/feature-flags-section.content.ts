@@ -15,6 +15,7 @@ const featureFlagsSectionContent = {
       pt: 'Feature Flags',
       ru: 'Флаги функций',
       ar: 'أعلام الميزات',
+      'he-IL': "דגלי פיצ'רים",
       hi: 'फ़ीचर फ्लैग्स',
       tr: 'Özellik Bayrakları',
       pl: 'Flagi funkcji',
@@ -35,6 +36,7 @@ const featureFlagsSectionContent = {
       pt: 'Alterne recursos instantaneamente. Sem deploy.',
       ru: 'Переключайте функции мгновенно. Деплой не требуется.',
       ar: 'تبديل الميزات فورا. لا يتطلب نشر.',
+      'he-IL': "הפעילו וכבו פיצ'רים באופן מיידי. ללא צורך בפריסה.",
       hi: 'सुविधाओं को तुरंत टॉगल करें। कोई परिनियोजन आवश्यक नहीं है।',
       tr: 'Özellikleri anında değiştirin. Dağıtım gerekmez.',
       pl: 'Przełączaj funkcje natychmiast. Bez wdrażania.',
@@ -46,6 +48,8 @@ const featureFlagsSectionContent = {
     description: md(
       t({
         ar: 'قواميس Intlayer هي أكثر من مجرد نصوص. استخدمها لتعريف المنطق والأنماط والتكوينات. مع **Live Sync**، يمكنك تشغيل الميزات أو إيقافها، وتغيير سمات واجهة المستخدم، وتحديث سلوك التطبيق في الوقت الفعلي مباشرة من CMS.',
+        'he-IL':
+          "המילונים של Intlayer הם יותר מסתם טקסט. השתמשו בהם כדי להצהיר על לוגיקה, סגנונות ואובייקטי תצורה. עם **סנכרון חי**, תוכלו להפעיל ולכבות פיצ'רים, לשנות ערכות נושא של הממשק ולעדכן את התנהגות האפליקציה בזמן אמת ישירות מה-CMS.",
         de: 'Intlayer-Wörterbücher sind mehr als nur Text. Nutzen Sie sie für Logik, Stile und Konfigurationen. Mit **Live Sync** schalten Sie Funktionen an/aus, ändern UI-Themes und aktualisieren das App-Verhalten in Echtzeit direkt über das CMS.',
         en: 'Intlayer dictionaries are more than just text. Use them to declare logic, styles, and configuration objects. With **Live Sync**, you can toggle features on or off, change UI themes, and update app behavior in real-time directly from the CMS.',
         'en-GB':
@@ -79,6 +83,7 @@ const featureFlagsSectionContent = {
         pt: 'Ler docs',
         ru: 'Читать док',
         ar: 'اقرأ الوثائق',
+        'he-IL': 'קראו את התיעוד',
         hi: 'दस्तावेज़ पढ़ें',
         tr: 'Belgeleri Oku',
         pl: 'Czytaj dok',
@@ -99,6 +104,7 @@ const featureFlagsSectionContent = {
         pt: 'Testar recursos',
         ru: 'Пробовать функции',
         ar: 'جرب الميزات',
+        'he-IL': "נסו את הפיצ'רים",
         hi: 'सुविधाएँ आज़माएं',
         tr: 'Özellikleri Dene',
         pl: 'Wypróbuj funkcje',

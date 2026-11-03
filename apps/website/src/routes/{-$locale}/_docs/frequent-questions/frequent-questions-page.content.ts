@@ -5,6 +5,7 @@ const frequentQuestionsPageContent = {
   content: {
     title: t({
       ar: 'الأسئلة الشائعة حول Intlayer | حلول i18n و CMS',
+      'he-IL': 'שאלות נפוצות | Intlayer',
       de: 'Häufige Fragen zu Intlayer | i18n & CMS',
       en: 'Frequently Asked Questions | Intlayer',
       'en-GB': 'Frequently Asked Questions | Intlayer',
@@ -25,6 +26,7 @@ const frequentQuestionsPageContent = {
     }),
     h1: t({
       ar: 'الأسئلة الشائعة',
+      'he-IL': 'שאלות נפוצות',
       de: 'Häufig gestellte Fragen',
       en: 'Frequently Asked Questions',
       'en-GB': 'Frequently Asked Questions',
@@ -46,6 +48,8 @@ const frequentQuestionsPageContent = {
 
     description: t({
       ar: 'اكتشف الإجابات على أكثر الأسئلة الشائعة حول Intlayer، بما في ذلك التدويل (i18n)، إدارة المحتوى، ودعم التقنيات المتقدمة. تعرف على كيفية تحسين مشاريعك باستخدام Intlayer.',
+      'he-IL':
+        'מצאו תשובות לשאלות נפוצות על Intlayer, כולל בינאום (i18n), ניהול תוכן ושילוב טכני. גלו כיצד Intlayer יכולה לעזור לפרויקטים שלכם.',
       de: 'Finden Sie Antworten auf häufig gestellte Fragen rund um Intlayer, einschließlich i18n, Content Management und moderne Technologien. Optimieren Sie Ihre Projekte mit Intlayer.',
       en: 'Find answers to frequent questions about Intlayer, including internationalization (i18n), content management, and technical integration. Learn how Intlayer can help your projects.',
       'en-GB':
@@ -74,6 +78,18 @@ const frequentQuestionsPageContent = {
         'توثيق',
         'i18n',
         'إدارة المحتوى',
+        'Next.js',
+        'React',
+        'Vue',
+        'CMS',
+      ],
+      'he-IL': [
+        'שאלות נפוצות',
+        'faq',
+        'תמיכה',
+        'תיעוד',
+        'i18n',
+        'ניהול תוכן',
         'Next.js',
         'React',
         'Vue',
@@ -297,6 +313,7 @@ const frequentQuestionsPageContent = {
         pt: 'Perguntas Frequentes | Intlayer',
         hi: 'अक्सर पूछे जाने वाले प्रश्न | Intlayer',
         ar: 'الأسئلة الشائعة | Intlayer',
+        'he-IL': 'שאלות נפוצות | Intlayer',
         ru: 'Часто задаваемые вопросы | Intlayer',
         tr: 'Sıkça Sorulan Sorular | Intlayer',
         pl: 'Najczęściej zadawane pytania | Intlayer',

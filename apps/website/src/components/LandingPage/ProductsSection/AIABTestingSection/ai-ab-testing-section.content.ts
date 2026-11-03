@@ -5,6 +5,7 @@ const aiAbTestingSectionContent = {
   content: {
     betaTag: t({
       ar: 'اختبار AB',
+      'he-IL': 'בדיקות AB',
       de: 'AB-Testing',
       en: 'AB testing',
       'en-GB': 'AB testing',
@@ -25,6 +26,7 @@ const aiAbTestingSectionContent = {
     }),
     title: t({
       ar: 'ملعبك لتجارب المنتجات.',
+      'he-IL': 'מגרש המשחקים שלכם לניסויי מוצר.',
       de: 'Ihr Spielplatz für Produktexperimente.',
       en: 'Your Playground for Product Experiments.',
       'en-GB': 'Your Playground for Product Experiments.',
@@ -46,6 +48,8 @@ const aiAbTestingSectionContent = {
     description: md(
       t({
         ar: 'كن أول من يستكشف نسخة تجريبية جديدة من **A/B Testing** المدعوم بالذكاء الاصطناعي من Intlayer، والمصممة لتعزيز قابلية الاكتشاف وتوجيه قرارات المنتج الأكثر ذكاءً. اختبر أي شيء في الوقت الفعلي، من النسخ والتصميم إلى الميزات الكاملة، ودع البيانات تظهر لك ما يعمل حقًا.',
+        'he-IL':
+          "היו הראשונים לגלות את הבטא החדשה של **בדיקות A/B מבוססות AI** של Intlayer, שנבנתה כדי לשפר את יכולת הגילוי ולהנחות החלטות מוצר חכמות יותר. בדקו כל דבר בזמן אמת, מטקסטים ועיצוב ועד פיצ'רים שלמים, ותנו לנתונים להראות לכם מה באמת עובד.",
         de: 'Seien Sie die Ersten, die Intlayers neue KI-gestützte A/B-Testing-Beta erkunden, die entwickelt wurde, um die Auffindbarkeit zu steigern und intelligentere Produktentscheidungen zu leiten. Testen Sie alles in Echtzeit, von Texten und Design bis hin zu ganzen Features, und lassen Sie die Daten zeigen, was wirklich funktioniert.',
         en: "Be the first to explore Intlayer's new **AI-driven A/B Testing** beta, built to boost discoverability and guide smarter product decisions. Test anything in real time, from copy and design to entire features, and let the data show you what truly works.",
         'en-GB':
@@ -81,6 +85,8 @@ const aiAbTestingSectionContent = {
         pt: 'Saiba mais sobre o recurso de A/B Testing com IA (abre em nova aba)',
         hi: '*AI A/B टेस्टिंग फीचर के बारे में और जानें (नए टैब में खुलता है)',
         ar: 'تعرف على المزيد حول ميزة اختبار A/B بالذكاء الاصطناعي (يفتح في علامة تبويب جديدة)',
+        'he-IL':
+          "למידע נוסף על *פיצ'ר בדיקות ה-A/B מבוסס ה-AI (נפתח בכרטיסייה חדשה)",
         ru: 'Узнайте больше о функции *AI A/B Testing (открывается в новой вкладке)',
         tr: '*Yapay Zeka A/B Testi özelliği hakkında daha fazla bilgi edinin (yeni sekmede açılır)',
         pl: 'Dowiedz się więcej o funkcji *AI A/B Testing (otworzy się w nowej karcie)',
@@ -101,6 +107,7 @@ const aiAbTestingSectionContent = {
         pt: 'Ver teste A/B',
         hi: 'A/B टेस्ट देखें',
         ar: 'شاهد اختبار A/B',
+        'he-IL': 'צפייה בבדיקת A/B',
         ru: 'Смотреть A/B тест',
         tr: 'A/B Testi gör',
         pl: 'Zobacz test A/B',

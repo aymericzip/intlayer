@@ -16,6 +16,7 @@ const metadataContent = {
       pt: 'Playground: experimente o editor visual do Intlayer | Intlayer',
       hi: 'प्लेग्राउंड: Intlayer विज़ुअल एडिटर आज़माएँ | Intlayer',
       ar: 'ساحة التجربة: جرّب محرر Intlayer المرئي | Intlayer',
+      'he-IL': 'Playground: בדקו את העורך הוויזואלי של Intlayer | Intlayer',
       ru: 'Playground: попробуйте визуальный редактор Intlayer | Intlayer',
       tr: 'Playground: Intlayer görsel editörünü deneyin | Intlayer',
       pl: 'Środowisko testowe: wypróbuj wizualny edytor Intlayer | Intlayer',
@@ -37,6 +38,8 @@ const metadataContent = {
       pt: 'Teste o editor visual do Intlayer interagindo com o site.',
       hi: 'वेबसाइट के साथ इन्टलैयार व्हिडिओ एडिटर का अनुकूलता को प्रयोग करके जाँच करें।',
       ar: 'اختبار محرر الفيديو لـ Intlayer عن طريق التفاعل مع الموقع.',
+      'he-IL':
+        'בדקו את העורך הוויזואלי של Intlayer באמצעות אינטראקציה עם האתר.',
       ru: 'Тестируйте визуальный редактор Intlayer, взаимодействуя с веб-сайтом.',
       tr: 'Web sitesiyle etkileşimde bulunarak Intlayer görsel düzenleyicisini test edin.',
       pl: 'Przetestuj wizualny edytor Intlayer, wchodząc w interakcję z witryną.',
@@ -105,6 +108,7 @@ const metadataContent = {
       ],
       hi: ['CMS', 'सामग्री प्रबंधन प्रणाली', 'विज़ुअल एडिटर', 'एडिटर', 'डैशबोर्ड'],
       ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
+      'he-IL': ['CMS', 'מערכת ניהול תוכן', 'עורך ויזואלי', 'עורך', 'לוח בקרה'],
       ru: [
         'CMS',
         'Система управления контентом',

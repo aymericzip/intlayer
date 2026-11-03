@@ -29,6 +29,7 @@ export const locales: Locale[] = isChina
       Locales.INDONESIAN,
       Locales.VIETNAMESE,
       Locales.UKRAINIAN,
+      Locales.HEBREW_ISRAEL,
     ];
 
 export const defaultLocale = isChina ? Locales.CHINESE : Locales.ENGLISH;

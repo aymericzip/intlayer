@@ -6,6 +6,7 @@ const productHuntContent = {
     title: 'Email Registration Toast',
     content: t({
       ar: 'تلقي إشعارات حول الإصدارات القادمة من Intlayer',
+      'he-IL': 'קבלו התראות על גרסאות קרובות של Intlayer',
       de: 'Erhalten Sie Benachrichtigungen über kommende Intlayer-Veröffentlichungen',
       en: 'Receive notifications about upcoming Intlayer releases',
       'en-GB': 'Receive notifications about upcoming Intlayer releases',
@@ -26,6 +27,7 @@ const productHuntContent = {
     }),
     closeLabel: t({
       ar: 'إغلاق',
+      'he-IL': 'סגירה',
       de: 'Schließen',
       en: 'Close',
       'en-GB': 'Close',
@@ -46,6 +48,7 @@ const productHuntContent = {
     }),
     registerLabel: t({
       ar: 'أبقني على اطلاع',
+      'he-IL': 'עדכנו אותי',
       de: 'Halte mich auf dem Laufenden',
       en: 'Keep me updated',
       'en-GB': 'Keep me updated',
@@ -78,6 +81,7 @@ const productHuntContent = {
         pt: 'Digite o endereço de e-mail',
         hi: 'ईमेल पता दर्ज करें',
         ar: 'أدخل عنوان البريد الإلكتروني',
+        'he-IL': 'הזינו כתובת אימייל',
         ru: 'Введите адрес электронной почты',
         tr: 'E-posta adresinizi girin',
         pl: 'Wprowadź adres e-mail',
@@ -88,6 +92,7 @@ const productHuntContent = {
     },
     requiredErrorEmail: t({
       ar: 'يرجى إدخال اسم المستخدم الخاص بك',
+      'he-IL': 'אנא הזינו את שם המשתמש שלכם',
       de: 'Bitte geben Sie Ihren Benutzernamen ein',
       en: 'Please enter your username',
       'en-GB': 'Please enter your username',
@@ -109,6 +114,7 @@ const productHuntContent = {
 
     invalidTypeErrorEmail: t({
       ar: 'يرجى إدخال اسم مستخدم صالح',
+      'he-IL': 'אנא הזינו שם משתמש תקין',
       de: 'Bitte geben Sie einen gültigen Benutzernamen ein',
       en: 'Please enter a valid username',
       'en-GB': 'Please enter a valid username',

@@ -5,6 +5,7 @@ const metadataContent = {
   content: {
     title: t({
       ar: 'طرح سؤالك لدردشة الوثائق الخاصة بنا AI',
+      'he-IL': 'שאלו את התיעוד החכם שלנו המופעל על ידי AI',
       de: 'Stellen Sie Ihre Frage zu unserer intelligenten Dokumentation',
       en: 'Ask your question to our AI-Powered Smart Documentation',
       'en-GB': 'Ask your question to our AI-Powered Smart Documentation',

@@ -17,6 +17,8 @@ export default {
       pt: 'Intlayer CMS é um sistema de gerenciamento de conteúdo focado em conteúdo multilíngue por padrão. Conectando-se à sua base de código, oferece um editor visual e um sistema de gerenciamento de traduções.',
       hi: 'Intlayer CMS एक सामग्री प्रबंधन प्रणाली है जो डिफ़ॉल्ट रूप से बहुभाषी सामग्री पर केंद्रित है। आपके कोडबेस से जुड़कर, यह एक विज़ुअल एडिटर और अनुवाद प्रबंधन प्रणाली प्रदान करता है।',
       ar: 'Intlayer CMS هو نظام إدارة محتوى يركز على المحتوى متعدد اللغات افتراضيًا. من خلال الاتصال بقاعدة التعليمات البرمجية الخاصة بك، فإنه يوفر محررًا مرئيًا ونظام إدارة الترجمة.',
+      'he-IL':
+        'Intlayer CMS היא מערכת ניהול תוכן המתמקדת כברירת מחדל בתוכן רב-לשוני. היא מתחברת לבסיס הקוד שלכם ומציעה עורך ויזואלי ומערכת לניהול תרגומים.',
       ru: 'Intlayer CMS — это система управления контентом, по умолчанию ориентированная на многоязычный контент. Подключаясь к вашей кодовой базе, она предлагает визуальный редактор и систему управления переводами.',
       tr: 'Intlayer CMS, varsayılan olarak çok dilli içeriğe odaklanan bir içerik yönetim sistemidir. Kod tabanınıza bağlanarak görsel bir düzenleyici ve çeviri yönetim sistemi sunar.',
       pl: 'Intlayer CMS to system zarządzania treścią, który domyślnie skupia się na treściach wielojęzycznych. Łącząc się z Twoją bazą kodu, oferuje edytor wizualny i system zarządzania tłumaczeniami.',

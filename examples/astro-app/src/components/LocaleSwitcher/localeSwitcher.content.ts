@@ -16,6 +16,7 @@ const localeSwitcherContent = {
       pt: 'Mudar idioma',
       hi: 'भाषा स्विचर',
       ar: 'مبدل اللغة',
+      'he-IL': 'החלפת שפה',
       ru: 'Переключатель языка',
     }),
   },

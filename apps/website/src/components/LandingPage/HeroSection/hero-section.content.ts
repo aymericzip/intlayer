@@ -5,6 +5,7 @@ const heroSectionContent = {
   content: {
     whatsNewLabel: t({
       ar: 'اذهب إلى صفحة التحديثات',
+      'he-IL': 'מעבר לדף העדכונים',
       de: 'Zur Seite der Updates gehen',
       en: 'Go to the updates page',
       'en-GB': 'Go to the updates page',
@@ -26,6 +27,7 @@ const heroSectionContent = {
     version: insert(
       t({
         ar: 'تم إطلاق v{{version}} للتو {{icon}}',
+        'he-IL': 'זה עתה שוחררה v{{version}} {{icon}}',
         de: 'Gerade veröffentlicht: v{{version}} {{icon}}',
         en: 'Just shipped v{{version}} {{icon}}',
         'en-GB': 'Just shipped v{{version}} {{icon}}',
@@ -64,6 +66,7 @@ const heroSectionContent = {
       id: 'Internasionalisasi Layer',
       vi: 'Internationalization Layer',
       ar: 'i18n ذكي',
+      'he-IL': 'שכבת בינאום',
       uk: 'Інтелектуальна i18n',
     }),
     /**
@@ -166,9 +169,18 @@ const heroSectionContent = {
       zh: [],
       hi: [],
       ar: [],
+      'he-IL': [
+        'בינאום',
+        'אינטליגנטית',
+        'שילוב',
+        'אינטואיטיבית',
+        'בעלת יכולת פעולה הדדית',
+        'אינטראקטיבית',
+      ],
     }),
     subheading: t({
       ar: 'آمن الأنواع. ترجم بالذكاء الاصطناعي. حرر بصريًا.',
+      'he-IL': 'בטוחה בטיפוסים. תרגום עם AI. עריכה ויזואלית.',
       de: 'Type-Safe. Mit KI übersetzen. Visuell bearbeiten.',
       en: 'Type-Safe. Translate with AI. Edit Visually.',
       'en-GB': 'Type-Safe. Translate with AI. Edit Visually.',
@@ -206,11 +218,14 @@ const heroSectionContent = {
       id: 'Definisikan terjemahan di mana saja dalam codebase Anda dan percepat pengembangan Anda. Jaga bundle Anda tetap ringan sebagaimana mestinya.',
       vi: 'Định nghĩa bản dịch ở bất kỳ đâu bạn muốn trong codebase và tăng tốc phát triển của bạn. Giữ bundle nhẹ như vốn có.',
       ar: 'عرِّف الترجمات أينما تشاء في قاعدة الشيفرة الخاصة بك وسرِّع تطويرك. حافظ على كون الحزمة خفيفة كما ينبغي.',
+      'he-IL':
+        'הגדירו תרגומים בכל מקום שתרצו בבסיס הקוד שלכם והאיצו את הפיתוח. שמרו על ה-bundle שלכם קל כפי שהוא צריך להיות.',
       uk: 'Визначайте переклади будь-де у вашій кодовій базі та прискорюйте розробку. Залишайте свій пакет таким легким, яким він має бути.',
     }),
 
     availableFor: t({
       ar: 'متاح ل',
+      'he-IL': 'זמין עבור',
       de: 'Verfügbar für',
       en: 'Available for',
       'en-GB': 'Available for',
@@ -231,6 +246,7 @@ const heroSectionContent = {
     }),
     supportButton: t({
       ar: 'دعم المشروع',
+      'he-IL': 'תמכו בפרויקט',
       de: 'Das Projekt unterstützen',
       en: 'Support the project',
       'en-GB': 'Support the project',
@@ -251,6 +267,7 @@ const heroSectionContent = {
     }),
     getStartedButton: t({
       ar: 'البدء',
+      'he-IL': 'מתחילים',
       de: 'Loslegen',
       en: 'Get started',
       'en-GB': 'Get started',
@@ -283,6 +300,7 @@ const heroSectionContent = {
       pt: 'Copiar',
       hi: 'कॉपी करें',
       ar: 'نسخ',
+      'he-IL': 'העתקה',
       ru: 'Копировать',
       tr: 'Kopyala',
       pl: 'Kopiuj',

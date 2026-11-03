@@ -17,6 +17,7 @@ const dictionaryListDrawerContent = {
         ko: '사전 목록',
         zh: '字典列表',
         ar: 'قائمة القواميس',
+        'he-IL': 'רשימת מילונים',
         hi: 'शब्दकोश सूची',
         tr: 'Sözlük listesi',
         pl: 'Lista słowników',
@@ -29,6 +30,7 @@ const dictionaryListDrawerContent = {
       label: insert(
         t({
           ar: 'فتح محرر القاموس {{dictionaryLocalId}}',
+          'he-IL': 'פתיחת עורך המילון {{dictionaryLocalId}}',
           de: 'Wörterbuch-Editor öffnen {{dictionaryLocalId}}',
           en: 'Open dictionary editor {{dictionaryLocalId}}',
           'en-GB': 'Open dictionary editor {{dictionaryLocalId}}',

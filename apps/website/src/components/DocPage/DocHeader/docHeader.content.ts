@@ -5,6 +5,7 @@ const docHeaderContent = {
   content: {
     authorLabel: t({
       ar: 'المؤلف',
+      'he-IL': 'מחבר',
       de: 'Autor',
       en: 'Author',
       'en-GB': 'Author',
@@ -25,6 +26,7 @@ const docHeaderContent = {
     }),
     creationLabel: t({
       ar: 'إنشاء',
+      'he-IL': 'נוצר',
       de: 'Erstellung',
       en: 'Creation',
       'en-GB': 'Creation',
@@ -45,6 +47,7 @@ const docHeaderContent = {
     }),
     lastUpdateLabel: t({
       ar: 'آخر تحديث',
+      'he-IL': 'עדכון אחרון',
       de: 'Letzte Aktualisierung',
       en: 'Last update',
       'en-GB': 'Last update',
@@ -66,6 +69,7 @@ const docHeaderContent = {
     authorAvatarAlt: insert(
       t({
         ar: 'الصورة الشخصية لـ {{author}}',
+        'he-IL': 'תמונת הפרופיל של {{author}}',
         de: 'Avatar von {{author}}',
         en: "{{author}}'s avatar",
         'en-GB': "{{author}}'s avatar",
@@ -88,6 +92,7 @@ const docHeaderContent = {
     authorGithubLabel: insert(
       t({
         ar: 'صفحة github الخاصة بـ {{author}}',
+        'he-IL': 'דף ה-GitHub של {{author}}',
         de: 'GitHub-Seite von {{author}}',
         en: "{{author}}'s github page",
         'en-GB': "{{author}}'s github page",

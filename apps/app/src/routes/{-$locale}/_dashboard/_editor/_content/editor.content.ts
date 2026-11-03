@@ -6,6 +6,7 @@ const editorDashboardContent = {
     metadata: {
       title: t({
         ar: 'محرر | لوحة القيادة | Intlayer',
+        'he-IL': 'עורך | לוח בקרה | Intlayer',
         de: 'Editor | Dashboard | Intlayer',
         en: 'Editor | Dashboard | Intlayer',
         'en-GB': 'Editor | Dashboard | Intlayer',
@@ -26,6 +27,7 @@ const editorDashboardContent = {
       }),
       description: t({
         ar: 'إدارة محتوى موقعك باستخدام محرر الفيديو لـ Intlayer.',
+        'he-IL': 'נהלו את תוכן האתר שלכם באמצעות העורך הוויזואלי של Intlayer.',
         de: 'Verwalten Sie Ihre Website-Inhalte mit dem Intlayer-visuellen Editor.',
         en: 'Manage your website content using the Intlayer visual editor.',
         'en-GB':
@@ -52,6 +54,13 @@ const editorDashboardContent = {
           'محرر الفيديو',
           'محرر',
           'لوحة القيادة',
+        ],
+        'he-IL': [
+          'CMS',
+          'מערכת ניהול תוכן',
+          'עורך ויזואלי',
+          'עורך',
+          'לוח בקרה',
         ],
         de: [
           'CMS',

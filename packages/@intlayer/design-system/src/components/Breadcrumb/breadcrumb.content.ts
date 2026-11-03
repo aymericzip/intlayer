@@ -16,6 +16,7 @@ export const breadCrumbContent = {
       pt: 'Ir para',
       hi: 'कर जाएं',
       ar: 'اذهب إلى',
+      'he-IL': 'מעבר אל',
       ru: 'Перейти на',
       tr: 'Git',
       pl: 'Przejdź do',

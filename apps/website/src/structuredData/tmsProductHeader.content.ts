@@ -17,6 +17,8 @@ export default {
       pt: 'Intlayer TMS é um sistema de tradução com IA que une devs, não-devs e IA. Traduz em segundo plano e sincroniza com Git.',
       hi: 'Intlayer TMS एक AI-अनुवाद प्रणाली है जो डेवलपर्स, गैर-डेवलपर्स और AI को जोड़ती है। यह बैकग्राउंड में अनुवाद और Git सिंक करती है।',
       ar: 'Intlayer TMS هو نظام ترجمة بالذكاء الاصطناعي يجمع المطورين وغيرهم والذكاء الاصطناعي. يترجم في الخلفية ويتزامن مع Git.',
+      'he-IL':
+        'Intlayer TMS היא מערכת תרגום מבוססת AI המאחדת מפתחים, ללא-מפתחים ו-AI. היא מתרגמת ברקע ונשארת מסונכרנת לחלוטין עם Git.',
       ru: 'Intlayer TMS — система перевода с ИИ, объединяющая девов, не-девов и ИИ. Переводит в фоне и синхронизируется с Git.',
       tr: 'Intlayer TMS; geliştirici, geliştirici olmayanlar ve yapay zekayı birleştiren bir çeviri sistemidir. Arka planda çevirir ve Git ile senkronize olur.',
       pl: 'Intlayer TMS to system tłumaczeń AI łączący devów, osoby nietechniczne i AI. Tłumaczy w tle i synchronizuje się z Git.',

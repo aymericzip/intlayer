@@ -22,6 +22,7 @@ const cachedResultNoticeContent = {
         id: 'Hasil dari {{time}}, disajikan dari cache.',
         vi: 'Kết quả từ {{time}}, lấy từ bộ nhớ đệm.',
         ar: 'نتيجة من {{time}}، مقدّمة من الذاكرة المؤقتة.',
+        'he-IL': 'תוצאה מ-{{time}}, מוגשת מהמטמון.',
         uk: 'Результат від {{time}}, завантажений із кешу.',
       })
     ),
@@ -44,6 +45,8 @@ const cachedResultNoticeContent = {
       id: 'Hasil pemindaian disimpan selama satu jam. Jalankan ulang untuk mengaudit halaman lagi.',
       vi: 'Kết quả quét được lưu trong một giờ. Chạy lại để kiểm tra lại trang.',
       ar: 'تُحفَظ نتائج الفحص لمدة ساعة. أعد التشغيل لتدقيق الصفحة من جديد.',
+      'he-IL':
+        'תוצאות הסריקה נשמרות למשך שעה. הריצו שוב כדי לבדוק את הדף מחדש.',
       uk: 'Результати зберігаються одну годину. Перезапустіть, щоб перевірити сторінку знову.',
     }),
     rerun: t({
@@ -64,6 +67,7 @@ const cachedResultNoticeContent = {
       id: 'Jalankan ulang',
       vi: 'Chạy lại',
       ar: 'إعادة التشغيل',
+      'he-IL': 'הרצה חוזרת',
       uk: 'Перезапустити',
     }),
   },

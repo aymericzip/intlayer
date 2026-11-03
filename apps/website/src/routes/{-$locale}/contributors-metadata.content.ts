@@ -5,6 +5,7 @@ const metadataContent = {
   content: {
     title: t({
       ar: 'المساهمون | Intlayer',
+      'he-IL': 'תורמים | Intlayer',
       de: 'Mitwirkende | Intlayer',
       en: 'Contributors | Intlayer',
       'en-GB': 'Contributors | Intlayer',
@@ -25,6 +26,8 @@ const metadataContent = {
     }),
     description: t({
       ar: 'تعرف على الأشخاص المذهلين الذين يساهمون في Intlayer. شاهد جميع المساهمين الذين يساعدون في بناء هذا المشروع مفتوح المصدر.',
+      'he-IL':
+        'הכירו את האנשים המדהימים שתורמים ל-Intlayer. צפו בכל התורמים שעוזרים לבנות את פרויקט הקוד הפתוח הזה.',
       de: 'Lernen Sie die großartigen Menschen kennen, die zu Intlayer beitragen. Sehen Sie alle Mitwirkenden, die beim Aufbau dieses Open-Source-Projekts helfen.',
       en: 'Meet the amazing people contributing to Intlayer. See all the contributors helping to build this open-source project.',
       'en-GB':
@@ -51,6 +54,16 @@ const metadataContent = {
         'مفتوح المصدر',
         'المطورون',
         'المجتمع',
+        'GitHub',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      'he-IL': [
+        'תורמים',
+        'קוד פתוח',
+        'מפתחים',
+        'קהילה',
         'GitHub',
         'Intlayer',
         'React',

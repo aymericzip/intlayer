@@ -24,6 +24,8 @@ const demoCodeSandboxContent = {
         vi: 'Demo Code Sandbox - Cách quốc tế hóa ứng dụng {{framework}} của bạn bằng Intlayer',
         uk: 'Демо-пісочниця - Як інтернаціоналізувати ваш додаток {{framework}} за допомогою Intlayer',
         ar: 'عرض صندوق رمل الكود - كيفية تدويل تطبيق {{framework}} الخاص بك باستخدام Intlayer',
+        'he-IL':
+          'הדגמה ב-Code Sandbox - כיצד לבצע בינאום לאפליקציית ה-{{framework}} שלכם באמצעות Intlayer',
       })
     ),
   },

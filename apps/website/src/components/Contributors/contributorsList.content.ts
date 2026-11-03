@@ -18,6 +18,7 @@ const contributorsListContent = {
       hi: 'योगदान',
       tr: 'katkılar',
       ar: 'مساهمات',
+      'he-IL': 'תרומות',
       'en-GB': 'contributions',
       pl: 'wkłady',
       id: 'kontribusi',

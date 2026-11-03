@@ -15,6 +15,7 @@ const i18nCodebaseSectionContent = {
       pt: 'i18n baseado em código',
       ru: 'i18n на основе кода',
       ar: 'i18n القائم على الكود',
+      'he-IL': 'i18n מבוסס קוד',
       hi: 'कोड-आधारित i18n',
       tr: 'Kod tabanlı i18n',
       pl: 'i18n oparte na kodzie',
@@ -35,6 +36,7 @@ const i18nCodebaseSectionContent = {
       pt: 'Traduções com segurança de tipo que vivem no seu repositório.',
       ru: 'Типобезопасные переводы, живущие в вашем репозитории.',
       ar: 'ترجمات آمنة النوع تعيش في مستودعك.',
+      'he-IL': 'תרגומים בטוחים בטיפוסים שחיים במאגר שלכם.',
       hi: 'टाइप-सुरक्षित अनुवाद जो आपके रिपो में रहते हैं।',
       tr: 'Deponuzda yaşayan tip güvenli çeviriler.',
       pl: 'Bezpieczne typowo tłumaczenia w Twoim repozytorium.',
@@ -46,6 +48,8 @@ const i18nCodebaseSectionContent = {
     description: md(
       t({
         ar: 'أعلن عن المحتوى بجانب مكوناتك في TypeScript أو JavaScript. يقوم Intlayer بإنشاء الأنواع تلقائيًا، مما يمنحك **الإكمال التلقائي** والتحقق والملاحظات الفورية. لا مزيد من المفاتيح المفقودة أو تبديل السياق.',
+        'he-IL':
+          'הצהירו על תוכן לצד הקומפוננטות שלכם ב-TypeScript או ב-JavaScript. Intlayer יוצרת טיפוסים אוטומטית ומעניקה לכם **השלמה אוטומטית**, אימות ומשוב מיידי. לא עוד מפתחות חסרים, החלפות הקשר או מימושים שבורים.',
         de: 'Deklarieren Sie Inhalte neben Ihren Komponenten in TypeScript oder JavaScript. Intlayer generiert Typen automatisch und bietet **Autovervollständigung**, Validierung und sofortiges Feedback. Keine fehlenden Schlüssel oder Kontextwechsel mehr.',
         en: 'Declare content alongside your components in TypeScript or JavaScript. Intlayer generates types automatically, giving you **autocompletion**, validation, and instant feedback. No more missing keys, context switching, or broken implementations.',
         'en-GB':
@@ -79,6 +83,7 @@ const i18nCodebaseSectionContent = {
         pt: 'Ler documentação',
         ru: 'Читать документацию',
         ar: 'قراءة الوثائق',
+        'he-IL': 'קראו את התיעוד',
         hi: 'दस्तावेज़ पढ़ें',
         tr: 'Belgeleri Oku',
         pl: 'Czytaj dokumentację',
@@ -99,6 +104,7 @@ const i18nCodebaseSectionContent = {
         pt: 'Começar a codar',
         ru: 'Начать кодить',
         ar: 'ابدأ البرمجة',
+        'he-IL': 'התחילו לכתוב קוד',
         hi: 'कोडिंग शुरू करें',
         tr: 'Kodlamaya Başla',
         pl: 'Zacznij kodować',
