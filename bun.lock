@@ -1013,7 +1013,7 @@
         "next": "16.3.6",
         "next-intlayer": "workspace:*",
         "react": "19.3.1",
-        "react-dom": "19.3.0",
+        "react-dom": "19.3.1",
       },
       "devDependencies": {
         "@intlayer/ai": "workspace:*",
@@ -1250,7 +1250,7 @@
         "next": "15.5.15",
         "next-intl": "4.9.0",
         "react": "19.3.1",
-        "react-dom": "19.3.0",
+        "react-dom": "19.3.1",
       },
       "devDependencies": {
         "@intlayer/sync-json-plugin": "workspace:*",
@@ -1270,7 +1270,7 @@
         "next": "16.3.6",
         "next-intlayer": "workspace:*",
         "react": "19.3.1",
-        "react-dom": "19.3.0",
+        "react-dom": "19.3.1",
       },
       "devDependencies": {
         "@intlayer/swc": "workspace:*",
@@ -1315,7 +1315,7 @@
         "next": "15.5.27",
         "next-intlayer": "workspace:*",
         "react": "19.3.1",
-        "react-dom": "19.3.0",
+        "react-dom": "19.3.1",
       },
       "devDependencies": {
         "@next/bundle-analyzer": "15.5.27",
@@ -1338,7 +1338,7 @@
         "next": "16.3.8",
         "next-intlayer": "workspace:*",
         "react": "19.3.1",
-        "react-dom": "19.3.0",
+        "react-dom": "19.3.1",
       },
       "devDependencies": {
         "@next/bundle-analyzer": "16.3.8",
@@ -3194,7 +3194,7 @@
     "bson": "7.2.0",
     "preact": "11.1.1",
     "react": "19.3.1",
-    "react-dom": "19.3.0",
+    "react-dom": "19.3.1",
   },
   "packages": {
     "2g": ["2g@1.0.1", "", { "peerDependencies": { "typescript": ">=5.8.0" }, "optionalPeers": ["typescript"], "bin": { "2g": "bin/cli.js" } }, "sha512-+uViadKOS/wwR4pFu5g8TPn3QHpKqoX19JHCnp8k/3cLpImdcXozwvZA6Q/5PeW3AcU8neL8faaMidBcv7o8CA=="],
@@ -9597,7 +9597,7 @@
 
     "react-docgen-typescript": ["react-docgen-typescript@2.4.0", "", { "peerDependencies": { "typescript": ">= 4.3.x" } }, "sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg=="],
 
-    "react-dom": ["react-dom@19.3.0", "", { "dependencies": { "scheduler": "^0.28.0" }, "peerDependencies": { "react": "^19.3.0" } }, "sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q=="],
+    "react-dom": ["react-dom@19.3.1", "", { "dependencies": { "scheduler": "^0.28.0" }, "peerDependencies": { "react": "^19.3.1" } }, "sha512-Y0bARz53lhEC1NMCASs0/j+faB/zqt3R8hpvg1e8+61ZVJ4UL0UdC4cBbXfZMcIuhrfgeILTLe+ZeBCavQPtKQ=="],
 
     "react-email": ["react-email@6.11.6", "", { "dependencies": { "@babel/parser": "7.29.2", "@babel/traverse": "7.29.0", "@react-email/render": ">=2.2.0", "chokidar": "^5.0.0", "commander": "^13.0.0", "conf": "^15.0.2", "css-tree": "3.2.1", "debounce": "^2.0.0", "esbuild": "^0.28.0", "glob": "^13.0.6", "jiti": "2.6.1", "log-symbols": "^7.0.0", "marked": "^15.0.12", "mime-types": "^3.0.0", "nypm": "0.6.6", "picospinner": "^3.0.0", "prismjs": "^1.30.0", "prompts": "2.4.2", "socket.io": "^4.8.1", "tailwindcss": "^4.1.18", "tsconfig-paths": "4.2.0" }, "peerDependencies": { "react": "^18.0 || ^19.0 || ^19.0.0-rc", "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc" }, "bin": { "email": "./dist/cli/index.mjs" } }, "sha512-CW9kP/+HRr3+LRyXa2t3vddXpvg21s5ccnmBSkwKrR6mNXKO+RQvJf60f2vw/xyxfUeqSFlJurlhqu16lraNRw=="],
 

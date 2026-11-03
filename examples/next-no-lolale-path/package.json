@@ -19,7 +19,7 @@
     "next": "16.3.6",
     "next-intlayer": "workspace:*",
     "react": "19.3.1",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
