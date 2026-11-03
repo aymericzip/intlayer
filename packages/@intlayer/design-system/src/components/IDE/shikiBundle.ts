@@ -83,7 +83,10 @@ export const createHighlighter = createBundledHighlighter<
 >({
   langs: bundledLanguages,
   themes: bundledThemes,
-  engine: () => createOnigurumaEngine(import('shiki/wasm')),
+  // Not `shiki/wasm`: its `unwasm` export condition (picked by Nitro) resolves
+  // to the raw `onig.wasm`, whose `env` import fails to resolve at build.
+  engine: () =>
+    createOnigurumaEngine(import('@shikijs/engine-oniguruma/wasm-inlined')),
 });
 
 /** Highlighter instance produced by {@link createHighlighter}. */
