@@ -343,7 +343,7 @@ export default defineConfig(({ mode }) => {
       react({ compiler: true }),
       // Swaps the React runtime for TanStack Redact; must follow start + react.
       // Activity and fragment refs are unused (audited); stubbing them trims the runtime.
-      redact({ features: { activity: false, fragmentRefs: false } }),
+      // redact({ features: { activity: false, fragmentRefs: false } }),
       wasm(),
     ],
     build: {
