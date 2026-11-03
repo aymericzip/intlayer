@@ -78,10 +78,12 @@ type InViewSectionProps = PropsWithChildren<{
  */
 const InViewSection: FC<InViewSectionProps> = ({
   children,
-  fallback = <Loader />,
+  fallback: fallbackProp,
   rootMargin = '300px',
   minHeight = '400px',
 }) => {
+  // Resolved in the body: a JSX default parameter makes the compiler skip this.
+  const fallback = fallbackProp ?? <Loader />;
   const [isInView, setIsInView] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

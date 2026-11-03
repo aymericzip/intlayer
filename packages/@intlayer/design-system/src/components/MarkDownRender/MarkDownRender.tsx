@@ -1,7 +1,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import {
   type MarkdownRenderer as MarkdownRendererIntlayer,
   type ParsedMarkdown,
@@ -21,22 +21,22 @@ export type { ParsedMarkdown };
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
-  <H1 isClickable className="mb-16 mb-8 text-foreground" {...props} />
+  <H1 isClickable className="text-foreground mb-8 mb-16" {...props} />
 );
 const H2Renderer = (props: ComponentProps<'h2'>) => (
-  <H2 isClickable className="mt-16 text-foreground" {...props} />
+  <H2 isClickable className="text-foreground mt-16" {...props} />
 );
 const H3Renderer = (props: ComponentProps<'h3'>) => (
-  <H3 isClickable className="mt-5 text-foreground" {...props} />
+  <H3 isClickable className="text-foreground mt-5" {...props} />
 );
 const H4Renderer = (props: ComponentProps<'h4'>) => (
-  <H4 isClickable className="mt-3 text-foreground" {...props} />
+  <H4 isClickable className="text-foreground mt-3" {...props} />
 );
 const H5Renderer = (props: ComponentProps<'h5'>) => (
-  <H5 isClickable className="mt-3 text-foreground" {...props} />
+  <H5 isClickable className="text-foreground mt-3" {...props} />
 );
 const H6Renderer = (props: ComponentProps<'h6'>) => (
-  <H6 isClickable className="mt-3 text-foreground" {...props} />
+  <H6 isClickable className="text-foreground mt-3" {...props} />
 );
 const StrongRenderer = (props: ComponentProps<'strong'>) => (
   <strong className="text-foreground" {...props} />
@@ -59,7 +59,7 @@ const MemoizedCodeBlock = memo(
         (_, code: string) => String.fromCharCode(parseInt(code, 10))
       );
       return (
-        <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-[0.875em] leading-[inherit]">
+        <code className="border-neutral/30 bg-card/60 rounded-md border box-decoration-clone px-1.5 py-0.5 font-mono text-[0.875em] leading-[inherit]">
           {decodedContent}
         </code>
       );
@@ -103,7 +103,7 @@ const BlockquoteRenderer = ({
 }: ComponentProps<'blockquote'>) => (
   <blockquote
     className={cn(
-      'mt-5 gap-3 border-card border-s-4 ps-5 text-muted-foreground [&_strong]:text-neutral',
+      'border-card text-muted-foreground [&_strong]:text-neutral mt-5 gap-3 border-s-4 ps-5',
       className
     )}
     {...props}
@@ -113,7 +113,7 @@ const BlockquoteRenderer = ({
 const UlRenderer = ({ className, ...props }: ComponentProps<'ul'>) => (
   <ul
     className={cn(
-      'mt-5 flex list-disc flex-col gap-3 ps-5 marker:text-neutral/80',
+      'marker:text-neutral/80 mt-5 flex list-disc flex-col gap-3 ps-5',
       className
     )}
     {...props}
@@ -123,7 +123,7 @@ const UlRenderer = ({ className, ...props }: ComponentProps<'ul'>) => (
 const OlRenderer = ({ className, ...props }: ComponentProps<'ol'>) => (
   <ol
     className={cn(
-      'mt-5 flex list-decimal flex-col gap-3 ps-5 marker:text-neutral/80',
+      'marker:text-neutral/80 mt-5 flex list-decimal flex-col gap-3 ps-5',
       className
     )}
     {...props}
@@ -176,7 +176,7 @@ const TableRenderer = (props: ComponentProps<typeof SmartTable>) => (
 const TabsRenderer = (props: ComponentProps<typeof Tab>) => (
   <Tab
     {...props}
-    className="rounded-xl border border-card"
+    className="border-card rounded-xl border"
     headerClassName="sticky rounded-xl top-24 z-5 bg-background/70 backdrop-blur overflow-x-auto"
   />
 );
@@ -256,13 +256,18 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   components: componentsProp,
   wrapper,
 }) => {
-  const markdownComponents = createMarkdownComponents(locale);
+  /**
+   * Overrides are element types: rebuilding them each render (the link
+   * renderer closes over `locale`) remounts every link, and the design-system
+   * dist is not run through the React Compiler, so memoize by hand.
+   */
+  const components = useMemo(
+    () => ({ ...createMarkdownComponents(locale), ...componentsProp }),
+    [locale, componentsProp]
+  );
 
   const markdownContent = renderMarkdown(children, {
-    components: {
-      ...markdownComponents,
-      ...componentsProp,
-    },
+    components,
     wrapper,
     forceBlock,
     preserveFrontmatter,

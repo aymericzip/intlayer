@@ -24,9 +24,12 @@ export const CopyMarkdownMessage: FC<CopyMarkdownMessageProps> = ({
   const markdownRequest = useRef<Promise<string> | null>(null);
 
   const loadMarkdown = () => {
-    markdownRequest.current ??= fetch(markdownUrl, {
-      headers: { Accept: 'text/markdown' },
-    }).then((response) => response.text());
+    // Plain `if` rather than `??=`, which the React Compiler cannot compile yet.
+    if (!markdownRequest.current) {
+      markdownRequest.current = fetch(markdownUrl, {
+        headers: { Accept: 'text/markdown' },
+      }).then((response) => response.text());
+    }
 
     return markdownRequest.current;
   };
@@ -38,7 +41,7 @@ export const CopyMarkdownMessage: FC<CopyMarkdownMessageProps> = ({
         onPointerEnter={loadMarkdown}
         onFocus={loadMarkdown}
         size="icon-md"
-        className="p-2 text-text/70 transition-colors hover:text-text"
+        className="text-text/70 hover:text-text p-2 transition-colors"
         iconClassName="size-3.5"
       />
       <PopoverStatic.Detail

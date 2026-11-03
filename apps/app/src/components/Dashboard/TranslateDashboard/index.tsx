@@ -92,7 +92,7 @@ const TranslateRow: FC<{
           roundedSize="2xl"
           border
           className={cn(
-            'flex w-max min-w-full flex-col items-start gap-2 border-text/0 px-8 py-2 transition-colors duration-300 ease-in-out',
+            'border-text/0 flex w-max min-w-full flex-col items-start gap-2 px-8 py-2 transition-colors duration-300 ease-in-out',
             isSameKeyPath(keyPath, selectedKeyPath) && 'border-text/80'
           )}
         >
@@ -182,7 +182,7 @@ const TranslateRow: FC<{
                       }
                     >
                       {nodes.length > 1 && dictionary.localId && (
-                        <span className="ms-8 mb-0.5 block text-neutral/60 text-xs">
+                        <span className="text-neutral/60 ms-8 mb-0.5 block text-xs">
                           {dictionary.localId}
                         </span>
                       )}
@@ -213,7 +213,7 @@ const TranslateRow: FC<{
         roundedSize="2xl"
         border
         className={cn(
-          'flex w-full flex-col items-start gap-2 border-text/0 px-8 py-2 transition-colors duration-300 ease-in-out',
+          'border-text/0 flex w-full flex-col items-start gap-2 px-8 py-2 transition-colors duration-300 ease-in-out',
           isSameKeyPath(keyPath, selectedKeyPath) && 'border-text/80'
         )}
       >
@@ -244,7 +244,7 @@ const TranslateRow: FC<{
                 }
               >
                 {nodes.length > 1 && dictionary.localId && (
-                  <span className="ms-8 ms-8 mb-0.5 block text-neutral/60 text-xs">
+                  <span className="text-neutral/60 ms-8 ms-8 mb-0.5 block text-xs">
                     {dictionary.localId.split('::').slice(-2).join('  :  ')}
                   </span>
                 )}
@@ -261,6 +261,63 @@ const TranslateRow: FC<{
     </div>
   );
 };
+
+/**
+ * Indexes the dictionaries loaded so far by `localId`: API pages first, then
+ * the locale-only dictionaries the API has not returned yet.
+ *
+ * @param pages - Infinite-query pages, each holding a `data` array.
+ * @param localeOnlyDictionaries - Dictionaries received from the editor only.
+ */
+const collectLoadedDictionaries = (
+  pages: readonly { data?: unknown }[] | undefined,
+  localeOnlyDictionaries: readonly Dictionary[]
+): Record<string, Dictionary> => {
+  const result: Record<string, Dictionary> = {};
+
+  for (const page of pages ?? []) {
+    for (const dictionary of (page.data ?? []) as Dictionary[]) {
+      if (dictionary.localId) result[dictionary.localId] = dictionary;
+    }
+  }
+
+  for (const dictionary of localeOnlyDictionaries) {
+    if (dictionary.localId && !result[dictionary.localId]) {
+      result[dictionary.localId] = dictionary;
+    }
+  }
+
+  return result;
+};
+
+type ListFooterContext = { isFetchingNextPage: boolean };
+
+/**
+ * Virtuoso renders `components` entries as element types, so they live at
+ * module level; an inline component would remount on every list render.
+ */
+const ListFooter: FC<{ context?: ListFooterContext }> = ({ context }) =>
+  context?.isFetchingNextPage ? (
+    <div className="flex flex-col gap-4 overflow-hidden px-10 py-6">
+      {[...Array(2)].map((_, i) => (
+        <div
+          // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
+          key={i}
+          className="border-card/50 flex flex-col gap-4 border-b py-6"
+        >
+          <Skeleton className="h-4 w-64" />
+          <div className="flex w-full gap-2">
+            <Skeleton className="h-32 flex-1 rounded-lg" />
+            <Skeleton className="h-32 flex-1 rounded-lg" />
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div className="h-4" />
+  );
+
+const virtuosoComponents = { Footer: ListFooter };
 
 const mergeFlattenedNodes = (nodes: FlattenedDictionaryNode[]) => {
   const groupedMap = new Map<string, FlattenedDictionaryNode[]>();
@@ -327,23 +384,6 @@ const TranslateDashboardList: FC = () => {
     session?.project?.configuration?.internationalization?.defaultLocale;
   const targetLocales = projectLocales.filter((l) => l !== defaultLocale);
 
-  const handleTranslateCurrentDictionary = async () => {
-    const dictionariesToTranslate = Object.values(allLoadedDictionaries).filter(
-      (dict) => dict.key === currentDictionaryKey && dict.id
-    );
-
-    const dictionaryIds = dictionariesToTranslate.map((dict) => dict.id!);
-
-    if (dictionaryIds.length > 0) {
-      openDrawer('translation-status');
-      await fillAll({
-        targetLocales,
-        mode: 'complete',
-        dictionaryIds,
-      });
-    }
-  };
-
   const [persistedTopIndex, setPersistedTopIndex] = usePersistedStore(
     'intlayer-dashboard-scroll-index',
     0
@@ -384,6 +424,10 @@ const TranslateDashboardList: FC = () => {
       keys: activeVisualEditorKeys,
     });
 
+  // A plain local (not `data?.pages` in deps) lets the React Compiler keep the
+  // manual memoization below; otherwise it skips the whole component.
+  const pages = data?.pages;
+
   const { selectedLocales } = useLocaleSwitcherContent();
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
@@ -403,23 +447,29 @@ const TranslateDashboardList: FC = () => {
     [localeOnlyDicts, activeVisualEditorKeys]
   );
 
-  const allLoadedDictionaries: Record<string, Dictionary> = useMemo(() => {
-    const result: Record<string, Dictionary> = {};
-    data?.pages.forEach((page: any) => {
-      (page.data as Dictionary[]).forEach((dict) => {
-        if (dict.localId) {
-          result[dict.localId] = dict;
-        }
+  // Memoized by the React Compiler on its arguments. Keep every reader below
+  // this line: a forward reference makes the compiler skip the component.
+  const allLoadedDictionaries = collectLoadedDictionaries(
+    pages,
+    filteredLocaleOnlyDicts
+  );
+
+  const handleTranslateCurrentDictionary = async () => {
+    const dictionariesToTranslate = Object.values(allLoadedDictionaries).filter(
+      (dict) => dict.key === currentDictionaryKey && dict.id
+    );
+
+    const dictionaryIds = dictionariesToTranslate.map((dict) => dict.id!);
+
+    if (dictionaryIds.length > 0) {
+      openDrawer('translation-status');
+      await fillAll({
+        targetLocales,
+        mode: 'complete',
+        dictionaryIds,
       });
-    });
-    // Supplement with locale-only dicts not already returned by the API
-    for (const dict of filteredLocaleOnlyDicts) {
-      if (dict.localId && !result[dict.localId]) {
-        result[dict.localId] = dict;
-      }
     }
-    return result;
-  }, [data?.pages, filteredLocaleOnlyDicts]);
+  };
 
   useEffect(() => {
     if (Object.keys(allLoadedDictionaries).length === 0) return;
@@ -441,23 +491,23 @@ const TranslateDashboardList: FC = () => {
   // Locale-only dicts whose localId is not already covered by the API pages
   const localeOnlyForDisplay = useMemo(() => {
     const apiLocalIds = new Set(
-      data?.pages.flatMap((page: any) =>
+      pages?.flatMap((page: any) =>
         (page.data as Dictionary[]).map((d) => d.localId).filter(Boolean)
       ) ?? []
     );
     return filteredLocaleOnlyDicts.filter(
       (dictionary) => dictionary.localId && !apiLocalIds.has(dictionary.localId)
     );
-  }, [data?.pages, filteredLocaleOnlyDicts]);
+  }, [pages, filteredLocaleOnlyDicts]);
 
   const flattenedNodes: FlattenedDictionaryNode[] = useMemo(() => {
     const apiNodes =
-      data?.pages.flatMap((page: any) =>
+      pages?.flatMap((page: any) =>
         (page.data as Dictionary[]).flatMap(flattenDictionary)
       ) ?? [];
     const localeNodes = localeOnlyForDisplay.flatMap(flattenDictionary);
     return [...apiNodes, ...localeNodes];
-  }, [data?.pages, localeOnlyForDisplay]);
+  }, [pages, localeOnlyForDisplay]);
 
   const mergedNodes = useMemo(
     () => mergeFlattenedNodes(flattenedNodes),
@@ -516,7 +566,7 @@ const TranslateDashboardList: FC = () => {
               </PopoverStatic.Detail>
             </PopoverStatic>
             {(params.location !== 'none' || !!params.tags) && (
-              <span className="absolute -inset-e-1 -top-1 flex size-4 items-center justify-center rounded-full bg-text text-card text-xs">
+              <span className="bg-text text-card absolute -inset-e-1 -top-1 flex size-4 items-center justify-center rounded-full text-xs">
                 {(params.tags ? params.tags.split(',').length : 0) +
                   (params.location === 'both'
                     ? 2
@@ -539,7 +589,7 @@ const TranslateDashboardList: FC = () => {
       />
 
       <div className="flex min-h-0 flex-1 flex-col">
-        <div className="flex w-full items-center gap-3 border-card border-b px-10 py-2">
+        <div className="border-card flex w-full items-center gap-3 border-b px-10 py-2">
           <PopoverStatic identifier="scroll-to-top">
             <Button
               label={scrollToTop.value}
@@ -558,7 +608,7 @@ const TranslateDashboardList: FC = () => {
               }}
             />
             <PopoverStatic.Detail identifier="scroll-to-top">
-              <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral">
+              <span className="text-neutral flex gap-4 py-2 ps-4 pe-2 text-nowrap">
                 {scrollToTop}
                 <KeyboardShortcut
                   shortcut="Alt + ArrowUp"
@@ -593,7 +643,7 @@ const TranslateDashboardList: FC = () => {
                 />
               </Link>
               <PopoverStatic.Detail identifier="go-to-dictionary">
-                <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral">
+                <span className="text-neutral flex gap-4 py-2 ps-4 pe-2 text-nowrap">
                   {goToDictionary}
                 </span>
               </PopoverStatic.Detail>
@@ -610,7 +660,7 @@ const TranslateDashboardList: FC = () => {
               onClick={handleTranslateCurrentDictionary}
             />
             <PopoverStatic.Detail identifier="translate-dictionary">
-              <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral">
+              <span className="text-neutral flex gap-4 py-2 ps-4 pe-2 text-nowrap">
                 {translateDictionary}
               </span>
             </PopoverStatic.Detail>
@@ -619,14 +669,14 @@ const TranslateDashboardList: FC = () => {
 
         <div
           ref={headerRef}
-          className="flex w-full shrink-0 items-center overflow-x-hidden bg-background px-10 py-2"
+          className="bg-background flex w-full shrink-0 items-center overflow-x-hidden px-10 py-2"
         >
           {/* Matches TranslateRow Structure (flex-1 gap-2) */}
           <div className="flex w-full flex-1 gap-2">
             {selectedLocales.map((locale) => (
               <div
                 key={locale}
-                className="ms-4 min-w-md flex-1 font-medium text-neutral"
+                className="text-neutral ms-4 min-w-md flex-1 font-medium"
                 suppressHydrationWarning
               >
                 {getLocaleName(locale, currentLocale)}
@@ -680,32 +730,12 @@ const TranslateDashboardList: FC = () => {
                 fetchNextPage();
               }
             }}
-            components={{
-              Footer: () =>
-                isFetchingNextPage ? (
-                  <div className="flex flex-col gap-4 overflow-hidden px-10 py-6">
-                    {[...Array(2)].map((_, i) => (
-                      <div
-                        // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
-                        key={i}
-                        className="flex flex-col gap-4 border-card/50 border-b py-6"
-                      >
-                        <Skeleton className="h-4 w-64" />
-                        <div className="flex w-full gap-2">
-                          <Skeleton className="h-32 flex-1 rounded-lg" />
-                          <Skeleton className="h-32 flex-1 rounded-lg" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="h-4" />
-                ),
-            }}
+            context={{ isFetchingNextPage }}
+            components={virtuosoComponents}
           />
         ) : (
           <div className="flex min-h-60 items-center justify-center text-sm">
-            <p className="text-center text-neutral">{noDictionaries}</p>
+            <p className="text-neutral text-center">{noDictionaries}</p>
           </div>
         )}
       </div>

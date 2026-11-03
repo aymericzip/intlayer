@@ -13,22 +13,8 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import type { RowSelectionState } from '@tanstack/react-table';
-import {
-  ArrowRight,
-  ChevronDown,
-  ChevronsUpDown,
-  ChevronUp,
-  Plus,
-  Trash2,
-} from 'lucide-react';
-import {
-  type FC,
-  type MouseEvent,
-  Suspense,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
+import { ArrowRight, Plus, Trash2 } from 'lucide-react';
+import { type FC, type MouseEvent, Suspense, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
@@ -36,6 +22,7 @@ import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { DictionaryTable } from '../DictionaryListDashboard/DictionaryTable';
+import { SortHeader } from '../DictionaryListDashboard/SortHeader';
 import { DeleteTagsModal } from './DeleteTagsModal';
 import { TagCreationForm } from './TagCreationForm';
 import { TagListSkeleton } from './TagListSkeleton';
@@ -94,134 +81,122 @@ export const TagList: FC = () => {
     setParams({ sortBy: columnId, sortOrder: isAsc ? 'desc' : 'asc', page: 1 });
   };
 
-  const getSortIcon = (columnId: string) => {
-    if (params.sortBy !== columnId) return ChevronsUpDown;
-    return params.sortOrder === 'asc' ? ChevronUp : ChevronDown;
-  };
-
-  const SortHeader: FC<{ columnId: string; label: string }> = ({
-    columnId,
-    label,
-  }) => (
-    <Button
-      variant="hoverable"
-      color="text"
-      size="sm"
-      className="flex items-center gap-1 font-medium"
-      onClick={() => handleSort(columnId)}
-      Icon={getSortIcon(columnId)}
-      label={label}
-    >
-      {label}
-    </Button>
-  );
-
-  const onConfirmDelete = useCallback(async () => {
+  const onConfirmDelete = async () => {
     if (!tagsToDelete) return;
     await Promise.all(tagsToDelete.map((tagId) => deleteTag(tagId)));
     setTagsToDelete(null);
     setRowSelection({});
     refetch();
-  }, [tagsToDelete, deleteTag, refetch]);
+  };
 
-  const columns = useMemo<DataTableColumnDef<TagAPI>[]>(
-    () => [
-      {
-        id: 'selection',
-        header: ({ table }) => (
-          <Checkbox
-            name="select-all-tags"
-            size="sm"
-            color="text"
-            checked={table.getIsAllPageRowsSelected()}
-            onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
-            aria-label={selectAll.value}
-          />
+  const columns: DataTableColumnDef<TagAPI>[] = [
+    {
+      id: 'selection',
+      header: ({ table }) => (
+        <Checkbox
+          name="select-all-tags"
+          size="sm"
+          color="text"
+          checked={table.getIsAllPageRowsSelected()}
+          onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
+          aria-label={selectAll.value}
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          name={`select-tag-${row.id}`}
+          size="sm"
+          color="text"
+          checked={row.getIsSelected()}
+          onClick={(e: MouseEvent) => e.stopPropagation()}
+          onChange={(e) => row.toggleSelected(e.target.checked)}
+          aria-label={selectRow.value}
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: 'key',
+      header: () => (
+        <SortHeader
+          sortBy={params.sortBy}
+          sortOrder={params.sortOrder}
+          onSort={handleSort}
+          columnId="key"
+          label={tableHeaders.key.value}
+        />
+      ),
+      cell: ({ row }) => <span className="font-mono">{row.original.key}</span>,
+    },
+    {
+      accessorKey: 'name',
+      header: () => (
+        <SortHeader
+          sortBy={params.sortBy}
+          sortOrder={params.sortOrder}
+          onSort={handleSort}
+          columnId="name"
+          label={tableHeaders.name.value}
+        />
+      ),
+      cell: ({ row }) =>
+        row.original.name ? (
+          <div className="font-medium">{row.original.name}</div>
+        ) : (
+          <span className="text-neutral">-</span>
         ),
-        cell: ({ row }) => (
-          <Checkbox
-            name={`select-tag-${row.id}`}
-            size="sm"
-            color="text"
-            checked={row.getIsSelected()}
-            onClick={(e: MouseEvent) => e.stopPropagation()}
-            onChange={(e) => row.toggleSelected(e.target.checked)}
-            aria-label={selectRow.value}
-          />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-      },
-      {
-        accessorKey: 'key',
-        header: () => (
-          <SortHeader columnId="key" label={tableHeaders.key.value} />
-        ),
-        cell: ({ row }) => (
-          <span className="font-mono">{row.original.key}</span>
-        ),
-      },
-      {
-        accessorKey: 'name',
-        header: () => (
-          <SortHeader columnId="name" label={tableHeaders.name.value} />
-        ),
-        cell: ({ row }) =>
-          row.original.name ? (
-            <div className="font-medium">{row.original.name}</div>
-          ) : (
-            <span className="text-neutral">-</span>
-          ),
-      },
-      {
-        accessorKey: 'description',
-        header: tableHeaders.description.value,
-        cell: ({ row }) =>
-          row.original.description ? (
-            <div className="line-clamp-2 max-w-xs text-neutral">
-              {row.original.description}
-            </div>
-          ) : (
-            <span className="text-neutral">-</span>
-          ),
-      },
-      {
-        accessorKey: 'createdAt',
-        header: () => (
-          <SortHeader
-            columnId="createdAt"
-            label={tableHeaders.createdAt.value}
-          />
-        ),
-        cell: ({ row }) => (
-          <div className="text-neutral">
-            {formatDate((row.original as any).createdAt)}
+    },
+    {
+      accessorKey: 'description',
+      header: tableHeaders.description.value,
+      cell: ({ row }) =>
+        row.original.description ? (
+          <div className="text-neutral line-clamp-2 max-w-xs">
+            {row.original.description}
           </div>
+        ) : (
+          <span className="text-neutral">-</span>
         ),
-      },
-      {
-        id: 'actions',
-        header: tableHeaders.actions.value,
-        cell: ({ row }) => (
-          <Button
-            variant="hoverable"
-            color="text"
-            size="icon-sm"
-            Icon={ArrowRight}
-            label={tableHeaders.actions.value}
-            onClick={(e: MouseEvent) => {
-              e.stopPropagation();
-              navigate({
-                to: '/tags/$tagKey',
-                params: { tagKey: row.original.key },
-              });
-            }}
-          />
-        ),
-      },
-    ],
-    [params.sortBy, params.sortOrder, formatDate]
-  );
+    },
+    {
+      accessorKey: 'createdAt',
+      header: () => (
+        <SortHeader
+          sortBy={params.sortBy}
+          sortOrder={params.sortOrder}
+          onSort={handleSort}
+          columnId="createdAt"
+          label={tableHeaders.createdAt.value}
+        />
+      ),
+      cell: ({ row }) => (
+        <div className="text-neutral">
+          {formatDate((row.original as any).createdAt)}
+        </div>
+      ),
+    },
+    {
+      id: 'actions',
+      header: tableHeaders.actions.value,
+      cell: ({ row }) => (
+        <Button
+          variant="hoverable"
+          color="text"
+          size="icon-sm"
+          Icon={ArrowRight}
+          label={tableHeaders.actions.value}
+          onClick={(e: MouseEvent) => {
+            e.stopPropagation();
+            navigate({
+              to: '/tags/$tagKey',
+              params: { tagKey: row.original.key },
+            });
+          }}
+        />
+      ),
+    },
+  ];
 
   const table = useDataTable({
     data: tags,
@@ -232,7 +207,7 @@ export const TagList: FC = () => {
   });
 
   return (
-    <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
+    <div className="text-text/80 flex size-full flex-1 flex-col gap-6 py-4 text-sm">
       <div className="flex items-center justify-between gap-4 px-10">
         <SearchInput
           placeholder={searchPlaceholder.value}

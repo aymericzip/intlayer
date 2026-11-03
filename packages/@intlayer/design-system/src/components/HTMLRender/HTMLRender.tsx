@@ -1,5 +1,5 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import type { ComponentProps, FC } from 'react';
+import { type ComponentProps, type FC, useMemo } from 'react';
 import {
   type HTMLRenderer as HTMLRendererIntlayer,
   type RenderHTMLProps,
@@ -14,25 +14,58 @@ type HTMLRendererProps = {
   components?: ComponentProps<typeof HTMLRendererIntlayer>['components'];
 };
 
-export const getIntlayerHTMLOptions: () => RenderHTMLProps = () => ({
+/** Heading renderers, hoisted so their identity is stable across renders. */
+const H1Renderer = (props: ComponentProps<typeof H1>) => (
+  <H1 isClickable={true} {...props} />
+);
+const H2Renderer = (props: ComponentProps<typeof H2>) => (
+  <H2 isClickable={true} className="mt-16" {...props} />
+);
+const H3Renderer = (props: ComponentProps<typeof H3>) => (
+  <H3 isClickable={true} className="mt-5" {...props} />
+);
+const H4Renderer = (props: ComponentProps<typeof H4>) => (
+  <H4 isClickable={true} className="mt-3" {...props} />
+);
+const H5Renderer = (props: ComponentProps<typeof H5>) => (
+  <H5 isClickable={true} className="mt-3" {...props} />
+);
+const H6Renderer = (props: ComponentProps<typeof H6>) => (
+  <H6 isClickable={true} className="mt-3" {...props} />
+);
+
+/**
+ * Builds the link renderer for a locale.
+ *
+ * @param locale - Locale forwarded to `Link`; omitted for the default options.
+ */
+const createLinkRenderer =
+  (locale?: LocalesValues) => (props: ComponentProps<'a'>) => (
+    <Link
+      isExternalLink={props.href?.startsWith('http')}
+      underlined={true}
+      locale={locale}
+      label=""
+      {...props}
+      color="neutral"
+    />
+  );
+
+const intlayerHTMLOptions: RenderHTMLProps = {
   components: {
-    h1: (props) => <H1 isClickable={true} {...props} />,
-    h2: (props) => <H2 isClickable={true} className="mt-16" {...props} />,
-    h3: (props) => <H3 isClickable={true} className="mt-5" {...props} />,
-    h4: (props) => <H4 isClickable={true} className="mt-3" {...props} />,
-    h5: (props) => <H5 isClickable={true} className="mt-3" {...props} />,
-    h6: (props) => <H6 isClickable={true} className="mt-3" {...props} />,
-    a: (props) => (
-      <Link
-        isExternalLink={props.href?.startsWith('http')}
-        underlined={true}
-        label=""
-        {...props}
-        color="neutral"
-      />
-    ),
+    h1: H1Renderer,
+    h2: H2Renderer,
+    h3: H3Renderer,
+    h4: H4Renderer,
+    h5: H5Renderer,
+    h6: H6Renderer,
+    a: createLinkRenderer(),
   },
-});
+};
+
+/** Returns the shared (stable) HTML render options. */
+export const getIntlayerHTMLOptions: () => RenderHTMLProps = () =>
+  intlayerHTMLOptions;
 
 /**
  * HTMLRenderer Component
@@ -45,24 +78,20 @@ export const HTMLRenderer: FC<HTMLRendererProps> = ({
   locale,
   components: componentsProp,
 }) => {
-  const htmlOptions = getIntlayerHTMLOptions();
-
-  const htmlContent = renderHTML(children, {
-    components: {
-      ...htmlOptions.components,
-      a: (props) => (
-        <Link
-          isExternalLink={props.href?.startsWith('http')}
-          underlined={true}
-          locale={locale}
-          label=""
-          {...props}
-          color="neutral"
-        />
-      ),
+  /**
+   * Overrides are element types: rebuilding them each render remounts every
+   * node, and the design-system dist is not run through the React Compiler.
+   */
+  const components = useMemo(
+    () => ({
+      ...intlayerHTMLOptions.components,
+      a: createLinkRenderer(locale),
       ...componentsProp,
-    },
-  });
+    }),
+    [locale, componentsProp]
+  );
+
+  const htmlContent = renderHTML(children, { components });
 
   return <>{htmlContent}</>;
 };

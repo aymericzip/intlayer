@@ -9,7 +9,7 @@ type TagListSkeletonProps = {
 export const TagListSkeleton: FC<TagListSkeletonProps> = ({
   showToolBar = true,
 }) => (
-  <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
+  <div className="text-text/80 flex size-full flex-1 flex-col gap-6 py-4 text-sm">
     {/* Toolbar Skeleton */}
     {showToolBar && (
       <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
@@ -22,7 +22,7 @@ export const TagListSkeleton: FC<TagListSkeletonProps> = ({
     <div className="flex w-full flex-1 flex-col overflow-x-auto overflow-y-hidden">
       <Table className="w-full border-separate border-spacing-0 px-10">
         <thead>
-          <tr className="border-neutral-200 border-b dark:border-neutral-700">
+          <tr className="border-b border-neutral-200 dark:border-neutral-700">
             <th className="px-4 py-3">
               <Skeleton className="h-4 w-4" />
             </th>
