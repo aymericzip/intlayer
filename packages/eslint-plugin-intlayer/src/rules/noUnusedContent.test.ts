@@ -7,8 +7,9 @@ import {
 } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
-import { afterAll } from 'vitest';
+import { afterAll, beforeAll } from 'vitest';
 import { createRuleTester, SOURCE_FILENAME } from '../utils/_ruleTester';
+import { getProjectUsageIndex } from '../utils/projectUsage';
 import { noUnusedContent } from './noUnusedContent';
 
 /**
@@ -119,6 +120,16 @@ writeProjectFile(
     { key: 'duplicated', filePath: 'src/legacy.content.ts' },
   ])
 );
+
+/** Budget for the one-time cold load of the scan's lazily required modules. */
+const COLD_SCAN_TIMEOUT_MS = 60_000;
+
+// The first scan lazily requires `@intlayer/config/node`, `@intlayer/lsp/utils`
+// and `fast-glob`. Under a parallel monorepo test run that cold load can take
+// longer than a single case's timeout, so pay it once here instead.
+beforeAll(() => {
+  getProjectUsageIndex(projectDir, 0);
+}, COLD_SCAN_TIMEOUT_MS);
 
 afterAll(() => {
   rmSync(projectDir, { recursive: true, force: true });
