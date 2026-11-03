@@ -128,7 +128,7 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
       <div
         className={cn('flex flex-1 gap-2', isEditing ? 'hidden' : 'display')}
       >
-        <span className="ms-2 flex w-full whitespace-pre-wrap p-1 text-sm leading-6">
+        <span className="ms-2 flex w-full p-1 text-sm leading-6 whitespace-pre-wrap">
           {result}
         </span>
         <Button
@@ -137,7 +137,7 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
           color="text"
           variant="hoverable"
           size="icon-sm"
-          className="!text-current invisible group-hover/editable-field:visible"
+          className="invisible !text-current group-hover/editable-field:visible"
           disabled={isDisabled}
           onClick={(e) => {
             e.stopPropagation();

@@ -4,23 +4,19 @@
   "private": false,
   "description": "A React Native plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
-    "intlayer",
     "data",
-    "internationalization",
-    "multilingual",
     "i18n",
-    "typescript",
+    "internationalization",
+    "intlayer",
+    "json",
+    "multilingual",
     "react",
     "react-native",
-    "json"
+    "typescript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -34,11 +30,44 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "sideEffects": [
     "./src/applyIntlayerPolyfill.ts",
     "./dist/esm/applyIntlayerPolyfill.mjs",
     "./dist/cjs/applyIntlayerPolyfill.cjs"
   ],
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/client/format/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
+      ],
+      "metro": [
+        "./dist/types/metro.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -67,44 +96,15 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./dist/types/index.d.ts"
-      ],
-      "format": [
-        "./dist/types/client/format/index.d.ts"
-      ],
-      "html": [
-        "./dist/types/html/index.d.ts"
-      ],
-      "markdown": [
-        "./dist/types/markdown/index.d.ts"
-      ],
-      "metro": [
-        "./dist/types/metro.d.ts"
-      ],
-      "package.json": [
-        "./package.json"
-      ]
-    }
-  },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",

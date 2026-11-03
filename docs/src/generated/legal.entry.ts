@@ -92,7 +92,7 @@ const readLocale = (
   };
 
   return {
-    // biome-ignore lint/suspicious/noThenProperty: the thenable is intentional — `await` is what triggers the lazy read.
+    // oxlint-disable-next-line unicorn/no-thenable -- the thenable is intentional — `await` is what triggers the lazy read.
     then: (onFulfilled, onRejected) => read().then(onFulfilled, onRejected),
     catch: (onRejected) => read().catch(onRejected),
     finally: (onFinally) => read().finally(onFinally),

@@ -69,7 +69,7 @@ export const FeaturesSection: FC = () => {
           variants={headerVariants}
           className="mb-16 text-center"
         >
-          <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
             {featuresTitle}
           </h2>
         </m.div>
@@ -96,10 +96,10 @@ export const FeaturesSection: FC = () => {
               </div>
 
               <div>
-                <h3 className="mb-2 font-semibold text-foreground text-xl">
+                <h3 className="mb-2 text-xl font-semibold text-foreground">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="leading-relaxed text-muted-foreground">
                   {feature.description}
                 </p>
               </div>

@@ -2,9 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { RefreshCw, Trash2, Upload, X } from 'lucide-react';
 import { useState } from 'react';
 import { userEvent, within } from 'storybook/test';
-
 import { Button } from '../Button';
-
 import { ToastAction } from './Toast';
 import { Toaster } from './Toaster';
 import { useToast } from './useToast';
@@ -56,7 +54,7 @@ export const AllVariants: Story = {
     return (
       <div className="mx-auto w-full max-w-2xl rounded-lg border bg-white p-6">
         <div className="mb-6">
-          <h2 className="mb-2 font-semibold text-xl">Toast Variants</h2>
+          <h2 className="mb-2 text-xl font-semibold">Toast Variants</h2>
         </div>
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -105,7 +103,7 @@ export const AllVariants: Story = {
             </Button>
           </div>
 
-          <div className="mt-4 text-gray-600 text-sm">
+          <div className="mt-4 text-sm text-gray-600">
             Click any button to see the corresponding toast variant. Each
             variant has distinct styling to communicate the appropriate message
             tone.
@@ -216,7 +214,7 @@ export const WithActions: Story = {
     return (
       <div className="mx-auto w-full max-w-2xl rounded-lg border bg-white p-6">
         <div className="mb-6">
-          <h2 className="mb-2 font-semibold text-xl">Interactive Actions</h2>
+          <h2 className="mb-2 text-xl font-semibold">Interactive Actions</h2>
         </div>
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -242,7 +240,7 @@ export const WithActions: Story = {
             </Button>
           </div>
 
-          <div className="mt-4 text-gray-600 text-sm">
+          <div className="mt-4 text-sm text-gray-600">
             <strong>Actions Demo:</strong>
             <ul className="mt-2 list-inside list-disc space-y-1">
               <li>
@@ -341,17 +339,17 @@ export const RealWorldScenarios: Story = {
     return (
       <div className="mx-auto w-full max-w-2xl rounded-lg border bg-white p-6">
         <div className="mb-6">
-          <h2 className="mb-2 font-semibold text-xl">Real-World Scenarios</h2>
+          <h2 className="mb-2 text-xl font-semibold">Real-World Scenarios</h2>
         </div>
         <div className="space-y-6">
           {/* Form Example */}
           <div className="space-y-4">
-            <h3 className="font-medium text-lg">Form Validation</h3>
+            <h3 className="text-lg font-medium">Form Validation</h3>
             <form onSubmit={handleFormSubmit} className="space-y-3">
               <div>
                 <label
                   htmlFor="toaster-name"
-                  className="mb-1 block font-medium text-sm"
+                  className="mb-1 block text-sm font-medium"
                 >
                   Name *
                 </label>
@@ -369,7 +367,7 @@ export const RealWorldScenarios: Story = {
               <div>
                 <label
                   htmlFor="toaster-email"
-                  className="mb-1 block font-medium text-sm"
+                  className="mb-1 block text-sm font-medium"
                 >
                   Email *
                 </label>
@@ -397,7 +395,7 @@ export const RealWorldScenarios: Story = {
 
           {/* Error Scenarios */}
           <div className="space-y-4">
-            <h3 className="font-medium text-lg">Error Handling</h3>
+            <h3 className="text-lg font-medium">Error Handling</h3>
             <Button
               label="Simulate network connection error"
               onClick={simulateNetworkError}

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Popover } from '.';
 import { Button } from '../Button';
 import { Container } from '../Container';
 import { H3 } from '../Headers';
-import { Popover } from '.';
 
 /**
  * Popover Component Stories
@@ -186,8 +186,8 @@ export const RichContent: Story = {
             <div className="mb-3 flex items-center gap-3">
               <div className="size-10 rounded-full bg-primary"></div>
               <div>
-                <H3 className="font-semibold text-sm">John Doe</H3>
-                <p className="text-neutral-600 text-xs">john@example.com</p>
+                <H3 className="text-sm font-semibold">John Doe</H3>
+                <p className="text-xs text-neutral-600">john@example.com</p>
               </div>
             </div>
 
@@ -233,8 +233,8 @@ export const ContextMenu: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <Popover identifier="context-menu">
-        <div className="cursor-pointer rounded border-2 border-neutral-300 border-dotted p-8 text-center transition-colors hover:border-primary">
-          <p className="text-neutral-500 text-xs">Hover for menu</p>
+        <div className="cursor-pointer rounded border-2 border-dotted border-neutral-300 p-8 text-center transition-colors hover:border-primary">
+          <p className="text-xs text-neutral-500">Hover for menu</p>
         </div>
 
         <Popover.Detail
@@ -264,7 +264,7 @@ export const ContextMenu: Story = {
             <hr className="my-1 border-neutral-200" />
             <button
               type="button"
-              className="flex w-full px-4 py-2 text-start text-error text-sm transition-colors hover:bg-error/10"
+              className="flex w-full px-4 py-2 text-start text-sm text-error transition-colors hover:bg-error/10"
             >
               Delete
             </button>
@@ -283,10 +283,10 @@ export const HelpTooltip: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <div className="flex items-center gap-2">
-        <span className="font-medium text-sm">Password</span>
+        <span className="text-sm font-medium">Password</span>
 
         <Popover identifier="help-tooltip">
-          <div className="flex h-5 w-5 cursor-help items-center justify-center rounded-full bg-neutral-200 text-neutral-600 text-xs">
+          <div className="flex h-5 w-5 cursor-help items-center justify-center rounded-full bg-neutral-200 text-xs text-neutral-600">
             ?
           </div>
 
@@ -299,7 +299,7 @@ export const HelpTooltip: Story = {
               <p className="text-sm">
                 Password must be at least 8 characters long and contain:
               </p>
-              <ul className="mt-2 list-inside list-disc text-neutral-600 text-xs">
+              <ul className="mt-2 list-inside list-disc text-xs text-neutral-600">
                 <li>One uppercase letter</li>
                 <li>One lowercase letter</li>
                 <li>One number</li>
@@ -379,7 +379,7 @@ export const MultiplePopovers: Story = {
         </Popover>
       </div>
 
-      <p className="text-neutral-600 text-sm">
+      <p className="text-sm text-neutral-600">
         Each popover has a unique identifier and can be independently
         configured. Hover over the buttons to see different positioning options.
       </p>

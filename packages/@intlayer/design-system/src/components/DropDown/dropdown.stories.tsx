@@ -349,7 +349,7 @@ export const AlignmentOptions: Story = {
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="min-w-48 p-3">
-            <div className="mb-2 text-gray-600 text-sm">
+            <div className="mb-2 text-sm text-gray-600">
               Start aligned panel
             </div>
             <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
@@ -377,7 +377,7 @@ export const AlignmentOptions: Story = {
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="min-w-48 p-3">
-            <div className="mb-2 text-gray-600 text-sm">End aligned panel</div>
+            <div className="mb-2 text-sm text-gray-600">End aligned panel</div>
             <div className="rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
               Option A
             </div>
@@ -436,7 +436,7 @@ export const CombinedInteractions: Story = {
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="p-2">
-            <div className="mb-1 border-gray-100 border-b px-3 py-2 font-medium text-gray-700">
+            <div className="mb-1 border-b border-gray-100 px-3 py-2 font-medium text-gray-700">
               User Account
             </div>
             <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
@@ -497,7 +497,7 @@ export const CombinedInteractions: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4 p-8">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         Use Tab to navigate between dropdowns, Enter or Space to activate them.
         Focus should show the dropdown content automatically.
       </div>
@@ -601,7 +601,7 @@ export const KeyboardNavigation: Story = {
 export const ARIAAttributes: Story = {
   render: () => (
     <div className="space-y-6 p-8">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         Each dropdown has proper ARIA attributes for screen reader
         compatibility. Inspect the DOM to see aria-haspopup, aria-controls,
         aria-labelledby, etc.
@@ -698,10 +698,10 @@ export const ARIAAttributes: Story = {
 export const NavigationMenu: Story = {
   render: () => (
     <div className="min-h-24 bg-gray-50">
-      <nav className="border-gray-200 border-b bg-white px-6 py-3">
+      <nav className="border-b border-gray-200 bg-white px-6 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <div className="font-bold text-gray-900 text-xl">Brand</div>
+            <div className="text-xl font-bold text-gray-900">Brand</div>
             <div className="hidden items-center gap-4 md:flex">
               <a href="#" className="text-gray-700 hover:text-gray-900">
                 Home
@@ -718,7 +718,7 @@ export const NavigationMenu: Story = {
           <DropDown identifier="user-nav" className="relative">
             <DropDown.Trigger identifier="user-nav">
               <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 font-medium text-sm text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm font-medium text-white">
                   JD
                 </div>
                 <span className="hidden sm:block">John Doe</span>
@@ -733,9 +733,9 @@ export const NavigationMenu: Story = {
               className="min-w-48 rounded-lg border border-gray-200 bg-white shadow-lg"
             >
               <div className="p-2">
-                <div className="mb-1 border-gray-100 border-b px-3 py-2">
+                <div className="mb-1 border-b border-gray-100 px-3 py-2">
                   <div className="font-medium text-gray-900">John Doe</div>
-                  <div className="text-gray-500 text-sm">john@example.com</div>
+                  <div className="text-sm text-gray-500">john@example.com</div>
                 </div>
                 <div className="flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <User size={16} />
@@ -781,8 +781,8 @@ export const ContextMenu: Story = {
   render: () => (
     <div className="p-8">
       <div className="relative rounded-lg border border-gray-300 bg-gray-100 p-6">
-        <h3 className="mb-2 font-medium text-lg">Document.pdf</h3>
-        <p className="mb-4 text-gray-600 text-sm">Last modified: 2 hours ago</p>
+        <h3 className="mb-2 text-lg font-medium">Document.pdf</h3>
+        <p className="mb-4 text-sm text-gray-600">Last modified: 2 hours ago</p>
 
         <div className="absolute inset-e-2 top-2">
           <DropDown identifier="context-menu">
@@ -801,15 +801,15 @@ export const ContextMenu: Story = {
               <div className="p-1">
                 <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <span>Open</span>
-                  <span className="text-gray-400 text-xs">⌘O</span>
+                  <span className="text-xs text-gray-400">⌘O</span>
                 </div>
                 <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <span>Download</span>
-                  <span className="text-gray-400 text-xs">⌘D</span>
+                  <span className="text-xs text-gray-400">⌘D</span>
                 </div>
                 <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   <span>Rename</span>
-                  <span className="text-gray-400 text-xs">F2</span>
+                  <span className="text-xs text-gray-400">F2</span>
                 </div>
                 <div className="cursor-pointer rounded px-3 py-2 text-gray-700 hover:bg-gray-100">
                   Make a copy
@@ -824,7 +824,7 @@ export const ContextMenu: Story = {
                 <hr className="my-1 border-gray-200" />
                 <div className="flex cursor-pointer items-center justify-between rounded px-3 py-2 text-red-600 hover:bg-red-50">
                   <span>Delete</span>
-                  <span className="text-red-400 text-xs">⌫</span>
+                  <span className="text-xs text-red-400">⌫</span>
                 </div>
               </div>
             </DropDown.Panel>

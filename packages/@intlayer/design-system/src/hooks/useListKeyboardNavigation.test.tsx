@@ -29,7 +29,7 @@ const Harness: FC<HarnessProps> = ({
             data-highlighted={index === highlightedIndex}
             ref={(element) => setItemElement(index, element)}
           >
-            {/* biome-ignore lint/a11y/useValidAnchor: the click handler is the assertion */}
+            {/* oxlint-disable-next-line jsx-a11y/anchor-is-valid -- the click handler is the assertion */}
             <a href="#" onClick={() => onRowClick?.(label)}>
               {label}
             </a>

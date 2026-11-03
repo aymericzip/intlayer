@@ -82,7 +82,7 @@ export const HeroSection: FC = () => {
                 size="md"
                 border="with"
                 color="text"
-                className="rounded-full border px-4 py-1.5 font-semibold text-sm backdrop-blur-sm"
+                className="rounded-full border px-4 py-1.5 text-sm font-semibold backdrop-blur-sm"
               >
                 {heroTag}
               </Tag>
@@ -93,7 +93,7 @@ export const HeroSection: FC = () => {
               initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="mb-6 font-extrabold text-5xl text-foreground leading-[1.1] sm:text-6xl md:text-7xl"
+              className="mb-6 text-5xl leading-[1.1] font-extrabold text-foreground sm:text-6xl md:text-7xl"
             >
               {heroTitle}
             </m.h1>
@@ -103,7 +103,7 @@ export const HeroSection: FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8 font-medium text-muted-foreground text-xl sm:text-2xl md:text-3xl"
+              className="mb-8 text-xl font-medium text-muted-foreground sm:text-2xl md:text-3xl"
             >
               {heroSubtitle}
             </m.h2>
@@ -113,7 +113,7 @@ export const HeroSection: FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mx-auto mb-12 max-w-3xl text-balance text-lg text-muted-foreground leading-relaxed"
+              className="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-balance text-muted-foreground"
             >
               {heroDescription}
             </m.p>
@@ -163,7 +163,7 @@ export const HeroSection: FC = () => {
       */}
         <div
           ref={imageContainerRef}
-          className="perspective-distant mx-auto mt-auto w-full max-w-4xl"
+          className="mx-auto mt-auto w-full max-w-4xl perspective-distant"
         >
           <MotionContainer
             border
@@ -183,7 +183,7 @@ export const HeroSection: FC = () => {
             className="relative w-full overflow-hidden shadow-2xl"
           >
             {/* Tab bar */}
-            <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200/20 text-muted-foreground text-xs dark:bg-neutral-950/20">
+            <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200/20 text-xs text-muted-foreground dark:bg-neutral-950/20">
               <div className="mx-2 flex items-center justify-start gap-2 p-1">
                 <div className="size-3 rounded-full bg-error" />
                 <div className="size-3 rounded-full bg-yellow-500" />

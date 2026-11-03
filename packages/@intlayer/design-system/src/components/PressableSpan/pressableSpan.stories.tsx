@@ -145,12 +145,12 @@ export const Default: Story = {
 export const PressDurations: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         Try long pressing each span with different durations:
       </div>
       <div className="space-y-2">
         <div className="flex items-center gap-4">
-          <span className="w-16 text-gray-500 text-sm">200ms:</span>
+          <span className="w-16 text-sm text-gray-500">200ms:</span>
           <PressableSpan
             pressDuration={200}
             onPress={() => alert('Quick press (200ms)!')}
@@ -159,7 +159,7 @@ export const PressDurations: Story = {
           </PressableSpan>
         </div>
         <div className="flex items-center gap-4">
-          <span className="w-16 text-gray-500 text-sm">400ms:</span>
+          <span className="w-16 text-sm text-gray-500">400ms:</span>
           <PressableSpan
             pressDuration={400}
             onPress={() => alert('Standard press (400ms)!')}
@@ -168,7 +168,7 @@ export const PressDurations: Story = {
           </PressableSpan>
         </div>
         <div className="flex items-center gap-4">
-          <span className="w-16 text-gray-500 text-sm">800ms:</span>
+          <span className="w-16 text-sm text-gray-500">800ms:</span>
           <PressableSpan
             pressDuration={800}
             onPress={() => alert('Slow press (800ms)!')}
@@ -295,7 +295,7 @@ export const ClickOutsideDetection: Story = {
     return (
       <div className="space-y-6 rounded border border-gray-200 p-4">
         <div className="space-y-2">
-          <p className="text-gray-600 text-sm">
+          <p className="text-sm text-gray-600">
             Long press the span below, then click anywhere outside to trigger
             deselection:
           </p>
@@ -318,7 +318,7 @@ export const ClickOutsideDetection: Story = {
         </div>
 
         <div className="rounded bg-gray-50 p-4">
-          <p className="text-gray-500 text-sm">
+          <p className="text-sm text-gray-500">
             Click anywhere in this area to trigger "click outside" behavior
           </p>
         </div>
@@ -363,7 +363,7 @@ export const KeyboardNavigation: Story = {
       <div className="space-y-6">
         <div className="space-y-2">
           <h3 className="font-medium">Keyboard Instructions:</h3>
-          <ul className="space-y-1 text-gray-600 text-sm">
+          <ul className="space-y-1 text-sm text-gray-600">
             <li>
               •{' '}
               <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">Tab</kbd>{' '}
@@ -409,8 +409,8 @@ export const KeyboardNavigation: Story = {
         </div>
 
         <div className="space-y-1">
-          <h4 className="font-medium text-sm">Recent Actions:</h4>
-          <div className="space-y-1 text-gray-600 text-xs">
+          <h4 className="text-sm font-medium">Recent Actions:</h4>
+          <div className="space-y-1 text-xs text-gray-600">
             {keyboardActions.length === 0 ? (
               <div>No actions yet - try using the keyboard!</div>
             ) : (
@@ -454,12 +454,12 @@ export const ARIAAttributes: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="mb-2 font-medium text-sm">Default ARIA Attributes</h3>
+          <h3 className="mb-2 text-sm font-medium">Default ARIA Attributes</h3>
           <PressableSpan onPress={() => {}}>Basic pressable span</PressableSpan>
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-sm">Custom ARIA Label</h3>
+          <h3 className="mb-2 text-sm font-medium">Custom ARIA Label</h3>
           <PressableSpan
             onPress={() => {}}
             aria-label="Edit this content by long pressing"
@@ -469,19 +469,19 @@ export const ARIAAttributes: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-sm">With Description</h3>
+          <h3 className="mb-2 text-sm font-medium">With Description</h3>
           <div>
             <PressableSpan onPress={() => {}} aria-describedby="help-text">
               Content with help text
             </PressableSpan>
-            <div id="help-text" className="mt-1 text-gray-500 text-xs">
+            <div id="help-text" className="mt-1 text-xs text-gray-500">
               Long press to enter edit mode, click outside to exit
             </div>
           </div>
         </div>
       </div>
 
-      <div className="rounded bg-blue-50 p-4 text-gray-600 text-sm">
+      <div className="rounded bg-blue-50 p-4 text-sm text-gray-600">
         <strong>Screen Reader Testing:</strong> All spans have proper
         role="button" and aria-pressed attributes that update based on selection
         state.
@@ -556,7 +556,7 @@ export const InlineTextEditor: Story = {
       <div className="max-w-2xl space-y-6">
         <div className="space-y-4">
           <div>
-            <h2 className="mb-2 font-bold text-lg">
+            <h2 className="mb-2 text-lg font-bold">
               {editingKey === 'title' ? (
                 <input
                   autoFocus
@@ -607,7 +607,7 @@ export const InlineTextEditor: Story = {
             </p>
           </div>
 
-          <div className="text-blue-600 text-sm">
+          <div className="text-sm text-blue-600">
             {editingKey === 'note' ? (
               <input
                 autoFocus
@@ -632,7 +632,7 @@ export const InlineTextEditor: Story = {
           </div>
         </div>
 
-        <div className="rounded bg-gray-50 p-3 text-gray-500 text-xs">
+        <div className="rounded bg-gray-50 p-3 text-xs text-gray-500">
           <strong>Instructions:</strong> Long press any text to edit it. Press
           Enter to save, Escape to cancel, or click outside to save changes.
         </div>
@@ -689,7 +689,7 @@ export const TouchFriendlyMobile: Story = {
 
     return (
       <div className="mx-auto max-w-sm space-y-4">
-        <div className="mb-4 text-center text-gray-600 text-sm">
+        <div className="mb-4 text-center text-sm text-gray-600">
           Long press cards to select them
         </div>
 
@@ -710,12 +710,12 @@ export const TouchFriendlyMobile: Story = {
           >
             <div className="space-y-1">
               <h3 className="font-medium text-gray-900">{item.title}</h3>
-              <p className="text-gray-600 text-sm">{item.description}</p>
+              <p className="text-sm text-gray-600">{item.description}</p>
             </div>
           </PressableSpan>
         ))}
 
-        <div className="text-center text-gray-500 text-xs">
+        <div className="text-center text-xs text-gray-500">
           Selected: {selectedItems.length} item
           {selectedItems.length !== 1 ? 's' : ''}
         </div>

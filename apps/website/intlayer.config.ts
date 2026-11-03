@@ -89,7 +89,7 @@ const config: CustomIntlayerConfig = {
   content: {
     contentDir: ['./src', '../../packages/@intlayer/design-system/dist'],
     codeDir: ['./src', '../../packages/@intlayer/design-system/dist'],
-    formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
+    formatCommand: 'bun x oxfmt "{{file}}"',
   },
   compiler: {
     output: ({ fileName }) => `./${fileName}.content.ts`,

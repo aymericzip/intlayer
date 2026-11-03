@@ -65,9 +65,8 @@ describe('server useDictionary', () => {
     // Solid hydration ids are positional: both helpers must consume the same
     // number of resource slots per useIntlayer call site.
     const { useDictionary } = await import('./useDictionary');
-    const { useDictionaryDynamic } = await import(
-      '../client/useDictionaryDynamic'
-    );
+    const { useDictionaryDynamic } =
+      await import('../client/useDictionaryDynamic');
     const dictionaryLoaders = {
       en: () => Promise.resolve(dictionary),
     } satisfies StrictModeLocaleMap<() => Promise<typeof dictionary>>;

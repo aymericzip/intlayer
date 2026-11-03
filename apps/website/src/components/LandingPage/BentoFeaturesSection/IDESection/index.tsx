@@ -1,10 +1,10 @@
 import { IDE } from '@intlayer/design-system/ide';
 import type { FC } from 'react';
 import { type Framework, useFramework } from '../FrameworkContext';
-import clientComponent from './content/client-component.md';
 import clientComponentI18nEn from './content/client-component-i18n-en.md';
 import clientComponentI18nEs from './content/client-component-i18n-es.md';
 import clientComponentI18nFr from './content/client-component-i18n-fr.md';
+import clientComponent from './content/client-component.md';
 import componentAngular from './content/component-angular.md';
 import componentLit from './content/component-lit.md';
 import componentNextClient from './content/component-next-client.md';

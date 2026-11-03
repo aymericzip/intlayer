@@ -10,8 +10,8 @@ import { TabSelector } from '@components/TabSelector';
 import { Check, CornerDownRight, Sparkles } from 'lucide-react';
 import { type FC, type ReactNode, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { type CellTarget, useContentGrid } from './ContentGridContext';
 import type { CellStatus, CellStatusFilter } from './cellStatus';
+import { type CellTarget, useContentGrid } from './ContentGridContext';
 import { StatusDot } from './StatusDot';
 
 export type GridToolbarProps = {
@@ -112,7 +112,7 @@ const TranslateMissingButton: FC<TranslateMissingButtonProps> = ({
               ))}
             </ul>
             {skippedLocales.length > 0 && (
-              <p className="text-neutral text-xs">
+              <p className="text-xs text-neutral">
                 {content.skippedLocked}{' '}
                 <span className="font-mono" dir="ltr">
                   {formatLocaleList(skippedLocales)}
@@ -206,7 +206,7 @@ export const GridToolbar: FC<GridToolbarProps> = ({
   return (
     <div className="flex shrink-0 flex-col gap-2">
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-        <div className="min-w-48 max-w-md flex-1">
+        <div className="max-w-md min-w-48 flex-1">
           <SearchInput
             value={query}
             onChange={(event) => onQueryChange(event.currentTarget.value)}
@@ -256,7 +256,7 @@ export const GridToolbar: FC<GridToolbarProps> = ({
               aria-pressed={statusFilter === filter}
               data-active={statusFilter === filter}
               onClick={() => onStatusFilterChange(filter)}
-              className="flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
+              className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-1 text-sm font-medium whitespace-nowrap transition-colors focus:outline-none"
             >
               {status && <StatusDot status={status} />}
               <span>{label}</span>

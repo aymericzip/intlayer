@@ -80,8 +80,8 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
   if (relatedPosts.length === 0) return null;
 
   return (
-    <section className="mt-16 border-border border-t border-dashed pt-8">
-      <h2 className="mb-4 font-semibold text-foreground text-sm">
+    <section className="mt-16 border-t border-dashed border-border pt-8">
+      <h2 className="mb-4 text-sm font-semibold text-foreground">
         {content.relatedPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
@@ -91,18 +91,18 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
               to={post.relativeUrl}
               variant="invisible-link"
               label={content.visitBlogTitle({ title: post.title }).value}
-              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pe-0 first:sm:ps-0"
+              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 first:sm:ps-0 last:sm:pe-0"
             >
-              <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
+              <p className="group-hover:text-foreground-secondary line-clamp-2 text-sm font-medium text-foreground transition-colors group-hover:underline">
                 {post.title}
               </p>
               {post.description && (
-                <p className="line-clamp-2 text-muted-foreground text-xs">
+                <p className="line-clamp-2 text-xs text-muted-foreground">
                   {post.description}
                 </p>
               )}
               {post.author && (
-                <p className="mt-auto text-muted-foreground text-xs">
+                <p className="mt-auto text-xs text-muted-foreground">
                   {post.author.name}
                 </p>
               )}
@@ -148,8 +148,8 @@ export const LastPosts: FC<LastPostsProps> = ({
   if (lastPosts.length === 0) return null;
 
   return (
-    <section className="mt-16 border-border border-t border-dashed pt-8">
-      <h2 className="mb-4 font-semibold text-foreground text-sm">
+    <section className="mt-16 border-t border-dashed border-border pt-8">
+      <h2 className="mb-4 text-sm font-semibold text-foreground">
         {content.lastPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
@@ -159,18 +159,18 @@ export const LastPosts: FC<LastPostsProps> = ({
               to={post.relativeUrl}
               variant="invisible-link"
               label={content.visitBlogTitle({ title: post.title }).value}
-              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pe-0 first:sm:ps-0"
+              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 first:sm:ps-0 last:sm:pe-0"
             >
-              <p className="line-clamp-2 font-medium text-foreground text-sm transition-colors group-hover:text-foreground-secondary group-hover:underline">
+              <p className="group-hover:text-foreground-secondary line-clamp-2 text-sm font-medium text-foreground transition-colors group-hover:underline">
                 {post.title}
               </p>
               {post.description && (
-                <p className="line-clamp-2 text-muted-foreground text-xs">
+                <p className="line-clamp-2 text-xs text-muted-foreground">
                   {post.description}
                 </p>
               )}
               {post.author && (
-                <p className="mt-auto text-muted-foreground text-xs">
+                <p className="mt-auto text-xs text-muted-foreground">
                   {post.author.name}
                 </p>
               )}

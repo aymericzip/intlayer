@@ -117,9 +117,8 @@ const staticPagesPlugin = {
       const outDir = environment.config?.build?.outDir;
       if (!outDir) return;
 
-      const { compressDirectory } = await import(
-        './scripts/compress-static.ts'
-      );
+      const { compressDirectory } =
+        await import('./scripts/compress-static.ts');
       await compressDirectory(resolve(__dirname, outDir), 'client bundle');
     },
   },

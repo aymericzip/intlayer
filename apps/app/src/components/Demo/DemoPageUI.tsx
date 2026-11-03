@@ -62,8 +62,8 @@ export const DemoPageUI = ({ autoBootstrap }: DemoPageUIProps) => {
         {isAuthenticated ? (
           <>
             <div className="flex flex-col gap-3 py-3 text-center">
-              <h2 className="font-extrabold text-2xl">{content.demoSession}</h2>
-              <span className="text-neutral text-sm">
+              <h2 className="text-2xl font-extrabold">{content.demoSession}</h2>
+              <span className="text-sm text-neutral">
                 {content.youAreCurrentlyLoggedIn}
               </span>
             </div>
@@ -88,10 +88,10 @@ export const DemoPageUI = ({ autoBootstrap }: DemoPageUIProps) => {
         ) : (
           <>
             <div className="flex flex-col gap-3 py-3 text-center">
-              <h2 className="font-extrabold text-2xl">
+              <h2 className="text-2xl font-extrabold">
                 {content.welcomeToIntlayer}
               </h2>
-              <span className="text-neutral text-sm">
+              <span className="text-sm text-neutral">
                 {content.notSignedInPrompt}
               </span>
             </div>

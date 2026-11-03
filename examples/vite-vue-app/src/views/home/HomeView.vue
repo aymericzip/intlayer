@@ -348,7 +348,9 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
                 :class="{ even: row.id % 2 === 0 }"
               >
                 <td class="col-id">{{ row.id }}</td>
-                <td class="col-name"><code>{{ row.name }}</code></td>
+                <td class="col-name">
+                  <code>{{ row.name }}</code>
+                </td>
                 <td class="col-desc">{{ row.desc }}</td>
                 <td class="col-result">
                   <template v-if="row.result === 'html'">
@@ -368,13 +370,21 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
               </tr>
             </template>
             <!-- Markdown rows separately because they render as components -->
-            <tr class="section-header"><td colspan="4">Markdown</td></tr>
+            <tr class="section-header">
+              <td colspan="4">Markdown</td>
+            </tr>
             <tr>
               <td class="col-id">—</td>
               <td class="col-name"><code>md()</code></td>
               <td class="col-desc">Markdown string</td>
               <td class="col-result markdown-cell">
-                <component :is="(content.n06_md as any).use ? (content.n06_md as any).use({}) : content.n06_md" />
+                <component
+                  :is="
+                    (content.n06_md as any).use
+                      ? (content.n06_md as any).use({})
+                      : content.n06_md
+                  "
+                />
               </td>
             </tr>
             <tr class="even">
@@ -382,7 +392,13 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
               <td class="col-name"><code>t(md())</code></td>
               <td class="col-desc">Translation of markdown</td>
               <td class="col-result markdown-cell">
-                <component :is="(content.n09_t_of_md as any).use ? (content.n09_t_of_md as any).use({}) : content.n09_t_of_md" />
+                <component
+                  :is="
+                    (content.n09_t_of_md as any).use
+                      ? (content.n09_t_of_md as any).use({})
+                      : content.n09_t_of_md
+                  "
+                />
               </td>
             </tr>
             <tr>
@@ -390,7 +406,13 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
               <td class="col-name"><code>md(t())</code></td>
               <td class="col-desc">Markdown from translation</td>
               <td class="col-result markdown-cell">
-                <component :is="(content.n10_md_t as any).use ? (content.n10_md_t as any).use({}) : content.n10_md_t" />
+                <component
+                  :is="
+                    (content.n10_md_t as any).use
+                      ? (content.n10_md_t as any).use({})
+                      : content.n10_md_t
+                  "
+                />
               </td>
             </tr>
             <tr class="even">
@@ -398,7 +420,13 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
               <td class="col-name"><code>plural(md()) 1</code></td>
               <td class="col-desc">count=1 → '**1** day'</td>
               <td class="col-result markdown-cell">
-                <component :is="(content.n25_plural_md(1) as any).use ? (content.n25_plural_md(1) as any).use({}) : content.n25_plural_md(1)" />
+                <component
+                  :is="
+                    (content.n25_plural_md(1) as any).use
+                      ? (content.n25_plural_md(1) as any).use({})
+                      : content.n25_plural_md(1)
+                  "
+                />
               </td>
             </tr>
             <tr>
@@ -406,7 +434,13 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
               <td class="col-name"><code>plural(md()) 5</code></td>
               <td class="col-desc">count=5 → '**5** days'</td>
               <td class="col-result markdown-cell">
-                <component :is="(content.n25_plural_md(5) as any).use ? (content.n25_plural_md(5) as any).use({}) : content.n25_plural_md(5)" />
+                <component
+                  :is="
+                    (content.n25_plural_md(5) as any).use
+                      ? (content.n25_plural_md(5) as any).use({})
+                      : content.n25_plural_md(5)
+                  "
+                />
               </td>
             </tr>
             <tr class="even">
@@ -414,7 +448,15 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
               <td class="col-name"><code>insert(md())</code></td>
               <td class="col-desc">{name:'Alice'} → 'Hello **Alice**'</td>
               <td class="col-result markdown-cell">
-                <component :is="(content.n26_insert_md({ name: 'Alice' }) as any).use ? (content.n26_insert_md({ name: 'Alice' }) as any).use({}) : content.n26_insert_md({ name: 'Alice' })" />
+                <component
+                  :is="
+                    (content.n26_insert_md({ name: 'Alice' }) as any).use
+                      ? (content.n26_insert_md({ name: 'Alice' }) as any).use(
+                          {}
+                        )
+                      : content.n26_insert_md({ name: 'Alice' })
+                  "
+                />
               </td>
             </tr>
           </tbody>
@@ -435,15 +477,40 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
   padding: 2rem;
   text-align: center;
 }
-.hero { margin-bottom: 2rem; }
-.logos { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
-.logo { height: 6em; padding: 1.5em; will-change: filter; transition: filter 300ms; }
-.logo:hover { filter: drop-shadow(0 0 2em #646cffaa); }
-.logo.vue:hover { filter: drop-shadow(0 0 2em #42b883aa); }
+.hero {
+  margin-bottom: 2rem;
+}
+.logos {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
+}
 
-.benchmark-wrap { margin: 1.5rem 0; text-align: left; }
-.benchmark-title { font-size: 1.25rem; color: #42b883; margin-bottom: 1rem; }
-.table-scroll { overflow-x: auto; }
+.benchmark-wrap {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+.benchmark-title {
+  font-size: 1.25rem;
+  color: #42b883;
+  margin-bottom: 1rem;
+}
+.table-scroll {
+  overflow-x: auto;
+}
 
 .benchmark-table {
   width: 100%;
@@ -463,7 +530,9 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   vertical-align: top;
 }
-.benchmark-table tr.even td { background: rgba(255, 255, 255, 0.025); }
+.benchmark-table tr.even td {
+  background: rgba(255, 255, 255, 0.025);
+}
 
 .section-header td {
   padding: 6px 14px;
@@ -475,17 +544,36 @@ const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
   color: #888;
 }
 
-.col-id { width: 36px; color: #666; font-family: monospace; }
-.col-name { width: 200px; }
+.col-id {
+  width: 36px;
+  color: #666;
+  font-family: monospace;
+}
+.col-name {
+  width: 200px;
+}
 .col-name code {
   background: rgba(66, 184, 131, 0.12);
   padding: 2px 7px;
   border-radius: 4px;
   font-size: 0.85em;
 }
-.col-desc { width: 280px; color: #aaa; font-family: monospace; font-size: 0.83em; }
-.col-result { max-width: 360px; }
-.markdown-cell { font-size: 0.82em; line-height: 1.4; }
+.col-desc {
+  width: 280px;
+  color: #aaa;
+  font-family: monospace;
+  font-size: 0.83em;
+}
+.col-result {
+  max-width: 360px;
+}
+.markdown-cell {
+  font-size: 0.82em;
+  line-height: 1.4;
+}
 
-.read-the-docs { color: #888; margin-top: 2rem; }
+.read-the-docs {
+  color: #888;
+  margin-top: 2rem;
+}
 </style>

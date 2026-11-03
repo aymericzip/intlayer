@@ -58,10 +58,10 @@ export type IndentGuidesProps = {
 export const IndentGuides: FC<IndentGuidesProps> = ({ depth }) =>
   Array.from({ length: depth }, (_, level) => (
     <span
-      // biome-ignore lint/suspicious/noArrayIndexKey: levels are positional
+      // oxlint-disable-next-line react/no-array-index-key -- levels are positional
       key={level}
       aria-hidden
-      className="pointer-events-none absolute inset-y-0 border-neutral/20 border-s"
+      className="pointer-events-none absolute inset-y-0 border-s border-neutral/20"
       style={{
         insetInlineStart: `${BASE_INDENT_REM + level * INDENT_REM + 0.4375}rem`,
       }}
@@ -132,7 +132,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
             />
             {localeKeys.length > 1 && (
               <div
-                className="flex items-center gap-2 px-2 py-1.5 text-neutral text-xs"
+                className="flex items-center gap-2 px-2 py-1.5 text-xs text-neutral"
                 style={{ gridColumn: `span ${localeKeys.length - 1}` }}
               >
                 <span className="italic">{content.sameForAllLocales}</span>
@@ -166,7 +166,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
         ) : (
           <div
             key={locale}
-            className="flex items-center px-2 text-neutral text-xs"
+            className="flex items-center px-2 text-xs text-neutral"
             aria-hidden
           >
             —
@@ -176,7 +176,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
     };
 
     return (
-      // biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role, jsx-a11y/interactive-supports-focus -- ARIA grid built on CSS grid; focus is roving on gridcells
       <div
         role="row"
         aria-expanded={isGroup ? !isCollapsed : undefined}
@@ -191,7 +191,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
         style={{ gridTemplateColumns }}
         {...dropZoneProps}
       >
-        {/* biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells */}
+        {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role, jsx-a11y/interactive-supports-focus -- ARIA grid built on CSS grid; focus is roving on gridcells */}
         <div
           role="rowheader"
           className={cn(
@@ -213,7 +213,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
               color="neutral"
               size="custom"
               roundedSize="sm"
-              className="absolute inset-s-0 top-2.5 cursor-grab p-0.5 opacity-0 transition-opacity hover:bg-text/10 focus-visible:opacity-100 active:cursor-grabbing group-hover/row:opacity-100"
+              className="absolute inset-s-0 top-2.5 cursor-grab p-0.5 opacity-0 transition-opacity group-hover/row:opacity-100 hover:bg-text/10 focus-visible:opacity-100 active:cursor-grabbing"
               iconClassName="size-3"
             />
           )}
@@ -248,7 +248,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
               )
             }
             className={cn(
-              'min-w-0 cursor-pointer break-words text-start text-sm hover:underline',
+              'min-w-0 cursor-pointer text-start text-sm break-words hover:underline',
               isGroup ? 'font-semibold' : 'text-text'
             )}
           >
@@ -268,7 +268,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
               disabled={isTranslating}
               onClick={() => translateCells(missingTargets)}
               className={cn(
-                'mt-0.5 opacity-0 transition-opacity focus-visible:opacity-100 group-hover/row:opacity-100',
+                'mt-0.5 opacity-0 transition-opacity group-hover/row:opacity-100 focus-visible:opacity-100',
                 AI_TEXT_CLASS_NAME
               )}
             />
@@ -393,7 +393,7 @@ export const ContentGridAddLine: FC<ContentGridAddLineProps> = ({
                 {content.add}
               </Button>
             </div>
-            {error && <span className="text-error text-xs">{error}</span>}
+            {error && <span className="text-xs text-error">{error}</span>}
           </form>
         ) : (
           <Button

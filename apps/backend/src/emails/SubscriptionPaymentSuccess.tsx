@@ -40,7 +40,7 @@ export const SubscriptionPaymentSuccessEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -50,25 +50,25 @@ export const SubscriptionPaymentSuccessEN = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Payment Confirmed
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Thank you for your payment! Your subscription to the{' '}
               <strong>{planName}</strong> plan is now active.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Start Date: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organization: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Manage Your Subscription
@@ -76,7 +76,7 @@ export const SubscriptionPaymentSuccessEN = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -106,7 +106,7 @@ export const SubscriptionPaymentSuccessFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -116,25 +116,25 @@ export const SubscriptionPaymentSuccessFR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Paiement Confirmé
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Bonjour {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Merci pour votre paiement ! Votre abonnement au plan{' '}
               <strong>{planName}</strong> est maintenant actif.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Date de début : <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisation : <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Gérer votre abonnement
@@ -142,7 +142,7 @@ export const SubscriptionPaymentSuccessFR = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -172,7 +172,7 @@ export const SubscriptionPaymentSuccessES = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -182,25 +182,25 @@ export const SubscriptionPaymentSuccessES = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Pago Confirmado
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hola {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               ¡Gracias por tu pago! Tu suscripción al plan{' '}
               <strong>{planName}</strong> ya está activa.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Fecha de inicio: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organización: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Gestionar tu suscripción
@@ -208,7 +208,7 @@ export const SubscriptionPaymentSuccessES = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -238,7 +238,7 @@ export const SubscriptionPaymentSuccessRU = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -248,25 +248,25 @@ export const SubscriptionPaymentSuccessRU = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Платеж подтвержден
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Здравствуйте, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Спасибо за оплату! Ваша подписка на тарифный план{' '}
               <strong>{planName}</strong> теперь активна.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Дата начала: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Организация: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Управление подпиской
@@ -274,7 +274,7 @@ export const SubscriptionPaymentSuccessRU = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -304,7 +304,7 @@ export const SubscriptionPaymentSuccessJA = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -314,26 +314,26 @@ export const SubscriptionPaymentSuccessJA = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               お支払いが確認されました
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}様、こんにちは。
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               お支払いいありがとうございました！あなたの
               <strong>{planName}</strong>
               プランのサブスクリプションが有効になりました。
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               開始日: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               組織: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 サブスクリプションを管理する
@@ -341,7 +341,7 @@ export const SubscriptionPaymentSuccessJA = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -371,7 +371,7 @@ export const SubscriptionPaymentSuccessKO = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -381,25 +381,25 @@ export const SubscriptionPaymentSuccessKO = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               결제 확인됨
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               안녕하세요 {username}님,
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               결제해 주셔서 감사합니다! 귀하의 <strong>{planName}</strong> 플랜
               구독이 이제 활성화되었습니다.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               시작일: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               조직: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 구독 관리하기
@@ -407,7 +407,7 @@ export const SubscriptionPaymentSuccessKO = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -437,7 +437,7 @@ export const SubscriptionPaymentSuccessZH = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -447,24 +447,24 @@ export const SubscriptionPaymentSuccessZH = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               支付已确认
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}，您好！
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               感谢您的支付！您的 <strong>{planName}</strong> 计划订阅现已激活。
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               开始日期：<strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               组织：<strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 管理您的订阅
@@ -472,7 +472,7 @@ export const SubscriptionPaymentSuccessZH = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -502,7 +502,7 @@ export const SubscriptionPaymentSuccessDE = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -512,25 +512,25 @@ export const SubscriptionPaymentSuccessDE = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Zahlung bestätigt
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hallo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               vielen Dank für Ihre Zahlung! Ihr Abonnement für den{' '}
               <strong>{planName}</strong>-Plan ist nun aktiv.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Startdatum: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisation: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Ihr Abonnement verwalten
@@ -538,7 +538,7 @@ export const SubscriptionPaymentSuccessDE = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -568,7 +568,7 @@ export const SubscriptionPaymentSuccessAR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -578,25 +578,25 @@ export const SubscriptionPaymentSuccessAR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               تم تأكيد الدفع
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               أهلاً {username}،
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               شكراً لك على الدفع! اشتراكك في خطة <strong>{planName}</strong> أصبح
               نشطاً الآن.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               تاريخ البدء: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               المنظمة: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 إدارة اشتراكك
@@ -604,7 +604,7 @@ export const SubscriptionPaymentSuccessAR = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -634,7 +634,7 @@ export const SubscriptionPaymentSuccessIT = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -644,25 +644,25 @@ export const SubscriptionPaymentSuccessIT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Pagamento Confermato
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ciao {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Grazie per il tuo pagamento! Il tuo abbonamento al piano{' '}
               <strong>{planName}</strong> è ora attivo.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Data di inizio: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organizzazione: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Gestisci il tuo abbonamento
@@ -670,7 +670,7 @@ export const SubscriptionPaymentSuccessIT = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -700,7 +700,7 @@ export const SubscriptionPaymentSuccessEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -710,25 +710,25 @@ export const SubscriptionPaymentSuccessEN_GB = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Payment Confirmed
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Thank you for your payment! Your subscription to the{' '}
               <strong>{planName}</strong> plan is now active.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Start Date: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisation: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Manage Your Subscription
@@ -736,7 +736,7 @@ export const SubscriptionPaymentSuccessEN_GB = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -766,7 +766,7 @@ export const SubscriptionPaymentSuccessPT = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -776,25 +776,25 @@ export const SubscriptionPaymentSuccessPT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Pagamento Confirmado
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Olá {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Obrigado pelo seu pagamento! Sua assinatura do plano{' '}
               <strong>{planName}</strong> está agora ativa.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Data de início: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organização: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Gerencie sua assinatura
@@ -802,7 +802,7 @@ export const SubscriptionPaymentSuccessPT = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -832,7 +832,7 @@ export const SubscriptionPaymentSuccessHI = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -842,25 +842,25 @@ export const SubscriptionPaymentSuccessHI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               भुगतान पुष्ट
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               नमस्ते {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               आपके भुगतान के लिए धन्यवाद! <strong>{planName}</strong> योजना की आपकी
               सदस्यता अब सक्रिय है।
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               प्रारंभ तिथि: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               संगठन: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 अपनी सदस्यता प्रबंधित करें
@@ -868,7 +868,7 @@ export const SubscriptionPaymentSuccessHI = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -898,7 +898,7 @@ export const SubscriptionPaymentSuccessTR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -908,25 +908,25 @@ export const SubscriptionPaymentSuccessTR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Ödeme Onaylandı
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Merhaba {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ödemeniz için teşekkür ederiz! <strong>{planName}</strong> planına
               olan aboneliğiniz artık aktif.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Başlangıç Tarihi: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Kuruluş: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Aboneliğinizi Yönetin
@@ -934,7 +934,7 @@ export const SubscriptionPaymentSuccessTR = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -964,7 +964,7 @@ export const SubscriptionPaymentSuccessPL = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -974,25 +974,25 @@ export const SubscriptionPaymentSuccessPL = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Płatność Potwierdzona
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Witaj {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Dziękujemy za płatność! Twoja subskrypcja planu{' '}
               <strong>{planName}</strong> jest teraz aktywna.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Data rozpoczęcia: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organizacja: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Zarządzaj swoją subskrypcją
@@ -1000,7 +1000,7 @@ export const SubscriptionPaymentSuccessPL = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1030,7 +1030,7 @@ export const SubscriptionPaymentSuccessID = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1040,25 +1040,25 @@ export const SubscriptionPaymentSuccessID = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Pembayaran Dikonfirmasi
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Halo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Terima kasih atas pembayaran Anda! Langganan Anda ke paket{' '}
               <strong>{planName}</strong> sekarang sudah aktif.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Tanggal Mulai: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisasi: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Kelola Langganan Anda
@@ -1066,7 +1066,7 @@ export const SubscriptionPaymentSuccessID = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1096,7 +1096,7 @@ export const SubscriptionPaymentSuccessVI = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1106,25 +1106,25 @@ export const SubscriptionPaymentSuccessVI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Thanh Toán Đã Được Xác Nhận
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Xin chào {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Cảm ơn bạn đã thanh toán! Gói thuê bao <strong>{planName}</strong>{' '}
               của bạn hiện đã được kích hoạt.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ngày bắt đầu: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Tổ chức: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Quản lý gói thuê bao của bạn
@@ -1132,7 +1132,7 @@ export const SubscriptionPaymentSuccessVI = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1162,7 +1162,7 @@ export const SubscriptionPaymentSuccessUK = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1172,25 +1172,25 @@ export const SubscriptionPaymentSuccessUK = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Платіж підтверджено
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Вітаємо, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Дякуємо за оплату! Ваша підписка на тарифний план{' '}
               <strong>{planName}</strong> тепер активна.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Дата початку: <strong>{subscriptionStartDate}</strong>
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Організація: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={manageSubscriptionLink}
               >
                 Керувати підпискою
@@ -1198,7 +1198,7 @@ export const SubscriptionPaymentSuccessUK = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>

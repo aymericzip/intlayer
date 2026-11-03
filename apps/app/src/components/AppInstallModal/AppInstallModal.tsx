@@ -105,8 +105,8 @@ export const AppInstallModal = () => {
             className="shrink-0"
           />
           <div className="flex flex-col gap-1">
-            <p className="font-semibold text-base">{title}</p>
-            <p className="text-neutral-500 text-sm dark:text-neutral-400">
+            <p className="text-base font-semibold">{title}</p>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
               {description}
             </p>
           </div>

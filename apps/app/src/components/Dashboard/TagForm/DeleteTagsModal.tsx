@@ -33,7 +33,7 @@ export const DeleteTagsModal: FC<DeleteTagsModalProps> = ({
       borderColor="neutral"
     >
       <form className="size-full px-3">
-        <p className="text-neutral py-4 text-sm">
+        <p className="py-4 text-sm text-neutral">
           {count > 1 ? description.bulk : description.single}
         </p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">

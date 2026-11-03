@@ -14,10 +14,10 @@ const ClientComponent = () => {
   return (
     <div className="flex flex-col gap-4 rounded-lg border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900">
       <div className="flex items-center justify-between">
-        <span className="font-medium text-sm text-zinc-600 dark:text-zinc-400">
+        <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
           {t('label')}:
         </span>
-        <span className="font-bold text-2xl text-zinc-900 dark:text-zinc-50">
+        <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
           {format.number(count)}
         </span>
       </div>

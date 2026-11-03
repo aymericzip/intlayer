@@ -33,7 +33,7 @@ const verticalSwitchSelectorVariant = cva(
 );
 
 const verticalChoiceVariant = cva(
-  'z-1 w-full cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-foreground-opposite motion-reduce:transition-none',
+  'z-1 w-full cursor-pointer text-sm font-medium transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-foreground-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {

@@ -21,22 +21,22 @@ export type { ParsedMarkdown };
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
-  <H1 isClickable className="text-foreground mb-8 mb-16" {...props} />
+  <H1 isClickable className="mb-8 mb-16 text-foreground" {...props} />
 );
 const H2Renderer = (props: ComponentProps<'h2'>) => (
-  <H2 isClickable className="text-foreground mt-16" {...props} />
+  <H2 isClickable className="mt-16 text-foreground" {...props} />
 );
 const H3Renderer = (props: ComponentProps<'h3'>) => (
-  <H3 isClickable className="text-foreground mt-5" {...props} />
+  <H3 isClickable className="mt-5 text-foreground" {...props} />
 );
 const H4Renderer = (props: ComponentProps<'h4'>) => (
-  <H4 isClickable className="text-foreground mt-3" {...props} />
+  <H4 isClickable className="mt-3 text-foreground" {...props} />
 );
 const H5Renderer = (props: ComponentProps<'h5'>) => (
-  <H5 isClickable className="text-foreground mt-3" {...props} />
+  <H5 isClickable className="mt-3 text-foreground" {...props} />
 );
 const H6Renderer = (props: ComponentProps<'h6'>) => (
-  <H6 isClickable className="text-foreground mt-3" {...props} />
+  <H6 isClickable className="mt-3 text-foreground" {...props} />
 );
 const StrongRenderer = (props: ComponentProps<'strong'>) => (
   <strong className="text-foreground" {...props} />
@@ -59,7 +59,7 @@ const MemoizedCodeBlock = memo(
         (_, code: string) => String.fromCharCode(parseInt(code, 10))
       );
       return (
-        <code className="border-neutral/30 bg-card/60 rounded-md border box-decoration-clone px-1.5 py-0.5 font-mono text-[0.875em] leading-[inherit]">
+        <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-[0.875em] leading-[inherit]">
           {decodedContent}
         </code>
       );
@@ -103,7 +103,7 @@ const BlockquoteRenderer = ({
 }: ComponentProps<'blockquote'>) => (
   <blockquote
     className={cn(
-      'border-card text-muted-foreground [&_strong]:text-neutral mt-5 gap-3 border-s-4 ps-5',
+      'mt-5 gap-3 border-s-4 border-card ps-5 text-muted-foreground [&_strong]:text-neutral',
       className
     )}
     {...props}
@@ -113,7 +113,7 @@ const BlockquoteRenderer = ({
 const UlRenderer = ({ className, ...props }: ComponentProps<'ul'>) => (
   <ul
     className={cn(
-      'marker:text-neutral/80 mt-5 flex list-disc flex-col gap-3 ps-5',
+      'mt-5 flex list-disc flex-col gap-3 ps-5 marker:text-neutral/80',
       className
     )}
     {...props}
@@ -123,7 +123,7 @@ const UlRenderer = ({ className, ...props }: ComponentProps<'ul'>) => (
 const OlRenderer = ({ className, ...props }: ComponentProps<'ol'>) => (
   <ol
     className={cn(
-      'marker:text-neutral/80 mt-5 flex list-decimal flex-col gap-3 ps-5',
+      'mt-5 flex list-decimal flex-col gap-3 ps-5 marker:text-neutral/80',
       className
     )}
     {...props}
@@ -176,7 +176,7 @@ const TableRenderer = (props: ComponentProps<typeof SmartTable>) => (
 const TabsRenderer = (props: ComponentProps<typeof Tab>) => (
   <Tab
     {...props}
-    className="border-card rounded-xl border"
+    className="rounded-xl border border-card"
     headerClassName="sticky rounded-xl top-24 z-5 bg-background/70 backdrop-blur overflow-x-auto"
   />
 );

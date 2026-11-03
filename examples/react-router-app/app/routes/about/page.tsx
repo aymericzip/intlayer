@@ -1,10 +1,8 @@
 import { getIntlayer, validatePrefix } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { data } from 'react-router';
-
 import { LocaleSwitcher } from '~/components/locale-switcher';
 import { Navbar } from '~/components/navbar';
-
 import type { Route } from './+types/page';
 
 export const loader = ({ params }: Route.LoaderArgs) => {
@@ -33,7 +31,7 @@ export default function Page() {
     <div className="grid h-screen place-items-center">
       <Navbar />
       <div className="flex flex-col items-center gap-3">
-        <h1 className="font-bold text-3xl underline">{about}</h1>
+        <h1 className="text-3xl font-bold underline">{about}</h1>
         <LocaleSwitcher />
       </div>
     </div>

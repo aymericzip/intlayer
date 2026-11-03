@@ -1,0 +1,49 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "endOfLine": "lf",
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "quoteProps": "as-needed",
+  "trailingComma": "es5",
+  "semi": true,
+  "arrowParens": "always",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "sortImports": {
+    "newlinesBetween": false
+  },
+  "sortTailwindcss": {
+    "functions": ["cn", "clsx", "cva"],
+    "stylesheet": "./packages/@intlayer/design-system/styles/globals.css"
+  },
+  "sortPackageJson": true,
+  "ignorePatterns": [
+    "**/routeTree.gen.ts",
+    "**/out",
+    "**/dist",
+    "**/dist/electron",
+    "**/.next",
+    "**/node_modules",
+    "**/coverage",
+    "**/.intlayer",
+    "**/dictionaries",
+    "**/storybook-static",
+    "**/*-lock.json",
+    "**/bun.lock",
+    "**/embeddings/**/*.json",
+    "**/stats.html"
+  ],
+  "overrides": [
+    {
+      "files": ["*.md", "*.mdx"],
+      "options": {
+        "singleQuote": false,
+        "quoteProps": "preserve",
+        "sortImports": false
+      }
+    }
+  ]
+}

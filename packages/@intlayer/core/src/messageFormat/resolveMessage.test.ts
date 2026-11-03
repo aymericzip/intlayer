@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { enu, gender, insert, plural } from '../transpiler';
-import { icuToIntlayerFormatter } from './ICU';
 import { i18nextToIntlayerFormatter } from './i18next';
+import { icuToIntlayerFormatter } from './ICU';
 import {
   createMessageResolver,
   interpolateMessage,

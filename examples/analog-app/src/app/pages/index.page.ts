@@ -19,7 +19,7 @@ import { LocaleSwitcherComponent } from '../locale-switcher.component';
   imports: [LocaleSwitcherComponent, CommonModule, IntlayerNodeComponent],
   template: `
     <app-locale-switcher></app-locale-switcher>
-    <div class="content" >
+    <div class="content">
       <h1>{{ content().title }}</h1>
       <p>{{ content().congratulations }}</p>
 
@@ -89,13 +89,14 @@ import { LocaleSwitcherComponent } from '../locale-switcher.component';
         <p>Percentage: {{ percentage()(0.25) }}</p>
         <p>Currency: {{ currency()(1234.5, { currency: 'EUR' }) }}</p>
         <p>Date: {{ date()(now, 'short') }}</p>
-        <p>Relative Time: {{ relativeTime()(now, in3Days, { unit: 'day' }) }}</p>
+        <p>
+          Relative Time: {{ relativeTime()(now, in3Days, { unit: 'day' }) }}
+        </p>
         <p>Unit: {{ unit()(5, { unit: 'kilometer', unitDisplay: 'long' }) }}</p>
         <p>Compact: {{ compact()(1200) }}</p>
         <p>List: {{ list()(['apple', 'banana', 'orange']) }}</p>
         <p>Intl (Manual): {{ formattedCurrency() }}</p>
       </div>
-
     </div>
 
     <h2>Analog</h2>

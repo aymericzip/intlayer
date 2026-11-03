@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useSyncExternalStore } from 'react';
 import { useGetElementOrWindow } from '../useGetElementOrWindow';
-
 import { scrollBlockageManager } from './useScrollBlockageStore';
 
 type useScrollBlockagePropsReadOnly = {

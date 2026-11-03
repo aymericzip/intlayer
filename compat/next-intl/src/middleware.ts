@@ -1,6 +1,6 @@
-import type { NextFetchEvent, NextRequest } from 'next/server';
 import type _createMiddleware from 'next-intl/middleware';
 import { intlayerMiddleware } from 'next-intlayer/middleware';
+import type { NextFetchEvent, NextRequest } from 'next/server';
 
 /**
  * Drop-in replacement for next-intl's `createMiddleware`.

@@ -51,7 +51,7 @@ export const FocusPane: FC<FocusPaneProps> = ({
       aria-label={row.id}
       className="flex h-full min-h-0 w-full min-w-0 flex-col"
     >
-      <header className="flex items-center gap-2 border-neutral/20 border-b px-3 py-2">
+      <header className="flex items-center gap-2 border-b border-neutral/20 px-3 py-2">
         {isNarrow && (
           <Button
             label={content.backToList.value}
@@ -64,7 +64,7 @@ export const FocusPane: FC<FocusPaneProps> = ({
         )}
         <span
           dir="ltr"
-          className="min-w-0 truncate font-mono font-semibold text-sm"
+          className="min-w-0 truncate font-mono text-sm font-semibold"
           title={row.id}
         >
           {row.id}

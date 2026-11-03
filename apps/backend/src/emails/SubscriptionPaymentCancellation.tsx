@@ -40,7 +40,7 @@ export const SubscriptionPaymentCancellationEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -50,23 +50,23 @@ export const SubscriptionPaymentCancellationEN = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Subscription Canceled
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               We’re sorry to see you go! Your subscription to the{' '}
               <strong>{planName}</strong> plan has been canceled. You will still
               have access until <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organization: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Reactivate Your Subscription
@@ -74,7 +74,7 @@ export const SubscriptionPaymentCancellationEN = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -104,7 +104,7 @@ export const SubscriptionPaymentCancellationFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -114,23 +114,23 @@ export const SubscriptionPaymentCancellationFR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Abonnement Annulé
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Bonjour {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Nous sommes désolés de vous voir partir ! Votre abonnement au plan{' '}
               <strong>{planName}</strong> a été annulé. Vous aurez toujours
               accès jusqu'au <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisation : <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Réactiver votre abonnement
@@ -138,7 +138,7 @@ export const SubscriptionPaymentCancellationFR = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -168,7 +168,7 @@ export const SubscriptionPaymentCancellationES = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -178,23 +178,23 @@ export const SubscriptionPaymentCancellationES = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Suscripción Cancelada
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hola {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Lamentamos verte partir. Tu suscripción al plan{' '}
               <strong>{planName}</strong> ha sido cancelada. Tendrás acceso
               hasta <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organización : <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Reactivar tu suscripción
@@ -202,7 +202,7 @@ export const SubscriptionPaymentCancellationES = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -232,7 +232,7 @@ export const SubscriptionPaymentCancellationRU = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -242,23 +242,23 @@ export const SubscriptionPaymentCancellationRU = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Подписка отменена
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Здравствуйте, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Нам жаль, что вы уходите! Ваша подписка на тарифный план{' '}
               <strong>{planName}</strong> была отменена. У вас по-прежнему будет
               доступ до <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Организация: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Возобновить подписку
@@ -266,7 +266,7 @@ export const SubscriptionPaymentCancellationRU = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -296,7 +296,7 @@ export const SubscriptionPaymentCancellationJA = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -306,24 +306,24 @@ export const SubscriptionPaymentCancellationJA = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               サブスクリプションがキャンセルされました
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}様、こんにちは。
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               ご利用ありがとうございました。あなたの<strong>{planName}</strong>
               プランのサブスクリプションがキャンセルされました。
               <strong>{cancellationDate}</strong>
               まで引き続きご利用いただけます。
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               組織: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 サブスクリプションを再開する
@@ -331,7 +331,7 @@ export const SubscriptionPaymentCancellationJA = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -361,7 +361,7 @@ export const SubscriptionPaymentCancellationKO = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -371,23 +371,23 @@ export const SubscriptionPaymentCancellationKO = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               구독이 취소되었습니다
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               안녕하세요 {username}님,
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               함께해주셔서 감사했습니다! 귀하의 <strong>{planName}</strong> 플랜
               구독이 취소되었습니다. <strong>{cancellationDate}</strong>까지는
               계속 이용하실 수 있습니다.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               조직: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 구독 재활성화하기
@@ -395,7 +395,7 @@ export const SubscriptionPaymentCancellationKO = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -425,7 +425,7 @@ export const SubscriptionPaymentCancellationZH = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -435,23 +435,23 @@ export const SubscriptionPaymentCancellationZH = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               订阅已取消
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}，您好！
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               很遗憾看到您离开！您的 <strong>{planName}</strong>{' '}
               计划订阅已取消。在 <strong>{cancellationDate}</strong>{' '}
               之前，您仍可访问相关服务。
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               组织：<strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 重新激活您的订阅
@@ -459,7 +459,7 @@ export const SubscriptionPaymentCancellationZH = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -489,7 +489,7 @@ export const SubscriptionPaymentCancellationDE = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -499,23 +499,23 @@ export const SubscriptionPaymentCancellationDE = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Abonnement gekündigt
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hallo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               wir bedauern, dass Sie uns verlassen! Ihr Abonnement für den{' '}
               <strong>{planName}</strong>-Plan wurde gekündigt. Sie haben noch
               bis zum <strong>{cancellationDate}</strong> Zugriff.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisation: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Ihr Abonnement reaktivieren
@@ -523,7 +523,7 @@ export const SubscriptionPaymentCancellationDE = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -553,7 +553,7 @@ export const SubscriptionPaymentCancellationAR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -563,23 +563,23 @@ export const SubscriptionPaymentCancellationAR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               تم إلغاء الاشتراك
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               أهلاً {username}،
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               نحن ناسف لرحيلك! لقد تم إلغاء اشتراكك في خطة{' '}
               <strong>{planName}</strong>. سيظل بإمكانك الوصول حتى تاريخ{' '}
               <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               المنظمة: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 إعادة تفعيل اشتراكك
@@ -587,7 +587,7 @@ export const SubscriptionPaymentCancellationAR = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -617,7 +617,7 @@ export const SubscriptionPaymentCancellationIT = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -627,23 +627,23 @@ export const SubscriptionPaymentCancellationIT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Abbonamento Annullato
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ciao {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ci dispiace vederti andare via! Il tuo abbonamento al piano{' '}
               <strong>{planName}</strong> è stato annullato. Avrai ancora
               accesso fino al <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organizzazione: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Riattiva il tuo abbonamento
@@ -651,7 +651,7 @@ export const SubscriptionPaymentCancellationIT = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -681,7 +681,7 @@ export const SubscriptionPaymentCancellationEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -691,23 +691,23 @@ export const SubscriptionPaymentCancellationEN_GB = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Subscription Cancelled
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               We’re sorry to see you go! Your subscription to the{' '}
               <strong>{planName}</strong> plan has been cancelled. You will
               still have access until <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisation: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Reactivate Your Subscription
@@ -715,7 +715,7 @@ export const SubscriptionPaymentCancellationEN_GB = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -745,7 +745,7 @@ export const SubscriptionPaymentCancellationPT = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -755,23 +755,23 @@ export const SubscriptionPaymentCancellationPT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Assinatura Cancelada
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Olá {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Lamentamos ver você partir! Sua assinatura do plano{' '}
               <strong>{planName}</strong> foi cancelada. Você ainda terá acesso
               até <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organização: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Reativar sua assinatura
@@ -779,7 +779,7 @@ export const SubscriptionPaymentCancellationPT = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -809,7 +809,7 @@ export const SubscriptionPaymentCancellationHI = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -819,23 +819,23 @@ export const SubscriptionPaymentCancellationHI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               सदस्यता रद्द कर दी गई
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               नमस्ते {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               हमें आपको जाते हुए देखकर दुख हो रहा है! आपकी <strong>{planName}</strong>{' '}
               योजना की सदस्यता रद्द कर दी गई है। आपके पास अभी भी{' '}
               <strong>{cancellationDate}</strong> तक पहुँच होगी।
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               संगठन: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 अपनी सदस्यता को फिर से सक्रिय करें
@@ -843,7 +843,7 @@ export const SubscriptionPaymentCancellationHI = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -873,7 +873,7 @@ export const SubscriptionPaymentCancellationTR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -883,24 +883,24 @@ export const SubscriptionPaymentCancellationTR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Abonelik İptal Edildi
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Merhaba {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ayrıldığınız için üzgünüz! <strong>{planName}</strong> planına
               olan aboneliğiniz iptal edildi.{' '}
               <strong>{cancellationDate}</strong> tarihine kadar erişiminiz
               devam edecektir.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Kuruluş: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Aboneliğinizi Yeniden Etkinleştirin
@@ -908,7 +908,7 @@ export const SubscriptionPaymentCancellationTR = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -938,7 +938,7 @@ export const SubscriptionPaymentCancellationPL = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -948,23 +948,23 @@ export const SubscriptionPaymentCancellationPL = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Subskrypcja Anulowana
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Witaj {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Przykro nam, że odchodzisz! Twoja subskrypcja planu{' '}
               <strong>{planName}</strong> została anulowana. Nadal będziesz mieć
               dostęp do <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organizacja: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Reaktywuj swoją subskrypcję
@@ -972,7 +972,7 @@ export const SubscriptionPaymentCancellationPL = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1002,7 +1002,7 @@ export const SubscriptionPaymentCancellationID = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1012,23 +1012,23 @@ export const SubscriptionPaymentCancellationID = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Langganan Dibatalkan
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Halo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Kami sedih melihat Anda pergi! Langganan Anda ke paket{' '}
               <strong>{planName}</strong> telah dibatalkan. Anda masih akan
               memiliki akses hingga <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Organisasi: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Aktifkan Kembali Langganan Anda
@@ -1036,7 +1036,7 @@ export const SubscriptionPaymentCancellationID = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1066,7 +1066,7 @@ export const SubscriptionPaymentCancellationVI = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1076,23 +1076,23 @@ export const SubscriptionPaymentCancellationVI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Thuê Bao Đã Bị Hủy
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Xin chào {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Chúng tôi rất tiếc khi thấy bạn rời đi! Gói thuê bao{' '}
               <strong>{planName}</strong> của bạn đã bị hủy. Bạn vẫn sẽ có quyền
               truy cập cho đến ngày <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Tổ chức: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Kích hoạt lại gói thuê bao của bạn
@@ -1100,7 +1100,7 @@ export const SubscriptionPaymentCancellationVI = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1130,7 +1130,7 @@ export const SubscriptionPaymentCancellationUK = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1140,23 +1140,23 @@ export const SubscriptionPaymentCancellationUK = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Підписку скасовано
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Вітаємо, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Нам шкода, що ви йдете! Вашу підписку на тарифний план{' '}
               <strong>{planName}</strong> скасовано. У вас все ще буде доступ до{' '}
               <strong>{cancellationDate}</strong>.
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Організація: <strong>{organizationName}</strong>
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={reactivateLink}
               >
                 Відновити підписку
@@ -1164,7 +1164,7 @@ export const SubscriptionPaymentCancellationUK = ({
             </Section>
             {billingLink && (
               <Section className="mt-8 text-center">
-                <Text className="text-[#666666] text-xs leading-6">
+                <Text className="text-xs leading-6 text-[#666666]">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>

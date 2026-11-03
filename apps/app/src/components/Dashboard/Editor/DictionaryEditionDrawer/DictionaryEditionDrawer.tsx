@@ -68,7 +68,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   if (!focusedContent?.dictionaryKey)
     return createPortal(
       <div className="flex size-full items-center justify-center">
-        <span className="text-neutral text-sm">{noDictionaryFocused}</span>
+        <span className="text-sm text-neutral">{noDictionaryFocused}</span>
       </div>,
       portalTarget
     );
@@ -80,7 +80,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   if (!dictionary)
     return createPortal(
       <div className="flex size-full items-center justify-center">
-        <span className="text-neutral text-sm">
+        <span className="text-sm text-neutral">
           {focusedDictionaryNotFound}
         </span>
       </div>,
@@ -100,7 +100,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             label={backButtonText.value}
             className="absolute inset-s-0 top-0"
           />
-          <h3 className="w-full px-10 text-center font-medium text-lg">
+          <h3 className="w-full px-10 text-center text-lg font-medium">
             {dictionary.title ? dictionary.title : dictionary.key}
           </h3>
 
@@ -115,7 +115,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
                 onClick={() => setEditionModalOpen(true)}
               />
               <Popover.Detail identifier="open-dictionary-editor">
-                <span className="whitespace-nowrap p-2 text-neutral text-xs">
+                <span className="p-2 text-xs whitespace-nowrap text-neutral">
                   {openDictionaryInEditor}
                 </span>
               </Popover.Detail>
@@ -123,7 +123,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           </div>
         </header>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dotted pb-3">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-b border-dotted border-text/20 pb-3">
           <Tag color="text" roundedSize="full" size="xs">
             {dictionary.key}
           </Tag>
@@ -176,7 +176,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         )}
       </div>
 
-      <div className="shrink-0 border-text/20 border-t pt-4">
+      <div className="shrink-0 border-t border-text/20 pt-4">
         <SaveForm
           dictionary={dictionary}
           mode={['remote']}

@@ -56,13 +56,13 @@ export const ReviewerProfilePage: FC<ReviewerProfilePageProps> = ({
             roundedSize="2xl"
           >
             <div className="mb-4 text-center">
-              <p className="font-bold text-3xl">
+              <p className="text-3xl font-bold">
                 ~${(reviewer.pricePerHour / 100).toFixed(0)}
               </p>
-              <p className="text-neutral text-sm" aria-hidden="true">
+              <p className="text-sm text-neutral" aria-hidden="true">
                 {content.perHourLabel}
               </p>
-              <p className="mt-1 text-neutral text-xs">{content.priceInfo}</p>
+              <p className="mt-1 text-xs text-neutral">{content.priceInfo}</p>
             </div>
 
             <Button

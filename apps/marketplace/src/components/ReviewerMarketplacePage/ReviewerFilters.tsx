@@ -37,7 +37,7 @@ const Field: FC<{
   children: React.ReactNode;
 }> = ({ label, htmlFor, children }) => (
   <div className="flex flex-col gap-1.5">
-    <label htmlFor={htmlFor} className="font-medium text-sm">
+    <label htmlFor={htmlFor} className="text-sm font-medium">
       {label}
     </label>
     {children}

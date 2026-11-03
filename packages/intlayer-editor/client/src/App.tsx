@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@intlayer/design-system/providers';
 import type { FunctionComponent } from 'preact';
-import { useRef, useState } from 'preact/hooks';
 import { IntlayerProviderContent } from 'preact-intlayer';
+import { useRef, useState } from 'preact/hooks';
 import { AppProvider } from './components/AppProvider';
 import { EditorLayout } from './components/Editor/EditorLayout';
 import { EditorProvider } from './components/Editor/EditorProvider';

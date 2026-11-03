@@ -212,7 +212,7 @@ export const ContentGridCell: FC<ContentGridCellProps> = memo(
         <span
           dir="auto"
           className={cn(
-            'line-clamp-3 min-w-0 flex-1 whitespace-pre-wrap break-words text-sm',
+            'line-clamp-3 min-w-0 flex-1 text-sm break-words whitespace-pre-wrap',
             preview === '' && 'text-neutral italic',
             isRich && 'line-clamp-1',
             isLocked && 'text-neutral'
@@ -225,7 +225,7 @@ export const ContentGridCell: FC<ContentGridCellProps> = memo(
     };
 
     return (
-      // biome-ignore lint/a11y/useSemanticElements: roving-focus grid cell hosting inline editors
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- roving-focus grid cell hosting inline editors
       <div
         ref={cellRef}
         role="gridcell"
@@ -236,7 +236,7 @@ export const ContentGridCell: FC<ContentGridCellProps> = memo(
         onClick={isEditing ? undefined : activate}
         onKeyDown={handleKeyDown}
         className={cn(
-          'flex min-h-10 w-full min-w-0 max-w-xl items-start gap-2.5 rounded-lg px-3 py-2.5 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-text/40',
+          'flex min-h-10 w-full max-w-xl min-w-0 items-start gap-2.5 rounded-lg px-3 py-2.5 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-text/40',
           !isLocked && !isReadonly && 'cursor-text hover:bg-text/5',
           isRich && 'cursor-pointer',
           isLocked && 'cursor-not-allowed opacity-60',

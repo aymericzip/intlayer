@@ -218,7 +218,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             color="text"
             preload="viewport"
             variant="invisible-link"
-            className="flex text-nowrap px-4 py-0.5 text-sm aria-[current]:bg-current/0"
+            className="flex px-4 py-0.5 text-sm text-nowrap aria-[current]:bg-current/0"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
           >
             {title}
@@ -237,7 +237,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             color="text"
             preload="viewport"
             variant="invisible-link"
-            className="w-full text-nowrap p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
+            className="w-full p-3 text-center leading-10 text-nowrap transition hover:font-bold aria-selected:font-bold"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
           >
             {title}
@@ -269,7 +269,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="rounded-2xl! text-center font-medium leading-6"
+              className="rounded-2xl! text-center leading-6 font-medium"
               size="md"
             >
               {logoutContent.title}

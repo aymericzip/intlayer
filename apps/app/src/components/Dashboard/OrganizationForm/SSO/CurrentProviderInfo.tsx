@@ -32,7 +32,7 @@ export const CurrentProviderInfo: FC<CurrentProviderInfoProps> = ({
       <div className="flex items-center justify-between">
         <div>
           <H4 className="mb-1">Current SSO Provider</H4>
-          <p className="text-neutral text-sm dark:text-neutral-dark">
+          <p className="dark:text-neutral-dark text-sm text-neutral">
             <strong>Type:</strong>{' '}
             {existingProviderType === 'saml' ? 'SAML 2.0' : 'OIDC'}
             <br />

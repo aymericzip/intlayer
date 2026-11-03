@@ -46,15 +46,15 @@ const StepCard: FC<StepCardProps> = ({
       <div className="flex items-start gap-3">
         <div className="rounded-2xl bg-text/15 p-2">{icon}</div>
         <div>
-          <div className="font-semibold text-base text-foreground">{title}</div>
-          <div className="mt-1 text-foreground/70 text-sm">{description}</div>
+          <div className="text-base font-semibold text-foreground">{title}</div>
+          <div className="mt-1 text-sm text-foreground/70">{description}</div>
         </div>
       </div>
 
       <Container
         roundedSize="2xl"
         padding="md"
-        className="mt-4 text-foreground-dark"
+        className="text-foreground-dark mt-4"
       >
         <span className="text-foreground-dark/70 text-xs">
           {codeBlockTitle}
@@ -81,10 +81,10 @@ export const SSRSection: FC = () => {
         viewport={{ once: true, amount: 0.25 }}
         className="mb-14 text-center"
       >
-        <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
           {title}
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+        <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
           {description}
         </p>
       </m.div>

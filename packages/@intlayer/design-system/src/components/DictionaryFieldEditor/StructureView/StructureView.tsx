@@ -218,7 +218,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
               />
             </div>
 
-            <span className="ms-3 text-muted-foreground text-sm">
+            <span className="ms-3 text-sm text-muted-foreground">
               ( {camelCaseToSentence(sectionKey)} )
             </span>
           </div>
@@ -288,7 +288,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
               color="neutral"
               size="custom"
               roundedSize="sm"
-              className="mt-2 cursor-grab p-0.5 opacity-40 transition-opacity hover:bg-text/10 focus-visible:opacity-100 active:cursor-grabbing group-hover/reorder:opacity-100 data-[dragging=true]:opacity-40"
+              className="mt-2 cursor-grab p-0.5 opacity-40 transition-opacity group-hover/reorder:opacity-100 hover:bg-text/10 focus-visible:opacity-100 active:cursor-grabbing data-[dragging=true]:opacity-40"
             />
             <NodeView
               sectionKey={key}

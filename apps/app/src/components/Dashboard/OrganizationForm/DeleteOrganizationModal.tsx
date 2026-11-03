@@ -54,7 +54,7 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
       borderColor="neutral"
     >
       <form className="size-full px-3">
-        <p className="py-4 text-neutral text-sm">{description}</p>
+        <p className="py-4 text-sm text-neutral">{description}</p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
           <FormButton
             variant="outline"

@@ -31,7 +31,7 @@ import { units } from './units';
 const storeLocale = (locale: string) =>
   setLocaleInStorageClient(locale, {
     setCookieString: (name) => {
-      // biome-ignore lint/suspicious/noDocumentCookie: seeds the stored locale
+      // oxlint-disable-next-line unicorn/no-document-cookie -- seeds the stored locale
       document.cookie = `${name}=${locale}`;
     },
     setCookieStore: () => {

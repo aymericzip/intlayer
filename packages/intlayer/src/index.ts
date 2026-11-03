@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
+/* oxlint-disable typescript/no-empty-interface -- Intlayer module augmentation registries */
 
 import type {
   CustomIntlayerConfig,

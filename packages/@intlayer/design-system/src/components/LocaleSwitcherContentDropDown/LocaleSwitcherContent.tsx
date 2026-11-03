@@ -224,7 +224,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                   onChange={handleSeeAllLocales}
                   color="text"
                   size="sm"
-                  className="!w-60 mx-3"
+                  className="mx-3 !w-60"
                   choices={[
                     {
                       content: seeAllLocalesSwitch.true.value,
@@ -306,11 +306,11 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                             >
                               {ownLocaleName}
                             </span>
-                            <span className="text-neutral text-xs">
+                            <span className="text-xs text-neutral">
                               {currentLocaleName}
                             </span>
                           </div>
-                          <span className="text-neutral text-sm">
+                          <span className="text-sm text-neutral">
                             {localeItem.toUpperCase()}
                           </span>
                         </div>

@@ -140,7 +140,7 @@ export const Default: Story = {
     <div className="space-y-4">
       <Tag>Default Tag</Tag>
 
-      <div className="max-w-md text-gray-600 text-sm">
+      <div className="max-w-md text-sm text-gray-600">
         Default configuration with text color theme, full rounding, and medium
         size.
       </div>
@@ -164,7 +164,7 @@ export const SemanticColors: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h4 className="mb-3 font-medium text-sm">Status Indicators</h4>
+        <h4 className="mb-3 text-sm font-medium">Status Indicators</h4>
         <div className="flex flex-wrap gap-3">
           <Tag color="success">Completed</Tag>
           <Tag color="error">Failed</Tag>
@@ -175,7 +175,7 @@ export const SemanticColors: Story = {
       </div>
 
       <div>
-        <h4 className="mb-3 font-medium text-sm">With Borders</h4>
+        <h4 className="mb-3 text-sm font-medium">With Borders</h4>
         <div className="flex flex-wrap gap-3">
           <Tag color="success" border="with">
             Success
@@ -195,7 +195,7 @@ export const SemanticColors: Story = {
         </div>
       </div>
 
-      <div className="max-w-md text-gray-500 text-xs">
+      <div className="max-w-md text-xs text-gray-500">
         Use semantic colors to convey meaning: green for success, red for
         errors, yellow for warnings, gray for neutral states.
       </div>
@@ -230,7 +230,7 @@ export const SizeComparison: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h4 className="mb-4 font-medium text-sm">Size Hierarchy</h4>
+        <h4 className="mb-4 text-sm font-medium">Size Hierarchy</h4>
         <div className="flex flex-wrap items-center gap-4">
           <Tag size="xs" color="neutral">
             Extra Small
@@ -251,7 +251,7 @@ export const SizeComparison: Story = {
       </div>
 
       <div>
-        <h4 className="mb-4 font-medium text-sm">
+        <h4 className="mb-4 text-sm font-medium">
           Same Size, Different Content
         </h4>
         <div className="flex flex-wrap gap-3">
@@ -262,7 +262,7 @@ export const SizeComparison: Story = {
         </div>
       </div>
 
-      <div className="max-w-md text-gray-500 text-xs">
+      <div className="max-w-md text-xs text-gray-500">
         Choose sizes based on visual hierarchy: XS for subtle labels, SM for
         standard tags, MD for balanced visibility, LG for emphasis, XL for hero
         elements.
@@ -288,7 +288,7 @@ export const BorderRadiusVariations: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h4 className="mb-4 font-medium text-sm">Rounding Options</h4>
+        <h4 className="mb-4 text-sm font-medium">Rounding Options</h4>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Tag roundedSize="none" color="neutral">
@@ -321,7 +321,7 @@ export const BorderRadiusVariations: Story = {
         </div>
       </div>
 
-      <div className="max-w-md text-gray-500 text-xs">
+      <div className="max-w-md text-xs text-gray-500">
         Use FULL for pill-shaped tags, MD-LG for modern rounded look, NONE for
         technical or data-focused interfaces.
       </div>
@@ -383,8 +383,8 @@ export const ContentCategorization: Story = {
     return (
       <div className="max-w-2xl space-y-6">
         <div>
-          <h4 className="mb-2 font-semibold text-lg">Article Tags</h4>
-          <p className="mb-4 text-gray-600 text-sm">
+          <h4 className="mb-2 text-lg font-semibold">Article Tags</h4>
+          <p className="mb-4 text-sm text-gray-600">
             Click tags to select/deselect them for categorizing content.
           </p>
 
@@ -413,7 +413,7 @@ export const ContentCategorization: Story = {
 
           {selectedTags.length > 0 ? (
             <div className="rounded-lg bg-gray-50 p-4">
-              <div className="mb-2 font-medium text-sm">Selected Tags:</div>
+              <div className="mb-2 text-sm font-medium">Selected Tags:</div>
               <div className="flex flex-wrap gap-2">
                 {selectedTags.map((tagName) => {
                   const category = categories.find((c) => c.name === tagName);
@@ -431,11 +431,11 @@ export const ContentCategorization: Story = {
               </div>
             </div>
           ) : (
-            <div className="text-gray-500 text-sm">No tags selected</div>
+            <div className="text-sm text-gray-500">No tags selected</div>
           )}
         </div>
 
-        <div className="text-gray-500 text-xs">
+        <div className="text-xs text-gray-500">
           💡 Interactive tags help users organize and filter content
           effectively. Use visual feedback like borders, scaling, and rings for
           selection states.
@@ -491,7 +491,7 @@ export const StatusDashboard: Story = {
     return (
       <div className="max-w-4xl space-y-6">
         <div className="flex items-center justify-between">
-          <h4 className="font-semibold text-lg">System Status Dashboard</h4>
+          <h4 className="text-lg font-semibold">System Status Dashboard</h4>
           <div className="flex gap-3">
             <Tag color="success" size="sm">
               {healthyCount} Healthy
@@ -558,7 +558,7 @@ export const StatusDashboard: Story = {
             </Tag>
             <span className="font-medium text-blue-900">System Overview</span>
           </div>
-          <p className="text-blue-800 text-sm">
+          <p className="text-sm text-blue-800">
             Overall system health:{' '}
             <strong>
               {errorCount === 0
@@ -640,18 +640,18 @@ export const UserProfileTags: Story = {
       <div className="max-w-2xl space-y-8">
         <div className="rounded-lg border border-gray-200 bg-white p-6">
           <div className="mb-6 flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-600 font-bold text-white text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-600 text-xl font-bold text-white">
               JD
             </div>
             <div>
-              <h3 className="font-semibold text-xl">Jane Developer</h3>
+              <h3 className="text-xl font-semibold">Jane Developer</h3>
               <p className="text-gray-600">Senior Frontend Engineer</p>
             </div>
           </div>
 
           <div className="space-y-6">
             <div>
-              <h4 className="mb-3 flex items-center gap-2 font-semibold text-gray-700 text-sm">
+              <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-700">
                 💼 Technical Skills
                 <Tag size="xs" color="neutral">
                   {userSkills.length} skills
@@ -681,7 +681,7 @@ export const UserProfileTags: Story = {
                 ))}
               </div>
 
-              <div className="mt-3 flex gap-4 text-gray-500 text-xs">
+              <div className="mt-3 flex gap-4 text-xs text-gray-500">
                 <div className="flex items-center gap-1">
                   <Tag size="xs" color="success">
                     ⭐
@@ -704,7 +704,7 @@ export const UserProfileTags: Story = {
             </div>
 
             <div>
-              <h4 className="mb-3 font-semibold text-gray-700 text-sm">
+              <h4 className="mb-3 text-sm font-semibold text-gray-700">
                 🎯 Interests & Focus Areas
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -722,14 +722,14 @@ export const UserProfileTags: Story = {
               </div>
             </div>
 
-            <div className="rounded-lg border-blue-500 border-s-4 bg-gray-50 p-4">
+            <div className="rounded-lg border-s-4 border-blue-500 bg-gray-50 p-4">
               <div className="mb-2 flex items-center gap-2">
                 <Tag size="xs" color="success">
                   📊
                 </Tag>
-                <span className="font-medium text-sm">Profile Strength</span>
+                <span className="text-sm font-medium">Profile Strength</span>
               </div>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm text-gray-600">
                 Your profile showcases{' '}
                 {userSkills.filter((s) => s.level === 'expert').length}{' '}
                 expert-level skills and {interests.length} professional

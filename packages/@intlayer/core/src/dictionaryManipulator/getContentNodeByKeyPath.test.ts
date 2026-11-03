@@ -1,6 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';

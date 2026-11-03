@@ -215,7 +215,7 @@ function AssetsPage() {
             </div>
           ) : assets.length === 0 ? (
             <div className="flex-1 items-center justify-center">
-              <p className="text-neutral text-sm dark:text-neutral-dark">
+              <p className="dark:text-neutral-dark text-sm text-neutral">
                 {emptyState}
               </p>
             </div>
@@ -348,20 +348,20 @@ const AssetCard = ({
               value={renameValue}
               size="sm"
               variant="invisible"
-              className="w-full truncate font-medium text-xs"
+              className="w-full truncate text-xs font-medium"
               onChange={(event) => setRenameValue(event.target.value)}
               onBlur={handleRenameSubmit}
               onKeyDown={handleRenameKeyDown}
             />
           ) : (
             <p
-              className="truncate font-medium text-xs"
+              className="truncate text-xs font-medium"
               title={asset.originalName}
             >
               {isRenaming ? renameValue : asset.originalName}
             </p>
           )}
-          <p className="text-neutral text-xs dark:text-neutral-dark">
+          <p className="dark:text-neutral-dark text-xs text-neutral">
             {sizeKb} KB
           </p>
         </div>

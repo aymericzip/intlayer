@@ -32,7 +32,7 @@ export const ResetPasswordEmailEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -42,36 +42,36 @@ export const ResetPasswordEmailEN = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Reset your password for <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               We received a request to reset your password for your{' '}
               <strong>Intlayer</strong> account.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Reset Password
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               or copy and paste this URL into your browser:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               This password reset request was intended for{' '}
               <span className="text-black">{username}</span>. If you did not
               request a password reset, you can ignore this email. If you are
@@ -97,7 +97,7 @@ export const ResetPasswordEmailFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -107,35 +107,35 @@ export const ResetPasswordEmailFR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Réinitialisez votre mot de passe pour <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Bonjour {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Nous avons reçu une demande de réinitialisation de votre mot de
               passe pour votre compte <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Réinitialiser le mot de passe
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               ou copiez et collez cette URL dans votre navigateur :
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Cette demande de réinitialisation de mot de passe était destinée à{' '}
               <span className="text-black">{username}</span>. Si vous n'avez pas
               demandé une réinitialisation de mot de passe, vous pouvez ignorer
@@ -161,7 +161,7 @@ export const ResetPasswordEmailES = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -171,35 +171,35 @@ export const ResetPasswordEmailES = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Restablece tu contraseña para <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hola {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hemos recibido una solicitud para restablecer tu contraseña de tu
               cuenta en <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Restablecer Contraseña
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               o copia y pega esta URL en tu navegador:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Esta solicitud de restablecimiento de contraseña estaba destinada
               a <span className="text-black">{username}</span>. Si no
               solicitaste un restablecimiento de contraseña, puedes ignorar este
@@ -226,7 +226,7 @@ export const ResetPasswordEmailRU = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -236,36 +236,36 @@ export const ResetPasswordEmailRU = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Сброс пароля для <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Здравствуйте, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Мы получили запрос на сброс пароля для вашего аккаунта{' '}
               <strong>Intlayer</strong>.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Сбросить пароль
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               или скопируйте и вставьте этот URL в ваш браузер:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Этот запрос на сброс пароля предназначался для{' '}
               <span className="text-black">{username}</span>. Если вы не
               запрашивали сброс пароля, вы можете проигнорировать это письмо.
@@ -291,7 +291,7 @@ export const ResetPasswordEmailJA = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -301,36 +301,36 @@ export const ResetPasswordEmailJA = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong>のパスワードをリセットする
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}様、こんにちは。
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               あなたの<strong>Intlayer</strong>
               アカウントのパスワードリセットのリクエストを承りました。
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 パスワードをリセット
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               または、以下のURLをコピーしてブラウザに貼り付けてください：
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               このパスワードリセットのリクエストは
               <span className="text-black">{username}</span>
               様向けに送信されました。もしパスワードのリセットをリクエストしていない場合は、このメールを無視していただいて構いません。アカウントの安全性が気になる場合は、このメールに返信してご連絡ください。
@@ -354,7 +354,7 @@ export const ResetPasswordEmailKO = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -364,36 +364,36 @@ export const ResetPasswordEmailKO = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong> 비밀번호 재설정
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               안녕하세요 {username}님,
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               귀하의 <strong>Intlayer</strong> 계정 비밀번호를 재설정해 달라는
               요청을 받았습니다.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 비밀번호 재설정
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               또는 다음 URL을 복사하여 브라우저에 붙여넣으세요:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               이 비밀번호 재설정 요청은{' '}
               <span className="text-black">{username}</span>님을 위해
               발송되었습니다. 만약 비밀번호 재설정을 요청하지 않으셨다면 이
@@ -419,7 +419,7 @@ export const ResetPasswordEmailZH = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -429,35 +429,35 @@ export const ResetPasswordEmailZH = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               重置您的 <strong>Intlayer</strong> 密码
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}，您好！
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               我们收到了重置您 <strong>Intlayer</strong> 账户密码的请求。
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 重置密码
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               或将此 URL 复制并粘贴到您的浏览器中：
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               此密码重置请求旨在发送给{' '}
               <span className="text-black">{username}</span>
               。如果您未请求重置密码，可以忽略此邮件。如果您担心账户安全，请回复此邮件与我们联系。
@@ -481,7 +481,7 @@ export const ResetPasswordEmailDE = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -491,37 +491,37 @@ export const ResetPasswordEmailDE = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Setzen Sie Ihr Passwort für <strong>Intlayer</strong> zurück
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hallo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               wir haben eine Anfrage zum Zurücksetzen Ihres Passworts für Ihr{' '}
               <strong>Intlayer</strong>-Konto erhalten.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Passwort zurücksetzen
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               oder kopieren Sie diese URL und fügen Sie sie in Ihren Browser
               ein:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Diese Anfrage zum Zurücksetzen des Passworts war für{' '}
               <span className="text-black">{username}</span> gedacht. Wenn Sie
               kein Zurücksetzen des Passworts angefordert haben, können Sie
@@ -548,7 +548,7 @@ export const ResetPasswordEmailAR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -558,41 +558,41 @@ export const ResetPasswordEmailAR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               إعادة تعيين كلمة المرور الخاصة بك لـ <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               أهلاً {username}،
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               لقد تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بحسابك في{' '}
               <strong>Intlayer</strong>.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 إعادة تعيين كلمة المرور
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               أو قم بنسخ ولصق هذا الرابط في متصفحك:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               كان هذا الطلب لإعادة تعيين كلمة المرور مخصصاً لـ{' '}
               <span className="text-black">{username}</span>. إذا لم تكن قد طلبت
-              إعادة تعيين كلمة المرور، يمكنك تجاهل هذا البريد الإلكتروني. إذا
-              كنت قلقاً بشأن أمان حسابك، فيرجى الرد على هذا البريد الإلكتروني
-              للتواصل معنا.
+              إعادة تعيين كلمة المرور، يمكنك تجاهل هذا البريد الإلكتروني. إذا كنت
+              قلقاً بشأن أمان حسابك، فيرجى الرد على هذا البريد الإلكتروني للتواصل
+              معنا.
             </Text>
           </Container>
         </Body>
@@ -613,7 +613,7 @@ export const ResetPasswordEmailIT = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -623,36 +623,36 @@ export const ResetPasswordEmailIT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Reimposta la tua password per <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ciao {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Abbiamo ricevuto una richiesta di reimpostazione della password
               per il tuo account <strong>Intlayer</strong>.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Reimposta password
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               o copia e incolla questo URL nel tuo browser:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Questa richiesta di reimpostazione della password era destinata a{' '}
               <span className="text-black">{username}</span>. Se non hai
               richiesto la reimpostazione della password, puoi ignorare questa
@@ -678,7 +678,7 @@ export const ResetPasswordEmailEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -688,36 +688,36 @@ export const ResetPasswordEmailEN_GB = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Reset your password for <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               We received a request to reset your password for your{' '}
               <strong>Intlayer</strong> account.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Reset Password
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               or copy and paste this URL into your browser:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               This password reset request was intended for{' '}
               <span className="text-black">{username}</span>. If you did not
               request a password reset, you can ignore this email. If you are
@@ -743,7 +743,7 @@ export const ResetPasswordEmailPT = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -753,36 +753,36 @@ export const ResetPasswordEmailPT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Redefina sua senha para <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Olá {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Recebemos uma solicitação para redefinir a senha da sua conta{' '}
               <strong>Intlayer</strong>.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Redefinir Senha
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               ou copie e cole esta URL no seu navegador:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Esta solicitação de redefinição de senha foi destinada a{' '}
               <span className="text-black">{username}</span>. Se você não
               solicitou uma redefinição de senha, pode ignorar este e-mail. Se
@@ -808,7 +808,7 @@ export const ResetPasswordEmailHI = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -818,36 +818,36 @@ export const ResetPasswordEmailHI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong> के लिए अपना पासवर्ड रीसेट करें
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               नमस्ते {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               हमें आपके <strong>Intlayer</strong> खाते का पासवर्ड रीसेट करने का अनुरोध
               प्राप्त हुआ है।
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 पासवर्ड रीसेट करें
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               या इस URL को कॉपी करके अपने ब्राउज़र में पेस्ट करें:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               यह पासवर्ड रीसेट अनुरोध{' '}
               <span className="text-black">{username}</span> के लिए था। यदि आपने
               पासवर्ड रीसेट का अनुरोध नहीं किया है, तो आप इस ईमेल को नज़रअंदाज़ कर सकते हैं।
@@ -873,7 +873,7 @@ export const ResetPasswordEmailTR = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -883,36 +883,36 @@ export const ResetPasswordEmailTR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong> için şifrenizi sıfırlayın
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Merhaba {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               <strong>Intlayer</strong> hesabınız için şifre sıfırlama talebi
               aldık.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Şifreyi Sıfırla
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               veya bu URL'yi kopyalayıp tarayıcınıza yapıştırın:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Bu şifre sıfırlama talebi{' '}
               <span className="text-black">{username}</span> için
               gönderilmiştir. Eğer şifre sıfırlama talebinde bulunmadıysanız, bu
@@ -939,7 +939,7 @@ export const ResetPasswordEmailPL = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -949,36 +949,36 @@ export const ResetPasswordEmailPL = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Zresetuj swoje hasło do <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Witaj {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta{' '}
               <strong>Intlayer</strong>.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Resetuj hasło
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               lub skopiuj i wklej ten adres URL do przeglądarki:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Ta prośba o zresetowanie hasła była przeznaczona dla{' '}
               <span className="text-black">{username}</span>. Jeśli nie prosiłeś
               o zresetowanie hasła, możesz zignorować tę wiadomość. Jeśli
@@ -1004,7 +1004,7 @@ export const ResetPasswordEmailID = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1014,36 +1014,36 @@ export const ResetPasswordEmailID = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Atur ulang kata sandi Anda untuk <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Halo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Kami menerima permintaan untuk mengatur ulang kata sandi untuk
               akun <strong>Intlayer</strong> Anda.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Atur Ulang Kata Sandi
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               atau salin dan tempel URL ini ke browser Anda:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Permintaan atur ulang kata sandi ini ditujukan untuk{' '}
               <span className="text-black">{username}</span>. Jika Anda tidak
               meminta atur ulang kata sandi, Anda dapat mengabaikan email ini.
@@ -1069,7 +1069,7 @@ export const ResetPasswordEmailVI = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1079,36 +1079,36 @@ export const ResetPasswordEmailVI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Đặt lại mật khẩu của bạn cho <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Xin chào {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản{' '}
               <strong>Intlayer</strong> của bạn.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Đặt lại mật khẩu
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               hoặc sao chép và dán URL này vào trình duyệt của bạn:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Yêu cầu đặt lại mật khẩu này dành cho{' '}
               <span className="text-black">{username}</span>. Nếu bạn không yêu
               cầu đặt lại mật khẩu, bạn có thể bỏ qua email này. Nếu bạn lo lắng
@@ -1134,7 +1134,7 @@ export const ResetPasswordEmailUK = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1144,36 +1144,36 @@ export const ResetPasswordEmailUK = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Скидання пароля для <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Вітаємо, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ми отримали запит на скидання пароля до вашого облікового запису{' '}
               <strong>Intlayer</strong>.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={resetLink}
               >
                 Скинути пароль
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               або скопіюйте та вставте цю URL-адресу у ваш браузер:
             </Text>
             <Link
               href={resetLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {resetLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Цей запит на скидання пароля був призначений для{' '}
               <span className="text-black">{username}</span>. Якщо ви не
               запитували скидання пароля, ви можете ігнорувати цей лист. Якщо ви

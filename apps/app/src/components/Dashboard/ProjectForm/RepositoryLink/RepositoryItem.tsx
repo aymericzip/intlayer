@@ -65,7 +65,7 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
 
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
-            <h5 className="font-semibold text-base leading-none">
+            <h5 className="text-base leading-none font-semibold">
               {displayName}
             </h5>
             {repo.isPrivate !== undefined && (
@@ -89,7 +89,7 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
               </Badge>
             )}
           </div>
-          <div className="flex items-center gap-4 text-neutral text-xs">
+          <div className="flex items-center gap-4 text-xs text-neutral">
             <span className="flex items-center gap-1">
               <GitBranch className="size-3" />
               {repo.defaultBranch}

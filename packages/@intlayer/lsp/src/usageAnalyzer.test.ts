@@ -507,7 +507,7 @@ describe('lingui usages', () => {
   it('resolves the t tagged template with placeholders', () => {
     const text = [
       `import { t } from '@lingui/macro';`,
-      // biome-ignore lint/suspicious/noTemplateCurlyInString: the lingui macro interpolation is the test subject
+      // oxlint-disable-next-line no-template-curly-in-string -- the lingui macro interpolation is the test subject
       'const label = t`Hello ${name}`;',
     ].join('\n');
 
@@ -679,7 +679,7 @@ describe('editor-only usages', () => {
     const text = [
       `import { useLingui } from '@lingui/react';`,
       'const { i18n } = useLingui();',
-      // biome-ignore lint/suspicious/noTemplateCurlyInString: source text under test
+      // oxlint-disable-next-line no-template-curly-in-string -- source text under test
       'const t = (id: string) => i18n._(`footer.${id}`);',
       `t('github');`,
     ].join('\n');
@@ -691,7 +691,7 @@ describe('editor-only usages', () => {
     const text = [
       `import { useTranslations } from 'next-intl';`,
       `const t = useTranslations('contact');`,
-      // biome-ignore lint/suspicious/noTemplateCurlyInString: source text under test
+      // oxlint-disable-next-line no-template-curly-in-string -- source text under test
       'const tf = (key: string) => t(`form.${key}`);',
       `tf('name');`,
     ].join('\n');

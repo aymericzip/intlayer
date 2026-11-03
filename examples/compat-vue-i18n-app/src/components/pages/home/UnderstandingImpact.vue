@@ -8,66 +8,66 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <section class="mb-16 mx-auto max-w-3xl space-y-6">
+  <section class="mx-auto mb-16 max-w-3xl space-y-6">
     <h2 class="text-2xl font-bold text-foreground">
-      {{ t("home.understandingImpact.title") }}
+      {{ t('home.understandingImpact.title') }}
     </h2>
 
     <div class="rounded-lg border border-border bg-card p-6">
       <h3 class="mb-2 text-lg font-semibold text-foreground">
-        {{ t("home.understandingImpact.singleJsonTitle") }}
+        {{ t('home.understandingImpact.singleJsonTitle') }}
       </h3>
       <p class="text-sm text-muted-foreground">
-        {{ t("home.understandingImpact.singleJsonIntro") }}
+        {{ t('home.understandingImpact.singleJsonIntro') }}
       </p>
-      <ul class="mt-3 space-y-2 text-sm text-muted-foreground list-disc ps-5">
+      <ul class="mt-3 list-disc space-y-2 ps-5 text-sm text-muted-foreground">
         <li>
-          {{ t("home.understandingImpact.singleJsonBullet1") }}
+          {{ t('home.understandingImpact.singleJsonBullet1') }}
         </li>
         <li>
-          {{ t("home.understandingImpact.singleJsonBullet2") }}
+          {{ t('home.understandingImpact.singleJsonBullet2') }}
         </li>
         <li>
-          {{ t("home.understandingImpact.singleJsonBullet3") }}
+          {{ t('home.understandingImpact.singleJsonBullet3') }}
         </li>
       </ul>
     </div>
 
     <div class="rounded-lg border border-border bg-card p-6">
       <h3 class="mb-2 text-lg font-semibold text-foreground">
-        {{ t("home.understandingImpact.tradeOffsTitle") }}
+        {{ t('home.understandingImpact.tradeOffsTitle') }}
       </h3>
       <p class="text-sm text-muted-foreground">
-        {{ t("home.understandingImpact.tradeOffsIntro") }}
+        {{ t('home.understandingImpact.tradeOffsIntro') }}
       </p>
-      <ul class="mt-3 space-y-2 text-sm text-muted-foreground list-disc ps-5">
+      <ul class="mt-3 list-disc space-y-2 ps-5 text-sm text-muted-foreground">
         <li>
           <strong class="text-foreground">
-            {{ t("home.understandingImpact.waterfallLabel") }}
+            {{ t('home.understandingImpact.waterfallLabel') }}
           </strong>
-          {{ t("home.understandingImpact.waterfallDesc") }}
+          {{ t('home.understandingImpact.waterfallDesc') }}
         </li>
         <li>
           <strong class="text-foreground">
-            {{ t("home.understandingImpact.foucLabel") }}
+            {{ t('home.understandingImpact.foucLabel') }}
           </strong>
-          {{ t("home.understandingImpact.foucDesc") }}
+          {{ t('home.understandingImpact.foucDesc') }}
         </li>
         <li>
           <strong class="text-foreground">
-            {{ t("home.understandingImpact.cacheLabel") }}
+            {{ t('home.understandingImpact.cacheLabel') }}
           </strong>
-          {{ t("home.understandingImpact.cacheDesc") }}
+          {{ t('home.understandingImpact.cacheDesc') }}
         </li>
       </ul>
     </div>
 
     <div class="rounded-lg border border-border bg-card p-6">
       <h3 class="mb-2 text-lg font-semibold text-foreground">
-        {{ t("home.understandingImpact.measuresTitle") }}
+        {{ t('home.understandingImpact.measuresTitle') }}
       </h3>
       <p class="text-sm text-muted-foreground">
-        {{ t("home.understandingImpact.measuresDesc") }}
+        {{ t('home.understandingImpact.measuresDesc') }}
       </p>
     </div>
   </section>

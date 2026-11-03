@@ -54,10 +54,10 @@ export const HeroSection: FC = () => {
                 <Tag
                   size="md"
                   border="with"
-                  className="flex items-center gap-2 rounded-full border-foreground/20! bg-card/10 font-medium text-foreground text-xs backdrop-blur-xl sm:text-sm"
+                  className="flex items-center gap-2 rounded-full border-foreground/20! bg-card/10 text-xs font-medium text-foreground backdrop-blur-xl sm:text-sm"
                 >
                   <Megaphone className="size-3.5 shrink-0 sm:size-4" />
-                  <span className="no-underline! flex items-center gap-1 whitespace-nowrap font-medium text-xs sm:text-sm">
+                  <span className="flex items-center gap-1 text-xs font-medium whitespace-nowrap no-underline! sm:text-sm">
                     {version({
                       version: latestVersion,
                       icon: <ArrowRight className="size-3 shrink-0" />,
@@ -75,10 +75,10 @@ export const HeroSection: FC = () => {
               key={title.value}
               title={title.value}
               words={titleWords.map((word: IntlayerNode<string>) => word.value)}
-              className="mb-3 px-2 text-center font-bold text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl"
+              className="mb-3 px-2 text-center text-3xl leading-tight font-bold sm:text-4xl md:text-5xl lg:text-6xl"
             />
             {/* Subtitle */}
-            <h2 className="px-2 text-center font-semibold text-lg leading-snug sm:text-2xl md:text-3xl lg:text-4xl">
+            <h2 className="px-2 text-center text-lg leading-snug font-semibold sm:text-2xl md:text-3xl lg:text-4xl">
               {subheading}
             </h2>
           </div>
@@ -95,7 +95,7 @@ export const HeroSection: FC = () => {
           >
             <ChevronRight className="size-6 shrink-0 text-neutral" />
             <CodeBlock
-              className="justify-left min-w-0 flex-1 overflow-x-auto whitespace-nowrap ps-6 text-sm sm:text-base"
+              className="justify-left min-w-0 flex-1 overflow-x-auto ps-6 text-sm whitespace-nowrap sm:text-base"
               lang="bash"
             >
               npx intlayer init
@@ -112,7 +112,7 @@ export const HeroSection: FC = () => {
             />
           </Container>
           <p
-            className="hero-enter mx-auto max-w-xl px-2 text-center text-muted-foreground text-sm leading-relaxed sm:text-lg"
+            className="hero-enter mx-auto max-w-xl px-2 text-center text-sm leading-relaxed text-muted-foreground sm:text-lg"
             style={{ animationDelay: '0.6s' }}
           >
             {description}
@@ -155,17 +155,17 @@ export const HeroSection: FC = () => {
         </div>
       </section>
 
-      <section className="relative w-full overflow-x-auto border-neutral border-t">
+      <section className="relative w-full overflow-x-auto border-t border-neutral">
         <LandingList />
       </section>
-      <div className="flex items-center justify-between gap-4 border-neutral border-y px-4 py-2 sm:py-3">
-        <p className="truncate font-mono text-foreground text-xs uppercase tracking-wider sm:text-sm md:text-base">
+      <div className="flex items-center justify-between gap-4 border-y border-neutral px-4 py-2 sm:py-3">
+        <p className="truncate font-mono text-xs tracking-wider text-foreground uppercase sm:text-sm md:text-base">
           {availableFor}
         </p>
       </div>
 
       <section
-        className="hero-enter relative w-full overflow-x-auto border-neutral border-b"
+        className="hero-enter relative w-full overflow-x-auto border-b border-neutral"
         style={{ animationDelay: '1s' }}
       >
         <TechLogos />

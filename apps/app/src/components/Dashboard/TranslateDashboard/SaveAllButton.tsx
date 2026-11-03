@@ -37,7 +37,7 @@ const ModifiedDictionaryRow: FC<ModifiedDictionaryRowProps> = memo(
     return (
       <div className="pb-2" style={{ height: DICTIONARY_ROW_HEIGHT }}>
         <div className="flex h-full items-center justify-between gap-6 rounded-lg bg-white/5 px-3 transition-colors hover:bg-white/10">
-          <span className="truncate font-medium text-text-strong">
+          <span className="text-text-strong truncate font-medium">
             {modifiedDictionary.dictionaryToSave.key}
           </span>
           <div className="flex shrink-0 items-center gap-1">
@@ -183,7 +183,7 @@ export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
             padding="md"
             roundedSize="2xl"
           >
-            <div className="flex flex-row items-center justify-between gap-8 border-white/10 border-b pb-2 font-semibold text-text">
+            <div className="flex flex-row items-center justify-between gap-8 border-b border-white/10 pb-2 font-semibold text-text">
               <span className="flex shrink-0 flex-row items-center gap-2 whitespace-nowrap">
                 {modifiedCount({ count: modifiedDictionaries.length })}
               </span>

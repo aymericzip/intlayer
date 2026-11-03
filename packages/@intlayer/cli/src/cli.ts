@@ -510,9 +510,8 @@ export const setAPI = (): Command => {
       'Skills to install (e.g. Usage Content React). Defaults to the project stack without a terminal'
     )
     .action(async (options) => {
-      const { initSkills, parsePlatform, parseSkills } = await import(
-        './initSkills'
-      );
+      const { initSkills, parsePlatform, parseSkills } =
+        await import('./initSkills');
       await initSkills(options.projectRoot, {
         platform: options.platform
           ? parsePlatform(options.platform)
@@ -595,9 +594,8 @@ export const setAPI = (): Command => {
       'Browsers to open the store page for: chrome | firefox. Without a terminal, the links are only printed'
     )
     .action(async (options) => {
-      const { initChromeExtension, parseExtensionBrowsers } = await import(
-        './initChromeExtension'
-      );
+      const { initChromeExtension, parseExtensionBrowsers } =
+        await import('./initChromeExtension');
       return initChromeExtension({
         browsers: options.browser
           ? parseExtensionBrowsers(options.browser)
@@ -959,9 +957,8 @@ export const setAPI = (): Command => {
     .option('--json', 'Output the results as JSON')
     .option('--absolute', 'Output the results as absolute paths')
     .action(async (options) => {
-      const { listContentDeclaration } = await import(
-        './listContentDeclaration'
-      );
+      const { listContentDeclaration } =
+        await import('./listContentDeclaration');
       listContentDeclaration({
         json: options.json,
         absolute: options.absolute,
@@ -975,9 +972,8 @@ export const setAPI = (): Command => {
     .option('--json', 'Output the results as JSON')
     .option('--absolute', 'Output the results as absolute paths')
     .action(async (options) => {
-      const { listContentDeclaration } = await import(
-        './listContentDeclaration'
-      );
+      const { listContentDeclaration } =
+        await import('./listContentDeclaration');
       listContentDeclaration({
         json: options.json,
         absolute: options.absolute,

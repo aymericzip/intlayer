@@ -483,12 +483,12 @@ export const Browser = ({
                   aria-label={content.sitemapButtonLabel.value}
                 >
                   {sitemapLoading ? (
-                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
+                    <li className="px-3 py-4 text-center text-xs text-muted-foreground">
                       {content.sitemapLoading}
                     </li>
                   ) : sitemapError ||
                     (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
-                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
+                    <li className="px-3 py-4 text-center text-xs text-muted-foreground">
                       {sitemapError
                         ? content.sitemapError
                         : content.sitemapEmpty}
@@ -527,7 +527,7 @@ export const Browser = ({
               id="browser-url-error"
               role="alert"
               aria-live="assertive"
-              className="rounded-md bg-red-900/90 px-3 py-1.5 text-red-100 text-xs shadow-md backdrop-blur-sm"
+              className="rounded-md bg-red-900/90 px-3 py-1.5 text-xs text-red-100 shadow-md backdrop-blur-sm"
             >
               {error}
             </p>

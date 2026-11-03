@@ -69,7 +69,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
   if (typeof section === 'object') {
     if (nodeType === NodeTypes.REACT_NODE) {
       return (
-        <span className="text-neutral text-xs">React node not editable</span>
+        <span className="text-xs text-neutral">React node not editable</span>
       );
     }
 

@@ -126,7 +126,7 @@ export const listGitLines = async (
     const hunkRegex = /@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/g;
     let match: RegExpExecArray | null;
 
-    // biome-ignore lint/suspicious/noAssignInExpressions: Used in while loop condition
+    // oxlint-disable-next-line no-cond-assign -- Used in while loop condition
     while ((match = hunkRegex.exec(diffOutput)) !== null) {
       const oldCount = match[2] ? Number(match[2]) : 1;
       const newStart = Number(match[3]);

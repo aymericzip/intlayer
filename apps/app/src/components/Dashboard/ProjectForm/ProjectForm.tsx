@@ -54,7 +54,7 @@ export const ProjectFormContent: FC = () => {
   if (project) {
     const nameAndUsers = (
       <div className="flex flex-col gap-3">
-        <h3 className="font-bold text-2xl">{project.name}</h3>
+        <h3 className="text-2xl font-bold">{project.name}</h3>
 
         {project.membersIds.length > 0 && (
           <div className="flex flex-row items-center gap-1">
@@ -70,7 +70,7 @@ export const ProjectFormContent: FC = () => {
               ))}
             </div>
             {remainingCount > 0 && (
-              <span className="ms-1 text-neutral text-xs">
+              <span className="ms-1 text-xs text-neutral">
                 +{remainingCount}
               </span>
             )}
@@ -89,12 +89,12 @@ export const ProjectFormContent: FC = () => {
             href={project.repository.url || undefined}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-xs underline"
+            className="text-xs font-medium underline"
           >
             {project.repository.owner}/{project.repository.repository}
           </a>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="flex items-center gap-1 text-neutral text-xs">
+            <span className="flex items-center gap-1 text-xs text-neutral">
               <GitBranch className="size-3" />
               {project.repository.branch}
             </span>
@@ -135,7 +135,7 @@ export const ProjectFormContent: FC = () => {
             borderColor="neutral"
             className="flex size-full justify-center"
           >
-            <p className="text-neutral text-sm">{noAdminMessage}</p>
+            <p className="text-sm text-neutral">{noAdminMessage}</p>
           </Container>
         )}
 
@@ -268,10 +268,10 @@ export const ProjectFormContent: FC = () => {
                 <TriangleAlert className="size-5 text-error" />
               </div>
               <div className="flex-1">
-                <h3 className="font-medium text-base text-error">
+                <h3 className="text-base font-medium text-error">
                   {dangerZoneTitle}
                 </h3>
-                <p className="mt-1 text-neutral text-sm">
+                <p className="mt-1 text-sm text-neutral">
                   {dangerZoneDescription}
                 </p>
                 <Button

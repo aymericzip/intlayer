@@ -1,8 +1,8 @@
 import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
-import { readAsset } from 'utils:asset';
 import { v } from '@intlayer/config/logger';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import { readAsset } from 'utils:asset';
 
 /**
  * Metadata for each available documentation skill.

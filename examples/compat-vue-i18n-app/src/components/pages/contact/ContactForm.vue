@@ -20,11 +20,11 @@ const topics = [
           for="name"
           class="mb-1 block text-sm font-medium text-foreground"
         >
-          {{ t("contact.form.name") }}
+          {{ t('contact.form.name') }}
         </label>
         <input
           id="name"
-          class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+          class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-none"
           :placeholder="t('contact.form.yourName')"
         />
       </div>
@@ -33,32 +33,25 @@ const topics = [
           for="email"
           class="mb-1 block text-sm font-medium text-foreground"
         >
-          {{ t("contact.form.email") }}
+          {{ t('contact.form.email') }}
         </label>
         <input
           id="email"
           type="email"
-          class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+          class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-none"
           :placeholder="t('contact.form.emailPlaceholder')"
         />
       </div>
     </div>
     <div>
-      <label
-        for="topic"
-        class="mb-1 block text-sm font-medium text-foreground"
-      >
-        {{ t("contact.form.topic") }}
+      <label for="topic" class="mb-1 block text-sm font-medium text-foreground">
+        {{ t('contact.form.topic') }}
       </label>
       <select
         id="topic"
-        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:ring-1 focus:ring-ring focus:outline-none"
       >
-        <option
-          v-for="topic in topics"
-          :key="topic"
-          :value="topic"
-        >
+        <option v-for="topic in topics" :key="topic" :value="topic">
           {{ t(`contact.form.${topic}`) }}
         </option>
       </select>
@@ -68,12 +61,12 @@ const topics = [
         for="message"
         class="mb-1 block text-sm font-medium text-foreground"
       >
-        {{ t("contact.form.message") }}
+        {{ t('contact.form.message') }}
       </label>
       <textarea
         id="message"
         rows="5"
-        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:ring-1 focus:ring-ring focus:outline-none"
         :placeholder="t('contact.form.messagePlaceholder')"
       />
     </div>
@@ -81,7 +74,7 @@ const topics = [
       type="submit"
       class="rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
     >
-      {{ t("contact.form.sendMessage") }}
+      {{ t('contact.form.sendMessage') }}
     </button>
   </form>
 </template>

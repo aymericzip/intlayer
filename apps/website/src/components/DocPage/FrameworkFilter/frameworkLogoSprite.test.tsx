@@ -3,9 +3,8 @@ import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('react-intlayer', () => ({ useIntlayer: () => ({}) }));
 
-const { collectFrameworkLogoKeys, FrameworkLogoReference } = await import(
-  './index'
-);
+const { collectFrameworkLogoKeys, FrameworkLogoReference } =
+  await import('./index');
 
 describe('collectFrameworkLogoKeys', () => {
   it('collects each logo once across the whole tree', () => {

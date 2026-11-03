@@ -41,8 +41,5 @@ export type {
   NumberFormatter,
   TimeFormatter,
 } from './types';
-export {
-  type DictionaryMessageStores,
-  useDictionary,
-} from './useDictionary';
+export { type DictionaryMessageStores, useDictionary } from './useDictionary';
 export { useDictionaryDynamic } from './useDictionaryDynamic';

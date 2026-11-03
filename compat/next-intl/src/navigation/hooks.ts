@@ -1,10 +1,10 @@
 'use client';
 
+import { useLocale } from 'next-intlayer';
 import {
   usePathname as useNextPathname,
   useRouter as useNextRouter,
 } from 'next/navigation';
-import { useLocale } from 'next-intlayer';
 import { localizeHref, type NextIntlHref } from './localizeHref';
 
 /**

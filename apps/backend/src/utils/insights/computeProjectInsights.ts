@@ -210,7 +210,7 @@ export const computeProjectInsights = (
     autoFill: Boolean(project.autoFill),
     aiConfigured: Boolean(
       project.configuration?.ai?.apiKeyConfigured ||
-        project.configuration?.ai?.apiKey
+      project.configuration?.ai?.apiKey
     ),
     repositoryProvider: project.repository?.provider ?? null,
     applicationURL: project.configuration?.editor?.applicationURL ?? null,

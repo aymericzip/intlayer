@@ -99,7 +99,7 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
         borderColor="neutral"
       >
         <div className="mt-6 flex w-full flex-col gap-6">
-          <p className="text-neutral text-sm">{modal.description}</p>
+          <p className="text-sm text-neutral">{modal.description}</p>
 
           <Form
             schema={MagicLinkSchema}
@@ -117,10 +117,10 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
               autoFocus
             />
             {status === 'success' && (
-              <p className="text-success text-xs">{successMessage}</p>
+              <p className="text-xs text-success">{successMessage}</p>
             )}
             {status === 'error' && !isModalOpen && (
-              <p className="text-error text-xs">{errorMessage}</p>
+              <p className="text-xs text-error">{errorMessage}</p>
             )}
 
             <div className="flex gap-3">

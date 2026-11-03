@@ -48,7 +48,7 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
       hasCloseButton
     >
       <form className="size-full px-3">
-        <p className="text-neutral text-sm">{description.single}</p>
+        <p className="text-sm text-neutral">{description.single}</p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
           <FormButton
             variant="outline"

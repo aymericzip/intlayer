@@ -162,7 +162,7 @@ export const MailerSettings: FC = () => {
           <Mail className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
-        <p className="text-neutral text-sm dark:text-neutral-dark">
+        <p className="dark:text-neutral-dark text-sm text-neutral">
           {description}
         </p>
       </div>
@@ -186,7 +186,7 @@ export const MailerSettings: FC = () => {
         <MaxHeightSmoother isHidden={!isActive}>
           <div className="mt-4 flex flex-col gap-4">
             <div>
-              <span className="font-medium text-sm">{providerTypeLabel}</span>
+              <span className="text-sm font-medium">{providerTypeLabel}</span>
               <FormSwitchSelector
                 name="provider"
                 className="mt-2"

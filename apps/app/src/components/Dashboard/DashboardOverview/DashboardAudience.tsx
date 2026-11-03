@@ -74,12 +74,12 @@ const StatTile: FC<StatTileProps> = ({ icon, label, value, hint }) => (
     border
     borderColor="neutral"
   >
-    <span className="flex items-center gap-2 text-neutral text-xs">
+    <span className="flex items-center gap-2 text-xs text-neutral">
       {icon}
       {label}
     </span>
-    <span className="font-semibold text-2xl text-text">{value}</span>
-    {hint && <span className="text-neutral text-xs">{hint}</span>}
+    <span className="text-2xl font-semibold text-text">{value}</span>
+    {hint && <span className="text-xs text-neutral">{hint}</span>}
   </Container>
 );
 
@@ -174,7 +174,7 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-1">
-      <div className="flex items-start justify-between text-neutral text-xs">
+      <div className="flex items-start justify-between text-xs text-neutral">
         <span>
           {peak} {usersLabel}
         </span>
@@ -212,7 +212,7 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
           )}
         </svg>
       </div>
-      <div className="flex items-center justify-between text-neutral text-xs">
+      <div className="flex items-center justify-between text-xs text-neutral">
         <span>{formatBucket(firstBucket, granularity, locale)}</span>
         <span>{formatBucket(lastBucket, granularity, locale)}</span>
       </div>
@@ -271,7 +271,7 @@ const BreakdownList: FC<BreakdownListProps> = ({
 
           return (
             <li
-              // biome-ignore lint/suspicious/noArrayIndexKey: rows are stable per fetch and labels can repeat
+              // oxlint-disable-next-line react/no-array-index-key -- rows are stable per fetch and labels can repeat
               key={index}
               className="flex flex-col gap-1"
             >
@@ -279,7 +279,7 @@ const BreakdownList: FC<BreakdownListProps> = ({
                 <div className="flex min-w-0 flex-1 items-start gap-2 text-text">
                   {row.label}
                 </div>
-                <span className="shrink-0 text-neutral text-xs">
+                <span className="shrink-0 text-xs text-neutral">
                   {formatRowCounters(row, usersLabel, viewsLabel, metric).join(
                     ' · '
                   )}
@@ -349,7 +349,7 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
         </a>
         {title && (
           <span
-            className="max-w-40 shrink-0 truncate font-mono text-neutral text-xs"
+            className="max-w-40 shrink-0 truncate font-mono text-xs text-neutral"
             title={pageUrl}
           >
             {pageUrl}
@@ -358,7 +358,7 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
       </div>
       {description && (
         <p
-          className="line-clamp-2 ps-5 text-neutral text-xs leading-relaxed"
+          className="line-clamp-2 ps-5 text-xs leading-relaxed text-neutral"
           title={description}
         >
           {description}
@@ -442,7 +442,7 @@ export const DashboardAudience: FC = () => {
           <>
             <Globe className="size-3.5 shrink-0 text-neutral" />
             <span className="truncate">{getLocaleName(row.key, locale)}</span>
-            <span className="shrink-0 text-neutral text-xs">{row.key}</span>
+            <span className="shrink-0 text-xs text-neutral">{row.key}</span>
           </>
         ),
         users: row.users,
@@ -491,8 +491,8 @@ export const DashboardAudience: FC = () => {
       {/* Header + range selector */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col">
-          <h2 className="font-semibold text-base text-text">{content.title}</h2>
-          <span className="text-neutral text-xs">{content.subtitle}</span>
+          <h2 className="text-base font-semibold text-text">{content.title}</h2>
+          <span className="text-xs text-neutral">{content.subtitle}</span>
         </div>
         {/* Eight ranges overflow a narrow header — scroll rather than wrap. */}
         <div className="-mx-1 max-w-full overflow-x-auto px-1">
@@ -519,7 +519,7 @@ export const DashboardAudience: FC = () => {
           border
           borderColor="neutral"
         >
-          <p className="max-w-sm text-center text-neutral text-sm">
+          <p className="max-w-sm text-center text-sm text-neutral">
             {content.noData}
           </p>
         </Container>
@@ -559,7 +559,7 @@ export const DashboardAudience: FC = () => {
               border
               borderColor="neutral"
             >
-              <h3 className="font-semibold text-sm text-text">
+              <h3 className="text-sm font-semibold text-text">
                 {content.evolutionTitle}
               </h3>
               <EvolutionChart

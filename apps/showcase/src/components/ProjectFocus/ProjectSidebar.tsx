@@ -72,10 +72,10 @@ const InfoItem = ({
       {icon}
     </Container>
     <div className="flex flex-col">
-      <span className="mb-1 font-bold text-neutral text-xs uppercase leading-none tracking-widest">
+      <span className="mb-1 text-xs leading-none font-bold tracking-widest text-neutral uppercase">
         {label}
       </span>
-      <span className="font-semibold text-sm text-text">{value}</span>
+      <span className="text-sm font-semibold text-text">{value}</span>
     </div>
   </div>
 );
@@ -164,7 +164,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             {scanError ? (
               <>
                 <H2>{submitFormContent.modal.errorTitle}</H2>
-                <span className="max-w-full overflow-hidden text-clip text-center text-neutral text-sm">
+                <span className="max-w-full overflow-hidden text-center text-sm text-clip text-neutral">
                   {scanError}
                 </span>
                 <div className="m-auto mt-4 aspect-square rounded-full bg-error/30 p-5">
@@ -184,7 +184,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             ) : scanStep === 'SUCCESS' ? (
               <>
                 <H2>{submitFormContent.modal.successTitle}</H2>
-                <span className="text-center text-neutral text-sm">
+                <span className="text-center text-sm text-neutral">
                   {submitFormContent.modal.successMessage}
                 </span>
                 <div className="m-auto mt-4 aspect-square rounded-full bg-success/30 p-5">
@@ -208,7 +208,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
                 <Loader isLoading={true} />
 
                 <div className="my-4 flex w-full max-w-md flex-col gap-4 border-s border-s-neutral/30 ps-4">
-                  <ul className="space-y-3 text-neutral text-sm">
+                  <ul className="space-y-3 text-sm text-neutral">
                     <ScanStepItem
                       label={submitFormContent.modal.steps.verifyBundle.value}
                       isCurrent={scanStep === 'SCANNING_START'}
@@ -267,7 +267,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
               />
             </Container>
           )}
-          <h1 className="font-bold text-2xl text-text md:text-3xl">
+          <h1 className="text-2xl font-bold text-text md:text-3xl">
             {project.title}
           </h1>
         </div>
@@ -276,14 +276,14 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             <Badge
               key={tag}
               color="neutral"
-              className="py-0.5 font-semibold text-xs"
+              className="py-0.5 text-xs font-semibold"
             >
               {tag}
             </Badge>
           ))}
         </div>
 
-        <p className="whitespace-pre-wrap text-base text-neutral/90 leading-relaxed">
+        <p className="text-base leading-relaxed whitespace-pre-wrap text-neutral/90">
           {project.description}
         </p>
       </Container>
@@ -388,11 +388,11 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             title={content.deleteConfirmTitle}
           >
             <div className="flex flex-col gap-4 px-4 py-6">
-              <p className="text-neutral text-sm">
+              <p className="text-sm text-neutral">
                 {content.deleteConfirmDescription}
               </p>
               {deleteError && (
-                <p className="text-error text-sm">{deleteError}</p>
+                <p className="text-sm text-error">{deleteError}</p>
               )}
               <div className="flex gap-3">
                 <Button
@@ -435,10 +435,10 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
         transparency="lg"
       >
         <div className="items-top flex justify-between">
-          <span className="block font-bold text-neutral text-xs uppercase tracking-widest">
+          <span className="block text-xs font-bold tracking-widest text-neutral uppercase">
             {content.rateThisProject}
           </span>
-          <Container className="flex aspect-square size-10 items-center justify-center rounded-full font-bold text-lg text-text/70">
+          <Container className="flex aspect-square size-10 items-center justify-center rounded-full text-lg font-bold text-text/70">
             {score}
           </Container>
         </div>
@@ -480,7 +480,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           gap="md"
           transparency="lg"
         >
-          <span className="block font-bold text-neutral text-xs uppercase tracking-widest">
+          <span className="block text-xs font-bold tracking-widest text-neutral uppercase">
             {content.libsUsed}
           </span>
           <div className="flex flex-col gap-1.5">
@@ -489,10 +489,10 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
                 key={pkg}
                 className="flex items-center justify-between gap-2"
               >
-                <span className="font-medium text-text text-xs">{pkg}</span>
+                <span className="text-xs font-medium text-text">{pkg}</span>
                 {version && (
                   <Container roundedSize="xl" transparency="lg" padding="sm">
-                    <span className="font-mono text-neutral text-xs">
+                    <span className="font-mono text-xs text-neutral">
                       v{version}
                     </span>
                   </Container>

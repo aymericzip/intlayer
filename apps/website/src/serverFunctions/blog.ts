@@ -14,9 +14,8 @@ export const loadBlogPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
   .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
-    const { getBlog, getBlogMetadataBySlug, getAuthor } = await import(
-      '@intlayer/docs'
-    );
+    const { getBlog, getBlogMetadataBySlug, getAuthor } =
+      await import('@intlayer/docs');
 
     const blogsData = await getBlogMetadataBySlug(
       ['blog', ...slugs],
@@ -30,9 +29,8 @@ export const loadBlogPage = createServerFn()
 
     if (!exactMatch) return { exactMatch: null, blogsData, content: null };
 
-    const { highlightMarkdownCodeBlocks } = await import(
-      '~/utils/highlightMarkdown'
-    );
+    const { highlightMarkdownCodeBlocks } =
+      await import('~/utils/highlightMarkdown');
 
     const file = await getBlog(exactMatch.docKey as any, locale);
     const blogContent = urlRenamer(file, locale);

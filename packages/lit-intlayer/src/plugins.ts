@@ -178,11 +178,9 @@ export const insertionPlugin: Plugins =
               // inside a raw string. Interpolate into that string, then re-run
               // the transform so the html/markdown renderer applies afterwards.
               if (isInterpolableWrapperNode(node)) {
-                return (
-                  values: {
-                    [K in InsertionContent['fields'][number]]: string | number;
-                  }
-                ) =>
+                return (values: {
+                  [K in InsertionContent['fields'][number]]: string | number;
+                }) =>
                   transformInterpolableNode(
                     node,
                     values,
@@ -200,11 +198,9 @@ export const insertionPlugin: Plugins =
                 ),
               });
 
-              return (
-                values: {
-                  [K in InsertionContent['fields'][number]]: string | number;
-                }
-              ) => {
+              return (values: {
+                [K in InsertionContent['fields'][number]]: string | number;
+              }) => {
                 const result = splitInsertionTemplate(
                   transformedResult,
                   values
@@ -398,7 +394,9 @@ export const htmlPlugin: Plugins =
                 // Fallback: wrapper for standard lowercase HTML tags
                 if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
                   return (props: any) =>
-                    html`<${unsafeStatic(prop)} ...${props}>${props.children}</${unsafeStatic(prop)}>`;
+                    html`<${unsafeStatic(prop)} ...${props}
+                      >${props.children}</${unsafeStatic(prop)}
+                    >`;
                 }
                 return undefined;
               },

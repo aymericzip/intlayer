@@ -22,9 +22,8 @@ export const loadFaqPage = createServerFn()
     if (!exactMatch) return { exactMatch: null, faqsData, content: null };
 
     const file = await getFrequentQuestion(exactMatch.docKey as any, locale);
-    const { highlightMarkdownCodeBlocks } = await import(
-      '~/utils/highlightMarkdown'
-    );
+    const { highlightMarkdownCodeBlocks } =
+      await import('~/utils/highlightMarkdown');
 
     const blogContent = urlRenamer(file, locale);
     const blogParsed = parseMarkdown(blogContent);
@@ -68,8 +67,7 @@ export const loadFaqIndex = createServerFn()
   .validator((data: { locale: string }) => data)
   .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => {
-    const { getFrequentQuestionMetadataRecord } = await import(
-      '@intlayer/docs'
-    );
+    const { getFrequentQuestionMetadataRecord } =
+      await import('@intlayer/docs');
     return getFrequentQuestionMetadataRecord(locale);
   });

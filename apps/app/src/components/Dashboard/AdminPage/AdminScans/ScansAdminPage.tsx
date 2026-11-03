@@ -126,12 +126,12 @@ export const ScansAdminPageContent: FC = () => {
 
       <section className="flex flex-col gap-3">
         <div>
-          <h2 className="font-semibold text-lg">{usageTitle}</h2>
-          <p className="text-neutral text-sm">{usageDescription}</p>
+          <h2 className="text-lg font-semibold">{usageTitle}</h2>
+          <p className="text-sm text-neutral">{usageDescription}</p>
         </div>
 
         {technologyUsage.length === 0 && !technologyUsageQuery.isFetching ? (
-          <p className="text-neutral text-sm">{noData}</p>
+          <p className="text-sm text-neutral">{noData}</p>
         ) : (
           <ul className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-3">
             {technologyUsage.map((technology) => (
@@ -166,7 +166,7 @@ export const ScansAdminPageContent: FC = () => {
 
       <section className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-semibold text-lg">{hostsTitle}</h2>
+          <h2 className="text-lg font-semibold">{hostsTitle}</h2>
           <div className="flex items-center gap-2">
             {technologyId && (
               <Button
@@ -229,7 +229,7 @@ export const ScansAdminPageContent: FC = () => {
                 {scannedHosts.map((scannedHost) => (
                   <tr
                     key={scannedHost.id}
-                    className="cursor-pointer border-neutral/20 border-t align-top transition-colors hover:bg-text/5"
+                    className="cursor-pointer border-t border-neutral/20 align-top transition-colors hover:bg-text/5"
                     onClick={() => setParam('host', scannedHost.host)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
@@ -241,7 +241,7 @@ export const ScansAdminPageContent: FC = () => {
                     <td className="px-4 py-3">
                       <span className="font-medium">{scannedHost.host}</span>
                       {scannedHost.title && (
-                        <p className="max-w-60 truncate text-neutral text-xs">
+                        <p className="max-w-60 truncate text-xs text-neutral">
                           {scannedHost.title}
                         </p>
                       )}
@@ -252,7 +252,7 @@ export const ScansAdminPageContent: FC = () => {
                         className="max-w-md"
                       />
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 font-mono text-xs">
+                    <td className="px-4 py-3 font-mono text-xs whitespace-nowrap">
                       {scannedHost.routingStrategy}
                     </td>
                     <td className="px-4 py-3 font-mono text-xs">
@@ -264,7 +264,7 @@ export const ScansAdminPageContent: FC = () => {
                     <td className="px-4 py-3 text-end">
                       {scannedHost.scanCount}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-neutral text-xs">
+                    <td className="px-4 py-3 text-xs whitespace-nowrap text-neutral">
                       {new Date(scannedHost.lastScannedAt).toLocaleString()}
                     </td>
                   </tr>

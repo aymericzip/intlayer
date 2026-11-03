@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-
 import { Accordion, type AccordionProps } from './Accordion';
 
 const SampleContent = () => (
@@ -228,7 +227,7 @@ export const RichContent: Story = {
     header: 'Rich Content Accordion',
     children: (
       <div className="p-4">
-        <h3 className="mb-2 font-bold text-lg">Rich Content Example</h3>
+        <h3 className="mb-2 text-lg font-bold">Rich Content Example</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <img
@@ -437,7 +436,7 @@ export const ResponsiveDesign: Story = {
             Desktop View
           </div>
         </div>
-        <p className="mt-4 text-gray-600 text-sm">
+        <p className="mt-4 text-sm text-gray-600">
           This content adapts to different screen sizes. Try changing the
           viewport in the toolbar above.
         </p>

@@ -60,9 +60,9 @@ export const isDictionarySourceSynced = (
 ): boolean =>
   Boolean(
     project.repository &&
-      project.webhooks?.autoCommitDictionaries &&
-      dictionary.location === SYNCED_DICTIONARY_LOCATION &&
-      dictionary.filePath
+    project.webhooks?.autoCommitDictionaries &&
+    dictionary.location === SYNCED_DICTIONARY_LOCATION &&
+    dictionary.filePath
   );
 
 /**

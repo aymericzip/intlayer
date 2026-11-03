@@ -241,7 +241,7 @@ export const Default: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">Article Content</h3>
+      <h3 className="mb-4 text-lg font-semibold">Article Content</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -282,7 +282,7 @@ export const ShortContent: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">Short Article</h3>
+      <h3 className="mb-4 text-lg font-semibold">Short Article</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -313,7 +313,7 @@ export const DisabledRollable: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">Full Content (No Collapse)</h3>
+      <h3 className="mb-4 text-lg font-semibold">Full Content (No Collapse)</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -352,7 +352,7 @@ export const LowHeightThreshold: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">
+      <h3 className="mb-4 text-lg font-semibold">
         Sensitive Threshold (100px)
       </h3>
       <ExpandCollapse {...args} />
@@ -383,7 +383,7 @@ export const HighHeightThreshold: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">High Threshold (800px)</h3>
+      <h3 className="mb-4 text-lg font-semibold">High Threshold (800px)</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -421,14 +421,14 @@ export const CodeBlockContent: Story = {
     isRollable: true,
     minHeight: 300,
     children: (
-      <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100 text-sm">
+      <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-gray-100">
         <code>{CODE_EXAMPLE_CONTENT}</code>
       </pre>
     ),
   },
   render: (args) => (
     <div className="max-w-4xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">Code Example</h3>
+      <h3 className="mb-4 text-lg font-semibold">Code Example</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -462,7 +462,7 @@ export const MixedContent: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">Mixed Content Article</h3>
+      <h3 className="mb-4 text-lg font-semibold">Mixed Content Article</h3>
       <ExpandCollapse {...args}>
         <div className="space-y-4">
           <p className="text-gray-700">
@@ -544,7 +544,7 @@ export const CustomStyling: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl p-4">
-      <h3 className="mb-4 font-semibold text-lg">Custom Styled Container</h3>
+      <h3 className="mb-4 text-lg font-semibold">Custom Styled Container</h3>
       <ExpandCollapse {...args} />
     </div>
   ),
@@ -585,7 +585,7 @@ export const KeyboardNavigation: Story = {
   },
   render: (args) => (
     <div className="max-w-2xl space-y-4 p-4">
-      <div className="rounded-lg bg-blue-50 p-3 text-gray-600 text-sm">
+      <div className="rounded-lg bg-blue-50 p-3 text-sm text-gray-600">
         <p className="mb-1 font-medium">Keyboard Navigation Test:</p>
         <ul className="space-y-1 text-xs">
           <li>• Tab: Navigate to toggle button</li>
@@ -647,12 +647,12 @@ export const DocumentationArticle: Story = {
   render: (args) => (
     <div className="mx-auto max-w-4xl p-6">
       <article className="prose prose-gray max-w-none">
-        <h1 className="mb-6 font-bold text-2xl">React Hooks Guide</h1>
+        <h1 className="mb-6 text-2xl font-bold">React Hooks Guide</h1>
 
         <ExpandCollapse {...args}>
           <div className="space-y-6">
             <section>
-              <h2 className="mb-3 font-semibold text-xl">Introduction</h2>
+              <h2 className="mb-3 text-xl font-semibold">Introduction</h2>
               <p>
                 React Hooks are functions that let you "hook into" React state
                 and lifecycle features from function components. They were
@@ -662,9 +662,9 @@ export const DocumentationArticle: Story = {
             </section>
 
             <section>
-              <h2 className="mb-3 font-semibold text-xl">Basic Hooks</h2>
+              <h2 className="mb-3 text-xl font-semibold">Basic Hooks</h2>
 
-              <h3 className="mb-2 font-medium text-lg">useState</h3>
+              <h3 className="mb-2 text-lg font-medium">useState</h3>
               <p className="mb-4">
                 The useState Hook lets you add state to function components. It
                 returns a stateful value and a function to update it.
@@ -674,7 +674,7 @@ export const DocumentationArticle: Story = {
                 <code>{`const [count, setCount] = useState(0);`}</code>
               </pre>
 
-              <h3 className="mb-2 font-medium text-lg">useEffect</h3>
+              <h3 className="mb-2 text-lg font-medium">useEffect</h3>
               <p className="mb-4">
                 The useEffect Hook lets you perform side effects in function
                 components. It serves the same purpose as componentDidMount,
@@ -689,21 +689,21 @@ export const DocumentationArticle: Story = {
             </section>
 
             <section>
-              <h2 className="mb-3 font-semibold text-xl">Advanced Hooks</h2>
+              <h2 className="mb-3 text-xl font-semibold">Advanced Hooks</h2>
 
-              <h3 className="mb-2 font-medium text-lg">useContext</h3>
+              <h3 className="mb-2 text-lg font-medium">useContext</h3>
               <p className="mb-4">
                 useContext lets you subscribe to React context without
                 introducing nesting.
               </p>
 
-              <h3 className="mb-2 font-medium text-lg">useReducer</h3>
+              <h3 className="mb-2 text-lg font-medium">useReducer</h3>
               <p className="mb-4">
                 useReducer is usually preferable to useState when you have
                 complex state logic that involves multiple sub-values.
               </p>
 
-              <h3 className="mb-2 font-medium text-lg">
+              <h3 className="mb-2 text-lg font-medium">
                 useCallback and useMemo
               </h3>
               <p className="mb-4">
@@ -713,7 +713,7 @@ export const DocumentationArticle: Story = {
             </section>
 
             <section>
-              <h2 className="mb-3 font-semibold text-xl">Best Practices</h2>
+              <h2 className="mb-3 text-xl font-semibold">Best Practices</h2>
               <ul className="list-inside list-disc space-y-2">
                 <li>Only call Hooks at the top level of your React function</li>
                 <li>
@@ -766,7 +766,7 @@ export const FAQSection: Story = {
   },
   render: (args) => (
     <div className="mx-auto max-w-3xl p-6">
-      <h2 className="mb-6 font-bold text-xl">Frequently Asked Questions</h2>
+      <h2 className="mb-6 text-xl font-bold">Frequently Asked Questions</h2>
 
       <div className="space-y-4">
         <div className="rounded-lg border border-gray-200 p-4">

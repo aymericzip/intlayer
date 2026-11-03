@@ -59,7 +59,7 @@ const config: CustomIntlayerConfig = {
   content: {
     contentDir: ['./src', '@intlayer/design-system'],
     codeDir: ['./src', '../../packages/@intlayer/design-system/dist'],
-    formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
+    formatCommand: 'bun x oxfmt "{{file}}"',
   },
   editor: {
     enabled: process.env.NODE_ENV === 'development',

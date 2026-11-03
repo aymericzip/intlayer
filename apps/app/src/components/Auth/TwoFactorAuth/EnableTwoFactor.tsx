@@ -127,7 +127,7 @@ export const EnableTwoFactor: FC = () => {
     if (modalType === 'enable') {
       return (
         <div className="mt-6 flex w-full flex-col gap-6">
-          <p className="text-neutral text-sm">{modal.enable.description}</p>
+          <p className="text-sm text-neutral">{modal.enable.description}</p>
 
           <Form
             schema={TwoFactorAuthSchema}
@@ -223,7 +223,7 @@ const QRCodeVerification: FC<{
 
   return (
     <div className="mt-6 flex w-full flex-col gap-6">
-      <p className="m-auto max-w-sm text-neutral text-sm">
+      <p className="m-auto max-w-sm text-sm text-neutral">
         {qrCode.description}
       </p>
 
@@ -239,7 +239,7 @@ const QRCodeVerification: FC<{
         </div>
 
         <div className="m-auto my-6 flex max-w-sm flex-col gap-2">
-          <label htmlFor="verification-code" className="font-medium text-sm">
+          <label htmlFor="verification-code" className="text-sm font-medium">
             {qrCode.codeLabel}
           </label>
           <FormOTP
@@ -274,7 +274,7 @@ const BackupCodesDisplay: FC<{
 
   return (
     <div className="mt-6 flex w-full flex-col gap-6">
-      <p className="text-neutral text-sm">{backupCodes.description}</p>
+      <p className="text-sm text-neutral">{backupCodes.description}</p>
 
       <div className="m-auto grid max-w-sm grid-cols-2 gap-3 rounded-lg p-4">
         {codes.map((code) => (

@@ -47,7 +47,7 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
   return (
     <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-e-lg border bg-background p-6 text-center">
       <H3>{title}</H3>
-      <p className="text-muted-foreground text-sm">{paragraph}</p>
+      <p className="text-sm text-muted-foreground">{paragraph}</p>
       <div className="absolute inset-e-6 bottom-6">
         <Select value={locale} onValueChange={setManualLocale}>
           <Select.Trigger

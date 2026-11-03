@@ -1,9 +1,5 @@
-import {
-  Fragment,
-  type FunctionComponent,
-  Suspense,
-  useState,
-} from 'preact/compat';
+import viteLogo from '/vite.svg';
+import { getLocalizedPath, getLocalizedUrl } from 'intlayer';
 import { useIntlayer } from 'preact-intlayer';
 import {
   useCompact,
@@ -17,12 +13,16 @@ import {
 } from 'preact-intlayer/format';
 import { HTMLProvider } from 'preact-intlayer/html';
 import { MarkdownProvider } from 'preact-intlayer/markdown';
-import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 import './app.css';
-import { getLocalizedPath, getLocalizedUrl } from 'intlayer';
-import viteLogo from '/vite.svg';
+import {
+  Fragment,
+  type FunctionComponent,
+  Suspense,
+  useState,
+} from 'preact/compat';
 import preactLogo from './assets/preact.svg';
 import { LocaleSwitcher } from './components/LocaleSwitcher';
+import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 import { LocaleRouter } from './Router';
 
 // ─── Styles ──────────────────────────────────────────────────────────────────

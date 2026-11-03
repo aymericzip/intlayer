@@ -270,8 +270,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   );
 
   return (
-    // biome-ignore lint/a11y/useAriaPropsSupportedByRole: role is "slider" whenever the aria-value* props are set
-    // biome-ignore lint/a11y/noStaticElementInteractions: role is "slider" whenever the handlers are attached
+    // oxlint-disable-next-line jsx-a11y/role-supports-aria-props, jsx-a11y/no-static-element-interactions -- role is "slider" whenever the aria-value* props are set; role is "slider" whenever the handlers are attached
     <div
       className={cn(
         'relative h-full w-full border-dashed transition',
@@ -307,7 +306,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       tabIndex={isDisabled ? undefined : 0}
       {...props}
     >
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Stops content clicks from triggering resize on the parent slider */}
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- Stops content clicks from triggering resize on the parent slider */}
       <div
         role="presentation"
         className="absolute inset-s-0 top-0 size-full cursor-default overflow-hidden"

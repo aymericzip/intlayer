@@ -92,7 +92,7 @@ export const DictionaryListDashboardContent: FC<
         <CopyToClipboard
           text={row.original.id!}
           size={9}
-          className="text-neutral text-nowrap"
+          className="text-nowrap text-neutral"
         >
           {row.original.id}
         </CopyToClipboard>
@@ -138,7 +138,7 @@ export const DictionaryListDashboardContent: FC<
       header: content.tableHeaders.description.value,
       cell: ({ row }) =>
         row.original.description ? (
-          <div className="text-neutral line-clamp-2 max-w-xs">
+          <div className="line-clamp-2 max-w-xs text-neutral">
             {row.original.description}
           </div>
         ) : (
@@ -205,7 +205,7 @@ export const DictionaryListDashboardContent: FC<
           location === 'plugin';
 
         return (
-          <div className="text-neutral flex items-center gap-4">
+          <div className="flex items-center gap-4 text-neutral">
             <div className="flex items-center gap-1">
               <Checkbox
                 name={`is-local-${row.id}`}
@@ -282,7 +282,7 @@ export const DictionaryListDashboardContent: FC<
             <Button
               variant="hoverable"
               color="error"
-              className="text-text hover:text-error ms-auto"
+              className="ms-auto text-text hover:text-error"
               size="icon-sm"
               onClick={(e: React.MouseEvent) => {
                 e.stopPropagation();
@@ -383,7 +383,7 @@ export const DictionaryListDashboardContent: FC<
   });
 
   return (
-    <div className="text-text/80 flex size-full flex-1 flex-col gap-6 py-4 text-sm">
+    <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
       <DictionaryToolbar dashboard={dashboard} table={table} />
 
       <DictionaryTable

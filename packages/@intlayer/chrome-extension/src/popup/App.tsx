@@ -8,8 +8,8 @@ import { Logo } from '@intlayer/design-system/logo';
 import { Website_Scanner } from '@intlayer/design-system/routes';
 import { getHTMLTextDir } from 'intlayer';
 import type { ComponentChildren, FunctionComponent } from 'preact';
-import { useEffect } from 'preact/hooks';
 import { useIntlayer, useLocale } from 'preact-intlayer';
+import { useEffect } from 'preact/hooks';
 import { getMigrationDocLinks } from '../migration/getMigrationDocLinks';
 import { useSitemapPages } from '../navigation/useSitemapPages';
 import { reportHostDetection } from '../scan/scanClient';
@@ -40,7 +40,7 @@ const Section: FunctionComponent<{
   children: ComponentChildren;
 }> = ({ title, children }) => (
   <section className="rounded-xl border border-text/10 bg-card px-3 py-2.5">
-    <h2 className="mt-0 mb-2 font-semibold text-[11px] text-neutral uppercase tracking-wider">
+    <h2 className="mt-0 mb-2 text-[11px] font-semibold tracking-wider text-neutral uppercase">
       {title}
     </h2>
     {children}
@@ -108,9 +108,9 @@ export const App: FunctionComponent = () => {
       <header className="flex items-center gap-2.5">
         <Logo className="size-5 shrink-0" aria-hidden="true" />
         <div className="min-w-0 flex-1">
-          <h1 className="m-0 font-semibold text-sm">{title}</h1>
+          <h1 className="m-0 text-sm font-semibold">{title}</h1>
           {hostname && (
-            <span className="block truncate text-neutral text-xs">
+            <span className="block truncate text-xs text-neutral">
               {hostname}
             </span>
           )}
@@ -130,7 +130,7 @@ export const App: FunctionComponent = () => {
         <p className="m-0 text-error">
           {errors[error.code]}
           {error.detail && (
-            <span className="block text-neutral text-xs">{error.detail}</span>
+            <span className="block text-xs text-neutral">{error.detail}</span>
           )}
         </p>
       )}

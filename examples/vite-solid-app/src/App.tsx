@@ -1,3 +1,4 @@
+import viteLogo from '/vite.svg';
 import { A, Route, useLocation, useNavigate } from '@solidjs/router';
 import { getLocalizedUrl, localeMap } from 'intlayer';
 import { IntlayerProvider, useIntlayer, useLocale } from 'solid-intlayer';
@@ -12,10 +13,9 @@ import {
   useUnit,
 } from 'solid-intlayer/format';
 import { MarkdownProvider } from 'solid-intlayer/markdown';
-import { createSignal, For, type JSX, type ParentComponent } from 'solid-js';
 import './App.css';
 
-import viteLogo from '/vite.svg';
+import { createSignal, For, type JSX, type ParentComponent } from 'solid-js';
 import solidLogo from './assets/solid.svg';
 import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 
@@ -504,9 +504,8 @@ export const App = () =>
         <IntlayerProvider locale={locale}>
           <MarkdownProvider
             renderMarkdown={async (md) => {
-              const { compileMarkdown } = await import(
-                'solid-intlayer/markdown'
-              );
+              const { compileMarkdown } =
+                await import('solid-intlayer/markdown');
               return compileMarkdown(md);
             }}
           >

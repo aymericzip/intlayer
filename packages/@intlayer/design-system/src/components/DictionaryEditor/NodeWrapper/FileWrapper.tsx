@@ -31,7 +31,7 @@ export const FileWrapper: FC<FileWrapperProps> = (props) => {
 
   return (
     <div className="ms-2 grid grid-cols-[auto,1fr] gap-2">
-      <span className="text-neutral text-sm">{subSection} </span>
+      <span className="text-sm text-neutral">{subSection} </span>
       <StringWrapper
         {...props}
         keyPath={newKeyPath}

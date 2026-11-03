@@ -58,7 +58,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
           />
         </Container>
       )}
-      <h3 className="font-bold text-xl">{project.name}</h3>
+      <h3 className="text-xl font-bold">{project.name}</h3>
 
       {project.repository && (
         <div className="flex items-center gap-4">
@@ -70,11 +70,11 @@ export const ProjectCard: FC<ProjectCardProps> = ({
               href={project.repository.url || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full font-medium text-xs underline"
+              className="block w-full text-xs font-medium underline"
             >
               {project.repository.owner}/{project.repository.repository}
             </a>
-            <span className="flex items-center gap-1 text-neutral text-xs">
+            <span className="flex items-center gap-1 text-xs text-neutral">
               <GitBranch className="size-3" />
               {project.repository.branch}
             </span>
@@ -99,7 +99,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
             ))}
           </div>
           {remainingCount > 0 && (
-            <span className="ms-1 text-neutral text-xs">+{remainingCount}</span>
+            <span className="ms-1 text-xs text-neutral">+{remainingCount}</span>
           )}
         </div>
       )}

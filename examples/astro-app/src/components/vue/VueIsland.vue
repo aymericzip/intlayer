@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, getCurrentInstance } from "vue";
-import { useIntlayer, useLocale, installIntlayer } from "vue-intlayer";
-import { getLocalizedUrl, getLocaleName, type LocalesValues } from "intlayer";
+import { getLocalizedUrl, getLocaleName, type LocalesValues } from 'intlayer';
+import { ref, getCurrentInstance } from 'vue';
+import { useIntlayer, useLocale, installIntlayer } from 'vue-intlayer';
 
 const props = defineProps<{ locale: LocalesValues }>();
 
@@ -22,7 +22,7 @@ const {
 });
 
 const count = ref(0);
-const content = useIntlayer("vue-demo");
+const content = useIntlayer('vue-demo');
 </script>
 
 <template>

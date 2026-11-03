@@ -80,7 +80,7 @@ function FrequentQuestionsPage() {
 
   return (
     <div className="m-auto flex max-w-2xl flex-col gap-10 p-10 text-center">
-      <h1 className="font-bold text-2xl">{h1}</h1>
+      <h1 className="text-2xl font-bold">{h1}</h1>
       <div className="flex flex-col gap-4 text-start">
         {frequentQuestionsList.map((frequentQuestion) => (
           <Link
@@ -93,7 +93,7 @@ function FrequentQuestionsPage() {
             <Container className="flex flex-row items-center justify-between p-3">
               <div className="flex flex-col gap-2">
                 <strong>{frequentQuestion.title}</strong>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-sm text-muted-foreground">
                   {frequentQuestion.description}
                 </p>
               </div>

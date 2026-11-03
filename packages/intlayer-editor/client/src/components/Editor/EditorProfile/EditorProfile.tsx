@@ -76,17 +76,17 @@ export const EditorProfile: FunctionComponent = () => {
         >
           <div className="flex flex-col gap-3">
             {user?.name && (
-              <span className="whitespace-nowrap font-bold">{user.name}</span>
+              <span className="font-bold whitespace-nowrap">{user.name}</span>
             )}
             {user?.email && (
-              <span className="whitespace-nowrap text-sm">{user.email}</span>
+              <span className="text-sm whitespace-nowrap">{user.email}</span>
             )}
             {project?.name && (
-              <span className="whitespace-nowrap text-sm">
+              <span className="text-sm whitespace-nowrap">
                 {content.project}: {project.name}
               </span>
             )}
-            <span className="whitespace-nowrap text-neutral text-xs">
+            <span className="text-xs whitespace-nowrap text-neutral">
               {authType === 'session'
                 ? content.sessionAuth
                 : content.accessKeyAuth}

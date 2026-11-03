@@ -3,8 +3,8 @@ import { type FC, type ReactNode, Suspense } from 'react';
 import { DocPageLayoutShell } from '~/components/DocPage/DocPageLayoutShell';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
 import { BlogCommentSection } from './BlogCommentSection';
-import { BlogNavList } from './BlogNavList';
 import { getBlogSection } from './blogData';
+import { BlogNavList } from './BlogNavList';
 import { LastPosts, RelatedPosts } from './RelatedPosts';
 import type { BlogNavMetadata, Section } from './types';
 

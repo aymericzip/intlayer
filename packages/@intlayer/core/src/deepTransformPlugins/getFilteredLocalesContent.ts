@@ -1,6 +1,5 @@
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 import {
   deepTransformNode,

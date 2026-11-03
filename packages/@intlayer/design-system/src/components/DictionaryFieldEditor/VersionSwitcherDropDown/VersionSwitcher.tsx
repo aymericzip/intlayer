@@ -41,7 +41,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
-          className="inset-e-0 inset-s-auto"
+          className="inset-s-auto inset-e-0"
           {...panelProps}
         >
           <Container
@@ -67,7 +67,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
                     textAlign="left"
                     size="sm"
                   >
-                    <div className="flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-muted-foreground text-sm">
+                    <div className="flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-sm text-muted-foreground">
                       {version}
                     </div>
                   </Button>

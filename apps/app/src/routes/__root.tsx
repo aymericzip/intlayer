@@ -16,12 +16,12 @@ import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
 import { PostHogProvider } from '#/providers/PostHogProvider';
 import { ThemeProvider } from '#/providers/ThemeProvider';
-import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { WebMCPTools } from '#components/WebMCP';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 import { getRootStructuredDataScripts } from '#utils/structuredData';
+import appCss from '#/styles.css?url';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -146,7 +146,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="text-text relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth leading-6 transition md:flex">
+      <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth leading-6 text-text transition md:flex">
         <IntlayerProvider locale={locale}>
           <PostHogProvider>
             <AnimatePresenceProvider>

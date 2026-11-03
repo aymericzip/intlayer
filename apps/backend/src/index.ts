@@ -394,9 +394,8 @@ const startServer = async () => {
 
     // Agent payments (MPP). Imported here so a self-hosted process never
     // loads it; it stays off until Stripe holds a business profile.
-    const { registerMachinePaymentRoutes } = await import(
-      '@routes/machinePayment.routes'
-    );
+    const { registerMachinePaymentRoutes } =
+      await import('@routes/machinePayment.routes');
     registerMachinePaymentRoutes(app);
   }
 

@@ -18,10 +18,7 @@ export {
   buildKeyUsagePatterns,
   getCallerNamesAlternation,
 } from './callers/patterns';
-export {
-  findFieldDeclaration,
-  type OffsetSpan,
-} from './findFieldDeclaration';
+export { findFieldDeclaration, type OffsetSpan } from './findFieldDeclaration';
 export {
   escapeRegularExpression,
   findFieldRangesInFile,

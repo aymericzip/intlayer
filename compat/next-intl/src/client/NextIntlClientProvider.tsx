@@ -5,9 +5,9 @@ import { CYAN } from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getLocaleFromPath } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { usePathname } from 'next/navigation';
 import type { NextIntlClientProvider as _NextIntlClientProvider } from 'next-intl';
 import { IntlayerProvider } from 'next-intlayer';
+import { usePathname } from 'next/navigation';
 import type { ComponentProps } from 'react';
 
 /**

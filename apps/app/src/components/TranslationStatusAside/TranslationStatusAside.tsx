@@ -80,11 +80,11 @@ const TaskRow: FC<{
   return (
     <div className="flex items-center justify-between gap-2 py-1.5">
       <div className="flex min-w-0 flex-1 flex-col">
-        <span className="truncate font-mono text-text text-xs">
+        <span className="truncate font-mono text-xs text-text">
           {task.dictionaryKey}
         </span>
         {isCurrent && task.currentLocale && (
-          <span className="text-neutral-500 text-xs">
+          <span className="text-xs text-neutral-500">
             {task.currentLocale}
             {task.currentChunk && task.totalChunks && task.totalChunks > 1
               ? ` • chunk ${task.currentChunk}/${task.totalChunks}`
@@ -92,12 +92,12 @@ const TaskRow: FC<{
           </span>
         )}
         {showCancelled && (
-          <span className="text-error text-xs">{content.jobCancelled}</span>
+          <span className="text-xs text-error">{content.jobCancelled}</span>
         )}
       </div>
       <div className="flex shrink-0 items-center gap-2">
         {hasLocaleDetail && !showCancelled && (
-          <span className="font-mono text-neutral-500 text-xs">
+          <span className="font-mono text-xs text-neutral-500">
             {task.completedLocales.length}/{task.targetLocales.length}
           </span>
         )}
@@ -215,7 +215,7 @@ const JobCard: FC<JobCardProps> = memo(
             {isActive && effectivelyPaused && (
               <Pause className="size-4 shrink-0 text-warning" />
             )}
-            <span className="truncate font-mono text-neutral-500 text-xs">
+            <span className="truncate font-mono text-xs text-neutral-500">
               #{job.jobId}
             </span>
           </div>
@@ -225,7 +225,7 @@ const JobCard: FC<JobCardProps> = memo(
             {/* State badge */}
             <span
               className={cn(
-                'whitespace-nowrap rounded-full px-2 py-0.5 font-medium text-xs capitalize',
+                'rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap capitalize',
                 effectiveState === 'completed' && 'bg-success/10 text-success',
                 effectiveState === 'failed' && 'bg-error/10 text-error',
                 isActive &&
@@ -348,7 +348,7 @@ const JobCard: FC<JobCardProps> = memo(
         {/* ── Overall progress bar ── */}
         <div className="space-y-1.5">
           <div
-            className="flex justify-between text-neutral-500 text-xs"
+            className="flex justify-between text-xs text-neutral-500"
             aria-hidden="true"
           >
             <span>Progress</span>
@@ -591,7 +591,7 @@ export const TranslationStatusAside: FC = () => {
         </Button>
 
         <PopoverStatic.Detail identifier="translation-status" xAlign="end">
-          <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral text-sm">
+          <span className="flex gap-4 py-2 ps-4 pe-2 text-sm text-nowrap text-neutral">
             {content.translationStatusButtonDescription}
           </span>
         </PopoverStatic.Detail>
@@ -616,10 +616,10 @@ export const TranslationStatusAside: FC = () => {
                   <div className="mb-3 rounded-full bg-neutral/20 p-4">
                     <Globe className="h-8 w-8 text-neutral" />
                   </div>
-                  <p className="font-medium text-base text-text">
+                  <p className="text-base font-medium text-text">
                     {content.noActiveTranslations}
                   </p>
-                  <p className="text-neutral text-sm">
+                  <p className="text-sm text-neutral">
                     {content.startATranslationToSee}
                   </p>
                 </div>
@@ -642,11 +642,11 @@ export const TranslationStatusAside: FC = () => {
 
             {/* ── Archive section ── */}
             {archivedJobs.length > 0 && (
-              <div className="border-neutral/15 border-t pt-2">
+              <div className="border-t border-neutral/15 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowArchive((v) => !v)}
-                  className="flex w-full items-center justify-between gap-2 rounded-lg px-2 py-2 text-neutral text-sm transition-colors hover:bg-neutral/10"
+                  className="flex w-full items-center justify-between gap-2 rounded-lg px-2 py-2 text-sm text-neutral transition-colors hover:bg-neutral/10"
                 >
                   <span className="flex items-center gap-2">
                     <Archive className="size-5" />
@@ -685,10 +685,10 @@ export const TranslationStatusAside: FC = () => {
             )}
 
             {/* ── Fill translations panel ── */}
-            <div className="flex flex-col gap-4 border-neutral-200 border-t pt-4 dark:border-neutral-800">
+            <div className="flex flex-col gap-4 border-t border-neutral-200 pt-4 dark:border-neutral-800">
               {/* Mode selector */}
               <div className="flex flex-col gap-2">
-                <span className="font-medium text-text text-xs">
+                <span className="text-xs font-medium text-text">
                   {content.modeLabel}
                 </span>
                 <SwitchSelector
@@ -708,7 +708,7 @@ export const TranslationStatusAside: FC = () => {
 
               {/* Dictionary selector */}
               <div className="flex flex-col gap-2">
-                <span className="font-medium text-text text-xs">
+                <span className="text-xs font-medium text-text">
                   {content.dictionariesLabel}
                 </span>
                 <SwitchSelector
@@ -780,7 +780,7 @@ export const TranslationStatusAside: FC = () => {
                               .toLowerCase()
                               .includes(dictionarySearch.toLowerCase())
                           ).length === 0 && (
-                            <span className="py-2 text-center text-neutral-500 text-xs">
+                            <span className="py-2 text-center text-xs text-neutral-500">
                               {content.noDictionariesFound}
                             </span>
                           )}
@@ -809,7 +809,7 @@ export const TranslationStatusAside: FC = () => {
               >
                 {content.fillAllTranslations}
               </Button>
-              <p className="-mt-2 text-center text-neutral text-xs">
+              <p className="-mt-2 text-center text-xs text-neutral">
                 {content.fillAllTranslationsDescription}
               </p>
             </div>

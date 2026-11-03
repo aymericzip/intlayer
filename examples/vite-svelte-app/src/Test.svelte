@@ -10,7 +10,7 @@ const randomFunction = () => {
 // The values here should be extracted
 let state = 'This is a sentence if a state (should be extracted)';
 
-// biome-ignore lint/style/useConst: Svelte props need let
+// oxlint-disable-next-line prefer-const -- Svelte props need let
 let isClicked = false;
 
 // The values here should be extracted

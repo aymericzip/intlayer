@@ -18,7 +18,7 @@ const GestureChip = ({
   <span
     {...props}
     className={cn(
-      'mx-1 whitespace-nowrap rounded-md border border-neutral px-1.5 font-semibold',
+      'mx-1 rounded-md border border-neutral px-1.5 font-semibold whitespace-nowrap',
       className
     )}
   >
@@ -46,7 +46,7 @@ export const LongPressMessage: FC = () => {
       )}
     >
       {/* Single text block so the message wraps as prose, not flex columns */}
-      <p className="text-sm text-text/50 leading-6">
+      <p className="text-sm leading-6 text-text/50">
         {hoveredContent?.dictionaryKey
           ? message({
               longPress: <GestureChip>{longPress}</GestureChip>,
@@ -56,7 +56,7 @@ export const LongPressMessage: FC = () => {
                 </GestureChip>
               ),
               dictionaryKey: (
-                <GestureChip className="wrap-break-word mx-1">
+                <GestureChip className="mx-1 wrap-break-word">
                   {hoveredContent.dictionaryKey}
                 </GestureChip>
               ),

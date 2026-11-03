@@ -103,10 +103,10 @@ const OrganizationFormContent: FC = () => {
                 <TriangleAlert className="size-5 text-error" />
               </div>
               <div className="flex-1">
-                <h3 className="font-medium text-base text-error">
+                <h3 className="text-base font-medium text-error">
                   {dangerZoneTitle}
                 </h3>
-                <p className="mt-1 text-neutral text-sm">
+                <p className="mt-1 text-sm text-neutral">
                   {dangerZoneDescription}
                 </p>
                 <Button

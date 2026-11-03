@@ -14,8 +14,8 @@ import {
   useFrameReconnection,
 } from '@intlayer/editor-react';
 import type { FunctionComponent, RefObject } from 'preact';
-import { useCallback, useEffect, useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
 import { ApplicationLocaleSwitcher } from './ApplicationLocaleSwitcher';
 import { EditorProfile } from './EditorProfile';

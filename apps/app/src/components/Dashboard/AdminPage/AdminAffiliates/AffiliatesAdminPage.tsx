@@ -54,25 +54,25 @@ const PendingInvitationsSection: FC = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="font-medium text-neutral text-sm">
+      <h2 className="text-sm font-medium text-neutral">
         {content.pendingInvitations}
       </h2>
       <Table className="w-full border-separate border-spacing-0 overflow-scroll">
         <thead>
           <tr>
-            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
+            <th className="px-4 py-3 text-start font-medium whitespace-nowrap text-neutral">
               {content.id}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
+            <th className="px-4 py-3 text-start font-medium whitespace-nowrap text-neutral">
               {content.email}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
+            <th className="px-4 py-3 text-start font-medium whitespace-nowrap text-neutral">
               {content.commission}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
+            <th className="px-4 py-3 text-start font-medium whitespace-nowrap text-neutral">
               {content.status}
             </th>
-            <th className="whitespace-nowrap px-4 py-3 text-start font-medium text-neutral">
+            <th className="px-4 py-3 text-start font-medium whitespace-nowrap text-neutral">
               {content.created}
             </th>
           </tr>
@@ -81,33 +81,33 @@ const PendingInvitationsSection: FC = () => {
           {invitations.map((inv) => (
             <tr
               key={inv.id}
-              className="whitespace-nowrap rounded-xl border-card border-b transition-colors"
+              className="rounded-xl border-b border-card whitespace-nowrap transition-colors"
             >
-              <td className="whitespace-nowrap px-4 py-3">
+              <td className="px-4 py-3 whitespace-nowrap">
                 <CopyToClipboard text={inv.id} size={10}>
                   <span className="font-mono text-sm">
                     ...{inv.id.slice(-5)}
                   </span>
                 </CopyToClipboard>
               </td>
-              <td className="whitespace-nowrap px-4 py-3">
-                <span className="text-neutral/80 text-sm">{inv.email}</span>
+              <td className="px-4 py-3 whitespace-nowrap">
+                <span className="text-sm text-neutral/80">{inv.email}</span>
               </td>
-              <td className="whitespace-nowrap px-4 py-3">
+              <td className="px-4 py-3 whitespace-nowrap">
                 <span className="text-sm">
                   {inv.commissionRate}%{' '}
-                  <span className="text-neutral/50 text-xs">
+                  <span className="text-xs text-neutral/50">
                     ({inv.commissionType})
                   </span>
                 </span>
               </td>
-              <td className="whitespace-nowrap px-4 py-3">
+              <td className="px-4 py-3 whitespace-nowrap">
                 <Badge variant="outline" className="opacity-80" color="neutral">
                   {content.invitationSent}
                 </Badge>
               </td>
-              <td className="whitespace-nowrap px-4 py-3">
-                <span className="text-neutral-500 text-sm dark:text-neutral-400">
+              <td className="px-4 py-3 whitespace-nowrap">
+                <span className="text-sm text-neutral-500 dark:text-neutral-400">
                   {inv.createdAt
                     ? new Date(inv.createdAt).toLocaleDateString()
                     : '—'}
@@ -188,7 +188,7 @@ export const AffiliatesAdminPage: FC = () => {
       ),
       cell: ({ row }) => (
         <CopyToClipboard text={row.original.referralCode} size={10}>
-          <span className="font-medium font-mono">
+          <span className="font-mono font-medium">
             {row.original.referralCode}
           </span>
         </CopyToClipboard>
@@ -215,7 +215,7 @@ export const AffiliatesAdminPage: FC = () => {
       cell: ({ row }) => (
         <span className="text-sm">
           {row.original.commissionRate}%{' '}
-          <span className="text-neutral/50 text-xs">
+          <span className="text-xs text-neutral/50">
             ({row.original.commissionType})
           </span>
         </span>
@@ -242,7 +242,7 @@ export const AffiliatesAdminPage: FC = () => {
         </div>
       ),
       cell: ({ row }) => (
-        <span className="text-neutral-500 text-sm dark:text-neutral-400">
+        <span className="text-sm text-neutral-500 dark:text-neutral-400">
           {row.original.createdAt
             ? new Date(row.original.createdAt).toLocaleDateString()
             : '—'}
@@ -319,7 +319,7 @@ export const AffiliatesAdminPage: FC = () => {
                     <th
                       key={header.id}
                       className={cn(
-                        'whitespace-nowrap px-4 py-3 text-start font-medium text-neutral',
+                        'px-4 py-3 text-start font-medium whitespace-nowrap text-neutral',
                         header.column.getCanSort() &&
                           'cursor-pointer select-none hover:text-neutral-600'
                       )}
@@ -346,7 +346,7 @@ export const AffiliatesAdminPage: FC = () => {
                 return (
                   <tr
                     key={row.id}
-                    className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                    className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                     onClick={() => {
                       navigate({
                         to: getAppAdminAffiliateRoute(row.original.id) as any,
@@ -357,7 +357,7 @@ export const AffiliatesAdminPage: FC = () => {
                       <td
                         key={cell.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3',
+                          'px-4 py-3 whitespace-nowrap',
                           cellIndex === 0 && 'first:rounded-s-2xl',
                           cellIndex === visibleCells.length - 1 &&
                             'last:rounded-e-2xl'

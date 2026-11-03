@@ -332,8 +332,8 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // matching sync plugin (`syncPO` / `syncJSON`) + dev dependency are chosen.
   const linguiPresent = Boolean(
     allDeps['@lingui/core'] ||
-      allDeps['@lingui/react'] ||
-      allDeps['@intlayer/lingui']
+    allDeps['@lingui/react'] ||
+    allDeps['@intlayer/lingui']
   );
 
   const linguiCatalog = linguiPresent

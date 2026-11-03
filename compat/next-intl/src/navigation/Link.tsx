@@ -1,7 +1,7 @@
 'use client';
 
-import NextLink from 'next/link';
 import { useLocale } from 'next-intlayer';
+import NextLink from 'next/link';
 import { type ComponentPropsWithoutRef, forwardRef, type Ref } from 'react';
 import { localizeHref, type NextIntlHref } from './localizeHref';
 

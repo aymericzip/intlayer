@@ -58,7 +58,7 @@ const SelectTrigger: FC<
     className={cn(
       // Base layout and typography
       'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',
-      'select-text text-base shadow-none outline-none md:text-sm',
+      'text-base shadow-none outline-none select-text md:text-sm',
 
       // Corner shape
       'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
@@ -192,7 +192,7 @@ export const SelectContent: FC<
 
         // Positioning adjustments
         position === 'popper' &&
-          'data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1',
+          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
 
         className
       )}
@@ -239,7 +239,7 @@ export const SelectLabel: FC<ComponentProps<typeof SelectPrimitive.Label>> = ({
   ...props
 }) => (
   <SelectPrimitive.Label
-    className={cn('px-1 py-0.5 font-semibold text-sm', className)}
+    className={cn('px-1 py-0.5 text-sm font-semibold', className)}
     {...props}
   />
 );
@@ -267,7 +267,7 @@ const SelectItem: FC<ComponentProps<typeof SelectPrimitive.Item>> = ({
 }) => (
   <SelectPrimitive.Item
     className={cn(
-      'relative flex w-full cursor-pointer select-none items-center rounded-lg py-1.5 ps-2 pe-8 text-sm outline-hidden focus:bg-neutral/10 data-disabled:pointer-events-none data-disabled:opacity-50',
+      'relative flex w-full cursor-pointer items-center rounded-lg py-1.5 ps-2 pe-8 text-sm outline-hidden select-none focus:bg-neutral/10 data-disabled:pointer-events-none data-disabled:opacity-50',
       className
     )}
     {...props}

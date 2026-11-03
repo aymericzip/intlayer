@@ -23,10 +23,10 @@ const Field: FC<{ label: string; children: React.ReactNode }> = ({
   children,
 }) => (
   <div className="flex flex-col gap-1">
-    <span className="text-neutral/60 text-xs uppercase tracking-wide">
+    <span className="text-xs tracking-wide text-neutral/60 uppercase">
       {label}
     </span>
-    <div className="font-medium text-sm">{children}</div>
+    <div className="text-sm font-medium">{children}</div>
   </div>
 );
 
@@ -51,7 +51,7 @@ export const PromoCodeAdminDetailPage: FC<{ promoCodeId: string }> = ({
   if (!promoCode) {
     return (
       <div className="flex flex-1 items-center justify-center p-10 text-center">
-        <p className="text-neutral/60 text-sm">Promo code not found.</p>
+        <p className="text-sm text-neutral/60">Promo code not found.</p>
       </div>
     );
   }
@@ -66,7 +66,7 @@ export const PromoCodeAdminDetailPage: FC<{ promoCodeId: string }> = ({
   return (
     <div className="m-auto flex w-full max-w-3xl flex-col gap-6 p-8">
       <div className="flex items-center justify-between">
-        <h1 className="font-mono font-semibold text-2xl">{promoCode.code}</h1>
+        <h1 className="font-mono text-2xl font-semibold">{promoCode.code}</h1>
         <div className="flex items-center gap-3">
           <Badge
             variant="outline"
@@ -107,7 +107,7 @@ export const PromoCodeAdminDetailPage: FC<{ promoCodeId: string }> = ({
 
           <Field label="Code">
             <CopyToClipboard text={promoCode.code} size={10}>
-              <span className="font-bold font-mono">{promoCode.code}</span>
+              <span className="font-mono font-bold">{promoCode.code}</span>
             </CopyToClipboard>
           </Field>
 

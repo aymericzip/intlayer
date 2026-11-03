@@ -17,7 +17,9 @@ const faqs = faqIndices.map((i) => ({
       :key="idx"
       class="group rounded-lg border border-border bg-card"
     >
-      <summary class="cursor-pointer px-6 py-4 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors">
+      <summary
+        class="cursor-pointer px-6 py-4 text-sm font-medium text-foreground transition-colors hover:bg-accent/50"
+      >
         {{ f.q }}
       </summary>
       <p class="px-6 pb-4 text-sm text-muted-foreground">{{ f.a }}</p>

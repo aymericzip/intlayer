@@ -21,8 +21,8 @@ export const ShowcaseSuggestion: FunctionComponent<{
 
   return (
     <section className="rounded-xl border border-text/10 bg-card px-3 py-2.5">
-      <h2 className="mt-0 mb-1 font-semibold text-sm">{title}</h2>
-      <p className="mt-0 mb-2.5 text-neutral text-xs">{description}</p>
+      <h2 className="mt-0 mb-1 text-sm font-semibold">{title}</h2>
+      <p className="mt-0 mb-2.5 text-xs text-neutral">{description}</p>
       <Button
         label={submitButton.value}
         Icon={Sparkles}

@@ -25,7 +25,9 @@ const promoPro = useIntlayer('pricing', {
 
 <template>
   <div class="card">
-    <h2 class="heading">Collections · Variants · Object Variants · Composite</h2>
+    <h2 class="heading">
+      Collections · Variants · Object Variants · Composite
+    </h2>
 
     <section>
       <div class="subHeading">Collection — useIntlayer('faq')</div>
@@ -58,9 +60,7 @@ const promoPro = useIntlayer('pricing', {
         Object variant — useIntlayer('product', { variant: {…} })
       </div>
       <div v-for="entry in [appleWatch, airpods]" :key="String(entry?.name)">
-        <div class="question">
-          {{ entry?.name }} — {{ entry?.price }}
-        </div>
+        <div class="question">{{ entry?.name }} — {{ entry?.price }}</div>
         <div class="answer">{{ entry?.description }}</div>
       </div>
     </section>
@@ -89,11 +89,10 @@ const promoPro = useIntlayer('pricing', {
       </div>
 
       <div class="subHeading">
-        Composite (single) — useIntlayer('pricing', { variant: 'promo', item: 2 })
+        Composite (single) — useIntlayer('pricing', { variant: 'promo', item: 2
+        })
       </div>
-      <div class="question">
-        {{ promoPro?.plan }} — {{ promoPro?.price }}
-      </div>
+      <div class="question">{{ promoPro?.plan }} — {{ promoPro?.price }}</div>
     </section>
   </div>
 </template>

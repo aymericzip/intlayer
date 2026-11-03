@@ -41,7 +41,7 @@ const CheckDetails: FunctionComponent<{ details: unknown }> = ({ details }) => {
 
   if (!message && links.length === 0 && items.length === 0) {
     return (
-      <pre className="m-0 whitespace-pre-wrap break-all font-mono text-[11px]">
+      <pre className="m-0 font-mono text-[11px] break-all whitespace-pre-wrap">
         {JSON.stringify(details, null, 2)}
       </pre>
     );
@@ -51,7 +51,7 @@ const CheckDetails: FunctionComponent<{ details: unknown }> = ({ details }) => {
     <>
       {message && <p className="m-0 font-semibold">{message}</p>}
       {links.length > 0 && (
-        <pre className="m-0 whitespace-pre-wrap break-all rounded-lg bg-text/5 p-2 font-mono text-[11px]">
+        <pre className="m-0 rounded-lg bg-text/5 p-2 font-mono text-[11px] break-all whitespace-pre-wrap">
           {links.join('\n')}
         </pre>
       )}
@@ -149,7 +149,7 @@ export const AuditSection: FunctionComponent<{
             />
           </div>
           <div className="flex items-center justify-between gap-2">
-            <span className="truncate text-neutral text-xs">
+            <span className="truncate text-xs text-neutral">
               {scan.stepMessage}
             </span>
             <Button
@@ -174,12 +174,12 @@ export const AuditSection: FunctionComponent<{
             <div>
               <div className="font-semibold">{scoreTitle}</div>
               {discoveredLocaleCount > 0 && (
-                <div className="text-neutral text-xs">
+                <div className="text-xs text-neutral">
                   {localesDiscovered({ count: discoveredLocaleCount })}
                 </div>
               )}
               {scan.cachedAt && (
-                <div className="text-neutral text-xs">
+                <div className="text-xs text-neutral">
                   🕘 {formatCachedAge(scan.cachedAt, locale)}
                 </div>
               )}
@@ -193,7 +193,7 @@ export const AuditSection: FunctionComponent<{
 
             return (
               <div key={section}>
-                <h3 className="mt-0 mb-1.5 font-semibold text-neutral text-xs">
+                <h3 className="mt-0 mb-1.5 text-xs font-semibold text-neutral">
                   {sectionTitles[section]}
                 </h3>
                 <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
@@ -208,7 +208,7 @@ export const AuditSection: FunctionComponent<{
                         <div className="min-w-0">
                           <span>{getCheckLabel(type)}</span>
                           {issueLines[0] && (
-                            <span className="block truncate text-neutral text-xs">
+                            <span className="block truncate text-xs text-neutral">
                               {issueLines[0]}
                             </span>
                           )}

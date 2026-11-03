@@ -1,8 +1,3 @@
 {
-  "recommendations": [
-    "biomejs.biome",
-    "esbenp.prettier-vscode",
-    "emeraldwalk.runonsave",
-    "intlayer.intlayer-vs-code-extension"
-  ]
+  "recommendations": ["oxc.oxc-vscode", "intlayer.intlayer-vs-code-extension"]
 }

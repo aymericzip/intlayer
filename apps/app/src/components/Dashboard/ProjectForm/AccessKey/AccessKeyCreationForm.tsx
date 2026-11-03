@@ -188,7 +188,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         <div className="flex max-w-full flex-col gap-1 p-1 leading-none">
           <label
             htmlFor="access-key-expires-at-preset"
-            className="ms-1 mb-2 select-none font-bold text-sm leading-none"
+            className="ms-1 mb-2 text-sm leading-none font-bold select-none"
           >
             {expiresAtInput.label.value}
           </label>

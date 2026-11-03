@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --radius: 0.5rem;
 
   --color-border: hsl(var(--border));
@@ -108,18 +108,18 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+      'rlig' 1,
+      'calt' 1;
   }
 }
 
 .container {
-  @apply mx-auto px-8 w-full max-w-7xl;
+  @apply mx-auto w-full max-w-7xl px-8;
 }
 
 @utility nav-link {
   @apply relative inline-flex items-center text-muted-foreground transition-colors hover:text-foreground;
   &.router-link-active {
-    @apply text-foreground font-semibold underline underline-offset-4 decoration-primary decoration-2;
+    @apply font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4;
   }
 }

@@ -1,8 +1,8 @@
+import type { createNavigation as _createNavigation } from 'next-intl/navigation';
 import {
   permanentRedirect as nextPermanentRedirect,
   redirect as nextRedirect,
 } from 'next/navigation';
-import type { createNavigation as _createNavigation } from 'next-intl/navigation';
 import { usePathname, useRouter } from './hooks';
 import { Link } from './Link';
 import { localizeHref, type NextIntlHref } from './localizeHref';

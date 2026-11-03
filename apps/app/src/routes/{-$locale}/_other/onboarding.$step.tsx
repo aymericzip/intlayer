@@ -92,7 +92,7 @@ function OnboardingPage() {
     <BackgroundLayout>
       <h1 className="hidden">{title}</h1>
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-10">
-        <span className="text-neutral text-xs">{description}</span>
+        <span className="text-xs text-neutral">{description}</span>
         <Container
           className="w-full max-w-xl justify-center text-2xl"
           padding="xl"

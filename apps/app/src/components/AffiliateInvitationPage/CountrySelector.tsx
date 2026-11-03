@@ -229,13 +229,13 @@ export const CountrySelector: FC<CountrySelectorProps> = ({
 
           <ul className="separator-y separator-text/10 overflow-y-auto p-1">
             {results.length === 0 ? (
-              <li className="px-3 py-2 text-neutral/50 text-sm">No results</li>
+              <li className="px-3 py-2 text-sm text-neutral/50">No results</li>
             ) : (
               results.map(({ code, name }) => (
                 <li key={code}>
                   <button
                     type="button"
-                    className="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-sm transition-colors hover:bg-text/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-text/20"
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-sm transition-colors hover:bg-text/5 focus-visible:ring-1 focus-visible:ring-text/20 focus-visible:outline-none"
                     onClick={() => handleSelect(code)}
                   >
                     <div className="flex w-full items-center gap-6 p-1">
@@ -243,7 +243,7 @@ export const CountrySelector: FC<CountrySelectorProps> = ({
                         {toFlag(code)}
                       </span>
                       <span>{name}</span>
-                      <span className="ms-auto text-neutral/40 text-xs">
+                      <span className="ms-auto text-xs text-neutral/40">
                         {code}
                       </span>
                     </div>

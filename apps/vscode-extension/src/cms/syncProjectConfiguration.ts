@@ -53,7 +53,7 @@ const hasOwnConfiguration = (
 ): environment is EnvironmentAPI & { configuration: RemoteConfiguration } =>
   Boolean(
     environment?.configuration &&
-      environment.id !== VIRTUAL_PRODUCTION_ENVIRONMENT_ID
+    environment.id !== VIRTUAL_PRODUCTION_ENVIRONMENT_ID
   );
 
 /**

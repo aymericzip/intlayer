@@ -1055,9 +1055,9 @@ const createRules = (
       _qualify: (source, state) =>
         Boolean(
           state.inline &&
-            !state.inAnchor &&
-            !options.disableAutoLink &&
-            (startsWith(source, 'http://') || startsWith(source, 'https://'))
+          !state.inAnchor &&
+          !options.disableAutoLink &&
+          (startsWith(source, 'http://') || startsWith(source, 'https://'))
         ),
       _match: inlineRegex(LINK_AUTOLINK_BARE_URL_R),
       _order: Priority.MAX,

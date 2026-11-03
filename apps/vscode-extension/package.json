@@ -5,42 +5,37 @@
   "private": false,
   "description": "Intlayer official VSCode extension. Go to definition, hover and unused-key detection for useIntlayer keys and compat libraries (i18next, react-i18next, next-i18next, next-intl, react-intl, vue-i18n, Lingui). It also provides commands, as to create dictionary files.",
   "categories": [
-    "Programming Languages",
-    "Formatters"
+    "Formatters",
+    "Programming Languages"
   ],
   "keywords": [
-    "intlayer",
     "content",
+    "formatjs",
+    "i18n",
+    "i18next",
+    "internationalization",
+    "intlayer",
+    "l10n",
+    "lingui",
+    "localization",
     "markdown",
     "multilingual",
-    "i18n",
-    "internationalization",
-    "localization",
-    "l10n",
-    "translation",
-    "vscode",
-    "react",
-    "nextjs",
-    "vue",
-    "svelte",
-    "i18next",
-    "react-i18next",
     "next-i18next",
     "next-intl",
-    "use-intl",
+    "nextjs",
+    "react",
+    "react-i18next",
     "react-intl",
-    "formatjs",
-    "vue-i18n",
-    "lingui"
+    "svelte",
+    "translation",
+    "use-intl",
+    "vscode",
+    "vue",
+    "vue-i18n"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git",
-    "directory": "apps/vscode-extension"
   },
   "license": "MIT",
   "author": {
@@ -54,8 +49,12 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git",
+    "directory": "apps/vscode-extension"
+  },
   "publisher": "intlayer",
-  "main": "./dist/extension.js",
   "files": [
     "dist",
     "README.md",
@@ -70,15 +69,16 @@
     "extract-icon-light.svg",
     "extract-icon-dark.svg"
   ],
+  "main": "./dist/extension.js",
   "scripts": {
     "build": "tsdown",
-    "check": "biome check .",
-    "check:fix": "biome check --write .",
+    "check": "oxlint . && oxfmt --check .",
+    "check:fix": "oxlint --fix . && oxfmt .",
     "compile": "tsdown",
-    "format": "biome format . --check",
-    "format:fix": "biome format --write .",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "package": "vsce package --no-dependencies",
     "pretest": "bun run compile && bun run lint",
     "test": "vscode-test",
@@ -88,6 +88,49 @@
     "vscode:prepublish": "bun run compile",
     "vscode:publish": "vsce publish --no-dependencies",
     "watch": "tsdown --watch"
+  },
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "fast-glob": "3.3.3",
+    "oxc-parser": "0.157.0",
+    "picocolors": "1.1.1"
+  },
+  "devDependencies": {
+    "@intlayer/api": "workspace:*",
+    "@intlayer/babel": "workspace:*",
+    "@intlayer/cli": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/engine": "workspace:*",
+    "@intlayer/lsp": "workspace:*",
+    "@intlayer/svelte-compiler": "workspace:*",
+    "@intlayer/types": "workspace:*",
+    "@intlayer/vue-compiler": "workspace:*",
+    "@types/mocha": "10.0.10",
+    "@types/node": ">=26",
+    "@types/vscode": "1.96.0",
+    "@typescript-eslint/eslint-plugin": "8.70.1",
+    "@typescript-eslint/parser": "8.70.1",
+    "@vscode/test-cli": "0.0.15",
+    "@vscode/test-electron": "3.1.0",
+    "@vscode/vsce": "4.0.0",
+    "dotenv": "18.0.4",
+    "fuse.js": "7.5.0",
+    "ovsx": "1.2.0",
+    "svelte": "5.57.1",
+    "tsdown": "0.23.4",
+    "typescript": "7.0.2",
+    "vscode-languageclient": "11.0.0"
+  },
+  "optionalDependencies": {
+    "@oxc-parser/binding-darwin-arm64": "0.157.0",
+    "@oxc-parser/binding-darwin-x64": "0.157.0",
+    "@oxc-parser/binding-linux-arm64-gnu": "0.157.0",
+    "@oxc-parser/binding-linux-x64-gnu": "0.157.0",
+    "@oxc-parser/binding-linux-x64-musl": "0.157.0",
+    "@oxc-parser/binding-win32-arm64-msvc": "0.157.0",
+    "@oxc-parser/binding-win32-x64-msvc": "0.157.0"
   },
   "contributes": {
     "commands": [
@@ -433,63 +476,20 @@
     }
   },
   "activationEvents": [
-    "workspaceContains:package.json",
+    "onLanguage:astro",
+    "onLanguage:html",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
+    "onLanguage:markdown",
+    "onLanguage:svelte",
     "onLanguage:typescript",
     "onLanguage:typescriptreact",
     "onLanguage:vue",
-    "onLanguage:svelte",
-    "onLanguage:astro",
-    "onLanguage:html",
-    "onLanguage:markdown",
-    "onLanguage:yaml"
+    "onLanguage:yaml",
+    "workspaceContains:package.json"
   ],
-  "dependencies": {
-    "esbuild": "0.28.2",
-    "fast-glob": "3.3.3",
-    "oxc-parser": "0.157.0",
-    "picocolors": "1.1.1"
-  },
-  "devDependencies": {
-    "@intlayer/api": "workspace:*",
-    "@intlayer/babel": "workspace:*",
-    "@intlayer/cli": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/engine": "workspace:*",
-    "@intlayer/lsp": "workspace:*",
-    "@intlayer/svelte-compiler": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "@intlayer/vue-compiler": "workspace:*",
-    "@types/mocha": "10.0.10",
-    "@types/node": ">=26",
-    "@types/vscode": "1.96.0",
-    "@typescript-eslint/eslint-plugin": "8.70.1",
-    "@typescript-eslint/parser": "8.70.1",
-    "@vscode/test-cli": "0.0.15",
-    "@vscode/test-electron": "3.1.0",
-    "@vscode/vsce": "4.0.0",
-    "dotenv": "18.0.4",
-    "fuse.js": "7.5.0",
-    "ovsx": "1.2.0",
-    "svelte": "5.57.1",
-    "tsdown": "0.23.4",
-    "typescript": "7.0.2",
-    "vscode-languageclient": "11.0.0"
-  },
-  "optionalDependencies": {
-    "@oxc-parser/binding-darwin-arm64": "0.157.0",
-    "@oxc-parser/binding-darwin-x64": "0.157.0",
-    "@oxc-parser/binding-linux-arm64-gnu": "0.157.0",
-    "@oxc-parser/binding-linux-x64-gnu": "0.157.0",
-    "@oxc-parser/binding-linux-x64-musl": "0.157.0",
-    "@oxc-parser/binding-win32-arm64-msvc": "0.157.0",
-    "@oxc-parser/binding-win32-x64-msvc": "0.157.0"
-  },
+  "icon": "icon.png",
   "engines": {
     "vscode": "1.96.1"
-  },
-  "icon": "icon.png"
+  }
 }

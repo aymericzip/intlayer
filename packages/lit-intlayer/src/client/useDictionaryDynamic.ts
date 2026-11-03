@@ -18,8 +18,8 @@ import type {
 import type { ReactiveControllerHost } from 'lit';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 import { getIntlayerClient } from './installIntlayer';
+import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 
 /** Simple in-memory cache shared across all calls in the same page. */
 const cache = new Map<string, Dictionary>();

@@ -31,11 +31,11 @@ export const LocaleSwitcher: FC = () => {
                 <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
                   {getLocaleName(localeEl)}
                 </span>
-                <span className="text-neutral text-xs">
+                <span className="text-xs text-neutral">
                   {getLocaleName(localeEl, localeEl)}
                 </span>
               </div>
-              <span className="text-nowrap text-neutral text-sm">
+              <span className="text-sm text-nowrap text-neutral">
                 {localeEl.toUpperCase()}
               </span>
             </div>

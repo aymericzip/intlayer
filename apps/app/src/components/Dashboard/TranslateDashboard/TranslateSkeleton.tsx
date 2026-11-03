@@ -19,7 +19,7 @@ export const TranslateSkeleton: FC<TranslateSkeletonProps> = ({
 
     {/* Header Skeleton */}
     {showToolBar && (
-      <div className="flex w-full items-center gap-6 border-card border-b px-10 py-2">
+      <div className="flex w-full items-center gap-6 border-b border-card px-10 py-2">
         <Skeleton className="size-10 rounded-xl" />
         <Skeleton className="h-6 w-48" />
       </div>
@@ -37,9 +37,9 @@ export const TranslateSkeleton: FC<TranslateSkeletonProps> = ({
     <div className="flex flex-1 flex-col overflow-hidden px-10">
       {[...Array(3)].map((_, i) => (
         <div
-          // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
+          // oxlint-disable-next-line react/no-array-index-key -- Skeletons are static and don't change order
           key={i}
-          className="flex flex-col gap-4 border-card/50 border-b py-6"
+          className="flex flex-col gap-4 border-b border-card/50 py-6"
         >
           <Skeleton className="h-4 w-64" />
           <div className="flex w-full gap-2">

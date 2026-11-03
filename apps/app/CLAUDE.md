@@ -8,8 +8,8 @@ Intlayer CMS dashboard. TanStack Start (SSR) + React. `https://app.intlayer.org`
 bun run dev          # vite dev --port 3000
 bun run build        # vite build
 bun run test         # vitest run
-bun run lint         # biome lint
-bun run lint:fix     # biome lint --write
+bun run lint         # oxlint
+bun run lint:fix     # oxlint --fix
 bun run typecheck    # tsc --noEmit
 ```
 

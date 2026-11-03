@@ -60,7 +60,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({
         {title}
       </H3>
       <div className="mb-6 flex flex-col justify-center gap-3">
-        <span className="relative m-auto text-center font-bold text-4xl">
+        <span className="relative m-auto text-center text-4xl font-bold">
           <span itemProp="price" className="hidden">
             {total.toFixed(2)}
           </span>
@@ -73,7 +73,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({
           </span>
 
           {hasDiscount && (
-            <span className="absolute inset-s-full top-1/5 m-auto scale-80 text-center font-bold text-2xl text-neutral">
+            <span className="absolute inset-s-full top-1/5 m-auto scale-80 text-center text-2xl font-bold text-neutral">
               <span className="absolute inset-s-0 top-1/2 h-0.5 w-full bg-neutral" />
 
               <span itemProp="price" className="hidden">
@@ -99,7 +99,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({
       </div>
 
       <span
-        className="justify-center text-neutral text-xs"
+        className="justify-center text-xs text-neutral"
         itemProp="description"
       >
         {description}
@@ -353,7 +353,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
           </Elements>
         ) : (
           <Container
-            className="gap-6 p-6 text-error text-sm"
+            className="gap-6 p-6 text-sm text-error"
             background="none"
             border
             roundedSize="3xl"

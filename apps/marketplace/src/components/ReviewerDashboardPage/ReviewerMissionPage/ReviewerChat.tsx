@@ -102,7 +102,7 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
     <div className="flex h-full flex-col">
       <div className="flex-1 space-y-3 overflow-y-auto p-4">
         {liveMessages.length === 0 && (
-          <p className="py-8 text-center text-neutral text-sm">
+          <p className="py-8 text-center text-sm text-neutral">
             No messages yet. Start the conversation!
           </p>
         )}
@@ -121,7 +121,7 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
                 }`}
               >
                 <p>{msg.content}</p>
-                <p className="mt-0.5 text-neutral text-xs">
+                <p className="mt-0.5 text-xs text-neutral">
                   {new Date(msg.createdAt).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit',
@@ -134,7 +134,7 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
         <div ref={bottomRef} />
       </div>
 
-      <div className="flex items-end gap-2 border-neutral/20 border-t p-3">
+      <div className="flex items-end gap-2 border-t border-neutral/20 p-3">
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}

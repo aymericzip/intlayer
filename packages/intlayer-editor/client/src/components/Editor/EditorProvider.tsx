@@ -1,8 +1,8 @@
 import { Loader } from '@intlayer/design-system/loader';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import type { FunctionComponent, RefObject } from 'preact';
-import { useCallback, useMemo } from 'preact/hooks';
 import { IntlayerProviderContent } from 'preact-intlayer';
+import { useCallback, useMemo } from 'preact/hooks';
 import { useApplicationStatus } from '../../hooks/useApplicationStatus';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
 import { ApplicationNotRunningView } from './ApplicationNotRunningView/ApplicationNotRunningView';

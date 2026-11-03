@@ -29,9 +29,7 @@ export abstract class MissingTranslationHandler {
 }
 
 /** Returns the key itself, ngx-translate's default. */
-export class DefaultMissingTranslationHandler
-  implements MissingTranslationHandler
-{
+export class DefaultMissingTranslationHandler implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams): string {
     return params.key;
   }

@@ -1,6 +1,6 @@
 import { getHTMLTextDir, getLocaleName, getLocalizedPath } from 'intlayer';
-import { html, type SafeHtml } from 'remix/html-template';
 import { useIntlayer, useLocale } from 'remix-intlayer';
+import { html, type SafeHtml } from 'remix/html-template';
 import { routes } from '../routes';
 
 interface LayoutOptions {
@@ -214,7 +214,9 @@ export const renderLayout = ({
             border: 1px solid var(--surface-border);
             border-radius: 1rem;
             padding: 1.75rem;
-            transition: transform 0.15s ease, border-color 0.15s ease;
+            transition:
+              transform 0.15s ease,
+              border-color 0.15s ease;
           }
 
           .card:hover {
@@ -300,19 +302,23 @@ export const renderLayout = ({
             <nav>
               <ul>
                 <li>
-                  <a href="${homeHref}" class="${currentPath === 'home' ? 'active' : ''}">
+                  <a
+                    href="${homeHref}"
+                    class="${currentPath === 'home' ? 'active' : ''}"
+                  >
                     ${common.nav.home}
                   </a>
                 </li>
                 <li>
-                  <a href="${aboutHref}" class="${currentPath === 'about' ? 'active' : ''}">
+                  <a
+                    href="${aboutHref}"
+                    class="${currentPath === 'about' ? 'active' : ''}"
+                  >
                     ${common.nav.about}
                   </a>
                 </li>
                 <li>
-                  <a href="${apiHref}" target="_blank">
-                    ${common.nav.api}
-                  </a>
+                  <a href="${apiHref}" target="_blank"> ${common.nav.api} </a>
                 </li>
               </ul>
             </nav>

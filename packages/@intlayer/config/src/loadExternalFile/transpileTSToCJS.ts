@@ -258,13 +258,13 @@ export const transpileTSToCJSSync = (
     // Always restore the previous values so the globals don't linger.
     if (!hadFilename) {
       if (prevFilename === undefined) {
-        // biome-ignore lint/performance/noDelete: the global must be truly absent — assigning undefined would leave the key present and break `typeof __filename` checks in other tools
+        // oxlint-disable-next-line typescript/no-dynamic-delete -- the global must be truly absent — assigning undefined would leave the key present and break `typeof __filename` checks in other tools
         delete g.__filename;
       } else {
         g.__filename = prevFilename;
       }
       if (prevDirname === undefined) {
-        // biome-ignore lint/performance/noDelete: same as __filename above
+        // oxlint-disable-next-line typescript/no-dynamic-delete -- same as __filename above
         delete g.__dirname;
       } else {
         g.__dirname = prevDirname;

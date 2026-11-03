@@ -39,10 +39,9 @@ type DefinedComponents<T, IsRequired extends boolean> = IsRequired extends true
  * These are always optional when included.
  */
 type RestHTMLComponents<T> = {
-  [K in Exclude<
-    keyof HTMLTagsType,
-    keyof T
-  >]?: SolidComponentType<ElementProps>;
+  [
+    K in Exclude<keyof HTMLTagsType, keyof T>
+  ]?: SolidComponentType<ElementProps>;
 };
 
 /**

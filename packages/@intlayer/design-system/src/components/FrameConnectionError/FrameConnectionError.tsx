@@ -54,7 +54,7 @@ export const FrameConnectionError: FC<FrameConnectionErrorProps> = ({
     // `m-auto` centers without clipping the top once the content overflows
     <div className="absolute inset-0 z-10 flex overflow-auto bg-background/90 p-2 sm:p-4">
       <Container
-        className="m-auto flex w-full min-w-0 max-w-xl flex-col gap-3 px-4 py-4 text-sm sm:gap-4 sm:px-8 sm:py-6"
+        className="m-auto flex w-full max-w-xl min-w-0 flex-col gap-3 px-4 py-4 text-sm sm:gap-4 sm:px-8 sm:py-6"
         roundedSize="3xl"
         border
         borderColor="neutral"
@@ -77,7 +77,7 @@ export const FrameConnectionError: FC<FrameConnectionErrorProps> = ({
                 applicationUrl: <strong>{applicationURL}</strong>,
               })}
             </p>
-            <ul className="wrap-anywhere list-outside list-disc space-y-2 ps-5 text-neutral">
+            <ul className="list-outside list-disc space-y-2 ps-5 wrap-anywhere text-neutral">
               <li>
                 {framingCause({
                   editorOrigin: (

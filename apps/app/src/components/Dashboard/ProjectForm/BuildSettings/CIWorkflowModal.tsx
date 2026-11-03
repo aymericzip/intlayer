@@ -69,7 +69,7 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
       borderColor="neutral"
     >
       <div className="flex flex-col gap-4">
-        <p className="text-neutral text-sm">{description}</p>
+        <p className="text-sm text-neutral">{description}</p>
 
         <div className="relative max-h-96 overflow-auto rounded-md bg-neutral/5 p-4">
           {isLoading ? (

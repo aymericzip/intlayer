@@ -174,10 +174,10 @@ export const ComparisonSection: FC = () => {
     <section className="py-24">
       <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
         <m.div {...fadeUp} className="mb-14 text-center">
-          <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
             {comparisonTitle}
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
             {comparisonDescription}
           </p>
         </m.div>
@@ -199,7 +199,7 @@ export const ComparisonSection: FC = () => {
               <div
                 className={cn(
                   GRID_TEMPLATE,
-                  'gap-2 bg-neutral/5 px-6 py-5 font-semibold text-muted-foreground text-sm'
+                  'gap-2 bg-neutral/5 px-6 py-5 text-sm font-semibold text-muted-foreground'
                 )}
               >
                 <div>{featureHeader}</div>
@@ -264,7 +264,7 @@ export const ComparisonSection: FC = () => {
           </div>
 
           {/* Legend */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-neutral/10 border-t px-6 py-4 text-muted-foreground text-xs">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-neutral/10 px-6 py-4 text-xs text-muted-foreground">
             {(['supported', 'partial', 'notSupported'] as const).map(
               (level) => {
                 const Icon = SUPPORT_ICONS[level];
@@ -280,7 +280,7 @@ export const ComparisonSection: FC = () => {
           </div>
         </MotionContainer>
 
-        <ul className="mt-6 flex flex-col gap-2 text-muted-foreground text-sm">
+        <ul className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground">
           {(['pluginChain', 'frameworks', 'frontmatter'] as const).map(
             (noteKey) => (
               <li

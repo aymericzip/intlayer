@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useIntlayer } from 'react-intlayer';
-
 import { LocalizedLink } from '#/components/localized-link';
 
 export const Route = createFileRoute('/{-$locale}/404')({
@@ -19,26 +18,26 @@ export function NotFoundComponent() {
 
       <div className="relative z-10 flex flex-col items-center gap-6">
         <div className="relative">
-          <h1 className="font-bold text-[10rem] text-white leading-none tracking-tighter opacity-10 md:text-[14rem]">
+          <h1 className="text-[10rem] leading-none font-bold tracking-tighter text-white opacity-10 md:text-[14rem]">
             404
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-bold text-6xl text-white md:text-8xl">
+            <span className="text-6xl font-bold text-white md:text-8xl">
               404
             </span>
           </div>
         </div>
 
-        <h2 className="font-bold text-2xl text-white md:text-4xl">{title}</h2>
+        <h2 className="text-2xl font-bold text-white md:text-4xl">{title}</h2>
 
-        <p className="font-medium text-cyan-400 text-lg italic">
+        <p className="text-lg font-medium text-cyan-400 italic">
           {lostMessage}
         </p>
 
-        <p className="max-w-md text-slate-400 text-xl">{subtitle}</p>
+        <p className="max-w-md text-xl text-slate-400">{subtitle}</p>
 
         <LocalizedLink
-          className="mt-4 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-blue-500/25 hover:shadow-lg"
+          className="mt-4 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
           to="/"
         >
           {backHome}

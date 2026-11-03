@@ -153,9 +153,7 @@ const listWorkspaceProjectDirs = async (): Promise<string[]> => {
   return [...projectDirs];
 };
 
-export class DictionaryTreeDataProvider
-  implements TreeDataProvider<IntlayerTreeNode>
-{
+export class DictionaryTreeDataProvider implements TreeDataProvider<IntlayerTreeNode> {
   private readonly changeEmitter = new EventEmitter<
     IntlayerTreeNode | undefined
   >();

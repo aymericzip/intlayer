@@ -278,7 +278,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
               <div>
                 <p>{aiSection.apiKeyInput.description}</p>
                 <p>{aiSection.apiKeyInput.currentKey}:</p>
-                <p className="my-2 flex overflow-x-scroll text-nowrap rounded-xl bg-text/10 p-2 pb-4">
+                <p className="my-2 flex overflow-x-scroll rounded-xl bg-text/10 p-2 pb-4 text-nowrap">
                   {projectConfig?.ai?.apiKey}
                 </p>
               </div>

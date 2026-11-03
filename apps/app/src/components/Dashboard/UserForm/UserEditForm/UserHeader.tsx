@@ -27,7 +27,7 @@ export const UserHeader: FC<UserHeaderProps> = ({ user }) => {
         fullname={user.email}
       />
       <div className="flex-1">
-        <h2 className="font-semibold text-text text-xl">
+        <h2 className="text-xl font-semibold text-text">
           {user.name ?? user.email}
         </h2>
         <p className="text-neutral">{user.email}</p>

@@ -77,10 +77,10 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({
   const formValues = useWatch({ control: form.control });
   const isEdited = Boolean(
     tag &&
-      (formValues.key !== tag.key ||
-        formValues.name !== tag.name ||
-        formValues.description !== tag.description ||
-        formValues.instructions !== tag.instructions)
+    (formValues.key !== tag.key ||
+      formValues.name !== tag.name ||
+      formValues.description !== tag.description ||
+      formValues.instructions !== tag.instructions)
   );
 
   return (

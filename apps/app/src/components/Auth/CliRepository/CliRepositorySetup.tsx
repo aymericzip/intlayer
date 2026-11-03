@@ -37,7 +37,7 @@ export const CliRepositorySetup: FC<CliRepositorySetupProps> = ({
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <H2>{content.title}</H2>
-        <p className="text-neutral text-sm">{content.description}</p>
+        <p className="text-sm text-neutral">{content.description}</p>
       </div>
 
       {detectedRepository && !isRepositoryConnected && (
@@ -53,7 +53,7 @@ export const CliRepositorySetup: FC<CliRepositorySetupProps> = ({
             className="size-8 shrink-0 [&_path]:fill-text/60!"
           />
           <div className="flex min-w-0 flex-col gap-1">
-            <span className="text-neutral text-xs">
+            <span className="text-xs text-neutral">
               {content.detectedTitle} (
               {PROVIDER_NAMES[detectedRepository.provider]})
             </span>
@@ -61,7 +61,7 @@ export const CliRepositorySetup: FC<CliRepositorySetupProps> = ({
               {detectedRepository.owner}/{detectedRepository.repository}
             </span>
             <div
-              className="flex flex-wrap gap-4 text-neutral text-xs"
+              className="flex flex-wrap gap-4 text-xs text-neutral"
               dir="ltr"
             >
               {detectedRepository.branch && (
@@ -91,7 +91,7 @@ export const CliRepositorySetup: FC<CliRepositorySetupProps> = ({
 
       {isRepositoryConnected && <BuildSettings />}
 
-      <div className="flex justify-end gap-3 border-neutral/30 border-t border-dotted pt-4">
+      <div className="flex justify-end gap-3 border-t border-dotted border-neutral/30 pt-4">
         <Button
           color="text"
           variant={isRepositoryConnected ? 'default' : 'outline'}

@@ -22,10 +22,10 @@ export const ScanRow: FC<ScanRowProps> = ({ label, status, value, info }) => (
       ) : (
         <Info className="size-4 text-neutral/20" />
       )}
-      <span className="font-medium text-sm text-text/80">{label}</span>
+      <span className="text-sm font-medium text-text/80">{label}</span>
       <div className="group relative">
         <Info className="size-3 cursor-help text-neutral/20" />
-        <div className="pointer-events-none absolute inset-s-0 bottom-full z-10 mb-2 w-56 rounded-lg border border-neutral/10 bg-text p-2 text-text-opposite text-xs opacity-0 shadow-xl transition-all group-hover:opacity-100">
+        <div className="pointer-events-none absolute inset-s-0 bottom-full z-10 mb-2 w-56 rounded-lg border border-neutral/10 bg-text p-2 text-xs text-text-opposite opacity-0 shadow-xl transition-all group-hover:opacity-100">
           {info}
         </div>
       </div>
@@ -34,7 +34,7 @@ export const ScanRow: FC<ScanRowProps> = ({ label, status, value, info }) => (
       roundedSize="xl"
       padding="sm"
       transparency="lg"
-      className={`py-0.5 font-bold text-xs ${status ? 'bg-success/10 text-success' : 'bg-neutral/10 text-neutral'}`}
+      className={`py-0.5 text-xs font-bold ${status ? 'bg-success/10 text-success' : 'bg-neutral/10 text-neutral'}`}
     >
       {value || (status ? 'YES' : 'NO')}
     </Container>

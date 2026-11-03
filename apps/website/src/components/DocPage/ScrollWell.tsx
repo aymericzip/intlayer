@@ -64,7 +64,7 @@ const Title: FC = () => {
   return (
     <div className="ms-5 flex min-w-0 flex-1 flex-col justify-center overflow-hidden">
       <span
-        className="block truncate text-muted-foreground text-xs leading-tight transition-opacity duration-200"
+        className="block truncate text-xs leading-tight text-muted-foreground transition-opacity duration-200"
         title={firstTitle}
       >
         {firstTitle ?? ''}
@@ -73,7 +73,7 @@ const Title: FC = () => {
       {secondTitle && (
         <div className="w-full min-w-0 overflow-hidden transition-all duration-200">
           <span
-            className="block truncate text-[10px] text-muted-foreground/60 leading-tight transition-opacity duration-150"
+            className="block truncate text-[10px] leading-tight text-muted-foreground/60 transition-opacity duration-150"
             title={secondTitle}
           >
             {secondTitle}

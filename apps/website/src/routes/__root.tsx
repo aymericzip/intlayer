@@ -20,12 +20,12 @@ import { IntlayerProvider } from 'react-intlayer';
 import { ChunkErrorListener } from '~/components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '~/components/ServiceWorker/ServiceWorkerSubscriber';
 import { WebMCPTools } from '~/components/WebMCP';
-import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
 import { loadGithubStars } from '~/serverFunctions/githubStars';
 import { hasInlinedStylesheet } from '~/utils/inlinedStylesheet';
 import { toAbsoluteUrl } from '~/utils/seo';
+import appCss from '~/globals.css?url';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -197,7 +197,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="bg-background relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth leading-8 transition md:flex">
+      <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex">
         <IntlayerProvider locale={locale}>
           <AnimatePresenceProvider>
             <ReactQueryProvider>

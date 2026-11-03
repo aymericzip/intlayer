@@ -69,8 +69,8 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
     return (
       <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
         <div className="flex flex-1 flex-col items-center justify-center gap-4 p-10 text-center">
-          <p className="font-medium text-lg">{content.invitationNotFound}</p>
-          <p className="max-w-md text-neutral/60 text-sm">
+          <p className="text-lg font-medium">{content.invitationNotFound}</p>
+          <p className="max-w-md text-sm text-neutral/60">
             {content.thisInvitationLinkIsInvalid}
           </p>
         </div>
@@ -84,10 +84,10 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
         <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h1 className="font-semibold text-2xl">
+              <h1 className="text-2xl font-semibold">
                 {content.accountActiveTitle}
               </h1>
-              <p className="text-neutral/60 text-sm">
+              <p className="text-sm text-neutral/60">
                 {content.accountActiveDescription}
               </p>
             </div>
@@ -116,10 +116,10 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
       <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <h1 className="font-semibold text-2xl">
+            <h1 className="text-2xl font-semibold">
               {content.welcomeToTheAffiliateProgram}
             </h1>
-            <p className="text-neutral/60 text-sm">
+            <p className="text-sm text-neutral/60">
               {content.completeTheSetupBelowTo}
             </p>
           </div>
@@ -133,8 +133,8 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
     return (
       <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
         <div className="flex flex-1 flex-col items-center justify-center gap-4 p-10 text-center">
-          <p className="font-medium text-lg">{content.invitationExpired}</p>
-          <p className="max-w-md text-neutral/60 text-sm">
+          <p className="text-lg font-medium">{content.invitationExpired}</p>
+          <p className="max-w-md text-sm text-neutral/60">
             {content.thisInvitationLinkHasExpired}
           </p>
         </div>
@@ -149,10 +149,10 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
     <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
       <div className="mx-auto flex max-w-lg flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <h1 className="font-semibold text-2xl">
+          <h1 className="text-2xl font-semibold">
             {content.affiliateProgramInvitation}
           </h1>
-          <p className="text-neutral/60 text-sm">
+          <p className="text-sm text-neutral/60">
             {content.youveBeenInvitedToJoin}
           </p>
         </div>
@@ -178,7 +178,7 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
         </Container>
 
         <div className="flex flex-col gap-2">
-          <span className="font-medium text-sm">
+          <span className="text-sm font-medium">
             {content.stripeAccountType}
           </span>
           <SwitchSelector<StripeAccountType>
@@ -199,7 +199,7 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
             className="w-full"
           />
           {stripeAccountType === 'standard' && (
-            <p className="text-neutral/60 text-xs">
+            <p className="text-xs text-neutral/60">
               {content.existingAccountHint}
             </p>
           )}
@@ -208,7 +208,7 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
         {stripeAccountType === 'express' && (
           <div className="flex flex-col gap-2">
             <label
-              className="font-medium text-sm"
+              className="text-sm font-medium"
               htmlFor="dropdown-trigger-country-selector"
             >
               {content.country}
@@ -222,7 +222,7 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({
         )}
 
         {error && (
-          <p className="text-error text-sm">
+          <p className="text-sm text-error">
             {content.failedToAcceptInvitationPlease}
           </p>
         )}
@@ -266,10 +266,10 @@ const AffiliateInvitationPending: FC<AffiliateInvitationPendingProps> = ({
     <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <h1 className="font-semibold text-2xl">
+          <h1 className="text-2xl font-semibold">
             {content.stripeReturnPendingTitle}
           </h1>
-          <p className="text-neutral/60 text-sm">
+          <p className="text-sm text-neutral/60">
             {content.stripeReturnPendingDescription}
           </p>
         </div>
@@ -277,10 +277,10 @@ const AffiliateInvitationPending: FC<AffiliateInvitationPendingProps> = ({
         {referralLink && (
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-1">
-              <span className="font-medium text-sm">
+              <span className="text-sm font-medium">
                 {content.yourReferralLink}
               </span>
-              <p className="text-neutral/60 text-xs">
+              <p className="text-xs text-neutral/60">
                 {content.referralLinkDescription}
               </p>
             </div>

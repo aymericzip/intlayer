@@ -226,7 +226,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const discussion = row.original as DiscussionAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {discussion.createdAt
               ? new Date(discussion.createdAt).toLocaleDateString()
               : noData.value}
@@ -257,7 +257,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const discussion = row.original as DiscussionAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {discussion.updatedAt
               ? new Date(discussion.updatedAt).toLocaleDateString()
               : noData.value}
@@ -344,7 +344,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                       <th
                         key={header.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          'px-4 py-3 font-medium whitespace-nowrap text-neutral',
                           header.id === 'numberOfMessages'
                             ? 'text-center'
                             : 'text-start',
@@ -374,7 +374,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                   return (
                     <tr
                       key={row.id}
-                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                       onClick={() => setDiscussionId(String(row.original.id))}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -388,7 +388,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                         <td
                           key={cell.id}
                           className={cn(
-                            'whitespace-nowrap px-4 py-3',
+                            'px-4 py-3 whitespace-nowrap',
                             cellIndex === 0 && 'first:rounded-s-2xl',
                             cellIndex === visibleCells.length - 1 &&
                               'last:rounded-e-2xl'

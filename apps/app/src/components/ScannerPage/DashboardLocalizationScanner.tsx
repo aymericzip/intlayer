@@ -150,7 +150,7 @@ export const DashboardLocalizationScanner: FC = () => {
           borderColor="neutral"
           className="gap-4"
         >
-          <p className="max-w-sm text-neutral text-sm">{noApplicationUrl}</p>
+          <p className="max-w-sm text-sm text-neutral">{noApplicationUrl}</p>
           <Link
             to={App_Dashboard_Projects_Path}
             color="text"
@@ -167,7 +167,7 @@ export const DashboardLocalizationScanner: FC = () => {
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">
       {/* Left panel — URL list */}
-      <div className="flex w-64 shrink-0 flex-col border-neutral/20 border-e px-2 pt-2">
+      <div className="flex w-64 shrink-0 flex-col border-e border-neutral/20 px-2 pt-2">
         <div className="flex items-center gap-1 p-2">
           <Input
             type="search"
@@ -195,11 +195,11 @@ export const DashboardLocalizationScanner: FC = () => {
           aria-label={searchAriaLabel.value}
         >
           {isDiscovering ? (
-            <li className="px-3 py-4 text-center text-neutral text-xs">
+            <li className="px-3 py-4 text-center text-xs text-neutral">
               {loadingUrls}
             </li>
           ) : filteredUrls.length === 0 ? (
-            <li className="px-3 py-4 text-center text-neutral text-xs">
+            <li className="px-3 py-4 text-center text-xs text-neutral">
               {noUrls}
             </li>
           ) : (
@@ -234,7 +234,7 @@ export const DashboardLocalizationScanner: FC = () => {
       {/* Right panel — scan results */}
       <div className="flex min-w-0 flex-1 flex-col items-center overflow-auto p-4">
         {!selectedUrl && !isSingleScanLoading && !error && (
-          <p className="mt-10 text-center text-neutral text-sm">
+          <p className="mt-10 text-center text-sm text-neutral">
             {selectUrlPrompt}
           </p>
         )}
@@ -279,7 +279,7 @@ export const DashboardLocalizationScanner: FC = () => {
             border
             borderColor="neutral"
           >
-            <p className="text-center text-error text-sm">
+            <p className="text-center text-sm text-error">
               {isLocalUrl(selectedUrl ?? applicationURL)
                 ? localhostError({
                     url: (

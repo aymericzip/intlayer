@@ -244,7 +244,7 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
           // `createElement` (Redact) would execute it without its nonce and hit
           // the CSP. The layout effect below applies the theme on the client.
           type={isServer ? undefined : 'text/plain'}
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: the bootstrap has to run before hydration, and its content is built from literals
+          // oxlint-disable-next-line react/no-danger -- the bootstrap has to run before hydration, and its content is built from literals
           dangerouslySetInnerHTML={{ __html: buildBootstrap(storageKey) }}
         />
       )}

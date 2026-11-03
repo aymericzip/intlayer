@@ -410,14 +410,16 @@ type MatchingEntries<
   Selector,
   EffectiveVariant,
 > = {
-  [Key in keyof Entries as EntryMatchesSelector<
-    Entries[Key],
-    QualifierTypes,
-    Selector,
-    EffectiveVariant
-  > extends true
-    ? Key
-    : never]: Entries[Key];
+  [
+    Key in keyof Entries as EntryMatchesSelector<
+      Entries[Key],
+      QualifierTypes,
+      Selector,
+      EffectiveVariant
+    > extends true
+      ? Key
+      : never
+  ]: Entries[Key];
 };
 
 /** Whether the collection (`item`) axis is left open (→ array result). */

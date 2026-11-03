@@ -1,8 +1,8 @@
 {
   "name": "intlayer-showcase",
   "private": true,
-  "sideEffects": false,
   "type": "module",
+  "sideEffects": false,
   "imports": {
     "#/*": "./src/*",
     "#components/*": "./src/components/*",
@@ -15,10 +15,10 @@
   "scripts": {
     "build": "bun --bun vite build",
     "postbuild": "bun scripts/compress-static.ts",
-    "check": "bun --bun biome check",
+    "check": "oxlint . && oxfmt --check .",
     "dev": "bun --bun vite dev --port 3200",
-    "format": "bun --bun biome format",
-    "lint": "bun --bun biome lint",
+    "format": "oxfmt --check .",
+    "lint": "oxlint .",
     "preview": "bun --bun vite preview",
     "start": "bun run .output/server/index.mjs",
     "test": "bun --bun vitest run"

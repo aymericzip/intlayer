@@ -28,11 +28,11 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { ChangeSetPopover } from '../ContentGrid/ChangeSetPopover';
 import {
   type ChangeSetEntry,
   computeChangeSet,
 } from '../ContentGrid/changeSet';
+import { ChangeSetPopover } from '../ContentGrid/ChangeSetPopover';
 import { flattenContentRows } from '../ContentGrid/flattenContentRows';
 import { useOptionalContentGrid } from '../ContentGrid/useOptionalContentGrid';
 import { isDictionaryEdited, mergeDictionaryEdits } from './dictionaryEdits';
@@ -238,7 +238,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             handleSaveDictionaryConfirmation();
           }}
         >
-          <p className="py-4 text-muted-foreground text-sm">
+          <p className="py-4 text-sm text-muted-foreground">
             {confirmation.message}
           </p>
 
@@ -284,7 +284,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
 
         {mode.includes('local') && dictionary.filePath && (
           <span
-            className="me-auto truncate font-mono text-muted-foreground text-xs"
+            className="me-auto truncate font-mono text-xs text-muted-foreground"
             dir="ltr"
           >
             {writesTo({ filePath: dictionary.filePath })}

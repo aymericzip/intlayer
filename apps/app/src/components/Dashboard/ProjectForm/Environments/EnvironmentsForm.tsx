@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/a11y/noLabelWithoutControl: form labels are custom components */
+/* oxlint-disable jsx-a11y/label-has-associated-control -- form labels are custom components */
 'use client';
 
 import type { EnvironmentAPI } from '@intlayer/backend-contract/project';
@@ -171,7 +171,7 @@ export const EnvironmentsForm: FC = () => {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
         <Layers className="size-5" />
-        <h3 className="font-semibold text-base">{content.title}</h3>
+        <h3 className="text-base font-semibold">{content.title}</h3>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -202,7 +202,7 @@ export const EnvironmentsForm: FC = () => {
                     readOnly
                     aria-label={content.switchButton({ name: entry.name })}
                   />
-                  <span className="font-medium text-sm">{entry.name}</span>
+                  <span className="text-sm font-medium">{entry.name}</span>
                   {entry.isDefault && (
                     <Tag roundedSize="full" size="sm">
                       {content.defaultBadge}
@@ -210,7 +210,7 @@ export const EnvironmentsForm: FC = () => {
                   )}
                 </button>
                 <PopoverStatic.Detail identifier={`env-popover-${entry.id}`}>
-                  <span className="text-nowrap p-2 text-xs">
+                  <span className="p-2 text-xs text-nowrap">
                     {content.switchButton({ name: entry.name })}
                   </span>
                 </PopoverStatic.Detail>
@@ -260,7 +260,7 @@ export const EnvironmentsForm: FC = () => {
             </Button>
           </div>
           {validationError && (
-            <span className="font-medium text-error text-xs">
+            <span className="text-xs font-medium text-error">
               {validationError}
             </span>
           )}
@@ -333,7 +333,7 @@ export const EnvironmentsForm: FC = () => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-              <span className="font-medium text-neutral/70 text-xs">
+              <span className="text-xs font-medium text-neutral/70">
                 {content.from}
               </span>
               <Select
@@ -367,7 +367,7 @@ export const EnvironmentsForm: FC = () => {
             <ArrowRight className="mt-5 size-4 shrink-0 text-text/60" />
 
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-              <span className="font-medium text-neutral/70 text-xs">
+              <span className="text-xs font-medium text-neutral/70">
                 {content.to}
               </span>
               <Select
@@ -424,7 +424,7 @@ export const EnvironmentsForm: FC = () => {
 
           {migrateModal?.targetId && (
             <div className="flex flex-col gap-2 px-4 pt-4">
-              <span className="font-medium text-sm">
+              <span className="text-sm font-medium">
                 {content.migrateModal.strategyLabel}{' '}
                 <strong>
                   {migrateTargetEntry?.name ?? migrateModal.targetId}
@@ -453,7 +453,7 @@ export const EnvironmentsForm: FC = () => {
           )}
 
           {migrateModal?.sourceId && migrateModal.targetId && (
-            <p className="text-neutral/70 text-xs">
+            <p className="text-xs text-neutral/70">
               {content.copiesAllDictionariesFrom}{' '}
               <strong>{migrateSourceEntry?.name}</strong> into{' '}
               <strong>{migrateTargetEntry?.name}</strong>.

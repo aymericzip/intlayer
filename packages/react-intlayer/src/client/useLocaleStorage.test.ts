@@ -23,7 +23,7 @@ import {
 
 describe('getLocaleInStorage', () => {
   it('reads the stored locale, and sees every write made through intlayer', () => {
-    // biome-ignore lint/suspicious/noDocumentCookie: seeds the stored locale
+    // oxlint-disable-next-line unicorn/no-document-cookie -- seeds the stored locale
     document.cookie = 'INTLAYER_LOCALE=fr';
 
     expect(getLocaleInStorage()).toBe('fr');

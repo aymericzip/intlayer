@@ -1,133 +1,153 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Intlayer - Modern Web Experience</title>
-    <meta name="description" content="A premium, high-performance web application built with Intlayer.">
-    
+    <meta
+      name="description"
+      content="A premium, high-performance web application built with Intlayer."
+    />
+
     <!-- Google Fonts: Outfit & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-        :root {
-            /* Design System Tokens */
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --bg-gradient: radial-gradient(circle at top right, #0f172a, #020617);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            
-            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+      :root {
+        /* Design System Tokens */
+        --primary: #6366f1;
+        --primary-hover: #4f46e5;
+        --bg-gradient: radial-gradient(circle at top right, #0f172a, #020617);
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        h1, h2, h3 {
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: -0.02em;
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg-gradient);
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
 
-        /* Premium Glassmorphism Container */
-        .app-container {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            animation: fadeIn 0.8s ease-out;
-        }
+      h1,
+      h2,
+      h3 {
+        font-family: 'Outfit', sans-serif;
+        letter-spacing: -0.02em;
+      }
 
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 24px;
-        }
+      /* Premium Glassmorphism Container */
+      .app-container {
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 40px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        animation: fadeIn 0.8s ease-out;
+      }
 
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
+      .hero-title {
+        font-size: 4rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 24px;
+      }
 
-        .btn-primary {
-            display: inline-block;
-            padding: 16px 32px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
+      .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+      }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            background: var(--primary-hover);
-            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
-        }
+      .btn-primary {
+        display: inline-block;
+        padding: 16px 32px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: var(--transition-smooth);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+      }
 
-        /* Micro-animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        background: var(--primary-hover);
+        box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+      }
 
-        .floating-blob {
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-            filter: blur(60px);
-            z-index: -1;
-            pointer-events: none;
+      /* Micro-animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .floating-blob {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(99, 102, 241, 0.15) 0%,
+          transparent 70%
+        );
+        filter: blur(60px);
+        z-index: -1;
+        pointer-events: none;
+      }
     </style>
-</head>
-<body>
-    <div class="floating-blob" style="top: -10%; left: -10%;"></div>
-    <div class="floating-blob" style="bottom: -10%; right: -10%;"></div>
+  </head>
+  <body>
+    <div class="floating-blob" style="top: -10%; left: -10%"></div>
+    <div class="floating-blob" style="bottom: -10%; right: -10%"></div>
 
     <main class="app-container">
-        <h1 class="hero-title">Welcome to Intlayer</h1>
-        <p class="hero-subtitle">
-            Experience the future of internationalization with a sleek, 
-            modern interface designed for speed and clarity.
-        </p>
-        <div class="actions">
-            <a href="#" class="btn-primary" id="getStartedBtn">Get Started</a>
-        </div>
+      <h1 class="hero-title">Welcome to Intlayer</h1>
+      <p class="hero-subtitle">
+        Experience the future of internationalization with a sleek, modern
+        interface designed for speed and clarity.
+      </p>
+      <div class="actions">
+        <a href="#" class="btn-primary" id="getStartedBtn">Get Started</a>
+      </div>
 
-              <div className="flex scale-10 flex-row items-center justify-center gap-4 opacity-10">
+      <div
+        className="flex scale-10 flex-row items-center justify-center gap-4 opacity-10"
+      >
         <a href="https://showmebest.ai" target="_blank" rel="noopener">
           <img
             src="https://showmebest.ai/badge/feature-badge-white.webp"
@@ -171,7 +191,7 @@
           <img
             src="https://toolfame.com/badge-light.svg"
             alt="Featured on toolfame.com"
-            style="height: 54px; width: auto;"
+            style="height: 54px; width: auto"
           />
         </a>
         <a
@@ -203,11 +223,13 @@
     </main>
 
     <script>
-        document.getElementById('getStartedBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('Interaction captured: Get Started clicked');
-            // Add interaction logic here
+      document
+        .getElementById('getStartedBtn')
+        .addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log('Interaction captured: Get Started clicked');
+          // Add interaction logic here
         });
     </script>
-</body>
+  </body>
 </html>

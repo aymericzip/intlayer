@@ -145,16 +145,16 @@ export const ChangeSetPopover: FC<ChangeSetPopoverProps> = ({
         className="flex max-h-96 w-[min(28rem,90vw)] cursor-default flex-col gap-2 overflow-hidden rounded-2xl p-3"
       >
         <div className="flex items-center justify-between gap-2">
-          <span className="font-semibold text-sm">{content.title}</span>
+          <span className="text-sm font-semibold">{content.title}</span>
           {changeSet.length > 0 && (
-            <span className="text-muted-foreground text-xs tabular-nums">
+            <span className="text-xs text-muted-foreground tabular-nums">
               {changeSet.length}
             </span>
           )}
         </div>
 
         {changeSet.length === 0 ? (
-          <span className="text-muted-foreground text-sm">
+          <span className="text-sm text-muted-foreground">
             {content.emptyList}
           </span>
         ) : (

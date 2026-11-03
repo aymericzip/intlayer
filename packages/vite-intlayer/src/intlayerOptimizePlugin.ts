@@ -327,9 +327,8 @@ export const intlayerOptimize = async (
                 | null = null;
 
               try {
-                const svelteCompiler = await import(
-                  '@intlayer/svelte-compiler'
-                );
+                const svelteCompiler =
+                  await import('@intlayer/svelte-compiler');
                 extractSvelteIntlayerFieldUsage =
                   svelteCompiler.extractSvelteIntlayerFieldUsage;
               } catch {

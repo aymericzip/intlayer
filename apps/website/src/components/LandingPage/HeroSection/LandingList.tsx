@@ -58,7 +58,7 @@ export const LandingList: FC = () => {
             isExternalLink={false}
             color="custom"
             className={cn(
-              'font-mono text-xs uppercase tracking-wider transition-colors duration-200 sm:text-sm md:text-base',
+              'font-mono text-xs tracking-wider uppercase transition-colors duration-200 sm:text-sm md:text-base',
               isActive ? 'text-text' : 'text-text/60 hover:text-text'
             )}
           >
@@ -71,7 +71,7 @@ export const LandingList: FC = () => {
   return (
     <nav
       aria-label={content.ariaLabel.value}
-      className="mask-[linear-gradient(to_right,transparent_0,black_170px,black_calc(100%-170px),transparent_100%)] w-full overflow-hidden"
+      className="w-full overflow-hidden mask-[linear-gradient(to_right,transparent_0,black_170px,black_calc(100%-170px),transparent_100%)]"
     >
       <div className="horizontal-loop-4 inline-flex items-center whitespace-nowrap">
         {renderProducts(1)}

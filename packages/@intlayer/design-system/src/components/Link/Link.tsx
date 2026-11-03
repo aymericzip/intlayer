@@ -53,10 +53,10 @@ export const linkVariants = cva(
         'invisible-link': 'h-auto justify-start border-inherit bg-current/0',
 
         button:
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center text-sm font-medium text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         'button-outlined':
-          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current! px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:bg-current/30! hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current! px-6 text-center text-sm font-medium text-text ring-0 *:text-text hover:bg-current/30! hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         hoverable:
           'block rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/5 aria-[current]:bg-current/3',

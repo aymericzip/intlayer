@@ -72,10 +72,10 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
                 <TriangleAlert className="size-5 text-error" />
               </div>
               <div className="flex-1">
-                <h3 className="font-medium text-base text-error">
+                <h3 className="text-base font-medium text-error">
                   {deleteSection.title}
                 </h3>
-                <p className="mt-1 text-neutral text-sm">
+                <p className="mt-1 text-sm text-neutral">
                   {deleteSection.description}
                 </p>
                 <FormButton
@@ -114,10 +114,10 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
           <div className="flex items-start gap-3 rounded-lg px-4">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-red-600 dark:text-red-400" />
             <div className="flex-1">
-              <p className="font-medium text-red-900 text-sm dark:text-red-100">
+              <p className="text-sm font-medium text-red-900 dark:text-red-100">
                 {deleteSection.modalWarning}
               </p>
-              <p className="mt-1 text-red-700 text-sm dark:text-red-300">
+              <p className="mt-1 text-sm text-red-700 dark:text-red-300">
                 {deleteSection.modalDescription}
               </p>
             </div>

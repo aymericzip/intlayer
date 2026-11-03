@@ -2,8 +2,11 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { IInterpreterPluginVue } from './plugins';
 
 declare module '@intlayer/core/interpreter' {
-  interface IInterpreterPlugin<T, S, L extends LocalesValues>
-    extends IInterpreterPluginVue<T, S, L> {}
+  interface IInterpreterPlugin<
+    T,
+    S,
+    L extends LocalesValues,
+  > extends IInterpreterPluginVue<T, S, L> {}
 }
 
 export * from './analytics';

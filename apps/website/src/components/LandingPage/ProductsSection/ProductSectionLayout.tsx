@@ -30,18 +30,18 @@ export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
         size="sm"
         border="with"
         color={tagColor as any /* shhhtt */}
-        className="mb-6 rounded-full border font-medium text-sm"
+        className="mb-6 rounded-full border text-sm font-medium"
       >
         {tag}
       </Tag>
 
       {/* Main Title */}
-      <h2 className="mb-6 max-w-5xl text-center font-bold text-2xl text-foreground leading-tight">
+      <h2 className="mb-6 max-w-5xl text-center text-2xl leading-tight font-bold text-foreground">
         {title}
       </h2>
 
       {/* Description */}
-      <div className="mb-10 grow text-start text-muted-foreground leading-relaxed">
+      <div className="mb-10 grow text-start leading-relaxed text-muted-foreground">
         {description}
       </div>
 

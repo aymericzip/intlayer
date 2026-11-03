@@ -125,11 +125,11 @@ export const BookingModal: FC<BookingModalProps> = ({
       isScrollable
     >
       <div className="flex flex-col gap-6">
-        <p className="text-neutral text-sm">{content.subtitle}</p>
+        <p className="text-sm text-neutral">{content.subtitle}</p>
 
         {/* Mission type */}
         <div className="flex flex-col gap-2">
-          <span className="font-medium text-sm">
+          <span className="text-sm font-medium">
             {content.missionTypeLabel}
           </span>
           <div className="flex flex-wrap gap-2">
@@ -159,7 +159,7 @@ export const BookingModal: FC<BookingModalProps> = ({
             <div className="flex w-full flex-row flex-wrap justify-around gap-3">
               {/* Source language */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="sourceLocale" className="font-medium text-sm">
+                <label htmlFor="sourceLocale" className="text-sm font-medium">
                   {content.sourceLocaleLabel}
                 </label>
                 <LocalePicker
@@ -168,12 +168,12 @@ export const BookingModal: FC<BookingModalProps> = ({
                   onChange={setSourceLocale}
                 />
               </div>
-              <span className="my-auto flex h-full flex-y-1 items-center">
+              <span className="flex-y-1 my-auto flex h-full items-center">
                 →
               </span>
               {/* Target languages */}
               <div className="flex flex-col gap-2">
-                <span className="font-medium text-sm">
+                <span className="text-sm font-medium">
                   {content.targetLocalesLabel}
                 </span>
                 <div className="flex flex-col gap-2">
@@ -219,14 +219,14 @@ export const BookingModal: FC<BookingModalProps> = ({
 
             {/* Dictionaries (optional context for reviewer) */}
             <div className="flex flex-col gap-2">
-              <span className="w-full font-medium text-sm">
+              <span className="w-full text-sm font-medium">
                 {content.selectDictionariesLabel}
               </span>
 
               {dictsLoading ? (
                 <Loader />
               ) : dictionaries.length === 0 ? (
-                <p className="text-neutral text-sm">
+                <p className="text-sm text-neutral">
                   {content.noDictionariesFound}
                 </p>
               ) : (
@@ -285,17 +285,17 @@ export const BookingModal: FC<BookingModalProps> = ({
                 className="flex items-baseline justify-between gap-3"
               >
                 <div className="flex flex-col">
-                  <span className="font-medium text-sm">
+                  <span className="text-sm font-medium">
                     {content.estimateTitle}
                   </span>
-                  <span className="text-neutral text-xs">
+                  <span className="text-xs text-neutral">
                     {estimateResult.wordCount.toLocaleString()}{' '}
                     {content.estimateWords} ·{' '}
                     {estimateResult.estimatedHours.toFixed(1)}{' '}
                     {content.estimateHours}
                   </span>
                 </div>
-                <span className="font-bold text-xl">
+                <span className="text-xl font-bold">
                   ${(estimateResult.totalPrice / 100).toFixed(2)}
                 </span>
               </Container>
@@ -304,14 +304,14 @@ export const BookingModal: FC<BookingModalProps> = ({
         )}
 
         {!isTranslation && (
-          <p className="rounded-xl border border-neutral/20 bg-neutral/5 px-3 py-2 text-neutral text-sm">
+          <p className="rounded-xl border border-neutral/20 bg-neutral/5 px-3 py-2 text-sm text-neutral">
             {content.estimateAgreedInChat}
           </p>
         )}
 
         {/* Message to reviewer */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="booking-notes" className="font-medium text-sm">
+          <label htmlFor="booking-notes" className="text-sm font-medium">
             {content.notesLabel}
           </label>
           <AutoSizedTextArea

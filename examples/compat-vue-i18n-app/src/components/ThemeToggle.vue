@@ -92,6 +92,12 @@ const getLabel = () =>
     :title="getLabel()"
     class="rounded-md border border-border bg-accent px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent/80"
   >
-    {{ mode === 'auto' ? t('themeToggle.auto') : mode === 'dark' ? t('themeToggle.dark') : t('themeToggle.light') }}
+    {{
+      mode === 'auto'
+        ? t('themeToggle.auto')
+        : mode === 'dark'
+          ? t('themeToggle.dark')
+          : t('themeToggle.light')
+    }}
   </button>
 </template>

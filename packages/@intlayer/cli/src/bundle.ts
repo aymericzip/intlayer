@@ -17,9 +17,8 @@ const getDictionaryTreeShakingDefines = async (
   const { formatDictionarySelectorEnvVar, formatNodeTypeToEnvVar } =
     await import('@intlayer/config/envVars');
   const { getConfiguration } = await import('@intlayer/config/node');
-  const { getHasDictionarySelector, getUnusedNodeTypesAsync } = await import(
-    '@intlayer/config/utils'
-  );
+  const { getHasDictionarySelector, getUnusedNodeTypesAsync } =
+    await import('@intlayer/config/utils');
   const { getDictionaries } = await import('@intlayer/dictionaries-entry');
 
   const configuration = getConfiguration(options.configOptions);

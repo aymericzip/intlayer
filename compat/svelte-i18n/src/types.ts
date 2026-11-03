@@ -77,7 +77,7 @@ export type MissingKeyHandlerInput = {
   defaultValue: string | undefined;
 };
 
-// biome-ignore lint/suspicious/noConfusingVoidType: svelte-i18n's signature accepts handlers returning nothing
+// oxlint-disable-next-line typescript/no-invalid-void-type -- svelte-i18n's signature accepts handlers returning nothing
 export type MissingKeyHandlerOutput = string | void;
 
 export type MissingKeyHandler = (

@@ -14,24 +14,24 @@ const { subNode } = useDictionary(dictionaryContentLevel3);
 <!-- Component to test syntax and reactivity or different way to access the content -->
 
 <template>
-  <div >
+  <div>
     <div>
-      <p>{{contentLevel1}}</p>
+      <p>{{ contentLevel1 }}</p>
       <p><contentLevel1 /></p>
     </div>
-    
+
     <div>
-      <p>{{syntax21}}</p>
+      <p>{{ syntax21 }}</p>
       <p><syntax22 /></p>
-      <p>{{contentLevel2.syntax23}}</p>
+      <p>{{ contentLevel2.syntax23 }}</p>
       <p><contentLevel2.syntax24 /></p>
       <p><component :is="syntax25" /></p>
       <p><component :is="contentLevel2.syntax26" /></p>
     </div>
 
     <div>
-      <p>{{subNode.syntax31}}</p>
-      <p>{{contentLevel3.subNode.syntax32}}</p>
+      <p>{{ subNode.syntax31 }}</p>
+      <p>{{ contentLevel3.subNode.syntax32 }}</p>
       <p><subNode.syntax32 /></p>
       <p><contentLevel3.subNode.syntax34 /></p>
       <p><component :is="subNode.syntax35" /></p>
@@ -39,4 +39,3 @@ const { subNode } = useDictionary(dictionaryContentLevel3);
     </div>
   </div>
 </template>
-

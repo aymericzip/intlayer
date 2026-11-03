@@ -18,13 +18,13 @@ import { JsonLd } from '~/components/JsonLd';
 import { Link } from '~/components/Link/Link';
 import { useTheme } from '~/providers/ThemeProvider';
 import { AdaptiveSwitchSelector } from './AdaptiveSwitchSelector';
-import { BenchmarkTable } from './BenchmarkTable';
 import {
   BENCHMARK_CATEGORIES,
   fetchBenchmarkData,
   getBenchmarkReportUrl,
 } from './benchmarkData';
 import { BENCHMARK_METRICS, type MetricId } from './benchmarkMetrics';
+import { BenchmarkTable } from './BenchmarkTable';
 import { buildChartData, buildLibraries } from './benchmarkUtils';
 import { ChartComponent } from './ChartComponent';
 import type { BenchmarkCategory, FrameworkKey } from './constants';
@@ -68,8 +68,8 @@ const CategoryToggle: FC<CategoryToggleProps> = ({
 }) => (
   <div className="flex items-start justify-between gap-4">
     <div>
-      <p className="font-bold text-lg">{label}</p>
-      <p className="text-muted-foreground text-sm leading-snug">
+      <p className="text-lg font-bold">{label}</p>
+      <p className="text-sm leading-snug text-muted-foreground">
         {description}
       </p>
     </div>
@@ -206,7 +206,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
 
     if (isError) {
       return (
-        <div className="flex h-full items-center justify-center text-error text-sm">
+        <div className="flex h-full items-center justify-center text-sm text-error">
           {errorLoadingData}
         </div>
       );
@@ -214,7 +214,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
 
     if (chartData.length === 0) {
       return (
-        <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
+        <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
           {noData}
         </div>
       );
@@ -279,7 +279,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
           <div className="w-full shrink-0 space-y-6">
             {!initialFramework && (
               <div>
-                <p className="mb-4 font-bold text-base text-muted-foreground">
+                <p className="mb-4 text-base font-bold text-muted-foreground">
                   {frameworkLabel}
                 </p>
                 <FrameworkSelector
@@ -291,7 +291,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
             )}
 
             <div>
-              <p className="mb-4 font-bold text-base text-muted-foreground">
+              <p className="mb-4 text-base font-bold text-muted-foreground">
                 {metricLabel}
               </p>
               <AdaptiveSwitchSelector<MetricId>
@@ -404,23 +404,23 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
                 >
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-2">
-                      <p className="font-bold text-lg">{whatIsThisMetric}</p>
-                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
+                      <p className="text-lg font-bold">{whatIsThisMetric}</p>
+                      <p className="text-xs leading-relaxed text-neutral-500 dark:text-muted-foreground">
                         {selectedMetricContent.whatIsIt}
                       </p>
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <p className="font-bold text-lg">{whyItsImportant}</p>
-                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
+                      <p className="text-lg font-bold">{whyItsImportant}</p>
+                      <p className="text-xs leading-relaxed text-neutral-500 dark:text-muted-foreground">
                         {selectedMetricContent.whyItsImportant}
                       </p>
                     </div>
                   </div>
 
                   {!hideControls && (
-                    <div className="mt-6 flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
-                      <p className="font-semibold text-sm">{renderLabel}</p>
+                    <div className="mt-6 flex flex-col gap-2 border-t border-neutral/20 pt-2 dark:border-neutral/10">
+                      <p className="text-sm font-semibold">{renderLabel}</p>
                       <SwitchSelector<RenderMode>
                         size="sm"
                         choices={[
@@ -449,7 +449,7 @@ export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
             <div
               key={libraryInfo.id}
               className={cn(
-                'min-w-max border-border border-e border-b border-dashed p-2',
+                'min-w-max border-e border-b border-dashed border-border p-2',
                 index < 2 ? 'flex-[2_2_16rem]' : 'flex-[1_1_10rem]'
               )}
             >

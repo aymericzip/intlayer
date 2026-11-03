@@ -143,7 +143,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
                 {showBoth ? (
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
-                      <p className="font-semibold text-sm">
+                      <p className="text-sm font-semibold">
                         {content.modal?.currentConfig}
                       </p>
                       <div className="max-h-156 overflow-auto rounded-xl bg-text-opposite/80 p-6">
@@ -153,7 +153,7 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <p className="font-semibold text-sm">
+                      <p className="text-sm font-semibold">
                         {content.modal?.newConfig}
                       </p>
                       <div className="max-h-156 overflow-auto rounded-xl bg-text-opposite/80 p-6">

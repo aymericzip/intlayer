@@ -164,19 +164,19 @@ export const Controlled: Story = {
           </Select>
         </div>
 
-        <div className="text-gray-600 text-sm">
+        <div className="text-sm text-gray-600">
           Selected value: <strong>{value || 'None'}</strong>
         </div>
 
         <div className="flex gap-2">
           <button
-            className="rounded bg-blue-500 px-2 py-1 text-white text-xs"
+            className="rounded bg-blue-500 px-2 py-1 text-xs text-white"
             onClick={() => setValue('en')}
           >
             Set English
           </button>
           <button
-            className="rounded bg-gray-500 px-2 py-1 text-white text-xs"
+            className="rounded bg-gray-500 px-2 py-1 text-xs text-white"
             onClick={() => setValue('')}
           >
             Clear
@@ -269,7 +269,7 @@ export const ValidationStates: Story = {
       <form className="w-80 space-y-6">
         <div className="space-y-4">
           <div>
-            <label className="mb-2 block font-medium text-sm">
+            <label className="mb-2 block text-sm font-medium">
               Country (Required) *
             </label>
             <Select value={country} onValueChange={setCountry} required>
@@ -298,10 +298,10 @@ export const ValidationStates: Story = {
             </Select>
 
             {isInvalid && (
-              <p className="mt-1 text-error text-xs">Please select a country</p>
+              <p className="mt-1 text-xs text-error">Please select a country</p>
             )}
             {isValid && showValidation && (
-              <p className="mt-1 text-green-500 text-xs">Valid selection ✓</p>
+              <p className="mt-1 text-xs text-green-500">Valid selection ✓</p>
             )}
           </div>
 
@@ -363,7 +363,7 @@ export const Disabled: Story = {
   render: () => (
     <div className="w-80 space-y-4">
       <div>
-        <label className="mb-2 block font-medium text-sm">
+        <label className="mb-2 block text-sm font-medium">
           Available Options
         </label>
         <Select defaultValue="option2">
@@ -379,7 +379,7 @@ export const Disabled: Story = {
       </div>
 
       <div>
-        <label className="mb-2 block font-medium text-gray-500 text-sm">
+        <label className="mb-2 block text-sm font-medium text-gray-500">
           Disabled Selection
         </label>
         <Select disabled>

@@ -203,7 +203,7 @@ export const VariantShowcase: Story = {
     <div className="space-y-4">
       {['default', 'none', 'outline', 'hoverable'].map((variant) => (
         <div key={variant} className="flex flex-wrap gap-2">
-          <span className="w-20 font-medium text-sm capitalize">
+          <span className="w-20 text-sm font-medium capitalize">
             {variant}:
           </span>
           {['success', 'error', 'neutral', 'light', 'dark', 'text', 'custom']
@@ -243,7 +243,7 @@ export const SizeVariations: Story = {
           <Badge size={size} color="text">
             {size.charAt(0).toUpperCase() + size.slice(1)}
           </Badge>
-          <span className="text-gray-600 text-xs capitalize">{size}</span>
+          <span className="text-xs text-gray-600 capitalize">{size}</span>
         </div>
       ))}
     </div>
@@ -342,11 +342,11 @@ export const CustomStyling: Story = {
       </Badge>
       <Badge
         variant="outline"
-        className="border-blue-400 border-dotted text-blue-600"
+        className="border-dotted border-blue-400 text-blue-600"
       >
         Dashed Border
       </Badge>
-      <Badge size="large" className="font-bold uppercase tracking-wider">
+      <Badge size="large" className="font-bold tracking-wider uppercase">
         Bold Large
       </Badge>
     </div>

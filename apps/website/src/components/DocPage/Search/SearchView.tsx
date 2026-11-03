@@ -66,10 +66,10 @@ const SearchResultItem: FC<{
       isActive={isSelected}
       onClick={onClickLink}
     >
-      <div className="flex items-center justify-between gap-2 text-wrap p-3">
+      <div className="flex items-center justify-between gap-2 p-3 text-wrap">
         <div className="flex flex-1 flex-col gap-2 text-start">
           <strong className="text-base">{doc.title}</strong>
-          <p className="text-muted-foreground text-sm">{doc.description}</p>
+          <p className="text-sm text-muted-foreground">{doc.description}</p>
           <Breadcrumb links={breadcrumbLinks} className="text-xs opacity-30" />
         </div>
         <ArrowRight size={24} />
@@ -216,7 +216,7 @@ const SearchViewContent: FC<{
       </div>
       <div className="mt-8 flex flex-1 flex-col overflow-y-auto">
         {isNoResult && (
-          <p className="text-center text-muted-foreground text-sm">
+          <p className="text-center text-sm text-muted-foreground">
             {noContentText}
           </p>
         )}

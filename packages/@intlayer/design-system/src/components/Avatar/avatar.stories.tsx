@@ -254,15 +254,15 @@ export const SizeVariants: Story = {
     <div className="flex items-center gap-4">
       <div className="flex flex-col items-center gap-2">
         <Avatar size="sm" src={getAvatarImageUrl()} fullname="Small Avatar" />
-        <span className="text-gray-600 text-xs">Small</span>
+        <span className="text-xs text-gray-600">Small</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar size="md" src={getAvatarImageUrl()} fullname="Medium Avatar" />
-        <span className="text-gray-600 text-xs">Medium</span>
+        <span className="text-xs text-gray-600">Medium</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar size="lg" src={getAvatarImageUrl()} fullname="Large Avatar" />
-        <span className="text-gray-600 text-xs">Large</span>
+        <span className="text-xs text-gray-600">Large</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Avatar
@@ -270,7 +270,7 @@ export const SizeVariants: Story = {
           src={getAvatarImageUrl()}
           fullname="Extra Large Avatar"
         />
-        <span className="text-gray-600 text-xs">Extra Large</span>
+        <span className="text-xs text-gray-600">Extra Large</span>
       </div>
     </div>
   ),
@@ -423,7 +423,7 @@ export const ThemeVariations: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-8">
       <div className="rounded-lg bg-white p-6">
-        <h3 className="mb-4 font-semibold text-lg">Light Theme</h3>
+        <h3 className="mb-4 text-lg font-semibold">Light Theme</h3>
         <div className="flex gap-4">
           <Avatar src={getAvatarImageUrl()} fullname="Light Theme User" />
           <Avatar fullname="Light Initials" />
@@ -431,7 +431,7 @@ export const ThemeVariations: Story = {
         </div>
       </div>
       <div className="rounded-lg bg-gray-900 p-6">
-        <h3 className="mb-4 font-semibold text-lg text-white">Dark Theme</h3>
+        <h3 className="mb-4 text-lg font-semibold text-white">Dark Theme</h3>
         <div className="flex gap-4">
           <Avatar src={getAvatarImageUrl()} fullname="Dark Theme User" />
           <Avatar fullname="Dark Initials" />
@@ -439,7 +439,7 @@ export const ThemeVariations: Story = {
         </div>
       </div>
       <div className="rounded-lg bg-blue-50 p-6">
-        <h3 className="mb-4 font-semibold text-blue-900 text-lg">
+        <h3 className="mb-4 text-lg font-semibold text-blue-900">
           Colored Background
         </h3>
         <div className="flex gap-4">

@@ -16,8 +16,8 @@ import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { PencilRuler } from 'lucide-react';
 import type { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
+import { useState } from 'preact/hooks';
 import { useLastDefinedValue } from '../../../hooks/useLastDefinedValue';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
@@ -79,7 +79,7 @@ export const DictionaryEditionDrawer: FunctionComponent<
 
   if (!displayedDictionaryLocalId)
     return (
-      <span className="mx-auto my-10 text-neutral text-sm">
+      <span className="mx-auto my-10 text-sm text-neutral">
         {noDictionaryFocused}
       </span>
     );
@@ -90,7 +90,7 @@ export const DictionaryEditionDrawer: FunctionComponent<
 
   if (!dictionary)
     return (
-      <span className="mx-auto my-10 text-neutral text-sm">
+      <span className="mx-auto my-10 text-sm text-neutral">
         {focusedDictionaryNotFound}
       </span>
     );
@@ -123,14 +123,14 @@ export const DictionaryEditionDrawer: FunctionComponent<
                 onClick={() => setEditionModalOpen(true)}
               />
               <Popover.Detail identifier="open-dictionary-editor">
-                <span className="whitespace-nowrap p-2 text-neutral text-xs">
+                <span className="p-2 text-xs whitespace-nowrap text-neutral">
                   {openDictionaryEditor.popoverContent}
                 </span>
               </Popover.Detail>
             </Popover>
           </header>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dotted pb-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-b border-dotted border-text/20 pb-3">
             <Tag color="text" roundedSize="full" size="xs">
               {dictionary.key}
             </Tag>

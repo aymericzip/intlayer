@@ -4,8 +4,8 @@ import { formatNodeType, TRANSLATION } from '@intlayer/types/nodeType';
 
 export type TranslationContent<
   Content = unknown,
-  RecordContent extends
-    StrictModeLocaleMap<Content> = StrictModeLocaleMap<Content>,
+  RecordContent extends StrictModeLocaleMap<Content> =
+    StrictModeLocaleMap<Content>,
 > = TypedNodeModel<typeof TRANSLATION, RecordContent>;
 
 /**
@@ -30,8 +30,8 @@ export type TranslationContent<
  */
 const translation = <
   Content = unknown,
-  ContentRecord extends
-    StrictModeLocaleMap<Content> = StrictModeLocaleMap<Content>,
+  ContentRecord extends StrictModeLocaleMap<Content> =
+    StrictModeLocaleMap<Content>,
 >(
   content: ContentRecord
 ): TranslationContent<Content, ContentRecord> =>

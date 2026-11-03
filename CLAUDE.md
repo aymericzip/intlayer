@@ -59,9 +59,9 @@ Package manager: **Bun**.
 bun run build             # build all publishable packages + backend
 bun run turbo build --filter=./apps/app
 bun run turbo build --filter=./packages/react-intlayer
-bun run lint              # biome check
+bun run lint              # oxlint
 bun run lint:fix
-bun run check             # lint + format check
+bun run check             # oxlint + oxfmt --check
 bun run check:fix
 bun run typecheck         # tsc --noEmit (sequential)
 bun run test              # vitest (concurrency=2)
@@ -86,7 +86,8 @@ Format: `<type>(<scope>): <subject>` — enforced by commitlint + husky.
 
 ## Tooling
 
-- **Biome** — lint + format. `biome.json`: `indentStyle: space`, `indentWidth: 2`, `lineWidth: 80`.
+- **oxlint** — lint (`.oxlintrc.json`). Suppress with `// oxlint-disable-next-line <rule> -- <reason>`.
+- **oxfmt** — format (`.oxfmtrc.json`): 2-space indent, `printWidth: 80`, single quotes; sorts imports, Tailwind classes and `package.json`.
 - **tsdown** — build tool per package (`tsdown.config.ts`).
 - **Turborepo** — build graph; `^build` = build deps first.
 - New packages → add to `scripts/package-build-order.mjs`.

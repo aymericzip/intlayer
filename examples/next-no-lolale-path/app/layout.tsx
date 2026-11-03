@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
-import './globals.css';
 import { getHTMLTextDir, getIntlayer } from 'intlayer';
+import type { Metadata } from 'next';
+import './globals.css';
 import { getLocale, IntlayerProvider } from 'next-intlayer/server';
+import type { ReactNode } from 'react';
 
 export { generateStaticParams } from 'next-intlayer';
 

@@ -196,7 +196,7 @@ export const EmailRegistrationToast: FC = () => {
           toolDescription="Subscribe an email address to the Intlayer newsletter. The user reviews the form before it is sent."
           {...form}
         >
-          <span className="font-medium text-sm">{content.value}</span>
+          <span className="text-sm font-medium">{content.value}</span>
           {!isAuthenticated && (
             <FormInput
               name="email"

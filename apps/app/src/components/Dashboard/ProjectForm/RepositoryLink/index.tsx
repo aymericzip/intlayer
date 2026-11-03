@@ -23,8 +23,8 @@ import { ConfigPreviewModal } from './ConfigPreviewModal';
 import { ConfigSelectionModal } from './ConfigSelectionModal';
 import { useProjectConfigActions } from './hooks/useProjectConfigActions';
 import { useProviderLink } from './hooks/useProviderLink';
-import { ProviderSelector } from './ProviderSelector';
 import { PROVIDER_NAMES, ProviderLogo } from './providers';
+import { ProviderSelector } from './ProviderSelector';
 import { RepositoryList } from './RepositoryList';
 import type { ConfigPreviewState, DetectedRepository, RepoData } from './types';
 
@@ -105,7 +105,7 @@ export const RepositoryLink: FC<RepositoryLinkProps> = ({
                     provider={connectedRepository.provider}
                     className="size-4 [&_path]:fill-text/60!"
                   />
-                  <span className="text-neutral text-xs">
+                  <span className="text-xs text-neutral">
                     {PROVIDER_NAMES[connectedRepository.provider]}
                   </span>
                 </span>
@@ -184,7 +184,7 @@ export const RepositoryLink: FC<RepositoryLinkProps> = ({
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="gitlabInstanceUrl"
-                className="text-neutral text-sm"
+                className="text-sm text-neutral"
               >
                 {content.gitlab?.instanceUrl}{' '}
                 <span className="text-neutral/60">
@@ -221,7 +221,7 @@ export const RepositoryLink: FC<RepositoryLinkProps> = ({
                     provider: PROVIDER_NAMES[selectedProvider],
                   })}
                 </h5>
-                <p className="text-neutral text-sm">
+                <p className="text-sm text-neutral">
                   {content.connectDescription}
                 </p>
               </div>
@@ -257,7 +257,7 @@ export const RepositoryLink: FC<RepositoryLinkProps> = ({
                   <FolderSearch className="size-6 text-text" />
                 </div>
                 <div>
-                  <p className="text-neutral text-sm">
+                  <p className="text-sm text-neutral">
                     {content.selectRepository}
                   </p>
                 </div>

@@ -584,7 +584,7 @@ const TechLinkContent: FC<TechLinkContentProps> = ({
       transparency="md"
       padding="md"
       className={cn(
-        'group/tech-link rtl-mirror-icons flex h-full w-full min-w-60 flex-row items-center gap-4 transition-all duration-200 hover:border-neutral-focus hover:shadow-xs max-sm:min-w-full',
+        'group/tech-link hover:border-neutral-focus flex h-full w-full min-w-60 rtl-mirror-icons flex-row items-center gap-4 transition-all duration-200 hover:shadow-xs max-sm:min-w-full',
         className
       )}
     >
@@ -619,11 +619,11 @@ const TechLinkContent: FC<TechLinkContentProps> = ({
       )}
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
-        <span className="line-clamp-2 font-semibold text-foreground text-sm leading-snug transition-colors group-hover/tech-link:text-primary md:text-base">
+        <span className="line-clamp-2 text-sm leading-snug font-semibold text-foreground transition-colors group-hover/tech-link:text-primary md:text-base">
           {displayTitle}
         </span>
         {displayDescription && (
-          <span className="line-clamp-2 text-text/70 text-xs leading-relaxed md:text-sm">
+          <span className="line-clamp-2 text-xs leading-relaxed text-text/70 md:text-sm">
             {displayDescription}
           </span>
         )}

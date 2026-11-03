@@ -55,7 +55,7 @@ describe('isProxyStorageLocaleEnabled', () => {
 describe('formatProxyEnabledMessage', () => {
   /** Strips ANSI colour codes so the wording can be asserted directly. */
   const plain = (message: string): string =>
-    // biome-ignore lint/suspicious/noControlCharactersInRegex: ANSI escapes
+    // oxlint-disable-next-line no-control-regex -- ANSI escapes
     message.replace(/\[[0-9;]*m/g, '');
 
   it('names the suppression when the stored locale is barred', () => {

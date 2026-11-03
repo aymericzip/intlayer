@@ -8,7 +8,7 @@ Typed fetch client wrapping every Intlayer backend endpoint. Published as `@intl
 bun run dev          # tsdown --watch
 bun run build        # tsdown build
 bun run test         # vitest run
-bun run lint:fix     # biome lint --write
+bun run lint:fix     # oxlint --fix
 ```
 
 ## Structure

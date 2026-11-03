@@ -81,7 +81,7 @@ if (args[0] === 'start') {
     process.stdout.write(data);
 
     const editorServerPort = EDITOR_RUNNING_AT_PATTERN.exec(
-      // biome-ignore lint/suspicious/noControlCharactersInRegex: ANSI escapes
+      // oxlint-disable-next-line no-control-regex -- ANSI escapes
       data.toString().replace(/\u001b\[[0-9;]*m/g, '')
     )?.[1];
 

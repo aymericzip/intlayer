@@ -1,12 +1,12 @@
 import type { UserRoutes } from '@intlayer/backend-contract/user';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
+import * as userService from '@services/user.service';
 import {
   deleteUserAvatar,
   uploadUserAvatar,
   validateAvatarUpload,
 } from '@services/user/avatarUpload.service';
-import * as userService from '@services/user.service';
 import { getAuthSingleton } from '@utils/auth/getAuth';
 import type { ContractRequest } from '@utils/contract/registerContractRoutes';
 import { type AppError, ErrorHandler } from '@utils/errors';

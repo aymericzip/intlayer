@@ -79,7 +79,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         border
         borderColor="neutral"
       >
-        <p className="text-neutral text-sm">{cancelModal.message}</p>
+        <p className="text-sm text-neutral">{cancelModal.message}</p>
         <FormButton
           variant="outline"
           label={cancelModal.buttonLabel.value}

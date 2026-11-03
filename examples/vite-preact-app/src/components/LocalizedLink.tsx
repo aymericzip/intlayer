@@ -3,8 +3,7 @@ import type { JSX, Ref, TargetedMouseEvent } from 'preact';
 import { useLocale } from 'preact-intlayer';
 import { useLocation } from 'preact-iso';
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean;
 }

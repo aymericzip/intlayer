@@ -29,7 +29,7 @@ export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
     <div className="flex w-full flex-1 flex-col overflow-x-auto overflow-y-hidden">
       <Table className="w-full border-separate border-spacing-0 px-10">
         <thead>
-          <tr className="border-neutral-200 border-b dark:border-neutral-700">
+          <tr className="border-b border-neutral-200 dark:border-neutral-700">
             <th className="px-4 py-3">
               <Skeleton className="h-4 w-4" />
             </th>
@@ -64,8 +64,8 @@ export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
         </thead>
         <tbody>
           {[...Array(10)].map((_, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
-            <tr key={i} className="border-card border-b">
+            // oxlint-disable-next-line react/no-array-index-key -- Skeletons are static and don't change order
+            <tr key={i} className="border-b border-card">
               <td className="px-4 py-4">
                 <Skeleton className="h-4 w-4" />
               </td>

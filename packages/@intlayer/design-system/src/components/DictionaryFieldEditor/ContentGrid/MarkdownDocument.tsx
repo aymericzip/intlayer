@@ -132,7 +132,7 @@ export const MarkdownDocument: FC = () => {
                     data-active={cellKey === activeCellKey}
                     onClick={() => setSelectedCellKey(cellKey)}
                     title={content.completionStatus(isMissing).value}
-                    className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1 font-mono text-sm"
+                    className="flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 font-mono text-sm whitespace-nowrap"
                   >
                     <span
                       aria-hidden
@@ -174,12 +174,12 @@ export const MarkdownDocument: FC = () => {
       </div>
 
       <div className="flex w-full gap-6">
-        <aside className="sticky top-4 @4xl:flex hidden max-h-[70vh] w-52 shrink-0 flex-col gap-2 self-start overflow-y-auto">
-          <span className="font-semibold text-muted-foreground text-xs uppercase">
+        <aside className="sticky top-4 hidden max-h-[70vh] w-52 shrink-0 flex-col gap-2 self-start overflow-y-auto @4xl:flex">
+          <span className="text-xs font-semibold text-muted-foreground uppercase">
             {content.outline}
           </span>
           {outline.length === 0 ? (
-            <span className="text-muted-foreground text-xs">
+            <span className="text-xs text-muted-foreground">
               {content.noHeadings}
             </span>
           ) : (
@@ -201,7 +201,7 @@ export const MarkdownDocument: FC = () => {
               ))}
             </ul>
           )}
-          <span className="mt-2 text-muted-foreground text-xs">
+          <span className="mt-2 text-xs text-muted-foreground">
             {content.wordCount({ count: wordCount })}
           </span>
         </aside>
@@ -219,7 +219,7 @@ export const MarkdownDocument: FC = () => {
               roundedSize="2xl"
               className="flex flex-col gap-3 p-6 opacity-80"
             >
-              <span className="font-mono text-muted-foreground text-xs">
+              <span className="font-mono text-xs text-muted-foreground">
                 {content.sourceLabel({ locale: sourceLocale })}
               </span>
               <div dir="auto" className="text-base leading-relaxed">
@@ -258,7 +258,7 @@ export const MarkdownDocument: FC = () => {
                 <LazyMarkdownRenderer>{markdown}</LazyMarkdownRenderer>
               )}
             </Suspense>
-            <span className="@4xl:hidden text-muted-foreground text-xs">
+            <span className="text-xs text-muted-foreground @4xl:hidden">
               {content.wordCount({ count: wordCount })}
             </span>
           </div>
@@ -268,7 +268,7 @@ export const MarkdownDocument: FC = () => {
       {frontMatter && Object.keys(frontMatter).length > 0 && (
         <Accordion
           header={
-            <span className="text-muted-foreground text-sm">
+            <span className="text-sm text-muted-foreground">
               {content.frontMatter}
             </span>
           }

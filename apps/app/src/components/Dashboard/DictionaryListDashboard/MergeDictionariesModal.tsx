@@ -95,11 +95,11 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
         roundedSize="2xl"
       >
         <div className="flex flex-col gap-4">
-          <p className="text-neutral text-sm">
+          <p className="text-sm text-neutral">
             {mergeDictionariesModal.description}
           </p>
 
-          <div className="flex items-center gap-2 border-text/10 border-b pb-2">
+          <div className="flex items-center gap-2 border-b border-text/10 pb-2">
             <Checkbox
               name="select-all-pairs"
               checked={allSelected}
@@ -107,7 +107,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
               color="text"
               size="sm"
             />
-            <span className="font-medium text-sm">
+            <span className="text-sm font-medium">
               {mergeDictionariesModal.selectAll}
             </span>
           </div>
@@ -142,7 +142,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
                     />
 
                     <div className="flex min-w-0 flex-col gap-1">
-                      <span className="font-medium text-neutral text-xs uppercase tracking-wide">
+                      <span className="text-xs font-medium tracking-wide text-neutral uppercase">
                         {mergeDictionariesModal.sourceLabel(state.swapped)}
                       </span>
                       <Button
@@ -176,7 +176,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
                     />
 
                     <div className="flex min-w-0 flex-col gap-1">
-                      <span className="font-medium text-neutral text-xs uppercase tracking-wide">
+                      <span className="text-xs font-medium tracking-wide text-neutral uppercase">
                         {mergeDictionariesModal.targetLabel(state.swapped)}
                       </span>
                       <Button

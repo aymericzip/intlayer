@@ -157,7 +157,7 @@ export const LandingPage: FC = () => {
 
         <section aria-label={content.supportedLanguagesSection.value}>
           <InViewSection minHeight="250px">
-            <LanguageSection className="border-neutral border-b" />
+            <LanguageSection className="border-b border-neutral" />
           </InViewSection>
         </section>
 

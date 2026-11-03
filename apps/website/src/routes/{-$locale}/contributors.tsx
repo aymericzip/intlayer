@@ -67,10 +67,10 @@ function ContributorsPageContent({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen w-full flex-col items-center px-4 py-12 md:px-8 lg:px-16">
         <div className="mx-auto w-full max-w-7xl">
           <div className="relative mb-12 text-center">
-            <p className="mb-3 font-medium text-base text-neutral-400 sm:text-lg">
+            <p className="mb-3 text-base font-medium text-neutral-400 sm:text-lg">
               {subtitle}
             </p>
-            <h1 className="font-bold text-5xl text-neutral-900 sm:text-6xl md:text-7xl dark:text-neutral-100">
+            <h1 className="text-5xl font-bold text-neutral-900 sm:text-6xl md:text-7xl dark:text-neutral-100">
               {title}
             </h1>
           </div>

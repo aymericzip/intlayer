@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { useIntlayer } from 'lit-intlayer';
+import { customElement } from 'lit/decorators.js';
 
 @customElement('qualified-content-demo')
 export class QualifiedContentDemo extends LitElement {
@@ -60,7 +60,9 @@ export class QualifiedContentDemo extends LitElement {
   override render() {
     return html`
       <div class="card">
-        <h2 class="heading">Collections · Variants · Object Variants · Composite</h2>
+        <h2 class="heading">
+          Collections · Variants · Object Variants · Composite
+        </h2>
 
         <section>
           <div class="subHeading">Collection — useIntlayer('faq')</div>
@@ -73,7 +75,9 @@ export class QualifiedContentDemo extends LitElement {
             `
           )}
 
-          <div class="subHeading">Single item — useIntlayer('faq', { item: 2 })</div>
+          <div class="subHeading">
+            Single item — useIntlayer('faq', { item: 2 })
+          </div>
           <div class="question">${this.secondQuestion?.question.value}</div>
           <div class="answer">${this.secondQuestion?.answer.value}</div>
         </section>
@@ -83,17 +87,23 @@ export class QualifiedContentDemo extends LitElement {
           <div class="question">${this.defaultHero?.headline.value}</div>
           <div class="answer">${this.defaultHero?.subheadline.value}</div>
 
-          <div class="subHeading">Variant — useIntlayer('hero', { variant: 'promo' })</div>
+          <div class="subHeading">
+            Variant — useIntlayer('hero', { variant: 'promo' })
+          </div>
           <div class="question">${this.promoHero?.headline.value}</div>
           <div class="answer">${this.promoHero?.subheadline.value}</div>
         </section>
 
         <section>
-          <div class="subHeading">Object variant — useIntlayer('product', { variant: {…} })</div>
+          <div class="subHeading">
+            Object variant — useIntlayer('product', { variant: {…} })
+          </div>
           ${[this.appleWatch, this.airpods].map(
             (entry) => html`
               <div>
-                <div class="question">${entry?.name.value} — ${entry?.price.value}</div>
+                <div class="question">
+                  ${entry?.name.value} — ${entry?.price.value}
+                </div>
                 <div class="answer">${entry?.description.value}</div>
               </div>
             `
@@ -101,22 +111,35 @@ export class QualifiedContentDemo extends LitElement {
         </section>
 
         <section>
-          <div class="subHeading">Composite (default plans) — useIntlayer('pricing')</div>
+          <div class="subHeading">
+            Composite (default plans) — useIntlayer('pricing')
+          </div>
           ${this.defaultPlans.map(
             (entry) => html`
-              <div class="question">${entry.plan.value} — ${entry.price.value}</div>
+              <div class="question">
+                ${entry.plan.value} — ${entry.price.value}
+              </div>
             `
           )}
 
-          <div class="subHeading">Composite — useIntlayer('pricing', { variant: 'promo' })</div>
+          <div class="subHeading">
+            Composite — useIntlayer('pricing', { variant: 'promo' })
+          </div>
           ${this.promoPlans.map(
             (entry) => html`
-              <div class="question">${entry.plan.value} — ${entry.price.value}</div>
+              <div class="question">
+                ${entry.plan.value} — ${entry.price.value}
+              </div>
             `
           )}
 
-          <div class="subHeading">Composite (single) — useIntlayer('pricing', { variant: 'promo', item: 2 })</div>
-          <div class="question">${this.promoPro?.plan.value} — ${this.promoPro?.price.value}</div>
+          <div class="subHeading">
+            Composite (single) — useIntlayer('pricing', { variant: 'promo',
+            item: 2 })
+          </div>
+          <div class="question">
+            ${this.promoPro?.plan.value} — ${this.promoPro?.price.value}
+          </div>
         </section>
       </div>
     `;

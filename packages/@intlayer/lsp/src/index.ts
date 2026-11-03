@@ -11,6 +11,7 @@ import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { buildComponentFilesList } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   type CompletionItem,
   CompletionItemKind,
@@ -31,7 +32,6 @@ import {
   TextDocumentSyncKind,
   TextDocuments,
 } from 'vscode-languageserver/node';
-import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   buildCallerWithKeyPattern,
   buildKeyUsagePatterns,

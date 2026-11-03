@@ -67,7 +67,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
 
   return (
     <div className="flex max-h-125 flex-col">
-      <div className="border-card border-b p-4">
+      <div className="border-b border-card p-4">
         <SearchInput
           placeholder={repositoryList.searchPlaceholder.value}
           defaultValue={search}
@@ -79,11 +79,11 @@ export const RepositoryList: FC<RepositoryListProps> = ({
       <div ref={parentRef} className="flex flex-1 flex-col overflow-y-auto">
         {isLoadingRepos ? (
           <div className="py-8 text-center">
-            <p className="text-neutral text-sm">{repositoryList.loading}</p>
+            <p className="text-sm text-neutral">{repositoryList.loading}</p>
           </div>
         ) : filteredRepos.length === 0 ? (
           <div className="py-8 text-center">
-            <p className="text-neutral text-sm">{repositoryList.empty}</p>
+            <p className="text-sm text-neutral">{repositoryList.empty}</p>
           </div>
         ) : (
           /* The Virtualized List Wrapper */

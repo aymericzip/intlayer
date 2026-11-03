@@ -37,7 +37,7 @@ export const AdminReviewersPage: FC = () => {
   return (
     <div className="flex flex-col gap-6 p-8">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="font-bold text-2xl">Reviewers</h1>
+        <h1 className="text-2xl font-bold">Reviewers</h1>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <Select.Trigger className="w-40">
             <Select.Value placeholder="All statuses" />
@@ -51,9 +51,9 @@ export const AdminReviewersPage: FC = () => {
         </Select>
       </div>
 
-      <p className="text-neutral text-sm">{total} reviewer(s)</p>
+      <p className="text-sm text-neutral">{total} reviewer(s)</p>
 
-      {isFetching && <p className="text-neutral text-sm">Loading…</p>}
+      {isFetching && <p className="text-sm text-neutral">Loading…</p>}
 
       <div className="flex flex-col gap-3">
         {reviewers.map((t: any) => (
@@ -72,12 +72,12 @@ export const AdminReviewersPage: FC = () => {
                 >
                   {t.status}
                 </Badge>
-                <span className="font-medium text-sm">
+                <span className="text-sm font-medium">
                   ${(t.pricePerHour / 100).toFixed(0)}/hr
                 </span>
               </div>
               {t.bio && (
-                <p className="line-clamp-2 text-neutral text-xs">{t.bio}</p>
+                <p className="line-clamp-2 text-xs text-neutral">{t.bio}</p>
               )}
               {t.languagePairs.length > 0 && (
                 <div className="flex flex-wrap gap-1 pt-1">
@@ -135,7 +135,7 @@ export const AdminReviewersPage: FC = () => {
           >
             Previous
           </Button>
-          <span className="text-neutral text-sm">
+          <span className="text-sm text-neutral">
             {page} / {totalPages}
           </span>
           <Button

@@ -93,7 +93,7 @@ export const localeStorageOptions: LocaleStorageClientOptions = {
       sameSite: attributes.sameSite,
     }),
   setCookieString: (_name, cookie) => {
-    // biome-ignore lint/suspicious/noDocumentCookie: set cookie fallback
+    // oxlint-disable-next-line unicorn/no-document-cookie -- set cookie fallback
     document.cookie = cookie;
   },
   setSessionStorage: (name, value) => sessionStorage.setItem(name, value),

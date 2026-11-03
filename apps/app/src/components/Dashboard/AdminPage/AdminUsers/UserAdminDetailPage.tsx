@@ -97,7 +97,7 @@ const ProjectAccessModal: FC<ProjectAccessModalProps> = ({
       <div className="flex flex-col gap-6">
         {/* Environment access */}
         <div className="flex flex-col gap-3">
-          <Label className="font-semibold text-sm">
+          <Label className="text-sm font-semibold">
             {content.environmentAccess}
           </Label>
           <Radio
@@ -143,7 +143,7 @@ const ProjectAccessModal: FC<ProjectAccessModalProps> = ({
 
         {/* Locale access */}
         <div className="flex flex-col gap-3">
-          <Label className="font-semibold text-sm">
+          <Label className="text-sm font-semibold">
             {content.localeAccess}
           </Label>
           <Radio
@@ -232,8 +232,8 @@ const ProjectAccessSection: FC<{ userId: string }> = ({ userId }) => {
   if (isLoadingProjects) {
     return (
       <div className="flex w-full flex-col gap-4">
-        <span className="font-bold text-lg">{content.projectAccess}</span>
-        <span className="text-neutral text-sm">{content.loadingProjects}</span>
+        <span className="text-lg font-bold">{content.projectAccess}</span>
+        <span className="text-sm text-neutral">{content.loadingProjects}</span>
       </div>
     );
   }
@@ -241,8 +241,8 @@ const ProjectAccessSection: FC<{ userId: string }> = ({ userId }) => {
   if (projects.length === 0) {
     return (
       <div className="flex w-full flex-col gap-4">
-        <span className="font-bold text-lg">{content.projectAccess}</span>
-        <span className="text-neutral text-sm">
+        <span className="text-lg font-bold">{content.projectAccess}</span>
+        <span className="text-sm text-neutral">
           {content.noProjectMembership}
         </span>
       </div>
@@ -251,7 +251,7 @@ const ProjectAccessSection: FC<{ userId: string }> = ({ userId }) => {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <span className="font-bold text-lg">{content.projectAccess}</span>
+      <span className="text-lg font-bold">{content.projectAccess}</span>
       {projects.map((project) => {
         const projectIdStr = String(project.id);
         const accessEntry = project.memberAccess?.find(
@@ -280,7 +280,7 @@ const ProjectAccessSection: FC<{ userId: string }> = ({ userId }) => {
               />
             )}
             <div className="flex flex-col gap-1.5">
-              <span className="font-medium text-sm">{project.name}</span>
+              <span className="text-sm font-medium">{project.name}</span>
               <div className="flex flex-wrap gap-1.5">
                 <Badge variant="outline" color="neutral" size="sm">
                   {role}

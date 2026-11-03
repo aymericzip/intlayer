@@ -9,8 +9,8 @@ import {
   type LocalesValues,
 } from 'intlayer';
 import type { FC } from 'react';
-import { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 import type { AuthenticationBarrierProps as AuthenticationBarrierPropsBoth } from './accessValidation';
+import { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 
 type AuthenticationBarrierProps = Omit<
   AuthenticationBarrierPropsBoth,

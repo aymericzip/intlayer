@@ -75,7 +75,7 @@ function AskResetPasswordPage() {
           borderColor="neutral"
         >
           <div className="flex flex-col gap-3 text-center">
-            <h2 className="font-extrabold text-2xl">{title2}</h2>
+            <h2 className="text-2xl font-extrabold">{title2}</h2>
             <span className="text-md text-neutral">{description}</span>
           </div>
           <AskResetPasswordForm />

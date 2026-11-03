@@ -194,7 +194,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
                   </div>
                   <div>
                     <p className="font-medium">{item.title}</p>
-                    <p className="text-muted-foreground text-xs">
+                    <p className="text-xs text-muted-foreground">
                       {item.description}
                     </p>
                   </div>

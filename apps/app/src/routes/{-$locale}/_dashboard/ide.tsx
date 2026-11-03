@@ -114,7 +114,7 @@ function IDEPage() {
     );
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: resend only when the token changes
+  // oxlint-disable-next-line react/exhaustive-deps -- resend only when the token changes
   useEffect(() => {
     sendTokenToIDE();
   }, [token]);

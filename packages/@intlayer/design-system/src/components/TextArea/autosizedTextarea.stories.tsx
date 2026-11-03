@@ -137,7 +137,7 @@ export const Default: Story = {
           className="w-full"
         />
 
-        <div className="text-gray-600 text-sm">
+        <div className="text-sm text-gray-600">
           Start typing to see the textarea grow automatically. It will shrink
           back when you delete content.
         </div>
@@ -180,7 +180,7 @@ export const RowLimits: Story = {
         <div>
           <label
             htmlFor="autosizedTextarea-3-row-limit"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             3 Row Limit
           </label>
@@ -192,7 +192,7 @@ export const RowLimits: Story = {
             defaultValue="Line 1\nLine 2\nLine 3\nLine 4 (this will cause scrolling)"
             className="w-full"
           />
-          <div className="mt-1 text-gray-500 text-xs">
+          <div className="mt-1 text-xs text-gray-500">
             Scrolls after 3 lines
           </div>
         </div>
@@ -200,7 +200,7 @@ export const RowLimits: Story = {
         <div>
           <label
             htmlFor="autosizedTextarea-8-row-limit"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             8 Row Limit
           </label>
@@ -212,14 +212,14 @@ export const RowLimits: Story = {
             defaultValue="This textarea has more room to grow.\n\nYou can add several lines before it starts scrolling.\n\nTry adding more content to see the scrolling behavior."
             className="w-full"
           />
-          <div className="mt-1 text-gray-500 text-xs">
+          <div className="mt-1 text-xs text-gray-500">
             More generous height allowance
           </div>
         </div>
       </div>
 
       <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-        <div className="mb-2 font-medium text-sm text-yellow-800">
+        <div className="mb-2 text-sm font-medium text-yellow-800">
           💡 Row Limit Tips
         </div>
         <ul className="space-y-1 text-sm text-yellow-700">
@@ -338,7 +338,7 @@ export const ChatInterface: Story = {
         </div>
 
         {/* Input Area */}
-        <div className="border-gray-200 border-t bg-white p-4">
+        <div className="border-t border-gray-200 bg-white p-4">
           <div className="flex items-end gap-2">
             <div className="flex-1">
               <AutoSizedTextArea
@@ -366,7 +366,7 @@ export const ChatInterface: Story = {
             </button>
           </div>
 
-          <div className="mt-1 text-gray-500 text-xs">
+          <div className="mt-1 text-xs text-gray-500">
             Press Enter to send, Shift+Enter for new line
           </div>
         </div>
@@ -434,13 +434,13 @@ export const NoteTaking: Story = {
         <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4">
           <div className="flex items-center gap-4">
             <h3 className="font-semibold text-gray-900">Note Editor</h3>
-            <div className="text-gray-500 text-sm">
+            <div className="text-sm text-gray-500">
               {wordCount} words • {charCount} characters
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="text-gray-500 text-sm">
+            <div className="text-sm text-gray-500">
               {saveStatus === 'saved' && lastSaved && (
                 <>Saved {lastSaved.toLocaleTimeString()}</>
               )}
@@ -470,7 +470,7 @@ export const NoteTaking: Story = {
             placeholder="Start writing your notes..."
             autoSize={true}
             maxRows={25}
-            className="min-h-75 w-full resize-none border-0 font-mono text-sm leading-relaxed focus:outline-none focus:ring-0"
+            className="min-h-75 w-full resize-none border-0 font-mono text-sm leading-relaxed focus:ring-0 focus:outline-none"
             variant="invisible"
           />
         </div>
@@ -515,7 +515,7 @@ export const DisabledAutoSizing: Story = {
         <div>
           <label
             htmlFor="autosizedTextarea-auto-sizing-enabled"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             Auto-sizing Enabled
           </label>
@@ -526,7 +526,7 @@ export const DisabledAutoSizing: Story = {
             maxRows={5}
             className="w-full"
           />
-          <div className="mt-1 text-gray-500 text-xs">
+          <div className="mt-1 text-xs text-gray-500">
             Height adjusts automatically
           </div>
         </div>
@@ -534,7 +534,7 @@ export const DisabledAutoSizing: Story = {
         <div>
           <label
             htmlFor="autosizedTextarea-auto-sizing-disabled"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             Auto-sizing Disabled
           </label>
@@ -545,17 +545,17 @@ export const DisabledAutoSizing: Story = {
             rows={4}
             className="w-full"
           />
-          <div className="mt-1 text-gray-500 text-xs">
+          <div className="mt-1 text-xs text-gray-500">
             Fixed height, user can resize manually
           </div>
         </div>
       </div>
 
       <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-        <div className="mb-2 font-medium text-blue-900 text-sm">
+        <div className="mb-2 text-sm font-medium text-blue-900">
           When to Disable Auto-sizing
         </div>
-        <ul className="space-y-1 text-blue-800 text-sm">
+        <ul className="space-y-1 text-sm text-blue-800">
           <li>• When you need consistent layout heights</li>
           <li>• For forms with strict spacing requirements</li>
           <li>• When users need manual resize control</li>

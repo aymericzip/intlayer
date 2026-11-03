@@ -4,20 +4,16 @@
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
-    "intlayer",
+    "CMS",
     "application",
     "editor",
-    "CMS",
-    "typescript",
-    "javascript"
+    "intlayer",
+    "javascript",
+    "typescript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -31,27 +27,9 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": [
-    "*.css"
-  ],
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./server/dist/export.d.ts",
-      "import": "./server/dist/export.mjs",
-      "require": "./server/dist/export.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "./server/dist/export.cjs",
-  "module": "./server/dist/export.mjs",
-  "types": "./server/dist/export.d.ts",
-  "typesVersions": {
-    "*": {
-      "package.json": [
-        "./package.json"
-      ]
-    }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "bin": {
     "intlayer-editor": "./bin/intlayer-editor.mjs"
@@ -62,6 +40,28 @@
     "./bin",
     "./package.json"
   ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./server/dist/export.cjs",
+  "module": "./server/dist/export.mjs",
+  "types": "./server/dist/export.d.ts",
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./server/dist/export.d.ts",
+      "import": "./server/dist/export.mjs",
+      "require": "./server/dist/export.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "bun build:client && bun build:server",
     "build:ci": "bun build:client:ci && bun build:server:ci",
@@ -71,10 +71,10 @@
     "build:server:ci": "bun --bun tsdown --config ./server/tsdown.config.ts --tsconfig ./server/tsconfig.json",
     "dev:client": "bun --bun vite dev --config ./client/vite.config.ts",
     "dev:server": "bun --watch  --hot ./server/src/index.ts",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "preview": "bun --bun vite preview --config ./client/vite.config.ts",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",

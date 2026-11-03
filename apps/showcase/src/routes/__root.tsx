@@ -23,8 +23,8 @@ import {
   SITE_TITLE,
   SITE_URL,
 } from '#/lib/site';
-import appCss from '#/styles.css?url';
 import { getRootStructuredDataScripts } from '#/utils/structuredData';
+import appCss from '#/styles.css?url';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -121,7 +121,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <HeadContent />
       </head>
-      <body className="bg-background text-text relative flex min-h-screen flex-col overflow-x-clip scroll-smooth leading-8 transition md:flex">
+      <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background leading-8 text-text transition md:flex">
         <IntlayerProvider locale={locale}>
           <Toaster />
           <ThemeProvider>

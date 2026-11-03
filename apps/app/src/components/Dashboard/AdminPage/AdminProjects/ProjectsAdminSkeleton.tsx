@@ -47,8 +47,8 @@ export const ProjectsAdminSkeleton: FC<ProjectsAdminSkeletonProps> = ({
           </thead>
           <tbody>
             {[...Array(10)].map((_, i) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
-              <tr key={i} className="border-card border-b">
+              // oxlint-disable-next-line react/no-array-index-key -- Skeletons are static and don't change order
+              <tr key={i} className="border-b border-card">
                 {/* selection */}
                 <td className="px-4 py-4">
                   <Skeleton className="h-4 w-4" />

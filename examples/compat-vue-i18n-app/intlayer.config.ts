@@ -3,7 +3,6 @@ import { syncJSON } from '@intlayer/sync-json-plugin';
  * Intlayer configuration file documentation
  * @see https://intlayer.org/doc/concept/configuration
  */
-
 import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {

@@ -1,10 +1,10 @@
 import { createApp, h } from 'vue';
 import { intlayer } from 'vue-intlayer';
-import App from './App.vue';
-import { router } from './routes';
-import './style.css';
 import { intlayerHTML } from 'vue-intlayer/html';
 import { intlayerMarkdown } from 'vue-intlayer/markdown';
+import './style.css';
+import App from './App.vue';
+import { router } from './routes';
 
 const app = createApp(App);
 

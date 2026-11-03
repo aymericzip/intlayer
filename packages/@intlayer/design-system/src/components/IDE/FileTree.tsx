@@ -61,7 +61,7 @@ const FileItem: FC<FileItemProps> = ({
     <>
       <button
         className={cn(
-          'flex w-full items-start justify-start whitespace-pre text-nowrap px-2 py-1 text-xs transition',
+          'flex w-full items-start justify-start px-2 py-1 text-xs text-nowrap whitespace-pre transition',
           isActive
             ? 'bg-neutral-200 dark:bg-neutral-800'
             : 'cursor-pointer hover:bg-neutral-300 dark:hover:bg-neutral-900'

@@ -152,7 +152,7 @@ export const TagList: FC = () => {
       header: tableHeaders.description.value,
       cell: ({ row }) =>
         row.original.description ? (
-          <div className="text-neutral line-clamp-2 max-w-xs">
+          <div className="line-clamp-2 max-w-xs text-neutral">
             {row.original.description}
           </div>
         ) : (
@@ -207,7 +207,7 @@ export const TagList: FC = () => {
   });
 
   return (
-    <div className="text-text/80 flex size-full flex-1 flex-col gap-6 py-4 text-sm">
+    <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
       <div className="flex items-center justify-between gap-4 px-10">
         <SearchInput
           placeholder={searchPlaceholder.value}

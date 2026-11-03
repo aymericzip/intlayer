@@ -10,8 +10,8 @@ import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { getBlogSection } from '~/components/BlogPage/blogData';
+import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { RelatedPosts } from '~/components/BlogPage/RelatedPosts';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { loadBlogNavData } from '~/serverFunctions/blog';
@@ -94,7 +94,7 @@ function BlogIndexPage() {
         </Suspense>
       }
     >
-      <H1 className="mt-10 font-bold text-4xl">{title}</H1>
+      <H1 className="mt-10 text-4xl font-bold">{title}</H1>
       <div className="flex flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">
         <Container
           border

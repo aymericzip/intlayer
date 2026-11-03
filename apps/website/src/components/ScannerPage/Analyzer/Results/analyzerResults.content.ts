@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/style/useSingleVarDeclarator: ok */
+/* oxlint-disable one-var -- ok */
 import { type Dictionary, enu, md, t } from 'intlayer';
 
 const analyzerResultsContent = {

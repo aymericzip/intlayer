@@ -1,8 +1,8 @@
 /** @jsxImportSource preact */
 
 import { getLocaleName, getLocalizedUrl, type LocalesValues } from 'intlayer';
-import { useState } from 'preact/hooks';
 import { IntlayerProvider, useIntlayer, useLocale } from 'preact-intlayer';
+import { useState } from 'preact/hooks';
 
 function LocaleSwitcher() {
   const { switchLocale } = useIntlayer('preact-demo');

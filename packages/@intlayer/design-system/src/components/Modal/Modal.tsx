@@ -234,7 +234,7 @@ export const Modal: FC<ModalProps> = ({
           )}
         >
           {hasTitle && (
-            <H3 className="ms-1 mb-2 flex items-center justify-center font-bold text-lg">
+            <H3 className="ms-1 mb-2 flex items-center justify-center text-lg font-bold">
               {title}
             </H3>
           )}
@@ -260,7 +260,7 @@ export const Modal: FC<ModalProps> = ({
             'flex min-h-0 w-full flex-1 flex-col',
             // Scrollbars will now appear at the very edge of this div (the modal edge)
             isScrollable === true && 'overflow-auto',
-            isScrollable === 'y' && 'overflow-y-auto overflow-x-hidden',
+            isScrollable === 'y' && 'overflow-x-hidden overflow-y-auto',
             isScrollable === 'x' && 'overflow-x-auto overflow-y-hidden',
             !isScrollable && 'overflow-visible'
           )}

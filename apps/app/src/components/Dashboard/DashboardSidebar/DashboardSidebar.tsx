@@ -438,7 +438,7 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
                     ? undefined
                     : { duration: 0.2, ease: 'easeInOut' }
                 }
-                className="overflow-hidden truncate whitespace-nowrap"
+                className="truncate overflow-hidden whitespace-nowrap"
               >
                 {item.title}
               </m.span>
@@ -691,7 +691,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         {/* Environment switcher — shown when project has >1 environments */}
         {environments.length > 1 &&
           (isCollapsed ? (
-            <div className="my-4 flex w-full justify-center border-text/10 border-b border-dotted pb-4">
+            <div className="my-4 flex w-full justify-center border-b border-dotted border-text/10 pb-4">
               <DropDown identifier="environment-sidebar-collapsed">
                 <DropDown.Trigger
                   identifier="environment-sidebar-collapsed"
@@ -760,7 +760,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               </DropDown>
             </div>
           ) : (
-            <div className="my-4 flex w-full flex-col border-text/10 border-b border-dotted px-2 pb-4">
+            <div className="my-4 flex w-full flex-col border-b border-dotted border-text/10 px-2 pb-4">
               <DropDown
                 identifier="environment-sidebar-expanded"
                 className="w-full min-w-0"
@@ -774,7 +774,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                 >
                   <div className="flex w-full items-center gap-3 px-2 py-1">
                     <Layers className="size-4 shrink-0 text-neutral" />
-                    <span className="flex-1 truncate text-start font-medium text-sm text-text">
+                    <span className="flex-1 truncate text-start text-sm font-medium text-text">
                       {currentEnv?.name}
                     </span>
                     {currentEnv?.isDefault && (

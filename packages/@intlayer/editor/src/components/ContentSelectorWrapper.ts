@@ -1,5 +1,4 @@
 import { isSameKeyPath } from '@intlayer/core/utils';
-
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { TypedNodeModel } from '@intlayer/types/nodeType';

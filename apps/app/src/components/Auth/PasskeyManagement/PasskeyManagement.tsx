@@ -58,8 +58,8 @@ export const PasskeyManagement: FC<PasskeyManagementProps> = ({
       {passkeys.length === 0 ? (
         <Container className="p-6">
           <div className="space-y-2">
-            <h3 className="font-semibold text-lg">{noPasskeysTitle}</h3>
-            <p className="text-neutral-600 text-sm dark:text-neutral-400">
+            <h3 className="text-lg font-semibold">{noPasskeysTitle}</h3>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {noPasskeysDescription}
             </p>
           </div>

@@ -9,8 +9,9 @@
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aymericzip"
   },
-  "sideEffects": false,
   "type": "module",
+  "sideEffects": false,
+  "main": "out/main/index.js",
   "imports": {
     "#/*": "./src/*",
     "#components/*": "./src/components/*",
@@ -20,14 +21,13 @@
     "#assets/*": "./src/assets/*",
     "#structuredData/*": "./src/structuredData/*"
   },
-  "main": "out/main/index.js",
   "scripts": {
     "build": "bun --bun vite build",
     "postbuild": "bun scripts/compress-static.ts",
-    "check": "bun --bun biome check",
+    "check": "oxlint . && oxfmt --check .",
     "dev": "bun --bun vite dev --port 3000",
-    "format": "bun --bun biome format",
-    "lint": "bun --bun biome lint",
+    "format": "oxfmt --check .",
+    "lint": "oxlint .",
     "preview": "bun --bun vite preview",
     "publish": "bash scripts/electron-publish.sh",
     "start": "bun run .output/server/index.mjs",
@@ -37,7 +37,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.7.15",
+    "@better-auth/sso": "1.7.16",
     "@electron-toolkit/utils": "4.0.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -66,7 +66,7 @@
     "@tanstack/react-router-ssr-query": "1.167.3",
     "@tanstack/react-start": "1.169.4",
     "@tanstack/react-table": "9.3.1",
-    "@tanstack/react-virtual": "3.14.25",
+    "@tanstack/react-virtual": "3.14.26",
     "@tanstack/redact": "0.3.0",
     "@tanstack/router-plugin": "1.168.48",
     "@tanstack/start-static-server-functions": "1.167.44",

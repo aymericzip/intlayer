@@ -300,7 +300,7 @@ export const ColorThemes: Story = {
         .filter((color) => color !== 'custom')
         .map((color) => (
           <div key={color} className="space-y-2">
-            <h4 className="font-medium text-sm capitalize">
+            <h4 className="text-sm font-medium capitalize">
               {color.replace('_', ' ')}
             </h4>
             <div className="flex gap-3">
@@ -531,7 +531,7 @@ export const CallToAction: Story = {
   render: () => (
     <div className="max-w-md space-y-6 rounded-lg bg-gray-50 p-6">
       <div className="space-y-4 text-center">
-        <h3 className="font-semibold text-xl">Ready to Get Started?</h3>
+        <h3 className="text-xl font-semibold">Ready to Get Started?</h3>
         <p className="text-gray-600">
           Join thousands of users who trust our platform for their projects.
         </p>
@@ -725,7 +725,7 @@ export const FooterLinks: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         Use Tab to navigate between links, Enter to activate them.
       </div>
       <div className="space-y-3">
@@ -796,7 +796,7 @@ export const KeyboardNavigation: Story = {
 export const ScreenReaderSupport: Story = {
   render: () => (
     <div className="space-y-6">
-      <div className="mb-4 text-gray-700 text-sm">
+      <div className="mb-4 text-sm text-gray-700">
         Screen readers will announce link purposes, external link warnings, and
         current page status appropriately.
       </div>

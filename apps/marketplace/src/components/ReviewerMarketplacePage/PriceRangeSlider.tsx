@@ -147,7 +147,7 @@ export const PriceRangeSlider: FC<PriceRangeSliderProps> = ({
       </div>
 
       {/* Labels */}
-      <div className="flex justify-between text-neutral text-xs">
+      <div className="flex justify-between text-xs text-neutral">
         <span id={minLabelId}>{toDisplay(currentMin)}</span>
         <span id={maxLabelId}>{toDisplay(currentMax)}</span>
       </div>

@@ -288,9 +288,8 @@ export default content;
 }
 `;
 
-      expect(
-        await formatContentFile(jsonSource, 'app.content.json', 'json')
-      ).toBe(`{
+      expect(await formatContentFile(jsonSource, 'app.content.json', 'json'))
+        .toBe(`{
   "key": "app",
   "content": {
     "a": "z",
@@ -335,9 +334,8 @@ export default content;
 `;
 
     it('collapses t() whose locales share one string, in .content files', async () => {
-      expect(
-        await formatFile(source, 'demo.content.ts', 'typescript')
-      ).toBe(`export default {
+      expect(await formatFile(source, 'demo.content.ts', 'typescript'))
+        .toBe(`export default {
   key: 'demo',
   content: {
     nextjs: 'Next.js',

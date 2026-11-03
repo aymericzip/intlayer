@@ -212,7 +212,7 @@ export const Code: FC<CodeCompProps> = ({
     >
       <Container
         className={cn(
-          'relative min-w-0 max-w-full text-sm leading-6',
+          'relative max-w-full min-w-0 text-sm leading-6',
           showLineNumbers && 'with-line-number ms-0',
           className
         )}
@@ -223,7 +223,7 @@ export const Code: FC<CodeCompProps> = ({
       >
         {showHeader && (
           <>
-            <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl border-b bg-card/50 py-1.5 ps-4 pe-12 text-muted-foreground text-xs">
+            <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl border-b bg-card/50 py-1.5 ps-4 pe-12 text-xs text-muted-foreground">
               <span className="truncate">{displayedFileName ?? language}</span>
               <div className="flex items-center gap-2">
                 {packageManager && <PackageManagerSelector />}
@@ -250,7 +250,7 @@ export const Code: FC<CodeCompProps> = ({
         <ExpandCollapse
           minHeight={MIN_HEIGHT}
           isRollable={isRollable}
-          className="min-w-0 max-w-full overflow-x-auto p-2"
+          className="max-w-full min-w-0 overflow-x-auto p-2"
         >
           {isMultiFormat ? (
             /*

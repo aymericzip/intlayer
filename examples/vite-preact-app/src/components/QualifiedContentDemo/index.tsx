@@ -1,6 +1,6 @@
 import type { CSSProperties, FunctionComponent } from 'preact';
-import { Suspense } from 'preact/compat';
 import { useIntlayer } from 'preact-intlayer';
+import { Suspense } from 'preact/compat';
 
 const card: CSSProperties = {
   padding: '20px',

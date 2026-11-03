@@ -34,7 +34,7 @@ import type { ShikiThemeId } from './shikiThemes';
 
 /** Theme registrations, as default-exported by the `shiki/themes/*` modules. */
 export type ThemeRegistration =
-  typeof import('shiki/themes/github-dark.mjs')['default'];
+  (typeof import('shiki/themes/github-dark.mjs'))['default'];
 
 /** Loads a single Shiki theme. */
 export type ThemeLoader = () => Promise<{ default: ThemeRegistration }>;

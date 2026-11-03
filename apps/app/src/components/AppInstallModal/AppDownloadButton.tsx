@@ -105,8 +105,8 @@ export const AppDownloadButton = () => {
           <div className="flex items-center gap-2">
             <Logo className="size-12 p-2" />
             <div className="flex flex-col gap-2">
-              <p className="font-semibold text-sm">{title}</p>
-              <p className="text-neutral-500 text-xs dark:text-neutral-400">
+              <p className="text-sm font-semibold">{title}</p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400">
                 {description}
               </p>
             </div>
@@ -138,8 +138,8 @@ export const AppDownloadButton = () => {
             )}
           </div>
 
-          <div className="flex flex-col gap-1.5 border-neutral-200 border-t pt-4 dark:border-neutral-800">
-            <p className="flex items-center gap-1.5 font-semibold text-sm">
+          <div className="flex flex-col gap-1.5 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+            <p className="flex items-center gap-1.5 text-sm font-semibold">
               <Container className="size-4" />
               {selfHost}
             </p>

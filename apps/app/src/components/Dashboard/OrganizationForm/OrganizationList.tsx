@@ -142,7 +142,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
               borderColor="neutral"
             >
               {search ? (
-                <span className="m-auto text-neutral text-sm">
+                <span className="m-auto text-sm text-neutral">
                   {noOrganizationFound}
                 </span>
               ) : (

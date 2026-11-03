@@ -26,8 +26,8 @@ export const CreatePromoCodeModal: FC<CreatePromoCodeModalProps> = ({
     >
       <div className="space-y-4">
         <div className="space-y-2">
-          <h2 className="font-semibold text-xl">{content.modalTitle.value}</h2>
-          <p className="text-neutral-600 text-sm dark:text-neutral-400">
+          <h2 className="text-xl font-semibold">{content.modalTitle.value}</h2>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
             {content.modalDesc.value}
           </p>
         </div>

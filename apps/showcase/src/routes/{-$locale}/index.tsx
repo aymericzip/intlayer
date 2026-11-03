@@ -191,7 +191,7 @@ function App() {
               />
             ))
           ) : (
-            <div className="col-span-full flex flex-col items-center justify-center gap-4 py-12 text-center text-neutral text-sm">
+            <div className="col-span-full flex flex-col items-center justify-center gap-4 py-12 text-center text-sm text-neutral">
               <p>
                 {isFiltering
                   ? content.showcase.noProjectsWithFilters

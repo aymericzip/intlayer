@@ -75,8 +75,8 @@ export const ProjectScanDetails: FC<ProjectScanDetailsProps> = ({
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
-        <H2 className="font-bold text-text text-xl">{content.seoHeader}</H2>
-        <p className="text-neutral text-xs">{content.seoDescription}</p>
+        <H2 className="text-xl font-bold text-text">{content.seoHeader}</H2>
+        <p className="text-xs text-neutral">{content.seoDescription}</p>
       </div>
       <Container
         border
@@ -87,7 +87,7 @@ export const ProjectScanDetails: FC<ProjectScanDetailsProps> = ({
       >
         <AnalyzerPageResults data={mergedData} url={url} />
 
-        <div className="mt-8 grid grid-cols-1 gap-8 border-neutral/20 border-t border-dotted pt-8 md:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-8 border-t border-dotted border-neutral/20 pt-8 md:grid-cols-2">
           <div>
             <RobotsSection data={mergedData} />
           </div>

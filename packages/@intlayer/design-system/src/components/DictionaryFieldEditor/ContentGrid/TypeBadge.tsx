@@ -115,7 +115,7 @@ export const TypeBadge: FC<TypeBadgeProps> = ({ row, className }) => {
   };
 
   const chipClassName = cn(
-    'inline-flex shrink-0 items-center rounded-md border border-neutral/30 px-1.5 py-0.5 font-mono text-[10px] text-neutral leading-none',
+    'inline-flex shrink-0 items-center rounded-md border border-neutral/30 px-1.5 py-0.5 font-mono text-[10px] leading-none text-neutral',
     className
   );
 
@@ -190,7 +190,7 @@ export const TypeBadge: FC<TypeBadgeProps> = ({ row, className }) => {
               placeholder={content.typeSearchPlaceholder.value}
               aria-label={content.typeSearchPlaceholder.value}
             />
-            <div className="flex max-h-xl flex-col gap-2 overflow-y-auto">
+            <div className="max-h-xl flex flex-col gap-2 overflow-y-auto">
               {TYPE_GROUPS.map(({ groupKey, nodeTypes }) => {
                 const matchingTypes = nodeTypes.filter(
                   (nodeType) =>
@@ -205,7 +205,7 @@ export const TypeBadge: FC<TypeBadgeProps> = ({ row, className }) => {
 
                 return (
                   <div key={groupKey} className="flex flex-col">
-                    <span className="px-2 py-1 text-neutral text-xs">
+                    <span className="px-2 py-1 text-xs text-neutral">
                       {content[groupKey]}
                     </span>
                     {matchingTypes.map((nodeType) => (

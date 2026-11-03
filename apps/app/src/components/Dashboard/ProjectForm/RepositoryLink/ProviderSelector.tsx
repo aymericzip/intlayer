@@ -35,9 +35,9 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
   const [isShowingAllProviders, setIsShowingAllProviders] = useState(
     Boolean(
       selectedProvider &&
-        !DEFAULT_REPOSITORY_PROVIDERS.includes(
-          selectedProvider as (typeof DEFAULT_REPOSITORY_PROVIDERS)[number]
-        )
+      !DEFAULT_REPOSITORY_PROVIDERS.includes(
+        selectedProvider as (typeof DEFAULT_REPOSITORY_PROVIDERS)[number]
+      )
     )
   );
 
@@ -80,7 +80,7 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-2 text-neutral text-sm">
+      <div className="flex items-center gap-2 text-sm text-neutral">
         <GitBranch className="size-5" />
         <span>{content.selectProvider}</span>
       </div>

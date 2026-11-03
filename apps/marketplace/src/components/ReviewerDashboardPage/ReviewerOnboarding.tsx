@@ -41,7 +41,7 @@ const Field: FC<{ label: string; children: React.ReactNode }> = ({
   children,
 }) => (
   <div className="flex flex-col gap-1.5">
-    <span className="font-medium text-sm">{label}</span>
+    <span className="text-sm font-medium">{label}</span>
     {children}
   </div>
 );
@@ -158,7 +158,7 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
       className="w-full"
     >
       <div className="flex flex-col gap-6">
-        <h2 className="font-semibold text-lg">
+        <h2 className="text-lg font-semibold">
           {existingProfile
             ? content.editYourProfile
             : content.registerAsReviewer}
@@ -264,7 +264,7 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
               <button
                 type="button"
                 onClick={() => mainPicInputRef.current?.click()}
-                className="group relative mx-auto aspect-video w-auto overflow-hidden rounded-xl border border-neutral/20 bg-neutral/5 transition-opacity hover:opacity-80"
+                className="group aspect-video relative mx-auto w-auto overflow-hidden rounded-xl border border-neutral/20 bg-neutral/5 transition-opacity hover:opacity-80"
                 aria-label={content.uploadMainPicture.value}
               >
                 {existingProfile.mainPicture ? (
@@ -274,7 +274,7 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
                     className="size-full max-w-lg cursor-pointer object-cover"
                   />
                 ) : (
-                  <div className="flex size-full items-center justify-center border border-neutral/30 border-dashed">
+                  <div className="flex size-full items-center justify-center border border-dashed border-neutral/30">
                     <ImageIcon size={20} className="text-neutral/40" />
                   </div>
                 )}
@@ -307,7 +307,7 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
                     className="size-full cursor-pointer object-cover"
                   />
                 ) : (
-                  <div className="flex size-full items-center justify-center border border-neutral/30 border-dashed">
+                  <div className="flex size-full items-center justify-center border border-dashed border-neutral/30">
                     <ImageIcon size={20} className="text-neutral/40" />
                   </div>
                 )}
@@ -389,7 +389,7 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
           </Button>
 
           {saved && (
-            <p className="text-neutral text-sm">
+            <p className="text-sm text-neutral">
               {content.profileSavedSuccessfully}
             </p>
           )}

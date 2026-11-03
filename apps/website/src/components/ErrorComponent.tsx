@@ -7,10 +7,10 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
 
   return (
     <div className="relative flex min-h-[60vh] flex-1 flex-col items-center justify-center overflow-hidden px-4 py-12 text-center">
-      <h1 className="text-foreground mb-4 text-6xl font-bold">
+      <h1 className="mb-4 text-6xl font-bold text-foreground">
         Something went wrong
       </h1>
-      <p className="text-muted-foreground mb-8 max-w-md text-base">
+      <p className="mb-8 max-w-md text-base text-muted-foreground">
         {errorMessage || 'An unexpected error occurred.'}
       </p>
       <div className="flex gap-4">

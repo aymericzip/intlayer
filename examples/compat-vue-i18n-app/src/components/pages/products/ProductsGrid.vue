@@ -50,7 +50,7 @@ const products = [
         <span class="text-sm font-bold text-primary">{{ p.price }}</span>
         <button
           type="button"
-          class="rounded-md bg-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+          class="rounded-md bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
           Learn More
         </button>

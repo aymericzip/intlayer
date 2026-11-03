@@ -18,7 +18,7 @@ export default function ServerExample({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="p-8">
-      <h1 className="font-bold text-2xl">{content.title}</h1>
+      <h1 className="text-2xl font-bold">{content.title}</h1>
       <p className="mt-4 text-gray-600">{content.description}</p>
 
       <div className="mt-6">
@@ -28,7 +28,7 @@ export default function ServerExample({ loaderData }: Route.ComponentProps) {
       {/* Render the server data */}
       {data && (
         <div className="mt-6 rounded border bg-gray-50 p-4">
-          <h2 className="font-bold text-2xl">{data.title}</h2>
+          <h2 className="text-2xl font-bold">{data.title}</h2>
           <p className="mt-4 text-gray-600">{data.description}</p>
         </div>
       )}

@@ -29,7 +29,7 @@ export const PasskeyItem: FC<PasskeyItemProps> = ({ passkey, onDelete }) => {
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1 space-y-1">
           <h4 className="font-semibold">{passkey.name}</h4>
-          <p className="text-neutral-600 text-sm dark:text-neutral-400">
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
             {createdAt} {formattedDate}
           </p>
         </div>

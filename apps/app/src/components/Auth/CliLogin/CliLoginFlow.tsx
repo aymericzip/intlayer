@@ -78,7 +78,7 @@ const AccessKeySelector: FC<{
 
       <div className="flex w-full flex-1 flex-col gap-6">
         <H3>{title}</H3>
-        <span className="text-neutral text-sm">{description}</span>
+        <span className="text-sm text-neutral">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
           <Container
             key={String(accessKey.id)}
@@ -90,7 +90,7 @@ const AccessKeySelector: FC<{
           >
             <div className="flex items-center justify-center px-3 pb-3">
               <KeyRound className="me-2 size-5" size={16} />
-              <span className="m-auto w-full font-bold text-lg">
+              <span className="m-auto w-full text-lg font-bold">
                 {accessKey.name}
               </span>
             </div>
@@ -99,27 +99,27 @@ const AccessKeySelector: FC<{
                 <div className="flex flex-col gap-1">
                   <CopyToClipboard
                     text={accessKey.clientId}
-                    className="text-wrap font-bold text-sm"
+                    className="text-sm font-bold text-wrap"
                   >
                     {labels.clientId}
                   </CopyToClipboard>
                   <HideShow
                     text={accessKey.clientId}
                     visiblePrefixChars={6}
-                    className="ms-1 p-1 text-neutral text-sm"
+                    className="ms-1 p-1 text-sm text-neutral"
                   />
                 </div>
                 {/* Simplified view for selection - hidden secret as it might not be retrievable fully? 
                     Actually checking AccessKeyItem, it displays it.
                 */}
                 <div className="flex flex-col gap-1">
-                  <span className="font-bold text-sm">
+                  <span className="text-sm font-bold">
                     {labels.clientSecret}
                   </span>
                   <HideShow
                     text={accessKey.clientSecret}
                     visiblePrefixChars={6}
-                    className="ms-1 p-1 text-neutral text-sm"
+                    className="ms-1 p-1 text-sm text-neutral"
                   />
                 </div>
               </div>
@@ -138,7 +138,7 @@ const AccessKeySelector: FC<{
         ))}
 
         {nbAccessKeys === 0 && (
-          <span className="mb-6 text-neutral text-sm">{noAccessKeys}</span>
+          <span className="mb-6 text-sm text-neutral">{noAccessKeys}</span>
         )}
 
         <Button
@@ -204,15 +204,15 @@ const SessionAuthSelector: FC<{
       >
         <Clock className="mt-0.5 size-5 shrink-0 text-neutral" />
         <div className="flex flex-col gap-1">
-          <span className="font-semibold text-sm">
+          <span className="text-sm font-semibold">
             {sessionAuthSelector.title}
           </span>
-          <span className="text-neutral text-xs">
+          <span className="text-xs text-neutral">
             {sessionAuthSelector.description}
           </span>
         </div>
       </Container>
-      {error && <span className="text-error text-sm">{error}</span>}
+      {error && <span className="text-sm text-error">{error}</span>}
       <Button
         className="w-full"
         color="text"
@@ -355,7 +355,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
             {currentStep !== 'login' &&
               currentStep !== 'account' &&
               (session?.organization || session?.project) && (
-                <div className="z-10 mb-6 border-neutral/20 border-b border-dotted p-2 pb-6">
+                <div className="z-10 mb-6 border-b border-dotted border-neutral/20 p-2 pb-6">
                   <H2 className="mb-5">{context}</H2>
                   <Container
                     className="z-10 me-auto w-fit flex-row items-center gap-2 p-2"

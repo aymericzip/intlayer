@@ -101,11 +101,11 @@ export const LocalePicker: FC<LocalePickerProps> = ({
                         >
                           {ownLocaleName}
                         </span>
-                        <span className="text-neutral text-xs">
+                        <span className="text-xs text-neutral">
                           {currentLocaleName}
                         </span>
                       </div>
-                      <span className="text-neutral text-xs">
+                      <span className="text-xs text-neutral">
                         {locale.toUpperCase()}
                       </span>
                     </div>

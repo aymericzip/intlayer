@@ -386,7 +386,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       role="slider"
       tabIndex={0}
     >
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: This div stops event propagation to prevent content clicks from triggering resize */}
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- This div stops event propagation to prevent content clicks from triggering resize */}
       <div
         role="presentation"
         className="absolute inset-s-0 top-0 size-full cursor-default overflow-hidden"
@@ -395,7 +395,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       >
         {children}
       </div>
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Invisible handle strip — owns resize events so content stopPropagation doesn't block them */}
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- Invisible handle strip — owns resize events so content stopPropagation doesn't block them */}
       <div
         role="presentation"
         className={cn(

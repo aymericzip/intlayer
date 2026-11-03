@@ -7,7 +7,7 @@ import {
 
 /** Remove the ANSI escape sequences so assertions stay readable. */
 const stripAnsi = (text: string): string =>
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: matching ANSI escapes
+  // oxlint-disable-next-line no-control-regex -- matching ANSI escapes
   text.replace(/\x1b\[[0-9;]*m/g, '');
 
 const buildResult = (

@@ -75,9 +75,9 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       <span
         className={cn(
           inAccordion
-            ? 'flex min-w-0 flex-1 items-center truncate text-nowrap text-start font-medium text-sm'
+            ? 'flex min-w-0 flex-1 items-center truncate text-start text-sm font-medium text-nowrap'
             : cn(
-                'flex w-full min-w-0 items-center truncate text-nowrap px-2.5 py-1.5 text-start text-sm',
+                'flex w-full min-w-0 items-center truncate px-2.5 py-1.5 text-start text-sm text-nowrap',
                 isLevel1 ? 'font-medium text-text' : 'font-medium text-neutral'
               ),
           className
@@ -96,7 +96,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       color={isLevel1 || isActive ? 'text' : 'neutral'}
       isActive={isActive}
       className={cn(
-        'block w-full truncate text-nowrap px-2.5 py-1.5 text-start text-sm',
+        'block w-full truncate px-2.5 py-1.5 text-start text-sm text-nowrap',
         isLevel1 ? 'font-medium text-text' : 'text-neutral',
         isActive && 'font-medium text-text',
         className
@@ -211,7 +211,7 @@ export const NavAccordion: FC<NavAccordionProps> = ({
         </OptionalLink>
       }
       headerClassName={cn(
-        'group flex w-full items-center justify-between px-2.5 py-1.5 text-start font-medium text-sm',
+        'group flex w-full items-center justify-between px-2.5 py-1.5 text-start text-sm font-medium',
         isDeployed ? 'text-text' : 'text-neutral',
         headerClassName
       )}
@@ -326,7 +326,7 @@ export const NavSectionItem: FC<NavSectionItemProps> = ({
       isLevel1={level === 1}
       hasDefaultSection={isDefaultShowed}
     >
-      <ul className="m-0 ms-3 mt-1.5 flex list-none flex-col gap-y-2 border-border/60 border-s p-0 ps-2 text-sm">
+      <ul className="m-0 ms-3 mt-1.5 flex list-none flex-col gap-y-2 border-s border-border/60 p-0 ps-2 text-sm">
         {sectionDefault?.relativeUrl && (
           <li>
             <OptionalLink

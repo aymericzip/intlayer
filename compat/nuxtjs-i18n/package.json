@@ -4,21 +4,17 @@
   "private": false,
   "description": "@nuxtjs/i18n API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
-    "intlayer",
-    "nuxtjs-i18n",
-    "nuxt",
-    "vue",
-    "i18n",
     "adapter",
-    "compatibility"
+    "compatibility",
+    "i18n",
+    "intlayer",
+    "nuxt",
+    "nuxtjs-i18n",
+    "vue"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -32,7 +28,18 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "sideEffects": false,
+  "main": "dist/esm/index.mjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -44,22 +51,15 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/esm/index.mjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -85,7 +85,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.3",
+    "rimraf": "6.1.4",
     "tsdown": "0.23.4",
     "typescript": "7.0.2",
     "vitest": "5.1.0",

@@ -44,7 +44,7 @@ const openings = [
 
 <template>
   <h2 class="mb-6 text-2xl font-bold text-foreground">
-    {{ t("careers.openPositions.title") }}
+    {{ t('careers.openPositions.title') }}
   </h2>
   <div class="space-y-4">
     <div
@@ -81,7 +81,7 @@ const openings = [
         type="button"
         class="shrink-0 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
       >
-        {{ t("careers.openPositions.applyNow") }}
+        {{ t('careers.openPositions.applyNow') }}
       </button>
     </div>
   </div>

@@ -361,9 +361,8 @@ export const watch = async (options?: WatchOptions) => {
                     : undefined);
 
                 // Lazy: pulls recast/ast-types, only needed for new empty files
-                const { writeContentDeclaration } = await import(
-                  './writeContentDeclaration'
-                );
+                const { writeContentDeclaration } =
+                  await import('./writeContentDeclaration');
 
                 await writeContentDeclaration(
                   {

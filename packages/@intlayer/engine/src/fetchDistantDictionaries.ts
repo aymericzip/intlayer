@@ -207,20 +207,19 @@ export const fetchDistantDictionaries = async (
         );
 
         onStatusUpdate?.(
-          batchKeys.map(
-            (dictionaryKey): DictionariesStatus =>
-              fetchedKeys.has(dictionaryKey)
-                ? {
-                    dictionaryKey,
-                    type: 'remote',
-                    status: 'fetched',
-                  }
-                : {
-                    dictionaryKey,
-                    type: 'remote',
-                    status: 'error',
-                    error: `Dictionary ${dictionaryKey} not found on remote`,
-                  }
+          batchKeys.map((dictionaryKey): DictionariesStatus =>
+            fetchedKeys.has(dictionaryKey)
+              ? {
+                  dictionaryKey,
+                  type: 'remote',
+                  status: 'fetched',
+                }
+              : {
+                  dictionaryKey,
+                  type: 'remote',
+                  status: 'error',
+                  error: `Dictionary ${dictionaryKey} not found on remote`,
+                }
           )
         );
 

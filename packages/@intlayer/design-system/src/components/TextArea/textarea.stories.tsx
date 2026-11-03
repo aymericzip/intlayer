@@ -146,7 +146,7 @@ export const Default: Story = {
     <div className="w-full max-w-md space-y-3">
       <TextArea {...args} />
 
-      <div className="text-gray-600 text-sm">
+      <div className="text-sm text-gray-600">
         Standard textarea with default styling, perfect for most form
         applications.
       </div>
@@ -175,12 +175,12 @@ export const SizeVariations: Story = {
   render: () => (
     <div className="w-full max-w-4xl space-y-8">
       <div>
-        <h4 className="mb-4 font-semibold text-lg">Different Sizes</h4>
+        <h4 className="mb-4 text-lg font-semibold">Different Sizes</h4>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
             <label
               htmlFor="textarea-compact"
-              className="mb-2 block font-medium text-sm"
+              className="mb-2 block text-sm font-medium"
             >
               Compact (2 rows)
             </label>
@@ -195,7 +195,7 @@ export const SizeVariations: Story = {
           <div>
             <label
               htmlFor="textarea-standard"
-              className="mb-2 block font-medium text-sm"
+              className="mb-2 block text-sm font-medium"
             >
               Standard (4 rows)
             </label>
@@ -210,7 +210,7 @@ export const SizeVariations: Story = {
           <div>
             <label
               htmlFor="textarea-large"
-              className="mb-2 block font-medium text-sm"
+              className="mb-2 block text-sm font-medium"
             >
               Large (8 rows)
             </label>
@@ -225,7 +225,7 @@ export const SizeVariations: Story = {
           <div>
             <label
               htmlFor="textarea-fixed-width"
-              className="mb-2 block font-medium text-sm"
+              className="mb-2 block text-sm font-medium"
             >
               Fixed Width (40 cols)
             </label>
@@ -240,7 +240,7 @@ export const SizeVariations: Story = {
         </div>
       </div>
 
-      <div className="max-w-2xl text-gray-500 text-xs">
+      <div className="max-w-2xl text-xs text-gray-500">
         Choose appropriate sizes based on expected content length. Use `cols`
         for fixed-width layouts like code editors, and `rows` for content
         height.
@@ -279,7 +279,7 @@ export const StyleVariants: Story = {
         <div>
           <label
             htmlFor="textarea-default"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             Default
           </label>
@@ -294,7 +294,7 @@ export const StyleVariants: Story = {
         <div>
           <label
             htmlFor="textarea-invisible"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             Invisible
           </label>
@@ -309,10 +309,10 @@ export const StyleVariants: Story = {
       </div>
 
       <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-        <div className="mb-2 font-medium text-blue-900 text-sm">
+        <div className="mb-2 text-sm font-medium text-blue-900">
           Variant Usage Guide
         </div>
-        <ul className="space-y-1 text-blue-800 text-sm">
+        <ul className="space-y-1 text-sm text-blue-800">
           <li>
             • <strong>Default:</strong> Standard form fields with clear
             boundaries
@@ -358,7 +358,7 @@ export const ValidationStates: Story = {
         <div>
           <label
             htmlFor="textarea-valid-input"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             Valid Input
           </label>
@@ -370,7 +370,7 @@ export const ValidationStates: Story = {
             rows={3}
             className="w-full"
           />
-          <div className="mt-1 text-green-600 text-sm">
+          <div className="mt-1 text-sm text-green-600">
             ✓ Message looks good!
           </div>
         </div>
@@ -378,7 +378,7 @@ export const ValidationStates: Story = {
         <div>
           <label
             htmlFor="textarea-invalid-input"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             Invalid Input
           </label>
@@ -390,7 +390,7 @@ export const ValidationStates: Story = {
             rows={3}
             className="w-full"
           />
-          <div className="mt-1 text-red-600 text-sm">
+          <div className="mt-1 text-sm text-red-600">
             ✗ Message must be at least 20 characters long.
           </div>
         </div>
@@ -398,7 +398,7 @@ export const ValidationStates: Story = {
         <div>
           <label
             htmlFor="textarea-with-character-limit"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             With Character Limit
           </label>
@@ -409,7 +409,7 @@ export const ValidationStates: Story = {
             rows={3}
             className="w-full"
           />
-          <div className="mt-1 text-gray-500 text-sm">
+          <div className="mt-1 text-sm text-gray-500">
             Characters remaining will be shown as you type.
           </div>
         </div>
@@ -478,7 +478,7 @@ export const InteractiveFormField: Story = {
         <div className="space-y-2">
           <label
             htmlFor="feedback-message"
-            className="block font-semibold text-gray-700 text-sm"
+            className="block text-sm font-semibold text-gray-700"
           >
             Your Feedback
           </label>
@@ -532,10 +532,10 @@ export const InteractiveFormField: Story = {
         </button>
 
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
-          <div className="mb-1 font-medium text-gray-700 text-xs">
+          <div className="mb-1 text-xs font-medium text-gray-700">
             Form State
           </div>
-          <div className="space-y-1 text-gray-600 text-xs">
+          <div className="space-y-1 text-xs text-gray-600">
             <div>
               Characters: {message.length}/{maxLength}
             </div>
@@ -630,7 +630,7 @@ export const CommentSystem: Story = {
     return (
       <div className="w-full max-w-2xl space-y-6">
         <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <h3 className="mb-4 font-semibold text-lg">
+          <h3 className="mb-4 text-lg font-semibold">
             Comments ({comments.length})
           </h3>
 
@@ -645,7 +645,7 @@ export const CommentSystem: Story = {
               maxLength={500}
             />
             <div className="flex items-center justify-between">
-              <span className="text-gray-500 text-sm">
+              <span className="text-sm text-gray-500">
                 {500 - newComment.length} characters remaining
               </span>
               <button
@@ -661,20 +661,20 @@ export const CommentSystem: Story = {
           {/* Comments List */}
           <div className="space-y-4">
             {comments.map((comment) => (
-              <div key={comment.id} className="border-gray-200 border-s-2 ps-4">
+              <div key={comment.id} className="border-s-2 border-gray-200 ps-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-gray-900">
                       {comment.author}
                     </span>
-                    <span className="text-gray-500 text-sm">
+                    <span className="text-sm text-gray-500">
                       {comment.timestamp}
                     </span>
                   </div>
                   <p className="text-gray-700">{comment.content}</p>
                   <button
                     onClick={() => setReplyingTo(comment.id)}
-                    className="text-blue-600 text-sm hover:text-blue-800"
+                    className="text-sm text-blue-600 hover:text-blue-800"
                   >
                     Reply
                   </button>
@@ -686,17 +686,17 @@ export const CommentSystem: Story = {
                     {comment.replies.map((reply) => (
                       <div
                         key={reply.id}
-                        className="border-gray-100 border-s py-2 ps-3"
+                        className="border-s border-gray-100 py-2 ps-3"
                       >
                         <div className="mb-1 flex items-center gap-2">
-                          <span className="font-medium text-gray-900 text-sm">
+                          <span className="text-sm font-medium text-gray-900">
                             {reply.author}
                           </span>
-                          <span className="text-gray-500 text-xs">
+                          <span className="text-xs text-gray-500">
                             {reply.timestamp}
                           </span>
                         </div>
-                        <p className="text-gray-700 text-sm">{reply.content}</p>
+                        <p className="text-sm text-gray-700">{reply.content}</p>
                       </div>
                     ))}
                   </div>
@@ -726,7 +726,7 @@ export const CommentSystem: Story = {
                           setReplyingTo(null);
                           setReplyContent('');
                         }}
-                        className="rounded border border-gray-300 px-3 py-1 text-gray-600 text-sm hover:bg-gray-50"
+                        className="rounded border border-gray-300 px-3 py-1 text-sm text-gray-600 hover:bg-gray-50"
                       >
                         Cancel
                       </button>

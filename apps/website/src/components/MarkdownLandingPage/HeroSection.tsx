@@ -28,7 +28,7 @@ export const Pill: FC<{ children: ReactNode; className?: string }> = ({
 }) => (
   <span
     className={cn(
-      'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-foreground text-xs backdrop-blur supports-[corner-shape:squircle]:rounded-full',
+      'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-xs text-foreground backdrop-blur supports-[corner-shape:squircle]:rounded-full',
       className
     )}
   >
@@ -119,11 +119,11 @@ export const HeroSection: FC = () => {
           className="grid grid-cols-1 items-start gap-x-8 gap-y-16 md:grid-cols-12"
         >
           <div className="md:col-span-6">
-            <h1 className="text-balance font-semibold text-4xl text-foreground leading-tight md:text-5xl">
+            <h1 className="text-4xl leading-tight font-semibold text-balance text-foreground md:text-5xl">
               {title}
             </h1>
 
-            <p className="mt-4 max-w-xl text-pretty text-base text-foreground/70 md:text-lg">
+            <p className="mt-4 max-w-xl text-base text-pretty text-foreground/70 md:text-lg">
               {description}
             </p>
 
@@ -200,9 +200,9 @@ export const HeroSection: FC = () => {
                         <Container
                           roundedSize="2xl"
                           padding="md"
-                          className="relative text-foreground-dark"
+                          className="text-foreground-dark relative"
                         >
-                          <span className="font-mono text-foreground-dark/70 text-xs">
+                          <span className="text-foreground-dark/70 font-mono text-xs">
                             {tabData.codeBlockTitle}
                           </span>
                           <CodeBlock lang={lang} className="mt-2 text-sm">
@@ -210,15 +210,15 @@ export const HeroSection: FC = () => {
                           </CodeBlock>
                         </Container>
 
-                        <p className="text-foreground/75 text-xs leading-relaxed">
+                        <p className="text-xs leading-relaxed text-foreground/75">
                           {tabData.description}
                         </p>
 
                         <div className="rounded-xl border border-text/10 bg-card/40 p-2.5 backdrop-blur">
-                          <div className="mb-1 font-medium text-[11px] text-foreground/60">
+                          <div className="mb-1 text-[11px] font-medium text-foreground/60">
                             {tabData.fileStructureTitle}
                           </div>
-                          <pre className="overflow-x-auto font-mono text-[11px] text-foreground/80 leading-relaxed">
+                          <pre className="overflow-x-auto font-mono text-[11px] leading-relaxed text-foreground/80">
                             {tabData.fileStructure.value ??
                               tabData.fileStructure}
                           </pre>
@@ -230,7 +230,7 @@ export const HeroSection: FC = () => {
               </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3 text-foreground/70 text-xs">
+            <div className="mt-4 grid grid-cols-2 gap-3 text-xs text-foreground/70">
               <div className="flex items-center gap-2">
                 <PackageMinus className="size-4 text-foreground" />
                 {card.features.zeroDependency}

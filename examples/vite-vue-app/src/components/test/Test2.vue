@@ -12,4 +12,3 @@ defineProps<{
     <p>This is a test 2 (should be extracted)</p>
   </div>
 </template>
-

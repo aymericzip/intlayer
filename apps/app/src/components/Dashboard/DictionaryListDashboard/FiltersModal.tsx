@@ -125,7 +125,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
     >
       <div className="flex w-full flex-col gap-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-bold text-xl">{filterLabels.title}</h2>
+          <h2 className="text-xl font-bold">{filterLabels.title}</h2>
           {hasAppliedFilters && (
             <Button
               variant="hoverable"
@@ -140,7 +140,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <div className="font-medium text-sm">{tableHeaders.location}</div>
+          <div className="text-sm font-medium">{tableHeaders.location}</div>
           <Container
             background="none"
             border
@@ -175,7 +175,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
 
         {!fixedTag && (
           <div className="flex flex-col gap-4">
-            <div className="font-medium text-sm">{tableHeaders.tags}</div>
+            <div className="text-sm font-medium">{tableHeaders.tags}</div>
             <SearchInput
               placeholder={filterLabels.searchTagsPlaceholder.value}
               value={tagSearch}
@@ -220,7 +220,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
                   />
                 ))}
                 {filteredTags.length === 0 && (
-                  <span className="py-2 text-center text-neutral-500 text-sm">
+                  <span className="py-2 text-center text-sm text-neutral-500">
                     {filterLabels.noTagsFound}
                   </span>
                 )}
@@ -230,7 +230,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
         )}
 
         <div className="flex flex-col gap-4">
-          <div className="font-medium text-sm">{tableHeaders.type}</div>
+          <div className="text-sm font-medium">{tableHeaders.type}</div>
           <Container
             background="none"
             border

@@ -5,8 +5,8 @@ import { getEnumeration } from '../interpreter/getEnumeration';
 import { getPlural } from '../interpreter/getPlural';
 import { getSelect } from '../interpreter/getSelect';
 import type { PluralContentState } from '../transpiler/plural/plural';
-import { icuToIntlayerFormatter } from './ICU';
 import { i18nextToIntlayerFormatter } from './i18next';
+import { icuToIntlayerFormatter } from './ICU';
 import { vueI18nToIntlayerFormatter } from './vue-i18n';
 
 /**

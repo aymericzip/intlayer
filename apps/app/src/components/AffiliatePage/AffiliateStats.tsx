@@ -28,7 +28,7 @@ const StatCard: FC<{ label: string; value: string | number }> = ({
   value,
 }) => (
   <div className="rounded-xl border border-neutral/20 bg-card p-4">
-    <p className="text-neutral/60 text-xs">{label}</p>
-    <p className="mt-1 font-semibold text-2xl">{value}</p>
+    <p className="text-xs text-neutral/60">{label}</p>
+    <p className="mt-1 text-2xl font-semibold">{value}</p>
   </div>
 );

@@ -113,7 +113,7 @@ export const ModalStatus: FC<ModalStatusProps> = ({
           <>
             <H2>{content.modal.successTitle}</H2>
 
-            <span className="text-center text-neutral text-sm">
+            <span className="text-center text-sm text-neutral">
               {content.modal.successMessage}
             </span>
             <div className="m-auto mt-4 aspect-square rounded-full bg-success/30 p-5">
@@ -133,7 +133,7 @@ export const ModalStatus: FC<ModalStatusProps> = ({
         ) : isError ? (
           <>
             <H2>{content.modal.errorTitle}</H2>
-            <span className="max-w-full overflow-hidden text-clip text-center text-neutral text-sm">
+            <span className="max-w-full overflow-hidden text-center text-sm text-clip text-neutral">
               {submitError}
             </span>
             <div className="m-auto mt-4 aspect-square rounded-full bg-error/30 p-5">
@@ -153,7 +153,7 @@ export const ModalStatus: FC<ModalStatusProps> = ({
         ) : (
           <>
             <H2>{content.modal.title}</H2>
-            <Loader className="size-30 text-succes" />
+            <Loader className="text-succes size-30" />
             <ol className="mt-2 w-full space-y-3">
               {visualSteps.map((step) => {
                 const status = getStepStatus(

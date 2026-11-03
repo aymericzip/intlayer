@@ -34,7 +34,7 @@ export const ApplicationNotRunningView: FunctionComponent<
           })}
         </p>
         {errorMessage && (
-          <code className="rounded-lg border border-error p-2 text-neutral text-xs">
+          <code className="rounded-lg border border-error p-2 text-xs text-neutral">
             {errorMessage}
           </code>
         )}

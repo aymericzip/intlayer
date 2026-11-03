@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Layout from '../components/Layout.vue';
-
 // Eager load Home (initial landing page)
 import Home from '../pages/Home.vue';
 

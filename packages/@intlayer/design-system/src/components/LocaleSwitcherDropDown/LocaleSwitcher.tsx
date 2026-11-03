@@ -216,13 +216,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                             {ownLocaleName}
                           </span>
                           <span
-                            className="text-neutral text-xs"
+                            className="text-xs text-neutral"
                             suppressHydrationWarning
                           >
                             {currentLocaleName}
                           </span>
                         </div>
-                        <span className="text-neutral text-sm">
+                        <span className="text-sm text-neutral">
                           {localeItem.toUpperCase()}
                         </span>
                       </div>

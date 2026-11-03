@@ -9,7 +9,7 @@ type TagListSkeletonProps = {
 export const TagListSkeleton: FC<TagListSkeletonProps> = ({
   showToolBar = true,
 }) => (
-  <div className="text-text/80 flex size-full flex-1 flex-col gap-6 py-4 text-sm">
+  <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
     {/* Toolbar Skeleton */}
     {showToolBar && (
       <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
@@ -45,8 +45,8 @@ export const TagListSkeleton: FC<TagListSkeletonProps> = ({
         </thead>
         <tbody>
           {[...Array(10)].map((_, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
-            <tr key={i} className="border-card border-b">
+            // oxlint-disable-next-line react/no-array-index-key -- Skeletons are static and don't change order
+            <tr key={i} className="border-b border-card">
               <td className="px-4 py-4">
                 <Skeleton className="h-4 w-4" />
               </td>

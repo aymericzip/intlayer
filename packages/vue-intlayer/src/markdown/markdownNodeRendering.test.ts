@@ -71,9 +71,8 @@ describe('markdown node rendering with a custom renderer', () => {
   ): Promise<string> => {
     vi.resetModules();
 
-    const { installIntlayerMarkdown } = await import(
-      './installIntlayerMarkdown'
-    );
+    const { installIntlayerMarkdown } =
+      await import('./installIntlayerMarkdown');
     const { getDictionary } = await import('../getDictionary');
 
     const content = getDictionary(benchmarkDictionary as any, 'en') as any;

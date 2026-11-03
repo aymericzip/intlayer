@@ -297,7 +297,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
       className={cn(
         'inline-flex items-center justify-center gap-0.5 p-0.5',
         'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
-        'font-medium font-sans',
+        'font-sans font-medium',
         'border-1 text-neutral',
         size === 'sm' && 'text-xs',
         size === 'md' && 'text-sm',

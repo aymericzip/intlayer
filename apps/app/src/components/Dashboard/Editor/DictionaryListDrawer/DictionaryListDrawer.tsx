@@ -86,7 +86,7 @@ export const DictionaryListDrawer: FC = () => {
   return createPortal(
     <div className="flex h-full min-h-0 w-full flex-col">
       <div className="flex shrink-0 flex-col p-3 pb-4">
-        <h3 className="mb-4 text-center font-medium text-lg">
+        <h3 className="mb-4 text-center text-lg font-medium">
           {drawerTitle.label.value}
         </h3>
         <SearchInput

@@ -4,20 +4,16 @@
   "private": false,
   "description": "SDK for interacting with the Intlayer API, enabling content auditing, and managing organizations, projects, and users.",
   "keywords": [
-    "intlayer",
-    "application",
     "api",
+    "application",
     "backend",
     "i18n",
-    "internationalization"
+    "internationalization",
+    "intlayer"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -31,7 +27,103 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "sideEffects": false,
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "ai": [
+        "./dist/types/getIntlayerAPI/ai.d.ts"
+      ],
+      "analytics": [
+        "./dist/types/getIntlayerAPI/analytics.d.ts"
+      ],
+      "public": [
+        "./dist/types/public/index.d.ts"
+      ],
+      "audit": [
+        "./dist/types/getIntlayerAPI/audit.d.ts"
+      ],
+      "bitbucket": [
+        "./dist/types/getIntlayerAPI/bitbucket.d.ts"
+      ],
+      "gitee": [
+        "./dist/types/getIntlayerAPI/gitee.d.ts"
+      ],
+      "codeberg": [
+        "./dist/types/getIntlayerAPI/codeberg.d.ts"
+      ],
+      "asset": [
+        "./dist/types/getIntlayerAPI/asset.d.ts"
+      ],
+      "cms": [
+        "./dist/types/cms/index.d.ts"
+      ],
+      "dictionary": [
+        "./dist/types/getIntlayerAPI/dictionary.d.ts"
+      ],
+      "editor": [
+        "./dist/types/getIntlayerAPI/editor.d.ts"
+      ],
+      "github": [
+        "./dist/types/getIntlayerAPI/github.d.ts"
+      ],
+      "gitlab": [
+        "./dist/types/getIntlayerAPI/gitlab.d.ts"
+      ],
+      "newsletter": [
+        "./dist/types/getIntlayerAPI/newsletter.d.ts"
+      ],
+      "oAuth": [
+        "./dist/types/getIntlayerAPI/oAuth.d.ts"
+      ],
+      "environment": [
+        "./dist/types/getIntlayerAPI/environment.d.ts"
+      ],
+      "organization": [
+        "./dist/types/getIntlayerAPI/organization.d.ts"
+      ],
+      "project": [
+        "./dist/types/getIntlayerAPI/project.d.ts"
+      ],
+      "search": [
+        "./dist/types/getIntlayerAPI/search.d.ts"
+      ],
+      "showcaseProject": [
+        "./dist/types/getIntlayerAPI/showcaseProject.d.ts"
+      ],
+      "status": [
+        "./dist/types/getIntlayerAPI/status.d.ts"
+      ],
+      "stripe": [
+        "./dist/types/getIntlayerAPI/stripe.d.ts"
+      ],
+      "tag": [
+        "./dist/types/getIntlayerAPI/tag.d.ts"
+      ],
+      "translate": [
+        "./dist/types/getIntlayerAPI/translate.d.ts"
+      ],
+      "reviewer": [
+        "./dist/types/getIntlayerAPI/reviewer.d.ts"
+      ],
+      "user": [
+        "./dist/types/getIntlayerAPI/user.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -170,107 +262,15 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "ai": [
-        "./dist/types/getIntlayerAPI/ai.d.ts"
-      ],
-      "analytics": [
-        "./dist/types/getIntlayerAPI/analytics.d.ts"
-      ],
-      "public": [
-        "./dist/types/public/index.d.ts"
-      ],
-      "audit": [
-        "./dist/types/getIntlayerAPI/audit.d.ts"
-      ],
-      "bitbucket": [
-        "./dist/types/getIntlayerAPI/bitbucket.d.ts"
-      ],
-      "gitee": [
-        "./dist/types/getIntlayerAPI/gitee.d.ts"
-      ],
-      "codeberg": [
-        "./dist/types/getIntlayerAPI/codeberg.d.ts"
-      ],
-      "asset": [
-        "./dist/types/getIntlayerAPI/asset.d.ts"
-      ],
-      "cms": [
-        "./dist/types/cms/index.d.ts"
-      ],
-      "dictionary": [
-        "./dist/types/getIntlayerAPI/dictionary.d.ts"
-      ],
-      "editor": [
-        "./dist/types/getIntlayerAPI/editor.d.ts"
-      ],
-      "github": [
-        "./dist/types/getIntlayerAPI/github.d.ts"
-      ],
-      "gitlab": [
-        "./dist/types/getIntlayerAPI/gitlab.d.ts"
-      ],
-      "newsletter": [
-        "./dist/types/getIntlayerAPI/newsletter.d.ts"
-      ],
-      "oAuth": [
-        "./dist/types/getIntlayerAPI/oAuth.d.ts"
-      ],
-      "environment": [
-        "./dist/types/getIntlayerAPI/environment.d.ts"
-      ],
-      "organization": [
-        "./dist/types/getIntlayerAPI/organization.d.ts"
-      ],
-      "project": [
-        "./dist/types/getIntlayerAPI/project.d.ts"
-      ],
-      "search": [
-        "./dist/types/getIntlayerAPI/search.d.ts"
-      ],
-      "showcaseProject": [
-        "./dist/types/getIntlayerAPI/showcaseProject.d.ts"
-      ],
-      "status": [
-        "./dist/types/getIntlayerAPI/status.d.ts"
-      ],
-      "stripe": [
-        "./dist/types/getIntlayerAPI/stripe.d.ts"
-      ],
-      "tag": [
-        "./dist/types/getIntlayerAPI/tag.d.ts"
-      ],
-      "translate": [
-        "./dist/types/getIntlayerAPI/translate.d.ts"
-      ],
-      "reviewer": [
-        "./dist/types/getIntlayerAPI/reviewer.d.ts"
-      ],
-      "user": [
-        "./dist/types/getIntlayerAPI/user.d.ts"
-      ],
-      "package.json": [
-        "./package.json"
-      ]
-    }
-  },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -291,7 +291,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.3",
+    "rimraf": "6.1.4",
     "tsdown": "0.23.4",
     "typescript": "7.0.2",
     "vitest": "5.1.0"

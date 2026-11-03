@@ -61,8 +61,8 @@ export const findProjectRoot = (startPath?: string): string | undefined => {
 const dependsOnIntlayer = (packageJson: Record<string, any>): boolean =>
   Boolean(
     packageJson?.dependencies?.intlayer ||
-      packageJson?.devDependencies?.intlayer ||
-      packageJson?.peerDependencies?.intlayer
+    packageJson?.devDependencies?.intlayer ||
+    packageJson?.peerDependencies?.intlayer
   );
 
 /**

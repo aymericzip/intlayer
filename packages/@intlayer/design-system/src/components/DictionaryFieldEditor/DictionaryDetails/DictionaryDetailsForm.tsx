@@ -572,8 +572,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         borderColor="card"
       >
         <div className="flex flex-col gap-1">
-          <p className="ms-1 font-semibold text-sm">{typeSwitch.label}</p>
-          <p className="ms-1 text-neutral text-xs">{typeSwitch.description}</p>
+          <p className="ms-1 text-sm font-semibold">{typeSwitch.label}</p>
+          <p className="ms-1 text-xs text-neutral">{typeSwitch.description}</p>
         </div>
         <MultiSelect
           values={selectedTypes}
@@ -611,7 +611,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               <div className="flex flex-col gap-2 px-1">
                 <label
                   htmlFor="qualifier-item-value"
-                  className="ms-1 font-medium text-sm"
+                  className="ms-1 text-sm font-medium"
                 >
                   {typeSwitch.itemValueLabel}
                 </label>
@@ -648,7 +648,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               <div className="flex flex-col gap-2 px-1">
                 <label
                   htmlFor="qualifier-variant-value"
-                  className="ms-1 font-medium text-sm"
+                  className="ms-1 text-sm font-medium"
                 >
                   {typeSwitch.variantValueLabel}
                 </label>
@@ -672,7 +672,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   }}
                 />
                 {variantJsonError && (
-                  <p className="ms-1 text-destructive text-xs">
+                  <p className="text-destructive ms-1 text-xs">
                     {typeSwitch.variantJsonError}
                   </p>
                 )}
@@ -696,10 +696,10 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 padding="md"
                 className="gap-3"
               >
-                <p className="font-medium text-sm">
+                <p className="text-sm font-medium">
                   {typeSwitch.disablePickerTitle}
                 </p>
-                <p className="text-muted text-xs">
+                <p className="text-xs text-muted">
                   {typeSwitch.disablePickerDescription}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -742,17 +742,17 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         border
         borderColor="neutral"
       >
-        <p className="font-semibold text-sm">{siblingContent.title}</p>
+        <p className="text-sm font-semibold">{siblingContent.title}</p>
         <Loader isLoading={isLoadingSiblings}>
           {!hasSiblings && (
-            <span className="m-auto text-neutral text-sm">
+            <span className="m-auto text-sm text-neutral">
               {siblingContent.noSiblings}
             </span>
           )}
 
           {allItemDicts.length > 0 && (
             <div className="flex flex-col gap-2">
-              <p className="font-medium text-muted text-xs uppercase tracking-wide">
+              <p className="text-xs font-medium tracking-wide text-muted uppercase">
                 {siblingContent.collectionItems}
               </p>
               <Pagination
@@ -796,7 +796,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
           {allVariantDicts.length > 0 && (
             <div className="flex flex-col gap-2">
-              <p className="font-medium text-muted text-xs uppercase tracking-wide">
+              <p className="text-xs font-medium tracking-wide text-muted uppercase">
                 {siblingContent.variants}
               </p>
               <div className="flex flex-wrap gap-2">

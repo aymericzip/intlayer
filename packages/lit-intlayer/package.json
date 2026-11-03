@@ -4,24 +4,20 @@
   "private": false,
   "description": "Easily internationalize i18n your Lit applications with type-safe multilingual content management.",
   "keywords": [
-    "intlayer",
     "data",
-    "internationalization",
-    "multilingual",
     "i18n",
-    "typescript",
+    "internationalization",
+    "intlayer",
+    "json",
     "lit",
-    "web-components",
+    "multilingual",
+    "typescript",
     "vite",
-    "json"
+    "web-components"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -35,7 +31,37 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "sideEffects": false,
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/format/index.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -59,41 +85,15 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./dist/types/index.d.ts"
-      ],
-      "html": [
-        "./dist/types/html/index.d.ts"
-      ],
-      "markdown": [
-        "./dist/types/markdown/index.d.ts"
-      ],
-      "format": [
-        "./dist/types/format/index.d.ts"
-      ],
-      "package.json": [
-        "./package.json"
-      ]
-    }
-  },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build": "bun --bun vite build",
     "build:ci": "bun --bun vite build",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun vite build --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -117,7 +117,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "fast-glob": "3.3.3",
-    "rimraf": "6.1.3",
+    "rimraf": "6.1.4",
     "tsdown": "0.23.4",
     "typescript": "7.0.2",
     "vite": "8.3.5",

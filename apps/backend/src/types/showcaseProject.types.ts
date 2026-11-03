@@ -62,11 +62,10 @@ export interface ShowcaseProjectData {
   status?: ShowcaseProjectStatus;
 }
 
-export interface ShowcaseProjectAPI
-  extends Omit<
-    ShowcaseProject,
-    '_id' | 'createdAt' | 'lastScanDate' | 'upvoters' | 'downvoters'
-  > {
+export interface ShowcaseProjectAPI extends Omit<
+  ShowcaseProject,
+  '_id' | 'createdAt' | 'lastScanDate' | 'upvoters' | 'downvoters'
+> {
   id: string;
   upvotes: number;
   isUpVoted: boolean;

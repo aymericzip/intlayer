@@ -108,7 +108,7 @@ export const AssetLibraryModal: FC<AssetLibraryModalProps> = ({
             <Loader />
           </div>
         ) : assets.length === 0 ? (
-          <p className="py-10 text-center text-neutral text-sm dark:text-neutral-dark">
+          <p className="dark:text-neutral-dark py-10 text-center text-sm text-neutral">
             {assetLibraryEmpty}
           </p>
         ) : (
@@ -134,7 +134,7 @@ export const AssetLibraryModal: FC<AssetLibraryModalProps> = ({
                     )}
                   />
                 </span>
-                <span className="truncate p-2 font-medium text-xs">
+                <span className="truncate p-2 text-xs font-medium">
                   {asset.originalName}
                 </span>
               </button>

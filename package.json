@@ -7,10 +7,6 @@
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
-  },
   "license": "Apache-2.0",
   "author": {
     "name": "Aymeric PINEAU",
@@ -23,7 +19,10 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
   "workspaces": [
     "./docs",
     "./apps/*",
@@ -33,11 +32,12 @@
     "./plugins/*",
     "./compat/*"
   ],
+  "type": "module",
   "scripts": {
     "build": "turbo build '--filter=./packages/**' '--filter=./docs'",
     "build:ci": "turbo build:ci '--filter=./packages/**' '--filter=./docs'",
-    "check": "bun --bun biome check .",
-    "check:fix": "bun --bun biome check --write .",
+    "check": "oxlint . && oxfmt --check .",
+    "check:fix": "oxlint --fix . && oxfmt .",
     "clean": "turbo clean '--filter=./packages/**' '--filter=./docs'",
     "clean:node_modules": "bun --bun rimraf node_modules ./**/node_modules",
     "clean:packages:node_modules": "bun --bun rimraf ./**/node_modules",
@@ -57,12 +57,11 @@
     "docker:showcase:start": "docker run --rm -p 3100:3100 --name intlayer-showcase-app intlayer-showcase",
     "docker:website:build": "./scripts/docker-build-website.sh",
     "docker:website:start": "docker run --rm -p 3000:3000 --name intlayer-website-app intlayer-website",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "format:package": "prettier --write '**/package.json'",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
     "install:packages": "bun install --filter '!./examples/**' --filter '!./apps/website/**'",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "lint-staged": "lint-staged --allow-empty",
     "prepare": "husky",
     "prepare:publish": "bun run clean && bun install && bun run build",
@@ -79,14 +78,7 @@
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
     "typecheck": "bun turbo typecheck '--filter=./packages/**' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**' --concurrency=1"
   },
-  "resolutions": {
-    "bson": "7.2.0",
-    "preact": "11.1.1",
-    "react": "19.3.1",
-    "react-dom": "19.3.1"
-  },
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@commitlint/types": "21.2.3",
@@ -102,22 +94,27 @@
     "intlayer": "workspace:*",
     "lint-staged": "17.6.0",
     "minimist": "1.2.8",
-    "prettier": "3.9.10",
-    "prettier-plugin-intlayer": "workspace:*",
-    "prettier-plugin-packagejson": "3.1.0",
-    "rimraf": "6.1.3",
+    "oxfmt": "0.76.0",
+    "oxlint": "1.91.0",
+    "rimraf": "6.1.4",
     "rollup-plugin-visualizer": "7.1.1",
-    "tsdown": "0.23.4",
+    "tsdown": "0.23.5",
     "tslib": "2.9.1",
     "turbo": "2.11.10",
     "typescript": "6.0.3",
     "vitest": "5.1.0"
   },
-  "packageManager": "bun@1.4.4",
+  "resolutions": {
+    "bson": "7.2.0",
+    "preact": "11.1.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
   "engines": {
     "bun": ">=1.4.4",
     "node": ">=16.0.0"
   },
+  "packageManager": "bun@1.4.4",
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"
   },

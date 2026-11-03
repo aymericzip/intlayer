@@ -335,9 +335,9 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
         {/* ========================================================= */}
         <div className="flex flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/60 shadow-lg backdrop-blur-md lg:h-180">
           {/* Header & Search */}
-          <div className="flex flex-col gap-3 border-border/60 border-b bg-muted/20 p-4">
+          <div className="flex flex-col gap-3 border-b border-border/60 bg-muted/20 p-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 font-bold text-foreground text-sm">
+              <div className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <Sparkles className="size-4 text-foreground" />
                 <span>{content.editor.templatesHeader}</span>
                 <Badge size="sm" color="text" className="font-mono text-[10px]">
@@ -348,7 +348,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="cursor-pointer text-muted-foreground text-xs hover:text-foreground hover:underline"
+                  className="cursor-pointer text-xs text-muted-foreground hover:text-foreground hover:underline"
                 >
                   {content.editor.clearSearch}
                 </button>
@@ -370,7 +370,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
           <div className="flex min-h-0 flex-1 overflow-hidden">
             {/* Category selection sidebar (visible when not searching) */}
             {!searchQuery && (
-              <div className="w-35 shrink-0 space-y-1 overflow-y-auto border-border/50 border-e bg-muted/10 p-1.5">
+              <div className="w-35 shrink-0 space-y-1 overflow-y-auto border-e border-border/50 bg-muted/10 p-1.5">
                 {categoriesWithCounts.map((cat) => {
                   const Icon = CATEGORY_ICONS[cat.id] || Type;
                   const isSelected = activeCategory === cat.id;
@@ -381,7 +381,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                       type="button"
                       onClick={() => setActiveCategory(cat.id)}
                       className={cn(
-                        'flex w-full cursor-pointer items-center justify-between gap-1.5 rounded-lg px-2.5 py-2 text-start font-medium text-xs transition-all',
+                        'flex w-full cursor-pointer items-center justify-between gap-1.5 rounded-lg px-2.5 py-2 text-start text-xs font-medium transition-all',
                         isSelected
                           ? 'border border-border/80 bg-muted/90 text-foreground shadow-xs'
                           : 'border border-transparent text-muted-foreground hover:bg-muted/40 hover:text-foreground'
@@ -405,7 +405,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
             {/* Template list */}
             <div className="flex-1 space-y-2.5 overflow-y-auto p-3">
               {filteredTemplates.length === 0 ? (
-                <div className="p-6 text-center text-muted-foreground text-xs italic">
+                <div className="p-6 text-center text-xs text-muted-foreground italic">
                   {content.editor.noTemplatesFound}
                 </div>
               ) : (
@@ -423,7 +423,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                       label={template.title}
                       onClick={() => handleSelectTemplate(template)}
                       className={cn(
-                        'h-auto w-full cursor-pointer select-none justify-start p-3 text-start transition-all duration-150 [corner-shape:squircle]',
+                        'h-auto w-full cursor-pointer justify-start p-3 text-start transition-all duration-150 select-none [corner-shape:squircle]',
                         '[&>span]:block [&>span]:w-full [&>span]:whitespace-normal',
                         isSelected
                           ? 'border border-border/90 bg-muted/50 shadow-sm ring-1 ring-border'
@@ -443,10 +443,10 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                             <Icon className="size-3.5" />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <span className="block truncate font-semibold text-foreground text-xs">
+                            <span className="block truncate text-xs font-semibold text-foreground">
                               {template.title}
                             </span>
-                            <p className="mt-0.5 line-clamp-2 text-[11px] text-muted-foreground leading-snug">
+                            <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-muted-foreground">
                               {template.description}
                             </p>
                           </div>
@@ -487,9 +487,9 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
             className="flex flex-col gap-4 border border-border/80 bg-card/60 p-5 shadow-lg backdrop-blur-md"
           >
             {/* Editor Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-border/50 border-b pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-3">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-foreground text-sm uppercase tracking-wider">
+                <span className="text-sm font-bold tracking-wider text-foreground uppercase">
                   {dialect.toUpperCase()} {content.editor.editorTitle}
                 </span>
                 <Tag size="xs" color="text" className="font-mono text-[10px]">
@@ -544,7 +544,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                     size="sm"
                     label={content.editor.insertLabel.value}
                     onClick={() => setIsInsertMenuOpen((v) => !v)}
-                    className="h-7 cursor-pointer gap-1.5 rounded-full px-2.5 text-foreground text-xs hover:bg-muted"
+                    className="h-7 cursor-pointer gap-1.5 rounded-full px-2.5 text-xs text-foreground hover:bg-muted"
                   >
                     <Plus className="size-3" />
                     <span>{content.editor.insertLabel}</span>
@@ -552,8 +552,8 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                   </Button>
 
                   {isInsertMenuOpen && (
-                    <div className="fade-in zoom-in-95 absolute inset-e-0 top-full z-50 mt-1.5 w-64 animate-in rounded-xl border border-border/80 bg-background/95 p-1.5 shadow-xl backdrop-blur-md">
-                      <span className="block px-2 py-1 font-semibold text-[10px] text-muted-foreground uppercase">
+                    <div className="fade-in zoom-in-95 animate-in absolute inset-e-0 top-full z-50 mt-1.5 w-64 rounded-xl border border-border/80 bg-background/95 p-1.5 shadow-xl backdrop-blur-md">
+                      <span className="block px-2 py-1 text-[10px] font-semibold text-muted-foreground uppercase">
                         {content.editor.quickInsertSnippets}
                       </span>
                       <div className="space-y-0.5">
@@ -617,7 +617,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                 className="rounded-xl border-border/70 bg-background/70 p-3.5 font-mono text-sm leading-relaxed"
               />
 
-              <div className="mt-2 flex items-center justify-between font-mono text-muted-foreground text-xs">
+              <div className="mt-2 flex items-center justify-between font-mono text-xs text-muted-foreground">
                 <span>
                   {messageContent.length} {content.editor.characters}
                 </span>
@@ -629,7 +629,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
 
             {/* Validation Banner */}
             {!validationResult.isValid && validationResult.errorMessage && (
-              <div className="flex items-start gap-2.5 rounded-xl border border-error/50 bg-error/10 p-3 text-error text-xs leading-relaxed">
+              <div className="flex items-start gap-2.5 rounded-xl border border-error/50 bg-error/10 p-3 text-xs leading-relaxed text-error">
                 <AlertTriangle className="mt-0.5 size-4 shrink-0" />
                 <div className="flex-1">
                   <span className="block font-bold">
@@ -647,13 +647,13 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
             transparency="sm"
             className="flex flex-col gap-5 border border-border/80 bg-card/60 p-5 shadow-lg backdrop-blur-md"
           >
-            <div className="flex flex-wrap items-center justify-between gap-3 border-border/50 border-b pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-3">
               <div className="flex items-center gap-2.5">
                 <div className="flex size-7 items-center justify-center rounded-lg bg-muted text-foreground">
                   <Play className="size-3.5 fill-foreground" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-sm">
+                  <h3 className="text-sm font-bold text-foreground">
                     {content.editor.testVariablesTitle}
                   </h3>
                   <p className="text-[11px] text-muted-foreground">
@@ -664,7 +664,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
 
               {/* Locale Selector */}
               <div className="flex items-center gap-2">
-                <span className="font-medium text-muted-foreground text-xs">
+                <span className="text-xs font-medium text-muted-foreground">
                   {content.editor.localeLabel}
                 </span>
                 <select
@@ -672,7 +672,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                   onChange={(e) =>
                     setTestLocale(e.target.value as LocalesValues)
                   }
-                  className="h-8 rounded-lg border border-border bg-background px-2.5 font-sans text-foreground text-xs shadow-xs focus:outline-none focus:ring-1 focus:ring-foreground"
+                  className="h-8 rounded-lg border border-border bg-background px-2.5 font-sans text-xs text-foreground shadow-xs focus:ring-1 focus:ring-foreground focus:outline-none"
                 >
                   {COMMON_TEST_LOCALES.map((loc) => (
                     <option key={loc.value} value={loc.value}>
@@ -686,7 +686,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
             {/* Variable Inputs */}
             <div>
               {Object.keys(testVariables).length === 0 ? (
-                <div className="flex items-center gap-2 py-2 text-muted-foreground text-xs italic">
+                <div className="flex items-center gap-2 py-2 text-xs text-muted-foreground italic">
                   <Info className="size-3.5" />
                   {content.editor.noVariablesDetected}
                 </div>
@@ -703,7 +703,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                         <div className="flex items-center justify-between">
                           <label
                             htmlFor={`var-input-${varName}`}
-                            className="truncate font-mono font-semibold text-[11px] text-foreground"
+                            className="truncate font-mono text-[11px] font-semibold text-foreground"
                           >
                             {varName}
                           </label>
@@ -719,7 +719,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                                     ),
                                   }))
                                 }
-                                className="flex size-4 cursor-pointer items-center justify-center rounded bg-muted/60 font-bold text-[10px] text-foreground hover:bg-muted"
+                                className="flex size-4 cursor-pointer items-center justify-center rounded bg-muted/60 text-[10px] font-bold text-foreground hover:bg-muted"
                               >
                                 -
                               </button>
@@ -733,7 +733,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                                     ),
                                   }))
                                 }
-                                className="flex size-4 cursor-pointer items-center justify-center rounded bg-muted/60 font-bold text-[10px] text-foreground hover:bg-muted"
+                                className="flex size-4 cursor-pointer items-center justify-center rounded bg-muted/60 text-[10px] font-bold text-foreground hover:bg-muted"
                               >
                                 +
                               </button>
@@ -760,13 +760,13 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
 
             {/* Live Rendered Result Banner */}
             <div className="flex flex-col gap-1.5 rounded-xl border border-border/80 bg-card/70 p-4 shadow-inner">
-              <span className="flex items-center gap-1.5 font-semibold text-[11px] text-muted-foreground uppercase tracking-wider">
+              <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
                 <Sparkles className="size-3 text-foreground" />{' '}
                 {content.editor.renderedOutput} ({testLocale}):
               </span>
-              <div className="font-semibold text-base text-foreground leading-snug sm:text-lg">
+              <div className="text-base leading-snug font-semibold text-foreground sm:text-lg">
                 {evaluatedPreview || (
-                  <span className="font-normal text-muted-foreground text-sm italic">
+                  <span className="text-sm font-normal text-muted-foreground italic">
                     {content.editor.enterMessagePrompt}
                   </span>
                 )}
@@ -780,10 +780,10 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
             transparency="sm"
             className="flex flex-col gap-4 border border-border/80 bg-card/60 p-5 shadow-lg backdrop-blur-md"
           >
-            <div className="flex flex-wrap items-center justify-between gap-3 border-border/50 border-b pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-3">
               <div className="flex items-center gap-2">
                 <FileCode className="size-4 text-foreground" />
-                <span className="font-bold text-foreground text-sm">
+                <span className="text-sm font-bold text-foreground">
                   {content.editor.exportTitle}
                 </span>
               </div>
@@ -793,7 +793,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                   type="button"
                   onClick={() => setExportViewMode('content_ts')}
                   className={cn(
-                    'cursor-pointer rounded-md px-2.5 py-1 font-medium text-xs transition-colors',
+                    'cursor-pointer rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
                     exportViewMode === 'content_ts'
                       ? 'bg-muted font-semibold text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
@@ -805,7 +805,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                   type="button"
                   onClick={() => setExportViewMode('content_json')}
                   className={cn(
-                    'cursor-pointer rounded-md px-2.5 py-1 font-medium text-xs transition-colors',
+                    'cursor-pointer rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
                     exportViewMode === 'content_json'
                       ? 'bg-muted font-semibold text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
@@ -827,7 +827,7 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
               </CodeBlock>
             </div>
 
-            <div className="flex items-center justify-between text-muted-foreground text-xs">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{content.editor.exportDescription}</span>
               <CopyButton
                 content={

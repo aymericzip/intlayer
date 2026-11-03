@@ -196,7 +196,7 @@ export const AllRoundedSizes: Story = {
           borderColor="text"
           className="text-center"
         >
-          <div className="font-medium text-sm">{size}</div>
+          <div className="text-sm font-medium">{size}</div>
           <div className="text-xs opacity-70">rounded-{size}</div>
         </Container>
       ))}
@@ -237,7 +237,7 @@ export const TransparencyLevels: Story = {
             borderColor="neutral"
             className="text-center"
           >
-            <div className="font-medium text-sm">{transparency}</div>
+            <div className="text-sm font-medium">{transparency}</div>
             <div className="text-xs opacity-70">
               {transparency === 'none'
                 ? 'Solid'
@@ -312,7 +312,7 @@ export const GapBetweenChildren: Story = {
     <div className="space-y-6">
       {['none', 'sm', 'md', 'lg', 'xl'].map((gap) => (
         <div key={gap}>
-          <h3 className="mb-2 font-medium text-sm">Gap: {gap}</h3>
+          <h3 className="mb-2 text-sm font-medium">Gap: {gap}</h3>
           <Container
             gap={gap}
             padding="md"
@@ -360,7 +360,7 @@ export const SeparatorOptions: Story = {
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {['without', 'x', 'y', 'both'].map((separator) => (
         <div key={separator}>
-          <h3 className="mb-2 font-medium text-sm">Separator: {separator}</h3>
+          <h3 className="mb-2 text-sm font-medium">Separator: {separator}</h3>
           <Container
             separator={separator}
             padding="md"
@@ -414,7 +414,7 @@ export const BorderColors: Story = {
             roundedSize="md"
             className="text-center"
           >
-            <div className="font-medium text-sm capitalize">
+            <div className="text-sm font-medium capitalize">
               {color.replace('_', ' ')}
             </div>
             <div className="text-xs opacity-70">border-{color}</div>
@@ -458,7 +458,7 @@ export const BackgroundStates: Story = {
           border
           borderColor="neutral"
         >
-          <div className="font-medium text-sm">Background: {background}</div>
+          <div className="text-sm font-medium">Background: {background}</div>
           <div className="mt-1 text-xs opacity-70">
             {background === 'hoverable'
               ? 'Hover over this container to see the effect'
@@ -502,7 +502,7 @@ export const ARIAAttributes: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-2 font-medium text-sm">Container with Label</h3>
+        <h3 className="mb-2 text-sm font-medium">Container with Label</h3>
         <Container
           aria-label="User profile information"
           role="region"
@@ -517,7 +517,7 @@ export const ARIAAttributes: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Container with Description</h3>
+        <h3 className="mb-2 text-sm font-medium">Container with Description</h3>
         <Container
           aria-labelledby="settings-title"
           aria-describedby="settings-help"
@@ -531,14 +531,14 @@ export const ARIAAttributes: Story = {
           <div id="settings-title" className="font-medium">
             Settings Panel
           </div>
-          <div id="settings-help" className="mt-1 text-gray-600 text-xs">
+          <div id="settings-help" className="mt-1 text-xs text-gray-600">
             Configure your application preferences here
           </div>
         </Container>
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Main Content Section</h3>
+        <h3 className="mb-2 text-sm font-medium">Main Content Section</h3>
         <Container
           role="main"
           aria-label="Primary content area"
@@ -607,13 +607,13 @@ export const CardComponents: Story = {
         role="article"
         aria-labelledby="card-1-title"
       >
-        <div id="card-1-title" className="font-bold text-lg">
+        <div id="card-1-title" className="text-lg font-bold">
           Product Card
         </div>
         <div className="text-sm opacity-70">
           A sample product card with hover effects
         </div>
-        <div className="text-blue-600 text-xs">Learn more →</div>
+        <div className="text-xs text-blue-600">Learn more →</div>
       </Container>
 
       <Container
@@ -626,7 +626,7 @@ export const CardComponents: Story = {
         role="article"
         aria-labelledby="card-2-title"
       >
-        <div id="card-2-title" className="font-bold text-green-700 text-lg">
+        <div id="card-2-title" className="text-lg font-bold text-green-700">
           Success Story
         </div>
         <div className="text-sm">
@@ -644,7 +644,7 @@ export const CardComponents: Story = {
         role="article"
         aria-labelledby="card-3-title"
       >
-        <div id="card-3-title" className="font-bold text-lg text-red-700">
+        <div id="card-3-title" className="text-lg font-bold text-red-700">
           Alert Card
         </div>
         <div className="text-sm">
@@ -684,13 +684,13 @@ export const FormContainer: Story = {
       role="form"
       aria-labelledby="form-title"
     >
-      <div id="form-title" className="font-bold text-xl">
+      <div id="form-title" className="text-xl font-bold">
         User Information
       </div>
 
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block font-medium text-sm">Name</label>
+          <label className="mb-1 block text-sm font-medium">Name</label>
           <input
             type="text"
             className="w-full rounded border border-gray-300 p-2"
@@ -698,7 +698,7 @@ export const FormContainer: Story = {
           />
         </div>
         <div>
-          <label className="mb-1 block font-medium text-sm">Email</label>
+          <label className="mb-1 block text-sm font-medium">Email</label>
           <input
             type="email"
             className="w-full rounded border border-gray-300 p-2"

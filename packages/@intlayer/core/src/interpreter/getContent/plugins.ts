@@ -309,11 +309,9 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,
-                plugins: [
-                  ...branchPlugins.filter(
+                plugins: branchPlugins.filter(
                     (plugin) => plugin.id !== 'intlayer-node-plugin'
                   ),
-                ],
               });
 
               return (values: { [k: string]: string | number }) => {
@@ -429,11 +427,9 @@ export type InsertionCond<T, S, _L> = T extends {
   [NodeTypes.INSERTION]: infer I;
   fields: readonly string[];
 }
-  ? (
-      values: {
-        [K in T['fields'][number]]: string | number;
-      }
-    ) => I extends string
+  ? (values: {
+      [K in T['fields'][number]]: string | number;
+    }) => I extends string
       ? DeepTransformContent<string, S>
       : DeepTransformContent<I, S>
   : never;
@@ -466,11 +462,9 @@ export const insertionPlugin: Plugins =
               // inside a raw string. Interpolate into that string, then re-run
               // the transform so the html/markdown renderer applies afterwards.
               if (isInterpolableWrapperNode(node)) {
-                return (
-                  values: {
-                    [K in InsertionContent['fields'][number]]: string | number;
-                  }
-                ) =>
+                return (values: {
+                  [K in InsertionContent['fields'][number]]: string | number;
+                }) =>
                   transformInterpolableNode(
                     node,
                     values,
@@ -483,18 +477,14 @@ export const insertionPlugin: Plugins =
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,
-                plugins: [
-                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                plugins: (props.plugins ?? ([] as Plugins[])).filter(
                     (plugin) => plugin.id !== 'intlayer-node-plugin'
                   ),
-                ],
               });
 
-              return (
-                values: {
-                  [K in InsertionContent['fields'][number]]: string | number;
-                }
-              ) => {
+              return (values: {
+                [K in InsertionContent['fields'][number]]: string | number;
+              }) => {
                 const children = getInsertion(transformedResult, values);
 
                 return deepTransformNode(children, {

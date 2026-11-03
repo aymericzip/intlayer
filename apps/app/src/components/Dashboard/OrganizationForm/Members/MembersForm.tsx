@@ -157,7 +157,7 @@ export const MembersForm: FC = () => {
             <FormDescription>{description}</FormDescription>
             <Loader isLoading={isLoadingUsers}>
               {!resolvedMembersIds.length && (
-                <span className="flex size-full justify-center text-neutral text-sm">
+                <span className="flex size-full justify-center text-sm text-neutral">
                   {noMembers}
                 </span>
               )}

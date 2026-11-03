@@ -33,7 +33,7 @@ const recentOutputLines = new Map<string, string[]>();
 
 /** Strips terminal color codes from CLI output. */
 const stripAnsiCodes = (text: string): string =>
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: ANSI escapes
+  // oxlint-disable-next-line no-control-regex -- ANSI escapes
   text.replace(/\u001b\[[0-9;]*m/g, '');
 
 /** Last output lines of the editor server started for a project. */

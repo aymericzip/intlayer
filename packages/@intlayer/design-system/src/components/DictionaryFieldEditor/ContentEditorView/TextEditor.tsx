@@ -825,7 +825,7 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
           return (
             <tr
               key={uniqueKey}
-              className="block w-full border-neutral/10 border-t py-1"
+              className="block w-full border-t border-neutral/10 py-1"
             >
               <td className="flex w-full">
                 <CollapsibleEditor
@@ -1019,7 +1019,7 @@ const FileTextEditor: FC<TextEditorProps> = ({
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
-      <span className="text-neutral text-sm">{fileUrl} </span>
+      <span className="text-sm text-neutral">{fileUrl} </span>
       <TextEditorContainer
         section={content}
         keyPath={childKeyPath}
@@ -1099,7 +1099,7 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
     return (
       <div className="flex w-full flex-col gap-2">
         <span>(React Node)</span>
-        <span className="flex text-muted-foreground text-xs">
+        <span className="flex text-xs text-muted-foreground">
           {tsxNotEditable}
         </span>
       </div>

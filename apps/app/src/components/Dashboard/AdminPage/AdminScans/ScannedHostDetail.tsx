@@ -44,7 +44,7 @@ export const ScannedHostDetail: FC<{ host: string }> = ({ host }) => {
           {scannedHost.scans.map((scan) => (
             <tr
               key={`${scan.url}-${scan.scannedAt}`}
-              className="border-neutral/20 border-t align-top"
+              className="border-t border-neutral/20 align-top"
             >
               <td className="max-w-72 px-3 py-2">
                 <a
@@ -57,14 +57,14 @@ export const ScannedHostDetail: FC<{ host: string }> = ({ host }) => {
                   {new URL(scan.url).pathname}
                 </a>
               </td>
-              <td className="whitespace-nowrap px-3 py-2">
+              <td className="px-3 py-2 whitespace-nowrap">
                 {sources[scan.source]}
               </td>
               <td className="px-3 py-2 text-end font-semibold">{scan.score}</td>
               <td className="px-3 py-2">
                 <TechnologyTags technologies={scan.technologies} />
               </td>
-              <td className="whitespace-nowrap px-3 py-2 text-neutral text-xs">
+              <td className="px-3 py-2 text-xs whitespace-nowrap text-neutral">
                 {new Date(scan.scannedAt).toLocaleString()}
               </td>
             </tr>

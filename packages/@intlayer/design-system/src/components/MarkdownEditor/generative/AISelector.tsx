@@ -71,7 +71,7 @@ export const AISelector = ({
       )}
 
       {isLoading && (
-        <div className="flex h-12 w-full items-center px-4 font-medium text-foreground text-sm">
+        <div className="flex h-12 w-full items-center px-4 text-sm font-medium text-foreground">
           <Sparkles className="me-2 size-4 shrink-0" />
           {content.aiThinking}
           <div className="ms-2 mt-1">

@@ -42,7 +42,7 @@ export const PainPointsSection: FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center font-bold text-3xl text-foreground sm:text-4xl"
+          className="mb-16 text-center text-3xl font-bold text-foreground sm:text-4xl"
         >
           {painPointsTitle}
         </m.h2>
@@ -67,10 +67,10 @@ export const PainPointsSection: FC = () => {
               <div className="mb-5 flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground">
                 {iconMap[point.icon.value]}
               </div>
-              <h3 className="mb-3 font-semibold text-foreground text-xl">
+              <h3 className="mb-3 text-xl font-semibold text-foreground">
                 {point.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="leading-relaxed text-muted-foreground">
                 {point.description}
               </p>
             </MotionContainer>

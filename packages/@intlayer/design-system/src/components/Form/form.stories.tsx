@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { z } from 'zod/mini';
-import { Select } from '../Select';
-import { MultiSelect } from '../Select/Multiselect';
 import {
   Form,
   FormButton,
@@ -15,6 +13,8 @@ import {
   FormTextArea,
   useForm,
 } from '.';
+import { Select } from '../Select';
+import { MultiSelect } from '../Select/Multiselect';
 
 type FormStoryArgs = {
   autoComplete: boolean;

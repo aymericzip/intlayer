@@ -38,8 +38,8 @@ export const AffiliatesAdminSkeleton: FC<AffiliatesAdminSkeletonProps> = ({
           </thead>
           <tbody>
             {[...Array(10)].map((_, i) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: static skeleton rows
-              <tr key={i} className="border-card border-b">
+              // oxlint-disable-next-line react/no-array-index-key -- static skeleton rows
+              <tr key={i} className="border-b border-card">
                 <td className="px-4 py-4">
                   <Skeleton className="h-4 w-20 font-mono" />
                 </td>

@@ -109,7 +109,7 @@ export const CliRepositoryFlow: FC<CliRepositoryFlowProps> = ({
           >
             {currentStep !== 'login' &&
               (session?.organization || session?.project) && (
-                <div className="z-10 mb-6 border-neutral/20 border-b border-dotted p-2 pb-6">
+                <div className="z-10 mb-6 border-b border-dotted border-neutral/20 p-2 pb-6">
                   <H2 className="mb-5">{context}</H2>
                   <Container
                     className="z-10 me-auto w-fit flex-row items-center gap-2 p-2"

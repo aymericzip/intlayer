@@ -230,7 +230,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
         )}
       >
         <span className="font-medium">{content.baseLabel}</span>
-        <span className="truncate text-neutral text-xs">
+        <span className="truncate text-xs text-neutral">
           {content.baseDescription}
         </span>
         {getHasUnsavedChanges(baseSibling, editedContent) && <UnsavedDot />}
@@ -254,7 +254,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
           isActive ? 'bg-text/10' : 'hover:bg-text/5'
         )}
       >
-        <span className="w-8 shrink-0 font-mono text-neutral text-xs" dir="ltr">
+        <span className="w-8 shrink-0 font-mono text-xs text-neutral" dir="ltr">
           #{entry.item}
         </span>
         <span
@@ -287,7 +287,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
                 style={{ width: formatPercent(entry.completeness) }}
               />
             </span>
-            <span className="w-8 text-end text-neutral text-xs">
+            <span className="w-8 text-end text-xs text-neutral">
               {formatPercent(entry.completeness)}
             </span>
           </span>
@@ -319,7 +319,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
           </span>
         </Button>
         {variant.aliases.length > 0 && (
-          <span className="px-1 text-neutral text-xs">
+          <span className="px-1 text-xs text-neutral">
             {content.alsoAnswersTo}{' '}
             <span className="font-mono" dir="ltr">
               {variant.aliases
@@ -374,7 +374,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
             >
               {itemEntries.length > 0 && (
                 <div className="flex flex-col gap-1">
-                  <span className="px-2 font-medium text-neutral text-xs">
+                  <span className="px-2 text-xs font-medium text-neutral">
                     {content.itemsLabel}
                   </span>
                   {renderBaseEntry(
@@ -388,7 +388,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
               )}
               {variants.length > 0 && (
                 <div className="flex flex-col gap-1">
-                  <span className="px-2 font-medium text-neutral text-xs">
+                  <span className="px-2 text-xs font-medium text-neutral">
                     {content.variantsLabel}
                   </span>
                   <div className="flex flex-wrap gap-1 px-1">
@@ -415,7 +415,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
     <div className={cn('flex flex-col gap-4', className)}>
       {variants.length > 0 && (
         <div className="flex flex-col gap-2">
-          <span className="font-medium text-neutral text-xs">
+          <span className="text-xs font-medium text-neutral">
             {content.variantsLabel}
           </span>
           <div className="flex flex-wrap items-start gap-1">
@@ -440,7 +440,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
             )}
           </div>
           {selectedVariantIdentity && !selectedVariantIdentity.isDefault && (
-            <span className="text-neutral text-xs">
+            <span className="text-xs text-neutral">
               {content.inheritanceHint}
             </span>
           )}
@@ -450,11 +450,11 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
       {itemEntries.length > 0 && (
         <div className="flex flex-col gap-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="font-medium text-neutral text-xs">
+            <span className="text-xs font-medium text-neutral">
               {content.itemsLabel}
             </span>
             {variants.length > 0 && (
-              <span className="text-neutral text-xs">
+              <span className="text-xs text-neutral">
                 {content.combinations({
                   items: String(itemEntries.length),
                   variants: String(variants.length),
@@ -490,7 +490,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
               renderItemEntry(entry, () => selectItem(entry.item))
             )}
             {visibleItemEntries.length === 0 && (
-              <span className="px-3 py-2 text-neutral text-sm">
+              <span className="px-3 py-2 text-sm text-neutral">
                 {content.noMatchingItem}
               </span>
             )}
@@ -499,7 +499,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
       )}
 
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-neutral text-xs">{content.codeSnippetLabel}</span>
+        <span className="text-xs text-neutral">{content.codeSnippetLabel}</span>
         <CopyToClipboard text={snippet} className="text-xs" size={12}>
           <code className="font-mono text-xs" dir="ltr">
             {snippet}

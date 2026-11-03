@@ -135,7 +135,7 @@ export const Default: Story = {
 
     return (
       <div className="max-w-md rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-medium text-sm">Editable Content</h3>
+        <h3 className="mb-2 text-sm font-medium">Editable Content</h3>
         <ContentEditor
           onContentChange={setContent}
           placeholder="Enter your content here..."
@@ -189,7 +189,7 @@ You can use Ctrl+Enter to save your changes or press Escape to cancel and revert
 
     return (
       <div className="max-w-lg rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-medium text-sm">Long Content Editor</h3>
+        <h3 className="mb-2 text-sm font-medium">Long Content Editor</h3>
         <ContentEditor
           onContentChange={setContent}
           placeholder="Enter your long-form content here..."
@@ -226,8 +226,8 @@ export const KeyboardShortcuts: Story = {
 
     return (
       <div className="max-w-md rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-medium text-sm">Keyboard Shortcuts</h3>
-        <div className="mb-3 space-y-1 text-gray-600 text-xs">
+        <h3 className="mb-2 text-sm font-medium">Keyboard Shortcuts</h3>
+        <div className="mb-3 space-y-1 text-xs text-gray-600">
           <div>
             •{' '}
             <kbd className="rounded bg-gray-100 px-1 py-0.5 text-xs">
@@ -292,7 +292,7 @@ export const InputDefault: Story = {
 
     return (
       <div className="max-w-md rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-medium text-sm">Editable Input</h3>
+        <h3 className="mb-2 text-sm font-medium">Editable Input</h3>
         <ContentEditorInput
           onContentChange={(content) => setValue(String(content || ''))}
           placeholder="Enter text here..."
@@ -342,8 +342,8 @@ export const InputWithValidation: Story = {
 
     return (
       <div className="max-w-md rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-medium text-sm">Input with Validation</h3>
-        <p className="mb-3 text-gray-600 text-xs">
+        <h3 className="mb-2 text-sm font-medium">Input with Validation</h3>
+        <p className="mb-3 text-xs text-gray-600">
           Only alphanumeric characters allowed
         </p>
         <ContentEditorInput
@@ -422,7 +422,7 @@ export const InputWithAdditionalButtons: Story = {
 
     return (
       <div className="max-w-md rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-medium text-sm">Input with Actions</h3>
+        <h3 className="mb-2 text-sm font-medium">Input with Actions</h3>
         <ContentEditorInput
           onContentChange={(content) => setValue(String(content || ''))}
           additionalButtons={additionalButtons}
@@ -469,7 +469,7 @@ export const InputDisabled: Story = {
 
     return (
       <div className="max-w-md rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-medium text-sm">Disabled Input</h3>
+        <h3 className="mb-2 text-sm font-medium">Disabled Input</h3>
         <ContentEditorInput
           onContentChange={(content) => setValue(String(content || ''))}
           disabled
@@ -511,7 +511,7 @@ export const AccessibilityDemo: Story = {
     return (
       <div className="max-w-lg space-y-6">
         <div className="rounded-lg border border-gray-200 p-4">
-          <h3 className="mb-2 font-medium text-sm">
+          <h3 className="mb-2 text-sm font-medium">
             ContentEditor Accessibility
           </h3>
           <ContentEditor
@@ -521,13 +521,13 @@ export const AccessibilityDemo: Story = {
           >
             {textValue}
           </ContentEditor>
-          <div id="text-editor-help" className="mt-1 text-gray-500 text-xs">
+          <div id="text-editor-help" className="mt-1 text-xs text-gray-500">
             Use Ctrl+Enter to save or Escape to cancel
           </div>
         </div>
 
         <div className="rounded-lg border border-gray-200 p-4">
-          <h3 className="mb-2 font-medium text-sm">
+          <h3 className="mb-2 text-sm font-medium">
             ContentEditorInput Accessibility
           </h3>
           <ContentEditorInput
@@ -541,7 +541,7 @@ export const AccessibilityDemo: Story = {
           >
             {inputValue}
           </ContentEditorInput>
-          <div id="input-editor-help" className="mt-1 text-gray-500 text-xs">
+          <div id="input-editor-help" className="mt-1 text-xs text-gray-500">
             Minimum 3 characters required. Press Enter to save or Escape to
             cancel.
           </div>
@@ -728,7 +728,7 @@ export const CommentSystem: Story = {
 
     return (
       <div className="max-w-2xl space-y-4">
-        <h3 className="font-semibold text-lg">Comments</h3>
+        <h3 className="text-lg font-semibold">Comments</h3>
         {comments.map((comment) => (
           <div
             key={comment.id}
@@ -736,7 +736,7 @@ export const CommentSystem: Story = {
           >
             <div className="mb-2 flex items-center gap-2">
               <div className="font-medium">{comment.author}</div>
-              <div className="text-gray-500 text-sm">{comment.timestamp}</div>
+              <div className="text-sm text-gray-500">{comment.timestamp}</div>
             </div>
             <ContentEditor
               onContentChange={(content) => updateComment(comment.id, content)}

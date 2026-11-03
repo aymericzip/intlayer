@@ -66,9 +66,7 @@ const createGraphemeSegmenter = (): GraphemeSegmenter | null => {
   const SegmenterCtor = (
     Intl as unknown as Record<
       string,
-      new (
-        ...args: unknown[]
-      ) => GraphemeSegmenter
+      new (...args: unknown[]) => GraphemeSegmenter
     >
   ).Segmenter;
   if (!SegmenterCtor) return null;
@@ -356,9 +354,9 @@ export const useContentEditable = ({
     if (e.key === 'Enter') {
       e.preventDefault();
       const newText =
-        currentText.slice(0, selInfo.start) +
-        '\n' +
-        currentText.slice(selInfo.end);
+        `${currentText.slice(0, selInfo.start) 
+        }\n${ 
+        currentText.slice(selInfo.end)}`;
       applyTextChange(newText, selInfo.start + 1);
       return;
     }
@@ -584,7 +582,7 @@ const Line: FC<LineProps> = ({ index, text, isLast, ghostText }) => (
     {ghostText && (
       <span
         data-ghost
-        className="pointer-events-none select-none text-neutral"
+        className="pointer-events-none text-neutral select-none"
         aria-hidden="true"
       >
         {ghostText}
@@ -703,7 +701,7 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
     <div className="relative w-full">
       {isEmpty && placeholder && (
         <div
-          className="pointer-events-none absolute inset-0 select-none px-2 py-3 text-base text-neutral-400 leading-[1.5rem] md:py-2 md:text-sm"
+          className="pointer-events-none absolute inset-0 px-2 py-3 text-base leading-[1.5rem] text-neutral-400 select-none md:py-2 md:text-sm"
           aria-hidden="true"
         >
           {placeholder}
@@ -731,7 +729,7 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
         onDragOver={handleDragOver}
         onClick={onClick}
         className={cn(
-          'wrap-break-word resize-none whitespace-pre-wrap outline-none',
+          'resize-none wrap-break-word whitespace-pre-wrap outline-none',
           inputVariants({
             variant,
             validationStyleEnabled: validationStyleEnabled

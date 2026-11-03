@@ -209,20 +209,20 @@ export const Interactive: Story = {
 
     return (
       <div className="flex flex-col items-center gap-4 p-6">
-        <p className="text-neutral-600 text-sm dark:text-neutral-400">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
           Press the keyboard shortcut to increment the counter:
         </p>
         <KeyboardShortcut
           shortcut="⌘ + K"
           onTriggered={() => setCount((prev) => prev + 1)}
         />
-        <div className="font-bold text-2xl">
+        <div className="text-2xl font-bold">
           Count: <span className="text-primary-600">{count}</span>
         </div>
-        <p className="text-neutral-500 text-xs dark:text-neutral-500">
+        <p className="text-xs text-neutral-500 dark:text-neutral-500">
           (Try pressing ⌘+K on Mac or Ctrl+K on Windows/Linux)
         </p>
-        <p className="text-neutral-400 text-xs dark:text-neutral-600">
+        <p className="text-xs text-neutral-400 dark:text-neutral-600">
           💡 Watch the keys light up as you press them!
         </p>
       </div>
@@ -239,10 +239,10 @@ export const LiveKeyPressVisualization: Story = {
     return (
       <div className="flex flex-col gap-6 p-6">
         <div>
-          <h3 className="mb-4 font-semibold text-lg">
+          <h3 className="mb-4 text-lg font-semibold">
             Try pressing these shortcuts:
           </h3>
-          <p className="mb-4 text-neutral-600 text-sm dark:text-neutral-400">
+          <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
             Press any key combination below and watch them light up in
             real-time!
           </p>
@@ -276,7 +276,7 @@ export const LiveKeyPressVisualization: Story = {
         </div>
 
         <div className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-900">
-          <p className="text-neutral-600 text-sm dark:text-neutral-400">
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
             <strong>How it works:</strong> Each key in the shortcut will
             highlight with a primary color when you press it. The visual
             feedback helps users learn and confirm keyboard shortcuts.
@@ -295,15 +295,15 @@ export const SizeComparison: Story = {
     <div className="flex items-center gap-4">
       <div className="flex flex-col items-center gap-2">
         <KeyboardShortcut shortcut="⌘ + F" size="sm" />
-        <span className="text-neutral-500 text-xs">Small</span>
+        <span className="text-xs text-neutral-500">Small</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <KeyboardShortcut shortcut="⌘ + F" size="md" />
-        <span className="text-neutral-500 text-xs">Medium</span>
+        <span className="text-xs text-neutral-500">Medium</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <KeyboardShortcut shortcut="⌘ + F" size="lg" />
-        <span className="text-neutral-500 text-xs">Large</span>
+        <span className="text-xs text-neutral-500">Large</span>
       </div>
     </div>
   ),
@@ -323,7 +323,7 @@ export const InSearchButton: Story = {
           className="flex items-center justify-between gap-2 rounded-lg border px-4 py-2 transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-800"
           onClick={() => setIsOpen(true)}
         >
-          <span className="text-neutral-600 text-sm dark:text-neutral-400">
+          <span className="text-sm text-neutral-600 dark:text-neutral-400">
             Search documentation...
           </span>
           <KeyboardShortcut
@@ -337,7 +337,7 @@ export const InSearchButton: Story = {
             <p className="text-sm">Search modal opened!</p>
             <button
               type="button"
-              className="mt-2 text-primary-600 text-xs hover:underline"
+              className="text-primary-600 mt-2 text-xs hover:underline"
               onClick={() => setIsOpen(false)}
             >
               Close
@@ -375,7 +375,7 @@ export const DisplayOnly: Story = {
         <span>Navigate back:</span>
         <KeyboardShortcut shortcut="Ctrl + ArrowLeft" display={true} />
       </div>
-      <p className="mt-4 text-neutral-500 text-xs">
+      <p className="mt-4 text-xs text-neutral-500">
         These shortcuts are displayed but don't listen for keyboard events
       </p>
     </div>

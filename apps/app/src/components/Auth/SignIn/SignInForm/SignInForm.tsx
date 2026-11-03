@@ -138,7 +138,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           <LastUsedIndicator method="email" />
         </div>
 
-        <span className="m-auto mt-3 flex w-full items-center justify-center text-neutral text-xs">
+        <span className="m-auto mt-3 flex w-full items-center justify-center text-xs text-neutral">
           {signUpLink.message}
           <FormButton
             variant="link"

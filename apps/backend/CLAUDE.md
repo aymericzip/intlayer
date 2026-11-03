@@ -8,8 +8,8 @@ Fastify REST API for Intlayer CMS. `https://api.intlayer.org`. Consumed by `apps
 bun run dev          # watch mode (bun --watch ./src/index.ts)
 bun run build        # tsdown build → dist/
 bun run test         # vitest run (node runtime — see note below)
-bun run lint         # biome lint
-bun run lint:fix     # biome lint --write
+bun run lint         # oxlint
+bun run lint:fix     # oxlint --fix
 bun run typecheck    # tsc --noEmit
 ```
 

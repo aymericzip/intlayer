@@ -85,7 +85,8 @@ const tableVariants = cva('w-full border-collapse', {
 });
 
 export interface CollapsibleTableProps
-  extends Omit<HTMLAttributes<HTMLElement>, 'title'>,
+  extends
+    Omit<HTMLAttributes<HTMLElement>, 'title'>,
     VariantProps<typeof collapsibleTableVariants> {
   /** Table title displayed in the header */
   title: string;
@@ -259,7 +260,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                   <th
                     key={column}
                     className={cn(
-                      'pb-2 text-start font-medium text-foreground/70 text-sm',
+                      'pb-2 text-start text-sm font-medium text-foreground/70',
                       thClassName
                     )}
                   >
@@ -281,7 +282,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
                     <td
                       key={column}
                       className={cn(
-                        'rounded px-3 py-2 text-foreground text-sm',
+                        'rounded px-3 py-2 text-sm text-foreground',
                         tdClassName
                       )}
                     >

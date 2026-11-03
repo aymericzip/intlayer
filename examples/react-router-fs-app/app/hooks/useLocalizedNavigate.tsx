@@ -1,6 +1,5 @@
 import { useLocale } from 'react-intlayer';
 import { type NavigateOptions, type To, useNavigate } from 'react-router';
-
 import { locacalizeTo } from '~/components/localized-link';
 
 export const useLocalizedNavigate = () => {

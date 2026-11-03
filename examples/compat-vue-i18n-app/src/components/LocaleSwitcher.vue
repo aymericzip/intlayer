@@ -19,9 +19,13 @@ const handleLocaleChange = (newLocale: string) => {
     <select
       :value="currentLocale"
       @change="(e) => handleLocaleChange((e.target as HTMLSelectElement).value)"
-      class="h-8 rounded-md border border-border bg-card px-2 text-xs font-medium focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+      class="h-8 rounded-md border border-border bg-card px-2 text-xs font-medium transition-colors focus:ring-1 focus:ring-primary focus:outline-none"
     >
-      <option v-for="localeItem in locales" :key="localeItem" :value="localeItem">
+      <option
+        v-for="localeItem in locales"
+        :key="localeItem"
+        :value="localeItem"
+      >
         {{ getLocaleName(localeItem) }}
       </option>
     </select>

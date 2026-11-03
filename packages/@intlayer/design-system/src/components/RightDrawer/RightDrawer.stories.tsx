@@ -144,7 +144,7 @@ export const Default: Story = {
             Open Default Drawer
           </button>
 
-          <div className="mt-6 space-y-4 text-gray-600 text-sm">
+          <div className="mt-6 space-y-4 text-sm text-gray-600">
             <p>• Click the button above to open the drawer</p>
             <p>• Click outside the drawer to close it</p>
             <p>• Use the X button in the header to close</p>
@@ -154,7 +154,7 @@ export const Default: Story = {
         <RightDrawer {...args}>
           <div className="space-y-6 p-6">
             <div>
-              <h3 className="mb-3 font-semibold text-lg">Drawer Content</h3>
+              <h3 className="mb-3 text-lg font-semibold">Drawer Content</h3>
               <p className="text-gray-600">
                 This is the main content area of the drawer. It can contain any
                 React elements, forms, navigation, or other interactive content.
@@ -163,7 +163,7 @@ export const Default: Story = {
 
             <div className="space-y-3">
               <h4 className="font-medium">Features Demonstrated:</h4>
-              <ul className="list-inside list-disc space-y-1 text-gray-600 text-sm">
+              <ul className="list-inside list-disc space-y-1 text-sm text-gray-600">
                 <li>Responsive design (try resizing the window)</li>
                 <li>Click outside to close behavior</li>
                 <li>Store-based state management</li>
@@ -201,10 +201,10 @@ export const WithBackButton: Story = {
       onBack: () => console.log('Back button clicked'),
     },
     header: (
-      <div className="px-6 text-gray-600 text-sm">
+      <div className="px-6 text-sm text-gray-600">
         <div className="flex items-center justify-between">
           <span>Last updated: 2 hours ago</span>
-          <span className="rounded-full bg-green-100 px-2 py-1 text-green-800 text-xs">
+          <span className="rounded-full bg-green-100 px-2 py-1 text-xs text-green-800">
             Active
           </span>
         </div>
@@ -226,7 +226,7 @@ export const WithBackButton: Story = {
             Open Detail Drawer
           </button>
 
-          <div className="mt-6 space-y-4 text-gray-600 text-sm">
+          <div className="mt-6 space-y-4 text-sm text-gray-600">
             <p>• This drawer demonstrates back button functionality</p>
             <p>• Header includes additional metadata and status</p>
             <p>• Common pattern for detail/edit views</p>
@@ -236,7 +236,7 @@ export const WithBackButton: Story = {
         <RightDrawer {...args}>
           <div className="space-y-6 p-6">
             <div>
-              <h3 className="mb-3 font-semibold text-lg">Product Details</h3>
+              <h3 className="mb-3 text-lg font-semibold">Product Details</h3>
               <div className="space-y-3 rounded-lg bg-gray-50 p-4">
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
@@ -261,7 +261,7 @@ export const WithBackButton: Story = {
 
             <div>
               <h4 className="mb-2 font-medium">Description</h4>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-sm leading-relaxed text-gray-600">
                 A high-quality electronic device with advanced features and
                 modern design. Perfect for both professional and personal use
                 with excellent performance characteristics and reliable
@@ -330,7 +330,7 @@ export const Controlled: Story = {
               Open Controlled Drawer
             </button>
 
-            <div className="text-gray-600 text-sm">
+            <div className="text-sm text-gray-600">
               <p>
                 Form submissions: <strong>{submitCount}</strong>
               </p>
@@ -340,7 +340,7 @@ export const Controlled: Story = {
             </div>
           </div>
 
-          <div className="mt-6 space-y-4 text-gray-600 text-sm">
+          <div className="mt-6 space-y-4 text-sm text-gray-600">
             <p>• This drawer uses controlled state via props</p>
             <p>• Parent component manages open/close state</p>
             <p>• Useful for forms and validation workflows</p>
@@ -350,8 +350,8 @@ export const Controlled: Story = {
         <RightDrawer {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <div className="space-y-6 p-6">
             <div>
-              <h3 className="mb-3 font-semibold text-lg">Contact Form</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="mb-3 text-lg font-semibold">Contact Form</h3>
+              <p className="text-sm text-gray-600">
                 This form demonstrates controlled drawer behavior with external
                 state management.
               </p>
@@ -367,7 +367,7 @@ export const Controlled: Story = {
               <div>
                 <label
                   htmlFor="contact-name"
-                  className="mb-2 block font-medium text-sm"
+                  className="mb-2 block text-sm font-medium"
                 >
                   Name
                 </label>
@@ -383,7 +383,7 @@ export const Controlled: Story = {
               <div>
                 <label
                   htmlFor="contact-email"
-                  className="mb-2 block font-medium text-sm"
+                  className="mb-2 block text-sm font-medium"
                 >
                   Email
                 </label>
@@ -399,7 +399,7 @@ export const Controlled: Story = {
               <div>
                 <label
                   htmlFor="contact-message"
-                  className="mb-2 block font-medium text-sm"
+                  className="mb-2 block text-sm font-medium"
                 >
                   Message
                 </label>
@@ -421,7 +421,7 @@ export const Controlled: Story = {
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="rounded-md bg-gray-300 px-4 py-2 text-gray-700 text-sm transition-colors hover:bg-gray-400"
+                  className="rounded-md bg-gray-300 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-400"
                 >
                   Cancel
                 </button>
@@ -472,7 +472,7 @@ export const NoOutsideClose: Story = {
             Open Persistent Drawer
           </button>
 
-          <div className="mt-6 space-y-4 text-gray-600 text-sm">
+          <div className="mt-6 space-y-4 text-sm text-gray-600">
             <p>• This drawer requires explicit close action</p>
             <p>• Clicking outside will not close it</p>
             <p>• Use the X button or complete the process</p>
@@ -489,7 +489,7 @@ export const NoOutsideClose: Story = {
                   <h3 className="font-medium text-amber-800">
                     Important Notice
                   </h3>
-                  <p className="mt-1 text-amber-700 text-sm">
+                  <p className="mt-1 text-sm text-amber-700">
                     This drawer cannot be closed by clicking outside. Please
                     complete the process or use the close button.
                   </p>
@@ -498,14 +498,14 @@ export const NoOutsideClose: Story = {
             </div>
 
             <div>
-              <h3 className="mb-3 font-semibold text-lg">
+              <h3 className="mb-3 text-lg font-semibold">
                 System Configuration
               </h3>
               <div className="space-y-4">
                 <div>
                   <label
                     htmlFor="api-endpoint"
-                    className="mb-2 block font-medium text-sm"
+                    className="mb-2 block text-sm font-medium"
                   >
                     API Endpoint
                   </label>
@@ -521,7 +521,7 @@ export const NoOutsideClose: Story = {
                 <div>
                   <label
                     htmlFor="api-timeout"
-                    className="mb-2 block font-medium text-sm"
+                    className="mb-2 block text-sm font-medium"
                   >
                     Timeout (seconds)
                   </label>
@@ -545,7 +545,7 @@ export const NoOutsideClose: Story = {
               </div>
             </div>
 
-            <div className="flex gap-3 border-gray-200 border-t pt-4">
+            <div className="flex gap-3 border-t border-gray-200 pt-4">
               <button
                 type="button"
                 className="rounded-md bg-green-600 px-4 py-2 text-sm text-white transition-colors hover:bg-green-700"
@@ -554,7 +554,7 @@ export const NoOutsideClose: Story = {
               </button>
               <button
                 type="button"
-                className="rounded-md bg-gray-300 px-4 py-2 text-gray-700 text-sm transition-colors hover:bg-gray-400"
+                className="rounded-md bg-gray-300 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-400"
               >
                 Reset to Defaults
               </button>
@@ -620,7 +620,7 @@ export const MultipleDrawers: Story = {
               </button>
             </div>
 
-            <div className="mt-6 text-gray-600 text-sm">
+            <div className="mt-6 text-sm text-gray-600">
               <h4 className="mb-2 font-medium">Drawer States:</h4>
               <ul className="space-y-1">
                 <li>
@@ -729,7 +729,7 @@ export const MultipleDrawers: Story = {
                   <summary className="cursor-pointer p-3 text-sm hover:bg-gray-50">
                     How do I reset my password?
                   </summary>
-                  <div className="p-3 pt-0 text-gray-600 text-sm">
+                  <div className="p-3 pt-0 text-sm text-gray-600">
                     You can reset your password by clicking the "Forgot
                     Password" link on the login page.
                   </div>
@@ -739,7 +739,7 @@ export const MultipleDrawers: Story = {
                   <summary className="cursor-pointer p-3 text-sm hover:bg-gray-50">
                     How do I change my email address?
                   </summary>
-                  <div className="p-3 pt-0 text-gray-600 text-sm">
+                  <div className="p-3 pt-0 text-sm text-gray-600">
                     Go to Settings → Account → Email Address to update your
                     email.
                   </div>
@@ -749,7 +749,7 @@ export const MultipleDrawers: Story = {
 
             <div>
               <h3 className="mb-3 font-medium">Contact Support</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm text-gray-600">
                 Need more help? Reach out to our support team at
                 support@example.com
               </p>

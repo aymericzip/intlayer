@@ -49,7 +49,7 @@ function TwoFactorPage() {
         >
           <div className="flex flex-col gap-3 py-3 text-center">
             <h2 className="font-extrabold">{title2}</h2>
-            <span className="text-neutral text-xs">{description}</span>
+            <span className="text-xs text-neutral">{description}</span>
           </div>
           <TotpForm />
         </Container>

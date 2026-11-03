@@ -72,7 +72,7 @@ export const ContentDeliverySection: FC = () => {
           variants={headerVariants}
           className="mb-16 text-center"
         >
-          <h2 className="mb-4 font-bold text-3xl text-foreground sm:text-4xl">
+          <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl">
             {deliveryTitle}
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
@@ -102,7 +102,7 @@ export const ContentDeliverySection: FC = () => {
               {mode.badge && (
                 <Tag
                   color={mode.id.value === 'live-sync' ? 'text' : 'neutral'}
-                  className="absolute inset-e-4 top-4 rounded-full px-3 py-1 font-medium text-xs"
+                  className="absolute inset-e-4 top-4 rounded-full px-3 py-1 text-xs font-medium"
                 >
                   {mode.badge}
                 </Tag>
@@ -112,11 +112,11 @@ export const ContentDeliverySection: FC = () => {
                 {iconMap[mode.icon.value] ?? <Zap className="size-6" />}
               </div>
 
-              <h3 className="mb-3 font-semibold text-foreground text-xl">
+              <h3 className="mb-3 text-xl font-semibold text-foreground">
                 {mode.title}
               </h3>
 
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="leading-relaxed text-muted-foreground">
                 {mode.description}
               </p>
             </MotionContainer>

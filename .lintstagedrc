@@ -1,7 +1,9 @@
 {
-  "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,yml,yaml}": [
-    "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+  "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,vue,svelte,astro}": [
+    "oxlint --fix --no-error-on-unmatched-pattern",
+    "oxfmt --no-error-on-unmatched-pattern"
   ],
-  "**/package.json": ["prettier --write"],
-  "*.{md,mdx}": ["prettier --write"]
+  "*.{json,jsonc,yml,yaml,css,md,mdx}": [
+    "oxfmt --no-error-on-unmatched-pattern"
+  ]
 }

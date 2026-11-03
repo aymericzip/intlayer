@@ -16,7 +16,7 @@ export const AnalyzerLoading: FC<AnalyzerLoadingProps> = ({
         style={{ width: `${progress}%` }}
       />
     </div>
-    <p className="mt-3 animate-pulse text-center text-muted-foreground text-sm">
+    <p className="mt-3 animate-pulse text-center text-sm text-muted-foreground">
       {currentStep}
     </p>
   </div>

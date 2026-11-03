@@ -221,7 +221,7 @@ export const colorizeObject = (
 };
 
 export const removeColor = (text: string) =>
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: we need to remove the color codes
+  // oxlint-disable-next-line no-control-regex -- we need to remove the color codes
   text.replace(/\x1b\[[0-9;]*m/g, '');
 
 const getLength = (length: number | number[] | string | string[]): number => {

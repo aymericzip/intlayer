@@ -20,7 +20,7 @@ import { IntlayerClient } from './installIntlayer';
 
 describe('IntlayerClient initial locale', () => {
   it('starts from the stored locale when none is passed', () => {
-    // biome-ignore lint/suspicious/noDocumentCookie: seeds the stored locale
+    // oxlint-disable-next-line unicorn/no-document-cookie -- seeds the stored locale
     document.cookie = 'INTLAYER_LOCALE=fr';
 
     expect(new IntlayerClient().locale).toBe('fr');

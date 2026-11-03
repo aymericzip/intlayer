@@ -128,10 +128,10 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
                 />
 
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate font-semibold text-sm text-text leading-tight">
+                  <span className="truncate text-sm leading-tight font-semibold text-text">
                     {displayName}
                   </span>
-                  <span className="truncate text-neutral text-xs leading-snug">
+                  <span className="truncate text-xs leading-snug text-neutral">
                     {session.user.email}
                   </span>
                 </div>

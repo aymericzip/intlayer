@@ -61,16 +61,16 @@ const WebhookItem: FC<WebhookItemProps> = ({
         <div className="flex items-center gap-2">
           <span className="truncate font-semibold">{webhook.name}</span>
           {webhook.enabled ? (
-            <span className="flex items-center gap-1 rounded-full bg-text/10 px-2 py-0.5 font-medium text-text text-xs">
+            <span className="flex items-center gap-1 rounded-full bg-text/10 px-2 py-0.5 text-xs font-medium text-text">
               <CheckCircle size={12} /> {webhooksSection.list.enabled}
             </span>
           ) : (
-            <span className="flex items-center gap-1 rounded-full bg-neutral/10 px-2 py-0.5 font-medium text-neutral text-xs">
+            <span className="flex items-center gap-1 rounded-full bg-neutral/10 px-2 py-0.5 text-xs font-medium text-neutral">
               <XCircle size={12} /> {webhooksSection.list.disabled}
             </span>
           )}
         </div>
-        <span className="block truncate text-neutral text-xs">
+        <span className="block truncate text-xs text-neutral">
           {webhook.url}
         </span>
       </div>
@@ -245,7 +245,7 @@ export const BuildSettings: FC = () => {
                   ? gitProviderSection.title({ provider })
                   : gitProviderSection.noProvider}
               </H4>
-              <p className="max-w-md text-neutral text-sm">
+              <p className="max-w-md text-sm text-neutral">
                 {gitProviderSection.description}
               </p>
             </div>
@@ -284,7 +284,7 @@ export const BuildSettings: FC = () => {
           <div className="flex gap-4">
             <div className="flex flex-1 flex-col gap-1">
               <H4>{autoCommitSection.title}</H4>
-              <p className="max-w-md text-neutral text-sm">
+              <p className="max-w-md text-sm text-neutral">
                 {autoCommitSection.description}
               </p>
             </div>
@@ -304,7 +304,7 @@ export const BuildSettings: FC = () => {
           <div className="flex gap-4">
             <div className="flex flex-1 flex-col gap-1">
               <H4>{webhooksSection.title}</H4>
-              <p className="text-neutral text-sm">
+              <p className="text-sm text-neutral">
                 {webhooksSection.description}
               </p>
             </div>
@@ -347,7 +347,7 @@ export const BuildSettings: FC = () => {
                 borderColor="neutral"
                 className="h-20 items-center justify-center px-6 py-2"
               >
-                <p className="text-neutral text-sm">
+                <p className="text-sm text-neutral">
                   {webhooksSection.noWebhooks}
                 </p>
               </Container>
@@ -368,7 +368,7 @@ export const BuildSettings: FC = () => {
 
         {/* Global Save Button */}
         {isProjectAdmin && (
-          <div className="flex justify-end border-neutral/30 border-t border-dotted p-3">
+          <div className="flex justify-end border-t border-dotted border-neutral/30 p-3">
             <FormButton
               type="submit"
               label={saveButton.ariaLabel.value}

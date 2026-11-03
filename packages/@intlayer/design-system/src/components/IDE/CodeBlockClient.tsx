@@ -11,8 +11,8 @@ import type { CodeLanguage } from './shikiLanguages';
 export type { CodeLanguage } from './shikiLanguages';
 
 export const CodeDefault: FC<{ children: ReactNode }> = ({ children }) => (
-  <div className="min-w-0 max-w-full overflow-x-auto">
-    <pre className="min-w-0 max-w-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+  <div className="max-w-full min-w-0 overflow-x-auto">
+    <pre className="max-w-full min-w-0 [scrollbar-width:none] overflow-x-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
       <code>
         {typeof children === 'string'
           ? children.split('\n').map((line, index) => (
@@ -43,7 +43,7 @@ export const shikiWrapperClassName =
 export const CodeHighlighted: FC<{ html: string }> = ({ html }) => (
   <div className={shikiWrapperClassName}>
     <div
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
+      // oxlint-disable-next-line react/no-danger -- Shiki generates safe HTML for code highlighting
       dangerouslySetInnerHTML={{ __html: html }}
     />
   </div>
@@ -97,7 +97,7 @@ export const CodeBlock: FC<CodeBlockProps> = ({
   return (
     <div
       className={cn(
-        'flex w-full min-w-0 max-w-full overflow-x-auto',
+        'flex w-full max-w-full min-w-0 overflow-x-auto',
         isInverted && 'shiki-inverse text-text-opposite',
         isDarkMode === true && 'shiki-dark',
         isDarkMode === false && 'shiki-light',

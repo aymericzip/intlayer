@@ -27,7 +27,7 @@ export const retrievePlanInformation = (
 export const isLifetimePriceId = (priceId: string): boolean =>
   Boolean(
     process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID &&
-      priceId === process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID
+    priceId === process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID
   );
 
 type PlanDetails = {

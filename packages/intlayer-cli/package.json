@@ -4,21 +4,17 @@
   "private": false,
   "description": "Lightweight CLI tool for Intlayer, enabling content audits, dictionary management, and CMS sync. Ideal for JavaScript developers using React or Express.",
   "keywords": [
-    "intlayer",
     "application",
-    "transpile",
-    "typescript",
+    "file",
+    "intlayer",
     "javascript",
     "json",
-    "file"
+    "transpile",
+    "typescript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -32,15 +28,18 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
-    },
-    "./package.json": "./package.json"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
+  "bin": {
+    "intlayer": "./dist/cjs/index.cjs"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "sideEffects": false,
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
@@ -51,22 +50,23 @@
       ]
     }
   },
-  "bin": {
-    "intlayer": "./dist/cjs/index.cjs"
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
   },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -87,7 +87,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.3",
+    "rimraf": "6.1.4",
     "tsdown": "0.23.4",
     "typescript": "7.0.2",
     "vitest": "5.1.0"

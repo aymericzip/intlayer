@@ -41,10 +41,10 @@ export const FrontmatterSection: FC = () => {
         viewport={{ once: true, amount: 0.25 }}
         className="mb-14 text-center"
       >
-        <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
           {title}
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+        <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
           {description}
         </p>
       </m.div>
@@ -60,7 +60,7 @@ export const FrontmatterSection: FC = () => {
           <Container
             roundedSize="3xl"
             padding="md"
-            className="h-full text-foreground-dark"
+            className="text-foreground-dark h-full"
           >
             <span className="text-foreground-dark/70 text-xs">
               {markdownCodeBlockTitle}
@@ -75,7 +75,7 @@ export const FrontmatterSection: FC = () => {
           <Container
             roundedSize="3xl"
             padding="md"
-            className="h-full text-foreground-dark"
+            className="text-foreground-dark h-full"
           >
             <span className="text-foreground-dark/70 text-xs">
               {usageCodeBlockTitle}
@@ -105,10 +105,10 @@ export const FrontmatterSection: FC = () => {
               <CodeXml className="size-5 text-foreground" />
             </div>
             <div>
-              <div className="font-semibold text-base text-foreground">
+              <div className="text-base font-semibold text-foreground">
                 {html.title}
               </div>
-              <p className="mt-1 max-w-2xl text-foreground/70 text-sm">
+              <p className="mt-1 max-w-2xl text-sm text-foreground/70">
                 {html.description}
               </p>
             </div>

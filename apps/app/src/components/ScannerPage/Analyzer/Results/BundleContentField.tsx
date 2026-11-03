@@ -62,7 +62,7 @@ const TH: FC<{ children: ReactNode; right?: boolean }> = ({
 }) => (
   <th
     className={cn(
-      'px-3 pt-3 pb-2 font-medium text-neutral/60 text-xs',
+      'px-3 pt-3 pb-2 text-xs font-medium text-neutral/60',
       right ? 'text-end' : 'text-start'
     )}
   >
@@ -77,7 +77,7 @@ const TD: FC<{ children: ReactNode; right?: boolean; className?: string }> = ({
 }) => (
   <td
     className={cn(
-      'whitespace-nowrap px-3 py-2 text-sm',
+      'px-3 py-2 text-sm whitespace-nowrap',
       right ? 'text-end tabular-nums' : 'text-start',
       className
     )}
@@ -109,7 +109,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
         <div className="overflow-x-auto rounded-lg border border-neutral/20 bg-background/50">
           <table className="w-full border-collapse p-4">
             <thead>
-              <tr className="border-neutral/10 border-b">
+              <tr className="border-b border-neutral/10">
                 <TH>{chunkTable.file}</TH>
                 <TH right>{chunkTable.bundleSize}</TH>
                 <TH right>{chunkTable.textContentSize}</TH>
@@ -128,7 +128,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
                 return (
                   <tr
                     key={chunk.url}
-                    className="border-neutral/10 border-b last:border-0"
+                    className="border-b border-neutral/10 last:border-0"
                   >
                     <TD>
                       <span className="flex items-center gap-1.5">
@@ -144,7 +144,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
                           label={chunk.filename}
                           rel="noopener noreferrer"
                           color="custom"
-                          className="text-text/70 text-xs"
+                          className="text-xs text-text/70"
                           size="sm"
                         >
                           {chunk.filename}
@@ -178,7 +178,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
       <div className="overflow-x-auto rounded-lg border border-neutral/20 bg-background/50">
         <table className="w-full border-collapse p-4">
           <thead>
-            <tr className="border-neutral/10 border-b">
+            <tr className="border-b border-neutral/10">
               <TH>{totalsTable.total}</TH>
               <TH right>{totalsTable.pageSize}</TH>
               <TH right>{totalsTable.renderedHtml}</TH>
@@ -214,7 +214,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
       </div>
 
       {bundleContentLabels?.impactDescription && (
-        <p className="text-start text-neutral/70 text-sm">
+        <p className="text-start text-sm text-neutral/70">
           {bundleContentLabels.impactDescription}
         </p>
       )}
@@ -232,7 +232,7 @@ export const BundleContentField: FC<BundleContentFieldProps> = memo(
 
     return (
       <>
-        <h3 className="mt-6 mb-3 font-semibold text-lg text-text/80">
+        <h3 className="mt-6 mb-3 text-lg font-semibold text-text/80">
           {sections?.bundleContent}
         </h3>
         <FieldItem

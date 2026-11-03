@@ -279,11 +279,9 @@ export const insertionPlugin: Plugins =
               // VNodes cannot be injected into a raw markup string, so string
               // interpolation (not `splitAndJoinInsertion`) is used here.
               if (isInterpolableWrapperNode(node)) {
-                return (
-                  values: {
-                    [K in InsertionContent['fields'][number]]: string | number;
-                  }
-                ) =>
+                return (values: {
+                  [K in InsertionContent['fields'][number]]: string | number;
+                }) =>
                   transformInterpolableNode(
                     node,
                     values,
@@ -296,21 +294,17 @@ export const insertionPlugin: Plugins =
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,
-                plugins: [
-                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                plugins: (props.plugins ?? ([] as Plugins[])).filter(
                     (plugin) => plugin.id !== 'intlayer-node-plugin'
                   ),
-                ],
               });
 
-              return (
-                values: {
-                  [K in InsertionContent['fields'][number]]:
-                    | string
-                    | number
-                    | VNode;
-                }
-              ) => {
+              return (values: {
+                [K in InsertionContent['fields'][number]]:
+                  | string
+                  | number
+                  | VNode;
+              }) => {
                 const result = splitAndJoinInsertion(transformedResult, values);
 
                 return deepTransformNode(result, {

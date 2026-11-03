@@ -45,8 +45,8 @@ export const History: FC<HistoryProps> = ({
 
   const isOutdated = Boolean(
     baseUpdatedAt &&
-      updatedAt &&
-      new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
+    updatedAt &&
+    new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
   );
 
   if (history.length === 0 && !isOutdated) return <></>;
@@ -58,7 +58,7 @@ export const History: FC<HistoryProps> = ({
       </div>
       <Popover.Detail
         identifier="outdated-translation"
-        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-muted-foreground text-sm"
+        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-sm text-muted-foreground"
         xAlign={xAlign}
       >
         {isOutdated && (
@@ -94,7 +94,7 @@ export const History: FC<HistoryProps> = ({
           transparency="xs"
           aria-label="Document history"
         >
-          <h4 className="mb-2 pb-4 font-medium text-foreground text-sm">
+          <h4 className="mb-2 pb-4 text-sm font-medium text-foreground">
             {versionHistory.title}
           </h4>
           <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
@@ -103,8 +103,8 @@ export const History: FC<HistoryProps> = ({
                 className="flex flex-row items-center justify-between gap-3 px-2 py-1 pe-1.5"
                 key={`${version}-${date}-${changes}`}
               >
-                <span className="mt-1 text-foreground text-xs">{changes}</span>
-                <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-muted-foreground text-sm">
+                <span className="mt-1 text-xs text-foreground">{changes}</span>
+                <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-sm text-muted-foreground">
                   <span className="text-nowrap">v{version}</span>
                   {date && (
                     <span className="text-nowrap">

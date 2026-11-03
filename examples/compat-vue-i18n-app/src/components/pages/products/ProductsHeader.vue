@@ -8,7 +8,9 @@ const { t } = useI18n();
 <template>
   <MockBanner />
   <h1 class="mb-2 text-3xl font-bold text-foreground">
-    {{ t("products.header.title") }}
+    {{ t('products.header.title') }}
   </h1>
-  <p class="mb-10 text-muted-foreground">{{ t("products.header.description") }}</p>
+  <p class="mb-10 text-muted-foreground">
+    {{ t('products.header.description') }}
+  </p>
 </template>

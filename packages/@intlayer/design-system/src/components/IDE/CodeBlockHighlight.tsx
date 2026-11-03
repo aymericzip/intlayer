@@ -53,9 +53,8 @@ export const CodeBlockHighlight = ({
 
         // Only import the transformer when we actually need it.
         if (targetFormat !== 'typescript') {
-          const { transformCode, deriveLanguage } = await import(
-            './codeTransformer'
-          );
+          const { transformCode, deriveLanguage } =
+            await import('./codeTransformer');
           if (cancelled) return;
           code = transformCode(String(children), targetFormat);
           shikiLang = resolveCodeLanguage(
@@ -93,7 +92,7 @@ export const CodeBlockHighlight = ({
 
   if (!display) {
     return (
-      <pre className="min-w-0 max-w-full overflow-x-auto">
+      <pre className="max-w-full min-w-0 overflow-x-auto">
         <code>{children}</code>
       </pre>
     );
@@ -101,7 +100,7 @@ export const CodeBlockHighlight = ({
 
   return (
     <div
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
+      // oxlint-disable-next-line react/no-danger -- Shiki generates safe HTML for code highlighting
       dangerouslySetInnerHTML={{ __html: display }}
       style={{ backgroundColor: 'transparent' }}
     />

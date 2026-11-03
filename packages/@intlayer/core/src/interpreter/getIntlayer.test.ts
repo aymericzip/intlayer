@@ -55,11 +55,11 @@ describe('getIntlayer safe fallback', () => {
     // deep-comparing the router state a route `head` feeds it — so the checks
     // below must not be rewritten to the `Object.*` static forms.
 
-    // biome-ignore lint/suspicious/noPrototypeBuiltins: under test
+    // oxlint-disable-next-line no-prototype-builtins -- under test
     expect(content.hasOwnProperty('metadata')).toBe(false);
-    // biome-ignore lint/suspicious/noPrototypeBuiltins: under test
+    // oxlint-disable-next-line no-prototype-builtins -- under test
     expect(content.propertyIsEnumerable('metadata')).toBe(false);
-    // biome-ignore lint/suspicious/noPrototypeBuiltins: under test
+    // oxlint-disable-next-line no-prototype-builtins -- under test
     expect(content.isPrototypeOf({})).toBe(false);
   });
 

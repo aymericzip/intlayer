@@ -64,7 +64,7 @@ export const StatusDot: FC<StatusDotProps> = ({ status, className }) => {
         return <Check className="size-3.5 text-text" />;
       case 'identical':
         return (
-          <span className="font-bold font-mono text-warning text-xs leading-none">
+          <span className="font-mono text-xs leading-none font-bold text-warning">
             =
           </span>
         );

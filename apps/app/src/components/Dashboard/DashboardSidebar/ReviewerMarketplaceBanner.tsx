@@ -42,7 +42,7 @@ export const ReviewerMarketplaceBanner: FC = () => {
           onClick={() => setIsClosed(true)}
         />
       </div>
-      <span className="text-neutral text-sm">
+      <span className="text-sm text-neutral">
         {reviewerMarketplace.description}
       </span>
       <Link

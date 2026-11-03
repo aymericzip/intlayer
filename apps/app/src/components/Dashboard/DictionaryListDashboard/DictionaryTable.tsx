@@ -49,7 +49,7 @@ const DataTableComponent = <TData extends RowData>({
                   <th
                     key={header.id}
                     className={cn(
-                      'text-neutral px-4 py-3 font-medium whitespace-nowrap',
+                      'px-4 py-3 font-medium whitespace-nowrap text-neutral',
                       ['selection', 'actions'].includes(header.id)
                         ? 'text-center'
                         : 'text-start'
@@ -72,7 +72,7 @@ const DataTableComponent = <TData extends RowData>({
               return (
                 <tr
                   key={row.id}
-                  className="border-card hover:bg-card/30 focus-visible:ring-card cursor-pointer rounded-xl border-b whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:outline-none"
+                  className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                   onClick={() => onRowClick(row)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {

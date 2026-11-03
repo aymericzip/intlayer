@@ -12,7 +12,7 @@ const providers: Array<{ name: string; logoName: TechLogoName }> = [
 
 export const ProvidersCarousel: FC = () => {
   return (
-    <div className="mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-128px),transparent_100%)] relative mt-8 flex w-full overflow-hidden">
+    <div className="relative mt-8 flex w-full overflow-hidden mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-128px),transparent_100%)]">
       {/* Fix: Removed 'gap-10' from the container.
         Infinite loops work best when spacing is handled by the items' margins
         to ensure the width calculation for the loop reset is precise.
@@ -37,7 +37,7 @@ export const ProvidersCarousel: FC = () => {
                     aria-hidden="true"
                   />
                 )}
-                <span className="text-nowrap font-medium text-base text-foreground/80 group-hover:text-foreground">
+                <span className="text-base font-medium text-nowrap text-foreground/80 group-hover:text-foreground">
                   {provider.name}
                 </span>
               </Container>
@@ -63,7 +63,7 @@ export const ProvidersCarousel: FC = () => {
                     aria-hidden="true"
                   />
                 )}
-                <span className="text-nowrap font-medium text-base text-foreground/80 group-hover:text-foreground">
+                <span className="text-base font-medium text-nowrap text-foreground/80 group-hover:text-foreground">
                   {provider.name}
                 </span>
               </Container>

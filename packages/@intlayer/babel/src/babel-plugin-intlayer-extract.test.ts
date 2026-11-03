@@ -492,9 +492,8 @@ export function MyComponent() {
   );
 }
 `;
-    expect(
-      transform(code, { packageName: 'next-intlayer' })
-    ).toMatchInlineSnapshot(`
+    expect(transform(code, { packageName: 'next-intlayer' }))
+      .toMatchInlineSnapshot(`
       "import { useIntlayer } from 'next-intlayer/server';
       export function MyComponent() {
         const content = useIntlayer('my-component');
@@ -520,9 +519,8 @@ export function MyComponent() {
   );
 }
 `;
-    expect(
-      transform(code, { packageName: 'next-intlayer' })
-    ).toMatchInlineSnapshot(`
+    expect(transform(code, { packageName: 'next-intlayer' }))
+      .toMatchInlineSnapshot(`
       ""use client";
 
       import { useIntlayer } from 'next-intlayer';
@@ -549,9 +547,8 @@ export function MyComponent() {
   );
 }
 `;
-    expect(
-      transform(code, { packageName: 'preact-intlayer' })
-    ).toMatchInlineSnapshot(`
+    expect(transform(code, { packageName: 'preact-intlayer' }))
+      .toMatchInlineSnapshot(`
       "import { useIntlayer } from 'preact-intlayer';
       export function MyComponent() {
         const content = useIntlayer('my-component');
@@ -576,9 +573,8 @@ export function MyComponent() {
   );
 }
 `;
-    expect(
-      transform(code, { packageName: 'solid-intlayer' })
-    ).toMatchInlineSnapshot(`
+    expect(transform(code, { packageName: 'solid-intlayer' }))
+      .toMatchInlineSnapshot(`
       "import { useIntlayer } from 'solid-intlayer';
       export function MyComponent() {
         const content = useIntlayer('my-component');
@@ -603,9 +599,8 @@ export function MyComponent() {
   );
 }
 `;
-    expect(
-      transform(code, { packageName: 'angular-intlayer' })
-    ).toMatchInlineSnapshot(`
+    expect(transform(code, { packageName: 'angular-intlayer' }))
+      .toMatchInlineSnapshot(`
       "import { useIntlayer } from 'angular-intlayer';
       export function MyComponent() {
         const content = useIntlayer('my-component');

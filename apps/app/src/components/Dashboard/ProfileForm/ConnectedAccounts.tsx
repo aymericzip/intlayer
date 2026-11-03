@@ -100,10 +100,10 @@ export const ConnectedAccounts: FC = () => {
                   )}
                 </div>
                 <div>
-                  <p className="font-medium text-sm text-text">
+                  <p className="text-sm font-medium text-text">
                     {provider.name}
                   </p>
-                  <p className="text-neutral text-xs">
+                  <p className="text-xs text-neutral">
                     {providers[provider.id]?.description}
                   </p>
                 </div>

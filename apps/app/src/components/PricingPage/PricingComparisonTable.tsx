@@ -165,7 +165,7 @@ export const PricingComparisonTable: FC = () => {
                 <Tr key={`cat-${catIndex}`} className="bg-background!">
                   <Td
                     colSpan={5}
-                    className="h-20 ps-30 pt-6 pb-2 font-semibold text-2xl text-neutral uppercase tracking-wider"
+                    className="h-20 ps-30 pt-6 pb-2 text-2xl font-semibold tracking-wider text-neutral uppercase"
                   >
                     {category.label}
                   </Td>
@@ -176,7 +176,7 @@ export const PricingComparisonTable: FC = () => {
                     {planKeys.map((plan) => (
                       <Td
                         key={plan}
-                        className="border border-neutral/20 border-solid"
+                        className="border border-solid border-neutral/20"
                       >
                         <div className="m-auto flex justify-center text-center">
                           <Cell value={feature[plan]} />

@@ -20,9 +20,9 @@ export const renderHTML = (
  * Returns a render function that uses the global provider's configuration
  * (installed via `installIntlayerHTML`), falling back to identity.
  */
-export const useHTMLRenderer = ({
-  components,
-}: RenderHTMLProps = {}): ((content: string) => string) => {
+export const useHTMLRenderer = ({ components }: RenderHTMLProps = {}): ((
+  content: string
+) => string) => {
   const context = useHTML();
 
   return (content: string) =>

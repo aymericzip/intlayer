@@ -23,7 +23,9 @@ const DICTIONARIES_ENTRY_SUBPATH_FILES = {
 type DictionariesEntrySubpath = keyof typeof DICTIONARIES_ENTRY_SUBPATH_FILES;
 
 type DictionariesEntrySubpathAlias = {
-  [Subpath in DictionariesEntrySubpath as `@intlayer/dictionaries-entry/${Subpath}`]: string;
+  [
+    Subpath in DictionariesEntrySubpath as `@intlayer/dictionaries-entry/${Subpath}`
+  ]: string;
 };
 
 /**

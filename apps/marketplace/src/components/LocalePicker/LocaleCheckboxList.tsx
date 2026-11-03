@@ -67,11 +67,11 @@ export const LocaleCheckboxList: FC<LocaleCheckboxListProps> = ({
                 >
                   {ownLocaleName}
                 </span>
-                <span className="text-neutral text-xs">
+                <span className="text-xs text-neutral">
                   {currentLocaleName}
                 </span>
               </div>
-              <span className="font-mono text-neutral text-xs">
+              <span className="font-mono text-xs text-neutral">
                 {locale.toUpperCase()}
               </span>
             </div>

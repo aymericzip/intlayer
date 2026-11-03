@@ -29,7 +29,7 @@ export const WelcomeEmailEN = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -39,36 +39,36 @@ export const WelcomeEmailEN = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Welcome to <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               We're excited to have you on board! Get started by logging in to
               your <strong>Intlayer</strong> account.
             </Text>
 
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Log In to Your Account
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               or copy and paste this URL into your browser:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               If you have any questions or need help getting started, feel free
               to reply to this email. We're here to help!
             </Text>
@@ -88,7 +88,7 @@ export const WelcomeEmailFR = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -98,35 +98,35 @@ export const WelcomeEmailFR = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Bienvenue chez <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Bonjour {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Nous sommes ravis de vous avoir parmi nous ! Commencez par vous
               connecter à votre compte <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Connectez-vous à votre compte
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               ou copiez et collez cette URL dans votre navigateur :
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Si vous avez des questions ou besoin d'aide pour commencer,
               n'hésitez pas à répondre à cet e-mail. Nous sommes là pour vous
               aider !
@@ -147,7 +147,7 @@ export const WelcomeEmailES = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -157,35 +157,35 @@ export const WelcomeEmailES = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Bienvenido a <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hola {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               ¡Estamos emocionados de tenerte a bordo! Comienza iniciando sesión
               en tu cuenta de <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Inicia sesión en tu cuenta
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               o copia y pega esta URL en tu navegador:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Si tienes preguntas o necesitas ayuda para comenzar, no dudes en
               responder a este correo electrónico. ¡Estamos aquí para ayudarte!
             </Text>
@@ -205,7 +205,7 @@ export const WelcomeEmailRU = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -215,35 +215,35 @@ export const WelcomeEmailRU = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Добро пожаловать в <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Здравствуйте, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Мы рады видеть вас в нашей команде! Начните работу, войдя в свой
               аккаунт <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Войти в свой аккаунт
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               или скопируйте и вставьте этот URL в ваш браузер:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Если у вас есть вопросы или нужна помощь, не стесняйтесь отвечать
               на это письмо. Мы здесь, чтобы помочь!
             </Text>
@@ -263,7 +263,7 @@ export const WelcomeEmailJA = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -273,35 +273,35 @@ export const WelcomeEmailJA = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong>へようこそ
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}様、こんにちは
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Intlayerへようこそ！まずは<strong>Intlayer</strong>
               アカウントにログインして始めましょう。
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 アカウントにログイン
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               または、以下のURLをブラウザにコピー＆ペーストしてください：
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               ご不明な点やサポートが必要な場合は、このメールに返信してください。私たちがサポートいたします！
             </Text>
           </Container>
@@ -320,7 +320,7 @@ export const WelcomeEmailKO = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -330,35 +330,35 @@ export const WelcomeEmailKO = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong>에 오신 것을 환영합니다
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               안녕하세요 {username}님,
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               가입을 진심으로 환영합니다! <strong>Intlayer</strong> 계정에
               로그인하여 시작해 보세요.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 계정에 로그인하기
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               또는 다음 URL을 브라우저에 복사하여 붙여넣으세요:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               궁금한 점이 있거나 도움이 필요하시면 이 이메일에 답장해 주세요.
               저희가 도와드리겠습니다!
             </Text>
@@ -378,7 +378,7 @@ export const WelcomeEmailZH = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -388,35 +388,35 @@ export const WelcomeEmailZH = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               欢迎来到 <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               {username}，您好！
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               我们很高兴您的加入！请登录您的 <strong>Intlayer</strong>{' '}
               账户开始使用。
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 登录您的账户
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               或者将此 URL 复制并粘贴到您的浏览器中：
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               如果您有任何问题或需要帮助，请随时回复此邮件。我们随时为您提供帮助！
             </Text>
           </Container>
@@ -435,7 +435,7 @@ export const WelcomeEmailDE = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -445,35 +445,35 @@ export const WelcomeEmailDE = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Willkommen bei <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hallo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Wir freuen uns, Sie an Bord zu haben! Melden Sie sich in Ihrem
               <strong>Intlayer</strong>-Konto an, um loszulegen.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 In Ihr Konto einloggen
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               oder kopieren Sie diese URL in Ihren Browser:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Wenn Sie Fragen haben oder Hilfe beim Einstieg benötigen, können
               Sie gerne auf diese E-Mail antworten. Wir sind für Sie da!
             </Text>
@@ -493,7 +493,7 @@ export const WelcomeEmailAR = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -503,35 +503,35 @@ export const WelcomeEmailAR = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               مرحباً بك في <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               أهلاً {username}،
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               نحن متحمسون لانضمامك إلينا! ابدأ بتسجيل الدخول إلى حساب
               <strong>Intlayer</strong> الخاص بك.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 تسجيل الدخول إلى حسابك
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               أو قم بنسخ ولصق هذا الرابط في متصفحك:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               إذا كان لديك أي أسئلة أو كنت بحاجة إلى مساعدة، فلا تتردد في الرد
               على هذا البريد الإلكتروني. نحن هنا للمساعدة!
             </Text>
@@ -551,7 +551,7 @@ export const WelcomeEmailIT = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -561,35 +561,35 @@ export const WelcomeEmailIT = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Benvenuto in <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ciao {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Siamo entusiasti di averti con noi! Inizia accedendo al tuo
               account <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Accedi al tuo account
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               o copia e incolla questo URL nel tuo browser:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Se hai domande o hai bisogno di aiuto per iniziare, non esitare a
               rispondere a questa e-mail. Siamo qui per aiutarti!
             </Text>
@@ -612,7 +612,7 @@ export const WelcomeEmailEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -622,35 +622,35 @@ export const WelcomeEmailEN_GB = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Welcome to <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Hello {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               We're excited to have you on board! Get started by logging in to
               your <strong>Intlayer</strong> account.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Log In to Your Account
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               or copy and paste this URL into your browser:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               If you have any questions or need help getting started, feel free
               to reply to this email. We're here to help!
             </Text>
@@ -670,7 +670,7 @@ export const WelcomeEmailPT = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -680,35 +680,35 @@ export const WelcomeEmailPT = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Bem-vindo ao <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Olá {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Estamos felizes em ter você conosco! Comece fazendo login em sua
               conta <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Entrar em sua conta
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               ou copie e cole esta URL no seu navegador:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Se você tiver alguma dúvida ou precisar de ajuda para começar,
               sinta-se à vontade para responder a este e-mail. Estamos aqui para
               ajudar!
@@ -729,7 +729,7 @@ export const WelcomeEmailHI = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -739,35 +739,35 @@ export const WelcomeEmailHI = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong> में आपका स्वागत है
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               नमस्ते {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               हमें आपको अपने साथ जोड़कर खुशी हो रही है! अपने <strong>Intlayer</strong>{' '}
               खाते में लॉग इन करके शुरुआत करें।
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 अपने खाते में लॉग इन करें
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               या इस URL को कॉपी करके अपने ब्राउज़र में पेस्ट करें:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               यदि आपके कोई प्रश्न हैं या शुरुआत करने में मदद चाहिए, तो बेझिझक इस ईमेल का
               उत्तर दें। हम आपकी मदद के लिए यहाँ हैं!
             </Text>
@@ -787,7 +787,7 @@ export const WelcomeEmailTR = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -797,35 +797,35 @@ export const WelcomeEmailTR = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               <strong>Intlayer</strong>'a Hoş Geldiniz
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Merhaba {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Sizi aramızda görmekten heyecan duyuyoruz!{' '}
               <strong>Intlayer</strong> hesabınıza giriş yaparak başlayın.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Hesabınıza Giriş Yapın
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               veya bu URL'yi kopyalayıp tarayıcınıza yapıştırın:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Herhangi bir sorunuz varsa veya başlamak için yardıma ihtiyacınız
               olursa, bu e-postayı yanıtlamaktan çekinmeyin. Yardım etmek için
               buradayız!
@@ -846,7 +846,7 @@ export const WelcomeEmailPL = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -856,35 +856,35 @@ export const WelcomeEmailPL = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Witaj w <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Cześć {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Cieszymy się, że jesteś z nami! Zacznij od zalogowania się na
               swoje konto <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Zaloguj się do swojego konta
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               lub skopiuj i wklej ten adres URL do swojej przeglądarki:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Jeśli masz jakieś pytania lub potrzebujesz pomocy na początek,
               śmiało odpowiedz na ten e-mail. Jesteśmy tutaj, aby pomóc!
             </Text>
@@ -904,7 +904,7 @@ export const WelcomeEmailID = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -914,35 +914,35 @@ export const WelcomeEmailID = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Selamat datang di <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Halo {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Kami senang Anda bergabung! Mulailah dengan masuk ke akun
               <strong>Intlayer</strong> Anda.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Masuk ke Akun Anda
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               atau salin dan tempel URL ini ke browser Anda:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Jika Anda memiliki pertanyaan atau butuh bantuan untuk memulai,
               jangan ragu untuk membalas email ini. Kami di sini untuk membantu!
             </Text>
@@ -962,7 +962,7 @@ export const WelcomeEmailVI = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -972,35 +972,35 @@ export const WelcomeEmailVI = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Chào mừng bạn đến với <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Xin chào {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Chúng tôi rất vui mừng khi có bạn đồng hành! Hãy bắt đầu bằng cách
               đăng nhập vào tài khoản <strong>Intlayer</strong> của bạn.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Đăng nhập vào tài khoản của bạn
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               hoặc sao chép và dán URL này vào trình duyệt của bạn:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Nếu bạn có bất kỳ câu hỏi nào hoặc cần trợ giúp để bắt đầu, đừng
               ngần ngại trả lời email này. Chúng tôi luôn sẵn sàng hỗ trợ bạn!
             </Text>
@@ -1020,7 +1020,7 @@ export const WelcomeEmailUK = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
             <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1030,35 +1030,35 @@ export const WelcomeEmailUK = ({ username, loginLink }: WelcomeEmailProps) => {
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
               Ласкаво просимо до <strong>Intlayer</strong>
             </Heading>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Вітаємо, {username},
             </Text>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               Ми раді бачити вас у нашій команді! Почніть роботу, увійшовши у
               свій аккаунт <strong>Intlayer</strong>.
             </Text>
             <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
                 href={loginLink}
               >
                 Увійти у свій аккаунт
               </Button>
             </Section>
-            <Text className="text-black text-sm leading-6">
+            <Text className="text-sm leading-6 text-black">
               або скопіюйте та вставте це посилання у ваш браузер:
             </Text>
             <Link
               href={loginLink}
-              className="text-[#8a8a8a] text-xs no-underline"
+              className="text-xs text-[#8a8a8a] no-underline"
             >
               {loginLink}
             </Link>
-            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-xs leading-6">
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
               Якщо у вас виникли запитання або потрібна допомога, не соромтеся
               відповідати на цей лист. Ми тут, щоб допомогти!
             </Text>

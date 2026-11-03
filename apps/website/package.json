@@ -4,22 +4,18 @@
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [
-    "intlayer",
-    "website",
     "application",
     "editor",
-    "typescript",
+    "file",
+    "intlayer",
     "javascript",
     "json",
-    "file"
+    "typescript",
+    "website"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -33,8 +29,12 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
   "type": "module",
+  "sideEffects": false,
   "scripts": {
     "baidu-push": "bun --env-file=.env.production.local ./scripts/baidu-push.ts",
     "build": "bun --bun vite build",
@@ -42,8 +42,6 @@
     "dev": "bun --bun vite dev",
     "editor": "bun x intlayer-editor start --bun",
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
-    "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write",
     "serve": "npx intlayer serve --bun",
     "start": "bun run .output/server/index.mjs",
     "start:editor": "bun x intlayer-editor start --with 'bun --bun vite dev'",

@@ -294,7 +294,7 @@ export const SSOSettings: FC = () => {
           <Shield className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
-        <p className="text-neutral text-sm dark:text-neutral-dark">
+        <p className="dark:text-neutral-dark text-sm text-neutral">
           {description}
         </p>
       </div>
@@ -340,7 +340,7 @@ export const SSOSettings: FC = () => {
               <>
                 {/* Provider Type */}
                 <div className="mt-4">
-                  <span className="font-medium text-sm">
+                  <span className="text-sm font-medium">
                     {providerTypeLabel}
                   </span>
                   <FormSwitchSelector
@@ -364,7 +364,7 @@ export const SSOSettings: FC = () => {
                     placeholder={domainsPlaceholder.value}
                     disabled={!isOrganizationAdmin}
                   />
-                  <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
+                  <p className="dark:text-neutral-dark mt-1 text-xs text-neutral">
                     {domainsDescription}
                   </p>
                 </div>

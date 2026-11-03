@@ -46,7 +46,7 @@ export default function LocaleSwitcher() {
               onClick={() => {
                 document.cookie = getCookie(locale);
               }}
-              className={`flex items-center gap-2 rounded-md px-3 py-1.5 font-medium text-sm transition-all ${
+              className={`flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-all ${
                 isActive
                   ? 'bg-white text-zinc-900 shadow-sm dark:bg-zinc-800 dark:text-zinc-50'
                   : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-50'

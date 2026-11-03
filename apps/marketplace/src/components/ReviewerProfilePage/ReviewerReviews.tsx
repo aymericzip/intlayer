@@ -16,7 +16,7 @@ export const ReviewerReviews: FC<ReviewerReviewsProps> = ({ reviews }) => {
         {reviews.map((review) => (
           <div
             key={review.id}
-            className="border-border border-b pb-4 last:border-0"
+            className="border-b border-border pb-4 last:border-0"
           >
             <div className="mb-1 flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((s) => (
@@ -32,9 +32,9 @@ export const ReviewerReviews: FC<ReviewerReviewsProps> = ({ reviews }) => {
               ))}
             </div>
             {review.comment && (
-              <p className="text-muted-foreground text-sm">{review.comment}</p>
+              <p className="text-sm text-muted-foreground">{review.comment}</p>
             )}
-            <p className="mt-1 text-muted-foreground text-xs">
+            <p className="mt-1 text-xs text-muted-foreground">
               {new Date(review.createdAt).toLocaleDateString()}
             </p>
           </div>

@@ -83,10 +83,10 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
   const noneSelected = selected.size === 0;
 
   return (
-    <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dotted pt-6 text-start">
+    <div className="mt-6 flex flex-col gap-4 border-t border-dotted border-neutral pt-6 text-start">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="font-semibold text-lg">{title}</h3>
+          <h3 className="text-lg font-semibold">{title}</h3>
           <p className="mt-0.5 text-sm text-text/60">
             {urls.length} {description}
           </p>
@@ -131,7 +131,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
             {filteredUrls.map((url) => (
               <tr
                 key={url}
-                className="cursor-pointer border-neutral/10 border-t transition-colors hover:bg-card/80"
+                className="cursor-pointer border-t border-neutral/10 transition-colors hover:bg-card/80"
                 onClick={() => toggleUrl(url)}
               >
                 <td className="p-3">
@@ -152,7 +152,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
 
       <div className="flex items-center gap-3 self-end">
         {atLimit && (
-          <span className="text-warning text-xs">{maxLimitReached}</span>
+          <span className="text-xs text-warning">{maxLimitReached}</span>
         )}
         <span className="text-sm text-text/60">
           {selected.size} / {MAX_URLS} {selectedLabel}

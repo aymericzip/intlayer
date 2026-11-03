@@ -54,13 +54,11 @@ const fingerprintBlockList = (blocks: Block[]): FingerprintedBlock[] => {
 const fingerprintSectionFineBlocks = (section: Block): FingerprintedBlock[] => {
   const lineOffset = section.lineStart - 1;
 
-  const fineBlocks = segmentDocument(section.content).map(
-    (block): Block => ({
-      ...block,
-      lineStart: block.lineStart + lineOffset,
-      lineEnd: block.lineEnd + lineOffset,
-    })
-  );
+  const fineBlocks = segmentDocument(section.content).map((block): Block => ({
+    ...block,
+    lineStart: block.lineStart + lineOffset,
+    lineEnd: block.lineEnd + lineOffset,
+  }));
 
   return fingerprintBlockList(fineBlocks);
 };

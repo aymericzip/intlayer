@@ -52,7 +52,7 @@ const InteractiveExample = (args: any) => {
         currentPage={currentPage}
         onPageChange={setCurrentPage}
       />
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         Current page: {currentPage} of {args.totalPages}
       </p>
     </div>

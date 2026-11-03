@@ -117,7 +117,7 @@ function ProjectPage() {
       <div className="flex min-h-screen flex-col px-10">
         <ShowcaseHeader />
         <div className="flex flex-1 flex-col items-center justify-center p-8 text-center">
-          <h2 className="mb-4 font-bold text-2xl">
+          <h2 className="mb-4 text-2xl font-bold">
             {content.projectNotFound.title}
           </h2>
           <p className="mb-8 text-neutral">

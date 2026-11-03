@@ -107,7 +107,7 @@ export const OrganizationDropdown: FC = () => {
                   </Button>
                 ))
               ) : (
-                <span className="text-center text-neutral text-xs">
+                <span className="text-center text-xs text-neutral">
                   {noOtherOrganizations}
                 </span>
               )}

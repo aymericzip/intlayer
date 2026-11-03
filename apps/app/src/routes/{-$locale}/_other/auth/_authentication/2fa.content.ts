@@ -59,14 +59,7 @@ const twoFactorAuthContent = {
           'Security',
           'TOTP',
         ],
-        ar: [
-          'المصادقة الثنائية',
-          '2FA',
-          'Intlayer',
-          'التحقق',
-          'الأمان',
-          'TOTP',
-        ],
+        ar: ['المصادقة الثنائية', '2FA', 'Intlayer', 'التحقق', 'الأمان', 'TOTP'],
         de: [
           'Zwei-Faktor-Authentifizierung',
           '2FA',

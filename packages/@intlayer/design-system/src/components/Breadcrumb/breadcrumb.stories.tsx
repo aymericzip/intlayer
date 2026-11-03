@@ -302,7 +302,7 @@ export const SizeVariants: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-2 font-medium text-gray-900 text-sm">Small</h3>
+        <h3 className="mb-2 text-sm font-medium text-gray-900">Small</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           size="xs"
@@ -310,7 +310,7 @@ export const SizeVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="mb-2 font-medium text-gray-900 text-sm">
+        <h3 className="mb-2 text-sm font-medium text-gray-900">
           Medium (Default)
         </h3>
         <Breadcrumb
@@ -320,7 +320,7 @@ export const SizeVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="mb-2 font-medium text-gray-900 text-sm">Large</h3>
+        <h3 className="mb-2 text-sm font-medium text-gray-900">Large</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           size="lg"
@@ -345,7 +345,7 @@ export const SpacingVariants: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-2 font-medium text-gray-900 text-sm">Compact</h3>
+        <h3 className="mb-2 text-sm font-medium text-gray-900">Compact</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           spacing="compact"
@@ -353,7 +353,7 @@ export const SpacingVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="mb-2 font-medium text-gray-900 text-sm">
+        <h3 className="mb-2 text-sm font-medium text-gray-900">
           Normal (Default)
         </h3>
         <Breadcrumb
@@ -363,7 +363,7 @@ export const SpacingVariants: Story = {
         />
       </div>
       <div>
-        <h3 className="mb-2 font-medium text-gray-900 text-sm">Loose</h3>
+        <h3 className="mb-2 text-sm font-medium text-gray-900">Loose</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
           spacing="loose"

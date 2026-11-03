@@ -118,20 +118,20 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
             color="text"
             className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium backdrop-blur-md"
           >
-            <Sparkles className="text-text-opposite size-3.5" />
+            <Sparkles className="size-3.5 text-text-opposite" />
             {content.freeBadge}
           </Badge>
 
-          <h1 className="text-foreground text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             {metaByDialect.title}
           </h1>
 
-          <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed sm:text-base md:text-lg">
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
             {metaByDialect.description}
           </p>
 
           {/* Format Switcher Navigation Pills */}
-          <div className="border-border/70 bg-card/40 mt-4 flex flex-wrap items-center justify-center gap-2 rounded-2xl border p-1.5 shadow-xs backdrop-blur-md">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-border/70 bg-card/40 p-1.5 shadow-xs backdrop-blur-md">
             {switcherLinks.map((tab) => {
               const isActive = tab.id === dialect;
               const TabIcon = tab.icon;
@@ -173,23 +173,23 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
             roundedSize="2xl"
             transparency="sm"
             padding="xl"
-            className="border-border/80 from-muted/40 via-card/80 to-card relative overflow-hidden border bg-linear-to-br text-center shadow-xl backdrop-blur-lg sm:p-12"
+            className="relative overflow-hidden border border-border/80 bg-linear-to-br from-muted/40 via-card/80 to-card text-center shadow-xl backdrop-blur-lg sm:p-12"
           >
             <div className="mx-auto flex max-w-2xl flex-col items-center gap-5">
               <Badge
                 size="sm"
                 color="text"
                 variant="outline"
-                className="text-text font-mono text-xs"
+                className="font-mono text-xs text-text"
               >
                 {content.ecosystemBadge}
               </Badge>
 
-              <h3 className="text-foreground text-2xl font-bold sm:text-3xl">
+              <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
                 {content.cta.title}
               </h3>
 
-              <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+              <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
                 {content.cta.description}
               </p>
 
@@ -203,7 +203,7 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
                   label={content.cta.button.value}
                   className="flex flex-row items-center justify-center gap-2"
                 >
-                  <span className="text-foreground flex flex-row flex-nowrap items-center gap-2 text-sm sm:text-lg">
+                  <span className="flex flex-row flex-nowrap items-center gap-2 text-sm text-foreground sm:text-lg">
                     {content.cta.button}
                     <ArrowRight className="size-5 transition-transform" />
                   </span>

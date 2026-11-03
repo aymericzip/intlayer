@@ -77,7 +77,7 @@ export const LocalizedPagesSection: FC<LocalizedPagesSectionProps> = ({
     isBaseLocalePage({ pageUrl: url, hreflangs, routing: domainData.routing });
 
   return (
-    <div className="mt-3 flex flex-col gap-2 border-neutral border-t border-dotted pt-3 text-start text-sm">
+    <div className="mt-3 flex flex-col gap-2 border-t border-dotted border-neutral pt-3 text-start text-sm">
       <strong className="flex items-center gap-2 text-muted-foreground">
         <Languages size={16} />
         {title}
@@ -96,7 +96,7 @@ export const LocalizedPagesSection: FC<LocalizedPagesSectionProps> = ({
         </Container>
       )}
 
-      <span className="text-muted-foreground text-xs">{description}</span>
+      <span className="text-xs text-muted-foreground">{description}</span>
       <ul className="flex flex-wrap gap-2">
         {localizedPages.map((localizedPage) => (
           <li key={localizedPage.url}>

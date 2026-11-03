@@ -21,10 +21,10 @@ export const ProfilePanel: FC = () => {
   return (
     <div className="flex flex-col gap-5">
       {user?.name && (
-        <span className="whitespace-nowrap font-bold text-lg">{user.name}</span>
+        <span className="text-lg font-bold whitespace-nowrap">{user.name}</span>
       )}
       {user?.email && (
-        <span className="whitespace-nowrap text-base">{user.email}</span>
+        <span className="text-base whitespace-nowrap">{user.email}</span>
       )}
       <Button
         variant="link"

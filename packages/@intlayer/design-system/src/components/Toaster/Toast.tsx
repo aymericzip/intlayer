@@ -39,7 +39,7 @@ export const ToastViewport: FC<
  * ```
  */
 export const toastVariants = cva(
-  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pe-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all [corner-shape:squircle] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none supports-[corner-shape:squircle]:rounded-3xl',
+  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pe-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all [corner-shape:squircle] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none supports-[corner-shape:squircle]:rounded-3xl',
   {
     variants: {
       /** Toast visual variants for different message types */
@@ -151,7 +151,7 @@ export const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
 }) => (
   <ToastPrimitives.Action
     className={cn(
-      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 font-medium text-sm transition-colors hover:bg-text focus:outline-hidden focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.error]:border-card/40 group-[.error]:focus:ring-error group-[.error]:hover:border-error/30 group-[.error]:hover:bg-error group-[.error]:hover:text-error-foreground',
+      'group-[.error]:hover:text-error-foreground inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors group-[.error]:border-card/40 hover:bg-text group-[.error]:hover:border-error/30 group-[.error]:hover:bg-error focus:ring-1 focus:ring-ring focus:outline-hidden group-[.error]:focus:ring-error disabled:pointer-events-none disabled:opacity-50',
       className
     )}
     {...props}
@@ -164,7 +164,7 @@ export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
 }) => (
   <ToastPrimitives.Close
     className={cn(
-      'absolute inset-e-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.error]:text-red-300 group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600 group-[.error]:hover:text-red-50',
+      'absolute inset-e-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity group-hover:opacity-100 group-[.error]:text-red-300 hover:text-foreground/80 group-[.error]:hover:text-red-50 focus:opacity-100 focus:ring-1 focus:outline-hidden group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600',
       className
     )}
     toast-close=""
@@ -196,7 +196,7 @@ export const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
   ...props
 }) => (
   <ToastPrimitives.Title
-    className={cn('font-semibold text-sm [&+div]:text-xs', className)}
+    className={cn('text-sm font-semibold [&+div]:text-xs', className)}
     {...props}
   />
 );

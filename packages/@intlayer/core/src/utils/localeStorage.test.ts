@@ -23,12 +23,12 @@ import {
 
 describe('getCachedLocaleFromStorageClient', () => {
   it('reads storage once, until intlayer writes a new locale', () => {
-    // biome-ignore lint/suspicious/noDocumentCookie: seeds the stored locale
+    // oxlint-disable-next-line unicorn/no-document-cookie -- seeds the stored locale
     document.cookie = 'INTLAYER_LOCALE=fr';
     expect(getCachedLocaleFromStorageClient()).toBe('fr');
 
     // A write outside intlayer is not seen: the read is cached
-    // biome-ignore lint/suspicious/noDocumentCookie: external write
+    // oxlint-disable-next-line unicorn/no-document-cookie -- external write
     document.cookie = 'INTLAYER_LOCALE=en';
     expect(getCachedLocaleFromStorageClient()).toBe('fr');
 

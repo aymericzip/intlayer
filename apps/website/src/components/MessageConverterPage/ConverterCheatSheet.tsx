@@ -68,10 +68,10 @@ export const ConverterCheatSheet: FC = () => {
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <h2 className="font-bold text-2xl text-foreground sm:text-3xl">
+        <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
           {content.cheatSheetTitle}
         </h2>
-        <p className="max-w-3xl text-muted-foreground text-sm sm:text-base">
+        <p className="max-w-3xl text-sm text-muted-foreground sm:text-base">
           {content.cheatSheetDescription}
         </p>
       </div>
@@ -84,7 +84,7 @@ export const ConverterCheatSheet: FC = () => {
       >
         <table className="w-full border-collapse text-start text-xs sm:text-sm">
           <thead>
-            <tr className="border-border/60 border-b bg-muted/40 font-medium text-foreground">
+            <tr className="border-b border-border/60 bg-muted/40 font-medium text-foreground">
               <th className="p-4">{content.cheatSheetColumns.feature}</th>
               <th className="p-4">{content.cheatSheetColumns.icu}</th>
               <th className="p-4">{content.cheatSheetColumns.i18next}</th>
@@ -105,20 +105,20 @@ export const ConverterCheatSheet: FC = () => {
                 >
                   <td className="p-4 font-medium text-foreground">
                     <div>{rowContent.feature}</div>
-                    <div className="text-muted-foreground text-xs">
+                    <div className="text-xs text-muted-foreground">
                       {rowContent.description}
                     </div>
                   </td>
-                  <td className="p-4 font-mono text-muted-foreground text-xs">
+                  <td className="p-4 font-mono text-xs text-muted-foreground">
                     <code>{row.icu}</code>
                   </td>
-                  <td className="p-4 font-mono text-muted-foreground text-xs">
+                  <td className="p-4 font-mono text-xs text-muted-foreground">
                     <code>{row.i18next}</code>
                   </td>
-                  <td className="p-4 font-mono text-muted-foreground text-xs">
+                  <td className="p-4 font-mono text-xs text-muted-foreground">
                     <code>{row.vue}</code>
                   </td>
-                  <td className="bg-muted/25 p-4 font-medium font-mono text-foreground text-xs">
+                  <td className="bg-muted/25 p-4 font-mono text-xs font-medium text-foreground">
                     <code>{row.intlayer}</code>
                   </td>
                 </tr>
@@ -133,11 +133,11 @@ export const ConverterCheatSheet: FC = () => {
         <div className="flex flex-col gap-2.5 rounded-xl border border-border/60 bg-card/40 p-5 backdrop-blur-sm">
           <div className="flex items-center gap-2 text-foreground">
             <CheckCircle2 className="size-5" />
-            <h4 className="font-semibold text-foreground text-sm">
+            <h4 className="text-sm font-semibold text-foreground">
               {content.advantages.typeSafeTitle}
             </h4>
           </div>
-          <p className="text-muted-foreground text-xs leading-relaxed">
+          <p className="text-xs leading-relaxed text-muted-foreground">
             {content.advantages.typeSafeDescription}
           </p>
         </div>
@@ -145,11 +145,11 @@ export const ConverterCheatSheet: FC = () => {
         <div className="flex flex-col gap-2.5 rounded-xl border border-border/60 bg-card/40 p-5 backdrop-blur-sm">
           <div className="flex items-center gap-2 text-foreground">
             <Layers className="size-5" />
-            <h4 className="font-semibold text-foreground text-sm">
+            <h4 className="text-sm font-semibold text-foreground">
               {content.advantages.universalCompatTitle}
             </h4>
           </div>
-          <p className="text-muted-foreground text-xs leading-relaxed">
+          <p className="text-xs leading-relaxed text-muted-foreground">
             {content.advantages.universalCompatDescription}
           </p>
         </div>
@@ -157,11 +157,11 @@ export const ConverterCheatSheet: FC = () => {
         <div className="flex flex-col gap-2.5 rounded-xl border border-border/60 bg-card/40 p-5 backdrop-blur-sm">
           <div className="flex items-center gap-2 text-foreground">
             <FileText className="size-5" />
-            <h4 className="font-semibold text-foreground text-sm">
+            <h4 className="text-sm font-semibold text-foreground">
               {content.advantages.visualCmsTitle}
             </h4>
           </div>
-          <p className="text-muted-foreground text-xs leading-relaxed">
+          <p className="text-xs leading-relaxed text-muted-foreground">
             {content.advantages.visualCmsDescription}
           </p>
         </div>

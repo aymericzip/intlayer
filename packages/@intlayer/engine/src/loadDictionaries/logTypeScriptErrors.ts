@@ -235,9 +235,8 @@ const collectTypeScriptErrors = async (
 
   try {
     // Typed against the installed version, whose root may be version-only (>= 7)
-    typescriptModule = (await import(
-      'typescript'
-    )) as unknown as ClassicTypeScriptModule;
+    typescriptModule =
+      (await import('typescript')) as unknown as ClassicTypeScriptModule;
   } catch {
     return undefined;
   }

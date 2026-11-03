@@ -67,7 +67,7 @@ export const IDE: FC<IDEProps> = ({
       dir="ltr"
       {...props}
     >
-      <div className="flex w-auto flex-row items-center justify-start gap-1 border-b bg-card text-muted-foreground text-xs">
+      <div className="flex w-auto flex-row items-center justify-start gap-1 border-b bg-card text-xs text-muted-foreground">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
           <div className="size-3 rounded-full bg-error" />
           <div className="size-3 rounded-full bg-yellow-500" />
@@ -82,7 +82,7 @@ export const IDE: FC<IDEProps> = ({
             return (
               <button
                 className={cn(
-                  'flex h-8 min-w-20 max-w-100 items-center justify-start truncate text-nowrap px-3 py-1 transition',
+                  'flex h-8 max-w-100 min-w-20 items-center justify-start truncate px-3 py-1 text-nowrap transition',
                   isActive
                     ? 'bg-background font-medium text-foreground'
                     : 'cursor-pointer opacity-80 hover:text-foreground hover:opacity-100'

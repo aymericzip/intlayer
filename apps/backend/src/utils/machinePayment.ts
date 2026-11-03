@@ -43,8 +43,8 @@ export const isMachinePaymentEnabled = (): boolean =>
   !isSelfHosted() &&
   Boolean(
     process.env.STRIPE_SECRET_KEY &&
-      process.env.STRIPE_PROFILE_ID &&
-      process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID
+    process.env.STRIPE_PROFILE_ID &&
+    process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID
   );
 
 /**

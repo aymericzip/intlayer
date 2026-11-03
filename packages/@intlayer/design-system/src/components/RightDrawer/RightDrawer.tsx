@@ -261,7 +261,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
                   <Popover.Detail identifier="close-drawer">
                     <div className="flex items-center gap-2 p-2">
-                      <span className="whitespace-nowrap text-muted-foreground text-xs">
+                      <span className="text-xs whitespace-nowrap text-muted-foreground">
                         {content.closeDrawer}
                       </span>
                       <KeyboardShortcut
@@ -278,7 +278,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
               </div>
             </div>
             {title && (
-              <h2 className="flex items-center justify-center font-bold text-lg">
+              <h2 className="flex items-center justify-center text-lg font-bold">
                 {title}
               </h2>
             )}
@@ -287,7 +287,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
 
           {/* Body */}
           <div className="flex min-h-0 flex-1 flex-col overflow-y-auto p-2">
-            {/** biome-ignore lint/a11y/useSemanticElements: This div is used to handle the spare space click and keydown events */}
+            {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- This div is used to handle the spare space click and keydown events */}
             <div
               className="flex flex-1 flex-col outline-none"
               onClick={handleSpareSpaceClick}

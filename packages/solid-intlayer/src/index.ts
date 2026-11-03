@@ -2,8 +2,11 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { IInterpreterPluginSolid } from './plugins';
 
 declare module '@intlayer/core/interpreter' {
-  interface IInterpreterPlugin<T, S, L extends LocalesValues>
-    extends IInterpreterPluginSolid<T, S, L> {}
+  interface IInterpreterPlugin<
+    T,
+    S,
+    L extends LocalesValues,
+  > extends IInterpreterPluginSolid<T, S, L> {}
 }
 
 export {

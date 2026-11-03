@@ -169,7 +169,7 @@ const CommentForm: FC<CommentFormProps> = ({
           </FormButton>
         </div>
 
-        <p className="text-muted-foreground text-xs">
+        <p className="text-xs text-muted-foreground">
           {content.commentsAreModeratedAndWill}
         </p>
       </Form>
@@ -207,14 +207,14 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
   };
 
   return (
-    <section className="mt-12 border-border border-t pt-10">
-      <h3 className="mb-6 font-medium text-foreground text-lg">
+    <section className="mt-12 border-t border-border pt-10">
+      <h3 className="mb-6 text-lg font-medium text-foreground">
         {content.comments}
       </h3>
 
       {/* Approved comments list */}
       {comments.length === 0 && submitState !== 'success' ? (
-        <p className="mb-8 border-dotted text-muted-foreground text-sm">
+        <p className="mb-8 border-dotted text-sm text-muted-foreground">
           {content.noCommentsYetBeThe}
         </p>
       ) : (
@@ -230,17 +230,17 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
                 gap="sm"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-foreground text-sm">
+                  <span className="text-sm font-medium text-foreground">
                     {comment.authorName}
                   </span>
                   <time
                     dateTime={comment.createdAt}
-                    className="text-muted-foreground text-xs"
+                    className="text-xs text-muted-foreground"
                   >
                     {formatDate(comment.createdAt)}
                   </time>
                 </div>
-                <p className="whitespace-pre-wrap text-foreground text-sm">
+                <p className="text-sm whitespace-pre-wrap text-foreground">
                   {comment.content}
                 </p>
               </Container>

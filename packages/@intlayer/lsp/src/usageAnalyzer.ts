@@ -1660,32 +1660,28 @@ export const collectCallerBindings = (
   return [
     ...[...state.contentBindings.entries()].flatMap(
       ([variableName, bindings]) =>
-        bindings.map(
-          (binding): CallerVariableBinding => ({
-            variableName,
-            dictionaryKey: binding.dictionaryKey,
-            basePath: binding.basePath,
-            bindingKind: 'content',
-            callerName: binding.descriptor.callerName,
-            library: binding.descriptor.library,
-          })
-        )
+        bindings.map((binding): CallerVariableBinding => ({
+          variableName,
+          dictionaryKey: binding.dictionaryKey,
+          basePath: binding.basePath,
+          bindingKind: 'content',
+          callerName: binding.descriptor.callerName,
+          library: binding.descriptor.library,
+        }))
     ),
     ...[...state.translatorBindings.entries()].flatMap(
       ([variableName, bindings]) =>
         bindings
           // Root-scope translators have no bound dictionary to expose.
           .filter((binding) => binding.dictionaryKey !== null)
-          .map(
-            (binding): CallerVariableBinding => ({
-              variableName,
-              dictionaryKey: binding.dictionaryKey!,
-              basePath: binding.keyPrefix,
-              bindingKind: 'translator',
-              callerName: binding.descriptor.callerName,
-              library: binding.descriptor.library,
-            })
-          )
+          .map((binding): CallerVariableBinding => ({
+            variableName,
+            dictionaryKey: binding.dictionaryKey!,
+            basePath: binding.keyPrefix,
+            bindingKind: 'translator',
+            callerName: binding.descriptor.callerName,
+            library: binding.descriptor.library,
+          }))
     ),
   ];
 };

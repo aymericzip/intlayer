@@ -27,6 +27,7 @@ import {
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { KeyPathBreadcrumb } from '../KeyPathBreadcrumb';
 import { useFieldReorder } from '../useFieldReorder';
+import { type CellStatusFilter, countStatuses } from './cellStatus';
 import { ContentGridCell } from './ContentGridCell';
 import { useContentGrid } from './ContentGridContext';
 import {
@@ -36,10 +37,8 @@ import {
   IndentGuides,
   PATH_COLUMN_CLASS_NAME,
 } from './ContentGridRow';
-import { type CellStatusFilter, countStatuses } from './cellStatus';
-import { FocusPane } from './FocusPane';
 import { type ContentRow, SHARED_CELL_KEY } from './flattenContentRows';
-import { GridToolbar } from './GridToolbar';
+import { FocusPane } from './FocusPane';
 import {
   buildDisplayItems,
   findNextMissingCell,
@@ -49,6 +48,7 @@ import {
   getVisibleRows,
   parseGridPosition,
 } from './gridRows';
+import { GridToolbar } from './GridToolbar';
 import { AI_HOVER_CLASS_NAME, AI_TEXT_CLASS_NAME } from './StatusDot';
 import { TypeBadge } from './TypeBadge';
 import { useIsNarrowContainer } from './useIsNarrowContainer';
@@ -401,7 +401,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
     const isLocked = lockedLocales.has(locale);
 
     return (
-      // biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role, jsx-a11y/interactive-supports-focus -- ARIA grid built on CSS grid; focus is roving on gridcells
       <div
         key={locale}
         role="columnheader"
@@ -452,11 +452,11 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
     const cellKey = row.isLocalized ? activeNarrowLocale : SHARED_CELL_KEY;
 
     return (
-      // biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role, jsx-a11y/interactive-supports-focus -- ARIA grid built on CSS grid; focus is roving on gridcells
       <div
         key={row.id}
         role="row"
-        className="relative flex flex-col gap-2 border-neutral/10 border-b py-3"
+        className="relative flex flex-col gap-2 border-b border-neutral/10 py-3"
         style={getIndentStyle(row.depth)}
       >
         <IndentGuides depth={row.depth} />
@@ -482,7 +482,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
             title={row.id}
             onClick={() => openEditor(row.id, cellKey)}
             className={cn(
-              'min-w-0 cursor-pointer break-words text-start text-sm hover:underline',
+              'min-w-0 cursor-pointer text-start text-sm break-words hover:underline',
               isGroup && 'font-semibold'
             )}
           >
@@ -503,7 +503,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
   };
 
   const emptyState = (
-    <p className="p-6 text-center text-neutral text-sm">{content.noResults}</p>
+    <p className="p-6 text-center text-sm text-neutral">{content.noResults}</p>
   );
 
   return (
@@ -561,7 +561,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
                 ))}
               </Select.Content>
             </Select>
-            {/* biome-ignore lint/a11y/useSemanticElements: roving-focus list grid */}
+            {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- roving-focus list grid */}
             <div
               ref={gridRef}
               role="grid"
@@ -589,7 +589,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
         )
       ) : (
         <div className="flex min-h-0 flex-1 gap-3">
-          {/* biome-ignore lint/a11y/useSemanticElements: spreadsheet grid with inline editors */}
+          {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- spreadsheet grid with inline editors */}
           <div
             ref={gridRef}
             role="grid"
@@ -601,18 +601,18 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
             className="min-h-0 min-w-0 flex-1 overflow-auto"
           >
             <div className="w-max min-w-full">
-              {/* biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells */}
+              {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role, jsx-a11y/interactive-supports-focus -- ARIA grid built on CSS grid; focus is roving on gridcells */}
               <div
                 role="row"
-                className="sticky top-0 z-20 grid min-w-full border-neutral/10 border-b bg-background"
+                className="sticky top-0 z-20 grid min-w-full border-b border-neutral/10 bg-background"
                 style={{ gridTemplateColumns }}
               >
-                {/* biome-ignore lint/a11y/useSemanticElements lint/a11y/useFocusableInteractive: ARIA grid built on CSS grid; focus is roving on gridcells */}
+                {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role, jsx-a11y/interactive-supports-focus -- ARIA grid built on CSS grid; focus is roving on gridcells */}
                 <div
                   role="columnheader"
                   className={cn(
                     PATH_COLUMN_CLASS_NAME,
-                    'z-30 items-center ps-4 text-neutral text-xs'
+                    'z-30 items-center ps-4 text-xs text-neutral'
                   )}
                 >
                   {content.fieldColumn}

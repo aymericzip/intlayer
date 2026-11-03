@@ -91,7 +91,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   return (
     <div
       ref={scrollRef}
-      className="size-full overflow-y-auto overflow-x-hidden"
+      className="size-full overflow-x-hidden overflow-y-auto"
     >
       <div ref={contentRef} className="flex flex-col">
         {hiddenCount > 0 && (

@@ -272,7 +272,7 @@ export const ChatBot: FC<ChatBotProps> = ({
                   xAlign={isLarge ? 'end' : 'center'}
                   yAlign="above"
                 >
-                  <p className="min-w-60 max-w-60 p-4 text-muted-foreground text-xs">
+                  <p className="max-w-60 min-w-60 p-4 text-xs text-muted-foreground">
                     {disclaimerNote}
                   </p>
                 </PopoverStatic.Detail>

@@ -69,8 +69,8 @@ export const ReviewerMarketplacePage: FC = () => {
     <div className="m-auto flex size-full flex-1 flex-col gap-8 p-8">
       <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-bold text-3xl">{title}</h1>
-          <p className="text-neutral text-sm">{description}</p>
+          <h1 className="text-3xl font-bold">{title}</h1>
+          <p className="text-sm text-neutral">{description}</p>
         </div>
         <Link
           to={Marketplace_Dashboard_Path}
@@ -137,7 +137,7 @@ export const ReviewerMarketplacePage: FC = () => {
           {totalPages > 1 && (
             <nav
               aria-label={paginationAriaLabel.value}
-              className="rtl-mirror-icons flex items-center justify-center gap-1"
+              className="flex rtl-mirror-icons items-center justify-center gap-1"
             >
               <button
                 type="button"
@@ -153,7 +153,7 @@ export const ReviewerMarketplacePage: FC = () => {
                 item === '…' ? (
                   <span
                     key={`ellipsis-${String(i)}`}
-                    className="flex size-8 items-center justify-center text-neutral text-sm"
+                    className="flex size-8 items-center justify-center text-sm text-neutral"
                   >
                     …
                   </span>

@@ -172,7 +172,7 @@ export const WithCompletion: Story = {
           )}
         />
         {completedValue && (
-          <p className="text-neutral-600 text-sm">
+          <p className="text-sm text-neutral-600">
             Completed value: {completedValue}
           </p>
         )}
@@ -357,7 +357,7 @@ export const Controlled: Story = {
             Set to "123456"
           </button>
         </div>
-        <p className="text-neutral-600 text-sm">
+        <p className="text-sm text-neutral-600">
           Current value: {value || '(empty)'}
         </p>
       </div>

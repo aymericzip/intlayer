@@ -190,7 +190,7 @@ export const OrganizationsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const organization = row.original as OrganizationAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {organization.createdAt
               ? new Date(organization.createdAt).toLocaleDateString()
               : noData.value}
@@ -221,7 +221,7 @@ export const OrganizationsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const organization = row.original as OrganizationAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {organization.updatedAt
               ? new Date(organization.updatedAt).toLocaleDateString()
               : noData}
@@ -330,7 +330,7 @@ export const OrganizationsAdminPageContent: FC = () => {
                       <th
                         key={header.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          'px-4 py-3 font-medium whitespace-nowrap text-neutral',
                           ['selection', 'actions'].includes(header.id)
                             ? 'text-center'
                             : 'text-start',
@@ -360,7 +360,7 @@ export const OrganizationsAdminPageContent: FC = () => {
                   return (
                     <tr
                       key={row.id}
-                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                       onClick={() => {
                         navigate({
                           to: getAppAdminOrganizationRoute(
@@ -373,7 +373,7 @@ export const OrganizationsAdminPageContent: FC = () => {
                         <td
                           key={cell.id}
                           className={cn(
-                            'whitespace-nowrap px-4 py-3',
+                            'px-4 py-3 whitespace-nowrap',
                             cellIndex === 0 && 'first:rounded-s-2xl',
                             cellIndex === visibleCells.length - 1 &&
                               'last:rounded-e-2xl'

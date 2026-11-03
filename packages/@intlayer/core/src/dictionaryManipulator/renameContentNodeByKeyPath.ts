@@ -1,6 +1,5 @@
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const renameContentNodeByKeyPath = (

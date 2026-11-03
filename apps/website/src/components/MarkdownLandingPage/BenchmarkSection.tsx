@@ -34,10 +34,10 @@ export const BenchmarkSection: FC = () => {
     <section id="benchmark" className="scroll-mt-24 py-24">
       <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
         <m.div {...fadeUp} className="mb-14 text-center">
-          <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
             {title}
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
             {description}
           </p>
         </m.div>
@@ -88,7 +88,7 @@ export const BenchmarkSection: FC = () => {
             ))}
           </div>
 
-          <p className="mt-6 text-muted-foreground text-xs">{barsCaption}</p>
+          <p className="mt-6 text-xs text-muted-foreground">{barsCaption}</p>
         </MotionContainer>
 
         <div className="mt-6 grid gap-6 md:grid-cols-3">
@@ -103,10 +103,10 @@ export const BenchmarkSection: FC = () => {
               background="with"
               padding="lg"
             >
-              <div className="font-bold text-3xl text-foreground">
+              <div className="text-3xl font-bold text-foreground">
                 {stat.value}
               </div>
-              <p className="mt-2 text-muted-foreground text-sm leading-relaxed">
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {stat.label}
               </p>
             </MotionContainer>

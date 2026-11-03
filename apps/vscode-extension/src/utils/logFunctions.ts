@@ -6,7 +6,7 @@ export const prefix = 'Intlayer: ';
 
 /** Removes ANSI color codes, which notifications render literally. */
 const stripANSIColors = (text: string): string =>
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: matches the ESC character
+  // oxlint-disable-next-line no-control-regex -- matches the ESC character
   text.replace(/\x1b\[[0-9;]*m/g, '');
 
 const formatMessage = (message: unknown[]): string =>

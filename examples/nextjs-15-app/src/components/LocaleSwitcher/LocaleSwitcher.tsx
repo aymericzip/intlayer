@@ -1,8 +1,8 @@
 'use client';
 
 import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
-import Link from 'next/link';
 import { useIntlayer, useLocale, useLocaleStorage } from 'next-intlayer';
+import Link from 'next/link';
 import { type FC, useRef, useState } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
 
@@ -65,11 +65,11 @@ export const LocaleSwitcher: FC = () => {
                       <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
                         {ownLocaleName}
                       </span>
-                      <span className="text-gray-600 text-xs">
+                      <span className="text-xs text-gray-600">
                         {currentLocaleName}
                       </span>
                     </div>
-                    <span className="text-gray-600 text-sm">
+                    <span className="text-sm text-gray-600">
                       {localeItem.toUpperCase()}
                     </span>
                   </Link>

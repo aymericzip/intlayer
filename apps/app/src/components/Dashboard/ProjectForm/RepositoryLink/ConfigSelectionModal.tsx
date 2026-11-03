@@ -90,7 +90,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
       borderColor="neutral"
     >
       <div className="flex max-h-96 w-full flex-col gap-4">
-        <p className="text-neutral text-sm">
+        <p className="text-sm text-neutral">
           {content.modal?.selectConfigDescription}{' '}
           <span className="font-semibold">{displayName}</span>
           {content.modal?.selectConfigDescriptionEnd}
@@ -122,10 +122,10 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
                 disabled={processingConfigPath !== null}
               >
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate font-medium text-sm text-text">
+                  <span className="truncate text-sm font-medium text-text">
                     {fileName}
                   </span>
-                  <div className="flex items-center gap-1 text-neutral text-xs">
+                  <div className="flex items-center gap-1 text-xs text-neutral">
                     <FolderOpen className="size-3" />
                     <span className="truncate">{directory}</span>
                   </div>

@@ -28,9 +28,8 @@ export const loadDocPage = createServerFn()
 
     if (!exactMatch) return { exactMatch: null, docsData, content: null };
 
-    const { highlightMarkdownCodeBlocks } = await import(
-      '~/utils/highlightMarkdown'
-    );
+    const { highlightMarkdownCodeBlocks } =
+      await import('~/utils/highlightMarkdown');
 
     const defaultDocData = await getDocMetadata(exactMatch.docKey as any);
     const file = await getDoc(exactMatch.docKey as any, locale);

@@ -25,18 +25,18 @@ const ProductIdPageContent = ({ productId }: { productId: string }) => {
       </div>
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center bg-white px-16 py-32 dark:bg-black">
         <div className="flex flex-col items-center gap-6 text-center">
-          <h1 className="font-semibold text-3xl text-black leading-10 tracking-tight dark:text-zinc-50">
+          <h1 className="text-3xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
             {content.productPage}
           </h1>
           <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900">
-            <p className="font-medium text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
               {content.productIdSlug}
             </p>
-            <p className="mt-2 font-bold font-mono text-black text-lg dark:text-zinc-50">
+            <p className="mt-2 font-mono text-lg font-bold text-black dark:text-zinc-50">
               {productId}
             </p>
           </div>
-          <p className="max-w-md text-lg text-zinc-600 leading-8 dark:text-zinc-400">
+          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             {content.thisPageTestsTheDynamic}
           </p>
         </div>

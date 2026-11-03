@@ -1,3 +1,4 @@
+import viteLogo from '/vite.svg';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -11,9 +12,8 @@ import {
   useUnit,
 } from 'react-intlayer/format';
 import { HTMLProvider } from 'react-intlayer/html';
-import { MarkdownProvider } from 'react-intlayer/markdown';
 import './App.css';
-import viteLogo from '/vite.svg';
+import { MarkdownProvider } from 'react-intlayer/markdown';
 import reactLogo from './assets/react.svg';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import { QualifiedContentDemo } from './components/QualifiedContentDemo';

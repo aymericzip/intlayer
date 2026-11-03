@@ -128,7 +128,7 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
         }
         className={cn(
           sizeClass,
-          `pointer-events-none animate-float select-none border-2 border-background object-cover shadow-md transition-shadow hover:shadow-xl dark:border-neutral-800`
+          `animate-float pointer-events-none border-2 border-background object-cover shadow-md transition-shadow select-none hover:shadow-xl dark:border-neutral-800`
         )}
       />
     </motion.div>
@@ -177,7 +177,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
         <div className="flex min-h-40 flex-col gap-12 md:flex-row md:items-center">
           <div className="pointer-events-none relative flex-1"></div>
           <div className="pointer-events-auto relative z-0 flex-1 space-y-6">
-            <H2 className="mb-3 font-bold text-3xl sm:text-4xl">{title}</H2>
+            <H2 className="mb-3 text-3xl font-bold sm:text-4xl">{title}</H2>
             <p className="text-base text-muted-foreground">{subtitle}</p>
             <div className="flex gap-2">
               <Link

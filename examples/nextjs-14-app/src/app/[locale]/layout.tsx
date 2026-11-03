@@ -5,9 +5,9 @@ import {
   type StrictModeLocaleMap,
 } from 'intlayer';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import type { LocalParams, Next14LayoutIntlayer } from 'next-intlayer';
 import { IntlayerProvider } from 'next-intlayer/server';
+import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
