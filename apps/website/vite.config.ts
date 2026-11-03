@@ -137,9 +137,8 @@ const staticPagesPlugin = (options?: StaticPagesPluginOptions) => ({
       const outDir = environment.config?.build?.outDir;
       if (!outDir) return;
 
-      const { compressDirectory } = await import(
-        './scripts/compress-static.ts'
-      );
+      const { compressDirectory } =
+        await import('./scripts/compress-static.ts');
       await compressDirectory(resolve(__dirname, outDir), 'client bundle');
     },
   },
@@ -512,7 +511,7 @@ export default defineConfig(async ({ mode }) => {
       react({ compiler: true }),
       // Swaps the React runtime for TanStack Redact; must follow start + react.
       // Activity and fragment refs are unused (audited); stubbing them trims the runtime.
-      redact({ features: { activity: false, fragmentRefs: false } }),
+      // redact({ features: { activity: false, fragmentRefs: false } }),
       // visualizer(),
     ],
     build: {
