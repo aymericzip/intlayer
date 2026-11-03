@@ -5,12 +5,12 @@ import {
   cacheDisk,
   getPackageJsonPath,
   getProjectRequire,
+  parallelize,
 } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
-import { parallelize } from '../utils/parallelize';
 import { getIntlayerBundle } from './getIntlayerBundle';
 import type { DictionariesStatus } from './loadDictionaries';
 import { loadMarkdownContentDeclaration } from './loadMarkdownContentDeclaration';

@@ -268,7 +268,7 @@ export const createSyncPlugin = (options: CreateSyncPluginOptions): Plugin => {
     // Lazy imports to keep the module graph light when configs are transpiled
     const { getPerLocaleDictionary } = await import('@intlayer/core/plugins');
     const { formatDictionaryOutput } = await import('../formatDictionary');
-    const { parallelize } = await import('../utils/parallelize');
+    const { parallelize } = await import('@intlayer/config/utils');
 
     const context: SyncPluginContext = { configuration };
     const { locales } = configuration.internationalization;

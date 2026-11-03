@@ -2,10 +2,13 @@ import { mkdir } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
 import { colorizePath } from '@intlayer/config/logger';
-import { assertPathWithin, normalizePath } from '@intlayer/config/utils';
+import {
+  assertPathWithin,
+  normalizePath,
+  parallelize,
+} from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getPathHash } from '../utils/getPathHash';
-import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import type { LocalizedDictionaryOutput } from './writeDynamicDictionary';
 

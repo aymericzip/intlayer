@@ -3,7 +3,7 @@ import type {
   PushDictionariesResult,
   PushDictionariesResultData,
 } from '@intlayer/backend-contract/dictionary';
-import { chunkArray, parallelize } from '@intlayer/engine/utils';
+import { chunkArray, parallelize } from '@intlayer/config/client';
 
 type PushedDictionaries = PushDictionariesBody['dictionaries'];
 

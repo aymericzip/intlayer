@@ -2,13 +2,13 @@ import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
 import { type AIOptions, getAIConfig } from '@intlayer/ai';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import { pLimit } from '@intlayer/config/utils';
 import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import {
   getFilterMissingTranslationsDictionary,
   getPerLocaleDictionary,
   insertContentInDictionary,
 } from '@intlayer/core/plugins';
-import { pLimit } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import { logger } from '@logger';

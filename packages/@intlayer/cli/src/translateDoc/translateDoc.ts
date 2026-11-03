@@ -9,8 +9,8 @@ import {
   x,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { parallelize, pLimit } from '@intlayer/config/utils';
 import { listGitFiles, logConfigDetails } from '@intlayer/engine/cli';
-import { parallelize, pLimit } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
 import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';

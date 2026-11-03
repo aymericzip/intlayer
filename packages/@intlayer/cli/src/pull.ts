@@ -6,14 +6,13 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import { getProjectRequire } from '@intlayer/config/utils';
+import { getProjectRequire, parallelize } from '@intlayer/config/utils';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import {
   type DictionaryStatus,
   writeContentDeclaration,
 } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
-import { parallelize } from '@intlayer/engine/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
