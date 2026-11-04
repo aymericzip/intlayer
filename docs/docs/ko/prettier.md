@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## 설치
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Prettier 3 이상이 필요합니다.
+
+프로젝트에서 이미 Prettier를 사용 중인 경우 `intlayer init prettier` 명령을 실행하면 플러그인이 설치되고 설정에 자동으로 추가됩니다.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt는 서드파티 플러그인을 불러올 수 없으므로 정렬은 Prettier를 통해 이루어집니다. oxfmt와 함께 Prettier를 설치하세요. Prettier는 콘텐츠 선언을 정렬하는 데만 사용되며, 프로젝트 포맷은 계속 oxfmt가 담당합니다.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Prettier 3 이상이 필요합니다.
+Prettier 3 이상이 필요합니다. `intlayer init`은 이미 Prettier를 사용하는 프로젝트에서만 플러그인을 설정하므로, 아래와 같이 직접 설정하세요.
 
-프로젝트에서 이미 Prettier를 사용 중인 경우 `intlayer init prettier` 명령을 실행하면 플러그인이 설치되고 설정에 자동으로 추가됩니다.
+  </Tab>
+</Tabs>
 
 ## 사용법
 
@@ -97,18 +126,14 @@ Prettier 설정 파일에 플러그인을 추가합니다:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt는 Prettier 플러그인을 불러오지 않습니다. Prettier로 콘텐츠 선언 파일에만 플러그인을 적용한 뒤, oxfmt로 프로젝트 전체를 포맷하세요.
+format 스크립트는 각각 하나의 역할을 가진 두 도구를 실행합니다.
+
+1. **Prettier**는 플러그인으로 콘텐츠 선언을 정렬합니다. glob이 대상을 `*.content.*` 파일로 제한합니다.
+2. **oxfmt**는 콘텐츠 선언을 포함한 프로젝트 전체를 포맷합니다.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt는 Prettier 플러그인을 불러오지 않습니다. Prettier로 콘텐�
 }
 ```
 
-이 순서를 지키세요. oxfmt는 자체 스타일로 레이아웃을 다시 작성하지만 객체 키의 순서는 절대 바꾸지 않으므로 정렬된 순서가 유지됩니다.
+이 순서를 지키세요. oxfmt는 Prettier가 작성한 레이아웃을 자체 레이아웃으로 바꾸지만, 객체 키의 순서는 절대 바꾸지 않으므로 정렬된 순서가 유지됩니다.
+
+이 구성에는 몇 가지 제한이 있습니다.
+
+- **저장 시 포맷.** oxfmt로 포맷하는 에디터는 정렬하지 않습니다. 정렬하려면 `format` 스크립트를 실행하세요.
+- **check 모드.** oxfmt로 포맷된 파일에는 `prettier --check`를 사용하지 마세요. 레이아웃이 달라 모든 파일을 보고합니다. CI에서 순서를 확인하려면 `format` 스크립트를 실행하고 변경 사항이 있으면 job을 실패시키세요.
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 직렬화된 형태도 동일한 방식으로 정렬됩니다: `{ "nodeType": "translation", "translation": { … } }`, 그리고 `plural`, `enumeration`, `select` 노드도 마찬가지입니다.
 
+### 동일한 번역
+
+`*.content.*` 파일에서 모든 로케일이 같은 문자열을 가진 `t()`는 그 문자열로 바뀝니다. 일반 문자열은 모든 로케일에 제공되므로 결과는 달라지지 않습니다.
+
+```ts
+// 전
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// 후
+nextjs: "Next.js",
+```
+
+로케일이 하나뿐이거나, 타입 인자(`t<string>()`), 주석 또는 문자열이 아닌 값을 가진 `t()`는 그대로 유지됩니다. 끄려면 `intlayerCollapseIdenticalTranslations: false`로 설정하세요.
+
 ### 콘텐츠 키 (선택 사항)
 
 `intlayerSortContentKeys: true`를 지정하면 플러그인이 딕셔너리 `content`의 키도 모든 중첩 수준에서 알파벳순으로 정렬합니다. 이는 `*.content.*` 파일에만 적용됩니다.
@@ -212,10 +259,11 @@ export default {
 
 ## 옵션
 
-| 옵션                      | 기본값   | 설명                                                                                      |
-| ------------------------- | -------- | ----------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | `t()`에서 우선적으로 앞에 유지할 로케일 목록. 모든 로케일을 정렬하려면 `[]`를 전달하세요. |
-| `intlayerSortContentKeys` | `false`  | `*.content.*` 파일에서 딕셔너리의 콘텐츠 키 및 중첩된 객체도 정렬합니다.                  |
+| 옵션                                    | 기본값   | 설명                                                                                      |
+| --------------------------------------- | -------- | ----------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | `t()`에서 우선적으로 앞에 유지할 로케일 목록. 모든 로케일을 정렬하려면 `[]`를 전달하세요. |
+| `intlayerSortContentKeys`               | `false`  | `*.content.*` 파일에서 딕셔너리의 콘텐츠 키 및 중첩된 객체도 정렬합니다.                  |
+| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` 파일에서 모든 로케일이 같은 문자열을 가진 `t()`를 그 문자열로 바꿉니다.     |
 
 ## 변경되지 않는 대상
 

@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## التثبيت
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+يتطلب Prettier الإصدار 3 أو أحدث.
+
+إذا كان مشروعك يستخدم Prettier بالفعل، فإن الأمر `intlayer init prettier` يقوم بتثبيت الملحق وإضافته إلى ملف التكوين نيابةً عنك.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+لا يستطيع oxfmt تحميل ملحقات خارجية، لذا يتم الترتيب عبر Prettier. ثبّت Prettier إلى جانب oxfmt. يُستخدم فقط لترتيب إعلانات المحتوى، ويستمر oxfmt في تنسيق مشروعك.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-يتطلب Prettier الإصدار 3 أو أحدث.
+يتطلب Prettier الإصدار 3 أو أحدث. لا يُعدّ الأمر `intlayer init` الملحق إلا في المشاريع التي تستخدم Prettier بالفعل، لذا قم بتكوينه يدويًا كما هو موضح أدناه.
 
-إذا كان مشروعك يستخدم Prettier بالفعل، فإن الأمر `intlayer init prettier` يقوم بتثبيت الملحق وإضافته إلى ملف التكوين نيابةً عنك.
+  </Tab>
+</Tabs>
 
 ## الاستخدام
 
@@ -97,18 +126,14 @@ bun add --dev prettier prettier-plugin-intlayer
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-لا يحمّل oxfmt ملحقات Prettier. اجعل Prettier يشغّل الملحق على إعلانات المحتوى فقط، ثم اجعل oxfmt ينسّق المشروع بالكامل:
+يشغّل سكربت التنسيق أداتين، لكل منهما مهمة واحدة:
+
+1. **Prettier** يرتّب إعلانات المحتوى باستخدام الملحق. يقتصر عمله على ملفات `*.content.*` بفضل الـ glob.
+2. **oxfmt** ينسّق المشروع بالكامل، بما في ذلك إعلانات المحتوى.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ bun add --dev prettier prettier-plugin-intlayer
 }
 ```
 
-حافظ على هذا الترتيب. يعيد oxfmt كتابة التنسيق بأسلوبه الخاص، لكنه لا يعيد ترتيب مفاتيح الكائنات أبدًا، لذا يبقى الترتيب كما هو.
+حافظ على هذا الترتيب. يستبدل oxfmt التنسيق الذي كتبه Prettier بتنسيقه الخاص، لكنه لا يعيد ترتيب مفاتيح الكائنات أبدًا، لذا يبقى الترتيب محفوظًا.
+
+لهذا الإعداد بعض القيود:
+
+- **التنسيق عند الحفظ.** المحرر الذي ينسّق باستخدام oxfmt لا يرتّب. شغّل سكربت `format` للترتيب.
+- **وضع check.** لا تستخدم `prettier --check` على الملفات التي نسّقها oxfmt: التنسيقات مختلفة، لذا سيُبلغ عن كل ملف. للتحقق من الترتيب في CI، شغّل سكربت `format` واجعل الـ job يفشل عند وجود تغييرات:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 يتم ترتيب الشكل التسلسلي بنفس الطريقة: `{ "nodeType": "translation", "translation": { … } }`، بالإضافة إلى عقد `plural` و `enumeration` و `select`.
 
+### الترجمات المتطابقة
+
+في ملفات `*.content.*`، يُستبدل `t()` الذي تحتوي جميع لغاته على النص نفسه بهذا النص. يُقدَّم النص العادي لكل اللغات، لذا لا تتغير النتيجة.
+
+```ts
+// قبل
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// بعد
+nextjs: "Next.js",
+```
+
+يُحتفظ بـ `t()` الذي يحتوي على لغة واحدة، أو وسيط نوع (`t<string>()`)، أو تعليق، أو قيم غير نصية. اضبط `intlayerCollapseIdenticalTranslations: false` لتعطيل ذلك.
+
 ### مفاتيح المحتوى (اختياري)
 
 باستخدام `intlayerSortContentKeys: true`، يقوم الملحق أيضًا بفرز مفاتيح `content` في القاموس أبجديًا في كل مستويات التداخل. ينطبق هذا فقط في ملفات `*.content.*`.
@@ -212,10 +259,11 @@ export default {
 
 ## الخيارات
 
-| الخيار                    | القيمة الافتراضية | الوصف                                                                          |
-| ------------------------- | ---------------- | ------------------------------------------------------------------------------ |
-| `intlayerPinnedLocales`   | `["en"]`         | اللغات المحفوظة أولاً في `t()`، بهذا الترتيب. مرر `[]` لترتيب كل اللغات أبجديًا.  |
-| `intlayerSortContentKeys` | `false`          | في ملفات `*.content.*`، يتم أيضًا فرز مفاتيح محتوى القاموس والكائنات المتداخلة. |
+| الخيار                                  | القيمة الافتراضية | الوصف                                                                               |
+| --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`         | اللغات المحفوظة أولاً في `t()`، بهذا الترتيب. مرر `[]` لترتيب كل اللغات أبجديًا.       |
+| `intlayerSortContentKeys`               | `false`          | في ملفات `*.content.*`، يتم أيضًا فرز مفاتيح محتوى القاموس والكائنات المتداخلة.      |
+| `intlayerCollapseIdenticalTranslations` | `true`           | في ملفات `*.content.*`، يستبدل `t()` الذي تحتوي جميع لغاته على النص نفسه بهذا النص. |
 
 ## ما يترك دون تغيير
 

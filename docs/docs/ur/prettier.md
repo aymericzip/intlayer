@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## انسٹالیشن
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+اس کے لیے Prettier ورژن 3 یا اس کے بعد کا ورژن درکار ہے۔
+
+اگر آپ کا پروجیکٹ پہلے ہی Prettier استعمال کرتا ہے تو `intlayer init prettier` پلگ ان انسٹال کرتا ہے اور اسے آپ کی کنفیگریشن میں شامل کرتا ہے۔
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt تھرڈ پارٹی پلگ انز لوڈ نہیں کر سکتا، اس لیے ترتیب Prettier کے ذریعے ہوتی ہے۔ oxfmt کے ساتھ Prettier انسٹال کریں۔ یہ صرف آپ کے مواد کے اعلانات کو ترتیب دینے کے لیے استعمال ہوتا ہے؛ آپ کے پروجیکٹ کو oxfmt ہی فارمیٹ کرتا رہتا ہے۔
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-اس کے لیے Prettier ورژن 3 یا اس کے بعد کا ورژن درکار ہے۔
+اس کے لیے Prettier ورژن 3 یا اس کے بعد کا ورژن درکار ہے۔ `intlayer init` پلگ ان کو صرف ان پروجیکٹس میں سیٹ کرتا ہے جو پہلے سے Prettier استعمال کرتے ہیں، اس لیے اسے نیچے دکھائے گئے طریقے سے خود کنفیگر کریں۔
 
-اگر آپ کا پروجیکٹ پہلے ہی Prettier استعمال کرتا ہے تو `intlayer init prettier` پلگ ان انسٹال کرتا ہے اور اسے آپ کی کنفیگریشن میں شامل کرتا ہے۔
+  </Tab>
+</Tabs>
 
 ## استعمال
 
@@ -97,18 +126,14 @@ bun add --dev prettier prettier-plugin-intlayer
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt، Prettier پلگ انز لوڈ نہیں کرتا۔ Prettier کو پلگ ان صرف اپنے مواد کے اعلانات پر چلانے دیں، پھر oxfmt کو پورے پروجیکٹ کو فارمیٹ کرنے دیں:
+فارمیٹ اسکرپٹ دو ٹولز چلاتا ہے، ہر ایک کا ایک ہی کام ہے:
+
+1. **Prettier** پلگ ان کے ذریعے آپ کے مواد کے اعلانات کو ترتیب دیتا ہے۔ glob اسے `*.content.*` فائلوں تک محدود رکھتا ہے۔
+2. **oxfmt** مواد کے اعلانات سمیت پورے پروجیکٹ کو فارمیٹ کرتا ہے۔
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt، Prettier پلگ انز لوڈ نہیں کرتا۔ Prettier کو پلگ �
 }
 ```
 
-یہی ترتیب رکھیں۔ oxfmt لے آؤٹ کو اپنے انداز میں دوبارہ لکھتا ہے، لیکن آبجیکٹ کی چابیوں کی ترتیب کبھی نہیں بدلتا، اس لیے ترتیب برقرار رہتی ہے۔
+یہی ترتیب رکھیں۔ oxfmt، Prettier کے لکھے ہوئے لے آؤٹ کو اپنے لے آؤٹ سے بدل دیتا ہے، لیکن آبجیکٹ کیز کی ترتیب کبھی نہیں بدلتا، اس لیے ترتیب برقرار رہتی ہے۔
+
+اس سیٹ اپ کی کچھ حدود ہیں:
+
+- **محفوظ کرتے وقت فارمیٹ۔** جو ایڈیٹر oxfmt سے فارمیٹ کرتا ہے وہ ترتیب نہیں دیتا۔ ترتیب دینے کے لیے `format` اسکرپٹ چلائیں۔
+- **Check موڈ۔** oxfmt سے فارمیٹ شدہ فائلوں پر `prettier --check` استعمال نہ کریں: لے آؤٹ مختلف ہوتے ہیں، اس لیے یہ ہر فائل کی اطلاع دیتا ہے۔ CI میں ترتیب چیک کرنے کے لیے `format` اسکرپٹ چلائیں اور تبدیلیاں ہونے پر job کو ناکام کریں:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 سیریلائزڈ فارم کو بھی اسی طرح ترتیب دیا جاتا ہے: `{ "nodeType": "translation", "translation": { … } }`، نیز `plural`، `enumeration` اور `select` نوڈز۔
 
+### یکساں ترجمے
+
+`*.content.*` فائلوں میں، جس `t()` کی تمام locales میں ایک ہی string ہو، اسے اسی string سے بدل دیا جاتا ہے۔ سادہ string ہر locale کو دی جاتی ہے، اس لیے نتیجہ نہیں بدلتا۔
+
+```ts
+// پہلے
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// بعد میں
+nextjs: "Next.js",
+```
+
+ایک ہی locale، type argument (`t<string>()`)، comment یا غیر string ویلیوز والا `t()` برقرار رکھا جاتا ہے۔ اسے بند کرنے کے لیے `intlayerCollapseIdenticalTranslations: false` سیٹ کریں۔
+
 ### مواد کی کیز (اختیاری)
 
 `intlayerSortContentKeys: true` کے ساتھ، پلگ ان ڈکشنری کے `content` کی کیز کو بھی ہر نیسٹنگ سطح پر حروف تہجی کے لحاظ سے ترتیب دیتا ہے۔ یہ صرف `*.content.*` فائلوں پر لاگو ہوتا ہے۔
@@ -212,10 +259,11 @@ export default {
 
 ## اختیارات
 
-| آپشن                      | ڈیفالٹ   | تفصیل                                                                                                   |
-| ------------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | وہ لوکیلز جو `t()` میں سب سے پہلے رکھے جاتے ہیں، اسی ترتیب میں۔ تمام لوکیلز ترتیب دینے کے لیے `[]` دیں۔ |
-| `intlayerSortContentKeys` | `false`  | `*.content.*` فائلوں میں ڈکشنری کے مواد کی کیز اور اندرونی آبجیکٹس کو بھی ترتیب دیں۔                    |
+| آپشن                                    | ڈیفالٹ   | تفصیل                                                                                                   |
+| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | وہ لوکیلز جو `t()` میں سب سے پہلے رکھے جاتے ہیں، اسی ترتیب میں۔ تمام لوکیلز ترتیب دینے کے لیے `[]` دیں۔ |
+| `intlayerSortContentKeys`               | `false`  | `*.content.*` فائلوں میں ڈکشنری کے مواد کی کیز اور اندرونی آبجیکٹس کو بھی ترتیب دیں۔                    |
+| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` فائلوں میں، جس `t()` کی تمام locales میں ایک ہی string ہو، اسے اسی string سے بدلتا ہے۔    |
 
 ## کیا بغیر تبدیلی کے رہتا ہے
 

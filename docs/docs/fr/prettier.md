@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Installation
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Nécessite Prettier 3 ou une version ultérieure.
+
+Si votre projet utilise déjà Prettier, `intlayer init prettier` installe le plugin et l'ajoute automatiquement à votre configuration.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt ne peut pas charger de plugins tiers, le tri passe donc par Prettier. Installez Prettier à côté d'oxfmt. Il sert uniquement à trier vos déclarations de contenu, oxfmt continue de formater votre projet.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Nécessite Prettier 3 ou une version ultérieure.
+Nécessite Prettier 3 ou une version ultérieure. `intlayer init` ne configure le plugin que dans les projets qui utilisent déjà Prettier. Configurez-le donc manuellement comme ci-dessous.
 
-Si votre projet utilise déjà Prettier, `intlayer init prettier` installe le plugin et l'ajoute automatiquement à votre configuration.
+  </Tab>
+</Tabs>
 
 ## Utilisation
 
@@ -97,18 +126,14 @@ Pour l'appliquer uniquement à vos déclarations de contenu, utilisez un overrid
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt ne charge pas les plugins Prettier. Laissez Prettier appliquer le plugin à vos seules déclarations de contenu, puis laissez oxfmt formater tout le projet :
+Le script de formatage exécute deux outils, chacun avec un seul rôle :
+
+1. **Prettier** trie vos déclarations de contenu avec le plugin. Le glob le limite aux fichiers `*.content.*`.
+2. **oxfmt** formate tout le projet, déclarations de contenu comprises.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt ne charge pas les plugins Prettier. Laissez Prettier appliquer le plugin �
 }
 ```
 
-Respectez cet ordre. oxfmt réécrit la mise en forme dans son propre style mais ne réordonne jamais les clés des objets, l'ordre trié est donc conservé.
+Respectez cet ordre. oxfmt remplace la mise en forme écrite par Prettier par la sienne, mais ne réordonne jamais les clés des objets, l'ordre trié est donc conservé.
+
+Cette configuration a quelques limites :
+
+- **Formatage à l'enregistrement.** Un éditeur qui formate avec oxfmt ne trie pas. Lancez le script `format` pour trier.
+- **Mode check.** N'utilisez pas `prettier --check` sur des fichiers formatés par oxfmt : les mises en forme diffèrent, il signale donc chaque fichier. Pour vérifier l'ordre en CI, lancez le script `format` et faites échouer le job en cas de changements :
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Les catégories vont de la plus petite quantité vers la solution de repli : `ze
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Sans clé `fallback` ni clé `other`, le dernier cas sert de solution de repli. 
 
 La forme sérialisée est triée de la même façon : `{ "nodeType": "translation", "translation": { … } }`, ainsi que les nœuds `plural`, `enumeration` et `select`.
 
+### Traductions identiques
+
+Dans les fichiers `*.content.*`, un `t()` dont toutes les locales contiennent la même chaîne est remplacé par cette chaîne. Une chaîne simple est servie à toutes les locales, le résultat ne change donc pas.
+
+```ts
+// avant
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// après
+nextjs: "Next.js",
+```
+
+Un `t()` avec une seule locale, un argument de type (`t<string>()`), un commentaire ou des valeurs qui ne sont pas des chaînes est conservé. Passez `intlayerCollapseIdenticalTranslations: false` pour le désactiver.
+
 ### Clés de contenu (optionnel)
 
 Avec `intlayerSortContentKeys: true`, le plugin trie également les clés de `content` du dictionnaire par ordre alphabétique, à chaque niveau d'imbrication. Cela s'applique uniquement aux fichiers `*.content.*`.
@@ -212,10 +259,11 @@ Le tri continue à travers chaque helper (`t`, `plural`, `enu`, `select`, `cond`
 
 ## Options
 
-| Option                    | Valeur par défaut | Description                                                                                       |
-| ------------------------- | ----------------- | ------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`          | Locales conservées en tête dans `t()`, dans cet ordre. Passez `[]` pour trier toutes les locales. |
-| `intlayerSortContentKeys` | `false`           | Dans les fichiers `*.content.*`, trie également les clés de contenu et les objets imbriqués.      |
+| Option                                  | Valeur par défaut | Description                                                                                                             |
+| --------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`          | Locales conservées en tête dans `t()`, dans cet ordre. Passez `[]` pour trier toutes les locales.                       |
+| `intlayerSortContentKeys`               | `false`           | Dans les fichiers `*.content.*`, trie également les clés de contenu et les objets imbriqués.                            |
+| `intlayerCollapseIdenticalTranslations` | `true`            | Dans les fichiers `*.content.*`, remplace un `t()` dont toutes les locales contiennent la même chaîne par cette chaîne. |
 
 ## Ce qui n'est pas modifié
 

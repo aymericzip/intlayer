@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## インストール
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Prettier 3 以降が必要です。
+
+プロジェクトで既に Prettier を使用している場合、`intlayer init prettier` を実行するとプラグインのインストールと設定ファイルへの追加が自動的に行われます。
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt はサードパーティのプラグインを読み込めないため、ソートは Prettier で行います。oxfmt と併せて Prettier をインストールしてください。Prettier はコンテンツ宣言のソートにのみ使われ、プロジェクトのフォーマットは引き続き oxfmt が担当します。
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Prettier 3 以降が必要です。
+Prettier 3 以降が必要です。 `intlayer init` は既に Prettier を使用しているプロジェクトでのみプラグインを設定します。以下のように手動で設定してください。
 
-プロジェクトで既に Prettier を使用している場合、`intlayer init prettier` を実行するとプラグインのインストールと設定ファイルへの追加が自動的に行われます。
+  </Tab>
+</Tabs>
 
 ## 使い方
 
@@ -97,18 +126,14 @@ Prettier の設定ファイルにプラグインを追加します:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt は Prettier プラグインを読み込みません。Prettier でコンテンツ宣言ファイルにだけプラグインを適用し、その後 oxfmt でプロジェクト全体をフォーマットします。
+format スクリプトは 2 つのツールを実行し、それぞれが 1 つの役割を担います。
+
+1. **Prettier** はプラグインでコンテンツ宣言をソートします。glob により対象は `*.content.*` ファイルに限定されます。
+2. **oxfmt** はコンテンツ宣言を含むプロジェクト全体をフォーマットします。
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt は Prettier プラグインを読み込みません。Prettier でコン�
 }
 ```
 
-この順序を守ってください。oxfmt は独自のスタイルでレイアウトを書き直しますが、オブジェクトのキーの順序は変更しないため、並べ替えた順序は保たれます。
+この順序を守ってください。oxfmt は Prettier が書いたレイアウトを独自のものに置き換えますが、オブジェクトのキーを並べ替えることはないため、ソート順は維持されます。
+
+この構成にはいくつかの制限があります。
+
+- **保存時のフォーマット。** oxfmt でフォーマットするエディタではソートされません。ソートするには `format` スクリプトを実行してください。
+- **check モード。** oxfmt でフォーマットしたファイルに `prettier --check` を使わないでください。レイアウトが異なるため、すべてのファイルが報告されます。CI で順序を確認するには、`format` スクリプトを実行し、変更があれば job を失敗させます。
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 シリアライズされた形式も同様にソートされます: `{ "nodeType": "translation", "translation": { … } }`、ならびに `plural`、`enumeration`、`select` ノード。
 
+### 同一の翻訳
+
+`*.content.*` ファイルでは、すべてのロケールが同じ文字列を持つ `t()` はその文字列に置き換えられます。単純な文字列はすべてのロケールに返されるため、出力は変わりません。
+
+```ts
+// 前
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// 後
+nextjs: "Next.js",
+```
+
+ロケールが 1 つだけの `t()`、型引数付き（`t<string>()`）、コメント付き、または文字列以外の値を含む `t()` はそのまま保持されます。無効にするには `intlayerCollapseIdenticalTranslations: false` を設定します。
+
 ### コンテンツキー（オプトイン）
 
 `intlayerSortContentKeys: true` を指定すると、辞書の `content` のキーもすべてのネストレベルでアルファベット順にソートされます。これは `*.content.*` ファイルにのみ適用されます。
@@ -212,10 +259,11 @@ export default {
 
 ## オプション
 
-| オプション                | デフォルト | 説明                                                                                               |
-| ------------------------- | ---------- | -------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`   | `t()` 内で先頭に保持されるロケールとその順序。すべてのロケールをソートするには `[]` を指定します。 |
-| `intlayerSortContentKeys` | `false`    | `*.content.*` ファイルにおいて、辞書のコンテンツキーおよびネストされたオブジェクトもソートします。 |
+| オプション                              | デフォルト | 説明                                                                                               |
+| --------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`   | `t()` 内で先頭に保持されるロケールとその順序。すべてのロケールをソートするには `[]` を指定します。 |
+| `intlayerSortContentKeys`               | `false`    | `*.content.*` ファイルにおいて、辞書のコンテンツキーおよびネストされたオブジェクトもソートします。 |
+| `intlayerCollapseIdenticalTranslations` | `true`     | `*.content.*` ファイルで、すべてのロケールが同じ文字列を持つ `t()` をその文字列に置き換えます。    |
 
 ## 変更されないもの
 

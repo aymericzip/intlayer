@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Installation
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Requires Prettier 3 or later.
+
+`intlayer init prettier` installs the plugin and adds it to your config for you.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt cannot load third-party plugins, so the sorting runs through Prettier. Install Prettier next to oxfmt. It is only used to sort your content declarations; oxfmt keeps formatting your project.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Requires Prettier 3 or later.
+Requires Prettier 3 or later. `intlayer init` only sets up the plugin in projects that already use Prettier, so configure it by hand as shown below.
 
-If your project already uses Prettier, `intlayer init prettier` installs the plugin and adds it to your config for you.
+  </Tab>
+</Tabs>
 
 ## Usage
 
@@ -97,18 +126,14 @@ To apply it to your content declarations only, use an override:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt does not load Prettier plugins. Let Prettier run the plugin on your content declarations only, then let oxfmt format the whole project:
+The format script runs two tools, each with one job:
+
+1. **Prettier** sorts your content declarations with the plugin. The glob limits it to `*.content.*` files.
+2. **oxfmt** formats the whole project, content declarations included.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt does not load Prettier plugins. Let Prettier run the plugin on your conten
 }
 ```
 
-Keep this order. oxfmt rewrites the layout in its own style but never reorders object keys, so the sorted order is kept.
+Keep this order. oxfmt replaces the layout written by Prettier with its own, but never reorders object keys, so the sorted order is kept.
+
+Some limits come with this setup:
+
+- **Format on save.** An editor that formats with oxfmt does not sort. Run the `format` script to sort.
+- **Check mode.** Do not use `prettier --check` on files formatted by oxfmt: the layouts differ, so it reports every file. To check the order in CI, run the `format` script and fail on changes:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Categories go from the smallest quantity to the fallback: `zero`, `one`, `two`, 
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 

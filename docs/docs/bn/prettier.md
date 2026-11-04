@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## ইনস্টলেশন
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Prettier ৩ বা তার পরবর্তী সংস্করণ প্রয়োজন।
+
+আপনার প্রজেক্ট ইতিমধ্যে Prettier ব্যবহার করলে, `intlayer init prettier` প্লাগইনটি ইনস্টল করবে এবং আপনার কনফিগারেশনে এটি স্বয়ংক্রিয়ভাবে যুক্ত করবে।
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt থার্ড-পার্টি প্লাগইন লোড করতে পারে না, তাই সাজানোর কাজ Prettier-এর মাধ্যমে হয়। oxfmt-এর পাশাপাশি Prettier ইনস্টল করুন। এটি শুধু আপনার কন্টেন্ট ঘোষণাগুলি সাজাতে ব্যবহৃত হয়; আপনার প্রজেক্ট oxfmt-ই ফরম্যাট করে।
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Prettier ৩ বা তার পরবর্তী সংস্করণ প্রয়োজন।
+Prettier ৩ বা তার পরবর্তী সংস্করণ প্রয়োজন। `intlayer init` শুধু সেই প্রজেক্টগুলিতে প্লাগইন সেট আপ করে যেগুলি আগে থেকেই Prettier ব্যবহার করে, তাই নিচে দেখানো মতো এটি নিজে কনফিগার করুন।
 
-আপনার প্রজেক্ট ইতিমধ্যে Prettier ব্যবহার করলে, `intlayer init prettier` প্লাগইনটি ইনস্টল করবে এবং আপনার কনফিগারেশনে এটি স্বয়ংক্রিয়ভাবে যুক্ত করবে।
+  </Tab>
+</Tabs>
 
 ## ব্যবহার
 
@@ -97,18 +126,14 @@ Prettier ৩ বা তার পরবর্তী সংস্করণ প্
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt Prettier প্লাগইন লোড করে না। Prettier দিয়ে শুধু আপনার কন্টেন্ট ঘোষণাগুলিতে প্লাগইনটি চালান, তারপর oxfmt দিয়ে পুরো প্রজেক্ট ফরম্যাট করুন:
+ফরম্যাট স্ক্রিপ্ট দুটি টুল চালায়, প্রত্যেকটির একটি করে কাজ:
+
+1. **Prettier** প্লাগইন দিয়ে আপনার কন্টেন্ট ঘোষণাগুলি সাজায়। glob এটিকে `*.content.*` ফাইলে সীমাবদ্ধ রাখে।
+2. **oxfmt** কন্টেন্ট ঘোষণাসহ পুরো প্রজেক্ট ফরম্যাট করে।
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt Prettier প্লাগইন লোড করে না। Prettier দ�
 }
 ```
 
-এই ক্রম বজায় রাখুন। oxfmt নিজের স্টাইলে লেআউট নতুন করে লেখে, কিন্তু অবজেক্টের কীগুলির ক্রম কখনও বদলায় না, তাই সাজানো ক্রম বজায় থাকে।
+এই ক্রম বজায় রাখুন। oxfmt Prettier-এর লেখা লেআউট নিজের লেআউট দিয়ে বদলে দেয়, কিন্তু কখনও অবজেক্টের key-এর ক্রম বদলায় না, তাই সাজানো ক্রম বজায় থাকে।
+
+এই সেটআপের কিছু সীমাবদ্ধতা আছে:
+
+- **সেভ করার সময় ফরম্যাট।** যে এডিটর oxfmt দিয়ে ফরম্যাট করে সেটি সাজায় না। সাজাতে `format` স্ক্রিপ্ট চালান।
+- **Check মোড।** oxfmt দিয়ে ফরম্যাট করা ফাইলে `prettier --check` ব্যবহার করবেন না: লেআউট আলাদা হওয়ায় এটি প্রতিটি ফাইল রিপোর্ট করে। CI-তে ক্রম যাচাই করতে `format` স্ক্রিপ্ট চালান এবং পরিবর্তন থাকলে job ব্যর্থ করুন:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 সিরিয়ালাইজড ফর্মটিও একইভাবে সাজানো হয়: `{ "nodeType": "translation", "translation": { … } }`, পাশাপাশি `plural`, `enumeration` এবং `select` নোডগুলিও।
 
+### একই অনুবাদ
+
+`*.content.*` ফাইলে, যে `t()`-এর সব locale-এ একই string থাকে, সেটি ওই string দিয়ে প্রতিস্থাপিত হয়। সাধারণ string প্রতিটি locale-কে দেওয়া হয়, তাই আউটপুট বদলায় না।
+
+```ts
+// আগে
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// পরে
+nextjs: "Next.js",
+```
+
+একটি মাত্র locale, type argument (`t<string>()`), comment বা non-string value থাকা `t()` যেমন আছে তেমন রাখা হয়। এটি বন্ধ করতে `intlayerCollapseIdenticalTranslations: false` সেট করুন।
+
 ### কন্টেন্ট কী (ঐচ্ছিক)
 
 `intlayerSortContentKeys: true` সহ, প্লাগইনটি প্রতিটি নেস্টিং স্তরে অভিধানের `content`-এর কীগুলিও বর্ণানুক্রমিকভাবে সাজায়। এটি শুধুমাত্র `*.content.*` ফাইলগুলিতে প্রযোজ্য।
@@ -212,10 +259,11 @@ export default {
 
 ## অপশন
 
-| অপশন                      | ডিফল্ট    | বর্ণনা                                                                 |
-| ------------------------- | -------- | -------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | `t()`-এ প্রথমে রাখা লোক্যালগুলি, এই ক্রমে। সব লোক্যাল সাজাতে `[]` পাস করুন।       |
-| `intlayerSortContentKeys` | `false`  | `*.content.*` ফাইলগুলিতে, অভিধানের কন্টেন্ট কী এবং নেস্টেড অবজেক্টগুলিও সাজান। |
+| অপশন                                    | ডিফল্ট    | বর্ণনা                                                                                            |
+| --------------------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | `t()`-এ প্রথমে রাখা লোক্যালগুলি, এই ক্রমে। সব লোক্যাল সাজাতে `[]` পাস করুন।                                  |
+| `intlayerSortContentKeys`               | `false`  | `*.content.*` ফাইলগুলিতে, অভিধানের কন্টেন্ট কী এবং নেস্টেড অবজেক্টগুলিও সাজান।                            |
+| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` ফাইলে, যে `t()`-এর সব locale-এ একই string থাকে, সেটিকে ওই string দিয়ে প্রতিস্থাপন করে। |
 
 ## যা অপরিবর্তিত রাখা হয়
 

@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Instalação
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Requer o Prettier 3 ou superior.
+
+Se o seu projeto já utiliza o Prettier, `intlayer init prettier` instala o plugin e o adiciona à sua configuração automaticamente.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+O oxfmt não consegue carregar plugins de terceiros, por isso a ordenação passa pelo Prettier. Instale o Prettier ao lado do oxfmt. Ele só serve para ordenar as suas declarações de conteúdo; o oxfmt continua formatando o seu projeto.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Requer o Prettier 3 ou superior.
+Requer o Prettier 3 ou superior. `intlayer init` só configura o plugin em projetos que já usam o Prettier, então configure-o manualmente como mostrado abaixo.
 
-Se o seu projeto já utiliza o Prettier, `intlayer init prettier` instala o plugin e o adiciona à sua configuração automaticamente.
+  </Tab>
+</Tabs>
 
 ## Uso
 
@@ -97,18 +126,14 @@ Para aplicá-lo apenas às suas declarações de conteúdo, utilize um override:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-O oxfmt não carrega plugins do Prettier. Deixe o Prettier aplicar o plugin apenas às suas declarações de conteúdo e depois deixe o oxfmt formatar todo o projeto:
+O script de formatação executa duas ferramentas, cada uma com uma única tarefa:
+
+1. **Prettier** ordena as suas declarações de conteúdo com o plugin. O glob o limita aos arquivos `*.content.*`.
+2. **oxfmt** formata todo o projeto, incluindo as declarações de conteúdo.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ O oxfmt não carrega plugins do Prettier. Deixe o Prettier aplicar o plugin apen
 }
 ```
 
-Mantenha esta ordem. O oxfmt reescreve a formatação no seu próprio estilo, mas nunca reordena as chaves dos objetos, então a ordenação é mantida.
+Mantenha esta ordem. O oxfmt substitui a formatação escrita pelo Prettier pela sua própria, mas nunca reordena as chaves dos objetos, então a ordem é mantida.
+
+Esta configuração tem alguns limites:
+
+- **Formatar ao salvar.** Um editor que formata com o oxfmt não ordena. Execute o script `format` para ordenar.
+- **Modo check.** Não use `prettier --check` em arquivos formatados pelo oxfmt: a formatação é diferente, então ele aponta todos os arquivos. Para verificar a ordem na CI, execute o script `format` e faça o job falhar se houver alterações:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ As categorias vão da menor quantidade até a alternativa (fallback): `zero`, `o
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Sem uma chave `fallback` ou `other`, o último caso é usado como fallback. Esse
 
 A forma serializada é ordenada da mesma maneira: `{ "nodeType": "translation", "translation": { … } }`, assim como os nós `plural`, `enumeration` e `select`.
 
+### Traduções idênticas
+
+Nos arquivos `*.content.*`, um `t()` cujas locales contêm todas a mesma string é substituído por essa string. Uma string simples é servida para todas as locales, então o resultado não muda.
+
+```ts
+// antes
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// depois
+nextjs: "Next.js",
+```
+
+Um `t()` com uma única locale, um argumento de tipo (`t<string>()`), um comentário ou valores que não são strings é mantido. Defina `intlayerCollapseIdenticalTranslations: false` para desativar.
+
 ### Chaves de conteúdo (opcional)
 
 Com `intlayerSortContentKeys: true`, o plugin também ordena as chaves de `content` do dicionário em ordem alfabética em todos os níveis de aninhamento. Isso se aplica apenas a arquivos `*.content.*`.
@@ -212,10 +259,11 @@ A ordenação continua através de cada função utilitária (`t`, `plural`, `en
 
 ## Opções
 
-| Opção                     | Padrão   | Descrição                                                                                           |
-| ------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | Locales mantidos em primeiro lugar em `t()`, nessa ordem. Passe `[]` para ordenar todos os locales. |
-| `intlayerSortContentKeys` | `false`  | Em arquivos `*.content.*`, também ordena as chaves de conteúdo do dicionário e objetos aninhados.   |
+| Opção                                   | Padrão   | Descrição                                                                                                 |
+| --------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | Locales mantidos em primeiro lugar em `t()`, nessa ordem. Passe `[]` para ordenar todos os locales.       |
+| `intlayerSortContentKeys`               | `false`  | Em arquivos `*.content.*`, também ordena as chaves de conteúdo do dicionário e objetos aninhados.         |
+| `intlayerCollapseIdenticalTranslations` | `true`   | Nos arquivos `*.content.*`, substitui um `t()` cujas locales contêm todas a mesma string por essa string. |
 
 ## O que permanece intocado
 

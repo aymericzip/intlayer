@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Instalacja
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Wymaga Prettier w wersji 3 lub nowszej.
+
+Jeśli Twój projekt korzysta już z Prettier, polecenie `intlayer init prettier` automatycznie zainstaluje wtyczkę i doda ją do konfiguracji.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt nie potrafi wczytywać wtyczek zewnętrznych, dlatego sortowanie odbywa się przez Prettier. Zainstaluj Prettier obok oxfmt. Służy on tylko do sortowania deklaracji zawartości, a oxfmt nadal formatuje Twój projekt.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Wymaga Prettier w wersji 3 lub nowszej.
+Wymaga Prettier w wersji 3 lub nowszej. `intlayer init` konfiguruje wtyczkę tylko w projektach, które już używają Prettier, więc skonfiguruj ją ręcznie, jak pokazano poniżej.
 
-Jeśli Twój projekt korzysta już z Prettier, polecenie `intlayer init prettier` automatycznie zainstaluje wtyczkę i doda ją do konfiguracji.
+  </Tab>
+</Tabs>
 
 ## Użycie
 
@@ -97,18 +126,14 @@ Aby zastosować ją wyłącznie do deklaracji zawartości, użyj nadpisania (ove
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt nie wczytuje wtyczek Prettier. Pozwól Prettier zastosować wtyczkę tylko do deklaracji zawartości, a następnie pozwól oxfmt sformatować cały projekt:
+Skrypt formatowania uruchamia dwa narzędzia, każde z jednym zadaniem:
+
+1. **Prettier** sortuje deklaracje zawartości za pomocą wtyczki. Glob ogranicza go do plików `*.content.*`.
+2. **oxfmt** formatuje cały projekt, łącznie z deklaracjami zawartości.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt nie wczytuje wtyczek Prettier. Pozwól Prettier zastosować wtyczkę tylko
 }
 ```
 
-Zachowaj tę kolejność. oxfmt przepisuje formatowanie we własnym stylu, ale nigdy nie zmienia kolejności kluczy obiektów, więc posortowana kolejność zostaje zachowana.
+Zachowaj tę kolejność. oxfmt zastępuje formatowanie Prettier własnym, ale nigdy nie zmienia kolejności kluczy obiektów, więc posortowana kolejność zostaje zachowana.
+
+Ta konfiguracja ma kilka ograniczeń:
+
+- **Formatowanie przy zapisie.** Edytor formatujący za pomocą oxfmt nie sortuje. Uruchom skrypt `format`, aby posortować.
+- **Tryb check.** Nie używaj `prettier --check` na plikach sformatowanych przez oxfmt: formatowanie się różni, więc zgłasza każdy plik. Aby sprawdzić kolejność w CI, uruchom skrypt `format` i przerwij job, jeśli pojawią się zmiany:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Kategorie układają się od najmniejszej ilości do wartości zapasowej (fallba
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Bez klucza `fallback` lub `other` ostatni przypadek służy jako fallback. Ten p
 
 Forma zserializowana jest sortowana w ten sam sposób: `{ "nodeType": "translation", "translation": { … } }`, jak również węzły `plural`, `enumeration` oraz `select`.
 
+### Identyczne tłumaczenia
+
+W plikach `*.content.*` wywołanie `t()`, w którym wszystkie locale zawierają ten sam ciąg, jest zastępowane tym ciągiem. Zwykły ciąg jest zwracany dla każdej locale, więc wynik się nie zmienia.
+
+```ts
+// przed
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// po
+nextjs: "Next.js",
+```
+
+`t()` z jedną locale, argumentem typu (`t<string>()`), komentarzem lub wartościami innymi niż ciągi zostaje zachowane. Ustaw `intlayerCollapseIdenticalTranslations: false`, aby to wyłączyć.
+
 ### Klucze zawartości (opcjonalnie)
 
 Po włączeniu `intlayerSortContentKeys: true` wtyczka sortuje również klucze `content` słownika alfabetycznie na każdym poziomie zagnieżdżenia. Dotyczy to wyłącznie plików `*.content.*`.
@@ -212,10 +259,11 @@ Sortowanie przechodzi przez każdą funkcję pomocniczą (`t`, `plural`, `enu`, 
 
 ## Opcje
 
-| Opcja                     | Domyślnie | Opis                                                                                                             |
-| ------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`  | Ustawienia regionalne umieszczane na początku w `t()`, w tej kolejności. Przekaż `[]`, aby posortować wszystkie. |
-| `intlayerSortContentKeys` | `false`   | W plikach `*.content.*` sortuje także klucze zawartości słownika i obiekty zagnieżdżone.                         |
+| Opcja                                   | Domyślnie | Opis                                                                                                             |
+| --------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`  | Ustawienia regionalne umieszczane na początku w `t()`, w tej kolejności. Przekaż `[]`, aby posortować wszystkie. |
+| `intlayerSortContentKeys`               | `false`   | W plikach `*.content.*` sortuje także klucze zawartości słownika i obiekty zagnieżdżone.                         |
+| `intlayerCollapseIdenticalTranslations` | `true`    | W plikach `*.content.*` zastępuje `t()`, w którym wszystkie locale zawierają ten sam ciąg, tym ciągiem.          |
 
 ## Co pozostaje bez zmian
 

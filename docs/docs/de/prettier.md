@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Installation
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Erfordert Prettier 3 oder höher.
+
+Wenn Ihr Projekt bereits Prettier verwendet, installiert `intlayer init prettier` das Plugin und trägt es automatisch in Ihre Konfiguration ein.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt kann keine Plugins von Drittanbietern laden, daher läuft die Sortierung über Prettier. Installieren Sie Prettier neben oxfmt. Es dient nur zum Sortieren Ihrer Inhaltsdeklarationen, oxfmt formatiert Ihr Projekt weiterhin.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Erfordert Prettier 3 oder höher.
+Erfordert Prettier 3 oder höher. `intlayer init` richtet das Plugin nur in Projekten ein, die bereits Prettier verwenden. Konfigurieren Sie es daher wie unten gezeigt von Hand.
 
-Wenn Ihr Projekt bereits Prettier verwendet, installiert `intlayer init prettier` das Plugin und trägt es automatisch in Ihre Konfiguration ein.
+  </Tab>
+</Tabs>
 
 ## Verwendung
 
@@ -97,18 +126,14 @@ Um es nur auf Ihre Inhaltsdeklarationen anzuwenden, verwenden Sie ein Override:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt lädt keine Prettier-Plugins. Lassen Sie Prettier das Plugin nur auf Ihre Inhaltsdeklarationen anwenden und danach oxfmt das gesamte Projekt formatieren:
+Das Format-Skript führt zwei Tools aus, jedes mit einer Aufgabe:
+
+1. **Prettier** sortiert Ihre Inhaltsdeklarationen mit dem Plugin. Der Glob beschränkt es auf `*.content.*`-Dateien.
+2. **oxfmt** formatiert das gesamte Projekt, Inhaltsdeklarationen eingeschlossen.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt lädt keine Prettier-Plugins. Lassen Sie Prettier das Plugin nur auf Ihre 
 }
 ```
 
-Behalten Sie diese Reihenfolge bei. oxfmt schreibt das Layout in seinem eigenen Stil um, ändert aber nie die Reihenfolge von Objektschlüsseln, die Sortierung bleibt also erhalten.
+Behalten Sie diese Reihenfolge bei. oxfmt ersetzt das von Prettier geschriebene Layout durch sein eigenes, ordnet Objektschlüssel aber nie neu, die Sortierung bleibt also erhalten.
+
+Dieses Setup hat einige Grenzen:
+
+- **Formatieren beim Speichern.** Ein Editor, der mit oxfmt formatiert, sortiert nicht. Führen Sie das `format`-Skript aus, um zu sortieren.
+- **Check-Modus.** Verwenden Sie `prettier --check` nicht für Dateien, die oxfmt formatiert hat: Die Layouts unterscheiden sich, daher meldet es jede Datei. Um die Reihenfolge in der CI zu prüfen, führen Sie das `format`-Skript aus und lassen Sie den Job bei Änderungen fehlschlagen:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Die Kategorien verlaufen von der kleinsten Menge bis zum Fallback: `zero`, `one`
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Ohne einen Schlüssel `fallback` oder `other` dient der letzte Fall als Fallback
 
 Die serialisierte Form wird genauso sortiert: `{ "nodeType": "translation", "translation": { … } }` sowie Knoten für `plural`, `enumeration` und `select`.
 
+### Identische Übersetzungen
+
+In `*.content.*`-Dateien wird ein `t()`, dessen Locales alle denselben String enthalten, durch diesen String ersetzt. Ein einfacher String wird für jede Locale ausgeliefert, die Ausgabe ändert sich also nicht.
+
+```ts
+// vorher
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// nachher
+nextjs: "Next.js",
+```
+
+Ein `t()` mit nur einer Locale, einem Typargument (`t<string>()`), einem Kommentar oder Nicht-String-Werten bleibt erhalten. Setzen Sie `intlayerCollapseIdenticalTranslations: false`, um dies zu deaktivieren.
+
 ### Inhaltsschlüssel (Opt-in)
 
 Mit `intlayerSortContentKeys: true` sortiert das Plugin auch die Schlüssel des Wörterbuchs `content` alphabetisch auf jeder Schachtelungsebene. Dies gilt ausschließlich für `*.content.*`-Dateien.
@@ -212,10 +259,11 @@ Die Sortierung durchläuft alle Hilfsfunktionen (`t`, `plural`, `enu`, `select`,
 
 ## Optionen
 
-| Option                    | Standard | Beschreibung                                                                                                                     |
-| ------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | Locales, die in `t()` an erster Stelle gehalten werden, in dieser Reihenfolge. Übergeben Sie `[]`, um alle Locales zu sortieren. |
-| `intlayerSortContentKeys` | `false`  | In `*.content.*`-Dateien auch die Inhaltsschlüssel des Wörterbuchs und verschachtelte Objekte sortieren.                         |
+| Option                                  | Standard | Beschreibung                                                                                                                     |
+| --------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | Locales, die in `t()` an erster Stelle gehalten werden, in dieser Reihenfolge. Übergeben Sie `[]`, um alle Locales zu sortieren. |
+| `intlayerSortContentKeys`               | `false`  | In `*.content.*`-Dateien auch die Inhaltsschlüssel des Wörterbuchs und verschachtelte Objekte sortieren.                         |
+| `intlayerCollapseIdenticalTranslations` | `true`   | Ersetzt in `*.content.*`-Dateien ein `t()`, dessen Locales alle denselben String enthalten, durch diesen String.                 |
 
 ## Was unverändert bleibt
 

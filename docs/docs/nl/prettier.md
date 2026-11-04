@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Installatie
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Vereist Prettier 3 of nieuwer.
+
+Als je project al Prettier gebruikt, installeert `intlayer init prettier` de plugin en voegt deze automatisch toe aan je configuratie.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt kan geen plugins van derden laden, dus het sorteren loopt via Prettier. Installeer Prettier naast oxfmt. Het wordt alleen gebruikt om je inhoudsdeclaraties te sorteren; oxfmt blijft je project formatteren.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Vereist Prettier 3 of nieuwer.
+Vereist Prettier 3 of nieuwer. `intlayer init` stelt de plugin alleen in voor projecten die al Prettier gebruiken, dus configureer hem handmatig zoals hieronder.
 
-Als je project al Prettier gebruikt, installeert `intlayer init prettier` de plugin en voegt deze automatisch toe aan je configuratie.
+  </Tab>
+</Tabs>
 
 ## Gebruik
 
@@ -97,18 +126,14 @@ Om het alleen toe te passen op je inhoudsdeclaraties, gebruik je een override:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt laadt geen Prettier-plugins. Laat Prettier de plugin alleen op je inhoudsdeclaraties toepassen en laat oxfmt daarna het hele project formatteren:
+Het format-script voert twee tools uit, elk met één taak:
+
+1. **Prettier** sorteert je inhoudsdeclaraties met de plugin. De glob beperkt het tot `*.content.*`-bestanden.
+2. **oxfmt** formatteert het hele project, inclusief de inhoudsdeclaraties.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt laadt geen Prettier-plugins. Laat Prettier de plugin alleen op je inhoudsd
 }
 ```
 
-Houd deze volgorde aan. oxfmt herschrijft de opmaak in zijn eigen stijl, maar verandert nooit de volgorde van objectsleutels, dus de sortering blijft behouden.
+Houd deze volgorde aan. oxfmt vervangt de opmaak van Prettier door zijn eigen opmaak, maar herschikt nooit objectsleutels, dus de gesorteerde volgorde blijft behouden.
+
+Deze setup heeft een paar beperkingen:
+
+- **Formatteren bij opslaan.** Een editor die met oxfmt formatteert, sorteert niet. Voer het `format`-script uit om te sorteren.
+- **Check-modus.** Gebruik `prettier --check` niet op bestanden die oxfmt heeft geformatteerd: de opmaak verschilt, dus het meldt elk bestand. Om de volgorde in CI te controleren, voer je het `format`-script uit en laat je de job falen bij wijzigingen:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Categorieën lopen van de kleinste hoeveelheid naar de fallback: `zero`, `one`, 
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Zonder een `fallback`- of `other`-sleutel wordt de laatste case gebruikt als fal
 
 De geserialiseerde vorm wordt op dezelfde manier gesorteerd: `{ "nodeType": "translation", "translation": { … } }`, evenals `plural`-, `enumeration`- en `select`-nodes.
 
+### Identieke vertalingen
+
+In `*.content.*`-bestanden wordt een `t()` waarvan alle locales dezelfde string bevatten, vervangen door die string. Een gewone string wordt aan elke locale geleverd, dus de uitvoer verandert niet.
+
+```ts
+// voor
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// na
+nextjs: "Next.js",
+```
+
+Een `t()` met één locale, een typeargument (`t<string>()`), een commentaar of waarden die geen string zijn, blijft behouden. Zet `intlayerCollapseIdenticalTranslations: false` om dit uit te schakelen.
+
 ### Inhoudssleutels (opt-in)
 
 Met `intlayerSortContentKeys: true` sorteert de plugin ook de sleutels van `content` in het woordenboek alfabetisch, op elk nestingsniveau. Dit is alleen van toepassing op `*.content.*`-bestanden.
@@ -212,10 +259,11 @@ Het sorteren gaat door via elke helperfunctie (`t`, `plural`, `enu`, `select`, `
 
 ## Opties
 
-| Optie                     | Standaard | Beschrijving                                                                                                    |
-| ------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`  | Locales die vooraan worden gehouden in `t()`, in deze volgorde. Geef `[]` door om alle locales te sorteren.     |
-| `intlayerSortContentKeys` | `false`   | In `*.content.*`-bestanden ook de inhoudssleutels van het woordenboek en geneste objecten alfabetisch sorteren. |
+| Optie                                   | Standaard | Beschrijving                                                                                                    |
+| --------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`  | Locales die vooraan worden gehouden in `t()`, in deze volgorde. Geef `[]` door om alle locales te sorteren.     |
+| `intlayerSortContentKeys`               | `false`   | In `*.content.*`-bestanden ook de inhoudssleutels van het woordenboek en geneste objecten alfabetisch sorteren. |
+| `intlayerCollapseIdenticalTranslations` | `true`    | Vervangt in `*.content.*`-bestanden een `t()` waarvan alle locales dezelfde string bevatten door die string.    |
 
 ## Wat onaangeroerd blijft
 

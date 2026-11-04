@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## התקנה
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+נדרש Prettier בגרסה 3 ומעלה.
+
+אם הפרויקט שלך כבר משתמש ב-Prettier, הפקודה `intlayer init prettier` תתקין את התוסף ותוסיף אותו לקובץ ההגדרות עבורך.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt לא יכול לטעון תוספים של צד שלישי, ולכן המיון מתבצע דרך Prettier. התקינו את Prettier לצד oxfmt. הוא משמש רק למיון הצהרות התוכן שלכם, ו-oxfmt ממשיך לעצב את הפרויקט.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-נדרש Prettier בגרסה 3 ומעלה.
+נדרש Prettier בגרסה 3 ומעלה. `intlayer init` מגדיר את התוסף רק בפרויקטים שכבר משתמשים ב-Prettier, לכן הגדירו אותו ידנית כפי שמוצג למטה.
 
-אם הפרויקט שלך כבר משתמש ב-Prettier, הפקודה `intlayer init prettier` תתקין את התוסף ותוסיף אותו לקובץ ההגדרות עבורך.
+  </Tab>
+</Tabs>
 
 ## שימוש
 
@@ -97,18 +126,14 @@ bun add --dev prettier prettier-plugin-intlayer
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt אינו טוען תוספי Prettier. תנו ל-Prettier להריץ את התוסף רק על הצהרות התוכן שלכם, ואז תנו ל-oxfmt לעצב את כל הפרויקט:
+סקריפט העיצוב מריץ שני כלים, לכל אחד תפקיד אחד:
+
+1. **Prettier** ממיין את הצהרות התוכן שלכם בעזרת התוסף. ה-glob מגביל אותו לקבצי `*.content.*`.
+2. **oxfmt** מעצב את כל הפרויקט, כולל הצהרות התוכן.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt אינו טוען תוספי Prettier. תנו ל-Prettier להריץ את 
 }
 ```
 
-שמרו על הסדר הזה. oxfmt כותב מחדש את העיצוב בסגנון שלו, אך לעולם אינו משנה את סדר המפתחות באובייקטים, כך שהסדר הממוין נשמר.
+שמרו על הסדר הזה. oxfmt מחליף את העיצוב של Prettier בעיצוב שלו, אך לעולם לא משנה את סדר מפתחות האובייקטים, ולכן הסדר הממוין נשמר.
+
+להגדרה הזו יש כמה מגבלות:
+
+- **עיצוב בשמירה.** עורך שמעצב עם oxfmt לא ממיין. הריצו את הסקריפט `format` כדי למיין.
+- **מצב check.** אל תשתמשו ב-`prettier --check` על קבצים ש-oxfmt עיצב: העיצובים שונים, ולכן הוא ידווח על כל קובץ. כדי לבדוק את הסדר ב-CI, הריצו את הסקריפט `format` והכשילו את ה-job אם יש שינויים:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 המבנה הסדרתי (serialized) ממוין באותו אופן: `{ "nodeType": "translation", "translation": { … } }`, כמו גם צומתי `plural`, `enumeration` ו-`select`.
 
+### תרגומים זהים
+
+בקבצי `*.content.*`, קריאת `t()` שבה כל השפות מכילות את אותה מחרוזת מוחלפת במחרוזת הזו. מחרוזת רגילה מוגשת לכל השפות, ולכן התוצאה לא משתנה.
+
+```ts
+// לפני
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// אחרי
+nextjs: "Next.js",
+```
+
+`t()` עם שפה אחת, ארגומנט טיפוס (`t<string>()`), הערה או ערכים שאינם מחרוזות נשמר. הגדירו `intlayerCollapseIdenticalTranslations: false` כדי לכבות זאת.
+
 ### מפתחות תוכן (אופציונלי)
 
 באמצעות `intlayerSortContentKeys: true`, התוסף ממיין גם את מפתחות ה-`content` של המילון בסדר אלפביתי, בכל רמת קינון. הגדרה זו חלה רק על קובצי `*.content.*`.
@@ -212,10 +259,11 @@ export default {
 
 ## אפשרויות
 
-| אפשרות                    | ברירת מחדל | תיאור                                                                                  |
-| ------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`   | לוקאלים הנשמרים ראשונים ב-`t()`, בסדר זה. העבר `[]` כדי למיין את כל הלוקאלים אלפביתית. |
-| `intlayerSortContentKeys` | `false`    | בקובצי `*.content.*`, מיין גם את מפתחות התוכן של המילון ואובייקטים מקוננים.            |
+| אפשרות                                  | ברירת מחדל | תיאור                                                                                  |
+| --------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`   | לוקאלים הנשמרים ראשונים ב-`t()`, בסדר זה. העבר `[]` כדי למיין את כל הלוקאלים אלפביתית. |
+| `intlayerSortContentKeys`               | `false`    | בקובצי `*.content.*`, מיין גם את מפתחות התוכן של המילון ואובייקטים מקוננים.            |
+| `intlayerCollapseIdenticalTranslations` | `true`     | בקבצי `*.content.*`, מחליף `t()` שבו כל השפות מכילות את אותה מחרוזת במחרוזת הזו.       |
 
 ## מה נשאר ללא שינוי
 

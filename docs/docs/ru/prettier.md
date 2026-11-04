@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Установка
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Требуется Prettier 3 или новее.
+
+Если в вашем проекте уже используется Prettier, команда `intlayer init prettier` установит плагин и добавит его в вашу конфигурацию за вас.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt не умеет загружать сторонние плагины, поэтому сортировка выполняется через Prettier. Установите Prettier рядом с oxfmt. Он нужен только для сортировки объявлений контента, а oxfmt по-прежнему форматирует ваш проект.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Требуется Prettier 3 или новее.
+Требуется Prettier 3 или новее. `intlayer init` настраивает плагин только в проектах, где уже используется Prettier, поэтому настройте его вручную, как показано ниже.
 
-Если в вашем проекте уже используется Prettier, команда `intlayer init prettier` установит плагин и добавит его в вашу конфигурацию за вас.
+  </Tab>
+</Tabs>
 
 ## Использование
 
@@ -97,18 +126,14 @@ bun add --dev prettier prettier-plugin-intlayer
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt не загружает плагины Prettier. Пусть Prettier применяет плагин только к объявлениям контента, а затем oxfmt форматирует весь проект:
+Скрипт форматирования запускает два инструмента, у каждого своя задача:
+
+1. **Prettier** сортирует объявления контента с помощью плагина. Glob ограничивает его файлами `*.content.*`.
+2. **oxfmt** форматирует весь проект, включая объявления контента.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt не загружает плагины Prettier. Пусть Prettier пр�
 }
 ```
 
-Соблюдайте этот порядок. oxfmt переписывает форматирование в своём стиле, но никогда не меняет порядок ключей объектов, поэтому сортировка сохраняется.
+Соблюдайте этот порядок. oxfmt заменяет форматирование Prettier своим, но никогда не меняет порядок ключей объектов, поэтому отсортированный порядок сохраняется.
+
+У этой настройки есть ограничения:
+
+- **Форматирование при сохранении.** Редактор, форматирующий через oxfmt, не сортирует. Запустите скрипт `format`, чтобы отсортировать.
+- **Режим check.** Не используйте `prettier --check` для файлов, отформатированных oxfmt: форматирование отличается, поэтому он сообщит о каждом файле. Чтобы проверить порядок в CI, запустите скрипт `format` и завершайте job с ошибкой при наличии изменений:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 Сериализованная форма сортируется аналогичным образом: `{ "nodeType": "translation", "translation": { … } }`, а также узлы `plural`, `enumeration` и `select`.
 
+### Одинаковые переводы
+
+В файлах `*.content.*` вызов `t()`, у которого все локали содержат одну и ту же строку, заменяется этой строкой. Простая строка отдаётся для каждой локали, поэтому результат не меняется.
+
+```ts
+// до
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// после
+nextjs: "Next.js",
+```
+
+`t()` с одной локалью, аргументом типа (`t<string>()`), комментарием или нестроковыми значениями сохраняется. Установите `intlayerCollapseIdenticalTranslations: false`, чтобы отключить это.
+
 ### Ключи контента (по желанию)
 
 При параметре `intlayerSortContentKeys: true` плагин также сортирует ключи `content` словаря по алфавиту на каждом уровне вложенности. Это относится только к файлам `*.content.*`.
@@ -212,10 +259,11 @@ export default {
 
 ## Опции
 
-| Опция                     | По умолчанию | Описание                                                                                                |
-| ------------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`     | Локали, сохраняемые первыми в `t()`, в указанном порядке. Передайте `[]`, чтобы сортировать все локали. |
-| `intlayerSortContentKeys` | `false`      | В файлах `*.content.*` также сортирует ключи контента словаря и вложенные объекты.                      |
+| Опция                                   | По умолчанию | Описание                                                                                                 |
+| --------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`     | Локали, сохраняемые первыми в `t()`, в указанном порядке. Передайте `[]`, чтобы сортировать все локали.  |
+| `intlayerSortContentKeys`               | `false`      | В файлах `*.content.*` также сортирует ключи контента словаря и вложенные объекты.                       |
+| `intlayerCollapseIdenticalTranslations` | `true`       | В файлах `*.content.*` заменяет `t()`, у которого все локали содержат одну и ту же строку, этой строкой. |
 
 ## Что остается без изменений
 

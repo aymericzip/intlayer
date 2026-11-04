@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## 安装
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+需要 Prettier 3 或更高版本。
+
+如果你的项目已在使用 Prettier，运行 `intlayer init prettier` 将自动安装该插件并将其添加到你的配置中。
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt 无法加载第三方插件，因此排序通过 Prettier 完成。请在 oxfmt 旁边安装 Prettier。它只用于对内容声明进行排序，项目的格式化仍由 oxfmt 负责。
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-需要 Prettier 3 或更高版本。
+需要 Prettier 3 或更高版本。 `intlayer init` 只会在已使用 Prettier 的项目中配置该插件，因此请按下文所示手动配置。
 
-如果你的项目已在使用 Prettier，运行 `intlayer init prettier` 将自动安装该插件并将其添加到你的配置中。
+  </Tab>
+</Tabs>
 
 ## 用法
 
@@ -97,18 +126,14 @@ bun add --dev prettier prettier-plugin-intlayer
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt 不会加载 Prettier 插件。让 Prettier 仅在内容声明文件上运行该插件，然后让 oxfmt 格式化整个项目：
+format 脚本会运行两个工具，各司其职：
+
+1. **Prettier** 使用插件对内容声明进行排序。glob 将其限制在 `*.content.*` 文件上。
+2. **oxfmt** 格式化整个项目，包括内容声明。
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt 不会加载 Prettier 插件。让 Prettier 仅在内容声明文件上运
 }
 ```
 
-请保持这个顺序。oxfmt 会按自己的风格重写排版，但从不调整对象键的顺序，因此排序结果会被保留。
+请保持这个顺序。oxfmt 会用自己的布局替换 Prettier 写出的布局，但从不重新排列对象的键，因此排序结果会被保留。
+
+这种配置有一些限制：
+
+- **保存时格式化。** 使用 oxfmt 格式化的编辑器不会排序。请运行 `format` 脚本来排序。
+- **check 模式。** 不要对 oxfmt 格式化过的文件使用 `prettier --check`：两者布局不同，它会报告每个文件。要在 CI 中检查顺序，请运行 `format` 脚本，并在有改动时让 job 失败：
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ t({
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 序列化后的形式以相同方式排序：`{ "nodeType": "translation", "translation": { … } }`，以及 `plural`、`enumeration` 和 `select` 节点。
 
+### 相同的翻译
+
+在 `*.content.*` 文件中，所有语言都为同一字符串的 `t()` 会被替换为该字符串。普通字符串会提供给每种语言，因此输出不会改变。
+
+```ts
+// 之前
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// 之后
+nextjs: "Next.js",
+```
+
+只有一种语言、带类型参数（`t<string>()`）、带注释或包含非字符串值的 `t()` 会保持不变。设置 `intlayerCollapseIdenticalTranslations: false` 可关闭此功能。
+
 ### 内容键排序（可选）
 
 开启 `intlayerSortContentKeys: true` 后，插件还会对字典 `content` 中的键在所有嵌套层级上按字母顺序排序。此项仅适用于 `*.content.*` 文件。
@@ -212,10 +259,11 @@ export default {
 
 ## 配置选项
 
-| 选项                      | 默认值   | 描述                                                                          |
-| ------------------------- | -------- | ----------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | 在 `t()` 中优先置顶的语言环境列表及其顺序。传入 `[]` 对所有语言环境进行排序。 |
-| `intlayerSortContentKeys` | `false`  | 在 `*.content.*` 文件中，同时对字典内容键及嵌套对象进行排序。                 |
+| 选项                                    | 默认值   | 描述                                                                          |
+| --------------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | 在 `t()` 中优先置顶的语言环境列表及其顺序。传入 `[]` 对所有语言环境进行排序。 |
+| `intlayerSortContentKeys`               | `false`  | 在 `*.content.*` 文件中，同时对字典内容键及嵌套对象进行排序。                 |
+| `intlayerCollapseIdenticalTranslations` | `true`   | 在 `*.content.*` 文件中，将所有语言都为同一字符串的 `t()` 替换为该字符串。    |
 
 ## 保持原样的情形
 

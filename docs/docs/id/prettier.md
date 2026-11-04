@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Instalasi
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Memerlukan Prettier versi 3 atau lebih baru.
+
+Jika proyek Anda sudah menggunakan Prettier, `intlayer init prettier` akan menginstal plugin dan menambahkannya ke konfigurasi Anda secara otomatis.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt tidak dapat memuat plugin pihak ketiga, jadi pengurutan dijalankan melalui Prettier. Instal Prettier di samping oxfmt. Prettier hanya digunakan untuk mengurutkan deklarasi konten Anda; oxfmt tetap memformat proyek Anda.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Memerlukan Prettier versi 3 atau lebih baru.
+Memerlukan Prettier versi 3 atau lebih baru. `intlayer init` hanya menyiapkan plugin di proyek yang sudah menggunakan Prettier, jadi konfigurasikan secara manual seperti di bawah ini.
 
-Jika proyek Anda sudah menggunakan Prettier, `intlayer init prettier` akan menginstal plugin dan menambahkannya ke konfigurasi Anda secara otomatis.
+  </Tab>
+</Tabs>
 
 ## Penggunaan
 
@@ -97,18 +126,14 @@ Untuk menerapkannya hanya pada file deklarasi konten, gunakan override:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt tidak memuat plugin Prettier. Biarkan Prettier menjalankan plugin hanya pada deklarasi konten Anda, lalu biarkan oxfmt memformat seluruh proyek:
+Skrip format menjalankan dua alat, masing-masing dengan satu tugas:
+
+1. **Prettier** mengurutkan deklarasi konten Anda dengan plugin. Glob membatasinya pada file `*.content.*`.
+2. **oxfmt** memformat seluruh proyek, termasuk deklarasi konten.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt tidak memuat plugin Prettier. Biarkan Prettier menjalankan plugin hanya pa
 }
 ```
 
-Pertahankan urutan ini. oxfmt menulis ulang tata letak dengan gayanya sendiri, tetapi tidak pernah mengubah urutan kunci objek, sehingga urutan yang telah diurutkan tetap terjaga.
+Pertahankan urutan ini. oxfmt mengganti tata letak yang ditulis Prettier dengan miliknya sendiri, tetapi tidak pernah mengubah urutan key objek, sehingga urutan yang sudah diurutkan tetap terjaga.
+
+Pengaturan ini memiliki beberapa batasan:
+
+- **Format saat menyimpan.** Editor yang memformat dengan oxfmt tidak mengurutkan. Jalankan skrip `format` untuk mengurutkan.
+- **Mode check.** Jangan gunakan `prettier --check` pada file yang diformat oleh oxfmt: tata letaknya berbeda, sehingga setiap file dilaporkan. Untuk memeriksa urutan di CI, jalankan skrip `format` dan gagalkan job jika ada perubahan:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Kategori diurutkan dari kuantitas terkecil hingga fallback: `zero`, `one`, `two`
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Tanpa kunci `fallback` atau `other`, case terakhir digunakan sebagai fallback. C
 
 Bentuk serial diurutkan dengan cara yang sama: `{ "nodeType": "translation", "translation": { … } }`, serta node `plural`, `enumeration`, dan `select`.
 
+### Terjemahan identik
+
+Di file `*.content.*`, `t()` yang semua locale-nya berisi string yang sama diganti dengan string tersebut. String biasa disajikan untuk setiap locale, jadi hasilnya tidak berubah.
+
+```ts
+// sebelum
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// sesudah
+nextjs: "Next.js",
+```
+
+`t()` dengan satu locale, argumen tipe (`t<string>()`), komentar, atau nilai non-string tetap dipertahankan. Atur `intlayerCollapseIdenticalTranslations: false` untuk menonaktifkannya.
+
 ### Kunci konten (opsional)
 
 Dengan `intlayerSortContentKeys: true`, plugin juga mengurutkan kunci `content` kamus berdasarkan abjad di setiap tingkat hierarki. Ini hanya berlaku pada file `*.content.*`.
@@ -212,10 +259,11 @@ Pengurutan berlanjut melalui setiap fungsi pembantu (`t`, `plural`, `enu`, `sele
 
 ## Opsi
 
-| Opsi                      | Default  | Deskripsi                                                                                                  |
-| ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | Locale yang dipertahankan pertama di `t()`, dalam urutan ini. Berikan `[]` untuk mengurutkan semua locale. |
-| `intlayerSortContentKeys` | `false`  | Dalam file `*.content.*`, urutkan juga kunci konten kamus dan objek bertingkat.                            |
+| Opsi                                    | Default  | Deskripsi                                                                                                    |
+| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| `intlayerPinnedLocales`                 | `["en"]` | Locale yang dipertahankan pertama di `t()`, dalam urutan ini. Berikan `[]` untuk mengurutkan semua locale.   |
+| `intlayerSortContentKeys`               | `false`  | Dalam file `*.content.*`, urutkan juga kunci konten kamus dan objek bertingkat.                              |
+| `intlayerCollapseIdenticalTranslations` | `true`   | Di file `*.content.*`, mengganti `t()` yang semua locale-nya berisi string yang sama dengan string tersebut. |
 
 ## Apa yang dibiarkan tidak berubah
 

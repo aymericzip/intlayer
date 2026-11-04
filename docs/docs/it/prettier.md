@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Installazione
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Richiede Prettier 3 o versioni successive.
+
+Se il tuo progetto utilizza già Prettier, `intlayer init prettier` installa il plugin e lo aggiunge automaticamente alla tua configurazione.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt non può caricare plugin di terze parti, quindi l'ordinamento passa da Prettier. Installa Prettier accanto a oxfmt. Serve solo a ordinare le tue dichiarazioni di contenuto, oxfmt continua a formattare il progetto.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Richiede Prettier 3 o versioni successive.
+Richiede Prettier 3 o versioni successive. `intlayer init` configura il plugin solo nei progetti che usano già Prettier, quindi configuralo a mano come mostrato qui sotto.
 
-Se il tuo progetto utilizza già Prettier, `intlayer init prettier` installa il plugin e lo aggiunge automaticamente alla tua configurazione.
+  </Tab>
+</Tabs>
 
 ## Utilizzo
 
@@ -97,18 +126,14 @@ Per applicarlo unicamente alle dichiarazioni di contenuto, usa un override:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt non carica i plugin di Prettier. Lascia che Prettier applichi il plugin solo alle tue dichiarazioni di contenuto, poi lascia che oxfmt formatti l'intero progetto:
+Lo script di formattazione esegue due strumenti, ognuno con un solo compito:
+
+1. **Prettier** ordina le tue dichiarazioni di contenuto con il plugin. Il glob lo limita ai file `*.content.*`.
+2. **oxfmt** formatta l'intero progetto, dichiarazioni di contenuto comprese.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt non carica i plugin di Prettier. Lascia che Prettier applichi il plugin so
 }
 ```
 
-Mantieni questo ordine. oxfmt riscrive la formattazione nel proprio stile ma non riordina mai le chiavi degli oggetti, quindi l'ordinamento resta.
+Mantieni questo ordine. oxfmt sostituisce la formattazione scritta da Prettier con la propria, ma non riordina mai le chiavi degli oggetti, quindi l'ordine viene mantenuto.
+
+Questa configurazione ha alcuni limiti:
+
+- **Formattazione al salvataggio.** Un editor che formatta con oxfmt non ordina. Esegui lo script `format` per ordinare.
+- **Modalità check.** Non usare `prettier --check` sui file formattati da oxfmt: la formattazione è diversa, quindi segnala ogni file. Per verificare l'ordine in CI, esegui lo script `format` e fai fallire il job se ci sono modifiche:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Le categorie vanno dalla quantità più piccola fino al fallback: `zero`, `one`,
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Senza una chiave `fallback` o `other`, l'ultimo caso funge da fallback. Tale cas
 
 La forma serializzata viene ordinata allo stesso modo: `{ "nodeType": "translation", "translation": { … } }`, così come i nodi `plural`, `enumeration` e `select`.
 
+### Traduzioni identiche
+
+Nei file `*.content.*`, un `t()` le cui locale contengono tutte la stessa stringa viene sostituito da quella stringa. Una stringa semplice viene servita a ogni locale, quindi il risultato non cambia.
+
+```ts
+// prima
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// dopo
+nextjs: "Next.js",
+```
+
+Un `t()` con una sola locale, un argomento di tipo (`t<string>()`), un commento o valori non stringa viene mantenuto. Imposta `intlayerCollapseIdenticalTranslations: false` per disattivarlo.
+
 ### Chiavi di contenuto (opzionale)
 
 Con `intlayerSortContentKeys: true`, il plugin ordina inoltre alfabeticamente le chiavi di `content` del dizionario a ogni livello di annidamento. Questa opzione ha effetto solo sui file `*.content.*`.
@@ -212,10 +259,11 @@ L'ordinamento continua all'interno di ciascun helper (`t`, `plural`, `enu`, `sel
 
 ## Opzioni
 
-| Opzione                   | Predefinito | Descrizione                                                                                        |
-| ------------------------- | ----------- | -------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`    | Lingue mantenute in testa in `t()`, in questo ordine. Passa `[]` per ordinare ogni lingua.         |
-| `intlayerSortContentKeys` | `false`     | Nei file `*.content.*`, ordina anche le chiavi di contenuto del dizionario e gli oggetti annidati. |
+| Opzione                                 | Predefinito | Descrizione                                                                                                       |
+| --------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`    | Lingue mantenute in testa in `t()`, in questo ordine. Passa `[]` per ordinare ogni lingua.                        |
+| `intlayerSortContentKeys`               | `false`     | Nei file `*.content.*`, ordina anche le chiavi di contenuto del dizionario e gli oggetti annidati.                |
+| `intlayerCollapseIdenticalTranslations` | `true`      | Nei file `*.content.*`, sostituisce un `t()` le cui locale contengono tutte la stessa stringa con quella stringa. |
 
 ## Cosa rimane invariato
 

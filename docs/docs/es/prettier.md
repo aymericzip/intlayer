@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Instalación
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Requiere Prettier 3 o superior.
+
+Si tu proyecto ya utiliza Prettier, `intlayer init prettier` instala el plugin y lo añade a tu configuración por ti.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt no puede cargar plugins de terceros, así que la ordenación pasa por Prettier. Instala Prettier junto a oxfmt. Solo se usa para ordenar tus declaraciones de contenido; oxfmt sigue formateando tu proyecto.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Requiere Prettier 3 o superior.
+Requiere Prettier 3 o superior. `intlayer init` solo configura el plugin en proyectos que ya usan Prettier, así que configúralo a mano como se muestra a continuación.
 
-Si tu proyecto ya utiliza Prettier, `intlayer init prettier` instala el plugin y lo añade a tu configuración por ti.
+  </Tab>
+</Tabs>
 
 ## Uso
 
@@ -97,18 +126,14 @@ Para aplicarlo únicamente a tus declaraciones de contenido, utiliza una regla d
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt no carga plugins de Prettier. Deja que Prettier aplique el plugin solo a tus declaraciones de contenido y luego deja que oxfmt formatee todo el proyecto:
+El script de formateo ejecuta dos herramientas, cada una con una sola tarea:
+
+1. **Prettier** ordena tus declaraciones de contenido con el plugin. El glob lo limita a los archivos `*.content.*`.
+2. **oxfmt** formatea todo el proyecto, incluidas las declaraciones de contenido.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt no carga plugins de Prettier. Deja que Prettier aplique el plugin solo a t
 }
 ```
 
-Mantén este orden. oxfmt reescribe el formato con su propio estilo, pero nunca reordena las claves de los objetos, así que el orden se conserva.
+Mantén este orden. oxfmt sustituye el formato escrito por Prettier por el suyo, pero nunca reordena las claves de los objetos, así que el orden se conserva.
+
+Esta configuración tiene algunos límites:
+
+- **Formatear al guardar.** Un editor que formatea con oxfmt no ordena. Ejecuta el script `format` para ordenar.
+- **Modo check.** No uses `prettier --check` en archivos formateados por oxfmt: el formato difiere, así que señala todos los archivos. Para comprobar el orden en CI, ejecuta el script `format` y haz fallar el job si hay cambios:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Las categorías van desde la cantidad más pequeña hasta la alternativa (fallba
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Sin una clave `fallback` o `other`, el último caso se utiliza como respaldo. Es
 
 La forma serializada se ordena de la misma manera: `{ "nodeType": "translation", "translation": { … } }`, así como los nodos `plural`, `enumeration` y `select`.
 
+### Traducciones idénticas
+
+En los archivos `*.content.*`, un `t()` cuyas locales contienen todas la misma cadena se sustituye por esa cadena. Una cadena simple se sirve a todas las locales, así que el resultado no cambia.
+
+```ts
+// antes
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// después
+nextjs: "Next.js",
+```
+
+Se conserva un `t()` con una sola locale, un argumento de tipo (`t<string>()`), un comentario o valores que no son cadenas. Usa `intlayerCollapseIdenticalTranslations: false` para desactivarlo.
+
 ### Claves de contenido (opcional)
 
 Con `intlayerSortContentKeys: true`, el plugin también ordena las claves de `content` del diccionario alfabéticamente en cada nivel de anidamiento. Esto solo se aplica en archivos `*.content.*`.
@@ -212,10 +259,11 @@ El ordenamiento continúa a través de cada asistente (`t`, `plural`, `enu`, `se
 
 ## Opciones
 
-| Opción                    | Predeterminado | Descripción                                                                                           |
-| ------------------------- | -------------- | ----------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`       | Locales que se mantienen primero en `t()`, en este orden. Pasa `[]` para ordenar todas las locales.   |
-| `intlayerSortContentKeys` | `false`        | En archivos `*.content.*`, también ordena las claves de contenido del diccionario y objetos anidados. |
+| Opción                                  | Predeterminado | Descripción                                                                                                     |
+| --------------------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`       | Locales que se mantienen primero en `t()`, en este orden. Pasa `[]` para ordenar todas las locales.             |
+| `intlayerSortContentKeys`               | `false`        | En archivos `*.content.*`, también ordena las claves de contenido del diccionario y objetos anidados.           |
+| `intlayerCollapseIdenticalTranslations` | `true`         | En los archivos `*.content.*`, sustituye un `t()` cuyas locales contienen todas la misma cadena por esa cadena. |
 
 ## Qué se deja sin cambios
 

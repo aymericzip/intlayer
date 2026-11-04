@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Cài đặt
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Yêu cầu Prettier phiên bản 3 trở lên.
+
+Nếu dự án của bạn đã sử dụng Prettier, lệnh `intlayer init prettier` sẽ tự động cài đặt plugin và thêm vào cấu hình cho bạn.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt không thể tải plugin bên thứ ba, nên việc sắp xếp được thực hiện qua Prettier. Hãy cài Prettier bên cạnh oxfmt. Prettier chỉ dùng để sắp xếp các khai báo nội dung của bạn; oxfmt vẫn định dạng dự án của bạn.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Yêu cầu Prettier phiên bản 3 trở lên.
+Yêu cầu Prettier phiên bản 3 trở lên. `intlayer init` chỉ thiết lập plugin trong các dự án đã dùng Prettier, vì vậy hãy cấu hình thủ công như bên dưới.
 
-Nếu dự án của bạn đã sử dụng Prettier, lệnh `intlayer init prettier` sẽ tự động cài đặt plugin và thêm vào cấu hình cho bạn.
+  </Tab>
+</Tabs>
 
 ## Cách sử dụng
 
@@ -97,18 +126,14 @@ Thêm plugin vào cấu hình Prettier của bạn:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt không tải các plugin của Prettier. Hãy để Prettier chạy plugin chỉ trên các khai báo nội dung của bạn, sau đó để oxfmt định dạng toàn bộ dự án:
+Script format chạy hai công cụ, mỗi công cụ một nhiệm vụ:
+
+1. **Prettier** sắp xếp các khai báo nội dung của bạn bằng plugin. Glob giới hạn nó ở các tệp `*.content.*`.
+2. **oxfmt** định dạng toàn bộ dự án, bao gồm cả các khai báo nội dung.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt không tải các plugin của Prettier. Hãy để Prettier chạy plugin
 }
 ```
 
-Giữ đúng thứ tự này. oxfmt viết lại bố cục theo phong cách riêng nhưng không bao giờ sắp xếp lại các khóa của đối tượng, vì vậy thứ tự đã sắp xếp được giữ nguyên.
+Hãy giữ thứ tự này. oxfmt thay bố cục do Prettier viết bằng bố cục của riêng nó, nhưng không bao giờ sắp xếp lại các key của object, nên thứ tự đã sắp xếp được giữ nguyên.
+
+Cách thiết lập này có một vài giới hạn:
+
+- **Định dạng khi lưu.** Trình soạn thảo định dạng bằng oxfmt sẽ không sắp xếp. Hãy chạy script `format` để sắp xếp.
+- **Chế độ check.** Không dùng `prettier --check` trên các tệp đã được oxfmt định dạng: bố cục khác nhau nên nó sẽ báo mọi tệp. Để kiểm tra thứ tự trong CI, hãy chạy script `format` và cho job thất bại nếu có thay đổi:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Các danh mục đi từ số lượng nhỏ nhất đến phương án dự ph�
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Nếu không có khóa `fallback` hoặc `other`, trường hợp cuối cùng s
 
 Dạng tuần tự hóa cũng được sắp xếp theo cách tương tự: `{ "nodeType": "translation", "translation": { … } }`, cũng như các nút `plural`, `enumeration` và `select`.
 
+### Bản dịch giống nhau
+
+Trong các tệp `*.content.*`, một `t()` mà mọi locale đều chứa cùng một chuỗi sẽ được thay bằng chính chuỗi đó. Chuỗi thường được trả về cho mọi locale, nên kết quả không thay đổi.
+
+```ts
+// trước
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// sau
+nextjs: "Next.js",
+```
+
+`t()` chỉ có một locale, có đối số kiểu (`t<string>()`), có comment hoặc có giá trị không phải chuỗi sẽ được giữ nguyên. Đặt `intlayerCollapseIdenticalTranslations: false` để tắt.
+
 ### Khóa nội dung (tùy chọn)
 
 Với `intlayerSortContentKeys: true`, plugin cũng sắp xếp các khóa của `content` từ điển theo thứ tự bảng chữ cái ở mọi cấp độ lồng nhau. Điều này chỉ áp dụng trong các tệp `*.content.*`.
@@ -212,10 +259,11 @@ Quá trình sắp xếp tiếp tục đi qua từng hàm trợ giúp (`t`, `plur
 
 ## Tùy chọn
 
-| Tùy chọn                  | Mặc định | Mô tả                                                                                             |
-| ------------------------- | -------- | ------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | Các locale được giữ ở đầu trong `t()`, theo thứ tự này. Truyền `[]` để sắp xếp tất cả các locale. |
-| `intlayerSortContentKeys` | `false`  | Trong các tệp `*.content.*`, sắp xếp thêm các khóa nội dung từ điển và các đối tượng lồng nhau.   |
+| Tùy chọn                                | Mặc định | Mô tả                                                                                                  |
+| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| `intlayerPinnedLocales`                 | `["en"]` | Các locale được giữ ở đầu trong `t()`, theo thứ tự này. Truyền `[]` để sắp xếp tất cả các locale.      |
+| `intlayerSortContentKeys`               | `false`  | Trong các tệp `*.content.*`, sắp xếp thêm các khóa nội dung từ điển và các đối tượng lồng nhau.        |
+| `intlayerCollapseIdenticalTranslations` | `true`   | Trong các tệp `*.content.*`, thay một `t()` mà mọi locale đều chứa cùng một chuỗi bằng chính chuỗi đó. |
 
 ## Những gì được giữ nguyên
 

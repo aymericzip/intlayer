@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Kurulum
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Prettier 3 veya daha yenisini gerektirir.
+
+Projeniz zaten Prettier kullanıyorsa, `intlayer init prettier` eklentiyi yükler ve yapılandırmanıza otomatik olarak ekler.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt üçüncü taraf eklentileri yükleyemez, bu yüzden sıralama Prettier üzerinden yapılır. Prettier'ı oxfmt'nin yanına kurun. Yalnızca içerik bildirimlerinizi sıralamak için kullanılır; projenizi oxfmt biçimlendirmeye devam eder.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Prettier 3 veya daha yenisini gerektirir.
+Prettier 3 veya daha yenisini gerektirir. `intlayer init` eklentiyi yalnızca zaten Prettier kullanan projelerde ayarlar, bu yüzden aşağıda gösterildiği gibi elle yapılandırın.
 
-Projeniz zaten Prettier kullanıyorsa, `intlayer init prettier` eklentiyi yükler ve yapılandırmanıza otomatik olarak ekler.
+  </Tab>
+</Tabs>
 
 ## Kullanım
 
@@ -97,18 +126,14 @@ Yalnızca içerik bildirimlerinize uygulamak için bir geçersiz kılma (overrid
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt, Prettier eklentilerini yüklemez. Eklentiyi yalnızca içerik bildirimlerinize Prettier ile uygulayın, ardından tüm projeyi oxfmt ile biçimlendirin:
+Biçimlendirme betiği, her biri tek bir işe sahip iki araç çalıştırır:
+
+1. **Prettier** içerik bildirimlerinizi eklentiyle sıralar. Glob onu `*.content.*` dosyalarıyla sınırlar.
+2. **oxfmt** içerik bildirimleri dahil tüm projeyi biçimlendirir.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt, Prettier eklentilerini yüklemez. Eklentiyi yalnızca içerik bildirimler
 }
 ```
 
-Bu sırayı koruyun. oxfmt düzeni kendi stiliyle yeniden yazar ancak nesne anahtarlarının sırasını asla değiştirmez, bu nedenle sıralama korunur.
+Bu sırayı koruyun. oxfmt, Prettier'ın yazdığı düzeni kendi düzeniyle değiştirir ama nesne anahtarlarının sırasını asla değiştirmez, böylece sıralama korunur.
+
+Bu kurulumun bazı sınırları vardır:
+
+- **Kaydederken biçimlendirme.** oxfmt ile biçimlendiren bir editör sıralama yapmaz. Sıralamak için `format` betiğini çalıştırın.
+- **Check modu.** oxfmt ile biçimlendirilmiş dosyalarda `prettier --check` kullanmayın: düzenler farklı olduğundan her dosyayı raporlar. CI'da sırayı kontrol etmek için `format` betiğini çalıştırın ve değişiklik varsa job'u başarısız yapın:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Kategoriler en küçük miktardan yedek seçeneğe (fallback) doğru sıralanır
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ select({
 
 Serileştirilmiş form da aynı şekilde sıralanır: `{ "nodeType": "translation", "translation": { … } }`, ayrıca `plural`, `enumeration` ve `select` düğümleri.
 
+### Aynı çeviriler
+
+`*.content.*` dosyalarında, tüm locale'leri aynı string'i içeren bir `t()` bu string ile değiştirilir. Düz bir string her locale için sunulur, bu yüzden çıktı değişmez.
+
+```ts
+// önce
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// sonra
+nextjs: "Next.js",
+```
+
+Tek bir locale, tür argümanı (`t<string>()`), yorum veya string olmayan değerler içeren bir `t()` korunur. Kapatmak için `intlayerCollapseIdenticalTranslations: false` ayarlayın.
+
 ### İçerik anahtarları (isteğe bağlı)
 
 `intlayerSortContentKeys: true` ile eklenti, sözlük `content` anahtarlarını her iç içe yerleşim düzeyinde alfabetik olarak da sıralar. Bu yalnızca `*.content.*` dosyalarında geçerlidir.
@@ -212,10 +259,11 @@ Sıralama, içlerindeki nesnelere ulaşmak için her yardımcı işlevden (`t`, 
 
 ## Seçenekler
 
-| Seçenek                   | Varsayılan | Açıklama                                                                                               |
-| ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------ |
-| `intlayerPinnedLocales`   | `["en"]`   | `t()` içinde ilk başta tutulan yerel ayarlar, bu sırada. Tüm yerel ayarları sıralamak için `[]` geçin. |
-| `intlayerSortContentKeys` | `false`    | `*.content.*` dosyalarında, sözlük içerik anahtarlarını ve iç içe nesneleri de sıralar.                |
+| Seçenek                                 | Varsayılan | Açıklama                                                                                                       |
+| --------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`   | `t()` içinde ilk başta tutulan yerel ayarlar, bu sırada. Tüm yerel ayarları sıralamak için `[]` geçin.         |
+| `intlayerSortContentKeys`               | `false`    | `*.content.*` dosyalarında, sözlük içerik anahtarlarını ve iç içe nesneleri de sıralar.                        |
+| `intlayerCollapseIdenticalTranslations` | `true`     | `*.content.*` dosyalarında, tüm locale'leri aynı string'i içeren bir `t()` ifadesini bu string ile değiştirir. |
 
 ## Değiştirilmeyenler
 

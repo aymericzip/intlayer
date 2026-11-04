@@ -43,6 +43,34 @@ t({ en: "Hello", ar: "مرحبا", "en-GB": "Hello", fr: "Bonjour", ru: "При�
 
 ## Instalace
 
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
+```bash packageManager="npm"
+npm install --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add --save-dev prettier-plugin-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add --dev prettier-plugin-intlayer
+```
+
+```bash packageManager="bun"
+bun add --dev prettier-plugin-intlayer
+```
+
+Vyžaduje Prettier verze 3 nebo novější.
+
+Pokud váš projekt již Prettier používá, příkaz `intlayer init prettier` plugin nainstaluje a přidá jej do vaší konfigurace automaticky.
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt neumí načítat pluginy třetích stran, proto řazení probíhá přes Prettier. Nainstalujte Prettier vedle oxfmt. Slouží jen k řazení deklarací obsahu, oxfmt dál formátuje celý projekt.
+
 ```bash packageManager="npm"
 npm install --save-dev prettier prettier-plugin-intlayer
 ```
@@ -59,9 +87,10 @@ yarn add --dev prettier prettier-plugin-intlayer
 bun add --dev prettier prettier-plugin-intlayer
 ```
 
-Vyžaduje Prettier verze 3 nebo novější.
+Vyžaduje Prettier verze 3 nebo novější. `intlayer init` nastaví plugin jen v projektech, které už Prettier používají, proto jej nakonfigurujte ručně podle ukázky níže.
 
-Pokud váš projekt již Prettier používá, příkaz `intlayer init prettier` plugin nainstaluje a přidá jej do vaší konfigurace automaticky.
+  </Tab>
+</Tabs>
 
 ## Použití
 
@@ -97,18 +126,14 @@ Chcete-li jej použít pouze na deklarace obsahu, použijte override:
   </Tab>
   <Tab label="oxfmt" value="oxfmt">
 
-oxfmt nenačítá pluginy Prettier. Nechte Prettier použít plugin pouze na deklarace obsahu a poté nechte oxfmt naformátovat celý projekt:
+Formátovací skript spouští dva nástroje, každý s jedním úkolem:
+
+1. **Prettier** seřadí deklarace obsahu pomocí pluginu. Glob jej omezuje na soubory `*.content.*`.
+2. **oxfmt** naformátuje celý projekt včetně deklarací obsahu.
 
 ```json fileName=".prettierrc.json"
 {
-  "overrides": [
-    {
-      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
-      "options": {
-        "plugins": ["prettier-plugin-intlayer"]
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-intlayer"]
 }
 ```
 
@@ -120,7 +145,16 @@ oxfmt nenačítá pluginy Prettier. Nechte Prettier použít plugin pouze na dek
 }
 ```
 
-Dodržte toto pořadí. oxfmt přepíše formátování ve vlastním stylu, ale nikdy nemění pořadí klíčů objektů, takže seřazené pořadí zůstane zachováno.
+Dodržte toto pořadí. oxfmt nahradí formátování od Prettier svým vlastním, ale nikdy nemění pořadí klíčů objektů, takže seřazené pořadí zůstane zachováno.
+
+Toto nastavení má několik omezení:
+
+- **Formátování při uložení.** Editor, který formátuje pomocí oxfmt, neřadí. Pro seřazení spusťte skript `format`.
+- **Režim check.** Nepoužívejte `prettier --check` na soubory naformátované pomocí oxfmt: formátování se liší, takže nahlásí každý soubor. Pro kontrolu pořadí v CI spusťte skript `format` a nechte job selhat, pokud vzniknou změny:
+
+```bash
+npm run format && git diff --exit-code
+```
 
   </Tab>
 </Tabs>
@@ -148,10 +182,9 @@ Kategorie jdou od nejmenšího množství po záložní variantu (fallback): `ze
 
 ```ts
 plural({
-  one: "{{count}} вакансия",
-  few: "{{count}} вакансии",
-  many: "{{count}} вакансий",
-  other: "{{count}} вакансий",
+  zero: "No jobs",
+  one: "{{count}} job",
+  other: "{{count}} jobs",
 });
 ```
 
@@ -190,6 +223,20 @@ Bez klíče `fallback` nebo `other` se jako záložní použije poslední příp
 
 Serializovaná forma je řazena stejným způsobem: `{ "nodeType": "translation", "translation": { … } }`, stejně jako uzly `plural`, `enumeration` a `select`.
 
+### Shodné překlady
+
+V souborech `*.content.*` se `t()`, jehož všechny locale obsahují stejný řetězec, nahradí tímto řetězcem. Prostý řetězec se vrací pro každou locale, takže se výstup nezmění.
+
+```ts
+// před
+nextjs: t({ en: "Next.js", fr: "Next.js", es: "Next.js" }),
+
+// po
+nextjs: "Next.js",
+```
+
+`t()` s jedinou locale, typovým argumentem (`t<string>()`), komentářem nebo neřetězcovými hodnotami zůstane zachováno. Nastavte `intlayerCollapseIdenticalTranslations: false` pro vypnutí.
+
 ### Klíče obsahu (volitelné)
 
 S `intlayerSortContentKeys: true` plugin také řadí klíče `content` slovníku abecedně na každé úrovni vnoření. To platí pouze pro soubory `*.content.*`.
@@ -212,10 +259,11 @@ export default {
 
 ## Možnosti
 
-| Možnost                   | Výchozí  | Popis                                                                                           |
-| ------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]` | Locales zachované na začátku v `t()`, v tomto pořadí. Předejte `[]` pro seřazení všech locales. |
-| `intlayerSortContentKeys` | `false`  | V souborech `*.content.*` seřadí také klíče obsahu slovníku a vnořené objekty.                  |
+| Možnost                                 | Výchozí  | Popis                                                                                                  |
+| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| `intlayerPinnedLocales`                 | `["en"]` | Locales zachované na začátku v `t()`, v tomto pořadí. Předejte `[]` pro seřazení všech locales.        |
+| `intlayerSortContentKeys`               | `false`  | V souborech `*.content.*` seřadí také klíče obsahu slovníku a vnořené objekty.                         |
+| `intlayerCollapseIdenticalTranslations` | `true`   | V souborech `*.content.*` nahradí `t()`, jehož všechny locale obsahují stejný řetězec, tímto řetězcem. |
 
 ## Co zůstává beze změny
 
