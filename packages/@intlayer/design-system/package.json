@@ -565,7 +565,7 @@
     "satori": "0.63.2",
     "shiki": "4.6.0",
     "storybook": "10.6.5",
-    "tsdown": "0.23.4",
+    "tsdown": "0.23.5",
     "typescript": "7.0.2",
     "vite": "8.3.5",
     "vite-intlayer": "workspace:*",

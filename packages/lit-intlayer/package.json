@@ -118,7 +118,7 @@
     "@utils/tsdown-config": "workspace:*",
     "fast-glob": "3.3.3",
     "rimraf": "6.1.4",
-    "tsdown": "0.23.4",
+    "tsdown": "0.23.5",
     "typescript": "7.0.2",
     "vite": "8.3.5",
     "vite-plugin-dts": "5.1.2",

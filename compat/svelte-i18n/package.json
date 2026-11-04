@@ -85,7 +85,7 @@
     "rimraf": "6.1.4",
     "svelte": "5.57.3",
     "svelte-i18n": "^4.0.1",
-    "tsdown": "0.23.4",
+    "tsdown": "0.23.5",
     "typescript": "7.0.2",
     "vite": "8.3.5",
     "vitest": "5.1.0"
