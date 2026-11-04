@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettier Eklentisi | Intlayer Çevirilerini Sıralama
-description: "prettier-plugin-intlayer ile t() yerel ayarlarını, plural() kategorilerini, enu() koşullarını, select() durumlarını ve içerik bildirimlerinizin anahtarlarını sıralayın."
+title: Prettier x Oxfmt Eklentisi | Intlayer Çevirilerini Sıralama
+description: "prettier-plugin-intlayer ile t() yerel ayarlarını, plural() kategorilerini, enu() koşullarını, select() durumlarını ve içerik bildirimlerinizin anahtarlarını sıralayın. Prettier ve oxfmt ile çalışır."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Biçimlendirme
   - Çevirileri sırala
   - Yerel ayarları sırala
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Başlangıç geçmişi"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "oxfmt kullanımı eklendi"
 author: aymericzip
 ---
 
-# Prettier Eklentisi
+# Prettier x Oxfmt Eklentisi
 
 `prettier-plugin-intlayer`, Prettier bir dosyayı her biçimlendirdiğinde çeviri anahtarlarınızı sabit bir sıraya koyar. Farklar (diffs) küçük kalır, birleştirme çakışmaları (merge conflicts) azalır ve eksik bir yerel ayarı fark etmek kolaylaşır.
 
@@ -61,6 +65,11 @@ Projeniz zaten Prettier kullanıyorsa, `intlayer init prettier` eklentiyi yükle
 
 ## Kullanım
 
+Eklenti Prettier ve [oxfmt](https://oxc.rs/docs/guide/usage/formatter) ile çalışır.
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Eklentiyi Prettier yapılandırmanıza ekleyin:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Yalnızca içerik bildirimlerinize uygulamak için bir geçersiz kılma (overrid
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt, Prettier eklentilerini yüklemez. Eklentiyi yalnızca içerik bildirimlerinize Prettier ile uygulayın, ardından tüm projeyi oxfmt ile biçimlendirin:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Bu sırayı koruyun. oxfmt düzeni kendi stiliyle yeniden yazar ancak nesne anahtarlarının sırasını asla değiştirmez, bu nedenle sıralama korunur.
+
+  </Tab>
+</Tabs>
 
 ## Neler sıralanır
 
@@ -190,4 +230,4 @@ Yorumlar ait oldukları anahtarla birlikte taşınır.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` ve `jsonc`. Vue, Svelte ve Astro dosyalarının `<script>` blokları bu ayrıştırıcılarla biçimlendirilir.
 
-> **Bilinen kısıtlama.** Prettier her ayrıştırıcı için yalnızca tek bir eklenti çalıştırır. Başka bir eklenti de JavaScript/TypeScript ayrıştırıcılarının yerini alıyorsa (örneğin `prettier-plugin-tailwindcss`), bu dosyalar için yalnızca listede son yer alan eklenti geçerli olur. Çakışmayı önlemek için bir override ile `prettier-plugin-intlayer` kapsamını `*.content.*` dosyalarıyla sınırlandırın.
+> **Bilinen kısıtlama.** Prettier her ayrıştırıcı için yalnızca tek bir eklenti çalıştırır. Başka bir eklenti de JavaScript/TypeScript ayrıştırıcılarının yerini alıyorsa (örneğin `prettier-plugin-tailwindcss`), bu dosyalar için yalnızca listede son yer alan eklenti geçerli olur. Çakışmayı önlemek için bir override ile `prettier-plugin-intlayer` kapsamını `*.content.*` dosyalarıyla sınırlandırın. oxfmt ile Tailwind sınıfları yerleşik `sortTailwindcss` seçeneğiyle sıralanır, bu nedenle bu çakışma oluşmaz.

@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettier 플러그인 | Intlayer 번역 정렬
-description: "prettier-plugin-intlayer를 사용하여 t()의 로케일, plural()의 카테고리, enu()의 조건, select()의 케이스 및 콘텐츠 선언의 키를 정렬하세요."
+title: Prettier x Oxfmt 플러그인 | Intlayer 번역 정렬
+description: "prettier-plugin-intlayer를 사용하여 t()의 로케일, plural()의 카테고리, enu()의 조건, select()의 케이스 및 콘텐츠 선언의 키를 정렬하세요. Prettier와 oxfmt에서 모두 동작합니다."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - 서식 지정
   - 번역 정렬
   - 로케일 정렬
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "초기 이력"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "oxfmt 사용법 추가"
 author: aymericzip
 ---
 
-# Prettier 플러그인
+# Prettier x Oxfmt 플러그인
 
 `prettier-plugin-intlayer`는 Prettier가 파일을 포맷할 때마다 번역 키를 고정된 순서로 정렬합니다. diff를 작게 유지하고, 병합 충돌을 줄이며, 누락된 로케일을 쉽게 발견할 수 있습니다.
 
@@ -61,6 +65,11 @@ Prettier 3 이상이 필요합니다.
 
 ## 사용법
 
+이 플러그인은 Prettier와 [oxfmt](https://oxc.rs/docs/guide/usage/formatter)에서 모두 동작합니다.
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Prettier 설정 파일에 플러그인을 추가합니다:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Prettier 설정 파일에 플러그인을 추가합니다:
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt는 Prettier 플러그인을 불러오지 않습니다. Prettier로 콘텐츠 선언 파일에만 플러그인을 적용한 뒤, oxfmt로 프로젝트 전체를 포맷하세요.
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+이 순서를 지키세요. oxfmt는 자체 스타일로 레이아웃을 다시 작성하지만 객체 키의 순서는 절대 바꾸지 않으므로 정렬된 순서가 유지됩니다.
+
+  </Tab>
+</Tabs>
 
 ## 정렬되는 대상
 
@@ -190,4 +230,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5`, `jsonc`. Vue, Svelte, Astro 파일의 `<script>` 블록도 이 파서들을 통해 포맷됩니다.
 
-> **알려진 제한 사항.** Prettier는 파서당 단 하나의 플러그인만 실행합니다. 다른 플러그인도 JavaScript/TypeScript 파서를 대체하는 경우(예: `prettier-plugin-tailwindcss`), 마지막에 나열된 플러그인만 해당 파일에 적용됩니다. 충돌을 피하려면 override를 사용하여 `prettier-plugin-intlayer`의 범위를 `*.content.*` 파일로 한정하세요.
+> **알려진 제한 사항.** Prettier는 파서당 단 하나의 플러그인만 실행합니다. 다른 플러그인도 JavaScript/TypeScript 파서를 대체하는 경우(예: `prettier-plugin-tailwindcss`), 마지막에 나열된 플러그인만 해당 파일에 적용됩니다. 충돌을 피하려면 override를 사용하여 `prettier-plugin-intlayer`의 범위를 `*.content.*` 파일로 한정하세요. oxfmt에서는 Tailwind 클래스가 내장 `sortTailwindcss` 옵션으로 정렬되므로 이 충돌이 발생하지 않습니다.

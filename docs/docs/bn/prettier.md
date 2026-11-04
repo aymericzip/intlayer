@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettier প্লাগইন | Intlayer অনুবাদ সাজান
-description: "prettier-plugin-intlayer দিয়ে t() এর লোক্যাল, plural() এর বিভাগ, enu() এর শর্ত, select() এর কেস এবং আপনার কন্টেন্ট ঘোষণার কীগুলি সাজান।"
+title: Prettier x Oxfmt প্লাগইন | Intlayer অনুবাদ সাজান
+description: "prettier-plugin-intlayer দিয়ে t() এর লোক্যাল, plural() এর বিভাগ, enu() এর শর্ত, select() এর কেস এবং আপনার কন্টেন্ট ঘোষণার কীগুলি সাজান। Prettier এবং oxfmt দুটির সাথেই কাজ করে।"
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - ফর্ম্যাটিং
   - অনুবাদ সাজান
   - লোক্যাল সাজান
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "প্রাথমিক ইতিহাস"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "oxfmt-এর সাথে ব্যবহার যোগ করা হয়েছে"
 author: aymericzip
 ---
 
-# Prettier প্লাগইন
+# Prettier x Oxfmt প্লাগইন
 
 `prettier-plugin-intlayer` প্রতিবার যখন Prettier একটি ফাইল ফর্ম্যাট করে তখন আপনার অনুবাদের কীগুলি একটি নির্দিষ্ট ক্রমে সাজিয়ে দেয়। ডিফস (diffs) ছোট থাকে, মার্জ দ্বন্দ্ব কম হয় এবং অনুপস্থিত লোক্যাল সহজেই চিহ্নিত করা যায়।
 
@@ -61,6 +65,11 @@ Prettier ৩ বা তার পরবর্তী সংস্করণ প্
 
 ## ব্যবহার
 
+প্লাগইনটি Prettier এবং [oxfmt](https://oxc.rs/docs/guide/usage/formatter) দুটির সাথেই কাজ করে।
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 আপনার Prettier কনফিগারেশনে প্লাগইনটি যুক্ত করুন:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Prettier ৩ বা তার পরবর্তী সংস্করণ প্
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt Prettier প্লাগইন লোড করে না। Prettier দিয়ে শুধু আপনার কন্টেন্ট ঘোষণাগুলিতে প্লাগইনটি চালান, তারপর oxfmt দিয়ে পুরো প্রজেক্ট ফরম্যাট করুন:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+এই ক্রম বজায় রাখুন। oxfmt নিজের স্টাইলে লেআউট নতুন করে লেখে, কিন্তু অবজেক্টের কীগুলির ক্রম কখনও বদলায় না, তাই সাজানো ক্রম বজায় থাকে।
+
+  </Tab>
+</Tabs>
 
 ## যা সাজানো হয়
 
@@ -172,9 +212,9 @@ export default {
 
 ## অপশন
 
-| অপশন                      | ডিফল্ট   | বর্ণনা                                                                         |
-| ------------------------- | -------- | ------------------------------------------------------------------------------ |
-| `intlayerPinnedLocales`   | `["en"]` | `t()`-এ প্রথমে রাখা লোক্যালগুলি, এই ক্রমে। সব লোক্যাল সাজাতে `[]` পাস করুন।    |
+| অপশন                      | ডিফল্ট    | বর্ণনা                                                                 |
+| ------------------------- | -------- | -------------------------------------------------------------------- |
+| `intlayerPinnedLocales`   | `["en"]` | `t()`-এ প্রথমে রাখা লোক্যালগুলি, এই ক্রমে। সব লোক্যাল সাজাতে `[]` পাস করুন।       |
 | `intlayerSortContentKeys` | `false`  | `*.content.*` ফাইলগুলিতে, অভিধানের কন্টেন্ট কী এবং নেস্টেড অবজেক্টগুলিও সাজান। |
 
 ## যা অপরিবর্তিত রাখা হয়
@@ -190,4 +230,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` এবং `jsonc`। Vue, Svelte এবং Astro ফাইলের `<script>` ব্লকগুলি এই পার্সারগুলির সাথে ফর্ম্যাট করা হয়।
 
-> **জানা সীমাবদ্ধতা।** Prettier প্রতিটি পার্সারে কেবল একটি প্লাগইন চালায়। যদি অন্য কোনো প্লাগইন জাভাস্ক্রিপ্ট/টাইপস্ক্রিপ্ট পার্সারকেও প্রতিস্থাপন করে (উদাহরণস্বরূপ `prettier-plugin-tailwindcss`), তবে কেবল তালিকায় থাকা শেষ প্লাগইনটি সেই ফাইলগুলিতে প্রয়োগ হবে। দ্বন্দ্ব এড়াতে একটি override সহ `prettier-plugin-intlayer` কে `*.content.*` ফাইলে সীমাবদ্ধ করুন।
+> **জানা সীমাবদ্ধতা।** Prettier প্রতিটি পার্সারে কেবল একটি প্লাগইন চালায়। যদি অন্য কোনো প্লাগইন জাভাস্ক্রিপ্ট/টাইপস্ক্রিপ্ট পার্সারকেও প্রতিস্থাপন করে (উদাহরণস্বরূপ `prettier-plugin-tailwindcss`), তবে কেবল তালিকায় থাকা শেষ প্লাগইনটি সেই ফাইলগুলিতে প্রয়োগ হবে। দ্বন্দ্ব এড়াতে একটি override সহ `prettier-plugin-intlayer` কে `*.content.*` ফাইলে সীমাবদ্ধ করুন। oxfmt-এ Tailwind ক্লাসগুলি তার বিল্ট-ইন `sortTailwindcss` অপশন দিয়ে সাজানো হয়, তাই এই দ্বন্দ্ব ঘটে না।

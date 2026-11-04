@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettier प्लगइन | Intlayer अनुवाद क्रमबद्ध करें
-description: "prettier-plugin-intlayer के साथ t() के लोकेल, plural() की श्रेणियां, enu() की शर्तें, select() के केस और अपनी सामग्री घोषणाओं की कुंजियों को क्रमबद्ध करें।"
+title: Prettier x Oxfmt प्लगइन | Intlayer अनुवाद क्रमबद्ध करें
+description: "prettier-plugin-intlayer के साथ t() के लोकेल, plural() की श्रेणियां, enu() की शर्तें, select() के केस और अपनी सामग्री घोषणाओं की कुंजियों को क्रमबद्ध करें। Prettier और oxfmt दोनों के साथ काम करता है।"
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - स्वरूपण
   - अनुवाद क्रमबद्ध करें
   - लोकेल क्रमबद्ध करें
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "प्रारंभिक इतिहास"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "oxfmt के साथ उपयोग जोड़ा गया"
 author: aymericzip
 ---
 
-# Prettier प्लगइन
+# Prettier x Oxfmt प्लगइन
 
 `prettier-plugin-intlayer` हर बार जब Prettier किसी फ़ाइल को फ़ॉर्मेट करता है, तो आपके अनुवादों की कुंजियों को एक निश्चित क्रम में रखता है। इससे diffs छोटे रहते हैं, मर्ज विरोध (merge conflicts) दुर्लभ हो जाते हैं और किसी छूटे हुए लोकेल को पहचानना आसान हो जाता है।
 
@@ -61,6 +65,11 @@ bun add --dev prettier prettier-plugin-intlayer
 
 ## उपयोग (Usage)
 
+यह प्लगइन Prettier और [oxfmt](https://oxc.rs/docs/guide/usage/formatter) दोनों के साथ काम करता है।
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 अपने Prettier कॉन्फ़िगरेशन में प्लगइन जोड़ें:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ bun add --dev prettier prettier-plugin-intlayer
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt Prettier प्लगइन लोड नहीं करता। Prettier को प्लगइन केवल अपनी सामग्री घोषणाओं पर चलाने दें, फिर oxfmt को पूरे प्रोजेक्ट को फ़ॉर्मैट करने दें:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+यही क्रम रखें। oxfmt लेआउट को अपनी शैली में फिर से लिखता है, लेकिन ऑब्जेक्ट कुंजियों का क्रम कभी नहीं बदलता, इसलिए क्रमबद्ध क्रम बना रहता है।
+
+  </Tab>
+</Tabs>
 
 ## क्या क्रमबद्ध होता है
 
@@ -172,8 +212,8 @@ export default {
 
 ## विकल्प
 
-| विकल्प                    | डिफ़ॉल्ट | विवरण                                                                                                       |
-| ------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| विकल्प                     | डिफ़ॉल्ट   | विवरण                                                                                   |
+| ------------------------- | -------- | --------------------------------------------------------------------------------------- |
 | `intlayerPinnedLocales`   | `["en"]` | `t()` में सबसे पहले रखे जाने वाले लोकेल्स, इसी क्रम में। सभी लोकेल्स को क्रमबद्ध करने के लिए `[]` पास करें। |
 | `intlayerSortContentKeys` | `false`  | `*.content.*` फ़ाइलों में, डिक्शनरी सामग्री कुंजियों और नेस्टेड ऑब्जेक्ट्स को भी क्रमबद्ध करें।             |
 
@@ -190,4 +230,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` और `jsonc`। Vue, Svelte और Astro फ़ाइलों के `<script>` ब्लॉक इन पार्सर के साथ स्वरूपित किए जाते हैं।
 
-> **ज्ञात सीमा।** Prettier प्रति पार्सर केवल एक प्लगइन चलाता है। यदि कोई अन्य प्लगइन जावास्क्रिप्ट/टाइपस्क्रिप्ट पार्सर को भी बदल देता है (उदाहरण के लिए `prettier-plugin-tailwindcss`), तो उन फ़ाइलों पर केवल अंतिम सूचीबद्ध प्लगइन ही लागू होता है। विरोध से बचने के लिए override के साथ `prettier-plugin-intlayer` को `*.content.*` फ़ाइलों तक सीमित करें।
+> **ज्ञात सीमा।** Prettier प्रति पार्सर केवल एक प्लगइन चलाता है। यदि कोई अन्य प्लगइन जावास्क्रिप्ट/टाइपस्क्रिप्ट पार्सर को भी बदल देता है (उदाहरण के लिए `prettier-plugin-tailwindcss`), तो उन फ़ाइलों पर केवल अंतिम सूचीबद्ध प्लगइन ही लागू होता है। विरोध से बचने के लिए override के साथ `prettier-plugin-intlayer` को `*.content.*` फ़ाइलों तक सीमित करें। oxfmt में Tailwind क्लासेज़ उसके बिल्ट-इन `sortTailwindcss` विकल्प से क्रमबद्ध होती हैं, इसलिए यह टकराव लागू नहीं होता।

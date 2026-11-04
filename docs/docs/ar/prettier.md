@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: ملحق Prettier | ترتيب ترجمات Intlayer
-description: "رتب اللغات في t()، وفئات plural()، وشروط enu()، وحالات select() ومفاتيح إعلانات المحتوى لديك باستخدام prettier-plugin-intlayer."
+title: ملحق Prettier x Oxfmt | ترتيب ترجمات Intlayer
+description: "رتب اللغات في t()، وفئات plural()، وشروط enu()، وحالات select() ومفاتيح إعلانات المحتوى لديك باستخدام prettier-plugin-intlayer. يعمل مع Prettier وoxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - التنسيق
   - ترتيب الترجمات
   - ترتيب اللغات
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "السجل الأولي"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "إضافة الاستخدام مع oxfmt"
 author: aymericzip
 ---
 
-# ملحق Prettier
+# ملحق Prettier x Oxfmt
 
 يقوم `prettier-plugin-intlayer` بوضع مفاتيح ترجماتك بترتيب ثابت في كل مرة يقوم فيها Prettier بتنسيق ملف. تظل الفروقات (diffs) صغيرة، وتصبح تعارضات الدمج أقل تكرارًا، ويسهل اكتشاف أي لغة مفقودة.
 
@@ -61,6 +65,11 @@ bun add --dev prettier prettier-plugin-intlayer
 
 ## الاستخدام
 
+يعمل الملحق مع Prettier ومع [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 أضف الملحق إلى ملف تكوين Prettier:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ bun add --dev prettier prettier-plugin-intlayer
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+لا يحمّل oxfmt ملحقات Prettier. اجعل Prettier يشغّل الملحق على إعلانات المحتوى فقط، ثم اجعل oxfmt ينسّق المشروع بالكامل:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+حافظ على هذا الترتيب. يعيد oxfmt كتابة التنسيق بأسلوبه الخاص، لكنه لا يعيد ترتيب مفاتيح الكائنات أبدًا، لذا يبقى الترتيب كما هو.
+
+  </Tab>
+</Tabs>
 
 ## ما الذي يتم ترتيبه
 
@@ -172,10 +212,10 @@ export default {
 
 ## الخيارات
 
-| الخيار                    | القيمة الافتراضية | الوصف                                                                            |
-| ------------------------- | ----------------- | -------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`   | `["en"]`          | اللغات المحفوظة أولاً في `t()`، بهذا الترتيب. مرر `[]` لترتيب كل اللغات أبجديًا. |
-| `intlayerSortContentKeys` | `false`           | في ملفات `*.content.*`، يتم أيضًا فرز مفاتيح محتوى القاموس والكائنات المتداخلة.  |
+| الخيار                    | القيمة الافتراضية | الوصف                                                                          |
+| ------------------------- | ---------------- | ------------------------------------------------------------------------------ |
+| `intlayerPinnedLocales`   | `["en"]`         | اللغات المحفوظة أولاً في `t()`، بهذا الترتيب. مرر `[]` لترتيب كل اللغات أبجديًا.  |
+| `intlayerSortContentKeys` | `false`          | في ملفات `*.content.*`، يتم أيضًا فرز مفاتيح محتوى القاموس والكائنات المتداخلة. |
 
 ## ما يترك دون تغيير
 
@@ -190,4 +230,4 @@ export default {
 
 `babel` و `babel-flow` و `babel-ts` و `typescript` و `flow` و `acorn` و `espree` و `meriyah` و `json` و `json5` و `jsonc`. يتم أيضًا تنسيق كتل `<script>` في ملفات Vue و Svelte و Astro باستخدام هذه المحللات.
 
-> **قيد معروف.** يشغل Prettier ملحقًا واحدًا فقط لكل محلل. إذا استبدل ملحق آخر محللات JavaScript/TypeScript أيضًا (على سبيل المثال `prettier-plugin-tailwindcss`)، فسيتم تطبيق آخر ملحق مدرج فقط على تلك الملفات. حدد نطاق `prettier-plugin-intlayer` لملفات `*.content.*` باستخدام override لتجنب التعارض.
+> **قيد معروف.** يشغل Prettier ملحقًا واحدًا فقط لكل محلل. إذا استبدل ملحق آخر محللات JavaScript/TypeScript أيضًا (على سبيل المثال `prettier-plugin-tailwindcss`)، فسيتم تطبيق آخر ملحق مدرج فقط على تلك الملفات. حدد نطاق `prettier-plugin-intlayer` لملفات `*.content.*` باستخدام override لتجنب التعارض. مع oxfmt، تُرتَّب أصناف Tailwind عبر خياره المدمج `sortTailwindcss`، لذا لا ينطبق هذا التعارض.

@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: תוסף Prettier | מיון תרגומי Intlayer
-description: "מיין את הלוקאלים של t(), הקטגוריות של plural(), התנאים של enu(), המקרים של select() והמפתחות של הצהרות התוכן שלך בעזרת prettier-plugin-intlayer."
+title: תוסף Prettier ו-Oxfmt | מיון תרגומי Intlayer
+description: "מיין את הלוקאלים של t(), הקטגוריות של plural(), התנאים של enu(), המקרים של select() והמפתחות של הצהרות התוכן שלך בעזרת prettier-plugin-intlayer. עובד עם Prettier ועם oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - עיצוב קוד
   - מיון תרגומים
   - מיון לוקאלים
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "היסטוריה ראשונית"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "הוספת שימוש עם oxfmt"
 author: aymericzip
 ---
 
-# תוסף Prettier
+# תוסף Prettier ו-Oxfmt
 
 `prettier-plugin-intlayer` מסדר את מפתחות התרגומים שלך בסדר קבוע בכל פעם ש-Prettier מעצב קובץ. ה-diffs נשארים קטנים, התנגשויות מיזוג (merge conflicts) הופכות לנדירות יותר וקל לזהות לוקאל חסר.
 
@@ -61,6 +65,11 @@ bun add --dev prettier prettier-plugin-intlayer
 
 ## שימוש
 
+התוסף עובד עם Prettier ועם [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 הוסף את התוסף להגדרות Prettier שלך:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ bun add --dev prettier prettier-plugin-intlayer
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt אינו טוען תוספי Prettier. תנו ל-Prettier להריץ את התוסף רק על הצהרות התוכן שלכם, ואז תנו ל-oxfmt לעצב את כל הפרויקט:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+שמרו על הסדר הזה. oxfmt כותב מחדש את העיצוב בסגנון שלו, אך לעולם אינו משנה את סדר המפתחות באובייקטים, כך שהסדר הממוין נשמר.
+
+  </Tab>
+</Tabs>
 
 ## מה ממוין
 
@@ -190,4 +230,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` ו-`jsonc`. בלוקי ה-`<script>` של קובצי Vue, Svelte ו-Astro מעוצבים באמצעות מנתחים אלו.
 
-> **מגבלה ידועה.** Prettier מפעיל תוסף יחיד לכל parser. אם תוסף אחר מחליף גם הוא את מנתחי ה-JavaScript/TypeScript (לדוגמה `prettier-plugin-tailwindcss`), רק התוסף האחרון ברשימה יוחל על קבצים אלו. הגדר את טווח `prettier-plugin-intlayer` לקובצי `*.content.*` באמצעות override כדי למנוע התנגשות.
+> **מגבלה ידועה.** Prettier מפעיל תוסף יחיד לכל parser. אם תוסף אחר מחליף גם הוא את מנתחי ה-JavaScript/TypeScript (לדוגמה `prettier-plugin-tailwindcss`), רק התוסף האחרון ברשימה יוחל על קבצים אלו. הגדר את טווח `prettier-plugin-intlayer` לקובצי `*.content.*` באמצעות override כדי למנוע התנגשות. עם oxfmt, מחלקות Tailwind ממוינות באמצעות האפשרות המובנית `sortTailwindcss`, כך שההתנגשות הזו אינה רלוונטית.

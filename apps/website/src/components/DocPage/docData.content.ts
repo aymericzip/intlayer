@@ -861,7 +861,7 @@ const docDataContent: Dictionary = {
         },
         prettier: {
           default: getDocMetadata('./docs/en/prettier.md'),
-          title: 'Prettier',
+          title: 'Prettier / Oxfmt',
         },
         'vs-code-extension': {
           default: getDocMetadata('./docs/en/vs_code_extension.md'),

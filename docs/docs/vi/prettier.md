@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Plugin Prettier | Sắp xếp các bản dịch Intlayer
-description: "Sắp xếp các locale của t(), các danh mục của plural(), các điều kiện của enu(), các trường hợp của select() và các khóa khai báo nội dung của bạn với prettier-plugin-intlayer."
+title: Plugin Prettier x Oxfmt | Sắp xếp các bản dịch Intlayer
+description: "Sắp xếp các locale của t(), các danh mục của plural(), các điều kiện của enu(), các trường hợp của select() và các khóa khai báo nội dung của bạn với prettier-plugin-intlayer. Hoạt động với Prettier và oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Định dạng
   - Sắp xếp bản dịch
   - Sắp xếp locale
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Khởi tạo lịch sử"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "Thêm cách sử dụng với oxfmt"
 author: aymericzip
 ---
 
-# Plugin Prettier
+# Plugin Prettier x Oxfmt
 
 `prettier-plugin-intlayer` sắp xếp các khóa dịch của bạn theo thứ tự cố định mỗi khi Prettier định dạng tệp. Các phần khác biệt (diff) luôn nhỏ gọn, xung đột hợp nhất (merge conflicts) ít xảy ra hơn và dễ dàng phát hiện locale bị thiếu.
 
@@ -61,6 +65,11 @@ Nếu dự án của bạn đã sử dụng Prettier, lệnh `intlayer init pret
 
 ## Cách sử dụng
 
+Plugin hoạt động với Prettier và với [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Thêm plugin vào cấu hình Prettier của bạn:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Thêm plugin vào cấu hình Prettier của bạn:
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt không tải các plugin của Prettier. Hãy để Prettier chạy plugin chỉ trên các khai báo nội dung của bạn, sau đó để oxfmt định dạng toàn bộ dự án:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Giữ đúng thứ tự này. oxfmt viết lại bố cục theo phong cách riêng nhưng không bao giờ sắp xếp lại các khóa của đối tượng, vì vậy thứ tự đã sắp xếp được giữ nguyên.
+
+  </Tab>
+</Tabs>
 
 ## Những gì được sắp xếp
 
@@ -190,4 +230,4 @@ Các nhận xét (comments) sẽ di chuyển cùng với khóa mà chúng thuộ
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` và `jsonc`. Các khối `<script>` trong tệp Vue, Svelte và Astro được định dạng bằng các parser này.
 
-> **Hạn chế đã biết.** Prettier chỉ chạy một plugin cho mỗi parser. Nếu một plugin khác cũng thay thế các parser JavaScript/TypeScript (chẳng hạn như `prettier-plugin-tailwindcss`), chỉ plugin cuối cùng được liệt kê mới áp dụng cho các tệp đó. Hãy giới hạn phạm vi của `prettier-plugin-intlayer` vào các tệp `*.content.*` bằng override để tránh xung đột.
+> **Hạn chế đã biết.** Prettier chỉ chạy một plugin cho mỗi parser. Nếu một plugin khác cũng thay thế các parser JavaScript/TypeScript (chẳng hạn như `prettier-plugin-tailwindcss`), chỉ plugin cuối cùng được liệt kê mới áp dụng cho các tệp đó. Hãy giới hạn phạm vi của `prettier-plugin-intlayer` vào các tệp `*.content.*` bằng override để tránh xung đột. Với oxfmt, các lớp Tailwind được sắp xếp bởi tùy chọn tích hợp `sortTailwindcss`, vì vậy xung đột này không xảy ra.

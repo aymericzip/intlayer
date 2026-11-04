@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Плагин Prettier | Сортировка переводов Intlayer
-description: "Сортируйте локали в t(), категории plural(), условия enu(), варианты select() и ключи ваших объявлений контента с помощью prettier-plugin-intlayer."
+title: Плагин Prettier x Oxfmt | Сортировка переводов Intlayer
+description: "Сортируйте локали в t(), категории plural(), условия enu(), варианты select() и ключи ваших объявлений контента с помощью prettier-plugin-intlayer. Работает с Prettier и oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Форматирование
   - Сортировка переводов
   - Сортировка локалей
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Начальная история"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "Добавлено использование с oxfmt"
 author: aymericzip
 ---
 
-# Плагин Prettier
+# Плагин Prettier x Oxfmt
 
 `prettier-plugin-intlayer` упорядочивает ключи ваших переводов в фиксированном порядке при каждом форматировании файлов с помощью Prettier. Диффы остаются компактными, конфликты слияния возникают реже, а отсутствующую локаль легко заметить.
 
@@ -61,6 +65,11 @@ bun add --dev prettier prettier-plugin-intlayer
 
 ## Использование
 
+Плагин работает с Prettier и с [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Добавьте плагин в конфигурацию Prettier:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ bun add --dev prettier prettier-plugin-intlayer
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt не загружает плагины Prettier. Пусть Prettier применяет плагин только к объявлениям контента, а затем oxfmt форматирует весь проект:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Соблюдайте этот порядок. oxfmt переписывает форматирование в своём стиле, но никогда не меняет порядок ключей объектов, поэтому сортировка сохраняется.
+
+  </Tab>
+</Tabs>
 
 ## Что подвергается сортировке
 
@@ -190,4 +230,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` и `jsonc`. Блоки `<script>` файлов Vue, Svelte и Astro форматируются с использованием этих парсеров.
 
-> **Известное ограничение.** Prettier запускает только один плагин на парсер. Если другой плагин также заменяет парсеры JavaScript/TypeScript (например, `prettier-plugin-tailwindcss`), к этим файлам будет применен только последний указанный плагин. Ограничьте область действия `prettier-plugin-intlayer` файлами `*.content.*` с помощью override, чтобы избежать конфликта.
+> **Известное ограничение.** Prettier запускает только один плагин на парсер. Если другой плагин также заменяет парсеры JavaScript/TypeScript (например, `prettier-plugin-tailwindcss`), к этим файлам будет применен только последний указанный плагин. Ограничьте область действия `prettier-plugin-intlayer` файлами `*.content.*` с помощью override, чтобы избежать конфликта. В oxfmt классы Tailwind сортируются встроенной опцией `sortTailwindcss`, поэтому этот конфликт не возникает.

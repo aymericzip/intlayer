@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettier 插件 | 排序 Intlayer 翻译
-description: "使用 prettier-plugin-intlayer 排序 t() 的语言环境、plural() 的类别、enu() 的条件、select() 的分支以及内容声明中的键。"
+title: Prettier x Oxfmt 插件 | 排序 Intlayer 翻译
+description: "使用 prettier-plugin-intlayer 排序 t() 的语言环境、plural() 的类别、enu() 的条件、select() 的分支以及内容声明中的键。支持 Prettier 和 oxfmt。"
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - 格式化
   - 排序翻译
   - 排序语言环境
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "初始历史"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "新增 oxfmt 用法"
 author: aymericzip
 ---
 
-# Prettier 插件
+# Prettier x Oxfmt 插件
 
 每次 Prettier 格式化文件时，`prettier-plugin-intlayer` 都会将翻译键按固定顺序排列。代码变更（diff）保持精简，合并冲突显著减少，缺失的语言环境也一目了然。
 
@@ -61,6 +65,11 @@ bun add --dev prettier prettier-plugin-intlayer
 
 ## 用法
 
+该插件同时适用于 Prettier 和 [oxfmt](https://oxc.rs/docs/guide/usage/formatter)。
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 将插件添加到你的 Prettier 配置中：
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ bun add --dev prettier prettier-plugin-intlayer
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt 不会加载 Prettier 插件。让 Prettier 仅在内容声明文件上运行该插件，然后让 oxfmt 格式化整个项目：
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+请保持这个顺序。oxfmt 会按自己的风格重写排版，但从不调整对象键的顺序，因此排序结果会被保留。
+
+  </Tab>
+</Tabs>
 
 ## 排序规则
 
@@ -190,4 +230,4 @@ export default {
 
 `babel`、`babel-flow`、`babel-ts`、`typescript`、`flow`、`acorn`、`espree`、`meriyah`、`json`、`json5` 以及 `jsonc`。Vue、Svelte 和 Astro 文件的 `<script>` 块均使用这些解析器进行格式化。
 
-> **已知限制。** Prettier 每个解析器仅运行一个插件。如果其他插件也替换了 JavaScript/TypeScript 解析器（例如 `prettier-plugin-tailwindcss`），则仅列表中最后一个插件生效。建议使用 override 将 `prettier-plugin-intlayer` 限制在 `*.content.*` 文件中以避免冲突。
+> **已知限制。** Prettier 每个解析器仅运行一个插件。如果其他插件也替换了 JavaScript/TypeScript 解析器（例如 `prettier-plugin-tailwindcss`），则仅列表中最后一个插件生效。建议使用 override 将 `prettier-plugin-intlayer` 限制在 `*.content.*` 文件中以避免冲突。 使用 oxfmt 时，Tailwind 类名由其内置的 `sortTailwindcss` 选项排序，因此不存在这个冲突。

@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettier پلگ ان | Intlayer کے ترجمات ترتیب دیں
-description: "prettier-plugin-intlayer کے ذریعے t() کے لوکیلز، plural() کے زمروں، enu() کی شرائط، select() کے کیسز اور اپنے مواد کے اعلانات کی چابیاں ترتیب دیں۔"
+title: Prettier x Oxfmt پلگ ان | Intlayer کے ترجمات ترتیب دیں
+description: "prettier-plugin-intlayer کے ذریعے t() کے لوکیلز، plural() کے زمروں، enu() کی شرائط، select() کے کیسز اور اپنے مواد کے اعلانات کی چابیاں ترتیب دیں۔ Prettier اور oxfmt دونوں کے ساتھ کام کرتا ہے۔"
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - فارمیٹنگ
   - ترجمات ترتیب دیں
   - لوکیلز ترتیب دیں
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "ابتدائی تاریخ"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "oxfmt کے ساتھ استعمال شامل کیا گیا"
 author: aymericzip
 ---
 
-# Prettier پلگ ان
+# Prettier x Oxfmt پلگ ان
 
 `prettier-plugin-intlayer` ہر بار جب Prettier کسی فائل کو فارمیٹ کرتا ہے تو آپ کے ترجمات کی کیز (keys) کو ایک مقررہ ترتیب میں رکھتا ہے۔ ڈفس (diffs) مختصر رہتے ہیں، ضم کرنے کے تنازعات (merge conflicts) کم ہوتے ہیں اور لاپتہ لوکیل کو تلاش کرنا آسان ہو جاتا ہے۔
 
@@ -61,6 +65,11 @@ bun add --dev prettier prettier-plugin-intlayer
 
 ## استعمال
 
+یہ پلگ ان Prettier اور [oxfmt](https://oxc.rs/docs/guide/usage/formatter) دونوں کے ساتھ کام کرتا ہے۔
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 پلگ ان کو اپنی Prettier کنفیگریشن میں شامل کریں:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ bun add --dev prettier prettier-plugin-intlayer
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt، Prettier پلگ انز لوڈ نہیں کرتا۔ Prettier کو پلگ ان صرف اپنے مواد کے اعلانات پر چلانے دیں، پھر oxfmt کو پورے پروجیکٹ کو فارمیٹ کرنے دیں:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+یہی ترتیب رکھیں۔ oxfmt لے آؤٹ کو اپنے انداز میں دوبارہ لکھتا ہے، لیکن آبجیکٹ کی چابیوں کی ترتیب کبھی نہیں بدلتا، اس لیے ترتیب برقرار رہتی ہے۔
+
+  </Tab>
+</Tabs>
 
 ## کیا ترتیب دیا جاتا ہے
 
@@ -190,4 +230,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` اور `jsonc`۔ Vue، Svelte اور Astro فائلوں کے `<script>` بلاکس ان پارسرز کے ساتھ فارمیٹ کیے جاتے ہیں۔
 
-> **معلوم حد بندی۔** Prettier فی پارسر صرف ایک پلگ ان چلاتا ہے۔ اگر کوئی دوسرا پلگ ان بھی JavaScript/TypeScript پارسرز کی جگہ لیتا ہے (مثال کے طور پر `prettier-plugin-tailwindcss`) تو ان فائلوں پر صرف آخری درج کردہ لاگو ہوتا ہے۔ تنازعہ سے بچنے کے لیے override کے ساتھ `prettier-plugin-intlayer` کو `*.content.*` فائلوں تک محدود کریں۔
+> **معلوم حد بندی۔** Prettier فی پارسر صرف ایک پلگ ان چلاتا ہے۔ اگر کوئی دوسرا پلگ ان بھی JavaScript/TypeScript پارسرز کی جگہ لیتا ہے (مثال کے طور پر `prettier-plugin-tailwindcss`) تو ان فائلوں پر صرف آخری درج کردہ لاگو ہوتا ہے۔ تنازعہ سے بچنے کے لیے override کے ساتھ `prettier-plugin-intlayer` کو `*.content.*` فائلوں تک محدود کریں۔ oxfmt میں Tailwind کلاسز اس کے بلٹ ان `sortTailwindcss` آپشن سے ترتیب دی جاتی ہیں، اس لیے یہ ٹکراؤ پیش نہیں آتا۔

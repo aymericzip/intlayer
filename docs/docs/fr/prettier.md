@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Plugin Prettier | Trier les traductions Intlayer
-description: "Triez les locales de t(), les catégories de plural(), les conditions de enu(), les cas de select() et les clés de vos déclarations de contenu avec prettier-plugin-intlayer."
+title: Plugin Prettier x Oxfmt | Trier les traductions Intlayer
+description: "Triez les locales de t(), les catégories de plural(), les conditions de enu(), les cas de select() et les clés de vos déclarations de contenu avec prettier-plugin-intlayer. Compatible avec Prettier et oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Formatage
   - Trier traductions
   - Trier locales
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Historique initial"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "Ajout de l'utilisation avec oxfmt"
 author: aymericzip
 ---
 
-# Plugin Prettier
+# Plugin Prettier x Oxfmt
 
 `prettier-plugin-intlayer` ordonne les clés de vos traductions dans un ordre fixe à chaque formatage Prettier. Les diffs restent réduits, les conflits de fusion deviennent plus rares et une locale manquante se repère immédiatement.
 
@@ -61,6 +65,11 @@ Si votre projet utilise déjà Prettier, `intlayer init prettier` installe le pl
 
 ## Utilisation
 
+Le plugin fonctionne avec Prettier et avec [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Ajoutez le plugin à votre configuration Prettier :
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Pour l'appliquer uniquement à vos déclarations de contenu, utilisez un overrid
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt ne charge pas les plugins Prettier. Laissez Prettier appliquer le plugin à vos seules déclarations de contenu, puis laissez oxfmt formater tout le projet :
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Respectez cet ordre. oxfmt réécrit la mise en forme dans son propre style mais ne réordonne jamais les clés des objets, l'ordre trié est donc conservé.
+
+  </Tab>
+</Tabs>
 
 ## Ce qui est trié
 
@@ -190,4 +230,4 @@ Les commentaires se déplacent avec la clé à laquelle ils appartiennent.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` et `jsonc`. Les blocs `<script>` des fichiers Vue, Svelte et Astro sont formatés avec ces analyseurs.
 
-> **Limite connue.** Prettier n'exécute qu'un seul plugin par analyseur. Si un autre plugin remplace également les analyseurs JavaScript/TypeScript (par exemple `prettier-plugin-tailwindcss`), seul le dernier listé s'applique à ces fichiers. Limitez `prettier-plugin-intlayer` aux fichiers `*.content.*` avec un override pour éviter tout conflit.
+> **Limite connue.** Prettier n'exécute qu'un seul plugin par analyseur. Si un autre plugin remplace également les analyseurs JavaScript/TypeScript (par exemple `prettier-plugin-tailwindcss`), seul le dernier listé s'applique à ces fichiers. Limitez `prettier-plugin-intlayer` aux fichiers `*.content.*` avec un override pour éviter tout conflit. Avec oxfmt, les classes Tailwind sont triées par son option intégrée `sortTailwindcss`, ce conflit ne s'applique donc pas.

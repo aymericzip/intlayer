@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Wtyczka Prettier | Sortowanie tłumaczeń Intlayer
-description: "Sortuj ustawienia regionalne w t(), kategorie plural(), warunki enu(), przypadki select() oraz klucze deklaracji zawartości za pomocą prettier-plugin-intlayer."
+title: Wtyczka Prettier x Oxfmt | Sortowanie tłumaczeń Intlayer
+description: "Sortuj ustawienia regionalne w t(), kategorie plural(), warunki enu(), przypadki select() oraz klucze deklaracji zawartości za pomocą prettier-plugin-intlayer. Działa z Prettier i oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Formatowanie
   - Sortowanie tłumaczeń
   - Sortowanie ustawień regionalnych
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Początkowa historia"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "Dodano użycie z oxfmt"
 author: aymericzip
 ---
 
-# Wtyczka Prettier
+# Wtyczka Prettier x Oxfmt
 
 `prettier-plugin-intlayer` układa klucze Twoich tłumaczeń w stałej kolejności przy każdym formatowaniu pliku przez Prettier. Różnice w kodzie (diffs) pozostają małe, konflikty scalania (merge conflicts) stają się rzadsze, a brakujące ustawienie regionalne można natychmiast zauważyć.
 
@@ -61,6 +65,11 @@ Jeśli Twój projekt korzysta już z Prettier, polecenie `intlayer init prettier
 
 ## Użycie
 
+Wtyczka działa z Prettier oraz z [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Dodaj wtyczkę do konfiguracji Prettier:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Aby zastosować ją wyłącznie do deklaracji zawartości, użyj nadpisania (ove
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt nie wczytuje wtyczek Prettier. Pozwól Prettier zastosować wtyczkę tylko do deklaracji zawartości, a następnie pozwól oxfmt sformatować cały projekt:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Zachowaj tę kolejność. oxfmt przepisuje formatowanie we własnym stylu, ale nigdy nie zmienia kolejności kluczy obiektów, więc posortowana kolejność zostaje zachowana.
+
+  </Tab>
+</Tabs>
 
 ## Co podlega sortowaniu
 
@@ -190,4 +230,4 @@ Komentarze przenoszą się razem z kluczem, do którego należą.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` oraz `jsonc`. Bloki `<script>` plików Vue, Svelte i Astro są formatowane za pomocą tych parserów.
 
-> **Znane ograniczenie.** Prettier uruchamia tylko jedną wtyczkę na dany parser. Jeśli inna wtyczka również zastępuje parsery JavaScript/TypeScript (na przykład `prettier-plugin-tailwindcss`), tylko ostatnia wymieniona wtyczka zostanie zastosowana do tych plików. Ogranicz `prettier-plugin-intlayer` do plików `*.content.*` za pomocą reguły override, aby uniknąć konfliktów.
+> **Znane ograniczenie.** Prettier uruchamia tylko jedną wtyczkę na dany parser. Jeśli inna wtyczka również zastępuje parsery JavaScript/TypeScript (na przykład `prettier-plugin-tailwindcss`), tylko ostatnia wymieniona wtyczka zostanie zastosowana do tych plików. Ogranicz `prettier-plugin-intlayer` do plików `*.content.*` za pomocą reguły override, aby uniknąć konfliktów. W oxfmt klasy Tailwind są sortowane przez wbudowaną opcję `sortTailwindcss`, więc ten konflikt nie występuje.

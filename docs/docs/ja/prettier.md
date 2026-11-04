@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettierプラグイン | Intlayerの翻訳をソート
-description: "prettier-plugin-intlayer を使用して、t() のロケール、plural() のカテゴリ、enu() の条件、select() のケース、およびコンテンツ宣言のキーを並べ替えます。"
+title: Prettier x Oxfmt プラグイン | Intlayerの翻訳をソート
+description: "prettier-plugin-intlayer を使用して、t() のロケール、plural() のカテゴリ、enu() の条件、select() のケース、およびコンテンツ宣言のキーを並べ替えます。Prettier と oxfmt に対応しています。"
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - フォーマット
   - 翻訳の並べ替え
   - ロケールの並べ替え
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "初期履歴"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "oxfmt での使い方を追加"
 author: aymericzip
 ---
 
-# Prettierプラグイン
+# Prettier x Oxfmt プラグイン
 
 `prettier-plugin-intlayer` は、Prettier がファイルをフォーマットするたびに、翻訳キーを固定の順序に並べ替えます。差分（diff）を小さく保ち、マージコンフリクトを減らし、欠落しているロケールを簡単に見つけられるようにします。
 
@@ -61,6 +65,11 @@ Prettier 3 以降が必要です。
 
 ## 使い方
 
+このプラグインは Prettier と [oxfmt](https://oxc.rs/docs/guide/usage/formatter) の両方で動作します。
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Prettier の設定ファイルにプラグインを追加します:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Prettier の設定ファイルにプラグインを追加します:
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt は Prettier プラグインを読み込みません。Prettier でコンテンツ宣言ファイルにだけプラグインを適用し、その後 oxfmt でプロジェクト全体をフォーマットします。
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+この順序を守ってください。oxfmt は独自のスタイルでレイアウトを書き直しますが、オブジェクトのキーの順序は変更しないため、並べ替えた順序は保たれます。
+
+  </Tab>
+</Tabs>
 
 ## ソート対象
 
@@ -190,4 +230,4 @@ export default {
 
 `babel`、`babel-flow`、`babel-ts`、`typescript`、`flow`、`acorn`、`espree`、`meriyah`、`json`、`json5`、`jsonc`。Vue、Svelte、Astro ファイルの `<script>` ブロックもこれらのパーサーでフォーマットされます。
 
-> **既知の制限事項。** Prettier はパーサーごとに 1 つのプラグインのみを実行します。別のプラグインも JavaScript/TypeScript パーサーを置き換えている場合（例: `prettier-plugin-tailwindcss`）、最後に指定されたプラグインのみが適用されます。競合を回避するには、override を使用して `prettier-plugin-intlayer` の対象を `*.content.*` ファイルに限定してください。
+> **既知の制限事項。** Prettier はパーサーごとに 1 つのプラグインのみを実行します。別のプラグインも JavaScript/TypeScript パーサーを置き換えている場合（例: `prettier-plugin-tailwindcss`）、最後に指定されたプラグインのみが適用されます。競合を回避するには、override を使用して `prettier-plugin-intlayer` の対象を `*.content.*` ファイルに限定してください。 oxfmt では Tailwind クラスは組み込みの `sortTailwindcss` オプションで並べ替えられるため、この競合は発生しません。

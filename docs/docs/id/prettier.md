@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Plugin Prettier | Urutkan terjemahan Intlayer
-description: "Urutkan locale dari t(), kategori dari plural(), kondisi dari enu(), case dari select(), dan kunci deklarasi konten Anda dengan prettier-plugin-intlayer."
+title: Plugin Prettier x Oxfmt | Urutkan terjemahan Intlayer
+description: "Urutkan locale dari t(), kategori dari plural(), kondisi dari enu(), case dari select(), dan kunci deklarasi konten Anda dengan prettier-plugin-intlayer. Bekerja dengan Prettier dan oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Pemformatan
   - Urutkan terjemahan
   - Urutkan locale
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Riwayat awal"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "Menambahkan penggunaan dengan oxfmt"
 author: aymericzip
 ---
 
-# Plugin Prettier
+# Plugin Prettier x Oxfmt
 
 `prettier-plugin-intlayer` menyusun kunci terjemahan Anda dalam urutan tetap setiap kali Prettier memformat file. Diff tetap kecil, konflik penggabungan (merge conflicts) berkurang, dan locale yang hilang mudah ditemukan.
 
@@ -61,6 +65,11 @@ Jika proyek Anda sudah menggunakan Prettier, `intlayer init prettier` akan mengi
 
 ## Penggunaan
 
+Plugin ini bekerja dengan Prettier dan dengan [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Tambahkan plugin ke konfigurasi Prettier Anda:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Untuk menerapkannya hanya pada file deklarasi konten, gunakan override:
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt tidak memuat plugin Prettier. Biarkan Prettier menjalankan plugin hanya pada deklarasi konten Anda, lalu biarkan oxfmt memformat seluruh proyek:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Pertahankan urutan ini. oxfmt menulis ulang tata letak dengan gayanya sendiri, tetapi tidak pernah mengubah urutan kunci objek, sehingga urutan yang telah diurutkan tetap terjaga.
+
+  </Tab>
+</Tabs>
 
 ## Apa yang diurutkan
 
@@ -190,4 +230,4 @@ Komentar berpindah bersama kunci tempat mereka berada.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5`, dan `jsonc`. Blok `<script>` pada file Vue, Svelte, dan Astro diformat dengan parser ini.
 
-> **Batasan umum.** Prettier hanya menjalankan satu plugin per parser. Jika plugin lain juga menggantikan parser JavaScript/TypeScript (misalnya `prettier-plugin-tailwindcss`), hanya plugin terakhir yang tercantum yang akan diterapkan pada file tersebut. Batasi cakupan `prettier-plugin-intlayer` ke file `*.content.*` dengan override untuk menghindari konflik.
+> **Batasan umum.** Prettier hanya menjalankan satu plugin per parser. Jika plugin lain juga menggantikan parser JavaScript/TypeScript (misalnya `prettier-plugin-tailwindcss`), hanya plugin terakhir yang tercantum yang akan diterapkan pada file tersebut. Batasi cakupan `prettier-plugin-intlayer` ke file `*.content.*` dengan override untuk menghindari konflik. Dengan oxfmt, kelas Tailwind diurutkan oleh opsi bawaan `sortTailwindcss`, sehingga konflik ini tidak terjadi.

@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Prettier Plugin | Řazení překladů Intlayer
-description: "Řaďte locales v t(), kategorie plural(), podmínky enu(), případy select() a klíče svých deklarací obsahu pomocí prettier-plugin-intlayer."
+title: Prettier x Oxfmt Plugin | Řazení překladů Intlayer
+description: "Řaďte locales v t(), kategorie plural(), podmínky enu(), případy select() a klíče svých deklarací obsahu pomocí prettier-plugin-intlayer. Funguje s Prettier i oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Formátování
   - Řazení překladů
   - Řazení locales
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Výchozí historie"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "Přidáno použití s oxfmt"
 author: aymericzip
 ---
 
-# Prettier Plugin
+# Prettier x Oxfmt Plugin
 
 `prettier-plugin-intlayer` uspořádá klíče vašich překladů v pevném pořadí pokaždé, když Prettier formátuje soubor. Rozdíly (diffs) zůstávají malé, konflikty při slučování (merge conflicts) jsou méně časté a chybějící locale lze snadno odhalit.
 
@@ -61,6 +65,11 @@ Pokud váš projekt již Prettier používá, příkaz `intlayer init prettier` 
 
 ## Použití
 
+Plugin funguje s Prettier i s [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Přidejte plugin do své konfigurace Prettier:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Chcete-li jej použít pouze na deklarace obsahu, použijte override:
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+oxfmt nenačítá pluginy Prettier. Nechte Prettier použít plugin pouze na deklarace obsahu a poté nechte oxfmt naformátovat celý projekt:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Dodržte toto pořadí. oxfmt přepíše formátování ve vlastním stylu, ale nikdy nemění pořadí klíčů objektů, takže seřazené pořadí zůstane zachováno.
+
+  </Tab>
+</Tabs>
 
 ## Co se řadí
 
@@ -190,4 +230,4 @@ Komentáře se přesouvají spolu s klíčem, ke kterému patří.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` a `jsonc`. Bloky `<script>` v souborech Vue, Svelte a Astro jsou formátovány pomocí těchto parserů.
 
-> **Známé omezení.** Prettier spouští pouze jeden plugin na parser. Pokud jiný plugin také nahrazuje parsery JavaScriptu/TypeScriptu (například `prettier-plugin-tailwindcss`), na tyto soubory se použije pouze poslední uvedený. Omezte rozsah `prettier-plugin-intlayer` na soubory `*.content.*` pomocí override, abyste se vyhnuli konfliktům.
+> **Známé omezení.** Prettier spouští pouze jeden plugin na parser. Pokud jiný plugin také nahrazuje parsery JavaScriptu/TypeScriptu (například `prettier-plugin-tailwindcss`), na tyto soubory se použije pouze poslední uvedený. Omezte rozsah `prettier-plugin-intlayer` na soubory `*.content.*` pomocí override, abyste se vyhnuli konfliktům. S oxfmt řadí třídy Tailwind jeho vestavěná volba `sortTailwindcss`, takže tento konflikt nenastává.

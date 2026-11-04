@@ -2,11 +2,12 @@
 createdAt: 2026-11-03
 updatedAt: 2026-11-03
 priority: 6
-title: Plugin Prettier | Ordenar traduções do Intlayer
-description: "Ordene os locales de t(), as categorias de plural(), as condições de enu(), os casos de select() e as chaves das suas declarações de conteúdo com prettier-plugin-intlayer."
+title: Plugin Prettier x Oxfmt | Ordenar traduções do Intlayer
+description: "Ordene os locales de t(), as categorias de plural(), as condições de enu(), os casos de select() e as chaves das suas declarações de conteúdo com prettier-plugin-intlayer. Funciona com Prettier e oxfmt."
 keywords:
   - Intlayer
   - Prettier
+  - oxfmt
   - Formatação
   - Ordenar traduções
   - Ordenar locales
@@ -22,10 +23,13 @@ history:
   - version: 9.7.1
     date: 2026-11-03
     changes: "Histórico inicial"
+  - version: 9.7.1
+    date: 2026-11-03
+    changes: "Adicionado o uso com oxfmt"
 author: aymericzip
 ---
 
-# Plugin Prettier
+# Plugin Prettier x Oxfmt
 
 O `prettier-plugin-intlayer` organiza as chaves das suas traduções em uma ordem fixa a cada formatação do Prettier. Os diffs permanecem pequenos, conflitos de merge tornam-se raros e um locale ausente torna-se fácil de detectar.
 
@@ -61,6 +65,11 @@ Se o seu projeto já utiliza o Prettier, `intlayer init prettier` instala o plug
 
 ## Uso
 
+O plugin funciona com o Prettier e com o [oxfmt](https://oxc.rs/docs/guide/usage/formatter).
+
+<Tabs defaultTab="prettier">
+  <Tab label="Prettier" value="prettier">
+
 Adicione o plugin à sua configuração do Prettier:
 
 ```json fileName=".prettierrc.json"
@@ -84,6 +93,37 @@ Para aplicá-lo apenas às suas declarações de conteúdo, utilize um override:
   ]
 }
 ```
+
+  </Tab>
+  <Tab label="oxfmt" value="oxfmt">
+
+O oxfmt não carrega plugins do Prettier. Deixe o Prettier aplicar o plugin apenas às suas declarações de conteúdo e depois deixe o oxfmt formatar todo o projeto:
+
+```json fileName=".prettierrc.json"
+{
+  "overrides": [
+    {
+      "files": "*.content.{ts,tsx,js,jsx,mjs,cjs,json}",
+      "options": {
+        "plugins": ["prettier-plugin-intlayer"]
+      }
+    }
+  ]
+}
+```
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+  }
+}
+```
+
+Mantenha esta ordem. O oxfmt reescreve a formatação no seu próprio estilo, mas nunca reordena as chaves dos objetos, então a ordenação é mantida.
+
+  </Tab>
+</Tabs>
 
 ## O que é ordenado
 
@@ -190,4 +230,4 @@ Comentários acompanham a chave à qual pertencem.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` e `jsonc`. Os blocos `<script>` de arquivos Vue, Svelte e Astro são formatados com esses parsers.
 
-> **Limitação conhecida.** O Prettier executa apenas um plugin por parser. Se outro plugin também substituir os parsers de JavaScript/TypeScript (por exemplo `prettier-plugin-tailwindcss`), apenas o último listado se aplicará a esses arquivos. Restrinja o `prettier-plugin-intlayer` a arquivos `*.content.*` através de um override para evitar esse conflito.
+> **Limitação conhecida.** O Prettier executa apenas um plugin por parser. Se outro plugin também substituir os parsers de JavaScript/TypeScript (por exemplo `prettier-plugin-tailwindcss`), apenas o último listado se aplicará a esses arquivos. Restrinja o `prettier-plugin-intlayer` a arquivos `*.content.*` através de um override para evitar esse conflito. Com o oxfmt, as classes do Tailwind são ordenadas pela opção integrada `sortTailwindcss`, então esse conflito não se aplica.
