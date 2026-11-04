@@ -29,7 +29,7 @@ export const FeaturesSection: FC = () => {
       <section className="grid grid-cols-4 gap-px border-b bg-border">
         <div className="col-span-2 flex flex-col gap-4 bg-background p-6">
           <IDESection />
-          <h1 className="text-3xl">{sectionsData[0].title}</h1>
+          <h1 className="text-3xl text-nowrap">{sectionsData[0].title}</h1>
           <p className="leading-6 text-muted-foreground">
             {sectionsData[0].description}
           </p>
