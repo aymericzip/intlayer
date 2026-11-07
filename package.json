@@ -94,11 +94,11 @@
     "intlayer": "workspace:*",
     "lint-staged": "17.6.0",
     "minimist": "1.2.8",
-    "oxfmt": "0.76.0",
-    "oxlint": "1.91.0",
+    "oxfmt": "0.77.0",
+    "oxlint": "1.92.0",
     "rimraf": "6.1.4",
-    "rollup-plugin-visualizer": "7.1.1",
-    "tsdown": "0.23.5",
+    "rollup-plugin-visualizer": "7.1.2",
+    "tsdown": "0.23.7",
     "tslib": "2.9.1",
     "turbo": "2.11.10",
     "typescript": "6.0.3",
@@ -119,6 +119,6 @@
     "url": "https://github.com/aymericzip/intlayer/issues"
   },
   "patchedDependencies": {
-    "@tanstack/redact@0.3.0": "patches/@tanstack%2Fredact@0.3.0.patch"
+    "@tanstack/redact@0.3.1": "patches/@tanstack%2Fredact@0.3.1.patch"
   }
 }

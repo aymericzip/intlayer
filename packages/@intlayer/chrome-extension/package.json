@@ -54,19 +54,19 @@
     "@intlayer/engine": "workspace:*",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.67.0",
+    "lucide-react": "1.70.0",
     "preact": "11.1.1",
     "preact-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@preact/preset-vite": "2.10.6",
     "@tailwindcss/aspect-ratio": "0.4.2",
-    "@tailwindcss/vite": "4.3.4",
+    "@tailwindcss/vite": "4.3.5",
     "@types/chrome": "0.3.7",
     "rimraf": "6.1.4",
-    "tailwindcss": "4.3.4",
+    "tailwindcss": "4.3.5",
     "typescript": "7.0.2",
-    "vite": "8.3.5",
+    "vite": "8.3.6",
     "vite-intlayer": "workspace:*",
     "vitest": "5.1.0"
   }

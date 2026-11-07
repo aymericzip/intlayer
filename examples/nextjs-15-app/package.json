@@ -23,13 +23,13 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.27",
-    "@tailwindcss/postcss": "4.3.4",
+    "@tailwindcss/postcss": "4.3.5",
     "@types/node": "^26",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "intlayer-editor": "workspace:*",
     "postcss": "8.5.32",
-    "tailwindcss": "4.3.4",
+    "tailwindcss": "4.3.5",
     "typescript": "7.0.2"
   }
 }

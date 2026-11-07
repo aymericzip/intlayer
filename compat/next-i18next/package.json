@@ -99,7 +99,7 @@
     "next-i18next": "16.4.6",
     "react-i18next": "17.1.11",
     "rimraf": "6.1.4",
-    "tsdown": "0.23.5",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
     "vitest": "5.1.0"
   },

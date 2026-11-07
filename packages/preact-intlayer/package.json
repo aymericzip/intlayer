@@ -115,7 +115,7 @@
     "@utils/tsdown-config": "workspace:*",
     "preact": "11.1.1",
     "rimraf": "6.1.4",
-    "tsdown": "0.23.5",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
     "vitest": "5.1.0"
   },

@@ -93,7 +93,7 @@
     "rimraf": "6.1.4",
     "svelte": "5.57.3",
     "svelte-eslint-parser": "1.10.0",
-    "tsdown": "0.23.5",
+    "tsdown": "0.23.7",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.1",
     "vitest": "5.1.0",

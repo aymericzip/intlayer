@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@craco/craco": "7.1.0",
-    "@tailwindcss/postcss": "4.3.4",
+    "@tailwindcss/postcss": "4.3.5",
     "intlayer-editor": "workspace:*",
     "react-scripts-intlayer": "workspace:*",
     "tailwindcss": "4.2.4"
