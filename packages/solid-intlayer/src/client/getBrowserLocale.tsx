@@ -61,7 +61,7 @@ const detectLanguage = (
           const cookieName = `${name}=`;
           const cookie = cookies.find((c) => c.trim().startsWith(cookieName));
           if (cookie) {
-            return cookie.split('=')[1].trim();
+            return cookie.split('=')[1]?.trim();
           }
         } catch {}
         return undefined;
