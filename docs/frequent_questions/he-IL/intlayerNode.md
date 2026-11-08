@@ -3,7 +3,7 @@ createdAt: 2026-05-07
 updatedAt: 2026-11-03
 priority: 4
 title: הטיפוס IntlayerNode. מה זה?
-description: מהו הטיפוס IntlayerNode? מדוע המחרוזת שלי מומרת ל-IntlayerNode<string>?
+description: מהו הטיפוס IntlayerNode? מדוע המחרוזת שלי מומרת ל-IntlayerNode&lt;string&gt;?
 keywords:
   - מבוא
   - תחילת עבודה
