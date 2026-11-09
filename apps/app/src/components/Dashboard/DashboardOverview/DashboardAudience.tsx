@@ -475,9 +475,9 @@ const AudienceSkeleton: FC = () => (
         <Skeleton key={key} className="h-24 min-w-36 flex-1 rounded-2xl" />
       ))}
     </div>
-    <div className="flex flex-col gap-4 lg:flex-row">
-      <Skeleton className="h-64 flex-2 rounded-2xl" />
-      <Skeleton className="h-64 flex-1 rounded-2xl" />
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <Skeleton className="h-80 rounded-2xl lg:col-span-2 lg:h-112" />
+      <Skeleton className="h-80 rounded-2xl lg:h-112" />
     </div>
     <Skeleton
       className="w-full rounded-2xl"
@@ -861,10 +861,13 @@ export const DashboardAudience: FC = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-4 lg:flex-row">
+          {/* Fixed 2/3 + 1/3 columns: switching tabs never resizes them. The
+              graph keeps its height and stays in view while a long breakdown
+              list is expanded below it. */}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start">
             {/* Evolution graph */}
             <Container
-              className="flex min-h-0 flex-2 flex-col gap-3 p-5"
+              className="flex min-h-80 flex-col gap-3 p-5 lg:sticky lg:top-24 lg:col-span-2 lg:h-112"
               roundedSize="2xl"
               transparency="none"
               border
@@ -902,7 +905,7 @@ export const DashboardAudience: FC = () => {
 
             {/* Locales / Location tabs */}
             <Container
-              className="flex flex-1 flex-col gap-4 p-5"
+              className="flex min-w-0 flex-col gap-4 p-5"
               roundedSize="2xl"
               transparency="none"
               border
