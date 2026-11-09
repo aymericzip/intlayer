@@ -15,6 +15,17 @@ import {
 
 const uuid = () => Math.random().toString(36).slice(2);
 
+/** Error code the backend returns once a signed-out visitor exhausts the chatbot quota. */
+const UNAUTHENTICATED_RATE_LIMIT_CODE = 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED';
+
+/**
+ * Whether a chat request failed because the signed-out visitor hit the rate limit.
+ * The API client serializes the backend error payload into `Error.message`.
+ */
+const isUnauthenticatedRateLimitError = (error: unknown): boolean =>
+  error instanceof Error &&
+  error.message.includes(UNAUTHENTICATED_RATE_LIMIT_CODE);
+
 type AskDocQuestionResult =
   | {
       success: boolean;
@@ -159,26 +170,12 @@ export const ChatBot: FC<ChatBotProps> = ({
         onSuccess: () => {
           setHasReachedRateLimit(false);
         },
-        onError: (errorMessage: any) => {
-          if (typeof errorMessage === 'undefined') return;
+        onError: (error) => {
+          setCurrentResponse('');
 
-          let parsedErrors: any[];
-
-          try {
-            const raw =
-              typeof errorMessage?.message === 'string'
-                ? JSON.parse(errorMessage.message)
-                : errorMessage;
-            parsedErrors = [raw].flat();
-          } catch (_e) {
-            parsedErrors = [errorMessage].flat();
+          if (isUnauthenticatedRateLimitError(error)) {
+            setHasReachedRateLimit(true);
           }
-
-          parsedErrors.forEach((error) => {
-            if (error?.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
-              setHasReachedRateLimit(true);
-            }
-          });
         },
       }
     );

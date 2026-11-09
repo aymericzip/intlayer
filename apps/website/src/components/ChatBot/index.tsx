@@ -16,6 +16,17 @@ import {
 
 const uuid = () => Math.random().toString(36).slice(2);
 
+/** Error code the backend returns once a signed-out visitor exhausts the chatbot quota. */
+const UNAUTHENTICATED_RATE_LIMIT_CODE = 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED';
+
+/**
+ * Whether a chat request failed because the signed-out visitor hit the rate limit.
+ * The API client serializes the backend error payload into `Error.message`.
+ */
+const isUnauthenticatedRateLimitError = (error: unknown): boolean =>
+  error instanceof Error &&
+  error.message.includes(UNAUTHENTICATED_RATE_LIMIT_CODE);
+
 type AskDocQuestionResult =
   | {
       success: boolean;
@@ -163,26 +174,12 @@ export const ChatBot: FC<ChatBotProps> = ({
         onSuccess: () => {
           setHasReachedRateLimit(false);
         },
-        onError: (errorMessage: any) => {
-          if (typeof errorMessage === 'undefined') return;
+        onError: (error) => {
+          setCurrentResponse('');
 
-          let parsedErrors: any[];
-
-          try {
-            const raw =
-              typeof errorMessage?.message === 'string'
-                ? JSON.parse(errorMessage.message)
-                : errorMessage;
-            parsedErrors = [raw].flat();
-          } catch (_e) {
-            parsedErrors = [errorMessage].flat();
+          if (isUnauthenticatedRateLimitError(error)) {
+            setHasReachedRateLimit(true);
           }
-
-          parsedErrors.forEach((error) => {
-            if (error?.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
-              setHasReachedRateLimit(true);
-            }
-          });
         },
       }
     );
@@ -232,25 +229,24 @@ export const ChatBot: FC<ChatBotProps> = ({
         )}
 
         {hasReachedRateLimit && (
-          <div className="overflow-display relative h-0">
-            <Container
-              className="absolute bottom-0 left-1/2 mx-auto mt-3 flex max-w-md -translate-x-1/2 flex-col gap-4 text-center text-sm"
-              borderColor="neutral"
-              border
-              roundedSize="2xl"
-              padding="md"
+          <Container
+            className="mx-auto my-3 flex max-w-md flex-col gap-4 text-center text-sm"
+            borderColor="neutral"
+            border
+            roundedSize="2xl"
+            padding="md"
+            role="alert"
+          >
+            <span>{rateLimitExceededMessage}</span>
+            <Link
+              to={App_Auth_SignIn}
+              label={signInButton.label.value}
+              color="text"
+              variant="button-outlined"
             >
-              <span>{rateLimitExceededMessage}</span>
-              <Link
-                to={App_Auth_SignIn}
-                label={signInButton.label.value}
-                color="text"
-                variant="button-outlined"
-              >
-                {signInButton.text}
-              </Link>
-            </Container>
-          </div>
+              {signInButton.text}
+            </Link>
+          </Container>
         )}
 
         <FormSection
