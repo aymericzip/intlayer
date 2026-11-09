@@ -86,7 +86,7 @@ export const AICredits: FC = () => {
   const balance = aiCreditsResponse?.data;
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-8">
       <div className="flex items-center gap-2">
         <Sparkles className="size-5" />
         <H3 className="mb-0">{title}</H3>

@@ -209,6 +209,13 @@ const formatBucketDetail = (
   return date.toLocaleDateString(locale, { dateStyle: 'short' });
 };
 
+/** Area fill under the curve: text color fading out toward the baseline. */
+const AREA_GRADIENT_STOPS = [
+  { offset: '0%', opacity: 0.35 },
+  { offset: '40%', opacity: 0.1 },
+  { offset: '100%', opacity: 0 },
+] as const;
+
 /** Horizontal share of the chart past which the cursor label flips inward. */
 const CURSOR_LABEL_EDGE_RATIO = 0.15;
 
@@ -329,10 +336,26 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
           aria-label={chartLabel}
         >
           <defs>
-            <linearGradient id={areaGradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="currentColor" stopOpacity="1" />
-              <stop offset="35%" stopColor="currentColor" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+            {/* Spans the plot area (not the curve's bounding box) so the fade
+                is the same whatever the peak. */}
+            <linearGradient
+              id={areaGradientId}
+              gradientUnits="userSpaceOnUse"
+              x1="0"
+              y1={paddingTop}
+              x2="0"
+              y2={height - paddingBottom}
+            >
+              {AREA_GRADIENT_STOPS.map(({ offset, opacity }) => (
+                <stop
+                  key={offset}
+                  offset={offset}
+                  stopOpacity={opacity}
+                  // A CSS variable, not `currentColor`: Chrome never repaints
+                  // a `currentColor` stop when the theme changes
+                  style={{ stopColor: 'var(--color-text)' }}
+                />
+              ))}
             </linearGradient>
           </defs>
           {variant === 'bars' &&
