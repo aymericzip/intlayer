@@ -12,6 +12,7 @@ import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useNumber } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { AIConfigurationDetails } from './AIConfigurationDetails';
 import { AICreditGauge } from './AICreditGauge';
 
 type FeatureUsageListProps = {
@@ -97,6 +98,8 @@ export const AICredits: FC = () => {
           <AICreditGauge balance={balance} />
 
           <FeatureUsageList balance={balance} />
+
+          <AIConfigurationDetails />
 
           <p className="text-xs text-neutral">
             {ownKeyNote({ tokens: formatNumber(balance.tokensPerCredit) })}

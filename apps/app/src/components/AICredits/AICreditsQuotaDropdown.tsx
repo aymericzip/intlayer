@@ -11,6 +11,7 @@ import { BarChart3, ChevronsUp, Sparkles } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { AIConfigurationDetails } from './AIConfigurationDetails';
 import {
   AICreditGauge,
   getUsageRatio,
@@ -115,6 +116,8 @@ export const AICreditsQuotaDropdown: FC = () => {
           </span>
 
           <AICreditGauge balance={balance} />
+
+          <AIConfigurationDetails />
 
           <div className="flex flex-col gap-2">
             {!isTopPlan && (
