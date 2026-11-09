@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   buildGoogleAnalyticsBootstrap,
+  GOOGLE_ANALYTICS_TRAFFIC_MARKER,
   getGoogleAnalyticsHeadScripts,
 } from './googleAnalytics';
 
@@ -63,7 +64,7 @@ describe('buildGoogleAnalyticsBootstrap', () => {
     expect(commands[1]).toEqual([
       'config',
       MEASUREMENT_ID,
-      { send_page_view: false },
+      { send_page_view: false, ...GOOGLE_ANALYTICS_TRAFFIC_MARKER },
     ]);
     expect(commands[2]).toEqual([
       'event',

@@ -4,6 +4,15 @@ const GOOGLE_ANALYTICS_MAX_DELAY_MS = 1000;
 /** Upper bound on the idle wait that follows the `load` event. */
 const GOOGLE_ANALYTICS_IDLE_TIMEOUT_MS = 2000;
 
+/**
+ * Event parameter attached to every hit this bootstrap sends. Spam bots that
+ * post fake hits straight to Google Analytics never run this code, so GA4
+ * reports filtered on `traffic_marker = intlayer` only count real page loads.
+ */
+export const GOOGLE_ANALYTICS_TRAFFIC_MARKER = {
+  traffic_marker: 'intlayer',
+} as const;
+
 /** Inline `<script>` descriptor accepted by TanStack Router `head().scripts`. */
 export type GoogleAnalyticsHeadScript = {
   children: string;
@@ -18,7 +27,8 @@ export type GoogleAnalyticsHeadScript = {
  * landing `page_view` is sent explicitly with the URL and referrer captured at
  * page start, so a client-side navigation before gtag.js arrives cannot
  * misattribute it. Later navigations are reported by GA4 enhanced measurement
- * ("page changes based on browser history events").
+ * ("page changes based on browser history events"). Every hit carries
+ * {@link GOOGLE_ANALYTICS_TRAFFIC_MARKER} so ghost-spam hits can be filtered out.
  *
  * Idempotent: TanStack Router's client `<Script>` re-appends inline head
  * scripts it cannot match by nonce (browsers hide the nonce attribute), and a
@@ -38,7 +48,7 @@ window.__intlayerGoogleAnalyticsBootstrapped = true;
 window.dataLayer = window.dataLayer || [];
 window.gtag = function () { dataLayer.push(arguments); };
 gtag('js', new Date());
-gtag('config', ${JSON.stringify(measurementId)}, { send_page_view: false });
+gtag('config', ${JSON.stringify(measurementId)}, ${JSON.stringify({ send_page_view: false, ...GOOGLE_ANALYTICS_TRAFFIC_MARKER })});
 gtag('event', 'page_view', { page_location: location.href, page_referrer: document.referrer });
 const nonce = document.currentScript && document.currentScript.nonce;
 const interactionEvents = ['pointerdown', 'keydown', 'scroll', 'touchstart'];
