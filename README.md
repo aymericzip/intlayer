@@ -13,6 +13,7 @@
 </h2>
 
 <br />
+<br />
 
 <p align="center">
   <a href="https://intlayer.org/doc/concept/content" rel="">Docs</a> •
