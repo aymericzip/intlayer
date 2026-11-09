@@ -18,6 +18,7 @@ import {
   LIVE_WINDOW_MINUTES,
   PAGE_FLOW_ENTRANCE,
   type PageFlowLoaders,
+  toMapCoordinates,
 } from './analytics.service';
 
 /** Builds a daily series point with distinguishable users / views. */
@@ -601,6 +602,26 @@ describe('buildPageFlow', () => {
     expect(await buildPageFlow('/missing', loaders({}, []))).toEqual({
       steps: [[{ url: '/missing', value: 0, exits: null }]],
       links: [],
+    });
+  });
+});
+
+describe('toMapCoordinates', () => {
+  it('keeps numeric coordinates', () => {
+    expect(toMapCoordinates(40.42, -3.7)).toEqual({
+      latitude: 40.42,
+      longitude: -3.7,
+    });
+  });
+
+  it('drops null or partial coordinates', () => {
+    expect(toMapCoordinates(null, null)).toEqual({
+      latitude: undefined,
+      longitude: undefined,
+    });
+    expect(toMapCoordinates(40.42, null)).toEqual({
+      latitude: undefined,
+      longitude: undefined,
     });
   });
 });

@@ -60,6 +60,18 @@ describe('groupVisitorsByPlace', () => {
     expect(places[0].key).toBe('48.85,2.35');
   });
 
+  it('treats null coordinates as missing instead of placing them at 0,0', () => {
+    const [place] = groupVisitorsByPlace([
+      visitor({
+        country: 'ES',
+        latitude: null as unknown as number,
+        longitude: null as unknown as number,
+      }),
+    ]);
+
+    expect(place.key).toBe('country:ES');
+  });
+
   it('falls back to the country centroid without coordinates', () => {
     const [place] = groupVisitorsByPlace([visitor({ country: 'DE' })]);
 

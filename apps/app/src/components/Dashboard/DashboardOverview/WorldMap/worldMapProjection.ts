@@ -254,8 +254,10 @@ export const groupVisitorsByPlace = (
   const places = new Map<string, LiveMapPlace>();
 
   for (const visitor of visitors) {
+    // `typeof`, not `!== undefined`: a `null` coordinate would project to 0°,0°.
     const hasCoordinates =
-      visitor.latitude !== undefined && visitor.longitude !== undefined;
+      typeof visitor.latitude === 'number' &&
+      typeof visitor.longitude === 'number';
     const centroid = COUNTRY_CENTROIDS[visitor.country];
 
     if (!hasCoordinates && !centroid) continue;

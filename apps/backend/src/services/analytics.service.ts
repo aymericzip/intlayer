@@ -1253,6 +1253,18 @@ const VISITOR_ID_LENGTH = 16;
 const toVisitorId = (sessionHash: string): string =>
   sessionHash.slice(0, VISITOR_ID_LENGTH);
 
+/**
+ * Keeps a visitor's coordinates only when both are numbers. `$last` over a
+ * missing field yields `null`, which the map would otherwise place at 0°,0°.
+ */
+export const toMapCoordinates = (
+  latitude: unknown,
+  longitude: unknown
+): Pick<LiveVisitor, 'latitude' | 'longitude'> =>
+  typeof latitude === 'number' && typeof longitude === 'number'
+    ? { latitude, longitude }
+    : { latitude: undefined, longitude: undefined };
+
 /** One session's activity aggregated over the live window, from `$facet`. */
 type LiveVisitorRow = Omit<LiveVisitor, 'visitorId'> & { _id: string };
 
@@ -1362,8 +1374,7 @@ export const getLiveVisitorFlow = async (
       visitorId,
       country: latestRow.country || 'ZZ',
       city: latestRow.city,
-      latitude: latestRow.latitude,
-      longitude: latestRow.longitude,
+      ...toMapCoordinates(latestRow.latitude, latestRow.longitude),
       locale: latestRow.locale,
       currentUrl: latestRow.url,
       pageCount: new Set(steps.map((step) => step.url)).size,
@@ -1494,8 +1505,9 @@ const getLiveAudience = async (
       'users'
     ),
     liveVisitors: (facets?.visitors ?? []).map(
-      ({ _id: sessionHash, country, ...visitor }) => ({
+      ({ _id: sessionHash, country, latitude, longitude, ...visitor }) => ({
         ...visitor,
+        ...toMapCoordinates(latitude, longitude),
         visitorId: toVisitorId(sessionHash),
         country: country || 'ZZ',
       })
