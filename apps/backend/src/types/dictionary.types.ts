@@ -24,6 +24,8 @@ export type DictionaryQualifiers = {
   variant?: DictionaryVariantValue | DictionaryVariantValue[];
   /** Ordered collection item index. */
   item?: number;
+  /** Locale of a per-locale (monolingual) dictionary. */
+  locale?: DictionaryCore['locale'];
 };
 
 /** Outcome of the last attempt to commit a CMS edit to the source file. */

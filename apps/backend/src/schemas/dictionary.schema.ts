@@ -82,6 +82,12 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       type: Number,
       default: undefined,
     },
+    // Per-locale (monolingual) dictionaries: siblings sharing a `key`, one
+    // declaration per locale
+    locale: {
+      type: String,
+      default: undefined,
+    },
     importMode: {
       type: String,
       enum: ['static', 'dynamic', 'fetch'],

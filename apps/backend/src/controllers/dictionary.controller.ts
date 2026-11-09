@@ -67,16 +67,17 @@ const removeMetadata = <T extends Record<string, any>>(obj: T): T => {
 };
 
 /**
- * Extracts the qualifier coordinates (`variant` / `item`) and `importMode` from
+ * Extracts the qualifier coordinates (`variant` / `item` / `locale`) and `importMode` from
  * a pushed dictionary so sibling declarations sharing a `key` stay distinct and
  * can be re-merged into a qualified group on pull. Only defined fields are
  * returned so plain dictionaries persist nothing extra.
  */
 const extractQualifiers = (
-  source: Pick<LocalDictionary, 'variant' | 'item' | 'importMode'>
+  source: Pick<LocalDictionary, 'variant' | 'item' | 'locale' | 'importMode'>
 ): Partial<DictionaryData> => ({
   ...(source.variant !== undefined && { variant: source.variant }),
   ...(source.item !== undefined && { item: source.item }),
+  ...(source.locale !== undefined && { locale: source.locale }),
   ...(source.importMode !== undefined && { importMode: source.importMode }),
 });
 
@@ -726,6 +727,7 @@ export const pushDictionaries = async (
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
         description: dictionaryDataEl.description,
+        tags: dictionaryDataEl.tags ?? [],
         ...extractQualifiers(dictionaryDataEl),
         ...extractSource(dictionaryDataEl),
         projectIds: [String(project.id)],
