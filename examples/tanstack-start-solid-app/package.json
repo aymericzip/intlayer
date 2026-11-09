@@ -19,12 +19,12 @@
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
     "solid-js": "1.9.15",
-    "tailwindcss": "4.3.4"
+    "tailwindcss": "4.3.5"
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "latest",
     "typescript": "7.0.2",
-    "vite": "8.3.6",
+    "vite": "8.3.7",
     "vite-intlayer": "workspace:*",
     "vite-plugin-solid": "2.11.14"
   }
