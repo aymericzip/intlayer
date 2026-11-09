@@ -21,8 +21,8 @@ import {
 const DROPDOWN_IDENTIFIER = 'ai-credits-quota';
 
 /** Size (px) and stroke of the circular quota indicator of the trigger. */
-const RING_SIZE = 20;
-const RING_STROKE = 2.5;
+const RING_SIZE = 16;
+const RING_STROKE = 2;
 const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
@@ -94,12 +94,13 @@ export const AICreditsQuotaDropdown: FC = () => {
         label={quotaTriggerLabel.value}
         variant="hoverable"
         color="text"
-        className="flex items-center gap-1.5 px-2 py-1"
+        size="icon-md"
+        className="w-auto gap-1.5"
       >
-        <QuotaRing usageRatio={getUsageRatio(balance)} />
         <span className="text-xs font-medium tabular-nums">
           {formatCompact(balance.remainingCredits)}
         </span>
+        <QuotaRing usageRatio={getUsageRatio(balance)} />
       </DropDown.Trigger>
 
       <DropDown.Panel
