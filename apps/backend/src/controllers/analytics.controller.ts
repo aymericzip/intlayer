@@ -237,8 +237,9 @@ const resolveAudienceRange = (query: {
 /**
  * Authenticated — audience report for the active project: distinct visitors
  * (today / 7d / window), page views, the evolution series, and locale +
- * country breakdowns. Accepts an optional `?range=` window (`1h`, `24h`, `7d`,
- * `30d`, `90d`, `6mo`, `1y`, `3y`; default `30d`) or the legacy `?days=`.
+ * country breakdowns. Accepts an optional `?range=` window (`live`, `1h`,
+ * `24h`, `7d`, `30d`, `90d`, `6mo`, `1y`, `3y`; default `30d`) or the legacy
+ * `?days=`.
  */
 export const getAnalyticsAudience = async (
   request: FastifyRequest<{ Querystring: { range?: string; days?: string } }>,

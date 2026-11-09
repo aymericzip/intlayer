@@ -1,6 +1,8 @@
 import type { RenameId } from '@utils/mongoDB/types';
 import { type Model, model, Schema } from 'mongoose';
 import type {
+  AnalyticsLiveActivity,
+  AnalyticsLiveActivitySchema,
   AnalyticsRollup,
   AnalyticsRollupSchema,
   AnalyticsShortTermRollup,
@@ -18,6 +20,12 @@ const VISITOR_TTL_SECONDS = 400 * 24 * 60 * 60;
  * for clock skew and late flushes is dead weight.
  */
 const SHORT_TERM_TTL_SECONDS = 50 * 60 * 60;
+
+/**
+ * Retention for per-minute live activity — 1 hour. The `live` view reads the
+ * last 30 minutes; the rest is margin for late flushes.
+ */
+const LIVE_ACTIVITY_TTL_SECONDS = 60 * 60;
 
 /**
  * Pre-aggregated daily analytics counters. Ingestion increments these in bulk;
@@ -191,3 +199,45 @@ export const AnalyticsShortTermRollupModel = model<
   'analyticsShortTermRollup',
   analyticsShortTermRollupSchema
 ) as unknown as Model<AnalyticsShortTermRollup>;
+
+/**
+ * Per-minute activity of an anonymous session on a page, one document per
+ * project + minute + session + url. Serves the `live` audience view only and is
+ * dropped by the TTL index after an hour.
+ */
+export const analyticsLiveActivitySchema =
+  new Schema<AnalyticsLiveActivitySchema>(
+    {
+      projectId: {
+        type: Schema.Types.ObjectId,
+        ref: 'project',
+        required: true,
+      },
+      minute: { type: String, required: true },
+      sessionHash: { type: String, required: true },
+      url: { type: String, required: true },
+      locale: { type: String },
+      country: { type: String, default: 'ZZ' },
+      views: { type: Number, default: 0 },
+    },
+    { timestamps: true }
+  );
+
+// One activity document per project + minute + session + url; also serves the
+// `{ projectId, minute: { $gte } }` range reads of the live view.
+analyticsLiveActivitySchema.index(
+  { projectId: 1, minute: 1, sessionHash: 1, url: 1 },
+  { unique: true }
+);
+// TTL cleanup — only the last half hour is ever read.
+analyticsLiveActivitySchema.index(
+  { createdAt: 1 },
+  { expireAfterSeconds: LIVE_ACTIVITY_TTL_SECONDS }
+);
+
+export const AnalyticsLiveActivityModel = model<
+  RenameId<AnalyticsLiveActivity>
+>(
+  'analyticsLiveActivity',
+  analyticsLiveActivitySchema
+) as unknown as Model<AnalyticsLiveActivity>;

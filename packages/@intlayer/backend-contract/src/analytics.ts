@@ -31,8 +31,12 @@ export const incomingAnalyticsEventSchema = z.looseObject({
   value: z.optional(z.number()),
 });
 
-/** Time windows of the audience report. */
+/**
+ * Time windows of the audience report. `live` covers the sessions active in the
+ * last 30 minutes, bucketed per minute.
+ */
 export const audienceRangeSchema = z.enum([
+  'live',
   '1h',
   '24h',
   '7d',

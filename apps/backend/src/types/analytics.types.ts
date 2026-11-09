@@ -124,8 +124,38 @@ export interface AnalyticsShortTermRollup extends Document {
 export type AnalyticsShortTermRollupSchema = RenameId<AnalyticsShortTermRollup>;
 export type AnalyticsShortTermRollupModelType = Model<AnalyticsShortTermRollup>;
 
-/** Selectable rolling windows for the audience report. */
+/**
+ * Per-minute activity of one anonymous session on one page, kept for an hour.
+ * Backs the `live` audience view: unlike the daily visitor markers it is
+ * written on every flush, so it reflects who is active *now*, not who arrived.
+ */
+export interface AnalyticsLiveActivity extends Document {
+  id: Types.ObjectId;
+  projectId: Types.ObjectId;
+  /** UTC minute, `YYYY-MM-DDTHH:mm`. */
+  minute: string;
+  /** SHA-256 of the client session id — not reversible to a user. */
+  sessionHash: string;
+  /** Pathname the session was active on. */
+  url: string;
+  /** Locale the session was using. */
+  locale?: string;
+  /** ISO country code derived from the ingestion request, `ZZ` when unknown. */
+  country: string;
+  /** Page views recorded in this minute (other events only mark activity). */
+  views: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type AnalyticsLiveActivitySchema = RenameId<AnalyticsLiveActivity>;
+
+/**
+ * Selectable windows for the audience report. `live` is the realtime view:
+ * sessions active in the last 30 minutes, bucketed per minute.
+ */
 export type AudienceRange =
+  | 'live'
   | '1h'
   | '24h'
   | '7d'

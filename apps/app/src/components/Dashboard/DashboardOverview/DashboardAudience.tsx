@@ -26,11 +26,33 @@ import {
   MapPin,
   Users,
 } from 'lucide-react';
-import { type FC, type ReactNode, useMemo, useState } from 'react';
+import {
+  type FC,
+  lazy,
+  type ReactNode,
+  Suspense,
+  useMemo,
+  useState,
+} from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import {
+  countryToFlag,
+  getCountryName,
+  UNKNOWN_COUNTRY_CODE,
+  WORLD_MAP_HEIGHT,
+  WORLD_MAP_WIDTH,
+} from './WorldMap/worldMap.utils';
+
+/** The map ships ~70 KB of country outlines, so it loads in its own chunk. */
+const WorldMap = lazy(() =>
+  import('./WorldMap/WorldMap').then((module) => ({
+    default: module.WorldMap,
+  }))
+);
 
 /** Selectable rolling windows for the audience report, shortest first. */
 const RANGE_OPTIONS = [
+  'live',
   '1h',
   '24h',
   '7d',
@@ -41,22 +63,19 @@ const RANGE_OPTIONS = [
   '3y',
 ] as const satisfies readonly AudienceRange[];
 
+/** How often the `live` view polls for fresh activity. */
+const LIVE_REFRESH_INTERVAL_MS = 15_000;
+
 /** Which breakdown tab is active. */
 type BreakdownTab = 'locales' | 'location' | 'pages';
 
-/**
- * Converts an ISO 3166-1 alpha-2 country code to its flag emoji.
- * Returns a globe for unknown / invalid codes.
- */
-const countryToFlag = (code: string): string => {
-  if (!/^[A-Za-z]{2}$/.test(code) || code.toUpperCase() === 'ZZ') return '🌐';
-  const base = 0x1f1e6;
-  const chars = code
-    .toUpperCase()
-    .split('')
-    .map((char) => base + (char.charCodeAt(0) - 65));
-  return String.fromCodePoint(...chars);
-};
+/** Pulsing dot marking the realtime view. */
+const LiveDot: FC = () => (
+  <span className="relative flex size-2 shrink-0" aria-hidden>
+    <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75" />
+    <span className="relative inline-flex size-2 rounded-full bg-success" />
+  </span>
+);
 
 type StatTileProps = {
   icon: ReactNode;
@@ -85,6 +104,8 @@ const StatTile: FC<StatTileProps> = ({ icon, label, value, hint }) => (
 
 type EvolutionChartProps = {
   series: AudienceSeriesPoint[];
+  /** `area` for trends, `bars` for the per-minute live activity. */
+  variant: 'area' | 'bars';
   granularity: AudienceGranularity;
   locale: string;
   usersLabel: string;
@@ -126,12 +147,16 @@ const formatBucket = (
   return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
 };
 
+/** Share of a bar slot left empty between two bars. */
+const BAR_GAP_RATIO = 0.25;
+
 /**
- * Lightweight inline SVG area chart of daily distinct visitors. Dependency-free
- * and theme-aware (uses the `text` token via `currentColor`).
+ * Lightweight inline SVG chart of distinct visitors, as an area or as bars.
+ * Dependency-free and theme-aware (uses the `text` token via `currentColor`).
  */
 const EvolutionChart: FC<EvolutionChartProps> = ({
   series,
+  variant,
   granularity,
   locale,
   usersLabel,
@@ -143,10 +168,11 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
   const paddingTop = 12;
   const paddingBottom = 18;
 
+  const usableHeight = height - paddingTop - paddingBottom;
+
   const { areaPath, linePath, maxUsers, peak } = useMemo(() => {
     const values = series.map((point) => point.users);
     const max = Math.max(1, ...values);
-    const usableHeight = height - paddingTop - paddingBottom;
     const step = series.length > 1 ? width / (series.length - 1) : 0;
 
     const toPoint = (value: number, index: number): [number, number] => {
@@ -167,7 +193,9 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
     const peakValue = Math.max(...values, 0);
 
     return { areaPath: area, linePath: line, maxUsers: max, peak: peakValue };
-  }, [series]);
+  }, [series, usableHeight]);
+
+  const barSlotWidth = width / Math.max(1, series.length);
 
   const firstBucket = series[0]?.bucket;
   const lastBucket = series[series.length - 1]?.bucket;
@@ -198,8 +226,30 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
               <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
             </linearGradient>
           </defs>
-          {areaPath && <path d={areaPath} fill="url(#audienceArea)" />}
-          {linePath && (
+          {variant === 'bars' &&
+            series.map((point, index) => {
+              const barHeight = usableHeight * (point.users / maxUsers);
+
+              return (
+                <rect
+                  key={point.bucket}
+                  x={index * barSlotWidth + (barSlotWidth * BAR_GAP_RATIO) / 2}
+                  y={height - paddingBottom - barHeight}
+                  width={barSlotWidth * (1 - BAR_GAP_RATIO)}
+                  height={barHeight}
+                  rx={2}
+                  className="fill-current opacity-70"
+                >
+                  <title>
+                    {`${formatBucket(point.bucket, granularity, locale)} · ${point.users} ${usersLabel}`}
+                  </title>
+                </rect>
+              );
+            })}
+          {variant === 'area' && areaPath && (
+            <path d={areaPath} fill="url(#audienceArea)" />
+          )}
+          {variant === 'area' && linePath && (
             <path
               d={linePath}
               fill="none"
@@ -370,8 +420,9 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
 
 /**
  * Audience analytics section: distinct visitors (today / 7d / range), page
- * views, a visitor-evolution graph, and Locales / Location / Pages breakdown
- * tabs.
+ * views, a visitor-evolution graph, Locales / Location / Pages breakdown tabs,
+ * and a world map of visitors. The `live` range polls every 15s and shows
+ * sessions active in the last 30 minutes, per minute.
  * Backed by `@intlayer/analytics` ingestion; renders an empty state until data
  * is collected.
  */
@@ -384,10 +435,14 @@ export const DashboardAudience: FC = () => {
   const [range, setRange] = useState<AudienceRange>('30d');
   const [tab, setTab] = useState<BreakdownTab>('locales');
 
-  const { data, isLoading } = useGetAnalyticsAudience(range);
+  const isLive = range === 'live';
+  const { data, isLoading } = useGetAnalyticsAudience(range, {
+    refetchInterval: isLive ? LIVE_REFRESH_INTERVAL_MS : false,
+  });
   const audience = data?.data as AudienceStats | undefined;
 
   const rangeLabels: Record<AudienceRange, string> = {
+    live: content.rangeLive.value,
     '1h': content.rangeLast1Hour.value,
     '24h': content.rangeLast24Hours.value,
     '7d': content.rangeLast7Days.value,
@@ -400,7 +455,12 @@ export const DashboardAudience: FC = () => {
 
   const rangeChoices: SwitchSelectorChoices<AudienceRange> = RANGE_OPTIONS.map(
     (option) => ({
-      content: <span className="whitespace-nowrap">{rangeLabels[option]}</span>,
+      content: (
+        <span className="flex items-center gap-1.5 whitespace-nowrap">
+          {option === 'live' && <LiveDot />}
+          {rangeLabels[option]}
+        </span>
+      ),
       value: option,
     })
   );
@@ -458,14 +518,17 @@ export const DashboardAudience: FC = () => {
           <>
             <span aria-hidden>{countryToFlag(row.key)}</span>
             <span className="truncate">
-              {row.key === 'ZZ' ? content.unknownCountry : row.key}
+              {row.key === UNKNOWN_COUNTRY_CODE
+                ? content.unknownCountry
+                : getCountryName(row.key, locale)}
             </span>
+            <span className="shrink-0 text-xs text-neutral">{row.key}</span>
           </>
         ),
         users: row.users,
         views: row.views,
       })),
-    [audience?.byCountry, content.unknownCountry]
+    [audience?.byCountry, content.unknownCountry, locale]
   );
 
   const pageRows = useMemo(
@@ -531,7 +594,11 @@ export const DashboardAudience: FC = () => {
               icon={<Users className="size-4" />}
               label={content.statActiveUsers}
               value={audience.usersInRange.toLocaleString()}
-              hint={`${content.statActiveUsersHint} (${rangeLabels[range]})`}
+              hint={
+                isLive
+                  ? content.liveActiveUsersHint
+                  : `${content.statActiveUsersHint} (${rangeLabels[range]})`
+              }
             />
             <StatTile
               icon={<CalendarDays className="size-4" />}
@@ -559,16 +626,22 @@ export const DashboardAudience: FC = () => {
               border
               borderColor="neutral"
             >
-              <h3 className="text-sm font-semibold text-text">
-                {content.evolutionTitle}
+              <h3 className="flex items-center gap-2 text-sm font-semibold text-text">
+                {isLive && <LiveDot />}
+                {isLive ? content.liveEvolutionTitle : content.evolutionTitle}
               </h3>
               <EvolutionChart
                 series={audience.series}
+                variant={isLive ? 'bars' : 'area'}
                 granularity={audience.granularity}
                 locale={locale}
                 usersLabel={content.usersLabel.value}
                 maxLabel={content.maxLabel.value}
-                chartLabel={content.evolutionChartLabel.value}
+                chartLabel={
+                  isLive
+                    ? content.liveEvolutionChartLabel.value
+                    : content.evolutionChartLabel.value
+                }
               />
             </Container>
 
@@ -615,6 +688,39 @@ export const DashboardAudience: FC = () => {
               )}
             </Container>
           </div>
+
+          {/* Visitor location map */}
+          <Container
+            className="flex flex-col gap-3 p-5"
+            roundedSize="2xl"
+            transparency="none"
+            border
+            borderColor="neutral"
+          >
+            <h3 className="text-sm font-semibold text-text">
+              {content.mapTitle}
+            </h3>
+            {/* Placeholder keeps the map's aspect ratio while its chunk loads. */}
+            <Suspense
+              fallback={
+                <div
+                  className="flex w-full items-center justify-center"
+                  style={{
+                    aspectRatio: `${WORLD_MAP_WIDTH} / ${WORLD_MAP_HEIGHT}`,
+                  }}
+                >
+                  <Loader />
+                </div>
+              }
+            >
+              <WorldMap
+                rows={audience.byCountry}
+                locale={locale}
+                usersLabel={content.usersLabel.value}
+                chartLabel={content.mapChartLabel.value}
+              />
+            </Suspense>
+          </Container>
         </>
       )}
     </div>

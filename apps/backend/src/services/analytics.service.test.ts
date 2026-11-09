@@ -1,12 +1,18 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { AudienceSeriesPoint } from '@/types/analytics.types';
+import type {
+  AudienceSeriesPoint,
+  IncomingAnalyticsEvent,
+} from '@/types/analytics.types';
 import {
   audienceRangeFromDays,
   bucketDailySeries,
   buildBreakdownRows,
+  buildLiveSeries,
+  collectLiveActivity,
   DEFAULT_AUDIENCE_RANGE,
   getPageMetadata,
   isAudienceRange,
+  LIVE_WINDOW_MINUTES,
 } from './analytics.service';
 
 /** Builds a daily series point with distinguishable users / views. */
@@ -18,7 +24,17 @@ const point = (
 
 describe('isAudienceRange', () => {
   it('accepts every supported range', () => {
-    for (const range of ['1h', '24h', '7d', '30d', '90d', '6mo', '1y', '3y']) {
+    for (const range of [
+      'live',
+      '1h',
+      '24h',
+      '7d',
+      '30d',
+      '90d',
+      '6mo',
+      '1y',
+      '3y',
+    ]) {
       expect(isAudienceRange(range)).toBe(true);
     }
   });
@@ -239,5 +255,92 @@ describe('getPageMetadata', () => {
     const resultError = await getPageMetadata('https://example.com/error');
     expect(resultError).toEqual({ title: '', description: '' });
     spy.mockRestore();
+  });
+});
+
+describe('collectLiveActivity', () => {
+  const now = Date.parse('2026-11-09T12:30:40.000Z');
+
+  /** Builds a sanitized event at `secondsAgo` before `now`. */
+  const event = (
+    type: IncomingAnalyticsEvent['type'],
+    secondsAgo: number,
+    url = '/pricing',
+    locale = 'en'
+  ): IncomingAnalyticsEvent => ({
+    type,
+    t: now - secondsAgo * 1000,
+    url,
+    locale,
+  });
+
+  it('groups events per minute + url + locale and counts only page views', () => {
+    expect(
+      collectLiveActivity(
+        [
+          event('page_view', 5),
+          event('content_exposure', 10),
+          event('page_view', 20),
+          event('page_view', 50),
+          event('page_view', 5, '/docs'),
+        ],
+        now
+      )
+    ).toEqual([
+      { minute: '2026-11-09T12:30', url: '/pricing', locale: 'en', views: 2 },
+      { minute: '2026-11-09T12:29', url: '/pricing', locale: 'en', views: 1 },
+      { minute: '2026-11-09T12:30', url: '/docs', locale: 'en', views: 1 },
+    ]);
+  });
+
+  it('marks a session active on exposures alone, with zero views', () => {
+    expect(collectLiveActivity([event('content_exposure', 1)], now)).toEqual([
+      { minute: '2026-11-09T12:30', url: '/pricing', locale: 'en', views: 0 },
+    ]);
+  });
+
+  it('skips events older than the live window and events without a url', () => {
+    expect(
+      collectLiveActivity(
+        [
+          event('page_view', LIVE_WINDOW_MINUTES * 60 + 1),
+          event('page_view', 1, ''),
+        ],
+        now
+      )
+    ).toEqual([]);
+  });
+
+  it('clamps client clocks running ahead to the current minute', () => {
+    expect(collectLiveActivity([event('page_view', -600)], now)).toEqual([
+      { minute: '2026-11-09T12:30', url: '/pricing', locale: 'en', views: 1 },
+    ]);
+  });
+});
+
+describe('buildLiveSeries', () => {
+  const now = Date.parse('2026-11-09T12:30:40.000Z');
+
+  it('returns one point per minute, ending on the running minute', () => {
+    const series = buildLiveSeries(new Map(), now);
+
+    expect(series).toHaveLength(LIVE_WINDOW_MINUTES);
+    expect(series[0].bucket).toBe('2026-11-09T12:01');
+    expect(series.at(-1)?.bucket).toBe('2026-11-09T12:30');
+  });
+
+  it('fills quiet minutes with zeros and keeps active ones', () => {
+    const series = buildLiveSeries(
+      new Map([
+        ['2026-11-09T12:29', { users: 3, views: 5 }],
+        // Outside the window — ignored.
+        ['2026-11-09T11:00', { users: 9, views: 9 }],
+      ]),
+      now
+    );
+
+    expect(series.at(-2)).toEqual(point('2026-11-09T12:29', 3, 5));
+    expect(series.at(-1)).toEqual(point('2026-11-09T12:30', 0, 0));
+    expect(series.reduce((sum, entry) => sum + entry.users, 0)).toBe(3);
   });
 });

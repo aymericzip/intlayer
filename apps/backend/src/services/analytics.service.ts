@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import {
+  AnalyticsLiveActivityModel,
   AnalyticsRollupModel,
   AnalyticsShortTermRollupModel,
   AnalyticsVisitorModel,
@@ -8,6 +9,7 @@ import { ProjectModel } from '@schemas/project.schema';
 import { load } from 'cheerio';
 import type { AnyBulkWriteOperation, Types } from 'mongoose';
 import type {
+  AnalyticsLiveActivitySchema,
   AnalyticsOverviewRow,
   AnalyticsRollupSchema,
   AnalyticsShortTermRollupSchema,
@@ -235,6 +237,71 @@ type SlotViewCounter = {
 const buildDedupKey = (parts: (string | undefined)[]): string =>
   parts.map((part) => part ?? '').join(DEDUP_SEPARATOR);
 
+/** Length of the `live` audience window, in minutes. */
+export const LIVE_WINDOW_MINUTES = 30;
+
+const MINUTE_MS = 60 * 1000;
+
+/** UTC minute bucket (`YYYY-MM-DDTHH:mm`) for a timestamp. */
+const toMinute = (timestamp: number): string =>
+  new Date(timestamp).toISOString().slice(0, 16);
+
+/** Activity of the flushing session on one page during one minute. */
+export type LiveActivityCounter = {
+  /** UTC minute, `YYYY-MM-DDTHH:mm`. */
+  minute: string;
+  /** Pathname the session was active on. */
+  url: string;
+  /** Locale the session was using. */
+  locale?: string;
+  /** Page views in that minute; other event types only mark activity. */
+  views: number;
+};
+
+/**
+ * Folds a flush of sanitized events into per-minute, per-page activity for the
+ * `live` view. Any event type marks the session active (a reader scrolling a
+ * page still sends exposures); only page views are counted as views. Events
+ * older than the live window are skipped, and client clocks running ahead are
+ * clamped to `now` so a future minute never shows up.
+ *
+ * @param events - Sanitized events of one flush.
+ * @param now - Server time of the flush (epoch ms).
+ * @returns One counter per minute + url + locale.
+ */
+export const collectLiveActivity = (
+  events: IncomingAnalyticsEvent[],
+  now: number
+): LiveActivityCounter[] => {
+  const windowStart = now - LIVE_WINDOW_MINUTES * MINUTE_MS;
+  const counters = new Map<string, LiveActivityCounter>();
+
+  for (const event of events) {
+    if (!event.url || event.t < windowStart) continue;
+
+    const minute = toMinute(Math.min(event.t, now));
+    const counterKey = buildDedupKey([minute, event.url, event.locale]);
+    const views =
+      event.type === 'page_view'
+        ? Math.max(1, Math.min(event.count ?? 1, 10_000))
+        : 0;
+    const counter = counters.get(counterKey);
+
+    if (counter) {
+      counter.views += views;
+    } else {
+      counters.set(counterKey, {
+        minute,
+        url: event.url,
+        locale: event.locale || undefined,
+        views,
+      });
+    }
+  }
+
+  return [...counters.values()];
+};
+
 /**
  * Ingests a batch of client events into daily rollups for a project.
  *
@@ -257,10 +324,13 @@ export const ingestEvents = async (
   const visitorDays = new Map<string, string | undefined>();
   // Page views per slot + locale + url, backing the sub-day audience windows.
   const slotViews = new Map<string, SlotViewCounter>();
+  // Sanitized events, replayed into the per-minute live activity afterwards.
+  const sanitizedEvents: IncomingAnalyticsEvent[] = [];
 
   for (const rawEvent of events) {
     const event = sanitizeEvent(rawEvent);
     if (!event) continue;
+    sanitizedEvents.push(event);
 
     const day = toDay(event.t);
     const increment = Math.max(1, Math.min(event.count ?? 1, 10_000));
@@ -380,6 +450,39 @@ export const ingestEvents = async (
     await AnalyticsShortTermRollupModel.bulkWrite(slotOperations, {
       ordered: false,
     });
+  }
+
+  // Per-minute session activity for the `live` view (expires after an hour).
+  if (context.sessionId) {
+    const liveActivity = collectLiveActivity(sanitizedEvents, Date.now());
+
+    if (liveActivity.length > 0) {
+      const sessionHash = hashSession(context.sessionId);
+      const country = context.country ?? 'ZZ';
+
+      const liveOperations: AnyBulkWriteOperation<AnalyticsLiveActivitySchema>[] =
+        liveActivity.map(({ minute, url, locale, views }) => ({
+          updateOne: {
+            filter: { projectId, minute, sessionHash, url },
+            update: {
+              $setOnInsert: {
+                projectId,
+                minute,
+                sessionHash,
+                url,
+                locale,
+                country,
+              },
+              $inc: { views },
+            },
+            upsert: true,
+          },
+        }));
+
+      await AnalyticsLiveActivityModel.bulkWrite(liveOperations, {
+        ordered: false,
+      });
+    }
   }
 
   if (operations.length === 0) return;
@@ -635,6 +738,7 @@ const RANGE_DEFINITIONS: Record<
   AudienceRange,
   { hours: number; granularity: AudienceGranularity }
 > = {
+  live: { hours: LIVE_WINDOW_MINUTES / 60, granularity: 'minute' },
   '1h': { hours: 1, granularity: 'minute' },
   '24h': { hours: 24, granularity: 'hour' },
   '7d': { hours: 7 * 24, granularity: 'day' },
@@ -954,11 +1058,143 @@ const getDailyAudience = async (
 };
 
 /**
+ * Lays per-minute activity onto a continuous `live` series, filling quiet
+ * minutes with zeros so the chart keeps a steady time axis.
+ *
+ * @param activityByMinute - Distinct sessions and views per UTC minute.
+ * @param now - Report time (epoch ms); its running minute is the last point.
+ * @returns {@link LIVE_WINDOW_MINUTES} points, oldest first.
+ */
+export const buildLiveSeries = (
+  activityByMinute: Map<string, { users: number; views: number }>,
+  now: number
+): AudienceSeriesPoint[] => {
+  const currentMinuteStart = Math.floor(now / MINUTE_MS) * MINUTE_MS;
+
+  return Array.from({ length: LIVE_WINDOW_MINUTES }, (_, index) => {
+    const minute = toMinute(
+      currentMinuteStart - (LIVE_WINDOW_MINUTES - 1 - index) * MINUTE_MS
+    );
+    const activity = activityByMinute.get(minute);
+
+    return {
+      bucket: minute,
+      users: activity?.users ?? 0,
+      views: activity?.views ?? 0,
+    };
+  });
+};
+
+/** Distinct sessions and views grouped under one key, from `$facet`. */
+type LiveGroupRow = { _id: string; users: number; views: number };
+
+/**
+ * Audience report for the `live` window: sessions active during the last
+ * {@link LIVE_WINDOW_MINUTES} minutes, per minute, page, locale and country.
+ * Reads the per-minute activity documents, so a session counts in every minute
+ * it sent an event, not only the one it arrived in.
+ */
+const getLiveAudience = async (
+  projectId: Types.ObjectId
+): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+  const now = Date.now();
+  const startMinute = toMinute(
+    Math.floor(now / MINUTE_MS) * MINUTE_MS -
+      (LIVE_WINDOW_MINUTES - 1) * MINUTE_MS
+  );
+
+  /** Groups the window by `key`, counting distinct sessions and summing views. */
+  const groupBy = (key: string) => [
+    {
+      $group: {
+        _id: { key, session: '$sessionHash' },
+        views: { $sum: '$views' },
+      },
+    },
+    {
+      $group: {
+        _id: '$_id.key',
+        users: { $sum: 1 },
+        views: { $sum: '$views' },
+      },
+    },
+  ];
+
+  const [facets] = await AnalyticsLiveActivityModel.aggregate<{
+    total: { users: number; views: number }[];
+    byMinute: LiveGroupRow[];
+    byPage: LiveGroupRow[];
+    byLocale: LiveGroupRow[];
+    byCountry: LiveGroupRow[];
+  }>([
+    { $match: { projectId, minute: { $gte: startMinute } } },
+    {
+      $facet: {
+        total: [
+          { $group: { _id: '$sessionHash', views: { $sum: '$views' } } },
+          {
+            $group: {
+              _id: null,
+              users: { $sum: 1 },
+              views: { $sum: '$views' },
+            },
+          },
+        ],
+        byMinute: groupBy('$minute'),
+        byPage: groupBy('$url'),
+        byLocale: groupBy('$locale'),
+        byCountry: groupBy('$country'),
+      },
+    },
+  ]);
+
+  const toUsers = (rows: LiveGroupRow[] = []) =>
+    new Map(rows.map((row) => [row._id || '', row.users]));
+  const toViews = (rows: LiveGroupRow[] = []) =>
+    new Map(rows.map((row) => [row._id || '', row.views]));
+
+  return {
+    usersInRange: facets?.total[0]?.users ?? 0,
+    viewsInRange: facets?.total[0]?.views ?? 0,
+    range: 'live',
+    rangeHours: RANGE_DEFINITIONS.live.hours,
+    granularity: 'minute',
+    series: buildLiveSeries(
+      new Map(
+        (facets?.byMinute ?? []).map((row) => [
+          row._id,
+          { users: row.users, views: row.views },
+        ])
+      ),
+      now
+    ),
+    byLocale: buildBreakdownRows(
+      toUsers(facets?.byLocale),
+      toViews(facets?.byLocale),
+      'users'
+    ),
+    byCountry: buildBreakdownRows(
+      new Map(
+        (facets?.byCountry ?? []).map((row) => [row._id || 'ZZ', row.users])
+      ),
+      new Map(),
+      'users'
+    ),
+    byPage: buildBreakdownRows(
+      toUsers(facets?.byPage),
+      toViews(facets?.byPage),
+      'users'
+    ),
+  };
+};
+
+/**
  * Builds the audience report for a project over a rolling window: distinct
  * visitors today / 7d / window, page views, the evolution series, and
  * breakdowns by locale (most-consulted), by country (visitor location), and by
  * page (most-consulted paths).
  *
+ * The `live` window reads the per-minute session activity (last hour only).
  * Sub-day windows (`1h`, `24h`) are served from the short-term counters, which
  * only retain about two days; everything longer reads the permanent daily
  * rollups.
@@ -977,9 +1213,11 @@ export const getAudience = async (
   const [usersToday, usersLast7Days, windowStats] = await Promise.all([
     AnalyticsVisitorModel.countDocuments({ projectId, day: dayOffset(0) }),
     countDistinctVisitors(projectId, dayOffset(6)),
-    isSubDay
-      ? getSubDayAudience(projectId, range, granularity, hours)
-      : getDailyAudience(projectId, range, granularity, hours),
+    range === 'live'
+      ? getLiveAudience(projectId)
+      : isSubDay
+        ? getSubDayAudience(projectId, range, granularity, hours)
+        : getDailyAudience(projectId, range, granularity, hours),
   ]);
 
   return { usersToday, usersLast7Days, ...windowStats };
