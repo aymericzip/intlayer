@@ -6,6 +6,7 @@ import type {
   GetAudienceResult,
   GetContentStatsResult,
   GetExperimentResultsResult,
+  GetLiveVisitorFlowResult,
   GetPageMetadataResult,
   IngestAnalyticsBody,
   IngestAnalyticsResult,
@@ -31,6 +32,10 @@ const analyticsEndpoints = {
   ingestAnalyticsEvents: { method: 'POST', path: '/events' },
   getAnalyticsOverview: { method: 'GET', path: '/overview' },
   getAnalyticsAudience: { method: 'GET', path: '/audience' },
+  getLiveVisitorFlow: {
+    method: 'GET',
+    path: '/audience/live/visitors/:visitorId',
+  },
   getContentStats: { method: 'GET', path: '/content-stats' },
   getExperimentResults: { method: 'GET', path: '/experiments/:experimentKey' },
   getPageMetadata: { method: 'GET', path: '/page-metadata' },
@@ -146,6 +151,27 @@ export const getAnalyticsAPI = (
     );
 
   /**
+   * Page journey of a visitor active in the last 30 minutes.
+   * @param visitorId - The visitor id from the `live` audience report.
+   * @returns The visitor and its steps (`visitor: null` once it went quiet).
+   */
+  const getLiveVisitorFlow = async (
+    visitorId: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetLiveVisitorFlowResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getLiveVisitorFlow,
+        { visitorId }
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.getLiveVisitorFlow.method }
+    );
+
+  /**
    * Page metadata (title and meta description) for a given url.
    * @param url - The page url to inspect.
    * @returns Title and description of the page.
@@ -172,6 +198,7 @@ export const getAnalyticsAPI = (
     sendEvents,
     getOverview,
     getAudience,
+    getLiveVisitorFlow,
     getContentStats,
     getExperimentResults,
     getPageMetadata,

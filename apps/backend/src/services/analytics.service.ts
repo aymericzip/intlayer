@@ -9,6 +9,7 @@ import { ProjectModel } from '@schemas/project.schema';
 import { load } from 'cheerio';
 import type { AnyBulkWriteOperation, Types } from 'mongoose';
 import type {
+  AnalyticsLiveActivity,
   AnalyticsLiveActivitySchema,
   AnalyticsOverviewRow,
   AnalyticsRollupSchema,
@@ -23,6 +24,9 @@ import type {
   ExperimentResult,
   ExperimentVariantResult,
   IncomingAnalyticsEvent,
+  LiveVisitor,
+  LiveVisitorFlow,
+  LiveVisitorFlowStep,
   PageMetadata,
 } from '@/types/analytics.types';
 
@@ -34,6 +38,12 @@ export type IngestContext = {
   sessionId?: string;
   /** ISO country code derived from the request, `ZZ` when unknown. */
   country?: string;
+  /** City derived from the request's CDN geo headers. */
+  city?: string;
+  /** City-level latitude derived from the request's CDN geo headers. */
+  latitude?: number;
+  /** City-level longitude derived from the request's CDN geo headers. */
+  longitude?: number;
 };
 
 /** One-way hash of a session id so no reversible identifier is stored. */
@@ -256,6 +266,10 @@ export type LiveActivityCounter = {
   locale?: string;
   /** Page views in that minute; other event types only mark activity. */
   views: number;
+  /** Earliest event time on the page within the minute (epoch ms). */
+  firstSeenAt: number;
+  /** Latest event time on the page within the minute (epoch ms). */
+  lastSeenAt: number;
 };
 
 /**
@@ -279,7 +293,8 @@ export const collectLiveActivity = (
   for (const event of events) {
     if (!event.url || event.t < windowStart) continue;
 
-    const minute = toMinute(Math.min(event.t, now));
+    const eventTime = Math.min(event.t, now);
+    const minute = toMinute(eventTime);
     const counterKey = buildDedupKey([minute, event.url, event.locale]);
     const views =
       event.type === 'page_view'
@@ -289,12 +304,16 @@ export const collectLiveActivity = (
 
     if (counter) {
       counter.views += views;
+      counter.firstSeenAt = Math.min(counter.firstSeenAt, eventTime);
+      counter.lastSeenAt = Math.max(counter.lastSeenAt, eventTime);
     } else {
       counters.set(counterKey, {
         minute,
         url: event.url,
         locale: event.locale || undefined,
         views,
+        firstSeenAt: eventTime,
+        lastSeenAt: eventTime,
       });
     }
   }
@@ -458,26 +477,33 @@ export const ingestEvents = async (
 
     if (liveActivity.length > 0) {
       const sessionHash = hashSession(context.sessionId);
-      const country = context.country ?? 'ZZ';
+      const { country = 'ZZ', city, latitude, longitude } = context;
 
       const liveOperations: AnyBulkWriteOperation<AnalyticsLiveActivitySchema>[] =
-        liveActivity.map(({ minute, url, locale, views }) => ({
-          updateOne: {
-            filter: { projectId, minute, sessionHash, url },
-            update: {
-              $setOnInsert: {
-                projectId,
-                minute,
-                sessionHash,
-                url,
-                locale,
-                country,
+        liveActivity.map(
+          ({ minute, url, locale, views, firstSeenAt, lastSeenAt }) => ({
+            updateOne: {
+              filter: { projectId, minute, sessionHash, url },
+              update: {
+                $setOnInsert: {
+                  projectId,
+                  minute,
+                  sessionHash,
+                  url,
+                  locale,
+                  country,
+                  city,
+                  latitude,
+                  longitude,
+                },
+                $inc: { views },
+                $min: { firstSeenAt: new Date(firstSeenAt) },
+                $max: { lastSeenAt: new Date(lastSeenAt) },
               },
-              $inc: { views },
+              upsert: true,
             },
-            upsert: true,
-          },
-        }));
+          })
+        );
 
       await AnalyticsLiveActivityModel.bulkWrite(liveOperations, {
         ordered: false,
@@ -1088,6 +1114,138 @@ export const buildLiveSeries = (
 /** Distinct sessions and views grouped under one key, from `$facet`. */
 type LiveGroupRow = { _id: string; users: number; views: number };
 
+/** Most visitors placed on the live map, most recently active first. */
+const MAX_LIVE_VISITORS = 500;
+
+/** Hex length of the public visitor id (prefix of the session hash). */
+const VISITOR_ID_LENGTH = 16;
+
+/** Public, non-reversible visitor id for a hashed session. */
+const toVisitorId = (sessionHash: string): string =>
+  sessionHash.slice(0, VISITOR_ID_LENGTH);
+
+/** One session's activity aggregated over the live window, from `$facet`. */
+type LiveVisitorRow = Omit<LiveVisitor, 'visitorId'> & { _id: string };
+
+/** First live window minute (`YYYY-MM-DDTHH:mm`) for a report at `now`. */
+const getLiveWindowStartMinute = (now: number): string =>
+  toMinute(
+    Math.floor(now / MINUTE_MS) * MINUTE_MS -
+      (LIVE_WINDOW_MINUTES - 1) * MINUTE_MS
+  );
+
+/** Activity fields read back to rebuild a visitor's journey. */
+type LiveActivityRow = Pick<
+  AnalyticsLiveActivity,
+  | 'url'
+  | 'locale'
+  | 'country'
+  | 'city'
+  | 'latitude'
+  | 'longitude'
+  | 'views'
+  | 'firstSeenAt'
+  | 'lastSeenAt'
+>;
+
+/**
+ * Turns a session's per-minute activity into its page journey: rows are
+ * ordered by arrival time and consecutive rows on the same page (the same page
+ * spanning several minutes) collapse into one step.
+ *
+ * @param rows - The session's activity rows, in any order.
+ * @returns The journey, oldest step first.
+ */
+export const buildVisitorFlowSteps = (
+  rows: LiveActivityRow[]
+): LiveVisitorFlowStep[] => {
+  const steps: LiveVisitorFlowStep[] = [];
+  const orderedRows = [...rows].sort(
+    (rowA, rowB) => rowA.firstSeenAt.getTime() - rowB.firstSeenAt.getTime()
+  );
+
+  for (const row of orderedRows) {
+    const previousStep = steps.at(-1);
+
+    if (previousStep?.url === row.url) {
+      previousStep.views += row.views;
+      if (row.lastSeenAt > previousStep.lastSeenAt) {
+        previousStep.lastSeenAt = row.lastSeenAt;
+      }
+      continue;
+    }
+
+    steps.push({
+      url: row.url,
+      locale: row.locale,
+      firstSeenAt: row.firstSeenAt,
+      lastSeenAt: row.lastSeenAt,
+      views: row.views,
+    });
+  }
+
+  return steps;
+};
+
+/**
+ * Journey of one visitor over the `live` window.
+ *
+ * @param projectId - The project the visitor belongs to.
+ * @param visitorId - The public visitor id from the live report.
+ * @returns The visitor and its steps; `visitor` is `null` once it went quiet.
+ */
+export const getLiveVisitorFlow = async (
+  projectId: Types.ObjectId,
+  visitorId: string
+): Promise<LiveVisitorFlow> => {
+  // The route validates the id as 16 hex characters, so it is regex-safe.
+  const rows = await AnalyticsLiveActivityModel.find(
+    {
+      projectId,
+      minute: { $gte: getLiveWindowStartMinute(Date.now()) },
+      sessionHash: { $regex: `^${visitorId}` },
+    },
+    {
+      url: 1,
+      locale: 1,
+      country: 1,
+      city: 1,
+      latitude: 1,
+      longitude: 1,
+      views: 1,
+      firstSeenAt: 1,
+      lastSeenAt: 1,
+    }
+  ).lean<LiveActivityRow[]>();
+
+  const steps = buildVisitorFlowSteps(rows);
+  const firstStep = steps[0];
+  const lastStep = steps.at(-1);
+
+  if (!firstStep || !lastStep) return { visitor: null, steps: [] };
+
+  const latestRow = rows.reduce((latest, row) =>
+    row.lastSeenAt > latest.lastSeenAt ? row : latest
+  );
+
+  return {
+    visitor: {
+      visitorId,
+      country: latestRow.country || 'ZZ',
+      city: latestRow.city,
+      latitude: latestRow.latitude,
+      longitude: latestRow.longitude,
+      locale: latestRow.locale,
+      currentUrl: latestRow.url,
+      pageCount: new Set(steps.map((step) => step.url)).size,
+      views: steps.reduce((sum, step) => sum + step.views, 0),
+      firstSeenAt: firstStep.firstSeenAt,
+      lastSeenAt: latestRow.lastSeenAt,
+    },
+    steps,
+  };
+};
+
 /**
  * Audience report for the `live` window: sessions active during the last
  * {@link LIVE_WINDOW_MINUTES} minutes, per minute, page, locale and country.
@@ -1098,10 +1256,7 @@ const getLiveAudience = async (
   projectId: Types.ObjectId
 ): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
   const now = Date.now();
-  const startMinute = toMinute(
-    Math.floor(now / MINUTE_MS) * MINUTE_MS -
-      (LIVE_WINDOW_MINUTES - 1) * MINUTE_MS
-  );
+  const startMinute = getLiveWindowStartMinute(now);
 
   /** Groups the window by `key`, counting distinct sessions and summing views. */
   const groupBy = (key: string) => [
@@ -1126,6 +1281,7 @@ const getLiveAudience = async (
     byPage: LiveGroupRow[];
     byLocale: LiveGroupRow[];
     byCountry: LiveGroupRow[];
+    visitors: LiveVisitorRow[];
   }>([
     { $match: { projectId, minute: { $gte: startMinute } } },
     {
@@ -1144,6 +1300,29 @@ const getLiveAudience = async (
         byPage: groupBy('$url'),
         byLocale: groupBy('$locale'),
         byCountry: groupBy('$country'),
+        visitors: [
+          // Oldest first, so `$last` picks each session's latest page / place.
+          { $sort: { lastSeenAt: 1 } },
+          {
+            $group: {
+              _id: '$sessionHash',
+              country: { $last: '$country' },
+              city: { $last: '$city' },
+              latitude: { $last: '$latitude' },
+              longitude: { $last: '$longitude' },
+              locale: { $last: '$locale' },
+              currentUrl: { $last: '$url' },
+              pages: { $addToSet: '$url' },
+              views: { $sum: '$views' },
+              firstSeenAt: { $min: '$firstSeenAt' },
+              lastSeenAt: { $max: '$lastSeenAt' },
+            },
+          },
+          { $sort: { lastSeenAt: -1 } },
+          { $limit: MAX_LIVE_VISITORS },
+          { $set: { pageCount: { $size: '$pages' } } },
+          { $unset: 'pages' },
+        ],
       },
     },
   ]);
@@ -1184,6 +1363,13 @@ const getLiveAudience = async (
       toUsers(facets?.byPage),
       toViews(facets?.byPage),
       'users'
+    ),
+    liveVisitors: (facets?.visitors ?? []).map(
+      ({ _id: sessionHash, country, ...visitor }) => ({
+        ...visitor,
+        visitorId: toVisitorId(sessionHash),
+        country: country || 'ZZ',
+      })
     ),
   };
 };

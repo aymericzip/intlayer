@@ -68,6 +68,52 @@ const audienceBreakdownRowSchema = z.object({
   views: z.number(),
 });
 
+/** A session active in the `live` window, placed on the map. */
+export const liveVisitorSchema = z.object({
+  /** Opaque, non-reversible visitor id (prefix of the hashed session). */
+  visitorId: z.string(),
+  /** ISO country code, `ZZ` when unknown. */
+  country: z.string(),
+  /** City reported by the CDN, when available. */
+  city: z.optional(z.string()),
+  /** City-level latitude (rounded to ~1 km), when available. */
+  latitude: z.optional(z.number()),
+  /** City-level longitude (rounded to ~1 km), when available. */
+  longitude: z.optional(z.number()),
+  /** Locale the visitor is browsing in. */
+  locale: z.optional(z.string()),
+  /** Page of the visitor's latest activity. */
+  currentUrl: z.string(),
+  /** Pages the visitor was active on during the window. */
+  pageCount: z.number(),
+  /** Page views during the window. */
+  views: z.number(),
+  /** ISO date of the visitor's first activity in the window. */
+  firstSeenAt: z.string(),
+  /** ISO date of the visitor's latest activity. */
+  lastSeenAt: z.string(),
+});
+
+/** One step of a live visitor's journey, oldest first. */
+export const liveVisitorFlowStepSchema = z.object({
+  url: z.string(),
+  locale: z.optional(z.string()),
+  /** ISO date the visitor reached the page. */
+  firstSeenAt: z.string(),
+  /** ISO date of the visitor's latest activity on the page. */
+  lastSeenAt: z.string(),
+  views: z.number(),
+});
+
+/**
+ * Page journey of one live visitor over the `live` window. `visitor` is `null`
+ * once the session has left the window (not an error: it simply went quiet).
+ */
+export const liveVisitorFlowSchema = z.object({
+  visitor: z.nullable(liveVisitorSchema),
+  steps: z.array(liveVisitorFlowStepSchema),
+});
+
 export const audienceStatsSchema = z.object({
   usersToday: z.number(),
   usersLast7Days: z.number(),
@@ -80,6 +126,8 @@ export const audienceStatsSchema = z.object({
   byLocale: z.array(audienceBreakdownRowSchema),
   byCountry: z.array(audienceBreakdownRowSchema),
   byPage: z.array(audienceBreakdownRowSchema),
+  /** Active sessions with their location — `live` range only. */
+  liveVisitors: z.optional(z.array(liveVisitorSchema)),
 });
 
 const analyticsOverviewRowSchema = z.object({
@@ -162,6 +210,17 @@ export const analyticsContract = defineRouteGroup({
         response: { 200: responseDataSchema(audienceStatsSchema) },
       },
     }),
+    getLiveVisitorFlow: defineRoute({
+      method: 'GET',
+      path: '/audience/live/visitors/:visitorId',
+      summary: 'Page journey of a visitor active in the last 30 minutes',
+      schemas: {
+        params: z.object({
+          visitorId: z.string().check(z.regex(/^[a-f0-9]{16}$/)),
+        }),
+        response: { 200: responseDataSchema(liveVisitorFlowSchema) },
+      },
+    }),
     getContentStats: defineRoute({
       method: 'GET',
       path: '/content-stats',
@@ -203,6 +262,9 @@ export type AudienceGranularity = z.output<typeof audienceGranularitySchema>;
 export type AudienceSeriesPoint = z.output<typeof audienceSeriesPointSchema>;
 export type AudienceBreakdownRow = z.output<typeof audienceBreakdownRowSchema>;
 export type AudienceStats = z.output<typeof audienceStatsSchema>;
+export type LiveVisitor = z.output<typeof liveVisitorSchema>;
+export type LiveVisitorFlowStep = z.output<typeof liveVisitorFlowStepSchema>;
+export type LiveVisitorFlow = z.output<typeof liveVisitorFlowSchema>;
 export type AnalyticsOverviewRow = z.output<typeof analyticsOverviewRowSchema>;
 export type ContentStatRow = z.output<typeof contentStatRowSchema>;
 export type ExperimentResult = z.output<typeof experimentResultSchema>;
@@ -216,4 +278,5 @@ export type GetAnalyticsOverviewResult = ResponseData<AnalyticsOverviewRow[]>;
 export type GetContentStatsResult = ResponseData<ContentStatRow[]>;
 export type GetExperimentResultsResult = ResponseData<ExperimentResult>;
 export type GetAudienceResult = ResponseData<AudienceStats>;
+export type GetLiveVisitorFlowResult = ResponseData<LiveVisitorFlow>;
 export type GetPageMetadataResult = ResponseData<PageMetadata>;

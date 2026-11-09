@@ -8,6 +8,7 @@ import {
   bucketDailySeries,
   buildBreakdownRows,
   buildLiveSeries,
+  buildVisitorFlowSteps,
   collectLiveActivity,
   DEFAULT_AUDIENCE_RANGE,
   getPageMetadata,
@@ -261,18 +262,16 @@ describe('getPageMetadata', () => {
 describe('collectLiveActivity', () => {
   const now = Date.parse('2026-11-09T12:30:40.000Z');
 
+  /** Epoch ms `secondsAgo` before `now`. */
+  const ago = (secondsAgo: number): number => now - secondsAgo * 1000;
+
   /** Builds a sanitized event at `secondsAgo` before `now`. */
   const event = (
     type: IncomingAnalyticsEvent['type'],
     secondsAgo: number,
     url = '/pricing',
     locale = 'en'
-  ): IncomingAnalyticsEvent => ({
-    type,
-    t: now - secondsAgo * 1000,
-    url,
-    locale,
-  });
+  ): IncomingAnalyticsEvent => ({ type, t: ago(secondsAgo), url, locale });
 
   it('groups events per minute + url + locale and counts only page views', () => {
     expect(
@@ -287,15 +286,43 @@ describe('collectLiveActivity', () => {
         now
       )
     ).toEqual([
-      { minute: '2026-11-09T12:30', url: '/pricing', locale: 'en', views: 2 },
-      { minute: '2026-11-09T12:29', url: '/pricing', locale: 'en', views: 1 },
-      { minute: '2026-11-09T12:30', url: '/docs', locale: 'en', views: 1 },
+      {
+        minute: '2026-11-09T12:30',
+        url: '/pricing',
+        locale: 'en',
+        views: 2,
+        firstSeenAt: ago(20),
+        lastSeenAt: ago(5),
+      },
+      {
+        minute: '2026-11-09T12:29',
+        url: '/pricing',
+        locale: 'en',
+        views: 1,
+        firstSeenAt: ago(50),
+        lastSeenAt: ago(50),
+      },
+      {
+        minute: '2026-11-09T12:30',
+        url: '/docs',
+        locale: 'en',
+        views: 1,
+        firstSeenAt: ago(5),
+        lastSeenAt: ago(5),
+      },
     ]);
   });
 
   it('marks a session active on exposures alone, with zero views', () => {
     expect(collectLiveActivity([event('content_exposure', 1)], now)).toEqual([
-      { minute: '2026-11-09T12:30', url: '/pricing', locale: 'en', views: 0 },
+      {
+        minute: '2026-11-09T12:30',
+        url: '/pricing',
+        locale: 'en',
+        views: 0,
+        firstSeenAt: ago(1),
+        lastSeenAt: ago(1),
+      },
     ]);
   });
 
@@ -311,10 +338,85 @@ describe('collectLiveActivity', () => {
     ).toEqual([]);
   });
 
-  it('clamps client clocks running ahead to the current minute', () => {
+  it('clamps client clocks running ahead to now', () => {
     expect(collectLiveActivity([event('page_view', -600)], now)).toEqual([
-      { minute: '2026-11-09T12:30', url: '/pricing', locale: 'en', views: 1 },
+      {
+        minute: '2026-11-09T12:30',
+        url: '/pricing',
+        locale: 'en',
+        views: 1,
+        firstSeenAt: now,
+        lastSeenAt: now,
+      },
     ]);
+  });
+});
+
+describe('buildVisitorFlowSteps', () => {
+  /** Activity row on `url` between two `HH:mm:ss` times of the same day. */
+  const row = (url: string, from: string, to: string, views = 1) => ({
+    url,
+    locale: 'en',
+    country: 'FR',
+    views,
+    firstSeenAt: new Date(`2026-11-09T${from}Z`),
+    lastSeenAt: new Date(`2026-11-09T${to}Z`),
+  });
+
+  it('orders the journey by arrival time', () => {
+    const steps = buildVisitorFlowSteps([
+      row('/docs', '12:05:00', '12:05:30'),
+      row('/', '12:01:00', '12:01:40'),
+      row('/pricing', '12:03:00', '12:03:10'),
+    ]);
+
+    expect(steps.map((step) => step.url)).toEqual(['/', '/pricing', '/docs']);
+  });
+
+  it('collapses a page spanning several minutes into one step', () => {
+    expect(
+      buildVisitorFlowSteps([
+        row('/', '12:01:10', '12:01:50', 1),
+        row('/', '12:02:00', '12:02:40', 0),
+        row('/docs', '12:03:00', '12:03:05', 2),
+      ])
+    ).toEqual([
+      {
+        url: '/',
+        locale: 'en',
+        views: 1,
+        firstSeenAt: new Date('2026-11-09T12:01:10Z'),
+        lastSeenAt: new Date('2026-11-09T12:02:40Z'),
+      },
+      {
+        url: '/docs',
+        locale: 'en',
+        views: 2,
+        firstSeenAt: new Date('2026-11-09T12:03:00Z'),
+        lastSeenAt: new Date('2026-11-09T12:03:05Z'),
+      },
+    ]);
+  });
+
+  it('keeps a return to an earlier page as its own step', () => {
+    const steps = buildVisitorFlowSteps([
+      row('/', '12:01:00', '12:01:10'),
+      row('/docs', '12:02:00', '12:02:10'),
+      row('/', '12:03:00', '12:03:10'),
+    ]);
+
+    expect(steps.map((step) => step.url)).toEqual(['/', '/docs', '/']);
+  });
+
+  it('does not mutate its input and handles no activity', () => {
+    const rows = [
+      row('/b', '12:02:00', '12:02:01'),
+      row('/a', '12:01:00', '12:01:01'),
+    ];
+    buildVisitorFlowSteps(rows);
+
+    expect(rows[0].url).toBe('/b');
+    expect(buildVisitorFlowSteps([])).toEqual([]);
   });
 });
 

@@ -50,6 +50,13 @@ const WorldMap = lazy(() =>
   }))
 );
 
+/** Live map (dots, zoom, visitor journeys) — only loaded in the live view. */
+const LiveVisitorMap = lazy(() =>
+  import('./WorldMap/LiveVisitorMap').then((module) => ({
+    default: module.LiveVisitorMap,
+  }))
+);
+
 /** Selectable rolling windows for the audience report, shortest first. */
 const RANGE_OPTIONS = [
   'live',
@@ -436,7 +443,7 @@ export const DashboardAudience: FC = () => {
   const [tab, setTab] = useState<BreakdownTab>('locales');
 
   const isLive = range === 'live';
-  const { data, isLoading } = useGetAnalyticsAudience(range, {
+  const { data, isLoading, dataUpdatedAt } = useGetAnalyticsAudience(range, {
     refetchInterval: isLive ? LIVE_REFRESH_INTERVAL_MS : false,
   });
   const audience = data?.data as AudienceStats | undefined;
@@ -713,12 +720,23 @@ export const DashboardAudience: FC = () => {
                 </div>
               }
             >
-              <WorldMap
-                rows={audience.byCountry}
-                locale={locale}
-                usersLabel={content.usersLabel.value}
-                chartLabel={content.mapChartLabel.value}
-              />
+              {isLive ? (
+                <LiveVisitorMap
+                  visitors={audience.liveVisitors ?? []}
+                  rows={audience.byCountry}
+                  referenceTime={dataUpdatedAt}
+                  locale={locale}
+                  usersLabel={content.usersLabel.value}
+                  chartLabel={content.mapChartLabel.value}
+                />
+              ) : (
+                <WorldMap
+                  rows={audience.byCountry}
+                  locale={locale}
+                  usersLabel={content.usersLabel.value}
+                  chartLabel={content.mapChartLabel.value}
+                />
+              )}
             </Suspense>
           </Container>
         </>

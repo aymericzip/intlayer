@@ -144,6 +144,16 @@ export interface AnalyticsLiveActivity extends Document {
   country: string;
   /** Page views recorded in this minute (other events only mark activity). */
   views: number;
+  /** City reported by the CDN geo headers, when available. */
+  city?: string;
+  /** City-level latitude (rounded to ~1 km), when available. */
+  latitude?: number;
+  /** City-level longitude (rounded to ~1 km), when available. */
+  longitude?: number;
+  /** Earliest event of this session on this page within the minute. */
+  firstSeenAt: Date;
+  /** Latest event of this session on this page within the minute. */
+  lastSeenAt: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -222,6 +232,52 @@ export type AudienceStats = {
    * Visitors are not attributed per page — only `views` is populated.
    */
   byPage: AudienceBreakdownRow[];
+  /** Active sessions with their location — `live` range only. */
+  liveVisitors?: LiveVisitor[];
+};
+
+/** A session active in the `live` window, placed on the map. */
+export type LiveVisitor = {
+  /** Opaque, non-reversible visitor id (prefix of the hashed session). */
+  visitorId: string;
+  /** ISO country code, `ZZ` when unknown. */
+  country: string;
+  /** City reported by the CDN, when available. */
+  city?: string;
+  /** City-level latitude, when available. */
+  latitude?: number;
+  /** City-level longitude, when available. */
+  longitude?: number;
+  /** Locale the visitor is browsing in. */
+  locale?: string;
+  /** Page of the visitor's latest activity. */
+  currentUrl: string;
+  /** Pages the visitor was active on during the window. */
+  pageCount: number;
+  /** Page views during the window. */
+  views: number;
+  /** First activity in the window. */
+  firstSeenAt: Date;
+  /** Latest activity. */
+  lastSeenAt: Date;
+};
+
+/** One step of a live visitor's journey, oldest first. */
+export type LiveVisitorFlowStep = {
+  url: string;
+  locale?: string;
+  firstSeenAt: Date;
+  lastSeenAt: Date;
+  views: number;
+};
+
+/**
+ * Page journey of one live visitor over the `live` window. `visitor` is `null`
+ * once the session has left the window.
+ */
+export type LiveVisitorFlow = {
+  visitor: LiveVisitor | null;
+  steps: LiveVisitorFlowStep[];
 };
 
 /** Aggregated page/locale totals for the dashboard overview. */

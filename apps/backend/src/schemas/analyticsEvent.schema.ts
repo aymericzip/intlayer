@@ -218,7 +218,12 @@ export const analyticsLiveActivitySchema =
       url: { type: String, required: true },
       locale: { type: String },
       country: { type: String, default: 'ZZ' },
+      city: { type: String },
+      latitude: { type: Number },
+      longitude: { type: Number },
       views: { type: Number, default: 0 },
+      firstSeenAt: { type: Date, required: true },
+      lastSeenAt: { type: Date, required: true },
     },
     { timestamps: true }
   );

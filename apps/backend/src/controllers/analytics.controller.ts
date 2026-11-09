@@ -2,6 +2,7 @@ import * as analyticsService from '@services/analytics.service';
 import { verifyPublicBrowserTokenScope } from '@utils/crypto/publicBrowserToken';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { isBotRequest } from '@utils/isBotRequest';
+import { resolveRequestGeo } from '@utils/requestGeo';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Types } from 'mongoose';
@@ -11,31 +12,13 @@ import type {
   AudienceStats,
   ContentStatRow,
   ExperimentResult,
+  LiveVisitorFlow,
   IncomingAnalyticsEvent,
   PageMetadata,
 } from '@/types/analytics.types';
 
 /** Hard cap on events accepted per ingestion request. */
 const MAX_EVENTS_PER_BATCH = 1000;
-
-/**
- * Extracts an ISO country code from common CDN/proxy geo headers, falling back
- * to `ZZ` (unknown). No IP address is read or stored.
- */
-const resolveCountry = (request: FastifyRequest): string => {
-  const header = (name: string): string | undefined => {
-    const value = request.headers[name];
-    return Array.isArray(value) ? value[0] : value;
-  };
-
-  const country =
-    header('cf-ipcountry') ??
-    header('x-vercel-ip-country') ??
-    header('x-country-code') ??
-    header('x-appengine-country');
-
-  return country && country !== 'XX' ? country.toUpperCase() : 'ZZ';
-};
 
 export type IngestAnalyticsBody = {
   /**
@@ -125,7 +108,7 @@ export const ingestAnalyticsEvents = async (
     const boundedEvents = events.slice(0, MAX_EVENTS_PER_BATCH);
     await analyticsService.ingestEvents(projectId, boundedEvents, {
       sessionId,
-      country: resolveCountry(request),
+      ...resolveRequestGeo(request),
     });
 
     return reply.status(200).send(
@@ -232,6 +215,31 @@ const resolveAudienceRange = (query: {
   }
 
   return analyticsService.DEFAULT_AUDIENCE_RANGE;
+};
+
+/**
+ * Authenticated — page journey of one visitor active in the last 30 minutes,
+ * for the live map. Answers `visitor: null` once the session went quiet.
+ */
+export const getLiveVisitorFlow = async (
+  request: FastifyRequest<{ Params: { visitorId: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  try {
+    const data = await analyticsService.getLiveVisitorFlow(
+      new Types.ObjectId(String(project.id)),
+      request.params.visitorId
+    );
+    return reply.status(200).send(formatResponse<LiveVisitorFlow>({ data }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
 };
 
 /**

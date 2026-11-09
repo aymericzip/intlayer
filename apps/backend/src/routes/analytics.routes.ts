@@ -3,6 +3,7 @@ import {
   getAnalyticsOverview,
   getContentStats,
   getExperimentResults,
+  getLiveVisitorFlow,
   getPageMetadata,
   ingestAnalyticsEvents,
 } from '@controllers/analytics.controller';
@@ -26,6 +27,7 @@ export const analyticsRouter = async (fastify: FastifyInstance) => {
     // Authenticated dashboard reads.
     getAnalyticsOverview,
     getAnalyticsAudience,
+    getLiveVisitorFlow,
     getContentStats,
     getExperimentResults,
     getPageMetadata,
