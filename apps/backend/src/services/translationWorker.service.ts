@@ -155,7 +155,8 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
     feature: 'translation',
     aiOptionSources: [projectAIOptions],
   });
-  const chargeTokens = (tokens: number) => chargeAICredits(creditMeter, tokens);
+  const chargeTokens = (tokens: number) =>
+    chargeAICredits(creditMeter, tokens, aiConfig);
 
   const sourceLocale = (project.configuration?.internationalization
     ?.defaultLocale || DEFAULT_LOCALE) as Locale;

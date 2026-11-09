@@ -48,6 +48,7 @@ describe('prepareAICreditMeter', () => {
       projectId: 'project-1',
       userId: 'user-1',
       feature: 'chat',
+      isBilled: true,
     });
   });
 
@@ -61,15 +62,30 @@ describe('prepareAICreditMeter', () => {
     expect(meter?.organizationId).toBe('org-1');
   });
 
-  it('does not meter calls carrying their own API key', async () => {
+  it('records but does not bill calls carrying their own API key', async () => {
     const meter = await prepareAICreditMeter({
       organization: ORGANIZATION,
       feature: 'chat',
       aiOptionSources: [{ apiKey: 'sk-own-key' }],
     });
 
-    expect(meter).toBeNull();
+    expect(meter).toEqual({
+      organizationId: 'org-1',
+      projectId: undefined,
+      userId: undefined,
+      feature: 'chat',
+      isBilled: false,
+    });
     expect(mockHasRemainingAICredits).not.toHaveBeenCalled();
+  });
+
+  it('returns no meter without an organization', async () => {
+    const meter = await prepareAICreditMeter({
+      feature: 'chat',
+      aiOptionSources: [],
+    });
+
+    expect(meter).toBeNull();
   });
 
   it('rejects metered calls once credits are exhausted', async () => {
@@ -99,14 +115,14 @@ describe('prepareAICreditMeter', () => {
       ).rejects.toMatchObject({ errorKey: 'AI_CONFIGURATION_REQUIRED' });
     });
 
-    it('never meters calls running on an own key', async () => {
+    it('never bills calls running on an own key', async () => {
       const meter = await prepareAICreditMeter({
         organization: ORGANIZATION,
         feature: 'chat',
         aiOptionSources: [{ apiKey: 'sk-own-key' }],
       });
 
-      expect(meter).toBeNull();
+      expect(meter?.isBilled).toBe(false);
       expect(mockHasRemainingAICredits).not.toHaveBeenCalled();
     });
   });
@@ -118,12 +134,32 @@ describe('chargeAICredits', () => {
   });
 
   it('bills the tokens of a metered call', async () => {
-    await chargeAICredits({ organizationId: 'org-1', feature: 'chat' }, 1_200);
+    await chargeAICredits(
+      { organizationId: 'org-1', feature: 'chat', isBilled: true },
+      1_200
+    );
 
     expect(mockConsumeAICredits).toHaveBeenCalledWith({
       organizationId: 'org-1',
       feature: 'chat',
+      isBilled: true,
       tokens: 1_200,
+    });
+  });
+
+  it('records the provider and model the call ran on', async () => {
+    await chargeAICredits(
+      { organizationId: 'org-1', feature: 'chat', isBilled: false },
+      300,
+      { model: 'gpt-4o-mini' }
+    );
+
+    expect(mockConsumeAICredits).toHaveBeenCalledWith({
+      organizationId: 'org-1',
+      feature: 'chat',
+      isBilled: false,
+      model: 'gpt-4o-mini',
+      tokens: 300,
     });
   });
 
@@ -133,7 +169,10 @@ describe('chargeAICredits', () => {
 
     mockConsumeAICredits.mockRejectedValueOnce(new Error('db down'));
     await expect(
-      chargeAICredits({ organizationId: 'org-1', feature: 'chat' }, 10)
+      chargeAICredits(
+        { organizationId: 'org-1', feature: 'chat', isBilled: true },
+        10
+      )
     ).resolves.toBeUndefined();
   });
 });

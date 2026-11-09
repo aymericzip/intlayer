@@ -14,6 +14,7 @@ import { useNumber } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { AIConfigurationDetails } from './AIConfigurationDetails';
 import { AICreditGauge } from './AICreditGauge';
+import { AIModelUsageList } from './AIModelUsageList';
 
 type FeatureUsageListProps = {
   balance: AICreditBalance;
@@ -93,11 +94,21 @@ export const AICredits: FC = () => {
 
       {isPending && <Loader className="mx-auto size-5" />}
 
-      {balance && (
+      {balance && !balance.hasCreditAllowance && (
+        <>
+          <AIModelUsageList balance={balance} />
+
+          <AIConfigurationDetails />
+        </>
+      )}
+
+      {balance?.hasCreditAllowance && (
         <>
           <AICreditGauge balance={balance} />
 
           <FeatureUsageList balance={balance} />
+
+          <AIModelUsageList balance={balance} />
 
           <AIConfigurationDetails />
 

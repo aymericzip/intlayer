@@ -129,7 +129,7 @@ export const customQuery = async (
       aiConfig,
     });
 
-    await chargeAICredits(creditMeter, auditResponse?.tokenUsed);
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'QUERY_FAILED');
@@ -205,7 +205,7 @@ export const translateJSON = async (
       tags,
     });
 
-    await chargeAICredits(creditMeter, auditResponse?.tokenUsed);
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -291,7 +291,7 @@ export const auditContentDeclaration = async (
       tags,
     });
 
-    await chargeAICredits(creditMeter, auditResponse?.tokenUsed);
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -375,7 +375,7 @@ export const auditContentDeclarationField = async (
         keyPath,
       });
 
-    await chargeAICredits(creditMeter, auditResponse?.tokenUsed);
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -454,7 +454,7 @@ export const auditContentDeclarationMetadata = async (
         tags,
       });
 
-    await chargeAICredits(creditMeter, auditResponse?.tokenUsed);
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -529,7 +529,7 @@ export const auditTag = async (
       applicationContext: aiOptions?.applicationContext,
     });
 
-    await chargeAICredits(creditMeter, auditResponse?.tokenUsed);
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -811,7 +811,11 @@ export const chat = async (
       },
     });
 
-    await chargeAICredits(creditMeter, fullResponse.tokenUsage?.totalTokens);
+    await chargeAICredits(
+      creditMeter,
+      fullResponse.tokenUsage?.totalTokens,
+      aiConfig
+    );
 
     const reversedMessages = [...messages].reverse();
     const lastUserMessageContent = reversedMessages.find(
@@ -954,7 +958,7 @@ export const autocomplete = async (
       tokenUsed: 0,
     };
 
-    await chargeAICredits(creditMeter, response.tokenUsed);
+    await chargeAICredits(creditMeter, response.tokenUsed, aiConfig);
 
     const responseData =
       formatResponse<autocompleteUtil.AutocompleteFileResultData>({

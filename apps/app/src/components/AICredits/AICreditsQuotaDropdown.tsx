@@ -17,6 +17,7 @@ import {
   getUsageRatio,
   WARNING_USAGE_RATIO,
 } from './AICreditGauge';
+import { AIModelUsageList } from './AIModelUsageList';
 
 const DROPDOWN_IDENTIFIER = 'ai-credits-quota';
 
@@ -90,12 +91,18 @@ export const AICreditsQuotaDropdown: FC = () => {
     <DropDown identifier={DROPDOWN_IDENTIFIER}>
       <DropDown.Trigger
         identifier={DROPDOWN_IDENTIFIER}
-        label={quotaTriggerLabel.value}
+        label={
+          balance.hasCreditAllowance ? quotaTriggerLabel.value : title.value
+        }
         variant="hoverable"
         color="text"
         size="icon-md"
       >
-        <QuotaRing usageRatio={getUsageRatio(balance)} />
+        {balance.hasCreditAllowance ? (
+          <QuotaRing usageRatio={getUsageRatio(balance)} />
+        ) : (
+          <Sparkles className="size-4" />
+        )}
       </DropDown.Trigger>
 
       <DropDown.Panel
@@ -115,33 +122,37 @@ export const AICreditsQuotaDropdown: FC = () => {
             {title}
           </span>
 
-          <AICreditGauge balance={balance} />
+          {balance.hasCreditAllowance && <AICreditGauge balance={balance} />}
+
+          <AIModelUsageList balance={balance} />
 
           <AIConfigurationDetails />
 
-          <div className="flex flex-col gap-2">
-            {!isTopPlan && (
+          {balance.hasCreditAllowance && (
+            <div className="flex flex-col gap-2">
+              {!isTopPlan && (
+                <Button
+                  label={upgradeButton.label.value}
+                  color="text"
+                  Icon={ChevronsUp}
+                  isFullWidth
+                  onClick={() => navigate({ to: App_Pricing_Path })}
+                >
+                  {upgradeButton.text}
+                </Button>
+              )}
               <Button
-                label={upgradeButton.label.value}
+                label={usageDetailsButton.label.value}
                 color="text"
-                Icon={ChevronsUp}
+                variant="outline"
+                Icon={BarChart3}
                 isFullWidth
-                onClick={() => navigate({ to: App_Pricing_Path })}
+                onClick={() => navigate({ to: App_Dashboard_AI_Usage_Path })}
               >
-                {upgradeButton.text}
+                {usageDetailsButton.text}
               </Button>
-            )}
-            <Button
-              label={usageDetailsButton.label.value}
-              color="text"
-              variant="outline"
-              Icon={BarChart3}
-              isFullWidth
-              onClick={() => navigate({ to: App_Dashboard_AI_Usage_Path })}
-            >
-              {usageDetailsButton.text}
-            </Button>
-          </div>
+            </div>
+          )}
         </Container>
       </DropDown.Panel>
     </DropDown>

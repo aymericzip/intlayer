@@ -33,8 +33,9 @@ export const aiRouter = async (fastify: FastifyInstance) => {
     autocomplete,
     getDiscussions,
     getAIStats,
-    // Credits only meter Intlayer's AI key, which self-hosted never uses
-    getAICredits: isSelfHosted() ? null : getAICredits,
+    // Self-hosted has no credits but still reports its own-key usage
+    getAICredits,
+    // The daily series only covers billed credits; self-hosted has none
     getAICreditUsage: isSelfHosted() ? null : getAICreditUsage,
     // Registered below, behind the chatbot rate limiter
     ask: null,

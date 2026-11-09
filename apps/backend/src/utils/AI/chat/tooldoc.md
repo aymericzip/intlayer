@@ -493,9 +493,7 @@ const result = await generateText({
     // Static tool with known types
     weather: weatherTool,
     // Dynamic tool
-    custom: dynamicTool({
-      /* ... */
-    }),
+    custom: dynamicTool({/* ... */}),
   },
   onStepFinish: ({ toolCalls, toolResults }) => {
     // Type-safe iteration

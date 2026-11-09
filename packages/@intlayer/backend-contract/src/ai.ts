@@ -170,6 +170,18 @@ export const aiCreditBalanceSchema = z.object({
       requestCount: z.number(),
     })
   ),
+  /** `false` when no monthly credit is granted (self-hosted). */
+  hasCreditAllowance: z.boolean(),
+  /** Every AI call of the period, own key included, per provider and model. */
+  usageByModel: z.array(
+    z.object({
+      provider: z.optional(z.string()),
+      model: z.optional(z.string()),
+      isOwnKey: z.boolean(),
+      tokens: z.number(),
+      requestCount: z.number(),
+    })
+  ),
 });
 
 const aiCreditUsageEntrySchema = z.object({

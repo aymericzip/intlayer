@@ -54,17 +54,15 @@ const OrganizationFormContent: FC = () => {
                 <PlanDetails />
               </Container>
             )}
-            {!IS_SELF_HOSTED && (
-              <Container
-                roundedSize="3xl"
-                padding="md"
-                border
-                borderColor="neutral"
-                className="flex size-full justify-center"
-              >
-                <AICredits />
-              </Container>
-            )}
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
+              className="flex size-full justify-center"
+            >
+              <AICredits />
+            </Container>
             <Container
               roundedSize="3xl"
               padding="md"

@@ -1,4 +1,4 @@
-import type { AIOptions } from '@intlayer/ai';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { AiProviders } from '@intlayer/types/config';
 import { getPlanDetails } from '@utils/plan';
 import type { Plan } from '@/types/plan.types';
@@ -101,6 +101,30 @@ export const isUsingPlatformAIKey = (
   if (provider && LOCAL_PROVIDERS.has(provider)) return false;
 
   return !apiKey;
+};
+
+/** Provider and model an AI call actually ran on. */
+export type AIModelIdentity = {
+  /** Provider id, e.g. `openai` (the AI SDK `openai.responses` is trimmed). */
+  provider?: string;
+  model?: string;
+};
+
+/**
+ * Reads the provider and model resolved by `getAIConfig`.
+ */
+export const getAIModelIdentity = (
+  aiConfig?: Pick<AIConfig, 'model'>
+): AIModelIdentity => {
+  const languageModel = aiConfig?.model;
+
+  if (!languageModel) return {};
+  if (typeof languageModel === 'string') return { model: languageModel };
+
+  return {
+    provider: languageModel.provider.split('.')[0],
+    model: languageModel.modelId,
+  };
 };
 
 /** Default and maximum length of the day-by-day usage series. */

@@ -19,6 +19,9 @@ export const aiCreditUsageSchema = new Schema<AICreditUsageSchema>(
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
     feature: { type: String, enum: AI_CREDIT_FEATURES, required: true },
     tokens: { type: Number, required: true, min: 0 },
+    provider: { type: String },
+    model: { type: String },
+    isBilled: { type: Boolean },
     createdAt: { type: Date, default: Date.now },
   },
   { versionKey: false }

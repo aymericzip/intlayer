@@ -19,6 +19,7 @@ import type {
   AICreditBalance,
   AICreditDailyUsage,
   AICreditFeatureUsage,
+  AIModelUsage,
 } from '@/types/aiCreditUsage.types';
 import type { Organization } from '@/types/organization.types';
 
@@ -102,11 +103,16 @@ export type ConsumeAICreditsParams = {
   userId?: string;
   feature: AICreditFeature;
   tokens: number;
+  provider?: string;
+  model?: string;
+  /** Whether the tokens are deducted from the organization's credits. */
+  isBilled: boolean;
   now?: Date;
 };
 
 /**
- * Bills `tokens` to the organization and records the call in the usage ledger.
+ * Records the call in the usage ledger and, when billed, deducts `tokens`
+ * from the organization's monthly credits.
  */
 export const consumeAICredits = async ({
   organizationId,
@@ -114,29 +120,40 @@ export const consumeAICredits = async ({
   userId,
   feature,
   tokens,
+  provider,
+  model,
+  isBilled,
   now = new Date(),
 }: ConsumeAICreditsParams): Promise<void> => {
-  const billedTokens = Math.max(0, Math.ceil(tokens));
-  if (billedTokens === 0) return;
+  const usedTokens = Math.max(0, Math.ceil(tokens));
+  if (usedTokens === 0) return;
 
   const organizationObjectId = new Types.ObjectId(organizationId);
 
   await Promise.all([
-    incrementOrganizationTokenCounter(
-      organizationObjectId,
-      billedTokens,
-      getAICreditPeriodKey(now)
-    ),
+    isBilled
+      ? incrementOrganizationTokenCounter(
+          organizationObjectId,
+          usedTokens,
+          getAICreditPeriodKey(now)
+        )
+      : undefined,
     AICreditUsageModel.create({
       organizationId: organizationObjectId,
       projectId: projectId ? new Types.ObjectId(projectId) : undefined,
       userId: userId ? new Types.ObjectId(userId) : undefined,
       feature,
-      tokens: billedTokens,
+      tokens: usedTokens,
+      provider,
+      model,
+      isBilled,
       createdAt: now,
     }),
   ]);
 };
+
+/** Ledger filter keeping billed calls (records predating `isBilled` were). */
+const BILLED_USAGE_FILTER = { isBilled: { $ne: false } };
 
 /**
  * Per-feature usage of the organization since `periodStart`, most expensive first.
@@ -155,6 +172,7 @@ export const getAICreditUsageByFeature = async (
       $match: {
         organizationId: new Types.ObjectId(organizationId),
         createdAt: { $gte: periodStart, $lt: periodEnd },
+        ...BILLED_USAGE_FILTER,
       },
     },
     {
@@ -176,6 +194,49 @@ export const getAICreditUsageByFeature = async (
 };
 
 /**
+ * Every AI call of the organization since `periodStart` (own key included),
+ * per provider and model, most expensive first.
+ */
+export const getAIUsageByModel = async (
+  organizationId: string,
+  periodStart: Date,
+  periodEnd: Date
+): Promise<AIModelUsage[]> => {
+  const aggregation = await AICreditUsageModel.aggregate<{
+    _id: { provider?: string; model?: string; isBilled?: boolean };
+    tokens: number;
+    requestCount: number;
+  }>([
+    {
+      $match: {
+        organizationId: new Types.ObjectId(organizationId),
+        createdAt: { $gte: periodStart, $lt: periodEnd },
+      },
+    },
+    {
+      $group: {
+        _id: {
+          provider: '$provider',
+          model: '$model',
+          isBilled: { $ne: ['$isBilled', false] },
+        },
+        tokens: { $sum: '$tokens' },
+        requestCount: { $sum: 1 },
+      },
+    },
+    { $sort: { tokens: -1 } },
+  ]);
+
+  return aggregation.map((entry) => ({
+    provider: entry._id.provider ?? undefined,
+    model: entry._id.model ?? undefined,
+    isOwnKey: entry._id.isBilled === false,
+    tokens: entry.tokens,
+    requestCount: entry.requestCount,
+  }));
+};
+
+/**
  * Credit balance of the organization for the monthly period containing `now`.
  */
 export const getAICreditBalance = async (
@@ -192,11 +253,10 @@ export const getAICreditBalance = async (
     getAICreditPeriodKey(now)
   );
 
-  const usageByFeature = await getAICreditUsageByFeature(
-    organizationId,
-    periodStart,
-    periodEnd
-  );
+  const [usageByFeature, usageByModel] = await Promise.all([
+    getAICreditUsageByFeature(organizationId, periodStart, periodEnd),
+    getAIUsageByModel(organizationId, periodStart, periodEnd),
+  ]);
 
   return {
     organizationId,
@@ -210,6 +270,8 @@ export const getAICreditBalance = async (
     periodStart,
     periodEnd,
     usageByFeature,
+    hasCreditAllowance: allowanceTokens > 0,
+    usageByModel,
   };
 };
 
@@ -233,6 +295,7 @@ export const getAICreditDailyUsage = async (
       $match: {
         organizationId: new Types.ObjectId(organizationId),
         createdAt: { $gte: from, $lt: to },
+        ...BILLED_USAGE_FILTER,
       },
     },
     {

@@ -16,7 +16,6 @@ import { MoreHorizontal } from 'lucide-react';
 import { type FC, lazy, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
-import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import {
   filterItems,
   flattenItems,
@@ -167,7 +166,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
         </div>
         <div className="flex items-center gap-4">
           <div className="me-1 flex items-center gap-2">
-            {organization && !IS_SELF_HOSTED && (
+            {organization && (
               <Suspense fallback={null}>
                 <AICreditsQuotaDropdown />
               </Suspense>

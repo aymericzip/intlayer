@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  getAIModelIdentity,
   AI_CREDIT_USAGE_DEFAULT_DAYS,
   AI_CREDIT_USAGE_MAX_DAYS,
   buildAICreditDailyUsage,
@@ -201,5 +202,25 @@ describe('buildAICreditDailyUsage', () => {
       requestCount: 0,
       byFeature: [],
     });
+  });
+});
+
+describe('getAIModelIdentity', () => {
+  it('reads provider and model from an AI SDK language model', () => {
+    expect(
+      getAIModelIdentity({
+        model: {
+          provider: 'openai.responses',
+          modelId: 'gpt-4o-mini',
+        } as never,
+      })
+    ).toEqual({ provider: 'openai', model: 'gpt-4o-mini' });
+  });
+
+  it('keeps a plain model id and handles a missing config', () => {
+    expect(getAIModelIdentity({ model: 'gpt-4o' })).toEqual({
+      model: 'gpt-4o',
+    });
+    expect(getAIModelIdentity(undefined)).toEqual({});
   });
 });

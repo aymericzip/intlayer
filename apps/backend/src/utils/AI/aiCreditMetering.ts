@@ -1,19 +1,25 @@
-import type { AIOptions } from '@intlayer/ai';
+import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { logger } from '@logger';
 import {
   consumeAICredits,
   hasRemainingAICredits,
 } from '@services/aiCredit.service';
-import { type AICreditFeature, isUsingPlatformAIKey } from '@utils/aiCredits';
+import {
+  type AICreditFeature,
+  getAIModelIdentity,
+  isUsingPlatformAIKey,
+} from '@utils/aiCredits';
 import { GenericError } from '@utils/errors';
 import { isSelfHosted } from '@utils/isSelfHosted';
 
-/** Who a metered AI call is billed to. */
+/** Who an AI call is recorded for, and whether it is billed in credits. */
 export type AICreditMeter = {
   organizationId: string;
   projectId?: string;
   userId?: string;
   feature: AICreditFeature;
+  /** `true` when the call runs on Intlayer's key and draws from the credits. */
+  isBilled: boolean;
 };
 
 type IdentifiedEntity = { id: unknown } | null | undefined;
@@ -42,9 +48,9 @@ export const assertSelfHostedAIConfiguration = (
 };
 
 /**
- * Returns the meter to bill an AI call to, or `null` when the call is free:
- * self-hosted deployment, a bring-your-own-key / local provider, or no
- * organization to bill.
+ * Returns the meter recording an AI call, or `null` when there is no
+ * organization to record it for. Self-hosted, bring-your-own-key and local
+ * provider calls are recorded but not billed.
  */
 export const resolveAICreditMeter = ({
   organization,
@@ -53,9 +59,6 @@ export const resolveAICreditMeter = ({
   feature,
   aiOptionSources,
 }: ResolveAICreditMeterParams): AICreditMeter | null => {
-  if (isSelfHosted()) return null;
-  if (!isUsingPlatformAIKey(aiOptionSources)) return null;
-
   const organizationId = organization?.id ?? project?.organizationId;
   if (!organizationId) return null;
 
@@ -64,6 +67,7 @@ export const resolveAICreditMeter = ({
     projectId: project?.id ? String(project.id) : undefined,
     userId: user?.id ? String(user.id) : undefined,
     feature,
+    isBilled: !isSelfHosted() && isUsingPlatformAIKey(aiOptionSources),
   };
 };
 
@@ -73,7 +77,7 @@ export const resolveAICreditMeter = ({
 export const assertAICreditsAvailable = async (
   meter: AICreditMeter | null
 ): Promise<void> => {
-  if (!meter) return;
+  if (!meter?.isBilled) return;
 
   if (!(await hasRemainingAICredits(meter.organizationId))) {
     throw new GenericError('AI_CREDITS_EXHAUSTED', {
@@ -100,17 +104,23 @@ export const prepareAICreditMeter = async (
 };
 
 /**
- * Bills the tokens of a completed AI call. Never throws: a billing failure
- * must not fail a request whose AI work is already done.
+ * Records the tokens of a completed AI call, with the provider and model it
+ * ran on, and bills them when the meter is billed. Never throws: a billing
+ * failure must not fail a request whose AI work is already done.
  */
 export const chargeAICredits = async (
   meter: AICreditMeter | null,
-  tokens: number | undefined
+  tokens: number | undefined,
+  aiConfig?: Pick<AIConfig, 'model'>
 ): Promise<void> => {
   if (!meter || !tokens) return;
 
   try {
-    await consumeAICredits({ ...meter, tokens });
+    await consumeAICredits({
+      ...meter,
+      ...getAIModelIdentity(aiConfig),
+      tokens,
+    });
   } catch (error) {
     logger.error('Failed to bill AI credits', { meter, tokens, error });
   }
