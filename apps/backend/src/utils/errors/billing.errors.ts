@@ -5,6 +5,51 @@ import type { ErrorCode } from './errorCodes.types';
  * Billing-related error codes.
  */
 export const billingErrors = {
+  AI_CREDITS_EXHAUSTED: {
+    title: {
+      en: 'AI credits exhausted',
+      'en-GB': 'AI credits exhausted',
+      fr: 'Crédits IA épuisés',
+      es: 'Créditos de IA agotados',
+      ru: 'Кредиты ИИ исчерпаны',
+      ja: 'AIクレジットを使い切りました',
+      ko: 'AI 크레딧 소진',
+      zh: 'AI 额度已用尽',
+      de: 'KI-Guthaben aufgebraucht',
+      ar: 'تم استنفاد أرصدة الذكاء الاصطناعي',
+      it: 'Crediti IA esauriti',
+      pt: 'Créditos de IA esgotados',
+      hi: 'एआई क्रेडिट समाप्त हो गए',
+      tr: 'Yapay zeka kredileri tükendi',
+      pl: 'Wyczerpano kredyty AI',
+      id: 'Kredit AI habis',
+      vi: 'Đã hết tín dụng AI',
+      uk: 'Кредити ШІ вичерпано',
+    },
+    message: {
+      en: 'Your organization has used all of its AI credits for this month. Upgrade your plan, wait for the monthly reset, or add your own AI provider API key in the project settings.',
+      'en-GB':
+        'Your organisation has used all of its AI credits for this month. Upgrade your plan, wait for the monthly reset, or add your own AI provider API key in the project settings.',
+      fr: 'Votre organisation a utilisé tous ses crédits IA pour ce mois. Passez à un plan supérieur, attendez la réinitialisation mensuelle ou ajoutez votre propre clé API de fournisseur IA dans les paramètres du projet.',
+      es: 'Tu organización ha usado todos sus créditos de IA de este mes. Mejora tu plan, espera el reinicio mensual o añade tu propia clave API de proveedor de IA en la configuración del proyecto.',
+      ru: 'Ваша организация израсходовала все кредиты ИИ за этот месяц. Повысьте тариф, дождитесь ежемесячного сброса или добавьте собственный API-ключ провайдера ИИ в настройках проекта.',
+      ja: '今月のAIクレジットをすべて使い切りました。プランをアップグレードするか、月次リセットを待つか、プロジェクト設定で独自のAIプロバイダーAPIキーを追加してください。',
+      ko: '조직이 이번 달 AI 크레딧을 모두 사용했습니다. 플랜을 업그레이드하거나, 월간 초기화를 기다리거나, 프로젝트 설정에서 자체 AI 제공업체 API 키를 추가하세요.',
+      zh: '您的组织本月的 AI 额度已全部用完。请升级套餐、等待每月重置，或在项目设置中添加您自己的 AI 服务商 API 密钥。',
+      de: 'Ihre Organisation hat ihr gesamtes KI-Guthaben für diesen Monat verbraucht. Führen Sie ein Upgrade durch, warten Sie auf die monatliche Zurücksetzung oder fügen Sie in den Projekteinstellungen Ihren eigenen API-Schlüssel eines KI-Anbieters hinzu.',
+      ar: 'استخدمت مؤسستك جميع أرصدة الذكاء الاصطناعي لهذا الشهر. قم بترقية خطتك أو انتظر إعادة التعيين الشهرية أو أضف مفتاح API الخاص بمزود الذكاء الاصطناعي في إعدادات المشروع.',
+      it: 'La tua organizzazione ha esaurito tutti i crediti IA di questo mese. Aggiorna il piano, attendi il ripristino mensile o aggiungi la tua chiave API del provider IA nelle impostazioni del progetto.',
+      pt: 'Sua organização usou todos os créditos de IA deste mês. Faça upgrade do plano, aguarde a renovação mensal ou adicione sua própria chave de API do provedor de IA nas configurações do projeto.',
+      hi: 'आपके संगठन ने इस महीने के सभी एआई क्रेडिट उपयोग कर लिए हैं। अपना प्लान अपग्रेड करें, मासिक रीसेट की प्रतीक्षा करें, या प्रोजेक्ट सेटिंग्स में अपनी एआई प्रदाता API कुंजी जोड़ें।',
+      tr: 'Kuruluşunuz bu ayki tüm yapay zeka kredilerini kullandı. Planınızı yükseltin, aylık sıfırlamayı bekleyin veya proje ayarlarına kendi yapay zeka sağlayıcı API anahtarınızı ekleyin.',
+      pl: 'Twoja organizacja wykorzystała wszystkie kredyty AI w tym miesiącu. Ulepsz plan, poczekaj na comiesięczny reset lub dodaj własny klucz API dostawcy AI w ustawieniach projektu.',
+      id: 'Organisasi Anda telah menggunakan semua kredit AI bulan ini. Tingkatkan paket, tunggu reset bulanan, atau tambahkan kunci API penyedia AI Anda sendiri di pengaturan proyek.',
+      vi: 'Tổ chức của bạn đã dùng hết tín dụng AI của tháng này. Hãy nâng cấp gói, chờ đặt lại hằng tháng hoặc thêm khóa API nhà cung cấp AI của riêng bạn trong cài đặt dự án.',
+      uk: 'Ваша організація використала всі кредити ШІ цього місяця. Оновіть тариф, дочекайтеся щомісячного скидання або додайте власний API-ключ постачальника ШІ в налаштуваннях проєкту.',
+    },
+    statusCode: HttpStatusCodes.PAYMENT_REQUIRED_402,
+  },
+
   PLAN_NOT_FOUND: {
     title: {
       en: 'Plan Not Found',

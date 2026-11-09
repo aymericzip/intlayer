@@ -6,6 +6,8 @@
 
 import type { AIOptions } from '@intlayer/ai';
 import type {
+  AICreditBalance as ContractAICreditBalance,
+  AICreditDailyUsage as ContractAICreditDailyUsage,
   AIOptions as ContractAIOptions,
   AIStats as ContractAIStats,
   DiscussionAPI as ContractDiscussionAPI,
@@ -68,6 +70,10 @@ import type { GitLabProject } from '@services/gitlab.service';
 import type { PricingResult } from '@services/subscription.service';
 import type { AffiliateAPI, AffiliateStats } from '@/types/affiliate.types';
 import type { AffiliateInvitationAPI } from '@/types/affiliateInvitation.types';
+import type {
+  AICreditBalance,
+  AICreditDailyUsage,
+} from '@/types/aiCreditUsage.types';
 import type { AIStats } from '@/types/aiStats.types';
 import type { AudienceStats } from '@/types/analytics.types';
 import type { AssetAPI } from '@/types/asset.types';
@@ -132,6 +138,8 @@ export type WireCompatibility = [
   AssertWire<ContractAIOptions, AIOptions>,
   AssertWire<ContractDiscussionAPI, Serialized<DiscussionAPI>>,
   AssertWire<ContractAIStats, Serialized<AIStats>>,
+  AssertWire<ContractAICreditBalance, Serialized<AICreditBalance>>,
+  AssertWire<ContractAICreditDailyUsage, Serialized<AICreditDailyUsage>>,
   AssertWire<ContractGitHubRepository, Serialized<GitHubRepository>>,
   AssertWire<ContractGitLabProject, Serialized<GitLabProject>>,
   AssertWire<ContractBitbucketRepository, Serialized<BitbucketRepository>>,

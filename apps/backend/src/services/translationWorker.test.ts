@@ -13,6 +13,11 @@ vi.mock('@services/dictionary.service', () => ({
   incrementVersion: vi.fn(),
 }));
 
+vi.mock('@services/aiCredit.service', () => ({
+  hasRemainingAICredits: vi.fn(async () => true),
+  consumeAICredits: vi.fn(async () => {}),
+}));
+
 vi.mock('@services/user.service', () => ({
   getUserById: vi.fn(),
 }));
@@ -87,6 +92,7 @@ vi.mock('bullmq', () => ({
 
 import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import { getPerLocaleDictionary } from '@intlayer/core/plugins';
+import * as aiCreditService from '@services/aiCredit.service';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
@@ -121,6 +127,11 @@ const mockGetPerLocaleDictionary = getPerLocaleDictionary as ReturnType<
   typeof vi.fn
 >;
 const mockMergeDictionaries = mergeDictionaries as ReturnType<typeof vi.fn>;
+const mockHasRemainingAICredits =
+  aiCreditService.hasRemainingAICredits as ReturnType<typeof vi.fn>;
+const mockConsumeAICredits = aiCreditService.consumeAICredits as ReturnType<
+  typeof vi.fn
+>;
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -643,5 +654,112 @@ describe('processTranslationJob', () => {
     );
     expect(allLocales.filter((l: string) => l === 'fr')).toHaveLength(2);
     expect(allLocales.filter((l: string) => l === 'es')).toHaveLength(2);
+  });
+});
+
+// ─── AI credits ──────────────────────────────────────────────────────────────
+
+describe('processTranslationJob – AI credits', () => {
+  const BILLED_PROJECT = { ...FAKE_PROJECT, organizationId: 'org-1' };
+
+  /** translateDictionaryDB stub that goes through the chunk/token callbacks */
+  const translateWithCallbacks = async ({
+    targetLocales,
+    onChunkStart,
+    onTokensUsed,
+  }: {
+    targetLocales: string[];
+    onChunkStart: (params: object) => Promise<void>;
+    onTokensUsed: (tokens: number) => Promise<void>;
+  }) => {
+    await onChunkStart({
+      locale: targetLocales[0],
+      chunkIndex: 0,
+      totalChunks: 1,
+    });
+    await onTokensUsed(1_500);
+    return { [targetLocales[0]]: { label: 'Translated' } };
+  };
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockGetUserById.mockResolvedValue(FAKE_USER);
+    mockGetProjectById.mockResolvedValue(BILLED_PROJECT);
+    mockIsPaused.mockResolvedValue(false);
+    mockIsCancelled.mockResolvedValue(false);
+    mockIncrementVersion.mockReturnValue('v2');
+    mockUpdateDictionaryById.mockResolvedValue(makeFakeDict('x', 'x'));
+    mockHasRemainingAICredits.mockResolvedValue(true);
+    mockTranslateDictionaryDB.mockImplementation(translateWithCallbacks);
+  });
+
+  it('bills the tokens of every chunk to the project organization', async () => {
+    registerDictionaries(makeFakeDict('d1', 'common'));
+
+    await processTranslationJob(
+      makeJob('job-credits', {
+        dictionaryTargets: [{ dictionaryId: 'd1', locales: ['fr', 'es'] }],
+        projectId: 'proj-1',
+        userId: 'user-1',
+      })
+    );
+
+    expect(mockConsumeAICredits).toHaveBeenCalledTimes(2);
+    expect(mockConsumeAICredits).toHaveBeenCalledWith({
+      organizationId: 'org-1',
+      projectId: 'proj-1',
+      userId: 'user-1',
+      feature: 'translation',
+      tokens: 1_500,
+    });
+  });
+
+  it('does not bill a project that uses its own API key', async () => {
+    mockGetProjectById.mockResolvedValue({
+      ...BILLED_PROJECT,
+      configuration: {
+        ...BILLED_PROJECT.configuration,
+        ai: { provider: 'openai', apiKey: 'sk-own-key' },
+      },
+    });
+    registerDictionaries(makeFakeDict('d1', 'common'));
+
+    await processTranslationJob(
+      makeJob('job-own-key', {
+        dictionaryTargets: [{ dictionaryId: 'd1', locales: ['fr'] }],
+        projectId: 'proj-1',
+        userId: 'user-1',
+      })
+    );
+
+    expect(mockHasRemainingAICredits).not.toHaveBeenCalled();
+    expect(mockConsumeAICredits).not.toHaveBeenCalled();
+  });
+
+  it('fails the remaining tasks and the job once credits are exhausted', async () => {
+    mockHasRemainingAICredits.mockResolvedValue(false);
+    registerDictionaries(
+      makeFakeDict('d1', 'common'),
+      makeFakeDict('d2', 'nav')
+    );
+
+    const job = makeJob('job-exhausted', {
+      dictionaryTargets: [
+        { dictionaryId: 'd1', locales: ['fr'] },
+        { dictionaryId: 'd2', locales: ['fr'] },
+      ],
+      projectId: 'proj-1',
+      userId: 'user-1',
+    });
+
+    await expect(processTranslationJob(job)).rejects.toMatchObject({
+      errorKey: 'AI_CREDITS_EXHAUSTED',
+    });
+
+    const final = lastProgress(job);
+    expect(final.errorCode).toBe('AI_CREDITS_EXHAUSTED');
+    expect(final.failedKeys.sort()).toEqual(['common', 'nav']);
+    expect(mockConsumeAICredits).not.toHaveBeenCalled();
+    expect(mockUpdateDictionaryById).not.toHaveBeenCalled();
   });
 });

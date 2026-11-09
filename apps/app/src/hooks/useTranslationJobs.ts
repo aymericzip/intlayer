@@ -41,6 +41,8 @@ export type TranslationJobProgress = {
   totalChunks: number | null;
   /** Absent on jobs created before the fill-style worker refactor */
   tasks?: TranslationTaskProgress[];
+  /** Set when the job stopped early (the organization ran out of AI credits) */
+  errorCode?: 'AI_CREDITS_EXHAUSTED';
 };
 
 export type TranslationJobPendingAction = 'stopping' | 'pausing' | 'resuming';

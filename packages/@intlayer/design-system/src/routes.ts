@@ -64,6 +64,7 @@ export const App_Dashboard_IDE_Path = '/ide' as const;
 export const App_Dashboard_Scanner_Path = '/scanner' as const;
 export const App_Dashboard_Assets_Path = '/assets' as const;
 export const App_Dashboard_Analytics_Path = '/analytics' as const;
+export const App_Dashboard_AI_Usage_Path = '/ai-usage' as const;
 
 export const App_Pricing_Path = '/pricing' as const;
 export const App_Affiliation_Path = '/affiliation' as const;
@@ -146,6 +147,8 @@ export const App_Dashboard_Scanner =
   `${App_Origin}${App_Dashboard_Scanner_Path}` as const;
 export const App_Dashboard_Analytics =
   `${App_Origin}${App_Dashboard_Analytics_Path}` as const;
+export const App_Dashboard_AI_Usage =
+  `${App_Origin}${App_Dashboard_AI_Usage_Path}` as const;
 
 export const App_Pricing = `${App_Origin}${App_Pricing_Path}` as const;
 export const App_Affiliation = `${App_Origin}${App_Affiliation_Path}` as const;

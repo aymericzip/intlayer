@@ -16,6 +16,7 @@ import { MoreHorizontal } from 'lucide-react';
 import { type FC, lazy, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import {
   filterItems,
   flattenItems,
@@ -27,6 +28,11 @@ import { EnvironmentDropdown } from './EnvironmentDropdown';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 
+const AICreditsQuotaDropdown = lazy(() =>
+  import('#components/AICredits/AICreditsQuotaDropdown').then((m) => ({
+    default: m.AICreditsQuotaDropdown,
+  }))
+);
 const TranslationStatusAside = lazy(() =>
   import('#components/TranslationStatusAside').then((m) => ({
     default: m.TranslationStatusAside,
@@ -164,6 +170,11 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
             {project && isEditorDrawerVisible && (
               <Suspense fallback={<div className="size-10" />}>
                 <VisualEditorDrawer />
+              </Suspense>
+            )}
+            {organization && !IS_SELF_HOSTED && (
+              <Suspense fallback={null}>
+                <AICreditsQuotaDropdown />
               </Suspense>
             )}
             {project && (

@@ -16,6 +16,9 @@ import type {
   ChatResult,
   CustomQueryBody,
   CustomQueryResult,
+  GetAICreditsResult,
+  GetAICreditUsageParams,
+  GetAICreditUsageResult,
   GetAIStatsResult,
   GetDiscussionsParams,
   GetDiscussionsResult,
@@ -86,6 +89,8 @@ const aiEndpoints = {
   autocomplete: { method: 'POST', path: '/autocomplete' },
   getDiscussions: { method: 'GET', path: '/discussions' },
   getAIStats: { method: 'GET', path: '/stats' },
+  getAICredits: { method: 'GET', path: '/credits' },
+  getAICreditUsage: { method: 'GET', path: '/credits/usage' },
 } as const satisfies RouteEndpoints<AIRoutes>;
 
 export const getAiAPI = (
@@ -462,6 +467,37 @@ export const getAiAPI = (
       }
     );
 
+  /**
+   * Retrieves the AI credit balance of the selected organization for the
+   * current monthly period.
+   */
+  const getAICredits = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetAICreditsResult>(
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.getAICredits),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: aiEndpoints.getAICredits.method,
+      }
+    );
+
+  /**
+   * Retrieves the day-by-day AI credit usage of the selected organization.
+   */
+  const getAICreditUsage = async (
+    params?: GetAICreditUsageParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetAICreditUsageResult>(
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.getAICreditUsage),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: aiEndpoints.getAICreditUsage.method,
+        params,
+      }
+    );
+
   return {
     customQuery,
     translateJSON,
@@ -474,6 +510,8 @@ export const getAiAPI = (
     autocomplete,
     getDiscussions,
     getAIStats,
+    getAICredits,
+    getAICreditUsage,
   };
 };
 

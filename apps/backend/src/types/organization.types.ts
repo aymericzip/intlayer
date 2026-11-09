@@ -1,3 +1,4 @@
+import type { AICreditCounter } from '@utils/aiCredits';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Plan } from './plan.types';
@@ -109,6 +110,8 @@ export type Organization = OrganizationData & {
   id: Types.ObjectId;
   creatorId: User['id'];
   plan?: Plan;
+  /** Monthly AI token counter, reset lazily when a new month starts. */
+  aiCreditUsage?: AICreditCounter;
   createdAt: Date;
   updatedAt: Date;
 };

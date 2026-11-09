@@ -17,9 +17,16 @@ import * as projectService from '@services/project.service';
 import { scheduleDictionarySourceSync } from '@services/sourceSync/sourceSyncQueue';
 import * as userService from '@services/user.service';
 import {
+  assertAICreditsAvailable,
+  assertSelfHostedAIConfiguration,
+  chargeAICredits,
+  resolveAICreditMeter,
+} from '@utils/AI/aiCreditMetering';
+import {
   AbortError,
   translateDictionaryDB,
 } from '@utils/AI/translateDictionaryDB';
+import { AppError, GenericError } from '@utils/errors';
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
 import { getRedisClient } from '@utils/redis/connectRedis';
 import { type Job, Worker } from 'bullmq';
@@ -92,7 +99,14 @@ export type TranslationJobProgress = {
   totalChunks: number | null;
   /** One entry per dictionary, several may be `active` at once */
   tasks: TranslationTaskProgress[];
+  /** Set when the job stopped early, e.g. the organization ran out of AI credits */
+  errorCode?: TranslationJobErrorCode;
 };
+
+export type TranslationJobErrorCode = 'AI_CREDITS_EXHAUSTED';
+
+const isAICreditsExhaustedError = (error: unknown): boolean =>
+  error instanceof AppError && error.errorKey === 'AI_CREDITS_EXHAUSTED';
 
 export const processTranslationJob = async (job: Job<TranslationJobData>) => {
   const {
@@ -132,6 +146,16 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
     },
     true
   );
+
+  assertSelfHostedAIConfiguration([projectAIOptions]);
+
+  const creditMeter = resolveAICreditMeter({
+    project,
+    user,
+    feature: 'translation',
+    aiOptionSources: [projectAIOptions],
+  });
+  const chargeTokens = (tokens: number) => chargeAICredits(creditMeter, tokens);
 
   const sourceLocale = (project.configuration?.internationalization
     ?.defaultLocale || DEFAULT_LOCALE) as Locale;
@@ -182,6 +206,9 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
   const totalLocaleUnits =
     tasks.reduce((sum, task) => sum + task.targetLocales.length, 0) || 1;
 
+  let isCancelled = false;
+  let isCreditsExhausted = false;
+
   const buildProgress = (): TranslationJobProgress => {
     const settledLocaleUnits = tasks.reduce(
       (sum, task) =>
@@ -202,6 +229,7 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
       currentLocale: activeTask?.currentLocale ?? null,
       currentChunk: activeTask?.currentChunk ?? null,
       totalChunks: activeTask?.totalChunks ?? null,
+      errorCode: isCreditsExhausted ? 'AI_CREDITS_EXHAUSTED' : undefined,
       // Snapshot: tasks keep mutating while previous progress events are
       // serialized / asserted, so never leak the live references
       tasks: tasks.map((task) => ({
@@ -232,8 +260,6 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
 
   /** Checked between every AI chunk — only cancellation aborts */
   const shouldStop = async () => isTranslationJobCancelled(job.id!);
-
-  let isCancelled = false;
 
   /**
    * Translate every target locale of a single dictionary and persist the
@@ -272,6 +298,8 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
       task.totalChunks = totalChunks;
       await emitProgress();
       await waitWhilePaused();
+      // Stop before spending tokens the organization no longer has
+      await assertAICreditsAvailable(creditMeter);
     };
 
     // Translate per locale, sending only the content that is actually missing.
@@ -335,6 +363,7 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
         dictionaryDescription: dictionary.description,
         shouldStop,
         onChunkStart,
+        onTokensUsed: chargeTokens,
       });
 
       if (localeResult[targetLocale]) {
@@ -379,6 +408,7 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
           dictionaryDescription: dictionary.description,
           shouldStop,
           onChunkStart,
+          onTokensUsed: chargeTokens,
         });
 
         if (localeResult[targetLocale]) {
@@ -470,6 +500,12 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
         return;
       }
 
+      if (isCreditsExhausted) {
+        task.state = 'failed';
+        failedKeys.push(task.dictionaryKey);
+        return;
+      }
+
       // Respect pause before starting a new dictionary
       await waitWhilePaused();
 
@@ -487,7 +523,14 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
         task.state = 'completed';
         completedKeys.push(task.dictionaryKey);
       } catch (error) {
-        if (error instanceof AbortError) {
+        if (isAICreditsExhaustedError(error)) {
+          isCreditsExhausted = true;
+          task.state = 'failed';
+          failedKeys.push(task.dictionaryKey);
+          logger.info(
+            `Translation job ${job.id}: AI credits exhausted on ${task.dictionaryKey}`
+          );
+        } else if (error instanceof AbortError) {
           // Cancelled mid-chunk – stop this task without marking it as failed
           isCancelled = true;
           task.state = 'cancelled';
@@ -516,6 +559,10 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
 
   if (isCancelled) {
     throw new Error('Cancelled by user');
+  }
+
+  if (isCreditsExhausted) {
+    throw new GenericError('AI_CREDITS_EXHAUSTED', { projectId });
   }
 };
 

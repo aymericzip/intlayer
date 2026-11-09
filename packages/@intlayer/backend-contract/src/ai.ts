@@ -139,6 +139,64 @@ export const aiStatsSchema = z.object({
   ),
 });
 
+/** AI features billed in credits (mirrors the backend `AI_CREDIT_FEATURES`). */
+export const aiCreditFeatureSchema = z.enum([
+  'translation',
+  'translate_json',
+  'custom_query',
+  'audit_dictionary',
+  'audit_dictionary_field',
+  'audit_dictionary_metadata',
+  'audit_tag',
+  'chat',
+  'autocomplete',
+]);
+
+/** AI credit balance of the organization for the current monthly period. */
+export const aiCreditBalanceSchema = z.object({
+  organizationId: z.string(),
+  planType: z.enum(['FREE', 'PREMIUM', 'ENTERPRISE', 'LIFETIME']),
+  tokensPerCredit: z.number(),
+  monthlyCredits: z.number(),
+  usedCredits: z.number(),
+  remainingCredits: z.number(),
+  periodStart: dateTimeSchema,
+  periodEnd: dateTimeSchema,
+  usageByFeature: z.array(
+    z.object({
+      feature: aiCreditFeatureSchema,
+      tokens: z.number(),
+      credits: z.number(),
+      requestCount: z.number(),
+    })
+  ),
+});
+
+const aiCreditUsageEntrySchema = z.object({
+  tokens: z.number(),
+  credits: z.number(),
+  requestCount: z.number(),
+});
+
+/** Day-by-day AI credit usage of the organization (UTC days). */
+export const aiCreditDailyUsageSchema = z.object({
+  organizationId: z.string(),
+  tokensPerCredit: z.number(),
+  /** First day of the series, `YYYY-MM-DD`. */
+  from: z.string(),
+  /** Last day of the series (inclusive), `YYYY-MM-DD`. */
+  to: z.string(),
+  /** One entry per day, days without usage included. */
+  days: z.array(
+    z.extend(aiCreditUsageEntrySchema, {
+      date: z.string(),
+      byFeature: z.array(
+        z.extend(aiCreditUsageEntrySchema, { feature: aiCreditFeatureSchema })
+      ),
+    })
+  ),
+});
+
 const aiOptionsShape = { aiOptions: z.optional(aiOptionsSchema) };
 const tagsKeysShape = { tagsKeys: z.optional(z.array(z.string())) };
 const conversationSchema = z.object({
@@ -298,6 +356,26 @@ export const aiContract = defineRouteGroup({
         response: { 200: responseDataSchema(aiStatsSchema) },
       },
     }),
+    getAICredits: defineRoute({
+      method: 'GET',
+      path: '/credits',
+      summary: 'AI credit balance of the selected organization (cloud only)',
+      schemas: {
+        response: { 200: responseDataSchema(aiCreditBalanceSchema) },
+      },
+    }),
+    getAICreditUsage: defineRoute({
+      method: 'GET',
+      path: '/credits/usage',
+      summary: 'Day-by-day AI credit usage of the selected organization',
+      schemas: {
+        querystring: z.object({
+          /** Number of days to return, ending today (default 30, max 366). */
+          days: z.optional(z.string()),
+        }),
+        response: { 200: responseDataSchema(aiCreditDailyUsageSchema) },
+      },
+    }),
   },
 });
 
@@ -314,6 +392,9 @@ export type ChatCompletionRequestMessage = Omit<
 > & { timestamp?: Date | string };
 export type DiscussionAPI = z.output<typeof discussionSchema>;
 export type AIStats = z.output<typeof aiStatsSchema>;
+export type AICreditFeature = z.output<typeof aiCreditFeatureSchema>;
+export type AICreditBalance = z.output<typeof aiCreditBalanceSchema>;
+export type AICreditDailyUsage = z.output<typeof aiCreditDailyUsageSchema>;
 
 export type CustomQueryBody = RouteBodyInput<AIRoutes['customQuery']>;
 export type CustomQueryResult = ResponseData<
@@ -363,3 +444,8 @@ export type AutocompleteResponse = ResponseData<{ autocompletion: string }>;
 export type GetDiscussionsParams = RouteQuerystring<AIRoutes['getDiscussions']>;
 export type GetDiscussionsResult = PaginatedResponse<DiscussionAPI>;
 export type GetAIStatsResult = ResponseData<AIStats>;
+export type GetAICreditsResult = ResponseData<AICreditBalance>;
+export type GetAICreditUsageParams = RouteQuerystring<
+  AIRoutes['getAICreditUsage']
+>;
+export type GetAICreditUsageResult = ResponseData<AICreditDailyUsage>;

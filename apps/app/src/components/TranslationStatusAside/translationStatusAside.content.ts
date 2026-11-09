@@ -4,6 +4,27 @@ const translationStatusAsideContent = {
   key: 'translation-status-aside',
 
   content: {
+    aiCreditsExhausted: t({
+      en: 'Stopped: your organization ran out of AI credits.',
+      ar: 'توقف: نفدت أرصدة الذكاء الاصطناعي لمؤسستك.',
+      de: 'Gestoppt: Ihre Organisation hat keine KI-Credits mehr.',
+      'en-GB': 'Stopped: your organisation ran out of AI credits.',
+      es: 'Detenido: tu organización se quedó sin créditos de IA.',
+      fr: "Arrêté : votre organisation n'a plus de crédits IA.",
+      'he-IL': 'הופסק: לארגון שלכם נגמרו הקרדיטים של AI.',
+      hi: 'रुका: आपके संगठन के एआई क्रेडिट समाप्त हो गए।',
+      id: 'Dihentikan: kredit AI organisasi Anda habis.',
+      it: 'Interrotto: la tua organizzazione ha esaurito i crediti IA.',
+      ja: '停止しました：組織のAIクレジットが不足しています。',
+      ko: '중지됨: 조직의 AI 크레딧이 소진되었습니다.',
+      pl: 'Zatrzymano: Twojej organizacji skończyły się kredyty AI.',
+      pt: 'Interrompido: sua organização ficou sem créditos de IA.',
+      ru: 'Остановлено: у вашей организации закончились кредиты ИИ.',
+      tr: 'Durduruldu: kuruluşunuzun yapay zeka kredisi bitti.',
+      uk: 'Зупинено: у вашої організації закінчились кредити ШІ.',
+      vi: 'Đã dừng: tổ chức của bạn đã hết tín dụng AI.',
+      zh: '已停止：您的组织 AI 额度已用尽。',
+    }),
     allDictionaries: t({
       en: 'All dictionaries',
       ar: 'كل القواميس',

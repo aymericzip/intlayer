@@ -53,6 +53,8 @@ export type TranslateDictionaryDBOptions = {
     chunkIndex: number;
     totalChunks: number;
   }) => Promise<void> | void;
+  /** Called after each translated chunk with the tokens it consumed. */
+  onTokensUsed?: (tokens: number) => Promise<void> | void;
 };
 
 type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
@@ -69,6 +71,7 @@ export const translateDictionaryDB = async ({
   applicationContext,
   shouldStop,
   onChunkStart,
+  onTokensUsed,
 }: TranslateDictionaryDBOptions): Promise<
   Record<Locale, JSONObject | JSONArray>
 > => {
@@ -122,6 +125,11 @@ export const translateDictionaryDB = async ({
           applicationContext,
           tags: [], // Tags handling could be added if needed
         });
+
+        // Tokens are spent even when the output is rejected below
+        if (result?.tokenUsed) {
+          await onTokensUsed?.(result.tokenUsed);
+        }
 
         if (!result?.fileContent) {
           throw new Error('No content returned from AI');

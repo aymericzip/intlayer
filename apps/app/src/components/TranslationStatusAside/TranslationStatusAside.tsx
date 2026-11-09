@@ -49,6 +49,7 @@ import {
 // ─── TaskRow ──────────────────────────────────────────────────────────────────
 
 type JobCardContent = {
+  aiCreditsExhausted: { value: string };
   cancelJob: { value: string };
   pauseJob: { value: string };
   resumeJob: { value: string };
@@ -381,6 +382,13 @@ const JobCard: FC<JobCardProps> = memo(
           </div>
         </div>
 
+        {isRichProgress(job.progress) &&
+          job.progress.errorCode === 'AI_CREDITS_EXHAUSTED' && (
+            <p className="text-xs text-error">
+              {content.aiCreditsExhausted.value}
+            </p>
+          )}
+
         {/* ── Fill-style task list (one row per dictionary) ── */}
         {tasks.length > 0 && (
           <div className="flex max-h-36 flex-col divide-y divide-neutral/10 overflow-y-auto">
@@ -555,6 +563,7 @@ export const TranslationStatusAside: FC = () => {
 
   // Stable content object so JobCard memo never breaks on every render
   const cardContent: JobCardContent = {
+    aiCreditsExhausted: content.aiCreditsExhausted,
     cancelJob: content.cancelJob,
     pauseJob: content.pauseJob,
     resumeJob: content.resumeJob,

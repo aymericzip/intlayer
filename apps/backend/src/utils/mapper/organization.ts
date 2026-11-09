@@ -62,7 +62,12 @@ export const mapOrganizationToAPI = <
     organization
   ) as Organization;
 
-  const { mailerConfig, ...rest } = organizationObject;
+  // `aiCreditUsage` is an internal counter, exposed through `GET /ai/credits`
+  const {
+    mailerConfig,
+    aiCreditUsage: _aiCreditUsage,
+    ...rest
+  } = organizationObject;
 
   return {
     ...rest,

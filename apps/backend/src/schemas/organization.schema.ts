@@ -38,6 +38,15 @@ export const organizationSchema = new Schema<OrganizationSchema>(
     plan: {
       type: planSchema,
     },
+    aiCreditUsage: {
+      type: new Schema(
+        {
+          periodKey: { type: String, required: true },
+          usedTokens: { type: Number, required: true, default: 0 },
+        },
+        { _id: false }
+      ),
+    },
     ssoEnabled: {
       type: Boolean,
       default: false,
