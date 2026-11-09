@@ -50,6 +50,16 @@ const WorldMap = lazy(() =>
   }))
 );
 
+/** Averaged page-to-page user flow (Sankey diagram). */
+const PageFlow = lazy(() =>
+  import('./PageFlow/PageFlow').then((module) => ({
+    default: module.PageFlow,
+  }))
+);
+
+/** Most visited pages offered as starting points of the user flow. */
+const MAX_FLOW_START_OPTIONS = 20;
+
 /** Live map (dots, zoom, visitor journeys) — only loaded in the live view. */
 const LiveVisitorMap = lazy(() =>
   import('./WorldMap/LiveVisitorMap').then((module) => ({
@@ -737,6 +747,31 @@ export const DashboardAudience: FC = () => {
                   chartLabel={content.mapChartLabel.value}
                 />
               )}
+            </Suspense>
+          </Container>
+
+          {/* Averaged user flow */}
+          <Container
+            className="flex flex-col p-5"
+            roundedSize="2xl"
+            transparency="none"
+            border
+            borderColor="neutral"
+          >
+            <Suspense
+              fallback={
+                <div className="flex h-40 items-center justify-center">
+                  <Loader />
+                </div>
+              }
+            >
+              <PageFlow
+                range={range}
+                pageOptions={audience.byPage
+                  .slice(0, MAX_FLOW_START_OPTIONS)
+                  .map((row) => row.key)}
+                locale={locale}
+              />
             </Suspense>
           </Container>
         </>

@@ -8,12 +8,16 @@ import {
   bucketDailySeries,
   buildBreakdownRows,
   buildLiveSeries,
+  buildPageFlow,
   buildVisitorFlowSteps,
   collectLiveActivity,
+  collectPageTransitions,
   DEFAULT_AUDIENCE_RANGE,
   getPageMetadata,
   isAudienceRange,
   LIVE_WINDOW_MINUTES,
+  PAGE_FLOW_ENTRANCE,
+  type PageFlowLoaders,
 } from './analytics.service';
 
 /** Builds a daily series point with distinguishable users / views. */
@@ -444,5 +448,159 @@ describe('buildLiveSeries', () => {
     expect(series.at(-2)).toEqual(point('2026-11-09T12:29', 3, 5));
     expect(series.at(-1)).toEqual(point('2026-11-09T12:30', 0, 0));
     expect(series.reduce((sum, entry) => sum + entry.users, 0)).toBe(3);
+  });
+});
+
+describe('collectPageTransitions', () => {
+  const start = Date.parse('2026-11-09T12:00:00.000Z');
+  const minutes = (count: number): number => start + count * 60_000;
+
+  it('links consecutive page views and opens the session on an entrance', () => {
+    expect(
+      collectPageTransitions([
+        { url: '/docs', t: minutes(2) },
+        { url: '/', t: minutes(0) },
+        { url: '/pricing', t: minutes(5) },
+      ])
+    ).toEqual([
+      { day: '2026-11-09', fromUrl: PAGE_FLOW_ENTRANCE, toUrl: '/', count: 1 },
+      { day: '2026-11-09', fromUrl: '/', toUrl: '/docs', count: 1 },
+      { day: '2026-11-09', fromUrl: '/docs', toUrl: '/pricing', count: 1 },
+    ]);
+  });
+
+  it("links the first view to the session's previous page", () => {
+    expect(
+      collectPageTransitions([{ url: '/docs', t: minutes(10) }], {
+        url: '/',
+        lastSeenAt: minutes(8),
+      })
+    ).toEqual([{ day: '2026-11-09', fromUrl: '/', toUrl: '/docs', count: 1 }]);
+  });
+
+  it('starts a new session after 30 minutes of inactivity', () => {
+    expect(
+      collectPageTransitions([{ url: '/docs', t: minutes(40) }], {
+        url: '/',
+        lastSeenAt: minutes(5),
+      })
+    ).toEqual([
+      {
+        day: '2026-11-09',
+        fromUrl: PAGE_FLOW_ENTRANCE,
+        toUrl: '/docs',
+        count: 1,
+      },
+    ]);
+  });
+
+  it('ignores reloads and does not guess the origin of a late flush', () => {
+    expect(
+      collectPageTransitions(
+        [
+          { url: '/docs', t: minutes(1) },
+          { url: '/docs', t: minutes(2) },
+        ],
+        { url: '/', lastSeenAt: minutes(3) }
+      )
+    ).toEqual([]);
+  });
+
+  it('counts the same navigation twice', () => {
+    expect(
+      collectPageTransitions([
+        { url: '/', t: minutes(0) },
+        { url: '/docs', t: minutes(1) },
+        { url: '/', t: minutes(2) },
+        { url: '/docs', t: minutes(3) },
+      ]).find((transition) => transition.fromUrl === '/')?.count
+    ).toBe(2);
+  });
+});
+
+describe('buildPageFlow', () => {
+  /** In-memory loaders over fixed views and transitions. */
+  const loaders = (
+    views: Record<string, number>,
+    transitions: [fromUrl: string, toUrl: string, count: number][]
+  ): PageFlowLoaders => ({
+    loadViews: async (urls) =>
+      new Map(urls.map((url) => [url, views[url] ?? 0])),
+    loadTransitions: async (urls) =>
+      transitions
+        .filter(([fromUrl]) => urls.includes(fromUrl))
+        .map(([fromUrl, toUrl, count]) => ({ fromUrl, toUrl, count })),
+  });
+
+  it('spreads traffic over next pages and derives exits', async () => {
+    const flow = await buildPageFlow(
+      '/',
+      loaders({ '/': 100, '/docs': 50, '/pricing': 20 }, [
+        ['/', '/docs', 60],
+        ['/', '/pricing', 20],
+        ['/docs', '/pricing', 25],
+      ]),
+      2
+    );
+
+    expect(flow.steps[0]).toEqual([{ url: '/', value: 100, exits: 20 }]);
+    // /docs is reached 60 times; half of its traffic moves on to /pricing.
+    expect(flow.steps[1]).toEqual([
+      { url: '/docs', value: 60, exits: 30 },
+      { url: '/pricing', value: 20, exits: 20 },
+    ]);
+    expect(flow.steps[2]).toEqual([{ url: '/pricing', value: 30, exits: 30 }]);
+    expect(flow.links).toEqual([
+      { fromStep: 0, fromUrl: '/', toUrl: '/docs', value: 60 },
+      { fromStep: 0, fromUrl: '/', toUrl: '/pricing', value: 20 },
+      { fromStep: 1, fromUrl: '/docs', toUrl: '/pricing', value: 30 },
+    ]);
+  });
+
+  it('merges pages past the per-step cap into an unfollowed "other" node', async () => {
+    const flow = await buildPageFlow(
+      '/',
+      loaders({ '/': 10, '/a': 5 }, [
+        ['/', '/a', 5],
+        ['/', '/b', 3],
+        ['/', '/c', 2],
+        ['/b', '/a', 3],
+      ]),
+      2,
+      1
+    );
+
+    expect(flow.steps[1]).toEqual([
+      { url: '/a', value: 5, exits: 5 },
+      { url: null, value: 5, exits: null },
+    ]);
+    expect(flow.links.filter((link) => link.toUrl === null)).toEqual([
+      { fromStep: 0, fromUrl: '/', toUrl: null, value: 5 },
+    ]);
+    // Neither /a nor "other" leads anywhere, so the flow stops.
+    expect(flow.steps).toHaveLength(2);
+  });
+
+  it('uses outgoing navigations as the base when they exceed views', async () => {
+    const flow = await buildPageFlow(
+      PAGE_FLOW_ENTRANCE,
+      loaders({}, [
+        [PAGE_FLOW_ENTRANCE, '/', 8],
+        [PAGE_FLOW_ENTRANCE, '/docs', 2],
+      ]),
+      1
+    );
+
+    expect(flow.steps[0]).toEqual([
+      { url: PAGE_FLOW_ENTRANCE, value: 10, exits: null },
+    ]);
+    expect(flow.steps[1].map((node) => node.value)).toEqual([8, 2]);
+  });
+
+  it('returns the lone starting page when it has no traffic', async () => {
+    expect(await buildPageFlow('/missing', loaders({}, []))).toEqual({
+      steps: [[{ url: '/missing', value: 0, exits: null }]],
+      links: [],
+    });
   });
 });

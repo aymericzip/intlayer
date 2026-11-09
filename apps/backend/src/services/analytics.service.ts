@@ -1,6 +1,8 @@
 import { createHash } from 'node:crypto';
+import { PAGE_FLOW_ENTRANCE } from '@intlayer/backend-contract/analytics';
 import {
   AnalyticsLiveActivityModel,
+  AnalyticsPageTransitionModel,
   AnalyticsRollupModel,
   AnalyticsShortTermRollupModel,
   AnalyticsVisitorModel,
@@ -12,6 +14,7 @@ import type {
   AnalyticsLiveActivity,
   AnalyticsLiveActivitySchema,
   AnalyticsOverviewRow,
+  AnalyticsPageTransitionSchema,
   AnalyticsRollupSchema,
   AnalyticsShortTermRollupSchema,
   AnalyticsVisitorSchema,
@@ -27,6 +30,9 @@ import type {
   LiveVisitor,
   LiveVisitorFlow,
   LiveVisitorFlowStep,
+  PageFlow,
+  PageFlowLink,
+  PageFlowNode,
   PageMetadata,
 } from '@/types/analytics.types';
 
@@ -321,6 +327,119 @@ export const collectLiveActivity = (
   return [...counters.values()];
 };
 
+/** `fromUrl` of a navigation that opened a session (no previous page). */
+export { PAGE_FLOW_ENTRANCE };
+
+/** Inactivity after which the next page view opens a new session (GA's 30 min). */
+const SESSION_TIMEOUT_MS = 30 * MINUTE_MS;
+
+/** One daily page-to-page navigation counter accumulated from a flush. */
+export type PageTransitionCounter = {
+  /** UTC day of the navigation, `YYYY-MM-DD`. */
+  day: string;
+  fromUrl: string;
+  toUrl: string;
+  count: number;
+};
+
+/**
+ * Turns a session's page views into page-to-page navigations. The first view
+ * links to the session's previous page when it is recent enough, else it opens
+ * the session ({@link PAGE_FLOW_ENTRANCE}); reloads (same page twice) are not
+ * navigations. A previous page *newer* than the first view means this flush
+ * arrived late: its first view is not linked to anything rather than guessed.
+ *
+ * @param pageViews - The flush's page views, in any order.
+ * @param previousPage - The session's latest known page before this flush.
+ * @returns One counter per day + transition.
+ */
+export const collectPageTransitions = (
+  pageViews: { url: string; t: number }[],
+  previousPage?: { url: string; lastSeenAt: number }
+): PageTransitionCounter[] => {
+  const counters = new Map<string, PageTransitionCounter>();
+  const orderedViews = [...pageViews].sort((viewA, viewB) => viewA.t - viewB.t);
+  let previous = previousPage
+    ? { url: previousPage.url, t: previousPage.lastSeenAt }
+    : undefined;
+
+  for (const view of orderedViews) {
+    const elapsed = previous ? view.t - previous.t : Number.POSITIVE_INFINITY;
+    const fromUrl =
+      elapsed < 0
+        ? undefined
+        : elapsed > SESSION_TIMEOUT_MS
+          ? PAGE_FLOW_ENTRANCE
+          : previous?.url;
+
+    if (fromUrl && fromUrl !== view.url) {
+      const day = toDay(view.t);
+      const counterKey = buildDedupKey([day, fromUrl, view.url]);
+      const counter = counters.get(counterKey);
+
+      if (counter) {
+        counter.count += 1;
+      } else {
+        counters.set(counterKey, { day, fromUrl, toUrl: view.url, count: 1 });
+      }
+    }
+
+    previous = { url: view.url, t: view.t };
+  }
+
+  return [...counters.values()];
+};
+
+/**
+ * Records the page-to-page navigations of a flush, linking its first page
+ * view to the session's latest activity. Must run before the flush's own live
+ * activity is written, which would otherwise be read as the previous page.
+ */
+const recordPageTransitions = async (
+  projectId: Types.ObjectId,
+  sessionHash: string,
+  events: IncomingAnalyticsEvent[]
+): Promise<void> => {
+  const pageViews = events
+    .filter((event) => event.type === 'page_view' && event.url)
+    .map(({ url, t }) => ({ url, t }));
+
+  if (pageViews.length === 0) return;
+
+  const previousActivity = await AnalyticsLiveActivityModel.findOne(
+    { projectId, sessionHash },
+    { url: 1, lastSeenAt: 1 }
+  )
+    .sort({ lastSeenAt: -1 })
+    .lean<{ url: string; lastSeenAt?: Date } | null>();
+
+  const transitions = collectPageTransitions(
+    pageViews,
+    previousActivity?.lastSeenAt
+      ? {
+          url: previousActivity.url,
+          lastSeenAt: previousActivity.lastSeenAt.getTime(),
+        }
+      : undefined
+  );
+
+  if (transitions.length === 0) return;
+
+  const operations: AnyBulkWriteOperation<AnalyticsPageTransitionSchema>[] =
+    transitions.map(({ day, fromUrl, toUrl, count }) => ({
+      updateOne: {
+        filter: { projectId, day, fromUrl, toUrl },
+        update: {
+          $setOnInsert: { projectId, day, fromUrl, toUrl },
+          $inc: { count },
+        },
+        upsert: true,
+      },
+    }));
+
+  await AnalyticsPageTransitionModel.bulkWrite(operations, { ordered: false });
+};
+
 /**
  * Ingests a batch of client events into daily rollups for a project.
  *
@@ -469,6 +588,16 @@ export const ingestEvents = async (
     await AnalyticsShortTermRollupModel.bulkWrite(slotOperations, {
       ordered: false,
     });
+  }
+
+  // Page-to-page navigations, linked through the session's latest activity —
+  // so before this flush's own activity is written below.
+  if (context.sessionId) {
+    await recordPageTransitions(
+      projectId,
+      hashSession(context.sessionId),
+      sanitizedEvents
+    );
   }
 
   // Per-minute session activity for the `live` view (expires after an hour).
@@ -1372,6 +1501,235 @@ const getLiveAudience = async (
       })
     ),
   };
+};
+
+/** Steps shown after the starting page in the user flow. */
+export const PAGE_FLOW_STEP_COUNT = 3;
+
+/** Pages kept per flow step; the rest merge into an "other pages" node. */
+export const PAGE_FLOW_MAX_PAGES_PER_STEP = 5;
+
+/** Reads the flow inputs for a set of pages over the report window. */
+export type PageFlowLoaders = {
+  /** Page views per url. */
+  loadViews: (urls: string[]) => Promise<Map<string, number>>;
+  /** Navigations leaving the given urls. */
+  loadTransitions: (
+    urls: string[]
+  ) => Promise<{ fromUrl: string; toUrl: string; count: number }[]>;
+};
+
+/** Rounds a flow value to two decimals — values are averages, not counts. */
+const roundFlowValue = (value: number): number => Math.round(value * 100) / 100;
+
+/**
+ * Builds the averaged navigation flow from `startUrl`, one step at a time:
+ * the traffic of each page is spread over its next pages in proportion to the
+ * navigations recorded from it (a first-order Markov chain over the daily
+ * transitions), and what is not navigated onward left the site from that page.
+ * Each step keeps its top pages; the rest merges into a `url: null` node,
+ * which is not followed further.
+ *
+ * A page's traffic base is its page views, or its outgoing navigations when
+ * those are higher (they can be, around day boundaries and late flushes).
+ *
+ * @param startUrl - The starting page, or {@link PAGE_FLOW_ENTRANCE}.
+ * @param loaders - Reads views and transitions over the report window.
+ * @returns The steps and the links between consecutive steps.
+ */
+export const buildPageFlow = async (
+  startUrl: string,
+  loaders: PageFlowLoaders,
+  stepCount = PAGE_FLOW_STEP_COUNT,
+  maxPagesPerStep = PAGE_FLOW_MAX_PAGES_PER_STEP
+): Promise<Pick<PageFlow, 'steps' | 'links'>> => {
+  const steps: PageFlowNode[][] = [];
+  const links: PageFlowLink[] = [];
+  // Traffic of the followed pages of the current step, by url.
+  let currentFlow = new Map<string, number>([[startUrl, 0]]);
+
+  for (let step = 0; step <= stepCount; step++) {
+    const urls = [...currentFlow.keys()];
+    const [viewsByUrl, transitions] = await Promise.all([
+      loaders.loadViews(urls),
+      loaders.loadTransitions(urls),
+    ]);
+
+    const outgoingByUrl = new Map<string, number>();
+    for (const transition of transitions) {
+      outgoingByUrl.set(
+        transition.fromUrl,
+        (outgoingByUrl.get(transition.fromUrl) ?? 0) + transition.count
+      );
+    }
+
+    const getBase = (url: string): number =>
+      Math.max(viewsByUrl.get(url) ?? 0, outgoingByUrl.get(url) ?? 0);
+
+    if (step === 0) {
+      const startValue = getBase(startUrl);
+      steps.push([{ url: startUrl, value: startValue, exits: null }]);
+      if (startValue === 0) break;
+      currentFlow = new Map([[startUrl, startValue]]);
+    }
+
+    // Exits of the followed pages of this step.
+    for (const node of steps[step]) {
+      if (node.url === null || !currentFlow.has(node.url)) continue;
+
+      const base = getBase(node.url);
+      const onwardShare =
+        base > 0 ? (outgoingByUrl.get(node.url) ?? 0) / base : 0;
+      node.exits =
+        node.url === PAGE_FLOW_ENTRANCE
+          ? null
+          : roundFlowValue(node.value * (1 - onwardShare));
+    }
+
+    if (step === stepCount) break;
+
+    // Spread each page's traffic over its next pages.
+    const nextFlow = new Map<string, number>();
+    const rawLinks = new Map<
+      string,
+      { fromUrl: string; toUrl: string; value: number }
+    >();
+
+    for (const transition of transitions) {
+      const sourceFlow = currentFlow.get(transition.fromUrl);
+      const base = getBase(transition.fromUrl);
+
+      if (!sourceFlow || base === 0) continue;
+
+      const value = (sourceFlow * transition.count) / base;
+      nextFlow.set(
+        transition.toUrl,
+        (nextFlow.get(transition.toUrl) ?? 0) + value
+      );
+
+      const linkKey = buildDedupKey([transition.fromUrl, transition.toUrl]);
+      const link = rawLinks.get(linkKey);
+      if (link) {
+        link.value += value;
+      } else {
+        rawLinks.set(linkKey, { ...transition, value });
+      }
+    }
+
+    if (nextFlow.size === 0) break;
+
+    const rankedPages = [...nextFlow].sort(
+      ([, valueA], [, valueB]) => valueB - valueA
+    );
+    const keptPages = new Map(rankedPages.slice(0, maxPagesPerStep));
+    const otherValue = rankedPages
+      .slice(maxPagesPerStep)
+      .reduce((sum, [, value]) => sum + value, 0);
+
+    const nodes: PageFlowNode[] = [...keptPages].map(([url, value]) => ({
+      url,
+      value: roundFlowValue(value),
+      exits: null,
+    }));
+    if (otherValue > 0) {
+      nodes.push({ url: null, value: roundFlowValue(otherValue), exits: null });
+    }
+    steps.push(nodes);
+
+    // Links into dropped pages merge into the "other pages" node.
+    const mergedLinks = new Map<string, PageFlowLink>();
+    for (const { fromUrl, toUrl, value } of rawLinks.values()) {
+      const targetUrl = keptPages.has(toUrl) ? toUrl : null;
+      const linkKey = buildDedupKey([fromUrl, targetUrl ?? undefined]);
+      const link = mergedLinks.get(linkKey);
+
+      if (link) {
+        link.value += value;
+      } else {
+        mergedLinks.set(linkKey, {
+          fromStep: step,
+          fromUrl,
+          toUrl: targetUrl,
+          value,
+        });
+      }
+    }
+    for (const link of mergedLinks.values()) {
+      links.push({ ...link, value: roundFlowValue(link.value) });
+    }
+
+    currentFlow = keptPages;
+  }
+
+  return { steps, links };
+};
+
+/**
+ * Averaged user flow from a starting page over a range. Navigations are
+ * stored per day, so sub-day ranges (`live`, `1h`, `24h`) read the days they
+ * overlap.
+ *
+ * @param projectId - The project to report on.
+ * @param range - The rolling window.
+ * @param startUrl - The starting page, or {@link PAGE_FLOW_ENTRANCE}.
+ */
+export const getPageFlow = async (
+  projectId: Types.ObjectId,
+  range: AudienceRange,
+  startUrl: string
+): Promise<PageFlow> => {
+  const dayCount = Math.ceil(RANGE_DEFINITIONS[range].hours / 24);
+  const startDay = dayOffset(Math.max(0, dayCount - 1));
+
+  const { steps, links } = await buildPageFlow(startUrl, {
+    loadViews: async (urls) => {
+      const rows = await AnalyticsRollupModel.aggregate<{
+        _id: string;
+        views: number;
+      }>([
+        {
+          $match: {
+            projectId,
+            type: 'page_view',
+            day: { $gte: startDay },
+            url: { $in: urls },
+          },
+        },
+        { $group: { _id: '$url', views: { $sum: '$count' } } },
+      ]);
+      return new Map(rows.map((row) => [row._id, row.views]));
+    },
+    loadTransitions: async (urls) =>
+      AnalyticsPageTransitionModel.aggregate<{
+        fromUrl: string;
+        toUrl: string;
+        count: number;
+      }>([
+        {
+          $match: {
+            projectId,
+            fromUrl: { $in: urls },
+            day: { $gte: startDay },
+          },
+        },
+        {
+          $group: {
+            _id: { fromUrl: '$fromUrl', toUrl: '$toUrl' },
+            count: { $sum: '$count' },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            fromUrl: '$_id.fromUrl',
+            toUrl: '$_id.toUrl',
+            count: 1,
+          },
+        },
+      ]),
+  });
+
+  return { startUrl, range, steps, links };
 };
 
 /**

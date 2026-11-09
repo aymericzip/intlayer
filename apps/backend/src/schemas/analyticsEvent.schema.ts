@@ -2,6 +2,8 @@ import type { RenameId } from '@utils/mongoDB/types';
 import { type Model, model, Schema } from 'mongoose';
 import type {
   AnalyticsLiveActivity,
+  AnalyticsPageTransition,
+  AnalyticsPageTransitionSchema,
   AnalyticsLiveActivitySchema,
   AnalyticsRollup,
   AnalyticsRollupSchema,
@@ -234,6 +236,12 @@ analyticsLiveActivitySchema.index(
   { projectId: 1, minute: 1, sessionHash: 1, url: 1 },
   { unique: true }
 );
+// Latest activity of a session, to link its next page view to the previous one.
+analyticsLiveActivitySchema.index({
+  projectId: 1,
+  sessionHash: 1,
+  lastSeenAt: -1,
+});
 // TTL cleanup — only the last half hour is ever read.
 analyticsLiveActivitySchema.index(
   { createdAt: 1 },
@@ -246,3 +254,38 @@ export const AnalyticsLiveActivityModel = model<
   'analyticsLiveActivity',
   analyticsLiveActivitySchema
 ) as unknown as Model<AnalyticsLiveActivity>;
+
+/**
+ * Daily page-to-page navigation counters backing the user-flow report. Kept as
+ * long as the daily rollups, since the flow is offered on the same ranges.
+ */
+export const analyticsPageTransitionSchema =
+  new Schema<AnalyticsPageTransitionSchema>(
+    {
+      projectId: {
+        type: Schema.Types.ObjectId,
+        ref: 'project',
+        required: true,
+      },
+      day: { type: String, required: true },
+      fromUrl: { type: String, required: true },
+      toUrl: { type: String, required: true },
+      count: { type: Number, default: 0 },
+    },
+    { timestamps: true }
+  );
+
+// One counter per project + day + transition, so upserts coalesce.
+analyticsPageTransitionSchema.index(
+  { projectId: 1, day: 1, fromUrl: 1, toUrl: 1 },
+  { unique: true }
+);
+// Flow reads: outgoing navigations of a set of pages over a day range.
+analyticsPageTransitionSchema.index({ projectId: 1, fromUrl: 1, day: 1 });
+
+export const AnalyticsPageTransitionModel = model<
+  RenameId<AnalyticsPageTransition>
+>(
+  'analyticsPageTransition',
+  analyticsPageTransitionSchema
+) as unknown as Model<AnalyticsPageTransition>;

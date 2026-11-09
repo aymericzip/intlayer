@@ -114,6 +114,39 @@ export const liveVisitorFlowSchema = z.object({
   steps: z.array(liveVisitorFlowStepSchema),
 });
 
+/**
+ * Pseudo-page a session starts from. Used as the flow's starting page, the
+ * next step lists the landing pages.
+ */
+export const PAGE_FLOW_ENTRANCE = '(entrance)';
+
+/** One page of a flow step; `url` is `null` for the "other pages" bucket. */
+export const pageFlowNodeSchema = z.object({
+  url: z.nullable(z.string()),
+  /** Average navigations reaching this page at this step. */
+  value: z.number(),
+  /** Part of `value` that left the site from this page (`null` if unknown). */
+  exits: z.nullable(z.number()),
+});
+
+/** Average navigations from a page of one step to a page of the next. */
+export const pageFlowLinkSchema = z.object({
+  /** Step of the source page; the target is on `fromStep + 1`. */
+  fromStep: z.number(),
+  fromUrl: z.nullable(z.string()),
+  toUrl: z.nullable(z.string()),
+  value: z.number(),
+});
+
+/** Averaged navigation flow starting from one page. */
+export const pageFlowSchema = z.object({
+  startUrl: z.string(),
+  range: audienceRangeSchema,
+  /** Pages per step, the starting page alone on step 0. */
+  steps: z.array(z.array(pageFlowNodeSchema)),
+  links: z.array(pageFlowLinkSchema),
+});
+
 export const audienceStatsSchema = z.object({
   usersToday: z.number(),
   usersLast7Days: z.number(),
@@ -221,6 +254,19 @@ export const analyticsContract = defineRouteGroup({
         response: { 200: responseDataSchema(liveVisitorFlowSchema) },
       },
     }),
+    getPageFlow: defineRoute({
+      method: 'GET',
+      path: '/page-flow',
+      summary: 'Average page-to-page navigation flow from a starting page',
+      schemas: {
+        querystring: z.object({
+          range: z.optional(z.string()),
+          /** Starting page pathname; defaults to `/`. */
+          startUrl: z.optional(z.string()),
+        }),
+        response: { 200: responseDataSchema(pageFlowSchema) },
+      },
+    }),
     getContentStats: defineRoute({
       method: 'GET',
       path: '/content-stats',
@@ -265,6 +311,9 @@ export type AudienceStats = z.output<typeof audienceStatsSchema>;
 export type LiveVisitor = z.output<typeof liveVisitorSchema>;
 export type LiveVisitorFlowStep = z.output<typeof liveVisitorFlowStepSchema>;
 export type LiveVisitorFlow = z.output<typeof liveVisitorFlowSchema>;
+export type PageFlowNode = z.output<typeof pageFlowNodeSchema>;
+export type PageFlowLink = z.output<typeof pageFlowLinkSchema>;
+export type PageFlow = z.output<typeof pageFlowSchema>;
 export type AnalyticsOverviewRow = z.output<typeof analyticsOverviewRowSchema>;
 export type ContentStatRow = z.output<typeof contentStatRowSchema>;
 export type ExperimentResult = z.output<typeof experimentResultSchema>;
@@ -279,4 +328,5 @@ export type GetContentStatsResult = ResponseData<ContentStatRow[]>;
 export type GetExperimentResultsResult = ResponseData<ExperimentResult>;
 export type GetAudienceResult = ResponseData<AudienceStats>;
 export type GetLiveVisitorFlowResult = ResponseData<LiveVisitorFlow>;
+export type GetPageFlowResult = ResponseData<PageFlow>;
 export type GetPageMetadataResult = ResponseData<PageMetadata>;

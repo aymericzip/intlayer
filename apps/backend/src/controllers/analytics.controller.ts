@@ -13,6 +13,7 @@ import type {
   ContentStatRow,
   ExperimentResult,
   LiveVisitorFlow,
+  PageFlow,
   IncomingAnalyticsEvent,
   PageMetadata,
 } from '@/types/analytics.types';
@@ -265,6 +266,40 @@ export const getAnalyticsAudience = async (
       resolveAudienceRange(request.query ?? {})
     );
     return reply.status(200).send(formatResponse<AudienceStats>({ data }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/** Longest starting page accepted — matches the ingested url cap. */
+const MAX_START_URL_LENGTH = 512;
+
+/**
+ * Authenticated — averaged page-to-page navigation flow from a starting page
+ * (`?startUrl=`, default `/`) over the `?range=` window.
+ */
+export const getPageFlow = async (
+  request: FastifyRequest<{
+    Querystring: { range?: string; startUrl?: string };
+  }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  const startUrl =
+    request.query?.startUrl?.slice(0, MAX_START_URL_LENGTH) || '/';
+
+  try {
+    const data = await analyticsService.getPageFlow(
+      new Types.ObjectId(String(project.id)),
+      resolveAudienceRange(request.query ?? {}),
+      startUrl
+    );
+    return reply.status(200).send(formatResponse<PageFlow>({ data }));
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }

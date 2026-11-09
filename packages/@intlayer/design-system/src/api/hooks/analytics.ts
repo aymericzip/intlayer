@@ -30,6 +30,31 @@ export const useGetAnalyticsAudience = (
 };
 
 /**
+ * Fetches the averaged page-to-page navigation flow from a starting page.
+ *
+ * @param range - Rolling window of the report.
+ * @param startUrl - Starting page pathname.
+ * @param options - Extra react-query options.
+ */
+export const useGetPageFlow = (
+  range: AudienceRange,
+  startUrl: string,
+  options?: AppQueryOptions
+) => {
+  const analyticsAPI = useAnalyticsAPI();
+
+  return useAppQuery({
+    queryKey: ['analytics', 'page-flow', range, startUrl],
+    queryFn: ({ signal }) =>
+      analyticsAPI.getPageFlow(range, startUrl, { signal }),
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+    ...options,
+  });
+};
+
+/**
  * Fetches the page journey of a visitor from the `live` audience report.
  *
  * @param visitorId - The visitor id; the query is disabled while empty.

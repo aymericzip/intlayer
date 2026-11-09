@@ -7,6 +7,7 @@ import type {
   GetContentStatsResult,
   GetExperimentResultsResult,
   GetLiveVisitorFlowResult,
+  GetPageFlowResult,
   GetPageMetadataResult,
   IngestAnalyticsBody,
   IngestAnalyticsResult,
@@ -32,6 +33,7 @@ const analyticsEndpoints = {
   ingestAnalyticsEvents: { method: 'POST', path: '/events' },
   getAnalyticsOverview: { method: 'GET', path: '/overview' },
   getAnalyticsAudience: { method: 'GET', path: '/audience' },
+  getPageFlow: { method: 'GET', path: '/page-flow' },
   getLiveVisitorFlow: {
     method: 'GET',
     path: '/audience/live/visitors/:visitorId',
@@ -151,6 +153,27 @@ export const getAnalyticsAPI = (
     );
 
   /**
+   * Averaged page-to-page navigation flow from a starting page.
+   * @param range - Rolling window of the report.
+   * @param startUrl - Starting page pathname (default `/`).
+   * @returns The flow steps and the links between them.
+   */
+  const getPageFlow = async (
+    range: AudienceRange,
+    startUrl: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetPageFlowResult>(
+      buildRouteURL(backendURL, analyticsGroup, analyticsEndpoints.getPageFlow),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: analyticsEndpoints.getPageFlow.method,
+        params: { range, startUrl },
+      }
+    );
+
+  /**
    * Page journey of a visitor active in the last 30 minutes.
    * @param visitorId - The visitor id from the `live` audience report.
    * @returns The visitor and its steps (`visitor: null` once it went quiet).
@@ -199,6 +222,7 @@ export const getAnalyticsAPI = (
     getOverview,
     getAudience,
     getLiveVisitorFlow,
+    getPageFlow,
     getContentStats,
     getExperimentResults,
     getPageMetadata,

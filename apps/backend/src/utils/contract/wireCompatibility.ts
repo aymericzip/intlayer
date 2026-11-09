@@ -15,6 +15,7 @@ import type {
 import type {
   AudienceStats as ContractAudienceStats,
   LiveVisitorFlow as ContractLiveVisitorFlow,
+  PageFlow as ContractPageFlow,
 } from '@intlayer/backend-contract/analytics';
 import type { AssetAPI as ContractAssetAPI } from '@intlayer/backend-contract/asset';
 import type { BlogCommentAPI as ContractBlogCommentAPI } from '@intlayer/backend-contract/blogComment';
@@ -78,7 +79,11 @@ import type {
   AICreditDailyUsage,
 } from '@/types/aiCreditUsage.types';
 import type { AIStats } from '@/types/aiStats.types';
-import type { AudienceStats, LiveVisitorFlow } from '@/types/analytics.types';
+import type {
+  AudienceStats,
+  LiveVisitorFlow,
+  PageFlow,
+} from '@/types/analytics.types';
 import type { AssetAPI } from '@/types/asset.types';
 import type { BlogCommentAPI } from '@/types/blogComment.types';
 import type { DictionaryAPI } from '@/types/dictionary.types';
@@ -135,6 +140,7 @@ export type WireCompatibility = [
   AssertWire<ContractAssetAPI, Serialized<AssetAPI>>,
   AssertWire<ContractAudienceStats, Serialized<AudienceStats>>,
   AssertWire<ContractLiveVisitorFlow, Serialized<LiveVisitorFlow>>,
+  AssertWire<ContractPageFlow, Serialized<PageFlow>>,
   AssertWire<ContractHostScan, Serialized<HostScan>>,
   AssertWire<ContractScannedHostDetail, Serialized<ScannedHostDetail>>,
   AssertWire<ContractTechnologyUsage, Serialized<TechnologyUsage>>,

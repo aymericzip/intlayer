@@ -161,6 +161,28 @@ export interface AnalyticsLiveActivity extends Document {
 export type AnalyticsLiveActivitySchema = RenameId<AnalyticsLiveActivity>;
 
 /**
+ * Daily count of page-to-page navigations, one per project + day + transition.
+ * `fromUrl` is {@link PAGE_FLOW_ENTRANCE} when the page opened a session.
+ * Backs the averaged user-flow report.
+ */
+export interface AnalyticsPageTransition extends Document {
+  id: Types.ObjectId;
+  projectId: Types.ObjectId;
+  /** UTC day bucket, `YYYY-MM-DD`. */
+  day: string;
+  /** Page navigated from. */
+  fromUrl: string;
+  /** Page navigated to. */
+  toUrl: string;
+  /** Navigations counted that day. */
+  count: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type AnalyticsPageTransitionSchema = RenameId<AnalyticsPageTransition>;
+
+/**
  * Selectable windows for the audience report. `live` is the realtime view:
  * sessions active in the last 30 minutes, bucketed per minute.
  */
@@ -317,4 +339,31 @@ export type ExperimentResult = {
 export type PageMetadata = {
   title?: string;
   description?: string;
+};
+
+/** One page of a flow step; `url` is `null` for the "other pages" bucket. */
+export type PageFlowNode = {
+  url: string | null;
+  /** Average navigations reaching this page at this step. */
+  value: number;
+  /** Part of `value` that left the site from this page (`null` if unknown). */
+  exits: number | null;
+};
+
+/** Average navigations from a page of one step to a page of the next. */
+export type PageFlowLink = {
+  /** Step of the source page; the target is on `fromStep + 1`. */
+  fromStep: number;
+  fromUrl: string | null;
+  toUrl: string | null;
+  value: number;
+};
+
+/** Averaged navigation flow starting from one page. */
+export type PageFlow = {
+  startUrl: string;
+  range: AudienceRange;
+  /** Pages per step, the starting page alone on step 0. */
+  steps: PageFlowNode[][];
+  links: PageFlowLink[];
 };
