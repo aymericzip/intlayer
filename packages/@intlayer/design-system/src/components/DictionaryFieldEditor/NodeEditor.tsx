@@ -12,6 +12,7 @@ import {
   useCallback,
   useDeferredValue,
   useEffect,
+  useMemo,
   useTransition,
 } from 'react';
 import { useLocale } from 'react-intlayer';
@@ -57,15 +58,21 @@ export const NodeEditor: FC<NodeEditorProps> = ({ dictionary }) => {
   const editorLocale = useEditorLocale();
   const currentLocale = editorLocale ?? selectedLocales[0] ?? defaultLocale;
 
-  const focusedSection = getContentNodeByKeyPath(
-    section,
-    focusedKeyPath ?? [],
-    currentLocale
-  );
-
+  // Only the key path (a stable state reference) is deferred. Deferring the
+  // resolved section, a fresh copy on every render, never settles under Redact:
+  // each render queues one more transition render.
   const deferredKeyPath = useDeferredValue(focusedKeyPath);
-  const deferredSection = useDeferredValue(focusedSection);
-  const isStale = deferredSection !== focusedSection;
+  const isStale = deferredKeyPath !== focusedKeyPath;
+
+  const focusedSection = useMemo(
+    () => getContentNodeByKeyPath(section, focusedKeyPath ?? [], currentLocale),
+    [section, focusedKeyPath, currentLocale]
+  );
+  const deferredSection = useMemo(
+    () =>
+      getContentNodeByKeyPath(section, deferredKeyPath ?? [], currentLocale),
+    [section, deferredKeyPath, currentLocale]
+  );
 
   const isEditableBaseSection = getIsEditableSection(section);
   const isEditableFocusedSection = getIsEditableSection(deferredSection);

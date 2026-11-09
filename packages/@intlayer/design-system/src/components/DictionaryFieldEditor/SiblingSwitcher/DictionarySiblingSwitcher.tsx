@@ -25,6 +25,7 @@ import {
   type SiblingSelection,
   type VariantIdentity,
 } from './siblingSelection';
+import { VariantSelector } from './VariantSelector';
 
 /** Above this number of items, the item list gets a search and a filter. */
 const SEARCHABLE_ITEM_THRESHOLD = 8;
@@ -187,23 +188,6 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
         (selectedItem === null || sibling.item === selectedItem)
     );
 
-  const renderVariantLabel = (variant: VariantIdentity) => (
-    <span
-      className={cn(
-        'flex items-center gap-1.5',
-        variant.isStructured && 'font-mono'
-      )}
-      dir={variant.isStructured ? 'ltr' : undefined}
-    >
-      {typeof variant.primaryValue === 'string'
-        ? variant.primaryValue
-        : JSON.stringify(variant.primaryValue)}
-      {variant.isDefault && (
-        <span className="font-normal opacity-70">({content.defaultTag})</span>
-      )}
-    </span>
-  );
-
   const contextLabel = [
     dictionaryKey,
     ...(selectedVariantIdentity
@@ -296,43 +280,39 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
     );
   };
 
-  const renderVariantChip = (variant: VariantIdentity, onClick: () => void) => {
-    const isActive = selectedVariant === variant.identity;
+  const getHasVariantUnsavedChanges = (variant: VariantIdentity): boolean => {
     const variantSibling = getVariantSibling(variant);
 
     return (
-      <div key={variant.identity} className="flex flex-col gap-0.5">
-        <Button
-          variant={isActive ? 'default' : 'outline'}
-          size="sm"
-          color="text"
-          label={variant.identity}
-          aria-pressed={isActive}
-          onClick={onClick}
-        >
-          <span className="flex items-center gap-1.5">
-            {renderVariantLabel(variant)}
-            {variantSibling &&
-              getHasUnsavedChanges(variantSibling, editedContent) && (
-                <UnsavedDot />
-              )}
-          </span>
-        </Button>
-        {variant.aliases.length > 0 && (
-          <span className="px-1 text-xs text-neutral">
-            {content.alsoAnswersTo}{' '}
-            <span className="font-mono" dir="ltr">
-              {variant.aliases
-                .map((alias) =>
-                  typeof alias === 'string' ? alias : JSON.stringify(alias)
-                )
-                .join(', ')}
-            </span>
-          </span>
-        )}
-      </div>
+      variantSibling !== undefined &&
+      getHasUnsavedChanges(variantSibling, editedContent)
     );
   };
+
+  /** Variant picker, optionally led by the base entry. */
+  const renderVariantSelectors = (isBaseShown: boolean) => (
+    <VariantSelector
+      variants={variants}
+      selectedVariant={selectedVariant}
+      onSelectVariant={selectVariant}
+      getHasUnsavedChanges={getHasVariantUnsavedChanges}
+      leadingChip={
+        isBaseShown && (
+          <Button
+            variant={selectedVariant === null ? 'default' : 'outline'}
+            size="sm"
+            color="text"
+            label={content.baseLabel.value}
+            aria-pressed={selectedVariant === null}
+            onClick={() => selectVariant(null)}
+            className="shrink-0"
+          >
+            {content.baseLabel}
+          </Button>
+        )
+      }
+    />
+  );
 
   if (isCompact) {
     const dropdownIdentifier = `sibling-switcher-${dictionaryKey}`;
@@ -391,17 +371,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
                   <span className="px-2 text-xs font-medium text-neutral">
                     {content.variantsLabel}
                   </span>
-                  <div className="flex flex-wrap gap-1 px-1">
-                    {variants.map((variant) =>
-                      renderVariantChip(variant, () =>
-                        selectVariant(
-                          selectedVariant === variant.identity
-                            ? null
-                            : variant.identity
-                        )
-                      )
-                    )}
-                  </div>
+                  <div className="px-1">{renderVariantSelectors(false)}</div>
                 </div>
               )}
             </Container>
@@ -418,27 +388,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
           <span className="text-xs font-medium text-neutral">
             {content.variantsLabel}
           </span>
-          <div className="flex flex-wrap items-start gap-1">
-            {itemEntries.length === 0 && baseSibling && (
-              <Button
-                variant={selectedVariant === null ? 'default' : 'outline'}
-                size="sm"
-                color="text"
-                label={content.baseLabel.value}
-                aria-pressed={selectedVariant === null}
-                onClick={() => selectVariant(null)}
-              >
-                {content.baseLabel}
-              </Button>
-            )}
-            {variants.map((variant) =>
-              renderVariantChip(variant, () =>
-                selectVariant(
-                  selectedVariant === variant.identity ? null : variant.identity
-                )
-              )
-            )}
-          </div>
+          {renderVariantSelectors(itemEntries.length === 0 && !!baseSibling)}
           {selectedVariantIdentity && !selectedVariantIdentity.isDefault && (
             <span className="text-xs text-neutral">
               {content.inheritanceHint}

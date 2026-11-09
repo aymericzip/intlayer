@@ -3,12 +3,18 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
 
+/**
+ * Resolves the node at `keyPath` and returns a deep copy of it.
+ *
+ * The walk is read-only, so only the resolved node is copied: copying the
+ * whole dictionary up front made every lookup cost the full dictionary size.
+ */
 export const getContentNodeByKeyPath = (
   dictionaryContent: ContentNode,
   keyPath: KeyPath[],
   fallbackLocale?: LocalesValues
 ): ContentNode => {
-  let currentValue: any = structuredClone(dictionaryContent);
+  let currentValue: any = dictionaryContent;
 
   for (const keyObj of keyPath) {
     // Auto-resolve translation nodes when the key does not target translation
@@ -48,5 +54,5 @@ export const getContentNodeByKeyPath = (
     }
   }
 
-  return currentValue as ContentNode;
+  return structuredClone(currentValue) as ContentNode;
 };

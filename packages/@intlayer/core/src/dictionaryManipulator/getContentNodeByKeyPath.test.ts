@@ -136,4 +136,19 @@ describe('getContentNodeByKeyPath', () => {
       },
     });
   });
+
+  it('should return a copy that does not share references with the source', () => {
+    const content = { section: { items: ['first', 'second'] } };
+
+    const result = getContentNodeByKeyPath(content, [
+      { type: NodeTypes.OBJECT, key: 'section' },
+    ]) as typeof content.section;
+
+    expect(result).toEqual(content.section);
+    expect(result).not.toBe(content.section);
+
+    result.items.push('third');
+
+    expect(content.section.items).toEqual(['first', 'second']);
+  });
 });

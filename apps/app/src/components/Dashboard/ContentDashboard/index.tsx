@@ -28,7 +28,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   const { resolvedTheme } = useTheme();
   const { data: dictionaryResult, isPending } = useGetDictionary(dictionaryKey);
   const { data: siblingsResult } = useGetDictionaries(
-    { key: dictionaryKey, pageSize: 200 },
+    { keys: [dictionaryKey], pageSize: 200 },
     { enabled: Boolean(dictionaryKey) }
   );
   const { localeDictionaries } = useDictionariesRecord();
@@ -51,10 +51,17 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
     [localeDictionaries, dictionaryKey]
   );
 
-  // All backend dictionaries sharing this key (items, variants)
+  // Every dictionary sharing this key, as listed in the dictionary list:
+  // backend ones plus local-only ones (not pushed yet, so without `id`)
   const siblings: Dictionary[] = useMemo(
-    () => (siblingsResult?.data as Dictionary[] | undefined) ?? [],
-    [siblingsResult]
+    () => [
+      ...((siblingsResult?.data as Dictionary[] | undefined) ?? []),
+      ...Object.values(localeDictionaries ?? {}).filter(
+        (localeOnlyDictionary): localeOnlyDictionary is Dictionary =>
+          localeOnlyDictionary.key === dictionaryKey && !localeOnlyDictionary.id
+      ),
+    ],
+    [siblingsResult, localeDictionaries, dictionaryKey]
   );
 
   // Item / variant selection is handled inside the editor
@@ -76,6 +83,15 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
               siblings={siblings}
               onClickDictionaryList={() =>
                 navigate({ to: App_Dashboard_Dictionaries_Path })
+              }
+              onOpenDictionary={(relatedDictionary) =>
+                navigate({
+                  to: '/dictionary/$dictionaryKey',
+                  params: { dictionaryKey: relatedDictionary.key },
+                })
+              }
+              onOpenTag={(tagKey) =>
+                navigate({ to: '/tags/$tagKey', params: { tagKey } })
               }
               isDarkMode={resolvedTheme === 'dark'}
               mode={['remote']}

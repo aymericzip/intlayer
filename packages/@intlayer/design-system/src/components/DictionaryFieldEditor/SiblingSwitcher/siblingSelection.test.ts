@@ -8,7 +8,10 @@ import {
   getContentSummary,
   getItemNumbers,
   getShapeDrift,
+  getVariantDimensions,
   getVariantIdentities,
+  isVariantCombinationDeclared,
+  resolveVariantForDimension,
 } from './siblingSelection';
 
 const translation = (values: Record<string, string>): ContentNode =>
@@ -91,6 +94,47 @@ describe('sibling selection', () => {
     expect(buildUseIntlayerSnippet('faq', null, pro)).toBe(
       "useIntlayer('faq', { variant: { plan: 'pro' } })"
     );
+  });
+});
+
+describe('structured variant dimensions', () => {
+  const variants = getVariantIdentities([
+    makeDictionary({ variant: 'default' }, {}),
+    makeDictionary(
+      { variant: { id: 'apple-watch', category: 'wearables' } },
+      {}
+    ),
+    makeDictionary({ variant: { id: 'airpods-pro', category: 'audio' } }, {}),
+    makeDictionary({ variant: { id: 'airpods-max', category: 'audio' } }, {}),
+  ]);
+  const [, appleWatch, airpodsPro, airpodsMax] = variants;
+
+  it('splits structured variants into one selector per field', () => {
+    expect(getVariantDimensions(variants)).toEqual([
+      { name: 'category', values: ['wearables', 'audio'] },
+      { name: 'id', values: ['apple-watch', 'airpods-pro', 'airpods-max'] },
+    ]);
+  });
+
+  it('resolves the variant keeping the most of the current selection', () => {
+    expect(
+      resolveVariantForDimension(variants, airpodsMax, 'category', 'audio')
+    ).toBe(airpodsMax);
+    expect(
+      resolveVariantForDimension(variants, appleWatch, 'id', 'airpods-pro')
+    ).toBe(airpodsPro);
+    expect(
+      resolveVariantForDimension(variants, undefined, 'id', 'unknown')
+    ).toBeUndefined();
+  });
+
+  it('flags undeclared field combinations', () => {
+    expect(
+      isVariantCombinationDeclared(variants, appleWatch, 'id', 'airpods-pro')
+    ).toBe(false);
+    expect(
+      isVariantCombinationDeclared(variants, airpodsPro, 'id', 'airpods-max')
+    ).toBe(true);
   });
 });
 

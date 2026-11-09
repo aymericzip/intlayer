@@ -72,6 +72,128 @@ export const getVariantIdentities = (
   return [...identities.values()];
 };
 
+/** Scalar value of one field of a structured variant. */
+export type VariantDimensionValue = string | number;
+
+/** One field shared by structured variants (`id`, `category`…). */
+export type VariantDimension = {
+  name: string;
+  /** Distinct values, in declaration order. */
+  values: VariantDimensionValue[];
+};
+
+/** Field values of a structured variant, `undefined` for named variants. */
+export const getStructuredVariantFields = (
+  variant: VariantIdentity | undefined
+): Record<string, VariantDimensionValue> | undefined =>
+  variant && typeof variant.primaryValue === 'object'
+    ? variant.primaryValue
+    : undefined;
+
+/**
+ * Splits structured variants into one dimension per field, so `N` variants
+ * over `D` fields render as `D` selectors instead of `N` JSON chips.
+ */
+export const getVariantDimensions = (
+  variants: VariantIdentity[]
+): VariantDimension[] => {
+  const valuesByDimension = new Map<string, Set<VariantDimensionValue>>();
+
+  for (const variant of variants) {
+    const fields = getStructuredVariantFields(variant);
+    if (!fields) continue;
+
+    for (const [name, value] of Object.entries(fields)) {
+      const values = valuesByDimension.get(name) ?? new Set();
+      values.add(value);
+      valuesByDimension.set(name, values);
+    }
+  }
+
+  return [...valuesByDimension.entries()]
+    .sort(([firstName], [secondName]) => firstName.localeCompare(secondName))
+    .map(([name, values]) => ({ name, values: [...values] }));
+};
+
+/**
+ * Structured variant to select when one dimension is set to a value: the
+ * variant having that value which keeps the most other fields of the current
+ * selection. `undefined` when no variant has that value.
+ */
+export const resolveVariantForDimension = (
+  variants: VariantIdentity[],
+  currentVariant: VariantIdentity | undefined,
+  dimensionName: string,
+  value: VariantDimensionValue
+): VariantIdentity | undefined => {
+  const currentFields = getStructuredVariantFields(currentVariant) ?? {};
+  let bestVariant: VariantIdentity | undefined;
+  let bestScore = -1;
+
+  for (const variant of variants) {
+    const fields = getStructuredVariantFields(variant);
+    if (fields?.[dimensionName] !== value) continue;
+
+    const score = Object.entries(currentFields).filter(
+      ([name, currentValue]) =>
+        name !== dimensionName && fields[name] === currentValue
+    ).length;
+
+    if (score > bestScore) {
+      bestVariant = variant;
+      bestScore = score;
+    }
+  }
+
+  return bestVariant;
+};
+
+/**
+ * True when changing one dimension keeps every other field of the current
+ * selection (the combination is declared).
+ */
+export const isVariantCombinationDeclared = (
+  variants: VariantIdentity[],
+  currentVariant: VariantIdentity | undefined,
+  dimensionName: string,
+  value: VariantDimensionValue
+): boolean => {
+  const currentFields = getStructuredVariantFields(currentVariant);
+  if (!currentFields) return true;
+
+  const targetFields = { ...currentFields, [dimensionName]: value };
+
+  return variants.some((variant) => {
+    const fields = getStructuredVariantFields(variant);
+
+    return (
+      fields !== undefined &&
+      Object.keys(fields).length === Object.keys(targetFields).length &&
+      Object.entries(targetFields).every(
+        ([name, targetValue]) => fields[name] === targetValue
+      )
+    );
+  });
+};
+
+/**
+ * True when both records are the same dictionary: compared by backend `id`,
+ * then by `localId`. Remote records may lack a `localId`, so two missing ids
+ * never count as a match.
+ */
+export const isSameDictionary = (
+  firstDictionary: Dictionary,
+  secondDictionary: Dictionary
+): boolean => {
+  if (firstDictionary.id && secondDictionary.id)
+    return firstDictionary.id === secondDictionary.id;
+
+  if (firstDictionary.localId && secondDictionary.localId)
+    return firstDictionary.localId === secondDictionary.localId;
+
+  return firstDictionary === secondDictionary;
+};
+
 /** Unqualified sibling acting as base content, if any. */
 export const getBaseSibling = (
   siblings: Dictionary[]

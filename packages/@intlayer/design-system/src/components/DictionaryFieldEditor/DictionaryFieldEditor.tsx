@@ -34,6 +34,7 @@ import {
   findSiblingForSelection,
   getBaseSibling,
   getSelectionOfSibling,
+  isSameDictionary,
   type SiblingSelection,
 } from './SiblingSwitcher/siblingSelection';
 import { StructureEditor } from './StructureEditor';
@@ -70,6 +71,10 @@ const UnsavedChangesGuard: FC = () => {
 export type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
+  /** Opens a related dictionary of another key (same tags). */
+  onOpenDictionary?: (dictionary: Dictionary) => void;
+  /** Opens the page of a tag of the dictionary. */
+  onOpenTag?: (tagKey: string) => void;
   onDelete?: () => void;
   onSave?: () => void;
   isDarkMode?: boolean;
@@ -92,6 +97,8 @@ export type DictionaryFieldEditorProps = {
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
   onClickDictionaryList,
+  onOpenDictionary,
+  onOpenTag,
   isDarkMode,
   mode,
   onDelete,
@@ -160,14 +167,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
 
   const activeSelection = getSelectionOfSibling(activeDictionary);
 
-  /** Switches every view to the sibling at the selected coordinates. */
-  const selectSibling = (selection: SiblingSelection) => {
-    const target =
-      selection.item === null && selection.variant === null
-        ? (getBaseSibling(siblings) ?? dictionary)
-        : findSiblingForSelection(siblings, selection);
-
-    if (!target || target.localId === activeDictionary.localId) return;
+  /** Switches every view to the given sibling dictionary. */
+  const activateSibling = (target: Dictionary | undefined) => {
+    if (!target || isSameDictionary(target, activeDictionary)) return;
 
     setActiveDictionary(target);
     setFocusedContent({
@@ -177,6 +179,14 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     });
     setLocaleDictionary(target);
   };
+
+  /** Switches every view to the sibling at the selected coordinates. */
+  const selectSibling = (selection: SiblingSelection) =>
+    activateSibling(
+      selection.item === null && selection.variant === null
+        ? (getBaseSibling(siblings) ?? dictionary)
+        : findSiblingForSelection(siblings, selection)
+    );
 
   const isMarkdownDocument = getIsMarkdownDocument(activeDictionary.content);
   const [storedView, setStoredView, , clearStoredView] = usePersistedStore<
@@ -352,6 +362,10 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                   <DictionaryDetailsForm
                     dictionary={activeDictionary}
                     mode={mode}
+                    onSelectSibling={activateSibling}
+                    siblings={siblings}
+                    onOpenDictionary={onOpenDictionary}
+                    onOpenTag={onOpenTag}
                   />
                 )}
                 {activeTab === 'content' && (

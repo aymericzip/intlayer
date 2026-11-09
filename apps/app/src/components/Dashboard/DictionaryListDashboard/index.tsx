@@ -3,6 +3,7 @@ import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { getDictionaryVariantTagLabels } from '@intlayer/design-system/dictionary-field-editor';
 import { Checkbox } from '@intlayer/design-system/input';
 import {
   NumberItemsSelector,
@@ -45,6 +46,13 @@ export const DictionaryListDashboardContent: FC<
     (session?.permissions?.includes('dictionary:admin') ||
       session?.permissions?.includes('dictionary:write')) ??
     false;
+
+  const hasVariantDictionary = dashboard.data.dictionaries.some(
+    (dictionary) => getDictionaryVariantTagLabels(dictionary.variant).length > 0
+  );
+  const hasItemDictionary = dashboard.data.dictionaries.some(
+    (dictionary) => dictionary.item !== undefined
+  );
 
   const handleSort = (columnId: string) => {
     const isAsc =
@@ -115,6 +123,48 @@ export const DictionaryListDashboardContent: FC<
         </CopyToClipboard>
       ),
     },
+    ...(hasVariantDictionary
+      ? [
+          {
+            id: 'variant',
+            header: String(content.qualifierTypes.variant),
+            cell: ({ row }) => {
+              const variantTagLabels = getDictionaryVariantTagLabels(
+                row.original.variant
+              );
+
+              if (variantTagLabels.length === 0)
+                return <span className="text-neutral">-</span>;
+
+              return (
+                <div className="flex flex-wrap gap-1" dir="ltr">
+                  {variantTagLabels.map((variantTagLabel) => (
+                    <Tag key={variantTagLabel} color="warning" size="xs">
+                      {variantTagLabel}
+                    </Tag>
+                  ))}
+                </div>
+              );
+            },
+          } satisfies DataTableColumnDef<Dictionary>,
+        ]
+      : []),
+    ...(hasItemDictionary
+      ? [
+          {
+            id: 'item',
+            header: content.tableHeaders.item.value,
+            cell: ({ row }) =>
+              row.original.item === undefined ? (
+                <span className="text-neutral">-</span>
+              ) : (
+                <Tag color="neutral" size="xs">
+                  {row.original.item}
+                </Tag>
+              ),
+          } satisfies DataTableColumnDef<Dictionary>,
+        ]
+      : []),
     {
       accessorKey: 'title',
       header: () => (
@@ -171,13 +221,16 @@ export const DictionaryListDashboardContent: FC<
       cell: ({ row }) => {
         const dictionary = row.original;
         const qualifiers: Array<{
-          key: 'collection' | 'variant';
-          color: 'neutral' | 'warning';
+          key: 'collection' | 'variant' | 'perLocale';
+          color: 'neutral' | 'warning' | 'success';
         }> = [];
         if (dictionary.item !== undefined)
           qualifiers.push({ key: 'collection', color: 'neutral' });
         if (dictionary.variant !== undefined)
           qualifiers.push({ key: 'variant', color: 'warning' });
+        // Monolingual dictionary: holds a single locale
+        if (dictionary.locale !== undefined)
+          qualifiers.push({ key: 'perLocale', color: 'success' });
 
         if (qualifiers.length === 0)
           return <span className="text-neutral">-</span>;

@@ -181,7 +181,9 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     if (
       nodeType === NodeTypes.ENUMERATION ||
       nodeType === NodeTypes.PLURAL ||
-      nodeType === NodeTypes.CONDITION
+      nodeType === NodeTypes.CONDITION ||
+      nodeType === NodeTypes.GENDER ||
+      nodeType === NodeTypes.SELECT
     ) {
       return (
         <div className="flex flex-col justify-between gap-2">
