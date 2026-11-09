@@ -45,6 +45,8 @@ export type AskDocQuestionBody = {
   messages: ChatCompletionRequestMessage[];
   discussionId: string;
   onMessage?: (chunk: string) => void;
+  /** Receives the summarized reasoning of the model as it streams. */
+  onReasoning?: (chunk: string) => void;
   onDone?: (response: AskDocQuestionResult) => void;
 };
 
@@ -247,7 +249,7 @@ export const getAiAPI = (
   ) => {
     if (!body) return;
 
-    const { onMessage, onDone, ...rest } = body;
+    const { onMessage, onReasoning, onDone, ...rest } = body;
     const abortController = new AbortController();
 
     try {
@@ -315,6 +317,9 @@ export const getAiAPI = (
           if (line.startsWith('data: ')) {
             try {
               const data = JSON.parse(line.slice(6));
+              if (data.reasoning) {
+                onReasoning?.(data.reasoning);
+              }
               if (data.chunk) {
                 onMessage?.(data.chunk);
               }

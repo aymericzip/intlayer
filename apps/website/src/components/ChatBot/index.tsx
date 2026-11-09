@@ -88,6 +88,7 @@ export const ChatBot: FC<ChatBotProps> = ({
   } = useIntlayer('chat');
   const isFirstRender = useRef(true);
   const [currentResponse, setCurrentResponse] = useState('');
+  const [currentReasoning, setCurrentReasoning] = useState('');
 
   const firstMessage: ChatCompletionRequestMessage = {
     role: 'system',
@@ -100,6 +101,7 @@ export const ChatBot: FC<ChatBotProps> = ({
 
   const handleAskNewQuestion = (newQuestion: string) => {
     setCurrentResponse('');
+    setCurrentReasoning('');
 
     const newDiscussionId = discussion?.discussionId ?? uuid();
 
@@ -133,6 +135,8 @@ export const ChatBot: FC<ChatBotProps> = ({
         discussionId: newDiscussionId,
         onMessage: (chunk: string) =>
           setCurrentResponse((prev) => prev + chunk),
+        onReasoning: (chunk: string) =>
+          setCurrentReasoning((prev) => prev + chunk),
         onDone: (response: AskDocQuestionResult) => {
           const responseData = 'data' in response ? response.data : response;
 
@@ -168,6 +172,7 @@ export const ChatBot: FC<ChatBotProps> = ({
               }) as DiscussionStore
           );
           setCurrentResponse('');
+          setCurrentReasoning('');
         },
       },
       {
@@ -176,6 +181,7 @@ export const ChatBot: FC<ChatBotProps> = ({
         },
         onError: (error) => {
           setCurrentResponse('');
+          setCurrentReasoning('');
 
           if (isUnauthenticatedRateLimitError(error)) {
             setHasReachedRateLimit(true);
@@ -193,6 +199,7 @@ export const ChatBot: FC<ChatBotProps> = ({
       relatedFiles: [],
     }));
     setCurrentResponse('');
+    setCurrentReasoning('');
   };
 
   useEffect(() => {
@@ -220,6 +227,8 @@ export const ChatBot: FC<ChatBotProps> = ({
                 : []),
             ]}
             isLoading={isPending}
+            // Thoughts give way to the answer once it starts streaming
+            reasoning={currentResponse ? undefined : currentReasoning}
           />
         </div>
       </div>

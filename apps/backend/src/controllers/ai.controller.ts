@@ -629,6 +629,11 @@ export const askDocQuestion = async (
             reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
           }
         },
+        onReasoning: (reasoning) => {
+          if (!reply.raw.writableEnded) {
+            reply.raw.write(`data: ${JSON.stringify({ reasoning })}\n\n`);
+          }
+        },
       }
     );
 
