@@ -4,7 +4,12 @@ import * as ToastPrimitives from '@radix-ui/react-toast';
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-import type { ComponentProps, FC, ReactElement } from 'react';
+import type {
+  ComponentProps,
+  FC,
+  PointerEvent as ReactPointerEvent,
+  ReactElement,
+} from 'react';
 
 export const ToastProvider = ToastPrimitives;
 
@@ -174,6 +179,20 @@ export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
   </ToastPrimitives.Close>
 );
 /**
+ * Radix Toast root starts a swipe-to-dismiss on pointer down (and forces
+ * `user-select: none`), which makes text impossible to select. Stopping the
+ * event on text elements keeps selection working while the rest of the toast
+ * stays swipeable.
+ */
+const preventSwipeOnText = <ElementType extends HTMLElement>(
+  event: ReactPointerEvent<ElementType>,
+  onPointerDown?: (event: ReactPointerEvent<ElementType>) => void
+) => {
+  onPointerDown?.(event);
+  event.stopPropagation();
+};
+
+/**
  * ToastTitle Component
  *
  * The primary heading text for toast notifications. Provides semantic structure
@@ -193,10 +212,15 @@ export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
  */
 export const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
   className,
+  onPointerDown,
   ...props
 }) => (
   <ToastPrimitives.Title
-    className={cn('text-sm font-semibold [&+div]:text-xs', className)}
+    className={cn(
+      'cursor-text text-sm font-semibold wrap-break-word select-text [&+div]:text-xs',
+      className
+    )}
+    onPointerDown={(event) => preventSwipeOnText(event, onPointerDown)}
     {...props}
   />
 );
@@ -230,9 +254,13 @@ export const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
  */
 export const ToastDescription: FC<
   ComponentProps<typeof ToastPrimitives.Description>
-> = ({ className, ...props }) => (
+> = ({ className, onPointerDown, ...props }) => (
   <ToastPrimitives.Description
-    className={cn('overflow-scroll text-sm opacity-90', className)}
+    className={cn(
+      'max-h-60 cursor-text overflow-y-auto text-sm wrap-break-word opacity-90 select-text',
+      className
+    )}
+    onPointerDown={(event) => preventSwipeOnText(event, onPointerDown)}
     {...props}
   />
 );
