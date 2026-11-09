@@ -11,6 +11,7 @@ const visitor = (overrides: Partial<LiveVisitor>): LiveVisitor => ({
   views: 1,
   firstSeenAt: '2026-11-09T12:00:00.000Z',
   lastSeenAt: '2026-11-09T12:01:00.000Z',
+  activeMinutes: ['2026-11-09T12:00', '2026-11-09T12:01'],
   ...overrides,
 });
 

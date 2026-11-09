@@ -92,6 +92,8 @@ export const liveVisitorSchema = z.object({
   firstSeenAt: z.string(),
   /** ISO date of the visitor's latest activity. */
   lastSeenAt: z.string(),
+  /** Minutes (`YYYY-MM-DDTHH:mm`, UTC) the visitor was active in, oldest first. */
+  activeMinutes: z.array(z.string()),
 });
 
 /** One step of a live visitor's journey, oldest first. */

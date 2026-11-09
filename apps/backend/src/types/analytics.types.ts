@@ -282,6 +282,8 @@ export type LiveVisitor = {
   firstSeenAt: Date;
   /** Latest activity. */
   lastSeenAt: Date;
+  /** Minutes (`YYYY-MM-DDTHH:mm`, UTC) the visitor was active in, oldest first. */
+  activeMinutes: string[];
 };
 
 /** One step of a live visitor's journey, oldest first. */

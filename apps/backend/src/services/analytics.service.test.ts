@@ -18,6 +18,7 @@ import {
   LIVE_WINDOW_MINUTES,
   PAGE_FLOW_ENTRANCE,
   type PageFlowLoaders,
+  toActiveMinutes,
   toMapCoordinates,
 } from './analytics.service';
 
@@ -623,5 +624,18 @@ describe('toMapCoordinates', () => {
       latitude: undefined,
       longitude: undefined,
     });
+  });
+});
+
+describe('toActiveMinutes', () => {
+  it('dedupes minutes and orders them oldest first', () => {
+    expect(
+      toActiveMinutes([
+        '2026-11-09T10:02',
+        '2026-11-09T09:59',
+        '2026-11-09T10:02',
+        '2026-11-09T10:00',
+      ])
+    ).toEqual(['2026-11-09T09:59', '2026-11-09T10:00', '2026-11-09T10:02']);
   });
 });

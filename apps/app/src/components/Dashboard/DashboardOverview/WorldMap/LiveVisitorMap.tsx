@@ -7,8 +7,13 @@ import { getCachedIntl } from '@intlayer/core/utils';
 import { useGetLiveVisitorFlow } from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
 import { ArrowLeft, FileText, X } from 'lucide-react';
-import { type FC, useMemo, useState } from 'react';
+import { type FC, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import {
+  EMPTY_LIVE_VISITOR_SELECTION,
+  getVisitorsActiveAt,
+  type LiveVisitorSelection,
+} from './liveVisitorSelection';
 import { WorldMap, type WorldMapRow } from './WorldMap';
 import {
   countryToFlag,
@@ -256,6 +261,13 @@ const VisitorJourney: FC<VisitorJourneyProps> = ({
   );
 };
 
+/** "14:32" for a `YYYY-MM-DDTHH:mm` UTC minute, in local time. */
+const formatMinute = (minute: string, locale: string): string =>
+  new Date(`${minute}:00.000Z`).toLocaleTimeString(locale, {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
 type LiveVisitorMapProps = {
   /** Active visitors of the `live` report. */
   visitors: LiveVisitor[];
@@ -263,6 +275,9 @@ type LiveVisitorMapProps = {
   rows: WorldMapRow[];
   /** Time the live report was fetched (epoch ms). */
   referenceTime: number;
+  /** Controlled, so the activity chart can pick a minute / visitor too. */
+  selection: LiveVisitorSelection;
+  onSelectionChange: (selection: LiveVisitorSelection) => void;
   locale: string;
   usersLabel: string;
   chartLabel: string;
@@ -270,22 +285,26 @@ type LiveVisitorMapProps = {
 
 /**
  * Live view of the audience map: visitor dots with zoom, and a side panel
- * listing who is active (all, or at the clicked place) and, for a picked
- * visitor, their page journey over the last 30 minutes.
+ * listing who is active (all, at the clicked place, or during the clicked
+ * minute) and, for a picked visitor, their page journey over the last 30
+ * minutes.
  */
 export const LiveVisitorMap: FC<LiveVisitorMapProps> = ({
   visitors,
   rows,
   referenceTime,
+  selection,
+  onSelectionChange,
   locale,
   usersLabel,
   chartLabel,
 }) => {
   const content = useIntlayer('live-visitor-map');
-  const [selectedPlaceKey, setSelectedPlaceKey] = useState<string | null>(null);
-  const [selectedVisitorId, setSelectedVisitorId] = useState<string | null>(
-    null
-  );
+  const {
+    placeKey: selectedPlaceKey,
+    minute: selectedMinute,
+    visitorId: selectedVisitorId,
+  } = selection;
 
   // Re-derived on every refresh, so the panel follows arrivals and departures.
   const selectedPlace = useMemo(
@@ -298,28 +317,35 @@ export const LiveVisitorMap: FC<LiveVisitorMapProps> = ({
     [visitors, selectedPlaceKey]
   );
 
-  const handlePlaceSelect = (place: LiveMapPlace) => {
-    setSelectedPlaceKey(place.key);
-    // A lone visitor opens straight on their journey.
-    setSelectedVisitorId(
-      place.visitors.length === 1 ? place.visitors[0].visitorId : null
-    );
-  };
+  const handlePlaceSelect = (place: LiveMapPlace) =>
+    onSelectionChange({
+      placeKey: place.key,
+      minute: null,
+      // A lone visitor opens straight on their journey.
+      visitorId:
+        place.visitors.length === 1 ? place.visitors[0].visitorId : null,
+    });
 
-  const clearSelection = () => {
-    setSelectedPlaceKey(null);
-    setSelectedVisitorId(null);
-  };
+  const selectVisitor = (visitorId: string | null) =>
+    onSelectionChange({ ...selection, visitorId });
+
+  const clearSelection = () => onSelectionChange(EMPTY_LIVE_VISITOR_SELECTION);
 
   const listedVisitors = selectedPlaceKey
     ? (selectedPlace?.visitors ?? [])
-    : visitors.slice(0, MAX_LISTED_VISITORS);
+    : selectedMinute
+      ? getVisitorsActiveAt(visitors, selectedMinute)
+      : visitors.slice(0, MAX_LISTED_VISITORS);
+
+  const isFiltered = Boolean(selectedPlaceKey || selectedMinute);
 
   const panelTitle = selectedVisitorId
     ? content.journeyTitle
     : selectedPlace
       ? formatLocation(selectedPlace, locale, content.unknownLocation.value)
-      : content.activeNowTitle;
+      : selectedMinute
+        ? `${content.activeAtTitle.value} ${formatMinute(selectedMinute, locale)}`
+        : content.activeNowTitle;
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
@@ -339,18 +365,6 @@ export const LiveVisitorMap: FC<LiveVisitorMapProps> = ({
             resetZoomLabel: content.resetZoom.value,
           }}
         />
-        {/* Required by the DB-IP Lite license (CC BY 4.0). */}
-        <p className="mt-1 text-end text-[10px] text-neutral">
-          {content.ipGeolocationBy}{' '}
-          <a
-            href="https://db-ip.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-text"
-          >
-            DB-IP
-          </a>
-        </p>
       </div>
 
       <aside className="flex min-w-0 flex-col gap-3 lg:max-h-[28rem] lg:flex-1">
@@ -359,9 +373,9 @@ export const LiveVisitorMap: FC<LiveVisitorMapProps> = ({
             <button
               type="button"
               onClick={() =>
-                // Back to the place's list, or to everyone for a lone visitor.
-                (selectedPlace?.visitors.length ?? 0) > 1
-                  ? setSelectedVisitorId(null)
+                // Back to the place / minute list, or to everyone for a lone visitor.
+                isFiltered && listedVisitors.length > 1
+                  ? selectVisitor(null)
                   : clearSelection()
               }
               aria-label={content.back.value}
@@ -374,7 +388,7 @@ export const LiveVisitorMap: FC<LiveVisitorMapProps> = ({
           <h4 className="min-w-0 flex-1 truncate text-sm font-semibold text-text">
             {panelTitle}
           </h4>
-          {(selectedPlaceKey || selectedVisitorId) && (
+          {(isFiltered || selectedVisitorId) && (
             <button
               type="button"
               onClick={clearSelection}
@@ -396,14 +410,14 @@ export const LiveVisitorMap: FC<LiveVisitorMapProps> = ({
             />
           ) : listedVisitors.length > 0 ? (
             <>
-              {!selectedPlaceKey && (
+              {!isFiltered && (
                 <p className="mb-2 text-xs text-neutral">{content.mapHint}</p>
               )}
               <VisitorList
                 visitors={listedVisitors}
                 locale={locale}
                 referenceTime={referenceTime}
-                onSelect={setSelectedVisitorId}
+                onSelect={selectVisitor}
               />
             </>
           ) : (

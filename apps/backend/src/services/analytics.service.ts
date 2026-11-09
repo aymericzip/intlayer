@@ -1265,6 +1265,10 @@ export const toMapCoordinates = (
     ? { latitude, longitude }
     : { latitude: undefined, longitude: undefined };
 
+/** Distinct minutes, oldest first (`YYYY-MM-DDTHH:mm` sorts as text). */
+export const toActiveMinutes = (minutes: string[]): string[] =>
+  [...new Set(minutes)].sort();
+
 /** One session's activity aggregated over the live window, from `$facet`. */
 type LiveVisitorRow = Omit<LiveVisitor, 'visitorId'> & { _id: string };
 
@@ -1278,6 +1282,7 @@ const getLiveWindowStartMinute = (now: number): string =>
 /** Activity fields read back to rebuild a visitor's journey. */
 type LiveActivityRow = Pick<
   AnalyticsLiveActivity,
+  | 'minute'
   | 'url'
   | 'locale'
   | 'country'
@@ -1347,6 +1352,7 @@ export const getLiveVisitorFlow = async (
       sessionHash: { $regex: `^${visitorId}` },
     },
     {
+      minute: 1,
       url: 1,
       locale: 1,
       country: 1,
@@ -1381,6 +1387,7 @@ export const getLiveVisitorFlow = async (
       views: steps.reduce((sum, step) => sum + step.views, 0),
       firstSeenAt: firstStep.firstSeenAt,
       lastSeenAt: latestRow.lastSeenAt,
+      activeMinutes: toActiveMinutes(rows.map((row) => row.minute)),
     },
     steps,
   };
@@ -1453,6 +1460,7 @@ const getLiveAudience = async (
               locale: { $last: '$locale' },
               currentUrl: { $last: '$url' },
               pages: { $addToSet: '$url' },
+              activeMinutes: { $addToSet: '$minute' },
               views: { $sum: '$views' },
               firstSeenAt: { $min: '$firstSeenAt' },
               lastSeenAt: { $max: '$lastSeenAt' },
@@ -1505,8 +1513,16 @@ const getLiveAudience = async (
       'users'
     ),
     liveVisitors: (facets?.visitors ?? []).map(
-      ({ _id: sessionHash, country, latitude, longitude, ...visitor }) => ({
+      ({
+        _id: sessionHash,
+        country,
+        latitude,
+        longitude,
+        activeMinutes,
+        ...visitor
+      }) => ({
         ...visitor,
+        activeMinutes: toActiveMinutes(activeMinutes),
         ...toMapCoordinates(latitude, longitude),
         visitorId: toVisitorId(sessionHash),
         country: country || 'ZZ',

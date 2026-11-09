@@ -32,9 +32,16 @@ import {
   type ReactNode,
   Suspense,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import {
+  EMPTY_LIVE_VISITOR_SELECTION,
+  getHighlightedMinutes,
+  type LiveVisitorSelection,
+  selectLiveMinute,
+} from './WorldMap/liveVisitorSelection';
 import {
   countryToFlag,
   getCountryName,
@@ -128,6 +135,10 @@ type EvolutionChartProps = {
   usersLabel: string;
   maxLabel: string;
   chartLabel: string;
+  /** Buckets kept opaque, the others are dimmed; `null` dims none. */
+  highlightedBuckets?: Set<string> | null;
+  /** Makes non-empty bars clickable. */
+  onBucketSelect?: (bucket: string) => void;
 };
 
 /**
@@ -167,6 +178,11 @@ const formatBucket = (
 /** Share of a bar slot left empty between two bars. */
 const BAR_GAP_RATIO = 0.25;
 
+/** Bar opacity: default, emphasized, dimmed by a selection. */
+const BAR_OPACITY = 0.7;
+const BAR_HIGHLIGHTED_OPACITY = 0.9;
+const BAR_DIMMED_OPACITY = 0.15;
+
 /**
  * Lightweight inline SVG chart of distinct visitors, as an area or as bars.
  * Dependency-free and theme-aware (uses the `text` token via `currentColor`).
@@ -179,6 +195,8 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
   usersLabel,
   maxLabel,
   chartLabel,
+  highlightedBuckets = null,
+  onBucketSelect,
 }) => {
   const width = 600;
   const height = 160;
@@ -213,6 +231,16 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
   }, [series, usableHeight]);
 
   const barSlotWidth = width / Math.max(1, series.length);
+
+  const getBarLabel = (point: AudienceSeriesPoint): string =>
+    `${formatBucket(point.bucket, granularity, locale)} · ${point.users} ${usersLabel}`;
+
+  const getBarOpacity = (bucket: string): number =>
+    !highlightedBuckets
+      ? BAR_OPACITY
+      : highlightedBuckets.has(bucket)
+        ? BAR_HIGHLIGHTED_OPACITY
+        : BAR_DIMMED_OPACITY;
 
   const firstBucket = series[0]?.bucket;
   const lastBucket = series[series.length - 1]?.bucket;
@@ -255,11 +283,10 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
                   width={barSlotWidth * (1 - BAR_GAP_RATIO)}
                   height={barHeight}
                   rx={2}
-                  className="fill-current opacity-70"
+                  opacity={getBarOpacity(point.bucket)}
+                  className="fill-current transition-opacity"
                 >
-                  <title>
-                    {`${formatBucket(point.bucket, granularity, locale)} · ${point.users} ${usersLabel}`}
-                  </title>
+                  <title>{getBarLabel(point)}</title>
                 </rect>
               );
             })}
@@ -278,6 +305,26 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
             />
           )}
         </svg>
+        {/* Full-height hit areas over the bars, in the SVG's (LTR) order. */}
+        {variant === 'bars' && onBucketSelect && (
+          <div className="absolute inset-0 flex" dir="ltr">
+            {series.map((point) =>
+              point.users > 0 ? (
+                <button
+                  key={point.bucket}
+                  type="button"
+                  onClick={() => onBucketSelect(point.bucket)}
+                  aria-label={getBarLabel(point)}
+                  aria-pressed={highlightedBuckets?.has(point.bucket) ?? false}
+                  title={getBarLabel(point)}
+                  className="flex-1 cursor-pointer rounded-sm transition-colors hover:bg-neutral/10"
+                />
+              ) : (
+                <span key={point.bucket} className="flex-1" aria-hidden />
+              )
+            )}
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-between text-xs text-neutral">
         <span>{formatBucket(firstBucket, granularity, locale)}</span>
@@ -451,12 +498,33 @@ export const DashboardAudience: FC = () => {
     session?.project?.configuration?.editor?.applicationURL ?? null;
   const [range, setRange] = useState<AudienceRange>('30d');
   const [tab, setTab] = useState<BreakdownTab>('locales');
+  const [liveSelection, setLiveSelection] = useState<LiveVisitorSelection>(
+    EMPTY_LIVE_VISITOR_SELECTION
+  );
+  const mapContainerRef = useRef<HTMLDivElement>(null);
 
   const isLive = range === 'live';
   const { data, isLoading, dataUpdatedAt } = useGetAnalyticsAudience(range, {
     refetchInterval: isLive ? LIVE_REFRESH_INTERVAL_MS : false,
   });
   const audience = data?.data as AudienceStats | undefined;
+  const liveVisitors = audience?.liveVisitors ?? [];
+
+  const handleRangeChange = (nextRange: AudienceRange) => {
+    setRange(nextRange);
+    setLiveSelection(EMPTY_LIVE_VISITOR_SELECTION);
+  };
+
+  /** A clicked activity bar lists who was active then, next to the map. */
+  const handleMinuteSelect = (minute: string) => {
+    setLiveSelection((selection) =>
+      selectLiveMinute(selection, liveVisitors, minute)
+    );
+    mapContainerRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+    });
+  };
 
   const rangeLabels: Record<AudienceRange, string> = {
     live: content.rangeLive.value,
@@ -567,7 +635,7 @@ export const DashboardAudience: FC = () => {
       audience.usersToday > 0);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className="flex flex-1 flex-col gap-4">
       {/* Header + range selector */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col">
@@ -579,7 +647,7 @@ export const DashboardAudience: FC = () => {
           <SwitchSelector
             choices={rangeChoices}
             value={range}
-            onChange={setRange}
+            onChange={handleRangeChange}
             color="text"
             size="sm"
             className="w-max"
@@ -659,7 +727,18 @@ export const DashboardAudience: FC = () => {
                     ? content.liveEvolutionChartLabel.value
                     : content.evolutionChartLabel.value
                 }
+                highlightedBuckets={
+                  isLive
+                    ? getHighlightedMinutes(liveSelection, liveVisitors)
+                    : null
+                }
+                onBucketSelect={isLive ? handleMinuteSelect : undefined}
               />
+              {isLive && (
+                <span className="text-xs text-neutral">
+                  {content.liveEvolutionHint}
+                </span>
+              )}
             </Container>
 
             {/* Locales / Location tabs */}
@@ -708,6 +787,7 @@ export const DashboardAudience: FC = () => {
 
           {/* Visitor location map */}
           <Container
+            ref={mapContainerRef}
             className="flex flex-col gap-3 p-5"
             roundedSize="2xl"
             transparency="none"
@@ -732,9 +812,11 @@ export const DashboardAudience: FC = () => {
             >
               {isLive ? (
                 <LiveVisitorMap
-                  visitors={audience.liveVisitors ?? []}
+                  visitors={liveVisitors}
                   rows={audience.byCountry}
                   referenceTime={dataUpdatedAt}
+                  selection={liveSelection}
+                  onSelectionChange={setLiveSelection}
                   locale={locale}
                   usersLabel={content.usersLabel.value}
                   chartLabel={content.mapChartLabel.value}
