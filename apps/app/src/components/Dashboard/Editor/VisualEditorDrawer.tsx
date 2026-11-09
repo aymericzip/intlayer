@@ -1,7 +1,8 @@
 import { Button } from '@intlayer/design-system/button';
+import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { PenTool } from 'lucide-react';
-import { type FC, memo, useEffect, useState } from 'react';
+import { type FC, memo, Suspense, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { Editor } from '#components/Dashboard/Editor';
@@ -50,10 +51,14 @@ export const VisualEditorDrawer: FC = memo(() => {
         portalTarget &&
         createPortal(
           <div className="flex size-full flex-col overflow-hidden p-1.5">
-            <Editor
-              DictionariesLoader={DictionaryLoaderVisualEditor}
-              suppressEditionDrawer
-            />
+            {/* Own boundary: dynamic dictionaries suspend on first use, which
+                would otherwise hide the navbar drawer and leave the panel empty */}
+            <Suspense fallback={<Loader />}>
+              <Editor
+                DictionariesLoader={DictionaryLoaderVisualEditor}
+                suppressEditionDrawer
+              />
+            </Suspense>
           </div>,
           portalTarget
         )}
