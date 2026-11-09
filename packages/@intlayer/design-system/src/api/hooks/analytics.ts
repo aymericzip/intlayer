@@ -1,6 +1,7 @@
 'use client';
 
 import type { AudienceRange } from '@intlayer/backend-contract/analytics';
+import { keepPreviousData } from '@tanstack/react-query';
 import { useAnalyticsAPI } from '../useIntlayerAPI';
 import { type AppQueryOptions, useAppQuery } from './utils';
 
@@ -22,6 +23,8 @@ export const useGetAnalyticsAudience = (
   return useAppQuery({
     queryKey: ['analytics', 'audience', range],
     queryFn: ({ signal }) => analyticsAPI.getAudience(range, { signal }),
+    // Switching range keeps the previous report on screen while loading
+    placeholderData: keepPreviousData,
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
@@ -47,6 +50,8 @@ export const useGetPageFlow = (
     queryKey: ['analytics', 'page-flow', range, startUrl],
     queryFn: ({ signal }) =>
       analyticsAPI.getPageFlow(range, startUrl, { signal }),
+    // Switching range or start page keeps the previous flow while loading
+    placeholderData: keepPreviousData,
     requireUser: true,
     requireOrganization: true,
     requireProject: true,

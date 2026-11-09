@@ -1761,6 +1761,23 @@ export const getPageFlow = async (
 };
 
 /**
+ * First UTC day (`YYYY-MM-DD`) with a daily rollup for the project, `null`
+ * when no data was ever collected. Rollups are permanent, unlike visitors.
+ */
+const getFirstDataDay = async (
+  projectId: Types.ObjectId
+): Promise<string | null> => {
+  const firstRollup = await AnalyticsRollupModel.findOne(
+    { projectId },
+    { day: 1 }
+  )
+    .sort({ day: 1 })
+    .lean<{ day: string }>();
+
+  return firstRollup?.day ?? null;
+};
+
+/**
  * Builds the audience report for a project over a rolling window: distinct
  * visitors today / 7d / window, page views, the evolution series, and
  * breakdowns by locale (most-consulted), by country (visitor location), and by
@@ -1782,17 +1799,19 @@ export const getAudience = async (
   const { hours, granularity } = RANGE_DEFINITIONS[range];
   const isSubDay = granularity === 'minute' || granularity === 'hour';
 
-  const [usersToday, usersLast7Days, windowStats] = await Promise.all([
-    AnalyticsVisitorModel.countDocuments({ projectId, day: dayOffset(0) }),
-    countDistinctVisitors(projectId, dayOffset(6)),
-    range === 'live'
-      ? getLiveAudience(projectId)
-      : isSubDay
-        ? getSubDayAudience(projectId, range, granularity, hours)
-        : getDailyAudience(projectId, range, granularity, hours),
-  ]);
+  const [usersToday, usersLast7Days, dataSince, windowStats] =
+    await Promise.all([
+      AnalyticsVisitorModel.countDocuments({ projectId, day: dayOffset(0) }),
+      countDistinctVisitors(projectId, dayOffset(6)),
+      getFirstDataDay(projectId),
+      range === 'live'
+        ? getLiveAudience(projectId)
+        : isSubDay
+          ? getSubDayAudience(projectId, range, granularity, hours)
+          : getDailyAudience(projectId, range, granularity, hours),
+    ]);
 
-  return { usersToday, usersLast7Days, ...windowStats };
+  return { usersToday, usersLast7Days, dataSince, ...windowStats };
 };
 
 const PAGE_METADATA_CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours

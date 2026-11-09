@@ -163,6 +163,8 @@ export const audienceStatsSchema = z.object({
   byPage: z.array(audienceBreakdownRowSchema),
   /** Active sessions with their location — `live` range only. */
   liveVisitors: z.optional(z.array(liveVisitorSchema)),
+  /** First UTC day with collected data (`YYYY-MM-DD`), `null` before any. */
+  dataSince: z.nullable(z.string()),
 });
 
 const analyticsOverviewRowSchema = z.object({

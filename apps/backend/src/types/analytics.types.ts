@@ -256,6 +256,8 @@ export type AudienceStats = {
   byPage: AudienceBreakdownRow[];
   /** Active sessions with their location — `live` range only. */
   liveVisitors?: LiveVisitor[];
+  /** First UTC day with collected data (`YYYY-MM-DD`), `null` before any. */
+  dataSince: string | null;
 };
 
 /** A session active in the `live` window, placed on the map. */

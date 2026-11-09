@@ -4,10 +4,11 @@ import {
   type PageFlow as PageFlowReport,
 } from '@intlayer/backend-contract/analytics';
 import { useGetPageFlow } from '@intlayer/design-system/api';
-import { Loader } from '@intlayer/design-system/loader';
 import { Select } from '@intlayer/design-system/select';
+import { cn } from '@intlayer/design-system/utils';
 import { type FC, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Skeleton } from '#components/Skeleton';
 import {
   layoutPageFlow,
   type PageFlowLayoutLink,
@@ -60,9 +61,13 @@ export const PageFlow: FC<PageFlowProps> = ({ range, pageOptions, locale }) => {
   const [startUrl, setStartUrl] = useState(DEFAULT_START_URL);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
 
-  const { data, isLoading } = useGetPageFlow(range, startUrl, {
-    refetchInterval: range === 'live' ? LIVE_REFRESH_INTERVAL_MS : false,
-  });
+  const { data, isLoading, isPlaceholderData } = useGetPageFlow(
+    range,
+    startUrl,
+    {
+      refetchInterval: range === 'live' ? LIVE_REFRESH_INTERVAL_MS : false,
+    }
+  );
   const flow = data?.data as PageFlowReport | undefined;
 
   const layout = useMemo(
@@ -145,18 +150,22 @@ export const PageFlow: FC<PageFlowProps> = ({ range, pageOptions, locale }) => {
       </div>
 
       {isLoading && !flow ? (
-        <div
-          className="flex items-center justify-center"
+        <Skeleton
+          className="w-full rounded-xl"
           style={{ height: CHART_HEIGHT }}
-        >
-          <Loader />
-        </div>
+        />
       ) : !layout || !hasFlow ? (
         <p className="py-10 text-center text-sm text-neutral">
           {content.noData}
         </p>
       ) : (
-        <>
+        <div
+          className={cn(
+            'flex flex-col gap-4 transition-opacity',
+            isPlaceholderData && 'opacity-50'
+          )}
+          aria-busy={isPlaceholderData}
+        >
           {/* Steps read left to right, like the time they represent. */}
           <div className="flex flex-col gap-2" dir="ltr">
             <div className="relative h-4 text-xs text-neutral">
@@ -290,7 +299,7 @@ export const PageFlow: FC<PageFlowProps> = ({ range, pageOptions, locale }) => {
             </div>
           </div>
           <p className="text-xs text-neutral">{content.reRootHint}</p>
-        </>
+        </div>
       )}
     </div>
   );

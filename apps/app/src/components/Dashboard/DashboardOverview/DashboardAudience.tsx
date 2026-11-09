@@ -11,11 +11,11 @@ import {
 } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { ExpandCollapse } from '@intlayer/design-system/expand-collapse';
-import { Loader } from '@intlayer/design-system/loader';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
+import { cn } from '@intlayer/design-system/utils';
 import { getLocaleName } from 'intlayer';
 import {
   CalendarDays,
@@ -29,13 +29,19 @@ import {
 import {
   type FC,
   lazy,
+  type PointerEvent,
   type ReactNode,
   Suspense,
+  useId,
   useMemo,
   useRef,
   useState,
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import { Skeleton } from '#components/Skeleton';
+import { getAvailableAudienceRanges } from './audienceRanges';
+import { buildSmoothLinePath } from './smoothLinePath';
+import { useAnimatedRatios } from './useAnimatedRatios';
 import {
   EMPTY_LIVE_VISITOR_SELECTION,
   getHighlightedMinutes,
@@ -175,6 +181,37 @@ const formatBucket = (
   return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
 };
 
+/**
+ * Formats a series bucket in full for the hover cursor: a date (with the time
+ * for sub-day buckets), or a month and year for month buckets.
+ */
+const formatBucketDetail = (
+  bucket: string,
+  granularity: AudienceGranularity,
+  locale: string
+): string => {
+  const isSubDay = granularity === 'minute' || granularity === 'hour';
+  const date = new Date(isSubDay ? `${bucket}:00.000Z` : `${bucket}T00:00:00Z`);
+
+  if (Number.isNaN(date.getTime())) return bucket;
+
+  if (isSubDay) {
+    return date.toLocaleString(locale, {
+      dateStyle: 'short',
+      timeStyle: 'short',
+    });
+  }
+
+  if (granularity === 'month') {
+    return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
+  }
+
+  return date.toLocaleDateString(locale, { dateStyle: 'short' });
+};
+
+/** Horizontal share of the chart past which the cursor label flips inward. */
+const CURSOR_LABEL_EDGE_RATIO = 0.15;
+
 /** Share of a bar slot left empty between two bars. */
 const BAR_GAP_RATIO = 0.25;
 
@@ -204,31 +241,57 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
   const paddingBottom = 18;
 
   const usableHeight = height - paddingTop - paddingBottom;
+  // Unique per instance: two charts must not share one gradient definition
+  // (useId's `:`/`«` characters are not valid inside `url(#…)`)
+  const areaGradientId = `audience-area-${useId().replace(/[^\w-]/g, '')}`;
 
-  const { areaPath, linePath, maxUsers, peak } = useMemo(() => {
+  const { targetRatios, maxUsers, peak } = useMemo(() => {
     const values = series.map((point) => point.users);
     const max = Math.max(1, ...values);
-    const step = series.length > 1 ? width / (series.length - 1) : 0;
 
-    const toPoint = (value: number, index: number): [number, number] => {
-      const x = series.length > 1 ? index * step : width / 2;
-      const y = paddingTop + usableHeight * (1 - value / max);
-      return [x, y];
+    return {
+      targetRatios: values.map((value) => value / max),
+      maxUsers: max,
+      peak: Math.max(...values, 0),
     };
+  }, [series]);
 
-    const points = values.map(toPoint);
-    const line = points
-      .map(([x, y], index) => `${index === 0 ? 'M' : 'L'}${x},${y}`)
-      .join(' ');
+  // The area curve morphs from the previous range to the new one
+  const displayedRatios = useAnimatedRatios(targetRatios, variant === 'area');
+
+  const { areaPath, linePath, chartPoints } = useMemo(() => {
+    const step =
+      displayedRatios.length > 1 ? width / (displayedRatios.length - 1) : 0;
+
+    const points = displayedRatios.map((ratio, index): [number, number] => [
+      displayedRatios.length > 1 ? index * step : width / 2,
+      paddingTop + usableHeight * (1 - ratio),
+    ]);
+    const line = buildSmoothLinePath(points);
     const area =
       points.length > 0
         ? `${line} L${points[points.length - 1][0]},${height - paddingBottom} L${points[0][0]},${height - paddingBottom} Z`
         : '';
 
-    const peakValue = Math.max(...values, 0);
+    return { areaPath: area, linePath: line, chartPoints: points };
+  }, [displayedRatios, usableHeight]);
 
-    return { areaPath: area, linePath: line, maxUsers: max, peak: peakValue };
-  }, [series, usableHeight]);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  /** Snaps the pointer to the nearest series point. */
+  const handleCursorMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (series.length === 0) return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const ratio = (event.clientX - bounds.left) / Math.max(1, bounds.width);
+    const nearestIndex = Math.round(ratio * (series.length - 1));
+
+    setHoveredIndex(Math.min(series.length - 1, Math.max(0, nearestIndex)));
+  };
+
+  const hoveredPoint = hoveredIndex === null ? undefined : series[hoveredIndex];
+  const hoveredChartPoint =
+    hoveredIndex === null ? undefined : chartPoints[hoveredIndex];
 
   const barSlotWidth = width / Math.max(1, series.length);
 
@@ -266,8 +329,9 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
           aria-label={chartLabel}
         >
           <defs>
-            <linearGradient id="audienceArea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="currentColor" stopOpacity="0.25" />
+            <linearGradient id={areaGradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="currentColor" stopOpacity="1" />
+              <stop offset="35%" stopColor="currentColor" stopOpacity="0.1" />
               <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
             </linearGradient>
           </defs>
@@ -291,7 +355,7 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
               );
             })}
           {variant === 'area' && areaPath && (
-            <path d={areaPath} fill="url(#audienceArea)" />
+            <path d={areaPath} fill={`url(#${areaGradientId})`} />
           )}
           {variant === 'area' && linePath && (
             <path
@@ -305,6 +369,24 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
             />
           )}
         </svg>
+        {/* Hover cursor: snaps to the nearest point and shows its exact value */}
+        {variant === 'area' && series.length > 0 && (
+          <div
+            className="absolute inset-0 cursor-crosshair"
+            dir="ltr"
+            onPointerMove={handleCursorMove}
+            onPointerLeave={() => setHoveredIndex(null)}
+            aria-hidden
+          >
+            {hoveredPoint && hoveredChartPoint && (
+              <CursorMarker
+                xRatio={hoveredChartPoint[0] / width}
+                yRatio={hoveredChartPoint[1] / height}
+                label={`${formatBucketDetail(hoveredPoint.bucket, granularity, locale)} · ${hoveredPoint.users} ${usersLabel}`}
+              />
+            )}
+          </div>
+        )}
         {/* Full-height hit areas over the bars, in the SVG's (LTR) order. */}
         {variant === 'bars' && onBucketSelect && (
           <div className="absolute inset-0 flex" dir="ltr">
@@ -333,6 +415,77 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
     </div>
   );
 };
+
+type CursorMarkerProps = {
+  /** Point position as a share of the chart width / height, in `[0, 1]`. */
+  xRatio: number;
+  yRatio: number;
+  label: string;
+};
+
+/**
+ * Vertical guide, dot and value label of the hovered chart point. Drawn in
+ * HTML so the dot stays round despite the stretched SVG.
+ */
+const CursorMarker: FC<CursorMarkerProps> = ({ xRatio, yRatio, label }) => {
+  const labelTranslate =
+    xRatio < CURSOR_LABEL_EDGE_RATIO
+      ? '0%'
+      : xRatio > 1 - CURSOR_LABEL_EDGE_RATIO
+        ? '-100%'
+        : '-50%';
+
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      <span
+        className="absolute inset-y-0 w-px bg-text/30"
+        style={{ left: `${xRatio * 100}%` }}
+      />
+      <span
+        className="absolute size-2.5 -translate-1/2 rounded-full border-2 border-card bg-text"
+        style={{ left: `${xRatio * 100}%`, top: `${yRatio * 100}%` }}
+      />
+      <span
+        className="absolute rounded-md bg-text px-2 py-1 text-xs font-medium whitespace-nowrap text-text-opposite shadow-sm"
+        style={{
+          left: `${xRatio * 100}%`,
+          top: `${yRatio * 100}%`,
+          // Above the dot, or below it when the point is near the top edge
+          transform: `translate(${labelTranslate}, ${
+            yRatio < CURSOR_LABEL_EDGE_RATIO * 2
+              ? '0.75rem'
+              : 'calc(-100% - 0.75rem)'
+          })`,
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+};
+
+/** One skeleton per headline stat tile. */
+const STAT_TILE_SKELETON_KEYS = ['range', 'today', 'week', 'views'] as const;
+
+/** Placeholder mirroring the report layout during the first load. */
+const AudienceSkeleton: FC = () => (
+  <div className="flex flex-col gap-4" aria-busy>
+    <div className="flex flex-wrap gap-4">
+      {STAT_TILE_SKELETON_KEYS.map((key) => (
+        <Skeleton key={key} className="h-24 min-w-36 flex-1 rounded-2xl" />
+      ))}
+    </div>
+    <div className="flex flex-col gap-4 lg:flex-row">
+      <Skeleton className="h-64 flex-2 rounded-2xl" />
+      <Skeleton className="h-64 flex-1 rounded-2xl" />
+    </div>
+    <Skeleton
+      className="w-full rounded-2xl"
+      style={{ aspectRatio: `${WORLD_MAP_WIDTH} / ${WORLD_MAP_HEIGHT}` }}
+    />
+    <Skeleton className="h-60 w-full rounded-2xl" />
+  </div>
+);
 
 /** Collapsed height (px) of a breakdown list before the "show all" toggle appears. */
 const BREAKDOWN_COLLAPSED_HEIGHT = 400;
@@ -504,9 +657,10 @@ export const DashboardAudience: FC = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
   const isLive = range === 'live';
-  const { data, isLoading, dataUpdatedAt } = useGetAnalyticsAudience(range, {
-    refetchInterval: isLive ? LIVE_REFRESH_INTERVAL_MS : false,
-  });
+  const { data, isLoading, isPlaceholderData, dataUpdatedAt } =
+    useGetAnalyticsAudience(range, {
+      refetchInterval: isLive ? LIVE_REFRESH_INTERVAL_MS : false,
+    });
   const audience = data?.data as AudienceStats | undefined;
   const liveVisitors = audience?.liveVisitors ?? [];
 
@@ -538,17 +692,18 @@ export const DashboardAudience: FC = () => {
     '3y': content.rangeLast3Years.value,
   };
 
-  const rangeChoices: SwitchSelectorChoices<AudienceRange> = RANGE_OPTIONS.map(
-    (option) => ({
-      content: (
-        <span className="flex items-center gap-1.5 whitespace-nowrap">
-          {option === 'live' && <LiveDot />}
-          {rangeLabels[option]}
-        </span>
-      ),
-      value: option,
-    })
-  );
+  const rangeChoices: SwitchSelectorChoices<AudienceRange> =
+    getAvailableAudienceRanges(RANGE_OPTIONS, audience?.dataSince).map(
+      (option) => ({
+        content: (
+          <span className="flex items-center gap-1.5 whitespace-nowrap">
+            {option === 'live' && <LiveDot />}
+            {rangeLabels[option]}
+          </span>
+        ),
+        value: option,
+      })
+    );
 
   const breakdownChoices = [
     {
@@ -656,9 +811,7 @@ export const DashboardAudience: FC = () => {
       </div>
 
       {isLoading && !audience ? (
-        <div className="flex flex-1 items-center justify-center p-10">
-          <Loader />
-        </div>
+        <AudienceSkeleton />
       ) : !hasData ? (
         <Container
           className="m-auto flex items-center justify-center p-10"
@@ -672,7 +825,13 @@ export const DashboardAudience: FC = () => {
           </p>
         </Container>
       ) : (
-        <>
+        <div
+          className={cn(
+            'flex flex-col gap-4 transition-opacity',
+            isPlaceholderData && 'opacity-50'
+          )}
+          aria-busy={isPlaceholderData}
+        >
           {/* Stat tiles */}
           <div className="flex flex-wrap gap-4">
             <StatTile
@@ -800,14 +959,12 @@ export const DashboardAudience: FC = () => {
             {/* Placeholder keeps the map's aspect ratio while its chunk loads. */}
             <Suspense
               fallback={
-                <div
-                  className="flex w-full items-center justify-center"
+                <Skeleton
+                  className="w-full rounded-xl"
                   style={{
                     aspectRatio: `${WORLD_MAP_WIDTH} / ${WORLD_MAP_HEIGHT}`,
                   }}
-                >
-                  <Loader />
-                </div>
+                />
               }
             >
               {isLive ? (
@@ -841,11 +998,7 @@ export const DashboardAudience: FC = () => {
             borderColor="neutral"
           >
             <Suspense
-              fallback={
-                <div className="flex h-40 items-center justify-center">
-                  <Loader />
-                </div>
-              }
+              fallback={<Skeleton className="h-40 w-full rounded-xl" />}
             >
               <PageFlow
                 range={range}
@@ -856,7 +1009,7 @@ export const DashboardAudience: FC = () => {
               />
             </Suspense>
           </Container>
-        </>
+        </div>
       )}
     </div>
   );
