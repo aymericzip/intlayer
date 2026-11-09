@@ -482,7 +482,7 @@ export const ContentGrid: FC<ContentGridProps> = ({ className }) => {
             title={row.id}
             onClick={() => openEditor(row.id, cellKey)}
             className={cn(
-              'min-w-0 cursor-pointer text-start text-sm break-words hover:underline',
+              'min-w-0 cursor-pointer text-start text-sm break-words [font-variant-ligatures:none] hover:underline',
               isGroup && 'font-semibold'
             )}
           >

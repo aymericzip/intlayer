@@ -248,7 +248,7 @@ export const ContentGridRow: FC<ContentGridRowProps> = memo(
               )
             }
             className={cn(
-              'min-w-0 cursor-pointer text-start text-sm break-words hover:underline',
+              'min-w-0 cursor-pointer text-start text-sm break-words [font-variant-ligatures:none] hover:underline',
               isGroup ? 'font-semibold' : 'text-text'
             )}
           >
