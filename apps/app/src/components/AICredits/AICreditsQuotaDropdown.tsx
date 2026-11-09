@@ -10,7 +10,6 @@ import { cn } from '@intlayer/design-system/utils';
 import { BarChart3, ChevronsUp, Sparkles } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useCompact } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import {
   AICreditGauge,
@@ -70,14 +69,13 @@ const QuotaRing: FC<QuotaRingProps> = ({ usageRatio }) => (
 );
 
 /**
- * Navbar quota indicator: a ring + remaining credits; hovering it opens a
+ * Navbar quota indicator: a usage ring; hovering it opens a
  * panel with the monthly gauge, an upgrade action and the usage page link.
  */
 export const AICreditsQuotaDropdown: FC = () => {
   const { title, quotaTriggerLabel, upgradeButton, usageDetailsButton } =
     useIntlayer('organization-ai-credits');
   const { data: aiCreditsResponse } = useGetAICredits();
-  const formatCompact = useCompact();
   const navigate = useLocalizedNavigate();
 
   const balance = aiCreditsResponse?.data;
@@ -95,11 +93,7 @@ export const AICreditsQuotaDropdown: FC = () => {
         variant="hoverable"
         color="text"
         size="icon-md"
-        className="w-auto gap-1.5"
       >
-        <span className="text-xs font-medium tabular-nums">
-          {formatCompact(balance.remainingCredits)}
-        </span>
         <QuotaRing usageRatio={getUsageRatio(balance)} />
       </DropDown.Trigger>
 

@@ -238,7 +238,7 @@ export const AICreditUsage: FC = () => {
         border
         borderColor="neutral"
         padding="md"
-        className="max-w-xl"
+        className="mx-auto w-full max-w-xl"
       >
         <AICredits />
       </Container>
