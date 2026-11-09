@@ -339,6 +339,18 @@ export const LiveVisitorMap: FC<LiveVisitorMapProps> = ({
             resetZoomLabel: content.resetZoom.value,
           }}
         />
+        {/* Required by the DB-IP Lite license (CC BY 4.0). */}
+        <p className="mt-1 text-end text-[10px] text-neutral">
+          {content.ipGeolocationBy}{' '}
+          <a
+            href="https://db-ip.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-text"
+          >
+            DB-IP
+          </a>
+        </p>
       </div>
 
       <aside className="flex min-w-0 flex-col gap-3 lg:max-h-[28rem] lg:flex-1">

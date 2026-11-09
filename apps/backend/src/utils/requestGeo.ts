@@ -1,4 +1,5 @@
 import type { FastifyRequest } from 'fastify';
+import { type IpLocation, lookupIpLocation } from './ipGeolocation';
 
 /** Visitor location derived from CDN / proxy geo headers. No IP is read. */
 export type RequestGeo = {
@@ -107,9 +108,62 @@ export const resolveGeoFromHeaders = (readHeader: HeaderReader): RequestGeo => {
   };
 };
 
-/** {@link resolveGeoFromHeaders} for a Fastify request. */
-export const resolveRequestGeo = (request: FastifyRequest): RequestGeo =>
-  resolveGeoFromHeaders((name) => {
+/**
+ * Completes a header-derived location with an IP lookup when the CDN sent no
+ * coordinates. The headers' country wins: a lookup placing the visitor in
+ * another country (stale database, VPN edge) is ignored.
+ *
+ * @param headerGeo - Location from the CDN headers.
+ * @param ipLocation - Location of the client IP, when known.
+ */
+export const mergeIpLocation = (
+  headerGeo: RequestGeo,
+  ipLocation: IpLocation | undefined
+): RequestGeo => {
+  if (headerGeo.latitude !== undefined || !ipLocation) return headerGeo;
+
+  const ipCountry = ipLocation.country?.toUpperCase();
+  const hasHeaderCountry = headerGeo.country !== 'ZZ';
+
+  if (hasHeaderCountry && ipCountry && ipCountry !== headerGeo.country) {
+    return headerGeo;
+  }
+
+  const latitude = parseCoordinate(String(ipLocation.latitude), 90);
+  const longitude = parseCoordinate(String(ipLocation.longitude), 180);
+
+  if (latitude === undefined || longitude === undefined) return headerGeo;
+
+  return {
+    country: hasHeaderCountry ? headerGeo.country : (ipCountry ?? 'ZZ'),
+    city: parseCity(ipLocation.city) ?? headerGeo.city,
+    latitude,
+    longitude,
+  };
+};
+
+/** Client address: the CDN's connecting IP, else Fastify's (trust proxy). */
+const getClientIp = (
+  readHeader: HeaderReader,
+  requestIp: string
+): string | undefined =>
+  firstHeader(readHeader, ['cf-connecting-ip', 'true-client-ip']) ?? requestIp;
+
+/**
+ * {@link resolveGeoFromHeaders} for a Fastify request, completed by an IP →
+ * city lookup when the CDN sent no coordinates. The IP is not kept.
+ */
+export const resolveRequestGeo = (request: FastifyRequest): RequestGeo => {
+  const readHeader: HeaderReader = (name) => {
     const value = request.headers[name];
     return Array.isArray(value) ? value[0] : value;
-  });
+  };
+  const headerGeo = resolveGeoFromHeaders(readHeader);
+
+  if (headerGeo.latitude !== undefined) return headerGeo;
+
+  return mergeIpLocation(
+    headerGeo,
+    lookupIpLocation(getClientIp(readHeader, request.ip))
+  );
+};

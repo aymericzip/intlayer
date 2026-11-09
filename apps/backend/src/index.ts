@@ -73,6 +73,7 @@ import { initializeAuth } from '@utils/auth/getAuth';
 import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
 import { registerOpenAPI } from '@utils/contract/registerOpenAPI';
 import { corsOptions } from '@utils/cors';
+import { startIpGeolocation } from '@utils/ipGeolocation';
 import { isSelfHosted } from '@utils/isSelfHosted';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import { ipLimiter } from '@utils/rateLimiter';
@@ -161,6 +162,9 @@ const startServer = async () => {
 
   // OpenAPI document + Swagger UI (collects every route registered below)
   await registerOpenAPI(app);
+
+  // Live map: IP → city database, loaded in the background.
+  startIpGeolocation();
 
   // Connect to MongoDB
   const dbClient = await connectDB();

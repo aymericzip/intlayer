@@ -175,13 +175,12 @@ export const WorldMap: FC<WorldMapProps> = ({
                   key={code}
                   d={path}
                   data-country={code}
-                  onPointerMove={handleCountryPointerMove}
+                  // Live mode reports visitors through the dots only.
+                  onPointerMove={isLive ? undefined : handleCountryPointerMove}
                   className={
                     isShaded
                       ? 'fill-current stroke-background transition-opacity'
-                      : isHovered && isLive
-                        ? 'fill-neutral/30 stroke-background'
-                        : 'fill-neutral/15 stroke-background'
+                      : 'fill-neutral/15 stroke-background'
                   }
                   style={
                     isShaded
@@ -213,6 +212,7 @@ export const WorldMap: FC<WorldMapProps> = ({
                     onPointerMove={(event) =>
                       showTooltip(event, { kind: 'place', place })
                     }
+                    onPointerLeave={() => setTooltip(null)}
                     onClick={() => {
                       if (!wasDragged()) live.onPlaceSelect(place);
                     }}

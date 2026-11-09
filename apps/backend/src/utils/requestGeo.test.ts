@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { resolveGeoFromHeaders } from './requestGeo';
+import { mergeIpLocation, resolveGeoFromHeaders } from './requestGeo';
 
 /** Header reader over a plain record. */
 const headers =
@@ -84,5 +84,67 @@ describe('resolveGeoFromHeaders', () => {
     expect(resolveGeoFromHeaders(headers({ 'cf-ipcity': '100%' })).city).toBe(
       '100%'
     );
+  });
+});
+
+describe('mergeIpLocation', () => {
+  it('places a country-only visitor on the IP city', () => {
+    expect(
+      mergeIpLocation(
+        { country: 'TR' },
+        {
+          country: 'TR',
+          city: 'İzmir',
+          latitude: 38.41885,
+          longitude: 27.12872,
+        }
+      )
+    ).toEqual({
+      country: 'TR',
+      city: 'İzmir',
+      latitude: 38.42,
+      longitude: 27.13,
+    });
+  });
+
+  it('keeps CDN coordinates over the IP lookup', () => {
+    const headerGeo = {
+      country: 'FR',
+      city: 'Lyon',
+      latitude: 45.76,
+      longitude: 4.84,
+    };
+
+    expect(
+      mergeIpLocation(headerGeo, {
+        country: 'FR',
+        city: 'Paris',
+        latitude: 48.85,
+        longitude: 2.35,
+      })
+    ).toBe(headerGeo);
+  });
+
+  it('ignores a lookup in another country than the CDN reports', () => {
+    expect(
+      mergeIpLocation(
+        { country: 'ES' },
+        { country: 'NL', city: 'Amsterdam', latitude: 52.37, longitude: 4.9 }
+      )
+    ).toEqual({ country: 'ES' });
+  });
+
+  it('takes the IP country when the CDN sent none', () => {
+    expect(
+      mergeIpLocation(
+        { country: 'ZZ' },
+        { country: 'de', latitude: 52.52, longitude: 13.4049 }
+      )
+    ).toEqual({
+      country: 'DE',
+      city: undefined,
+      latitude: 52.52,
+      longitude: 13.4,
+    });
   });
 });
