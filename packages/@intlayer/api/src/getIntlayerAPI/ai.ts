@@ -32,6 +32,7 @@ import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+import { readServerSentEvents } from './readServerSentEvents';
 
 export type AutocompleteBody = {
   text: string;
@@ -60,6 +61,22 @@ export type ChatBody = {
   onMessage?: (chunk: string) => void;
   onDone?: (response: ChatResult) => void;
   onAction?: (action: ClientAction) => void;
+};
+
+/** `data:` payload streamed by the `ask` endpoint. */
+type AskDocQuestionStreamData = {
+  chunk?: string;
+  reasoning?: string;
+  done?: boolean;
+  response?: AskDocQuestionResult;
+};
+
+/** `data:` payload streamed by the `chat` endpoint. */
+type ChatStreamData = {
+  chunk?: string;
+  action?: ClientAction;
+  done?: boolean;
+  response?: ChatResult;
 };
 
 export type { AskDocQuestionResult, ChatResult };
@@ -297,41 +314,17 @@ export const getAiAPI = (
         throw new Error(errorMessage);
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error('No reader available');
-      }
-
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() ?? '';
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              if (data.reasoning) {
-                onReasoning?.(data.reasoning);
-              }
-              if (data.chunk) {
-                onMessage?.(data.chunk);
-              }
-              if (data.done && data.response) {
-                onDone?.(data.response);
-              }
-            } catch (e) {
-              console.error('Failed to parse SSE data:', e);
-            }
-          }
+      await readServerSentEvents<AskDocQuestionStreamData>(response, (data) => {
+        if (data.reasoning) {
+          onReasoning?.(data.reasoning);
         }
-      }
+        if (data.chunk) {
+          onMessage?.(data.chunk);
+        }
+        if (data.done && data.response) {
+          onDone?.(data.response);
+        }
+      });
     } catch (error) {
       console.error('Error in askDocQuestion:', error);
       throw error;
@@ -385,41 +378,17 @@ export const getAiAPI = (
         throw new Error(errorMessage);
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error('No reader available');
-      }
-
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() ?? '';
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              if (data.chunk) {
-                onMessage?.(data.chunk);
-              }
-              if (data.action) {
-                onAction?.(data.action);
-              }
-              if (data.done && data.response) {
-                onDone?.(data.response);
-              }
-            } catch (e) {
-              console.error('Failed to parse SSE data:', e);
-            }
-          }
+      await readServerSentEvents<ChatStreamData>(response, (data) => {
+        if (data.chunk) {
+          onMessage?.(data.chunk);
         }
-      }
+        if (data.action) {
+          onAction?.(data.action);
+        }
+        if (data.done && data.response) {
+          onDone?.(data.response);
+        }
+      });
     } catch (error) {
       console.error('Error in chat:', error);
       throw error;

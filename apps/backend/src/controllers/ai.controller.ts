@@ -545,6 +545,25 @@ export const auditTag = async (
   }
 };
 
+/**
+ * Whether an AI provider call failed because of its credentials
+ * (e.g. revoked or invalid API key), from the SDK `APICallError` status code.
+ */
+const isAIAuthenticationError = (error: unknown): boolean => {
+  const statusCode =
+    typeof error === 'object' && error !== null && 'statusCode' in error
+      ? (error as { statusCode?: unknown }).statusCode
+      : undefined;
+
+  if (statusCode === 401 || statusCode === 403) return true;
+
+  const errorMessage = error instanceof Error ? error.message : String(error);
+
+  return /\b401\b|incorrect api key|invalid x-api-key|invalid api key/i.test(
+    errorMessage
+  );
+};
+
 export type AskDocQuestionBody = {
   messages: ChatCompletionRequestMessage[];
   discussionId: string;
@@ -697,10 +716,7 @@ export const askDocQuestion = async (
       stack: errorStack,
     });
 
-    // Determine if it's an Auth error (common with OpenAI 401)
-    const isAuthError =
-      errorMessage.includes('401') ||
-      errorMessage.includes('Incorrect API key');
+    const isAuthError = isAIAuthenticationError(err);
 
     // Format error for Frontend
     const errorPayload = {
@@ -873,9 +889,7 @@ export const chat = async (
       stack: errorStack,
     });
 
-    const isAuthError =
-      errorMessage.includes('401') ||
-      errorMessage.includes('Incorrect API key');
+    const isAuthError = isAIAuthenticationError(err);
 
     const errorPayload =
       err instanceof AppError
