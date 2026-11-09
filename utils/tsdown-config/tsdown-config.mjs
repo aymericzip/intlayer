@@ -90,11 +90,15 @@ export const typesOptions = {
   outDir: 'dist/types',
   dts: {
     // generator: 'oxc',
-    emitDtsOnly: true,
+    dtsOnly: true,
     // Avoid inlining external type references which causes TS2742 in monorepos
     respectExternal: true,
   },
+  // rolldown-plugin-dts ≥0.30 names dts-only chunks without the `.d` suffix,
+  // so tsdown applies the `js` extension to them; pin both to `.d.ts` or the
+  // output becomes `.d.mts` and no longer matches the package.json exports.
   outExtensions: () => ({
+    js: '.d.ts',
     dts: '.d.ts',
   }),
   tsconfig: './tsconfig.types.json',
