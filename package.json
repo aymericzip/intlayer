@@ -35,7 +35,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo build '--filter=./packages/**' '--filter=./docs'",
-    "build:ci": "turbo build:ci '--filter=./packages/**' '--filter=./docs'",
+    "build:ci": "turbo build:ci '--filter=./packages/**' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**'",
     "check": "oxlint . && oxfmt --check .",
     "check:fix": "oxlint --fix . && oxfmt .",
     "clean": "turbo clean '--filter=./packages/**' '--filter=./docs'",

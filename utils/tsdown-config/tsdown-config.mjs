@@ -94,12 +94,13 @@ export const typesOptions = {
     // Avoid inlining external type references which causes TS2742 in monorepos
     respectExternal: true,
   },
-  // rolldown-plugin-dts ≥0.30 names dts-only chunks without the `.d` suffix,
-  // so tsdown applies the `js` extension to them; pin both to `.d.ts` or the
-  // output becomes `.d.mts` and no longer matches the package.json exports.
+  // rolldown-plugin-dts ≥0.30 names dts-only entry chunks without the `.d`
+  // suffix, so tsdown gives them the `js` extension (default `.mjs` → `.d.mts`,
+  // which misses the package.json exports). Chunks still named `*.d` take the
+  // `dts` extension, so it only appends `.ts`.
   outExtensions: () => ({
     js: '.d.ts',
-    dts: '.d.ts',
+    dts: '.ts',
   }),
   tsconfig: './tsconfig.types.json',
 };

@@ -108,13 +108,18 @@ describe('watchBuiltEditorConfiguration', () => {
       // An application rebuild restores the configured value
       await writeConfiguration(configuration);
 
-      await waitFor(async () =>
-        (await readFile(join(configDir, 'configuration.mjs'), 'utf8')).includes(
-          '"enabled": true'
-        )
-      );
+      // `onRestore` fires once both formats are written: waiting on a single
+      // file races the other write
+      await waitFor(async () => onRestore.mock.calls.length > 0);
 
-      expect(onRestore).toHaveBeenCalled();
+      for (const format of ['mjs', 'cjs'] as const) {
+        const content = await readFile(
+          join(configDir, `configuration.${format}`),
+          'utf8'
+        );
+
+        expect(content).toContain('"enabled": true');
+      }
     } finally {
       stopWatching();
     }
