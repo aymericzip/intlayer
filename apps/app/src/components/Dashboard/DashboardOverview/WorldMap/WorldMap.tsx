@@ -177,10 +177,11 @@ export const WorldMap: FC<WorldMapProps> = ({
                   data-country={code}
                   // Live mode reports visitors through the dots only.
                   onPointerMove={isLive ? undefined : handleCountryPointerMove}
+                  // `vector-effect` as a class: Redact drops the `vectorEffect` prop
                   className={
                     isShaded
-                      ? 'fill-current stroke-background transition-opacity'
-                      : 'fill-neutral/15 stroke-background'
+                      ? 'fill-current stroke-background transition-opacity [vector-effect:non-scaling-stroke]'
+                      : 'fill-neutral/15 stroke-background [vector-effect:non-scaling-stroke]'
                   }
                   style={
                     isShaded
@@ -188,7 +189,6 @@ export const WorldMap: FC<WorldMapProps> = ({
                       : undefined
                   }
                   strokeWidth={isHovered ? 1.2 : 0.5}
-                  vectorEffect="non-scaling-stroke"
                 />
               );
             })}
@@ -244,11 +244,10 @@ export const WorldMap: FC<WorldMapProps> = ({
                       r={isSelected ? radius * 1.3 : radius}
                       className={
                         isSelected
-                          ? 'fill-current stroke-text'
-                          : 'fill-current stroke-background'
+                          ? 'fill-current stroke-text [vector-effect:non-scaling-stroke]'
+                          : 'fill-current stroke-background [vector-effect:non-scaling-stroke]'
                       }
                       strokeWidth={isSelected ? 2 : 1.2}
-                      vectorEffect="non-scaling-stroke"
                       fillOpacity={0.85}
                     />
                   </g>

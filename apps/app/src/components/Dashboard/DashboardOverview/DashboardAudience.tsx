@@ -145,6 +145,8 @@ type EvolutionChartProps = {
   highlightedBuckets?: Set<string> | null;
   /** Makes non-empty bars clickable. */
   onBucketSelect?: (bucket: string) => void;
+  /** Shown over the chart when no visitor is in the series. */
+  emptyLabel: ReactNode;
 };
 
 /**
@@ -241,6 +243,7 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
   chartLabel,
   highlightedBuckets = null,
   onBucketSelect,
+  emptyLabel,
 }) => {
   const width = 600;
   const height = 160;
@@ -350,10 +353,14 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
                 <stop
                   key={offset}
                   offset={offset}
-                  stopOpacity={opacity}
-                  // A CSS variable, not `currentColor`: Chrome never repaints
-                  // a `currentColor` stop when the theme changes
-                  style={{ stopColor: 'var(--color-text)' }}
+                  // Styles, not `stopColor`/`stopOpacity` props: Redact only
+                  // kebab-cases `fill*`/`stroke*`/`clip*` SVG props. A CSS
+                  // variable, not `currentColor`, which Chrome never repaints
+                  // on a theme change.
+                  style={{
+                    stopColor: 'var(--color-text)',
+                    stopOpacity: opacity,
+                  }}
                 />
               ))}
             </linearGradient>
@@ -388,12 +395,17 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
               strokeWidth={2}
               strokeLinejoin="round"
               strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
+              className="[vector-effect:non-scaling-stroke]"
             />
           )}
         </svg>
+        {peak === 0 && (
+          <p className="absolute inset-0 flex items-center justify-center p-4 text-center text-sm text-neutral">
+            {emptyLabel}
+          </p>
+        )}
         {/* Hover cursor: snaps to the nearest point and shows its exact value */}
-        {variant === 'area' && series.length > 0 && (
+        {variant === 'area' && peak > 0 && (
           <div
             className="absolute inset-0 cursor-crosshair"
             dir="ltr"
@@ -518,6 +530,8 @@ type BreakdownListProps = {
   usersLabel: string;
   viewsLabel: string;
   metric: 'users' | 'views';
+  /** Shown instead of the list when it has no row. */
+  emptyLabel: ReactNode;
 };
 
 /**
@@ -549,7 +563,16 @@ const BreakdownList: FC<BreakdownListProps> = ({
   usersLabel,
   viewsLabel,
   metric,
+  emptyLabel,
 }) => {
+  if (rows.length === 0) {
+    return (
+      <p className="flex flex-1 items-center justify-center py-10 text-center text-sm text-neutral">
+        {emptyLabel}
+      </p>
+    );
+  }
+
   const max = Math.max(1, ...rows.map((row) => row[metric]));
 
   return (
@@ -658,15 +681,25 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
   );
 };
 
+type DashboardAudienceProps = {
+  /**
+   * Renders nothing (no skeleton, no install hint) for a project that never
+   * collected analytics, e.g. on the dashboard home.
+   */
+  hideWhenEmpty?: boolean;
+};
+
 /**
  * Audience analytics section: distinct visitors (today / 7d / range), page
  * views, a visitor-evolution graph, Locales / Location / Pages breakdown tabs,
  * and a world map of visitors. The `live` range polls every 15s and shows
  * sessions active in the last 30 minutes, per minute.
- * Backed by `@intlayer/analytics` ingestion; renders an empty state until data
- * is collected.
+ * Backed by `@intlayer/analytics` ingestion; renders an install hint until
+ * data is collected, or nothing with `hideWhenEmpty`.
  */
-export const DashboardAudience: FC = () => {
+export const DashboardAudience: FC<DashboardAudienceProps> = ({
+  hideWhenEmpty = false,
+}) => {
   const content = useIntlayer('dashboard-audience');
   const { locale } = useLocale();
   const { session } = useSession();
@@ -806,11 +839,16 @@ export const DashboardAudience: FC = () => {
     [audience?.byPage, applicationURL]
   );
 
+  // The install hint is for projects that never collected anything; a quiet
+  // period shows per-section messages instead
   const hasData =
     audience &&
-    (audience.usersInRange > 0 ||
+    (audience.dataSince !== null ||
+      audience.usersInRange > 0 ||
       audience.viewsInRange > 0 ||
       audience.usersToday > 0);
+
+  if (hideWhenEmpty && !hasData) return null;
 
   return (
     <div className="flex flex-1 flex-col gap-4">
@@ -918,6 +956,9 @@ export const DashboardAudience: FC = () => {
                     : null
                 }
                 onBucketSelect={isLive ? handleMinuteSelect : undefined}
+                emptyLabel={
+                  isLive ? content.liveNoVisitors : content.rangeNoVisitors
+                }
               />
               {isLive && (
                 <span className="text-xs text-neutral">
@@ -928,7 +969,7 @@ export const DashboardAudience: FC = () => {
 
             {/* Locales / Location tabs */}
             <Container
-              className="flex min-w-0 flex-col gap-4 p-5"
+              className="flex min-w-0 flex-col gap-4 p-5 lg:min-h-112"
               roundedSize="2xl"
               transparency="none"
               border
@@ -948,6 +989,7 @@ export const DashboardAudience: FC = () => {
                   rows={localeRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
+                  emptyLabel={content.breakdownEmpty}
                   metric="views"
                 />
               )}
@@ -956,6 +998,7 @@ export const DashboardAudience: FC = () => {
                   rows={countryRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
+                  emptyLabel={content.breakdownEmpty}
                   metric="users"
                 />
               )}
@@ -964,6 +1007,7 @@ export const DashboardAudience: FC = () => {
                   rows={pageRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
+                  emptyLabel={content.breakdownEmpty}
                   metric="views"
                 />
               )}

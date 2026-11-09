@@ -145,7 +145,7 @@ export const DashboardOverview: FC = () => {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Audience analytics — who is actually seeing the content */}
-      <DashboardAudience />
+      <DashboardAudience hideWhenEmpty />
 
       {/* Headline metrics */}
       <div className="flex flex-wrap gap-4">
