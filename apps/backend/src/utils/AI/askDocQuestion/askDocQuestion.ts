@@ -300,6 +300,15 @@ export const searchChunkReference = async (
   return rankedChunks.map(({ chunk }) => chunk);
 };
 
+/**
+ * Output budget per answer. Thinking tokens count toward it, so it must leave
+ * room for reasoning on top of the visible answer (length is steered by PROMPT.md).
+ */
+const MAX_OUTPUT_TOKENS = 16_000;
+
+/** Reasoning depth for the doc assistant (Anthropic `output_config.effort`). */
+const REASONING_EFFORT = 'high';
+
 const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 // Initial prompt configuration for the chatbot
@@ -386,7 +395,14 @@ export const askDocQuestion = async (
     ...aiConfig,
     system: systemPrompt,
     messages: processedMessages,
-    maxOutputTokens: 500,
+    maxOutputTokens: MAX_OUTPUT_TOKENS,
+    // Ignored by non-Anthropic providers
+    providerOptions: {
+      anthropic: {
+        thinking: { type: 'adaptive' },
+        effort: REASONING_EFFORT,
+      },
+    },
   });
 
   // Process the stream
