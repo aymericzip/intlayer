@@ -29,13 +29,25 @@ type DictionariesStatus = {
   status: DictionaryStatus | 'pending' | 'fetching' | 'error';
   error?: Error;
   errorMessage?: string;
+  /** Content declaration file written for the dictionary */
+  filePath?: string;
 };
+
+/** Outcome of one dictionary of a pull. */
+export type PulledDictionary = Pick<
+  DictionariesStatus,
+  'dictionaryKey' | 'status' | 'filePath'
+>;
 
 /**
  * Fetch distant dictionaries and write them locally,
  * with progress indicators and concurrency control.
+ *
+ * @returns The outcome of each pulled dictionary (empty when nothing ran).
  */
-export const pull = async (options?: PullOptions): Promise<void> => {
+export const pull = async (
+  options?: PullOptions
+): Promise<PulledDictionary[]> => {
   const config = getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(config);
 
@@ -44,7 +56,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     const hasCMSAuth = await checkCMSAuth(config);
 
-    if (!hasCMSAuth) return;
+    if (!hasCMSAuth) return [];
 
     const intlayerAPI = await getAuthenticatedAPI(config);
 
@@ -160,7 +172,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
       appLogger('No dictionaries to fetch', {
         level: 'error',
       });
-      return;
+      return [];
     }
 
     appLogger('Fetching dictionaries:');
@@ -242,13 +254,14 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         }
 
         // Now, write the dictionary to local file
-        const { status } = await writeContentDeclaration(
+        const { status, path } = await writeContentDeclaration(
           sourceDictionary,
           config,
           options
         );
 
         statusObj.status = status;
+        statusObj.filePath = path;
         logger.update([{ dictionaryKey: statusObj.dictionaryKey, status }]);
 
         successfullyFetchedDictionaries.push(sourceDictionary);
@@ -318,9 +331,17 @@ export const pull = async (options?: PullOptions): Promise<void> => {
         });
       }
     }
+
+    return dictionariesStatuses.map(({ dictionaryKey, status, filePath }) => ({
+      dictionaryKey,
+      status,
+      filePath,
+    }));
   } catch (error) {
     appLogger(error, {
       level: 'error',
     });
+
+    return [];
   }
 };

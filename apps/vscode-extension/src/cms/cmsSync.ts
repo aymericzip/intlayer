@@ -28,6 +28,10 @@ import {
   resolveTargetEnvironment,
   shouldPullDictionary,
 } from './cmsSyncPolicy';
+import {
+  type HybridSyncResult,
+  syncHybridDictionaries,
+} from './syncHybridDictionaries';
 import { syncProjectConfiguration } from './syncProjectConfiguration';
 
 /** Groups configuration change bursts (env + config file saved together). */
@@ -67,6 +71,13 @@ const selectSessionEnvironment = async (
   await intlayerAPI.environment.selectEnvironment(environment.id);
 };
 
+/** Keys of the remote dictionaries to write locally, by location. */
+type PulledDictionaryKeys = {
+  remote: string[];
+  /** Synced through git: pulled then committed by the extension */
+  hybrid: string[];
+};
+
 /**
  * Keys of the remote dictionaries to write locally. `remoteLocations` holds
  * the location the remote copy declares, when known.
@@ -75,22 +86,61 @@ const filterPulledDictionaryKeys = (
   remoteLocations: Map<string, DictionaryAPI['location']>,
   configuration: IntlayerConfig,
   isCommittedToRepository: boolean
-): string[] => {
+): PulledDictionaryKeys => {
   const unmergedDictionaries: Record<string, Dictionary[] | undefined> =
     getUnmergedDictionaries(configuration);
+  const pulledDictionaryKeys: PulledDictionaryKeys = { remote: [], hybrid: [] };
 
-  return [...remoteLocations]
-    .filter(([key, remoteLocation]) =>
-      shouldPullDictionary(
-        resolveDictionaryLocation(
-          unmergedDictionaries[key],
-          remoteLocation,
-          configuration.dictionary?.location
-        ),
-        isCommittedToRepository
-      )
-    )
-    .map(([key]) => key);
+  for (const [key, remoteLocation] of remoteLocations) {
+    const location = resolveDictionaryLocation(
+      unmergedDictionaries[key],
+      remoteLocation,
+      configuration.dictionary?.location
+    );
+
+    if (!shouldPullDictionary(location, isCommittedToRepository)) continue;
+
+    pulledDictionaryKeys[location === 'hybrid' ? 'hybrid' : 'remote'].push(key);
+  }
+
+  return pulledDictionaryKeys;
+};
+
+/**
+ * Tells the developer what the hybrid sync did. `lastNotReadyReason` dedupes
+ * the warning across the CMS change events.
+ */
+const createHybridSyncReporter = () => {
+  let lastNotReadyReason: string | undefined;
+
+  return (result: HybridSyncResult): void => {
+    if (result.status === 'not-ready') {
+      if (result.reason !== lastNotReadyReason) {
+        window.showWarningMessage(
+          `${prefix}CMS dictionaries not synced: ${result.reason}.`
+        );
+      }
+
+      lastNotReadyReason = result.reason;
+      return;
+    }
+
+    lastNotReadyReason = undefined;
+
+    if (result.status === 'pulled-without-git') return;
+
+    if (result.modifiedDictionaryKeys.length) {
+      window.showWarningMessage(
+        `${prefix}CMS changes not pulled, the content files have uncommitted changes: ${result.modifiedDictionaryKeys.join(', ')}.`
+      );
+    }
+
+    if (result.committedDictionaryKeys.length) {
+      window.showInformationMessage(
+        `${prefix}Committed CMS changes of ${result.committedDictionaryKeys.join(', ')} (not pushed).`
+      );
+    }
+  };
 };
 
 /** Configuration of the SSE listener: console logs only, no notifications. */
@@ -113,7 +163,8 @@ const getListenerConfiguration = (
  * dictionaries, then keeps listening to CMS dictionary changes.
  *
  * Runs only when the project sets access key credentials. `hybrid`
- * dictionaries are left to git when the CMS commits them to the repository.
+ * dictionaries are left to git when the CMS commits them to the repository;
+ * otherwise the extension pulls and commits them locally (not pushed).
  *
  * @returns Stops the sync, or `undefined` when the CMS is not set up.
  */
@@ -152,23 +203,43 @@ const startProjectSync = async (
 
   // Pulls run one at a time: they write the same content files
   let pullQueue: Promise<void> = Promise.resolve();
+  const reportHybridSync = createHybridSyncReporter();
 
   const enqueuePull = (
     remoteLocations: Map<string, DictionaryAPI['location']>
   ): Promise<void> => {
     pullQueue = pullQueue.then(async () => {
-      const dictionaryKeys = filterPulledDictionaryKeys(
+      const { remote, hybrid } = filterPulledDictionaryKeys(
         remoteLocations,
         configuration,
         isCommittedToRepository
       );
 
-      if (!dictionaryKeys.length) return;
+      if (remote.length) {
+        await pull({
+          configOptions: configurationOptions,
+          dictionaries: remote,
+        });
+      }
 
-      await pull({
-        configOptions: configurationOptions,
-        dictionaries: dictionaryKeys,
-      });
+      if (!hybrid.length) return;
+
+      // Caught: a rejection would stop every later pull of the queue
+      try {
+        reportHybridSync(
+          await syncHybridDictionaries({
+            projectDir,
+            dictionaryKeys: hybrid,
+            configuration,
+            configurationOptions,
+            intlayerAPI,
+          })
+        );
+      } catch (error) {
+        window.showWarningMessage(
+          `${prefix}CMS dictionaries sync failed: ${extractErrorMessage(error)}`
+        );
+      }
     });
 
     return pullQueue;

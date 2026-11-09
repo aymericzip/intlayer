@@ -52,3 +52,31 @@ export const shouldPullDictionary = (
   isCommittedToRepository: boolean
 ): boolean =>
   location === 'remote' || (location === 'hybrid' && !isCommittedToRepository);
+
+/** Subject of the commit adding the synced dictionaries. */
+export const SYNC_COMMIT_SUBJECT =
+  'chore(intlayer): sync dictionaries from the CMS [skip ci]';
+
+/**
+ * Whether a `hybrid` dictionary is pulled into its content file: only when
+ * the CMS edited it after the file's last commit. Older CMS content would
+ * revert local commits not pushed to the CMS yet.
+ *
+ * @param remoteUpdatedAt - Last CMS update (ms), `undefined` when not on the CMS.
+ * @param lastCommitTime - Last commit of the file (ms), `undefined` when never
+ * committed.
+ */
+export const shouldPullHybridDictionary = (
+  remoteUpdatedAt: number | undefined,
+  lastCommitTime: number | undefined
+): boolean =>
+  remoteUpdatedAt !== undefined &&
+  (lastCommitTime === undefined || remoteUpdatedAt > lastCommitTime);
+
+/** Commit message listing the synced dictionary keys in its body. */
+export const getSyncCommitMessage = (dictionaryKeys: string[]): string =>
+  [
+    SYNC_COMMIT_SUBJECT,
+    '',
+    ...[...dictionaryKeys].sort().map((dictionaryKey) => `- ${dictionaryKey}`),
+  ].join('\n');
