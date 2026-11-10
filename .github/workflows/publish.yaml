@@ -145,10 +145,10 @@ jobs:
         # parallel (`publish:ci` has no task dependency). `--continue`
         # keeps publishing the other packages when one fails. After each pass
         # the registry is checked for every package: missing ones trigger a
-        # new pass (already published packages are skipped), up to 3 passes,
+        # new pass (already published packages are skipped), up to 6 passes,
         # then the job fails so the run can be re-run.
         run: |
-          MAX_PASSES=3
+          MAX_PASSES=6
           for PASS in $(seq 1 $MAX_PASSES); do
             echo "🚀 Publishing packages (pass $PASS/$MAX_PASSES)..."
             if bun run publish:ci; then
