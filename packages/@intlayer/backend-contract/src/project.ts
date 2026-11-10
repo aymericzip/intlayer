@@ -32,6 +32,11 @@ export type ProjectConfigAI = Partial<AiConfig> & {
   /** Masked API key (`sk-proj-****abcd`), never the real one. */
   apiKey?: string;
   apiKeyConfigured?: boolean;
+  /**
+   * `false` runs AI calls on the plan credits instead of the own key.
+   * Missing means enabled.
+   */
+  isOwnAPIKeyEnabled?: boolean;
 };
 
 /**

@@ -12,9 +12,13 @@ import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useNumber } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
-import { AIConfigurationDetails } from './AIConfigurationDetails';
 import { AICreditGauge } from './AICreditGauge';
 import { AIModelUsageList } from './AIModelUsageList';
+import {
+  AIUsageSection,
+  PersonalAIUsageSection,
+  useProjectOwnAIKey,
+} from './AIUsageSections';
 
 type FeatureUsageListProps = {
   balance: AICreditBalance;
@@ -72,14 +76,16 @@ const FeatureUsageList: FC<FeatureUsageListProps> = ({ balance }) => {
 };
 
 /**
- * Monthly AI credit balance of the session organization: gauge, reset date
- * and per-feature breakdown.
+ * AI usage of the session organization: the plan credits (gauge, reset date,
+ * per-feature breakdown) and the project's own AI key ("Personal usage").
  */
 export const AICredits: FC = () => {
   const { title, ownKeyNote, usageDetailsButton } = useIntlayer(
     'organization-ai-credits'
   );
+  const { planTitle } = useIntlayer('ai-usage-sections');
   const { data: aiCreditsResponse, isPending } = useGetAICredits();
+  const ownAIKey = useProjectOwnAIKey();
   const formatNumber = useNumber();
   const navigate = useLocalizedNavigate();
 
@@ -94,23 +100,13 @@ export const AICredits: FC = () => {
 
       {isPending && <Loader className="mx-auto size-5" />}
 
-      {balance && !balance.hasCreditAllowance && (
-        <>
-          <AIModelUsageList balance={balance} />
-
-          <AIConfigurationDetails />
-        </>
-      )}
-
       {balance?.hasCreditAllowance && (
-        <>
+        <AIUsageSection title={planTitle}>
           <AICreditGauge balance={balance} />
 
           <FeatureUsageList balance={balance} />
 
-          <AIModelUsageList balance={balance} />
-
-          <AIConfigurationDetails />
+          <AIModelUsageList balance={balance} keyFilter="intlayer" />
 
           <p className="text-xs text-neutral">
             {ownKeyNote({ tokens: formatNumber(balance.tokensPerCredit) })}
@@ -125,7 +121,15 @@ export const AICredits: FC = () => {
           >
             {usageDetailsButton.text}
           </Button>
-        </>
+        </AIUsageSection>
+      )}
+
+      {balance && (ownAIKey.hasOwnKey || !balance.hasCreditAllowance) && (
+        <PersonalAIUsageSection
+          balance={balance}
+          isToggleVisible={balance.hasCreditAllowance && ownAIKey.hasOwnKey}
+          ownAIKey={ownAIKey}
+        />
       )}
     </div>
   );

@@ -35,6 +35,8 @@ type ProjectConfigEditor = Partial<
 type ProjectConfigAI = Partial<IntlayerConfig['ai']> & {
   apiKey?: string;
   apiKeyConfigured?: boolean;
+  /** `false` runs AI calls on the plan credits instead of the own key. */
+  isOwnAPIKeyEnabled?: boolean;
 };
 
 export type Webhook = {

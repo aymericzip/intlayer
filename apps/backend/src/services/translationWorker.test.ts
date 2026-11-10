@@ -705,13 +705,16 @@ describe('processTranslationJob – AI credits', () => {
     );
 
     expect(mockConsumeAICredits).toHaveBeenCalledTimes(2);
-    expect(mockConsumeAICredits).toHaveBeenCalledWith({
-      organizationId: 'org-1',
-      projectId: 'proj-1',
-      userId: 'user-1',
-      feature: 'translation',
-      tokens: 1_500,
-    });
+    expect(mockConsumeAICredits).toHaveBeenCalledWith(
+      expect.objectContaining({
+        organizationId: 'org-1',
+        projectId: 'proj-1',
+        userId: 'user-1',
+        feature: 'translation',
+        isBilled: true,
+        tokens: 1_500,
+      })
+    );
   });
 
   it('does not bill a project that uses its own API key', async () => {
@@ -733,7 +736,38 @@ describe('processTranslationJob – AI credits', () => {
     );
 
     expect(mockHasRemainingAICredits).not.toHaveBeenCalled();
-    expect(mockConsumeAICredits).not.toHaveBeenCalled();
+    // Recorded for the per-model usage, never drawn from the credits
+    expect(mockConsumeAICredits).toHaveBeenCalledWith(
+      expect.objectContaining({ isBilled: false, tokens: 1_500 })
+    );
+  });
+
+  it('bills a project whose own API key is disabled', async () => {
+    mockGetProjectById.mockResolvedValue({
+      ...BILLED_PROJECT,
+      configuration: {
+        ...BILLED_PROJECT.configuration,
+        ai: {
+          provider: 'openai',
+          apiKey: 'sk-own-key',
+          isOwnAPIKeyEnabled: false,
+        },
+      },
+    });
+    registerDictionaries(makeFakeDict('d1', 'common'));
+
+    await processTranslationJob(
+      makeJob('job-own-key-disabled', {
+        dictionaryTargets: [{ dictionaryId: 'd1', locales: ['fr'] }],
+        projectId: 'proj-1',
+        userId: 'user-1',
+      })
+    );
+
+    expect(mockHasRemainingAICredits).toHaveBeenCalled();
+    expect(mockConsumeAICredits).toHaveBeenCalledWith(
+      expect.objectContaining({ isBilled: true, tokens: 1_500 })
+    );
   });
 
   it('fails the remaining tasks and the job once credits are exhausted', async () => {

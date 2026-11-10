@@ -11,13 +11,17 @@ import { BarChart3, ChevronsUp, Sparkles } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
-import { AIConfigurationDetails } from './AIConfigurationDetails';
 import {
   AICreditGauge,
   getUsageRatio,
   WARNING_USAGE_RATIO,
 } from './AICreditGauge';
 import { AIModelUsageList } from './AIModelUsageList';
+import {
+  AIUsageSection,
+  PersonalAIUsageSection,
+  useProjectOwnAIKey,
+} from './AIUsageSections';
 
 const DROPDOWN_IDENTIFIER = 'ai-credits-quota';
 
@@ -71,13 +75,15 @@ const QuotaRing: FC<QuotaRingProps> = ({ usageRatio }) => (
 );
 
 /**
- * Navbar quota indicator: a usage ring; hovering it opens a
- * panel with the monthly gauge, an upgrade action and the usage page link.
+ * Navbar quota indicator: a usage ring; hovering it opens a panel split into
+ * the plan credits and the project's own AI key ("Personal usage").
  */
 export const AICreditsQuotaDropdown: FC = () => {
   const { title, quotaTriggerLabel, upgradeButton, usageDetailsButton } =
     useIntlayer('organization-ai-credits');
+  const { planTitle } = useIntlayer('ai-usage-sections');
   const { data: aiCreditsResponse } = useGetAICredits();
+  const ownAIKey = useProjectOwnAIKey();
   const navigate = useLocalizedNavigate();
 
   const balance = aiCreditsResponse?.data;
@@ -122,36 +128,44 @@ export const AICreditsQuotaDropdown: FC = () => {
             {title}
           </span>
 
-          {balance.hasCreditAllowance && <AICreditGauge balance={balance} />}
-
-          <AIModelUsageList balance={balance} />
-
-          <AIConfigurationDetails />
-
           {balance.hasCreditAllowance && (
-            <div className="flex flex-col gap-2">
-              {!isTopPlan && (
+            <AIUsageSection title={planTitle}>
+              <AICreditGauge balance={balance} />
+
+              <AIModelUsageList balance={balance} keyFilter="intlayer" />
+
+              <div className="flex flex-col gap-2">
+                {!isTopPlan && (
+                  <Button
+                    label={upgradeButton.label.value}
+                    color="text"
+                    Icon={ChevronsUp}
+                    isFullWidth
+                    onClick={() => navigate({ to: App_Pricing_Path })}
+                  >
+                    {upgradeButton.text}
+                  </Button>
+                )}
                 <Button
-                  label={upgradeButton.label.value}
+                  label={usageDetailsButton.label.value}
                   color="text"
-                  Icon={ChevronsUp}
+                  variant="outline"
+                  Icon={BarChart3}
                   isFullWidth
-                  onClick={() => navigate({ to: App_Pricing_Path })}
+                  onClick={() => navigate({ to: App_Dashboard_AI_Usage_Path })}
                 >
-                  {upgradeButton.text}
+                  {usageDetailsButton.text}
                 </Button>
-              )}
-              <Button
-                label={usageDetailsButton.label.value}
-                color="text"
-                variant="outline"
-                Icon={BarChart3}
-                isFullWidth
-                onClick={() => navigate({ to: App_Dashboard_AI_Usage_Path })}
-              >
-                {usageDetailsButton.text}
-              </Button>
-            </div>
+              </div>
+            </AIUsageSection>
+          )}
+
+          {(ownAIKey.hasOwnKey || !balance.hasCreditAllowance) && (
+            <PersonalAIUsageSection
+              balance={balance}
+              isToggleVisible={balance.hasCreditAllowance && ownAIKey.hasOwnKey}
+              ownAIKey={ownAIKey}
+            />
           )}
         </Container>
       </DropDown.Panel>

@@ -1,6 +1,6 @@
 import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
-import { type AIOptions, getAIConfig } from '@intlayer/ai';
+import { getAIConfig } from '@intlayer/ai';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { pLimit } from '@intlayer/config/utils';
 import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
@@ -22,6 +22,7 @@ import {
   chargeAICredits,
   resolveAICreditMeter,
 } from '@utils/AI/aiCreditMetering';
+import { resolveProjectAIOptions } from '@utils/AI/getProjectAIOptions';
 import {
   AbortError,
   translateDictionaryDB,
@@ -136,7 +137,7 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
     throw new Error('User or Project not found');
   }
 
-  const projectAIOptions = project.configuration?.ai as AIOptions | undefined;
+  const projectAIOptions = resolveProjectAIOptions(project.configuration?.ai);
 
   const aiConfig = await getAIConfig(
     {

@@ -91,6 +91,9 @@ const projectConfigSchema = new Schema<Project['configuration']>(
       baseURL: {
         type: String,
       },
+      isOwnAPIKeyEnabled: {
+        type: Boolean,
+      },
     },
   },
   {
