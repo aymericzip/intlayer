@@ -820,8 +820,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -840,8 +840,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -872,8 +872,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -892,8 +892,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -912,12 +912,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // גיבוי לנתיבים שאינם משוכתבים
@@ -1072,7 +1073,7 @@ Intlayer תומך במספר ספקי AI לגמישות וחופש בחירה מ
 | שדה                   | תיאור                                                                                      | טיפוס                            | ברירת מחדל                                                                                                                                                                        | דוגמה                                                                         | הערה                                                                                                                                                                                                                                                                                                                                                                                                          |
 | --------------------- | ------------------------------------------------------------------------------------------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`                | שולט במצב הבנייה.                                                                          | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: הבנייה מופעלת אוטומטית בעת בניית האפליקציה.<br/>• `'manual'`: רץ רק כאשר פקודת הבנייה מופעלת במפורש.<br/>• יכול לשמש להשבתת בניית מילונים (לדוגמה כדי למנוע הרצה בסביבות Node.js מסוימות).                                                                                                                                                                                                        |
-| `optimize`            | שולט האם יש לבצע אופטימיזציה לבנייה.                                                       | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • אם לא מוגדר, אופטימיזציה מופעלת בבניית ה-framework ‏(Vite/Next.js).<br/>• `true` כופה אופטימיזציה כולל במצב dev.<br/>• `false` משבית אותה.<br/>• כאשר מופעל, מחליף קריאות מילון לשיפור ה-chunking - רק מילונים בשימוש מיובאים.<br/>• מסתמך על תוספי `@intlayer/babel` ו-`@intlayer/swc`.<br/>• מפתחות חייבים להיות מוצהרים סטטית.                                                                           |
+| `optimize`            | שולט האם יש לבצע אופטימיזציה לבנייה.                                                       | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • אם לא מוגדר, אופטימיזציה מופעלת בבניית ה-framework ‏(Vite/Next.js).<br/>• `true` כופה אופטימיזציה כולל במצב dev.<br/>• `false` משבית אותה.<br/>• כאשר מופעל, מחליף קריאות מילון לשיפור ה-chunking - רק מילונים בשימוש מיובאים.<br/>• מסתמך על תוספי `@intlayer/babel` ו-`@intlayer/swc`.<br/>• מפתחות חייבים להיות מוצהרים סטטית.                                                                            |
 | `minify`              | האם למזער (minify) את המילונים כדי להפחית את גודל ה-bundle.                                | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | • מציין האם יש למזער את ה-bundle.<br/>• ברירת מחדל: `false`.<br/>• אפשרות זו תתעלם אם `optimize` מושבת.<br/>• אפשרות זו תתעלם אם `editor.enabled` מוגדר כ-true.                                                                                                                                                                                                                                               |
 | `purge`               | האם לנקות (purge) מפתחות שאינם בשימוש במילונים.                                            | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | • מציין האם יש לנקות את ה-bundle ממפתחות שאינם בשימוש.<br/>• ברירת מחדל: `false`.<br/>• אפשרות זו תתעלם אם `optimize` מושבת.                                                                                                                                                                                                                                                                                  |
 | `checkTypes`          | מציין אם על הבנייה לבדוק טיפוסי TypeScript ולרשום שגיאות.                                  | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | יכול להאט את תהליך הבנייה.                                                                                                                                                                                                                                                                                                                                                                                    |
