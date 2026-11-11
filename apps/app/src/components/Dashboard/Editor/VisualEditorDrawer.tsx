@@ -2,7 +2,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { PenTool } from 'lucide-react';
-import { type FC, memo, Suspense, useEffect, useState } from 'react';
+import { type FC, memo, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { Editor } from '#components/Dashboard/Editor';
@@ -10,6 +10,7 @@ import { DictionaryLoaderVisualEditor } from '#components/Dashboard/Editor/Dicti
 import {
   DashboardRightPanelId,
   useDashboardRightPanel,
+  useDashboardRightPanelContainer,
   useRegisterDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 
@@ -22,11 +23,7 @@ export const VisualEditorDrawer: FC = memo(() => {
     'visual-editor-drawer'
   );
   const isOpen = checkIsOpen(DRAWER_ID);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setPortalTarget(document.getElementById('dashboard-right-panel'));
-  }, []);
+  const portalTarget = useDashboardRightPanelContainer();
 
   return (
     <>

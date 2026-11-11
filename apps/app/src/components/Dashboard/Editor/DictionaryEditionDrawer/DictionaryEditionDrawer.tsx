@@ -15,7 +15,10 @@ import { ChevronLeft, PencilRuler } from 'lucide-react';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  useDashboardRightPanel,
+  useDashboardRightPanelContainer,
+} from '#hooks/useDashboardRightPanel';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   dictionaryEditionDrawerIdentifier,
@@ -41,11 +44,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   const { close, isOpen } = useDictionaryEditionDrawer();
   const { open } = useDashboardRightPanel();
   const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setPortalTarget(document.getElementById('dashboard-right-panel'));
-  }, []);
+  const portalTarget = useDashboardRightPanelContainer();
 
   const handleOnBack = () => {
     close();

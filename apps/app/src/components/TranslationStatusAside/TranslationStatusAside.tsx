@@ -34,6 +34,7 @@ import { useIntlayer } from 'react-intlayer';
 import {
   DashboardRightPanelId,
   useDashboardRightPanel,
+  useDashboardRightPanelContainer,
   useRegisterDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 import {
@@ -453,13 +454,9 @@ export const TranslationStatusAside: FC = () => {
   const { toggle: togglePanel, isOpen: checkIsOpen } = useDashboardRightPanel();
   useRegisterDashboardRightPanel(DashboardRightPanelId.TranslationStatus);
   const isOpen = checkIsOpen(DashboardRightPanelId.TranslationStatus);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+  const portalTarget = useDashboardRightPanelContainer();
   const [showArchive, setShowArchive] = useState(false);
   const [lastSeenTimestamp, setLastSeenTimestamp] = useState(0);
-
-  useEffect(() => {
-    setPortalTarget(document.getElementById('dashboard-right-panel'));
-  }, []);
 
   useEffect(() => {
     if (isOpen) setLastSeenTimestamp(Date.now());

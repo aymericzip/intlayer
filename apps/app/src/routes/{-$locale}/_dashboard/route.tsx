@@ -32,6 +32,7 @@ import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
 import { TranslationStatusBar } from '#components/TranslationStatusBar';
 import {
   DashboardRightPanelId,
+  setDashboardRightPanelContainer,
   useDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
@@ -364,6 +365,7 @@ function DashboardLayout() {
                 />
               </div>
               <div
+                ref={setDashboardRightPanelContainer}
                 id="dashboard-right-panel"
                 className="relative flex-1 overflow-hidden"
               />

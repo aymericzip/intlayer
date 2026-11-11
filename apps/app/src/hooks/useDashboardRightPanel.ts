@@ -113,6 +113,49 @@ const EMPTY_AVAILABLE_PANELS: ReadonlySet<DashboardRightPanelId> = new Set();
 const panelAvailabilityRegistry = new PanelAvailabilityRegistry();
 
 /**
+ * Holds the live sidebar element the panels portal into. Reading it once by id
+ * on mount can keep a detached node when the sidebar is re-created, which
+ * leaves the open panel empty.
+ */
+class PanelContainerStore {
+  private listeners = new Set<() => void>();
+  private container: HTMLElement | null = null;
+
+  subscribe = (listener: () => void) => {
+    this.listeners.add(listener);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  };
+
+  getSnapshot = () => this.container;
+
+  getServerSnapshot = (): HTMLElement | null => null;
+
+  setContainer = (container: HTMLElement | null) => {
+    if (container === this.container) return;
+
+    this.container = container;
+    this.listeners.forEach((listener) => {
+      listener();
+    });
+  };
+}
+
+const panelContainerStore = new PanelContainerStore();
+
+/** Callback ref for the sidebar element the panels render into. */
+export const setDashboardRightPanelContainer = panelContainerStore.setContainer;
+
+/** The sidebar element to portal panel content into, once it is mounted. */
+export const useDashboardRightPanelContainer = (): HTMLElement | null =>
+  useSyncExternalStore(
+    panelContainerStore.subscribe,
+    panelContainerStore.getSnapshot,
+    panelContainerStore.getServerSnapshot
+  );
+
+/**
  * Declares that a panel has content to show on the current page.
  *
  * @param panelId - Panel to register.

@@ -15,6 +15,7 @@ import {
 import {
   DashboardRightPanelId,
   useDashboardRightPanel,
+  useDashboardRightPanelContainer,
   useRegisterDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
@@ -43,12 +44,9 @@ export const DashboardChatBot: FC = () => {
   const { toggle: togglePanel, isOpen: checkIsOpen } = useDashboardRightPanel();
   useRegisterDashboardRightPanel(DRAWER_ID);
   const isOpen = checkIsOpen(DRAWER_ID);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+  const portalTarget = useDashboardRightPanelContainer();
   const isFirstRender = useRef(true);
 
-  useEffect(() => {
-    setPortalTarget(document.getElementById('dashboard-right-panel'));
-  }, []);
   const [currentResponse, setCurrentResponse] = useState('');
   const navigate = useLocalizedNavigate();
   const queryClient = useQueryClient();

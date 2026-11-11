@@ -10,11 +10,12 @@ import {
 import type { Dictionary } from '@intlayer/types/dictionary';
 import Fuse from 'fuse.js';
 import { ChevronRight, Pencil } from 'lucide-react';
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { type FC, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import {
   useDashboardRightPanel,
+  useDashboardRightPanelContainer,
   useRegisterDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 import { dictionaryEditionDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
@@ -26,13 +27,9 @@ export const DictionaryListDrawer: FC = () => {
   const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
 
   const isOpen = checkIsOpen(dictionaryListDrawerIdentifier);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+  const portalTarget = useDashboardRightPanelContainer();
 
   useRegisterDashboardRightPanel(dictionaryListDrawerIdentifier);
-
-  useEffect(() => {
-    setPortalTarget(document.getElementById('dashboard-right-panel'));
-  }, []);
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
