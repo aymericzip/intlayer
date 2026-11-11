@@ -101,7 +101,7 @@
     "raw-loader": "4.0.2",
     "tailwindcss": "4.3.5",
     "typescript": "7.0.2",
-    "vite": "8.3.7",
+    "vite": "8.3.8",
     "vite-intlayer": "workspace:*",
     "workbox-build": "7.4.1"
   },
