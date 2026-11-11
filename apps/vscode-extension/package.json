@@ -92,7 +92,7 @@
   "dependencies": {
     "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
-    "oxc-parser": "0.157.0",
+    "oxc-parser": "0.158.0",
     "picocolors": "1.1.1"
   },
   "devDependencies": {
@@ -110,27 +110,27 @@
     "@types/mocha": "10.0.10",
     "@types/node": ">=26",
     "@types/vscode": "1.96.0",
-    "@typescript-eslint/eslint-plugin": "8.70.1",
-    "@typescript-eslint/parser": "8.70.1",
+    "@typescript-eslint/eslint-plugin": "8.72.2",
+    "@typescript-eslint/parser": "8.72.2",
     "@vscode/test-cli": "0.0.15",
     "@vscode/test-electron": "3.1.0",
-    "@vscode/vsce": "4.0.0",
-    "dotenv": "18.0.4",
+    "@vscode/vsce": "4.1.0",
+    "dotenv": "18.0.10",
     "fuse.js": "7.5.0",
-    "ovsx": "1.2.0",
-    "svelte": "5.57.1",
+    "ovsx": "1.4.0",
+    "svelte": "5.57.3",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
     "vscode-languageclient": "11.0.0"
   },
   "optionalDependencies": {
-    "@oxc-parser/binding-darwin-arm64": "0.157.0",
-    "@oxc-parser/binding-darwin-x64": "0.157.0",
-    "@oxc-parser/binding-linux-arm64-gnu": "0.157.0",
-    "@oxc-parser/binding-linux-x64-gnu": "0.157.0",
-    "@oxc-parser/binding-linux-x64-musl": "0.157.0",
-    "@oxc-parser/binding-win32-arm64-msvc": "0.157.0",
-    "@oxc-parser/binding-win32-x64-msvc": "0.157.0"
+    "@oxc-parser/binding-darwin-arm64": "0.158.0",
+    "@oxc-parser/binding-darwin-x64": "0.158.0",
+    "@oxc-parser/binding-linux-arm64-gnu": "0.158.0",
+    "@oxc-parser/binding-linux-x64-gnu": "0.158.0",
+    "@oxc-parser/binding-linux-x64-musl": "0.158.0",
+    "@oxc-parser/binding-win32-arm64-msvc": "0.158.0",
+    "@oxc-parser/binding-win32-x64-msvc": "0.158.0"
   },
   "contributes": {
     "commands": [

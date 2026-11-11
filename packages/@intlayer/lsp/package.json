@@ -91,7 +91,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "oxc-parser": "0.157.0",
+    "oxc-parser": "0.158.0",
     "vscode-languageserver": "11.0.0",
     "vscode-languageserver-textdocument": "1.0.16"
   },

@@ -73,14 +73,14 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "4.0.99",
-    "@ai-sdk/openai": "4.0.111",
+    "@ai-sdk/anthropic": "4.0.102",
+    "@ai-sdk/openai": "4.0.114",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "4.4.0",
-    "ai": "7.0.166",
+    "ai": "7.0.169",
     "zod": "4.6.7"
   },
   "devDependencies": {

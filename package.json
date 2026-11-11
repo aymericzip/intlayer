@@ -106,7 +106,7 @@
   },
   "resolutions": {
     "bson": "7.2.0",
-    "preact": "11.1.1",
+    "preact": "11.2.0",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
