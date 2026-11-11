@@ -1,5 +1,5 @@
-import { date } from '@intlayer/core/formatters';
-import { useContext } from 'preact/hooks';
+import { date, presets } from '@intlayer/core/formatters';
+import { useCallback, useContext } from 'preact/hooks';
 import { IntlayerClientContext } from '../client/IntlayerProvider';
 
 /**
@@ -31,9 +31,15 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
 export const useDate = () => {
   const { locale } = useContext(IntlayerClientContext) ?? {};
 
-  return (...args: Parameters<typeof date>) =>
-    date(args[0], {
-      ...args[1],
-      locale: args[1]?.locale ?? locale,
-    });
+  return useCallback(
+    (...args: Parameters<typeof date>) => {
+      const options =
+        typeof args[1] === 'string'
+          ? { ...presets[args[1]], locale }
+          : { ...args[1], locale: args[1]?.locale ?? locale };
+
+      return date(args[0], options as Parameters<typeof date>[1]);
+    },
+    [locale]
+  );
 };

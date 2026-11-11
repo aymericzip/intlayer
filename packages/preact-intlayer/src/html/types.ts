@@ -1,5 +1,5 @@
 import type { HTMLTagsType } from '@intlayer/core/transpiler';
-import type { FunctionalComponent, JSX } from 'preact';
+import type { FunctionalComponent, HTMLAttributes, JSX } from 'preact';
 
 /**
  * Helper to extract specific props from the configuration value.
@@ -15,7 +15,7 @@ type PropsFromConfig<Value> = Value extends true
  */
 type ElementProps<K> = K extends keyof JSX.IntrinsicElements
   ? JSX.IntrinsicElements[K]
-  : JSX.HTMLAttributes<HTMLElement>;
+  : HTMLAttributes<HTMLElement>;
 
 /**
  * Helper: Defines the mapping for the explicitly listed keys in T.
@@ -43,7 +43,7 @@ type RestHTMLComponents<T> = {
   [K in Exclude<keyof HTMLTagsType, keyof T>]?: FunctionalComponent<
     K extends keyof JSX.IntrinsicElements
       ? JSX.IntrinsicElements[K]
-      : JSX.HTMLAttributes<HTMLElement>
+      : HTMLAttributes<HTMLElement>
   >;
 };
 
@@ -72,7 +72,7 @@ export type HTMLComponents<
       ? // Permissive: Keys in T optional. Rest of HTML optional. Any other string allowed.
         DefinedComponents<T, false> &
           RestHTMLComponents<T> & {
-            [key: string]: FunctionalComponent<JSX.HTMLAttributes<HTMLElement>>;
+            [key: string]: FunctionalComponent<HTMLAttributes<HTMLElement>>;
           }
       : // Optional (Default): Keys in T optional. Rest of HTML optional.
         DefinedComponents<T, false> & RestHTMLComponents<T>;
