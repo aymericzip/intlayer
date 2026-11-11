@@ -1,8 +1,11 @@
 import type {
+  AnalyticsAnnotationType,
   AnalyticsRoutes,
   AudienceRange,
   analyticsContract,
+  GetAnalyticsAnnotationsResult,
   GetAnalyticsOverviewResult,
+  GetAnalyticsSchemaResult,
   GetAudienceResult,
   GetContentStatsResult,
   GetExperimentResultsResult,
@@ -11,6 +14,9 @@ import type {
   GetPageMetadataResult,
   IngestAnalyticsBody,
   IngestAnalyticsResult,
+  RunAnalyticsRealtimeReportBody,
+  RunAnalyticsReportBody,
+  RunAnalyticsReportResult,
 } from '@intlayer/backend-contract/analytics';
 import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
 import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
@@ -41,6 +47,10 @@ const analyticsEndpoints = {
   getContentStats: { method: 'GET', path: '/content-stats' },
   getExperimentResults: { method: 'GET', path: '/experiments/:experimentKey' },
   getPageMetadata: { method: 'GET', path: '/page-metadata' },
+  getAnalyticsSchema: { method: 'GET', path: '/schema' },
+  runAnalyticsReport: { method: 'POST', path: '/report' },
+  runAnalyticsRealtimeReport: { method: 'POST', path: '/realtime-report' },
+  getAnalyticsAnnotations: { method: 'GET', path: '/annotations' },
 } as const satisfies RouteEndpoints<AnalyticsRoutes>;
 
 export const getAnalyticsAPI = (
@@ -217,8 +227,98 @@ export const getAnalyticsAPI = (
       }
     );
 
+  /**
+   * What can be reported on: dimensions, metrics and their compatibility,
+   * retention, the project's locales and its experiments.
+   */
+  const getSchema = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetAnalyticsSchemaResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getAnalyticsSchema
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.getAnalyticsSchema.method }
+    );
+
+  /**
+   * Aggregated report: metrics broken down by dimensions over date ranges.
+   * @param body - Date ranges, dimensions, metrics, filters, order, paging.
+   */
+  const runReport = async (
+    body: RunAnalyticsReportBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<RunAnalyticsReportResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.runAnalyticsReport
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.runAnalyticsReport.method, body }
+    );
+
+  /**
+   * Aggregated activity of the last minutes (up to one hour).
+   * @param body - Dimensions, metrics, window and filters.
+   */
+  const runRealtimeReport = async (
+    body: RunAnalyticsRealtimeReportBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<RunAnalyticsReportResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.runAnalyticsRealtimeReport
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.runAnalyticsRealtimeReport.method, body }
+    );
+
+  /**
+   * Dated content and traffic events, to explain report changes.
+   * @param query - Window (`YYYY-MM-DD`, `today`, `NdaysAgo`), types, limit.
+   */
+  const getAnnotations = async (
+    query: {
+      startDate?: string;
+      endDate?: string;
+      types?: AnalyticsAnnotationType[];
+      limit?: number;
+    } = {},
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetAnalyticsAnnotationsResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getAnalyticsAnnotations
+      ),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: analyticsEndpoints.getAnalyticsAnnotations.method,
+        params: {
+          ...(query.startDate && { startDate: query.startDate }),
+          ...(query.endDate && { endDate: query.endDate }),
+          ...(query.types?.length && { types: query.types.join(',') }),
+          ...(query.limit !== undefined && { limit: String(query.limit) }),
+        },
+      }
+    );
+
   return {
     sendEvents,
+    getSchema,
+    runReport,
+    runRealtimeReport,
+    getAnnotations,
     getOverview,
     getAudience,
     getLiveVisitorFlow,

@@ -8,6 +8,7 @@ import {
   AnalyticsVisitorModel,
 } from '@schemas/analyticsEvent.schema';
 import { ProjectModel } from '@schemas/project.schema';
+import { isPublicHttpUrl } from '@utils/isPublicUrl';
 import { load } from 'cheerio';
 import type { AnyBulkWriteOperation, Types } from 'mongoose';
 import type {
@@ -998,7 +999,9 @@ const getSubDayAudience = async (
   range: AudienceRange,
   granularity: AudienceGranularity,
   hours: number
-): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+): Promise<
+  Omit<AudienceStats, 'usersToday' | 'usersLast7Days' | 'dataSince'>
+> => {
   const bucketMinutes = granularity === 'minute' ? SHORT_TERM_SLOT_MINUTES : 60;
   const bucketMs = bucketMinutes * 60 * 1000;
 
@@ -1126,7 +1129,9 @@ const getDailyAudience = async (
   range: AudienceRange,
   granularity: AudienceGranularity,
   hours: number
-): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+): Promise<
+  Omit<AudienceStats, 'usersToday' | 'usersLast7Days' | 'dataSince'>
+> => {
   const days = hours / 24;
   const sinceDay = dayOffset(days - 1);
 
@@ -1401,7 +1406,9 @@ export const getLiveVisitorFlow = async (
  */
 const getLiveAudience = async (
   projectId: Types.ObjectId
-): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+): Promise<
+  Omit<AudienceStats, 'usersToday' | 'usersLast7Days' | 'dataSince'>
+> => {
   const now = Date.now();
   const startMinute = getLiveWindowStartMinute(now);
 
@@ -1764,7 +1771,7 @@ export const getPageFlow = async (
  * First UTC day (`YYYY-MM-DD`) with a daily rollup for the project, `null`
  * when no data was ever collected. Rollups are permanent, unlike visitors.
  */
-const getFirstDataDay = async (
+export const getFirstDataDay = async (
   projectId: Types.ObjectId
 ): Promise<string | null> => {
   const firstRollup = await AnalyticsRollupModel.findOne(
@@ -1821,6 +1828,48 @@ const pageMetadataCache = new Map<
   { data: PageMetadata; timestamp: number }
 >();
 
+/** Redirects followed when fetching a page's metadata. */
+const MAX_PAGE_METADATA_REDIRECTS = 3;
+
+/**
+ * Fetches a page, following redirects by hand so every hop is checked to
+ * resolve to a public address (no SSRF towards the backend's network).
+ *
+ * @param url - The page URL.
+ * @returns The final response, or `null` when a hop is not public.
+ */
+const fetchPublicPage = async (url: string): Promise<Response | null> => {
+  let currentUrl = url;
+
+  for (
+    let redirectCount = 0;
+    redirectCount <= MAX_PAGE_METADATA_REDIRECTS;
+    redirectCount++
+  ) {
+    if (!(await isPublicHttpUrl(currentUrl))) return null;
+
+    const response = await fetch(currentUrl, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (compatible; IntlayerBot/1.0; +https://intlayer.org)',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+      signal: AbortSignal.timeout(6000),
+      redirect: 'manual',
+    });
+
+    const location = response.headers.get('location');
+    const isRedirect = response.status >= 300 && response.status < 400;
+
+    if (!isRedirect || !location) return response;
+
+    currentUrl = new URL(location, currentUrl).href;
+  }
+
+  return null;
+};
+
 /**
  * Fetches page metadata (title and meta description) from a target URL.
  * Parses HTML via Cheerio and extracts title/og:title and description/og:description.
@@ -1835,23 +1884,9 @@ export const getPageMetadata = async (
   }
 
   try {
-    const parsedUrl = new URL(targetUrl);
-    if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
-      return { title: '', description: '' };
-    }
+    const response = await fetchPublicPage(targetUrl);
 
-    const response = await fetch(targetUrl, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (compatible; IntlayerBot/1.0; +https://intlayer.org)',
-        Accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      },
-      signal: AbortSignal.timeout(6000),
-      redirect: 'follow',
-    });
-
-    if (!response.ok) {
+    if (!response?.ok) {
       return { title: '', description: '' };
     }
 

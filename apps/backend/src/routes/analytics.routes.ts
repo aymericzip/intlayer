@@ -1,5 +1,7 @@
 import {
+  getAnalyticsAnnotations,
   getAnalyticsAudience,
+  getAnalyticsSchema,
   getAnalyticsOverview,
   getContentStats,
   getExperimentResults,
@@ -7,6 +9,8 @@ import {
   getPageFlow,
   getPageMetadata,
   ingestAnalyticsEvents,
+  runAnalyticsRealtimeReport,
+  runAnalyticsReport,
 } from '@controllers/analytics.controller';
 import { analyticsContract } from '@intlayer/backend-contract/analytics';
 import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
@@ -33,5 +37,9 @@ export const analyticsRouter = async (fastify: FastifyInstance) => {
     getContentStats,
     getExperimentResults,
     getPageMetadata,
+    getAnalyticsSchema,
+    runAnalyticsReport,
+    runAnalyticsRealtimeReport,
+    getAnalyticsAnnotations,
   });
 };

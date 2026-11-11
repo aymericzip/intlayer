@@ -25,6 +25,7 @@ const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
     expiresAt: { type: Date },
     accessToken: { type: [String], required: true, default: [] },
     grants: { type: [String], required: true, default: [] },
+    grantsEnforced: { type: Boolean, default: false },
     allowedEnvironmentIds: { type: Schema.Types.Mixed, default: null },
     allowedLocales: { type: [String], default: null },
   },

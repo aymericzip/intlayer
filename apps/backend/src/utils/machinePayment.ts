@@ -1,7 +1,9 @@
 import { createHmac } from 'node:crypto';
 import { isSelfHosted } from '@utils/isSelfHosted';
 import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { Method } from 'mppx';
 import { Mppx, stripe } from 'mppx/server';
+import type { Methods } from 'mppx/stripe';
 import Stripe from 'stripe';
 
 /**
@@ -32,7 +34,7 @@ const PRICE_CACHE_DURATION_MS = 5 * 60 * 1000;
 
 let cachedPrice: { value: MachinePaymentPrice; expiresAt: number } | undefined;
 
-let cachedMppx: ReturnType<typeof createMppx> | undefined;
+let cachedMppx: MachinePaymentServer | undefined;
 
 /**
  * Whether agent payments can run: never on a self-hosted instance (billing is
@@ -57,13 +59,26 @@ const getChallengeSecretKey = (): string =>
     .update('mpp-challenge-signing')
     .digest('base64');
 
-const createMppx = () => {
-  const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY ?? '');
+/** Charge fields configured once on the server instead of per charge. */
+type ConfiguredChargeDefaults = {
+  decimals: number;
+  networkId: string;
+  paymentMethodTypes: string[];
+};
 
-  return Mppx.create({
+/**
+ * The configured MPP server. Written out because the inferred type references
+ * mppx internals that cannot be named in declarations.
+ */
+export type MachinePaymentServer = Mppx.Mppx<
+  readonly [Method.Server<typeof Methods.charge, ConfiguredChargeDefaults>]
+>;
+
+const createMppx = (): MachinePaymentServer =>
+  Mppx.create({
     methods: [
       stripe.charge({
-        client: stripeClient,
+        client: new Stripe(process.env.STRIPE_SECRET_KEY ?? ''),
         networkId: process.env.STRIPE_PROFILE_ID ?? '',
         paymentMethodTypes: ['card'],
         decimals: CURRENCY_DECIMALS,
@@ -71,11 +86,10 @@ const createMppx = () => {
     ],
     secretKey: getChallengeSecretKey(),
     realm: new URL(process.env.BACKEND_URL!).host,
-  });
-};
+  }) as unknown as MachinePaymentServer;
 
 /** Lazily created so a missing Stripe configuration never throws at boot. */
-export const getMppx = (): ReturnType<typeof createMppx> => {
+export const getMppx = (): MachinePaymentServer => {
   cachedMppx ??= createMppx();
 
   return cachedMppx;

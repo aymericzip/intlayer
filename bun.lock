@@ -33,7 +33,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@better-auth/sso": "1.7.20",
         "@electron-toolkit/utils": "4.0.0",
@@ -111,7 +111,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@aws-sdk/client-s3": "3.1166.0",
         "@better-auth/core": "1.7.20",
@@ -180,7 +180,7 @@
     },
     "apps/marketplace": {
       "name": "intlayer-marketplace",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -297,7 +297,7 @@
     },
     "apps/vscode-extension": {
       "name": "intlayer-vs-code-extension",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "esbuild": "0.28.2",
         "fast-glob": "3.3.3",
@@ -344,7 +344,7 @@
     },
     "apps/website": {
       "name": "website-tanstack",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@fontsource/geist-sans": "^5.3.0",
         "@intlayer/analytics": "workspace:*",
@@ -2185,6 +2185,7 @@
         "@fastify/cors": "11.4.1",
         "@fastify/helmet": "13.2.0",
         "@intlayer/api": "workspace:*",
+        "@intlayer/backend-contract": "workspace:*",
         "@intlayer/cli": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/docs": "workspace:*",
@@ -2373,7 +2374,7 @@
     },
     "packages/adonis-intlayer": {
       "name": "adonis-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2399,7 +2400,7 @@
     },
     "packages/angular-intlayer": {
       "name": "angular-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@babel/core": "^8.0.1",
         "@babel/plugin-syntax-import-attributes": "7.29.7",
@@ -2443,7 +2444,7 @@
     },
     "packages/astro-intlayer": {
       "name": "astro-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2471,7 +2472,7 @@
     },
     "packages/elysia-intlayer": {
       "name": "elysia-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2495,7 +2496,7 @@
     },
     "packages/eslint-plugin-intlayer": {
       "name": "eslint-plugin-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/lsp": "workspace:*",
@@ -2547,7 +2548,7 @@
     },
     "packages/fastify-intlayer": {
       "name": "fastify-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2590,7 +2591,7 @@
     },
     "packages/intlayer": {
       "name": "intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "bin": {
         "intlayer": "./dist/cjs/cli/script.cjs",
       },
@@ -2633,7 +2634,7 @@
     },
     "packages/intlayer-editor": {
       "name": "intlayer-editor",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "bin": {
         "intlayer-editor": "./bin/intlayer-editor.mjs",
       },
@@ -2741,7 +2742,7 @@
     },
     "packages/next-intlayer": {
       "name": "next-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2776,7 +2777,7 @@
     },
     "packages/nuxt-intlayer": {
       "name": "nuxt-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2802,7 +2803,7 @@
     },
     "packages/preact-intlayer": {
       "name": "preact-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2831,7 +2832,7 @@
     },
     "packages/prettier-plugin-intlayer": {
       "name": "prettier-plugin-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "devDependencies": {
         "@intlayer/core": "workspace:*",
         "@types/node": "^26",
@@ -2883,7 +2884,7 @@
     },
     "packages/react-native-intlayer": {
       "name": "react-native-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2912,7 +2913,7 @@
     },
     "packages/react-scripts-intlayer": {
       "name": "react-scripts-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "bin": {
         "react-scripts-intlayer": "./dist/cjs/cli/react-scripts-intlayer.cjs",
       },
@@ -2974,7 +2975,7 @@
     },
     "packages/solid-intlayer": {
       "name": "solid-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -3009,7 +3010,7 @@
     },
     "packages/svelte-intlayer": {
       "name": "svelte-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -3042,7 +3043,7 @@
     },
     "packages/vanilla-intlayer": {
       "name": "vanilla-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -3069,7 +3070,7 @@
     },
     "packages/vite-intlayer": {
       "name": "vite-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/babel": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -3104,7 +3105,7 @@
     },
     "packages/vue-intlayer": {
       "name": "vue-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -3124,7 +3125,7 @@
         "fast-glob": "3.3.3",
         "rimraf": "6.1.4",
         "tsdown": "0.23.7",
-        "typescript": "7.0.2",
+        "typescript": "6.0.3",
         "vite": "8.3.7",
         "vite-plugin-dts": "5.1.2",
         "vitest": "5.1.0",
@@ -3217,6 +3218,9 @@
   "overrides": {
     "bson": "7.2.0",
     "preact": "11.2.0",
+    "prosemirror-model": "1.25.12",
+    "prosemirror-transform": "1.12.4",
+    "prosemirror-view": "1.42.9",
     "react": "19.3.1",
     "react-dom": "19.3.1",
   },
@@ -14047,35 +14051,7 @@
 
     "prompts/sisteransi": ["sisteransi@1.0.5", "", {}, "sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg=="],
 
-    "prosemirror-commands/prosemirror-model": ["prosemirror-model@1.25.11", "", { "dependencies": { "orderedmap": "^2.0.0" } }, "sha512-QWg9RhnpLlogAmp3p96uEFrE5txQpFynd4vhBAELkwgOCWQs/X0yCzB3/hrHqiPwf91RG5KyWq6553zs9JqIOQ=="],
-
-    "prosemirror-commands/prosemirror-transform": ["prosemirror-transform@1.12.0", "", { "dependencies": { "prosemirror-model": "^1.21.0" } }, "sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w=="],
-
-    "prosemirror-gapcursor/prosemirror-model": ["prosemirror-model@1.25.11", "", { "dependencies": { "orderedmap": "^2.0.0" } }, "sha512-QWg9RhnpLlogAmp3p96uEFrE5txQpFynd4vhBAELkwgOCWQs/X0yCzB3/hrHqiPwf91RG5KyWq6553zs9JqIOQ=="],
-
-    "prosemirror-gapcursor/prosemirror-view": ["prosemirror-view@1.42.3", "", { "dependencies": { "prosemirror-model": "^1.25.8", "prosemirror-state": "^1.0.0", "prosemirror-transform": "^1.1.0" } }, "sha512-oTN7EtH+CpwxU9NrwEYWd0UZ4JUx7l048l5A2Xppm4p/60isZYLnth9QVQmC3VRIvdrIWCxwZSd+Uz791G31/w=="],
-
-    "prosemirror-inputrules/prosemirror-transform": ["prosemirror-transform@1.12.0", "", { "dependencies": { "prosemirror-model": "^1.21.0" } }, "sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w=="],
-
     "prosemirror-markdown/@types/markdown-it": ["@types/markdown-it@14.1.2", "", { "dependencies": { "@types/linkify-it": "^5", "@types/mdurl": "^2" } }, "sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog=="],
-
-    "prosemirror-markdown/prosemirror-model": ["prosemirror-model@1.25.11", "", { "dependencies": { "orderedmap": "^2.0.0" } }, "sha512-QWg9RhnpLlogAmp3p96uEFrE5txQpFynd4vhBAELkwgOCWQs/X0yCzB3/hrHqiPwf91RG5KyWq6553zs9JqIOQ=="],
-
-    "prosemirror-schema-list/prosemirror-model": ["prosemirror-model@1.25.11", "", { "dependencies": { "orderedmap": "^2.0.0" } }, "sha512-QWg9RhnpLlogAmp3p96uEFrE5txQpFynd4vhBAELkwgOCWQs/X0yCzB3/hrHqiPwf91RG5KyWq6553zs9JqIOQ=="],
-
-    "prosemirror-schema-list/prosemirror-transform": ["prosemirror-transform@1.12.0", "", { "dependencies": { "prosemirror-model": "^1.21.0" } }, "sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w=="],
-
-    "prosemirror-state/prosemirror-model": ["prosemirror-model@1.25.11", "", { "dependencies": { "orderedmap": "^2.0.0" } }, "sha512-QWg9RhnpLlogAmp3p96uEFrE5txQpFynd4vhBAELkwgOCWQs/X0yCzB3/hrHqiPwf91RG5KyWq6553zs9JqIOQ=="],
-
-    "prosemirror-state/prosemirror-transform": ["prosemirror-transform@1.12.0", "", { "dependencies": { "prosemirror-model": "^1.21.0" } }, "sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w=="],
-
-    "prosemirror-state/prosemirror-view": ["prosemirror-view@1.42.3", "", { "dependencies": { "prosemirror-model": "^1.25.8", "prosemirror-state": "^1.0.0", "prosemirror-transform": "^1.1.0" } }, "sha512-oTN7EtH+CpwxU9NrwEYWd0UZ4JUx7l048l5A2Xppm4p/60isZYLnth9QVQmC3VRIvdrIWCxwZSd+Uz791G31/w=="],
-
-    "prosemirror-tables/prosemirror-model": ["prosemirror-model@1.25.11", "", { "dependencies": { "orderedmap": "^2.0.0" } }, "sha512-QWg9RhnpLlogAmp3p96uEFrE5txQpFynd4vhBAELkwgOCWQs/X0yCzB3/hrHqiPwf91RG5KyWq6553zs9JqIOQ=="],
-
-    "prosemirror-tables/prosemirror-transform": ["prosemirror-transform@1.12.0", "", { "dependencies": { "prosemirror-model": "^1.21.0" } }, "sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w=="],
-
-    "prosemirror-tables/prosemirror-view": ["prosemirror-view@1.42.3", "", { "dependencies": { "prosemirror-model": "^1.25.8", "prosemirror-state": "^1.0.0", "prosemirror-transform": "^1.1.0" } }, "sha512-oTN7EtH+CpwxU9NrwEYWd0UZ4JUx7l048l5A2Xppm4p/60isZYLnth9QVQmC3VRIvdrIWCxwZSd+Uz791G31/w=="],
 
     "proxy-addr/ipaddr.js": ["ipaddr.js@1.9.1", "", {}, "sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g=="],
 
@@ -14568,8 +14544,6 @@
     "vue-i18n/@intlify/shared": ["@intlify/shared@11.4.17", "", {}, "sha512-oGrg/AL/spD9/kjpR9bch+yd9V4gYxod1txoLQalPs2C+riR1c2bh9T5Wjcb7obh6fxUwrHgnVAp0+FEbC4RfQ=="],
 
     "vue-intlayer/@vitejs/plugin-vue": ["@vitejs/plugin-vue@6.0.8", "", { "dependencies": { "@rolldown/pluginutils": "^1.0.1" }, "peerDependencies": { "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0", "vue": "^3.2.25" } }, "sha512-0ZjgOg7oO6farnNGup7yvoM/YXZV84OZxHAwtflItNa/6zzQyVb5LNxyea3FEKEX2XlagIKzrlH7wwxkKgtiew=="],
-
-    "vue-intlayer/typescript": ["typescript@7.0.2", "", { "optionalDependencies": { "@typescript/typescript-aix-ppc64": "7.0.2", "@typescript/typescript-darwin-arm64": "7.0.2", "@typescript/typescript-darwin-x64": "7.0.2", "@typescript/typescript-freebsd-arm64": "7.0.2", "@typescript/typescript-freebsd-x64": "7.0.2", "@typescript/typescript-linux-arm": "7.0.2", "@typescript/typescript-linux-arm64": "7.0.2", "@typescript/typescript-linux-loong64": "7.0.2", "@typescript/typescript-linux-mips64el": "7.0.2", "@typescript/typescript-linux-ppc64": "7.0.2", "@typescript/typescript-linux-riscv64": "7.0.2", "@typescript/typescript-linux-s390x": "7.0.2", "@typescript/typescript-linux-x64": "7.0.2", "@typescript/typescript-netbsd-arm64": "7.0.2", "@typescript/typescript-netbsd-x64": "7.0.2", "@typescript/typescript-openbsd-arm64": "7.0.2", "@typescript/typescript-openbsd-x64": "7.0.2", "@typescript/typescript-sunos-x64": "7.0.2", "@typescript/typescript-win32-arm64": "7.0.2", "@typescript/typescript-win32-x64": "7.0.2" }, "bin": { "tsc": "bin/tsc" } }, "sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA=="],
 
     "vue-intlayer/vue-tsc": ["vue-tsc@3.3.9", "", { "dependencies": { "@volar/typescript": "2.4.28", "@vue/language-core": "3.3.9" }, "peerDependencies": { "typescript": ">=5.0.0" }, "bin": { "vue-tsc": "bin/vue-tsc.js" } }, "sha512-TS3Y1ux/IRoE8OCP2PpACAeOseuIs0UvWrcr7u+w3PmfY+SlCfEf8zjrBgnQksHUgLpthi5vHlffcQTQTdPBZA=="],
 
@@ -20586,10 +20560,6 @@
     "postcss-loader/cosmiconfig/env-paths": ["env-paths@2.2.1", "", {}, "sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A=="],
 
     "postcss-loader/cosmiconfig/js-yaml": ["js-yaml@4.3.2", "", { "dependencies": { "argparse": "^2.0.1" }, "bin": { "js-yaml": "bin/js-yaml.js" } }, "sha512-SFNOvSJ+Dgf/9An904Yx+CgSlIPCkIpao4qo51lpee25TIRejdH3rhR4EZMGoNx3/TP3O+wzWuiTFl4sqbltzA=="],
-
-    "prosemirror-gapcursor/prosemirror-view/prosemirror-transform": ["prosemirror-transform@1.12.0", "", { "dependencies": { "prosemirror-model": "^1.21.0" } }, "sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w=="],
-
-    "prosemirror-inputrules/prosemirror-transform/prosemirror-model": ["prosemirror-model@1.25.11", "", { "dependencies": { "orderedmap": "^2.0.0" } }, "sha512-QWg9RhnpLlogAmp3p96uEFrE5txQpFynd4vhBAELkwgOCWQs/X0yCzB3/hrHqiPwf91RG5KyWq6553zs9JqIOQ=="],
 
     "prosemirror-markdown/@types/markdown-it/@types/linkify-it": ["@types/linkify-it@5.0.0", "", {}, "sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q=="],
 

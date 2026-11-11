@@ -107,6 +107,9 @@
   "resolutions": {
     "bson": "7.2.0",
     "preact": "11.2.0",
+    "prosemirror-model": "1.25.12",
+    "prosemirror-transform": "1.12.4",
+    "prosemirror-view": "1.42.9",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },

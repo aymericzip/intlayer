@@ -2,6 +2,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Token } from '@node-oauth/oauth2-server';
 import type { RenameId } from '@utils/mongoDB/types';
+import type { Permission } from '@utils/permissions';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Organization, OrganizationAPI } from './organization.types';
 import type { User, UserAPI } from './user.types';
@@ -141,6 +142,12 @@ export type AccessKeyData = {
 };
 
 export type OAuth2AccessData = AccessKeyData & {
+  /**
+   * When true, `grants` narrows the creator's permissions on every request.
+   * Keys created before grant enforcement are `false` until backfilled by
+   * `scripts/backfill-access-key-grants.ts`, and keep the creator's full rights.
+   */
+  grantsEnforced?: boolean;
   clientId: string;
   clientSecret: string;
   accessToken: string[];
@@ -153,6 +160,8 @@ export type OAuth2AccessContext = {
   project?: ProjectAPI;
   organization?: OrganizationAPI;
   grants: Token['grants'];
+  /** Access key grants enforced on the session, `undefined` for legacy keys. */
+  permissions?: Permission[];
   allowedEnvironmentIds?: (string | null)[] | null;
   allowedLocales?: Locale[] | null;
 };

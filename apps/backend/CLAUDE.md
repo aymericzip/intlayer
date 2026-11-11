@@ -81,7 +81,8 @@ that is fixed upstream.
 
 - **Roles**: `user`, `admin`, `org_admin`, `org_user`, `project_admin`, `project_user`, `project_reviewer`
 - **Permissions**: `resource:action` — e.g., `project:write`, `dictionary:read`
-- **Resources**: `organization`, `project`, `dictionary`, `tag`, `user`
+- **Resources**: `organization`, `project`, `dictionary`, `tag`, `user`, `analytics` (read only)
+- `hasPermission` also denies anything outside `session.permissions`: OAuth2 sessions get the role permissions narrowed to the access key `grants` (keys with `grantsEnforced`; legacy keys need `scripts/backfill-access-key-grants.ts`)
 - **Actions**: `read`, `write`, `admin`
 - Call `hasPermission(session, 'resource:action')` in controllers only, never services.
 

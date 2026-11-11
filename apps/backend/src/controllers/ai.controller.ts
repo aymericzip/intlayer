@@ -1017,7 +1017,11 @@ export const getDiscussions = async (
   }
 
   try {
-    const projection = includeMessages ? {} : { messages: 0 };
+    // Typed as a plain record: a literal projection narrows the lean result
+    // to the projected fields and drops `userId` from its type.
+    const projection: Record<string, 0> = includeMessages
+      ? {}
+      : { messages: 0 };
     const discussions = await DiscussionModel.find(filters, projection)
       .sort(sortOptions)
       .skip(skip)

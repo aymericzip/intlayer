@@ -1,4 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
+
+// No DNS in tests: hosts containing "internal" stand for private addresses.
+vi.mock('@utils/isPublicUrl', () => ({
+  isPublicHttpUrl: async (url: string) =>
+    url.startsWith('http') && !url.includes('internal'),
+}));
 import type {
   AudienceSeriesPoint,
   IncomingAnalyticsEvent,
@@ -248,6 +254,51 @@ describe('getPageMetadata', () => {
       title: 'OG Title',
       description: 'OG Description',
     });
+    spy.mockRestore();
+  });
+
+  it('never fetches a non-public address', async () => {
+    const spy = vi.spyOn(globalThis, 'fetch');
+
+    const result = await getPageMetadata('http://internal.example/admin');
+    expect(result).toEqual({ title: '', description: '' });
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
+  });
+
+  it('follows public redirects but blocks a redirect to a private address', async () => {
+    const spy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 302,
+        headers: new Headers({ location: '/en' }),
+      } as unknown as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        headers: new Headers({ 'content-type': 'text/html' }),
+        text: async () => '<title>Redirected</title>',
+      } as unknown as Response);
+
+    const result = await getPageMetadata('https://example.com/redirect-ok');
+    expect(result.title).toBe('Redirected');
+    expect(spy).toHaveBeenLastCalledWith(
+      'https://example.com/en',
+      expect.objectContaining({ redirect: 'manual' })
+    );
+
+    spy.mockReset().mockResolvedValue({
+      ok: false,
+      status: 302,
+      headers: new Headers({ location: 'http://internal.example/' }),
+    } as unknown as Response);
+
+    const blockedResult = await getPageMetadata(
+      'https://example.com/redirect-blocked'
+    );
+    expect(blockedResult).toEqual({ title: '', description: '' });
+    expect(spy).toHaveBeenCalledTimes(1);
     spy.mockRestore();
   });
 

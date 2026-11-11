@@ -1,3 +1,4 @@
+export { loadAnalyticsTools } from './analytics';
 export { loadAPITools } from './api';
 export { loadCLITools } from './cli';
 export { loadDocsTools } from './docs';

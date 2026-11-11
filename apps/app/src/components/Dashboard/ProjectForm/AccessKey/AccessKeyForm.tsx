@@ -185,6 +185,12 @@ const AccessKeyItem: FC<{
                   ? rights.admin
                   : '-'}
               </span>
+              <span className="block text-xs text-wrap break-all text-neutral">
+                <span className="ms-1 font-bold">{rights.analytics}</span>
+                {accessKey?.grants?.includes('analytics:read')
+                  ? rights.read
+                  : '-'}
+              </span>
             </div>
             <div className="flex gap-3">
               <div className="flex flex-1 flex-col gap-1">

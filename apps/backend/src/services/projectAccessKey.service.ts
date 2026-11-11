@@ -50,6 +50,7 @@ export const addNewAccessKey = async (
     userId: user.id,
     accessToken: [],
     grants: accessKeyData.grants,
+    grantsEnforced: true,
     allowedEnvironmentIds: accessKeyData.allowedEnvironmentIds ?? null,
     allowedLocales: accessKeyData.allowedLocales ?? null,
   };

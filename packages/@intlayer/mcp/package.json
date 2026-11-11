@@ -116,6 +116,7 @@
     "@fastify/cors": "11.4.1",
     "@fastify/helmet": "13.2.0",
     "@intlayer/api": "workspace:*",
+    "@intlayer/backend-contract": "workspace:*",
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*",

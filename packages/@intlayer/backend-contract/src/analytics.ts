@@ -1,10 +1,23 @@
 import { z } from 'zod/mini';
 import {
+  type AnalyticsAnnotation,
+  type AnalyticsReport,
+  type AnalyticsSchemaInfo,
+  analyticsAnnotationSchema,
+  analyticsAnnotationsQuerySchema,
+  analyticsRealtimeReportRequestSchema,
+  analyticsReportRequestSchema,
+  analyticsReportSchema,
+  analyticsSchemaInfoSchema,
+} from './analyticsReport';
+import {
   defineRoute,
   defineRouteGroup,
   type RouteBodyInput,
 } from './defineRoute';
 import { type ResponseData, responseDataSchema } from './responseData';
+
+export * from './analyticsReport';
 
 /** Kind of analytics event sent by the SDK. */
 export const analyticsEventTypeSchema = z.enum([
@@ -288,6 +301,46 @@ export const analyticsContract = defineRouteGroup({
         response: { 200: responseDataSchema(experimentResultSchema) },
       },
     }),
+    getAnalyticsSchema: defineRoute({
+      method: 'GET',
+      path: '/schema',
+      summary:
+        'Report dimensions, metrics, their compatibility, retention and experiments',
+      schemas: {
+        response: { 200: responseDataSchema(analyticsSchemaInfoSchema) },
+      },
+    }),
+    runAnalyticsReport: defineRoute({
+      method: 'POST',
+      path: '/report',
+      summary:
+        'Aggregated report: metrics broken down by dimensions over date ranges',
+      schemas: {
+        body: analyticsReportRequestSchema,
+        response: { 200: responseDataSchema(analyticsReportSchema) },
+      },
+    }),
+    runAnalyticsRealtimeReport: defineRoute({
+      method: 'POST',
+      path: '/realtime-report',
+      summary: 'Aggregated activity of the last minutes (up to one hour)',
+      schemas: {
+        body: analyticsRealtimeReportRequestSchema,
+        response: { 200: responseDataSchema(analyticsReportSchema) },
+      },
+    }),
+    getAnalyticsAnnotations: defineRoute({
+      method: 'GET',
+      path: '/annotations',
+      summary:
+        'Dated content and traffic events (dictionary edits, repo syncs, new locales, experiments)',
+      schemas: {
+        querystring: analyticsAnnotationsQuerySchema,
+        response: {
+          200: responseDataSchema(z.array(analyticsAnnotationSchema)),
+        },
+      },
+    }),
     getPageMetadata: defineRoute({
       method: 'GET',
       path: '/page-metadata',
@@ -334,3 +387,12 @@ export type GetAudienceResult = ResponseData<AudienceStats>;
 export type GetLiveVisitorFlowResult = ResponseData<LiveVisitorFlow>;
 export type GetPageFlowResult = ResponseData<PageFlow>;
 export type GetPageMetadataResult = ResponseData<PageMetadata>;
+export type GetAnalyticsSchemaResult = ResponseData<AnalyticsSchemaInfo>;
+export type RunAnalyticsReportResult = ResponseData<AnalyticsReport>;
+export type GetAnalyticsAnnotationsResult = ResponseData<AnalyticsAnnotation[]>;
+export type RunAnalyticsReportBody = RouteBodyInput<
+  AnalyticsRoutes['runAnalyticsReport']
+>;
+export type RunAnalyticsRealtimeReportBody = RouteBodyInput<
+  AnalyticsRoutes['runAnalyticsRealtimeReport']
+>;
