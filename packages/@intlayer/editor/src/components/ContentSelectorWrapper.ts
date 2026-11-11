@@ -21,6 +21,35 @@ type RenderState = 'simple' | 'wrapped-slot' | 'wrapped-text';
  */
 const SCROLL_TOP_OFFSET_RATIO = 0.3;
 
+const PRESS_END_EVENTS = ['mouseup', 'touchend', 'touchcancel'] as const;
+
+/**
+ * Clears the focus once a press on other content ends, unless that press
+ * selected it meanwhile (long press, or the click following the release).
+ * Clearing on press start would leave nothing focused for the whole press,
+ * so the editor UI would drop its panel until the new selection lands.
+ */
+const clearFocusAfterPress = (manager: EditorStateManager): void => {
+  const focusedContentAtPress = manager.focusedContent.value;
+
+  const handlePressEnd = () => {
+    for (const eventName of PRESS_END_EVENTS) {
+      document.removeEventListener(eventName, handlePressEnd, true);
+    }
+
+    // Runs after the click dispatched with the release
+    setTimeout(() => {
+      if (manager.focusedContent.value === focusedContentAtPress) {
+        manager.focusedContent.set(null);
+      }
+    });
+  };
+
+  for (const eventName of PRESS_END_EVENTS) {
+    document.addEventListener(eventName, handlePressEnd, true);
+  }
+};
+
 /** Parent in the flattened tree, crossing shadow roots up to their host. */
 const getComposedParent = (element: Element): Element | null =>
   element.parentElement ??
@@ -418,31 +447,34 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
     if (e.target !== this._selector) return;
     if (!this._isSelected) return;
 
-    const customEvent = e as CustomEvent<{ originalEvent?: Event }>;
-    const originalEvent = customEvent.detail?.originalEvent;
-    if (originalEvent) {
-      const path = originalEvent.composedPath();
-      const isClickedOnSameContent = path.some((target) => {
-        if (
-          target instanceof HTMLElement &&
-          target.tagName === 'INTLAYER-CONTENT-SELECTOR-WRAPPER'
-        ) {
-          const wrapper = target as IntlayerContentSelectorWrapperElement;
-          return (
-            wrapper.dictionaryKey === this._dictionaryKey &&
-            isSameKeyPath(wrapper.filteredKeyPath, this._getFilteredKeyPath())
-          );
-        }
-        return false;
-      });
-      if (isClickedOnSameContent) {
-        this._selector?.setAttribute('is-selecting', '');
-        return;
-      }
-    }
-
     const manager = getGlobalEditorManager();
     if (!manager) return;
+
+    const customEvent = e as CustomEvent<{ originalEvent?: Event }>;
+    const pressedWrappers = (
+      customEvent.detail?.originalEvent?.composedPath() ?? []
+    ).filter(
+      (target): target is IntlayerContentSelectorWrapperElement =>
+        target instanceof HTMLElement &&
+        target.tagName === 'INTLAYER-CONTENT-SELECTOR-WRAPPER'
+    );
+
+    const isClickedOnSameContent = pressedWrappers.some(
+      (wrapper) =>
+        wrapper.dictionaryKey === this._dictionaryKey &&
+        isSameKeyPath(wrapper.filteredKeyPath, this._getFilteredKeyPath())
+    );
+
+    if (isClickedOnSameContent) {
+      this._selector?.setAttribute('is-selecting', '');
+      return;
+    }
+
+    if (pressedWrappers.length > 0) {
+      clearFocusAfterPress(manager);
+      return;
+    }
+
     manager.focusedContent.set(null);
   }
 

@@ -395,4 +395,95 @@ describe('IntlayerContentSelectorWrapperElement click outside', () => {
     expect(focusedContent.set).not.toHaveBeenCalledWith(null);
     expect(selector1?.hasAttribute('is-selecting')).toBe(true);
   });
+
+  describe('pressing other content', () => {
+    const OTHER_KEY_PATH: KeyPath[] = [
+      { type: 'object', key: 'subtitle' } as KeyPath,
+    ];
+
+    const setup = () => {
+      const focusedContent = Object.assign(new EventTarget(), {
+        value: {
+          dictionaryKey: 'home',
+          keyPath: KEY_PATH,
+        } as FileContent | null,
+        set: vi.fn(function (
+          this: StateMock<FileContent | null>,
+          value: FileContent | null
+        ) {
+          this.value = value;
+          this.dispatchEvent(new CustomEvent('change', { detail: value }));
+        }),
+      });
+
+      setGlobalEditorManager({
+        editorEnabled: createStateMock(true),
+        focusedContent,
+        editedContent: createStateMock({}),
+        currentLocale: createStateMock(undefined),
+        getContentValue: () => undefined,
+      } as unknown as EditorStateManager);
+
+      const focusedWrapper = document.createElement(
+        'intlayer-content-selector-wrapper'
+      );
+      focusedWrapper.setAttribute('dictionary-key', 'home');
+      focusedWrapper.setAttribute('key-path', JSON.stringify(KEY_PATH));
+      document.body.appendChild(focusedWrapper);
+
+      const otherWrapper = document.createElement(
+        'intlayer-content-selector-wrapper'
+      );
+      otherWrapper.setAttribute('dictionary-key', 'home');
+      otherWrapper.setAttribute('key-path', JSON.stringify(OTHER_KEY_PATH));
+      const otherContent = document.createElement('span');
+      otherContent.textContent = 'Other content';
+      otherWrapper.appendChild(otherContent);
+      document.body.appendChild(otherWrapper);
+
+      return { focusedContent, otherContent };
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('keeps the focus until the press selects the other content', () => {
+      const { focusedContent, otherContent } = setup();
+
+      otherContent.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true })
+      );
+      expect(focusedContent.set).not.toHaveBeenCalled();
+
+      // Long press
+      vi.advanceTimersByTime(300);
+      otherContent.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+      vi.runAllTimers();
+
+      expect(focusedContent.set).not.toHaveBeenCalledWith(null);
+      expect(focusedContent.value).toEqual({
+        dictionaryKey: 'home',
+        keyPath: OTHER_KEY_PATH,
+      });
+    });
+
+    it('deselects once a press that selects nothing is released', () => {
+      const { focusedContent, otherContent } = setup();
+
+      otherContent.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true })
+      );
+      otherContent.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+      expect(focusedContent.set).not.toHaveBeenCalled();
+
+      vi.runAllTimers();
+
+      expect(focusedContent.set).toHaveBeenCalledWith(null);
+    });
+  });
 });
