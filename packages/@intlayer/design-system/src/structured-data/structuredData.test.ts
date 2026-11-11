@@ -8,8 +8,10 @@ import { buildItemListJsonLd } from './buildItemListJsonLd';
 import { buildOrganizationJsonLd } from './buildOrganizationJsonLd';
 import {
   buildSoftwareApplicationJsonLd,
+  getSoftwareApplicationId,
   INTLAYER_AGGREGATE_RATING,
 } from './buildSoftwareApplicationJsonLd';
+import { buildSoftwareFeaturePageJsonLd } from './buildSoftwareFeaturePageJsonLd';
 import { buildWebsiteJsonLd } from './buildWebsiteJsonLd';
 import { normalizeJsonLdUrl } from './normalizeJsonLdUrl';
 
@@ -392,6 +394,43 @@ describe('buildDatasetJsonLd', () => {
   it('keeps a description that is already long enough untouched', () => {
     expect(buildDatasetJsonLd(datasetParams).description).toBe(
       datasetParams.description
+    );
+  });
+});
+
+describe('buildSoftwareFeaturePageJsonLd', () => {
+  const featurePageParams = {
+    name: 'Intlayer Markdown',
+    url: 'https://intlayer.org//markdown',
+    description: 'Cross-framework markdown renderer.',
+    keywords: ['markdown'],
+    audienceType: 'Developers',
+    applicationUrl: 'https://intlayer.org/',
+  };
+
+  // A SoftwareApplication node without its own rating is an invalid Google
+  // Software App item, so feature pages must never emit one.
+  it('emits a WebPage that is not a Software App rich result candidate', () => {
+    const featurePageJsonLd = buildSoftwareFeaturePageJsonLd(featurePageParams);
+
+    expect(featurePageJsonLd['@type']).toBe('WebPage');
+    expect(JSON.stringify(featurePageJsonLd)).not.toContain(
+      'SoftwareApplication'
+    );
+    expect(featurePageJsonLd).not.toHaveProperty('aggregateRating');
+    expect(featurePageJsonLd.url).toBe('https://intlayer.org/markdown');
+  });
+
+  it('references the application node by the @id it declares', () => {
+    const applicationJsonLd = buildSoftwareApplicationJsonLd({
+      ...softwareApplicationParams,
+      url: 'https://intlayer.org',
+    });
+    const { about } = buildSoftwareFeaturePageJsonLd(featurePageParams);
+
+    expect(about['@id']).toBe(applicationJsonLd['@id']);
+    expect(getSoftwareApplicationId('https://intlayer.org')).toBe(
+      'https://intlayer.org/#software'
     );
   });
 });

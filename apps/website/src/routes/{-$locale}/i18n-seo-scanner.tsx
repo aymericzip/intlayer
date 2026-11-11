@@ -1,10 +1,9 @@
 import {
-  External_Github,
   Website_Doc_ChromeExtension_Path,
   Website_Home,
   Website_Scanner,
 } from '@intlayer/design-system/routes';
-import { buildSoftwareApplicationJsonLd } from '@intlayer/design-system/structured-data';
+import { buildSoftwareFeaturePageJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
@@ -18,7 +17,6 @@ import {
   getSiteStructuredDataScripts,
   getSoftwareStructuredData,
 } from '~/utils/structuredData';
-import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
   loader: async ({ params }) => {
@@ -80,18 +78,13 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
         {
           type: 'application/ld+json',
           children: JSON.stringify(
-            buildSoftwareApplicationJsonLd({
+            buildSoftwareFeaturePageJsonLd({
               name: 'Intlayer I18n SEO Scanner',
               url: `${Website_Home}/i18n-seo-scanner`,
               description: String(scannerContent.description),
-              softwareVersion: packageJson.version,
               keywords: softwareStructuredData.content.keywords,
               audienceType: softwareStructuredData.content.audienceType,
-              authorUrl: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              githubUrl: External_Github,
-              operatingSystem: 'Web',
-              mainEntityUrl: `${Website_Home}/i18n-seo-scanner`,
+              applicationUrl: Website_Home,
             })
           ),
         },

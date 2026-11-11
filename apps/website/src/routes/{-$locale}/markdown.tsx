@@ -1,10 +1,9 @@
 import {
-  External_Github,
   Website_Home,
   Website_Markdown,
   Website_Markdown_Path,
 } from '@intlayer/design-system/routes';
-import { buildSoftwareApplicationJsonLd } from '@intlayer/design-system/structured-data';
+import { buildSoftwareFeaturePageJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { MarkdownLandingPage } from '~/components/MarkdownLandingPage';
@@ -18,7 +17,6 @@ import {
   getSiteStructuredDataScripts,
   getSoftwareStructuredData,
 } from '~/utils/structuredData';
-import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 type MarkdownSearch = {
   /** Public https URL of a markdown document to render instead of the landing page. */
@@ -118,19 +116,13 @@ export const Route = createFileRoute('/{-$locale}/markdown')({
         {
           type: 'application/ld+json',
           children: JSON.stringify(
-            buildSoftwareApplicationJsonLd({
+            buildSoftwareFeaturePageJsonLd({
               name: 'Intlayer Markdown',
               url: Website_Markdown,
               description: String(markdownContent.description),
-              softwareVersion: packageJson.version,
               keywords: softwareStructuredData.content.keywords,
               audienceType: softwareStructuredData.content.audienceType,
-              authorUrl: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              githubUrl: External_Github,
-              operatingSystem: 'Mac, Windows, Linux',
-              mainEntityUrl: Website_Markdown,
-              offersPrice: '0.00',
+              applicationUrl: Website_Home,
             })
           ),
         },

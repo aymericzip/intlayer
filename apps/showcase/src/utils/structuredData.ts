@@ -7,6 +7,7 @@ import {
   buildOrganizationJsonLd,
   buildSoftwareApplicationJsonLd,
   buildWebsiteJsonLd,
+  INTLAYER_AGGREGATE_RATING,
 } from '@intlayer/design-system/structured-data';
 import { defaultLocale, getIntlayerAsync, locales } from 'intlayer';
 import packageJson from '../../package_mock.json' with { type: 'json' };
@@ -64,6 +65,7 @@ const buildRootStructuredDataScripts = async (): Promise<JsonLdScript[]> => {
           githubUrl: External_Github,
           operatingSystem: 'Web, iOS, Android',
           mainEntityUrl: Website_Home,
+          ...INTLAYER_AGGREGATE_RATING,
         })
       ),
     },

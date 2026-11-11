@@ -1,9 +1,8 @@
 import {
-  External_Github,
   Website_Home,
   Website_IntlayerFormatter_Path,
 } from '@intlayer/design-system/routes';
-import { buildSoftwareApplicationJsonLd } from '@intlayer/design-system/structured-data';
+import { buildSoftwareFeaturePageJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { MessageFormatterPage } from '~/components/MessageFormatterPage';
@@ -14,7 +13,6 @@ import {
   getSiteStructuredDataScripts,
   getSoftwareStructuredData,
 } from '~/utils/structuredData';
-import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/intlayer-message-formatter')({
   loader: async ({ params }) => {
@@ -65,19 +63,13 @@ export const Route = createFileRoute('/{-$locale}/intlayer-message-formatter')({
         {
           type: 'application/ld+json',
           children: JSON.stringify(
-            buildSoftwareApplicationJsonLd({
+            buildSoftwareFeaturePageJsonLd({
               name: 'Intlayer Message Formatter & Editor',
               url: `${Website_Home}/intlayer-message-formatter`,
               description: String(description),
-              softwareVersion: packageJson.version,
               keywords: softwareStructuredData.content.keywords,
               audienceType: softwareStructuredData.content.audienceType,
-              authorUrl: Website_Home,
-              logoUrl: `${Website_Home}/assets/logo.png`,
-              githubUrl: External_Github,
-              operatingSystem: 'Web',
-              mainEntityUrl: `${Website_Home}/intlayer-message-formatter`,
-              offersPrice: '0.00',
+              applicationUrl: Website_Home,
             })
           ),
         },
