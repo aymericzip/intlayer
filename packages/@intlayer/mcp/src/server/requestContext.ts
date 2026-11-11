@@ -19,7 +19,8 @@ export type McpRequestContext = {
 };
 
 /** Holds the {@link McpRequestContext} of the tool call being handled. */
-export const mcpRequestContext = new AsyncLocalStorage<McpRequestContext>();
+export const mcpRequestContext: AsyncLocalStorage<McpRequestContext> =
+  new AsyncLocalStorage<McpRequestContext>();
 
 /** Header names accepted by the HTTP transport for access key credentials. */
 export const CLIENT_ID_HEADER = 'x-intlayer-client-id';

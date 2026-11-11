@@ -31,7 +31,9 @@ const okCompact = (data: unknown) => ({
 });
 
 /** `metric: dimension, …` lines, generated so they never drift. */
-export const COMPATIBILITY_TABLE = Object.entries(ANALYTICS_METRIC_DIMENSIONS)
+export const COMPATIBILITY_TABLE: string = Object.entries(
+  ANALYTICS_METRIC_DIMENSIONS
+)
   .map(([metric, dimensions]) => `- ${metric}: ${dimensions.join(', ')}`)
   .join('\n');
 

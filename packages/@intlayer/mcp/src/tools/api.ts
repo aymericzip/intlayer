@@ -5,7 +5,13 @@ import type { McpServer } from './docs';
 
 type LoadAPITools = (server: McpServer, options?: APIToolsOptions) => void;
 
-export const authSchema = {
+/** Optional access key credentials accepted by every authenticated tool. */
+type AuthSchema = {
+  clientId: z.ZodMiniOptional<z.ZodMiniString<string>>;
+  clientSecret: z.ZodMiniOptional<z.ZodMiniString<string>>;
+};
+
+export const authSchema: AuthSchema = {
   clientId: z.optional(z.string()).register(z.globalRegistry, {
     description:
       'Intlayer OAuth2 client ID (access key). Optional: prefer configuring credentials on the MCP server (env vars locally, headers when hosted) so the secret never appears in the conversation.',
@@ -16,11 +22,20 @@ export const authSchema = {
   }),
 };
 
-export const ok = (data: unknown) => ({
+/** Text content block returned by a tool call. */
+type ToolTextContent = { type: 'text'; text: string };
+
+/** Successful tool call result. */
+export type ToolSuccessResult = { content: [ToolTextContent] };
+
+/** Failed tool call result. */
+export type ToolErrorResult = { content: [ToolTextContent]; isError: true };
+
+export const ok = (data: unknown): ToolSuccessResult => ({
   content: [{ type: 'text' as const, text: JSON.stringify(data, null, 2) }],
 });
 
-export const fail = (label: string, error: unknown) => ({
+export const fail = (label: string, error: unknown): ToolErrorResult => ({
   content: [
     {
       type: 'text' as const,

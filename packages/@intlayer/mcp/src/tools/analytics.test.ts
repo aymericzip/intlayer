@@ -127,7 +127,7 @@ describe('loadAnalyticsTools', () => {
     });
 
     expect(analyticsAPI.runReport).toHaveBeenCalledWith(report);
-    expect(result.content[0].text).toBe('{"ok":true}');
+    expect(result.content[0]?.text).toBe('{"ok":true}');
   });
 
   it('reports backend validation errors to the model', async () => {
@@ -146,7 +146,7 @@ describe('loadAnalyticsTools', () => {
     );
 
     expect(result.isError).toBe(true);
-    expect(result.content[0].text).toContain('cannot be broken down');
+    expect(result.content[0]?.text).toContain('cannot be broken down');
   });
 
   it('applies tool defaults for page flow', async () => {
