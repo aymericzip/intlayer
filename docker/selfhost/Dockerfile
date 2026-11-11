@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.27.0
+# syntax=docker/dockerfile:1.28.0
 #
 # Intlayer self-hosting images. One Dockerfile, three build targets:
 #
@@ -22,9 +22,8 @@
 # ---------------------------------------------------------------------------
 # backend-builder — mirrors apps/backend/Dockerfile build logic
 # ---------------------------------------------------------------------------
-FROM node:26-alpine AS backend-builder
+FROM oven/bun:1.4.4-alpine AS backend-builder
 
-RUN npm install -g bun@1.4.4
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -98,9 +97,8 @@ RUN rm -rf node_modules \
 # ---------------------------------------------------------------------------
 # app-builder — mirrors apps/app/Dockerfile build logic
 # ---------------------------------------------------------------------------
-FROM node:26-alpine AS app-builder
+FROM oven/bun:1.4.4-alpine AS app-builder
 
-RUN npm install -g bun@1.4.4
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
