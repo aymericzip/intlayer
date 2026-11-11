@@ -21,6 +21,7 @@ import {
   watchBuiltEditorConfiguration,
 } from '@intlayer/engine/build';
 import { authRouter } from '@routes/auth.routes';
+import { clientLogRouter } from '@routes/clientLog.routes';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { findAvailablePort } from '@utils/checkPortAvailability';
@@ -166,6 +167,7 @@ const startServer = async (app: FastifyInstance) => {
   await app.register(dictionaryRouter, { prefix: '/api/dictionary' });
   await app.register(configurationRouter, { prefix: '/api/config' });
   await app.register(authRouter, { prefix: '/api/auth' });
+  await app.register(clientLogRouter, { prefix: '/api/log' });
 
   // Serve Static Files
   await app.register(fastifyStatic, {

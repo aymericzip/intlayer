@@ -17,8 +17,10 @@ import type { FunctionComponent, RefObject } from 'preact';
 import { useIntlayer } from 'preact-intlayer';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
+import { useServerLog } from '../../hooks/useServerLog';
 import { ApplicationLocaleSwitcher } from './ApplicationLocaleSwitcher';
 import { EditorProfile } from './EditorProfile';
+import { getFrameErrorLogEntry } from './getFrameErrorLogEntry';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 import { PushDictionariesButton } from './PushDictionariesButton';
 
@@ -40,6 +42,14 @@ export const IframeController: FunctionComponent<{
     useFrameConnectionStatus();
 
   useEditedContentPersistence();
+
+  useServerLog(
+    getFrameErrorLogEntry({
+      applicationURL: editor?.applicationURL,
+      isConnectionFailed,
+      isApplicationEditorEnabled,
+    })
+  );
 
   const reloadFrame = useCallback(() => {
     const iframe = iframeRef.current;

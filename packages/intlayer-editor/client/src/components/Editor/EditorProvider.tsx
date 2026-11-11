@@ -5,6 +5,7 @@ import { IntlayerProviderContent } from 'preact-intlayer';
 import { useCallback, useMemo } from 'preact/hooks';
 import { useApplicationStatus } from '../../hooks/useApplicationStatus';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
+import { useServerLog } from '../../hooks/useServerLog';
 import { ApplicationNotRunningView } from './ApplicationNotRunningView/ApplicationNotRunningView';
 
 /**
@@ -17,6 +18,15 @@ export const EditorProvider: FunctionComponent<{
   const applicationURL = intlayerConfig?.editor.applicationURL;
   const { isChecking, isRunning, errorMessage, retry } =
     useApplicationStatus(applicationURL);
+
+  useServerLog(
+    applicationURL && errorMessage
+      ? {
+          level: 'error',
+          message: `Application ${applicationURL} is unreachable (${errorMessage}). Start it, or fix \`editor.applicationURL\` in intlayer.config.ts. The editor retries every few seconds.`,
+        }
+      : undefined
+  );
 
   const postMessage = useCallback(
     (data: unknown) => {
