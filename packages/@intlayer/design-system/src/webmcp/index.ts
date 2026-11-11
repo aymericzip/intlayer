@@ -6,7 +6,11 @@ export {
   type WrapRemoteMcpToolsOptions,
   wrapRemoteMcpTools,
 } from './createRemoteMcpTools';
-export { getModelContext, isWebMCPAvailable } from './getModelContext';
+export {
+  getModelContext,
+  isWebMCPAllowedByPolicy,
+  isWebMCPAvailable,
+} from './getModelContext';
 export { formatToolResult, registerWebMCPTools } from './registerWebMCPTools';
 export type {
   ModelContext,

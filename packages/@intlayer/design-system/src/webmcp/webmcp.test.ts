@@ -3,7 +3,7 @@ import {
   createRemoteMcpTools,
   formatRemoteMcpResult,
 } from './createRemoteMcpTools';
-import { getModelContext } from './getModelContext';
+import { getModelContext, isWebMCPAllowedByPolicy } from './getModelContext';
 import { registerWebMCPTools } from './registerWebMCPTools';
 import type { ModelContext, ModelContextHost, WebMCPTool } from './types';
 
@@ -128,6 +128,69 @@ describe('registerWebMCPTools', () => {
 
     expect(modelContext.unregisterTool).toHaveBeenCalledTimes(1);
     expect(modelContext.unregisterTool).toHaveBeenCalledWith('second');
+  });
+
+  it('handles an asynchronous permissions-policy rejection silently', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const unhandledRejections: unknown[] = [];
+    const onUnhandledRejection = (reason: unknown) =>
+      unhandledRejections.push(reason);
+    process.on('unhandledRejection', onUnhandledRejection);
+    const permissionError = new DOMException(
+      'Access to the feature "tools" is disallowed by permissions policy.',
+      'NotAllowedError'
+    );
+    const modelContext = createModelContext({
+      registerTool: vi.fn(() => Promise.reject(permissionError)),
+      unregisterTool: vi.fn(() => Promise.reject(permissionError)),
+    });
+
+    const unregister = registerWebMCPTools(
+      [echoTool as WebMCPTool<never>],
+      modelContext
+    );
+    unregister();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    process.off('unhandledRejection', onUnhandledRejection);
+
+    expect(unhandledRejections).toEqual([]);
+    expect(warnSpy).not.toHaveBeenCalled();
+  });
+
+  it('warns on other asynchronous registration failures', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const modelContext = createModelContext({
+      registerTool: vi.fn(() => Promise.reject(new Error('invalid schema'))),
+    });
+
+    registerWebMCPTools([echoTool as WebMCPTool<never>], modelContext);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('isWebMCPAllowedByPolicy', () => {
+  const policyHost = document as Document & {
+    permissionsPolicy?: { allowsFeature: (feature: string) => boolean };
+  };
+
+  afterEach(() => {
+    policyHost.permissionsPolicy = undefined;
+  });
+
+  it('is allowed when the browser has no policy API', () => {
+    expect(isWebMCPAllowedByPolicy()).toBe(true);
+  });
+
+  it('hides the model context when the tools feature is denied', () => {
+    navigatorHost.modelContext = createModelContext();
+    policyHost.permissionsPolicy = {
+      allowsFeature: (feature) => feature !== 'tools',
+    };
+
+    expect(isWebMCPAllowedByPolicy()).toBe(false);
+    expect(getModelContext()).toBeNull();
   });
 });
 
