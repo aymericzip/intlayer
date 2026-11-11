@@ -410,7 +410,7 @@
     },
     "compat/i18next": {
       "name": "@intlayer/i18next",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -443,7 +443,7 @@
     },
     "compat/lingui": {
       "name": "@intlayer/lingui",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -479,7 +479,7 @@
     },
     "compat/next-i18next": {
       "name": "@intlayer/next-i18next",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -515,7 +515,7 @@
     },
     "compat/next-intl": {
       "name": "@intlayer/next-intl",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -547,7 +547,7 @@
     },
     "compat/ngx-translate": {
       "name": "@intlayer/ngx-translate",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -585,7 +585,7 @@
     },
     "compat/nuxtjs-i18n": {
       "name": "@intlayer/nuxtjs-i18n",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -622,7 +622,7 @@
     },
     "compat/react-i18next": {
       "name": "@intlayer/react-i18next",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -659,7 +659,7 @@
     },
     "compat/react-intl": {
       "name": "@intlayer/react-intl",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -695,7 +695,7 @@
     },
     "compat/svelte-i18n": {
       "name": "@intlayer/svelte-i18n",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -730,7 +730,7 @@
     },
     "compat/use-intl": {
       "name": "@intlayer/use-intl",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -765,7 +765,7 @@
     },
     "compat/vue-i18n": {
       "name": "@intlayer/vue-i18n",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -799,7 +799,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1120,7 +1120,7 @@
     },
     "examples/elysia-app": {
       "name": "elysia-app",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "elysia": "1.4.29",
         "elysia-intlayer": "workspace:*",
@@ -1170,7 +1170,7 @@
     },
     "examples/hono-app": {
       "name": "hono-app",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@hono/node-server": "2.0.6",
         "hono": "4.12.27",
@@ -1184,7 +1184,7 @@
     },
     "examples/htmx-app": {
       "name": "htmx-app",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "cookie-parser": "1.4.7",
         "express": "5.2.1",
@@ -1453,7 +1453,7 @@
     },
     "examples/remix-3-app": {
       "name": "remix-3-app",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "intlayer": "workspace:*",
         "remix": "^3.0.0-rc.2",
@@ -1669,7 +1669,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@ai-sdk/anthropic": "4.0.102",
         "@ai-sdk/openai": "4.0.114",
@@ -1724,7 +1724,7 @@
     },
     "packages/@intlayer/analytics": {
       "name": "@intlayer/analytics",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1743,7 +1743,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/backend-contract": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1763,7 +1763,7 @@
     },
     "packages/@intlayer/babel": {
       "name": "@intlayer/babel",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@babel/core": "8.1.0",
         "@babel/generator": "8.1.0",
@@ -1803,7 +1803,7 @@
     },
     "packages/@intlayer/backend-contract": {
       "name": "@intlayer/backend-contract",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/types": "workspace:*",
         "zod": "4.6.7",
@@ -1821,7 +1821,7 @@
     },
     "packages/@intlayer/chrome-extension": {
       "name": "@intlayer/chrome-extension",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/core": "workspace:*",
         "@intlayer/design-system": "workspace:*",
@@ -1847,7 +1847,7 @@
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@clack/prompts": "1.9.0",
         "@intlayer/api": "workspace:*",
@@ -1882,7 +1882,7 @@
     },
     "packages/@intlayer/config": {
       "name": "@intlayer/config",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/types": "workspace:*",
         "defu": "6.1.7",
@@ -1910,7 +1910,7 @@
     },
     "packages/@intlayer/core": {
       "name": "@intlayer/core",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1931,7 +1931,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@better-auth/passkey": "1.7.20",
         "@better-auth/sso": "1.7.20",
@@ -2051,7 +2051,7 @@
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/backend-contract": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2070,7 +2070,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2090,7 +2090,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2118,7 +2118,7 @@
     },
     "packages/@intlayer/engine": {
       "name": "@intlayer/engine",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2152,7 +2152,7 @@
     },
     "packages/@intlayer/lsp": {
       "name": "@intlayer/lsp",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "bin": {
         "intlayer-lsp": "./dist/esm/index.mjs",
       },
@@ -2178,7 +2178,7 @@
     },
     "packages/@intlayer/mcp": {
       "name": "@intlayer/mcp",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "bin": "dist/esm/server/stdio.mjs",
       "dependencies": {
         "@ai-sdk/mcp": "2.0.96",
@@ -2208,7 +2208,7 @@
     },
     "packages/@intlayer/svelte-compiler": {
       "name": "@intlayer/svelte-compiler",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@babel/core": "8.1.0",
         "@intlayer/types": "workspace:*",
@@ -2242,11 +2242,11 @@
     },
     "packages/@intlayer/swc": {
       "name": "@intlayer/swc",
-      "version": "9.7.2",
+      "version": "9.7.3",
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "devDependencies": {
         "@ai-sdk/alibaba": "<=1.0.0",
         "@ai-sdk/amazon-bedrock": "<=4.0.0",
@@ -2308,7 +2308,7 @@
     },
     "packages/@intlayer/vue-compiler": {
       "name": "@intlayer/vue-compiler",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@babel/core": "8.1.0",
         "@intlayer/config": "workspace:*",
@@ -2342,7 +2342,7 @@
     },
     "packages/@intlayer/webpack": {
       "name": "@intlayer/webpack",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
@@ -2525,7 +2525,7 @@
     },
     "packages/express-intlayer": {
       "name": "express-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2569,7 +2569,7 @@
     },
     "packages/hono-intlayer": {
       "name": "hono-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2613,7 +2613,7 @@
     },
     "packages/intlayer-cli": {
       "name": "intlayer-cli",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -2683,7 +2683,7 @@
     },
     "packages/lit-intlayer": {
       "name": "lit-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2715,7 +2715,7 @@
     },
     "packages/lynx-intlayer": {
       "name": "lynx-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2850,7 +2850,7 @@
     },
     "packages/react-intlayer": {
       "name": "react-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2948,7 +2948,7 @@
     },
     "packages/remix-intlayer": {
       "name": "remix-intlayer",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -3143,7 +3143,7 @@
     },
     "plugins/sync-json-plugin": {
       "name": "@intlayer/sync-json-plugin",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -3164,7 +3164,7 @@
     },
     "plugins/sync-po-plugin": {
       "name": "@intlayer/sync-po-plugin",
-      "version": "9.7.2",
+      "version": "9.7.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -12083,8 +12083,6 @@
 
     "@octokit/request/content-type": ["content-type@3.0.0", "", {}, "sha512-AIi5H6p0xk5uknXcN3/rmhP8jgp69OfSe/JuKiQAFprJ7UGw7mwj7m4XcmDzlrnJDG+cGpphAINGdU3g3g7kDw=="],
 
-    "@openrouter/ai-sdk-provider/ai": ["ai@7.0.166", "", { "dependencies": { "@ai-sdk/gateway": "4.0.139", "@ai-sdk/provider": "4.0.37", "@ai-sdk/provider-utils": "5.0.76" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-bijt5WsdpQXQLB0SHYEoSuvpZ8KdUxl3Iz843uvHFcGpEBSrxlgwXXadR7EBVOHoByEf2PwgOxutWU5dcdjs9Q=="],
-
     "@oxc-minify/binding-wasm32-wasi/@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.2.3", "", { "dependencies": { "@tybys/wasm-util": "^0.10.3" }, "peerDependencies": { "@emnapi/core": "^1.7.1 || ^2.0.0-alpha.4", "@emnapi/runtime": "^1.7.1 || ^2.0.0-alpha.4" } }, "sha512-UMduMbqO5s5zF2NkNacMT/yK5Y5QiKvWr2+50bzIIxFDwVJ2h49b+oyjaCGPhJxd2/gC2x39EHv/gHVuu36x2Q=="],
 
     "@oxc-parser/binding-wasm32-wasi/@emnapi/core": ["@emnapi/core@1.9.2", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.1", "tslib": "^2.4.0" } }, "sha512-UC+ZhH3XtczQYfOlu3lNEkdW/p4dsJ1r/bP7H8+rhao3TTTMO1ATq/4DdIi23XuGoFY+Cz0JmCbdVl0hz9jZcA=="],
@@ -17148,10 +17146,6 @@
     "@octokit/plugin-paginate-rest/@octokit/types/@octokit/openapi-types": ["@octokit/openapi-types@27.0.0", "", {}, "sha512-whrdktVs1h6gtR+09+QsNk2+FO+49j6ga1c55YZudfEG+oKJVvJLQi3zkOm5JjiUXAagWK2tI2kTGKJ2Ys7MGA=="],
 
     "@octokit/plugin-rest-endpoint-methods/@octokit/types/@octokit/openapi-types": ["@octokit/openapi-types@27.0.0", "", {}, "sha512-whrdktVs1h6gtR+09+QsNk2+FO+49j6ga1c55YZudfEG+oKJVvJLQi3zkOm5JjiUXAagWK2tI2kTGKJ2Ys7MGA=="],
-
-    "@openrouter/ai-sdk-provider/ai/@ai-sdk/gateway": ["@ai-sdk/gateway@4.0.139", "", { "dependencies": { "@ai-sdk/provider": "4.0.37", "@ai-sdk/provider-utils": "5.0.76", "@vercel/oidc": "3.2.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-2YEIPm4n59nm4PBhMGjFWH0g+ztPgfybqoeMIjfJYNiB8zLHftUrONgb8P3Ho3Yy5cdoLCjiDE/Hv2Crol0JBw=="],
-
-    "@openrouter/ai-sdk-provider/ai/@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@5.0.76", "", { "dependencies": { "@ai-sdk/provider": "4.0.37", "@standard-schema/spec": "^1.1.0", "@workflow/serde": "4.1.0", "eventsource-parser": "^3.0.8", "undici": "^7.29.1" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-76QcCmVtSunSAbQBJtgQTTE8e+Yaz4rJJe1MRWnJ3GAQYUvNPHJejKx4jZTbhGGTdSSLaYcMBT62SISNgnGq9w=="],
 
     "@oxc-parser/binding-wasm32-wasi/@emnapi/core/@emnapi/wasi-threads": ["@emnapi/wasi-threads@1.2.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-uTII7OYF+/Mes/MrcIOYp5yOtSMLBWSIoLPpcgwipoiKbli6k322tcoFsxoIIxPDqW01SQGAgko4EzZi2BNv2w=="],
 
@@ -23580,10 +23574,6 @@
     "@nuxtjs/i18n/oxc-parser/@oxc-parser/binding-wasm32-wasi/@emnapi/runtime": ["@emnapi/runtime@1.11.2", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-kyOl3X0DuTiT1h2ft8r2fYO8JYtU9a9Xis/zBSiGArNaagCOWx90N1k2wxp18czFDH+OgcWGb5ZP/XMt3dcyPA=="],
 
     "@nuxtjs/i18n/oxc-parser/@oxc-parser/binding-wasm32-wasi/@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.2.3", "", { "dependencies": { "@tybys/wasm-util": "^0.10.3" }, "peerDependencies": { "@emnapi/core": "^1.7.1 || ^2.0.0-alpha.4", "@emnapi/runtime": "^1.7.1 || ^2.0.0-alpha.4" } }, "sha512-UMduMbqO5s5zF2NkNacMT/yK5Y5QiKvWr2+50bzIIxFDwVJ2h49b+oyjaCGPhJxd2/gC2x39EHv/gHVuu36x2Q=="],
-
-    "@openrouter/ai-sdk-provider/ai/@ai-sdk/provider-utils/eventsource-parser": ["eventsource-parser@3.1.1", "", {}, "sha512-EKN1vKAMcZ8MlYMpaNuxN6R9yakzH6uajHcHVTqWJzvu5pWw9DyhbP35HH8MVBQ+dZjAfDxk+A8NiR9KWaXiyQ=="],
-
-    "@openrouter/ai-sdk-provider/ai/@ai-sdk/provider-utils/undici": ["undici@7.30.2", "", {}, "sha512-mLyPQnHwUxaM/rideoK/+KL8DaAJLRl4aBCfmX444aCSLnIaomqPLtNRe2jdCYcsk5wZzXrDIQC8ZeYNRAYyIA=="],
 
     "@pmmmwh/react-refresh-webpack-plugin/webpack-dev-server/@types/serve-static/@types/send": ["@types/send@0.17.6", "", { "dependencies": { "@types/mime": "^1", "@types/node": "*" } }, "sha512-Uqt8rPBE8SY0RK8JB1EzVOIZ32uqy8HwdxCnoCOsYrvnswqmFZ/k+9Ikidlk/ImhsdvBsloHbAlewb2IEBV/Og=="],
 

@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/backend-contract",
-  "version": "9.7.2",
+  "version": "9.7.3",
   "private": false,
   "description": "Shared REST contract (routes + zod schemas) between the Intlayer backend, its typed client and the OpenAPI documentation.",
   "keywords": [
