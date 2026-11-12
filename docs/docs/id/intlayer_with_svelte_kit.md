@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "SvelteKit i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Siapkan Intlayer di SvelteKit: routing locale dengan hooks, konten terjemahan di fungsi load dan komponen, hreflang, dan sitemap."
@@ -38,7 +38,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-sveltekit-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
+  title="Demo CodeSandbox - Cara Melakukan Internasionalisasi Aplikasi Anda Menggunakan Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -76,14 +76,14 @@ Intlayer dioptimalkan untuk bekerja sempurna dengan SvelteKit dengan menawarkan 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
 </Accordion>
-<Accordion header="Kemampuan Pemeliharaan">
+<Accordion header="Kemudahan Pemeliharaan">
 
-Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **fully typed** (memiliki type safety penuh) untuk memastikan keakuratan konten Anda.
 
 </Accordion>
 <Accordion header="Agen AI">
 
-Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
@@ -92,14 +92,14 @@ Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model B
 </Accordion>
 <Accordion header="Otomatisasi">
 
-Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+Gunakan otomatisasi untuk menerjemahkan dalam pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
 - [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="Pertunjukan">
+<Accordion header="Performa">
 
-Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah performa dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada saat build.
 
 </Accordion>
 <Accordion header="Menskalakan tanpa pengembang">

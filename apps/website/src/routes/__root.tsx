@@ -7,6 +7,7 @@ import {
   WellKnown_AiCatalog_Path,
 } from '@intlayer/design-system/routes';
 import { Toaster } from '@intlayer/design-system/toaster';
+import { getGoogleAnalyticsHeadScripts } from '@intlayer/design-system/utils';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
@@ -19,12 +20,12 @@ import { IntlayerProvider } from 'react-intlayer';
 import { ChunkErrorListener } from '~/components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '~/components/ServiceWorker/ServiceWorkerSubscriber';
 import { WebMCPTools } from '~/components/WebMCP';
-import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
 import { loadGithubStars } from '~/serverFunctions/githubStars';
 import { hasInlinedStylesheet } from '~/utils/inlinedStylesheet';
 import { toAbsoluteUrl } from '~/utils/seo';
+import appCss from '~/globals.css?url';
 
 const localeRoute = getRouteApi('/{-$locale}');
 
@@ -35,30 +36,12 @@ const localeRoute = getRouteApi('/{-$locale}');
 const googleAnalyticsId: string | undefined = import.meta.env
   .VITE_GOOGLE_ANALYTICS_ID;
 
-/**
- * gtag.js loader + bootstrap. SPA navigations are reported through GA4 enhanced
- * measurement ("page changes based on browser history events").
- */
 const cspNonce = import.meta.env.VITE_CSP_NONCE;
 
-const googleAnalyticsScripts = googleAnalyticsId
-  ? [
-      {
-        src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`,
-        async: true,
-        nonce: cspNonce,
-      },
-      {
-        children: [
-          'window.dataLayer = window.dataLayer || [];',
-          'function gtag(){dataLayer.push(arguments);}',
-          "gtag('js', new Date());",
-          `gtag('config', '${googleAnalyticsId}');`,
-        ].join(''),
-        nonce: cspNonce,
-      },
-    ]
-  : [];
+const googleAnalyticsScripts = getGoogleAnalyticsHeadScripts(
+  googleAnalyticsId,
+  cspNonce
+);
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -222,11 +205,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <ChunkErrorListener />
               <ServiceWorkerSubscriber />
               {/* The script derives its endpoints from its own origin, so the
-                  proxied copy needs them pointed back at Ahrefs explicitly. */}
+                  proxied copy needs them pointed back at Ahrefs explicitly.
+                  The `.js` extension keeps the Intlayer locale proxy from
+                  redirecting it to a non-existent `/fr/api/...` route. */}
               {import.meta.env.VITE_AHREFS_KEY && (
                 <script
                   async
-                  src="/api/proxy/ahrefs-analytics"
+                  src="/api/proxy/ahrefs-analytics.js"
                   data-key={import.meta.env.VITE_AHREFS_KEY}
                   data-api="https://analytics.ahrefs.com/api/event"
                   data-error="https://analytics.ahrefs.com/api/error"
@@ -237,7 +222,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <DeferredAuthProvider>
                 <WebMCPTools />
                 <FirstConsultationProvider>
-                  {children}
+                  {/* The page's single main landmark: layouts, pages and
+                      error / not-found fallbacks must not render their own. */}
+                  <main className="flex w-full flex-1 flex-col">
+                    {children}
+                  </main>
                 </FirstConsultationProvider>
               </DeferredAuthProvider>
             </ReactQueryProvider>

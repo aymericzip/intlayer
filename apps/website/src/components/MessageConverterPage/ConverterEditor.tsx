@@ -255,7 +255,7 @@ export const ConverterEditor: FC = () => {
       {/* Presets Bar */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <span className="flex items-center gap-2 font-medium text-muted-foreground text-sm">
+          <span className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
             <Sparkles className="size-4 text-foreground" />
             {content.presetsLabel}
           </span>
@@ -267,7 +267,7 @@ export const ConverterEditor: FC = () => {
                 setInputContent('');
                 setTestVariables({});
               }}
-              className="text-muted-foreground text-xs hover:text-foreground hover:underline"
+              className="text-xs text-muted-foreground hover:text-foreground hover:underline"
             >
               {content.clearInput}
             </button>
@@ -289,7 +289,7 @@ export const ConverterEditor: FC = () => {
                 border
                 borderColor={isSelected ? 'text' : 'neutral'}
                 className={cn(
-                  'cursor-pointer select-none flex-row items-center gap-2 text-xs transition-all duration-200 sm:text-sm',
+                  'cursor-pointer flex-row items-center gap-2 text-xs transition-all duration-200 select-none sm:text-sm',
                   isSelected
                     ? 'bg-muted/90 text-foreground shadow-sm ring-1 ring-foreground/25'
                     : 'bg-card/40 text-muted-foreground hover:bg-card/80 hover:text-foreground'
@@ -314,7 +314,7 @@ export const ConverterEditor: FC = () => {
                   size="xs"
                   color="neutral"
                   className={cn(
-                    'font-mono text-[10px] uppercase tracking-wider',
+                    'font-mono text-[10px] tracking-wider uppercase',
                     isSelected
                       ? 'bg-background/80 text-foreground'
                       : 'opacity-75'
@@ -322,7 +322,7 @@ export const ConverterEditor: FC = () => {
                 >
                   {preset.sourceDialect}
                 </Tag>
-                <span className="whitespace-nowrap font-medium">
+                <span className="font-medium whitespace-nowrap">
                   {preset.title}
                 </span>
               </Container>
@@ -340,12 +340,12 @@ export const ConverterEditor: FC = () => {
           className="flex flex-col gap-4 border border-border/80 bg-card/60 p-5 shadow-sm backdrop-blur-md transition-all"
         >
           {/* Header & Dialect Selector */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-border/50 border-b pb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-4">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-foreground text-sm">
+              <span className="text-sm font-semibold text-foreground">
                 {content.sourceDialectLabel}
               </span>
-              <Badge size="sm" color="neutral" className="text-text/50 text-xs">
+              <Badge size="sm" color="neutral" className="text-xs text-text/50">
                 {DIALECTS[sourceDialect].badge}
               </Badge>
             </div>
@@ -374,11 +374,11 @@ export const ConverterEditor: FC = () => {
               }}
               placeholder={DIALECTS[sourceDialect].placeholder}
               rows={8}
-              className="font-mono text-foreground text-sm leading-relaxed"
+              className="font-mono text-sm leading-relaxed text-foreground"
             />
 
             {/* Editor Footer / Info */}
-            <div className="mt-2 flex items-center justify-between text-muted-foreground text-xs">
+            <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
               <span>
                 {inputContent.length} {content.characters}
               </span>
@@ -400,7 +400,7 @@ export const ConverterEditor: FC = () => {
           className="flex flex-col gap-4 border border-border/80 bg-card/60 p-5 shadow-sm backdrop-blur-md transition-all"
         >
           {/* Header & Target Dialect Selector */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-border/50 border-b pb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-4">
             <div className="flex items-center gap-2">
               <Button
                 type="button"
@@ -412,10 +412,10 @@ export const ConverterEditor: FC = () => {
               >
                 <ArrowLeftRight className="size-3.5" />
               </Button>
-              <span className="font-semibold text-foreground text-sm">
+              <span className="text-sm font-semibold text-foreground">
                 {content.targetDialectLabel}
               </span>
-              <Badge size="sm" color="neutral" className="text-text/50 text-xs">
+              <Badge size="sm" color="neutral" className="text-xs text-text/50">
                 {DIALECTS[targetDialect].badge}
               </Badge>
             </div>
@@ -434,7 +434,7 @@ export const ConverterEditor: FC = () => {
           {/* Intlayer Sub-View Selector (when target is Intlayer) */}
           {targetDialect === 'intlayer' && (
             <div className="flex items-center justify-between">
-              <span className="text-muted-foreground text-xs">
+              <span className="text-xs text-muted-foreground">
                 {content.outputFormatLabel}
               </span>
               <div className="flex flex-nowrap items-center overflow-x-auto whitespace-nowrap">
@@ -473,7 +473,7 @@ export const ConverterEditor: FC = () => {
 
             {/* Output Actions Bar */}
             <div className="mt-2 flex items-center justify-between">
-              <span className="text-muted-foreground text-xs">
+              <span className="text-xs text-muted-foreground">
                 {conversionResult.success ? (
                   <span className="flex items-center gap-1 text-emerald-500">
                     <Check className="size-3.5" />
@@ -504,16 +504,16 @@ export const ConverterEditor: FC = () => {
         transparency="sm"
         className="flex flex-col gap-5 border border-border/80 bg-card/40 p-6 shadow-md backdrop-blur-md"
       >
-        <div className="flex flex-wrap items-center justify-between gap-3 border-border/50 border-b pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/50 pb-4">
           <div className="flex items-center gap-2">
             <div className="flex size-8 items-center justify-center rounded-lg bg-muted text-foreground">
               <Play className="size-4 fill-foreground" />
             </div>
             <div>
-              <h3 className="font-semibold text-base text-foreground">
+              <h3 className="text-base font-semibold text-foreground">
                 {content.testVariablesTitle}
               </h3>
-              <p className="text-muted-foreground text-xs">
+              <p className="text-xs text-muted-foreground">
                 {content.testVariablesDescription}
               </p>
             </div>
@@ -521,13 +521,13 @@ export const ConverterEditor: FC = () => {
 
           {/* Locale Selector */}
           <div className="flex items-center gap-2">
-            <span className="font-medium text-muted-foreground text-xs">
+            <span className="text-xs font-medium text-muted-foreground">
               {content.localeLabel}:
             </span>
             <select
               value={testLocale}
               onChange={(e) => setTestLocale(e.target.value as LocalesValues)}
-              className="h-8 rounded-md border border-border bg-background px-2 font-mono text-foreground text-xs shadow-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              className="h-8 rounded-md border border-border bg-background px-2 font-mono text-xs text-foreground shadow-sm focus:ring-1 focus:ring-primary focus:outline-none"
             >
               {COMMON_TEST_LOCALES.map((loc) => (
                 <option key={loc.value} value={loc.value}>
@@ -541,7 +541,7 @@ export const ConverterEditor: FC = () => {
         {/* Variables Inputs Grid */}
         <div>
           {Object.keys(testVariables).length === 0 ? (
-            <div className="flex items-center gap-2 text-muted-foreground text-xs italic">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground italic">
               <Info className="size-4" />
               {content.noVariablesDetected}
             </div>
@@ -554,7 +554,7 @@ export const ConverterEditor: FC = () => {
                 >
                   <label
                     htmlFor={`var-${variableName}`}
-                    className="font-medium font-mono text-foreground text-xs"
+                    className="font-mono text-xs font-medium text-foreground"
                   >
                     {variableName}
                   </label>
@@ -578,10 +578,10 @@ export const ConverterEditor: FC = () => {
 
         {/* Live Evaluated Output Banner */}
         <div className="flex flex-col gap-1.5 rounded-lg border border-border/60 bg-background/90 p-4 shadow-inner">
-          <span className="font-medium text-muted-foreground text-xs">
+          <span className="text-xs font-medium text-muted-foreground">
             {content.previewLabel} ({testLocale}):
           </span>
-          <div className="font-semibold text-foreground text-lg leading-snug">
+          <div className="text-lg leading-snug font-semibold text-foreground">
             {evaluatedPreview || (
               <span className="text-muted-foreground italic">
                 {content.enterMessagePrompt}

@@ -1,19 +1,27 @@
 import { createCliSessionToken } from '@services/cliSessionToken.service';
 import { getProjectById } from '@services/project.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
+import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
+import { mapUserToAPI } from '@utils/mapper/user';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';
+import type { UserAPI } from '@/types/user.types';
 
 export type CreateCliSessionTokenResult = ResponseData<{
   token: string;
   expiresAt: Date;
 }>;
 
-export type GetCliSessionMeResult = ResponseData<{
+type CliSessionMe = {
   project: ProjectAPI;
-}>;
+  user: UserAPI | null;
+  organization: OrganizationAPI | null;
+};
+
+export type GetCliSessionMeResult = ResponseData<CliSessionMe>;
 
 /**
  * Creates a short-lived (2h) CLI session token tied to the authenticated user's
@@ -61,14 +69,15 @@ export const createCliSessionTokenHandler = async (
 };
 
 /**
- * Returns the project context for the currently authenticated CLI session.
- * Used by the CLI to verify the session token and check config consistency.
+ * Returns the user, organization and project bound to the CLI session.
+ * Used by the CLI to verify the session token and check config consistency,
+ * and by the local editor to show who is signed in.
  */
 export const getCliSessionMeHandler = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project } = request.session || {};
+  const { project, user, organization } = request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -88,8 +97,12 @@ export const getCliSessionMeHandler = async (
     }
 
     return reply.send(
-      formatResponse<{ project: ProjectAPI }>({
-        data: { project: mapProjectToAPI(projectData) },
+      formatResponse<CliSessionMe>({
+        data: {
+          project: mapProjectToAPI(projectData),
+          user: mapUserToAPI(user ?? null),
+          organization: mapOrganizationToAPI(organization ?? null),
+        },
       })
     );
   } catch (error) {

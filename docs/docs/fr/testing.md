@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Tester vos traductions avec Intlayer"
 description: "Testez votre contenu Intlayer : détectez les traductions manquantes, validez les dictionnaires en CI et affichez les composants par locale dans vos tests."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Clarifier que content test renvoie un code non nul lorsque des locales requises sont manquantes"
   - version: 6.0.0
     date: 2025-09-20
     changes: "Introduction des tests"
@@ -29,7 +32,7 @@ Ce guide montre comment vérifier automatiquement que vos dictionnaires sont com
 
 - **Traductions manquantes** : échouer le CI si des locales requises manquent dans un dictionnaire.
 - **Rendu de l’interface localisée** : afficher des composants avec un fournisseur de locale spécifique et vérifier le texte/attributs visibles.
-- **Audits au moment de la compilation** : exécuter un audit rapide localement via la CLI.
+- **Audits au moment de la compilation** : exécuter `npx intlayer content test` localement ou en CI ; la commande renvoie un code non nul lorsque des traductions requises sont manquantes.
 
 ## Démarrage rapide : audit via CLI
 
@@ -59,7 +62,7 @@ Options utiles :
 - `--verbose` : afficher les logs détaillés.
 - `--prefix [label]` : préfixer les lignes de log.
 
-Note : la CLI affiche un rapport détaillé mais ne retourne pas un code d’erreur en cas d’échec. Pour un contrôle en CI, ajoutez un test unitaire (ci-dessous) qui vérifie qu’aucune locale requise n’est manquante.
+La commande renvoie le code `1` lorsqu’une locale requise est manquante (voir `requiredLocales` dans votre configuration), et `0` sinon. Vous pouvez l’utiliser directement pour faire échouer des jobs CI ou des hooks de commit. Le test programmatique ci-dessous est une alternative optionnelle.
 
 ## Test programmatique (Vitest/Jest)
 
@@ -155,14 +158,24 @@ Conseils :
 
 ## Intégration Continue
 
-Ajoutez un test qui fait échouer la compilation lorsque des traductions requises sont manquantes.
+Exécutez l’audit CLI en CI. Il fait échouer le job lorsque des traductions requises sont manquantes.
 
 `package.json` :
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternative : Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Optionnel : lancez l'audit CLI pour un résumé lisible par un humain en parallèle des tests :

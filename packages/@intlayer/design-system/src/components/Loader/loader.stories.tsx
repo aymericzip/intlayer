@@ -120,7 +120,7 @@ export const LoadingToLoaded: Story = {
     isLoading: true,
     children: (
       <div className="p-6 text-center">
-        <h2 className="mb-2 font-bold text-xl">Data Loaded Successfully!</h2>
+        <h2 className="mb-2 text-xl font-bold">Data Loaded Successfully!</h2>
         <p className="text-gray-600">
           This content appears when loading completes.
         </p>
@@ -205,9 +205,9 @@ export const WithRichContent: Story = {
       <div className="mx-auto max-w-md p-8">
         <div className="mb-4">
           <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-500">
-            <span className="text-white text-xl">✓</span>
+            <span className="text-xl text-white">✓</span>
           </div>
-          <h3 className="font-semibold text-gray-900 text-lg">
+          <h3 className="text-lg font-semibold text-gray-900">
             Profile Updated
           </h3>
           <p className="text-gray-600">
@@ -235,7 +235,7 @@ export const WithList: Story = {
     isLoading: false,
     children: (
       <div className="p-4">
-        <h3 className="mb-4 font-semibold text-lg">Recent Activities</h3>
+        <h3 className="mb-4 text-lg font-semibold">Recent Activities</h3>
         <ul className="space-y-3">
           {[
             'Profile updated successfully',
@@ -268,7 +268,7 @@ export const SimulatedLoading: Story = {
     isLoading: true,
     children: (
       <div className="p-6 text-center">
-        <h2 className="mb-2 font-bold text-green-600 text-xl">
+        <h2 className="mb-2 text-xl font-bold text-green-600">
           ✅ Loading Complete!
         </h2>
         <p className="text-gray-600">
@@ -349,20 +349,20 @@ export const DataTableLoading: Story = {
   render: (args) => (
     <div className="overflow-hidden rounded-lg border">
       <div className="border-b bg-gray-50 px-6 py-4">
-        <h3 className="font-semibold text-lg">User Management</h3>
+        <h3 className="text-lg font-semibold">User Management</h3>
       </div>
       <Loader {...args} className="min-h-75" isLoading={args.isLoading}>
         <div className="p-0">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider">
+                <th className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Name
                 </th>
-                <th className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider">
+                <th className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Email
                 </th>
-                <th className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider">
+                <th className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Role
                 </th>
               </tr>
@@ -378,13 +378,13 @@ export const DataTableLoading: Story = {
                 },
               ].map((user, index) => (
                 <tr key={index}>
-                  <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
+                  <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
                     {user.name}
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+                  <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                     {user.email}
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+                  <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                     {user.role}
                   </td>
                 </tr>
@@ -411,13 +411,13 @@ export const DataTableLoading: Story = {
 export const FormSubmission: Story = {
   render: (args) => (
     <div className="mx-auto max-w-md rounded-lg border bg-white p-6">
-      <h3 className="mb-4 font-semibold text-lg">Contact Form</h3>
+      <h3 className="mb-4 text-lg font-semibold">Contact Form</h3>
       <Loader {...args} className="min-h-50">
         <div className="p-6 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
             <span className="text-2xl text-green-600">✓</span>
           </div>
-          <h4 className="mb-2 font-semibold text-gray-900 text-lg">
+          <h4 className="mb-2 text-lg font-semibold text-gray-900">
             Message Sent!
           </h4>
           <p className="text-gray-600">

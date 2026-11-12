@@ -1,7 +1,12 @@
 import { logger } from '@logger';
 import { AccountModel } from '@schemas/account.schema';
+import { AssetModel } from '@schemas/asset.schema';
+import { DictionaryModel } from '@schemas/dictionary.schema';
+import { DiscussionModel } from '@schemas/discussion.schema';
 import { OrganizationModel } from '@schemas/organization.schema';
 import { ProjectModel } from '@schemas/project.schema';
+import { SessionModel } from '@schemas/session.schema';
+import { TagModel } from '@schemas/tag.schema';
 import { UserModel } from '@schemas/user.schema';
 import { createDemoDictionaries } from '@services/dictionary.service';
 import { createUser, getUserByEmail } from '@services/user.service';
@@ -163,6 +168,124 @@ const ensureDemoResources = async (): Promise<DemoResources> => {
   });
 
   return await pendingBootstrap;
+};
+
+/**
+ * Wipes everything visitors did with the shared demo account: every
+ * organization created by the demo admin or the demo user (with its projects,
+ * dictionaries, tags, discussions and assets), the demo user's membership in
+ * any other organization or project, and its active session context.
+ */
+const wipeDemoResources = async (): Promise<void> => {
+  const demoAccountEmails = [
+    process.env.DEMO_ADMIN_EMAIL,
+    process.env.DEMO_USER_EMAIL,
+  ].filter((email): email is string => Boolean(email));
+
+  const demoAccounts = await UserModel.find(
+    { email: { $in: demoAccountEmails } },
+    { _id: 1, email: 1 }
+  );
+
+  if (demoAccounts.length === 0) return;
+
+  const demoAccountIds = demoAccounts.map(
+    (demoAccount) => new Types.ObjectId(String(demoAccount._id))
+  );
+
+  const demoOrganizations = await OrganizationModel.find(
+    { creatorId: { $in: demoAccountIds } },
+    { _id: 1 }
+  );
+  const demoOrganizationIds = demoOrganizations.map(
+    (organization) => new Types.ObjectId(String(organization._id))
+  );
+
+  const demoProjects = await ProjectModel.find(
+    {
+      $or: [
+        { organizationId: { $in: demoOrganizationIds } },
+        { creatorId: { $in: demoAccountIds } },
+      ],
+    },
+    { _id: 1 }
+  );
+  const demoProjectIds = demoProjects.map(
+    (project) => new Types.ObjectId(String(project._id))
+  );
+
+  await Promise.all([
+    DictionaryModel.deleteMany({ projectIds: { $in: demoProjectIds } }),
+    TagModel.deleteMany({
+      $or: [
+        { organizationId: { $in: demoOrganizationIds } },
+        { projectId: { $in: demoProjectIds } },
+      ],
+    }),
+    DiscussionModel.deleteMany({
+      $or: [
+        { organizationId: { $in: demoOrganizationIds } },
+        { projectId: { $in: demoProjectIds } },
+      ],
+    }),
+    AssetModel.deleteMany({ projectId: { $in: demoProjectIds } }),
+  ]);
+
+  await ProjectModel.deleteMany({ _id: { $in: demoProjectIds } });
+  await OrganizationModel.deleteMany({ _id: { $in: demoOrganizationIds } });
+
+  // Organizations/projects owned by real users only lose the demo accounts.
+  const membershipRemoval = {
+    $pull: {
+      membersIds: { $in: demoAccountIds },
+      adminsIds: { $in: demoAccountIds },
+    },
+  };
+  await OrganizationModel.updateMany(
+    { membersIds: { $in: demoAccountIds } },
+    membershipRemoval
+  );
+  await ProjectModel.updateMany(
+    {
+      $or: [
+        { membersIds: { $in: demoAccountIds } },
+        { viewersIds: { $in: demoAccountIds } },
+      ],
+    },
+    {
+      $pull: {
+        ...membershipRemoval.$pull,
+        viewersIds: { $in: demoAccountIds },
+      },
+    }
+  );
+
+  // `userId` is written by better-auth and absent from the mongoose schema, so
+  // go through the raw collection: strictQuery would otherwise drop the filter
+  // and match every session. Signed-out demo visitors simply re-enter the demo.
+  await SessionModel.collection.deleteMany({
+    userId: { $in: [...demoAccountIds, ...demoAccountIds.map(String)] },
+  });
+
+  logger.info(
+    `[demo] reset: removed ${demoOrganizationIds.length} organization(s) and ${demoProjectIds.length} project(s)`
+  );
+};
+
+/**
+ * Restores the demo account to its pristine state (wipe + fresh bootstrap).
+ * Meant to run on server start; demo sign-ins arriving meanwhile wait for it.
+ */
+export const resetDemoResources = async (): Promise<void> => {
+  if (!process.env.DEMO_ADMIN_EMAIL || !process.env.DEMO_USER_EMAIL) return;
+
+  pendingBootstrap ??= wipeDemoResources()
+    .then(bootstrapDemoResources)
+    .finally(() => {
+      pendingBootstrap = null;
+    });
+
+  await pendingBootstrap;
 };
 
 export const getDemoSessionHandler = async (

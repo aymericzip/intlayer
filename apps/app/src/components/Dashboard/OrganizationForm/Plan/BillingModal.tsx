@@ -54,16 +54,18 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
       title={billingModal.title.value}
       hasCloseButton
       isScrollable
+      border
+      borderColor="neutral"
     >
       <div className="flex flex-col gap-10">
         {/* Payment Section */}
         <section>
-          <div className="flex items-start justify-between gap-lg">
-            <h3 className="font-semibold text-text text-xl">
+          <div className="gap-lg flex items-start justify-between">
+            <h3 className="text-xl font-semibold text-text">
               {billingModal.paymentTitle}
             </h3>
           </div>
-          <div className="divide-y divide-neutral pt-sm">
+          <div className="pt-sm divide-y divide-neutral">
             <div className="flex w-full flex-row items-center justify-between gap-x-8 gap-y-3 py-4">
               <div className="flex items-center gap-2">
                 <div className="flex size-6 items-center justify-center text-neutral-400">
@@ -78,7 +80,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
                     • • • • {paymentMethod.card?.last4}
                   </p>
                 ) : (
-                  <p className="text-neutral-400 text-sm">
+                  <p className="text-sm text-neutral-400">
                     {billingModal.noPaymentMethod}
                   </p>
                 )}
@@ -99,24 +101,24 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
 
         {/* Invoices Section */}
         <section className="overflow-hidden">
-          <div className="flex items-start justify-between gap-lg">
-            <h3 className="font-semibold text-text text-xl">
+          <div className="gap-lg flex items-start justify-between">
+            <h3 className="text-xl font-semibold text-text">
               {billingModal.invoicesTitle}
             </h3>
           </div>
-          <table className="w-full border-collapse pt-sm" aria-label="Invoices">
+          <table className="pt-sm w-full border-collapse" aria-label="Invoices">
             <thead>
               <tr className="text-start">
-                <th className="py-2 font-medium text-sm text-text">
+                <th className="py-2 text-sm font-medium text-text">
                   {billingModal.dateHeader}
                 </th>
-                <th className="py-2 font-medium text-sm text-text">
+                <th className="py-2 text-sm font-medium text-text">
                   {billingModal.totalHeader}
                 </th>
-                <th className="py-2 font-medium text-sm text-text">
+                <th className="py-2 text-sm font-medium text-text">
                   {billingModal.statusHeader}
                 </th>
-                <th className="py-2 font-medium text-sm text-text">
+                <th className="py-2 text-sm font-medium text-text">
                   {billingModal.actionsHeader}
                 </th>
               </tr>

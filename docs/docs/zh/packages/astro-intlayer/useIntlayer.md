@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
-title: useIntlayer 钩子文档 | astro-intlayer
-description: 了解如何在 Astro 组件和客户端脚本中使用 useIntlayer 钩子访问本地化内容。
+title: useIntlayer Hook文档 | astro-intlayer
+description: 了解如何在 Astro 组件和客户端脚本中使用 useIntlayer Hook访问本地化内容。
 keywords:
   - useIntlayer
   - dictionary
@@ -25,9 +25,9 @@ history:
 author: aymericzip
 ---
 
-# useIntlayer 钩子文档
+# useIntlayer Hook文档
 
-`useIntlayer` 钩子允许您在 Astro 应用程序中按键检索本地化的字典内容。
+`useIntlayer` Hook允许您在 Astro 应用程序中按键检索本地化的字典内容。
 
 可以使用相同的导入路径在两个不同的上下文中调用它：
 
@@ -84,7 +84,7 @@ useIntlayer(key, localeOrSelector?)
 
 ## 说明
 
-该钩子执行以下任务：
+该Hook执行以下任务：
 
 1. **语言环境解析**：
    - 在服务端，通过由 `astro-intlayer/middleware` 初始化的 `AsyncLocalStorage` 作用域从 `Astro.locals.intlayer` 读取活动语言环境。
@@ -95,5 +95,5 @@ useIntlayer(key, localeOrSelector?)
 ## 相关文档
 
 - [`intlayer` 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/intlayer.md)
-- [`useDictionary` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useDictionary.md)
-- [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useLocale.md)
+- [`useDictionary` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useDictionary.md)
+- [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useLocale.md)

@@ -87,7 +87,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               color="text"
               label={logoutContent.label.value}
               onClick={handleLogOut}
-              className="rounded-2xl! text-center font-medium leading-6"
+              className="rounded-2xl! text-center leading-6 font-medium"
               size="md"
             >
               {logoutContent.title}

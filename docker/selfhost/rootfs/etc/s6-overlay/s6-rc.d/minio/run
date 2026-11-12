@@ -1,6 +1,7 @@
 #!/command/with-contenv bash
 # MinIO — S3-compatible storage. Bound to 0.0.0.0 because browsers load avatars /
 # screenshots directly from S3_PUBLIC_URL (e.g. http://localhost:9000/intlayer/...).
+source /etc/s6-overlay/scripts/s3-credentials.sh
 export MINIO_ROOT_USER="${S3_ACCESS_KEY_ID}"
 export MINIO_ROOT_PASSWORD="${S3_SECRET_ACCESS_KEY}"
 exec minio server /data/minio \

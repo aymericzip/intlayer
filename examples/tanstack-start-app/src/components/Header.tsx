@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { LocalizedLink } from './localized-link';
 
 export default function Header() {
@@ -14,7 +13,7 @@ export default function Header() {
           onClick={() => setIsOpen(true)}
           type="button"
         ></button>
-        <h1 className="ms-4 font-semibold text-xl">
+        <h1 className="ms-4 text-xl font-semibold">
           <LocalizedLink to="/">
             <img
               alt="TanStack Logo"
@@ -30,8 +29,8 @@ export default function Header() {
           isOpen ? 'translate-x-0' : '-translate-x-full rtl:translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between border-gray-700 border-b p-4">
-          <h2 className="font-bold text-xl">Navigation</h2>
+        <div className="flex items-center justify-between border-b border-gray-700 p-4">
+          <h2 className="text-xl font-bold">Navigation</h2>
           <button
             aria-label="Close menu"
             className="rounded-lg p-2 transition-colors hover:bg-gray-800"

@@ -6,7 +6,7 @@ const { t } = useI18n();
 
 const postIndices = [1, 2, 3, 4, 5, 6] as const;
 
-// biome-ignore lint/correctness/noUnusedVariables: used in <template> v-for
+// oxlint-disable-next-line no-unused-vars -- used in <template> v-for
 const posts = computed(() =>
   postIndices.map((n) => ({
     title: t(`blog.list.post${n}Title`),
@@ -25,7 +25,9 @@ const posts = computed(() =>
       class="rounded-lg border border-border bg-card p-6"
     >
       <div class="mb-3 flex items-center gap-3">
-        <span class="rounded-full bg-accent px-3 py-0.5 text-xs font-medium text-accent-foreground">
+        <span
+          class="rounded-full bg-accent px-3 py-0.5 text-xs font-medium text-accent-foreground"
+        >
           {{ p.category }}
         </span>
         <span class="text-xs text-muted-foreground">{{ p.date }}</span>
@@ -38,7 +40,7 @@ const posts = computed(() =>
         type="button"
         class="text-sm font-medium text-primary hover:underline"
       >
-        {{ t("blog.list.readMore") }}
+        {{ t('blog.list.readMore') }}
       </button>
     </article>
   </div>

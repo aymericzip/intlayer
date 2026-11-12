@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cách chọn thư viện i18n phù hợp cho Svelte vào năm 2026"
 description: "Hướng dẫn chọn i18n cho Svelte và SvelteKit: những câu hỏi trước khi so sánh svelte-i18n, Paraglide, typesafe-i18n, wuchale và Intlayer."
@@ -98,11 +98,11 @@ Kích thước thư viện được lấy từ [Svelte benchmark](https://github
 
 | Thư viện        | Nơi lưu trữ message               | Trạng thái locale                           | An toàn kiểu                   | Định dạng message             | Tách theo route            | Kích thước thư viện                                |
 | :-------------- | :-------------------------------- | :------------------------------------------ | :----------------------------- | :---------------------------- | :------------------------- | :------------------------------------------------- |
-| `svelte-i18n`   | JSON catalog theo từng locale     | Module-level Svelte store                   | 2/5 — Union thủ công           | ICU                           | Không                      | ~16.6 kB                                           |
-| `typesafe-i18n` | Module TS được generate           | Store adapter                               | 4/5 — Được generate            | Riêng                         | Một phần                   | Nhỏ                                                |
-| Paraglide       | Dự án inlang, biên dịch thành hàm | Đọc mỗi lần gọi từ cookie, URL hoặc storage | 3.5/5 — Được generate          | Riêng                         | Có, thông qua tree-shaking | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| `svelte-i18n`   | JSON catalog theo từng locale     | Module-level Svelte store                   | 2/5 - Union thủ công           | ICU                           | Không                      | ~16.6 kB                                           |
+| `typesafe-i18n` | Module TS được generate           | Store adapter                               | 4/5 - Được generate            | Riêng                         | Một phần                   | Nhỏ                                                |
+| Paraglide       | Dự án inlang, biên dịch thành hàm | Đọc mỗi lần gọi từ cookie, URL hoặc storage | 3.5/5 - Được generate          | Riêng                         | Có, thông qua tree-shaking | Gần như bằng 0 (do mã được sinh ra trong codebase) |
 | `wuchale`       | Trích xuất từ markup lúc build    | Store                                       | Không áp dụng (không dùng key) | Riêng                         | Có                         | ~30.7 kB                                           |
-| Intlayer        | `.content.ts` đặt cạnh component  | Context kết hợp store, hỗ trợ rune          | 5/5 — Được generate, mặc định  | Intlayer (+ ICU, i18next, PO) | Có, theo component         | ~3.6 kB                                            |
+| Intlayer        | `.content.ts` đặt cạnh component  | Context kết hợp store, hỗ trợ rune          | 5/5 - Được generate, mặc định  | Intlayer (+ ICU, i18next, PO) | Có, theo component         | ~3.6 kB                                            |
 
 > Các con số là ảnh chụp nhanh tại phiên bản của benchmark. Hãy chạy thử trên ứng dụng của riêng bạn trước khi quyết định chỉ dựa trên kích thước.
 > An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.

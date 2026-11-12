@@ -76,7 +76,7 @@ const ModalStory = (args: any) => {
         <Button onClick={() => setIsOpen(true)} label="Open Modal" color="text">
           Open Modal
         </Button>
-        <p className="mt-2 text-neutral-600 text-sm">
+        <p className="mt-2 text-sm text-neutral-600">
           Click the button to open the modal, then test closing behaviors
         </p>
       </Container>
@@ -126,7 +126,7 @@ export const WithTitleAndClose: Story = {
           This modal has both a title and a close button for better user
           experience.
         </p>
-        <p className="mt-2 text-neutral-600 text-sm">
+        <p className="mt-2 text-sm text-neutral-600">
           The title is displayed prominently, and the close button provides an
           explicit way to dismiss the modal.
         </p>
@@ -253,7 +253,7 @@ export const ExtraLargeSize: Story = {
                     <td className="border border-neutral-200 p-2">{id}</td>
                     <td className="border border-neutral-200 p-2">Item {id}</td>
                     <td className="border border-neutral-200 p-2">
-                      <span className="rounded bg-green-100 px-2 py-1 text-green-800 text-xs">
+                      <span className="rounded bg-green-100 px-2 py-1 text-xs text-green-800">
                         Active
                       </span>
                     </td>
@@ -349,7 +349,7 @@ export const AllSizes: Story = {
           >
             <Container className="p-6">
               <p>This is a {size} sized modal.</p>
-              <p className="mt-2 text-neutral-600 text-sm">
+              <p className="mt-2 text-sm text-neutral-600">
                 Max dimensions:{' '}
                 {size === 'sm'
                   ? '30vh height, xl width'

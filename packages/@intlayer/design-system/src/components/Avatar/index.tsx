@@ -164,19 +164,19 @@ export const Avatar: FC<AvatarProps> = ({
     <Container
       isClickable={isClickable}
       className={cn(
-        `rounded-full border-[1.3px] border-text p-0.5 ring-offset-0 transition-ring duration-200`,
+        `transition-ring rounded-full border-[1.3px] border-text p-0.5 ring-offset-0 duration-200`,
         size === 'sm' && 'size-7 border-[1px] p-0.25',
         size === 'md' && 'size-9',
         size === 'lg' && 'size-12',
         size === 'xl' && 'size-16',
         size === '2xl' && 'size-24',
         isClickable &&
-          `cursor-pointer hover:opacity-80 focus:outline-none focus:ring-3 focus:ring-text/50 focus:ring-offset-2`,
+          `cursor-pointer hover:opacity-80 focus:ring-3 focus:ring-text/50 focus:ring-offset-2 focus:outline-none`,
         hoverable &&
           `hover:opacity-80 hover:ring-4 hover:ring-text/30 hover:ring-offset-2`,
         !isClickable &&
           focusable &&
-          `focus:outline-none focus:ring-3 focus:ring-text/50 focus:ring-offset-2`,
+          `focus:ring-3 focus:ring-text/50 focus:ring-offset-2 focus:outline-none`,
         displayLoader && 'animate-pulse',
         className
       )}
@@ -216,7 +216,7 @@ export const Avatar: FC<AvatarProps> = ({
               )}
             >
               {capitals?.map((capital, index) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: Capitals are primitives and order is fixed
+                // oxlint-disable-next-line react/no-array-index-key -- Capitals are primitives and order is fixed
                 <span key={`${capital}-${index}`}>{capital}</span>
               ))}
             </div>

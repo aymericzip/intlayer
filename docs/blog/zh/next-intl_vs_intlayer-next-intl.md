@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-10-08
 priority: 8
 title: "next-intl vs @intlayer/next-intl: 相同的 API，不同的 Bundle"
 description: "Next.js 应用保留 next-intl 导入，由 @intlayer/next-intl 适配器提供内容。测量包体积、内容泄漏、组件大小和水合。"
@@ -260,7 +260,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   dictionary: {
-    // "static" 捆绑每个语言环境；"dynamic" 按需加载活跃的语言环境
+    // "static" 打包每个语言环境；"dynamic" 按需加载活跃的语言环境
     importMode: "dynamic",
   },
   plugins: [

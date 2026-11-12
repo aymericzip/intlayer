@@ -1,5 +1,6 @@
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { Toaster } from '@intlayer/design-system/toaster';
+import { getGoogleAnalyticsHeadScripts } from '@intlayer/design-system/utils';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
@@ -22,10 +23,18 @@ import {
   SITE_TITLE,
   SITE_URL,
 } from '#/lib/site';
-import appCss from '#/styles.css?url';
 import { getRootStructuredDataScripts } from '#/utils/structuredData';
+import appCss from '#/styles.css?url';
 
 const localeRoute = getRouteApi('/{-$locale}');
+
+/**
+ * Deferred GA4 tag; empty when `VITE_GOOGLE_ANALYTICS_ID` is unset (local dev,
+ * previews).
+ */
+const googleAnalyticsScripts = getGoogleAnalyticsHeadScripts(
+  import.meta.env.VITE_GOOGLE_ANALYTICS_ID
+);
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -90,7 +99,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
           href: `${SITE_URL}/apple-touch-icon.png`,
         },
       ],
-      scripts: [...structuredDataScripts],
+      scripts: [...structuredDataScripts, ...googleAnalyticsScripts],
     };
   },
   shellComponent: RootDocument,
@@ -112,7 +121,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <HeadContent />
       </head>
-      <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background text-text leading-8 transition md:flex">
+      <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background leading-8 text-text transition md:flex">
         <IntlayerProvider locale={locale}>
           <Toaster />
           <ThemeProvider>

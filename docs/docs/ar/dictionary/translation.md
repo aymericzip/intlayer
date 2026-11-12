@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 8
 title: "محتوى الترجمة: الدالة t()"
 description: "عرّف الترجمات لكل لغة باستخدام الدالة t() في Intlayer، مع فحص أنواع ينبّه إلى اللغات الناقصة أثناء البناء."
@@ -98,7 +98,7 @@ export default config;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-With `react-intlayer`, you can use translations in React components. Here's an example:
+باستخدام `react-intlayer`، يمكنك استخدام الترجمات في مكونات React. فيما يلي مثال:
 
 ```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -117,12 +117,12 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-This component fetches the corresponding translation based on the current locale set in your application.
+يجلب هذا المكون الترجمة المقابلة بناءً على اللغة الحالية المحددة في تطبيقك.
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-With `next-intlayer`, you can use translations in React Server Components or Client Components. Here's an example in a Client Component:
+باستخدام `next-intlayer`، يمكنك استخدام الترجمات في مكونات خادم React أو مكونات العميل. فيما يلي مثال في مكون عميل:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -146,7 +146,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-With `vue-intlayer`, you can use translations in Vue components. Here's an example:
+باستخدام `vue-intlayer`، يمكنك استخدام الترجمات في مكونات Vue. فيما يلي مثال:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -165,7 +165,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
+باستخدام `svelte-intlayer`، يمكنك استخدام الترجمات في مكونات Svelte. يُرجع الخطاف مخزن Svelte store. فيما يلي مثال:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -182,7 +182,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Preact" value="preact">
 
-With `preact-intlayer`, you can use translations in Preact components. Here's an example:
+باستخدام `preact-intlayer`، يمكنك استخدام الترجمات في مكونات Preact. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -204,7 +204,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-With `solid-intlayer`, you can use translations in SolidJS components. Here's an example:
+باستخدام `solid-intlayer`، يمكنك استخدام الترجمات في مكونات SolidJS. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -226,7 +226,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-With `angular-intlayer`, you can use translations in Angular components. Here's an example:
+باستخدام `angular-intlayer`، يمكنك استخدام الترجمات في مكونات Angular. فيما يلي مثال:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -248,7 +248,7 @@ export class MyComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-With `vanilla-intlayer`, you can use translations by subscribing to content changes. Here's an example:
+باستخدام `vanilla-intlayer`، يمكنك استخدام الترجمات من خلال الاشتراك في تغييرات المحتوى. فيما يلي مثال:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

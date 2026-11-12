@@ -7,8 +7,8 @@ import {
   createDemoDictionaries,
   findDictionaries,
 } from '@services/dictionary.service';
-import { refreshProjectScreenshotIfChanged } from '@services/project/projectScreenshot.service';
 import * as projectService from '@services/project.service';
+import { refreshProjectScreenshotIfChanged } from '@services/project/projectScreenshot.service';
 import * as userService from '@services/user.service';
 import * as webhooksService from '@services/webhook.service';
 import { type AppError, ErrorHandler } from '@utils/errors';

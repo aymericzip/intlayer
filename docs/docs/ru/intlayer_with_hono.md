@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Hono i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в Hono: определение локали для каждого запроса через middleware, перевод ответов API на Node, Bun или edge-рантаймах."
@@ -57,7 +57,7 @@ author: aymericzip
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-hono-template) on GitHub.
+Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-hono-template) на GitHub.
 
 ### Установка
 

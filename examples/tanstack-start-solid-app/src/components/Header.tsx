@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header class="site-header px-4">
       <nav class="page-wrap nav-shell relative">
-        <h2 class="m-0 shrink-0 font-semibold text-base tracking-tight">
+        <h2 class="m-0 shrink-0 text-base font-semibold tracking-tight">
           <Link to="/" class="brand-pill">
             {content.tanstack}
             <span>+</span>
@@ -21,7 +21,7 @@ export default function Header() {
           <LocaleSwitcher />
         </div>
 
-        <div class="order-3 ms-auto flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 font-semibold text-sm sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
+        <div class="order-3 ms-auto flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
           <Link
             to="/"
             class="nav-link"

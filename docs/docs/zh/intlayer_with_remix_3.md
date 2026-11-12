@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Remix 3 i18n - 完整的应用多语言国际化翻译指南"
 description: "在 Remix 3 中配置 Intlayer：在路由中间件中检测语言，翻译路由处理器和视图，并生成本地化 URL。"
@@ -22,7 +22,7 @@ applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
   - version: 9.5.5
     date: 2026-09-19
-    changes: "使用 remix-intlayer 中间件和钩子"
+    changes: "使用 remix-intlayer 中间件和Hook"
   - version: 9.5.0
     date: 2026-09-09
     changes: "Remix 3 初始文档"
@@ -38,12 +38,12 @@ author: aymericzip
 **Remix 3** 代表了一次根本性的架构演进，转向**完全构建在 Web 标准之上、可组合且与运行时解耦的 Web 框架**。Remix 3 不再与特定的打包器或专有服务器 API 绑定，而是以单一职责的可组合包形式发布：
 
 - **`remix/fetch-router`** (或 `remix/router`): 基于 Fetch API (`Request` 与 `Response`) 构建的轻量且符合规范的路由。
-- **`remix/ui`**: JSX 组件模型 (`jsxImportSource: "remix/ui"`)。组件是一个接收 Handle 并返回渲染函数的设置函数，外观类似 React，但状态保存在纯 JavaScript 闭包中。
+- **`remix/component`**: JSX 组件模型 (`jsxImportSource: "remix/component"`)。组件是一个接收 Handle 并返回渲染函数的设置函数，外观类似 React，但状态保存在纯 JavaScript 闭包中。
 - **`remix/middleware/render`**: 为每个请求挂载 `context.render(<Page />)`，将 JSX 树以流式传输转换为 HTML `Response`。
 - **`remix/node-fetch-server`**: Node.js 服务器适配器，原生支持 Bun、Deno 与边缘运行时。
 - **`remix/cookie`**: 具备加密安全性的 Cookie 解析与序列化工具。
 
-结合 **Intlayer** 和 **`remix-intlayer`** 软件包（包含语言环境中间件以及与 `react-intlayer` 相同的 `useIntlayer` / `useDictionary` / `useLocale` 钩子，绑定到 Remix 请求上下文），你将获得一个完整的国际化系统，提供编译时安全性、自动化 AI 翻译、零开销服务端渲染以及流畅的语言环境路由。
+结合 **Intlayer** 和 **`remix-intlayer`** 软件包（包含语言环境中间件以及与 `react-intlayer` 相同的 `useIntlayer` / `useDictionary` / `useLocale` Hook，绑定到 Remix 请求上下文），你将获得一个完整的国际化系统，提供编译时安全性、自动化 AI 翻译、零开销服务端渲染以及流畅的语言环境路由。
 
 ## 目录
 
@@ -56,7 +56,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="全面支持 Remix 3 和 Web 标准">
 
-Intlayer 专为与 Web 标准（`Request`、`Response`、`Headers` 和 `URL`）无缝协作而构建。`remix-intlayer` 作为轻量级中间件插入 Remix 3 的 Fetch 路由器中，从 URL 路径、Cookie 或 `Accept-Language` 请求头中提取语言环境，并将其暴露给请求的其余部分、处理程序、视图和 `remix/ui` 组件，无需手动传递参数，也不会将你锁定在特定运行时。
+Intlayer 专为与 Web 标准（`Request`、`Response`、`Headers` 和 `URL`）无缝协作而构建。`remix-intlayer` 作为轻量级中间件插入 Remix 3 的 Fetch 路由器中，从 URL 路径、Cookie 或 `Accept-Language` 请求头中提取语言环境，并将其暴露给请求的其余部分、处理程序、视图和 `remix/component` 组件，无需手动传递参数，也不会将你锁定在特定运行时。
 
 </Accordion>
 <Accordion header="类型安全的内容声明">
@@ -135,16 +135,16 @@ bun add intlayer remix-intlayer remix@next
 ```
 
 - **`intlayer`**: 核心国际化引擎，负责配置管理、字典声明 (`t()`, `Dictionary`)、CLI 工具和运行时解释器。
-- **`remix-intlayer`**：Remix 3 集成：解析每个请求语言环境的 `intlayer()` 路由器中间件，以及在下游任何位置读取它的 `useIntlayer`、`useDictionary` 和 `useLocale` 钩子。
-- **`remix-intlayer`**：Remix 3 集成：解析每个请求语言环境的 `intlayer()` 路由器中间件，以及在下游任何位置读取它的 `useIntlayer`、`useDictionary` 和 `useLocale` 钩子。
-- **`remix`**: 统一的 Remix 3 框架包，导出 `remix/router`、`remix/routes`、`remix/ui`、`remix/middleware/render` 以及 `remix/node-fetch-server`。
+- **`remix-intlayer`**：Remix 3 集成：解析每个请求语言环境的 `intlayer()` 路由器中间件，以及在下游任何位置读取它的 `useIntlayer`、`useDictionary` 和 `useLocale` Hook。
+- **`remix-intlayer`**：Remix 3 集成：解析每个请求语言环境的 `intlayer()` 路由器中间件，以及在下游任何位置读取它的 `useIntlayer`、`useDictionary` 和 `useLocale` Hook。
+- **`remix`**: 统一的 Remix 3 框架包，导出 `remix/router`、`remix/routes`、`remix/component`、`remix/middleware/render` 以及 `remix/node-fetch-server`。
 
 </Step>
 <Step number={2} title="配置 Intlayer">
 
 ### 架构
 
-在此架构中，`remix-intlayer` 的 `intlayer()` 中间件在 `render()` 中间件之前注册到 `createRouter()` 中。它会在路由匹配前去除语言环境前缀，因此路由只需在 `src/routes.ts` 中声明一次，无需 `:locale` 段，并且它会在 `AsyncLocalStorage` 作用域内运行请求的其余部分，从而让 `useIntlayer` / `useLocale` 能够在路由处理函数和 `remix/ui` 视图中无需参数读取语言环境。内容声明文件与你的视图一起放置在 `src/` 中：
+在此架构中，`remix-intlayer` 的 `intlayer()` 中间件在 `render()` 中间件之前注册到 `createRouter()` 中。它会在路由匹配前去除语言环境前缀，因此路由只需在 `src/routes.ts` 中声明一次，无需 `:locale` 段，并且它会在 `AsyncLocalStorage` 作用域内运行请求的其余部分，从而让 `useIntlayer` / `useLocale` 能够在路由处理函数和 `remix/component` 视图中无需参数读取语言环境。内容声明文件与你的视图一起放置在 `src/` 中：
 
 ```bash
 .
@@ -290,7 +290,7 @@ bun x intlayer build
 </Step>
 <Step number={5} title="添加 Intlayer 中间件">
 
-Remix 3 通过 `createRouter({ middleware: [...] })` 提供可组合的中间件管道。
+Remix 3 通过 `createRouter({ middleware: [...] })` 提供可组合的中间件流水线。
 
 `remix-intlayer` 提供了 `intlayer()` 中间件。对于每个传入请求，它使用以下内容解析语言环境：
 
@@ -298,7 +298,7 @@ Remix 3 通过 `createRouter({ middleware: [...] })` 提供可组合的中间件
 2. 客户端持久化的语言环境：存储 Cookie（`INTLAYER_LOCALE`）或自定义标头（`x-intlayer-locale`）。
 3. 标准 `Accept-Language` 协商，回退到配置的 `defaultLocale`。
 
-结果作为 `context.intlayer`（或 `context.get(Intlayer)`）存储在 Remix 请求上下文中，包含 `locale`、`defaultLocale` 和 `availableLocales`。中间件随后在绑定到该上下文的 `AsyncLocalStorage` 作用域内运行请求的其余部分，使得该包的钩子无需传递参数即可读取语言环境，无论是在路由处理程序、视图还是 `remix/ui` 组件中：
+结果作为 `context.intlayer`（或 `context.get(Intlayer)`）存储在 Remix 请求上下文中，包含 `locale`、`defaultLocale` 和 `availableLocales`。中间件随后在绑定到该上下文的 `AsyncLocalStorage` 作用域内运行请求的其余部分，使得该包的 Hook无需传递参数即可读取语言环境，无论是在路由处理程序、视图还是 `remix/component` 组件中：
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -308,7 +308,7 @@ const { locale, availableLocales } = useLocale();
 const { title } = useIntlayer("home");
 ```
 
-`useIntlayer("home", "fr")` 或 `useIntlayer("faq", { item: 2 })` 可在单次调用中覆盖请求语言环境，而 `useDictionary(homeContent)` 读取导入的字典而不是键。在请求之外，钩子会回退到默认语言环境。
+`useIntlayer("home", "fr")` 或 `useIntlayer("faq", { item: 2 })` 可在单次调用中覆盖请求语言环境，而 `useDictionary(homeContent)` 读取导入的字典而不是键。在请求之外，Hook会回退到默认语言环境。
 
 > 中间件还会在服务器启动时准备 Intlayer 字典，因此即使缺少 `intlayer build` 也不会导致注册表为空。
 
@@ -341,14 +341,14 @@ routes.localizedHome.href({ locale: "zh" }); // "/zh"
 </Step>
 <Step number={7} title="使用 JSX 渲染本地化页面">
 
-Remix 3 使用来自 `remix/ui` 的 JSX 组件渲染 UI。组件是一个接收 `Handle` 并返回**渲染函数**的**设置函数**。设置函数每个实例仅执行一次，渲染函数在每次更新时执行，并通过 `handle.props` 读取属性。
+Remix 3 使用来自 `remix/component` 的 JSX 组件渲染 UI。组件是一个接收 `Handle` 并返回**渲染函数**的**设置函数**。设置函数每个实例仅执行一次，渲染函数在每次更新时执行，并通过 `handle.props` 读取属性。
 
 从一个共享的 `Document` 外壳开始，它根据中间件解析的语言环境设置 `<html lang="..." dir="...">` 属性：
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -417,7 +417,7 @@ export const HomePage = () => () => {
 };
 ```
 
-> Remix JSX 不是 React：`class` 原样书写（也接受 `className`），并且通过 `handle.update()` 显式触发重新渲染。插值会自动转义。Intlayer 钩子是读取请求作用域的普通函数，因此可以从 setup 函数或 render 函数中调用。
+> Remix JSX 不是 React：`class` 原样书写（也接受 `className`），并且通过 `handle.update()` 显式触发重新渲染。插值会自动转义。Intlayer Hook是读取请求作用域的普通函数，因此可以从 setup 函数或 render 函数中调用。
 
 </Step>
 <Step number={8} title="串联路由器与服务器">
@@ -527,7 +527,7 @@ bun x intlayer fill
 
 ## TypeScript 配置
 
-将 JSX 指向 `remix/ui` 运行时，并确保您的 `tsconfig.json` 包含生成的 `.intlayer` 类型：
+将 JSX 指向 `remix/component` 运行时，并确保您的 `tsconfig.json` 包含生成的 `.intlayer` 类型：
 
 ```json fileName="tsconfig.json"
 {
@@ -536,7 +536,7 @@ bun x intlayer fill
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -544,7 +544,7 @@ bun x intlayer fill
 }
 ```
 
-> `jsxImportSource: "remix/ui"` 使得 `<HomePage />` 会被解析为 Remix 的 `createElement` 而非 React 的。
+> `jsxImportSource: "remix/component"` 使得 `<HomePage />` 会被解析为 Remix 的 `createElement` 而非 React 的。
 
 ## 结论
 

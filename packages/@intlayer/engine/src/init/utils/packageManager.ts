@@ -1,6 +1,7 @@
 import { execSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
+import { hasPrettier, PRETTIER_PLUGIN_PACKAGE_NAME } from './prettierConfig';
 import { isVersionAtLeast } from './version';
 
 /** Package managers supported for dependency installation. */
@@ -19,10 +20,11 @@ export type CompatSyncConfig = {
    */
   plugin?: 'json' | 'po';
   /**
-   * JSON format matching the compat library's conventions. Ignored when
-   * `plugin` is `'po'` (PO catalogs are always serialized as gettext).
+   * JSON message format matching the compat library's conventions (or
+   * `'intlayer'` for plain Intlayer catalogs). Ignored when `plugin` is `'po'`
+   * (PO catalogs are always serialized as gettext).
    */
-  format: 'icu' | 'i18next' | 'vue-i18n';
+  format: 'icu' | 'i18next' | 'vue-i18n' | 'intlayer';
   /**
    * Source path template using ${locale} and ${key} placeholders.
    * Rendered as a template literal in the generated config.
@@ -230,6 +232,11 @@ export type DetectMissingPackagesOptions = {
    * lint step is not part of the setup.
    */
   skipLintPlugin?: boolean;
+  /**
+   * Skip `prettier-plugin-intlayer`, even when the project formats with
+   * Prettier. Set when the Prettier step is not part of the setup.
+   */
+  skipPrettierPlugin?: boolean;
 };
 
 /** An existing i18n library Intlayer ships a compat adapter for. */
@@ -586,6 +593,11 @@ export const detectMissingIntlayerPackages = (
   // Lint rules — only when the project already lints.
   if (!options.skipLintPlugin && hasLintTooling(allDependencies)) {
     addDevIfMissing('eslint-plugin-intlayer');
+  }
+
+  // Prettier plugin — only when the project already formats with Prettier.
+  if (!options.skipPrettierPlugin && hasPrettier(allDependencies)) {
+    addDevIfMissing(PRETTIER_PLUGIN_PACKAGE_NAME);
   }
 
   // -------------------------------------------------------------------------

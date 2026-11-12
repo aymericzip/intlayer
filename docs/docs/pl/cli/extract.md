@@ -50,12 +50,6 @@ Ten polecenie analizuje pliki z kodem, aby wyodrębnić stringi z komponentów d
 
   > Przykład: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**Opcje wyjścia:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: Katalog do zapisania wygenerowanych plików deklaracji treści.
-
-  > Przykład: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: Wyodrębnij tylko kod komponentu (nie zapisuj deklaracji treści).
 
   > Przykład: `npx intlayer extract --code-only`

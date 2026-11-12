@@ -1,6 +1,7 @@
 import { createHmac } from 'node:crypto';
 import { logger } from '@logger';
 import { Octokit } from '@octokit/rest';
+import { dispatchCodebergWorkflow } from '@services/codeberg.service';
 import type { Project } from '@/types/project.types';
 
 export type TriggerResult = {
@@ -9,16 +10,29 @@ export type TriggerResult = {
   message?: string;
 };
 
+export type TriggerAllOptions = {
+  /**
+   * Skip the git provider pipeline, e.g. when the change is about to be
+   * committed to the repository, which runs the pipeline anyway
+   */
+  skipGitPipeline?: boolean;
+};
+
 /**
  * Main entry point to trigger all configured CI pipelines for a project
  */
 export const triggerAll = async (
-  project: Project
+  project: Project,
+  { skipGitPipeline = false }: TriggerAllOptions = {}
 ): Promise<TriggerResult[]> => {
   const results: TriggerResult[] = [];
 
   // Trigger Git Provider Pipeline (if configured)
-  if (project.repository && project.webhooks?.autoTriggerBuilds) {
+  if (
+    !skipGitPipeline &&
+    project.repository &&
+    project.webhooks?.autoTriggerBuilds
+  ) {
     try {
       await triggerGitPipeline(project);
       results.push({
@@ -114,6 +128,17 @@ const triggerGitPipeline = async (project: Project) => {
       return triggerGitlab(repository, token);
     case 'bitbucket':
       return triggerBitbucket(repository, token);
+    case 'codeberg':
+      return dispatchCodebergWorkflow(
+        token,
+        repository.owner,
+        repository.repository,
+        repository.branch || 'main'
+      );
+    case 'gitee':
+      throw new Error(
+        'Gitee does not expose an API to trigger pipelines. Run the Intlayer pipeline from Gitee Go.'
+      );
     default:
       throw new Error(`Unknown provider: ${provider as string}`);
   }

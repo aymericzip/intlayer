@@ -10,6 +10,8 @@ import {
   isValidElement,
   type ReactElement,
   type ReactNode,
+  useCallback,
+  useMemo,
   useState,
 } from 'react';
 import { TabSelector } from '../TabSelector';
@@ -222,18 +224,24 @@ const TabComponent = ({
     },
   });
 
-  const handleSetActiveTab = (tab: string) => {
-    setActiveTab(tab);
+  const handleSetActiveTab = useCallback(
+    (tab: string) => {
+      setActiveTab(tab);
 
-    if (group && typeof setTabsValues === 'function') {
-      setTabsValues((prev) => ({ ...prev, [group]: tab }));
-    }
-  };
+      if (group && typeof setTabsValues === 'function') {
+        setTabsValues((prev) => ({ ...prev, [group]: tab }));
+      }
+    },
+    [group, setTabsValues]
+  );
 
-  const contextValue: TabContextType = {
-    activeTab: currentTabValue ?? '',
-    setActiveTab: handleSetActiveTab,
-  };
+  const contextValue = useMemo<TabContextType>(
+    () => ({
+      activeTab: currentTabValue ?? '',
+      setActiveTab: handleSetActiveTab,
+    }),
+    [currentTabValue, handleSetActiveTab]
+  );
 
   return (
     <TabContext.Provider value={contextValue}>
@@ -258,7 +266,7 @@ const TabComponent = ({
                 <button
                   key={value}
                   className={cn(
-                    'cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none',
+                    'cursor-pointer rounded-md px-4 py-1 text-sm font-medium whitespace-nowrap transition-colors focus:outline-none',
                     !isActive && 'text-neutral/70'
                   )}
                   data-active={isActive}

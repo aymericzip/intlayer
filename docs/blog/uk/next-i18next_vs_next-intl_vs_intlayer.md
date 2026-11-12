@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "next-i18next проти next-intl проти Intlayer: порівняння 2026"
 description: "Яку i18n-бібліотеку обрати для Next.js? Порівняння next-i18next, next-intl та Intlayer за бандлом, TypeScript, Server Components, маршрутизацією та DX."
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next VS next-intl VS intlayer
+# next-i18next проти next-intl проти Intlayer
 
 ![next-i18next проти next-intl та intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 

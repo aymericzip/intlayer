@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в TanStack Start: параметр локали в маршрутах, совместимый с SSR переведённый контент, локализованные head-метаданные, hreflang и sitemap."
@@ -431,7 +431,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Ваши объявления контента могут быть определены в любом месте вашего приложения, как только они включены в директорию `contentDir` (по умолчанию, `./app`). И соответствуют расширению файла объявления контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+> Ваши объявления контента могут быть определены в любом месте вашего приложения, как только они включены в директорию `contentDir` (по умолчанию, `['.']`). И соответствуют расширению файла объявления контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Для получения дополнительной информации обратитесь к [документации по объявлениям контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
@@ -488,11 +488,14 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
 
 Далее мы можем создать хук `useLocalizedNavigate` для программной навигации:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -527,13 +530,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -554,7 +558,7 @@ export const useLocalizedNavigate = () => {
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -569,7 +573,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -602,7 +606,7 @@ function RouteComponent() {
 - [Документация по хуку useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Создание компонента переключателя локали">
+<Step number={10} title="Создание компонента переключателя локали">
 
 Создайте компонент, позволяющий пользователям изменять языки:
 
@@ -666,7 +670,7 @@ export const LocaleSwitcher: FC = () => {
 - [Документация по хуку useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Управление атрибутами HTML">
+<Step number={11} title="Управление атрибутами HTML">
 
 Как показано на шаге 5, вы можете управлять атрибутами `lang` и `dir` тега `html` используя `useParams` в вашем корневом компоненте. Это гарантирует, что правильные атрибуты установлены на сервере и клиенте.
 
@@ -686,7 +690,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Добавить middleware">
+<Step number={12} title="Добавить middleware">
 
 Вы также можете использовать `intlayerProxy` для добавления маршрутизации на стороне сервера в ваше приложение. Этот плагин автоматически определит текущую локаль на основе URL и установит соответствующий файл cookie локали. Если локаль не указана, плагин определит наиболее подходящую локаль на основе предпочтений языка браузера пользователя. Если локаль не обнаружена, он перенаправит на локаль по умолчанию.
 
@@ -723,7 +727,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Интернационализация ваших метаданных">
+<Step number={13} title="Интернационализация ваших метаданных">
 
 <Tabs>
 
@@ -769,7 +773,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -823,7 +827,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -885,7 +889,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -906,16 +910,16 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### Какое разрешение выбрать?
 
-|                      | Статическое разрешение | Динамическое разрешение    | Кэшированное динамическое разрешение   |
-| -------------------- | ---------------------- | -------------------------- | -------------------------------------- |
-| API                  | `getIntlayer`          | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
-| `head` signature     | synchronous            | `async`                    | synchronous, reads `loaderData`        |
-| Locales shipped      | every declared locale  | requested locale only      | requested locale only                  |
-| Client navigations   | nothing to resolve     | re-entered on every match  | served from the router cache           |
-| Developer experience | simplest               | one `await`                | content threaded through `loaderData`  |
+|                      | Статическое разрешение        | Динамическое разрешение           | Кэшированное динамическое разрешение   |
+| -------------------- | ----------------------------- | --------------------------------- | -------------------------------------- |
+| API                  | `getIntlayer`                 | `getIntlayerAsync` (v9.4+)        | `getIntlayerAsync` in `loader` (v9.4+) |
+| Сигнатура `head`     | синхронная                    | `async`                           | синхронная, считывает `loaderData`     |
+| Передаваемые локали  | каждая объявленная локаль     | только запрошенная локаль         | только запрошенная локаль              |
+| Клиентские переходы  | ничего не требуется разрешать | выполняется при каждом совпадении | обслуживается из кэша маршрутизатора   |
+| Опыт разработки (DX) | простейший                    | один `await`                      | контент передается через `loaderData`  |
 
 </Step>
-<Step number={13} title="Получите языковой стандарт в ваших серверных действиях">
+<Step number={14} title="Получите языковой стандарт в ваших серверных действиях">
 
 Вы можете захотеть получить доступ к текущему языковому стандарту из ваших серверных действий или конечных точек API.
 Вы можете сделать это, используя помощник `getLocale` из `intlayer`.
@@ -951,7 +955,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Управление страницами &quot;не найдено&quot;">
+<Step number={15} title="Управление страницами &quot;не найдено&quot;">
 
 Когда пользователь посещает несуществующую страницу, вы можете отобразить пользовательскую страницу "не найдено", и префикс локали может повлиять на способ срабатывания страницы "не найдено".
 
@@ -1026,7 +1030,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Извлечение содержимого ваших компонентов" isOptional={true}> isOptional={true}>
+<Step number={16} title="Извлечение содержимого ваших компонентов" isOptional={true}> isOptional={true}>
 
 Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
 
@@ -1095,7 +1099,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Начиная с версии 9, `intlayerCompiler` включен в плагин `intlayer`. Поэтому вам не нужно добавлять его вручную.
 
  </Tab>
  <Tab value='intlayer < 9'>
@@ -1139,7 +1143,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Генерация карты сайта (Sitemap)" isOptional={true}>
+<Step number={17} title="Генерация карты сайта (Sitemap)" isOptional={true}>
 
 Intlayer поставляется со встроенным генератором карты сайта, который поможет вам легко создать карту сайта для вашего приложения. Он учитывает локализованные маршруты и добавляет необходимые метаданные для поисковых систем.
 
@@ -1209,7 +1213,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Настройка TypeScript">
+<Step number={18} title="Настройка TypeScript">
 
 Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
 
@@ -1320,7 +1324,7 @@ TanStack Start не поставляется с собственным слое�
 </Question>
 <Question title="Должен ли я переносить свой контент ключ за ключом?">
 
-Нет. Запустите `npx intlayer extract`, и Intlayer прочитает ваши компоненты, извлечёт строки, видимые пользователю, и запишет файл `.content` рядом с каждым из них, так что вы просматриваете diff вместо копирования строк в каталог по одной. Шаг 15 этого руководства проводит вас через это.
+Нет. Запустите `npx intlayer extract`, и Intlayer прочитает ваши компоненты, извлечёт строки, видимые пользователю, и запишет файл `.content` рядом с каждым из них, так что вы просматриваете diff вместо копирования строк в каталог по одной. Шаг 16 этого руководства проводит вас через это.
 
 Для полностью автоматизированного конвейера [Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) делает то же самое во время сборки: он сканирует исходный код JSX, TSX, Vue и Svelte при каждом изменении, генерирует словари и поддерживает их синхронизацию через горячую замену модулей, поэтому вручную поддерживать ключи вообще не нужно.
 
@@ -1344,7 +1348,7 @@ TanStack Start не поставляется с собственным слое�
 </Question>
 <Question title="Поддерживает ли Intlayer серверный рендеринг и пре-рендеринг в TanStack Start?">
 
-Да. Контент разрешается во время SSR, а руководство охватывает конфигурацию пре-рендеринга, которая выдаёт один статический документ на каждый локализованный маршрут. Шаг 16 показывает, как включить `prerender` в `vite.config.ts` и сгенерировать локализованную карту сайта из той же таблицы маршрутов.
+Да. Контент разрешается во время SSR, а руководство охватывает конфигурацию пре-рендеринга, которая выдаёт один статический документ на каждый локализованный маршрут. Шаг 17 показывает, как включить `prerender` в `vite.config.ts` и сгенерировать локализованную карту сайта из той же таблицы маршрутов.
 
 </Question>
 <Question title="Как добавить теги hreflang и локализованную карту сайта?">
@@ -1366,7 +1370,7 @@ TanStack Start не поставляется с собственным слое�
 </Question>
 <Question title="Как обрабатывать страницы 404 на локализованных маршрутах?">
 
-Шаг 14 охватывает это. `validatePrefix` сообщает, является ли сегмент локали в URL объявленной локалью, поэтому `/xx/about` возвращает настоящий 404 вместо того, чтобы обрабатываться как путь. Без него неизвестный префикс молча разрешается, и поисковые системы индексируют дублирующую страницу.
+Шаг 15 охватывает это. `validatePrefix` сообщает, является ли сегмент локали в URL объявленной локалью, поэтому `/xx/about` возвращает настоящий 404 вместо того, чтобы обрабатываться как путь. Без него неизвестный префикс молча разрешается, и поисковые системы индексируют дублирующую страницу.
 
 </Question>
 <Question title="Как автоматически перевести приложение TanStack Start с помощью ИИ?">

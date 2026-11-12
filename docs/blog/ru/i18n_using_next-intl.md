@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n в Next.js 16 с next-intl: руководство по настройке App Router"
 description: "Пошаговая настройка next-intl в приложении Next.js 16 с App Router: маршрутизация по локалям, загрузка сообщений для каждой страницы, серверные и клиентские компоненты и SEO-метаданные."
@@ -39,7 +39,7 @@ author: aymericzip
 
 > Сравнение доступно в статье [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Сравнение next-i18next, next-intl и Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
 
 > Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
 
@@ -106,7 +106,7 @@ author: aymericzip
 > Размеры runtime взяты из [бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md). Подробное обсуждение читайте в [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
 - [бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Сравнение next-i18next, next-intl и Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Практики, которые следует соблюдать
 
@@ -877,7 +877,7 @@ Intlayer позволяет вам:
 
 - [Отчёт бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md)
 - [Набор бенчмарков i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
+- [Сравнение next-intl и @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
 - [Compat-адаптер @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-intl.md)
 
 </Step>

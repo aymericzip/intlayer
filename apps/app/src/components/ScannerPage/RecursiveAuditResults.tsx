@@ -63,13 +63,13 @@ const PageRow: FC<{ page: Page }> = ({ page }) => {
     <>
       <tr
         className={cn(
-          `border-neutral/10 border-t transition-colors`,
+          `border-t border-neutral/10 transition-colors`,
           hasResults && 'cursor-pointer hover:bg-card/80'
         )}
         onClick={() => hasResults && setExpanded((value) => !value)}
       >
         <td className="p-3">
-          <div className="rtl-mirror-icons flex items-center gap-1.5">
+          <div className="flex rtl-mirror-icons items-center gap-1.5">
             {hasResults ? (
               expanded ? (
                 <ChevronDown className="size-3.5 shrink-0 text-text/40" />
@@ -110,7 +110,7 @@ const PageRow: FC<{ page: Page }> = ({ page }) => {
       </tr>
 
       {expanded && hasResults && (
-        <tr className="border-neutral/10 border-t bg-card/30">
+        <tr className="border-t border-neutral/10 bg-card/30">
           <td colSpan={3} className="p-0">
             <div className="divide-y divide-neutral/10">
               {checkResults.map((check, i) => (
@@ -122,7 +122,7 @@ const PageRow: FC<{ page: Page }> = ({ page }) => {
                     id={`recursive-${page.url}-${check.type ?? i}`}
                     event={check}
                   />
-                  <span className="min-w-0 flex-1 font-medium text-xs">
+                  <span className="min-w-0 flex-1 text-xs font-medium">
                     {check.type ? formatCheckName(check.type) : '—'}
                   </span>
                   <Tag
@@ -163,9 +163,9 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
       job.status === 'paused';
 
     return (
-      <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dotted pt-6 text-start">
+      <div className="mt-6 flex flex-col gap-4 border-t border-dotted border-neutral pt-6 text-start">
         <div className="flex items-center justify-between gap-4">
-          <h3 className="font-semibold text-lg">{title}</h3>
+          <h3 className="text-lg font-semibold">{title}</h3>
           <div className="flex items-center gap-2">
             <Tag color={tagColor(job.status)}>{job.status}</Tag>
             {isActive && (
@@ -213,7 +213,7 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
               style={{ width: `${job.progress}%` }}
             />
           </div>
-          <div className="text-text/50 text-xs">
+          <div className="text-xs text-text/50">
             {job.completedPageCount} / {job.totalPageCount} {pagesAudited}
           </div>
         </div>

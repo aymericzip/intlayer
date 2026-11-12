@@ -61,16 +61,16 @@ const WebhookItem: FC<WebhookItemProps> = ({
         <div className="flex items-center gap-2">
           <span className="truncate font-semibold">{webhook.name}</span>
           {webhook.enabled ? (
-            <span className="flex items-center gap-1 rounded-full bg-text/10 px-2 py-0.5 font-medium text-text text-xs">
+            <span className="flex items-center gap-1 rounded-full bg-text/10 px-2 py-0.5 text-xs font-medium text-text">
               <CheckCircle size={12} /> {webhooksSection.list.enabled}
             </span>
           ) : (
-            <span className="flex items-center gap-1 rounded-full bg-neutral/10 px-2 py-0.5 font-medium text-neutral text-xs">
+            <span className="flex items-center gap-1 rounded-full bg-neutral/10 px-2 py-0.5 text-xs font-medium text-neutral">
               <XCircle size={12} /> {webhooksSection.list.disabled}
             </span>
           )}
         </div>
-        <span className="block truncate text-neutral text-xs">
+        <span className="block truncate text-xs text-neutral">
           {webhook.url}
         </span>
       </div>
@@ -99,9 +99,10 @@ const WebhookItem: FC<WebhookItemProps> = ({
   );
 };
 
-// Only validation needed here is for the global toggle
+// Only validation needed here is for the global toggles
 const buildSettingsSchema = z.object({
   autoTriggerBuilds: z.boolean(),
+  autoCommitDictionaries: z.boolean(),
 });
 
 type BuildSettingsFormData = z.infer<typeof buildSettingsSchema>;
@@ -116,8 +117,13 @@ export const BuildSettings: FC = () => {
   const { mutate: updateProject, isPending: isUpdating } = useUpdateProject();
   const { mutate: triggerBuild, isPending: isBuilding } = useTriggerBuild();
 
-  const { title, gitProviderSection, webhooksSection, saveButton } =
-    useIntlayer('build-settings');
+  const {
+    title,
+    gitProviderSection,
+    autoCommitSection,
+    webhooksSection,
+    saveButton,
+  } = useIntlayer('build-settings');
 
   // We keep a local state for the webhooks list that syncs with DB
   const [webhooksList, setWebhooksList] = useState<Webhook[]>([]);
@@ -143,6 +149,7 @@ export const BuildSettings: FC = () => {
 
   const defaultValues: BuildSettingsFormData = {
     autoTriggerBuilds: project?.webhooks?.autoTriggerBuilds ?? false,
+    autoCommitDictionaries: project?.webhooks?.autoCommitDictionaries ?? false,
   };
 
   const { form } = useForm(buildSettingsSchema, {
@@ -174,6 +181,7 @@ export const BuildSettings: FC = () => {
     updateProject({
       webhooks: {
         autoTriggerBuilds: form.getValues('autoTriggerBuilds'),
+        autoCommitDictionaries: form.getValues('autoCommitDictionaries'),
         webhooks: newList,
       },
     });
@@ -186,6 +194,7 @@ export const BuildSettings: FC = () => {
   const handleSaveAll = (formData: BuildSettingsFormData) => {
     const config: ProjectConfigCI = {
       autoTriggerBuilds: formData.autoTriggerBuilds,
+      autoCommitDictionaries: formData.autoCommitDictionaries,
       webhooks: webhooksList,
     };
 
@@ -236,7 +245,7 @@ export const BuildSettings: FC = () => {
                   ? gitProviderSection.title({ provider })
                   : gitProviderSection.noProvider}
               </H4>
-              <p className="max-w-md text-neutral text-sm">
+              <p className="max-w-md text-sm text-neutral">
                 {gitProviderSection.description}
               </p>
             </div>
@@ -265,12 +274,37 @@ export const BuildSettings: FC = () => {
           )}
         </Container>
 
+        {/* Commit CMS edits back to the codebase */}
+        <Container
+          roundedSize="2xl"
+          border={true}
+          borderColor="text"
+          className="flex flex-col gap-4 px-6 py-4"
+        >
+          <div className="flex gap-4">
+            <div className="flex flex-1 flex-col gap-1">
+              <H4>{autoCommitSection.title}</H4>
+              <p className="max-w-md text-sm text-neutral">
+                {autoCommitSection.description}
+              </p>
+            </div>
+            <div className="flex-0">
+              <FormSwitchSelector
+                name="autoCommitDictionaries"
+                disabled={!isProjectAdmin || !provider}
+                color="text"
+                size="sm"
+              />
+            </div>
+          </div>
+        </Container>
+
         {/* Webhooks List Section */}
         <div className="flex flex-col gap-4">
           <div className="flex gap-4">
             <div className="flex flex-1 flex-col gap-1">
               <H4>{webhooksSection.title}</H4>
-              <p className="text-neutral text-sm">
+              <p className="text-sm text-neutral">
                 {webhooksSection.description}
               </p>
             </div>
@@ -313,7 +347,7 @@ export const BuildSettings: FC = () => {
                 borderColor="neutral"
                 className="h-20 items-center justify-center px-6 py-2"
               >
-                <p className="text-neutral text-sm">
+                <p className="text-sm text-neutral">
                   {webhooksSection.noWebhooks}
                 </p>
               </Container>
@@ -334,7 +368,7 @@ export const BuildSettings: FC = () => {
 
         {/* Global Save Button */}
         {isProjectAdmin && (
-          <div className="flex justify-end border-neutral/30 border-t border-dotted p-3">
+          <div className="flex justify-end border-t border-dotted border-neutral/30 p-3">
             <FormButton
               type="submit"
               label={saveButton.ariaLabel.value}

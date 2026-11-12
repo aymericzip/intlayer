@@ -1,6 +1,5 @@
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 

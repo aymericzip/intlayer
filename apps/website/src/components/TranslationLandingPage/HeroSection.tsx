@@ -32,7 +32,7 @@ export const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
     <Container
       roundedSize="2xl"
       padding="md"
-      className={cn('relative text-foreground-dark', className)}
+      className={cn('text-foreground-dark relative', className)}
     >
       <div className="mb-2 flex items-center justify-between">
         <span className="text-foreground-dark/70 text-xs">{title}</span>
@@ -59,7 +59,7 @@ export const Pill: FC<{ children: ReactNode; className?: string }> = ({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-foreground text-xs backdrop-blur supports-[corner-shape:squircle]:rounded-full',
+        'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-xs text-foreground backdrop-blur supports-[corner-shape:squircle]:rounded-full',
         className
       )}
     >
@@ -136,11 +136,11 @@ export const HeroSection: FC = () => {
           className="grid grid-cols-1 items-start gap-x-8 gap-y-20 md:grid-cols-12"
         >
           <div className="md:col-span-7">
-            <h1 className="text-balance font-semibold text-4xl text-foreground leading-tight md:text-5xl">
+            <h1 className="text-4xl leading-tight font-semibold text-balance text-foreground md:text-5xl">
               {title}
             </h1>
 
-            <p className="mt-4 max-w-xl text-pretty text-base text-foreground/70 md:text-lg">
+            <p className="mt-4 max-w-xl text-base text-pretty text-foreground/70 md:text-lg">
               {description}
             </p>
 
@@ -177,7 +177,7 @@ export const HeroSection: FC = () => {
                 <div className="rounded-lg bg-text/10 p-2">
                   <Globe className="size-5 text-foreground" />
                 </div>
-                <div className="font-medium text-foreground text-sm">
+                <div className="text-sm font-medium text-foreground">
                   {card.title}
                 </div>
               </div>
@@ -190,7 +190,7 @@ export const HeroSection: FC = () => {
               </CodeBlock>
             </CodeBlockWrapper>
 
-            <div className="mt-4 grid grid-cols-2 gap-3 text-foreground/70 text-xs">
+            <div className="mt-4 grid grid-cols-2 gap-3 text-xs text-foreground/70">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="size-4 text-foreground" />
                 {card.features.noMonthlyFees}

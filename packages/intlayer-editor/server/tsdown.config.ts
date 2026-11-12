@@ -8,7 +8,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const options: UserConfig[] = getOptions({
   all: {
     outDir: `${__dirname}/dist`,
-    entry: ['./src/**/*.ts'],
+    entry: [
+      './src/**/*.ts',
+      '!./src/**/*.test.*',
+      '!./src/**/*.spec.*',
+      '!./src/**/__tests__/**',
+    ],
   },
 });
 

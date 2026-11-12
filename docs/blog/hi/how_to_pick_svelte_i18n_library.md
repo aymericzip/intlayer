@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "2026 में सही Svelte i18n लाइब्रेरी कैसे चुनें"
 description: "Svelte और SvelteKit i18n चुनने की गाइड: svelte-i18n, Paraglide, typesafe-i18n, wuchale और Intlayer की तुलना से पहले के सवाल।"
@@ -98,11 +98,11 @@ Paraglide प्रत्येक संदेश को एक exported functi
 
 | लाइब्रेरी       | संदेश कहाँ रहते हैं                    | Locale state                                 | टाइप सुरक्षा             | Message format                | Per-route splitting      | लाइब्रेरी का आकार                               |
 | :-------------- | :------------------------------------- | :------------------------------------------- | :----------------------- | :---------------------------- | :----------------------- | :---------------------------------------------- |
-| `svelte-i18n`   | प्रति locale JSON कैटलॉग               | Module-level Svelte store                    | 2/5 — Manual union       | ICU                           | No                       | ~16.6 kB                                        |
-| `typesafe-i18n` | Generated TS modules                   | Store adapter                                | 4/5 — Generated          | Own                           | Partial                  | Small                                           |
-| Paraglide       | inlang प्रोजेक्ट, functions में संकलित | Cookie, URL या storage से प्रति कॉल पढ़ा गया | 3.5/5 — Generated        | Own                           | Yes, tree-shaking द्वारा | Near zero (कोडबेस में जनरेट किए गए कोड के कारण) |
+| `svelte-i18n`   | प्रति locale JSON कैटलॉग               | Module-level Svelte store                    | 2/5 - Manual union       | ICU                           | No                       | ~16.6 kB                                        |
+| `typesafe-i18n` | Generated TS modules                   | Store adapter                                | 4/5 - Generated          | Own                           | Partial                  | Small                                           |
+| Paraglide       | inlang प्रोजेक्ट, functions में संकलित | Cookie, URL या storage से प्रति कॉल पढ़ा गया | 3.5/5 - Generated        | Own                           | Yes, tree-shaking द्वारा | Near zero (कोडबेस में जनरेट किए गए कोड के कारण) |
 | `wuchale`       | बिल्ड पर मार्कअप से निकाला गया         | Store                                        | N/A (keys नहीं)          | Own                           | Yes                      | ~30.7 kB                                        |
-| Intlayer        | घटक के बगल में `.content.ts`           | Context plus store, rune-aware               | 5/5 — Generated, default | Intlayer (+ ICU, i18next, PO) | Yes, प्रति घटक           | ~3.6 kB                                         |
+| Intlayer        | घटक के बगल में `.content.ts`           | Context plus store, rune-aware               | 5/5 - Generated, default | Intlayer (+ ICU, i18next, PO) | Yes, प्रति घटक           | ~3.6 kB                                         |
 
 > संख्याएं बेंचमार्क के संस्करणों पर एक स्नैपशॉट हैं। अकेले आकार पर निर्णय लेने से पहले इसे अपने ऐप पर चलाएं।
 > टाइप सुरक्षा: 5/5 का अर्थ है कि URL फॉर्मेटर और हेल्पर्स सहित कुंजियाँ, पैरामीटर और हर लोकेल बिना किसी मैन्युअल सेटअप के जाँचे जाते हैं।

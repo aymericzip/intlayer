@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "تدويل React Router v7 - الدليل الكامل لترجمة تطبيقك"
 description: "إعداد Intlayer في React Router v7: أجزاء مسارات مترجمة، وloaders ومكوّنات مترجمة، وhreflang، وخريطة موقع متعددة اللغات."
@@ -46,11 +46,11 @@ author: aymericzip
 
 يغطي هذا الدليل كلاً من **التوجيه المعتمد على الإعدادات** (`routes.ts`) و**التوجيه المعتمد على نظام الملفات** (`@react-router/fs-routes`).
 
-## Table of Contents
+## جدول المحتويات
 
 <TOC/>
 
-## لماذا Intlayer على البدائل؟
+## لماذا تختار Intlayer مقارنة بالبدائل الأخرى؟
 
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
@@ -62,41 +62,41 @@ author: aymericzip
 </Accordion>
 <Accordion header="حجم الحزمة">
 
-بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer في **تقليل حجم حزمة JavaScript (bundle size) وصفحاتك بنسبة تصل إلى 50%**.
 
 </Accordion>
 <Accordion header="قابلية الصيانة">
 
-يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+تحديد نطاق المحتوى لكل مكوّن على حدة **يُسهّل صيانة التطبيقات الكبيرة**. يمكنك نسخ مجلد ميزة بالكامل أو حذفه دون القلق بشأن مراجعة قاعدة بيانات المحتوى بأكملها. بالإضافة إلى ذلك، فإن Intlayer **مكتوب بنظام أنواع قوي (Fully Typed)** لضمان الدقة الكاملة لمحتواك.
 
 </Accordion>
-<Accordion header="وكيل الذكاء الاصطناعي">
+<Accordion header="وكلاء الذكاء الاصطناعي (AI Agents)">
 
-يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+يؤدي وضع المحتوى إلى جانب المكونات (Co-location) إلى **تقليل السياق المطلوب** بواسطة نماذج اللغات الكبيرة (LLMs). كما يوفر Intlayer مجموعة أدوات متكاملة مثل **واجهة سطر الأوامر (CLI)** لفحص الترجمات المفقودة، و**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و**[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و**[مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لتوفير أفضل تجربة تطوير لوكلاء الذكاء الاصطناعي.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
 
 </Accordion>
 <Accordion header="التشغيل الآلي">
 
-استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+استخدم الأتمتة لترجمة المحتوى مباشرةً في مسار CI/CD الخاص بك باستخدام نموذج اللغة الكبير (LLM) الذي تختاره ووفق تكلفة مزود الذكاء الاصطناعي لديك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
 
 - [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="أداء">
+<Accordion header="الأداء الفائق">
 
-يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+قد يؤدي تحميل ملفات JSON ضخمة في المكونات إلى مشكلات في الأداء وسرعة الاستجابة. يعمل Intlayer على تحسين تحميل المحتوى بدقة عند وقت البناء (Build Time).
 
 </Accordion>
-<Accordion header="التحجيم مع عدم وجود مطور">
+<Accordion header="تمكين الفرق غير التقنية (Non-Developers)">
 
-أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و**[نظام إدارة محتوى كامل (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لإدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين وكتاب المحتوى وأعضاء الفريق الآخرين سلسًا للغاية. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 - [المحرّر المرئي في Intlayer: عدّل المحتوى في سياقه](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
-- [كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -281,7 +281,7 @@ export default config;
 │   │   ├── ($locale).about.content.ts
 │   │   └── ($locale).about.tsx
 │   ├── root.tsx                      # Root layout for IntlayerProvider
-│   └── routes.ts                     # Route definition file using flatRoutes
+│   └── routes.ts                     # ملف تعريف المسارات باستخدام flatRoutes
 ├── intlayer.config.ts
 ├── package.json
 ├── react-router.config.ts
@@ -348,9 +348,9 @@ export default [
 ```
 
 </Tab>
-<Tab label="File-system routes" value="fs-routes">
+<Tab label="مسارات نظام الملفات" value="fs-routes">
 
-Set up your routing configuration to use file-system based routes with `flatRoutes`:
+قم بإعداد تكوين التوجيه الخاص بك لاستخدام المسارات القائمة على نظام الملفات باستخدام `flatRoutes`:
 
 ```typescript fileName="app/routes.ts"
 import type { RouteConfig } from "@react-router/dev/routes";
@@ -367,7 +367,7 @@ const routes: RouteConfig = flatRoutes({
 export default routes;
 ```
 
-> The `flatRoutes` function from `@react-router/fs-routes` enables file-system based routing, where the file structure in the `routes/` directory determines your application's routes. The `ignoredRouteFiles` option ensures that Intlayer content declaration files (`.content.ts`, etc.) are not treated as route files.
+> تتيح دالة `flatRoutes` من `@react-router/fs-routes` التوجيه القائم على نظام الملفات، حيث تحدد بنية الملفات في دليل `routes/` مسارات تطبيقك. ويضمن خيار `ignoredRouteFiles` عدم التعامل مع ملفات إعلان محتوى Intlayer (`.content.ts` وما إلى ذلك) كملفات مسارات.
 
 </Tab>
 </Tabs>
@@ -964,56 +964,56 @@ bun run build # Or bun run dev
 
 </Steps>
 
-## Configure TypeScript
+## تكوين TypeScript
 
-Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
+يستخدم Intlayer ميزة زيادة الوحدات (module augmentation) للاستفادة من مزايا TypeScript وجعل قاعدة الكود الخاصة بك أكثر قوة وموثوقية.
 
-Ensure your TypeScript configuration includes the autogenerated types:
+تأكد من أن تكوين TypeScript يتضمن الأنواع التي يتم إنشاؤها تلقائيًا:
 
 ```json5 fileName="tsconfig.json"
 {
   // ... your existing configurations
   include: [
     // ... your existing includes
-    ".intlayer/**/*.ts", // Include the auto-generated types
+    ".intlayer/**/*.ts", // تضمين الأنواع المُنشأة تلقائيًا
   ],
 }
 ```
 
-## Git Configuration
+## تكوين Git
 
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer، لتجنب حفظها في مستودع Git الخاص بك.
 
-To do this, you can add the following instructions to your `.gitignore` file:
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
 ```plaintext fileName=".gitignore"
-# Ignore the files generated by Intlayer
+# تجاهل الملفات المُنشأة بواسطة Intlayer
 .intlayer
 ```
 
-## VS Code Extension
+## إضافة VS Code
 
-To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
 
-- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [التثبيت من VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-This extension provides:
+توفر هذه الإضافة ما يلي:
 
-- **Autocompletion** for translation keys.
-- **Real-time error detection** for missing translations.
-- **Inline previews** of translated content.
-- **Quick actions** to easily create and update translations.
+- **الإكمال التلقائي** لمفاتيح الترجمة.
+- **اكتشاف الأخطاء في الوقت الفعلي** للترجمات المفقودة.
+- **معاينة مضمنة (inline preview)** للمحتوى المترجم.
+- **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
+لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
 
-- [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [توثيق إضافة Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
 
-## Go Further
+## المضي قدمًا
 
-To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+للمضي قدمًا، يمكنك تفعيل [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إدارة المحتوى الخاص بك خارجيًا باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
-- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
-- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## مراجع التوثيق
 

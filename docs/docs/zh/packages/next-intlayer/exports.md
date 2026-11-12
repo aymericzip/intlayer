@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-10-08
 priority: 5
 title: next-intlayer 包文档
 description: Next.js 专用的 Intlayer 集成，提供用于 App Router 和 Page Router 的中间件与提供者。
@@ -90,7 +90,7 @@ import "next-intlayer/server";
 | `MarkdownProvider`       | 用于 Markdown 渲染上下文的 Provider。允许为 Markdown 元素覆盖自定义组件。                                                                                          | -        |
 | `MarkdownRenderer`       | 使用自定义组件渲染 Markdown 内容。                                                                                                                                 | -        |
 
-### 钩子（客户端）
+### Hook（客户端）
 
 导入：
 
@@ -98,9 +98,9 @@ import "next-intlayer/server";
 import "next-intlayer";
 ```
 
-重新导出大多数来自 `react-intlayer` 的钩子。
+重新导出大多数来自 `react-intlayer` 的Hook。
 
-| 钩子                   | 描述                                                                                                         | 相关文档                                                                                                                |
+| Hook                   | 描述                                                                                                         | 相关文档                                                                                                                |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | `useIntlayer`          | 在客户端使用的 Hook，通过其 key 选择一个 dictionary 并返回其内容。若未提供 locale，则使用上下文中的 locale。 | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)     |
 | `useDictionary`        | 将字典对象转换并返回当前 locale 的内容的 Hook。处理 `t()` 翻译、枚举等。                                     | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useDictionary.md) |

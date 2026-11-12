@@ -1,63 +1,41 @@
-import { getIntlayerAPI } from '@intlayer/api';
-import { editor } from '@intlayer/config/built';
-import { getEditorClientSecret } from '@intlayer/config/secrets';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import { z } from 'zod/mini';
+import { type APIToolsOptions, getAuthenticatedAPI } from './apiAuth';
 import type { McpServer } from './docs';
 
-type LoadAPITools = (server: McpServer) => void;
+type LoadAPITools = (server: McpServer, options?: APIToolsOptions) => void;
 
-const authSchema = {
+/** Optional access key credentials accepted by every authenticated tool. */
+type AuthSchema = {
+  clientId: z.ZodMiniOptional<z.ZodMiniString<string>>;
+  clientSecret: z.ZodMiniOptional<z.ZodMiniString<string>>;
+};
+
+export const authSchema: AuthSchema = {
   clientId: z.optional(z.string()).register(z.globalRegistry, {
     description:
-      'Intlayer OAuth2 client ID (access key). Falls back to INTLAYER_CLIENT_ID env var.',
+      'Intlayer OAuth2 client ID (access key). Optional: prefer configuring credentials on the MCP server (env vars locally, headers when hosted) so the secret never appears in the conversation.',
   }),
   clientSecret: z.optional(z.string()).register(z.globalRegistry, {
     description:
-      'Intlayer OAuth2 client secret. Falls back to INTLAYER_CLIENT_SECRET env var.',
+      'Intlayer OAuth2 client secret. Optional: prefer configuring credentials on the MCP server so the secret never appears in the conversation.',
   }),
 };
 
-const getAPI = async (clientId?: string, clientSecret?: string) => {
-  const resolvedClientId = clientId ?? editor.clientId;
+/** Text content block returned by a tool call. */
+type ToolTextContent = { type: 'text'; text: string };
 
-  const resolvedClientSecret = clientSecret ?? getEditorClientSecret();
+/** Successful tool call result. */
+export type ToolSuccessResult = { content: [ToolTextContent] };
 
-  if (!resolvedClientId || !resolvedClientSecret) {
-    throw new Error(
-      'Intlayer credentials not found. Provide clientId/clientSecret or set INTLAYER_CLIENT_ID/INTLAYER_CLIENT_SECRET.'
-    );
-  }
+/** Failed tool call result. */
+export type ToolErrorResult = { content: [ToolTextContent]; isError: true };
 
-  const configWithCreds = {
-    editor: {
-      ...editor,
-      clientId: resolvedClientId,
-      clientSecret: resolvedClientSecret,
-    },
-  };
-
-  const tempAPI = getIntlayerAPI({}, configWithCreds);
-  const tokenResult = await tempAPI.oAuth.getOAuth2AccessToken();
-  const token = (tokenResult as any)?.data?.access_token as string | undefined;
-
-  if (!token) {
-    throw new Error(
-      'Failed to obtain OAuth2 access token. Check your credentials.'
-    );
-  }
-
-  return getIntlayerAPI(
-    { headers: { Authorization: `Bearer ${token}` } },
-    { editor }
-  );
-};
-
-const ok = (data: unknown) => ({
+export const ok = (data: unknown): ToolSuccessResult => ({
   content: [{ type: 'text' as const, text: JSON.stringify(data, null, 2) }],
 });
 
-const fail = (label: string, error: unknown) => ({
+export const fail = (label: string, error: unknown): ToolErrorResult => ({
   content: [
     {
       type: 'text' as const,
@@ -67,7 +45,7 @@ const fail = (label: string, error: unknown) => ({
   isError: true as const,
 });
 
-export const loadAPITools: LoadAPITools = (server) => {
+export const loadAPITools: LoadAPITools = (server, options = {}) => {
   // ── Dictionaries ──────────────────────────────────────────────────────────
 
   server.registerTool(
@@ -89,7 +67,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.dictionary.getDictionaries({
           page,
           pageSize,
@@ -116,7 +97,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, dictionaryKey }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.dictionary.getDictionary(dictionaryKey);
         return ok(result);
       } catch (error) {
@@ -163,7 +147,10 @@ export const loadAPITools: LoadAPITools = (server) => {
       content,
     }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.dictionary.addDictionary({
           dictionary: {
             key,
@@ -217,7 +204,10 @@ export const loadAPITools: LoadAPITools = (server) => {
       content,
     }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.dictionary.updateDictionary({
           id,
           key,
@@ -248,7 +238,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, dictionaryId }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.dictionary.deleteDictionary(dictionaryId);
         return ok(result);
       } catch (error) {
@@ -277,7 +270,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.tag.getTags({ page, pageSize });
         return ok(result);
       } catch (error) {
@@ -318,7 +314,10 @@ export const loadAPITools: LoadAPITools = (server) => {
       instructions,
     }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.tag.addTag({
           key,
           name,
@@ -367,7 +366,10 @@ export const loadAPITools: LoadAPITools = (server) => {
       instructions,
     }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.tag.updateTag(tagId, {
           key,
           name,
@@ -396,7 +398,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, tagId }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.tag.deleteTag(tagId);
         return ok(result);
       } catch (error) {
@@ -425,7 +430,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.organization.getOrganizations({
           page,
           pageSize,
@@ -453,7 +461,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, organizationId }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result =
           await api.organization.selectOrganization(organizationId);
         return ok(result);
@@ -478,7 +489,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, name }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.organization.updateOrganization({
           name,
         });
@@ -510,7 +524,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.project.getProjects({ page, pageSize });
         return ok(result);
       } catch (error) {
@@ -535,7 +552,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, projectId }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.project.selectProject(projectId);
         return ok(result);
       } catch (error) {
@@ -559,7 +579,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, name }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.project.addProject({ name });
         return ok(result);
       } catch (error) {
@@ -583,7 +606,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, name }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.project.updateProject({ name });
         return ok(result);
       } catch (error) {
@@ -610,7 +636,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, environmentId }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.environment.selectEnvironment(environmentId);
         return ok(result);
       } catch (error) {
@@ -632,7 +661,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.environment.resetToProductionEnvironment();
         return ok(result);
       } catch (error) {
@@ -656,7 +688,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, name }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.environment.addEnvironment({ name });
         return ok(result);
       } catch (error) {
@@ -683,7 +718,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, environmentId, name }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.environment.updateEnvironment(environmentId, {
           name,
         });
@@ -709,7 +747,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     },
     async ({ clientId, clientSecret, environmentId }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.environment.deleteEnvironment(environmentId);
         return ok(result);
       } catch (error) {
@@ -759,7 +800,10 @@ export const loadAPITools: LoadAPITools = (server) => {
       migrateConfiguration,
     }) => {
       try {
-        const api = await getAPI(clientId, clientSecret);
+        const api = await getAuthenticatedAPI(
+          { clientId, clientSecret },
+          options
+        );
         const result = await api.environment.migrateEnvironment({
           sourceEnvironmentId,
           targetEnvironmentId,

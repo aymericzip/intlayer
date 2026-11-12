@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-10-08
 priority: 5
 title: solid-intlayer 包文档
 description: Intlayer 在 Solid 上的集成，提供用于 Solid 应用的 providers 和 hooks。
@@ -48,7 +48,7 @@ import "solid-intlayer";
 | ------------------ | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerProvider` | 主要的 provider，用于包裹你的应用并提供 Intlayer 上下文。 | [IntlayerProvider](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/IntlayerProvider.md) |
 
-### 钩子 (Hooks)
+### Hook (Hooks)
 
 导入：
 
@@ -56,7 +56,7 @@ import "solid-intlayer";
 import "solid-intlayer";
 ```
 
-| 钩子                   | 描述                                                                                        | 相关文档                                                                                                                |
+| Hook                   | 描述                                                                                        | 相关文档                                                                                                                |
 | ---------------------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `useIntlayer`          | 基于 `useDictionary`，但注入了从生成的声明中优化后的字典版本。                              | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)     |
 | `useDictionary`        | 处理类似字典（键，内容）的对象。它处理 `t()` 翻译、枚举等。                                 | -                                                                                                                       |

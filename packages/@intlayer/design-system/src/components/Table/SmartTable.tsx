@@ -245,7 +245,7 @@ export const SmartTable: FC<SmartTableProps> = ({
           <div className="grid">
             <Table
               ref={modalTableRef}
-              className={cn('min-w-full max-w-full text-start', className)}
+              className={cn('max-w-full min-w-full text-start', className)}
               isInteractive={isInteractive}
               {...props}
             />

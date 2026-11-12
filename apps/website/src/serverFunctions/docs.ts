@@ -1,11 +1,12 @@
 import { createServerFn } from '@tanstack/react-start';
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
+import { getIntlayer } from 'intlayer';
 import { parseMarkdown } from 'react-intlayer/markdown';
 import {
-  getDocData,
   getPreviousNextDocMetadata,
   toNavSection,
 } from '~/components/DocPage/docData';
+import type { Section } from '~/components/DocPage/types';
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadDocPage = createServerFn()
@@ -27,9 +28,8 @@ export const loadDocPage = createServerFn()
 
     if (!exactMatch) return { exactMatch: null, docsData, content: null };
 
-    const { highlightMarkdownCodeBlocks } = await import(
-      '~/utils/highlightMarkdown'
-    );
+    const { highlightMarkdownCodeBlocks } =
+      await import('~/utils/highlightMarkdown');
 
     const defaultDocData = await getDocMetadata(exactMatch.docKey as any);
     const file = await getDoc(exactMatch.docKey as any, locale);
@@ -66,7 +66,11 @@ export const loadDocPage = createServerFn()
 export const loadNavData = createServerFn()
   .validator((data: { locale: string }) => data)
   .middleware([staticFunctionMiddleware])
-  .handler(async ({ data: { locale } }) => toNavSection(getDocData(locale)));
+  .handler(async ({ data: { locale } }) => {
+    const docData = getIntlayer('doc-data', locale) as Section;
+
+    return toNavSection(docData);
+  });
 
 export const loadDocRaw = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)

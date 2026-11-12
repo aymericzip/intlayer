@@ -1,26 +1,22 @@
 {
   "name": "@intlayer/babel",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": false,
   "description": "A Babel plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
-    "intlayer",
     "babel",
-    "plugin",
+    "file",
     "internationalization",
-    "transpile",
-    "typescript",
+    "intlayer",
     "javascript",
     "json",
-    "file"
+    "plugin",
+    "transpile",
+    "typescript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -34,20 +30,15 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
-    },
-    "./babelParser": {
-      "types": "./dist/types/babelParser.d.ts",
-      "require": "./dist/cjs/babelParser.cjs",
-      "import": "./dist/esm/babelParser.mjs"
-    },
-    "./package.json": "./package.json"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "sideEffects": false,
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
@@ -61,19 +52,28 @@
       ]
     }
   },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./babelParser": {
+      "types": "./dist/types/babelParser.d.ts",
+      "require": "./dist/cjs/babelParser.cjs",
+      "import": "./dist/esm/babelParser.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --configLoader runner --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -84,12 +84,12 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@babel/core": "8.0.6",
-    "@babel/generator": "8.0.6",
-    "@babel/parser": "7.29.9",
+    "@babel/core": "8.1.0",
+    "@babel/generator": "8.1.0",
+    "@babel/parser": "8.1.0",
     "@babel/plugin-syntax-jsx": "8.0.1",
-    "@babel/traverse": "8.0.6",
-    "@babel/types": "8.0.6",
+    "@babel/traverse": "8.1.0",
+    "@babel/types": "8.1.0",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
@@ -105,11 +105,11 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "@vitejs/plugin-react": "6.1.1",
-    "rimraf": "6.1.3",
-    "tsdown": "0.23.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "rimraf": "6.1.4",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   },
   "peerDependencies": {
     "@intlayer/svelte-compiler": "workspace:*",

@@ -36,9 +36,8 @@ export const parseMarkdown = async (
   markdown: string = '',
   options: CompileOptions = {}
 ): Promise<ParsedMarkdown> => {
-  const { parseMarkdown: coreParseMarkdown } = await import(
-    '@intlayer/core/markdown'
-  );
+  const { parseMarkdown: coreParseMarkdown } =
+    await import('@intlayer/core/markdown');
 
   const {
     components,

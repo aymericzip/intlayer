@@ -1,7 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Build Dictionaries
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer build: Build Dictionaries from Content"
 description: Learn how to build your Intlayer dictionaries from content declaration files.
 keywords:
   - Build
@@ -16,24 +17,49 @@ slugs:
 history:
   - version: 9.5.2
     date: 2026-09-12
-    changes: Add `--ci` flag
+    changes: "Add `--ci` flag"
   - version: 8.1.5
     date: 2026-02-23
-    changes: Add checkTypes option
+    changes: "Add checkTypes option"
+author: aymericzip
 ---
 
 # Build Dictionaries
 
 To build your dictionaries, you can run the commands:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 or in watch mode
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 This command will find your declaration content files as default as `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. And build the dictionaries in the `.intlayer` directory.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Intlayer로 번역 테스트하기"
 description: "Intlayer 콘텐츠를 테스트하세요: 누락된 번역 감지, CI에서 사전 검증, 단위 테스트에서 로케일별 컴포넌트 렌더링."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "필수 로케일 누락 시 content test가 0이 아닌 코드로 종료됨을 명확히 함"
   - version: 6.0.0
     date: 2025-09-20
     changes: "테스트 도입"
@@ -29,7 +32,7 @@ author: aymericzip
 
 - **누락된 번역**: 필수 로케일이 사전에서 누락된 경우 CI 실패 처리.
 - **현지화된 UI 렌더링**: 특정 로케일 제공자와 함께 컴포넌트를 렌더링하고, 표시된 텍스트/속성을 검증.
-- **빌드 시 감사**: CLI를 통해 로컬에서 빠른 감사를 실행.
+- **빌드 시 감사**: `npx intlayer content test`를 로컬 또는 CI에서 실행하세요. 필수 번역이 누락되면 0이 아닌 코드로 종료됩니다.
 
 ## 빠른 시작: CLI를 통한 감사
 
@@ -59,7 +62,7 @@ bun x intlayer content test
 - `--verbose`: 자세한 로그를 표시합니다.
 - `--prefix [label]`: 로그 라인에 접두사를 붙입니다.
 
-참고: CLI는 상세 보고서를 출력하지만 실패 시 비영(0이 아닌) 종료 코드를 반환하지 않습니다. CI 게이팅을 위해, 아래 단위 테스트를 추가하여 필수 로케일 누락이 0임을 확인하세요.
+필수 로케일이 누락되면 명령이 코드 `1`로 종료되고, 그렇지 않으면 `0`으로 종료됩니다(구성의 `requiredLocales` 참조). CI 작업이나 커밋 훅을 실패시키는 데 직접 사용할 수 있습니다. 아래의 프로그래밍 방식 테스트는 선택적 대안입니다.
 
 ## 프로그래밍 방식 테스트 (Vitest/Jest)
 
@@ -155,14 +158,24 @@ test("프랑스어로 현지화된 제목을 렌더링합니다", () => {
 
 ## 지속적 통합
 
-필수 번역이 누락되었을 때 빌드를 실패하게 하는 테스트를 추가하세요.
+CI에서 CLI 감사를 실행하세요. 필수 번역이 누락되면 작업이 실패합니다.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+대안: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 선택 사항: 테스트와 함께 사람이 읽기 쉬운 요약을 위해 CLI 감사를 실행하세요:

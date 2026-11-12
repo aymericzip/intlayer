@@ -1,7 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
-import { parallelize } from '../utils/parallelize';
+import { parallelize } from '@intlayer/config/utils';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { generateDictionaryListContent } from './generateDictionaryListContent';
 import { getBuiltDictionariesPath } from './getBuiltDictionariesPath';

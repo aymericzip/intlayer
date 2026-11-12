@@ -1,6 +1,7 @@
 'use client';
 
 import type { AudienceRange } from '@intlayer/backend-contract/analytics';
+import { keepPreviousData } from '@tanstack/react-query';
 import { useAnalyticsAPI } from '../useIntlayerAPI';
 import { type AppQueryOptions, useAppQuery } from './utils';
 
@@ -9,8 +10,8 @@ import { type AppQueryOptions, useAppQuery } from './utils';
  * (today / 7d / window), page views, the evolution series, and locale +
  * country breakdowns.
  *
- * @param range - Rolling window, either a named range (`1h`, `24h`, `7d`,
- *   `30d`, `90d`, `6mo`, `1y`, `3y`) or a number of days (default 30).
+ * @param range - Rolling window, either a named range (`live`, `1h`, `24h`,
+ *   `7d`, `30d`, `90d`, `6mo`, `1y`, `3y`) or a number of days (default 30).
  * @param options - Extra react-query options.
  */
 export const useGetAnalyticsAudience = (
@@ -22,9 +23,62 @@ export const useGetAnalyticsAudience = (
   return useAppQuery({
     queryKey: ['analytics', 'audience', range],
     queryFn: ({ signal }) => analyticsAPI.getAudience(range, { signal }),
+    // Switching range keeps the previous report on screen while loading
+    placeholderData: keepPreviousData,
     requireUser: true,
     requireOrganization: true,
     requireProject: true,
+    ...options,
+  });
+};
+
+/**
+ * Fetches the averaged page-to-page navigation flow from a starting page.
+ *
+ * @param range - Rolling window of the report.
+ * @param startUrl - Starting page pathname.
+ * @param options - Extra react-query options.
+ */
+export const useGetPageFlow = (
+  range: AudienceRange,
+  startUrl: string,
+  options?: AppQueryOptions
+) => {
+  const analyticsAPI = useAnalyticsAPI();
+
+  return useAppQuery({
+    queryKey: ['analytics', 'page-flow', range, startUrl],
+    queryFn: ({ signal }) =>
+      analyticsAPI.getPageFlow(range, startUrl, { signal }),
+    // Switching range or start page keeps the previous flow while loading
+    placeholderData: keepPreviousData,
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+    ...options,
+  });
+};
+
+/**
+ * Fetches the page journey of a visitor from the `live` audience report.
+ *
+ * @param visitorId - The visitor id; the query is disabled while empty.
+ * @param options - Extra react-query options.
+ */
+export const useGetLiveVisitorFlow = (
+  visitorId: string | null,
+  options?: AppQueryOptions
+) => {
+  const analyticsAPI = useAnalyticsAPI();
+
+  return useAppQuery({
+    queryKey: ['analytics', 'live-visitor-flow', visitorId],
+    queryFn: ({ signal }) =>
+      analyticsAPI.getLiveVisitorFlow(visitorId ?? '', { signal }),
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+    enabled: Boolean(visitorId),
     ...options,
   });
 };

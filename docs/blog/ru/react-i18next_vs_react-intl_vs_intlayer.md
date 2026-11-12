@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: react-i18next против react-intl против Intlayer
 description: Интеграция react-i18next с next-intl и Intlayer для интернационализации (i18n) React-приложения
@@ -160,7 +160,7 @@ author: aymericzip
 
 ## Дополнительные материалы и бенчмарки
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
+- [Сравнение i18next и @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer.md)
 - [Оптимизация бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
 - [компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)

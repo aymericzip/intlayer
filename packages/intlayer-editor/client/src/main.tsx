@@ -1,11 +1,10 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
+import { render } from 'preact';
+import { App } from './App';
 import './assets/fonts/Inter-VariableFont.ttf';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+const rootElement = document.getElementById('root');
+
+if (rootElement) {
+  render(<App />, rootElement);
+}

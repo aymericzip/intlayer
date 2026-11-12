@@ -3,6 +3,7 @@ import {
   createCliSessionTokenHandler,
   getCliSessionMeHandler,
 } from '@controllers/cliSessionToken.controller';
+import { resetDemoResources } from '@controllers/demo.controller';
 import {
   extendOAuth2Token,
   getOAuth2AccessToken,
@@ -32,6 +33,7 @@ import {
   blogCommentRoute,
   blogCommentRouter,
 } from '@routes/blogComment.routes';
+import { codebergRoute, codebergRouter } from '@routes/codeberg.routes';
 import { demoRoute, demoRouter } from '@routes/demo.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
@@ -42,6 +44,7 @@ import {
   eventListenerRoute,
   eventListenerRouter,
 } from '@routes/eventListener.routes';
+import { giteeRoute, giteeRouter } from '@routes/gitee.routes';
 import { githubRoute, githubRouter } from '@routes/github.routes';
 import { gitlabRoute, gitlabRouter } from '@routes/gitlab.routes';
 import { newsletterRoute, newsletterRouter } from '@routes/newsletter.routes';
@@ -63,12 +66,14 @@ import { translateRoute, translationRouter } from '@routes/translate.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
 import { registerWellKnownRoutes } from '@routes/wellKnown.routes';
 import { processAuditJobs } from '@services/audit/recursiveAudit.service';
+import { startSourceSyncWorker } from '@services/sourceSync/sourceSyncQueue';
 import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
 import { initializeAuth } from '@utils/auth/getAuth';
 import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
 import { registerOpenAPI } from '@utils/contract/registerOpenAPI';
 import { corsOptions } from '@utils/cors';
+import { startIpGeolocation } from '@utils/ipGeolocation';
 import { isSelfHosted } from '@utils/isSelfHosted';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import { ipLimiter } from '@utils/rateLimiter';
@@ -158,14 +163,20 @@ const startServer = async () => {
   // OpenAPI document + Swagger UI (collects every route registered below)
   await registerOpenAPI(app);
 
+  // Live map: IP → city database, loaded in the background.
+  startIpGeolocation();
+
   // Connect to MongoDB
   const dbClient = await connectDB();
 
   // Connect to Redis (optional: live translations are disabled without it)
   const redisClient = await connectRedis();
 
-  // Start Translation Worker
-  if (redisClient) startTranslationWorker();
+  // Start Translation and source sync workers
+  if (redisClient) {
+    startTranslationWorker();
+    startSourceSyncWorker();
+  }
 
   // Resume any pending recursive audits
   processAuditJobs().catch((err) => logger.error(err));
@@ -366,6 +377,8 @@ const startServer = async () => {
   await app.register(githubRouter, { prefix: githubRoute });
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });
+  await app.register(codebergRouter, { prefix: codebergRoute });
+  await app.register(giteeRouter, { prefix: giteeRoute });
   await app.register(translationRouter, { prefix: translateRoute });
   await app.register(auditRouter, { prefix: auditRoute });
   await app.register(assetRouter, { prefix: assetRoute });
@@ -376,7 +389,18 @@ const startServer = async () => {
     await app.register(reviewerRouter, { prefix: reviewerRoute });
     await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });
     await app.register(demoRouter, { prefix: demoRoute });
+
+    // Undo whatever visitors changed through the shared demo account.
+    resetDemoResources().catch((error) => {
+      logger.error('[demo] reset failed:', error);
+    });
     await app.register(blogCommentRouter, { prefix: blogCommentRoute });
+
+    // Agent payments (MPP). Imported here so a self-hosted process never
+    // loads it; it stays off until Stripe holds a business profile.
+    const { registerMachinePaymentRoutes } =
+      await import('@routes/machinePayment.routes');
+    registerMachinePaymentRoutes(app);
   }
 
   // Server

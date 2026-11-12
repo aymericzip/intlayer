@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Vite + Svelte i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Konfiguracja Intlayer w aplikacji Vite i Svelte: przetłumaczona treść przez stores, przełącznik języka, zlokalizowane trasy i typowane słowniki."
@@ -619,7 +619,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Od wersji v9 kompilator `intlayerCompiler` jest zawarty w pluginie `intlayer`. Nie musisz więc dodawać go ręcznie.
 
  </Tab>
  <Tab value='intlayer < 9'>

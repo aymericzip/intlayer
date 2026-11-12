@@ -29,9 +29,9 @@ export const createSuspendingReader = <T>(
 ): (() => T | undefined) => {
   if (typeof React.cache !== 'function') return () => undefined;
 
-  const getStore = React.cache(
-    (): AsyncRungStore<T | undefined> => ({ status: 'pending' })
-  );
+  const getStore = React.cache((): AsyncRungStore<T | undefined> => ({
+    status: 'pending',
+  }));
 
   return (): T | undefined => {
     const store = getStore();

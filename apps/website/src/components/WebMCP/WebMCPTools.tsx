@@ -11,67 +11,18 @@ const WebMCPToolsInner = lazy(() =>
  * Registers Intlayer's WebMCP tools for the whole site, alongside the
  * documentation tools of the Intlayer MCP server.
  *
- * Defers loading and registration until after page load (and idle) so that
- * search indices and remote MCP connections do not compete with critical rendering.
- * Renders nothing and avoids loading when WebMCP is not available.
+ * Registers right after hydration: agents (and readiness scanners) inspect
+ * `modelContext` shortly after load, and tools deferred to an idle callback
+ * were missed entirely. Registration itself is cheap — search indices load
+ * inside `execute` and remote tools are declared statically.
+ *
+ * Browsers without WebMCP never fetch the tools chunk.
  */
 export const WebMCPTools: FC = () => {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
-    if (!isWebMCPAvailable()) return;
-
-    let idleId: number | undefined;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-
-    const startLoading = () => {
-      cleanup();
-      setShouldLoad(true);
-    };
-
-    const cleanup = () => {
-      window.removeEventListener('load', scheduleLoad);
-      window.removeEventListener('pointerdown', startLoading);
-      window.removeEventListener('keydown', startLoading);
-      window.removeEventListener('scroll', startLoading);
-      if (idleId && typeof window.cancelIdleCallback === 'function') {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-
-    const scheduleLoad = () => {
-      // Listen for early user interaction to load WebMCP immediately when needed
-      window.addEventListener('pointerdown', startLoading, {
-        once: true,
-        passive: true,
-      });
-      window.addEventListener('keydown', startLoading, {
-        once: true,
-        passive: true,
-      });
-      window.addEventListener('scroll', startLoading, {
-        once: true,
-        passive: true,
-      });
-
-      // Otherwise defer until well after critical rendering/LCP settles
-      if (typeof window.requestIdleCallback === 'function') {
-        idleId = window.requestIdleCallback(startLoading, {
-          timeout: 10000,
-        });
-      } else {
-        timeoutId = setTimeout(startLoading, 8000);
-      }
-    };
-
-    if (document.readyState === 'complete') {
-      scheduleLoad();
-    } else {
-      window.addEventListener('load', scheduleLoad, { once: true });
-    }
-
-    return cleanup;
+    setShouldLoad(isWebMCPAvailable());
   }, []);
 
   if (!shouldLoad) return null;

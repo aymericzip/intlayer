@@ -214,7 +214,6 @@ ul[data-type='taskList'] li[data-checked='true'] > div > p {
 }
 
 .ProseMirror:not(.dragging) .ProseMirror-selectednode {
-  /* biome-ignore lint/complexity/noImportantStyles: override ProseMirror default selected-node outline */
   outline: none !important;
   background-color: var(--novel-highlight-blue);
   transition: background-color 0.2s;
@@ -270,12 +269,10 @@ ul[data-type='taskList'] li[data-checked='true'] > div > p {
  * consistent with the rest of the editor (`bg-muted`) and swap token colors
  * under the dark theme. */
 .ProseMirror pre.shiki {
-  /* biome-ignore lint/complexity/noImportantStyles: override shiki inline background-color on the <pre> node */
   background-color: var(--muted) !important;
 }
 
 [data-theme='dark'] .ProseMirror pre.shiki span {
-  /* biome-ignore lint/complexity/noImportantStyles: override shiki inline token color with the dark-theme variable */
   color: var(--shiki-dark, inherit) !important;
 }
 

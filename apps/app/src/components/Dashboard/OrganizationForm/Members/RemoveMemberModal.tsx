@@ -64,15 +64,17 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       title={title({
-        memberName: user?.name ?? user?.email ?? String(memberId),
+        memberName: user?.name ?? user?.email ?? '…',
       })}
       size="md"
       hasCloseButton
       padding="md"
+      border
+      borderColor="neutral"
     >
       <Loader isLoading={isLoadingUsers}>
         <form className="size-full p-3">
-          <p className="text-neutral text-sm">{description}</p>
+          <p className="text-sm text-neutral">{description}</p>
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
             <FormButton
               variant="outline"

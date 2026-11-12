@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Enumerasi: pesan berdasarkan jumlah"
 description: "Gunakan enumerasi Intlayer untuk menampilkan konten berbeda berdasarkan angka atau rentang, dengan node enu() dan kondisi seperti '<-1' atau '>5'."

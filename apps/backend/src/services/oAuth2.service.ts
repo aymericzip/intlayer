@@ -8,6 +8,7 @@ import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { getTokenExpireAt, shouldExtendOAuth2Token } from '@utils/oAuth2';
+import type { Permission } from '@utils/permissions';
 import type { Types } from 'mongoose';
 import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { Organization } from '@/types/organization.types';
@@ -36,6 +37,32 @@ export const generateClientCredentials = (): {
 
   return { clientId, clientSecret };
 };
+
+/**
+ * Whether an access key is past its optional `expiresAt` date.
+ *
+ * @param accessKey - The access key to check.
+ * @param now - Reference date, defaults to the current date.
+ * @returns True when the key has an expiry date in the past.
+ */
+export const isAccessKeyExpired = (
+  accessKey: Pick<OAuth2Access, 'expiresAt'>,
+  now: Date = new Date()
+): boolean =>
+  Boolean(accessKey.expiresAt) &&
+  new Date(accessKey.expiresAt as Date).getTime() <= now.getTime();
+
+/**
+ * Permissions an access key restricts its sessions to, or `undefined` for a
+ * legacy key that still carries its creator's full permissions.
+ *
+ * @param accessKey - The access key.
+ * @returns The enforced grants.
+ */
+export const getAccessKeyEnforcedPermissions = (
+  accessKey: Pick<OAuth2Access, 'grants' | 'grantsEnforced'>
+): Permission[] | undefined =>
+  accessKey.grantsEnforced ? (accessKey.grants as Permission[]) : undefined;
 
 /**
  * Method to get the client and the project
@@ -67,7 +94,7 @@ export const getClientAndProjectByClientId = async (
     (access) => access.clientId === clientId
   );
 
-  if (!oAuth2Access) {
+  if (!oAuth2Access || isAccessKeyExpired(oAuth2Access)) {
     return false;
   }
 
@@ -389,6 +416,7 @@ export const getOAuth2AccessTokenContext = async (
     project: project ? mapProjectToAPI(project) : undefined,
     organization: organization ? mapOrganizationToAPI(organization) : undefined,
     grants,
+    permissions: getAccessKeyEnforcedPermissions(oAuth2Access),
     allowedEnvironmentIds:
       (oAuth2Access as OAuth2Access).allowedEnvironmentIds ?? null,
     allowedLocales: (oAuth2Access as OAuth2Access).allowedLocales ?? null,

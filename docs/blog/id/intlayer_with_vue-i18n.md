@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Otomatiskan terjemahan JSON vue-i18n dengan Intlayer"
 description: Integrasikan Intlayer dengan vue-i18n untuk solusi internasionalisasi Vue.js yang komprehensif
@@ -37,7 +37,7 @@ author: aymericzip
 
 ## Apa itu Intlayer?
 
-**Intlayer** adalah perpustakaan internasionalisasi sumber terbuka yang inovatif, dirancang untuk mengatasi kekurangan solusi i18n tradisional. Ini menawarkan pendekatan modern untuk manajemen konten dalam aplikasi Vue.js dan Nuxt.
+**Intlayer** adalah library internasionalisasi sumber terbuka yang inovatif, dirancang untuk mengatasi kekurangan solusi i18n tradisional. Ini menawarkan pendekatan modern untuk manajemen konten dalam aplikasi Vue.js dan Nuxt.
 
 Lihat perbandingan konkret dengan vue-i18n dalam posting blog kami [vue-i18n vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md).
 
@@ -107,7 +107,7 @@ bun add intlayer @intlayer/sync-json-plugin --dev
 
 **Penjelasan paket:**
 
-- **intlayer**: Perpustakaan inti untuk deklarasi dan manajemen konten
+- **intlayer**: Library inti untuk deklarasi dan manajemen konten
 - **@intlayer/sync-json-plugin**: Plugin untuk menyinkronkan deklarasi konten Intlayer ke format JSON vue-i18n
 
 </Step>

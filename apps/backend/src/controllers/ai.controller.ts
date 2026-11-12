@@ -12,9 +12,17 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { logger } from '@logger';
 import { DiscussionModel } from '@schemas/discussion.schema';
+import {
+  getAICreditBalance,
+  getAICreditDailyUsage,
+} from '@services/aiCredit.service';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
+import {
+  chargeAICredits,
+  prepareAICreditMeter,
+} from '@utils/AI/aiCreditMetering';
 import * as askDocQuestionUtil from '@utils/AI/askDocQuestion/askDocQuestion';
 import * as auditContentDeclarationUtil from '@utils/AI/auditDictionary';
 import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryField';
@@ -26,8 +34,9 @@ import { createSessionTools } from '@utils/AI/chat/sessionTools';
 import * as customQueryUtil from '@utils/AI/customQuery';
 import { getProjectAIOptions } from '@utils/AI/getProjectAIOptions';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
+import { parseAICreditUsageDays } from '@utils/aiCredits';
 import type { ContractRequest } from '@utils/contract/registerContractRoutes';
-import { type AppError, ErrorHandler } from '@utils/errors';
+import { AppError, ErrorHandler } from '@utils/errors';
 import {
   type DiscussionFiltersParams,
   getDiscussionFiltersAndPagination,
@@ -39,6 +48,10 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
+import type {
+  AICreditBalance,
+  AICreditDailyUsage,
+} from '@/types/aiCreditUsage.types';
 import type { AIStats } from '@/types/aiStats.types';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
@@ -77,7 +90,7 @@ export const customQuery = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { aiOptions, tagsKeys, ...rest } = request.body;
-  const { user, project } = request.session || {};
+  const { user, project, organization } = request.session || {};
 
   const projectAIOptions = await getProjectAIOptions(project);
 
@@ -97,12 +110,26 @@ export const customQuery = async (
   }
 
   try {
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'custom_query',
+      aiOptionSources: [
+        customQueryUtil.aiDefaultOptions,
+        projectAIOptions,
+        toAIOptions(aiOptions),
+      ],
+    });
+
     const auditResponse = await customQueryUtil.customQuery({
       ...rest,
       // AI SDK messages: the contract checks the array, the SDK its content
       messages: rest.messages as customQueryUtil.CustomQueryOptions['messages'],
       aiConfig,
     });
+
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'QUERY_FAILED');
@@ -132,7 +159,7 @@ export const translateJSON = async (
   request: ContractRequest<AIRoutes['translateJSON']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.session || {};
+  const { project, user, organization } = request.session || {};
   const { aiOptions, tagsKeys, ...rest } = request.body;
 
   const projectAIOptions = await getProjectAIOptions(project);
@@ -153,6 +180,18 @@ export const translateJSON = async (
   }
 
   try {
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'translate_json',
+      aiOptionSources: [
+        translateJSONUtil.aiDefaultOptions,
+        projectAIOptions,
+        toAIOptions(aiOptions),
+      ],
+    });
+
     let tags: Tag[] = [];
 
     if (project?.organizationId && tagsKeys) {
@@ -165,6 +204,8 @@ export const translateJSON = async (
       applicationContext: aiOptions?.applicationContext,
       tags,
     });
+
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -200,7 +241,7 @@ export const auditContentDeclaration = async (
   request: ContractRequest<AIRoutes['auditContentDeclaration']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.session || {};
+  const { project, user, organization } = request.session || {};
   const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
     request.body;
 
@@ -222,6 +263,18 @@ export const auditContentDeclaration = async (
   }
 
   try {
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'audit_dictionary',
+      aiOptionSources: [
+        auditContentDeclarationUtil.aiDefaultOptions,
+        projectAIOptions,
+        toAIOptions(aiOptions),
+      ],
+    });
+
     let tags: Tag[] = [];
 
     if (project?.organizationId) {
@@ -237,6 +290,8 @@ export const auditContentDeclaration = async (
       defaultLocale,
       tags,
     });
+
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -271,7 +326,7 @@ export const auditContentDeclarationField = async (
   request: ContractRequest<AIRoutes['auditContentDeclarationField']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.session || {};
+  const { project, user, organization } = request.session || {};
   const { fileContent, aiOptions, locales, tagsKeys, keyPath } = request.body;
 
   const projectAIOptions = await getProjectAIOptions(project);
@@ -292,6 +347,18 @@ export const auditContentDeclarationField = async (
   }
 
   try {
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'audit_dictionary_field',
+      aiOptionSources: [
+        auditContentDeclarationFieldUtil.aiDefaultOptions,
+        projectAIOptions,
+        toAIOptions(aiOptions),
+      ],
+    });
+
     let tags: Tag[] = [];
 
     if (project?.organizationId) {
@@ -307,6 +374,8 @@ export const auditContentDeclarationField = async (
         tags,
         keyPath,
       });
+
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -340,7 +409,7 @@ export const auditContentDeclarationMetadata = async (
   request: ContractRequest<AIRoutes['auditContentDeclarationMetadata']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, user } = request.session || {};
+  const { organization, project, user } = request.session || {};
   const { fileContent, aiOptions } = request.body;
 
   let aiConfig: AIConfig;
@@ -358,6 +427,17 @@ export const auditContentDeclarationMetadata = async (
   }
 
   try {
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'audit_dictionary_metadata',
+      aiOptionSources: [
+        auditContentDeclarationMetadataUtil.aiDefaultOptions,
+        toAIOptions(aiOptions),
+      ],
+    });
+
     const tags: Tag[] = await tagService.findTags(
       {
         organizationId: organization?.id,
@@ -373,6 +453,8 @@ export const auditContentDeclarationMetadata = async (
         applicationContext: aiOptions?.applicationContext,
         tags,
       });
+
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -402,7 +484,7 @@ export const auditTag = async (
   request: ContractRequest<AIRoutes['auditTag']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.session || {};
+  const { project, user, organization } = request.session || {};
   const { aiOptions, tag } = request.body;
 
   const projectAIOptions = await getProjectAIOptions(project);
@@ -423,6 +505,18 @@ export const auditTag = async (
   }
 
   try {
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'audit_tag',
+      aiOptionSources: [
+        auditTagUtil.aiDefaultOptions,
+        projectAIOptions,
+        toAIOptions(aiOptions),
+      ],
+    });
+
     let dictionaries: Dictionary[] = [];
     if (project?.organizationId) {
       dictionaries = await getDictionariesByTags([tag.key], project.id);
@@ -434,6 +528,8 @@ export const auditTag = async (
       tag,
       applicationContext: aiOptions?.applicationContext,
     });
+
+    await chargeAICredits(creditMeter, auditResponse?.tokenUsed, aiConfig);
 
     if (!auditResponse) {
       return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
@@ -447,6 +543,25 @@ export const auditTag = async (
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
+};
+
+/**
+ * Whether an AI provider call failed because of its credentials
+ * (e.g. revoked or invalid API key), from the SDK `APICallError` status code.
+ */
+const isAIAuthenticationError = (error: unknown): boolean => {
+  const statusCode =
+    typeof error === 'object' && error !== null && 'statusCode' in error
+      ? (error as { statusCode?: unknown }).statusCode
+      : undefined;
+
+  if (statusCode === 401 || statusCode === 403) return true;
+
+  const errorMessage = error instanceof Error ? error.message : String(error);
+
+  return /\b401\b|incorrect api key|invalid x-api-key|invalid api key/i.test(
+    errorMessage
+  );
 };
 
 export type AskDocQuestionBody = {
@@ -533,6 +648,11 @@ export const askDocQuestion = async (
             reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
           }
         },
+        onReasoning: (reasoning) => {
+          if (!reply.raw.writableEnded) {
+            reply.raw.write(`data: ${JSON.stringify({ reasoning })}\n\n`);
+          }
+        },
       }
     );
 
@@ -596,10 +716,7 @@ export const askDocQuestion = async (
       stack: errorStack,
     });
 
-    // Determine if it's an Auth error (common with OpenAI 401)
-    const isAuthError =
-      errorMessage.includes('401') ||
-      errorMessage.includes('Incorrect API key');
+    const isAuthError = isAIAuthenticationError(err);
 
     // Format error for Frontend
     const errorPayload = {
@@ -668,6 +785,15 @@ export const chat = async (
       return;
     }
 
+    // Throws AI_CONFIGURATION_REQUIRED / AI_CREDITS_EXHAUSTED, streamed by the catch below
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'chat',
+      aiOptionSources: [projectAIOptions],
+    });
+
     reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
     reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
     reply.raw.setHeader('Connection', 'keep-alive');
@@ -700,6 +826,12 @@ export const chat = async (
         }
       },
     });
+
+    await chargeAICredits(
+      creditMeter,
+      fullResponse.tokenUsage?.totalTokens,
+      aiConfig
+    );
 
     const reversedMessages = [...messages].reverse();
     const lastUserMessageContent = reversedMessages.find(
@@ -757,15 +889,16 @@ export const chat = async (
       stack: errorStack,
     });
 
-    const isAuthError =
-      errorMessage.includes('401') ||
-      errorMessage.includes('Incorrect API key');
+    const isAuthError = isAIAuthenticationError(err);
 
-    const errorPayload = {
-      code: isAuthError ? 'AI_AUTH_ERROR' : 'AI_STREAM_ERROR',
-      title: isAuthError ? 'AI Configuration Error' : 'Generation Failed',
-      message: errorMessage,
-    };
+    const errorPayload =
+      err instanceof AppError
+        ? { code: err.errorKey, title: err.title, message: err.message }
+        : {
+            code: isAuthError ? 'AI_AUTH_ERROR' : 'AI_STREAM_ERROR',
+            title: isAuthError ? 'AI Configuration Error' : 'Generation Failed',
+            message: errorMessage,
+          };
 
     if (!reply.raw.writableEnded) {
       reply.raw.write(
@@ -792,7 +925,7 @@ export const autocomplete = async (
   request: ContractRequest<AIRoutes['autocomplete']>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project } = request.session || {};
+  const { user, project, organization } = request.session || {};
 
   const projectAIOptions = await getProjectAIOptions(project);
 
@@ -815,6 +948,18 @@ export const autocomplete = async (
       return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     }
 
+    const creditMeter = await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'autocomplete',
+      aiOptionSources: [
+        autocompleteUtil.aiDefaultOptions,
+        projectAIOptions,
+        toAIOptions(aiOptions),
+      ],
+    });
+
     const response = (await autocompleteUtil.autocomplete({
       text,
       aiConfig,
@@ -826,6 +971,8 @@ export const autocomplete = async (
       autocompletion: '',
       tokenUsed: 0,
     };
+
+    await chargeAICredits(creditMeter, response.tokenUsed, aiConfig);
 
     const responseData =
       formatResponse<autocompleteUtil.AutocompleteFileResultData>({
@@ -870,7 +1017,11 @@ export const getDiscussions = async (
   }
 
   try {
-    const projection = includeMessages ? {} : { messages: 0 };
+    // Typed as a plain record: a literal projection narrows the lean result
+    // to the projected fields and drops `userId` from its type.
+    const projection: Record<string, 0> = includeMessages
+      ? {}
+      : { messages: 0 };
     const discussions = await DiscussionModel.find(filters, projection)
       .sort(sortOptions)
       .skip(skip)
@@ -1007,6 +1158,63 @@ export const getAIStats = async (
     const responseData = formatResponse<AIStats>({ data: stats });
 
     return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
+ * Returns the AI credit balance of the session organization for the current
+ * monthly period, with a per-feature usage breakdown.
+ */
+export const getAICredits = async (
+  request: ContractRequest<AIRoutes['getAICredits']>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { organization, project } = request.session || {};
+  const organizationId = organization?.id ?? project?.organizationId;
+
+  if (!organizationId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  try {
+    const balance = await getAICreditBalance(String(organizationId));
+
+    return reply.send(formatResponse<AICreditBalance>({ data: balance }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
+ * Returns the day-by-day AI credit usage of the session organization over the
+ * last `days` days (default 30).
+ */
+export const getAICreditUsage = async (
+  request: ContractRequest<AIRoutes['getAICreditUsage']>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { organization, project } = request.session || {};
+  const organizationId = organization?.id ?? project?.organizationId;
+
+  if (!organizationId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  try {
+    const dailyUsage = await getAICreditDailyUsage(
+      String(organizationId),
+      parseAICreditUsageDays(request.query.days)
+    );
+
+    return reply.send(formatResponse<AICreditDailyUsage>({ data: dailyUsage }));
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }

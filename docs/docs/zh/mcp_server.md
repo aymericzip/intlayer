@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "面向 AI 助手的 Intlayer MCP 服务器"
 description: "将 Intlayer MCP 服务器连接到 Cursor、VS Code 或 Claude Desktop，让 AI 助手阅读文档并协助配置 Intlayer。"

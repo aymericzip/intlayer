@@ -102,8 +102,8 @@ const MockSearchBar = () => (
 const MockUserProfile = () => (
   <Container className="text-center">
     <div className="mx-auto mb-2 h-12 w-12 rounded-full bg-primary"></div>
-    <p className="font-medium text-sm">John Doe</p>
-    <p className="text-neutral-600 text-xs">john@example.com</p>
+    <p className="text-sm font-medium">John Doe</p>
+    <p className="text-xs text-neutral-600">john@example.com</p>
   </Container>
 );
 
@@ -122,7 +122,7 @@ const NavbarStory = (args: any) => {
         key={section.key}
         role="tab"
         tabIndex={selectedChoice === section.key ? 0 : -1}
-        className={`cursor-pointer px-3 py-2 font-medium text-sm transition-colors ${
+        className={`cursor-pointer px-3 py-2 text-sm font-medium transition-colors ${
           selectedChoice === section.key
             ? 'text-primary'
             : 'text-neutral-700 hover:text-primary'
@@ -156,7 +156,7 @@ const NavbarStory = (args: any) => {
           automatically switch between desktop and mobile layouts based on
           screen size.
         </p>
-        <p className="mt-2 text-neutral-500 text-sm">
+        <p className="mt-2 text-sm text-neutral-500">
           Current selection: <strong>{selectedChoice}</strong>
         </p>
 
@@ -207,7 +207,7 @@ const NavbarWithBottomSectionsStory = (args: any) => {
         key={section.key}
         role="tab"
         tabIndex={selectedChoice === section.key ? 0 : -1}
-        className={`cursor-pointer px-3 py-2 font-medium text-sm transition-colors ${
+        className={`cursor-pointer px-3 py-2 text-sm font-medium transition-colors ${
           selectedChoice === section.key
             ? 'text-primary'
             : 'text-neutral-700 hover:text-primary'
@@ -242,7 +242,7 @@ const NavbarWithBottomSectionsStory = (args: any) => {
           menu. The mobile view includes search bar at the top and user profile
           at the bottom.
         </p>
-        <p className="mt-2 text-neutral-500 text-sm">
+        <p className="mt-2 text-sm text-neutral-500">
           Current selection: <strong>{selectedChoice}</strong>
         </p>
       </Container>
@@ -319,7 +319,7 @@ export const ExtensiveNavigation: Story = {
           key={section.key}
           role="tab"
           tabIndex={selectedChoice === section.key ? 0 : -1}
-          className={`cursor-pointer px-3 py-2 font-medium text-sm transition-colors ${
+          className={`cursor-pointer px-3 py-2 text-sm font-medium transition-colors ${
             selectedChoice === section.key
               ? 'text-primary'
               : 'text-neutral-700 hover:text-primary'
@@ -352,7 +352,7 @@ export const ExtensiveNavigation: Story = {
             desktop, horizontal scrolling is available if items overflow. On
             mobile, all items are displayed in the expandable menu.
           </p>
-          <p className="mt-2 text-neutral-500 text-sm">
+          <p className="mt-2 text-sm text-neutral-500">
             Current selection: <strong>{selectedChoice}</strong>
           </p>
         </Container>
@@ -377,8 +377,8 @@ export const CustomStyling: Story = {
       <div className="flex items-center gap-2">
         <div className="size-10 rounded-full bg-linear-to-r from-blue-500 to-purple-600"></div>
         <div>
-          <div className="font-bold text-lg">CustomBrand</div>
-          <div className="text-neutral-500 text-xs">tagline</div>
+          <div className="text-lg font-bold">CustomBrand</div>
+          <div className="text-xs text-neutral-500">tagline</div>
         </div>
       </div>
     ),
@@ -413,7 +413,7 @@ export const ResponsiveBehavior: Story = {
     rightItemsDesktop: <MockRightItems />,
     rightItemsMobile: <MockRightItems />,
     mobileTopChildren: (
-      <Container className="border-primary border-s-4 bg-primary/5 p-3">
+      <Container className="border-s-4 border-primary bg-primary/5 p-3">
         <p className="text-sm">
           📱 <strong>Mobile View:</strong> This content only appears in the
           mobile menu

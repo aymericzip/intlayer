@@ -13,8 +13,10 @@ import {
 import { Button, type ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
-export interface AccordionProps
-  extends Omit<ButtonProps, 'children' | 'onToggle'> {
+export interface AccordionProps extends Omit<
+  ButtonProps,
+  'children' | 'onToggle'
+> {
   /** The content displayed in the accordion header */
   header: ReactNode;
   /** The collapsible content inside the accordion */

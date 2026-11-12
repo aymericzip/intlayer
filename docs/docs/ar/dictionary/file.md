@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "محتوى الملفات: تضمين ملفات خارجية"
 description: "ضمّن ملفات خارجية مثل markdown أو النصوص في قواميس Intlayer باستخدام الدالة file()، متزامنة مع الملف المصدر."
@@ -67,7 +67,7 @@ export default myFileContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use embedded file content in a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This retrieves the content from the specified key and allows it to be displayed dynamically.
+لاستخدام محتوى الملفات المضمنة في مكون React، استورد واستخدم خطاف `useIntlayer` من حزمة `react-intlayer`. يسترجع هذا الخطاف المحتوى من المفتاح المحدد ويسمح بعرضه ديناميكيًا.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -89,7 +89,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام محتوى الملفات المضمنة في مكونات عميل Next.js، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -113,7 +113,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام محتوى الملفات المضمنة في مكونات Vue، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -132,7 +132,7 @@ const { myFile } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+لاستخدام محتوى الملفات المضمنة في مكونات Svelte، استرجعه عبر خطاف `useIntlayer`. يتم الوصول إلى المخزن باستخدام `$`. فيما يلي مثال:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -149,7 +149,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use embedded file content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام محتوى الملفات المضمنة في مكونات Preact، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -171,7 +171,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use embedded file content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام محتوى الملفات المضمنة في مكونات SolidJS، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -193,7 +193,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use embedded file content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام محتوى الملفات المضمنة في مكونات Angular، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -215,7 +215,7 @@ export class FileComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use embedded file content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام محتوى الملفات المضمنة مع `vanilla-intlayer`، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

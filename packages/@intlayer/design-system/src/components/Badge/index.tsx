@@ -32,12 +32,12 @@ export type BadgeSize = 'sm' | 'md' | 'lg';
  * @description Defines the styling variants for different badge combinations
  */
 export const badgeVariants = cva(
-  'inline-flex items-center rounded-md border px-2.5 py-0.5 font-semibold text-xs transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  'inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden',
   {
     variants: {
       color: {
-        success: 'border-success bg-success text-success hover:bg-success-500',
-        error: 'border-error bg-error text-error hover:bg-error-500',
+        success: 'hover:bg-success-500 border-success bg-success text-success',
+        error: 'hover:bg-error-500 border-error bg-error text-error',
         neutral:
           'border-neutral bg-neutral text-muted-foreground hover:bg-neutral-600',
         light: 'border-white bg-white text-white hover:bg-neutral-500',
@@ -47,10 +47,10 @@ export const badgeVariants = cva(
       },
       variant: {
         default: 'rounded-lg text-foreground-opposite',
-        none: 'border-none bg-opacity-0 text-inherit hover:bg-opacity-0',
-        outline: 'rounded-lg border-[1.3px] bg-opacity-0 hover:bg-opacity-30',
+        none: 'bg-opacity-0 hover:bg-opacity-0 border-none text-inherit',
+        outline: 'bg-opacity-0 hover:bg-opacity-30 rounded-lg border-[1.3px]',
         hoverable:
-          'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10',
+          'bg-opacity-0 hover:bg-opacity-10 rounded-lg border-none transition',
       },
       size: {
         sm: 'px-2 py-0.5 text-xs',
@@ -174,7 +174,7 @@ export const Badge: React.FC<BadgeProps> = ({
       {dismissible && (
         <button
           type="button"
-          className="ms-1 inline-flex h-4 w-4 items-center justify-center rounded-full hover:bg-black/10 focus:outline-none focus:ring-1 focus:ring-offset-1"
+          className="ms-1 inline-flex h-4 w-4 items-center justify-center rounded-full hover:bg-black/10 focus:ring-1 focus:ring-offset-1 focus:outline-none"
           onClick={handleDismiss}
           aria-label={`Remove ${children} badge`}
         >

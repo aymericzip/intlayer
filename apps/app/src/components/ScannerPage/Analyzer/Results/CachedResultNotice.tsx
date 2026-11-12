@@ -43,7 +43,7 @@ export const CachedResultNotice: FC<CachedResultNoticeProps> = ({
 
   return (
     <Container
-      className="mt-3 flex-row flex-wrap items-center justify-between gap-2 border-dashed text-start text-neutral text-sm"
+      className="mt-3 flex-row flex-wrap items-center justify-between gap-2 border-dashed text-start text-sm text-neutral"
       border
       borderColor="neutral"
       background="none"

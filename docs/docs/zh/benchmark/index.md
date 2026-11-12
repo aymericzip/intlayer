@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "i18n 库基准测试：包体积与性能"
 description: 了解 Intlayer 在性能和打包体积方面与其他 i18n 库的对比情况。

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cómo elegir la librería de i18n adecuada para React en 2026"
 description: "Una guía de decisión para i18n en React: las preguntas a responder antes de comparar react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer."
@@ -109,13 +109,13 @@ Los tamaños de las librerías provienen del [benchmark de TanStack Start](https
 
 | Librería                | Ola          | Modelo de contenido                     | Seguridad de tipos                  | Formato de mensaje            | Tamaño de librería                                |
 | :---------------------- | :----------- | :-------------------------------------- | :---------------------------------- | :---------------------------- | :------------------------------------------------ |
-| `react-i18next`         | Runtime      | JSON central, namespaces                | 2/5 — Opt-in (`CustomTypeOptions`)  | i18next (plurales sufijo)     | ~18.4 kB                                          |
-| `react-intl` (FormatJS) | Runtime      | JSON central, ICU                       | 2/5 — Opt-in (extracción + unión)   | ICU                           | ~15.3 kB                                          |
-| `use-intl`              | Server-first | JSON central, ICU                       | 2/5 — Opt-in (declaration merging)  | ICU                           | ~14.1 kB                                          |
-| `@tolgee/react`         | Runtime      | Central, edición in-context             | 1/5 — No                            | ICU                           | ~11.1 kB                                          |
-| Lingui                  | Macro        | Texto fuente en código, catálogos comp. | 2/5 — Bueno, desde el compilador    | ICU vía macros                | ~11.8 kB                                          |
-| Paraglide               | Compilador   | Proyecto inlang, funciones generadas    | 3.5/5 — Generados                   | Propio                        | Casi cero (por el código generado en el proyecto) |
-| Intlayer                | Compilador   | `.content.ts` por componente            | 5/5 — Generados, activo por defecto | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                           |
+| `react-i18next`         | Runtime      | JSON central, namespaces                | 2/5 - Opt-in (`CustomTypeOptions`)  | i18next (plurales sufijo)     | ~18.4 kB                                          |
+| `react-intl` (FormatJS) | Runtime      | JSON central, ICU                       | 2/5 - Opt-in (extracción + unión)   | ICU                           | ~15.3 kB                                          |
+| `use-intl`              | Server-first | JSON central, ICU                       | 2/5 - Opt-in (declaration merging)  | ICU                           | ~14.1 kB                                          |
+| `@tolgee/react`         | Runtime      | Central, edición in-context             | 1/5 - No                            | ICU                           | ~11.1 kB                                          |
+| Lingui                  | Macro        | Texto fuente en código, catálogos comp. | 2/5 - Bueno, desde el compilador    | ICU vía macros                | ~11.8 kB                                          |
+| Paraglide               | Compilador   | Proyecto inlang, funciones generadas    | 3.5/5 - Generados                   | Propio                        | Casi cero (por el código generado en el proyecto) |
+| Intlayer                | Compilador   | `.content.ts` por componente            | 5/5 - Generados, activo por defecto | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                           |
 
 > Las cifras son una instantánea en las versiones del benchmark y cambian con las releases. Ejecuta el benchmark en tu propia app antes de decidirte solo por el tamaño.
 > Seguridad de tipos: 5/5 significa que las claves, los parámetros y cada locale se comprueban sin configuración manual, incluidos el formateador de URL y los helpers.

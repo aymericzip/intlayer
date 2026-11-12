@@ -6,7 +6,7 @@ import {
   OUTPUT_FORMAT,
 } from '@intlayer/config/defaultValues';
 import { colorizePath } from '@intlayer/config/logger';
-import { assertPathWithin } from '@intlayer/config/utils';
+import { assertPathWithin, parallelize } from '@intlayer/config/utils';
 import {
   COMPOSITE_ID_SEPARATOR,
   QUALIFIER_DYNAMIC_TYPES_KEY,
@@ -20,7 +20,6 @@ import type {
   DictionaryQualifierType,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
-import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { PlainMergedDictionaryOutput } from './writeMergedDictionary';

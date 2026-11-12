@@ -43,6 +43,15 @@ const FENCE_PATTERN = /^\s*(`{3,}|~{3,})/;
 const HEADING_PATTERN = /^(#{1,6})\s+(\S.*)$/;
 
 /**
+ * Blanks out the YAML frontmatter while keeping line numbers intact, so body
+ * validators don't read values like `IntlayerNode<string>` as HTML tags.
+ */
+export const stripFrontmatter = (content: string): string =>
+  content.replace(FRONTMATTER_PATTERN, (frontmatter) =>
+    frontmatter.replace(/[^\n]/g, '')
+  );
+
+/**
  * Lists the ATX headings of a markdown document, ignoring the frontmatter
  * and fenced code blocks (where `#` lines are usually shell comments).
  */
@@ -317,7 +326,7 @@ const validateMarkdownFile = (filePath: string): FileValidationResult => {
     const content = readFileSync(fullPath, 'utf-8');
 
     // Structural validation via core validateMarkdown (code blocks + HTML tags)
-    const { issues } = validateMarkdown(content);
+    const { issues } = validateMarkdown(stripFrontmatter(content));
     for (const issue of issues) {
       if (issue.type === 'error') {
         result.errors.push(`[Markdown Structure] ${issue.message}`);

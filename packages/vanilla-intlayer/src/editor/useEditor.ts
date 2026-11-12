@@ -2,6 +2,7 @@ import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
 import { getIntlayerClient } from '../client/installIntlayer';
+import { setLocaleInStorage } from '../client/useLocaleStorage';
 
 /**
  * Initialises the Intlayer visual editor client.
@@ -27,6 +28,7 @@ export const useEditor = (): (() => void) => {
     return () => {};
 
   let unsubscribeLocale: (() => void) | null = null;
+  let unsubscribeLocaleRequest: (() => void) | null = null;
   let stopped = false;
 
   import('@intlayer/editor')
@@ -40,12 +42,20 @@ export const useEditor = (): (() => void) => {
       unsubscribeLocale = client.subscribe((newLocale) => {
         manager.currentLocale.set(newLocale as Locale);
       });
+
+      unsubscribeLocaleRequest = manager.onLocaleChangeRequested(
+        (requestedLocale) => {
+          client.setLocale(requestedLocale);
+          setLocaleInStorage(requestedLocale, client.isCookieEnabled);
+        }
+      );
     })
     .catch(() => {});
 
   return () => {
     stopped = true;
     unsubscribeLocale?.();
+    unsubscribeLocaleRequest?.();
     import('@intlayer/editor')
       .then(({ stopEditorClient }) => {
         stopEditorClient();

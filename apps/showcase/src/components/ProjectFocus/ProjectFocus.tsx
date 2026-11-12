@@ -35,7 +35,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
   if (!project) {
     return (
       <div className="mx-auto max-w-6xl space-y-4 px-6 py-20 text-center">
-        <h1 className="font-bold text-3xl text-text">
+        <h1 className="text-3xl font-bold text-text">
           {content.projectNotFound.title}
         </h1>
         <p className="text-neutral">{content.projectNotFound.description}</p>
@@ -52,7 +52,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
       <Link
         to={Showcase_Root_Path}
         color="text"
-        className="group mb-6 inline-flex items-center gap-2 text-neutral text-sm transition-colors hover:text-text"
+        className="group mb-6 inline-flex items-center gap-2 text-sm text-neutral transition-colors hover:text-text"
       >
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
         {content.backToShowcase}
@@ -90,7 +90,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
                     label={contentSidebar.githubRepo.value}
                   >
                     <Code className="size-4 text-text" />
-                    <span className="font-medium text-sm">
+                    <span className="text-sm font-medium">
                       {contentSidebar.githubRepo}
                     </span>
                   </DSLink>
@@ -119,7 +119,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
       {project.githubUrl && <ProjectReadme githubUrl={project.githubUrl} />}
 
       {/* Bottom Sections: More Projects & Scan Details */}
-      <div className="grid grid-cols-1 gap-12 border-neutral/10 border-t pt-12 lg:grid-cols-12">
+      <div className="grid grid-cols-1 gap-12 border-t border-neutral/10 pt-12 lg:grid-cols-12">
         {/* Left Column: More Projects */}
         <div className="lg:col-span-5">
           <MoreProjects excludeId={project.id} />

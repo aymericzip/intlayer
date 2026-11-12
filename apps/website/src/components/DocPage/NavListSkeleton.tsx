@@ -16,11 +16,11 @@ type NavListSkeletonProps = {
 export const NavListSkeleton: FC<NavListSkeletonProps> = ({ rows = 8 }) => (
   <nav
     aria-hidden
-    className="m-auto flex min-w-40 max-w-80 flex-col gap-4 px-5 pt-12 pb-20"
+    className="m-auto flex max-w-80 min-w-40 flex-col gap-4 px-5 pt-12 pb-20"
   >
     {Array.from({ length: rows }).map((_, index) => (
       <div
-        // biome-ignore lint/suspicious/noArrayIndexKey: static placeholder rows
+        // oxlint-disable-next-line react/no-array-index-key -- static placeholder rows
         key={index}
         className={cn(
           'h-4 animate-pulse rounded-md bg-neutral/20',

@@ -36,6 +36,7 @@ import {
 } from '@intlayer/design-system/routes';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import { redact } from '@tanstack/redact/vite';
 import react from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
@@ -229,9 +230,8 @@ const staticPagesPlugin = {
       const outDir = environment.config?.build?.outDir;
       if (!outDir) return;
 
-      const { compressDirectory } = await import(
-        './scripts/compress-static.ts'
-      );
+      const { compressDirectory } =
+        await import('./scripts/compress-static.ts');
       await compressDirectory(resolve(__dirname, outDir), 'client bundle');
     },
   },
@@ -401,6 +401,7 @@ export default defineConfig(({ mode }) => {
     preview: {
       headers,
     },
+    // Bundle server deps so Redact can redirect their React imports too.
     plugins: [
       nitro({
         preset: 'bun',
@@ -454,6 +455,9 @@ export default defineConfig(({ mode }) => {
         pages: getLocalizedPages(isSelfHosted),
       }),
       react({ compiler: true }),
+      // Swaps the React runtime for TanStack Redact; must follow start + react.
+      // Activity and fragment refs are unused (audited); stubbing them trims the runtime.
+      redact({ features: { activity: false, fragmentRefs: false } }),
       wasm(),
     ],
     build: {

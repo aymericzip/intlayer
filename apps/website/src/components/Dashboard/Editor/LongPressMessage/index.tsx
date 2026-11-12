@@ -1,29 +1,68 @@
+import { Container } from '@intlayer/design-system/container';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type FileContent,
   MessageKey,
   useCrossFrameState,
 } from '@intlayer/editor-react';
-import type { FC } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
+/** Bordered chip naming a gesture, such as "Long press" or "⌘ + click". */
+const GestureChip = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<'span'>) => (
+  <span
+    {...props}
+    className={cn(
+      'mx-1 rounded-md border border-neutral px-1.5 font-semibold whitespace-nowrap',
+      className
+    )}
+  >
+    {children}
+  </span>
+);
+
 export const LongPressMessage: FC = () => {
-  const { message } = useIntlayer('long-press-message');
+  const { message, longPress, modifierClick } =
+    useIntlayer('long-press-message');
+  const { isMac } = useDevice();
   const hoveredContent = useCrossFrameState<FileContent | null>(
     MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
     null
   );
 
   return (
-    <div
+    <Container
+      roundedSize="2xl"
+      border
+      borderColor="neutral"
       className={cn(
-        'rounded-2xl bg-neutral/30 px-3 py-1 font-bold text-foreground text-sm transition-opacity duration-100',
+        'ml-1 p-1 pr-2 text-sm text-text transition-opacity duration-100',
         hoveredContent?.dictionaryKey ? 'opacity-100' : 'opacity-0'
       )}
     >
-      {hoveredContent?.dictionaryKey
-        ? message({ dictionaryKey: hoveredContent.dictionaryKey })
-        : ''}
-    </div>
+      {/* Single text block so the message wraps as prose, not flex columns */}
+      <p className="text-sm leading-6 text-text/50">
+        {hoveredContent?.dictionaryKey
+          ? message({
+              longPress: <GestureChip>{longPress}</GestureChip>,
+              modifierClick: (
+                <GestureChip>
+                  {modifierClick({ modifierKey: isMac ? '⌘' : 'Ctrl' })}
+                </GestureChip>
+              ),
+              dictionaryKey: (
+                <GestureChip className="mx-1 wrap-break-word">
+                  {hoveredContent.dictionaryKey}
+                </GestureChip>
+              ),
+            })
+          : ''}
+      </p>
+    </Container>
   );
 };

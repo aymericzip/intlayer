@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 4
 title: 如何自定义语言列表？
 description: "在 intlayer.config.ts 中自定义 Intlayer 支持的语言列表，包括地区变体和默认语言。"
@@ -12,7 +12,7 @@ keywords:
   - availableLocales
   - defaultLocale
   - useLocale
-  - 钩子
+  - Hook
   - 语言环境
   - 列表
 slugs:
@@ -55,7 +55,7 @@ const config: IntlayerConfig = {
 
 请注意，所有包含在 `availableLocales` 选项中的语言环境都应包含在 `locales` 选项中。
 
-请注意，如果你使用 `useLocale` 钩子，`availableLocales` 选项将用于设置对语言环境列表的访问权限。
+请注意，如果你使用 `useLocale` Hook，`availableLocales` 选项将用于设置对语言环境列表的访问权限。
 
 ```ts
 import { useLocale } from "react-intlayer";

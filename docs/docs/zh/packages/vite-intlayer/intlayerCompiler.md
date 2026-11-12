@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-25
-updatedAt: 2026-06-25
+updatedAt: 2026-10-08
 priority: 5
 title: intlayerCompiler Vite 插件文档 | vite-intlayer
 description: Vite 插件，用于在构建/转换时从组件文件中提取内联 Intlayer 内容声明并将其写入字典 JSON 文件。
@@ -107,11 +107,11 @@ intlayerCompiler({
 
 支持的文件类型：`.ts`, `.tsx`, `.js`, `.jsx`, `.vue`, `.svelte`, `.astro`。
 
-### HMR（热模块替换）
+### HMR（模块热替换）
 
 在开发模式下保存组件文件时，编译器：
 
-1. 通过 Vite 的 `handleHotUpdate` 钩子检测文件更改。
+1. 通过 Vite 的 `handleHotUpdate` Hook检测文件更改。
 2. 从更新后的文件中重新提取内容。
 3. 写入更新后的字典 JSON。
 4. 触发页面完全重新加载（`server.ws.send({ type: 'full-reload' })`）。
@@ -120,4 +120,4 @@ intlayerCompiler({
 
 ### 去重（Deduplication）
 
-`intlayerCompiler` 使用与其他捆绑插件相同的 `createPrimaryInstanceGuard` 去重机制。当同时存在 `intlayer()`（已捆绑编译器）和手动 `intlayerCompiler()` 调用时，仅运行第一个注册 ins，不会重复写入任何字典。
+`intlayerCompiler` 使用与其他打包插件相同的 `createPrimaryInstanceGuard` 去重机制。当同时存在 `intlayer()`（已打包编译器）和手动 `intlayerCompiler()` 调用时，仅运行第一个注册 ins，不会重复写入任何字典。

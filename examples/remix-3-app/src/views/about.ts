@@ -1,6 +1,6 @@
 import { getLocalizedPath } from 'intlayer';
-import { html, type SafeHtml } from 'remix/html-template';
 import { useIntlayer, useLocale } from 'remix-intlayer';
+import { html, type SafeHtml } from 'remix/html-template';
 import { routes } from '../routes';
 import { renderLayout } from './layout';
 
@@ -14,7 +14,9 @@ export const renderAboutPage = (): SafeHtml => {
       <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem;">
         ${about.title}
       </h1>
-      <p style="font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 2rem;">
+      <p
+        style="font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 2rem;"
+      >
         ${about.description}
       </p>
 

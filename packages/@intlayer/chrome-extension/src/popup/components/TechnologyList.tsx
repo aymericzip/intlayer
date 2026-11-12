@@ -58,12 +58,12 @@ export const TechnologyList: FunctionComponent<{
 
         return (
           <div key={category}>
-            <h4 className="mt-0 mb-1 font-semibold text-[10px] text-neutral uppercase tracking-wide">
+            <h4 className="mt-0 mb-1 text-[10px] font-semibold tracking-wide text-neutral uppercase">
               {getCategoryLabel(category)}
             </h4>
 
             {categoryTechnologies.length === 0 ? (
-              <p className="m-0 text-neutral text-xs">
+              <p className="m-0 text-xs text-neutral">
                 {noneDetectedLabels[category]}
               </p>
             ) : (
@@ -83,7 +83,7 @@ export const TechnologyList: FunctionComponent<{
                             {technology.name}
                           </span>
                           {technology.version && (
-                            <span className="text-neutral text-xs">
+                            <span className="text-xs text-neutral">
                               {technology.version}
                             </span>
                           )}
@@ -106,7 +106,7 @@ export const TechnologyList: FunctionComponent<{
                       )}
                       <p className="m-0">
                         <span className="text-neutral">{evidenceLabel}: </span>
-                        <span className="break-all font-mono text-[11px]">
+                        <span className="font-mono text-[11px] break-all">
                           {technology.evidence}
                         </span>
                       </p>

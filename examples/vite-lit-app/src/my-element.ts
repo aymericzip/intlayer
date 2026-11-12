@@ -1,5 +1,4 @@
 import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
 import { useIntlayer } from 'lit-intlayer';
 import {
   useCompact,
@@ -11,6 +10,7 @@ import {
   useRelativeTime,
   useUnit,
 } from 'lit-intlayer/format';
+import { customElement, property } from 'lit/decorators.js';
 import litLogo from './assets/lit.svg';
 import viteLogo from './assets/vite.svg';
 
@@ -267,7 +267,9 @@ export class MyElement extends LitElement {
   private renderRows(rows: Row[], startIdx: number) {
     return rows.map(
       (row, i) => html`
-        <tr style="background:${(startIdx + i) % 2 === 0 ? 'rgba(255,255,255,0.025)' : 'transparent'}">
+        <tr
+          style="background:${(startIdx + i) % 2 === 0 ? 'rgba(255,255,255,0.025)' : 'transparent'}"
+        >
           <td class="col-id">${startIdx + i + 1}</td>
           <td class="col-name"><code>${row.name}</code></td>
           <td class="col-desc">${row.desc}</td>
@@ -286,10 +288,18 @@ export class MyElement extends LitElement {
       <section id="center">
         <div class="hero">
           <a href="https://vite.dev" target="_blank" rel="noopener">
-            <img src=${viteLogo} class="logo" alt=${content.viteLogoLabel.value} />
+            <img
+              src=${viteLogo}
+              class="logo"
+              alt=${content.viteLogoLabel.value}
+            />
           </a>
           <a href="https://lit.dev" target="_blank" rel="noopener">
-            <img src=${litLogo} class="logo lit" alt=${content.litLogoLabel.value} />
+            <img
+              src=${litLogo}
+              class="logo lit"
+              alt=${content.litLogoLabel.value}
+            />
           </a>
         </div>
 
@@ -364,16 +374,43 @@ export class MyElement extends LitElement {
       color: var(--text);
     }
 
-    .hero { display: flex; justify-content: center; gap: 2em; margin-bottom: 2em; }
-    .logo { height: 6em; padding: 1.5em; will-change: filter; transition: filter 300ms; }
-    .logo:hover { filter: drop-shadow(0 0 2em #646cffaa); }
-    .logo.lit:hover { filter: drop-shadow(0 0 2em #324fffaa); }
+    .hero {
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      margin-bottom: 2em;
+    }
+    .logo {
+      height: 6em;
+      padding: 1.5em;
+      will-change: filter;
+      transition: filter 300ms;
+    }
+    .logo:hover {
+      filter: drop-shadow(0 0 2em #646cffaa);
+    }
+    .logo.lit:hover {
+      filter: drop-shadow(0 0 2em #324fffaa);
+    }
 
-    .benchmark-wrap { margin: 1.5em 0; text-align: left; }
-    .benchmark-title { font-size: 1.25em; color: var(--accent); margin-bottom: 0.75em; }
-    .table-scroll { overflow-x: auto; }
+    .benchmark-wrap {
+      margin: 1.5em 0;
+      text-align: left;
+    }
+    .benchmark-title {
+      font-size: 1.25em;
+      color: var(--accent);
+      margin-bottom: 0.75em;
+    }
+    .table-scroll {
+      overflow-x: auto;
+    }
 
-    .benchmark-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+    .benchmark-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88em;
+    }
     .benchmark-table th {
       padding: 8px 14px;
       background: var(--accent-bg);
@@ -398,8 +435,14 @@ export class MyElement extends LitElement {
       color: #888;
     }
 
-    .col-id { width: 36px; color: #999; font-family: var(--mono); }
-    .col-name { width: 200px; }
+    .col-id {
+      width: 36px;
+      color: #999;
+      font-family: var(--mono);
+    }
+    .col-name {
+      width: 200px;
+    }
     .col-name code {
       background: var(--accent-bg);
       padding: 2px 7px;
@@ -407,8 +450,15 @@ export class MyElement extends LitElement {
       font-size: 0.85em;
       font-family: var(--mono);
     }
-    .col-desc { width: 280px; color: #aaa; font-family: var(--mono); font-size: 0.83em; }
-    .col-result { max-width: 360px; }
+    .col-desc {
+      width: 280px;
+      color: #aaa;
+      font-family: var(--mono);
+      font-size: 0.83em;
+    }
+    .col-result {
+      max-width: 360px;
+    }
 
     .counter {
       font-family: var(--mono);
@@ -422,12 +472,25 @@ export class MyElement extends LitElement {
       transition: border-color 0.3s;
       cursor: pointer;
     }
-    .counter:hover { border-color: var(--accent-border); }
+    .counter:hover {
+      border-color: var(--accent-border);
+    }
 
-    .read-the-docs { color: #888; }
-    h1 { font-family: var(--heading); font-size: 3.2em; line-height: 1.1; }
-    #center { position: relative; padding: 2em; }
-    .card { margin: 1em 0; }
+    .read-the-docs {
+      color: #888;
+    }
+    h1 {
+      font-family: var(--heading);
+      font-size: 3.2em;
+      line-height: 1.1;
+    }
+    #center {
+      position: relative;
+      padding: 2em;
+    }
+    .card {
+      margin: 1em 0;
+    }
   `;
 }
 

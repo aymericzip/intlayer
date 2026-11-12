@@ -1,6 +1,6 @@
 // === keep your Queue, Node, pLimit, validateConcurrency exactly as-is ===
 
-import { pLimit } from './pLimit';
+import { pLimit } from '@intlayer/config/utils';
 
 // --- NEW: single, shared limiter for the whole process ---
 let _globalLimiter: ReturnType<typeof pLimit> | null = null;

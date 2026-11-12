@@ -12,7 +12,7 @@ export const UserDates: FC<UserDatesProps> = ({ user }) => {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
-        <div className="mb-1 block font-medium text-neutral-600 text-sm dark:text-neutral-400">
+        <div className="mb-1 block text-sm font-medium text-neutral-600 dark:text-neutral-400">
           {formLabels.createdAt}
         </div>
         <p className="text-neutral-900 dark:text-neutral-100">
@@ -20,7 +20,7 @@ export const UserDates: FC<UserDatesProps> = ({ user }) => {
         </p>
       </div>
       <div>
-        <div className="mb-1 block font-medium text-neutral-600 text-sm dark:text-neutral-400">
+        <div className="mb-1 block text-sm font-medium text-neutral-600 dark:text-neutral-400">
           {formLabels.updatedAt}
         </div>
         <p className="text-neutral-900 dark:text-neutral-100">

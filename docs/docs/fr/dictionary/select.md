@@ -358,14 +358,11 @@ Les messages utilisant l'argument `select` d'ICU sont importés en tant que nœu
 devient
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 Le cas `other` d'ICU est renommé en `fallback`, qui est le nom canonique d'Intlayer pour la valeur par défaut de rattrapage. Le deuxième argument enregistre le nom de la variable ICU afin que le message puisse être reconverti exactement dans la même chaîne ICU lors de son exportation.

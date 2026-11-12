@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Optymalizacja Rozmiaru Paczki i Wydajności i18n
 description: Zmniejsz rozmiar paczki swojej aplikacji, optymalizując treści umiędzynarodowienia (i18n). Dowiedz się, jak wykorzystać tree shaking i leniwe ładowanie (lazy loading) dla słowników dzięki Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Jednym z najczęstszych wyzwań w tradycyjnych rozwiązaniach i18n opartych na plikach JSON jest zarządzanie rozmiarem treści. Jeśli programiści nie rozdzielą treści na przestrzenie nazw (namespaces) ręcznie, użytkownicy często pobierają tłumaczenia dla każdej strony i potencjalnie każdego języka, tylko po to, aby wyświetlić pojedynczą stronę.
 
-Na przykład, aplikacja z 10 stronami przetłumaczonymi na 10 języków może spowodować, że użytkownik pobierze zawartość 100 stron, chociaż potrzebuje tylko **jednej** (bieżącej strony w bieżącym języku). Prowadzi to do marnowania przepustowości i wolniejszego ładowania.
-
-Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
-
-![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer rozwiązuje ten problem poprzez optymalizację w czasie budowania.** Analizuje on Twój kod, aby wykryć, które słowniki są faktycznie używane w poszczególnych komponentach, i wprowadza do paczki (bundle) tylko niezbędne treści.
 
 ## Spis Treści
 
 <TOC />
+
+## Problemy, o których warto pamiętać
+
+Rozwiązanie i18n zwiększa rozmiar paczki na pięć sposobów. Intlayer rozwiązuje każdy z nich:
+
+1. **Kod biblioteki.** Intlayer dba o niewielki rozmiar swoich funkcji, współdzieli logikę między nimi i zapewnia pełną obsługę tree-shakingu: każda nieużywana funkcja jest usuwana przez bundler.
+
+2. **Zawartość z innych stron i języków.** Przeciętna biblioteka i18n waży od 5 KB do 25 KB, podczas gdy zawartość tekstowa strony w chunku JS to od 20 KB do 60 KB. Prawdziwym kosztem jest wyciek treści (content leakage): aplikacja z 10 stronami w 10 językach może dostarczać zawartość 100 stron, podczas gdy potrzebna jest tylko **jedna**. Intlayer przekształca kod w czasie budowania (wtyczki Babel / SWC / Vite), aby ładować wyłącznie zawartość bieżącej strony w bieżącym języku.
+
+   ![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   Wykres szacuje ten koszt dla aplikacji od 1 do 10 stron w 1 do 10 językach, z około 30 KB tekstu na stronę. Dynamiczny import eliminuje oś języków, rozbicie treści na komponenty eliminuje oś stron, a tylko połączenie obu utrzymuje rozmiar paczki na stałym poziomie.
+
+3. **Nieużywane funkcjonalności.** Pliki cookie, local storage, prefiksy URL, rezerwowy fallback treści, format wiadomości ICU: każda funkcja dokłada logikę. Zamiast generować kod do Twojej bazy kodu (jak robi to Paraglide), Intlayer wstrzykuje zmienne środowiskowe w czasie budowania z Twojej konfiguracji, dzięki czemu bundler może usunąć każdą nieużywaną funkcję.
+
+4. **Nieużywana i rozwlekła treść.** W Vite i Next.js Intlayer [oczyszcza (purge)](#purging-usuwanie-nieużytych-przestrzeni) pola słownika, których Twój kod nigdy nie odczytuje, oraz [minifikuje](#minifikacja-zmienianie-nazw-kluczy) pozostałe klucze.
+
+5. **Zduplikowana treść.** Słowniki współdzielące ten sam klucz – niezależnie od tego, czy pochodzą z wielu plików `.content`, czy ze źródeł lokalnych i zdalnych ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)) – są łączone w jeden słownik.
 
 ## Jak to Działa
 

@@ -362,14 +362,11 @@ ICU `select` 인수를 사용하는 메시지는 `select` 노드로 가져옵니
 위의 형식은 다음과 같이 변경됩니다:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 ICU `other` 케이스는 모든 불일치 케이스에 대한 Intlayer의 정규 이름인 `fallback`으로 이름이 바뀝니다. 두 번째 인수는 ICU 변수의 이름을 기록하므로 메시지를 내보낼 때 정확히 동일한 ICU 문자열로 되돌릴 수 있습니다.

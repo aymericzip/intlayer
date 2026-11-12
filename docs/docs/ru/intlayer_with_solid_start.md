@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Solid Start i18n, полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в SolidStart: серверная маршрутизация по локалям, реактивный переведённый контент, hreflang и многоязычная карта сайта."
@@ -488,7 +488,7 @@ export default function Home() {
 
 > Подробнее о хуке `useIntlayer` см. в [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useIntlayer.md).
 
-- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useIntlayer.md)
+- [Документация хука useIntlayer | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useIntlayer.md)
 
 Контентные узлы не ограничиваются простыми переводами. Например, счётчик с формами множественного числа:
 
@@ -649,7 +649,7 @@ export const LocaleSwitcher: Component = () => {
 >
 > Подробнее о хуке `useLocale` см. в [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md).
 
-- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md)
+- [Документация хука useLocale | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md)
 
 </Step>
 <Step number={11} title="Отправка ссылок canonical и hreflang" isOptional={true}>
@@ -912,7 +912,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Extract command'>
+ <Tab value='Команда извлечения'>
 
 Запустите экстрактор, чтобы преобразовать ваши компоненты и извлечь контент
 
@@ -935,7 +935,7 @@ bun x intlayer extract
 > Впоследствии переместите сгенерированные файлы контента ваших страниц из `src/routes`, по причине, объяснённой в шаге 5.
 
  </Tab>
- <Tab value='Babel compiler'>
+ <Tab value='Компилятор Babel'>
 
  <Tabs>
  <Tab value='intlayer >= 9'>

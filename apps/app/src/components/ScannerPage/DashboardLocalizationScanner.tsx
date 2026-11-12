@@ -142,16 +142,24 @@ export const DashboardLocalizationScanner: FC = () => {
 
   if (!applicationURL) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 p-10 text-center">
-        <p className="max-w-sm text-neutral text-sm">{noApplicationUrl}</p>
-        <Link
-          to={App_Dashboard_Projects_Path}
-          color="text"
-          variant="button"
-          label={goToProjectSettings.value}
+      <div className="flex flex-1 flex-col items-center justify-center p-10 text-center">
+        <Container
+          padding="md"
+          roundedSize="2xl"
+          border
+          borderColor="neutral"
+          className="gap-4"
         >
-          {goToProjectSettings}
-        </Link>
+          <p className="max-w-sm text-sm text-neutral">{noApplicationUrl}</p>
+          <Link
+            to={App_Dashboard_Projects_Path}
+            color="text"
+            variant="button"
+            label={goToProjectSettings.value}
+          >
+            {goToProjectSettings}
+          </Link>
+        </Container>
       </div>
     );
   }
@@ -159,7 +167,7 @@ export const DashboardLocalizationScanner: FC = () => {
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">
       {/* Left panel — URL list */}
-      <div className="flex w-64 shrink-0 flex-col border-neutral/20 border-e px-2 pt-2">
+      <div className="flex w-64 shrink-0 flex-col border-e border-neutral/20 px-2 pt-2">
         <div className="flex items-center gap-1 p-2">
           <Input
             type="search"
@@ -187,11 +195,11 @@ export const DashboardLocalizationScanner: FC = () => {
           aria-label={searchAriaLabel.value}
         >
           {isDiscovering ? (
-            <li className="px-3 py-4 text-center text-neutral text-xs">
+            <li className="px-3 py-4 text-center text-xs text-neutral">
               {loadingUrls}
             </li>
           ) : filteredUrls.length === 0 ? (
-            <li className="px-3 py-4 text-center text-neutral text-xs">
+            <li className="px-3 py-4 text-center text-xs text-neutral">
               {noUrls}
             </li>
           ) : (
@@ -226,7 +234,7 @@ export const DashboardLocalizationScanner: FC = () => {
       {/* Right panel — scan results */}
       <div className="flex min-w-0 flex-1 flex-col items-center overflow-auto p-4">
         {!selectedUrl && !isSingleScanLoading && !error && (
-          <p className="mt-10 text-center text-neutral text-sm">
+          <p className="mt-10 text-center text-sm text-neutral">
             {selectUrlPrompt}
           </p>
         )}
@@ -271,7 +279,7 @@ export const DashboardLocalizationScanner: FC = () => {
             border
             borderColor="neutral"
           >
-            <p className="text-center text-error text-sm">
+            <p className="text-center text-sm text-error">
               {isLocalUrl(selectedUrl ?? applicationURL)
                 ? localhostError({
                     url: (

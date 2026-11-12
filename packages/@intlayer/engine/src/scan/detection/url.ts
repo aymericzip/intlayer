@@ -9,6 +9,32 @@ export const parseUrl = (url: string, baseUrl?: string): URL | undefined => {
   }
 };
 
+/**
+ * Turn user input into an absolute scan URL: a bare domain (`intlayer.org`,
+ * `intlayer.org/fr`) or protocol-relative URL (`//intlayer.org`) gets
+ * `https://`. Throws when the result is still not a valid HTTP(S) URL.
+ */
+export const toAbsoluteScanUrl = (input: string): string => {
+  const trimmedInput = input.trim();
+  const hasScheme = /^[a-z][a-z\d+.-]*:\/\//i.test(trimmedInput);
+  const candidateUrl = hasScheme
+    ? trimmedInput
+    : `https://${trimmedInput.replace(/^\/+/, '')}`;
+  const parsedUrl = parseUrl(candidateUrl);
+
+  if (
+    !parsedUrl ||
+    !/^https?:$/.test(parsedUrl.protocol) ||
+    !parsedUrl.hostname
+  ) {
+    throw new Error(
+      `Invalid URL "${input}". Expected a domain or an http(s) URL, e.g. intlayer.org`
+    );
+  }
+
+  return parsedUrl.href;
+};
+
 /** Strip a leading `www.` so `www.example.com` and `example.com` compare equal. */
 export const normalizeHostname = (hostname: string): string =>
   hostname.toLowerCase().replace(/^www\./, '');

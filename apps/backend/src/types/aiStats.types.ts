@@ -1,6 +1,6 @@
 /** Aggregated token-usage breakdown per AI model. */
 export type AIModelUsage = {
-  /** AI model identifier (e.g. `gpt-4o-mini`). */
+  /** AI model identifier (e.g. `gpt-6-luna`). */
   aiModel: string;
   /** Number of discussions that used this model. */
   discussionCount: number;

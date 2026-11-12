@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Express i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в Express: определение локали для каждого запроса через middleware, перевод ответов API и ошибок, сквозная типизация."
@@ -58,7 +58,7 @@ author: aymericzip
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-express-template) on GitHub.
+Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-express-template) на GitHub.
 
 ### Установка
 

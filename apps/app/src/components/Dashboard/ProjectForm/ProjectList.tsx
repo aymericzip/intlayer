@@ -92,7 +92,7 @@ export const ProjectList: FC = () => {
       ) : (
         <Container roundedSize="3xl" className="m-auto flex justify-center p-6">
           {search ? (
-            <span className="m-auto text-neutral text-sm">
+            <span className="m-auto text-sm text-neutral">
               {noProjectFound}
             </span>
           ) : (
@@ -137,6 +137,8 @@ export const ProjectList: FC = () => {
         onClose={() => setIsCreationModalOpen(false)}
         padding="md"
         hasCloseButton
+        border
+        borderColor="neutral"
       >
         <ProjectCreationForm
           onProjectCreated={() => setIsCreationModalOpen(false)}

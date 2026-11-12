@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
-
 import { EditableFieldInput } from '.';
 
 /**
@@ -203,7 +202,7 @@ export const InputVariants: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div>
-        <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
+        <h3 className="mb-2 text-sm font-medium">Default Variant</h3>
         <EditableFieldInput
           defaultValue="Default styled input"
           variant="default"
@@ -213,7 +212,7 @@ export const InputVariants: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Invisible Variant</h3>
+        <h3 className="mb-2 text-sm font-medium">Invisible Variant</h3>
         <EditableFieldInput
           defaultValue="Invisible styled input"
           variant="invisible"
@@ -223,7 +222,7 @@ export const InputVariants: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
+        <h3 className="mb-2 text-sm font-medium">Default Variant</h3>
         <EditableFieldInput
           defaultValue="Default styled input with borders"
           variant="default"
@@ -258,7 +257,7 @@ export const SizeVariations: Story = {
   render: () => (
     <div className="space-y-4 p-4">
       <div>
-        <h4 className="mb-2 font-medium text-sm">Medium (Default)</h4>
+        <h4 className="mb-2 text-sm font-medium">Medium (Default)</h4>
         <EditableFieldInput
           defaultValue="Medium input text"
           onSave={(value) => console.log('Medium saved:', value)}
@@ -266,7 +265,7 @@ export const SizeVariations: Story = {
       </div>
 
       <div>
-        <h4 className="mb-2 font-medium text-sm">Large</h4>
+        <h4 className="mb-2 text-sm font-medium">Large</h4>
         <EditableFieldInput
           defaultValue="Large input text"
           onSave={(value) => console.log('Large saved:', value)}
@@ -425,7 +424,7 @@ export const EmailInputType: Story = {
     <div className="p-4">
       <label
         htmlFor="editableFieldInput-email-address-2"
-        className="mb-2 block font-medium text-sm"
+        className="mb-2 block text-sm font-medium"
       >
         Email Address
       </label>
@@ -466,7 +465,7 @@ export const RequiredField: Story = {
     <div className="p-4">
       <label
         htmlFor="editableFieldInput-required-field"
-        className="mb-2 block font-medium text-sm"
+        className="mb-2 block text-sm font-medium"
       >
         Required Field <span className="text-error">*</span>
       </label>
@@ -503,7 +502,7 @@ export const RequiredField: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4 p-4">
-      <div className="mb-4 rounded-lg bg-blue-50 p-3 text-gray-600 text-sm">
+      <div className="mb-4 rounded-lg bg-blue-50 p-3 text-sm text-gray-600">
         <p className="mb-1 font-medium">Keyboard Navigation Test:</p>
         <ul className="space-y-1 text-xs">
           <li>• Tab: Navigate between fields</li>
@@ -559,13 +558,13 @@ export const KeyboardNavigation: Story = {
 export const UserProfileForm: Story = {
   render: () => (
     <div className="mx-auto max-w-md rounded-lg border border-gray-200 bg-white p-6">
-      <h2 className="mb-6 font-semibold text-lg">User Profile</h2>
+      <h2 className="mb-6 text-lg font-semibold">User Profile</h2>
 
       <div className="space-y-4">
         <div>
           <label
             htmlFor="editableFieldInput-full-name"
-            className="mb-1 block font-medium text-gray-700 text-sm"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Full Name
           </label>
@@ -580,7 +579,7 @@ export const UserProfileForm: Story = {
         <div>
           <label
             htmlFor="editableFieldInput-email-address"
-            className="mb-1 block font-medium text-gray-700 text-sm"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Email Address
           </label>
@@ -597,7 +596,7 @@ export const UserProfileForm: Story = {
         <div>
           <label
             htmlFor="editableFieldInput-job-title"
-            className="mb-1 block font-medium text-gray-700 text-sm"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Job Title
           </label>
@@ -612,7 +611,7 @@ export const UserProfileForm: Story = {
         <div>
           <label
             htmlFor="editableFieldInput-phone-number"
-            className="mb-1 block font-medium text-gray-700 text-sm"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Phone Number
           </label>
@@ -656,19 +655,19 @@ export const UserProfileForm: Story = {
 export const ContentManagementTable: Story = {
   render: () => (
     <div className="p-6">
-      <h3 className="mb-4 font-medium text-lg">Content Management</h3>
+      <h3 className="mb-4 text-lg font-medium">Content Management</h3>
 
       <div className="overflow-x-auto">
         <table className="min-w-full rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-start font-medium text-gray-700 text-sm">
+              <th className="px-4 py-3 text-start text-sm font-medium text-gray-700">
                 Title
               </th>
-              <th className="px-4 py-3 text-start font-medium text-gray-700 text-sm">
+              <th className="px-4 py-3 text-start text-sm font-medium text-gray-700">
                 Author
               </th>
-              <th className="px-4 py-3 text-start font-medium text-gray-700 text-sm">
+              <th className="px-4 py-3 text-start text-sm font-medium text-gray-700">
                 Status
               </th>
             </tr>

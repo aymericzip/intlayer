@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer editor：可视化编辑器命令"
 description: "通过 CLI 启动和配置 Intlayer 可视化编辑器，直接在运行中的应用上就地编辑内容。"

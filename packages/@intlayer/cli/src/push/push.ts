@@ -6,6 +6,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { parallelize } from '@intlayer/config/utils';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import {
   prepareIntlayer,
@@ -16,7 +17,7 @@ import {
   listGitFiles,
   logConfigDetails,
 } from '@intlayer/engine/cli';
-import { formatPath, parallelize } from '@intlayer/engine/utils';
+import { formatPath } from '@intlayer/engine/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { loadPrompts } from '../loadPrompts';
 import { PushLogger, type PushStatus } from '../pushLog';

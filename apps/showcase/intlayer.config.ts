@@ -19,6 +19,7 @@ export const locales: Locale[] = [
   Locales.INDONESIAN,
   Locales.VIETNAMESE,
   Locales.UKRAINIAN,
+  Locales.HEBREW_ISRAEL,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -37,7 +38,7 @@ const config: IntlayerConfig = {
     importMode: 'dynamic',
   },
   editor: {
-    enabled: false,
+    enabled: process.env.NODE_ENV === 'development',
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     applicationURL: process.env.VITE_SITE_URL,

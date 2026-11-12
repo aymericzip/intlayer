@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "Sync JSON 插件：保留你的 i18n JSON 文件"
 description: "将 Intlayer 字典与 i18next、next-intl、react-intl 或 vue-i18n 的 JSON 文件同步，并用 Intlayer 管理、翻译和测试它们。"

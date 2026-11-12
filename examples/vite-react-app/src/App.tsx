@@ -1,3 +1,4 @@
+import viteLogo from '/vite.svg';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -11,16 +12,14 @@ import {
   useUnit,
 } from 'react-intlayer/format';
 import { HTMLProvider } from 'react-intlayer/html';
-import { MarkdownProvider } from 'react-intlayer/markdown';
 import './App.css';
-import viteLogo from '/vite.svg';
+import { MarkdownProvider } from 'react-intlayer/markdown';
 import reactLogo from './assets/react.svg';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 import { LocaleRouter } from './Router';
 
 const PoTestSection: FC = () => {
-  const content = useIntlayer('index');
   return (
     <div
       style={{
@@ -35,10 +34,7 @@ const PoTestSection: FC = () => {
       <h2 style={{ color: '#646cff', marginTop: 0 }}>PO File Content Test</h2>
       <div
         style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '10px' }}
-      >
-        <strong>Default Key:</strong> <span>{content.test_key}</span>
-        <strong>Default Welcome:</strong> <span>{content.welcome_message}</span>
-      </div>
+      ></div>
     </div>
   );
 };

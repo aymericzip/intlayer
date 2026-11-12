@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "2026년 올바른 React i18n 라이브러리를 선택하는 방법"
 description: "React i18n 선택 가이드: react-i18next, react-intl, Lingui, use-intl, Paraglide, Intlayer를 비교하기 전에 답해야 할 질문들."
@@ -109,13 +109,13 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 | 라이브러리              | 세대         | 콘텐츠 모델                            | 타입 안전성                        | 메시지 포맷                   | 라이브러리 크기                                   |
 | :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------ |
-| `react-i18next`         | Runtime      | 중앙 JSON, 네임스페이스                | 2/5 — 옵트인 (`CustomTypeOptions`) | i18next (접미사 복수형)       | ~18.4 kB                                          |
-| `react-intl` (FormatJS) | Runtime      | 중앙 JSON, ICU                         | 2/5 — 옵트인 (추출 + 유니온)       | ICU                           | ~15.3 kB                                          |
-| `use-intl`              | Server-first | 중앙 JSON, ICU                         | 2/5 — 옵트인 (declaration merging) | ICU                           | ~14.1 kB                                          |
-| `@tolgee/react`         | Runtime      | 중앙 집중, 인컨텍스트 편집             | 1/5 — 미지원                       | ICU                           | ~11.1 kB                                          |
-| Lingui                  | Macro        | 코드 내 소스 텍스트, 컴파일된 카탈로그 | 2/5 — 우수 (컴파일러 지원)         | 매크로를 통한 ICU             | ~11.8 kB                                          |
-| Paraglide               | Compiler     | inlang 프로젝트, 생성된 함수           | 3.5/5 — 자동 생성                  | 자체 포맷                     | 거의 0에 가까움 (코드베이스에 생성되는 코드 때문) |
-| Intlayer                | Compiler     | 컴포넌트별 `.content.ts`               | 5/5 — 자동 생성, 기본 활성화       | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                           |
+| `react-i18next`         | Runtime      | 중앙 JSON, 네임스페이스                | 2/5 - 옵트인 (`CustomTypeOptions`) | i18next (접미사 복수형)       | ~18.4 kB                                          |
+| `react-intl` (FormatJS) | Runtime      | 중앙 JSON, ICU                         | 2/5 - 옵트인 (추출 + 유니온)       | ICU                           | ~15.3 kB                                          |
+| `use-intl`              | Server-first | 중앙 JSON, ICU                         | 2/5 - 옵트인 (declaration merging) | ICU                           | ~14.1 kB                                          |
+| `@tolgee/react`         | Runtime      | 중앙 집중, 인컨텍스트 편집             | 1/5 - 미지원                       | ICU                           | ~11.1 kB                                          |
+| Lingui                  | Macro        | 코드 내 소스 텍스트, 컴파일된 카탈로그 | 2/5 - 우수 (컴파일러 지원)         | 매크로를 통한 ICU             | ~11.8 kB                                          |
+| Paraglide               | Compiler     | inlang 프로젝트, 생성된 함수           | 3.5/5 - 자동 생성                  | 자체 포맷                     | 거의 0에 가까움 (코드베이스에 생성되는 코드 때문) |
+| Intlayer                | Compiler     | 컴포넌트별 `.content.ts`               | 5/5 - 자동 생성, 기본 활성화       | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                           |
 
 > 수치는 벤치마크 테스트 당시 버전 기준이며 릴리스에 따라 달라집니다. 크기만으로 결정하기 전에 자체 앱에서 직접 벤치마크를 실행해 보세요.
 > 타입 안전성: 5/5는 URL 포맷터와 헬퍼를 포함하여 키, 매개변수, 모든 로케일이 수동 설정 없이 검사됨을 의미합니다.

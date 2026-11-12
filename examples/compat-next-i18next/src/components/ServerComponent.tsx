@@ -20,10 +20,10 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <p className="m-0 font-bold text-5xl text-white">{formatted}</p>
+      <p className="m-0 text-5xl font-bold text-white">{formatted}</p>
       {/* Use translation function passed as prop */}
       <div className="flex flex-col items-center gap-2">
-        <span className="font-semibold text-white text-xl">
+        <span className="text-xl font-semibold text-white">
           {t('counter.label')}
         </span>
         <span className="text-sm italic opacity-80">

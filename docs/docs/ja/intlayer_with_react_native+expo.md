@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Expo + React Native の i18n：翻訳の完全ガイド"
 description: "Expo と React Native に Intlayer を導入：コンポーネント単位の型付きコンテンツ、端末ロケールの検出、言語切り替え、Metro によるバンドル。"
@@ -64,7 +64,7 @@ author: aymericzip
 
 <TOC/>
 
-## 代替手段ではなく Intlayer を使用する理由
+## なぜ他の選択肢ではなく Intlayer なのか？
 
 `react-native-localize` や `i18next` などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
@@ -76,12 +76,12 @@ Intlayer は、**コンポーネントレベルのコンテンツスコープ**�
 </Accordion>
 <Accordion header="保守性">
 
-アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの**メンテナンスが容易になります**。コンテンツコードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの**メンテナンスが容易になります**。コンテンツコードベース全体を確認するという認知的負荷を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全な型安全性（TypeScript 型定義）**を提供し、コンテンツの正確性を保証します。
 
 </Accordion>
 <Accordion header="AI エージェント">
 
-コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+コンテンツをコンポーネントと同一ディレクトリに配置（Co-location）すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
@@ -90,14 +90,14 @@ Intlayer は、**コンポーネントレベルのコンテンツスコープ**�
 </Accordion>
 <Accordion header="オートメーション">
 
-AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化して翻訳します。Intlayer は、コンテンツ抽出を自動化する**コンパイラー**と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
+自前の AI プロバイダーの API 利用料で、選択した LLM を使用して CI/CD パイプラインで自動化して翻訳します。Intlayer は、コンテンツ抽出を自動化する**コンパイラー**と、**バックグラウンド翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
 
 - [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
 
-大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+大量の JSON ファイルをコンポーネントに接続すると、レンダリングパフォーマンスの低下や反応性の遅延を引き起こす可能性があります。Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 </Accordion>
 <Accordion header="非開発者によるスケーリング">
@@ -110,7 +110,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 </Accordion>
 <Accordion header="バンドルサイズ">
 
-大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。Intlayer は、**バンドルとビューのサイズを最大 50% 削減**するのに役立ちます。
+巨大な JSON ファイルをページ全体に読み込む代わりに、必要なコンテンツのみをロードします。Intlayer は、**バンドルとビューのサイズを最大 50% 削減**するのに役立ちます。
 
 </Accordion>
 </AccordionGroup>
@@ -518,7 +518,7 @@ Intlayer の開発体験を向上させるために、公式の **Intlayer VS Co
 
 **Intlayer** を通じて、完全な i18n 機能を備えた **React Native** アプリの開発をお楽しみください！
 
-### Debug
+### デバッグ
 
 React Native は React Web よりも安定性が低いため、バージョンの整合性に特に注意を払ってください。
 
@@ -552,7 +552,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 - **`i18n-js`** と `expo-localization` の組み合わせ: 従来からの組み合わせで、型付けのないメッセージの単純なオブジェクトです。
 - **`react-i18next`**: React エコシステムの標準で、実行時に読み込まれる JSON ネームスペースを使用します。
-- **`Intlayer`**: 最も高度なソリューションです。コードベースの任意の場所（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）でコンテンツを宣言し、ビルド時に Metro プラグインでコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースの任意の場所（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）でコンテンツを宣言し、ビルド時に Metro プラグインでコンパイルされ、完全な型安全性を備え、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 モバイルではウェブよりもサイズの議論がより重要です。すべてがアプリにバンドルされ、ページごとに取得されないためです。コンポーネントごとにコンテンツをコンパイルすることで、未使用の言語と未使用のキーをバンドルから除外します。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
 

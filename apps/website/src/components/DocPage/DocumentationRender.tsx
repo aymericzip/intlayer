@@ -8,10 +8,13 @@ import { Step, Steps } from '@intlayer/design-system/steps';
 import {
   Children,
   type ComponentProps,
+  createContext,
   type FC,
   isValidElement,
   lazy,
   type ReactNode,
+  useContext,
+  useMemo,
 } from 'react';
 import { useLocale } from 'react-intlayer';
 import type { FrameworkKey } from '~/components/I18nBenchmark';
@@ -203,142 +206,193 @@ const extractLinksFromParagraph = (
   return onlyDocLinks && items.length > 1 ? items : null;
 };
 
+/** Default heading levels listed by a `<Toc />` that sets none. */
+const DEFAULT_TOC_LEVELS = [2, 3];
+
+type TocDefaults = { levels: number[]; maxDepth: number };
+
+/**
+ * Carries the page's `tocLevels` / `tocMaxDepth` to the `Toc` override, so the
+ * override stays a module-level component instead of a closure over props.
+ */
+const TocDefaultsContext = createContext<TocDefaults>({
+  levels: DEFAULT_TOC_LEVELS,
+  maxDepth: 3,
+});
+
+/*
+ * Markdown overrides are used as element types: one created during render is a
+ * new component on every render, which remounts its whole subtree. They all
+ * live at module level for that reason.
+ */
+
+const ScriptRenderer = () => null;
+
+const DocLinkRenderer = ({ color, ...props }: ComponentProps<'a'>) => {
+  const { locale } = useLocale();
+  const rawHref = props.href ?? '';
+  const to =
+    typeof rawHref === 'string'
+      ? rawHref.replace(AUTHORED_WEBSITE_ORIGIN_PATTERN, '')
+      : rawHref;
+
+  const label =
+    typeof props.children === 'string'
+      ? props.children
+      : (props['aria-label'] ?? '');
+
+  return (
+    <Link label={label} underlined={true} locale={locale} {...props} to={to} />
+  );
+};
+
+const ParagraphRenderer = (props: ComponentProps<'p'>) => {
+  const docLinks = extractLinksFromParagraph(props.children);
+  if (docLinks) {
+    return <TechGrid>{docLinks.map(renderDocLinkItem)}</TechGrid>;
+  }
+  return <p {...props} />;
+};
+
+const ListRenderer = (props: ComponentProps<'ul'>) => {
+  const items: DocLinkItem[] = [];
+  let allDocLinks = true;
+
+  Children.forEach(props.children, (li) => {
+    if (!isValidElement(li)) {
+      if (typeof li === 'string' && li.trim().length > 0) {
+        allDocLinks = false;
+      }
+      return;
+    }
+    const links = extractDocLinksFromNode(li);
+    if (links && links.length > 0) {
+      items.push(...links);
+    } else {
+      allDocLinks = false;
+    }
+  });
+
+  if (allDocLinks && items.length > 0) {
+    return <TechGrid>{items.map(renderDocLinkItem)}</TechGrid>;
+  }
+
+  return <ul {...props} className="flex flex-col gap-4" />;
+};
+
+const TocRenderer = (props: ComponentProps<typeof TableOfContents>) => {
+  const { levels, maxDepth } = useContext(TocDefaultsContext);
+
+  return (
+    <TableOfContents
+      {...props}
+      levels={props.levels ?? levels}
+      maxDepth={props.maxDepth ?? maxDepth}
+    />
+  );
+};
+
+const I18nBenchmarkRenderer = (props: {
+  framework?: FrameworkKey;
+  /** Comma separated library ids, e.g. `next-intl,next-intlayer`. */
+  packages?: string;
+}) => (
+  <I18nBenchmark
+    initialFramework={props.framework}
+    hideTitle
+    packages={props.packages
+      ?.split(',')
+      .map((packageName) => packageName.trim())}
+  />
+);
+
+const GithubCommitsRenderer = (props: {
+  /** Comma separated `owner/name`, e.g. `amannn/next-intl`. */
+  repositories?: string;
+}) => (
+  <GithubCommitsComparison repositories={splitCommaList(props.repositories)} />
+);
+
+const NpmDownloadsRenderer = (props: {
+  /** Comma separated package names, e.g. `next-intl,next-intlayer`. */
+  packages?: string;
+  period?: NpmDownloadPeriod;
+}) => (
+  <NpmDownloadsComparison
+    packageNames={splitCommaList(props.packages)}
+    initialPeriod={props.period}
+  />
+);
+
+const IframeRenderer = ({ src, ...props }: ComponentProps<'iframe'>) => (
+  <MarkDownIframe {...props} src={toDeploymentOrigin(src)} />
+);
+
+const ClickToOpenIframeRenderer = ({
+  src,
+  ...props
+}: ComponentProps<'iframe'>) => (
+  <ClickToOpenIframe {...props} src={toDeploymentOrigin(src)} />
+);
+
+const documentationComponents = {
+  script: ScriptRenderer,
+  a: DocLinkRenderer,
+  p: ParagraphRenderer,
+  ul: ListRenderer,
+  Toc: TocRenderer,
+  I18nBenchmark: I18nBenchmarkRenderer,
+  GithubCommits: GithubCommitsRenderer,
+  NpmDownloads: NpmDownloadsRenderer,
+  Sponsor,
+  iframe: IframeRenderer,
+  ClickToOpenIframe: ClickToOpenIframeRenderer,
+  Step,
+  Steps,
+  Accordion,
+  AccordionGroup,
+  FAQ,
+  Question,
+};
+
+/** Also an element type for the markdown renderer, hence module level. */
+const DocumentationWrapper: FC<ComponentProps<'div'>> = (props) => (
+  <>
+    <SectionScroller />
+    <div
+      className="flex flex-col gap-8 py-10 text-text/65 dark:text-text/50"
+      {...props}
+    />
+  </>
+);
+
 export const DocumentationRender: FC<DocumentationRenderProps> = ({
   children,
   codeStyleSheet,
-  tocLevels = [2, 3],
+  tocLevels = DEFAULT_TOC_LEVELS,
   tocMaxDepth = 3,
 }) => {
   const { locale } = useLocale();
+  const tocDefaults = useMemo<TocDefaults>(
+    () => ({ levels: tocLevels, maxDepth: tocMaxDepth }),
+    [tocLevels, tocMaxDepth]
+  );
 
   return (
     <div className="m-auto flex max-w-3xl flex-col gap-8 p-4 text-foreground/90 max-md:px-0">
       {codeStyleSheet && (
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: generated by Shiki from a fixed pair of themes
+        // oxlint-disable-next-line react/no-danger -- generated by Shiki from a fixed pair of themes
         <style dangerouslySetInnerHTML={{ __html: codeStyleSheet }} />
       )}
-      <MarkdownRenderer
-        locale={locale}
-        components={{
-          script: () => null,
-          a: ({ color, ...props }: ComponentProps<'a'>) => {
-            const rawHref = props.href ?? '';
-            const to =
-              typeof rawHref === 'string'
-                ? rawHref.replace(AUTHORED_WEBSITE_ORIGIN_PATTERN, '')
-                : rawHref;
-
-            const label =
-              typeof props.children === 'string'
-                ? props.children
-                : (props['aria-label'] ?? '');
-
-            return (
-              <Link
-                label={label}
-                underlined={true}
-                locale={locale}
-                {...props}
-                to={to}
-              />
-            );
-          },
-          p: (props: ComponentProps<'p'>) => {
-            const docLinks = extractLinksFromParagraph(props.children);
-            if (docLinks) {
-              return <TechGrid>{docLinks.map(renderDocLinkItem)}</TechGrid>;
-            }
-            return <p {...props} />;
-          },
-          ul: (props: ComponentProps<'ul'>) => {
-            const items: DocLinkItem[] = [];
-            let allDocLinks = true;
-
-            Children.forEach(props.children, (li) => {
-              if (!isValidElement(li)) {
-                if (typeof li === 'string' && li.trim().length > 0) {
-                  allDocLinks = false;
-                }
-                return;
-              }
-              const links = extractDocLinksFromNode(li);
-              if (links && links.length > 0) {
-                items.push(...links);
-              } else {
-                allDocLinks = false;
-              }
-            });
-
-            if (allDocLinks && items.length > 0) {
-              return <TechGrid>{items.map(renderDocLinkItem)}</TechGrid>;
-            }
-
-            return <ul {...props} className="flex flex-col gap-4" />;
-          },
-          Toc: (props: ComponentProps<typeof TableOfContents>) => (
-            <TableOfContents
-              {...props}
-              levels={props.levels ?? tocLevels}
-              maxDepth={props.maxDepth ?? tocMaxDepth}
-            />
-          ),
-          I18nBenchmark: (props: {
-            framework?: FrameworkKey;
-            /** Comma separated library ids, e.g. `next-intl,next-intlayer`. */
-            packages?: string;
-          }) => (
-            <I18nBenchmark
-              initialFramework={props.framework}
-              hideTitle
-              packages={props.packages
-                ?.split(',')
-                .map((packageName) => packageName.trim())}
-            />
-          ),
-          GithubCommits: (props: {
-            /** Comma separated `owner/name`, e.g. `amannn/next-intl`. */
-            repositories?: string;
-          }) => (
-            <GithubCommitsComparison
-              repositories={splitCommaList(props.repositories)}
-            />
-          ),
-          NpmDownloads: (props: {
-            /** Comma separated package names, e.g. `next-intl,next-intlayer`. */
-            packages?: string;
-            period?: NpmDownloadPeriod;
-          }) => (
-            <NpmDownloadsComparison
-              packageNames={splitCommaList(props.packages)}
-              initialPeriod={props.period}
-            />
-          ),
-          Sponsor,
-          iframe: ({ src, ...props }: ComponentProps<'iframe'>) => (
-            <MarkDownIframe {...props} src={toDeploymentOrigin(src)} />
-          ),
-          ClickToOpenIframe: ({ src, ...props }: ComponentProps<'iframe'>) => (
-            <ClickToOpenIframe {...props} src={toDeploymentOrigin(src)} />
-          ),
-          Step,
-          Steps,
-          Accordion,
-          AccordionGroup,
-          FAQ,
-          Question,
-        }}
-        wrapper={(props) => (
-          <>
-            <SectionScroller />
-            <div
-              className="flex flex-col gap-8 py-10 text-text/65 dark:text-text/50"
-              {...props}
-            />
-          </>
-        )}
-      >
-        {children}
-      </MarkdownRenderer>
+      <TocDefaultsContext.Provider value={tocDefaults}>
+        <MarkdownRenderer
+          locale={locale}
+          components={documentationComponents}
+          wrapper={DocumentationWrapper}
+        >
+          {children}
+        </MarkdownRenderer>
+      </TocDefaultsContext.Provider>
     </div>
   );
 };

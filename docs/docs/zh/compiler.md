@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: Intlayer 编译器 | 用于 i18n 的自动内容提取
 description: "使用 Intlayer 编译器自动从组件中提取内容，让 Vite、Next.js 等项目的 i18n 更快完成。"
@@ -48,7 +48,7 @@ author: aymericzip
 - **自动化**：消除手动将内容复制粘贴到字典中的步骤。
 - **速度**：优化的内容提取，确保构建过程保持快速。
 - **开发者体验**：将内容声明保留在使用它们的位置，提高可维护性。
-- **实时更新**：支持热模块替换（HMR），在开发过程中即时反馈。
+- **实时更新**：支持模块热替换（HMR），在开发过程中即时反馈。
 
 - **Live Updates**: 支持 Hot Module Replacement (HMR)，在开发过程中提供即时反馈。
 

@@ -285,6 +285,11 @@ export enum HttpStatusCodes {
   UNAUTHORIZED_401 = 401,
 
   /**
+   * Payment is required to access the resource (e.g. exhausted AI credits).
+   */
+  PAYMENT_REQUIRED_402 = 402,
+
+  /**
    * The client does not have access rights to the content.
    */
   FORBIDDEN_403 = 403,

@@ -54,6 +54,7 @@ export const DocumentationRouter = {
 
   // Lint rules for hardcoded text and non-optimizable dynamic calls
   ESLint: 'https://intlayer.org/doc/eslint',
+  Prettier: 'https://intlayer.org/doc/prettier',
 
   // Competitor / Compat libs
   NextIntl: 'https://intlayer.org/doc/next-intl',

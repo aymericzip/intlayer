@@ -5,8 +5,8 @@ const pricingDefault2 = {
   variant: 'default',
   item: 2,
   content: {
-    plan: t({ en: 'Pro', fr: 'Pro', es: 'Pro' }),
-    price: t({ en: '$29 / mo', fr: '29 € / mois', es: '29 $ / mes' }),
+    plan: 'Pro',
+    price: t({ en: '$29 / mo', es: '29 $ / mes', fr: '29 € / mois' }),
   },
 } satisfies Dictionary;
 

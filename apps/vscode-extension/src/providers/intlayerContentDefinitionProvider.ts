@@ -15,6 +15,7 @@ import { findProjectRoot } from '../utils/findProjectRoot';
 import {
   ALL_FIELDS_USED,
   findCachedUsagesOfDictionary,
+  UNTRACKED_FIELDS,
 } from '../utils/findUsages';
 import { getKeyOriginRange } from '../utils/getKeyOriginRange';
 
@@ -54,12 +55,17 @@ export const intlayerContentDefinitionProvider: DefinitionProvider = {
       // Dictionary key: where the dictionary is instantiated
       if (clickedField === 'key') return [toLink(usage.range)];
 
-      // Content field: where it is read, else where the whole content escapes
+      // Content field: where it is read, else where the content escapes or
+      // its trace is lost
       const fieldRanges = usage.keyLocations.get(clickedField) ?? [];
 
       if (fieldRanges.length > 0) return fieldRanges.map(toLink);
 
-      return usage.keysUsed.has(ALL_FIELDS_USED) ? [toLink(usage.range)] : [];
+      const isUntraced =
+        usage.keysUsed.has(ALL_FIELDS_USED) ||
+        usage.keysUsed.has(UNTRACKED_FIELDS);
+
+      return isUntraced ? [toLink(usage.range)] : [];
     });
 
     const uniqueLinks = dedupeDefinitionLinks(links);

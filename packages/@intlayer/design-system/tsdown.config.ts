@@ -1,5 +1,5 @@
 import svgr from '@svgr/rollup';
-import { getOptions } from '@utils/tsdown-config';
+import { getOptions, SkipUnchangedOutputPlugin } from '@utils/tsdown-config';
 import { defineConfig, type UserConfig } from 'tsdown';
 
 // Plugin to inject React import into SVG files that use React.createElement
@@ -49,6 +49,7 @@ const options: UserConfig[] = getOptions({
         // include: '**/*.svg',
       }),
       injectReactPlugin(),
+      SkipUnchangedOutputPlugin(),
     ],
   },
   types: {
@@ -62,7 +63,7 @@ const options: UserConfig[] = getOptions({
     // Provide TS compiler options to stabilize type resolution during d.ts emit
     dts: {
       // generator: 'oxc',
-      emitDtsOnly: true,
+      dtsOnly: true,
       // Provide TS compiler options to stabilize type resolution during d.ts emit
       compilerOptions: {
         types: ['react', 'node'],

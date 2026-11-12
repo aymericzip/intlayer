@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
 title: onRequest 中间件文档 | astro-intlayer
 description: 了解如何在 Astro 应用程序中使用 onRequest 中间件解析请求语言环境并填充 Astro.locals.intlayer。
@@ -73,5 +73,5 @@ export type IntlayerLocals = {
 ## 相关文档
 
 - [`intlayer` 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/intlayer.md)
-- [`useIntlayer` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useIntlayer.md)
-- [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useLocale.md)
+- [`useIntlayer` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useIntlayer.md)
+- [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/astro-intlayer/useLocale.md)

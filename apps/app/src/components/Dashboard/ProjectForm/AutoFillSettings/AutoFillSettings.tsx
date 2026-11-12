@@ -63,7 +63,7 @@ export const AutoFillSettings: FC = () => {
         <div className="flex gap-4">
           <div className="flex flex-1 flex-col gap-1">
             <H4>{autoFillOnPushToggle.label}</H4>
-            <p className="max-w-md text-neutral text-sm">
+            <p className="max-w-md text-sm text-neutral">
               {autoFillOnPushToggle.description}
             </p>
           </div>
@@ -79,7 +79,7 @@ export const AutoFillSettings: FC = () => {
       </Container>
 
       {isProjectAdmin && (
-        <div className="flex justify-end border-neutral/30 border-t border-dotted pt-3">
+        <div className="flex justify-end border-t border-dotted border-neutral/30 pt-3">
           <FormButton
             type="submit"
             label={saveButton.ariaLabel.value}

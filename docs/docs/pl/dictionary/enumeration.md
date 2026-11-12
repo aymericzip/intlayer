@@ -1,11 +1,12 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
-title: "Enumeracja: komunikaty zależne od liczby"
-description: "Używaj enumeracji Intlayer, aby pokazywać różne treści w zależności od liczby lub zakresu, z węzłem enu() i warunkami jak '<-1' czy '>5'."
+title: "Zawartość wyliczeniowa: komunikaty zależne od ilości i liczb"
+description: "Używaj enumeracji w Intlayer, aby wyświetlać różne treści w zależności od liczby lub zakresu, z węzłem enu() i warunkami takimi jak '<-1' czy '>5'."
 keywords:
   - Enumeracja
+  - Pluralizacja
   - Internacjonalizacja
   - Dokumentacja
   - Intlayer
@@ -24,15 +25,15 @@ history:
 author: aymericzip
 ---
 
-# Enumeracja / Pluralizacja
+# Enumeracja / Liczba mnoga
 
 ## Jak działa enumeracja
 
-W Intlayer enumeracja jest realizowana za pomocą funkcji `enu`, która mapuje określone klucze na odpowiadające im treści. Klucze te mogą reprezentować wartości liczbowe, zakresy lub niestandardowe identyfikatory. W przypadku użycia z React Intlayer lub Next Intlayer odpowiednia treść jest automatycznie wybierana na podstawie lokalizacji aplikacji i zdefiniowanych reguł.
+W Intlayer wyliczenia (enumeracje) i obsługa liczb mnogich są realizowane za pomocą funkcji `enu`, która mapuje określone klucze na odpowiadającą im treść. Klucze te mogą reprezentować wartości liczbowe, zakresy lub niestandardowe identyfikatory. W przypadku użycia z bibliotekami React Intlayer, Next Intlayer czy innymi adapterami, właściwa treść jest automatycznie wybierana na podstawie locale aplikacji i zdefiniowanych reguł.
 
 ## Konfiguracja enumeracji
 
-Aby skonfigurować enumerację w swoim projekcie Intlayer, musisz utworzyć moduł zawartości, który zawiera definicje enumeracji. Oto przykład prostej enumeracji dla liczby samochodów:
+Aby skonfigurować enumerację w swoim projekcie Intlayer, musisz utworzyć moduł deklaracji treści zawierający definicje `enu`. Oto przykład prostej enumeracji dla liczby samochodów:
 
 ```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
@@ -78,16 +79,16 @@ export default carEnumeration;
 
 W tym przykładzie `enu` mapuje różne warunki na określoną treść. Gdy jest używany w komponencie React, Intlayer może automatycznie wybrać odpowiednią treść na podstawie podanej zmiennej.
 
-> Kolejność deklaracji jest ważna w enumeracjach Intlayer. Pierwsza prawidłowa deklaracja jest tą, która zostanie wybrana. Jeśli wiele warunków ma zastosowanie, upewnij się, że są one poprawnie uporządkowane, aby uniknąć nieoczekiwanego zachowania.
+> Kolejność deklaracji jest istotna w enumeracjach Intlayer. Pierwsza pasująca deklaracja jest tą, która zostanie wybrana. Jeśli wiele warunków ma zastosowanie, upewnij się, że są one poprawnie uporządkowane, aby uniknąć nieoczekiwanego zachowania.
 
-> Jeśli nie zostanie zadeklarowana wartość domyślna (fallback), funkcja zwróci `undefined`, jeśli żaden klucz nie pasuje.
+> Jeśli nie zostanie zadeklarowana wartość domyślna (`fallback`), funkcja zwróci `undefined`, gdy żaden warunek nie pasuje.
 
-## Używanie enumeracji z React Intlayer
+## Używanie enumeracji w komponentach
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use enumeration in a React component, you can leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified ID. Here's an example of how to use it:
+Aby użyć enumeracji w komponencie React, skorzystaj z hooka `useIntlayer` z pakietu `react-intlayer`. Hook ten pobiera odpowiednią treść na podstawie zadanego klucza. Oto przykład użycia:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -100,22 +101,22 @@ const CarComponent: FC = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Output: No cars
+          numberOfCar(0) // Wynik: Brak samochodów
         }
       </p>
       <p>
         {
-          numberOfCar(6) // Output: Some cars
+          numberOfCar(6) // Wynik: Kilka samochodów
         }
       </p>
       <p>
         {
-          numberOfCar(20) // Output: Many cars
+          numberOfCar(20) // Wynik: Wiele samochodów
         }
       </p>
       <p>
         {
-          numberOfCar(0.01) // Output: Fallback value
+          numberOfCar(0.01) // Wynik: Wartość domyślna
         }
       </p>
     </div>
@@ -126,7 +127,7 @@ const CarComponent: FC = () => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use enumeration in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć enumeracji w komponentach klienckich Next.js (Client Components), pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -139,7 +140,10 @@ const CarComponent: FC = () => {
 
   return (
     <div>
+      <p>{numberOfCar(0)}</p>
       <p>{numberOfCar(6)}</p>
+      <p>{numberOfCar(20)}</p>
+      <p>{numberOfCar(0.01)}</p>
     </div>
   );
 };
@@ -150,7 +154,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use enumeration in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć enumeracji w komponentach Vue, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -161,7 +165,10 @@ const { numberOfCar } = useIntlayer("car_count");
 
 <template>
   <div>
+    <p>{{ numberOfCar(0) }}</p>
     <p>{{ numberOfCar(6) }}</p>
+    <p>{{ numberOfCar(20) }}</p>
+    <p>{{ numberOfCar(0.01) }}</p>
   </div>
 </template>
 ```
@@ -169,7 +176,7 @@ const { numberOfCar } = useIntlayer("car_count");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use enumeration in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Aby użyć enumeracji w komponentach Svelte, pobierz ją za pomocą hooka `useIntlayer`. Dostęp do magazynu (store) uzyskujemy przez `$`. Oto przykład:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -179,14 +186,17 @@ const content = useIntlayer("car_count");
 </script>
 
 <div>
+  <p>{$content.numberOfCar(0)}</p>
   <p>{$content.numberOfCar(6)}</p>
+  <p>{$content.numberOfCar(20)}</p>
+  <p>{$content.numberOfCar(0.01)}</p>
 </div>
 ```
 
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use enumeration in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć enumeracji w komponentach Preact, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -197,7 +207,10 @@ const CarComponent: FC = () => {
 
   return (
     <div>
+      <p>{numberOfCar(0)}</p>
       <p>{numberOfCar(6)}</p>
+      <p>{numberOfCar(20)}</p>
+      <p>{numberOfCar(0.01)}</p>
     </div>
   );
 };
@@ -208,7 +221,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use enumeration in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć enumeracji w komponentach SolidJS, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -219,7 +232,10 @@ const CarComponent: Component = () => {
 
   return (
     <div>
+      <p>{numberOfCar(0)}</p>
       <p>{numberOfCar(6)}</p>
+      <p>{numberOfCar(20)}</p>
+      <p>{numberOfCar(0.01)}</p>
     </div>
   );
 };
@@ -230,7 +246,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use enumeration in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć enumeracji w komponentach Angular, pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -240,7 +256,10 @@ import { useIntlayer } from "angular-intlayer";
   selector: "app-car",
   template: `
     <div>
+      <p>{{ content().numberOfCar(0) }}</p>
       <p>{{ content().numberOfCar(6) }}</p>
+      <p>{{ content().numberOfCar(20) }}</p>
+      <p>{{ content().numberOfCar(0.01) }}</p>
     </div>
   `,
 })
@@ -252,7 +271,7 @@ export class CarComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use enumeration with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć enumeracji w czystym JavaScript (`vanilla-intlayer`), pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -263,29 +282,71 @@ const content = useIntlayer("car_count").onChange((newContent) => {
   document.getElementById("cars")!.textContent = newContent.numberOfCar(6);
 });
 
-// Initial render
+// Pierwsze renderowanie
 document.getElementById("cars")!.textContent = content.numberOfCar(6);
 ```
 
   </Tab>
 </Tabs>
 
-## Dodatkowe zasoby
+## Łączenie enumeracji z interpolacją (insert) dla liczb porządkowych
 
-Aby uzyskać bardziej szczegółowe informacje na temat konfiguracji i użytkowania, zapoznaj się z następującymi zasobami:
+Częstym przypadkiem użycia jest wyświetlanie liczb porządkowych (1., 2., 3. miejsce itd. lub 1st, 2nd, 3rd place). Możesz połączyć `enu` z `insert`, aby utworzyć dynamiczną treść dla liczb porządkowych:
 
-- [Dokumentacja Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
-- [Dokumentacja React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
-- [Dokumentacja Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { enu, insert, type Dictionary } from "intlayer";
 
-Te zasoby dostarczają dodatkowych informacji na temat konfiguracji i użycia Intlayer w różnych środowiskach oraz z różnymi frameworkami.
+const rankingContent = {
+  key: "ranking_component",
+  content: {
+    ordinal: enu({
+      1: insert("{{count}}st place"),
+      2: insert("{{count}}nd place"),
+      3: insert("{{count}}rd place"),
+      fallback: insert("{{count}}th place"),
+    }),
+  },
+} satisfies Dictionary;
 
-### Using Ordinal Enumeration
+export default rankingContent;
+```
+
+```json fileName="**/*.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "ranking_component",
+  "content": {
+    "ordinal": {
+      "nodeType": "enumeration",
+      "enumeration": {
+        "1": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}st place"
+        },
+        "2": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}nd place"
+        },
+        "3": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}rd place"
+        },
+        "fallback": {
+          "nodeType": "insertion",
+          "insertion": "{{count}}th place"
+        }
+      }
+    }
+  }
+}
+```
+
+### Używanie enumeracji liczb porządkowych
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use this in a React component, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego w komponencie React, wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -294,14 +355,14 @@ import { useIntlayer } from "react-intlayer";
 const RankingComponent: FC<{ count: number }> = ({ count }) => {
   const { ordinal } = useIntlayer("ranking_component");
 
-  // Get the last digit to determine the correct suffix
+  // Pobierz ostatnią cyfrę, aby wyznaczyć odpowiedni sufiks
   const lastDigit = Math.abs(count) % 10;
 
   return (
     <div>
       <p>
         {
-          ordinal(lastDigit)({ count }) // e.g., "5th place" for count=5
+          ordinal(lastDigit)({ count }) // np. "5th place" dla count=5
         }
       </p>
     </div>
@@ -312,7 +373,7 @@ const RankingComponent: FC<{ count: number }> = ({ count }) => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use this in Next.js Client Components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego w komponentach klienckich Next.js (Client Components), wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -337,7 +398,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use this in Vue components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego w komponentach Vue, wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -358,7 +419,7 @@ const { ordinal } = useIntlayer("ranking_component");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use this in Svelte components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego w komponentach Svelte, wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -378,7 +439,7 @@ $: lastDigit = Math.abs(count) % 10;
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use this in Preact components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego w komponentach Preact, wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -401,7 +462,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use this in SolidJS components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego w komponentach SolidJS, wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -409,10 +470,11 @@ import { useIntlayer } from "solid-intlayer";
 
 const RankingComponent: Component<{ count: number }> = (props) => {
   const { ordinal } = useIntlayer("ranking_component");
+  const lastDigit = () => Math.abs(props.count) % 10;
 
   return (
     <div>
-      <p>{ordinal(Math.abs(props.count) % 10)({ count: props.count })}</p>
+      <p>{ordinal(lastDigit())({ count: props.count })}</p>
     </div>
   );
 };
@@ -423,7 +485,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use this in Angular components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego w komponentach Angular, wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component, Input } from "@angular/core";
@@ -451,7 +513,7 @@ export class RankingComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use this with `vanilla-intlayer`, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+Aby użyć tego z `vanilla-intlayer`, wywołaj enumerację z ostatnią cyfrą liczby, aby uzyskać poprawny sufiks, a następnie przekaż pełną liczbę jako wartość interpolowaną:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -469,12 +531,12 @@ document.getElementById("ranking")!.textContent = content.ordinal(lastDigit)({
   </Tab>
 </Tabs>
 
-## Additional Resources
+## Dodatkowe zasoby
 
-For more detailed information on configuration and usage, refer to the following resources:
+Aby uzyskać bardziej szczegółowe informacje na temat konfiguracji i użytkowania, zapoznaj się z następującymi zasobami:
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
-- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
+- [Dokumentacja Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
+- [Dokumentacja React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
+- [Dokumentacja Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
 
-These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.
+Zasoby te oferują dodatkowe informacje na temat konfiguracji i użytkowania Intlayer w różnych środowiskach oraz frameworkach.

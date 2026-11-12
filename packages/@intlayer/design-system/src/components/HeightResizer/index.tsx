@@ -1,5 +1,6 @@
 'use client';
 
+import { useIframePointerEventsShield } from '@hooks/useIframePointerEventsShield';
 import { cn } from '@utils/cn';
 import type React from 'react';
 import {
@@ -136,6 +137,10 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   const [isResizing, setIsResizing] = useState(false);
   const lastExpandedHeightRef = useRef(initialHeight);
 
+  // Shield against iframes swallowing pointer events while dragging (#524)
+  const { disableIframePointerEvents, restoreIframePointerEvents } =
+    useIframePointerEventsShield();
+
   /**
    * Handler to initiate the resizing process
    * Prevents default browser behavior and sets the resizing state
@@ -151,8 +156,9 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       if (isDisabled) return;
       setIsResizing(true);
       mouseDownEvent.preventDefault();
+      disableIframePointerEvents();
     },
-    [isDisabled]
+    [isDisabled, disableIframePointerEvents]
   );
 
   /**
@@ -161,7 +167,8 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
    */
   const stopResizing = useCallback(() => {
     setIsResizing(false);
-  }, []);
+    restoreIframePointerEvents();
+  }, [restoreIframePointerEvents]);
 
   /**
    * Core resize logic that calculates new height based on cursor position
@@ -219,6 +226,13 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
     };
   }, [resize, stopResizing, isDisabled]);
 
+  // Unmount-only: release the iframe shield if the component unmounts mid-drag.
+  // (This must not live in the listener effect above — that effect re-runs
+  // when the drag starts, and its cleanup would restore the shield instantly.)
+  useEffect(() => {
+    return () => restoreIframePointerEvents();
+  }, [restoreIframePointerEvents]);
+
   useEffect(() => {
     if (height > minHeight) {
       lastExpandedHeightRef.current = height;
@@ -256,8 +270,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   );
 
   return (
-    // biome-ignore lint/a11y/useAriaPropsSupportedByRole: role is "slider" whenever the aria-value* props are set
-    // biome-ignore lint/a11y/noStaticElementInteractions: role is "slider" whenever the handlers are attached
+    // oxlint-disable-next-line jsx-a11y/role-supports-aria-props, jsx-a11y/no-static-element-interactions -- role is "slider" whenever the aria-value* props are set; role is "slider" whenever the handlers are attached
     <div
       className={cn(
         'relative h-full w-full border-dashed transition',
@@ -293,7 +306,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       tabIndex={isDisabled ? undefined : 0}
       {...props}
     >
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Stops content clicks from triggering resize on the parent slider */}
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- Stops content clicks from triggering resize on the parent slider */}
       <div
         role="presentation"
         className="absolute inset-s-0 top-0 size-full cursor-default overflow-hidden"

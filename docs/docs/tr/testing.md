@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Intlayer ile çevirilerinizi test edin"
 description: "Intlayer içeriğinizi test edin: eksik çevirileri tespit edin, sözlükleri CI'da doğrulayın ve birim testlerinde bileşenleri locale başına render edin."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Gerekli yerel ayarlar eksik olduğunda content test'in sıfır olmayan bir kodla çıktığının netleştirilmesi"
   - version: 6.0.0
     date: 2025-09-20
     changes: "Testlerin tanıtımı"
@@ -29,7 +32,7 @@ Bu rehber, sözlüklerinizin eksiksiz olduğunu otomatik olarak nasıl doğrulay
 
 - **Eksik çeviriler**: Herhangi bir sözlük için gerekli yerel ayarlardan herhangi biri eksikse CI başarısız olur.
 - **Yerelleştirilmiş UI renderı**: Belirli bir yerel sağlayıcı ile bileşenleri render edin ve görünen metin/özellikler üzerinde doğrulama yapın.
-- **Derleme zamanı denetimleri**: CLI üzerinden yerel olarak hızlı bir denetim çalıştırın.
+- **Derleme zamanı denetimleri**: `npx intlayer content test` komutunu yerel olarak veya CI'da çalıştırın; gerekli çeviriler eksik olduğunda sıfır olmayan bir kodla çıkar.
 
 ## Hızlı başlangıç: CLI ile denetim
 
@@ -59,7 +62,7 @@ Faydalı bayraklar:
 - `--verbose`: ayrıntılı günlükleri gösterir.
 - `--prefix [label]`: günlük satırlarına önek ekler.
 
-Not: CLI ayrıntılı bir rapor yazdırır ancak başarısızlıklarda sıfır olmayan bir çıkış kodu vermez. CI kontrolü için, eksik gerekli yerel ayarların sıfır olduğunu doğrulayan bir birim testi (aşağıda) ekleyin.
+Herhangi bir gerekli yerel ayar eksik olduğunda komut `1` koduyla, aksi halde `0` koduyla çıkar (yapılandırmanızdaki `requiredLocales` seçeneğine bakın). CI işlerini veya commit kancalarını başarısız kılmak için doğrudan kullanabilirsiniz. Aşağıdaki programatik test isteğe bağlı bir alternatiftir.
 
 ## Programatik test (Vitest/Jest)
 
@@ -155,14 +158,24 @@ test("Fransızca yerelleştirilmiş başlık render edilir", () => {
 
 ## Sürekli Entegrasyon
 
-Gerekli çeviriler eksik olduğunda derlemeyi başarısız kılan bir test ekleyin.
+CI'da CLI denetimini çalıştırın. Gerekli çeviriler eksik olduğunda işi başarısız kılar.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternatif: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 İsteğe bağlı: testlerle birlikte insan tarafından okunabilir bir özet için CLI denetimini çalıştırın:

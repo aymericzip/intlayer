@@ -1,6 +1,6 @@
 import { getLocalizedPath } from 'intlayer';
-import { html, type SafeHtml } from 'remix/html-template';
 import { useIntlayer, useLocale } from 'remix-intlayer';
+import { html, type SafeHtml } from 'remix/html-template';
 import { routes } from '../routes';
 import { renderLayout } from './layout';
 
@@ -17,7 +17,9 @@ export const renderHomePage = (): SafeHtml => {
       </div>
       <h1>${home.title}</h1>
       <p>${home.subtitle}</p>
-      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+      <div
+        style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;"
+      >
         <a href="${apiHref}" target="_blank" class="btn btn-primary">
           ${home.apiPrompt}
         </a>
@@ -40,13 +42,19 @@ export const renderHomePage = (): SafeHtml => {
       </div>
     </section>
 
-    <section style="margin-top: 3rem; background-color: var(--surface-color); border: 1px solid var(--surface-border); border-radius: 1rem; padding: 2rem;">
-      <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Interactive Locale API</h3>
+    <section
+      style="margin-top: 3rem; background-color: var(--surface-color); border: 1px solid var(--surface-border); border-radius: 1rem; padding: 2rem;"
+    >
+      <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">
+        Interactive Locale API
+      </h3>
       <p style="color: var(--text-secondary); margin-bottom: 1rem;">
         ${home.apiPrompt}
       </p>
-      <div class="code-box">curl -X GET http://localhost:3000${apiHref} \
-  -H "Accept-Language: ${locale}"</div>
+      <div class="code-box">
+        curl -X GET http://localhost:3000${apiHref} -H "Accept-Language:
+        ${locale}"
+      </div>
     </section>
   `;
 

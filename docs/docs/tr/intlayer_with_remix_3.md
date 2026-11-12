@@ -38,7 +38,7 @@ Bu kılavuz, yerel ayara duyarlı yönlendirme, tip güvenli içerik bildirimler
 **Remix 3**, tamamen web standartları üzerine inşa edilmiş, **çalışma zamanından bağımsız, modüler bir web çatısına doğru temel bir mimari değişimi** temsil eder. Belirli paketleyicilere veya özel sunucu API'lerine bağlı kalmak yerine Remix 3, tek amaçlı modüler paketler olarak dağıtılır:
 
 - **`remix/fetch-router`** (veya `remix/router`): Fetch API (`Request` ve `Response`) üzerine inşa edilmiş hafif, standartlara uygun yönlendirme.
-- **`remix/ui`**: Bir JSX bileşen modeli (`jsxImportSource: "remix/ui"`). Bir bileşen, tipli bir tanıtıcı (handle) aracılığıyla propları alan ve bir render işlevi döndüren bir kurulum (setup) işlevidir.
+- **`remix/component`**: Bir JSX bileşen modeli (`jsxImportSource: "remix/component"`). Bir bileşen, tipli bir tanıtıcı (handle) aracılığıyla propları alan ve bir render işlevi döndüren bir kurulum (setup) işlevidir.
 - **`remix/middleware/render`**: Her istekte `context.render(<Page />)` kurulumu yaparak JSX ağacını bir HTML `Response` nesnesine aktarır (streaming).
 - **`remix/node-fetch-server`**: Node.js için sunucu bağdaştırıcıları ile Bun, Deno ve uç (edge) çalışma zamanları için yerel destek.
 - **`remix/cookie`**: Kriptografik olarak imzalanmış çerez ayrıştırma ve serileştirme.
@@ -56,7 +56,7 @@ Bu kılavuz, yerel ayara duyarlı yönlendirme, tip güvenli içerik bildirimler
 <AccordionGroup>
 <Accordion header="Tam Remix 3 ve Web Standartları Uyumluluğu">
 
-Intlayer, web standartlarıyla (`Request`, `Response`, `Headers` ve `URL`) sorunsuz çalışacak şekilde tasarlanmıştır. `remix-intlayer`, hafif bir ara yazılım olarak Remix 3'ün Fetch yönlendiricisine bağlanır; URL yollarından, çerezlerden veya `Accept-Language` başlıklarından yerel ayarı çıkarır ve bunu elden ele aktarmaya gerek kalmadan isteğin geri kalanına, işleyicilere, görünümlere ve `remix/ui` bileşenlerine sunar.
+Intlayer, web standartlarıyla (`Request`, `Response`, `Headers` ve `URL`) sorunsuz çalışacak şekilde tasarlanmıştır. `remix-intlayer`, hafif bir ara yazılım olarak Remix 3'ün Fetch yönlendiricisine bağlanır; URL yollarından, çerezlerden veya `Accept-Language` başlıklarından yerel ayarı çıkarır ve bunu elden ele aktarmaya gerek kalmadan isteğin geri kalanına, işleyicilere, görünümlere ve `remix/component` bileşenlerine sunar.
 
 </Accordion>
 <Accordion header="Tip Güvenli İçerik Bildirimleri">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: Yapılandırma yönetimi, sözlük bildirimi (`t()`, `Dictionary`), CLI araçları ve çalışma zamanı yorumlayıcısı sağlayan çekirdek uluslararasılaştırma motoru.
 - **`remix-intlayer`**: Remix 3 entegrasyonu: her isteğin yerel ayarını çözümleyen `intlayer()` yönlendirici ara yazılımı ve bunu sonraki herhangi bir aşamada okuyan `useIntlayer`, `useDictionary` ve `useLocale` hook'ları.
-- **`remix`**: `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` ve `remix/node-fetch-server` dışa aktaran birleşik Remix 3 çatı paketi.
+- **`remix`**: `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render` ve `remix/node-fetch-server` dışa aktaran birleşik Remix 3 çatı paketi.
 
 </Step>
 <Step number={2} title="Intlayer'ı Yapılandırın">
 
 ### Mimari
 
-Bu mimaride, `remix-intlayer` kütüphanesinin `intlayer()` ara yazılımı `createRouter()` içinde `render()` ara yazılımından önce kaydedilir. Yönlendirici eşleşmesinden önce yerel ayar ön ekini kaldırır, böylece rotalar `src/routes.ts` içinde `:locale` segmenti olmadan bir kez bildirilir ve isteğin geri kalanını bir `AsyncLocalStorage` kapsamında çalıştırır; bu da `useIntlayer` / `useLocale` kancalarının rota işleyicilerinde ve `remix/ui` görünümlerinde bağımsız değişken olmadan yerel ayarı okumasını sağlar. İçerik bildirimleri `src/` içinde görünümlerinizin yanında yer alır:
+Bu mimaride, `remix-intlayer` kütüphanesinin `intlayer()` ara yazılımı `createRouter()` içinde `render()` ara yazılımından önce kaydedilir. Yönlendirici eşleşmesinden önce yerel ayar ön ekini kaldırır, böylece rotalar `src/routes.ts` içinde `:locale` segmenti olmadan bir kez bildirilir ve isteğin geri kalanını bir `AsyncLocalStorage` kapsamında çalıştırır; bu da `useIntlayer` / `useLocale` kancalarının rota işleyicilerinde ve `remix/component` görünümlerinde bağımsız değişken olmadan yerel ayarı okumasını sağlar. İçerik bildirimleri `src/` içinde görünümlerinizin yanında yer alır:
 
 ```bash
 .
@@ -297,7 +297,7 @@ Remix 3, `createRouter({ middleware: [...] })` aracılığıyla birleştirilebil
 2. İstemci tarafından kalıcı hale getirilen yerel ayar: depolama çerezi (`INTLAYER_LOCALE`) veya özel başlık (`x-intlayer-locale`).
 3. Yapılandırdığınız `defaultLocale` değerine geri dönen standart `Accept-Language` anlaşması.
 
-Sonuç, `locale`, `defaultLocale` ve `availableLocales` ile birlikte Remix istek bağlamında `context.intlayer` (veya `context.get(Intlayer)`) olarak saklanır. Ara yazılım ardından isteğin geri kalanını bu bağlama bağlı bir `AsyncLocalStorage` kapsamında çalıştırır; bu da paketin hook'larının rota işleyicilerinde, görünümlerde ve `remix/ui` bileşenlerinde bağımsız değişken olmadan yerel ayarı okumasını sağlar:
+Sonuç, `locale`, `defaultLocale` ve `availableLocales` ile birlikte Remix istek bağlamında `context.intlayer` (veya `context.get(Intlayer)`) olarak saklanır. Ara yazılım ardından isteğin geri kalanını bu bağlama bağlı bir `AsyncLocalStorage` kapsamında çalıştırır; bu da paketin hook'larının rota işleyicilerinde, görünümlerde ve `remix/component` bileşenlerinde bağımsız değişken olmadan yerel ayarı okumasını sağlar:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -340,14 +340,14 @@ routes.localizedHome.href({ locale: "tr" }); // "/tr"
 </Step>
 <Step number={7} title="JSX ile Yerelleştirilmiş Sayfaları İşleyin">
 
-Remix 3, JSX bileşenleri için `remix/ui` kullanır. Bir bileşen, bir **render işlevi** döndüren bir **kurulum (setup) işlevidir**. Proplar, tipli bir `handle` aracılığıyla iletilir (örneğin, `handle.props.locale`):
+Remix 3, JSX bileşenleri için `remix/component` kullanır. Bir bileşen, bir **render işlevi** döndüren bir **kurulum (setup) işlevidir**. Proplar, tipli bir `handle` aracılığıyla iletilir (örneğin, `handle.props.locale`):
 
 Ara yazılım tarafından çözümlenen yerel ayardan `<html lang="..." dir="...">` niteliklerini ayarlayan paylaşılan bir `Document` kabuğu ile başlayın:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -526,7 +526,7 @@ bun x intlayer fill
 
 ## TypeScript Yapılandırması
 
-JSX'i `remix/ui` çalışma zamanına yönlendirmek ve oluşturulan `.intlayer` türlerini dahil etmek için `tsconfig.json` dosyasını yapılandırın:
+JSX'i `remix/component` çalışma zamanına yönlendirmek ve oluşturulan `.intlayer` türlerini dahil etmek için `tsconfig.json` dosyasını yapılandırın:
 
 ```json fileName="tsconfig.json"
 {
@@ -535,7 +535,7 @@ JSX'i `remix/ui` çalışma zamanına yönlendirmek ve oluşturulan `.intlayer` 
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -543,7 +543,7 @@ JSX'i `remix/ui` çalışma zamanına yönlendirmek ve oluşturulan `.intlayer` 
 }
 ```
 
-> `jsxImportSource: "remix/ui"`, `<HomePage />` ifadesinin React yerine Remix'in `createElement` işlevine çözümlenmesini sağlayan şeydir. Hiçbir React çalışma zamanı yüklenmez.
+> `jsxImportSource: "remix/component"`, `<HomePage />` ifadesinin React yerine Remix'in `createElement` işlevine çözümlenmesini sağlayan şeydir. Hiçbir React çalışma zamanı yüklenmez.
 
 ## Sonuç
 

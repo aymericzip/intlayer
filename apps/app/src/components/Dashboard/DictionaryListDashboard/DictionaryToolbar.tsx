@@ -4,11 +4,16 @@ import { Container } from '@intlayer/design-system/container';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { Columns, Filter, GitMerge, Plus, Trash2 } from 'lucide-react';
+import { Blend, Columns, Filter, Plus, Trash2 } from 'lucide-react';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import type { DataTableInstance } from '#utils/reactTable';
+import { PushUnmergedDictionariesButton } from './PushUnmergedDictionariesButton';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
 
 interface DictionaryToolbarProps {
@@ -30,10 +35,19 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
 
   const { register } = useForm({ defaultValues: { search: params.search } });
 
+  const { isOpen: checkIsOpen } = useDashboardRightPanel();
+  const isEditorSidebarOpen = checkIsOpen(DashboardRightPanelId.VisualEditor);
+
   const selectedCount = Object.keys(state.rowSelection).length;
 
-  const hasAppliedFilters = params.location !== 'none' || !!params.tags;
-  const activeTags = params.tags ? (params.tags as string).split(',') : [];
+  const hasAppliedFilters =
+    params.location !== 'none' ||
+    (!dashboard.fixedTag && !!params.tags) ||
+    !!params.type;
+  const activeTags =
+    !dashboard.fixedTag && params.tags
+      ? (params.tags as string).split(',')
+      : [];
   const activeLocations =
     params.location === 'none'
       ? []
@@ -71,7 +85,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             </PopoverStatic.Detail>
           </PopoverStatic>
           {hasAppliedFilters && (
-            <span className="absolute -inset-e-1 -top-1 flex size-4 items-center justify-center rounded-full bg-text text-card text-xs">
+            <span className="absolute -inset-e-1 -top-1 flex size-4 items-center justify-center rounded-full bg-text text-xs text-card">
               {appliedFiltersCount}
             </span>
           )}
@@ -139,15 +153,16 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
         {dashboard.data.duplicatePairs.length > 0 && (
           <PopoverStatic identifier="merge-duplicates-toolbar">
             <Button
-              Icon={GitMerge}
+              Icon={Blend}
               color="text"
               variant="outline"
               label={content.mergeDuplicatesButton.label.value}
               disabled={!hasDictionaryWritePermission}
               onClick={() => state.setIsMergeModalOpen(true)}
             >
-              {content.mergeDuplicatesButton.text} (
-              {dashboard.data.duplicatePairs.length})
+              {content.mergeDuplicatesButton.text({
+                count: dashboard.data.duplicatePairs.length,
+              })}
             </Button>
             <PopoverStatic.Detail
               xAlign="end"
@@ -158,6 +173,13 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
               </Container>
             </PopoverStatic.Detail>
           </PopoverStatic>
+        )}
+
+        {isEditorSidebarOpen && (
+          <PushUnmergedDictionariesButton
+            hasDictionaryWritePermission={hasDictionaryWritePermission}
+            onPushed={dashboard.actions.refetch}
+          />
         )}
 
         <PopoverStatic identifier="create-dictionary-toolbar">

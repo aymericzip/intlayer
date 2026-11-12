@@ -6,11 +6,17 @@
 
 import type { AIOptions } from '@intlayer/ai';
 import type {
+  AICreditBalance as ContractAICreditBalance,
+  AICreditDailyUsage as ContractAICreditDailyUsage,
   AIOptions as ContractAIOptions,
   AIStats as ContractAIStats,
   DiscussionAPI as ContractDiscussionAPI,
 } from '@intlayer/backend-contract/ai';
-import type { AudienceStats as ContractAudienceStats } from '@intlayer/backend-contract/analytics';
+import type {
+  AudienceStats as ContractAudienceStats,
+  LiveVisitorFlow as ContractLiveVisitorFlow,
+  PageFlow as ContractPageFlow,
+} from '@intlayer/backend-contract/analytics';
 import type { AssetAPI as ContractAssetAPI } from '@intlayer/backend-contract/asset';
 import type { BlogCommentAPI as ContractBlogCommentAPI } from '@intlayer/backend-contract/blogComment';
 import type { DictionaryAPI as ContractDictionaryAPI } from '@intlayer/backend-contract/dictionary';
@@ -68,8 +74,16 @@ import type { GitLabProject } from '@services/gitlab.service';
 import type { PricingResult } from '@services/subscription.service';
 import type { AffiliateAPI, AffiliateStats } from '@/types/affiliate.types';
 import type { AffiliateInvitationAPI } from '@/types/affiliateInvitation.types';
+import type {
+  AICreditBalance,
+  AICreditDailyUsage,
+} from '@/types/aiCreditUsage.types';
 import type { AIStats } from '@/types/aiStats.types';
-import type { AudienceStats } from '@/types/analytics.types';
+import type {
+  AudienceStats,
+  LiveVisitorFlow,
+  PageFlow,
+} from '@/types/analytics.types';
 import type { AssetAPI } from '@/types/asset.types';
 import type { BlogCommentAPI } from '@/types/blogComment.types';
 import type { DictionaryAPI } from '@/types/dictionary.types';
@@ -125,6 +139,8 @@ export type WireCompatibility = [
   AssertWire<ContractDictionaryAPI, Serialized<DictionaryAPI>>,
   AssertWire<ContractAssetAPI, Serialized<AssetAPI>>,
   AssertWire<ContractAudienceStats, Serialized<AudienceStats>>,
+  AssertWire<ContractLiveVisitorFlow, Serialized<LiveVisitorFlow>>,
+  AssertWire<ContractPageFlow, Serialized<PageFlow>>,
   AssertWire<ContractHostScan, Serialized<HostScan>>,
   AssertWire<ContractScannedHostDetail, Serialized<ScannedHostDetail>>,
   AssertWire<ContractTechnologyUsage, Serialized<TechnologyUsage>>,
@@ -132,6 +148,8 @@ export type WireCompatibility = [
   AssertWire<ContractAIOptions, AIOptions>,
   AssertWire<ContractDiscussionAPI, Serialized<DiscussionAPI>>,
   AssertWire<ContractAIStats, Serialized<AIStats>>,
+  AssertWire<ContractAICreditBalance, Serialized<AICreditBalance>>,
+  AssertWire<ContractAICreditDailyUsage, Serialized<AICreditDailyUsage>>,
   AssertWire<ContractGitHubRepository, Serialized<GitHubRepository>>,
   AssertWire<ContractGitLabProject, Serialized<GitLabProject>>,
   AssertWire<ContractBitbucketRepository, Serialized<BitbucketRepository>>,

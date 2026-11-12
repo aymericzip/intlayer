@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "ابدأ مع Intlayer: i18n لأي إطار عمل"
 description: اكتشف كيف يعمل Intlayer. تعرف على الخطوات التي يستخدمها Intlayer في تطبيقك. اكتشف ما تفعله الحزم المختلفة.
@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "بداية السجل"
 author: aymericzip
 ---
 
@@ -89,7 +89,7 @@ export const MyComponent: FC = () => {
 };
 ```
 
-### لماذا Intlayer على البدائل؟
+### لماذا تختار Intlayer مقارنة بالبدائل الأخرى؟
 
 مقارنةً بالحلول الرئيسية مثل `next-intl` أو `i18next`، يُعد Intlayer حلاً يأتي مع تحسينات مدمجة مثل:
 
@@ -110,12 +110,12 @@ export const MyComponent: FC = () => {
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
 
 </Accordion>
 <Accordion header="الأتمتة (Automation)">
 
-استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. تقدم Intlayer أيضًا **مترجمًا (compiler)** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+استخدم الأتمتة لترجمة المحتوى مباشرةً في مسار CI/CD الخاص بك باستخدام نموذج اللغة الكبير (LLM) الذي تختاره ووفق تكلفة مزود الذكاء الاصطناعي لديك. تقدم Intlayer أيضًا **مترجمًا (compiler)** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
 
 - [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 

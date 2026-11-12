@@ -1,4 +1,7 @@
-import type { DictionaryVariantValue } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionaryVariantValue,
+} from '@intlayer/types/dictionary';
 
 /** A dictionary variant: one value, or several (variant group). */
 export type DictionaryVariant =
@@ -35,4 +38,26 @@ export const parseDictionaryVariant = (
   } catch {
     return { variant: raw, error: true };
   }
+};
+
+/**
+ * Splits a dictionary `variant` field into tag labels: a named variant gives
+ * one tag, a structured variant gives one `key: value` tag per field.
+ */
+export const getDictionaryVariantTagLabels = (
+  variant: Dictionary['variant']
+): string[] => {
+  if (variant === undefined) return [];
+
+  const variantValues = Array.isArray(variant) ? variant : [variant];
+
+  const tagLabels = variantValues.flatMap((variantValue) =>
+    typeof variantValue === 'string'
+      ? [variantValue]
+      : Object.entries(variantValue)
+          .sort(([firstKey], [secondKey]) => firstKey.localeCompare(secondKey))
+          .map(([entryKey, entryValue]) => `${entryKey}: ${entryValue}`)
+  );
+
+  return [...new Set(tagLabels)];
 };

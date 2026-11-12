@@ -95,14 +95,14 @@ const { title, description } = useIntlayer("myDict");
 
 To buduje `pruneContext.fieldUsageMap` przed uruchomieniem jakichkolwiek wywołań `transform`.
 
-### 2. JSON pruning (transform, enforce: 'pre')
+### 2. Oczyszczanie JSON (transform, enforce: 'pre')
 
-When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts it before Vite's built-in JSON → ESM conversion. It reads the field-usage map from `pruneContext` and removes any content field that is not in the recorded usage set.
+Gdy Vite przetwarza skompilowany plik JSON słownika, `intlayerPrune` przechwytuje go przed wbudowaną konwersją Vite JSON → ESM. Odczytuje mapę użycia pól z `pruneContext` i usuwa wszelkie pola treści, które nie znajdują się w zarejestrowanym zbiorze użyć.
 
-Two content shapes are supported:
+Obsługiwane są dwa formaty treści:
 
-- **Static dictionaries**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
-- **Dynamic (per-locale) dictionaries**: flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+- **Słowniki statyczne**: `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Pola są oczyszczane dla każdego locale wewnątrz `translation`.
+- **Słowniki dynamiczne (per-locale)**: płaskie `{ fieldA: ..., fieldB: ... }`. Pola są oczyszczane na najwyższym poziomie.
 
 ### 3. Przypadki szczególne
 

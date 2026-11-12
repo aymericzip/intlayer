@@ -12,6 +12,7 @@ import type {
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
+import { scheduleDictionarySourceSync } from '@services/sourceSync/sourceSyncQueue';
 import { addTranslationJob } from '@services/translationQueue.service';
 import * as webhooksService from '@services/webhook.service';
 import type { ContractRequest } from '@utils/contract/registerContractRoutes';
@@ -66,17 +67,29 @@ const removeMetadata = <T extends Record<string, any>>(obj: T): T => {
 };
 
 /**
- * Extracts the qualifier coordinates (`variant` / `item`) and `importMode` from
+ * Extracts the qualifier coordinates (`variant` / `item` / `locale`) and `importMode` from
  * a pushed dictionary so sibling declarations sharing a `key` stay distinct and
  * can be re-merged into a qualified group on pull. Only defined fields are
  * returned so plain dictionaries persist nothing extra.
  */
 const extractQualifiers = (
-  source: Pick<LocalDictionary, 'variant' | 'item' | 'importMode'>
+  source: Pick<LocalDictionary, 'variant' | 'item' | 'locale' | 'importMode'>
 ): Partial<DictionaryData> => ({
   ...(source.variant !== undefined && { variant: source.variant }),
   ...(source.item !== undefined && { item: source.item }),
+  ...(source.locale !== undefined && { locale: source.locale }),
   ...(source.importMode !== undefined && { importMode: source.importMode }),
+});
+
+/**
+ * Picks where the dictionary is declared in the codebase, so CMS edits can be
+ * committed back to its `.content` file.
+ */
+const extractSource = (
+  source: Pick<LocalDictionary, 'location' | 'filePath'>
+): Partial<DictionaryData> => ({
+  ...(source.location !== undefined && { location: source.location }),
+  ...(source.filePath !== undefined && { filePath: source.filePath }),
 });
 
 /**
@@ -714,7 +727,9 @@ export const pushDictionaries = async (
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
         description: dictionaryDataEl.description,
+        tags: dictionaryDataEl.tags ?? [],
         ...extractQualifiers(dictionaryDataEl),
+        ...extractSource(dictionaryDataEl),
         projectIds: [String(project.id)],
         creatorId: user.id,
         content: new Map([
@@ -791,8 +806,17 @@ export const pushDictionaries = async (
         dictionaryDataEl.tags ?? []
       );
 
+      const isSameSource = isDeepStrictEqual(
+        extractSource(remoteDictionary),
+        extractSource(dictionaryDataEl)
+      );
+
       const isSameMetadata =
-        isSameQualifiers && isSameTitle && isSameDescription && isSameTags;
+        isSameQualifiers &&
+        isSameTitle &&
+        isSameDescription &&
+        isSameTags &&
+        isSameSource;
 
       if (isSameContent && isSameMetadata) {
         upToDateDictionariesResult.push({
@@ -1074,6 +1098,8 @@ export const updateDictionary = async (
       versionList: _versionList,
       createdAt: _createdAt,
       updatedAt: _updatedAt,
+      // Written by the source sync only
+      sourceSync: _sourceSync,
       ...metadata
     } = dictionaryData;
 
@@ -1152,7 +1178,22 @@ export const updateDictionary = async (
     if (project) {
       try {
         const fullProject = await projectService.getProjectById(project.id);
-        await webhooksService.triggerAll(fullProject);
+
+        // Content edits of dictionaries declared in the codebase are committed
+        // back to their `.content` file; the commit runs the git pipeline
+        const isSourceSyncScheduled =
+          content !== undefined &&
+          (await scheduleDictionarySourceSync({
+            project: fullProject,
+            dictionary: updatedDictionary,
+            userId: request.session?.user?.id
+              ? String(request.session.user.id)
+              : undefined,
+          }));
+
+        await webhooksService.triggerAll(fullProject, {
+          skipGitPipeline: isSourceSyncScheduled,
+        });
       } catch (error) {
         // Log error but don't fail the dictionary update
         logger.error(

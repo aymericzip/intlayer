@@ -1,14 +1,21 @@
 import { createHash } from 'node:crypto';
+import { PAGE_FLOW_ENTRANCE } from '@intlayer/backend-contract/analytics';
 import {
+  AnalyticsLiveActivityModel,
+  AnalyticsPageTransitionModel,
   AnalyticsRollupModel,
   AnalyticsShortTermRollupModel,
   AnalyticsVisitorModel,
 } from '@schemas/analyticsEvent.schema';
 import { ProjectModel } from '@schemas/project.schema';
+import { isPublicHttpUrl } from '@utils/isPublicUrl';
 import { load } from 'cheerio';
 import type { AnyBulkWriteOperation, Types } from 'mongoose';
 import type {
+  AnalyticsLiveActivity,
+  AnalyticsLiveActivitySchema,
   AnalyticsOverviewRow,
+  AnalyticsPageTransitionSchema,
   AnalyticsRollupSchema,
   AnalyticsShortTermRollupSchema,
   AnalyticsVisitorSchema,
@@ -21,6 +28,12 @@ import type {
   ExperimentResult,
   ExperimentVariantResult,
   IncomingAnalyticsEvent,
+  LiveVisitor,
+  LiveVisitorFlow,
+  LiveVisitorFlowStep,
+  PageFlow,
+  PageFlowLink,
+  PageFlowNode,
   PageMetadata,
 } from '@/types/analytics.types';
 
@@ -32,6 +45,12 @@ export type IngestContext = {
   sessionId?: string;
   /** ISO country code derived from the request, `ZZ` when unknown. */
   country?: string;
+  /** City derived from the request's CDN geo headers. */
+  city?: string;
+  /** City-level latitude derived from the request's CDN geo headers. */
+  latitude?: number;
+  /** City-level longitude derived from the request's CDN geo headers. */
+  longitude?: number;
 };
 
 /** One-way hash of a session id so no reversible identifier is stored. */
@@ -235,6 +254,193 @@ type SlotViewCounter = {
 const buildDedupKey = (parts: (string | undefined)[]): string =>
   parts.map((part) => part ?? '').join(DEDUP_SEPARATOR);
 
+/** Length of the `live` audience window, in minutes. */
+export const LIVE_WINDOW_MINUTES = 30;
+
+const MINUTE_MS = 60 * 1000;
+
+/** UTC minute bucket (`YYYY-MM-DDTHH:mm`) for a timestamp. */
+const toMinute = (timestamp: number): string =>
+  new Date(timestamp).toISOString().slice(0, 16);
+
+/** Activity of the flushing session on one page during one minute. */
+export type LiveActivityCounter = {
+  /** UTC minute, `YYYY-MM-DDTHH:mm`. */
+  minute: string;
+  /** Pathname the session was active on. */
+  url: string;
+  /** Locale the session was using. */
+  locale?: string;
+  /** Page views in that minute; other event types only mark activity. */
+  views: number;
+  /** Earliest event time on the page within the minute (epoch ms). */
+  firstSeenAt: number;
+  /** Latest event time on the page within the minute (epoch ms). */
+  lastSeenAt: number;
+};
+
+/**
+ * Folds a flush of sanitized events into per-minute, per-page activity for the
+ * `live` view. Any event type marks the session active (a reader scrolling a
+ * page still sends exposures); only page views are counted as views. Events
+ * older than the live window are skipped, and client clocks running ahead are
+ * clamped to `now` so a future minute never shows up.
+ *
+ * @param events - Sanitized events of one flush.
+ * @param now - Server time of the flush (epoch ms).
+ * @returns One counter per minute + url + locale.
+ */
+export const collectLiveActivity = (
+  events: IncomingAnalyticsEvent[],
+  now: number
+): LiveActivityCounter[] => {
+  const windowStart = now - LIVE_WINDOW_MINUTES * MINUTE_MS;
+  const counters = new Map<string, LiveActivityCounter>();
+
+  for (const event of events) {
+    if (!event.url || event.t < windowStart) continue;
+
+    const eventTime = Math.min(event.t, now);
+    const minute = toMinute(eventTime);
+    const counterKey = buildDedupKey([minute, event.url, event.locale]);
+    const views =
+      event.type === 'page_view'
+        ? Math.max(1, Math.min(event.count ?? 1, 10_000))
+        : 0;
+    const counter = counters.get(counterKey);
+
+    if (counter) {
+      counter.views += views;
+      counter.firstSeenAt = Math.min(counter.firstSeenAt, eventTime);
+      counter.lastSeenAt = Math.max(counter.lastSeenAt, eventTime);
+    } else {
+      counters.set(counterKey, {
+        minute,
+        url: event.url,
+        locale: event.locale || undefined,
+        views,
+        firstSeenAt: eventTime,
+        lastSeenAt: eventTime,
+      });
+    }
+  }
+
+  return [...counters.values()];
+};
+
+/** `fromUrl` of a navigation that opened a session (no previous page). */
+export { PAGE_FLOW_ENTRANCE };
+
+/** Inactivity after which the next page view opens a new session (GA's 30 min). */
+const SESSION_TIMEOUT_MS = 30 * MINUTE_MS;
+
+/** One daily page-to-page navigation counter accumulated from a flush. */
+export type PageTransitionCounter = {
+  /** UTC day of the navigation, `YYYY-MM-DD`. */
+  day: string;
+  fromUrl: string;
+  toUrl: string;
+  count: number;
+};
+
+/**
+ * Turns a session's page views into page-to-page navigations. The first view
+ * links to the session's previous page when it is recent enough, else it opens
+ * the session ({@link PAGE_FLOW_ENTRANCE}); reloads (same page twice) are not
+ * navigations. A previous page *newer* than the first view means this flush
+ * arrived late: its first view is not linked to anything rather than guessed.
+ *
+ * @param pageViews - The flush's page views, in any order.
+ * @param previousPage - The session's latest known page before this flush.
+ * @returns One counter per day + transition.
+ */
+export const collectPageTransitions = (
+  pageViews: { url: string; t: number }[],
+  previousPage?: { url: string; lastSeenAt: number }
+): PageTransitionCounter[] => {
+  const counters = new Map<string, PageTransitionCounter>();
+  const orderedViews = [...pageViews].sort((viewA, viewB) => viewA.t - viewB.t);
+  let previous = previousPage
+    ? { url: previousPage.url, t: previousPage.lastSeenAt }
+    : undefined;
+
+  for (const view of orderedViews) {
+    const elapsed = previous ? view.t - previous.t : Number.POSITIVE_INFINITY;
+    const fromUrl =
+      elapsed < 0
+        ? undefined
+        : elapsed > SESSION_TIMEOUT_MS
+          ? PAGE_FLOW_ENTRANCE
+          : previous?.url;
+
+    if (fromUrl && fromUrl !== view.url) {
+      const day = toDay(view.t);
+      const counterKey = buildDedupKey([day, fromUrl, view.url]);
+      const counter = counters.get(counterKey);
+
+      if (counter) {
+        counter.count += 1;
+      } else {
+        counters.set(counterKey, { day, fromUrl, toUrl: view.url, count: 1 });
+      }
+    }
+
+    previous = { url: view.url, t: view.t };
+  }
+
+  return [...counters.values()];
+};
+
+/**
+ * Records the page-to-page navigations of a flush, linking its first page
+ * view to the session's latest activity. Must run before the flush's own live
+ * activity is written, which would otherwise be read as the previous page.
+ */
+const recordPageTransitions = async (
+  projectId: Types.ObjectId,
+  sessionHash: string,
+  events: IncomingAnalyticsEvent[]
+): Promise<void> => {
+  const pageViews = events
+    .filter((event) => event.type === 'page_view' && event.url)
+    .map(({ url, t }) => ({ url, t }));
+
+  if (pageViews.length === 0) return;
+
+  const previousActivity = await AnalyticsLiveActivityModel.findOne(
+    { projectId, sessionHash },
+    { url: 1, lastSeenAt: 1 }
+  )
+    .sort({ lastSeenAt: -1 })
+    .lean<{ url: string; lastSeenAt?: Date } | null>();
+
+  const transitions = collectPageTransitions(
+    pageViews,
+    previousActivity?.lastSeenAt
+      ? {
+          url: previousActivity.url,
+          lastSeenAt: previousActivity.lastSeenAt.getTime(),
+        }
+      : undefined
+  );
+
+  if (transitions.length === 0) return;
+
+  const operations: AnyBulkWriteOperation<AnalyticsPageTransitionSchema>[] =
+    transitions.map(({ day, fromUrl, toUrl, count }) => ({
+      updateOne: {
+        filter: { projectId, day, fromUrl, toUrl },
+        update: {
+          $setOnInsert: { projectId, day, fromUrl, toUrl },
+          $inc: { count },
+        },
+        upsert: true,
+      },
+    }));
+
+  await AnalyticsPageTransitionModel.bulkWrite(operations, { ordered: false });
+};
+
 /**
  * Ingests a batch of client events into daily rollups for a project.
  *
@@ -257,10 +463,13 @@ export const ingestEvents = async (
   const visitorDays = new Map<string, string | undefined>();
   // Page views per slot + locale + url, backing the sub-day audience windows.
   const slotViews = new Map<string, SlotViewCounter>();
+  // Sanitized events, replayed into the per-minute live activity afterwards.
+  const sanitizedEvents: IncomingAnalyticsEvent[] = [];
 
   for (const rawEvent of events) {
     const event = sanitizeEvent(rawEvent);
     if (!event) continue;
+    sanitizedEvents.push(event);
 
     const day = toDay(event.t);
     const increment = Math.max(1, Math.min(event.count ?? 1, 10_000));
@@ -380,6 +589,56 @@ export const ingestEvents = async (
     await AnalyticsShortTermRollupModel.bulkWrite(slotOperations, {
       ordered: false,
     });
+  }
+
+  // Page-to-page navigations, linked through the session's latest activity —
+  // so before this flush's own activity is written below.
+  if (context.sessionId) {
+    await recordPageTransitions(
+      projectId,
+      hashSession(context.sessionId),
+      sanitizedEvents
+    );
+  }
+
+  // Per-minute session activity for the `live` view (expires after an hour).
+  if (context.sessionId) {
+    const liveActivity = collectLiveActivity(sanitizedEvents, Date.now());
+
+    if (liveActivity.length > 0) {
+      const sessionHash = hashSession(context.sessionId);
+      const { country = 'ZZ', city, latitude, longitude } = context;
+
+      const liveOperations: AnyBulkWriteOperation<AnalyticsLiveActivitySchema>[] =
+        liveActivity.map(
+          ({ minute, url, locale, views, firstSeenAt, lastSeenAt }) => ({
+            updateOne: {
+              filter: { projectId, minute, sessionHash, url },
+              update: {
+                $setOnInsert: {
+                  projectId,
+                  minute,
+                  sessionHash,
+                  url,
+                  locale,
+                  country,
+                  city,
+                  latitude,
+                  longitude,
+                },
+                $inc: { views },
+                $min: { firstSeenAt: new Date(firstSeenAt) },
+                $max: { lastSeenAt: new Date(lastSeenAt) },
+              },
+              upsert: true,
+            },
+          })
+        );
+
+      await AnalyticsLiveActivityModel.bulkWrite(liveOperations, {
+        ordered: false,
+      });
+    }
   }
 
   if (operations.length === 0) return;
@@ -635,6 +894,7 @@ const RANGE_DEFINITIONS: Record<
   AudienceRange,
   { hours: number; granularity: AudienceGranularity }
 > = {
+  live: { hours: LIVE_WINDOW_MINUTES / 60, granularity: 'minute' },
   '1h': { hours: 1, granularity: 'minute' },
   '24h': { hours: 24, granularity: 'hour' },
   '7d': { hours: 7 * 24, granularity: 'day' },
@@ -739,7 +999,9 @@ const getSubDayAudience = async (
   range: AudienceRange,
   granularity: AudienceGranularity,
   hours: number
-): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+): Promise<
+  Omit<AudienceStats, 'usersToday' | 'usersLast7Days' | 'dataSince'>
+> => {
   const bucketMinutes = granularity === 'minute' ? SHORT_TERM_SLOT_MINUTES : 60;
   const bucketMs = bucketMinutes * 60 * 1000;
 
@@ -867,7 +1129,9 @@ const getDailyAudience = async (
   range: AudienceRange,
   granularity: AudienceGranularity,
   hours: number
-): Promise<Omit<AudienceStats, 'usersToday' | 'usersLast7Days'>> => {
+): Promise<
+  Omit<AudienceStats, 'usersToday' | 'usersLast7Days' | 'dataSince'>
+> => {
   const days = hours / 24;
   const sinceDay = dayOffset(days - 1);
 
@@ -954,11 +1218,579 @@ const getDailyAudience = async (
 };
 
 /**
+ * Lays per-minute activity onto a continuous `live` series, filling quiet
+ * minutes with zeros so the chart keeps a steady time axis.
+ *
+ * @param activityByMinute - Distinct sessions and views per UTC minute.
+ * @param now - Report time (epoch ms); its running minute is the last point.
+ * @returns {@link LIVE_WINDOW_MINUTES} points, oldest first.
+ */
+export const buildLiveSeries = (
+  activityByMinute: Map<string, { users: number; views: number }>,
+  now: number
+): AudienceSeriesPoint[] => {
+  const currentMinuteStart = Math.floor(now / MINUTE_MS) * MINUTE_MS;
+
+  return Array.from({ length: LIVE_WINDOW_MINUTES }, (_, index) => {
+    const minute = toMinute(
+      currentMinuteStart - (LIVE_WINDOW_MINUTES - 1 - index) * MINUTE_MS
+    );
+    const activity = activityByMinute.get(minute);
+
+    return {
+      bucket: minute,
+      users: activity?.users ?? 0,
+      views: activity?.views ?? 0,
+    };
+  });
+};
+
+/** Distinct sessions and views grouped under one key, from `$facet`. */
+type LiveGroupRow = { _id: string; users: number; views: number };
+
+/** Most visitors placed on the live map, most recently active first. */
+const MAX_LIVE_VISITORS = 500;
+
+/** Hex length of the public visitor id (prefix of the session hash). */
+const VISITOR_ID_LENGTH = 16;
+
+/** Public, non-reversible visitor id for a hashed session. */
+const toVisitorId = (sessionHash: string): string =>
+  sessionHash.slice(0, VISITOR_ID_LENGTH);
+
+/**
+ * Keeps a visitor's coordinates only when both are numbers. `$last` over a
+ * missing field yields `null`, which the map would otherwise place at 0°,0°.
+ */
+export const toMapCoordinates = (
+  latitude: unknown,
+  longitude: unknown
+): Pick<LiveVisitor, 'latitude' | 'longitude'> =>
+  typeof latitude === 'number' && typeof longitude === 'number'
+    ? { latitude, longitude }
+    : { latitude: undefined, longitude: undefined };
+
+/** Distinct minutes, oldest first (`YYYY-MM-DDTHH:mm` sorts as text). */
+export const toActiveMinutes = (minutes: string[]): string[] =>
+  [...new Set(minutes)].sort();
+
+/** One session's activity aggregated over the live window, from `$facet`. */
+type LiveVisitorRow = Omit<LiveVisitor, 'visitorId'> & { _id: string };
+
+/** First live window minute (`YYYY-MM-DDTHH:mm`) for a report at `now`. */
+const getLiveWindowStartMinute = (now: number): string =>
+  toMinute(
+    Math.floor(now / MINUTE_MS) * MINUTE_MS -
+      (LIVE_WINDOW_MINUTES - 1) * MINUTE_MS
+  );
+
+/** Activity fields read back to rebuild a visitor's journey. */
+type LiveActivityRow = Pick<
+  AnalyticsLiveActivity,
+  | 'minute'
+  | 'url'
+  | 'locale'
+  | 'country'
+  | 'city'
+  | 'latitude'
+  | 'longitude'
+  | 'views'
+  | 'firstSeenAt'
+  | 'lastSeenAt'
+>;
+
+/**
+ * Turns a session's per-minute activity into its page journey: rows are
+ * ordered by arrival time and consecutive rows on the same page (the same page
+ * spanning several minutes) collapse into one step.
+ *
+ * @param rows - The session's activity rows, in any order.
+ * @returns The journey, oldest step first.
+ */
+export const buildVisitorFlowSteps = (
+  rows: LiveActivityRow[]
+): LiveVisitorFlowStep[] => {
+  const steps: LiveVisitorFlowStep[] = [];
+  const orderedRows = [...rows].sort(
+    (rowA, rowB) => rowA.firstSeenAt.getTime() - rowB.firstSeenAt.getTime()
+  );
+
+  for (const row of orderedRows) {
+    const previousStep = steps.at(-1);
+
+    if (previousStep?.url === row.url) {
+      previousStep.views += row.views;
+      if (row.lastSeenAt > previousStep.lastSeenAt) {
+        previousStep.lastSeenAt = row.lastSeenAt;
+      }
+      continue;
+    }
+
+    steps.push({
+      url: row.url,
+      locale: row.locale,
+      firstSeenAt: row.firstSeenAt,
+      lastSeenAt: row.lastSeenAt,
+      views: row.views,
+    });
+  }
+
+  return steps;
+};
+
+/**
+ * Journey of one visitor over the `live` window.
+ *
+ * @param projectId - The project the visitor belongs to.
+ * @param visitorId - The public visitor id from the live report.
+ * @returns The visitor and its steps; `visitor` is `null` once it went quiet.
+ */
+export const getLiveVisitorFlow = async (
+  projectId: Types.ObjectId,
+  visitorId: string
+): Promise<LiveVisitorFlow> => {
+  // The route validates the id as 16 hex characters, so it is regex-safe.
+  const rows = await AnalyticsLiveActivityModel.find(
+    {
+      projectId,
+      minute: { $gte: getLiveWindowStartMinute(Date.now()) },
+      sessionHash: { $regex: `^${visitorId}` },
+    },
+    {
+      minute: 1,
+      url: 1,
+      locale: 1,
+      country: 1,
+      city: 1,
+      latitude: 1,
+      longitude: 1,
+      views: 1,
+      firstSeenAt: 1,
+      lastSeenAt: 1,
+    }
+  ).lean<LiveActivityRow[]>();
+
+  const steps = buildVisitorFlowSteps(rows);
+  const firstStep = steps[0];
+  const lastStep = steps.at(-1);
+
+  if (!firstStep || !lastStep) return { visitor: null, steps: [] };
+
+  const latestRow = rows.reduce((latest, row) =>
+    row.lastSeenAt > latest.lastSeenAt ? row : latest
+  );
+
+  return {
+    visitor: {
+      visitorId,
+      country: latestRow.country || 'ZZ',
+      city: latestRow.city,
+      ...toMapCoordinates(latestRow.latitude, latestRow.longitude),
+      locale: latestRow.locale,
+      currentUrl: latestRow.url,
+      pageCount: new Set(steps.map((step) => step.url)).size,
+      views: steps.reduce((sum, step) => sum + step.views, 0),
+      firstSeenAt: firstStep.firstSeenAt,
+      lastSeenAt: latestRow.lastSeenAt,
+      activeMinutes: toActiveMinutes(rows.map((row) => row.minute)),
+    },
+    steps,
+  };
+};
+
+/**
+ * Audience report for the `live` window: sessions active during the last
+ * {@link LIVE_WINDOW_MINUTES} minutes, per minute, page, locale and country.
+ * Reads the per-minute activity documents, so a session counts in every minute
+ * it sent an event, not only the one it arrived in.
+ */
+const getLiveAudience = async (
+  projectId: Types.ObjectId
+): Promise<
+  Omit<AudienceStats, 'usersToday' | 'usersLast7Days' | 'dataSince'>
+> => {
+  const now = Date.now();
+  const startMinute = getLiveWindowStartMinute(now);
+
+  /** Groups the window by `key`, counting distinct sessions and summing views. */
+  const groupBy = (key: string) => [
+    {
+      $group: {
+        _id: { key, session: '$sessionHash' },
+        views: { $sum: '$views' },
+      },
+    },
+    {
+      $group: {
+        _id: '$_id.key',
+        users: { $sum: 1 },
+        views: { $sum: '$views' },
+      },
+    },
+  ];
+
+  const [facets] = await AnalyticsLiveActivityModel.aggregate<{
+    total: { users: number; views: number }[];
+    byMinute: LiveGroupRow[];
+    byPage: LiveGroupRow[];
+    byLocale: LiveGroupRow[];
+    byCountry: LiveGroupRow[];
+    visitors: LiveVisitorRow[];
+  }>([
+    { $match: { projectId, minute: { $gte: startMinute } } },
+    {
+      $facet: {
+        total: [
+          { $group: { _id: '$sessionHash', views: { $sum: '$views' } } },
+          {
+            $group: {
+              _id: null,
+              users: { $sum: 1 },
+              views: { $sum: '$views' },
+            },
+          },
+        ],
+        byMinute: groupBy('$minute'),
+        byPage: groupBy('$url'),
+        byLocale: groupBy('$locale'),
+        byCountry: groupBy('$country'),
+        visitors: [
+          // Oldest first, so `$last` picks each session's latest page / place.
+          { $sort: { lastSeenAt: 1 } },
+          {
+            $group: {
+              _id: '$sessionHash',
+              country: { $last: '$country' },
+              city: { $last: '$city' },
+              latitude: { $last: '$latitude' },
+              longitude: { $last: '$longitude' },
+              locale: { $last: '$locale' },
+              currentUrl: { $last: '$url' },
+              pages: { $addToSet: '$url' },
+              activeMinutes: { $addToSet: '$minute' },
+              views: { $sum: '$views' },
+              firstSeenAt: { $min: '$firstSeenAt' },
+              lastSeenAt: { $max: '$lastSeenAt' },
+            },
+          },
+          { $sort: { lastSeenAt: -1 } },
+          { $limit: MAX_LIVE_VISITORS },
+          { $set: { pageCount: { $size: '$pages' } } },
+          { $unset: 'pages' },
+        ],
+      },
+    },
+  ]);
+
+  const toUsers = (rows: LiveGroupRow[] = []) =>
+    new Map(rows.map((row) => [row._id || '', row.users]));
+  const toViews = (rows: LiveGroupRow[] = []) =>
+    new Map(rows.map((row) => [row._id || '', row.views]));
+
+  return {
+    usersInRange: facets?.total[0]?.users ?? 0,
+    viewsInRange: facets?.total[0]?.views ?? 0,
+    range: 'live',
+    rangeHours: RANGE_DEFINITIONS.live.hours,
+    granularity: 'minute',
+    series: buildLiveSeries(
+      new Map(
+        (facets?.byMinute ?? []).map((row) => [
+          row._id,
+          { users: row.users, views: row.views },
+        ])
+      ),
+      now
+    ),
+    byLocale: buildBreakdownRows(
+      toUsers(facets?.byLocale),
+      toViews(facets?.byLocale),
+      'users'
+    ),
+    byCountry: buildBreakdownRows(
+      new Map(
+        (facets?.byCountry ?? []).map((row) => [row._id || 'ZZ', row.users])
+      ),
+      new Map(),
+      'users'
+    ),
+    byPage: buildBreakdownRows(
+      toUsers(facets?.byPage),
+      toViews(facets?.byPage),
+      'users'
+    ),
+    liveVisitors: (facets?.visitors ?? []).map(
+      ({
+        _id: sessionHash,
+        country,
+        latitude,
+        longitude,
+        activeMinutes,
+        ...visitor
+      }) => ({
+        ...visitor,
+        activeMinutes: toActiveMinutes(activeMinutes),
+        ...toMapCoordinates(latitude, longitude),
+        visitorId: toVisitorId(sessionHash),
+        country: country || 'ZZ',
+      })
+    ),
+  };
+};
+
+/** Steps shown after the starting page in the user flow. */
+export const PAGE_FLOW_STEP_COUNT = 3;
+
+/** Pages kept per flow step; the rest merge into an "other pages" node. */
+export const PAGE_FLOW_MAX_PAGES_PER_STEP = 5;
+
+/** Reads the flow inputs for a set of pages over the report window. */
+export type PageFlowLoaders = {
+  /** Page views per url. */
+  loadViews: (urls: string[]) => Promise<Map<string, number>>;
+  /** Navigations leaving the given urls. */
+  loadTransitions: (
+    urls: string[]
+  ) => Promise<{ fromUrl: string; toUrl: string; count: number }[]>;
+};
+
+/** Rounds a flow value to two decimals — values are averages, not counts. */
+const roundFlowValue = (value: number): number => Math.round(value * 100) / 100;
+
+/**
+ * Builds the averaged navigation flow from `startUrl`, one step at a time:
+ * the traffic of each page is spread over its next pages in proportion to the
+ * navigations recorded from it (a first-order Markov chain over the daily
+ * transitions), and what is not navigated onward left the site from that page.
+ * Each step keeps its top pages; the rest merges into a `url: null` node,
+ * which is not followed further.
+ *
+ * A page's traffic base is its page views, or its outgoing navigations when
+ * those are higher (they can be, around day boundaries and late flushes).
+ *
+ * @param startUrl - The starting page, or {@link PAGE_FLOW_ENTRANCE}.
+ * @param loaders - Reads views and transitions over the report window.
+ * @returns The steps and the links between consecutive steps.
+ */
+export const buildPageFlow = async (
+  startUrl: string,
+  loaders: PageFlowLoaders,
+  stepCount = PAGE_FLOW_STEP_COUNT,
+  maxPagesPerStep = PAGE_FLOW_MAX_PAGES_PER_STEP
+): Promise<Pick<PageFlow, 'steps' | 'links'>> => {
+  const steps: PageFlowNode[][] = [];
+  const links: PageFlowLink[] = [];
+  // Traffic of the followed pages of the current step, by url.
+  let currentFlow = new Map<string, number>([[startUrl, 0]]);
+
+  for (let step = 0; step <= stepCount; step++) {
+    const urls = [...currentFlow.keys()];
+    const [viewsByUrl, transitions] = await Promise.all([
+      loaders.loadViews(urls),
+      loaders.loadTransitions(urls),
+    ]);
+
+    const outgoingByUrl = new Map<string, number>();
+    for (const transition of transitions) {
+      outgoingByUrl.set(
+        transition.fromUrl,
+        (outgoingByUrl.get(transition.fromUrl) ?? 0) + transition.count
+      );
+    }
+
+    const getBase = (url: string): number =>
+      Math.max(viewsByUrl.get(url) ?? 0, outgoingByUrl.get(url) ?? 0);
+
+    if (step === 0) {
+      const startValue = getBase(startUrl);
+      steps.push([{ url: startUrl, value: startValue, exits: null }]);
+      if (startValue === 0) break;
+      currentFlow = new Map([[startUrl, startValue]]);
+    }
+
+    // Exits of the followed pages of this step.
+    for (const node of steps[step]) {
+      if (node.url === null || !currentFlow.has(node.url)) continue;
+
+      const base = getBase(node.url);
+      const onwardShare =
+        base > 0 ? (outgoingByUrl.get(node.url) ?? 0) / base : 0;
+      node.exits =
+        node.url === PAGE_FLOW_ENTRANCE
+          ? null
+          : roundFlowValue(node.value * (1 - onwardShare));
+    }
+
+    if (step === stepCount) break;
+
+    // Spread each page's traffic over its next pages.
+    const nextFlow = new Map<string, number>();
+    const rawLinks = new Map<
+      string,
+      { fromUrl: string; toUrl: string; value: number }
+    >();
+
+    for (const transition of transitions) {
+      const sourceFlow = currentFlow.get(transition.fromUrl);
+      const base = getBase(transition.fromUrl);
+
+      if (!sourceFlow || base === 0) continue;
+
+      const value = (sourceFlow * transition.count) / base;
+      nextFlow.set(
+        transition.toUrl,
+        (nextFlow.get(transition.toUrl) ?? 0) + value
+      );
+
+      const linkKey = buildDedupKey([transition.fromUrl, transition.toUrl]);
+      const link = rawLinks.get(linkKey);
+      if (link) {
+        link.value += value;
+      } else {
+        rawLinks.set(linkKey, { ...transition, value });
+      }
+    }
+
+    if (nextFlow.size === 0) break;
+
+    const rankedPages = [...nextFlow].sort(
+      ([, valueA], [, valueB]) => valueB - valueA
+    );
+    const keptPages = new Map(rankedPages.slice(0, maxPagesPerStep));
+    const otherValue = rankedPages
+      .slice(maxPagesPerStep)
+      .reduce((sum, [, value]) => sum + value, 0);
+
+    const nodes: PageFlowNode[] = [...keptPages].map(([url, value]) => ({
+      url,
+      value: roundFlowValue(value),
+      exits: null,
+    }));
+    if (otherValue > 0) {
+      nodes.push({ url: null, value: roundFlowValue(otherValue), exits: null });
+    }
+    steps.push(nodes);
+
+    // Links into dropped pages merge into the "other pages" node.
+    const mergedLinks = new Map<string, PageFlowLink>();
+    for (const { fromUrl, toUrl, value } of rawLinks.values()) {
+      const targetUrl = keptPages.has(toUrl) ? toUrl : null;
+      const linkKey = buildDedupKey([fromUrl, targetUrl ?? undefined]);
+      const link = mergedLinks.get(linkKey);
+
+      if (link) {
+        link.value += value;
+      } else {
+        mergedLinks.set(linkKey, {
+          fromStep: step,
+          fromUrl,
+          toUrl: targetUrl,
+          value,
+        });
+      }
+    }
+    for (const link of mergedLinks.values()) {
+      links.push({ ...link, value: roundFlowValue(link.value) });
+    }
+
+    currentFlow = keptPages;
+  }
+
+  return { steps, links };
+};
+
+/**
+ * Averaged user flow from a starting page over a range. Navigations are
+ * stored per day, so sub-day ranges (`live`, `1h`, `24h`) read the days they
+ * overlap.
+ *
+ * @param projectId - The project to report on.
+ * @param range - The rolling window.
+ * @param startUrl - The starting page, or {@link PAGE_FLOW_ENTRANCE}.
+ */
+export const getPageFlow = async (
+  projectId: Types.ObjectId,
+  range: AudienceRange,
+  startUrl: string
+): Promise<PageFlow> => {
+  const dayCount = Math.ceil(RANGE_DEFINITIONS[range].hours / 24);
+  const startDay = dayOffset(Math.max(0, dayCount - 1));
+
+  const { steps, links } = await buildPageFlow(startUrl, {
+    loadViews: async (urls) => {
+      const rows = await AnalyticsRollupModel.aggregate<{
+        _id: string;
+        views: number;
+      }>([
+        {
+          $match: {
+            projectId,
+            type: 'page_view',
+            day: { $gte: startDay },
+            url: { $in: urls },
+          },
+        },
+        { $group: { _id: '$url', views: { $sum: '$count' } } },
+      ]);
+      return new Map(rows.map((row) => [row._id, row.views]));
+    },
+    loadTransitions: async (urls) =>
+      AnalyticsPageTransitionModel.aggregate<{
+        fromUrl: string;
+        toUrl: string;
+        count: number;
+      }>([
+        {
+          $match: {
+            projectId,
+            fromUrl: { $in: urls },
+            day: { $gte: startDay },
+          },
+        },
+        {
+          $group: {
+            _id: { fromUrl: '$fromUrl', toUrl: '$toUrl' },
+            count: { $sum: '$count' },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            fromUrl: '$_id.fromUrl',
+            toUrl: '$_id.toUrl',
+            count: 1,
+          },
+        },
+      ]),
+  });
+
+  return { startUrl, range, steps, links };
+};
+
+/**
+ * First UTC day (`YYYY-MM-DD`) with a daily rollup for the project, `null`
+ * when no data was ever collected. Rollups are permanent, unlike visitors.
+ */
+export const getFirstDataDay = async (
+  projectId: Types.ObjectId
+): Promise<string | null> => {
+  const firstRollup = await AnalyticsRollupModel.findOne(
+    { projectId },
+    { day: 1 }
+  )
+    .sort({ day: 1 })
+    .lean<{ day: string }>();
+
+  return firstRollup?.day ?? null;
+};
+
+/**
  * Builds the audience report for a project over a rolling window: distinct
  * visitors today / 7d / window, page views, the evolution series, and
  * breakdowns by locale (most-consulted), by country (visitor location), and by
  * page (most-consulted paths).
  *
+ * The `live` window reads the per-minute session activity (last hour only).
  * Sub-day windows (`1h`, `24h`) are served from the short-term counters, which
  * only retain about two days; everything longer reads the permanent daily
  * rollups.
@@ -974,15 +1806,19 @@ export const getAudience = async (
   const { hours, granularity } = RANGE_DEFINITIONS[range];
   const isSubDay = granularity === 'minute' || granularity === 'hour';
 
-  const [usersToday, usersLast7Days, windowStats] = await Promise.all([
-    AnalyticsVisitorModel.countDocuments({ projectId, day: dayOffset(0) }),
-    countDistinctVisitors(projectId, dayOffset(6)),
-    isSubDay
-      ? getSubDayAudience(projectId, range, granularity, hours)
-      : getDailyAudience(projectId, range, granularity, hours),
-  ]);
+  const [usersToday, usersLast7Days, dataSince, windowStats] =
+    await Promise.all([
+      AnalyticsVisitorModel.countDocuments({ projectId, day: dayOffset(0) }),
+      countDistinctVisitors(projectId, dayOffset(6)),
+      getFirstDataDay(projectId),
+      range === 'live'
+        ? getLiveAudience(projectId)
+        : isSubDay
+          ? getSubDayAudience(projectId, range, granularity, hours)
+          : getDailyAudience(projectId, range, granularity, hours),
+    ]);
 
-  return { usersToday, usersLast7Days, ...windowStats };
+  return { usersToday, usersLast7Days, dataSince, ...windowStats };
 };
 
 const PAGE_METADATA_CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
@@ -991,6 +1827,48 @@ const pageMetadataCache = new Map<
   string,
   { data: PageMetadata; timestamp: number }
 >();
+
+/** Redirects followed when fetching a page's metadata. */
+const MAX_PAGE_METADATA_REDIRECTS = 3;
+
+/**
+ * Fetches a page, following redirects by hand so every hop is checked to
+ * resolve to a public address (no SSRF towards the backend's network).
+ *
+ * @param url - The page URL.
+ * @returns The final response, or `null` when a hop is not public.
+ */
+const fetchPublicPage = async (url: string): Promise<Response | null> => {
+  let currentUrl = url;
+
+  for (
+    let redirectCount = 0;
+    redirectCount <= MAX_PAGE_METADATA_REDIRECTS;
+    redirectCount++
+  ) {
+    if (!(await isPublicHttpUrl(currentUrl))) return null;
+
+    const response = await fetch(currentUrl, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (compatible; IntlayerBot/1.0; +https://intlayer.org)',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+      signal: AbortSignal.timeout(6000),
+      redirect: 'manual',
+    });
+
+    const location = response.headers.get('location');
+    const isRedirect = response.status >= 300 && response.status < 400;
+
+    if (!isRedirect || !location) return response;
+
+    currentUrl = new URL(location, currentUrl).href;
+  }
+
+  return null;
+};
 
 /**
  * Fetches page metadata (title and meta description) from a target URL.
@@ -1006,23 +1884,9 @@ export const getPageMetadata = async (
   }
 
   try {
-    const parsedUrl = new URL(targetUrl);
-    if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
-      return { title: '', description: '' };
-    }
+    const response = await fetchPublicPage(targetUrl);
 
-    const response = await fetch(targetUrl, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (compatible; IntlayerBot/1.0; +https://intlayer.org)',
-        Accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      },
-      signal: AbortSignal.timeout(6000),
-      redirect: 'follow',
-    });
-
-    if (!response.ok) {
+    if (!response?.ok) {
       return { title: '', description: '' };
     }
 

@@ -410,7 +410,7 @@ const config: IntlayerConfig = {
     /**
      * Modèle du fournisseur sélectionné à utiliser.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * Clé API du fournisseur.
@@ -821,8 +821,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -841,8 +841,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -873,8 +873,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -893,8 +893,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -913,12 +913,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Repli pour les chemins non réécrits
@@ -1052,7 +1053,7 @@ Intlayer supporte plusieurs fournisseurs d'IA pour une flexibilité accrue. Les 
 | Champ                | Description                                                                                                                                   | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Par défaut  | Exemple                                                       | Note                                                                                                                                                                                                              |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | Le fournisseur à utiliser pour les fonctionnalités IA d'Intlayer.                                                                             | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | Les différents fournisseurs nécessitent des clés API différentes et ont des tarifs variés.                                                                                                                        |
-| `model`              | Le modèle à utiliser pour les fonctionnalités IA.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Aucun       | `'gpt-4o-2024-11-20'`                                         | Le modèle spécifique varie selon le fournisseur.                                                                                                                                                                  |
+| `model`              | Le modèle à utiliser pour les fonctionnalités IA.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Aucun       | `'gpt-5.6-terra'`                                             | Le modèle spécifique varie selon le fournisseur.                                                                                                                                                                  |
 | `temperature`        | Contrôle le caractère aléatoire des réponses de l'IA.                                                                                         | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Aucun       | `0.1`                                                         | Température plus élevée = plus créatif et moins prévisible.                                                                                                                                                       |
 | `apiKey`             | Votre clé API pour le fournisseur sélectionné.                                                                                                | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Aucun       | `process.env.OPENAI_API_KEY`                                  | Garder secret ; stocker dans les variables d'environnement.                                                                                                                                                       |
 | `applicationContext` | Contexte supplémentaire sur votre application pour aider l'IA à générer des traductions plus précises (domaine, audience, ton, terminologie). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Aucun       | `'Mon contexte d'application'`                                | Peut être utilisé pour ajouter des règles (ex: `"Vous ne devez pas transformer les urls"`).                                                                                                                       |

@@ -1,5 +1,6 @@
 import { listMissingTranslationsWithConfig } from '@intlayer/cli';
 import { getConfiguration } from '@intlayer/config/node';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { prepareIntlayer } from '@intlayer/engine/cli';
 import { window, workspace } from 'vscode';
 import {
@@ -83,7 +84,7 @@ export const testCommand = async (source?: CommandSource) => {
     }
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Test failed: ${(error as Error).message}`
+      `${prefix}Test failed: ${extractErrorMessage(error)}`
     );
   }
 };

@@ -1,4 +1,8 @@
-import type { FunctionalComponent, JSX } from 'preact';
+import type {
+  FunctionalComponent,
+  HTMLAttributes,
+  MouseEventHandler,
+} from 'preact';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 const DEFAULT_PRESS_DETECT_DURATION = 250;
@@ -10,7 +14,7 @@ type ContentSelectorProps = {
   onClickOutside?: () => void;
   pressDuration?: number;
   isSelecting?: boolean;
-} & Omit<JSX.HTMLAttributes<HTMLDivElement>, 'content'>;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'content'>;
 
 export const ContentSelector: FunctionalComponent<ContentSelectorProps> = ({
   children,
@@ -86,7 +90,7 @@ export const ContentSelector: FunctionalComponent<ContentSelectorProps> = ({
     };
   }, [handleClickOutside]);
 
-  const handleOnClick: JSX.MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleOnClick: MouseEventHandler<HTMLDivElement> = (e) => {
     if (isSelectingState) {
       e.preventDefault();
       e.stopPropagation();

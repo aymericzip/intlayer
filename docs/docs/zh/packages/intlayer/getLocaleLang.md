@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: getLocaleLang 函数文档 | intlayer
 description: "使用 getLocaleLang 从 en-US 这类语言字符串中提取语言代码，无论是否包含国家代码。"

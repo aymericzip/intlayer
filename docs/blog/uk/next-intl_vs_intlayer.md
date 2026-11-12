@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "next-intl проти Intlayer: Бенчмарк та порівняння 2026"
 description: "Детальне порівняння next-intl та Intlayer у Next.js App Router і TanStack Start. Розмір бандла, витік контенту, розмір компонентів, гідратація та досвід розробника."
@@ -504,16 +504,16 @@ export default withIntlayer(nextConfig);
 
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Бенчмарк vue-i18n проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer.md)
+- [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next проти react-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Більше про next-intl:
 
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md)
-- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_next-intl_outdated.md)
-- [Using Intlayer with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/intlayer_with_next-intl.md)
-- [How to internationalize a Next.js app with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_next-intl.md)
+- [next-intl проти @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md)
+- [Чи застарів next-intl?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_next-intl_outdated.md)
+- [Використання Intlayer з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/intlayer_with_next-intl.md)
+- [Як інтернаціоналізувати застосунок Next.js з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_next-intl.md)
 
 Довідкова документація:
 

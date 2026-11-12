@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "2026'da Doğru Vue i18n Kütüphanesi Nasıl Seçilir"
 description: "Vue ve Nuxt i18n için karar rehberi: vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide ve Intlayer'ı karşılaştırmadan önceki sorular."
@@ -96,11 +96,11 @@ Kütüphane boyutları [Vue benchmark](https://github.com/aymericzip/intlayer/bl
 
 | Kütüphane      | İçerik modeli                                                     | Tip güvenliği                   | Mesaj formatı                       | Route başına bölme      | Kütüphane boyutu                                    |
 | :------------- | :---------------------------------------------------------------- | :------------------------------ | :---------------------------------- | :---------------------- | :-------------------------------------------------- |
-| `vue-i18n`     | Dil başına merkezi kataloglar, isteğe bağlı SFC `<i18n>` blokları | 2/5 — Schema generic ile opt-in | Kendine ait (pipe)                  | Hayır                   | ~24.3 kB                                            |
-| `@nuxtjs/i18n` | `vue-i18n` ile aynı, artı routing ve SEO etiketleri               | 2/5 — Aynı                      | Aynı                                | Hayır, sadece dile göre | ~24.3 kB                                            |
-| `fluent-vue`   | `.ftl` dosyaları (Mozilla Fluent)                                 | 1/5 — Yok                       | Fluent                              | Hayır                   | ~29.7 kB                                            |
-| Paraglide      | inlang projesi, üretilen fonksiyonlar                             | 3.5/5 — Üretilen                | Kendine ait                         | Tree-shaking ile        | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
-| Intlayer       | Bileşen başına bir `.content.ts`                                  | 5/5 — Üretilen, varsayılan açık | Intlayer (+ ICU, i18next, vue-i18n) | Evet, bileşen bazlı     | ~3.9 kB                                             |
+| `vue-i18n`     | Dil başına merkezi kataloglar, isteğe bağlı SFC `<i18n>` blokları | 2/5 - Schema generic ile opt-in | Kendine ait (pipe)                  | Hayır                   | ~24.3 kB                                            |
+| `@nuxtjs/i18n` | `vue-i18n` ile aynı, artı routing ve SEO etiketleri               | 2/5 - Aynı                      | Aynı                                | Hayır, sadece dile göre | ~24.3 kB                                            |
+| `fluent-vue`   | `.ftl` dosyaları (Mozilla Fluent)                                 | 1/5 - Yok                       | Fluent                              | Hayır                   | ~29.7 kB                                            |
+| Paraglide      | inlang projesi, üretilen fonksiyonlar                             | 3.5/5 - Üretilen                | Kendine ait                         | Tree-shaking ile        | Sıfıra yakın (kod tabanında üretilen kod sayesinde) |
+| Intlayer       | Bileşen başına bir `.content.ts`                                  | 5/5 - Üretilen, varsayılan açık | Intlayer (+ ICU, i18next, vue-i18n) | Evet, bileşen bazlı     | ~3.9 kB                                             |
 
 > Rakamlar benchmark sürümlerindeki anlık bir görüntüdür. Yalnızca boyuta göre karar vermeden önce kendi uygulamanızda çalıştırın.
 > Tip güvenliği: 5/5; anahtarların, parametrelerin ve her locale'in, URL biçimlendirici ve yardımcılar (helpers) dahil olmak üzere manuel kurulum olmadan kontrol edildiği anlamına gelir.

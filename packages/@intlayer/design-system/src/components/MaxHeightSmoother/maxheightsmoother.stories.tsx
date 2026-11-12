@@ -59,7 +59,7 @@ type Story = StoryObj<typeof MaxHeightSmoother>;
 
 const sampleContent = (
   <div className="rounded-lg bg-linear-to-br from-blue-50 to-indigo-100 p-4">
-    <h3 className="mb-3 font-semibold text-gray-800 text-lg">
+    <h3 className="mb-3 text-lg font-semibold text-gray-800">
       Expandable Content
     </h3>
     <p className="mb-2 text-gray-600">
@@ -84,10 +84,10 @@ const sampleContent = (
 const longArticle = (
   <article className="rounded-lg bg-white p-6 shadow-sm">
     <header className="mb-4">
-      <h2 className="mb-2 font-bold text-2xl text-gray-900">
+      <h2 className="mb-2 text-2xl font-bold text-gray-900">
         Understanding MaxHeightSmoother
       </h2>
-      <p className="text-gray-600 text-sm">
+      <p className="text-sm text-gray-600">
         Published on December 1, 2023 • 5 min read
       </p>
     </header>
@@ -262,7 +262,7 @@ export const HoverAndFocus: Story = {
     minHeight: 80,
     children: (
       <div className="rounded-lg border border-purple-200 bg-linear-to-r from-purple-50 to-pink-50 p-4">
-        <h3 className="mb-2 font-semibold text-lg text-purple-800">
+        <h3 className="mb-2 text-lg font-semibold text-purple-800">
           Interactive Card
         </h3>
         <p className="mb-2 text-purple-700">
@@ -320,7 +320,7 @@ export const ArticlePreview: Story = {
 export const FAQSection: Story = {
   render: () => (
     <div className="mx-auto max-w-2xl space-y-4">
-      <h2 className="mb-6 font-bold text-2xl text-gray-900">
+      <h2 className="mb-6 text-2xl font-bold text-gray-900">
         Frequently Asked Questions
       </h2>
       {[
@@ -348,10 +348,10 @@ export const FAQSection: Story = {
           className="rounded-lg border border-gray-200"
         >
           <div className="p-4">
-            <h3 className="mb-2 font-semibold text-gray-900 text-lg">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900">
               {faq.question}
             </h3>
-            <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+            <p className="leading-relaxed text-gray-600">{faq.answer}</p>
           </div>
         </MaxHeightSmoother>
       ))}
@@ -413,13 +413,13 @@ export const DashboardWidgets: Story = {
           className="rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md"
         >
           <div className="p-6">
-            <h3 className="mb-2 font-medium text-gray-500 text-sm uppercase tracking-wide">
+            <h3 className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase">
               {widget.title}
             </h3>
-            <div className="mb-4 font-bold text-3xl text-gray-900">
+            <div className="mb-4 text-3xl font-bold text-gray-900">
               {widget.preview}
             </div>
-            <p className="text-gray-600 text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed text-gray-600">
               {widget.details}
             </p>
           </div>
@@ -446,7 +446,7 @@ export const AccessibilityDemo: Story = {
     'aria-label': 'Expandable accessibility information',
     children: (
       <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-        <h3 className="mb-2 font-semibold text-green-800 text-lg">
+        <h3 className="mb-2 text-lg font-semibold text-green-800">
           ♿ Accessibility Features
         </h3>
         <ul className="space-y-1 text-green-700">
@@ -503,7 +503,7 @@ export const LargeContent: Story = {
     minHeight: 150,
     children: (
       <div className="rounded-lg bg-blue-50 p-6">
-        <h3 className="mb-4 font-bold text-blue-800 text-xl">
+        <h3 className="mb-4 text-xl font-bold text-blue-800">
           Large Content Example
         </h3>
         {Array.from({ length: 20 }, (_, i) => (

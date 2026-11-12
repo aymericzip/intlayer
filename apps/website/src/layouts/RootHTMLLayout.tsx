@@ -1,7 +1,6 @@
 import { cn } from '@intlayer/design-system/utils';
 import type { LocalesValues } from 'intlayer';
 import { getHTMLTextDir } from 'intlayer';
-
 import type { FC, HTMLProps } from 'react';
 
 export type LocalParams = HTMLProps<HTMLHtmlElement> & {

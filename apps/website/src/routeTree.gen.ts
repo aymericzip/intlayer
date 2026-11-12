@@ -40,7 +40,7 @@ import { Route as Char123LocaleChar125TranslateRouteImport } from './routes/{-$l
 import { Route as Char123LocaleChar125VueI18nMessageFormatterRouteImport } from './routes/{-$locale}/vue-i18n-message-formatter'
 import { Route as DotwellKnownAgentSkillsIndexDotjsonRouteImport } from './routes/[.]well-known/agent-skills/index[.]json'
 import { Route as DotwellKnownMcpServerCardDotjsonRouteImport } from './routes/[.]well-known/mcp/server-card[.]json'
-import { Route as ApiProxyAhrefsAnalyticsRouteImport } from './routes/api/proxy/ahrefs-analytics'
+import { Route as ApiProxyAhrefsAnalyticsDotjsRouteImport } from './routes/api/proxy/ahrefs-analytics[.]js'
 import { Route as Char123LocaleChar125DocsPrivacyNoticeRouteImport } from './routes/{-$locale}/_docs/privacy-notice'
 import { Route as Char123LocaleChar125DocsPrivacyNoticeDotmdRouteImport } from './routes/{-$locale}/_docs/privacy-notice[.]md'
 import { Route as Char123LocaleChar125DocsTermsOfServiceRouteImport } from './routes/{-$locale}/_docs/terms-of-service'
@@ -232,11 +232,12 @@ const DotwellKnownMcpServerCardDotjsonRoute =
     path: '/.well-known/mcp/server-card.json',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiProxyAhrefsAnalyticsRoute = ApiProxyAhrefsAnalyticsRouteImport.update({
-  id: '/api/proxy/ahrefs-analytics',
-  path: '/api/proxy/ahrefs-analytics',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const ApiProxyAhrefsAnalyticsDotjsRoute =
+  ApiProxyAhrefsAnalyticsDotjsRouteImport.update({
+    id: '/api/proxy/ahrefs-analytics.js',
+    path: '/api/proxy/ahrefs-analytics.js',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Char123LocaleChar125DocsPrivacyNoticeRoute =
   Char123LocaleChar125DocsPrivacyNoticeRouteImport.update({
     id: '/privacy-notice',
@@ -370,7 +371,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
-  '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
+  '/api/proxy/ahrefs-analytics.js': typeof ApiProxyAhrefsAnalyticsDotjsRoute
   '/{-$locale}/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
@@ -418,7 +419,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/vue-i18n-message-formatter': typeof Char123LocaleChar125VueI18nMessageFormatterRoute
   '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
-  '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
+  '/api/proxy/ahrefs-analytics.js': typeof ApiProxyAhrefsAnalyticsDotjsRoute
   '/{-$locale}/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
@@ -470,7 +471,7 @@ export interface FileRoutesById {
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/.well-known/agent-skills/index.json': typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   '/.well-known/mcp/server-card.json': typeof DotwellKnownMcpServerCardDotjsonRoute
-  '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
+  '/api/proxy/ahrefs-analytics.js': typeof ApiProxyAhrefsAnalyticsDotjsRoute
   '/{-$locale}/_docs/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/_docs/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/_docs/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
@@ -521,7 +522,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/'
     | '/.well-known/agent-skills/index.json'
     | '/.well-known/mcp/server-card.json'
-    | '/api/proxy/ahrefs-analytics'
+    | '/api/proxy/ahrefs-analytics.js'
     | '/{-$locale}/privacy-notice'
     | '/{-$locale}/privacy-notice.md'
     | '/{-$locale}/terms-of-service'
@@ -569,7 +570,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/vue-i18n-message-formatter'
     | '/.well-known/agent-skills/index.json'
     | '/.well-known/mcp/server-card.json'
-    | '/api/proxy/ahrefs-analytics'
+    | '/api/proxy/ahrefs-analytics.js'
     | '/{-$locale}/privacy-notice'
     | '/{-$locale}/privacy-notice.md'
     | '/{-$locale}/terms-of-service'
@@ -620,7 +621,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/'
     | '/.well-known/agent-skills/index.json'
     | '/.well-known/mcp/server-card.json'
-    | '/api/proxy/ahrefs-analytics'
+    | '/api/proxy/ahrefs-analytics.js'
     | '/{-$locale}/_docs/privacy-notice'
     | '/{-$locale}/_docs/privacy-notice.md'
     | '/{-$locale}/_docs/terms-of-service'
@@ -655,7 +656,7 @@ export interface RootRouteChildren {
   ApiOgRoute: typeof ApiOgRoute
   DotwellKnownAgentSkillsIndexDotjsonRoute: typeof DotwellKnownAgentSkillsIndexDotjsonRoute
   DotwellKnownMcpServerCardDotjsonRoute: typeof DotwellKnownMcpServerCardDotjsonRoute
-  ApiProxyAhrefsAnalyticsRoute: typeof ApiProxyAhrefsAnalyticsRoute
+  ApiProxyAhrefsAnalyticsDotjsRoute: typeof ApiProxyAhrefsAnalyticsDotjsRoute
   DotwellKnownAgentSkillsSkillSKILLDotmdRoute: typeof DotwellKnownAgentSkillsSkillSKILLDotmdRoute
 }
 
@@ -878,11 +879,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotwellKnownMcpServerCardDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/proxy/ahrefs-analytics': {
-      id: '/api/proxy/ahrefs-analytics'
-      path: '/api/proxy/ahrefs-analytics'
-      fullPath: '/api/proxy/ahrefs-analytics'
-      preLoaderRoute: typeof ApiProxyAhrefsAnalyticsRouteImport
+    '/api/proxy/ahrefs-analytics.js': {
+      id: '/api/proxy/ahrefs-analytics.js'
+      path: '/api/proxy/ahrefs-analytics.js'
+      fullPath: '/api/proxy/ahrefs-analytics.js'
+      preLoaderRoute: typeof ApiProxyAhrefsAnalyticsDotjsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$locale}/_docs/privacy-notice': {
@@ -1150,7 +1151,7 @@ const rootRouteChildren: RootRouteChildren = {
   DotwellKnownAgentSkillsIndexDotjsonRoute:
     DotwellKnownAgentSkillsIndexDotjsonRoute,
   DotwellKnownMcpServerCardDotjsonRoute: DotwellKnownMcpServerCardDotjsonRoute,
-  ApiProxyAhrefsAnalyticsRoute: ApiProxyAhrefsAnalyticsRoute,
+  ApiProxyAhrefsAnalyticsDotjsRoute: ApiProxyAhrefsAnalyticsDotjsRoute,
   DotwellKnownAgentSkillsSkillSKILLDotmdRoute:
     DotwellKnownAgentSkillsSkillSKILLDotmdRoute,
 }

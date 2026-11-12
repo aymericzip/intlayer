@@ -427,6 +427,8 @@ Cả hai chế độ Docker đều đọc cùng một tệp (tệp `intlayer.env
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
+> Image all-in-one cũng chấp nhận `S3_SECRET_ACCESS_KEY` để trống: nó tự tạo một khóa ở lần khởi động đầu tiên và lưu trong `/data/.s3-secret-access-key`. Docker Compose vẫn bắt buộc biến này.
+
 ### Được cố định bởi việc triển khai
 
 Các biến này được đặt bởi hình ảnh (all-in-one) hoặc bởi tệp compose, và chỉ cần ghi đè cho một cấu trúc triển khai không chuẩn. `DOMAIN`, `APP_URL`, `BACKEND_URL` và `S3_PUBLIC_URL` là ngoại lệ: khi được đặt trong tệp env, chúng được ưu tiên ở cả hai chế độ (xem [Tên miền tùy chỉnh](#custom-domain)).

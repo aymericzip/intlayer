@@ -53,8 +53,10 @@ const AccessKeyItem: FC<{
         title={modal.deleteTitle.value}
         hasCloseButton
         isScrollable="y"
+        border
+        borderColor="neutral"
       >
-        <p className="text-neutral text-sm">{modal.deleteMessage}</p>
+        <p className="text-sm text-neutral">{modal.deleteMessage}</p>
         <FormButton
           variant="outline"
           label={modal.deleteButtonLabel.value}
@@ -76,8 +78,10 @@ const AccessKeyItem: FC<{
         className="p-3"
         hasCloseButton
         isScrollable="y"
+        border
+        borderColor="neutral"
       >
-        <p className="text-neutral text-sm">{modal.updateMessage}</p>
+        <p className="text-sm text-neutral">{modal.updateMessage}</p>
         <FormButton
           variant="outline"
           label={modal.updateButtonLabel.value}
@@ -101,7 +105,7 @@ const AccessKeyItem: FC<{
       >
         <div className="flex items-center justify-center px-3 pb-3">
           <KeyRound className="size-5" size={16} />
-          <span className="m-auto ms-4 w-full text-center font-bold text-lg">
+          <span className="m-auto ms-4 w-full text-center text-lg font-bold">
             {accessKey.name}
           </span>
         </div>
@@ -110,42 +114,42 @@ const AccessKeyItem: FC<{
             <div className="flex flex-col gap-1">
               <CopyToClipboard
                 text={accessKey.clientId}
-                className="text-wrap font-bold text-sm"
+                className="text-sm font-bold text-wrap"
               >
                 {labels.clientId}
               </CopyToClipboard>
               <HideShow
                 text={accessKey.clientId}
                 visiblePrefixChars={6}
-                className="ms-1 p-1 text-neutral text-sm"
+                className="ms-1 p-1 text-sm text-neutral"
               />
             </div>
             <div className="flex flex-col gap-1">
               <CopyToClipboard
                 text={accessKey.clientSecret}
-                className="p-1 font-bold text-sm"
+                className="p-1 text-sm font-bold"
                 disable={accessKey.clientSecret.endsWith('*')}
               >
                 {labels.clientSecret}
               </CopyToClipboard>
               {accessKey.clientSecret.endsWith('*') ? (
-                <span className="ms-1 break-all p-1 text-neutral text-sm">
+                <span className="ms-1 p-1 text-sm break-all text-neutral">
                   {accessKey.clientSecret}
                 </span>
               ) : (
                 <HideShow
                   text={accessKey.clientSecret}
                   visiblePrefixChars={6}
-                  className="ms-1 p-1 text-neutral text-sm"
+                  className="ms-1 p-1 text-sm text-neutral"
                 />
               )}
             </div>
             <div>
-              <span className="text-wrap font-bold text-sm">
+              <span className="text-sm font-bold text-wrap">
                 {rights.title}
               </span>
 
-              <span className="block text-wrap break-all text-neutral text-xs">
+              <span className="block text-xs text-wrap break-all text-neutral">
                 <span className="ms-1 font-bold">{rights.organization}</span>
                 {accessKey?.grants?.includes('organization:read')
                   ? rights.read
@@ -157,7 +161,7 @@ const AccessKeyItem: FC<{
                   ? rights.admin
                   : '-'}
               </span>
-              <span className="block text-wrap break-all text-neutral text-xs">
+              <span className="block text-xs text-wrap break-all text-neutral">
                 <span className="ms-1 font-bold">{rights.project}</span>
                 {accessKey?.grants?.includes('project:read')
                   ? rights.read
@@ -169,7 +173,7 @@ const AccessKeyItem: FC<{
                   ? rights.admin
                   : '-'}
               </span>
-              <span className="block text-wrap break-all text-neutral text-xs">
+              <span className="block text-xs text-wrap break-all text-neutral">
                 <span className="ms-1 font-bold">{rights.dictionary}</span>
                 {accessKey?.grants?.includes('dictionary:read')
                   ? rights.read
@@ -181,21 +185,27 @@ const AccessKeyItem: FC<{
                   ? rights.admin
                   : '-'}
               </span>
+              <span className="block text-xs text-wrap break-all text-neutral">
+                <span className="ms-1 font-bold">{rights.analytics}</span>
+                {accessKey?.grants?.includes('analytics:read')
+                  ? rights.read
+                  : '-'}
+              </span>
             </div>
             <div className="flex gap-3">
               <div className="flex flex-1 flex-col gap-1">
-                <span className="text-wrap font-bold text-sm">
+                <span className="text-sm font-bold text-wrap">
                   {labels.addedOn}
                 </span>
-                <span className="ms-1 break-all text-neutral text-xs">
+                <span className="ms-1 text-xs break-all text-neutral">
                   {new Date(accessKey.createdAt).toLocaleDateString()}
                 </span>
               </div>
               <div className="flex flex-1 flex-col gap-1">
-                <span className="text-wrap font-bold text-sm">
+                <span className="text-sm font-bold text-wrap">
                   {labels.expireOn}
                 </span>
-                <span className="ms-1 break-all text-neutral text-xs">
+                <span className="ms-1 text-xs break-all text-neutral">
                   {accessKey.expiresAt
                     ? new Date(accessKey.expiresAt).toLocaleDateString()
                     : '-'}
@@ -265,6 +275,8 @@ export const AccessKeyForm: FC = () => {
         isScrollable="y"
         padding="md"
         title={createAccessKey.text as string}
+        border
+        borderColor="neutral"
       >
         <AccessKeyCreationForm
           onAccessKeyCreated={(response) => {
@@ -287,7 +299,7 @@ export const AccessKeyForm: FC = () => {
           <Key className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
-        <span className="text-neutral text-sm">{description}</span>
+        <span className="text-sm text-neutral">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
           <AccessKeyItem
             key={String(accessKey.id)}
@@ -296,23 +308,23 @@ export const AccessKeyForm: FC = () => {
           />
         ))}
         {nbAccessKeys === 0 ? (
-          <span className="mb-6 text-center text-neutral text-sm">
+          <span className="mb-6 text-center text-sm text-neutral">
             {noAccessKeys}
           </span>
         ) : (
           <>
-            <blockquote className="mb-6 flex flex-col gap-3 border-card border-s-4 ps-5 text-neutral">
+            <blockquote className="mb-6 flex flex-col gap-3 border-s-4 border-card ps-5 text-neutral">
               <ul className="">
                 {tuto.map((el: (typeof tuto)[number]) => (
                   <li key={el.value}>
-                    <span className="text-center text-neutral text-sm">
+                    <span className="text-center text-sm text-neutral">
                       {el}
                     </span>
                   </li>
                 ))}
               </ul>
             </blockquote>
-            <span className="text-error text-sm">{warningMessage}</span>
+            <span className="text-sm text-error">{warningMessage}</span>
           </>
         )}
 

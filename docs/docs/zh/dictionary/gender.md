@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 中按性别区分的内容"
 description: "使用 Intlayer 的 gender() 节点根据读者性别调整消息：男性、女性和默认变体集中声明。"
@@ -70,12 +70,12 @@ export default myGenderContent;
 
 > 如果未声明回退内容，当性别未指定或不匹配任何定义的性别时，将使用最后声明的键作为回退内容。
 
-## 在 React Intlayer 中使用基于性别的内容
+## 在各框架中使用基于性别的内容
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize gender-based content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a gender to select the appropriate output.
+要在 React 组件中使用基于性别的内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` Hook。该 Hook 会获取指定键的内容，并允许您传入性别参数以选择对应的输出：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -88,37 +88,37 @@ const GenderComponent: FC = () => {
     <div>
       <p>
         {
-          /* Output: my content for male users */
+          /* 输出：针对男性用户的内容 */
           myGender("male")
         }
       </p>
       <p>
         {
-          /* Output: my content for female users */
+          /* 输出：针对女性用户的内容 */
           myGender("female")
         }
       </p>
       <p>
         {
-          /* Output: my content for male users */
+          /* 输出：针对男性用户的内容 */
           myGender("m")
         }
       </p>
       <p>
         {
-          /* Output: my content for female users */
+          /* 输出：针对女性用户的内容 */
           myGender("f")
         }
       </p>
       <p>
         {
-          /* Output: my content when gender is not specified */
+          /* 输出：未指定性别时的 fallback 内容 */
           myGender("")
         }
       </p>
       <p>
         {
-          /* Output: my content when gender is not specified */
+          /* 输出：未指定性别时的 fallback 内容 */
           myGender(undefined)
         }
       </p>
@@ -132,7 +132,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize gender-based content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Next.js 客户端组件中使用基于性别的内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -157,7 +157,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize gender-based content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vue 组件中使用基于性别的内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -177,7 +177,7 @@ const { myGender } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize gender-based content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+要在 Svelte 组件中使用基于性别的内容，可通过 `useIntlayer` Hook 获取。使用 `$` 访问 store。示例如下：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -195,7 +195,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize gender-based content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Preact 组件中使用基于性别的内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -218,7 +218,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize gender-based content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 SolidJS 组件中使用基于性别的内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -241,7 +241,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize gender-based content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Angular 组件中使用基于性别的内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -264,7 +264,7 @@ export class GenderComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To utilize gender-based content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vanilla JS 中使用基于性别的内容，可通过 `vanilla-intlayer` 的 `useIntlayer` 获取。示例如下：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -278,7 +278,7 @@ const content = useIntlayer("my_key").onChange((newContent) => {
     newContent.myGender("female");
 });
 
-// Initial render
+// 初始渲染
 document.getElementById("gender-male")!.textContent = content.myGender("male");
 document.getElementById("gender-female")!.textContent =
   content.myGender("female");
@@ -287,7 +287,7 @@ document.getElementById("gender-female")!.textContent =
   </Tab>
 </Tabs>
 
-## 附加资源
+## 其他资源
 
 有关配置和使用的更详细信息，请参阅以下资源：
 
@@ -295,4 +295,4 @@ document.getElementById("gender-female")!.textContent =
 - [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
 - [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
 
-这些资源提供了关于在各种环境和框架中设置和使用 Intlayer 的更多见解。
+这些资源提供了关于在各种环境和框架中设置和使用 Intlayer 的更多指导。

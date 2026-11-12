@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Probar tus traducciones con Intlayer"
 description: "Prueba tu contenido de Intlayer: detecta traducciones que faltan, valida los diccionarios en CI y renderiza componentes por locale en tus tests."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Aclarar que content test termina con un código distinto de cero cuando faltan locales requeridos"
   - version: 6.0.0
     date: 2025-09-20
     changes: "Introducción de pruebas"
@@ -29,7 +32,7 @@ Esta guía muestra cómo verificar automáticamente que tus diccionarios estén 
 
 - **Traducciones faltantes**: falla en CI si faltan locales requeridos en cualquier diccionario.
 - **Renderizado de UI localizada**: renderiza componentes con un proveedor de locales específico y verifica el texto/atributos visibles.
-- **Auditorías en tiempo de compilación (build time)**: ejecuta una auditoría rápida localmente vía CLI.
+- **Auditorías en tiempo de compilación (build time)**: ejecuta `npx intlayer content test` localmente o en CI; termina con un código distinto de cero cuando faltan traducciones requeridas.
 
 ## Inicio rápido: auditoría vía CLI
 
@@ -59,7 +62,7 @@ Flags útiles:
 - `--verbose`: muestra registros detallados.
 - `--prefix [etiqueta]`: prefija las líneas de registro.
 
-Nota: la CLI imprime un informe detallado pero no termina con un código distinto de cero en caso de fallos. Para control en CI, añade una prueba unitaria (más abajo) que verifique que no hay locales requeridos faltantes.
+El comando termina con el código `1` cuando falta cualquier locale requerido (consulta `requiredLocales` en tu configuración), y con `0` en caso contrario. Puedes usarlo directamente para hacer fallar trabajos de CI o hooks de commit. La prueba programática de abajo es una alternativa opcional.
 
 ## Prueba programática (Vitest/Jest)
 
@@ -155,14 +158,24 @@ Consejos:
 
 ## Integración Continua
 
-Agrega una prueba que falle la compilación cuando falten traducciones requeridas.
+Ejecuta la auditoría CLI en CI. Hace fallar el trabajo cuando faltan traducciones requeridas.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternativa: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Opcional: ejecuta la auditoría CLI para un resumen legible por humanos junto con las pruebas:

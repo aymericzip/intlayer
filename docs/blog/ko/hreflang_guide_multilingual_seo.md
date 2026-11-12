@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang, 다국어 SEO 가이드"
 description: "hreflang이 무엇인지, 검색 엔진이 적용하는 규칙, x-default가 거의 항상 잘못된 이유, 그리고 Next.js와 TanStack Start에서 올바른 태그를 생성하는 방법."
@@ -39,11 +39,11 @@ author: aymericzip
 
 두 가지를 얻을 수 있습니다: 올바른 사용자에게 올바른 버전이 표시되고, 로케일이 중복으로 서로 경쟁하는 대신 하나의 클러스터로 통합됩니다.
 
-이것이 무엇이 아닌지 명확히 하는 것이 중요합니다. 이것은 **리다이렉트가 아닙니다** — 힌트일 뿐이며, Google이 이를 무시할 수 있습니다. 이것은 **순위 부스트가 아닙니다** — 순위 여부가 아니라 _어느_ 버전이 순위를 얻을지 변경합니다. 그리고 Bing은 이를 완전히 무시하며 대신 `content-language`와 지역 타게팅에 의존합니다.
+이것이 무엇이 아닌지 명확히 하는 것이 중요합니다. 이것은 **리다이렉트가 아닙니다** - 힌트일 뿐이며, Google이 이를 무시할 수 있습니다. 이것은 **순위 부스트가 아닙니다** - 순위 여부가 아니라 _어느_ 버전이 순위를 얻을지 변경합니다. 그리고 Bing은 이를 완전히 무시하며 대신 `content-language`와 지역 타게팅에 의존합니다.
 
 ## 선언 위치
 
-세 가지 배치, 모두 유효합니다. 하나를 선택하고 거기에 머물러 있으세요 — 같은 클러스터가 두 곳에서 선언되면 세트가 분산되는 방식입니다.
+세 가지 배치, 모두 유효합니다. 하나를 선택하고 거기에 머물러 있으세요 - 같은 클러스터가 두 곳에서 선언되면 세트가 분산되는 방식입니다.
 
 **HTML `<head>`**는 일반적인 선택입니다. 한 가지 주의사항: hydration 후에 주입된 태그는 신뢰할 수 없습니다. 프레임워크가 클라이언트 측에서만 추가하면 크롤러가 이를 볼 수 없을 수 있습니다.
 
@@ -71,22 +71,22 @@ author: aymericzip
 
 이 이유를 암기하기보다는 이해하는 것이 좋습니다. `hreflang`은 cross-document 참조입니다: 검색 엔진은 URL을 키로 하는 cluster를 구축하고, 이를 cluster 내의 모든 페이지에서 공유합니다. 상대 경로는 그것이 포함된 문서에 상대적인 의미만 가지므로, 이를 표현할 수 없습니다. 또한 host를 넘을 수 없으며, locale이 `example.fr` 또는 `fr.example.com`에 있을 때 alternate는 종종 host를 넘습니다. sitemap이나 HTTP header에는 resolve할 base document가 전혀 없습니다.
 
-이것은 코드에 직접적인 결과를 가져옵니다. `getLocalizedUrl("/about", "fr")`는 `/fr/about`을 반환합니다 — 상대 경로 입력, 상대 경로 출력. `hreflang`의 경우 절대 URL을 제공해야 합니다:
+이것은 코드에 직접적인 결과를 가져옵니다. `getLocalizedUrl("/about", "fr")`는 `/fr/about`을 반환합니다 - 상대 경로 입력, 상대 경로 출력. `hreflang`의 경우 절대 URL을 제공해야 합니다:
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ 삭제됨
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-한 가지 예외는 렌더링 전에 상대 값을 해결해주는 프레임워크입니다: Next.js는 상대 `alternates`를 `metadataBase`에 대해 확장합니다. 좋습니다 — 하지만 규칙은 **생성된 HTML**에 적용되므로, DevTools inspector가 아닌 `curl`로 확인하세요.
+한 가지 예외는 렌더링 전에 상대 값을 해결해주는 프레임워크입니다: Next.js는 상대 `alternates`를 `metadataBase`에 대해 확장합니다. 좋습니다 - 하지만 규칙은 **생성된 HTML**에 적용되므로, DevTools inspector가 아닌 `curl`로 확인하세요.
 
 ### 언어 코드
 
 언어는 ISO 639-1, 선택적 지역은 ISO 3166-1 Alpha 2: `fr`, `fr-CA`, `pt-BR`.
 
-두 가지 함정이 거의 모든 사람을 잡아냅니다. 지역만으로는 유효하지 않습니다 — `hreflang="ca"`는 카탈로니아어이지, 캐나다가 아닙니다; `en-CA` 또는 `fr-CA`가 필요합니다. 그리고 `en-UK`는 존재하지 않습니다: 영국의 국가 코드는 `GB`이므로 `en-GB`입니다.
+두 가지 함정이 거의 모든 사람을 잡아냅니다. 지역만으로는 유효하지 않습니다 - `hreflang="ca"`는 카탈로니아어이지, 캐나다가 아닙니다; `en-CA` 또는 `fr-CA`가 필요합니다. 그리고 `en-UK`는 존재하지 않습니다: 영국의 국가 코드는 `GB`이므로 `en-GB`입니다.
 
-지역을 추가하는 것은 실제로 그 지역에 다른 콘텐츠를 제공할 때만 해야 합니다 — 다른 가격, 다른 법적 공지. 동일한 콘텐츠에서 `fr`과 `fr-FR`은 노이즈일 뿐입니다.
+지역을 추가하는 것은 실제로 그 지역에 다른 콘텐츠를 제공할 때만 해야 합니다 - 다른 가격, 다른 법적 공지. 동일한 콘텐츠에서 `fr`과 `fr-FR`은 노이즈일 뿐입니다.
 
 ### x-default
 
@@ -94,7 +94,7 @@ getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-가장 자주 잊혀지고, 잘못 이해되는 개념은 `x-default`입니다 — 앱의 30% 미만만 이를 올바르게 구현합니다.
+가장 자주 잊혀지고, 잘못 이해되는 개념은 `x-default`입니다 - 앱의 30% 미만만 이를 올바르게 구현합니다.
 
 이는 귀하의 집합에서 어떤 언어와도 일치하지 않는 사용자에 대한 폴백입니다. 영어, 프랑스어, 스페인어만 제공하는 사이트에 있는 네덜란드어 사용자는 어떤 항목과도 일치하지 않습니다. `x-default`가 없으면 Google이 자동으로 선택합니다.
 
@@ -116,7 +116,7 @@ getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/
 모든 로캘의 canonical을 영어 버전으로 가리키면:
 
 ```html
-<!-- https://example.com/fr/about에서 — 페이지가 삭제됨 -->
+<!-- https://example.com/fr/about에서  -  페이지가 삭제됨 -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/
 
 | 구조             | 예시              | 장단점                                                  |
 | ---------------- | ----------------- | ------------------------------------------------------- |
-| **서브디렉토리** | `example.com/fr/` | 단일 도메인, 공유 권한 — 약한 지역 신호                 |
-| **서브도메인**   | `fr.example.com`  | 로케일 추가 또는 제거 용이 — 별도 사이트로 보일 수 있음 |
-| **ccTLDs**       | `example.fr`      | 가장 강한 국가 신호 — 도메인별로 구축된 권한            |
+| **서브디렉토리** | `example.com/fr/` | 단일 도메인, 공유 권한 - 약한 지역 신호                 |
+| **서브도메인**   | `fr.example.com`  | 로케일 추가 또는 제거 용이 - 별도 사이트로 보일 수 있음 |
+| **ccTLDs**       | `example.fr`      | 가장 강한 국가 신호 - 도메인별로 구축된 권한            |
 
 대부분의 프로젝트에서 서브디렉토리가 올바른 기본값입니다. ccTLD에 도달하는 것은 정말로 별도의 국가 비즈니스로 운영할 때만입니다.
 
@@ -258,15 +258,15 @@ const sitemap = generateSitemap(
 
 알아두면 좋은 두 가지 옵션:
 
-- `xhtmlLinks` (기본값 `true`) — alternates는 locale URL이 실제로 다른 경우에만 emit됩니다. `no-prefix` 모드에서는 모든 locale이 하나의 URL을 공유하므로, `routing.domains`에서 locale에 자체 호스트명을 제공하지 않는 한 skip됩니다.
-- `entryPerLocale` (기본값 `false`) — 기본적으로 하나의 `<url>` 항목이 모든 대체 언어를 포함합니다. 두 형식 모두 유효하지만, `<loc>`으로 나열된 URL만 Search Console에서 _제출됨_으로 계산되며, 대체 언어 전용 locale은 발견 가능하지만 sitemap에 속하지 않습니다. 이 옵션을 켜면 모든 지역화된 URL이 자체 항목을 가지고 전체 대체 언어 세트가 반복됩니다. 이렇게 하면 항목 수가 locale 수만큼 증가하므로 50,000 URL / 50 MB 제한을 주의하고, 초과하면 sitemap 인덱스로 분할하세요.
+- `xhtmlLinks` (기본값 `true`) - alternates는 locale URL이 실제로 다른 경우에만 emit됩니다. `no-prefix` 모드에서는 모든 locale이 하나의 URL을 공유하므로, `routing.domains`에서 locale에 자체 호스트명을 제공하지 않는 한 skip됩니다.
+- `entryPerLocale` (기본값 `false`) - 기본적으로 하나의 `<url>` 항목이 모든 대체 언어를 포함합니다. 두 형식 모두 유효하지만, `<loc>`으로 나열된 URL만 Search Console에서 _제출됨_으로 계산되며, 대체 언어 전용 locale은 발견 가능하지만 sitemap에 속하지 않습니다. 이 옵션을 켜면 모든 지역화된 URL이 자체 항목을 가지고 전체 대체 언어 세트가 반복됩니다. 이렇게 하면 항목 수가 locale 수만큼 증가하므로 50,000 URL / 50 MB 제한을 주의하고, 초과하면 sitemap 인덱스로 분할하세요.
 
 </Step>
 <Step number={3} title="crawler가 수신하는 내용 확인">
 
 `hreflang`은 조용히 실패하므로, 가정하지 말고 확인하세요.
 
-소스를 읽으세요. 검사기가 아닌 — `curl https://example.com/fr/about | grep hreflang`는 크롤러가 받는 것을 보여줍니다. DevTools는 JavaScript가 실행된 후의 DOM을 보여줍니다. 그런 다음 각 대체 항목을 따라가서 동일한 집합으로 다시 가리키는지 확인하고, 그 중 어느 것도 리다이렉트되지 않는지 확인하세요. Search Console의 국제 타겟팅 보고서는 전체 사이트에서 나머지를 포착합니다.
+소스를 읽으세요. 검사기가 아닌 - `curl https://example.com/fr/about | grep hreflang`는 크롤러가 받는 것을 보여줍니다. DevTools는 JavaScript가 실행된 후의 DOM을 보여줍니다. 그런 다음 각 대체 항목을 따라가서 동일한 집합으로 다시 가리키는지 확인하고, 그 중 어느 것도 리다이렉트되지 않는지 확인하세요. Search Console의 국제 타겟팅 보고서는 전체 사이트에서 나머지를 포착합니다.
 
 다국어 특화 크롤링의 경우, [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner)는 로컬라이즈된 페이지 전체에서 누락된 태그, 끊어진 대체 항목 및 canonical 충돌을 확인합니다.
 

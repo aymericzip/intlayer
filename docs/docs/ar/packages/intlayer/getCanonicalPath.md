@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "توثيق الدالة getCanonicalPath | intlayer"
 description: "استخدم getCanonicalPath لإرجاع مسار مترجم مثل /a-propos إلى مساره الداخلي مثل /about لأغراض التوجيه."
@@ -103,7 +103,7 @@ getCanonicalPath("/produit/123", Locales.FRENCH);
 
 ### قواعد إعادة الكتابة اليدوية
 
-You can also pass manual rewrite rules to the function:
+يمكنك أيضًا تمرير قواعد إعادة كتابة يدوية إلى الدالة:
 
 ```typescript codeFormat="typescript"
 import { getCanonicalPath, Locales } from "intlayer";

@@ -121,3 +121,8 @@ The analyzer cannot follow `loaderData`, so this dictionary stays whole and the 
 - [Bundle Optimization](https://intlayer.org/doc/concept/bundle-optimization.md)
 - [Select](https://intlayer.org/doc/concept/content/select.md)
 - [Configuration](https://intlayer.org/doc/concept/configuration.md)
+
+### Packages
+
+- [vite-intlayer intlayerMinify](https://intlayer.org/doc/packages/vite-intlayer/intlayerMinify.md)
+- [vite-intlayer intlayerPrune](https://intlayer.org/doc/packages/vite-intlayer/intlayerPrune.md)

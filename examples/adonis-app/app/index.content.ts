@@ -3,31 +3,31 @@ import { type Dictionary, t } from 'intlayer';
 const indexContent = {
   key: 'index',
   content: {
-    exampleOfContent: t({
-      en: 'Example of returned content in English',
-      fr: 'Exemple de contenu renvoyé en français',
-      'es-ES': 'Ejemplo de contenido devuelto en español (España)',
-      'es-MX': 'Ejemplo de contenido devuelto en español (México)',
-    }),
-    welcome: t({
-      en: 'Welcome to our application',
-      fr: 'Bienvenue sur notre application',
-      es: 'Bienvenido a nuestra aplicación',
-    }),
     description: t({
       en: 'This is an AdonisJS application integrated with Intlayer',
-      fr: "C'est une application AdonisJS intégrée avec Intlayer",
       es: 'Esta es una aplicación AdonisJS integrada con Intlayer',
+      fr: "C'est une application AdonisJS intégrée avec Intlayer",
     }),
-    functionsTitle: t({
-      en: 'Available Functions',
-      fr: 'Fonctions Disponibles',
-      es: 'Funciones Disponibles',
+    exampleOfContent: t({
+      en: 'Example of returned content in English',
+      'es-ES': 'Ejemplo de contenido devuelto en español (España)',
+      'es-MX': 'Ejemplo de contenido devuelto en español (México)',
+      fr: 'Exemple de contenu renvoyé en français',
     }),
     functionsDescription: t({
       en: 'You can use t(), getIntlayer(), and getDictionary() to manage your translations.',
-      fr: 'Vous pouvez utiliser t(), getIntlayer(), et getDictionary() pour gérer vos traductions.',
       es: 'Puedes usar t(), getIntlayer() y getDictionary() para gestionar tus traducciones.',
+      fr: 'Vous pouvez utiliser t(), getIntlayer(), et getDictionary() pour gérer vos traductions.',
+    }),
+    functionsTitle: t({
+      en: 'Available Functions',
+      es: 'Funciones Disponibles',
+      fr: 'Fonctions Disponibles',
+    }),
+    welcome: t({
+      en: 'Welcome to our application',
+      es: 'Bienvenido a nuestra aplicación',
+      fr: 'Bienvenue sur notre application',
     }),
   },
 } satisfies Dictionary;

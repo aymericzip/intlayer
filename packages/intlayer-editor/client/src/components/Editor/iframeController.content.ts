@@ -16,6 +16,7 @@ const iframeControllerContent = {
       zh: 'Intlayer 应用程序',
       'en-GB': 'Intlayer Application',
       ar: 'تطبيق Intlayer',
+      'he-IL': 'אפליקציית Intlayer',
       hi: 'इंटलेयर एप्लिकेशन',
     }),
     enableEditor: t({
@@ -31,6 +32,7 @@ const iframeControllerContent = {
       zh: '启用编辑器',
       'en-GB': 'Enable Editor',
       ar: 'تفعيل المحرر',
+      'he-IL': 'הפעלת העורך',
       hi: 'संपादक सक्षम करें',
     }),
   },

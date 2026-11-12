@@ -49,7 +49,7 @@ module.exports.editor = cfg.editor;
 };
 
 export const parseConfigContent = createServerFn({ method: 'POST' })
-  .inputValidator(schema)
+  .validator(schema)
   .handler(async ({ data }) => {
     const { content } = data;
 

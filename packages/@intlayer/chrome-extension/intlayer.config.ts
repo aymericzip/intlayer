@@ -19,6 +19,7 @@ export const locales: Locale[] = [
   Locales.INDONESIAN,
   Locales.VIETNAMESE,
   Locales.UKRAINIAN,
+  Locales.HEBREW_ISRAEL,
 ];
 
 const config: IntlayerConfig = {

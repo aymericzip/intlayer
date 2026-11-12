@@ -1,12 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, x } from '@intlayer/config/logger';
-import { assertPathWithin } from '@intlayer/config/utils';
+import { assertPathWithin, parallelize } from '@intlayer/config/utils';
 import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
-import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
 export const groupDictionariesByKey = (

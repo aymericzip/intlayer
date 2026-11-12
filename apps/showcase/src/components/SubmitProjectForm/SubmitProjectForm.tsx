@@ -71,18 +71,18 @@ export const SubmitProjectForm: FC = () => {
   };
 
   return (
-    // biome-ignore lint/a11y/noStaticElementInteractions: just for form saving logic
+    // oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- just for form saving logic
     <div className="mx-auto max-w-2xl px-4 py-12" onBlur={handleBlur}>
       {/* Back Link */}
       <Link
         to="/"
-        className="group mb-6 inline-flex items-center gap-2 text-neutral text-sm transition-colors hover:text-text"
+        className="group mb-6 inline-flex items-center gap-2 text-sm text-neutral transition-colors hover:text-text"
       >
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
         {content.backToShowcase}
       </Link>
 
-      <h1 className="font-bold text-3xl text-gray-900 dark:text-white">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
         {content.title}
       </h1>
       <p className="mt-2 text-neutral">{content.description}</p>

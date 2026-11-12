@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n w Vite + Vanilla JS: pełny przewodnik po tłumaczeniu"
 description: "Konfiguracja Intlayer w aplikacji Vite bez frameworka: przetłumacz DOM, zmieniaj locale i przechowuj typowaną treść w plikach .content."
@@ -635,7 +635,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Od wersji v9 kompilator `intlayerCompiler` jest zawarty w pluginie `intlayer`. Nie musisz więc dodawać go ręcznie.
 
  </Tab>
  <Tab value='intlayer < 9'>

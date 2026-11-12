@@ -72,7 +72,7 @@ export const Controlled: Story = {
           minRows={3}
           maxRows={8}
         />
-        <p className="text-neutral-500 text-sm">{value.length} characters</p>
+        <p className="text-sm text-neutral-500">{value.length} characters</p>
       </div>
     );
   },

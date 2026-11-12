@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "内容声明文件（.content.ts）"
 description: "在组件旁的 .content 文件中声明多语言内容：支持的格式、文件扩展名，以及 Intlayer 如何发现它们。"
@@ -56,7 +56,7 @@ Intlayer 中的内容文件是包含字典定义的文件。
 这些文件声明了您的应用程序的文本内容、翻译和资源。
 内容文件由 Intlayer 处理以生成字典。
 
-字典将是您的应用程序通过 `useIntlayer` 钩子导入的最终结果。
+字典将是您的应用程序通过 `useIntlayer` Hook导入的最终结果。
 
 ### 关键概念
 

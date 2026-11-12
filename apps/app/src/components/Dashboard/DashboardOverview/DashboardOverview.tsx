@@ -58,12 +58,12 @@ const StatCard: FC<StatCardProps> = ({ icon, label, value, hint }) => (
     border
     borderColor="neutral"
   >
-    <span className="flex items-center gap-2 text-neutral text-xs">
+    <span className="flex items-center gap-2 text-xs text-neutral">
       {icon}
       {label}
     </span>
-    <span className="font-semibold text-2xl text-text">{value}</span>
-    {hint && <span className="text-neutral text-xs">{hint}</span>}
+    <span className="text-2xl font-semibold text-text">{value}</span>
+    {hint && <span className="text-xs text-neutral">{hint}</span>}
   </Container>
 );
 
@@ -99,8 +99,8 @@ const ConfigChip: FC<ConfigChipProps> = ({
       {icon}
     </span>
     <span className="flex min-w-0 flex-col">
-      <span className="truncate text-neutral text-xs">{label}</span>
-      <span className="truncate font-medium text-sm text-text">{value}</span>
+      <span className="truncate text-xs text-neutral">{label}</span>
+      <span className="truncate text-sm font-medium text-text">{value}</span>
     </span>
   </Container>
 );
@@ -125,7 +125,7 @@ export const DashboardOverview: FC = () => {
   if (!hasProject) {
     return (
       <div className="flex flex-1 items-center justify-center p-10">
-        <p className="max-w-sm text-center text-neutral text-sm">
+        <p className="max-w-sm text-center text-sm text-neutral">
           {content.noProjectSelected}
         </p>
       </div>
@@ -145,7 +145,7 @@ export const DashboardOverview: FC = () => {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Audience analytics — who is actually seeing the content */}
-      <DashboardAudience />
+      <DashboardAudience hideWhenEmpty />
 
       {/* Headline metrics */}
       <div className="flex flex-wrap gap-4">
@@ -186,7 +186,7 @@ export const DashboardOverview: FC = () => {
         borderColor="neutral"
       >
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-semibold text-base text-text">
+          <h2 className="text-base font-semibold text-text">
             {content.translationHealth}
           </h2>
           {hasMissing && (
@@ -247,7 +247,7 @@ export const DashboardOverview: FC = () => {
           border
           borderColor="neutral"
         >
-          <h2 className="font-semibold text-base text-text">
+          <h2 className="text-base font-semibold text-text">
             {content.completionByLocale}
           </h2>
           <ul className="flex flex-col gap-3">
@@ -266,7 +266,7 @@ export const DashboardOverview: FC = () => {
                       <span className="font-medium text-text">
                         {getLocaleName(localeInsight.locale, locale)}
                       </span>
-                      <span className="text-neutral text-xs">
+                      <span className="text-xs text-neutral">
                         {localeInsight.locale}
                       </span>
                       {localeInsight.isDefault && (
@@ -315,13 +315,13 @@ export const DashboardOverview: FC = () => {
           border
           borderColor="neutral"
         >
-          <h2 className="font-semibold text-base text-text">
+          <h2 className="text-base font-semibold text-text">
             {content.aiUsage}
           </h2>
 
           {!aiStats || aiStats.totalTokens === 0 ? (
             <div className="m-auto flex flex-1 items-center justify-center">
-              <p className="text-neutral text-sm">{content.aiNoData}</p>
+              <p className="text-sm text-neutral">{content.aiNoData}</p>
             </div>
           ) : (
             <div className="flex flex-col gap-4">
@@ -420,7 +420,7 @@ export const DashboardOverview: FC = () => {
           borderColor="neutral"
         >
           <div className="flex items-center justify-between gap-2">
-            <h2 className="font-semibold text-base text-text">
+            <h2 className="text-base font-semibold text-text">
               {content.recentActivity}
             </h2>
             <Link
@@ -428,13 +428,13 @@ export const DashboardOverview: FC = () => {
               variant="invisible-link"
               color="text"
               label={content.viewDictionariesAction.value}
-              className="text-neutral text-xs hover:text-text"
+              className="text-xs text-neutral hover:text-text"
             >
               {content.viewDictionariesAction}
             </Link>
           </div>
           {insights.recentlyUpdated.length === 0 ? (
-            <p className="text-neutral text-sm">{content.noActivity}</p>
+            <p className="text-sm text-neutral">{content.noActivity}</p>
           ) : (
             <ul className="flex flex-col divide-y divide-neutral/10">
               {insights.recentlyUpdated.map((item) => (
@@ -442,10 +442,10 @@ export const DashboardOverview: FC = () => {
                   key={item.key}
                   className="flex items-center justify-between gap-2 py-2"
                 >
-                  <span className="truncate font-mono text-text text-xs">
+                  <span className="truncate font-mono text-xs text-text">
                     {item.key}
                   </span>
-                  <span className="shrink-0 text-neutral text-xs">
+                  <span className="shrink-0 text-xs text-neutral">
                     {new Date(item.updatedAt).toLocaleDateString(locale)}
                   </span>
                 </li>
@@ -461,7 +461,7 @@ export const DashboardOverview: FC = () => {
           border
           borderColor="neutral"
         >
-          <h2 className="font-semibold text-base text-text">
+          <h2 className="text-base font-semibold text-text">
             {content.teamAndConfig}
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

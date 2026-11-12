@@ -43,7 +43,7 @@ export const LocalesSection: FunctionComponent<{
           {detection.detectedLocales.map((locale) => (
             <span
               key={locale}
-              className="rounded-full bg-text/10 px-2 py-0.5 font-semibold text-xs"
+              className="rounded-full bg-text/10 px-2 py-0.5 text-xs font-semibold"
             >
               {locale}
             </span>
@@ -52,7 +52,7 @@ export const LocalesSection: FunctionComponent<{
       )}
       {routing.strategy !== 'unknown' && (
         <div
-          className="wrap-anywhere mt-1 text-neutral text-xs"
+          className="mt-1 text-xs wrap-anywhere text-neutral"
           title={routing.evidence}
         >
           {urlLocaleMarker && (
@@ -77,7 +77,7 @@ export const LocalesSection: FunctionComponent<{
       {detection.localeStorageEntries.map((entry) => (
         <div
           key={`${entry.source}-${entry.name}`}
-          className="wrap-anywhere mt-1 text-neutral text-xs"
+          className="mt-1 text-xs wrap-anywhere text-neutral"
         >
           {entry.source}:{' '}
           <code className="font-mono text-[11px]">{entry.name}</code> ={' '}

@@ -1,9 +1,9 @@
 import { ClientComponentExample } from '@components/ClientComponentExample';
 import { LocaleSwitcher } from '@components/LangSwitcherDropDown';
 import { ServerComponentExample } from '@components/ServerComponentExample';
-import Image from 'next/image';
 import type { Next14PageIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
+import Image from 'next/image';
 import { generateMetadata } from './metadata';
 
 export { generateMetadata };
@@ -15,9 +15,9 @@ const Page: Next14PageIntlayer = () => {
     <>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-          <p className="fixed inset-s-0 top-0 flex w-full justify-center border-gray-300 border-b bg-linear-to-b from-zinc-200 pt-8 pb-6 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:dark:bg-zinc-800/30">
+          <p className="fixed inset-s-0 top-0 flex w-full justify-center border-b border-gray-300 bg-linear-to-b from-zinc-200 pt-8 pb-6 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:dark:bg-zinc-800/30">
             {content.getStarted.main}&nbsp;
-            <code className="font-bold font-mono">
+            <code className="font-mono font-bold">
               {content.getStarted.pageLink}
             </code>
           </p>
@@ -41,7 +41,7 @@ const Page: Next14PageIntlayer = () => {
           </div>
         </div>
 
-        <div className="relative z-[-1] flex place-items-center before:absolute before:h-75 before:w-full before:-translate-x-1/2 before:rounded-full before:bg-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-45 after:w-full after:translate-x-1/3 after:bg-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] sm:after:w-60 sm:before:w-120 before:lg:h-90 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:dark:bg-linear-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10">
+        <div className="relative z-[-1] flex place-items-center before:absolute before:h-75 before:w-full before:-translate-x-1/2 before:rounded-full before:bg-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-45 after:w-full after:translate-x-1/3 after:bg-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] sm:before:w-120 sm:after:w-60 before:lg:h-90 before:dark:bg-linear-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40">
           <Image
             className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
             src="/next.svg"
@@ -59,7 +59,7 @@ const Page: Next14PageIntlayer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={`mb-3 font-semibold text-2xl`}>
+            <h2 className={`mb-3 text-2xl font-semibold`}>
               {content.docs.title}{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
@@ -76,7 +76,7 @@ const Page: Next14PageIntlayer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={`mb-3 font-semibold text-2xl`}>
+            <h2 className={`mb-3 text-2xl font-semibold`}>
               {content.learn.title}{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
@@ -93,7 +93,7 @@ const Page: Next14PageIntlayer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={`mb-3 font-semibold text-2xl`}>
+            <h2 className={`mb-3 text-2xl font-semibold`}>
               {content.templates.title}{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
@@ -110,13 +110,13 @@ const Page: Next14PageIntlayer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={`mb-3 font-semibold text-2xl`}>
+            <h2 className={`mb-3 text-2xl font-semibold`}>
               {content.deploy.title}{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
             </h2>
-            <p className={`m-0 max-w-[30ch] text-balance text-sm opacity-50`}>
+            <p className={`m-0 max-w-[30ch] text-sm text-balance opacity-50`}>
               {content.deploy.detail}
             </p>
           </a>

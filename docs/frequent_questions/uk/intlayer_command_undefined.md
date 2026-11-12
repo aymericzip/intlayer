@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 4
 title: Команда intlayer не визначена
 description: "Виправте помилку «intlayer: command not found»: встановіть CLI, запускайте його через пакетний менеджер і перевірте PATH."
@@ -112,14 +112,14 @@ echo %PATH%
 # Має містити каталог глобальних бінарних файлів npm
 ```
 
-8. **Use npx with full path**
-   If the command is still not found, try using npx with the full path:
+8. **Використання npx з повним шляхом**
+   Якщо команду все одно не знайдено, спробуйте скористатися npx з повним шляхом:
 
 ```bash
 npx ./node_modules/intlayer/ dictionaries build
 ```
 
-9. **Check for conflicting installations**
+9. **Перевірка конфліктних встановлень**
 
 ```bash
 # Перелічіть усі глобально встановлені пакети
@@ -132,15 +132,15 @@ npm uninstall -g intlayer-cli
 npm install -g intlayer
 ```
 
-10. **Verify Node.js and npm versions**
-    Make sure you're using compatible versions:
+10. **Перевірка версій Node.js та npm**
+    Переконайтеся, що ви використовуєте сумісні версії:
 
 ```bash
 node --version
 npm --version
 ```
 
-    If you're using an outdated version, consider updating Node.js and npm.
+    Якщо ви використовуєте застарілу версію, рекомендуємо оновити Node.js та npm.
 
 11. **Перевірте проблеми з дозволами**
 Якщо ви отримуєте помилки доступу:

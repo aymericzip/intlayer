@@ -64,7 +64,7 @@ function TagDetailPage() {
   const { tagKey } = Route.useParams();
 
   return (
-    <div className="flex w-full flex-1 flex-col items-center p-10">
+    <div className="flex w-full flex-1 flex-col items-center py-6">
       <TagDetails tagKey={tagKey} />
     </div>
   );

@@ -1,7 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath } from '@intlayer/config/logger';
-import { assertPathWithin } from '@intlayer/config/utils';
+import { assertPathWithin, parallelize } from '@intlayer/config/utils';
 import {
   mergeQualifiedDictionaries,
   normalizeDictionaries,
@@ -11,7 +11,6 @@ import type {
   Dictionary,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
-import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
 

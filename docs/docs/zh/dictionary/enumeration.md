@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 8
 title: "枚举：按数量显示消息"
 description: "使用 Intlayer 枚举，根据数字或区间显示不同内容，配合 enu() 节点和 '<-1'、'>5' 等条件。"
@@ -82,12 +82,12 @@ export default carEnumeration;
 
 > 如果未声明备用值，当没有匹配的键时，函数将返回 `undefined`。
 
-## 在 React Intlayer 中使用枚举
+## 在各框架中使用枚举
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use enumeration in a React component, you can leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified ID. Here's an example of how to use it:
+要在 React 组件中使用枚举，可以使用 `react-intlayer` 包中的 `useIntlayer` Hook。该 Hook 会根据指定的键获取对应的内容。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -100,22 +100,22 @@ const CarComponent: FC = () => {
     <div>
       <p>
         {
-          numberOfCar(0) // Output: No cars
+          numberOfCar(0) // 输出：无车辆
         }
       </p>
       <p>
         {
-          numberOfCar(6) // Output: Some cars
+          numberOfCar(6) // 输出：一些车辆
         }
       </p>
       <p>
         {
-          numberOfCar(20) // Output: Many cars
+          numberOfCar(20) // 输出：许多车辆
         }
       </p>
       <p>
         {
-          numberOfCar(0.01) // Output: Fallback value
+          numberOfCar(0.01) // 输出：备用值
         }
       </p>
     </div>
@@ -126,7 +126,7 @@ const CarComponent: FC = () => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use enumeration in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Next.js 客户端组件中使用枚举，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -150,7 +150,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use enumeration in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vue 组件中使用枚举，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -169,7 +169,7 @@ const { numberOfCar } = useIntlayer("car_count");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use enumeration in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+要在 Svelte 组件中使用枚举，可通过 `useIntlayer` Hook 获取。使用 `$` 访问 store。示例如下：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -186,7 +186,7 @@ const content = useIntlayer("car_count");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use enumeration in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Preact 组件中使用枚举，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -208,7 +208,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use enumeration in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 SolidJS 组件中使用枚举，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -230,7 +230,7 @@ export default CarComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use enumeration in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Angular 组件中使用枚举，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -252,7 +252,7 @@ export class CarComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use enumeration with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vanilla JS 中使用枚举，可通过 `vanilla-intlayer` 的 `useIntlayer` 获取。示例如下：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -263,29 +263,19 @@ const content = useIntlayer("car_count").onChange((newContent) => {
   document.getElementById("cars")!.textContent = newContent.numberOfCar(6);
 });
 
-// Initial render
+// 初始渲染
 document.getElementById("cars")!.textContent = content.numberOfCar(6);
 ```
 
   </Tab>
 </Tabs>
 
-## 附加资源
-
-有关配置和使用的更详细信息，请参阅以下资源：
-
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
-- [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
-- [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
-
-这些资源提供了关于在不同环境和各种框架中设置和使用 Intlayer 的更多见解。
-
-### Using Ordinal Enumeration
+### 使用序数枚举
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use this in a React component, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 React 组件中使用序数枚举，传入数字的最后一位以获取正确的后缀，然后将完整数量作为插值传入：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -294,14 +284,14 @@ import { useIntlayer } from "react-intlayer";
 const RankingComponent: FC<{ count: number }> = ({ count }) => {
   const { ordinal } = useIntlayer("ranking_component");
 
-  // Get the last digit to determine the correct suffix
+  // 获取最后一位数字以确定正确的前缀/后缀
   const lastDigit = Math.abs(count) % 10;
 
   return (
     <div>
       <p>
         {
-          ordinal(lastDigit)({ count }) // e.g., "5th place" for count=5
+          ordinal(lastDigit)({ count }) // 例如 count=5 时输出 "第 5 名"
         }
       </p>
     </div>
@@ -312,7 +302,7 @@ const RankingComponent: FC<{ count: number }> = ({ count }) => {
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use this in Next.js Client Components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 Next.js 客户端组件中使用序数枚举，传入数字的最后一位以获取正确后缀，并将完整数量作为插值传入：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -337,7 +327,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use this in Vue components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 Vue 组件中使用序数枚举，传入数字的最后一位以获取正确后缀，并将完整数量作为插值传入：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -358,7 +348,7 @@ const { ordinal } = useIntlayer("ranking_component");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use this in Svelte components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 Svelte 组件中使用序数枚举，传入数字的最后一位以获取正确后缀，并将完整数量作为插值传入：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -378,7 +368,7 @@ $: lastDigit = Math.abs(count) % 10;
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use this in Preact components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 Preact 组件中使用序数枚举，传入数字的最后一位以获取正确后缀，并将完整数量作为插值传入：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -401,7 +391,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use this in SolidJS components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 SolidJS 组件中使用序数枚举，传入数字的最后一位以获取正确后缀，并将完整数量作为插值传入：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -423,7 +413,7 @@ export default RankingComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use this in Angular components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 Angular 组件中使用序数枚举，传入数字的最后一位以获取正确后缀，并将完整数量作为插值传入：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component, Input } from "@angular/core";
@@ -451,7 +441,7 @@ export class RankingComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use this with `vanilla-intlayer`, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
+要在 Vanilla JS 中使用序数枚举，传入数字的最后一位以获取正确后缀，并将完整数量作为插值传入：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -469,12 +459,12 @@ document.getElementById("ranking")!.textContent = content.ordinal(lastDigit)({
   </Tab>
 </Tabs>
 
-## Additional Resources
+## 其他资源
 
-For more detailed information on configuration and usage, refer to the following resources:
+有关配置和使用的更详细信息，请参阅以下资源：
 
-- [Intlayer CLI Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
-- [React Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
-- [Next Intlayer Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
+- [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
 
-These resources provide further insights into the setup and usage of Intlayer in different environments and with various frameworks.
+这些资源提供了关于在不同环境和各种框架中设置和使用 Intlayer 的更多指导。

@@ -32,9 +32,11 @@ export const DeleteDictionaryModal: FC<DeleteDictionaryModalProps> = ({
       size="md"
       padding="md"
       hasCloseButton
+      border
+      borderColor="neutral"
     >
       <form className="size-full px-3">
-        <p className="py-4 text-neutral text-sm">
+        <p className="py-4 text-sm text-neutral">
           {description(count)({ keys: dictionaryKeys || '' })}
         </p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">

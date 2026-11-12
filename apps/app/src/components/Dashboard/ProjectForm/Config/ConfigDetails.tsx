@@ -124,7 +124,9 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           <strong className="block text-neutral">{noConfig.message}</strong>
 
           <div className="my-2 flex items-center gap-2 rounded-xl bg-text/90 px-2 py-1">
-            <CodeBlock lang="bash">{`npx intlayer login\nnpx intlayer config push`}</CodeBlock>
+            <CodeBlock isInverse lang="bash">
+              npx intlayer config push
+            </CodeBlock>
             <CopyButton
               className="text-text-opposite"
               content="npx intlayer config push"
@@ -242,7 +244,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
         <div>
           <div className="flex flex-col gap-1">
             <H4>{i18nSection.title}</H4>
-            <p className="text-neutral text-xs">{i18nSection.description}</p>
+            <p className="text-xs text-neutral">{i18nSection.description}</p>
           </div>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto]">
             <div className="flex flex-col gap-2">
@@ -273,12 +275,12 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           </div>
         </div>
 
-        <hr className="border-neutral/20 border-dotted" />
+        <hr className="border-dotted border-neutral/20" />
 
         <div>
           <div className="flex flex-col gap-1">
             <H4>{editorSection.title}</H4>
-            <p className="text-neutral text-xs">{editorSection.description}</p>
+            <p className="text-xs text-neutral">{editorSection.description}</p>
           </div>
           <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
             <div className="flex flex-col gap-2">
@@ -323,12 +325,12 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
 
         {projectConfig.ai && (
           <>
-            <hr className="border-neutral/20 border-dotted" />
+            <hr className="border-dotted border-neutral/20" />
 
             <div>
               <div className="flex flex-col gap-1">
                 <H4>{aiSection.title}</H4>
-                <p className="text-neutral text-xs">{aiSection.description}</p>
+                <p className="text-xs text-neutral">{aiSection.description}</p>
               </div>
               <div className="mt-4 flex flex-col gap-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

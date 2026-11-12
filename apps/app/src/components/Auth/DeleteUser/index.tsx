@@ -57,10 +57,10 @@ export const DeleteUser: FC = () => {
           <TriangleAlert className="size-5 text-error" />
         </div>
         <div className="flex-1">
-          <h3 className="font-medium text-base text-error">
+          <h3 className="text-base font-medium text-error">
             {dangerZoneTitle}
           </h3>
-          <p className="mt-1 text-neutral text-sm">{modal.description}</p>
+          <p className="mt-1 text-sm text-neutral">{modal.description}</p>
           <Button
             onClick={handleOpenModal}
             color="error"
@@ -80,12 +80,14 @@ export const DeleteUser: FC = () => {
         title={modal.title.value}
         padding="lg"
         hasCloseButton
+        border
+        borderColor="neutral"
       >
         {isModalOpen && (
           <div className="mt-6 flex w-full flex-col gap-6">
-            <p className="text-neutral text-sm">{modal.description}</p>
+            <p className="text-sm text-neutral">{modal.description}</p>
 
-            <p className="text-neutral text-sm">
+            <p className="text-sm text-neutral">
               {modal.instruction({
                 email: (
                   <span className="mx-1 font-bold">{user?.email ?? ''}</span>

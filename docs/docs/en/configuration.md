@@ -413,7 +413,7 @@ const config: IntlayerConfig = {
     /**
      * Model to use from the selected provider.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * Provider API key.
@@ -824,8 +824,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -844,8 +844,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -876,8 +876,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -896,8 +896,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -916,12 +916,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Fallback for non-rewritten paths
@@ -1056,7 +1057,7 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
 | Field                | Description                                                                                                                         | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Default     | Example                                                       | Note                                                                                                                                                                                                    |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | The provider to use for the AI features of Intlayer.                                                                                | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | Different providers require different API keys and have different pricing.                                                                                                                              |
-| `model`              | The model to use for AI features.                                                                                                   | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | None        | `'gpt-4o-2024-11-20'`                                         | Specific model varies by provider.                                                                                                                                                                      |
+| `model`              | The model to use for AI features.                                                                                                   | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | None        | `'gpt-5.6-terra'`                                             | Specific model varies by provider.                                                                                                                                                                      |
 | `temperature`        | Controls the randomness of AI responses.                                                                                            | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | None        | `0.1`                                                         | Higher temperature = more creative and less predictable.                                                                                                                                                |
 | `apiKey`             | Your API key for the selected provider.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | None        | `process.env.OPENAI_API_KEY`                                  | Keep secret; store in environment variables.                                                                                                                                                            |
 | `applicationContext` | Additional context about your application to help the AI generate more accurate translations (domain, audience, tone, terminology). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | None        | `'My application context'`                                    | Can be used to add rules (e.g. `"You should not transform urls"`).                                                                                                                                      |

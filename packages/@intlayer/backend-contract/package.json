@@ -1,22 +1,18 @@
 {
   "name": "@intlayer/backend-contract",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": false,
   "description": "Shared REST contract (routes + zod schemas) between the Intlayer backend, its typed client and the OpenAPI documentation.",
   "keywords": [
-    "intlayer",
     "api",
     "contract",
+    "intlayer",
     "openapi",
     "zod"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -30,7 +26,103 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "sideEffects": false,
+  "typesVersions": {
+    "*": {
+      "ai": [
+        "./dist/types/ai.d.ts"
+      ],
+      "analytics": [
+        "./dist/types/analytics.d.ts"
+      ],
+      "asset": [
+        "./dist/types/asset.d.ts"
+      ],
+      "blogComment": [
+        "./dist/types/blogComment.d.ts"
+      ],
+      "cliSessionToken": [
+        "./dist/types/cliSessionToken.d.ts"
+      ],
+      "common": [
+        "./dist/types/common.d.ts"
+      ],
+      "defineRoute": [
+        "./dist/types/defineRoute.d.ts"
+      ],
+      "demo": [
+        "./dist/types/demo.d.ts"
+      ],
+      "dictionary": [
+        "./dist/types/dictionary.d.ts"
+      ],
+      "environment": [
+        "./dist/types/environment.d.ts"
+      ],
+      "eventListener": [
+        "./dist/types/eventListener.d.ts"
+      ],
+      "gitProviders": [
+        "./dist/types/gitProviders.d.ts"
+      ],
+      "newsletter": [
+        "./dist/types/newsletter.d.ts"
+      ],
+      "oAuth2": [
+        "./dist/types/oAuth2.d.ts"
+      ],
+      "organization": [
+        "./dist/types/organization.d.ts"
+      ],
+      "project": [
+        "./dist/types/project.d.ts"
+      ],
+      "public": [
+        "./dist/types/public.d.ts"
+      ],
+      "responseData": [
+        "./dist/types/responseData.d.ts"
+      ],
+      "reviewer": [
+        "./dist/types/reviewer.d.ts"
+      ],
+      "scan": [
+        "./dist/types/scan.d.ts"
+      ],
+      "search": [
+        "./dist/types/search.d.ts"
+      ],
+      "session": [
+        "./dist/types/session.d.ts"
+      ],
+      "showcaseProject": [
+        "./dist/types/showcaseProject.d.ts"
+      ],
+      "stripe": [
+        "./dist/types/stripe.d.ts"
+      ],
+      "tag": [
+        "./dist/types/tag.d.ts"
+      ],
+      "translation": [
+        "./dist/types/translation.d.ts"
+      ],
+      "user": [
+        "./dist/types/user.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
   "exports": {
     "./ai": {
       "types": "./dist/types/ai.d.ts",
@@ -169,107 +261,15 @@
     },
     "./package.json": "./package.json"
   },
-  "typesVersions": {
-    "*": {
-      "ai": [
-        "./dist/types/ai.d.ts"
-      ],
-      "analytics": [
-        "./dist/types/analytics.d.ts"
-      ],
-      "asset": [
-        "./dist/types/asset.d.ts"
-      ],
-      "blogComment": [
-        "./dist/types/blogComment.d.ts"
-      ],
-      "cliSessionToken": [
-        "./dist/types/cliSessionToken.d.ts"
-      ],
-      "common": [
-        "./dist/types/common.d.ts"
-      ],
-      "defineRoute": [
-        "./dist/types/defineRoute.d.ts"
-      ],
-      "demo": [
-        "./dist/types/demo.d.ts"
-      ],
-      "dictionary": [
-        "./dist/types/dictionary.d.ts"
-      ],
-      "environment": [
-        "./dist/types/environment.d.ts"
-      ],
-      "eventListener": [
-        "./dist/types/eventListener.d.ts"
-      ],
-      "gitProviders": [
-        "./dist/types/gitProviders.d.ts"
-      ],
-      "newsletter": [
-        "./dist/types/newsletter.d.ts"
-      ],
-      "oAuth2": [
-        "./dist/types/oAuth2.d.ts"
-      ],
-      "organization": [
-        "./dist/types/organization.d.ts"
-      ],
-      "project": [
-        "./dist/types/project.d.ts"
-      ],
-      "public": [
-        "./dist/types/public.d.ts"
-      ],
-      "responseData": [
-        "./dist/types/responseData.d.ts"
-      ],
-      "reviewer": [
-        "./dist/types/reviewer.d.ts"
-      ],
-      "scan": [
-        "./dist/types/scan.d.ts"
-      ],
-      "search": [
-        "./dist/types/search.d.ts"
-      ],
-      "session": [
-        "./dist/types/session.d.ts"
-      ],
-      "showcaseProject": [
-        "./dist/types/showcaseProject.d.ts"
-      ],
-      "stripe": [
-        "./dist/types/stripe.d.ts"
-      ],
-      "tag": [
-        "./dist/types/tag.d.ts"
-      ],
-      "translation": [
-        "./dist/types/translation.d.ts"
-      ],
-      "user": [
-        "./dist/types/user.d.ts"
-      ],
-      "package.json": [
-        "./package.json"
-      ]
-    }
-  },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -281,17 +281,17 @@
   },
   "dependencies": {
     "@intlayer/types": "workspace:*",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.3",
-    "tsdown": "0.23.0",
+    "rimraf": "6.1.4",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   },
   "engines": {
     "node": ">=14.18"

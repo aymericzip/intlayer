@@ -125,7 +125,7 @@ export const Default: Story = {
     <div className="space-y-4">
       <SwitchSelector defaultValue={false} />
 
-      <div className="text-gray-600 text-sm">
+      <div className="text-sm text-gray-600">
         Default boolean toggle with smooth indicator animation
       </div>
     </div>
@@ -157,7 +157,7 @@ export const ThemeSelector: Story = {
     return (
       <div className="space-y-6">
         <div>
-          <label className="mb-3 block font-medium text-sm">Choose Theme</label>
+          <label className="mb-3 block text-sm font-medium">Choose Theme</label>
           <SwitchSelector
             choices={[
               { content: '☀️ Light', value: 'light' },
@@ -213,7 +213,7 @@ export const SizeComparison: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-3 font-medium text-sm">Small Size</h3>
+        <h3 className="mb-3 text-sm font-medium">Small Size</h3>
         <SwitchSelector
           choices={[
             { content: 'List', value: 'list' },
@@ -227,7 +227,7 @@ export const SizeComparison: Story = {
       </div>
 
       <div>
-        <h3 className="mb-3 font-medium text-sm">Medium Size (Default)</h3>
+        <h3 className="mb-3 text-sm font-medium">Medium Size (Default)</h3>
         <SwitchSelector
           choices={[
             { content: 'List', value: 'list' },
@@ -241,7 +241,7 @@ export const SizeComparison: Story = {
       </div>
 
       <div>
-        <h3 className="mb-3 font-medium text-sm">Large Size</h3>
+        <h3 className="mb-3 text-sm font-medium">Large Size</h3>
         <SwitchSelector
           choices={[
             { content: 'List', value: 'list' },
@@ -274,7 +274,7 @@ export const ColorThemes: Story = {
     <div className="space-y-4">
       {['neutral', 'white', 'black', 'text', 'error'].map((color) => (
         <div key={color} className="flex items-center gap-4">
-          <div className="w-20 font-medium text-sm capitalize">{color}</div>
+          <div className="w-20 text-sm font-medium capitalize">{color}</div>
           <SwitchSelector
             choices={[
               { content: 'Draft', value: 'draft' },
@@ -365,7 +365,7 @@ export const StatusManagement: Story = {
     return (
       <div className="max-w-md space-y-6">
         <div>
-          <label className="mb-3 block font-medium text-sm">
+          <label className="mb-3 block text-sm font-medium">
             Article Status
           </label>
           <SwitchSelector
@@ -392,12 +392,12 @@ export const StatusManagement: Story = {
             {statusInfo.description}
           </p>
 
-          <div className="border-gray-100 border-t pt-2 text-gray-500 text-xs">
+          <div className="border-t border-gray-100 pt-2 text-xs text-gray-500">
             Status changes: <strong>{changeCount}</strong>
           </div>
         </div>
 
-        <div className="space-y-1 text-gray-500 text-xs">
+        <div className="space-y-1 text-xs text-gray-500">
           <div>💡 Tips:</div>
           <div>• Move through draft → review → published workflow</div>
           <div>• Archive old content to keep workspace clean</div>
@@ -446,12 +446,12 @@ export const ViewModeController: Story = {
       <div className="max-w-lg space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-medium text-sm">Display Mode</h3>
-            <p className="text-gray-600 text-xs">
+            <h3 className="text-sm font-medium">Display Mode</h3>
+            <p className="text-xs text-gray-600">
               Choose how to view your items
             </p>
           </div>
-          <div className="text-gray-500 text-xs">{itemCount} items</div>
+          <div className="text-xs text-gray-500">{itemCount} items</div>
         </div>
 
         <SwitchSelector
@@ -471,14 +471,14 @@ export const ViewModeController: Story = {
             <div className="h-2 w-2 rounded-full bg-blue-500"></div>
             <span className="font-medium capitalize">{viewMode} View</span>
           </div>
-          <p className="text-gray-600 text-sm">
+          <p className="text-sm text-gray-600">
             {getModeDescription(viewMode)}
           </p>
         </div>
 
         {/* Mock content display */}
         <div className="rounded-lg border border-gray-200 p-4">
-          <div className="mb-3 text-gray-500 text-xs">
+          <div className="mb-3 text-xs text-gray-500">
             Preview ({viewMode} mode)
           </div>
           <div

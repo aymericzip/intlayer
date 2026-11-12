@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: t 函数文档 | next-intlayer
 description: "使用 next-intlayer 的 t 函数，直接在 Next.js 组件中声明翻译，无需单独的内容文件。"
@@ -145,7 +145,7 @@ const greeting = t(translations);
 
 ### 语言环境检测与上下文
 
-在 `next-intlayer` 中，当前的语言环境通过上下文提供者管理：`IntlayerClientProvider` 和 `IntlayerServerProvider`。请确保这些提供者包裹你的组件，并且正确传递了 `locale` 属性。
+在 `next-intlayer` 中，当前的语言环境通过上下文 Provider管理：`IntlayerClientProvider` 和 `IntlayerServerProvider`。请确保这些提供者包裹你的组件，并且正确传递了 `locale` 属性。
 
 #### 示例：
 

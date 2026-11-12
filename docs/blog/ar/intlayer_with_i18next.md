@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-11-01
+updatedAt: 2026-10-08
 priority: 8
 title: "أتمتة ترجمات JSON في i18next باستخدام Intlayer"
 description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و i18next لتعزيز التدويل في تطبيقات جافا سكريبت.
@@ -49,9 +49,9 @@ author: aymericzip
 
 ## لماذا الجمع بين Intlayer و i18next؟
 
-بينما يوفر Intlayer حلاً ممتازًا مستقلاً لـ i18n (راجع دليل التكامل مع Next.js الخاص بنا [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجه مع i18next لأسباب عدة:
+بينما يوفر Intlayer حلاً ممتازًا مستقلاً لـ i18n (راجع دليل التكامل مع Next.js الخاص بنا [دليل تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md))، قد ترغب في دمجه مع i18next لأسباب عدة:
 
-- [Next.js integration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+- [دليل تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
 
 1. **قاعدة الشيفرة الحالية**: لديك تنفيذ قائم لـ i18next وتريد الانتقال تدريجيًا إلى تجربة المطور المحسنة التي يقدمها Intlayer.
 2. **متطلبات قديمة**: مشروعك يتطلب التوافق مع الإضافات أو سير العمل الحالي الخاص بـ i18next.

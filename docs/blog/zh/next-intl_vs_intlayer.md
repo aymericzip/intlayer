@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "next-intl vs Intlayer: 2026 基准测试与对比"
 description: Bundle 大小、内容泄漏、locale 切换响应性和开发者体验在 Next.js 和 TanStack Start 上的测量。你应该在 2026 年选择哪个 i18n 库？
@@ -89,7 +89,7 @@ Intlayer 没有"scoped"变体：编译器会自动按**组件**对内容进行�
 
 - **Lib size**: 仅导入 i18n 库的空组件的 gzip 大小。运行时的固定成本。
 - **Page JS**: 每个页面下载的 gzip JavaScript，在所有页面和语言环境中平均计算。
-- **Locale leak %**: 下载的 JS 中找到的已翻译字符串中属于用户**未**查看的语言环境的份额（在 `en` 和 `fr` 上进行指纹识别，因此 50% 表示"另一个测量的语言环境完全存在"；使用 10 个捆绑的语言环境时，实际浪费更高）。
+- **Locale leak %**: 下载的 JS 中找到的已翻译字符串中属于用户**未**查看的语言环境的份额（在 `en` 和 `fr` 上进行指纹识别，因此 50% 表示"另一个测量的语言环境完全存在"；使用 10 个打包的语言环境时，实际浪费更高）。
 - **Page leak %**: 下载的 JS 中找到的已翻译字符串中属于用户**未**浏览的页面的份额。
 - **Component avg**: 各个编译的每个组件的平均 gzip 大小。显示单个组件拖入多少 i18n 运行时。
 - **E2E reactivity**: 选择新locale和`html[lang]`在DOM中更新之间的实时时间（Playwright，5次迭代）。
@@ -216,7 +216,7 @@ Intlayer 翻转了这个责任。内容在组件旁边声明：
             └── index.content.ts
 ```
 
-在构建时，编译器（`@intlayer/swc` / `@intlayer/babel`）会检查哪个组件导入了哪个字典。它只为活跃的语言环境捆绑那些字典，并删除未被导入的字典。"scoped-dynamic"模式成为构建的输出，而不是团队必须维护的纪律。
+在构建时，编译器（`@intlayer/swc` / `@intlayer/babel`）会检查哪个组件导入了哪个字典。它只为活跃的语言环境打包那些字典，并删除未被导入的字典。"scoped-dynamic"模式成为构建的输出，而不是团队必须维护的纪律。
 
 > 要获得 `dynamic` 行的数字，请在 `intlayer.config.ts` 中设置 `dictionary.importMode: 'dynamic'`。请参阅 [bundle 优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 

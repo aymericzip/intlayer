@@ -1,0 +1,59 @@
+diff --git a/dist/dom/features/suspense/full.js b/dist/dom/features/suspense/full.js
+index 1449439b96862749a1d5b3df098e21791274e5df..9e2ee8c11350b92c441ad5dfb83c2434cc17daa9 100644
+--- a/dist/dom/features/suspense/full.js
++++ b/dist/dom/features/suspense/full.js
+@@ -122,6 +122,15 @@ function renderSuspense(fiber) {
+     const checkpoint2 = checkpointCommit(fiber);
+     const wasHydrating = root.h;
+     root.h = true;
++    // Patched (intlayer): a child suspending while this dehydrated boundary
++    // re-hydrates must reach the catch below as its thenable. Without a
++    // handler, realHandleSuspended throws a RenderSuspenseCapture that drops
++    // the thenable, the boundary is rescheduled synchronously and flushPending
++    // spins until its 50-pass guard throws.
++    const prevHydrationHandler = suspendHandler;
++    suspendHandler = (thenable) => {
++      throw thenable;
++    };
+     try {
+       hydrateSuspenseBoundary(fiber, props, [state.b.data === "$!" ? 2 : 0, 0, state.b, state.e]);
+     } catch (error) {
+@@ -131,6 +140,7 @@ function renderSuspense(fiber) {
+       fiber.b = state;
+       retryHydration(fiber, error);
+     } finally {
++      suspendHandler = prevHydrationHandler;
+       root.h = wasHydrating;
+     }
+     return;
+diff --git a/dist/dom/features/lazy/full.js b/dist/dom/features/lazy/full.js
+index d7c090b..e4ffdcd 100644
+--- a/dist/dom/features/lazy/full.js
++++ b/dist/dom/features/lazy/full.js
+@@ -10,6 +10,9 @@ function renderLazy(fiber) {
+       resolved = resolveRefreshType(resolved);
+   } catch (thenable) {
+     if (isThenable(thenable)) {
++      // Patched (intlayer): renderNode keeps the update flag on lazy fibers
++      // for the resolved type; nothing consumes it while suspended.
++      fiber.g = false;
+       if (deferHydration(fiber, thenable))
+         return;
+       handleSuspended(fiber, thenable);
+diff --git a/dist/dom/reconcile.js b/dist/dom/reconcile.js
+index c91b3da..2c7e3fd 100644
+--- a/dist/dom/reconcile.js
++++ b/dist/dom/reconcile.js
+@@ -920,7 +920,11 @@ function renderNode(fiber) {
+       })(fiber);
+     fiber.type = resolveRefreshType(fiber.type);
+   }
+-  if (fiber.t !== 9)
++  // Patched (intlayer): a lazy fiber delegates to its resolved type on this
++  // same fiber, so clearing the update flag here made a lazy memo component
++  // bail out on equal props and drop its own pending update (e.g. a store
++  // read by both the component and an ancestor). Memo and lazy keep it.
++  if (fiber.t !== 9 && fiber.t !== 10)
+     fiber.g = false;
+   fiber.r ||= currentRoot || findRoot2(fiber);
+   if (fiber.r?.sp && fiber.p?.ld && fiber.m === null)

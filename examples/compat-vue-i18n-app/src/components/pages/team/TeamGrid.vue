@@ -46,7 +46,9 @@ const getInitials = (name: string) =>
       :key="m.name"
       class="rounded-lg border border-border bg-card p-6 text-center"
     >
-      <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent text-lg font-bold text-accent-foreground">
+      <div
+        class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent text-lg font-bold text-accent-foreground"
+      >
         {{ getInitials(m.name) }}
       </div>
       <h3 class="text-base font-semibold text-foreground">{{ m.name }}</h3>

@@ -79,7 +79,7 @@ export const Label: FC<LabelProps> = ({
 }) => (
   <label
     className={cn(
-      'select-none font-medium text-sm leading-none',
+      'text-sm leading-none font-medium select-none',
       'peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
       disabled && 'cursor-not-allowed text-muted-foreground opacity-70',
       className

@@ -16,7 +16,7 @@ slugs:
   - useLocale
 description: "Використовуйте useLocale у Next.js, щоб отримати поточну локаль і змінити мову з автоматичним оновленням локалізованого маршруту."
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: Документація хуку useLocale | next-intlayer
 history:
@@ -34,7 +34,7 @@ author: aymericzip
 
 # Інтеграція з Next.js: документація хуку `useLocale` для `next-intlayer`
 
-This section offers detailed documentation on the `useLocale` hook tailored for Next.js applications within the `next-intlayer` library. It is designed to handle locale changes and routing efficiently.
+Цей розділ містить детальну документацію щодо хука `useLocale`, адаптованого для застосунків Next.js у бібліотеці `next-intlayer`. Він призначений для ефективного керування зміною локалі та маршрутизацією.
 
 ## Імпорт `useLocale` у Next.js
 

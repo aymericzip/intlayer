@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AI_PROVIDER: openai
-      AI_MODEL: gpt-5-mini
+      AI_MODEL: gpt-5.6-terra
       AI_API_KEY: ${{ secrets.AI_API_KEY }}
     steps:
       - uses: actions/checkout@v4

@@ -124,8 +124,70 @@ export interface AnalyticsShortTermRollup extends Document {
 export type AnalyticsShortTermRollupSchema = RenameId<AnalyticsShortTermRollup>;
 export type AnalyticsShortTermRollupModelType = Model<AnalyticsShortTermRollup>;
 
-/** Selectable rolling windows for the audience report. */
+/**
+ * Per-minute activity of one anonymous session on one page, kept for an hour.
+ * Backs the `live` audience view: unlike the daily visitor markers it is
+ * written on every flush, so it reflects who is active *now*, not who arrived.
+ */
+export interface AnalyticsLiveActivity extends Document {
+  id: Types.ObjectId;
+  projectId: Types.ObjectId;
+  /** UTC minute, `YYYY-MM-DDTHH:mm`. */
+  minute: string;
+  /** SHA-256 of the client session id — not reversible to a user. */
+  sessionHash: string;
+  /** Pathname the session was active on. */
+  url: string;
+  /** Locale the session was using. */
+  locale?: string;
+  /** ISO country code derived from the ingestion request, `ZZ` when unknown. */
+  country: string;
+  /** Page views recorded in this minute (other events only mark activity). */
+  views: number;
+  /** City reported by the CDN geo headers, when available. */
+  city?: string;
+  /** City-level latitude (rounded to ~1 km), when available. */
+  latitude?: number;
+  /** City-level longitude (rounded to ~1 km), when available. */
+  longitude?: number;
+  /** Earliest event of this session on this page within the minute. */
+  firstSeenAt: Date;
+  /** Latest event of this session on this page within the minute. */
+  lastSeenAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type AnalyticsLiveActivitySchema = RenameId<AnalyticsLiveActivity>;
+
+/**
+ * Daily count of page-to-page navigations, one per project + day + transition.
+ * `fromUrl` is {@link PAGE_FLOW_ENTRANCE} when the page opened a session.
+ * Backs the averaged user-flow report.
+ */
+export interface AnalyticsPageTransition extends Document {
+  id: Types.ObjectId;
+  projectId: Types.ObjectId;
+  /** UTC day bucket, `YYYY-MM-DD`. */
+  day: string;
+  /** Page navigated from. */
+  fromUrl: string;
+  /** Page navigated to. */
+  toUrl: string;
+  /** Navigations counted that day. */
+  count: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type AnalyticsPageTransitionSchema = RenameId<AnalyticsPageTransition>;
+
+/**
+ * Selectable windows for the audience report. `live` is the realtime view:
+ * sessions active in the last 30 minutes, bucketed per minute.
+ */
 export type AudienceRange =
+  | 'live'
   | '1h'
   | '24h'
   | '7d'
@@ -192,6 +254,56 @@ export type AudienceStats = {
    * Visitors are not attributed per page — only `views` is populated.
    */
   byPage: AudienceBreakdownRow[];
+  /** Active sessions with their location — `live` range only. */
+  liveVisitors?: LiveVisitor[];
+  /** First UTC day with collected data (`YYYY-MM-DD`), `null` before any. */
+  dataSince: string | null;
+};
+
+/** A session active in the `live` window, placed on the map. */
+export type LiveVisitor = {
+  /** Opaque, non-reversible visitor id (prefix of the hashed session). */
+  visitorId: string;
+  /** ISO country code, `ZZ` when unknown. */
+  country: string;
+  /** City reported by the CDN, when available. */
+  city?: string;
+  /** City-level latitude, when available. */
+  latitude?: number;
+  /** City-level longitude, when available. */
+  longitude?: number;
+  /** Locale the visitor is browsing in. */
+  locale?: string;
+  /** Page of the visitor's latest activity. */
+  currentUrl: string;
+  /** Pages the visitor was active on during the window. */
+  pageCount: number;
+  /** Page views during the window. */
+  views: number;
+  /** First activity in the window. */
+  firstSeenAt: Date;
+  /** Latest activity. */
+  lastSeenAt: Date;
+  /** Minutes (`YYYY-MM-DDTHH:mm`, UTC) the visitor was active in, oldest first. */
+  activeMinutes: string[];
+};
+
+/** One step of a live visitor's journey, oldest first. */
+export type LiveVisitorFlowStep = {
+  url: string;
+  locale?: string;
+  firstSeenAt: Date;
+  lastSeenAt: Date;
+  views: number;
+};
+
+/**
+ * Page journey of one live visitor over the `live` window. `visitor` is `null`
+ * once the session has left the window.
+ */
+export type LiveVisitorFlow = {
+  visitor: LiveVisitor | null;
+  steps: LiveVisitorFlowStep[];
 };
 
 /** Aggregated page/locale totals for the dashboard overview. */
@@ -231,4 +343,31 @@ export type ExperimentResult = {
 export type PageMetadata = {
   title?: string;
   description?: string;
+};
+
+/** One page of a flow step; `url` is `null` for the "other pages" bucket. */
+export type PageFlowNode = {
+  url: string | null;
+  /** Average navigations reaching this page at this step. */
+  value: number;
+  /** Part of `value` that left the site from this page (`null` if unknown). */
+  exits: number | null;
+};
+
+/** Average navigations from a page of one step to a page of the next. */
+export type PageFlowLink = {
+  /** Step of the source page; the target is on `fromStep + 1`. */
+  fromStep: number;
+  fromUrl: string | null;
+  toUrl: string | null;
+  value: number;
+};
+
+/** Averaged navigation flow starting from one page. */
+export type PageFlow = {
+  startUrl: string;
+  range: AudienceRange;
+  /** Pages per step, the starting page alone on step 0. */
+  steps: PageFlowNode[][];
+  links: PageFlowLink[];
 };

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 8
 title: "翻译内容：t() 函数"
 description: "使用 Intlayer 的 t() 函数按语言环境声明翻译，类型检查会在构建时提示缺失的语言。"
@@ -84,12 +84,12 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-## 本地化配置
+## 在组件中使用翻译
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-With `react-intlayer`, you can use translations in React components. Here's an example:
+使用 `react-intlayer`，您可以在 React 组件中使用翻译。示例如下：
 
 ```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -108,12 +108,12 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-This component fetches the corresponding translation based on the current locale set in your application.
+该组件会根据应用程序中当前设置的语言环境自动获取并渲染对应的翻译。
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-With `next-intlayer`, you can use translations in React Server Components or Client Components. Here's an example in a Client Component:
+使用 `next-intlayer`，您可以在 React 服务端组件 (Server Components) 或客户端组件 (Client Components) 中使用翻译。以下是在客户端组件中的使用示例：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -137,7 +137,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-With `vue-intlayer`, you can use translations in Vue components. Here's an example:
+使用 `vue-intlayer`，您可以在 Vue 组件中使用翻译。示例如下：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -156,7 +156,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
+使用 `svelte-intlayer`，您可以在 Svelte 组件中使用翻译。该 Hook 返回一个 Svelte store。示例如下：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -173,7 +173,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Preact" value="preact">
 
-With `preact-intlayer`, you can use translations in Preact components. Here's an example:
+使用 `preact-intlayer`，您可以在 Preact 组件中使用翻译。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -195,7 +195,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-With `solid-intlayer`, you can use translations in SolidJS components. Here's an example:
+使用 `solid-intlayer`，您可以在 SolidJS 组件中使用翻译。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -217,7 +217,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-With `angular-intlayer`, you can use translations in Angular components. Here's an example:
+使用 `angular-intlayer`，您可以在 Angular 组件中使用翻译。示例如下：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -239,7 +239,7 @@ export class MyComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-With `vanilla-intlayer`, you can use translations by subscribing to content changes. Here's an example:
+使用 `vanilla-intlayer`，您可以通过监听内容变更来使用翻译。示例如下：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -252,7 +252,7 @@ const content = useIntlayer("multi_lang").onChange((newContent) => {
   );
 });
 
-// Initial render
+// 初始渲染
 document.getElementById("welcome-message")!.textContent = String(
   content.welcomeMessage
 );

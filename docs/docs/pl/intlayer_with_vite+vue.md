@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Vite + Vue i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Konfiguracja Intlayer w aplikacji Vite i Vue: typowana treść per komponent przez composables, przełącznik języka i zlokalizowane trasy."
@@ -1010,7 +1010,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Od wersji v9 kompilator `intlayerCompiler` jest zawarty w pluginie `intlayer`. Nie musisz więc dodawać go ręcznie.
 
  </Tab>
  <Tab value='intlayer < 9'>

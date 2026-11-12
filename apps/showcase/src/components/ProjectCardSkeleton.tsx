@@ -35,7 +35,7 @@ export const ProjectCardSkeleton = () => {
             <div className="inline-flex items-center justify-center rounded-xl p-1.5 ring-0">
               <div className="roundex-md size-3 animate-pulse rounded-full bg-neutral/30" />
             </div>
-            <span className="min-w-6 text-center font-medium text-sm text-transparent">
+            <span className="min-w-6 text-center text-sm font-medium text-transparent">
               <div className="roundex-md mx-auto h-4 w-2 animate-pulse bg-neutral/20" />
             </span>
             <div className="inline-flex items-center justify-center rounded-xl p-1.5 ring-0">

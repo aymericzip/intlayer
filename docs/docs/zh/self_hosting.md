@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "使用 Docker 自托管 Intlayer"
 description: "在自己的基础设施上运行 Intlayer：桌面应用、一体化 Docker 容器或 Docker Compose 部署，无需云端账号。"
@@ -425,6 +425,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
+
+> all-in-one 镜像也接受空的 `S3_SECRET_ACCESS_KEY`：首次启动时会自动生成一个，并保存在 `/data/.s3-secret-access-key` 中。Docker Compose 仍然要求设置该值。
 
 ### 部署环境固定变量
 

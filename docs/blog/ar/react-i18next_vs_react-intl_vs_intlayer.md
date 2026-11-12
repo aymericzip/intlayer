@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: react-i18next مقابل react-intl مقابل Intlayer
 description: دمج react-i18next مع next-intl و Intlayer للتدويل (i18n) في تطبيق React
@@ -121,11 +121,11 @@ author: aymericzip
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-| Library            | Strategy | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
-| ------------------ | -------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
-| **base** (no i18n) | -        |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |
-| `react-i18next`    | dynamic  |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |       123.1 ms |   32.9 ms |
-| **`intlayer`**     | dynamic  |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |     **3.6 ms** |   14.1 ms |
+| المكتبة            | الاستراتيجية | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسريب اللغات | تسريب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب (Hydration) |
+| ------------------ | ------------ | ---------------: | -------------------: | -----------: | -----------: | ----------------: | ----------: | ------------------: |
+| **base** (no i18n) | -            |           0.0 KB |             111.0 KB |         0.0% |         0.0% |            0.7 KB |      8.1 ms |             21.6 ms |
+| `react-i18next`    | dynamic      |          18.4 KB |             136.4 KB |        23.1% |        89.8% |           24.8 KB |    123.1 ms |             32.9 ms |
+| **`intlayer`**     | dynamic      |       **5.0 KB** |         **118.6 KB** |     **0.0%** |     **0.0%** |        **6.3 KB** |  **3.6 ms** |             14.1 ms |
 
 <ClickToOpenIframe
   src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"

@@ -96,7 +96,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
   if (!dictionary)
     return (
-      <span className="mx-auto my-10 text-muted-foreground text-sm">
+      <span className="mx-auto my-10 text-sm text-muted-foreground">
         {displayedDictionaryLocalId
           ? focusedDictionaryNotFound
           : noDictionaryFocused}
@@ -131,14 +131,14 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
                 onClick={() => setEditionModalOpen(true)}
               />
               <Popover.Detail identifier="open-dictionary-editor">
-                <span className="whitespace-nowrap p-2 text-muted-foreground text-xs">
+                <span className="p-2 text-xs whitespace-nowrap text-muted-foreground">
                   {openDictionaryEditor.popoverContent}
                 </span>
               </Popover.Detail>
             </Popover>
           </header>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dotted pb-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-b border-dotted border-text/20 pb-3">
             <Tag color="text" roundedSize="full" size="xs">
               {dictionary.key}
             </Tag>

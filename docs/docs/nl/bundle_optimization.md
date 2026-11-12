@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: i18n Bundelgrootte & Prestatie-optimalisatie
 description: Verklein de bundelgrootte van uw applicatie door internationalisatie (i18n) content te optimaliseren. Leer hoe u tree shaking en lazy loading kunt inzetten voor woordenboeken met Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Een van de meest voorkomende uitdagingen bij traditionele i18n-oplossingen die op JSON-bestanden vertrouwen, is het beheren van de contentgrootte. Als ontwikkelaars de content niet handmatig scheiden in namespaces, downloaden gebruikers vaak vertalingen voor elke pagina en mogelijk voor elke taal, alleen maar om één enkele pagina te bekijken.
 
-Bijvoorbeeld, een applicatie met 10 pagina's die in 10 talen zijn vertaald, kan ertoe leiden dat een gebruiker de content van 100 pagina's downloadt, terwijl ze er maar **één** nodig hebben (de huidige pagina in de huidige taal). Dit leidt tot verspilde bandbreedte en tragere laadtijden.
-
-De onderstaande grafiek schat de payload voor een theoretische app met 1 tot 10 pagina's, vertaald in 1 tot 10 talen, met ongeveer 30 KB tekst per pagina. Content dynamisch laden per locale verwijdert de taal-as, content scopen per component of route verwijdert de pagina-as, en alleen de combinatie houdt de payload vlak.
-
-![Theoretische content leakage per architectuur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer lost dit probleem op door build-time optimalisatie.** Het analyseert uw code om te detecteren welke woordenboeken daadwerkelijk per component worden gebruikt en voegt alleen de benodigde content weer in uw bundel in.
 
 ## Inhoudsopgave
 
 <TOC />
+
+## Problemen om rekening mee te houden
+
+Een i18n-oplossing voegt op vijf manieren gewicht toe aan je bundle. Intlayer pakt ze allemaal aan:
+
+1. **Bibliotheekcode.** Intlayer houdt zijn functies compact, deelt logica tussen functies en blijft tree-shakable: functies die je niet gebruikt worden door je bundler weggelaten.
+
+2. **Inhoud van andere pagina's en locales.** Een gemiddelde i18n-bibliotheek weegt 5 KB tot 25 KB, terwijl de tekstinhoud van een pagina in een JS-chunk 20 KB tot 60 KB weegt. De werkelijke kosten zitten in content leakage: een app met 10 pagina's in 10 talen kan de inhoud van 100 pagina's meesturen terwijl er slechts **één** nodig is. Intlayer transformeert je code tijdens het bouwen (Babel / SWC / Vite-plugins) om alleen de inhoud van de huidige pagina in de huidige locale te laden.
+
+   ![Theoretische content leakage per architectuur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   De grafiek schat deze kosten voor 1 tot 10 pagina's in 1 tot 10 talen, met ongeveer 30 KB tekst per pagina. Dynamische imports nemen de taalas weg, scoping per component neemt de pagina-as weg, en alleen de combinatie houdt de payload gelijkmatig.
+
+3. **Ongebruikte functies.** Cookies, local storage, URL-voorvoegsels, content fallback, ICU-berichtindeling: elke functie voegt logica toe. In plaats van code te genereren in je codebase (zoals Paraglide doet), injecteert Intlayer tijdens build-tijd omgevingsvariabelen vanuit je configuratie, zodat de bundler elke ongebruikte functie kan verwijderen.
+
+4. **Ongebruikte en breedsprakige inhoud.** Op Vite en Next.js [verwijdert](#purging-verwijderen-van-ongebruikte-velden) Intlayer de woordenboekvelden die je code nooit leest en [verkleint](#minificatie-veld-sleutel-hernoemen) het de resterende sleutels.
+
+5. **Dubbele inhoud.** Woordenboeken die dezelfde sleutel delen – of ze nu afkomstig zijn uit meerdere `.content`-bestanden of uit lokale en externe ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)) bronnen – worden samengevoegd tot één enkel woordenboek.
 
 ## Hoe het werkt
 

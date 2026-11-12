@@ -8,8 +8,8 @@ Fastify REST API for Intlayer CMS. `https://api.intlayer.org`. Consumed by `apps
 bun run dev          # watch mode (bun --watch ./src/index.ts)
 bun run build        # tsdown build → dist/
 bun run test         # vitest run (node runtime — see note below)
-bun run lint         # biome lint
-bun run lint:fix     # biome lint --write
+bun run lint         # oxlint
+bun run lint:fix     # oxlint --fix
 bun run typecheck    # tsc --noEmit
 ```
 
@@ -81,7 +81,8 @@ that is fixed upstream.
 
 - **Roles**: `user`, `admin`, `org_admin`, `org_user`, `project_admin`, `project_user`, `project_reviewer`
 - **Permissions**: `resource:action` — e.g., `project:write`, `dictionary:read`
-- **Resources**: `organization`, `project`, `dictionary`, `tag`, `user`
+- **Resources**: `organization`, `project`, `dictionary`, `tag`, `user`, `analytics` (read only)
+- `hasPermission` also denies anything outside `session.permissions`: OAuth2 sessions get the role permissions narrowed to the access key `grants` (keys with `grantsEnforced`; legacy keys need `scripts/backfill-access-key-grants.ts`)
 - **Actions**: `read`, `write`, `admin`
 - Call `hasPermission(session, 'resource:action')` in controllers only, never services.
 

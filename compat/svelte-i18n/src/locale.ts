@@ -1,6 +1,6 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { derived, type Readable, readable, writable } from 'svelte/store';
 import { intlayerStore } from 'svelte-intlayer';
+import { derived, type Readable, readable, writable } from 'svelte/store';
 import { configLocales } from './configuration';
 
 /** A svelte-i18n `locale` store: writable, nullable. */

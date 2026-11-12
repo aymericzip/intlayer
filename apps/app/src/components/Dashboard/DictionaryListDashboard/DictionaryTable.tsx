@@ -43,13 +43,13 @@ const DataTableComponent = <TData extends RowData>({
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
                 key={headerGroup.id}
-                className="border-neutral-200 border-b dark:border-neutral-700"
+                className="border-b border-neutral-200 dark:border-neutral-700"
               >
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
                     className={cn(
-                      'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                      'px-4 py-3 font-medium whitespace-nowrap text-neutral',
                       ['selection', 'actions'].includes(header.id)
                         ? 'text-center'
                         : 'text-start'
@@ -72,7 +72,7 @@ const DataTableComponent = <TData extends RowData>({
               return (
                 <tr
                   key={row.id}
-                  className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                  className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                   onClick={() => onRowClick(row)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -100,7 +100,7 @@ const DataTableComponent = <TData extends RowData>({
                     <td
                       key={cell.id}
                       className={cn(
-                        'whitespace-nowrap px-4 py-3',
+                        'px-4 py-3 whitespace-nowrap',
                         cellIndex === 0 && 'first:rounded-s-2xl',
                         cellIndex === visibleCells.length - 1 &&
                           'last:rounded-e-2xl'

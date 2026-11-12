@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, RotateCw, ScanSearch } from 'lucide-react';
 import {
   type CSSProperties,
   type HTMLAttributes,
+  type ReactNode,
   type RefObject,
   type SubmitEvent,
   useEffect,
@@ -36,6 +37,8 @@ export type BrowserProps = {
   sandbox?: string | null;
   ref?: RefObject<HTMLIFrameElement | null>;
   domainRestriction?: string;
+  /** Extra controls rendered in the top bar, next to the sitemap explorer. */
+  toolbarActions?: ReactNode;
 } & HTMLAttributes<HTMLIFrameElement>;
 
 const UrlPath = ({ url }: { url: string }) => {
@@ -73,6 +76,7 @@ export const Browser = ({
   sandbox = 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads',
   ref,
   domainRestriction,
+  toolbarActions,
   ...props
 }: BrowserProps) => {
   // --- State -----------------------------------------------------------------
@@ -92,7 +96,7 @@ export const Browser = ({
   const [sitemapUrls, setSitemapUrls] = useState<string[]>([]);
   const [sitemapSearch, setSitemapSearch] = useState('');
   const [sitemapLoading, setSitemapLoading] = useState(false);
-  const [sitemapFetched, setSitemapFetched] = useState(false);
+  const isSitemapRequestedRef = useRef(false);
   const [sitemapError, setSitemapError] = useState(false);
   const sitemapInputRef = useRef<HTMLInputElement>(null);
 
@@ -112,7 +116,7 @@ export const Browser = ({
     setSitemapOpen(false);
     setSitemapUrls([]);
     setSitemapSearch('');
-    setSitemapFetched(false);
+    isSitemapRequestedRef.current = false;
     setSitemapError(false);
   }, [initialUrl]);
 
@@ -308,28 +312,31 @@ export const Browser = ({
     return url.toString();
   };
 
-  const handleSitemapToggle = async () => {
+  /** Fetches the sitemap URLs once per `initialUrl` (on hover, focus or click). */
+  const loadSitemapUrls = async () => {
+    if (isSitemapRequestedRef.current) return;
+    isSitemapRequestedRef.current = true;
+
+    setSitemapLoading(true);
+    setSitemapError(false);
+    try {
+      const { extractUrlFromSitemap } = await import('./extractUrlFromSitemap');
+      setSitemapUrls(await extractUrlFromSitemap(currentUrl));
+    } catch {
+      setSitemapError(true);
+    } finally {
+      setSitemapLoading(false);
+    }
+  };
+
+  const handleSitemapToggle = () => {
     const nextOpen = !sitemapOpen;
     setSitemapOpen(nextOpen);
 
-    if (nextOpen && !sitemapFetched) {
-      setSitemapLoading(true);
-      setSitemapError(false);
-      setSitemapFetched(true);
-      try {
-        const { extractUrlFromSitemap } = await import(
-          './extractUrlFromSitemap'
-        );
-        const urls = await extractUrlFromSitemap(currentUrl);
-        setSitemapUrls(urls);
-        if (urls.length === 0) setSitemapError(false);
-      } catch {
-        setSitemapError(true);
-      } finally {
-        setSitemapLoading(false);
-      }
-      setTimeout(() => sitemapInputRef.current?.focus(), 50);
-    }
+    if (!nextOpen) return;
+
+    void loadSitemapUrls();
+    setTimeout(() => sitemapInputRef.current?.focus(), 50);
   };
 
   const filteredSitemapUrls = useMemo(() => {
@@ -423,13 +430,19 @@ export const Browser = ({
           <button type="submit" className="sr-only absolute" tabIndex={-1} />
         </form>
 
+        {toolbarActions}
+
         {/* Sitemap Explorer */}
         <ClickOutsideDiv
           onClickOutSide={() => setSitemapOpen(false)}
           disabled={!sitemapOpen}
           role="none"
         >
-          <DropDown identifier="sitemap-explorer">
+          <DropDown
+            identifier="sitemap-explorer"
+            onMouseEnter={loadSitemapUrls}
+            onFocus={loadSitemapUrls}
+          >
             <DropDown.Trigger
               identifier="sitemap-explorer-trigger"
               type="button"
@@ -449,8 +462,8 @@ export const Browser = ({
               isOverable
             >
               <Container
-                className="min-w-28 rounded-md!"
-                roundedSize="xl"
+                className="w-80 max-w-[calc(100cqw-2rem)] rounded-md!"
+                roundedSize="2xl"
                 border
                 borderColor="neutral"
               >
@@ -470,12 +483,12 @@ export const Browser = ({
                   aria-label={content.sitemapButtonLabel.value}
                 >
                   {sitemapLoading ? (
-                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
+                    <li className="px-3 py-4 text-center text-xs text-muted-foreground">
                       {content.sitemapLoading}
                     </li>
                   ) : sitemapError ||
                     (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
-                    <li className="px-3 py-4 text-center text-muted-foreground text-xs">
+                    <li className="px-3 py-4 text-center text-xs text-muted-foreground">
                       {sitemapError
                         ? content.sitemapError
                         : content.sitemapEmpty}
@@ -494,7 +507,7 @@ export const Browser = ({
                             setSitemapOpen(false);
                           }}
                         >
-                          <span className="max-w-64 truncate text-start text-base">
+                          <span className="block truncate text-start text-base">
                             <UrlPath url={url} />
                           </span>
                         </Button>
@@ -514,7 +527,7 @@ export const Browser = ({
               id="browser-url-error"
               role="alert"
               aria-live="assertive"
-              className="rounded-md bg-red-900/90 px-3 py-1.5 text-red-100 text-xs shadow-md backdrop-blur-sm"
+              className="rounded-md bg-red-900/90 px-3 py-1.5 text-xs text-red-100 shadow-md backdrop-blur-sm"
             >
               {error}
             </p>

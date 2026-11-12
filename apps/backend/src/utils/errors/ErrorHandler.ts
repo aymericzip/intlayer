@@ -8,8 +8,8 @@ import type { FastifyReply } from 'fastify';
 import { t } from 'fastify-intlayer';
 import type { UserAPI } from '@/types/user.types';
 import { HttpStatusCodes } from '@/utils/httpStatusCodes';
-import type { AppError } from './ErrorsClass';
 import { type ErrorCodes, errorData } from './errorCodes';
+import type { AppError } from './ErrorsClass';
 
 /**
  * Handles generic error responses by formatting and sending a JSON response.

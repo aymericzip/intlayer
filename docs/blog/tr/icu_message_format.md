@@ -289,8 +289,13 @@ Mevcut projenizde hazır ICU metinleri bulunuyorsa, [react-intl uyumluluk bağda
 - **`#` işaretini çoğul dalının dışına koymak.** Yalnızca `plural` veya `selectordinal` içinde özel bir anlam taşır. Başka bir yerde normal diyez karakteri olarak işlenir.
 - **`#` işaretinin zaten biçimlendirilmiş olduğunu unutmak.** Sayının ham haline ihtiyacınız varsa argümanı adıyla yerleştirin.
 
+ICU mesajlarınızı ücretsiz [ICU Mesaj Formatlayıcı ve Düzenleyici](https://intlayer.org/icu-message-formatter) ile test edin ve biçimlendirin:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Daha fazlası
 
+- [ICU Mesaj Formatlayıcı ve Düzenleyici](https://intlayer.org/icu-message-formatter)
 - [ICU Neden JavaScript İçin Uygun Değil](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/why_icu_is_not_made_for_js.md)
 - [Intlayer'da Çoğul İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
 - [Select Tabanlı İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Что такое интернационализация (i18n)? Значение и проблемы"
 description: "Что означает i18n? Узнайте, что такое интернационализация, почему её сокращают до i18n, чем она отличается от локализации (l10n) и с какими трудностями сталкиваются при её внедрении."
@@ -186,7 +186,7 @@ author: aymericzip
 - [Как выбрать i18n-библиотеку для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_vue_i18n_library.md)
 - [Как выбрать i18n-библиотеку для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_svelte_i18n_library.md)
 - [Как выбрать i18n-библиотеку для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_solid_i18n_library.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Сравнение next-i18next, next-intl и Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Заключение
 

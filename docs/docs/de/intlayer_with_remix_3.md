@@ -38,7 +38,7 @@ Dieser Leitfaden zeigt, wie Sie **Intlayer** für eine nahtlose Internationalisi
 **Remix 3** stellt einen grundlegenden architektonischen Wandel hin zu einem **zusammensetzbaren, runtime-agnostischen Web-Framework dar, das vollständig auf Webstandards aufbaut**. Anstatt an bestimmte Bundler oder proprietäre Server-APIs gebunden zu sein, wird Remix 3 in Form von eigenständigen, zusammensetzbaren Paketen bereitgestellt:
 
 - **`remix/fetch-router`** (oder `remix/router`): Schlankes, standardkonformes Routing auf Basis der Fetch-API (`Request` und `Response`).
-- **`remix/ui`**: Ein JSX-Komponentenmodell (`jsxImportSource: "remix/ui"`). Eine Komponente ist eine Setup-Funktion, die eine Render-Funktion zurückgibt, ähnlich wie React, aber der Zustand verbleibt in einfachen JavaScript-Closures.
+- **`remix/component`**: Ein JSX-Komponentenmodell (`jsxImportSource: "remix/component"`). Eine Komponente ist eine Setup-Funktion, die eine Render-Funktion zurückgibt, ähnlich wie React, aber der Zustand verbleibt in einfachen JavaScript-Closures.
 - **`remix/middleware/render`**: Richtet `context.render(<Page />)` für jeden Request ein und streamt den JSX-Baum in eine HTML-`Response`.
 - **`remix/node-fetch-server`**: Server-Adapter für Node.js mit nativer Unterstützung für Bun, Deno und Edge-Runtimes.
 - **`remix/cookie`**: Kryptografisch sicheres Parsen und Serialisieren von Cookies.
@@ -56,7 +56,7 @@ Im Vergleich zu herkömmlichen Lösungen wie `i18next` oder maßgeschneiderten �
 <AccordionGroup>
 <Accordion header="Vollständige Unterstützung für Remix 3 und Webstandards">
 
-Intlayer ist so konzipiert, dass es nahtlos mit Webstandards (`Request`, `Response`, `Headers` und `URL`) funktioniert. `remix-intlayer` bindet sich als leichtgewichtige Middleware in den Fetch-Router von Remix 3 ein, extrahiert das Gebietsschema aus URL-Pfaden, Cookies oder `Accept-Language`-Headern und stellt es dem Rest der Anfrage, Handlern, Ansichten und `remix/ui`-Komponenten bereit, ohne dass es weitergereicht werden muss oder Sie an eine bestimmte Laufzeitumgebung gebunden sind.
+Intlayer ist so konzipiert, dass es nahtlos mit Webstandards (`Request`, `Response`, `Headers` und `URL`) funktioniert. `remix-intlayer` bindet sich als leichtgewichtige Middleware in den Fetch-Router von Remix 3 ein, extrahiert das Gebietsschema aus URL-Pfaden, Cookies oder `Accept-Language`-Headern und stellt es dem Rest der Anfrage, Handlern, Ansichten und `remix/component`-Komponenten bereit, ohne dass es weitergereicht werden muss oder Sie an eine bestimmte Laufzeitumgebung gebunden sind.
 
 </Accordion>
 <Accordion header="Typsichere Inhaltsdeklarationen">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: Internationalisierungs-Kernengine für Konfigurationsverwaltung, Wörterbuch-Deklaration (`t()`, `Dictionary`), CLI-Tools und Laufzeit-Interpreter.
 - **`remix-intlayer`**: Die Remix 3-Integration: die `intlayer()`-Router-Middleware, die das Gebietsschema jeder Anfrage auflöst, und die Hooks `useIntlayer`, `useDictionary` und `useLocale`, die es an jeder nachgelagerten Stelle auslesen.
-- **`remix`**: Das einheitliche Remix 3 Framework-Paket mit Exporten für `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` und `remix/node-fetch-server`.
+- **`remix`**: Das einheitliche Remix 3 Framework-Paket mit Exporten für `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render` und `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Intlayer konfigurieren">
 
 ### Architektur
 
-In dieser Architektur wird die `intlayer()`-Middleware von `remix-intlayer` in `createRouter()` vor der `render()`-Middleware registriert. Sie entfernt das Gebietsschema-Präfix, bevor der Router abgleicht, sodass Routen einmalig in `src/routes.ts` ohne `:locale`-Segment deklariert werden, und führt den Rest der Anfrage innerhalb eines `AsyncLocalStorage`-Bereichs aus, wodurch `useIntlayer` / `useLocale` das Gebietsschema ohne Argument in Routen-Handlern und `remix/ui`-Ansichten lesen können. Inhaltsdeklarationen werden neben Ihren Ansichten in `src/` abgelegt:
+In dieser Architektur wird die `intlayer()`-Middleware von `remix-intlayer` in `createRouter()` vor der `render()`-Middleware registriert. Sie entfernt das Gebietsschema-Präfix, bevor der Router abgleicht, sodass Routen einmalig in `src/routes.ts` ohne `:locale`-Segment deklariert werden, und führt den Rest der Anfrage innerhalb eines `AsyncLocalStorage`-Bereichs aus, wodurch `useIntlayer` / `useLocale` das Gebietsschema ohne Argument in Routen-Handlern und `remix/component`-Ansichten lesen können. Inhaltsdeklarationen werden neben Ihren Ansichten in `src/` abgelegt:
 
 ```bash
 .
@@ -282,7 +282,7 @@ Remix 3 bietet eine zusammensetzbare Middleware-Pipeline über `createRouter({ m
 2. Dem vom Client gespeicherten Gebietsschema: dem Speicher-Cookie (`INTLAYER_LOCALE`) oder dem benutzerdefinierten Header (`x-intlayer-locale`).
 3. Der Standard-`Accept-Language`-Aushandlung mit Rückgriff auf Ihre konfigurierte `defaultLocale`.
 
-Das Ergebnis wird im Remix-Anfragekontext als `context.intlayer` (oder `context.get(Intlayer)`) mit `locale`, `defaultLocale` und `availableLocales` gespeichert. Die Middleware führt dann den Rest der Anfrage innerhalb eines an diesen Kontext gebundenen `AsyncLocalStorage`-Bereichs aus, wodurch die Hooks des Pakets das Gebietsschema ohne Argumente lesen können, in Routen-Handlern, Ansichten und `remix/ui`-Komponenten gleichermaßen:
+Das Ergebnis wird im Remix-Anfragekontext als `context.intlayer` (oder `context.get(Intlayer)`) mit `locale`, `defaultLocale` und `availableLocales` gespeichert. Die Middleware führt dann den Rest der Anfrage innerhalb eines an diesen Kontext gebundenen `AsyncLocalStorage`-Bereichs aus, wodurch die Hooks des Pakets das Gebietsschema ohne Argumente lesen können, in Routen-Handlern, Ansichten und `remix/component`-Komponenten gleichermaßen:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -325,14 +325,14 @@ routes.localizedHome.href({ locale: "de" }); // "/de"
 </Step>
 <Step number={7} title="Lokalisierte Seiten mit JSX rendern">
 
-Remix 3 rendert die Benutzeroberfläche mit JSX-Komponenten aus `remix/ui`. Eine Komponente ist eine **Setup-Funktion**, die ein `Handle` empfängt und eine **Render-Funktion** zurückgibt. Das Setup wird einmal pro Instanz ausgeführt, das Rendering bei jeder Aktualisierung, und Props werden über `handle.props` gelesen.
+Remix 3 rendert die Benutzeroberfläche mit JSX-Komponenten aus `remix/component`. Eine Komponente ist eine **Setup-Funktion**, die ein `Handle` empfängt und eine **Render-Funktion** zurückgibt. Das Setup wird einmal pro Instanz ausgeführt, das Rendering bei jeder Aktualisierung, und Props werden über `handle.props` gelesen.
 
 Beginnen Sie mit einer gemeinsamen `Document`-Hülle, die die `<html lang="..." dir="...">`-Attribute anhand des von der Middleware aufgelösten Gebietsschemas setzt:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -511,7 +511,7 @@ bun x intlayer fill
 
 ## TypeScript-Konfiguration
 
-Legen Sie JSX auf die `remix/ui`-Runtime fest und stellen Sie sicher, dass Ihre `tsconfig.json` die generierten `.intlayer`-Typen enthält:
+Legen Sie JSX auf die `remix/component`-Runtime fest und stellen Sie sicher, dass Ihre `tsconfig.json` die generierten `.intlayer`-Typen enthält:
 
 ```json fileName="tsconfig.json"
 {
@@ -520,7 +520,7 @@ Legen Sie JSX auf die `remix/ui`-Runtime fest und stellen Sie sicher, dass Ihre 
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -528,7 +528,7 @@ Legen Sie JSX auf die `remix/ui`-Runtime fest und stellen Sie sicher, dass Ihre 
 }
 ```
 
-> `jsxImportSource: "remix/ui"` sorgt dafür, dass `<HomePage />` mit `createElement` von Remix anstelle von React aufgelöst wird.
+> `jsxImportSource: "remix/component"` sorgt dafür, dass `<HomePage />` mit `createElement` von Remix anstelle von React aufgelöst wird.
 
 ## Fazit
 

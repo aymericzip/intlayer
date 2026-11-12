@@ -48,7 +48,7 @@ const AffiliateConversionEmail = ({
     </Preview>
     <Tailwind config={{ presets: [pixelBasedPreset] }}>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+        <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
           <Section className="mt-8">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
@@ -58,24 +58,24 @@ const AffiliateConversionEmail = ({
               className="mx-auto my-0"
             />
           </Section>
-          <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
+          <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
             New referral conversion!
           </Heading>
-          <Text className="text-black text-sm leading-6">
+          <Text className="text-sm leading-6 text-black">
             Great news — <strong>{organizationName}</strong> just subscribed to
             Intlayer through your referral link.
           </Text>
-          <Text className="text-black text-sm leading-6">
+          <Text className="text-sm leading-6 text-black">
             You've earned a <strong>{commissionRate}% commission</strong>
             {commissionAmount > 0
               ? ` worth ${formatAmount(commissionAmount, commissionCurrency)}`
               : ''}
             . Commissions are accumulated and paid out on a monthly basis.
           </Text>
-          <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+          <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
           <Section className="mt-4 mb-2 text-center">
             <Button
-              className="rounded bg-[#000000] px-5 py-3 text-center text-white text-xs no-underline"
+              className="rounded bg-[#000000] px-5 py-3 text-center text-xs text-white no-underline"
               href={dashboardLink}
             >
               View your dashboard

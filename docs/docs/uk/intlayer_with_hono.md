@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-10-08
 priority: 9
 title: "Hono i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer у Hono: визначення локалі для кожного запиту через middleware, переклад відповідей API на Node, Bun або edge-рантаймах."
@@ -304,7 +304,7 @@ export default config;
 .intlayer
 ```
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 

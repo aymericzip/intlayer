@@ -25,6 +25,7 @@ const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
     expiresAt: { type: Date },
     accessToken: { type: [String], required: true, default: [] },
     grants: { type: [String], required: true, default: [] },
+    grantsEnforced: { type: Boolean, default: false },
     allowedEnvironmentIds: { type: Schema.Types.Mixed, default: null },
     allowedLocales: { type: [String], default: null },
   },
@@ -91,6 +92,9 @@ const projectConfigSchema = new Schema<Project['configuration']>(
       baseURL: {
         type: String,
       },
+      isOwnAPIKeyEnabled: {
+        type: Boolean,
+      },
     },
   },
   {
@@ -102,6 +106,7 @@ const projectConfigSchema = new Schema<Project['configuration']>(
 const webhooksConfigSchema = new Schema<Project['webhooks']>(
   {
     autoTriggerBuilds: { type: Boolean, default: false }, // Master toggle
+    autoCommitDictionaries: { type: Boolean, default: false },
     webhooks: [webhookSchema], // Generic hooks (Vercel, Netlify, Custom)
   },
   {
@@ -113,7 +118,7 @@ const repositorySchema = new Schema<Project['repository']>(
   {
     provider: {
       type: String,
-      enum: ['github', 'gitlab', 'bitbucket'],
+      enum: ['github', 'gitlab', 'bitbucket', 'codeberg', 'gitee'],
       required: true,
     },
     owner: { type: String, required: true },

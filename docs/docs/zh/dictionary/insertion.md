@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "插值：翻译内容中的变量"
 description: "使用 Intlayer 的 insert() 节点和 {{占位符}} 向翻译文本中插入动态值，类型来自内容声明。"
@@ -103,7 +103,7 @@ author: aymericzip
 
 ## 在 React Intlayer 中使用插入内容
 
-要在 React 组件中使用插入内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` 钩子。该钩子会检索指定键的内容，并允许您传入一个对象，将内容中的每个占位符映射到您希望显示的值。
+要在 React 组件中使用插入内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` Hook。该Hook会检索指定键的内容，并允许您传入一个对象，将内容中的每个占位符映射到您希望显示的值。
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";

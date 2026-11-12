@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "محتوى الجمع: قواعد الجمع في CLDR"
 description: "عرّف صيغ الجمع حسب اللغة في Intlayer باستخدام فئات CLDR (zero وone وtwo وfew وmany وother) التي تُحسم من رقم."
@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 8.8.0
     date: 2026-05-04
-    changes: "Init history"
+    changes: "بداية السجل"
 author: aymericzip
 ---
 

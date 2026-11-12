@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer pull：从 CMS 拉取字典"
 description: "将在 Intlayer 可视化编辑器或 CMS 中编辑的字典下载到项目中，把远程修改同步到代码里。"

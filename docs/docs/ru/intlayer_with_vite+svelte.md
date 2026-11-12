@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Vite + Svelte i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в приложении Vite и Svelte: переведённый контент через stores, переключатель языка, локализованные маршруты и типизированные словари."
@@ -596,7 +596,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Extract command'>
+ <Tab value='Команда извлечения'>
 
 Запустите экстрактор для преобразования компонентов и извлечения содержимого
 
@@ -617,12 +617,12 @@ bun x intlayer extract
 ```
 
  </Tab>
- <Tab value='Babel compiler'>
+ <Tab value='Компилятор Babel'>
 
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Начиная с версии 9, `intlayerCompiler` включен в плагин `intlayer`. Поэтому вам не нужно добавлять его вручную.
 
  </Tab>
  <Tab value='intlayer < 9'>

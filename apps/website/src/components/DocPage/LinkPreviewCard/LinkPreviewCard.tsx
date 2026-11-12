@@ -85,7 +85,7 @@ export const LinkPreviewCard: FC<LinkPreviewCardProps> = ({
         // even inside right-to-left locales
         dir="ltr"
         className={cn(
-          'group/link-preview flex h-full w-full flex-row items-center gap-4 transition-all duration-200 hover:border-neutral-focus hover:shadow-xs',
+          'group/link-preview hover:border-neutral-focus flex h-full w-full flex-row items-center gap-4 transition-all duration-200 hover:shadow-xs',
           className
         )}
       >
@@ -110,15 +110,15 @@ export const LinkPreviewCard: FC<LinkPreviewCardProps> = ({
               />
             )}
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-              <span className="line-clamp-2 font-semibold text-foreground text-sm leading-snug transition-colors group-hover/link-preview:text-primary md:text-base">
+              <span className="line-clamp-2 text-sm leading-snug font-semibold text-foreground transition-colors group-hover/link-preview:text-primary md:text-base">
                 {displayTitle}
               </span>
               {preview?.description && (
-                <span className="line-clamp-2 text-text/70 text-xs leading-relaxed md:text-sm">
+                <span className="line-clamp-2 text-xs leading-relaxed text-text/70 md:text-sm">
                   {preview.description}
                 </span>
               )}
-              <span className="flex items-center gap-2 text-text/50 text-xs">
+              <span className="flex items-center gap-2 text-xs text-text/50">
                 {faviconUrl ? (
                   <img
                     src={faviconUrl}

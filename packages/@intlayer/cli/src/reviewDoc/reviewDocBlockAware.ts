@@ -1,7 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
-import { readAsset } from 'utils:asset';
 import type { AIConfig, AIOptions } from '@intlayer/ai';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
@@ -25,6 +24,7 @@ import {
 import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import { ENGLISH } from '@intlayer/types/locales';
+import { readAsset } from 'utils:asset';
 import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';
 import { chunkInference } from '../utils/chunkInference';
 import { fixChunkStartEndChars } from '../utils/fixChunkStartEndChars';
@@ -168,15 +168,15 @@ export const reviewFileBlockAware = async (
 
     const getBaseChunkContextPrompt = () =>
       `**BLOCK ${displayNumber} of ${segmentsToReview.length}** is the base block in ${formatLocale(baseLocale, false)} as reference.\n` +
-      `///chunksStart///\n` +
-      baseBlock.content +
-      `///chunksEnd///`;
+      `///chunksStart///\n${ 
+      baseBlock.content 
+      }///chunksEnd///`;
 
     const getTargetChunkPrompt = () =>
       `**BLOCK ${displayNumber} of ${segmentsToReview.length}** is the current block to review in ${formatLocale(locale, false)}.\n` +
-      `///chunksStart///\n` +
-      (segment.targetBlockText ?? '') +
-      `///chunksEnd///`;
+      `///chunksStart///\n${ 
+      segment.targetBlockText ?? '' 
+      }///chunksEnd///`;
 
     const reviewedChunkResult = await retryManager(async () => {
       const result = await chunkInference(

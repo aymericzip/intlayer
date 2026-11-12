@@ -588,9 +588,8 @@ describe('intlayerProxy (preview server registration)', () => {
   it('hands Nitro the URL the browser sent, rewrite undone', async () => {
     // A rewrite leaking to the Nitro pass would be read as a browser URL and
     // redirected back — the "max redirects reached" ping-pong.
-    const { createRedirectOnlyMiddleware } = await import(
-      './intlayerProxyPlugin'
-    );
+    const { createRedirectOnlyMiddleware } =
+      await import('./intlayerProxyPlugin');
     const rewriting: NodeMiddleware = (req, _res, next) => {
       req.url = '/en/about';
       next();
@@ -604,9 +603,8 @@ describe('intlayerProxy (preview server registration)', () => {
   });
 
   it('lets a redirect of the wrapped handler through untouched', async () => {
-    const { createRedirectOnlyMiddleware } = await import(
-      './intlayerProxyPlugin'
-    );
+    const { createRedirectOnlyMiddleware } =
+      await import('./intlayerProxyPlugin');
     const redirecting: NodeMiddleware = (_req, res) => {
       res.writeHead(302, { Location: '/fr' });
       res.end();

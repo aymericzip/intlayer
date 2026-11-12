@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "React Router v7 i18n - 翻译你的应用的完整指南"
 description: "在 React Router v7 中配置 Intlayer：本地化路由片段、翻译后的 loader 和组件、hreflang 与多语言站点地图。"
@@ -40,9 +40,9 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的React Router v7
+# 使用 Intlayer 翻译您的 React Router v7 网站
 
-本指南演示了如何在 React Router v7 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域的路由、TypeScript 支持以及现代开发实践。
+本指南演示了如何在 React Router v7 项目中集成 **Intlayer**，实现无缝国际化，支持基于语言环境的路由、TypeScript 支持以及现代开发实践。
 
 本指南同时涵盖**基于配置的路由**（`routes.ts`）和**基于文件系统的路由**（`@react-router/fs-routes`）。
 
@@ -50,50 +50,50 @@ author: aymericzip
 
 <TOC/>
 
-## 为什么选择 Inlayer 而不是替代品？
+## 为什么选择 Intlayer 而不是其他方案？
 
-与 `react-i18next` 或 `i18next` 等主要解决方案相比，Intlayer 是一个具有集成优化的解决方案，例如：
+与 `react-i18next` 或 `i18next` 等主流解决方案相比，Intlayer 是一个自带多项集成的优化方案，例如：
 
 <AccordionGroup>
 <Accordion header="完整的 React Router 覆盖">
 
-Intlayer 经过优化，可与 React Router 完美配合，提供**区域设置感知路由**、**用于区域设置检测的中间件**以及扩展国际化 (i18n) 所需的所有功能。
+Intlayer 经过深度优化，可与 React Router 完美配合，提供**语言环境感知路由**、**用于语言环境检测的中间件**以及扩展国际化 (i18n) 所需的全部功能。
 
 </Accordion>
-<Accordion header="捆绑包大小">
+<Accordion header="打包体积 (Bundle Size)">
 
-不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的打包产物和页面体积减少多达 50%**。
 
 </Accordion>
 <Accordion header="可维护性">
 
-确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+将应用程序内容与组件就近维护在相应作用域内，**极大提升了大体量应用的可维护性**。您可以直接复制或删除单个功能目录，而无需承担检查整个全局内容代码库的认知负担。此外，Intlayer 提供 **完整的 TypeScript 类型支持**，确保内容的准确性与安全性。
 
 </Accordion>
-<Accordion header="人工智能代理">
+<Accordion header="AI Agent 支持">
 
-共置内容**减少大型语言模型 (LLM) 所需的上下文**。Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+内容就近组织 (Co-location) **显著减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套完整工具链，例如用于检测缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI 智能体的开发体验 (DX) 更加流畅丝滑。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-使用您选择的 LLM，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)来帮助**在后台翻译**。
+在 CI/CD 流水线中，使用您自选的 LLM（直接基于您自有的 AI 提供商 API 计费）实现自动化翻译。Intlayer 还提供了可自动提取内容的 **编译器**，并配备了 [Web 平台 / CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以便在后台管理系统中执行翻译。
 
-- [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-
-</Accordion>
-<Accordion header="性能">
-
-将大量 JSON 文件连接到组件可能会导致性能和反应性问题。Intlayer 可在构建时 (build time) 优化您的内容加载。
+- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="无需开发即可扩展">
+<Accordion header="性能表现 (Performance)">
 
-Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助您实时管理多语言内容，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+将大型 JSON 文件全局挂载到各个组件容易导致渲染性能下降与响应迟滞。Intlayer 会在构建阶段自动优化内容加载。
+
+</Accordion>
+<Accordion header="赋能非技术人员协同扩展 (Scaling with non-dev)">
+
+Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，让译者、文案及团队其他成员实现无缝协作。内容可存储在本地和/或远程服务器上。
 
 - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
 - [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
@@ -196,7 +196,7 @@ bun add vite-intlayer --dev
   核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **react-intlayer**
-  将 Intlayer 与 React 应用集成的包。它为 React 国际化提供了上下文提供者和钩子。
+  将 Intlayer 与 React 应用集成的包。它为 React 国际化提供了上下文 Provider 和 Hook。
 
 - **vite-intlayer**
   包括用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选区域设置、管理 cookie 和处理 URL 重定向的中间件。
@@ -833,7 +833,7 @@ export default function RootLayout() {
 
 > 注意，要在生产环境中使用 `intlayerProxy`，你需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
-> 自 Intlayer v9 起，`intlayerProxy()` 直接捆绑在 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示单独注册它现在是可选的，它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以选择退出。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 自 Intlayer v9 起，`intlayerProxy()` 直接内置在 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示单独注册它现在是可选的，它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以选择退出。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 - [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 
@@ -992,33 +992,33 @@ Ensure your TypeScript configuration includes the autogenerated types:
 }
 ```
 
-## Git Configuration
+## Git 配置
 
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+建议忽略 Intlayer 自动生成的文件，避免将它们提交到 Git 仓库中。
 
-To do this, you can add the following instructions to your `.gitignore` file:
+为此，您可以将以下规则添加到 `.gitignore` 文件中：
 
 ```plaintext fileName=".gitignore"
 # 忽略 Intlayer 生成的文件
 .intlayer
 ```
 
-## VS Code Extension
+## VS Code 插件
 
-To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+为了提升使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 插件**。
 
-- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [在 VS Code 插件市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-This extension provides:
+该插件提供以下特性：
 
 - 翻译键的**自动补全**。
 - 缺失翻译的**实时错误检测**。
-- 翻译内容的**内联预览**。
-- 轻松创建和更新翻译的**快速操作**。
+- 翻译内容的**行内悬停预览**。
+- 轻松创建和更新翻译的**快速修复操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
+有关如何使用该插件的更多详细信息，请参阅 [Intlayer VS Code 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
-- [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [Intlayer VS Code 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
 
 ## 深入了解
 
@@ -1087,7 +1087,7 @@ React Router v7 本身不包含消息管理层，因此需要将其与 i18n 库�
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。本指南的第 12 步详细介绍了此过程。
 
-如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过模块热替换 (HMR) 保持同步，因此完全无需手动维护键名。
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 

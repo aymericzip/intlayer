@@ -19,7 +19,7 @@ type JsonLdProps = {
 export const JsonLd: FC<JsonLdProps> = ({ jsonLd }) => (
   <script
     type="application/ld+json"
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON serialised here, with `<` escaped
+    // oxlint-disable-next-line react/no-danger -- JSON serialised here, with `<` escaped
     dangerouslySetInnerHTML={{
       __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
     }}

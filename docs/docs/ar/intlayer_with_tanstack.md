@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "تدويل TanStack Start - الدليل الكامل لترجمة تطبيقك"
 description: "إعداد Intlayer في TanStack Start: معامل اللغة في المسارات، ومحتوى مترجم متوافق مع SSR، وبيانات head مترجمة، وhreflang وخريطة موقع."
@@ -59,7 +59,7 @@ author: aymericzip
 
 يوضح هذا الدليل كيفية دمج **Intlayer** لتحقيق تدويل سلس في مشاريع TanStack Start مع توجيه مدرك للغة، ودعم TypeScript، وممارسات التطوير الحديثة.
 
-## لماذا Intlayer على البدائل؟
+## لماذا تختار Intlayer مقارنة بالبدائل الأخرى؟
 
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `use-intl` أو `paraglide`، فإن Intlayer هو الحل الذي يأتي مع تحسينات متكاملة مثل:
 
@@ -71,41 +71,41 @@ author: aymericzip
 </Accordion>
 <Accordion header="حجم الحزمة">
 
-بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer في **تقليل حجم حزمة JavaScript (bundle size) وصفحاتك بنسبة تصل إلى 50%**.
 
 </Accordion>
-<Accordion header="الصيانة">
+<Accordion header="سهولة الصيانة (Maintainability)">
 
-يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+تحديد نطاق المحتوى لكل مكوّن على حدة **يُسهّل صيانة التطبيقات الكبيرة**. يمكنك نسخ مجلد ميزة بالكامل أو حذفه دون القلق بشأن مراجعة قاعدة بيانات المحتوى بأكملها. بالإضافة إلى ذلك، فإن Intlayer **مكتوب بنظام أنواع قوي (Fully Typed)** لضمان الدقة الكاملة لمحتواك.
 
 </Accordion>
-<Accordion header="وكيل الذكاء الاصطناعي">
+<Accordion header="وكلاء الذكاء الاصطناعي (AI Agents)">
 
-يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+يؤدي وضع المحتوى إلى جانب المكونات (Co-location) إلى **تقليل السياق المطلوب** بواسطة نماذج اللغات الكبيرة (LLMs). كما يوفر Intlayer مجموعة أدوات متكاملة مثل **واجهة سطر الأوامر (CLI)** لفحص الترجمات المفقودة، و**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و**[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و**[مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لتوفير أفضل تجربة تطوير لوكلاء الذكاء الاصطناعي.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
 
 </Accordion>
-<Accordion header="الأتمتة">
+<Accordion header="الأتمتة وتكامل CI/CD">
 
-استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+استخدم الأتمتة لترجمة المحتوى مباشرةً في مسار CI/CD الخاص بك باستخدام نموذج اللغة الكبير (LLM) الذي تختاره ووفق تكلفة مزود الذكاء الاصطناعي لديك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
 
 - [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="الأداء">
 
-يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+قد يؤدي تحميل ملفات JSON ضخمة في المكونات إلى مشكلات في الأداء وسرعة الاستجابة. يعمل Intlayer على تحسين تحميل المحتوى بدقة عند وقت البناء (Build Time).
 
 </Accordion>
 <Accordion header="التحجيم مع غير المطورين">
 
-أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و**[نظام إدارة محتوى كامل (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لإدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين وكتاب المحتوى وأعضاء الفريق الآخرين سلسًا للغاية. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 - [المحرّر المرئي في Intlayer: عدّل المحتوى في سياقه](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
-- [كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -430,7 +430,7 @@ const appContent = {
 export default appContent;
 ```
 
-> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./app`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `['.']`). وتطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
@@ -487,11 +487,14 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
 
 ثم يمكننا إنشاء خطاف `useLocalizedNavigate` للتنقل البرمجي:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -526,13 +529,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -553,7 +557,7 @@ export const useLocalizedNavigate = () => {
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -568,7 +572,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -720,7 +724,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="تدويل البيانات الوصفية الخاصة بك">
+<Step number={13} title="تدويل البيانات الوصفية الخاصة بك">
 
 <Tabs>
 
@@ -766,7 +770,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -820,7 +824,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -882,7 +886,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -912,7 +916,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 | تجربة المطوّر      | الأبسط            | `await` واحد               | المحتوى يُمرَّر عبر `loaderData`        |
 
 </Step>
-<Step number={13} title="جلب اللغة في إجراءات الخادم الخاصة بك">
+<Step number={14} title="جلب اللغة في إجراءات الخادم الخاصة بك">
 
 قد ترغب في الوصول إلى اللغة الحالية من داخل إجراءات الخادم أو نقاط نهاية API الخاصة بك.
 يمكنك القيام بذلك باستخدام مساعد `getLocale` من `intlayer`.
@@ -948,7 +952,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="إدارة الصفحات غير الموجودة">
+<Step number={15} title="إدارة الصفحات غير الموجودة">
 
 عندما يزور المستخدم صفحة غير موجودة، يمكنك عرض صفحة مخصصة "غير موجودة" وقد تؤثر بادئة اللغة على الطريقة التي يتم بها تشغيل صفحة "غير موجودة".
 
@@ -1023,7 +1027,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="استخراج محتوى مكوناتك" isOptional={true}>
+<Step number={16} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -1136,7 +1140,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 يأتي Intlayer مع مولد خريطة موقع مدمج لمساعدتك في إنشاء خريطة موقع لتطبيقك بسهولة. يتعامل مع المسارات المحلية ويضيف البيانات الوصفية الضرورية لمحركات البحث.
 
@@ -1206,7 +1210,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="تكوين TypeScript">
+<Step number={18} title="تكوين TypeScript">
 
 يستخدم Intlayer module augmentation للاستفادة من TypeScript وجعل codebase الخاص بك أقوى.
 
@@ -1357,12 +1361,12 @@ export const Route = createFileRoute("/sitemap.xml")({
 </Question>
 <Question title="كيف أنشئ مبدل لغة يحافظ على المسار الحالي؟">
 
-استخدم `useLocale` مع مكون الرابط المترجم الموضح في الخطوة 9.
+استخدم `useLocale` مع مكون الرابط المترجم الموضح في الخطوة 10.
 
 </Question>
 <Question title="كيف أتعامل مع صفحات 404 على المسارات المترجمة؟">
 
-توضح الخطوة 14 ذلك. يتحقق `validatePrefix` من صحة مقطع اللغة في URL.
+توضح الخطوة 15 ذلك. يتحقق `validatePrefix` من صحة مقطع اللغة في URL.
 
 </Question>
 <Question title="كيف أترجم تطبيق TanStack Start تلقائياً باستخدام الذكاء الاصطناعي؟">

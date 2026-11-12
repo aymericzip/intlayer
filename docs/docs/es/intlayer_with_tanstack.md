@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Guía completa para traducir tu aplicación"
 description: "Configura Intlayer en TanStack Start: parámetro de locale en las rutas, contenido traducido compatible con SSR, metadatos head localizados, hreflang y sitemap."
@@ -431,14 +431,14 @@ const appContent = {
 export default appContent;
 ```
 
-> Tus declaraciones de contenido pueden definirse en cualquier lugar de tu aplicación siempre que se incluyan en el directorio `contentDir` (por defecto, `./app`). Y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+> Tus declaraciones de contenido pueden definirse en cualquier lugar de tu aplicación siempre que se incluyan en el directorio `contentDir` (por defecto, `['.']`). Y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
 - [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
 
 </Step>
-<Step number={7} title="Crear componentes y hooks conscientes de la configuración regional">
+<Step number={8} title="Crear componentes y hooks conscientes de la configuración regional">
 
 Crea un componente `LocalizedLink` para la navegación consciente de la configuración regional:
 
@@ -488,11 +488,14 @@ Este componente tiene dos objetivos:
 
 Luego podemos crear un hook `useLocalizedNavigate` para la navegación programática:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -527,13 +530,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -542,7 +546,7 @@ export const useLocalizedNavigate = () => {
 ```
 
 </Step>
-<Step number={8} title="Utilizar Intlayer en tus páginas">
+<Step number={9} title="Utilizar Intlayer en tus páginas">
 
 > Usa **`useIntlayer`** por defecto: es la forma recomendada de leer contenido dentro de los componentes, y el compilador lo resuelve a la locale que se está renderizando. Recurre a `getIntlayer` / `getIntlayerAsync` solo fuera del árbol de React: el `head` de las rutas, los loaders y las server functions.
 
@@ -554,7 +558,7 @@ Accede a tus diccionarios de contenido en toda tu aplicación:
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -569,7 +573,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -602,7 +606,7 @@ function RouteComponent() {
 - [Documentación del Hook useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Crear un Componente de Selector de Idioma">
+<Step number={10} title="Crear un Componente de Selector de Idioma">
 
 Crea un componente para permitir que los usuarios cambien de idioma:
 
@@ -666,7 +670,7 @@ export const LocaleSwitcher: FC = () => {
 - [Documentación del Hook useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Gestión de Atributos HTML">
+<Step number={11} title="Gestión de Atributos HTML">
 
 Como se vio en el Paso 5, puedes gestionar los atributos `lang` y `dir` de la etiqueta `html` usando `useParams` en tu componente raíz. Esto asegura que los atributos correctos se establezcan en el servidor y cliente.
 
@@ -686,7 +690,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Agregar middleware">
+<Step number={12} title="Agregar middleware">
 
 También puedes usar `intlayerProxy` para agregar enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente la localización actual basándose en la URL y establecerá la cookie de localización apropiada. Si no se especifica una localización, el plugin determinará la localización más apropiada según las preferencias de idioma del navegador del usuario. Si no se detecta ninguna localización, redirigirá a la localización predeterminada.
 
@@ -723,7 +727,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Internacionalizar tus Metadatos">
+<Step number={13} title="Internacionalizar tus Metadatos">
 
 <Tabs>
 
@@ -769,7 +773,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -823,7 +827,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -885,7 +889,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -915,7 +919,7 @@ Mantienes el chunk por localización sin pagar su costo en la ruta crítica del 
 | Experiencia del desarrollador | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="Recuperar la localización en tus acciones de servidor">
+<Step number={14} title="Recuperar la localización en tus acciones de servidor">
 
 Puede que quieras acceder a la localización actual desde tus acciones de servidor o puntos finales de API.
 Puedes hacerlo usando el helper `getLocale` de `intlayer`.
@@ -951,7 +955,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Gestionar páginas no encontradas">
+<Step number={15} title="Gestionar páginas no encontradas">
 
 Cuando un usuario visita una página que no existe, puedes mostrar una página de no encontrado personalizada y el prefijo de configuración regional puede afectar la forma en que se activa la página de no encontrado.
 
@@ -1026,7 +1030,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Extraer el contenido de tus componentes" isOptional={true}> isOptional={true}>
+<Step number={16} title="Extraer el contenido de tus componentes" isOptional={true}> isOptional={true}>
 
 Si tienes una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
 
@@ -1139,7 +1143,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Generar un Sitemap">
+<Step number={17} title="Generar un Sitemap">
 
 Intlayer viene con un generador de sitemap integrado para ayudarte a crear fácilmente un sitemap para tu aplicación. Maneja las rutas localizadas y agrega los metadatos necesarios para los motores de búsqueda.
 
@@ -1209,7 +1213,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Configurar TypeScript">
+<Step number={18} title="Configurar TypeScript">
 
 Intlayer utiliza la ampliación de módulos para obtener los beneficios de TypeScript y fortalecer tu base de código.
 

@@ -126,9 +126,11 @@
               { "$ref": "#/definitions/translationContent" },
               { "$ref": "#/definitions/enumerationContent" },
               { "$ref": "#/definitions/pluralContent" },
+              { "$ref": "#/definitions/selectContent" },
               { "$ref": "#/definitions/conditionContent" },
               { "$ref": "#/definitions/insertionContent" },
               { "$ref": "#/definitions/markdownContent" },
+              { "$ref": "#/definitions/htmlContent" },
               { "$ref": "#/definitions/nestedContent" },
               { "$ref": "#/definitions/fileContent" },
               { "$ref": "#/definitions/genderContent" }
@@ -244,6 +246,11 @@
         },
         "insertion": {
           "$ref": "#/definitions/contentValue"
+        },
+        "fields": {
+          "type": "array",
+          "description": "Placeholder names found in the content (e.g. 'name' for '{{name}}').",
+          "items": { "type": "string" }
         }
       },
       "required": ["nodeType", "insertion"],
@@ -260,10 +267,49 @@
         },
         "markdown": {
           "$ref": "#/definitions/contentValue"
-        }
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Front-matter metadata extracted from the markdown."
+        },
+        "tags": { "$ref": "#/definitions/customComponents" }
       },
       "required": ["nodeType", "markdown"],
       "additionalProperties": false
+    },
+
+    "htmlContent": {
+      "type": "object",
+      "description": "Represents an HTML node (either plain string or another content node).",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "html"
+        },
+        "html": {
+          "$ref": "#/definitions/contentValue"
+        },
+        "tags": { "$ref": "#/definitions/customComponents" }
+      },
+      "required": ["nodeType", "html"],
+      "additionalProperties": false
+    },
+
+    "customComponents": {
+      "description": "Custom tags used in markdown / HTML content: a list of tag names, or a map of component name to prop type.",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": ["number", "string", "node"]
+          }
+        }
+      ]
     },
 
     "fileContent": {
@@ -277,6 +323,14 @@
         "file": {
           "type": "string",
           "description": "Represents a file path."
+        },
+        "content": {
+          "type": "string",
+          "description": "Resolved file content, filled at build time."
+        },
+        "fixedPath": {
+          "type": "string",
+          "description": "File path relative to the project base directory, filled at build time."
         }
       },
       "required": ["nodeType", "file"],
@@ -369,9 +423,40 @@
           },
           "required": ["other"],
           "additionalProperties": false
+        },
+        "variable": {
+          "type": "string",
+          "description": "Name of the variable driving the plural category. Defaults to 'count'."
         }
       },
       "required": ["nodeType", "plural"],
+      "additionalProperties": false
+    },
+
+    "selectContent": {
+      "type": "object",
+      "description": "Represents a select node, picking a case by string value.",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "select"
+        },
+        "select": {
+          "type": "object",
+          "description": "Select object with arbitrary case keys. 'fallback' (or ICU 'other') is used when no case matches.",
+          "properties": {
+            "fallback": { "$ref": "#/definitions/contentValue" }
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/contentValue"
+          }
+        },
+        "variable": {
+          "type": "string",
+          "description": "Name of the variable driving the selected case."
+        }
+      },
+      "required": ["nodeType", "select"],
       "additionalProperties": false
     },
 
@@ -380,7 +465,16 @@
       "description": "Represents a gender node.",
       "properties": {
         "nodeType": { "type": "string", "const": "gender" },
-        "gender": { "$ref": "#/definitions/contentValue" }
+        "gender": {
+          "type": "object",
+          "description": "Gender object with keys 'male', 'female', 'fallback'.",
+          "properties": {
+            "male": { "$ref": "#/definitions/contentValue" },
+            "female": { "$ref": "#/definitions/contentValue" },
+            "fallback": { "$ref": "#/definitions/contentValue" }
+          },
+          "additionalProperties": false
+        }
       },
       "required": ["nodeType", "gender"],
       "additionalProperties": false

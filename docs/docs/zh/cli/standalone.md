@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer standalone：为任意页面打包 Intlayer"
 description: "将 Intlayer 及所需包打包为单个 JavaScript 文件，用于没有包管理器或打包工具的页面。"

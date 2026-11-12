@@ -21,6 +21,7 @@ export const locales: Locale[] = [
   Locales.INDONESIAN,
   Locales.VIETNAMESE,
   Locales.UKRAINIAN,
+  Locales.HEBREW_ISRAEL,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -58,10 +59,10 @@ const config: CustomIntlayerConfig = {
   content: {
     contentDir: ['./src', '@intlayer/design-system'],
     codeDir: ['./src', '../../packages/@intlayer/design-system/dist'],
-    formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
+    formatCommand: 'bun x oxfmt "{{file}}"',
   },
   editor: {
-    enabled: false,
+    enabled: process.env.NODE_ENV === 'development',
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     backendURL: process.env.VITE_BACKEND_URL,
@@ -81,7 +82,7 @@ const config: CustomIntlayerConfig = {
   },
   ai: {
     provider: 'openai',
-    model: 'gpt-5-mini',
+    model: 'gpt-5.6-terra',
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: [
       'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',

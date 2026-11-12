@@ -2,6 +2,7 @@
 # One-shot: wait for MinIO, then create the bucket and grant anonymous download so
 # avatars / screenshots are publicly readable via S3_PUBLIC_URL. Idempotent.
 set -euo pipefail
+source /etc/s6-overlay/scripts/s3-credentials.sh
 
 echo "[init-minio] waiting for minio to become live..."
 until curl -sf http://127.0.0.1:9000/minio/health/live >/dev/null; do

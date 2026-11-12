@@ -410,7 +410,7 @@ const config: IntlayerConfig = {
     /**
      * Gebruikte model van de gekozen provider.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * API sleutel van de provider.
@@ -814,8 +814,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -834,8 +834,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -866,8 +866,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -886,8 +886,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -906,12 +906,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Fallback voor niet-herschreven paden
@@ -1022,7 +1023,7 @@ Intlayer ondersteunt meerdere AI-providers voor maximale flexibiliteit. Momentee
 | Veld                 | Beschrijving                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Standaard   | Voorbeeld                                                     | Opmerking                                                                                                                                                                                                   |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | Provider gebruikt voor AI-functies van Intlayer.                                                                                    | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | Verschillende providers vereisen verschillende API-sleutels en hebben verschillende prijzen.                                                                                                                |
-| `model`              | Model gebruikt voor AI-functies.                                                                                                    | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Geen        | `'gpt-4o-2024-11-20'`                                         | Het specifieke model hangt af van de provider.                                                                                                                                                              |
+| `model`              | Model gebruikt voor AI-functies.                                                                                                    | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Geen        | `'gpt-5.6-terra'`                                             | Het specifieke model hangt af van de provider.                                                                                                                                                              |
 | `temperature`        | Regelt de willekeur van de AI-antwoorden.                                                                                           | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Geen        | `0.1`                                                         | Hogere temperatuur = creatiever en minder voorspelbaar.                                                                                                                                                     |
 | `apiKey`             | Uw API-sleutel voor de gekozen provider.                                                                                            | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Geen        | `process.env.OPENAI_API_KEY`                                  | Moet geheim worden gehouden; gebruik omgevingsvariabelen.                                                                                                                                                   |
 | `applicationContext` | Extra context over uw applicatie om de AI te helpen nauwkeurigere vertalingen te genereren (domein, doelgroep, toon, terminologie). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Geen        | `'Mijn eigen applicatiecontext'`                              | Kan worden gebruikt om regels toe te voegen (bijv.: `"U moet URL's niet transformeren"`).                                                                                                                   |

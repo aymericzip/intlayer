@@ -1,5 +1,4 @@
-# syntax=docker/dockerfile:1.27.0
-# check=skip=SecretsUsedInArgOrEnv
+# syntax=docker/dockerfile:1.28.0
 #
 # Intlayer self-hosting images. One Dockerfile, three build targets:
 #
@@ -23,9 +22,8 @@
 # ---------------------------------------------------------------------------
 # backend-builder — mirrors apps/backend/Dockerfile build logic
 # ---------------------------------------------------------------------------
-FROM node:26-alpine AS backend-builder
+FROM oven/bun:1.4.4-alpine AS backend-builder
 
-RUN npm install -g bun@1.4.2
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -99,9 +97,8 @@ RUN rm -rf node_modules \
 # ---------------------------------------------------------------------------
 # app-builder — mirrors apps/app/Dockerfile build logic
 # ---------------------------------------------------------------------------
-FROM node:26-alpine AS app-builder
+FROM oven/bun:1.4.4-alpine AS app-builder
 
-RUN npm install -g bun@1.4.2
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -174,7 +171,7 @@ RUN bun run build && bun scripts/generate-sw.ts
 # ---------------------------------------------------------------------------
 # backend — standalone API image (target for docker-compose / orchestrators)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.2-alpine AS backend
+FROM oven/bun:1.4.4-alpine AS backend
 
 # System deps for headless Chromium (Puppeteer screenshots)
 RUN apk add --no-cache \
@@ -217,7 +214,7 @@ CMD ["bun", "dist/esm/index.mjs"]
 # ---------------------------------------------------------------------------
 # app — standalone dashboard image (target for docker-compose / orchestrators)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.2-alpine AS app
+FROM oven/bun:1.4.4-alpine AS app
 
 ENV NODE_ENV=production \
     PORT=3000 \
@@ -313,6 +310,9 @@ ENV PUPPETEER_CACHE_DIR=/root/.cache/puppeteer
 # ---- Runtime configuration (override at `docker run` with -e) ----------------
 # Every datastore is the in-container one. MONGODB_URI points at the bundled
 # single-node replica set; point it at an external cluster to leave that unused.
+# The S3 credentials are not baked in: scripts/s3-credentials.sh defaults
+# S3_ACCESS_KEY_ID and generates S3_SECRET_ACCESS_KEY into /data on first boot
+# unless one is passed with -e / --env-file.
 ENV NODE_ENV=production \
     VITE_SELF_HOSTED=true \
     SELF_HOSTED=true \
@@ -324,8 +324,6 @@ ENV NODE_ENV=production \
     S3_ENDPOINT=http://127.0.0.1:9000 \
     S3_PUBLIC_URL=http://localhost:9000/intlayer \
     S3_BUCKET_NAME=intlayer \
-    S3_ACCESS_KEY_ID=intlayer \
-    S3_SECRET_ACCESS_KEY=intlayer-secret \
     TMPDIR=/workspace/apps/backend/tmp
 
 # Built artifacts

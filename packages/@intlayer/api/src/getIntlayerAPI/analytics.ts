@@ -1,14 +1,22 @@
 import type {
+  AnalyticsAnnotationType,
   AnalyticsRoutes,
   AudienceRange,
   analyticsContract,
+  GetAnalyticsAnnotationsResult,
   GetAnalyticsOverviewResult,
+  GetAnalyticsSchemaResult,
   GetAudienceResult,
   GetContentStatsResult,
   GetExperimentResultsResult,
+  GetLiveVisitorFlowResult,
+  GetPageFlowResult,
   GetPageMetadataResult,
   IngestAnalyticsBody,
   IngestAnalyticsResult,
+  RunAnalyticsRealtimeReportBody,
+  RunAnalyticsReportBody,
+  RunAnalyticsReportResult,
 } from '@intlayer/backend-contract/analytics';
 import type { RouteEndpoints } from '@intlayer/backend-contract/defineRoute';
 import { buildRouteURL } from '@intlayer/backend-contract/defineRoute';
@@ -31,9 +39,18 @@ const analyticsEndpoints = {
   ingestAnalyticsEvents: { method: 'POST', path: '/events' },
   getAnalyticsOverview: { method: 'GET', path: '/overview' },
   getAnalyticsAudience: { method: 'GET', path: '/audience' },
+  getPageFlow: { method: 'GET', path: '/page-flow' },
+  getLiveVisitorFlow: {
+    method: 'GET',
+    path: '/audience/live/visitors/:visitorId',
+  },
   getContentStats: { method: 'GET', path: '/content-stats' },
   getExperimentResults: { method: 'GET', path: '/experiments/:experimentKey' },
   getPageMetadata: { method: 'GET', path: '/page-metadata' },
+  getAnalyticsSchema: { method: 'GET', path: '/schema' },
+  runAnalyticsReport: { method: 'POST', path: '/report' },
+  runAnalyticsRealtimeReport: { method: 'POST', path: '/realtime-report' },
+  getAnalyticsAnnotations: { method: 'GET', path: '/annotations' },
 } as const satisfies RouteEndpoints<AnalyticsRoutes>;
 
 export const getAnalyticsAPI = (
@@ -146,6 +163,48 @@ export const getAnalyticsAPI = (
     );
 
   /**
+   * Averaged page-to-page navigation flow from a starting page.
+   * @param range - Rolling window of the report.
+   * @param startUrl - Starting page pathname (default `/`).
+   * @returns The flow steps and the links between them.
+   */
+  const getPageFlow = async (
+    range: AudienceRange,
+    startUrl: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetPageFlowResult>(
+      buildRouteURL(backendURL, analyticsGroup, analyticsEndpoints.getPageFlow),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: analyticsEndpoints.getPageFlow.method,
+        params: { range, startUrl },
+      }
+    );
+
+  /**
+   * Page journey of a visitor active in the last 30 minutes.
+   * @param visitorId - The visitor id from the `live` audience report.
+   * @returns The visitor and its steps (`visitor: null` once it went quiet).
+   */
+  const getLiveVisitorFlow = async (
+    visitorId: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetLiveVisitorFlowResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getLiveVisitorFlow,
+        { visitorId }
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.getLiveVisitorFlow.method }
+    );
+
+  /**
    * Page metadata (title and meta description) for a given url.
    * @param url - The page url to inspect.
    * @returns Title and description of the page.
@@ -168,10 +227,102 @@ export const getAnalyticsAPI = (
       }
     );
 
+  /**
+   * What can be reported on: dimensions, metrics and their compatibility,
+   * retention, the project's locales and its experiments.
+   */
+  const getSchema = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetAnalyticsSchemaResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getAnalyticsSchema
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.getAnalyticsSchema.method }
+    );
+
+  /**
+   * Aggregated report: metrics broken down by dimensions over date ranges.
+   * @param body - Date ranges, dimensions, metrics, filters, order, paging.
+   */
+  const runReport = async (
+    body: RunAnalyticsReportBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<RunAnalyticsReportResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.runAnalyticsReport
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.runAnalyticsReport.method, body }
+    );
+
+  /**
+   * Aggregated activity of the last minutes (up to one hour).
+   * @param body - Dimensions, metrics, window and filters.
+   */
+  const runRealtimeReport = async (
+    body: RunAnalyticsRealtimeReportBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<RunAnalyticsReportResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.runAnalyticsRealtimeReport
+      ),
+      authAPIOptions,
+      otherOptions,
+      { method: analyticsEndpoints.runAnalyticsRealtimeReport.method, body }
+    );
+
+  /**
+   * Dated content and traffic events, to explain report changes.
+   * @param query - Window (`YYYY-MM-DD`, `today`, `NdaysAgo`), types, limit.
+   */
+  const getAnnotations = async (
+    query: {
+      startDate?: string;
+      endDate?: string;
+      types?: AnalyticsAnnotationType[];
+      limit?: number;
+    } = {},
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetAnalyticsAnnotationsResult>(
+      buildRouteURL(
+        backendURL,
+        analyticsGroup,
+        analyticsEndpoints.getAnalyticsAnnotations
+      ),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: analyticsEndpoints.getAnalyticsAnnotations.method,
+        params: {
+          ...(query.startDate && { startDate: query.startDate }),
+          ...(query.endDate && { endDate: query.endDate }),
+          ...(query.types?.length && { types: query.types.join(',') }),
+          ...(query.limit !== undefined && { limit: String(query.limit) }),
+        },
+      }
+    );
+
   return {
     sendEvents,
+    getSchema,
+    runReport,
+    runRealtimeReport,
+    getAnnotations,
     getOverview,
     getAudience,
+    getLiveVisitorFlow,
+    getPageFlow,
     getContentStats,
     getExperimentResults,
     getPageMetadata,

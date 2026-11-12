@@ -232,16 +232,14 @@ export const loadOgFallbackFonts = async (
     Array.from(groupFallbackCharacters(text, language)).flatMap(
       ([scriptLanguage, characters]) =>
         (FONT_FAMILIES_BY_LANGUAGE[scriptLanguage] ?? []).flatMap((family) =>
-          FALLBACK_FONT_WEIGHTS.map(
-            async (weight): Promise<Font> => ({
-              // A distinct name keeps these subsets from shadowing Geist.
-              name: `${family} fallback`,
-              data: await getFontSubset(family, weight, characters),
-              weight,
-              style: 'normal',
-              lang: scriptLanguage === 'unknown' ? undefined : scriptLanguage,
-            })
-          )
+          FALLBACK_FONT_WEIGHTS.map(async (weight): Promise<Font> => ({
+            // A distinct name keeps these subsets from shadowing Geist.
+            name: `${family} fallback`,
+            data: await getFontSubset(family, weight, characters),
+            weight,
+            style: 'normal',
+            lang: scriptLanguage === 'unknown' ? undefined : scriptLanguage,
+          }))
         )
     )
   );

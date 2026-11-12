@@ -30,7 +30,13 @@ import {
   // Wrapping text renders directly inside this host thanks to display:contents.
   template: `<ng-container #anchor></ng-container>`,
   // display:contents collapses the host box so it is layout-transparent.
-  styles: [`:host { display: contents; }`],
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
 export class IntlayerNodeComponent implements OnChanges {
   @Input() node: any;

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Optimización del tamaño y rendimiento del paquete i18n
 description: Reduce el tamaño del paquete de tu aplicación optimizando el contenido de internacionalización (i18n). Aprende cómo aprovechar el tree shaking y el lazy loading para diccionarios con Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Uno de los desafíos más comunes con las soluciones i18n tradicionales basadas en archivos JSON es la gestión del tamaño del contenido. Si los desarrolladores no separan manualmente el contenido en espacios de nombres (namespaces), a menudo los usuarios terminan descargando traducciones para cada página y potencialmente para todos los idiomas solo para ver una página en concreto.
 
-Por ejemplo, una aplicación con 10 páginas traducidas a 10 idiomas podría provocar que un usuario descargue el contenido de 100 páginas, aunque solo necesite **una** (la página actual en el idioma actual). Esto genera un desperdicio de ancho de banda y tiempos de carga más lentos.
-
-El gráfico siguiente estima el peso del contenido para una aplicación teórica de 1 a 10 páginas traducida a entre 1 y 10 idiomas, con unos 30 KB de texto por página. Cargar el contenido dinámicamente por locale elimina el eje de idiomas, acotar el contenido por componente o por ruta elimina el eje de páginas, y solo la combinación de ambos mantiene el peso estable.
-
-![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer resuelve este problema a través de la optimización en el momento de la compilación.** Analiza tu código para detectar qué diccionarios se utilizan realmente por cada componente y reinyecta en tu paquete (bundle) solo el contenido necesario.
 
 ## Tabla de contenidos
 
 <TOC />
+
+## Problemas a tener en cuenta
+
+Una solución i18n añade peso a tu bundle de cinco formas. Intlayer aborda cada una de ellas:
+
+1. **Código de la biblioteca.** Intlayer mantiene sus funciones pequeñas, comparte la lógica entre ellas y sigue siendo compatible con tree-shaking: cualquier función que no uses es eliminada por tu empaquetador (bundler).
+
+2. **Contenido de otras páginas y locales.** Una biblioteca i18n promedio pesa entre 5 KB y 25 KB, mientras que el contenido de texto de una página en un chunk JS pesa entre 20 KB y 60 KB. El verdadero costo es la fuga de contenido: una aplicación con 10 páginas en 10 idiomas puede llegar a enviar el contenido de 100 páginas cuando solo se necesita **una**. Intlayer transforma tu código en tiempo de compilación (plugins de Babel / SWC / Vite) para cargar únicamente el contenido de la página actual en el idioma actual.
+
+   ![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   El gráfico estima ese costo para 1 a 10 páginas en 1 a 10 idiomas, con unos 30 KB de texto por página. Las importaciones dinámicas eliminan el eje de idiomas, el contenido por componente elimina el eje de páginas, y solo su combinación mantiene el payload estable.
+
+3. **Funcionalidades no utilizadas.** Cookies, almacenamiento local, prefijos de URL, contenido de respaldo (fallback), formato de mensajes ICU: cada funcionalidad añade lógica. En lugar de generar código dentro de tu base de código (como hace Paraglide), Intlayer inyecta variables de entorno en tiempo de compilación desde tu configuración, de modo que el empaquetador puede eliminar cualquier funcionalidad que no uses.
+
+4. **Contenido no utilizado y redundante.** En Vite y Next.js, Intlayer [purga](#purga-eliminacion-de-campos-no-utilizados) los campos del diccionario que tu código nunca lee y [minifica](#minificacion-renombramiento-de-campos) las claves restantes.
+
+5. **Contenido duplicado.** Los diccionarios que comparten la misma clave, ya sea que provengan de múltiples archivos `.content` o de fuentes locales y remotas ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)), se fusionan en un único diccionario.
 
 ## Cómo funciona
 

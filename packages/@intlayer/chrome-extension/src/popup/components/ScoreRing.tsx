@@ -47,7 +47,7 @@ export const ScoreRing: FunctionComponent<{ score: number }> = ({ score }) => {
           transform="rotate(-90 32 32)"
         />
       </svg>
-      <span className="absolute inset-0 flex items-center justify-center font-bold text-base">
+      <span className="absolute inset-0 flex items-center justify-center text-base font-bold">
         {score}
       </span>
     </div>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 可视化编辑器：就地编辑内容"
 description: 发现如何使用 Intlayer 编辑器来管理您的多语言网站。按照本在线文档中的步骤，在几分钟内设置您的项目。

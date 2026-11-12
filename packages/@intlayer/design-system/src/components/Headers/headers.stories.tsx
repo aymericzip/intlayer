@@ -118,7 +118,7 @@ export const AllHeadingLevels: Story = {
       <H4>H4 - Minor Section Header</H4>
       <H5>H5 - Detailed Subsection Header</H5>
 
-      <div className="mt-8 rounded-lg bg-gray-50 p-4 text-gray-600 text-sm">
+      <div className="mt-8 rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
         <p className="mb-2 font-medium">Visual Hierarchy:</p>
         <p>
           Each heading level has progressively smaller font size and appropriate
@@ -196,7 +196,7 @@ export const H1Primary: Story = {
 export const ClickableHeadersWithAnchors: Story = {
   render: () => (
     <div className="space-y-8 p-6">
-      <div className="mb-6 rounded-lg bg-blue-50 p-4 text-gray-600 text-sm">
+      <div className="mb-6 rounded-lg bg-blue-50 p-4 text-sm text-gray-600">
         <p className="mb-2 font-medium">How to use anchor links:</p>
         <ol className="list-inside list-decimal space-y-1">
           <li>Hover over any heading to see the # symbol appear</li>
@@ -259,7 +259,7 @@ export const ClickableHeadersWithAnchors: Story = {
 export const NonClickableHeaders: Story = {
   render: () => (
     <div className="space-y-6 p-6">
-      <div className="mb-6 rounded-lg bg-gray-50 p-4 text-gray-600 text-sm">
+      <div className="mb-6 rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
         <p>
           These headers have anchor functionality disabled and behave as regular
           headings.
@@ -308,7 +308,7 @@ export const NonClickableHeaders: Story = {
 export const CustomStyledHeaders: Story = {
   render: () => (
     <div className="space-y-8 p-6">
-      <H1 className="border-blue-200 border-b-2 pb-2 text-blue-600">
+      <H1 className="border-b-2 border-blue-200 pb-2 text-blue-600">
         Custom Styled H1
       </H1>
 
@@ -320,7 +320,7 @@ export const CustomStyledHeaders: Story = {
         Italic Purple H3 with Anchor
       </H3>
 
-      <H4 isClickable className="text-red-600 text-sm uppercase tracking-wider">
+      <H4 isClickable className="text-sm tracking-wider text-red-600 uppercase">
         Uppercase H4 with Anchor
       </H4>
 
@@ -446,7 +446,7 @@ export const HeadingHierarchy: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-6 p-6">
-      <div className="mb-6 rounded-lg bg-blue-50 p-4 text-gray-600 text-sm">
+      <div className="mb-6 rounded-lg bg-blue-50 p-4 text-sm text-gray-600">
         <p className="mb-2 font-medium">Keyboard Navigation Test:</p>
         <p>
           While anchor links are primarily mouse-focused, the headings maintain
@@ -505,7 +505,7 @@ export const KeyboardNavigation: Story = {
 export const DocumentationPage: Story = {
   render: () => (
     <div className="mx-auto max-w-4xl p-6">
-      <header className="mb-8 border-gray-200 border-b pb-6">
+      <header className="mb-8 border-b border-gray-200 pb-6">
         <H1>API Documentation</H1>
         <p className="mt-2 text-gray-600">
           Complete reference for the Intlayer Design System API
@@ -513,7 +513,7 @@ export const DocumentationPage: Story = {
       </header>
 
       <nav className="mb-8 rounded-lg bg-gray-50 p-4">
-        <h2 className="mb-3 font-semibold text-lg">Table of Contents</h2>
+        <h2 className="mb-3 text-lg font-semibold">Table of Contents</h2>
         <ul className="space-y-1 text-sm">
           <li>
             <a
@@ -669,17 +669,17 @@ export const BlogArticle: Story = {
     <article className="mx-auto max-w-3xl p-6">
       <header className="mb-8">
         <H1>Building Accessible React Components</H1>
-        <div className="mt-2 mb-4 text-gray-600 text-sm">
+        <div className="mt-2 mb-4 text-sm text-gray-600">
           Published by Jane Developer
         </div>
         <div className="mb-4 flex gap-2">
-          <span className="rounded bg-blue-100 px-2 py-1 text-blue-800 text-xs">
+          <span className="rounded bg-blue-100 px-2 py-1 text-xs text-blue-800">
             React
           </span>
-          <span className="rounded bg-green-100 px-2 py-1 text-green-800 text-xs">
+          <span className="rounded bg-green-100 px-2 py-1 text-xs text-green-800">
             Accessibility
           </span>
-          <span className="rounded bg-purple-100 px-2 py-1 text-purple-800 text-xs">
+          <span className="rounded bg-purple-100 px-2 py-1 text-xs text-purple-800">
             Web Development
           </span>
         </div>

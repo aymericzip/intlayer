@@ -16,6 +16,9 @@ import type {
   ChatResult,
   CustomQueryBody,
   CustomQueryResult,
+  GetAICreditsResult,
+  GetAICreditUsageParams,
+  GetAICreditUsageResult,
   GetAIStatsResult,
   GetDiscussionsParams,
   GetDiscussionsResult,
@@ -29,6 +32,7 @@ import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
+import { readServerSentEvents } from './readServerSentEvents';
 
 export type AutocompleteBody = {
   text: string;
@@ -42,6 +46,8 @@ export type AskDocQuestionBody = {
   messages: ChatCompletionRequestMessage[];
   discussionId: string;
   onMessage?: (chunk: string) => void;
+  /** Receives the summarized reasoning of the model as it streams. */
+  onReasoning?: (chunk: string) => void;
   onDone?: (response: AskDocQuestionResult) => void;
 };
 
@@ -55,6 +61,22 @@ export type ChatBody = {
   onMessage?: (chunk: string) => void;
   onDone?: (response: ChatResult) => void;
   onAction?: (action: ClientAction) => void;
+};
+
+/** `data:` payload streamed by the `ask` endpoint. */
+type AskDocQuestionStreamData = {
+  chunk?: string;
+  reasoning?: string;
+  done?: boolean;
+  response?: AskDocQuestionResult;
+};
+
+/** `data:` payload streamed by the `chat` endpoint. */
+type ChatStreamData = {
+  chunk?: string;
+  action?: ClientAction;
+  done?: boolean;
+  response?: ChatResult;
 };
 
 export type { AskDocQuestionResult, ChatResult };
@@ -86,6 +108,8 @@ const aiEndpoints = {
   autocomplete: { method: 'POST', path: '/autocomplete' },
   getDiscussions: { method: 'GET', path: '/discussions' },
   getAIStats: { method: 'GET', path: '/stats' },
+  getAICredits: { method: 'GET', path: '/credits' },
+  getAICreditUsage: { method: 'GET', path: '/credits/usage' },
 } as const satisfies RouteEndpoints<AIRoutes>;
 
 export const getAiAPI = (
@@ -242,7 +266,7 @@ export const getAiAPI = (
   ) => {
     if (!body) return;
 
-    const { onMessage, onDone, ...rest } = body;
+    const { onMessage, onReasoning, onDone, ...rest } = body;
     const abortController = new AbortController();
 
     try {
@@ -290,38 +314,17 @@ export const getAiAPI = (
         throw new Error(errorMessage);
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error('No reader available');
-      }
-
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() ?? '';
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              if (data.chunk) {
-                onMessage?.(data.chunk);
-              }
-              if (data.done && data.response) {
-                onDone?.(data.response);
-              }
-            } catch (e) {
-              console.error('Failed to parse SSE data:', e);
-            }
-          }
+      await readServerSentEvents<AskDocQuestionStreamData>(response, (data) => {
+        if (data.reasoning) {
+          onReasoning?.(data.reasoning);
         }
-      }
+        if (data.chunk) {
+          onMessage?.(data.chunk);
+        }
+        if (data.done && data.response) {
+          onDone?.(data.response);
+        }
+      });
     } catch (error) {
       console.error('Error in askDocQuestion:', error);
       throw error;
@@ -375,41 +378,17 @@ export const getAiAPI = (
         throw new Error(errorMessage);
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error('No reader available');
-      }
-
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() ?? '';
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              if (data.chunk) {
-                onMessage?.(data.chunk);
-              }
-              if (data.action) {
-                onAction?.(data.action);
-              }
-              if (data.done && data.response) {
-                onDone?.(data.response);
-              }
-            } catch (e) {
-              console.error('Failed to parse SSE data:', e);
-            }
-          }
+      await readServerSentEvents<ChatStreamData>(response, (data) => {
+        if (data.chunk) {
+          onMessage?.(data.chunk);
         }
-      }
+        if (data.action) {
+          onAction?.(data.action);
+        }
+        if (data.done && data.response) {
+          onDone?.(data.response);
+        }
+      });
     } catch (error) {
       console.error('Error in chat:', error);
       throw error;
@@ -462,6 +441,37 @@ export const getAiAPI = (
       }
     );
 
+  /**
+   * Retrieves the AI credit balance of the selected organization for the
+   * current monthly period.
+   */
+  const getAICredits = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetAICreditsResult>(
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.getAICredits),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: aiEndpoints.getAICredits.method,
+      }
+    );
+
+  /**
+   * Retrieves the day-by-day AI credit usage of the selected organization.
+   */
+  const getAICreditUsage = async (
+    params?: GetAICreditUsageParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetAICreditUsageResult>(
+      buildRouteURL(backendURL, aiGroup, aiEndpoints.getAICreditUsage),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: aiEndpoints.getAICreditUsage.method,
+        params,
+      }
+    );
+
   return {
     customQuery,
     translateJSON,
@@ -474,6 +484,8 @@ export const getAiAPI = (
     autocomplete,
     getDiscussions,
     getAIStats,
+    getAICredits,
+    getAICreditUsage,
   };
 };
 

@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
+priority: 5
 title: useDictionary Hook Documentation | react-intlayer
-description: See how to use the useDictionary hook for react-intlayer package
+description: "Use useDictionary in React to interpret a dictionary object you declare yourself, with translations, enumerations and more resolved."
 keywords:
   - useDictionary
   - dictionary
@@ -18,7 +19,8 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Unified documentation for all exports
+    changes: "Unified documentation for all exports"
+author: aymericzip
 ---
 
 # useDictionary Hook Documentation

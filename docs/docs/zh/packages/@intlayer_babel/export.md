@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-25
-updatedAt: 2026-06-25
+updatedAt: 2026-10-08
 priority: 5
 title: "@intlayer/babel 包文档"
 description: 用于 Intlayer 的 Babel 插件，处理构建期间的内容提取、导入优化、删除未使用字段以及混淆字段名称。
@@ -48,7 +48,7 @@ import { ... } from "@intlayer/babel";
 
 | 函数 / 类                      | 描述                                                                                                                                       |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `intlayerExtractBabelPlugin`   | Babel 插件，可从源文件中提取可翻译内容并自动注入 `useIntlayer` / `getIntlayer` 钩子。设计用于 Next.js 和基于 Babel 的构建工具。            |
+| `intlayerExtractBabelPlugin`   | Babel 插件，可从源文件中提取可翻译内容并自动注入 `useIntlayer` Hook 与 `getIntlayer` 函数。设计用于 Next.js 和基于 Babel 的构建工具。      |
 | `intlayerOptimizeBabelPlugin`  | Babel 插件，可转换 `useIntlayer` 和 `getIntlayer` 调用，并将其导入重写为优化后的 JSON 字典导入（静态、动态或通过 fetch）。                 |
 | `intlayerPurgeBabelPlugin`     | Babel 插件，可分析源文件并重写编译后的字典 JSON 文件，以移除未使用的字段（`build.purge`）或将其重命名为简短别名（`build.minify`）。        |
 | `intlayerMinifyBabelPlugin`    | Babel 插件，可重写源文件以使用在混淆/压缩阶段分配的简短字段别名（例如 `content.title` ← `content.a`）。依赖于 `intlayerPurgeBabelPlugin`。 |

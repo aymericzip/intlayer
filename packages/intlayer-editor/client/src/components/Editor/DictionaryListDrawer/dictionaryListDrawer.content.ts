@@ -17,6 +17,7 @@ const dictionaryListDrawerContent = {
         ko: '사전 목록',
         zh: '字典列表',
         ar: 'قائمة القواميس',
+        'he-IL': 'רשימת מילונים',
         hi: 'शब्दकोश सूची',
         tr: 'Sözlük listesi',
       }),
@@ -36,6 +37,7 @@ const dictionaryListDrawerContent = {
           ko: '사전 편집기 열기 {{dictionaryLocalId}}',
           zh: '打开字典编辑器 {{dictionaryLocalId}}',
           ar: 'فتح محرر القاموس {{dictionaryLocalId}}',
+          'he-IL': 'פתיחת עורך המילון {{dictionaryLocalId}}',
           hi: 'शब्दकोश संपादक खोलें {{dictionaryLocalId}}',
           tr: 'Sözlük düzenleyiciyi aç {{dictionaryLocalId}}',
         })

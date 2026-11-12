@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -53,17 +53,17 @@
     </div>
     <script nonce="{{nonce}}">
       const vscode = acquireVsCodeApi();
-      const input = document.getElementById("q");
+      const input = document.getElementById('q');
       const SEARCH_DEBOUNCE_DELAY = 150;
-      let lastValue = input.value || "";
+      let lastValue = input.value || '';
       let searchTimeout;
-      input.addEventListener("input", () => {
+      input.addEventListener('input', () => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
-          const value = input.value || "";
+          const value = input.value || '';
           if (value === lastValue) return;
           lastValue = value;
-          vscode.postMessage({ type: "query", value });
+          vscode.postMessage({ type: 'query', value });
         }, SEARCH_DEBOUNCE_DELAY);
       });
     </script>

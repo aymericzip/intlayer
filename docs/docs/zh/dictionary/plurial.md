@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "复数内容：CLDR 复数规则"
 description: "在 Intlayer 中使用 CLDR 类别（zero、one、two、few、many、other）声明按语言环境变化的复数形式，根据数量解析。"
@@ -106,7 +106,7 @@ export default openingsContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-要在 React 组件中使用复数内容，请通过 `useIntlayer` 钩子获取它，并传入计数进行调用。激活的语言区域和计数将结合在一起以匹配 CLDR 类别。
+要在 React 组件中使用复数内容，请通过 `useIntlayer` Hook获取它，并传入计数进行调用。激活的语言区域和计数将结合在一起以匹配 CLDR 类别。
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";

@@ -38,7 +38,11 @@ const randomFunction = () => {
     <h1>Hello World (should be extracted)</h1>
     <p>This is a test (should be extracted)</p>
     <button @click="isClicked = true">
-      {{ isClicked ? 'Clicked (should be extracted)' : 'Click me (should be extracted)' }}
+      {{
+        isClicked
+          ? 'Clicked (should be extracted)'
+          : 'Click me (should be extracted)'
+      }}
     </button>
     <input
       type="text"
@@ -70,12 +74,12 @@ const randomFunction = () => {
 
     <p>
       This is a paragraph on several lines. Lorem ipsum dolor sit amet,
-      consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-      et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-      exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-      dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+      ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+      dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+      nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+      culpa qui officia deserunt mollit anim id est laborum.
     </p>
     <span>{{ state }}</span>
     <img
@@ -84,10 +88,6 @@ const randomFunction = () => {
     />
     <button @click="handleClick">Click me (should be extracted)</button>
     <span>{{ randomFunction() }}</span>
-    <Test2
-      title="Hello World 2 (should be extracted)"
-      color="red"
-    />
+    <Test2 title="Hello World 2 (should be extracted)" color="red" />
   </div>
 </template>
-

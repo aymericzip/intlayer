@@ -1,12 +1,12 @@
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
+import * as reviewerService from '@services/reviewer.service';
 import {
   deleteReviewerPicture,
   type ReviewerPictureKind,
   uploadReviewerPicture,
   validateReviewerPictureUpload,
 } from '@services/reviewer/pictureUpload.service';
-import * as reviewerService from '@services/reviewer.service';
 import * as messageService from '@services/reviewerMessage.service';
 import * as missionService from '@services/reviewerMission.service';
 import * as userService from '@services/user.service';

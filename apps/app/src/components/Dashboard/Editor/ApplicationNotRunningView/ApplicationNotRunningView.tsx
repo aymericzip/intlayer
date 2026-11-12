@@ -68,12 +68,12 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
             borderColor="error"
             padding="md"
             background="none"
-            className="mb-6 flex flex-col gap-1 pb-3 font-mono text-neutral text-xs"
+            className="mb-6 flex flex-col gap-1 pb-3 font-mono text-xs text-neutral"
           >
             {errors?.map((error, index) => {
               if (error.type === 'connect') {
                 return (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: Error list is static
+                  // oxlint-disable-next-line react/no-array-index-key -- Error list is static
                   <p key={index}>
                     {connectionError({
                       applicationUrl: applicationUrl ?? '',
@@ -84,7 +84,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
               }
               if (error.type === 'fetch') {
                 return (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: Error list is static
+                  // oxlint-disable-next-line react/no-array-index-key -- Error list is static
                   <p key={index}>
                     {fetchError({
                       status: String(error.status),
@@ -102,7 +102,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 ps-3">
             {tips.map((tip, index) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: static list
+              // oxlint-disable-next-line react/no-array-index-key -- static list
               <li key={index} className="text-neutral">
                 {typeof tip === 'function'
                   ? // Each tip inserts its own subset of these values

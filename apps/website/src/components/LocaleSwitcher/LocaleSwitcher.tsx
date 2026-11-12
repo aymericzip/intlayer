@@ -78,7 +78,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
         >
           <div className="flex w-full items-center justify-between">
             <div
-              className="text-nowrap px-2 text-base"
+              className="px-2 text-base text-nowrap"
               suppressHydrationWarning
             >
               {localeName}
@@ -95,7 +95,9 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           {...panelProps}
         >
           <Container
-            className="max-h-[80vh] min-w-42 border border-text/5"
+            className="max-h-[80vh] min-w-42"
+            border
+            borderColor="neutral"
             separator="y"
             roundedSize="xl"
             transparency="xs"
@@ -161,13 +163,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                             {ownLocaleName}
                           </span>
                           <span
-                            className="text-muted-foreground text-xs"
+                            className="text-xs text-muted-foreground"
                             suppressHydrationWarning
                           >
                             {currentLocaleName}
                           </span>
                         </div>
-                        <span className="text-nowrap text-muted-foreground text-sm">
+                        <span className="text-sm text-nowrap text-muted-foreground">
                           {localeItem.toUpperCase()}
                         </span>
                       </div>

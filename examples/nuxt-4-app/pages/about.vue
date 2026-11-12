@@ -16,7 +16,7 @@ useHead({
   ],
 });
 </script>
-  
+
 <template>
   <h1><content.title /></h1>
 </template>

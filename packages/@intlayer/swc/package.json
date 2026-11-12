@@ -1,26 +1,22 @@
 {
   "name": "@intlayer/swc",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": false,
   "description": "A SWC plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
-    "intlayer",
     "babel",
-    "plugin",
+    "file",
     "internationalization",
-    "transpile",
-    "typescript",
+    "intlayer",
     "javascript",
     "json",
-    "file"
+    "plugin",
+    "transpile",
+    "typescript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -34,16 +30,20 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": false,
-  "exports": {
-    ".": "./target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
-    "./package.json": "./package.json"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
-  "main": "target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
   "files": [
     "./target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
     "./package.json"
   ],
+  "sideEffects": false,
+  "main": "target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
+  "exports": {
+    ".": "./target/wasm32-wasip1/release/intlayer_swc_plugin.wasm",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "",
     "build:ci": "",

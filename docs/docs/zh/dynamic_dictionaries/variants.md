@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-08-04
+updatedAt: 2026-10-08
 priority: 8
 title: "变体：A/B 测试与替代内容"
 description: "使用 Intlayer 变体声明具名的替代内容，用于 A/B 测试、季节性横幅、功能开关或按用户定制的文案。"

@@ -1,4 +1,4 @@
-import { date } from '@intlayer/core/formatters';
+import { date, presets } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
 import { getServerContext } from '../serverContext';
@@ -32,9 +32,12 @@ import { getServerContext } from '../serverContext';
 export const useDate = () => {
   const locale = getServerContext<LocalesValues>(IntlayerServerContext);
 
-  return (...args: Parameters<typeof date>) =>
-    date(args[0], {
-      ...args[1],
-      locale: args[1]?.locale ?? locale,
-    });
+  return (...args: Parameters<typeof date>) => {
+    const options =
+      typeof args[1] === 'string'
+        ? { ...presets[args[1]], locale }
+        : { ...args[1], locale: args[1]?.locale ?? locale };
+
+    return date(args[0], options as Parameters<typeof date>[1]);
+  };
 };

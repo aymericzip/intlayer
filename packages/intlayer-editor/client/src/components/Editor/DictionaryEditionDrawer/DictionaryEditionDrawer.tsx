@@ -1,5 +1,3 @@
-'use client';
-
 import { useGetEditorDictionaries } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
@@ -11,29 +9,36 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Popover } from '@intlayer/design-system/popover';
 import {
   RightDrawer,
-  useRightDrawer,
+  useRightDrawerActions,
 } from '@intlayer/design-system/right-drawer';
 import { Tag } from '@intlayer/design-system/tag';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { PencilRuler } from 'lucide-react';
-import { type FC, useState } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import type { FunctionComponent } from 'preact';
+import { useIntlayer } from 'preact-intlayer';
+import { useState } from 'preact/hooks';
+import { useLastDefinedValue } from '../../../hooks/useLastDefinedValue';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   getDrawerIdentifier,
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
 
+/**
+ * Dictionaries served by the editor server, per key. The API client types the
+ * payload as the whole response envelope, but resolves to its `data` field.
+ */
+type UnmergedDictionaries = Record<Dictionary['key'], Dictionary[]>;
+
 type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
   dictionaryKey: string;
   isDarkMode?: boolean;
 };
 
-export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
-  dictionaryKey,
-  isDarkMode,
-}) => {
+export const DictionaryEditionDrawer: FunctionComponent<
+  DictionaryEditionDrawerProps
+> = ({ dictionaryKey, isDarkMode }) => {
   const {
     backButtonText,
     openDictionaryEditor,
@@ -45,9 +50,10 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);
   const { setFocusedContent } = useFocusUnmergedDictionary();
-  const { open } = useRightDrawer();
+  const { open } = useRightDrawerActions();
   const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
-  const { data: unmergedDictionaries } = useGetEditorDictionaries();
+  const { data } = useGetEditorDictionaries();
+  const unmergedDictionaries = data as UnmergedDictionaries | undefined;
 
   const handleOnBack = () => {
     close();
@@ -62,20 +68,29 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
     handleOnBack();
   };
 
-  if (!focusedContent?.dictionaryKey)
+  /**
+   * Closing clears the focused content, which would empty the drawer before
+   * its transition could run. Holding on to the last focused dictionary keeps
+   * the panel filled while it slides away.
+   */
+  const displayedDictionaryLocalId = useLastDefinedValue(
+    focusedContent?.dictionaryLocalId
+  );
+
+  if (!displayedDictionaryLocalId)
     return (
-      <span className="mx-auto my-10 text-neutral text-sm">
+      <span className="mx-auto my-10 text-sm text-neutral">
         {noDictionaryFocused}
       </span>
     );
 
-  const dictionary = unmergedDictionaries?.[focusedContent.dictionaryKey]?.find(
-    (dict: Dictionary) => dict.localId === focusedContent?.dictionaryLocalId
+  const dictionary = unmergedDictionaries?.[dictionaryKey]?.find(
+    (dict: Dictionary) => dict.localId === displayedDictionaryLocalId
   );
 
   if (!dictionary)
     return (
-      <span className="mx-auto my-10 text-neutral text-sm">
+      <span className="mx-auto my-10 text-sm text-neutral">
         {focusedDictionaryNotFound}
       </span>
     );
@@ -108,24 +123,24 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
                 onClick={() => setEditionModalOpen(true)}
               />
               <Popover.Detail identifier="open-dictionary-editor">
-                <span className="whitespace-nowrap p-2 text-neutral text-xs">
+                <span className="p-2 text-xs whitespace-nowrap text-neutral">
                   {openDictionaryEditor.popoverContent}
                 </span>
               </Popover.Detail>
             </Popover>
           </header>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dotted pb-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-b border-dotted border-text/20 pb-3">
             <Tag color="text" roundedSize="full" size="xs">
               {dictionary.key}
             </Tag>
             {dictionary.filePath && (
-              <Tag color="blue" roundedSize="full" size="xs">
+              <Tag color="neutral" roundedSize="full" size="xs">
                 {dictionary.filePath.split('/').pop()}
               </Tag>
             )}
             {dictionary.id && (
-              <Tag color="purple" roundedSize="full" size="xs">
+              <Tag color="success" roundedSize="full" size="xs">
                 remote
               </Tag>
             )}
@@ -141,37 +156,33 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         />
       }
     >
-      {focusedContent && (
-        <>
-          <Modal
-            isOpen={editionModalOpen}
-            onClose={() => setEditionModalOpen(false)}
-            hasCloseButton
-            title={modalTitle}
-            size="xl"
-            transparency="lg"
-            className="h-full"
-          >
-            <div className="flex h-full min-h-0 w-full flex-1 flex-col px-3 pt-5">
-              <DictionaryFieldEditor
-                dictionary={dictionary}
-                onClickDictionaryList={onClickDictionaryList}
-                isDarkMode={isDarkMode}
-                mode={['local', 'remote']}
-                onDelete={() => {
-                  setEditionModalOpen(false);
-                  handleOnBack();
-                }}
-                onSave={() => {
-                  setEditionModalOpen(false);
-                }}
-              />
-            </div>
-          </Modal>
+      <Modal
+        isOpen={editionModalOpen}
+        onClose={() => setEditionModalOpen(false)}
+        hasCloseButton
+        title={modalTitle}
+        size="xl"
+        transparency="lg"
+        className="h-full"
+      >
+        <div className="flex h-full min-h-0 w-full flex-1 flex-col px-3 pt-5">
+          <DictionaryFieldEditor
+            dictionary={dictionary}
+            onClickDictionaryList={onClickDictionaryList}
+            isDarkMode={isDarkMode}
+            mode={['local', 'remote']}
+            onDelete={() => {
+              setEditionModalOpen(false);
+              handleOnBack();
+            }}
+            onSave={() => {
+              setEditionModalOpen(false);
+            }}
+          />
+        </div>
+      </Modal>
 
-          <DictionaryEditor dictionary={dictionary} />
-        </>
-      )}
+      <DictionaryEditor dictionary={dictionary} />
     </RightDrawer>
   );
 };
@@ -180,19 +191,27 @@ type DictionaryEditionDrawerControllerProps = {
   isDarkMode?: boolean;
 };
 
-export const DictionaryEditionDrawerController: FC<
+export const DictionaryEditionDrawerController: FunctionComponent<
   DictionaryEditionDrawerControllerProps
 > = ({ isDarkMode }) => {
   const { focusedContent } = useFocusUnmergedDictionary();
-  const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
-  if (!dictionaryKey) {
+  /**
+   * Unmounting as soon as focus clears would remove the drawer before it could
+   * animate out. The last focused key stays mounted, and is only replaced once
+   * another dictionary takes focus.
+   */
+  const mountedDictionaryKey = useLastDefinedValue(
+    focusedContent?.dictionaryKey
+  );
+
+  if (!mountedDictionaryKey) {
     return <></>;
   }
 
   return (
     <DictionaryEditionDrawer
-      dictionaryKey={dictionaryKey}
+      dictionaryKey={mountedDictionaryKey}
       isDarkMode={isDarkMode}
     />
   );

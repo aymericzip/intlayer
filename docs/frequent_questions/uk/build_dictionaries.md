@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 4
 title: Як згенерувати словники?
 description: "Коли Intlayer збирає словники автоматично, як запустити збирання вручну через CLI та куди записуються згенеровані файли."
@@ -21,22 +21,22 @@ slugs:
 author: aymericzip
 ---
 
-# Build Dictionaries
+# Збирання словників
 
-## How to Build Dictionaries
+## Як збирати словники
 
-Intlayer provides a command-line tool to build dictionaries.
+Intlayer надає інструмент командного рядка (CLI) для збирання словників.
 
 ```bash
 npx intlayer dictionaries build
 ```
 
-This command:
+Ця команда:
 
-- Scans all content declaration files (`.content.{ts,tsx,js,mjs,cjs,json,...}`) in your project.
-- Generates dictionaries and stores them in the `.intlayer/dictionary` folder.
+- Сканує всі файли оголошення контенту (`.content.{ts,tsx,js,mjs,cjs,json,...}`) у вашому проєкті.
+- Генерує словники та зберігає їх у папці `.intlayer/dictionary`.
 
-### Watch Mode
+### Режим стеження (Watch Mode)
 
 Якщо ви хочете автоматично оновлювати словники при внесенні змін у файли декларацій контенту, виконайте таку команду:
 

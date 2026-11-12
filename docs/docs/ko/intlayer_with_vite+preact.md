@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Vite + Preact i18n - 앱을 번역하는 완전 가이드"
 description: "Vite와 Preact 앱에 Intlayer 설정: 컴포넌트별 타입 콘텐츠, 언어 전환기, 현지화된 라우트, 작은 번들."
@@ -30,18 +30,18 @@ history:
 author: aymericzip
 ---
 
-# Intlayer로 Vite and Preact 번역하기
+# Intlayer를 사용하여 Vite 및 Preact 웹사이트 번역하기
 
 ## 목차
 
 <TOC/>
 
-## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
+## 왜 다른 대안 대신 Intlayer인가요?
 
 'preact-i18n' 또는 'i18next'와 같은 주요 솔루션과 비교하여 Intlayer는 다음과 같은 통합 최적화 기능을 제공하는 솔루션입니다.
 
 <AccordionGroup>
-<Accordion header="전체 Preact 적용 범위">
+<Accordion header="완벽한 Preact 지원">
 
 Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **지연 로드 번역** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Preact와 완벽하게 작동하도록 최적화되었습니다.
 
@@ -53,7 +53,7 @@ Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **지연 로드 �
 </Accordion>
 <Accordion header="유지관리성">
 
-애플리케이션 콘텐츠의 범위를 지정하면 대규모 애플리케이션의 **유지 관리가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 정신적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 **완전히 유형**되어 콘텐츠의 정확성을 보장합니다.
+애플리케이션 콘텐츠의 범위를 지정하면 대규모 애플리케이션의 **유지 관리가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 인지적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 **완전한 TypeScript 타입 지원**되어 콘텐츠의 정확성을 보장합니다.
 
 </Accordion>
 <Accordion header="AI 에이전트">
@@ -65,9 +65,9 @@ Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **지연 로드 �
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
 
 </Accordion>
-<Accordion header="오토메이션">
+<Accordion header="자동화">
 
-AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인을 번역하려면 자동화를 사용하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
+자체 AI 제공업체의 API 비용만으로 선택한 LLM을 사용하여 CI/CD 파이프라인을 번역하려면 자동화를 사용하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
 
 - [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
@@ -77,7 +77,7 @@ AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인
 대규모 JSON 파일을 구성 요소에 연결하면 성능 및 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시 콘텐츠 로딩을 최적화합니다.
 
 </Accordion>
-<Accordion header="개발자가 없는 경우 확장">
+<Accordion header="비개발자와의 협업 및 확장 (Scaling with non-dev)">
 
 Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는 **자체 호스팅 [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)** 및 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공합니다. 다국어 콘텐츠를 **실시간**으로 제공하여 번역가, 카피라이터, 기타 팀원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
 
@@ -95,12 +95,12 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 <iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="코드" value="code">
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="CodeSandbox 데모 - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

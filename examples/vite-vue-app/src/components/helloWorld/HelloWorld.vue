@@ -30,7 +30,7 @@ const countRef = ref(0);
       <content.officialStarter />
     </button>
     <p v-html="edit"></p>
-    <edit/>
+    <edit />
   </div>
 
   <Test />

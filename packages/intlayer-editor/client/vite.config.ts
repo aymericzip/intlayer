@@ -1,7 +1,7 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import preact from '@preact/preset-vite';
 import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
 // import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
@@ -15,7 +15,7 @@ export default defineConfig({
     port: 8000,
   },
   plugins: [
-    react({ compiler: true }),
+    preact(),
     intlayer(),
     tailwindcss(),
     // visualizer({
@@ -24,4 +24,8 @@ export default defineConfig({
     //   filename: 'stats.html',
     // }),
   ],
+  resolve: {
+    alias: { 'react-intlayer': 'preact-intlayer' },
+    dedupe: ['preact', 'preact-intlayer'],
+  },
 });

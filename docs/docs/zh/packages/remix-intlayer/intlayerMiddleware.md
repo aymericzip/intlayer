@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
 title: intlayer 中间件文档 | remix-intlayer
 description: 了解如何在 Remix 3 中使用 intlayer 中间件检测语言环境、处理重定向并将 Intlayer 状态注入到请求上下文中。
@@ -77,7 +77,7 @@ const middleware = intlayer(options);
 
 ## 直接访问上下文
 
-除了使用钩子之外，您还可以直接从 Remix 请求上下文中访问解析后的 `IntlayerState`：
+除了使用Hook之外，您还可以直接从 Remix 请求上下文中访问解析后的 `IntlayerState`：
 
 ```ts
 import { Intlayer } from "remix-intlayer";
@@ -96,5 +96,5 @@ router.get("/api/locale", (context) => {
 ## 相关文档
 
 - [`Intlayer` 请求上下文](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/Intlayer.md)
-- [`useIntlayer` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)
-- [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)
+- [`useIntlayer` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)
+- [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)

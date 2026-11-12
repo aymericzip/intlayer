@@ -1,6 +1,6 @@
 {
   "name": "elysia-app",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,7 +15,7 @@
     "intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/bun": "1.4.2",
+    "@types/bun": "1.4.4",
     "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
     "typescript": "7.0.2"

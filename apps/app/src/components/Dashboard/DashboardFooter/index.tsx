@@ -25,8 +25,8 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { isMobile } = useDevice('md');
 
   return (
-    <footer className="z-90 flex flex-none flex-row flex-wrap items-center gap-4 px-6 pt-1 pb-2 max-md:pb-2">
-      <div className="items-left flex flex-row justify-center gap-x-4 gap-y-2 max-md:flex-1">
+    <footer className="z-90 flex flex-none flex-row items-center gap-4 px-6 pt-1 pb-2 max-md:pb-2">
+      <div className="flex min-w-fit flex-1 flex-row items-center justify-start gap-x-4 gap-y-2">
         <Link to={github.url.value} label={github.label.value} color="text">
           <TechLogos.GITHUB width={20} />
         </Link>
@@ -40,7 +40,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         )}
       </div>
 
-      <div className="m-auto flex w-auto flex-row flex-nowrap justify-around gap-4 gap-y-1 overflow-x-scroll max-md:hidden max-md:max-w-2/3">
+      <div className="flex min-w-0 shrink-0 flex-row flex-nowrap items-center justify-center gap-4 gap-y-1 overflow-x-auto max-md:hidden">
         {links?.map((link) => (
           <Link
             key={link.href}
@@ -56,7 +56,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         ))}
       </div>
       {!isMobile && (
-        <div className="ms-auto flex flex-row items-center justify-start gap-x-2">
+        <div className="flex min-w-fit flex-1 flex-row items-center justify-end gap-x-2">
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
         </div>

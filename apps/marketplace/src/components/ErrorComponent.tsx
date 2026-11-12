@@ -10,11 +10,11 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
 
   return (
     <main className="page-wrap relative flex min-h-[60vh] flex-1 flex-col items-center justify-center overflow-hidden px-4 py-12 text-center">
-      <p className="pointer-events-none absolute top-1/4 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 font-bold text-350px text-text/10">
+      <p className="text-350px pointer-events-none absolute top-1/4 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 font-bold text-text/10">
         Error
       </p>
 
-      <h1 className="display-title mb-4 font-bold text-6xl text-text">
+      <h1 className="display-title mb-4 text-6xl font-bold text-text">
         {content.somethingWentWrong}
       </h1>
       <Container
@@ -22,10 +22,10 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
         roundedSize="2xl"
         className="my-10 max-w-xl gap-4 text-start"
       >
-        <p className="font-bold text-lg">
+        <p className="text-lg font-bold">
           {(error as unknown as Error).message || content.unexpectedError}
         </p>
-        <p className="text-neutral text-sm">
+        <p className="text-sm text-neutral">
           {(error as unknown as Error).stack}
         </p>
       </Container>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Zagnieżdżanie: ponowne użycie treści między słownikami"
 description: "Odwołuj się z jednego słownika do innego za pomocą węzła nest() w Intlayer, aby używać wspólnych treści bez duplikowania tłumaczeń."
@@ -32,67 +32,70 @@ W Intlayer zagnieżdżanie realizowane jest za pomocą funkcji `nest`, która po
 
 ## Konfiguracja zagnieżdżania
 
-Aby skonfigurować zagnieżdżanie w projekcie Intlayer, najpierw definiujesz zawartość bazową, którą chcesz ponownie wykorzystać. Następnie w osobnym module zawartości używasz funkcji `nest` do importu tej zawartości.
+Aby skonfigurować zagnieżdżanie w projekcie Intlayer, najpierw definiujesz zawartość bazową, którą chcesz ponownie wykorzystać. Następnie w osobnym module zawartości używasz funkcji `nest` do zaimportowania tej zawartości.
 
 ### Słownik podstawowy
 
 Poniżej znajduje się przykład słownika podstawowego do zagnieżdżenia w innym słowniku:
 
 ```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { type Dictionary } from "intlayer";
+import { t, type Dictionary } from "intlayer";
 
-const firstDictionary = {
+const myFirstDictionary = {
   key: "key_of_my_first_dictionary",
   content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
+    mySubContent: t({
+      pl: "Cześć",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
   },
 } satisfies Dictionary;
 
-export default firstDictionary;
+export default myFirstDictionary;
 ```
 
-```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+```json5 fileName="firstDictionary.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "key_of_my_first_dictionary",
   "content": {
-    "content": "content",
-    "subContent": {
-      "contentNumber": 0,
-      "contentString": "string"
-    }
-  }
+    "mySubContent": {
+      "nodeType": "translation",
+      "translation": {
+        "pl": "Cześć",
+        "en": "Hello",
+        "fr": "Bonjour",
+        "es": "Hola",
+      },
+    },
+  },
 }
 ```
 
-### Odwołania się z Nest
+### Odwoływanie się ze słownika bazowego
 
-Teraz utwórz inny moduł zawartości, który używa funkcji `nest` do odwołania się do powyższej zawartości. Możesz odwołać się do całej zawartości lub do określonej wartości zagnieżdżonej:
+Następnie w drugim słowniku używasz funkcji `nest` do odwołania się do pierwszego słownika:
 
 ```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { nest, type Dictionary } from "intlayer";
 
-const myNestingContent = {
+const mySecondDictionary = {
   key: "key_of_my_second_dictionary",
   content: {
-    // Odwołanie do całego słownika:
+    // Odwołaj się do całego słownika:
     fullNestedContent: nest("key_of_my_first_dictionary"),
-    // Odwołanie do określonej wartości zagnieżdżonej:
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
+
+    // Lub odwołaj się do konkretnej wartości zagnieżdżonej:
+    partialNestedContent: nest("key_of_my_first_dictionary", "mySubContent"),
   },
 } satisfies Dictionary;
 
-export default myNestingContent;
+export default mySecondDictionary;
 ```
 
-```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+```json5 fileName="secondDictionary.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "key_of_my_second_dictionary",
@@ -100,28 +103,28 @@ export default myNestingContent;
     "fullNestedContent": {
       "nodeType": "nested",
       "nested": {
-        "dictionaryKey": "key_of_my_first_dictionary"
-      }
+        "dictionaryKey": "key_of_my_first_dictionary",
+      },
     },
     "partialNestedContent": {
       "nodeType": "nested",
       "nested": {
         "dictionaryKey": "key_of_my_first_dictionary",
-        "path": "subContent.contentNumber"
-      }
-    }
-  }
+        "path": "mySubContent",
+      },
+    },
+  },
 }
 ```
 
-Jako drugi parametr możesz określić ścieżkę do wartości zagnieżdżonej w ramach tej zawartości. Jeśli nie zostanie podana żadna ścieżka, zwracana jest cała zawartość odwoływanego słownika.
+Jako drugi parametr możesz określić ścieżkę do wartości zagnieżdżonej w ramach tej zawartości. Jeśli nie zostanie podana żadna ścieżka, zwracana jest cała zawartość wskazanego słownika.
 
-## Konfiguracja zagnieżdżania
+## Używanie zagnieżdżania
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use nested content in a React component, leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified key. Here's an example of how to use it:
+Aby użyć zagnieżdżonej treści w komponencie React, skorzystaj z hooka `useIntlayer` z pakietu `react-intlayer`. Hook ten pobiera odpowiednią treść na podstawie podanego klucza. Oto przykład użycia:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -134,8 +137,8 @@ const NestComponent: FC = () => {
 
   return (
     <div>
-      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
-      <p>Partial Nested Value: {partialNestedContent}</p>
+      <p>Pełna zagnieżdżona treść: {JSON.stringify(fullNestedContent)}</p>
+      <p>Częściowa zagnieżdżona wartość: {partialNestedContent}</p>
     </div>
   );
 };
@@ -146,7 +149,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use nested content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć zagnieżdżonej treści w komponentach klienckich Next.js (Client Components), pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -161,8 +164,8 @@ const NestComponent: FC = () => {
 
   return (
     <div>
-      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
-      <p>Partial Nested Value: {partialNestedContent}</p>
+      <p>{JSON.stringify(fullNestedContent)}</p>
+      <p>{partialNestedContent}</p>
     </div>
   );
 };
@@ -173,7 +176,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use nested content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć zagnieżdżonej treści w komponentach Vue, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -186,8 +189,8 @@ const { fullNestedContent, partialNestedContent } = useIntlayer(
 
 <template>
   <div>
-    <p>Full Nested Content: {{ JSON.stringify(fullNestedContent) }}</p>
-    <p>Partial Nested Value: {{ partialNestedContent }}</p>
+    <p>{{ JSON.stringify(fullNestedContent) }}</p>
+    <p>{{ partialNestedContent }}</p>
   </div>
 </template>
 ```
@@ -195,7 +198,7 @@ const { fullNestedContent, partialNestedContent } = useIntlayer(
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use nested content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Aby użyć zagnieżdżonej treści w komponentach Svelte, pobierz ją za pomocą hooka `useIntlayer`. Dostęp do magazynu (store) uzyskujemy przez `$`. Oto przykład:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -205,15 +208,15 @@ const content = useIntlayer("key_of_my_second_dictionary");
 </script>
 
 <div>
-  <p>Full Nested Content: {JSON.stringify($content.fullNestedContent)}</p>
-  <p>Partial Nested Value: {$content.partialNestedContent}</p>
+  <p>{JSON.stringify($content.fullNestedContent)}</p>
+  <p>{$content.partialNestedContent}</p>
 </div>
 ```
 
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use nested content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć zagnieżdżonej treści w komponentach Preact, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -226,8 +229,8 @@ const NestComponent: FC = () => {
 
   return (
     <div>
-      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
-      <p>Partial Nested Value: {partialNestedContent}</p>
+      <p>{JSON.stringify(fullNestedContent)}</p>
+      <p>{partialNestedContent}</p>
     </div>
   );
 };
@@ -238,7 +241,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use nested content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć zagnieżdżonej treści w komponentach SolidJS, pobierz ją za pomocą hooka `useIntlayer`. Oto przykład:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -251,8 +254,8 @@ const NestComponent: Component = () => {
 
   return (
     <div>
-      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
-      <p>Partial Nested Value: {partialNestedContent}</p>
+      <p>{JSON.stringify(fullNestedContent)}</p>
+      <p>{partialNestedContent}</p>
     </div>
   );
 };
@@ -263,7 +266,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use nested content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć zagnieżdżonej treści w komponentach Angular, pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -273,23 +276,24 @@ import { useIntlayer } from "angular-intlayer";
   selector: "app-nest",
   template: `
     <div>
-      <p>
-        Full Nested Content: {{ JSON.stringify(content().fullNestedContent) }}
-      </p>
-      <p>Partial Nested Value: {{ content().partialNestedContent }}</p>
+      <p>{{ fullNestedContent }}</p>
+      <p>{{ content().partialNestedContent }}</p>
     </div>
   `,
 })
 export class NestComponent {
   content = useIntlayer("key_of_my_second_dictionary");
-  JSON = JSON;
+
+  get fullNestedContent() {
+    return JSON.stringify(this.content().fullNestedContent);
+  }
 }
 ```
 
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use nested content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Aby użyć zagnieżdżonej treści w czystym JavaScript (`vanilla-intlayer`), pobierz ją za pomocą funkcji `useIntlayer`. Oto przykład:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -298,13 +302,19 @@ installIntlayer();
 
 const content = useIntlayer("key_of_my_second_dictionary").onChange(
   (newContent) => {
-    document.getElementById("nested")!.textContent =
+    document.getElementById("full-nested-content")!.textContent =
+      JSON.stringify(newContent.fullNestedContent);
+    document.getElementById("partial-nested-content")!.textContent =
       newContent.partialNestedContent;
   }
 );
 
-// Initial render
-document.getElementById("nested")!.textContent = content.partialNestedContent;
+// Pierwsze renderowanie
+document.getElementById("full-nested-content")!.textContent = JSON.stringify(
+  content.fullNestedContent
+);
+document.getElementById("partial-nested-content")!.textContent =
+  content.partialNestedContent;
 ```
 
   </Tab>
@@ -318,4 +328,4 @@ Aby uzyskać bardziej szczegółowe informacje na temat konfiguracji i użytkowa
 - [Dokumentacja React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
 - [Dokumentacja Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
 
-Te zasoby dostarczają dodatkowych informacji na temat konfiguracji i użytkowania Intlayer w różnych środowiskach oraz z różnymi frameworkami.
+Te zasoby oferują dodatkowe informacje na temat konfiguracji i użytkowania Intlayer w różnych środowiskach oraz frameworkach.

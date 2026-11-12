@@ -37,8 +37,8 @@ import {
 } from './useMembersFormSchema';
 
 const getUserNames = (users: UserAPI[], id: UserAPI['id'] | string): string => {
-  const user = users.find((u) => String(u.id) === String(id));
-  return user?.name ?? user?.email ?? String(id);
+  const user = users.find((userEl) => String(userEl.id) === String(id));
+  return user?.name ?? user?.email ?? '…';
 };
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -106,7 +106,7 @@ const MemberDetailView: FC<MemberDetailViewProps> = ({
     <div className="flex flex-col gap-6 p-4">
       {/* Environment access */}
       <div className="flex flex-col gap-3">
-        <Label className="font-semibold text-sm">
+        <Label className="text-sm font-semibold">
           {content.environmentAccess}
         </Label>
         <Radio
@@ -152,7 +152,7 @@ const MemberDetailView: FC<MemberDetailViewProps> = ({
 
       {/* Locale access */}
       <div className="flex flex-col gap-3">
-        <Label className="font-semibold text-sm">{content.localeAccess}</Label>
+        <Label className="text-sm font-semibold">{content.localeAccess}</Label>
         <Radio
           id={`locale-all-${userId}`}
           name={`localeRestrict-${userId}`}
@@ -274,6 +274,8 @@ const AccessControlModal: FC<AccessControlModalProps> = ({
       title={title}
       size="md"
       padding="md"
+      border
+      borderColor="neutral"
     >
       {selectedUserId ? (
         <MemberDetailView
@@ -305,7 +307,7 @@ const AccessControlModal: FC<AccessControlModalProps> = ({
                 className="flex-row flex-wrap justify-between gap-2"
               >
                 <div className="flex flex-col gap-2">
-                  <span className="font-medium text-sm">
+                  <span className="text-sm font-medium">
                     {getUserNames(users, memberId)}
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -450,7 +452,7 @@ export const MembersForm: FC = () => {
               ))}
             </div>
             {remainingCount > 0 && (
-              <span className="ms-1 text-neutral text-xs">
+              <span className="ms-1 text-xs text-neutral">
                 +{remainingCount}
               </span>
             )}

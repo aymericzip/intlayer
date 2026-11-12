@@ -1,4 +1,5 @@
 import { pull } from '@intlayer/cli';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { window } from 'vscode';
 import { pullCommand } from '../commands/pullCommand';
 import { getConfigurationOptions } from '../utils/getConfiguration';
@@ -34,7 +35,7 @@ export const pullDictionary = async (node?: IntlayerTreeNode) => {
     await window.showInformationMessage(`${prefix}Pulled ${key}`);
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Pull failed: ${(error as Error).message}`
+      `${prefix}Pull failed: ${extractErrorMessage(error)}`
     );
   }
 };

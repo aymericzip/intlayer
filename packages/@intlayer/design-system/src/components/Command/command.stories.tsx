@@ -289,8 +289,8 @@ export const EmptyState: Story = {
           <Command.Empty>
             <div className="py-6 text-center">
               <Search className="mx-auto mb-2 h-8 w-8 text-gray-400" />
-              <p className="text-gray-500 text-sm">No commands found.</p>
-              <p className="mt-1 text-gray-400 text-xs">
+              <p className="text-sm text-gray-500">No commands found.</p>
+              <p className="mt-1 text-xs text-gray-400">
                 Try searching for calendar, settings, or profile.
               </p>
             </div>
@@ -607,7 +607,7 @@ export const InteractiveSearch: Story = {
             <Command.Empty>
               <div className="py-6 text-center">
                 <Search className="mx-auto mb-2 h-6 w-6 text-gray-400" />
-                <p className="text-gray-500 text-sm">No matching commands</p>
+                <p className="text-sm text-gray-500">No matching commands</p>
               </div>
             </Command.Empty>
 

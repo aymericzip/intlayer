@@ -1,11 +1,5 @@
 export type { Tool } from 'ai';
-export {
-  generateText,
-  jsonSchema,
-  stepCountIs,
-  streamText,
-  tool,
-} from 'ai';
+export { generateText, jsonSchema, stepCountIs, streamText, tool } from 'ai';
 export * from './aiSdk';
 export {
   type AuditDictionaryMetadataOptions,

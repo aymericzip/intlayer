@@ -2,10 +2,8 @@ import { createIntlayerCMS, type DictionaryAPI } from '@intlayer/api';
 import { dictionaryEndpoint } from '@intlayer/api/dictionary';
 import { getAppLogger, x } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
-import { retryManager } from '@intlayer/config/utils';
+import { chunkArray, parallelize, retryManager } from '@intlayer/config/utils';
 import type { DictionariesStatus } from './loadDictionaries';
-import { chunkArray } from './utils/chunkArray';
-import { parallelize } from './utils/parallelize';
 
 /**
  * Number of dictionaries requested per HTTP call. Must stay under the batch
@@ -209,20 +207,19 @@ export const fetchDistantDictionaries = async (
         );
 
         onStatusUpdate?.(
-          batchKeys.map(
-            (dictionaryKey): DictionariesStatus =>
-              fetchedKeys.has(dictionaryKey)
-                ? {
-                    dictionaryKey,
-                    type: 'remote',
-                    status: 'fetched',
-                  }
-                : {
-                    dictionaryKey,
-                    type: 'remote',
-                    status: 'error',
-                    error: `Dictionary ${dictionaryKey} not found on remote`,
-                  }
+          batchKeys.map((dictionaryKey): DictionariesStatus =>
+            fetchedKeys.has(dictionaryKey)
+              ? {
+                  dictionaryKey,
+                  type: 'remote',
+                  status: 'fetched',
+                }
+              : {
+                  dictionaryKey,
+                  type: 'remote',
+                  status: 'error',
+                  error: `Dictionary ${dictionaryKey} not found on remote`,
+                }
           )
         );
 

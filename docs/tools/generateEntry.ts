@@ -72,21 +72,17 @@ const categories: CategoryConfig[] = [
 /* -------------------------------------------------------------------------- */
 
 /**
- * Format content using Biome CLI. Falls back to the original content if Biome
- * is unavailable or formatting fails for any reason.
+ * Format content using the oxfmt CLI. Falls back to the original content if
+ * oxfmt is unavailable or formatting fails for any reason.
  */
-const formatWithBiome = async (
+const formatWithOxfmt = async (
   content: string,
   filePathForConfig: string
 ): Promise<string> => {
   try {
-    const child = spawn(
-      'biome',
-      ['format', '--stdin-file-path', filePathForConfig],
-      {
-        stdio: ['pipe', 'pipe', 'pipe'],
-      }
-    );
+    const child = spawn('oxfmt', [`--stdin-filepath=${filePathForConfig}`], {
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
 
     let stdout = '';
     let stderr = '';
@@ -111,7 +107,7 @@ const formatWithBiome = async (
         if (code === 0) {
           resolve(stdout);
         } else {
-          reject(new Error(stderr || `biome exited with code ${code}`));
+          reject(new Error(stderr || `oxfmt exited with code ${code}`));
         }
       });
     });
@@ -217,7 +213,7 @@ const buildEntryContent = (
     `  };`,
     ``,
     `  return {`,
-    `    // biome-ignore lint/suspicious/noThenProperty: the thenable is intentional — \`await\` is what triggers the lazy read.`,
+    `    // oxlint-disable-next-line unicorn/no-thenable -- the thenable is intentional — \`await\` is what triggers the lazy read.`,
     `    then: (onFulfilled, onRejected) => read().then(onFulfilled, onRejected),`,
     `    catch: (onRejected) => read().catch(onRejected),`,
     `    finally: (onFinally) => read().finally(onFinally),`,
@@ -266,8 +262,8 @@ const generate = async () => {
     const entryContent = buildEntryContent(cfg, englishFiles);
     await mkdir(dirname(cfg.entryFilePath), { recursive: true });
 
-    /* ----------------------------- format with Biome ----------------------------- */
-    const formattedEntryContent = await formatWithBiome(
+    /* ----------------------------- format with oxfmt ----------------------------- */
+    const formattedEntryContent = await formatWithOxfmt(
       entryContent,
       cfg.entryFilePath
     );

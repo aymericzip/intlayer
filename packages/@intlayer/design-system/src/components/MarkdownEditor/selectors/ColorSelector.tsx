@@ -92,7 +92,7 @@ export const ColorSelector: FC = () => {
           e.preventDefault();
           setIsOpen((prev) => !prev);
         }}
-        className="flex items-center gap-1 whitespace-nowrap rounded-none px-3 py-1.5 text-sm hover:bg-accent"
+        className="flex items-center gap-1 rounded-none px-3 py-1.5 text-sm whitespace-nowrap hover:bg-accent"
       >
         <span
           className="rounded-sm px-1 font-medium"
@@ -108,7 +108,7 @@ export const ColorSelector: FC = () => {
 
       {isOpen && (
         <div className="absolute inset-s-0 top-[calc(100%+0.5rem)] z-50 flex w-40 flex-col rounded-md border bg-popover p-1 shadow-md">
-          <div className="mb-1 px-2 font-semibold text-muted-foreground text-xs">
+          <div className="mb-1 px-2 text-xs font-semibold text-muted-foreground">
             {content.colorHeading.value}
           </div>
           {TEXT_COLORS.map(({ name, color }) => (
@@ -140,7 +140,7 @@ export const ColorSelector: FC = () => {
             </button>
           ))}
 
-          <div className="mt-2 mb-1 px-2 font-semibold text-muted-foreground text-xs">
+          <div className="mt-2 mb-1 px-2 text-xs font-semibold text-muted-foreground">
             {content.highlightHeading.value}
           </div>
           {HIGHLIGHT_COLORS.map(({ name, color }) => (

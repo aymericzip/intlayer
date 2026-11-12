@@ -1,5 +1,6 @@
 import { createServerFn } from '@tanstack/react-start';
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
+import { createRevalidatedMemo } from '~/utils/createRevalidatedMemo';
 
 const GITHUB_REPOSITORY_URL =
   'https://api.github.com/repos/aymericzip/intlayer';
@@ -36,51 +37,16 @@ const fetchGithubStars = async (): Promise<number | null> => {
 };
 
 /**
- * How long a fetched star count stays fresh. The number moves slowly enough
- * that a day-old value is indistinguishable from a live one, and refreshing it
- * more often would spend the GitHub quota on a decoration.
+ * How long a fetched star count stays fresh. Revalidated globally on the
+ * server rather than per browser, so GitHub's 60 requests/hour unauthenticated
+ * quota stays out of the picture whatever the traffic.
  */
-const GITHUB_STARS_REVALIDATION_INTERVAL_MS = 24 * 60 * 60 * 1000;
+const GITHUB_STARS_REVALIDATION_INTERVAL_MS = 6 * 60 * 60 * 1000;
 
-type MemoizedGithubStars = {
-  readonly stars: Promise<number | null>;
-  readonly fetchedAt: number;
-};
-
-/**
- * The single count the whole site reads: every page, every locale and every
- * visitor is answered from this memo, and GitHub is called again only once it
- * has aged past a day. GitHub caps unauthenticated callers at 60 requests an
- * hour, so revalidating globally here — rather than per browser — keeps the
- * quota out of the picture whatever the traffic.
- *
- * A failed attempt is deliberately not memoized, so a rate-limited or timed-out
- * call is retried by the next caller instead of freezing a starless navbar into
- * the whole build.
- */
-let memoizedGithubStars: MemoizedGithubStars | null = null;
-
-const fetchGithubStarsCached = async (): Promise<number | null> => {
-  const now = Date.now();
-
-  if (
-    memoizedGithubStars === null ||
-    now - memoizedGithubStars.fetchedAt >= GITHUB_STARS_REVALIDATION_INTERVAL_MS
-  ) {
-    memoizedGithubStars = { stars: fetchGithubStars(), fetchedAt: now };
-  }
-
-  const memoized = memoizedGithubStars;
-  const stars = await memoized.stars;
-
-  // Only drop the entry this call installed: a concurrent call may already have
-  // replaced it with a newer one while this request was in flight.
-  if (stars === null && memoizedGithubStars === memoized) {
-    memoizedGithubStars = null;
-  }
-
-  return stars;
-};
+const fetchGithubStarsCached = createRevalidatedMemo(
+  fetchGithubStars,
+  GITHUB_STARS_REVALIDATION_INTERVAL_MS
+);
 
 /**
  * Resolved at build time: `staticFunctionMiddleware` writes the result to
@@ -101,7 +67,7 @@ export const loadGithubStars = createServerFn()
  * static middleware so the call reaches the server rather than the build-time
  * payload. The navbar calls it once per page load, and the server answers every
  * caller from the memo above — the count a visitor sees is therefore the same
- * one everybody else sees, refreshed once a day for the whole site rather than
+ * one everybody else sees, refreshed every 6 hours for the whole site rather than
  * once per browser.
  */
 export const revalidateGithubStars = createServerFn({

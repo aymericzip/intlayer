@@ -2,9 +2,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@intlayer/core/interpreter', async (importOriginal) => {
-  const { icuToIntlayerFormatter } = await import(
-    '@intlayer/core/messageFormat'
-  );
+  const { icuToIntlayerFormatter } =
+    await import('@intlayer/core/messageFormat');
 
   // What `getIntlayer` hands the translator for an ICU-formatted dictionary:
   // the build already ran the ICU converter, so the content is intlayer nodes

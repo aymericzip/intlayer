@@ -103,7 +103,7 @@ export const EditProjectModal = ({
             {...form}
           >
             <ProjectFormFields form={form} />
-            {error && <p className="text-error text-sm">{error}</p>}
+            {error && <p className="text-sm text-error">{error}</p>}
             <div className="flex gap-3 pt-4">
               <Button
                 type="button"

@@ -161,7 +161,7 @@ export const router = createRouter({
 
 The middleware also keeps the request context in an `AsyncLocalStorage` scope,
 so the hooks read the locale ambiently — same signatures as `react-intlayer`,
-usable in route handlers, views and `remix/ui` components alike:
+usable in route handlers, views and `remix/component` components alike:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";

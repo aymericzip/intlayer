@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Next.js Pages Router の i18n：翻訳の完全ガイド"
 description: "Next.js の Pages Router に Intlayer を導入：getStaticPaths によるローカライズされたルート、翻訳済みのページとコンポーネント、hreflang とサイトマップ。"
@@ -63,14 +63,14 @@ author: aymericzip
 
 <TOC/>
 
-## 代替手段ではなく Interlayer を使用する理由
+## なぜ他の選択肢ではなく Intlayer なのか？
 
 「next-intl」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
 <AccordionGroup>
 <Accordion header="Next.js を完全にカバー">
 
-Intlayer は、効率的なレンダリングのために **サーバー コンポーネント** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックせず、ミドルウェアとスケーリング国際化 (i18n) に必要なすべての機能を提供します。
+Intlayer は、効率的なレンダリングのために **Server Components** と連携するように最適化されており、[**Turbopack**](https://nextjs.org/docs/architecture/turbopack) と完全に互換性があります。静的レンダリングをブロックすることなく、プロキシミドルウェアや大規模な国際化 (i18n) に必要なすべての機能を提供します。
 
 > Intlayer は Next.js 12、13、14、15、および 16 と互換性があります。 Next.js Pages Router を使用している場合は、この [ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_page_router.md) を参照してください。
 > ロケール ルーティングは、SEO、バンドル サイズ、パフォーマンスに役立ちます。必要ない場合は、この[ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)を参照してください。
@@ -83,17 +83,17 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 </Accordion>
 <Accordion header="バンドルサイズ">
 
-大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
+巨大な JSON ファイルをページ全体に読み込む代わりに、必要なコンテンツのみをロードします。Intlayer は**バンドルサイズとページ容量を最大 50% 削減**します。
 
 </Accordion>
 <Accordion header="保守性">
 
-アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツコードベース全体を確認するという認知的負荷を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全な型安全性（TypeScript 型定義）**を提供し、コンテンツの正確性を保証します。
 
 </Accordion>
 <Accordion header="AI エージェント">
 
-コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)** などのツール スイートも付属しています。および **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+コンテンツをコンポーネントと同一ディレクトリに配置（Co-location）すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)** などのツールスイートも付属しています。および **[エージェントスキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
@@ -102,21 +102,21 @@ Intlayer は、効率的なレンダリングのために **サーバー コン�
 </Accordion>
 <Accordion header="オートメーション">
 
-AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
+自前の AI プロバイダーの API 利用料のみで、好みの LLM を使って CI/CD パイプライン内で翻訳を自動化します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンド翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
 
 - [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
 
-大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+大量の JSON ファイルをコンポーネントに接続すると、レンダリングパフォーマンスの低下や反応性の遅延を引き起こす可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 </Accordion>
 <Accordion header="非開発によるスケーリング">
 
-Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+Intlayer は単なる i18n ソリューションではなく、**セルフホスト可能な[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチームメンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
-- [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
 - [完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
@@ -715,17 +715,17 @@ return (
 
 > ドキュメント参照:
 >
-> - [`getLocaleName` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getHTMLTextDir.md)
+> - [`getLocaleName` 関数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` 関数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` 関数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-- [`getLocaleName` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocaleName.md)
-- [`getLocalizedUrl` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
-- [`getHTMLTextDir` フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getHTMLTextDir.md)
+- [`getLocaleName` 関数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocaleName.md)
+- [`getLocalizedUrl` 関数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
+- [`getHTMLTextDir` 関数](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getHTMLTextDir.md)
 
 </Step>
 <Step number={10} title="ローカライズされたリンクコンポーネントの作成">
@@ -901,7 +901,7 @@ Pages Router は引き続き `next.config.js` の組み込み `i18n` フィー�
 
 - **`next-i18next` / `i18next`** および **`next-intl`**：ページごとに読み込まれる JSON 名前空間で、Pages Router との歴史的なペアリングです。
 - **`react-intl`** および **`Lingui`**：抽出ステップを伴う ICU メッセージです。
-- **`Intlayer`**：最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、コンポーネントごとにコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**：最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、コンポーネントごとにコンパイルされ、完全な型安全性を備え、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)および [Next.js i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)を参照してください。
 

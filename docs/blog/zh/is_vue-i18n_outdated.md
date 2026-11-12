@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: 2026 年，vue-i18n 已经过时了吗？
 description: vue-i18n 在过去十年中一直是 Vue 和 Nuxt 的标准配置。但在我们的基准测试中，它却是主流框架中最庞大的 i18n 运行时。本文将探讨其深层原因。
@@ -147,7 +147,7 @@ style="border:none;"
 
 要规避这一开销，开发者必须手动在打包器中为 `vue-i18n/dist/vue-i18n.runtime.esm-bundler.js` 配置别名，并借助 `@intlify/unplugin-vue-i18n` 实施预编译。但在实际工程中，这一步骤经常被遗漏。
 
-### 单体式功能捆绑
+### 单体式功能打包
 
 `vue-i18n` 集成了日期和数字格式化工具、链式消息、传统 Options API 兼容垫片（`$t`、`v-t`）以及响应式 Proxy 逻辑。即便你的组件只是在 `<script setup>` 中读取普通字符串，也必须全盘加载。
 

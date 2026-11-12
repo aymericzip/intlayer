@@ -1,8 +1,8 @@
 import '../globals.css';
 import { getHTMLTextDir } from 'intlayer';
-import { Inter } from 'next/font/google';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { IntlayerProvider } from 'next-intlayer';
+import { Inter } from 'next/font/google';
 
 export { generateStaticParams } from 'next-intlayer';
 

@@ -4,7 +4,6 @@ import type {
   LocalesValues,
   ProviderVariant,
 } from '@intlayer/types/module_augmentation';
-
 import type { FC, PropsWithChildren } from 'react';
 import { createServerContext, getServerContext } from './serverContext';
 

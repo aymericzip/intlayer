@@ -25,8 +25,8 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
-        <H2 className="font-bold text-text text-xl">{content.moreProjects}</H2>
-        <p className="text-neutral text-xs">
+        <H2 className="text-xl font-bold text-text">{content.moreProjects}</H2>
+        <p className="text-xs text-neutral">
           {content.moreProjectsDescription}
         </p>
       </div>
@@ -55,7 +55,7 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
             transparency="lg"
             className="size-full min-h-36 flex-col items-center justify-center"
           >
-            <p className="text-neutral text-sm italic">
+            <p className="text-sm text-neutral italic">
               {content.noProjectsFound}
             </p>
           </Container>

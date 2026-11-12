@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: getLocalizedUrl 函数文档 | intlayer
 description: "使用 getLocalizedUrl 为相对或绝对 URL 添加语言前缀，遵循你的路由模式和默认语言设置。"

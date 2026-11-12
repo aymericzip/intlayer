@@ -1,7 +1,19 @@
+import type {
+  AnalyticsAnnotation,
+  AnalyticsAnnotationType,
+  AnalyticsReport,
+  AnalyticsRoutes,
+  AnalyticsSchemaInfo,
+} from '@intlayer/backend-contract/analytics';
+import { ANALYTICS_ANNOTATION_TYPES } from '@intlayer/backend-contract/analytics';
 import * as analyticsService from '@services/analytics.service';
+import * as analyticsReportService from '@services/analyticsReport.service';
+import type { ContractRequest } from '@utils/contract/registerContractRoutes';
 import { verifyPublicBrowserTokenScope } from '@utils/crypto/publicBrowserToken';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { isBotRequest } from '@utils/isBotRequest';
+import { hasPermission } from '@utils/permissions';
+import { resolveRequestGeo } from '@utils/requestGeo';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Types } from 'mongoose';
@@ -11,31 +23,26 @@ import type {
   AudienceStats,
   ContentStatRow,
   ExperimentResult,
+  LiveVisitorFlow,
+  PageFlow,
   IncomingAnalyticsEvent,
   PageMetadata,
 } from '@/types/analytics.types';
 
+/**
+ * Whether the session may read the active project's analytics. OAuth2 access
+ * keys need the `analytics:read` grant on top of their creator's role.
+ */
+const canReadAnalytics = (request: FastifyRequest): boolean =>
+  Boolean(
+    hasPermission(
+      request.session?.roles ?? [],
+      'analytics:read'
+    )(request.session ?? {})
+  );
+
 /** Hard cap on events accepted per ingestion request. */
 const MAX_EVENTS_PER_BATCH = 1000;
-
-/**
- * Extracts an ISO country code from common CDN/proxy geo headers, falling back
- * to `ZZ` (unknown). No IP address is read or stored.
- */
-const resolveCountry = (request: FastifyRequest): string => {
-  const header = (name: string): string | undefined => {
-    const value = request.headers[name];
-    return Array.isArray(value) ? value[0] : value;
-  };
-
-  const country =
-    header('cf-ipcountry') ??
-    header('x-vercel-ip-country') ??
-    header('x-country-code') ??
-    header('x-appengine-country');
-
-  return country && country !== 'XX' ? country.toUpperCase() : 'ZZ';
-};
 
 export type IngestAnalyticsBody = {
   /**
@@ -125,7 +132,7 @@ export const ingestAnalyticsEvents = async (
     const boundedEvents = events.slice(0, MAX_EVENTS_PER_BATCH);
     await analyticsService.ingestEvents(projectId, boundedEvents, {
       sessionId,
-      country: resolveCountry(request),
+      ...resolveRequestGeo(request),
     });
 
     return reply.status(200).send(
@@ -149,6 +156,10 @@ export const getAnalyticsOverview = async (
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -176,6 +187,10 @@ export const getContentStats = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
   }
 
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
   try {
     const data = await analyticsService.getContentStats(
       new Types.ObjectId(String(project.id))
@@ -198,6 +213,10 @@ export const getExperimentResults = async (
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -235,10 +254,40 @@ const resolveAudienceRange = (query: {
 };
 
 /**
+ * Authenticated — page journey of one visitor active in the last 30 minutes,
+ * for the live map. Answers `visitor: null` once the session went quiet.
+ */
+export const getLiveVisitorFlow = async (
+  request: FastifyRequest<{ Params: { visitorId: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const data = await analyticsService.getLiveVisitorFlow(
+      new Types.ObjectId(String(project.id)),
+      request.params.visitorId
+    );
+    return reply.status(200).send(formatResponse<LiveVisitorFlow>({ data }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
  * Authenticated — audience report for the active project: distinct visitors
  * (today / 7d / window), page views, the evolution series, and locale +
- * country breakdowns. Accepts an optional `?range=` window (`1h`, `24h`, `7d`,
- * `30d`, `90d`, `6mo`, `1y`, `3y`; default `30d`) or the legacy `?days=`.
+ * country breakdowns. Accepts an optional `?range=` window (`live`, `1h`,
+ * `24h`, `7d`, `30d`, `90d`, `6mo`, `1y`, `3y`; default `30d`) or the legacy
+ * `?days=`.
  */
 export const getAnalyticsAudience = async (
   request: FastifyRequest<{ Querystring: { range?: string; days?: string } }>,
@@ -250,12 +299,74 @@ export const getAnalyticsAudience = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
   }
 
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
   try {
     const data = await analyticsService.getAudience(
       new Types.ObjectId(String(project.id)),
       resolveAudienceRange(request.query ?? {})
     );
     return reply.status(200).send(formatResponse<AudienceStats>({ data }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
+ * Whether a URL belongs to the project's application origin. Metadata is only
+ * fetched for the project's own pages, never for arbitrary hosts.
+ *
+ * @param url - Absolute page URL.
+ * @param applicationUrl - The project's configured application URL.
+ */
+export const isProjectPageUrl = (
+  url: string,
+  applicationUrl: string | undefined
+): boolean => {
+  if (!applicationUrl) return false;
+
+  try {
+    return new URL(url).origin === new URL(applicationUrl).origin;
+  } catch {
+    return false;
+  }
+};
+
+/** Longest starting page accepted — matches the ingested url cap. */
+const MAX_START_URL_LENGTH = 512;
+
+/**
+ * Authenticated — averaged page-to-page navigation flow from a starting page
+ * (`?startUrl=`, default `/`) over the `?range=` window.
+ */
+export const getPageFlow = async (
+  request: FastifyRequest<{
+    Querystring: { range?: string; startUrl?: string };
+  }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  const startUrl =
+    request.query?.startUrl?.slice(0, MAX_START_URL_LENGTH) || '/';
+
+  try {
+    const data = await analyticsService.getPageFlow(
+      new Types.ObjectId(String(project.id)),
+      resolveAudienceRange(request.query ?? {}),
+      startUrl
+    );
+    return reply.status(200).send(formatResponse<PageFlow>({ data }));
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
@@ -272,6 +383,10 @@ export const getPageMetadata = async (
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   const rawUrl = request.query?.url?.trim();
@@ -305,10 +420,175 @@ export const getPageMetadata = async (
     }
   }
 
+  if (
+    !isProjectPageUrl(targetUrl, project.configuration?.editor?.applicationURL)
+  ) {
+    return reply
+      .status(200)
+      .send(
+        formatResponse<PageMetadata>({ data: { title: '', description: '' } })
+      );
+  }
+
   try {
     const data = await analyticsService.getPageMetadata(targetUrl);
     return reply.status(200).send(formatResponse<PageMetadata>({ data }));
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
+ * Answers a report error with the reasons, so API and MCP clients can fix
+ * the request; anything else goes through the generic error handling.
+ */
+const handleReportError = (reply: FastifyReply, error: unknown): void => {
+  if (error instanceof analyticsReportService.AnalyticsReportError) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'INVALID_REQUEST_BODY',
+      { message: error.message, issues: error.issues }
+    );
+  }
+
+  return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+};
+
+/**
+ * Authenticated — dimensions, metrics and their compatibility, retention,
+ * locales and experiments of the active project.
+ */
+export const getAnalyticsSchema = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const data = await analyticsReportService.getSchemaInfo(
+      new Types.ObjectId(String(project.id)),
+      (project.configuration?.internationalization?.locales ?? []).map(String)
+    );
+    return reply
+      .status(200)
+      .send(formatResponse<AnalyticsSchemaInfo>({ data }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
+ * Authenticated — aggregated report of the active project: metrics broken
+ * down by dimensions over one to four date ranges.
+ */
+export const runAnalyticsReport = async (
+  request: ContractRequest<AnalyticsRoutes['runAnalyticsReport']>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const data = await analyticsReportService.runReport(
+      new Types.ObjectId(String(project.id)),
+      request.body
+    );
+    return reply.status(200).send(formatResponse<AnalyticsReport>({ data }));
+  } catch (error) {
+    return handleReportError(reply, error);
+  }
+};
+
+/**
+ * Authenticated — aggregated activity of the active project over the last
+ * minutes (up to one hour).
+ */
+export const runAnalyticsRealtimeReport = async (
+  request: ContractRequest<AnalyticsRoutes['runAnalyticsRealtimeReport']>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const data = await analyticsReportService.runRealtimeReport(
+      new Types.ObjectId(String(project.id)),
+      request.body
+    );
+    return reply.status(200).send(formatResponse<AnalyticsReport>({ data }));
+  } catch (error) {
+    return handleReportError(reply, error);
+  }
+};
+
+/** Parses the comma-separated `types` query, dropping unknown values. */
+const parseAnnotationTypes = (
+  types: string | undefined
+): AnalyticsAnnotationType[] | undefined =>
+  types
+    ?.split(',')
+    .map((type) => type.trim())
+    .filter((type): type is AnalyticsAnnotationType =>
+      (ANALYTICS_ANNOTATION_TYPES as readonly string[]).includes(type)
+    );
+
+/**
+ * Authenticated — dated content and traffic events of the active project,
+ * to explain changes in its reports.
+ */
+export const getAnalyticsAnnotations = async (
+  request: ContractRequest<AnalyticsRoutes['getAnalyticsAnnotations']>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  if (!canReadAnalytics(request)) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  const { startDate, endDate, types, limit } = request.query ?? {};
+  const parsedLimit = limit ? Number.parseInt(limit, 10) : undefined;
+
+  try {
+    const data = await analyticsReportService.getAnnotations(
+      new Types.ObjectId(String(project.id)),
+      {
+        startDate,
+        endDate,
+        types: parseAnnotationTypes(types),
+        limit: Number.isFinite(parsedLimit) ? parsedLimit : undefined,
+      }
+    );
+    return reply
+      .status(200)
+      .send(formatResponse<AnalyticsAnnotation[]>({ data }));
+  } catch (error) {
+    return handleReportError(reply, error);
   }
 };

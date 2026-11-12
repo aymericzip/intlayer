@@ -20,14 +20,14 @@ export const MigrationSuggestion: FunctionComponent<{
 
   return (
     <section className="rounded-xl border border-text/10 bg-card px-3 py-2.5">
-      <h2 className="mt-0 mb-1 font-semibold text-sm">{title}</h2>
-      <p className="mt-0 mb-2 text-neutral text-xs">{description}</p>
+      <h2 className="mt-0 mb-1 text-sm font-semibold">{title}</h2>
+      <p className="mt-0 mb-2 text-xs text-neutral">{description}</p>
       <ul className="m-0 flex list-none flex-col gap-1 p-0">
         {links.map((link) => (
           <li key={link.url}>
             <button
               type="button"
-              className="flex w-full cursor-pointer items-center gap-1 rounded-md bg-transparent px-1 py-0.5 text-start text-text text-xs hover:bg-text/5"
+              className="flex w-full cursor-pointer items-center gap-1 rounded-md bg-transparent px-1 py-0.5 text-start text-xs text-text hover:bg-text/5"
               onClick={() => openGuide(link.url)}
             >
               <span>

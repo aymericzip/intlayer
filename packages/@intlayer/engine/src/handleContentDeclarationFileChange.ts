@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
 import { getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
@@ -12,20 +12,28 @@ import { createModuleAugmentation } from './createType/createModuleAugmentation'
 import { loadLocalDictionaries } from './loadDictionaries/loadLocalDictionaries';
 import { formatPath } from './utils/formatter';
 
-export const handleContentDeclarationFileChange = async (
-  filePath: string,
+/**
+ * Rebuilds the dictionaries declared in a batch of changed content declaration
+ * files. Types, module augmentation, entry points and plugins run once for the
+ * whole batch, however many files changed.
+ */
+export const handleContentDeclarationFilesChange = async (
+  filePaths: string[],
   config: IntlayerConfig
 ) => {
+  if (filePaths.length === 0) return;
+
   const appLogger = getAppLogger(config);
 
-  // Process the file with the functionToRun
-  appLogger(`Change detected: ${formatPath(filePath)}`, {
-    isVerbose: true,
-  });
+  for (const filePath of filePaths) {
+    appLogger(`Change detected: ${formatPath(filePath)}`, {
+      isVerbose: true,
+    });
+  }
 
   const allDictionariesPaths: string[] = await getBuiltDictionariesPath(config);
 
-  const localeDictionaries = await loadLocalDictionaries(filePath, config);
+  const localeDictionaries = await loadLocalDictionaries(filePaths, config);
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
   const updatedDictionaries = Object.values(
@@ -35,11 +43,25 @@ export const handleContentDeclarationFileChange = async (
     (dictionary) => dictionary.dictionaryPath
   );
 
-  const { excludeKeys, hasRebuilt } = await cleanRemovedContentDeclaration(
-    filePath,
-    localeDictionaries.map((dictionary) => dictionary.key),
-    config
-  );
+  const excludeKeys: string[] = [];
+  let hasRebuilt = false;
+
+  // Sequential: each cleanup reads and rewrites the shared unmerged dictionaries
+  for (const filePath of filePaths) {
+    const relativeFilePath = relative(config.system.baseDir, filePath);
+    const fileKeys = localeDictionaries
+      .filter((dictionary) => dictionary.filePath === relativeFilePath)
+      .map((dictionary) => dictionary.key);
+
+    const cleanResult = await cleanRemovedContentDeclaration(
+      filePath,
+      fileKeys,
+      config
+    );
+
+    excludeKeys.push(...cleanResult.excludeKeys);
+    hasRebuilt ||= cleanResult.hasRebuilt;
+  }
 
   const hasNewDictionaries = updatedDictionariesPaths.some(
     (updatedDictionaryPath) =>
@@ -69,16 +91,13 @@ export const handleContentDeclarationFileChange = async (
 
   // Rebuild Entry Point
   // Only needed when the *list* of dictionaries changed (Add/Remove/Rename).
+  // Each cleanup only excluded its own keys, so the entry point is rebuilt
+  // with the keys removed across the whole batch (unchanged files are skipped).
   if (hasRebuilt || hasNewDictionaries) {
-    // If hasRebuilt is true, cleanRemovedContentDeclaration has already updated the entry point
-    // to remove the old keys (and it likely included the new ones if they were already on disk).
-    // If NOT hasRebuilt, we explicitly need to update the entry point to include the new dictionaries.
-    if (!hasRebuilt) {
-      await createDictionaryEntryPoint(config, { excludeKeys });
-      appLogger('Dictionary list built', {
-        isVerbose: true,
-      });
-    }
+    await createDictionaryEntryPoint(config, { excludeKeys });
+    appLogger('Dictionary list built', {
+      isVerbose: true,
+    });
   }
 
   // Force-write the entry point files so esbuild detects a change and triggers a fresh rebuild
@@ -110,3 +129,12 @@ export const handleContentDeclarationFileChange = async (
     });
   }
 };
+
+/**
+ * Rebuilds the dictionaries declared in a single changed content declaration
+ * file.
+ */
+export const handleContentDeclarationFileChange = async (
+  filePath: string,
+  config: IntlayerConfig
+) => await handleContentDeclarationFilesChange([filePath], config);

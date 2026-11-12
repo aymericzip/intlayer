@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   DEFAULT_INIT_STEPS,
+  getContentInitOptions,
   getInitialInitSteps,
   getInitOptionsForSteps,
   getRoutingInitOptions,
@@ -11,6 +12,7 @@ import {
   INIT_STEP_GROUPS,
   init,
   isEslintInstalled,
+  isPrettierInstalled,
   LOCALE_ROUTING_CHOICES,
   OPT_IN_INIT_STEPS,
   parseLocaleRoutingChoice,
@@ -48,6 +50,48 @@ describe('getRoutingInitOptions', () => {
       routingMode: 'no-prefix',
       enableProxy: false,
     });
+  });
+});
+
+describe('getContentInitOptions', () => {
+  it('returns no option without --content', () => {
+    expect(getContentInitOptions()).toEqual({});
+  });
+
+  it('maps a layout and a format it accepts', () => {
+    expect(getContentInitOptions('Namespaces', 'po')).toEqual({
+      contentLayout: 'namespaces',
+      contentFormat: 'po',
+    });
+  });
+
+  it('rejects a format the layout does not accept', () => {
+    expect(() => getContentInitOptions('multilingual', 'po')).toThrow(
+      '--content-format'
+    );
+  });
+
+  it('maps a message format for json catalogs', () => {
+    expect(getContentInitOptions('centralized', undefined, 'Vue-i18n')).toEqual(
+      {
+        contentLayout: 'centralized',
+        contentFormat: undefined,
+        contentMessageFormat: 'vue-i18n',
+      }
+    );
+  });
+
+  it('rejects a message format outside json catalogs', () => {
+    expect(() => getContentInitOptions('namespaces', 'po', 'icu')).toThrow(
+      '--message-format'
+    );
+    expect(() => getContentInitOptions('multilingual', 'json', 'icu')).toThrow(
+      '--message-format'
+    );
+  });
+
+  it('rejects --content-format without --content', () => {
+    expect(() => getContentInitOptions(undefined, 'json')).toThrow('--content');
   });
 });
 
@@ -127,6 +171,18 @@ describe('getInitialInitSteps', () => {
   });
 });
 
+describe('isPrettierInstalled', () => {
+  it('detects prettier in dependencies', () => {
+    expect(isPrettierInstalled({ prettier: '^3.0.0' })).toBe(true);
+    expect(isPrettierInstalled({ eslint: '^9.0.0' })).toBe(false);
+  });
+
+  it('preselects the prettier step only when prettier is installed', () => {
+    expect(getInitialInitSteps({ prettier: '^3.0.0' })).toContain('prettier');
+    expect(getInitialInitSteps({})).not.toContain('prettier');
+  });
+});
+
 describe('getInitOptionsForSteps', () => {
   it('only installs the packages and sets up the framework by default', () => {
     expect(getInitOptionsForSteps(DEFAULT_INIT_STEPS)).toEqual({
@@ -137,6 +193,7 @@ describe('getInitOptionsForSteps', () => {
       noVscodeExtension: true,
       noLsp: true,
       noEslint: true,
+      noPrettier: true,
       skipFinalMessage: false,
     });
   });

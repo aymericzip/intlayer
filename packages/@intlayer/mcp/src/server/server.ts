@@ -3,11 +3,13 @@ import { dirname as pathDirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isESModule } from '@intlayer/config/utils';
 import { z } from 'zod/mini';
+import { loadAnalyticsTools } from '../tools/analytics';
 import { loadAPITools } from '../tools/api';
 import { loadCLITools } from '../tools/cli';
 import { loadDocsTools } from '../tools/docs';
 import { loadInstallLSPTool } from '../tools/installLSP';
 import { loadInstallSkillsTool } from '../tools/installSkills';
+import { type McpRequestContext, mcpRequestContext } from './requestContext';
 
 export const dirname: string = isESModule
   ? pathDirname(fileURLToPath(import.meta.url))
@@ -68,7 +70,17 @@ export class McpServer {
     });
   }
 
-  async handleMessage(message: any): Promise<any> {
+  /**
+   * Handles one JSON-RPC message.
+   *
+   * @param message - The JSON-RPC message.
+   * @param context - Authentication of the transport request, visible to tool
+   *   handlers through {@link mcpRequestContext}.
+   */
+  async handleMessage(
+    message: any,
+    context: McpRequestContext = {}
+  ): Promise<any> {
     const { id, method, params } = message;
     const isNotification = id === undefined;
 
@@ -110,7 +122,9 @@ export class McpServer {
           };
         }
         try {
-          const result = await tool.handler(args ?? {});
+          const result = await mcpRequestContext.run(context, () =>
+            tool.handler(args ?? {})
+          );
           if (isNotification) return null;
           return { jsonrpc: '2.0', id, result };
         } catch (error) {
@@ -169,10 +183,20 @@ export const loadServer: LoadServer = ({ isLocal }) => {
     console.error('Error loading docs tools:', error);
   }
 
+  // Server env credentials are only a fallback for a local server: a hosted
+  // one must authenticate every caller from its own request headers.
+  const apiToolsOptions = { allowEnvironmentCredentials: isLocal };
+
   try {
-    loadAPITools(server);
+    loadAPITools(server, apiToolsOptions);
   } catch (error) {
     console.error('Error loading API tools:', error);
+  }
+
+  try {
+    loadAnalyticsTools(server, apiToolsOptions);
+  } catch (error) {
+    console.error('Error loading analytics tools:', error);
   }
 
   return server;

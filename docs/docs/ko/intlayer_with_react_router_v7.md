@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "React Router v7 i18n - 앱을 번역하는 완전 가이드"
 description: "React Router v7에 Intlayer 설정: 현지화된 라우트 세그먼트, 번역된 로더와 컴포넌트, hreflang, 다국어 사이트맵."
@@ -50,53 +50,53 @@ author: aymericzip
 
 <TOC/>
 
-## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
+## 왜 다른 대안 대신 Intlayer인가요?
 
-'react-i18next' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
+`react-i18next`나 `i18next`와 같은 주요 솔루션과 비교할 때, Intlayer는 다음과 같은 통합된 최적화를 제공합니다:
 
 <AccordionGroup>
-<Accordion header="전체 React Router 적용 범위">
+<Accordion header="React Router v7 완벽 지원">
 
-Intlayer는 **로케일 인식 라우팅**, **로케일 감지를 위한 미들웨어** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 React Router와 완벽하게 작동하도록 최적화되었습니다.
+Intlayer는 **로케일 인식 라우팅**, **로케일 감지 미들웨어** 및 국제화(i18n) 확장에 필요한 모든 기능을 제공하여 React Router와 완벽하게 작동하도록 최적화되었습니다.
 
 </Accordion>
 <Accordion header="번들 크기">
 
-대용량 JSON 파일을 페이지에 로드하는 대신 필요한 콘텐츠만 로드하세요. Intlayer는 **번들 및 페이지 크기를 최대 50%** 줄이는 데 도움이 됩니다.
+페이지에 대용량 JSON 파일을 로드하는 대신, 꼭 필요한 콘텐츠만 로드합니다. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 기여합니다.
 
 </Accordion>
-<Accordion header="유지관리성">
+<Accordion header="유지보수성">
 
-애플리케이션 콘텐츠의 범위를 지정하면 대규모 애플리케이션의 **유지 관리가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 정신적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 **완전히 유형**되어 콘텐츠의 정확성을 보장합니다.
+애플리케이션 콘텐츠의 범위를 컴포넌트 단위로 분할하여 **대규모 애플리케이션의 유지보수를 원활하게** 합니다. 전체 콘텐츠 코드베이스를 전부 검토해야 하는 인지적 부담 없이 단일 기능 폴더를 간편하게 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 **완전한 TypeScript 타입 지원**을 통해 콘텐츠 선언의 정확성을 보장합니다.
 
 </Accordion>
 <Accordion header="AI 에이전트">
 
-콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
+콘텐츠 선언을 컴포넌트와 동일한 위치에 두는 것(Co-location)은 대형 언어 모델(LLM)에 필요한 **컨텍스트 크기를 크게 줄여줍니다**. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등 일련의 도구를 지원하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 매끄럽게 만듭니다.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
 
 </Accordion>
-<Accordion header="오토메이션">
+<Accordion header="자동화">
 
-AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인을 번역하려면 자동화를 사용하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
+CI/CD 파이프라인에서 원하는 LLM을 사용하여 자체 AI 제공업체의 API 비용만으로 번역을 손쉽게 자동화할 수 있습니다. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러**와 함께 **백그라운드에서 편리하게 번역할 수 있는** [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
 
 - [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능">
 
-대규모 JSON 파일을 구성 요소에 연결하면 성능 및 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시 콘텐츠 로딩을 최적화합니다.
+대규모 JSON 파일을 컴포넌트에 직접 연결하면 렌더링 성능 저하와 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시점에 콘텐츠 로딩을 최적화하여 이를 해결합니다.
 
 </Accordion>
-<Accordion header="개발자가 없는 경우 확장">
+<Accordion header="비개발자와의 협업 및 확장 (Scaling with non-dev)">
 
-Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는 **자체 호스팅 [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)** 및 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공합니다. 다국어 콘텐츠를 **실시간**으로 제공하여 번역가, 카피라이터, 기타 팀원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
+단순한 i18n 솔루션 이상의 가치를 제공하기 위해, Intlayer는 **자체 호스팅 가능한 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 지원합니다. 이를 통해 번역가, 카피라이터 및 팀원들과 **실시간**으로 다국어 콘텐츠를 매끄럽게 관리할 수 있습니다. 콘텐츠는 로컬 및/또는 원격에 안전하게 보관할 수 있습니다.
 
-- [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
-- [전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -349,9 +349,9 @@ export default [
 ```
 
 </Tab>
-<Tab label="File-system routes" value="fs-routes">
+<Tab label="파일 시스템 라우트" value="fs-routes">
 
-Set up your routing configuration to use file-system based routes with `flatRoutes`:
+`flatRoutes`를 사용하여 파일 시스템 기반 라우트를 사용하도록 라우팅 구성을 설정합니다:
 
 ```typescript fileName="app/routes.ts"
 import type { RouteConfig } from "@react-router/dev/routes";
@@ -359,7 +359,7 @@ import { flatRoutes } from "@react-router/fs-routes";
 import { configuration } from "intlayer";
 
 const routes: RouteConfig = flatRoutes({
-  // Ignore content declaration files from being treated as routes
+  // 콘텐츠 선언 파일이 라우트로 처리되지 않도록 무시합니다
   ignoredRouteFiles: configuration.content.fileExtensions.map(
     (fileExtension) => `**/*${fileExtension}`
   ),
@@ -368,7 +368,7 @@ const routes: RouteConfig = flatRoutes({
 export default routes;
 ```
 
-> The `flatRoutes` function from `@react-router/fs-routes` enables file-system based routing, where the file structure in the `routes/` directory determines your application's routes. The `ignoredRouteFiles` option ensures that Intlayer content declaration files (`.content.ts`, etc.) are not treated as route files.
+> `@react-router/fs-routes`의 `flatRoutes` 함수는 파일 시스템 기반 라우팅을 활성화하여 `routes/` 디렉토리의 파일 구조가 애플리케이션의 라우트를 결정하도록 합니다. `ignoredRouteFiles` 옵션은 Intlayer 콘텐츠 선언 파일(`.content.ts` 등)이 라우트 파일로 잘못 처리되지 않도록 보장합니다.
 
 </Tab>
 </Tabs>
@@ -968,55 +968,55 @@ bun run build # 또는 bun run dev
 
 </Steps>
 
-## Configure TypeScript
+## TypeScript 설정
 
-Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
+Intlayer는 모듈 증강(module augmentation)을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
 
-Ensure your TypeScript configuration includes the autogenerated types:
+TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요:
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... your existing configurations
+  // ... 기존 설정
   include: [
-    // ... your existing includes
-    ".intlayer/**/*.ts", // Include the auto-generated types
+    // ... 기존 include 항목
+    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
   ],
 }
 ```
 
-## Git Configuration
+## Git 설정
 
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+Intlayer에서 생성된 파일은 Git 저장소에 커밋되지 않도록 무시하는 것을 권장합니다.
 
-To do this, you can add the following instructions to your `.gitignore` file:
+이를 위해 `.gitignore` 파일에 다음 내용을 추가하세요:
 
 ```plaintext fileName=".gitignore"
 # Intlayer에서 생성된 파일 무시
 .intlayer
 ```
 
-## VS Code Extension
+## VS Code 확장 프로그램
 
-To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+Intlayer를 사용한 개발 경험을 개선하기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
 
-- [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+- [VS Code 마켓플레이스에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-This extension provides:
+이 확장 프로그램은 다음 기능을 제공합니다:
 
-- **Autocompletion** for translation keys.
-- **Real-time error detection** for missing translations.
-- **Inline previews** of translated content.
-- **Quick actions** to easily create and update translations.
+- 번역 키에 대한 **자동 완성**
+- 누락된 번역에 대한 **실시간 오류 감지**
+- 번역된 콘텐츠의 **인라인 미리보기**
+- 번역을 손쉽게 생성하고 업데이트할 수 있는 **빠른 작업(Quick actions)**
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md).
+확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
-- [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+- [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
 
-## Go Further
+## 더 알아보기
 
-To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md).
+더 나아가 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부에서 관리할 수 있습니다.
 
-- [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ## 문서 참조

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Вкладеність: повторне використання контенту між словниками"
 description: "Посилайтеся з одного словника на інший за допомогою вузла nest() в Intlayer, щоб використовувати спільний контент без дублювання перекладів."
@@ -146,7 +146,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use nested content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вкладений контент у клієнтських компонентах Next.js, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -173,7 +173,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use nested content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вкладений контент у компонентах Vue, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -195,7 +195,7 @@ const { fullNestedContent, partialNestedContent } = useIntlayer(
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use nested content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Щоб використовувати вкладений контент у компонентах Svelte, отримайте його за допомогою хука `useIntlayer`. Доступ до сховища здійснюється через `$`. Ось приклад:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -213,7 +213,7 @@ const content = useIntlayer("key_of_my_second_dictionary");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use nested content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вкладений контент у компонентах Preact, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -238,7 +238,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use nested content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вкладений контент у компонентах SolidJS, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -263,7 +263,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use nested content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вкладений контент у компонентах Angular, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -289,7 +289,7 @@ export class NestComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use nested content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Щоб використовувати вкладений контент із `vanilla-intlayer`, отримайте його за допомогою хука `useIntlayer`. Ось приклад:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

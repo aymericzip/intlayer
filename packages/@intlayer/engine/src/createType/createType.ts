@@ -1,11 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { parallelize } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
   Dictionary,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
-import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 
 export const generateTypeScriptType = (

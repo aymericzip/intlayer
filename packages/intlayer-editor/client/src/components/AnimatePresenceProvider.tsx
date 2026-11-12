@@ -1,8 +1,6 @@
-'use client';
-
 import { domAnimation, LazyMotion } from 'framer-motion';
-import type { FC, PropsWithChildren } from 'react';
+import type { FunctionComponent } from 'preact';
 
-export const AnimatePresenceProvider: FC<PropsWithChildren> = ({
-  children,
-}) => <LazyMotion features={domAnimation}>{children}</LazyMotion>;
+export const AnimatePresenceProvider: FunctionComponent = ({ children }) => (
+  <LazyMotion features={domAnimation}>{children}</LazyMotion>
+);

@@ -9,7 +9,7 @@ export const useKeyboardDetector = () => {
     const updateHeight = () => {
       const isKeyboardOpen = Boolean(
         window.visualViewport?.height &&
-          window.visualViewport.height < window.innerHeight - 100
+        window.visualViewport.height < window.innerHeight - 100
       );
 
       if (isKeyboardOpen && window.visualViewport) {

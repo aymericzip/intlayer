@@ -6,7 +6,6 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-
 import { TagList } from '#components/Dashboard/TagForm/TagList';
 
 export const Route = createFileRoute(

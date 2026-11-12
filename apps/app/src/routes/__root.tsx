@@ -1,6 +1,7 @@
 import { Loader } from '@intlayer/design-system/loader';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { Toaster } from '@intlayer/design-system/toaster';
+import { getGoogleAnalyticsHeadScripts } from '@intlayer/design-system/utils';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
@@ -15,14 +16,22 @@ import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
 import { PostHogProvider } from '#/providers/PostHogProvider';
 import { ThemeProvider } from '#/providers/ThemeProvider';
-import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { WebMCPTools } from '#components/WebMCP';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 import { getRootStructuredDataScripts } from '#utils/structuredData';
+import appCss from '#/styles.css?url';
 
 const localeRoute = getRouteApi('/{-$locale}');
+
+/**
+ * Deferred GA4 tag; empty when `VITE_GOOGLE_ANALYTICS_ID` is unset (local dev,
+ * previews).
+ */
+const googleAnalyticsScripts = getGoogleAnalyticsHeadScripts(
+  import.meta.env.VITE_GOOGLE_ANALYTICS_ID
+);
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -122,7 +131,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
             ]
           : []),
       ],
-      scripts: [...structuredDataScripts],
+      scripts: [...structuredDataScripts, ...googleAnalyticsScripts],
     };
   },
   shellComponent: RootDocument,
@@ -137,7 +146,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth text-text leading-6 transition md:flex">
+      <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth leading-6 text-text transition md:flex">
         <IntlayerProvider locale={locale}>
           <PostHogProvider>
             <AnimatePresenceProvider>

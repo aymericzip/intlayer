@@ -14,6 +14,6 @@ export const SafeHtmlRenderer = ({ rawContent }: { rawContent: string }) => {
 
   if (!cleanHtml) return <div />;
 
-  // biome-ignore lint/security/noDangerouslySetInnerHtml: sanitize
+  // oxlint-disable-next-line react/no-danger -- sanitize
   return <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />;
 };

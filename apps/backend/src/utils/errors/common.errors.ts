@@ -5,6 +5,51 @@ import type { ErrorCode } from './errorCodes.types';
  * Common-related error codes.
  */
 export const commonErrors = {
+  AI_CONFIGURATION_REQUIRED: {
+    title: {
+      en: 'AI configuration required',
+      'en-GB': 'AI configuration required',
+      fr: 'Configuration IA requise',
+      es: 'Se requiere configuración de IA',
+      ru: 'Требуется настройка ИИ',
+      ja: 'AI設定が必要です',
+      ko: 'AI 설정 필요',
+      zh: '需要 AI 配置',
+      de: 'KI-Konfiguration erforderlich',
+      ar: 'إعداد الذكاء الاصطناعي مطلوب',
+      it: 'Configurazione IA richiesta',
+      pt: 'Configuração de IA necessária',
+      hi: 'एआई कॉन्फ़िगरेशन आवश्यक है',
+      tr: 'Yapay zeka yapılandırması gerekli',
+      pl: 'Wymagana konfiguracja AI',
+      id: 'Konfigurasi AI diperlukan',
+      vi: 'Cần cấu hình AI',
+      uk: 'Потрібне налаштування ШІ',
+    },
+    message: {
+      en: 'This self-hosted instance does not provide an AI key. Set an AI provider and API key in the project settings (or in your intlayer.config ai options) to use AI features.',
+      'en-GB':
+        'This self-hosted instance does not provide an AI key. Set an AI provider and API key in the project settings (or in your intlayer.config ai options) to use AI features.',
+      fr: 'Cette instance auto-hébergée ne fournit pas de clé IA. Définissez un fournisseur IA et une clé API dans les paramètres du projet (ou dans les options ai de votre intlayer.config) pour utiliser les fonctionnalités IA.',
+      es: 'Esta instancia autoalojada no proporciona una clave de IA. Configura un proveedor de IA y una clave API en la configuración del proyecto (o en las opciones ai de tu intlayer.config) para usar las funciones de IA.',
+      ru: 'Этот self-hosted экземпляр не предоставляет ключ ИИ. Укажите провайдера ИИ и API-ключ в настройках проекта (или в опциях ai вашего intlayer.config), чтобы использовать функции ИИ.',
+      ja: 'このセルフホスト環境ではAIキーは提供されません。AI機能を使うには、プロジェクト設定（またはintlayer.configのaiオプション）でAIプロバイダーとAPIキーを設定してください。',
+      ko: '이 셀프 호스팅 인스턴스는 AI 키를 제공하지 않습니다. AI 기능을 사용하려면 프로젝트 설정(또는 intlayer.config의 ai 옵션)에서 AI 제공업체와 API 키를 설정하세요.',
+      zh: '此自托管实例不提供 AI 密钥。请在项目设置（或 intlayer.config 的 ai 选项）中设置 AI 服务商和 API 密钥以使用 AI 功能。',
+      de: 'Diese selbst gehostete Instanz stellt keinen KI-Schlüssel bereit. Legen Sie in den Projekteinstellungen (oder in den ai-Optionen Ihrer intlayer.config) einen KI-Anbieter und API-Schlüssel fest, um KI-Funktionen zu nutzen.',
+      ar: 'هذه النسخة المستضافة ذاتيًا لا توفر مفتاح ذكاء اصطناعي. حدّد مزود الذكاء الاصطناعي ومفتاح API في إعدادات المشروع (أو في خيارات ai في intlayer.config) لاستخدام ميزات الذكاء الاصطناعي.',
+      it: 'Questa istanza self-hosted non fornisce una chiave IA. Imposta un provider IA e una chiave API nelle impostazioni del progetto (o nelle opzioni ai del tuo intlayer.config) per usare le funzioni IA.',
+      pt: 'Esta instância auto-hospedada não fornece uma chave de IA. Defina um provedor de IA e uma chave de API nas configurações do projeto (ou nas opções ai do seu intlayer.config) para usar os recursos de IA.',
+      hi: 'यह सेल्फ-होस्टेड इंस्टेंस एआई कुंजी प्रदान नहीं करता। एआई सुविधाओं के लिए प्रोजेक्ट सेटिंग्स (या intlayer.config के ai विकल्पों) में एआई प्रदाता और API कुंजी सेट करें।',
+      tr: 'Bu kendi barındırılan örnek bir yapay zeka anahtarı sağlamaz. Yapay zeka özelliklerini kullanmak için proje ayarlarında (veya intlayer.config ai seçeneklerinde) bir yapay zeka sağlayıcısı ve API anahtarı belirleyin.',
+      pl: 'Ta samodzielnie hostowana instancja nie udostępnia klucza AI. Ustaw dostawcę AI i klucz API w ustawieniach projektu (lub w opcjach ai pliku intlayer.config), aby korzystać z funkcji AI.',
+      id: 'Instans self-hosted ini tidak menyediakan kunci AI. Atur penyedia AI dan kunci API di pengaturan proyek (atau di opsi ai intlayer.config) untuk memakai fitur AI.',
+      vi: 'Phiên bản tự lưu trữ này không cung cấp khóa AI. Hãy đặt nhà cung cấp AI và khóa API trong cài đặt dự án (hoặc trong tùy chọn ai của intlayer.config) để dùng tính năng AI.',
+      uk: 'Цей self-hosted екземпляр не надає ключ ШІ. Укажіть постачальника ШІ та API-ключ у налаштуваннях проєкту (або в опціях ai вашого intlayer.config), щоб користуватися функціями ШІ.',
+    },
+    statusCode: HttpStatusCodes.FORBIDDEN_403,
+  },
+
   QUERY_FAILED: {
     title: {
       en: 'Query failed',

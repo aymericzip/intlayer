@@ -91,11 +91,11 @@ export const ReviewerMissionPage: FC<ReviewerMissionPageProps> = ({
             color="text"
             variant="hoverable"
             label={content.missionTitle.value}
-            className="mb-2 w-fit text-neutral text-xs"
+            className="mb-2 w-fit text-xs text-neutral"
           >
             ← {content.missionTitle}
           </Link>
-          <p className="mt-1 text-neutral text-xs">
+          <p className="mt-1 text-xs text-neutral">
             <span className="sr-only">{content.missionIdLabel.value} </span>
             {mission.id}
           </p>
@@ -172,7 +172,7 @@ export const ReviewerMissionPage: FC<ReviewerMissionPageProps> = ({
             </div>
             <div className="mt-1">
               <dt className="sr-only">{content.totalPriceDtLabel.value}</dt>
-              <dd className="font-semibold text-base">
+              <dd className="text-base font-semibold">
                 ${(mission.totalPrice / 100).toFixed(2)}{' '}
                 {mission.currency.toUpperCase()}
               </dd>
@@ -297,7 +297,7 @@ export const ReviewerMissionPage: FC<ReviewerMissionPageProps> = ({
             gap="md"
             aria-label={content.reviewSectionAriaLabel.value}
           >
-            <p className="font-medium text-sm">{content.leaveReview}</p>
+            <p className="text-sm font-medium">{content.leaveReview}</p>
             <fieldset
               aria-label={`${content.starRatingGroupPrefix.value} ${rating} ${content.starRatingGroupSuffix.value}`}
               className="m-0 flex gap-1 border-none p-0"
@@ -366,14 +366,14 @@ export const ReviewerMissionPage: FC<ReviewerMissionPageProps> = ({
         className="flex flex-1 flex-col overflow-hidden"
         aria-label={content.chatAriaLabel.value}
       >
-        <div className="flex items-center justify-between border-neutral/20 border-b px-4 py-3">
-          <p className="font-semibold text-sm">{content.chat}</p>
+        <div className="flex items-center justify-between border-b border-neutral/20 px-4 py-3">
+          <p className="text-sm font-semibold">{content.chat}</p>
           <Link
             to={Marketplace_Dashboard_Path as any}
             color="text"
             variant="hoverable"
             label={content.missionTitle.value}
-            className="text-neutral text-xs"
+            className="text-xs text-neutral"
           >
             ← {content.missionTitle}
           </Link>

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-
 import { CopyButton } from '.';
 
 /**
@@ -191,7 +190,7 @@ export const DifferentSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <div className="text-center">
-        <div className="mb-2 font-medium text-sm">Extra Small</div>
+        <div className="mb-2 text-sm font-medium">Extra Small</div>
         <CopyButton
           content="Extra small copy button"
           size="icon-sm"
@@ -199,7 +198,7 @@ export const DifferentSizes: Story = {
         />
       </div>
       <div className="text-center">
-        <div className="mb-2 font-medium text-sm">Medium</div>
+        <div className="mb-2 text-sm font-medium">Medium</div>
         <CopyButton
           content="Medium copy button"
           size="icon-md"
@@ -207,7 +206,7 @@ export const DifferentSizes: Story = {
         />
       </div>
       <div className="text-center">
-        <div className="mb-2 font-medium text-sm">Large</div>
+        <div className="mb-2 text-sm font-medium">Large</div>
         <CopyButton
           content="Large copy button"
           size="icon-lg"
@@ -215,7 +214,7 @@ export const DifferentSizes: Story = {
         />
       </div>
       <div className="text-center">
-        <div className="mb-2 font-medium text-sm">Extra Large</div>
+        <div className="mb-2 text-sm font-medium">Extra Large</div>
         <CopyButton
           content="Extra large copy button"
           size="icon-xl"
@@ -248,7 +247,7 @@ export const ButtonVariants: Story = {
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-3">
-          <h3 className="font-medium text-sm">Light Variants</h3>
+          <h3 className="text-sm font-medium">Light Variants</h3>
           <div className="flex items-center gap-3 rounded-lg border bg-white p-4">
             <CopyButton
               content="Default variant"
@@ -269,7 +268,7 @@ export const ButtonVariants: Story = {
         </div>
 
         <div className="space-y-3">
-          <h3 className="font-medium text-sm">Dark Background</h3>
+          <h3 className="text-sm font-medium">Dark Background</h3>
           <div className="flex items-center gap-3 rounded-lg bg-gray-900 p-4">
             <CopyButton
               content="Default on dark"
@@ -376,10 +375,10 @@ export const CopyFeedbackDemo: Story = {
               className="flex items-center justify-between rounded-lg border border-gray-200 p-3 hover:bg-gray-50"
             >
               <div className="me-4 flex-1">
-                <div className="mb-1 font-medium text-gray-900 text-sm">
+                <div className="mb-1 text-sm font-medium text-gray-900">
                   {item.label}
                 </div>
-                <div className="break-all rounded bg-gray-100 p-2 font-mono text-gray-600 text-xs">
+                <div className="rounded bg-gray-100 p-2 font-mono text-xs break-all text-gray-600">
                   {item.content}
                 </div>
               </div>
@@ -393,7 +392,7 @@ export const CopyFeedbackDemo: Story = {
           ))}
         </div>
 
-        <div className="rounded bg-gray-50 p-3 text-gray-500 text-xs">
+        <div className="rounded bg-gray-50 p-3 text-xs text-gray-500">
           <strong>Note:</strong> Click any copy button to see the feedback
           animation. The icon will briefly change to a check mark and the
           activity monitor will update.
@@ -429,25 +428,25 @@ export const DisabledState: Story = {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-6">
         <div>
-          <h3 className="mb-3 font-medium text-sm">Normal State</h3>
+          <h3 className="mb-3 text-sm font-medium">Normal State</h3>
           <div className="flex items-center gap-3">
             <CopyButton
               content="This can be copied"
               label="Copy available content"
             />
-            <span className="text-gray-600 text-sm">Ready to copy</span>
+            <span className="text-sm text-gray-600">Ready to copy</span>
           </div>
         </div>
 
         <div>
-          <h3 className="mb-3 font-medium text-sm">Disabled State</h3>
+          <h3 className="mb-3 text-sm font-medium">Disabled State</h3>
           <div className="flex items-center gap-3">
             <CopyButton
               content="This cannot be copied"
               label="Copy unavailable (disabled)"
               disabled
             />
-            <span className="text-gray-500 text-sm">Copy not available</span>
+            <span className="text-sm text-gray-500">Copy not available</span>
           </div>
         </div>
       </div>
@@ -551,8 +550,8 @@ export const KeyboardNavigation: Story = {
               className="flex items-center justify-between rounded-lg border border-gray-300 p-3"
             >
               <div className="flex-1">
-                <div className="font-medium text-sm">{content}</div>
-                <div className="mt-1 text-gray-500 text-xs">
+                <div className="text-sm font-medium">{content}</div>
+                <div className="mt-1 text-xs text-gray-500">
                   Use keyboard to focus and copy this content
                 </div>
               </div>
@@ -566,8 +565,8 @@ export const KeyboardNavigation: Story = {
         </div>
 
         <div className="rounded-lg bg-gray-50 p-3">
-          <h4 className="mb-2 font-medium text-sm">Keyboard Action Log:</h4>
-          <div className="max-h-24 space-y-1 overflow-y-auto text-gray-600 text-xs">
+          <h4 className="mb-2 text-sm font-medium">Keyboard Action Log:</h4>
+          <div className="max-h-24 space-y-1 overflow-y-auto text-xs text-gray-600">
             {keyboardActions.length === 0 ? (
               <div>Use keyboard to interact with copy buttons above</div>
             ) : (
@@ -613,30 +612,30 @@ export const ScreenReaderSupport: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="mb-2 font-medium text-sm">Standard Copy Button</h3>
+          <h3 className="mb-2 text-sm font-medium">Standard Copy Button</h3>
           <CopyButton
             content="Standard content to copy"
             label="Copy standard content to clipboard"
           />
-          <div className="mt-1 text-gray-500 text-xs">
+          <div className="mt-1 text-xs text-gray-500">
             Screen reader announces: "Copy standard content to clipboard,
             button"
           </div>
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-sm">Context-Specific Label</h3>
+          <h3 className="mb-2 text-sm font-medium">Context-Specific Label</h3>
           <CopyButton
             content="https://api.example.com/v1/users"
             label="Copy API endpoint URL"
           />
-          <div className="mt-1 text-gray-500 text-xs">
+          <div className="mt-1 text-xs text-gray-500">
             Screen reader announces: "Copy API endpoint URL, button"
           </div>
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-sm">
+          <h3 className="mb-2 text-sm font-medium">
             With Additional Description
           </h3>
           <div>
@@ -645,14 +644,14 @@ export const ScreenReaderSupport: Story = {
               label="Copy API key"
               aria-describedby="api-key-help"
             />
-            <div id="api-key-help" className="mt-1 text-gray-500 text-xs">
+            <div id="api-key-help" className="mt-1 text-xs text-gray-500">
               Keep this API key secure and do not share it publicly
             </div>
           </div>
         </div>
       </div>
 
-      <div className="rounded bg-blue-50 p-4 text-gray-600 text-sm">
+      <div className="rounded bg-blue-50 p-4 text-sm text-gray-600">
         <strong>Screen Reader Features:</strong>
         <ul className="mt-2 space-y-1">
           <li>• Dynamic label updates when copy succeeds/fails</li>
@@ -702,7 +701,7 @@ export const CodeDocumentation: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="mb-2 font-semibold text-lg">Installation</h3>
+          <h3 className="mb-2 text-lg font-semibold">Installation</h3>
           <div className="relative">
             <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
               <code>npm install @intlayer/design-system</code>
@@ -717,7 +716,7 @@ export const CodeDocumentation: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-semibold text-lg">Basic Usage</h3>
+          <h3 className="mb-2 text-lg font-semibold">Basic Usage</h3>
           <div className="relative">
             <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
               <code>{`import { CopyButton } from '@intlayer/design-system/copy-button';
@@ -750,7 +749,7 @@ function MyComponent() {
         </div>
 
         <div>
-          <h3 className="mb-2 font-semibold text-lg">Configuration</h3>
+          <h3 className="mb-2 text-lg font-semibold">Configuration</h3>
           <div className="relative">
             <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
               <code>{`{
@@ -832,7 +831,7 @@ export const APIReferenceInterface: Story = {
       <div className="space-y-6">
         <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
           <h3 className="mb-2 font-medium">API Reference</h3>
-          <div className="text-gray-600 text-sm">
+          <div className="text-sm text-gray-600">
             Copy endpoints and curl examples for quick testing.
             {copiedEndpoint && (
               <div className="mt-2 font-medium text-green-600">
@@ -848,11 +847,11 @@ export const APIReferenceInterface: Story = {
               key={index}
               className="overflow-hidden rounded-lg border border-gray-200"
             >
-              <div className="border-gray-200 border-b bg-gray-50 px-4 py-3">
+              <div className="border-b border-gray-200 bg-gray-50 px-4 py-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span
-                      className={`rounded px-2 py-1 font-medium text-xs ${
+                      className={`rounded px-2 py-1 text-xs font-medium ${
                         endpoint.method === 'GET'
                           ? 'bg-green-100 text-green-700'
                           : endpoint.method === 'POST'
@@ -871,14 +870,14 @@ export const APIReferenceInterface: Story = {
                     onClick={() => setCopiedEndpoint(endpoint.path)}
                   />
                 </div>
-                <div className="mt-1 text-gray-600 text-sm">
+                <div className="mt-1 text-sm text-gray-600">
                   {endpoint.description}
                 </div>
               </div>
 
               <div className="p-4">
                 <div className="mb-2 flex items-center justify-between">
-                  <h4 className="font-medium text-sm">cURL Example</h4>
+                  <h4 className="text-sm font-medium">cURL Example</h4>
                   <CopyButton
                     content={endpoint.example}
                     label="Copy cURL example"
@@ -886,7 +885,7 @@ export const APIReferenceInterface: Story = {
                     onClick={() => setCopiedEndpoint(endpoint.example)}
                   />
                 </div>
-                <pre className="overflow-x-auto rounded bg-gray-900 p-3 text-gray-100 text-sm">
+                <pre className="overflow-x-auto rounded bg-gray-900 p-3 text-sm text-gray-100">
                   <code>{endpoint.example}</code>
                 </pre>
               </div>

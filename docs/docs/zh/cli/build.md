@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer build：构建字典"
 description: 了解如何从内容声明文件构建您的 Intlayer 字典。

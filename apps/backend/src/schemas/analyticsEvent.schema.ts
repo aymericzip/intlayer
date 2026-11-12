@@ -1,6 +1,10 @@
 import type { RenameId } from '@utils/mongoDB/types';
 import { type Model, model, Schema } from 'mongoose';
 import type {
+  AnalyticsLiveActivity,
+  AnalyticsPageTransition,
+  AnalyticsPageTransitionSchema,
+  AnalyticsLiveActivitySchema,
   AnalyticsRollup,
   AnalyticsRollupSchema,
   AnalyticsShortTermRollup,
@@ -18,6 +22,12 @@ const VISITOR_TTL_SECONDS = 400 * 24 * 60 * 60;
  * for clock skew and late flushes is dead weight.
  */
 const SHORT_TERM_TTL_SECONDS = 50 * 60 * 60;
+
+/**
+ * Retention for per-minute live activity — 1 hour. The `live` view reads the
+ * last 30 minutes; the rest is margin for late flushes.
+ */
+const LIVE_ACTIVITY_TTL_SECONDS = 60 * 60;
 
 /**
  * Pre-aggregated daily analytics counters. Ingestion increments these in bulk;
@@ -191,3 +201,91 @@ export const AnalyticsShortTermRollupModel = model<
   'analyticsShortTermRollup',
   analyticsShortTermRollupSchema
 ) as unknown as Model<AnalyticsShortTermRollup>;
+
+/**
+ * Per-minute activity of an anonymous session on a page, one document per
+ * project + minute + session + url. Serves the `live` audience view only and is
+ * dropped by the TTL index after an hour.
+ */
+export const analyticsLiveActivitySchema =
+  new Schema<AnalyticsLiveActivitySchema>(
+    {
+      projectId: {
+        type: Schema.Types.ObjectId,
+        ref: 'project',
+        required: true,
+      },
+      minute: { type: String, required: true },
+      sessionHash: { type: String, required: true },
+      url: { type: String, required: true },
+      locale: { type: String },
+      country: { type: String, default: 'ZZ' },
+      city: { type: String },
+      latitude: { type: Number },
+      longitude: { type: Number },
+      views: { type: Number, default: 0 },
+      firstSeenAt: { type: Date, required: true },
+      lastSeenAt: { type: Date, required: true },
+    },
+    { timestamps: true }
+  );
+
+// One activity document per project + minute + session + url; also serves the
+// `{ projectId, minute: { $gte } }` range reads of the live view.
+analyticsLiveActivitySchema.index(
+  { projectId: 1, minute: 1, sessionHash: 1, url: 1 },
+  { unique: true }
+);
+// Latest activity of a session, to link its next page view to the previous one.
+analyticsLiveActivitySchema.index({
+  projectId: 1,
+  sessionHash: 1,
+  lastSeenAt: -1,
+});
+// TTL cleanup — only the last half hour is ever read.
+analyticsLiveActivitySchema.index(
+  { createdAt: 1 },
+  { expireAfterSeconds: LIVE_ACTIVITY_TTL_SECONDS }
+);
+
+export const AnalyticsLiveActivityModel = model<
+  RenameId<AnalyticsLiveActivity>
+>(
+  'analyticsLiveActivity',
+  analyticsLiveActivitySchema
+) as unknown as Model<AnalyticsLiveActivity>;
+
+/**
+ * Daily page-to-page navigation counters backing the user-flow report. Kept as
+ * long as the daily rollups, since the flow is offered on the same ranges.
+ */
+export const analyticsPageTransitionSchema =
+  new Schema<AnalyticsPageTransitionSchema>(
+    {
+      projectId: {
+        type: Schema.Types.ObjectId,
+        ref: 'project',
+        required: true,
+      },
+      day: { type: String, required: true },
+      fromUrl: { type: String, required: true },
+      toUrl: { type: String, required: true },
+      count: { type: Number, default: 0 },
+    },
+    { timestamps: true }
+  );
+
+// One counter per project + day + transition, so upserts coalesce.
+analyticsPageTransitionSchema.index(
+  { projectId: 1, day: 1, fromUrl: 1, toUrl: 1 },
+  { unique: true }
+);
+// Flow reads: outgoing navigations of a set of pages over a day range.
+analyticsPageTransitionSchema.index({ projectId: 1, fromUrl: 1, day: 1 });
+
+export const AnalyticsPageTransitionModel = model<
+  RenameId<AnalyticsPageTransition>
+>(
+  'analyticsPageTransition',
+  analyticsPageTransitionSchema
+) as unknown as Model<AnalyticsPageTransition>;

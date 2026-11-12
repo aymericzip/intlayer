@@ -38,11 +38,13 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
       </Container>
       <Suspense>
         {!suppressEditionDrawer && (
-          <DictionaryEditionDrawerController
-            isDarkMode={resolvedTheme === 'dark'}
-          />
+          <>
+            <DictionaryEditionDrawerController
+              isDarkMode={resolvedTheme === 'dark'}
+            />
+            <DictionaryListDrawer />
+          </>
         )}
-        <DictionaryListDrawer />
       </Suspense>
     </>
   );

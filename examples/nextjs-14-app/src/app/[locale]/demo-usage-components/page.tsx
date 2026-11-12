@@ -7,7 +7,7 @@ import type { Next14PageIntlayer } from 'next-intlayer';
 const PageDemoUsageComponents: Next14PageIntlayer = () => {
   return (
     <>
-      <main className="m-auto flex size-screen max-w-xl flex-col items-center justify-center gap-8 p-20">
+      <main className="size-screen m-auto flex max-w-xl flex-col items-center justify-center gap-8 p-20">
         <ClientComponentExample />
         <ServerComponentExample />
         <NestedServerComponentExample />

@@ -12,7 +12,6 @@ import type {
   useSSR as _useSSR,
   withSSR as _withSSR,
 } from 'react-i18next';
-
 import {
   composeInitialProps as composeInitialPropsImpl,
   getDefaults as getDefaultsImpl,
@@ -26,7 +25,6 @@ import {
   useSSR as useSSRImpl,
   withSSR as withSSRImpl,
 } from './helpers';
-
 import { Trans } from './Trans';
 
 // Re-export common types from react-i18next so consumers don't need both packages

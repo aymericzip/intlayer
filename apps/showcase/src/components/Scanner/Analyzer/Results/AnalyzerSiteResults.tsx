@@ -73,7 +73,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
   return (
     <div className="flex flex-col pb-6">
       <div className="mb-4 flex items-center justify-between">
-        <span className="font-semibold text-2xl text-foreground/70">
+        <span className="text-2xl font-semibold text-foreground/70">
           <span className="me-2 text-muted-foreground">
             {scoreTitle?.title}:
           </span>
@@ -81,7 +81,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
           <Skeleton isLoading={isLoading && !score}>
             <span className="me-1 text-foreground">{score ?? 0}</span>
           </Skeleton>
-          <span className="text-muted-foreground text-sm">/100</span>
+          <span className="text-sm text-muted-foreground">/100</span>
         </span>
 
         <Skeleton isLoading={isLoading && !score}>
@@ -120,7 +120,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             className="mb-2 h-7 w-3/4"
             isLoading={isLoading && !domainData?.title}
           >
-            <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-100">
+            <h3 className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
               {domainData?.title ?? messages?.noTitle}
             </h3>
           </Skeleton>
@@ -128,7 +128,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             className="mb-2 h-4 w-full"
             isLoading={isLoading && !domainData?.description}
           >
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
               {domainData?.description ?? messages?.noDescription}
             </p>
           </Skeleton>

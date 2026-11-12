@@ -28,7 +28,7 @@ export const ConfirmationsStep: FC = () => {
               user?.name ?? user?.email ?? ''
             )}
           </span>
-          <span className="text-neutral text-sm">
+          <span className="text-sm text-neutral">
             {confirmation.description}
           </span>
           <div className="m-auto aspect-square rounded-full bg-success/30 p-5">

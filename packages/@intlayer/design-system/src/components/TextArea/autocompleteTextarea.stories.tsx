@@ -167,10 +167,10 @@ export const Default: Story = {
           />
 
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-            <div className="mb-2 font-medium text-blue-900 text-sm">
+            <div className="mb-2 text-sm font-medium text-blue-900">
               💡 How to Use
             </div>
-            <ul className="space-y-1 text-blue-800 text-sm">
+            <ul className="space-y-1 text-sm text-blue-800">
               <li>• Start typing to see AI-powered suggestions appear</li>
               <li>
                 • Press <kbd className="rounded border bg-white px-1">Tab</kbd>{' '}
@@ -229,7 +229,7 @@ export const ManualSuggestions: Story = {
             <div>
               <label
                 htmlFor="autocompleteTextarea-content-with-manual-suggestion"
-                className="mb-2 block font-medium text-sm"
+                className="mb-2 block text-sm font-medium"
               >
                 Content with Manual Suggestion
               </label>
@@ -246,14 +246,14 @@ export const ManualSuggestions: Story = {
             </div>
 
             <div>
-              <span className="mb-2 block font-medium text-sm">
+              <span className="mb-2 block text-sm font-medium">
                 Suggestion Controls
               </span>
               <div className="space-y-3">
                 <div>
                   <label
                     htmlFor="autocompleteTextarea-current-suggestion"
-                    className="mb-1 block text-gray-600 text-xs"
+                    className="mb-1 block text-xs text-gray-600"
                   >
                     Current Suggestion
                   </label>
@@ -268,7 +268,7 @@ export const ManualSuggestions: Story = {
                 </div>
 
                 <div>
-                  <span className="mb-2 block text-gray-600 text-xs">
+                  <span className="mb-2 block text-xs text-gray-600">
                     Quick Suggestions
                   </span>
                   <div className="space-y-1">
@@ -286,7 +286,7 @@ export const ManualSuggestions: Story = {
 
                 <button
                   onClick={() => setManualSuggestion('')}
-                  className="w-full rounded bg-red-100 px-3 py-2 text-red-700 text-sm hover:bg-red-200"
+                  className="w-full rounded bg-red-100 px-3 py-2 text-sm text-red-700 hover:bg-red-200"
                 >
                   Clear Suggestion
                 </button>
@@ -295,10 +295,10 @@ export const ManualSuggestions: Story = {
           </div>
 
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-            <div className="mb-2 font-medium text-gray-700 text-sm">
+            <div className="mb-2 text-sm font-medium text-gray-700">
               Manual Suggestion Mode
             </div>
-            <p className="text-gray-600 text-sm">
+            <p className="text-sm text-gray-600">
               When <code>isActive={false}</code> and <code>suggestion</code>{' '}
               prop is provided, the component displays manual suggestions
               instead of AI-generated ones. This is useful for testing, demos,
@@ -355,8 +355,8 @@ export const ContentCreation: Story = {
           <div className="rounded-lg border border-gray-200 bg-white p-4">
             <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
               <div>
-                <h3 className="font-semibold text-lg">AI Blog Post Editor</h3>
-                <div className="text-gray-600 text-sm">
+                <h3 className="text-lg font-semibold">AI Blog Post Editor</h3>
+                <div className="text-sm text-gray-600">
                   {wordCount} words • ~{estimatedReadTime} min read
                 </div>
               </div>
@@ -407,8 +407,8 @@ export const ContentCreation: Story = {
 
           {/* Editor */}
           <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
-            <div className="border-gray-200 border-b bg-gray-50 px-4 py-2">
-              <div className="flex items-center gap-4 text-gray-600 text-sm">
+            <div className="border-b border-gray-200 bg-gray-50 px-4 py-2">
+              <div className="flex items-center gap-4 text-sm text-gray-600">
                 <span>
                   Status:{' '}
                   {isAiEnabled ? (
@@ -430,7 +430,7 @@ export const ContentCreation: Story = {
                 placeholder="Start writing your blog post..."
                 autoSize={true}
                 maxRows={20}
-                className="min-h-100 w-full resize-none border-0 font-serif text-base leading-relaxed focus:outline-none focus:ring-0"
+                className="min-h-100 w-full resize-none border-0 font-serif text-base leading-relaxed focus:ring-0 focus:outline-none"
                 variant="invisible"
               />
             </div>
@@ -438,10 +438,10 @@ export const ContentCreation: Story = {
 
           {/* Writing Tips */}
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-            <div className="mb-2 font-medium text-blue-900 text-sm">
+            <div className="mb-2 text-sm font-medium text-blue-900">
               ✍️ AI Writing Tips
             </div>
-            <ul className="space-y-1 text-blue-800 text-sm">
+            <ul className="space-y-1 text-sm text-blue-800">
               <li>• Start sentences to get completion suggestions</li>
               <li>• Write topic headers for section suggestions</li>
               <li>
@@ -494,7 +494,7 @@ export const CodeDocumentation: Story = {
         <div className="w-full max-w-3xl space-y-6">
           <div className="rounded-lg border border-gray-200 bg-white p-6">
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="font-semibold text-lg">
+              <h3 className="text-lg font-semibold">
                 Code Documentation Assistant
               </h3>
               <label className="flex items-center gap-2">
@@ -512,7 +512,7 @@ export const CodeDocumentation: Story = {
               <div>
                 <label
                   htmlFor="autocompleteTextarea-jsdoc-comment"
-                  className="mb-2 block font-medium text-sm"
+                  className="mb-2 block text-sm font-medium"
                 >
                   JSDoc Comment
                 </label>
@@ -531,7 +531,7 @@ export const CodeDocumentation: Story = {
               <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
                 <div className="rounded border border-gray-200 bg-gray-50 p-3">
                   <div className="mb-2 font-medium">Common JSDoc Tags</div>
-                  <div className="space-y-1 text-gray-600 text-xs">
+                  <div className="space-y-1 text-xs text-gray-600">
                     <div>
                       <code>@param</code> - Function parameters
                     </div>
@@ -552,7 +552,7 @@ export const CodeDocumentation: Story = {
 
                 <div className="rounded border border-green-200 bg-green-50 p-3">
                   <div className="mb-2 font-medium">AI Assistance Benefits</div>
-                  <div className="space-y-1 text-green-700 text-xs">
+                  <div className="space-y-1 text-xs text-green-700">
                     <div>• Parameter type inference</div>
                     <div>• Return type suggestions</div>
                     <div>• Example code generation</div>
@@ -565,7 +565,7 @@ export const CodeDocumentation: Story = {
           </div>
 
           <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-            <div className="mb-2 font-medium text-sm text-yellow-800">
+            <div className="mb-2 text-sm font-medium text-yellow-800">
               💡 Documentation Tips
             </div>
             <ul className="space-y-1 text-sm text-yellow-700">
@@ -633,8 +633,8 @@ export const EmailAssistant: Story = {
           <div className="rounded-lg border border-gray-200 bg-white p-4">
             <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
               <div>
-                <h3 className="font-semibold text-lg">AI Email Assistant</h3>
-                <div className="text-gray-600 text-sm">{wordCount} words</div>
+                <h3 className="text-lg font-semibold">AI Email Assistant</h3>
+                <div className="text-sm text-gray-600">{wordCount} words</div>
               </div>
 
               <div className="flex items-center gap-4">
@@ -668,11 +668,11 @@ export const EmailAssistant: Story = {
 
           {/* Email Composer */}
           <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
-            <div className="border-gray-200 border-b bg-gray-50 px-4 py-3">
+            <div className="border-b border-gray-200 bg-gray-50 px-4 py-3">
               <div className="flex items-center gap-4 text-sm">
                 <span className="text-gray-600">Status:</span>
                 <span
-                  className={`rounded-full px-2 py-1 font-medium text-xs ${
+                  className={`rounded-full px-2 py-1 text-xs font-medium ${
                     isAiEnabled
                       ? 'bg-green-100 text-green-800'
                       : 'bg-gray-100 text-gray-600'
@@ -683,7 +683,7 @@ export const EmailAssistant: Story = {
 
                 <span className="text-gray-600">Tone:</span>
                 <span
-                  className={`rounded-full px-2 py-1 font-medium text-xs bg-${getToneColor(tone)}-100 text-${getToneColor(tone)}-800`}
+                  className={`rounded-full px-2 py-1 text-xs font-medium bg-${getToneColor(tone)}-100 text-${getToneColor(tone)}-800`}
                 >
                   {tones.find((t) => t.value === tone)?.label}
                 </span>
@@ -698,14 +698,14 @@ export const EmailAssistant: Story = {
                 placeholder="Compose your email..."
                 autoSize={true}
                 maxRows={15}
-                className="min-h-75 w-full resize-none border-0 text-base leading-relaxed focus:outline-none focus:ring-0"
+                className="min-h-75 w-full resize-none border-0 text-base leading-relaxed focus:ring-0 focus:outline-none"
                 variant="invisible"
               />
             </div>
 
-            <div className="border-gray-200 border-t bg-gray-50 px-6 py-4">
+            <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
               <div className="flex items-center justify-between">
-                <div className="text-gray-600 text-sm">
+                <div className="text-sm text-gray-600">
                   Press Tab to accept AI suggestions • Shift+Enter for line
                   breaks
                 </div>
@@ -724,10 +724,10 @@ export const EmailAssistant: Story = {
 
           {/* Email Tips */}
           <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-4">
-            <div className="mb-2 font-medium text-indigo-900 text-sm">
+            <div className="mb-2 text-sm font-medium text-indigo-900">
               📧 Email Writing Tips
             </div>
-            <div className="grid grid-cols-1 gap-4 text-indigo-800 text-sm md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 text-sm text-indigo-800 md:grid-cols-2">
               <ul className="space-y-1">
                 <li>• Start with clear subject line</li>
                 <li>• Use appropriate greeting for relationship</li>

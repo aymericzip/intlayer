@@ -25,7 +25,7 @@ import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
-import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { getPathWithoutLocale } from 'intlayer';
 import {
   ArrowLeftToLine,
@@ -110,6 +110,7 @@ export type SidebarNavigationItem = {
   icon?: keyof typeof iconMap;
   label: string;
   title: string;
+  description?: string;
   items?: SidebarNavigationItem[];
 };
 
@@ -230,6 +231,65 @@ export const flattenItems = (
   return result;
 };
 
+/** Horizontal offset (px) of the level 2+ branch from the level 1 trunk */
+const TREE_NESTED_BRANCH_OFFSET = 24;
+/** Corner radius (px) of the branch elbow */
+const TREE_ELBOW_RADIUS = 8;
+/** Horizontal length (px) of the branch, measured from its trunk */
+const TREE_BRANCH_LENGTH = 12;
+/** Path length (px) long enough to reach the row edge; clipped by the svg */
+const TREE_FULL_EXTENT = 999;
+
+type SidebarTreeConnectorProps = {
+  level: number;
+  isLastChild: boolean;
+  /** Draw the level 1 trunk through the row (level 2+ under a non-last parent) */
+  hasParentContinuation: boolean;
+};
+
+/**
+ * Tree lines of a sidebar child row, drawn as a single SVG.
+ *
+ * Stacked bordered divs left sub-pixel seams between segments, so every
+ * segment is an svg stroke. Paths are drawn from the vertical center (group
+ * translated by 50% of the svg height) and overflow to the row edges, where
+ * the svg clips them. The svg overhangs the row by 2px on each side to bridge
+ * the `gap-1` between rows. Group opacity keeps overlapping strokes uniform.
+ */
+const SidebarTreeConnector: FC<SidebarTreeConnectorProps> = ({
+  level,
+  isLastChild,
+  hasParentContinuation,
+}) => {
+  const branchX = (level >= 2 ? TREE_NESTED_BRANCH_OFFSET : 0) + 0.5;
+  const elbowPath = [
+    `M${branchX} ${-TREE_FULL_EXTENT}`,
+    `V${-TREE_ELBOW_RADIUS}`,
+    `A${TREE_ELBOW_RADIUS} ${TREE_ELBOW_RADIUS} 0 0 0 ${branchX + TREE_ELBOW_RADIUS} 0`,
+    `H${branchX + TREE_BRANCH_LENGTH}`,
+  ].join(' ');
+
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-s-4 -top-0.5 h-[calc(100%+4px)] w-10 text-neutral opacity-70 rtl:-scale-x-100"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1}
+    >
+      <g style={{ transformBox: 'view-box', transform: 'translateY(50%)' }}>
+        {hasParentContinuation && (
+          <path d={`M0.5 ${-TREE_FULL_EXTENT} V${TREE_FULL_EXTENT}`} />
+        )}
+        <path d={elbowPath} />
+        {!isLastChild && (
+          <path d={`M${branchX} ${-TREE_ELBOW_RADIUS} V${TREE_FULL_EXTENT}`} />
+        )}
+      </g>
+    </svg>
+  );
+};
+
 type SidebarTabItemProps = {
   item: FlatSidebarItem;
   activeKey: string;
@@ -280,9 +340,6 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
     },
     ref
   ) => {
-    const IconComponent = item.icon ? (iconMap[item.icon] ?? null) : null;
-    const isChild = item.level > 0;
-
     const isDictionaryItem = item.key.startsWith('dictionary-');
     const dictKey = isDictionaryItem
       ? item.key.slice('dictionary-'.length)
@@ -301,13 +358,19 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
     const isEditorPageItemPinned =
       editorPagePath !== null && pinnedEditorPageKeys.includes(editorPagePath);
 
+    let FallbackIcon: LucideIcon | null = null;
+    if (isDictionaryItem) FallbackIcon = Book;
+    else if (isTagItem) FallbackIcon = Tags;
+    else if (isEditorPageItem) FallbackIcon = FileText;
+
+    const IconComponent = item.icon
+      ? (iconMap[item.icon] ?? null)
+      : FallbackIcon;
+    const isChild = item.level > 0;
+
     const isPinnableItem = isDictionaryItem || isTagItem || isEditorPageItem;
     const isItemPinned =
       isDictItemPinned || isTagItemPinned || isEditorPageItemPinned;
-
-    // Show pin/unpin button on all dictionary/tag sub-items when sidebar is expanded
-    const showPinButton = !isCollapsed && isPinnableItem && !isItemPinned;
-    const showUnpinButton = !isCollapsed && isPinnableItem && isItemPinned;
 
     // Find index in flatNavItems to determine parent level-1 item and whether we need a straight line at inset-s-4
     const currentIndex = flatNavItems.findIndex((x) => x.key === item.key);
@@ -324,6 +387,11 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
         <Link
           to={item.href ?? '#'}
           label={item.label}
+          title={
+            item.description
+              ? `${item.title}\n\n${item.description}`
+              : item.title
+          }
           color="text"
           variant="invisible-link"
           preload="viewport"
@@ -338,36 +406,25 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
           )}
           isActive={activeKey === item.key}
         >
-          {/* Tree Visuals */}
           {!isCollapsed && isChild && (
-            <>
-              {/* Straight vertical line for level 1 parent if we are at level 2+ and parent level 1 is not the last child */}
-              {item.level >= 2 && parentLevel1 && !parentLevel1.isLastChild && (
-                <div className="absolute inset-s-4 top-0 bottom-0 w-4 scale-110">
-                  <div className="pointer-events-none relative h-full w-4">
-                    <div className="absolute inset-s-0 top-0 bottom-0 w-px bg-neutral/70" />
-                  </div>
-                </div>
-              )}
-
-              <div
-                className={cn(
-                  'absolute top-0 h-full w-4 scale-110',
-                  item.level === 1 && 'inset-s-4',
-                  item.level >= 2 && 'inset-s-10'
-                )}
-              >
-                <div className="pointer-events-none relative h-full w-4">
-                  <div className="absolute inset-s-0 top-0 h-1/2 w-3 rounded-es-lg border-neutral/70 border-s border-b" />
-                  {!item.isLastChild && (
-                    <div className="absolute inset-s-0 top-1/2 h-1/2 w-px bg-neutral/70" />
-                  )}
-                </div>
-              </div>
-            </>
+            <SidebarTreeConnector
+              level={item.level}
+              isLastChild={Boolean(item.isLastChild)}
+              hasParentContinuation={
+                item.level >= 2 &&
+                parentLevel1 !== null &&
+                !parentLevel1.isLastChild
+              }
+            />
           )}
 
-          {IconComponent && <IconComponent className="size-4 shrink-0" />}
+          <div className="relative flex items-center justify-center">
+            {IconComponent && <IconComponent className="size-4 shrink-0" />}
+            {isCollapsed && isItemPinned && (
+              <Pin className="absolute -top-2 -right-2 size-3 text-text/60" />
+            )}
+          </div>
+
           <AnimatePresence initial={false}>
             {!isCollapsed && (
               <m.span
@@ -381,7 +438,7 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
                     ? undefined
                     : { duration: 0.2, ease: 'easeInOut' }
                 }
-                className="overflow-hidden truncate whitespace-nowrap"
+                className="truncate overflow-hidden whitespace-nowrap"
               >
                 {item.title}
               </m.span>
@@ -530,7 +587,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
   const { session } = useSession();
-  const shouldReduceMotion = useReducedMotion();
 
   const {
     organization,
@@ -635,7 +691,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         {/* Environment switcher — shown when project has >1 environments */}
         {environments.length > 1 &&
           (isCollapsed ? (
-            <div className="my-4 flex w-full justify-center border-text/10 border-b border-dotted pb-4">
+            <div className="my-4 flex w-full justify-center border-b border-dotted border-text/10 pb-4">
               <DropDown identifier="environment-sidebar-collapsed">
                 <DropDown.Trigger
                   identifier="environment-sidebar-collapsed"
@@ -644,7 +700,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   color="text"
                   roundedSize="full"
                   className="border-none p-0!"
-                  label={environment}
+                  label={environment.value}
                 >
                   <div className="flex items-center justify-center p-1">
                     <Layers className="size-4 text-neutral" />
@@ -670,14 +726,14 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 
                       return (
                         <Button
-                          key={String(env.id)}
+                          key={env.id}
                           type="button"
                           onClick={() =>
                             !isActive &&
                             !isSelectingEnv &&
-                            selectEnvironment(String(env.id))
+                            selectEnvironment(env.id)
                           }
-                          label={switchToName({ name: env.name })}
+                          label={switchToName({ name: env.name }).value}
                           disabled={isActive || isSelectingEnv}
                           isActive={isActive}
                           variant="hoverable"
@@ -704,7 +760,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               </DropDown>
             </div>
           ) : (
-            <div className="my-4 flex w-full flex-col border-text/10 border-b border-dotted px-2 pb-4">
+            <div className="my-4 flex w-full flex-col border-b border-dotted border-text/10 px-2 pb-4">
               <DropDown
                 identifier="environment-sidebar-expanded"
                 className="w-full min-w-0"
@@ -714,11 +770,11 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   variant="hoverable"
                   color="neutral"
                   className="w-full min-w-0 p-1"
-                  label={environment}
+                  label={environment.value}
                 >
                   <div className="flex w-full items-center gap-3 px-2 py-1">
                     <Layers className="size-4 shrink-0 text-neutral" />
-                    <span className="flex-1 truncate text-start font-medium text-sm text-text">
+                    <span className="flex-1 truncate text-start text-sm font-medium text-text">
                       {currentEnv?.name}
                     </span>
                     {currentEnv?.isDefault && (
@@ -756,7 +812,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                             !isSelectingEnv &&
                             selectEnvironment(String(env.id))
                           }
-                          label={switchToName({ name: env.name })}
+                          label={switchToName({ name: env.name }).value}
                           disabled={isActive || isSelectingEnv}
                           isActive={isActive}
                           variant="hoverable"
@@ -798,7 +854,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               size={isCollapsed ? 'icon-lg' : 'md'}
               variant="hoverable"
               color="text"
-              label={collapseButton.label}
+              label={collapseButton.label.value}
               aria-expanded={!isCollapsed}
               aria-controls="dashboard-sidebar-nav"
               onClick={() => setIsCollapsed((prev) => !prev)}

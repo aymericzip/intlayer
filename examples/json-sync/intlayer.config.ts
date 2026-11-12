@@ -8,12 +8,12 @@ const config: IntlayerConfig = {
   },
   ai: {
     provider: 'anthropic',
-    model: 'claude-haiku-4-5-20251001',
+    model: 'claude-haiku-5-5',
     apiKey: process.env.ANTHROPIC_API_KEY,
   },
   // ai: {
   //   provider: 'openai',
-  //   model: 'gpt-5-mini',
+  //   model: 'gpt-5.6-terra',
   //   apiKey: process.env.OPENAI_API_KEY,
   // },
   plugins: [

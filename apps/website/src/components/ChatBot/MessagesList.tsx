@@ -47,6 +47,8 @@ Message.displayName = 'Message';
 export type MessagesListProps = {
   storedPrompt: ChatCompletionRequestMessage[];
   isLoading: boolean;
+  /** Summarized reasoning of the answer being generated, shown while it streams. */
+  reasoning?: string;
 };
 
 /**
@@ -61,8 +63,9 @@ export type MessagesListProps = {
 export const MessagesList: FC<MessagesListProps> = ({
   storedPrompt,
   isLoading,
+  reasoning,
 }) => {
-  const { showEarlierMessagesButton } = useIntlayer('chat');
+  const { showEarlierMessagesButton, thinkingLabel } = useIntlayer('chat');
   const [windowSize, setWindowSize] = useState(MESSAGES_WINDOW_SIZE);
   const { scrollRef, contentRef, unpin } = useStickToBottom<
     HTMLDivElement,
@@ -91,7 +94,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   return (
     <div
       ref={scrollRef}
-      className="size-full overflow-y-auto overflow-x-hidden"
+      className="size-full overflow-x-hidden overflow-y-auto"
     >
       <div ref={contentRef} className="flex flex-col">
         {hiddenCount > 0 && (
@@ -114,6 +117,17 @@ export const MessagesList: FC<MessagesListProps> = ({
             role={message.role}
           />
         ))}
+
+        {reasoning && (
+          <details open className="mb-4 text-xs text-neutral">
+            <summary className="cursor-pointer select-none">
+              {thinkingLabel}
+            </summary>
+            <p className="mt-2 border-s-2 border-neutral/30 ps-3 whitespace-pre-wrap">
+              {reasoning}
+            </p>
+          </details>
+        )}
 
         <Loader
           isLoading={isLoading}

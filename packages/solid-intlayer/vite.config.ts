@@ -4,7 +4,6 @@ import fg from 'fast-glob';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import solidPlugin from 'vite-plugin-solid';
-
 import packageJson from './package.json' with { type: 'json' };
 
 const entry: Record<string, string> = Object.fromEntries(
@@ -78,7 +77,7 @@ export default defineConfig({
       external: (id) => {
         return (
           external.some((pkg) => id === pkg || id.startsWith(`${pkg}/`)) ||
-          /^vue/.test(id)
+          id.startsWith('vue')
         );
       },
       output: [

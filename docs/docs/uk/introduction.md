@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Початок роботи з Intlayer: i18n для будь-якого фреймворку"
 description: Дізнайтеся, як працює Intlayer. Ознайомтеся з кроками, які Intlayer використовує у вашому додатку. Дізнайтеся, для чого призначені різні пакети.
@@ -231,7 +231,7 @@ Intlayer пропонує безліч функцій, адаптованих д
 
 **Готові перекладати свій додаток швидше та ефективніше?** Зануртеся в нашу документацію, щоб почати використовувати Intlayer вже сьогодні. Відчуйте надійний і оптимізований підхід до інтернаціоналізації, який забезпечує організованість вашого контенту та підвищує продуктивність вашої команди.
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 
@@ -305,7 +305,7 @@ Intlayer - це бібліотека інтернаціоналізації (i18
 </Question>
 <Question title="Які фреймворки підтримує Intlayer?">
 
-React, Next.js, Vite, TanStack Start, React Router, Remix, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, Astro з усіма острівними фреймворками, React Native з Expo, Lynx, а на сервері — Express, Fastify, NestJS, Hono, Elysia та AdonisJS. Кожен має власний посібник у розділі [середовищ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/introduction.md).
+React, Next.js, Vite, TanStack Start, React Router, Remix, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, Astro з усіма острівними фреймворками, React Native з Expo, Lynx, а на сервері - Express, Fastify, NestJS, Hono, Elysia та AdonisJS. Кожен має власний посібник у розділі [середовищ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/introduction.md).
 
 - [середовищ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/introduction.md)
 

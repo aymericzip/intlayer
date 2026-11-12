@@ -1,1 +1,4 @@
-export const dictionaryListDrawerIdentifier = 'dictionaryList';
+import { DashboardRightPanelId } from '#hooks/useDashboardRightPanel';
+
+export const dictionaryListDrawerIdentifier =
+  DashboardRightPanelId.DictionaryList;

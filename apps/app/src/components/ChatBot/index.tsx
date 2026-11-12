@@ -15,6 +15,17 @@ import {
 
 const uuid = () => Math.random().toString(36).slice(2);
 
+/** Error code the backend returns once a signed-out visitor exhausts the chatbot quota. */
+const UNAUTHENTICATED_RATE_LIMIT_CODE = 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED';
+
+/**
+ * Whether a chat request failed because the signed-out visitor hit the rate limit.
+ * The API client serializes the backend error payload into `Error.message`.
+ */
+const isUnauthenticatedRateLimitError = (error: unknown): boolean =>
+  error instanceof Error &&
+  error.message.includes(UNAUTHENTICATED_RATE_LIMIT_CODE);
+
 type AskDocQuestionResult =
   | {
       success: boolean;
@@ -76,6 +87,7 @@ export const ChatBot: FC<ChatBotProps> = ({
   } = useIntlayer('chat');
   const isFirstRender = useRef(true);
   const [currentResponse, setCurrentResponse] = useState('');
+  const [currentReasoning, setCurrentReasoning] = useState('');
 
   const firstMessage: ChatCompletionRequestMessage = {
     role: 'system',
@@ -88,6 +100,7 @@ export const ChatBot: FC<ChatBotProps> = ({
 
   const handleAskNewQuestion = (newQuestion: string) => {
     setCurrentResponse('');
+    setCurrentReasoning('');
 
     const newDiscussionId = discussion?.discussionId ?? uuid();
     const currentStoredPrompt = discussion?.storedPrompt ?? [];
@@ -122,6 +135,8 @@ export const ChatBot: FC<ChatBotProps> = ({
         discussionId: newDiscussionId,
         onMessage: (chunk: string) =>
           setCurrentResponse((prev) => prev + chunk),
+        onReasoning: (chunk: string) =>
+          setCurrentReasoning((prev) => prev + chunk),
         onDone: (response: AskDocQuestionResult) => {
           const responseData = 'data' in response ? response.data : response;
 
@@ -153,32 +168,20 @@ export const ChatBot: FC<ChatBotProps> = ({
             } as DiscussionStore;
           });
           setCurrentResponse('');
+          setCurrentReasoning('');
         },
       },
       {
         onSuccess: () => {
           setHasReachedRateLimit(false);
         },
-        onError: (errorMessage: any) => {
-          if (typeof errorMessage === 'undefined') return;
+        onError: (error) => {
+          setCurrentResponse('');
+          setCurrentReasoning('');
 
-          let parsedErrors: any[];
-
-          try {
-            const raw =
-              typeof errorMessage?.message === 'string'
-                ? JSON.parse(errorMessage.message)
-                : errorMessage;
-            parsedErrors = [raw].flat();
-          } catch (_e) {
-            parsedErrors = [errorMessage].flat();
+          if (isUnauthenticatedRateLimitError(error)) {
+            setHasReachedRateLimit(true);
           }
-
-          parsedErrors.forEach((error) => {
-            if (error?.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
-              setHasReachedRateLimit(true);
-            }
-          });
         },
       }
     );
@@ -192,6 +195,7 @@ export const ChatBot: FC<ChatBotProps> = ({
       relatedFiles: [],
     }));
     setCurrentResponse('');
+    setCurrentReasoning('');
   };
 
   useEffect(() => {
@@ -219,6 +223,8 @@ export const ChatBot: FC<ChatBotProps> = ({
                 : []),
             ]}
             isLoading={isPending}
+            // Thoughts give way to the answer once it starts streaming
+            reasoning={currentResponse ? undefined : currentReasoning}
           />
         </div>
       </div>
@@ -259,7 +265,7 @@ export const ChatBot: FC<ChatBotProps> = ({
                   xAlign={isLarge ? 'end' : 'center'}
                   yAlign="above"
                 >
-                  <p className="min-w-60 max-w-60 p-4 text-neutral text-xs">
+                  <p className="max-w-60 min-w-60 p-4 text-xs text-neutral">
                     {disclaimerNote}
                   </p>
                 </PopoverStatic.Detail>

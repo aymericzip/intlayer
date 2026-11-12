@@ -1,7 +1,9 @@
+import type { DictionaryAPI } from '@intlayer/backend-contract/dictionary';
 import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { getDictionaryVariantTagLabels } from '@intlayer/design-system/dictionary-field-editor';
 import { Checkbox } from '@intlayer/design-system/input';
 import {
   NumberItemsSelector,
@@ -12,15 +14,8 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Tag } from '@intlayer/design-system/tag';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import {
-  ArrowRight,
-  ChevronDown,
-  ChevronsUpDown,
-  ChevronUp,
-  Pencil,
-  Trash2,
-} from 'lucide-react';
-import { type FC, Suspense, useMemo } from 'react';
+import { ArrowRight, Pencil, Trash2 } from 'lucide-react';
+import { type FC, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
@@ -29,10 +24,18 @@ import { DictionaryListSkeleton } from './DictionaryListSkeleton';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
 import { DictionaryToolbar } from './DictionaryToolbar';
+import { SortHeader } from './SortHeader';
+import { SourceSyncStatus } from './SourceSyncStatus';
 import { useDictionaryDashboard } from './useDictionaryDashboard';
 
-export const DictionaryListDashboardContent: FC = () => {
-  const dashboard = useDictionaryDashboard();
+type DictionaryListDashboardContentProps = {
+  tagKey?: string;
+};
+
+export const DictionaryListDashboardContent: FC<
+  DictionaryListDashboardContentProps
+> = ({ tagKey }) => {
+  const dashboard = useDictionaryDashboard({ fixedTag: tagKey });
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const formatDate = useDate();
   const content = useIntlayer('dictionary-list');
@@ -43,6 +46,13 @@ export const DictionaryListDashboardContent: FC = () => {
     (session?.permissions?.includes('dictionary:admin') ||
       session?.permissions?.includes('dictionary:write')) ??
     false;
+
+  const hasVariantDictionary = dashboard.data.dictionaries.some(
+    (dictionary) => getDictionaryVariantTagLabels(dictionary.variant).length > 0
+  );
+  const hasItemDictionary = dashboard.data.dictionaries.some(
+    (dictionary) => dictionary.item !== undefined
+  );
 
   const handleSort = (columnId: string) => {
     const isAsc =
@@ -55,333 +65,362 @@ export const DictionaryListDashboardContent: FC = () => {
     });
   };
 
-  const getSortIcon = (columnId: string) => {
-    if (dashboard.params.sortBy !== columnId) return ChevronsUpDown;
-    return dashboard.params.sortOrder === 'asc' ? ChevronUp : ChevronDown;
-  };
+  const columns: DataTableColumnDef<Dictionary>[] = [
+    {
+      id: 'selection',
+      header: ({ table }) => (
+        <Checkbox
+          name="select-all"
+          size="sm"
+          color="text"
+          checked={table.getIsAllPageRowsSelected()}
+          onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
+          aria-label={content.selectAll.value}
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          name={`select-row-${row.id}`}
+          size="sm"
+          color="text"
+          checked={row.getIsSelected()}
+          disabled={!row.getCanSelect()}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          onChange={(e) => row.toggleSelected(e.target.checked)}
+          aria-label={content.selectRow.value}
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: 'id',
+      header: content.tableHeaders.id.value,
+      cell: ({ row }) => (
+        <CopyToClipboard
+          text={row.original.id!}
+          size={9}
+          className="text-nowrap text-neutral"
+        >
+          {row.original.id}
+        </CopyToClipboard>
+      ),
+    },
+    {
+      accessorKey: 'key',
+      header: () => (
+        <SortHeader
+          sortBy={dashboard.params.sortBy}
+          sortOrder={dashboard.params.sortOrder}
+          onSort={handleSort}
+          columnId="key"
+          label={content.tableHeaders.key.value}
+        />
+      ),
+      cell: ({ row }) => (
+        <CopyToClipboard text={row.original.key} size={9} className="font-mono">
+          {row.original.key}
+        </CopyToClipboard>
+      ),
+    },
+    ...(hasVariantDictionary
+      ? [
+          {
+            id: 'variant',
+            header: String(content.qualifierTypes.variant),
+            cell: ({ row }) => {
+              const variantTagLabels = getDictionaryVariantTagLabels(
+                row.original.variant
+              );
 
-  const SortHeader: FC<{ columnId: string; label: string }> = ({
-    columnId,
-    label,
-  }) => (
-    <Button
-      variant="hoverable"
-      color="text"
-      size="sm"
-      className="flex items-center gap-1 font-medium"
-      onClick={() => handleSort(columnId)}
-      Icon={getSortIcon(columnId)}
-      label={label}
-    >
-      {label}
-    </Button>
-  );
+              if (variantTagLabels.length === 0)
+                return <span className="text-neutral">-</span>;
 
-  const columns = useMemo<DataTableColumnDef<Dictionary>[]>(
-    () => [
-      {
-        id: 'selection',
-        header: ({ table }) => (
-          <Checkbox
-            name="select-all"
-            size="sm"
-            color="text"
-            checked={table.getIsAllPageRowsSelected()}
-            onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
-            aria-label={content.selectAll.value}
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            name={`select-row-${row.id}`}
-            size="sm"
-            color="text"
-            checked={row.getIsSelected()}
-            disabled={!row.getCanSelect()}
-            onClick={(e: React.MouseEvent) => e.stopPropagation()}
-            onChange={(e) => row.toggleSelected(e.target.checked)}
-            aria-label={content.selectRow.value}
-          />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-      },
-      {
-        accessorKey: 'id',
-        header: content.tableHeaders.id,
-        cell: ({ row }) => (
-          <CopyToClipboard
-            text={row.original.id!}
-            size={9}
-            className="text-nowrap text-neutral"
-          >
-            {row.original.id}
-          </CopyToClipboard>
-        ),
-      },
-      {
-        accessorKey: 'key',
-        header: () => (
-          <SortHeader columnId="key" label={content.tableHeaders.key.value} />
-        ),
-        cell: ({ row }) => (
-          <CopyToClipboard
-            text={row.original.key}
-            size={9}
-            className="font-mono"
-          >
-            {row.original.key}
-          </CopyToClipboard>
-        ),
-      },
-      {
-        accessorKey: 'title',
-        header: () => (
-          <SortHeader
-            columnId="title"
-            label={content.tableHeaders.title.value}
-          />
-        ),
-        cell: ({ row }) =>
-          row.original.title ? (
-            <div className="font-medium">{row.original.title}</div>
-          ) : (
-            <span className="text-neutral">-</span>
-          ),
-      },
-      {
-        accessorKey: 'description',
-        header: content.tableHeaders.description,
-        cell: ({ row }) =>
-          row.original.description ? (
-            <div className="line-clamp-2 max-w-xs text-neutral">
-              {row.original.description}
-            </div>
-          ) : (
-            <span className="text-neutral">-</span>
-          ),
-      },
-      {
-        accessorKey: 'tags',
-        header: content.tableHeaders.tags,
-        cell: ({ row }) => {
-          const tags = (row.original as any).tags;
-          return (
-            <div className="flex flex-wrap gap-1">
-              {tags && tags.length > 0 ? (
-                tags.map((tag: string) => (
-                  <Tag key={tag} color="neutral" size="xs">
-                    {tag}
-                  </Tag>
-                ))
-              ) : (
+              return (
+                <div className="flex flex-wrap gap-1" dir="ltr">
+                  {variantTagLabels.map((variantTagLabel) => (
+                    <Tag key={variantTagLabel} color="warning" size="xs">
+                      {variantTagLabel}
+                    </Tag>
+                  ))}
+                </div>
+              );
+            },
+          } satisfies DataTableColumnDef<Dictionary>,
+        ]
+      : []),
+    ...(hasItemDictionary
+      ? [
+          {
+            id: 'item',
+            header: content.tableHeaders.item.value,
+            cell: ({ row }) =>
+              row.original.item === undefined ? (
                 <span className="text-neutral">-</span>
-              )}
-            </div>
-          );
-        },
-      },
-      {
-        id: 'type',
-        header: content.tableHeaders.type,
-        cell: ({ row }) => {
-          const dictionary = row.original;
-          const qualifiers: Array<{
-            key: 'collection' | 'variant';
-            color: 'neutral' | 'warning';
-          }> = [];
-          if (dictionary.item !== undefined)
-            qualifiers.push({ key: 'collection', color: 'neutral' });
-          if (dictionary.variant !== undefined)
-            qualifiers.push({ key: 'variant', color: 'warning' });
-
-          if (qualifiers.length === 0)
-            return <span className="text-neutral">-</span>;
-
-          return (
-            <div className="flex flex-wrap gap-1">
-              {qualifiers.map(({ key, color }) => (
-                <Tag key={key} color={color} size="xs">
-                  {String(content.qualifierTypes[key])}
+              ) : (
+                <Tag color="neutral" size="xs">
+                  {row.original.item}
                 </Tag>
-              ))}
-            </div>
-          );
-        },
-      },
-      {
-        accessorKey: 'location',
-        header: content.tableHeaders.location,
-        cell: ({ row }) => {
-          const location = row.original.location ?? 'remote';
-          const isLocal = location === 'local' || location === 'hybrid';
-          const isRemote =
-            location === 'remote' ||
-            location === 'hybrid' ||
-            location === 'plugin';
-
-          return (
-            <div className="flex items-center gap-4 text-neutral">
-              <div className="flex items-center gap-1">
-                <Checkbox
-                  name={`is-local-${row.id}`}
-                  checked={isLocal}
-                  disabled
-                  size="sm"
-                  color="text"
-                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                />
-                <span>{content.locationOptions.local.value}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Checkbox
-                  name={`is-remote-${row.id}`}
-                  checked={isRemote}
-                  disabled
-                  color="text"
-                  size="sm"
-                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                />
-                <span>{content.locationOptions.remote.value}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        accessorKey: 'createdAt',
-        header: () => (
-          <SortHeader
-            columnId="createdAt"
-            label={content.tableHeaders.createdAt.value}
-          />
+              ),
+          } satisfies DataTableColumnDef<Dictionary>,
+        ]
+      : []),
+    {
+      accessorKey: 'title',
+      header: () => (
+        <SortHeader
+          sortBy={dashboard.params.sortBy}
+          sortOrder={dashboard.params.sortOrder}
+          onSort={handleSort}
+          columnId="title"
+          label={content.tableHeaders.title.value}
+        />
+      ),
+      cell: ({ row }) =>
+        row.original.title ? (
+          <div className="font-medium">{row.original.title}</div>
+        ) : (
+          <span className="text-neutral">-</span>
         ),
-        cell: ({ row }) => (
-          <div className="text-neutral">
-            {(row.original as any).createdAt
-              ? formatDate((row.original as any).createdAt)
-              : null}
+    },
+    {
+      accessorKey: 'description',
+      header: content.tableHeaders.description.value,
+      cell: ({ row }) =>
+        row.original.description ? (
+          <div className="line-clamp-2 max-w-xs text-neutral">
+            {row.original.description}
           </div>
+        ) : (
+          <span className="text-neutral">-</span>
         ),
-      },
-      {
-        accessorKey: 'updatedAt',
-        header: () => (
-          <SortHeader
-            columnId="updatedAt"
-            label={content.tableHeaders.updatedAt.value}
-          />
-        ),
-        cell: ({ row }) => (
-          <div className="text-neutral">
-            {(row.original as any).updatedAt
-              ? formatDate((row.original as any).updatedAt)
-              : null}
+    },
+    {
+      accessorKey: 'tags',
+      header: content.tableHeaders.tags.value,
+      cell: ({ row }) => {
+        const tags = (row.original as any).tags;
+        return (
+          <div className="flex flex-wrap gap-1">
+            {tags && tags.length > 0 ? (
+              tags.map((tag: string) => (
+                <Tag key={tag} color="neutral" size="xs">
+                  {tag}
+                </Tag>
+              ))
+            ) : (
+              <span className="text-neutral">-</span>
+            )}
           </div>
-        ),
+        );
       },
-      {
-        id: 'actions',
-        header: content.tableHeaders.actions,
-        cell: ({ row }) => (
-          <div className="flex items-center gap-1">
-            <PopoverStatic identifier={`delete-${row.original.id}`}>
-              <Button
-                variant="hoverable"
-                color="error"
-                className="ms-auto text-text hover:text-error"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
+    },
+    {
+      id: 'type',
+      header: content.tableHeaders.type.value,
+      cell: ({ row }) => {
+        const dictionary = row.original;
+        const qualifiers: Array<{
+          key: 'collection' | 'variant' | 'perLocale';
+          color: 'neutral' | 'warning' | 'success';
+        }> = [];
+        if (dictionary.item !== undefined)
+          qualifiers.push({ key: 'collection', color: 'neutral' });
+        if (dictionary.variant !== undefined)
+          qualifiers.push({ key: 'variant', color: 'warning' });
+        // Monolingual dictionary: holds a single locale
+        if (dictionary.locale !== undefined)
+          qualifiers.push({ key: 'perLocale', color: 'success' });
 
-                  if (row.original.id) {
-                    dashboard.state.setDictionaryToDelete(row.original.id);
-                  }
-                }}
-                Icon={Trash2}
-                label={content.deleteButton.label.value}
-                disabled={!hasDictionaryWritePermission}
-              />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`delete-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.deleteButton.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
+        if (qualifiers.length === 0)
+          return <span className="text-neutral">-</span>;
 
-            <PopoverStatic identifier={`edit-${row.original.id}`}>
-              <Button
-                variant="hoverable"
+        return (
+          <div className="flex flex-wrap gap-1">
+            {qualifiers.map(({ key, color }) => (
+              <Tag key={key} color={color} size="xs">
+                {String(content.qualifierTypes[key])}
+              </Tag>
+            ))}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'location',
+      header: content.tableHeaders.location.value,
+      cell: ({ row }) => {
+        const location = row.original.location ?? 'remote';
+        const isLocal = location === 'local' || location === 'hybrid';
+        const isRemote =
+          location === 'remote' ||
+          location === 'hybrid' ||
+          location === 'plugin';
+
+        return (
+          <div className="flex items-center gap-4 text-neutral">
+            <div className="flex items-center gap-1">
+              <Checkbox
+                name={`is-local-${row.id}`}
+                checked={isLocal}
+                disabled
+                size="sm"
                 color="text"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-
-                  if (row.original.key) {
-                    dashboard.state.setEditingDictionaryKey(row.original.key);
-                  }
-                }}
-                Icon={Pencil}
-                label={content.editButton.label.value}
-                disabled={!hasDictionaryWritePermission}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
               />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`edit-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.editButton.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
-
-            <PopoverStatic identifier={`view-${row.original.id}`}>
-              <Button
-                variant="hoverable"
+              <span>{content.locationOptions.local.value}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Checkbox
+                name={`is-remote-${row.id}`}
+                checked={isRemote}
+                disabled
                 color="text"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
+                size="sm"
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+              />
+              <span>{content.locationOptions.remote.value}</span>
+            </div>
+            <SourceSyncStatus
+              sourceSync={(row.original as DictionaryAPI).sourceSync}
+            />
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'createdAt',
+      header: () => (
+        <SortHeader
+          sortBy={dashboard.params.sortBy}
+          sortOrder={dashboard.params.sortOrder}
+          onSort={handleSort}
+          columnId="createdAt"
+          label={content.tableHeaders.createdAt.value}
+        />
+      ),
+      cell: ({ row }) => (
+        <div className="text-neutral">
+          {(row.original as any).createdAt
+            ? formatDate((row.original as any).createdAt)
+            : null}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'updatedAt',
+      header: () => (
+        <SortHeader
+          sortBy={dashboard.params.sortBy}
+          sortOrder={dashboard.params.sortOrder}
+          onSort={handleSort}
+          columnId="updatedAt"
+          label={content.tableHeaders.updatedAt.value}
+        />
+      ),
+      cell: ({ row }) => (
+        <div className="text-neutral">
+          {(row.original as any).updatedAt
+            ? formatDate((row.original as any).updatedAt)
+            : null}
+        </div>
+      ),
+    },
+    {
+      id: 'actions',
+      header: content.tableHeaders.actions.value,
+      cell: ({ row }) => (
+        <div className="flex items-center gap-1">
+          <PopoverStatic identifier={`delete-${row.original.id}`}>
+            <Button
+              variant="hoverable"
+              color="error"
+              className="ms-auto text-text hover:text-error"
+              size="icon-sm"
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
 
-                  setFocusedContent({
+                if (row.original.id) {
+                  dashboard.state.setDictionaryToDelete(row.original.id);
+                }
+              }}
+              Icon={Trash2}
+              label={content.deleteButton.label.value}
+              disabled={!hasDictionaryWritePermission}
+            />
+            <PopoverStatic.Detail
+              xAlign="end"
+              identifier={`delete-${row.original.id}`}
+            >
+              <Container className="p-3">
+                <p>{content.deleteButton.popover}</p>
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+
+          <PopoverStatic identifier={`edit-${row.original.id}`}>
+            <Button
+              variant="hoverable"
+              color="text"
+              size="icon-sm"
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+
+                if (row.original.key) {
+                  dashboard.state.setEditingDictionaryKey(row.original.key);
+                }
+              }}
+              Icon={Pencil}
+              label={content.editButton.label.value}
+              disabled={!hasDictionaryWritePermission}
+            />
+            <PopoverStatic.Detail
+              xAlign="end"
+              identifier={`edit-${row.original.id}`}
+            >
+              <Container className="p-3">
+                <p>{content.editButton.popover}</p>
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+
+          <PopoverStatic identifier={`view-${row.original.id}`}>
+            <Button
+              variant="hoverable"
+              color="text"
+              size="icon-sm"
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+
+                setFocusedContent({
+                  dictionaryKey: row.original.key,
+                  dictionaryLocalId: row.original.localId,
+                  keyPath: [],
+                });
+
+                navigate({
+                  to: `/dictionary/$dictionaryKey`,
+                  params: {
                     dictionaryKey: row.original.key,
-                    dictionaryLocalId: row.original.localId,
-                    keyPath: [],
-                  });
-
-                  navigate({
-                    to: `/dictionary/$dictionaryKey`,
-                    params: {
-                      dictionaryKey: row.original.key,
-                    },
-                  });
-                }}
-                Icon={ArrowRight}
-                label={content.viewButton.label.value}
-              />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`view-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.viewButton?.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
-          </div>
-        ),
-      },
-    ],
-    [
-      dashboard.params.sortBy,
-      dashboard.params.sortOrder,
-      formatDate,
-      dashboard.state,
-    ]
-  );
+                  },
+                });
+              }}
+              Icon={ArrowRight}
+              label={content.viewButton.label.value}
+            />
+            <PopoverStatic.Detail
+              xAlign="end"
+              identifier={`view-${row.original.id}`}
+            >
+              <Container className="p-3">
+                <p>{content.viewButton?.popover}</p>
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+        </div>
+      ),
+    },
+  ];
 
   const table = useDataTable({
     data: dashboard.data.dictionaries,
@@ -442,8 +481,14 @@ export const DictionaryListDashboardContent: FC = () => {
   );
 };
 
-export const DictionaryListDashboard: FC = () => (
+type DictionaryListDashboardProps = {
+  tagKey?: string;
+};
+
+export const DictionaryListDashboard: FC<DictionaryListDashboardProps> = ({
+  tagKey,
+}) => (
   <Suspense fallback={<DictionaryListSkeleton />}>
-    <DictionaryListDashboardContent />
+    <DictionaryListDashboardContent tagKey={tagKey} />
   </Suspense>
 );

@@ -45,12 +45,38 @@ console.log(content.title.raw); // Render as raw
 
 [Vue Documentation](references/packages_vue-intlayer_exports.md)
 
+## Bundle Optimization
+
+Read content fields by name (dot access or destructuring) so the build can purge and minify the dictionary. Never index content at runtime (`content.statuses[status]`, use `select()`), and call `useIntlayer` in each child component instead of passing content as a prop. See the `intlayer-bundle-optimization` skill.
+
+## Compiler
+
+The [Intlayer Compiler](references/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
+
+It activates once `compiler.enabled` and `compiler.output` are set: `.svelte` files additionally require `@intlayer/vue-compiler`.
+
 ## References
 
 - [Website](https://intlayer.org)
 - [Doc](https://intlayer.org/doc)
 
+### Environments
+
 - [Vite and Vue](references/environment_vite-and-vue.md)
 - [Nuxt and Vue](references/environment_nuxt-and-vue.md)
+- [Astro and Vue](references/environment_astro_vue.md)
+
+### Concepts
+
+- [Variants](references/concept_variants.md)
+- [Collections](references/concept_collections.md)
+- [Compiler](references/compiler.md)
+- [Formatters (number, currency, date, …)](references/formatters.md)
+
+### Packages
+
 - [Vue Intlayer Exports](references/packages_vue-intlayer_exports.md)
 - [Intlayer Exports](references/packages_intlayer_exports.md)
+- [nuxt-intlayer Exports](references/packages_nuxt-intlayer_exports.md)
+- [vue-intlayer usePathname](references/packages_vue-intlayer_usePathname.md)
+- [vue-intlayer useRewriteURL](references/packages_vue-intlayer_useRewriteURL.md)

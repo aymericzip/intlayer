@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "ファイルコンテンツ：外部ファイルを埋め込む"
 description: "file() 関数で Markdown やテキストなどの外部ファイルを Intlayer の辞書に埋め込み、元ファイルと同期させます。"
@@ -67,7 +67,7 @@ export default myFileContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use embedded file content in a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This retrieves the content from the specified key and allows it to be displayed dynamically.
+React コンポーネントで埋め込みファイルコンテンツを使用するには、`react-intlayer` パッケージの `useIntlayer` フックをインポートして使用します。これにより指定されたキーのコンテンツを取得し、動的に表示できます。
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -89,7 +89,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Next.js のクライアントコンポーネントで埋め込みファイルコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -113,7 +113,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Vue コンポーネントで埋め込みファイルコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -132,7 +132,7 @@ const { myFile } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Svelte コンポーネントで埋め込みファイルコンテンツを使用するには、`useIntlayer` フック経由で取得します。ストアは `$` で参照します。 以下は使用例です：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -149,7 +149,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use embedded file content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Preact コンポーネントで埋め込みファイルコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -171,7 +171,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use embedded file content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+SolidJS コンポーネントで埋め込みファイルコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -193,7 +193,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use embedded file content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Angular コンポーネントで埋め込みファイルコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -215,7 +215,7 @@ export class FileComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use embedded file content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+`vanilla-intlayer` で埋め込みファイルコンテンツを使用するには、`useIntlayer` を経由して取得します。以下は使用例です：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

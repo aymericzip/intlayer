@@ -13,6 +13,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { parallelize } from '@intlayer/config/utils';
 import {
   type ListGitFilesOptions,
   listGitFiles,
@@ -23,7 +24,7 @@ import {
   buildReviewReport,
   type ReviewReportSummary,
 } from '@intlayer/engine/docReview';
-import { formatLocale, formatPath, parallelize } from '@intlayer/engine/utils';
+import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
 import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';

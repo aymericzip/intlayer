@@ -162,7 +162,7 @@ export const OpenRouterSettings: FC = () => {
           <Waypoints className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
-        <p className="text-neutral text-sm dark:text-neutral-dark">
+        <p className="dark:text-neutral-dark text-sm text-neutral">
           {description}
         </p>
       </div>
@@ -176,7 +176,7 @@ export const OpenRouterSettings: FC = () => {
         <div className="flex gap-4">
           <div className="flex flex-1 flex-col gap-1">
             <H4>{enableToggle.label}</H4>
-            <p className="max-w-md text-neutral text-sm">
+            <p className="max-w-md text-sm text-neutral">
               {enableToggle.description}
             </p>
           </div>
@@ -201,7 +201,7 @@ export const OpenRouterSettings: FC = () => {
                 disabled={!isProjectAdmin}
               />
               {hasConfiguredKey && (
-                <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
+                <p className="dark:text-neutral-dark mt-1 text-xs text-neutral">
                   {apiKeyContent.configuredHint}
                 </p>
               )}
@@ -225,7 +225,7 @@ export const OpenRouterSettings: FC = () => {
       </Container>
 
       {isProjectAdmin && (
-        <div className="flex justify-end border-neutral/30 border-t border-dotted pt-3">
+        <div className="flex justify-end border-t border-dotted border-neutral/30 pt-3">
           <FormButton
             type="submit"
             label={saveButton.ariaLabel.value}

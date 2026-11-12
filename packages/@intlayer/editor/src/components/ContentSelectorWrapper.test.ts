@@ -8,9 +8,12 @@ import { setGlobalEditorManager } from '../core/globalManager';
 import { defineIntlayerElements } from './ContentSelector';
 
 // The real module graph loads esbuild, which cannot run under jsdom
+// Same prefix semantics as the real one: a focused list matches its items
 vi.mock('@intlayer/core/utils', () => ({
   isSameKeyPath: (keyPathA: KeyPath[], keyPathB: KeyPath[]) =>
-    JSON.stringify(keyPathA) === JSON.stringify(keyPathB),
+    keyPathA.every(
+      (step, index) => JSON.stringify(step) === JSON.stringify(keyPathB[index])
+    ),
 }));
 
 type StateMock<Value> = EventTarget & { value: Value };
@@ -26,11 +29,14 @@ const getWantedTop = () => window.innerHeight * 0.3;
 /** Styles reported for the content's container, keyed by property */
 type ContainerStyle = { opacity: string; transform: string };
 
+/** Lets the batched reveal of the selected wrappers run */
+const flushReveal = () => Promise.resolve();
+
 /**
  * Selects a content measured at `contentTop`, placed inside a container
  * styled with `containerStyle`.
  */
-const selectContent = (
+const selectContent = async (
   contentTop: number,
   containerStyle: ContainerStyle = { opacity: '1', transform: 'none' }
 ) => {
@@ -71,6 +77,7 @@ const selectContent = (
       detail: { dictionaryKey: 'home', keyPath: KEY_PATH },
     })
   );
+  await flushReveal();
 };
 
 describe('IntlayerContentSelectorWrapperElement scroll into view', () => {
@@ -99,10 +106,10 @@ describe('IntlayerContentSelectorWrapperElement scroll into view', () => {
     vi.unstubAllGlobals();
   });
 
-  it('scrolls content below the viewport to 30vh', () => {
+  it('scrolls content below the viewport to 30vh', async () => {
     const contentTop = window.innerHeight + 200;
 
-    selectContent(contentTop);
+    await selectContent(contentTop);
 
     expect(window.scrollBy).toHaveBeenCalledWith({
       top: contentTop - getWantedTop(),
@@ -110,16 +117,16 @@ describe('IntlayerContentSelectorWrapperElement scroll into view', () => {
     });
   });
 
-  it('does not scroll content fully visible in the viewport', () => {
-    selectContent(100);
+  it('does not scroll content fully visible in the viewport', async () => {
+    await selectContent(100);
 
     expect(window.scrollBy).not.toHaveBeenCalled();
   });
 
-  it('scrolls content only partially visible', () => {
+  it('scrolls content only partially visible', async () => {
     const contentTop = window.innerHeight - 10;
 
-    selectContent(contentTop);
+    await selectContent(contentTop);
 
     expect(window.scrollBy).toHaveBeenCalledWith({
       top: contentTop - getWantedTop(),
@@ -127,12 +134,12 @@ describe('IntlayerContentSelectorWrapperElement scroll into view', () => {
     });
   });
 
-  it('scrolls content hidden under a fixed navbar', () => {
+  it('scrolls content hidden under a fixed navbar', async () => {
     const navbar = document.createElement('nav');
     document.body.appendChild(navbar);
     document.elementFromPoint = () => navbar;
 
-    selectContent(10);
+    await selectContent(10);
 
     expect(window.scrollBy).toHaveBeenCalledWith({
       top: 10 - getWantedTop(),
@@ -140,11 +147,11 @@ describe('IntlayerContentSelectorWrapperElement scroll into view', () => {
     });
   });
 
-  it('targets where content waiting to be revealed will settle', () => {
+  it('targets where content waiting to be revealed will settle', async () => {
     const contentTop = window.innerHeight + 200;
 
     // Scroll-reveal: transparent and shifted 100px down until in view
-    selectContent(contentTop, {
+    await selectContent(contentTop, {
       opacity: '0',
       transform: 'translateY(100px)',
     });
@@ -155,10 +162,10 @@ describe('IntlayerContentSelectorWrapperElement scroll into view', () => {
     });
   });
 
-  it('keeps permanent transforms of visible content in the position', () => {
+  it('keeps permanent transforms of visible content in the position', async () => {
     const contentTop = window.innerHeight + 200;
 
-    selectContent(contentTop, {
+    await selectContent(contentTop, {
       opacity: '1',
       transform: 'translateY(100px)',
     });
@@ -166,6 +173,317 @@ describe('IntlayerContentSelectorWrapperElement scroll into view', () => {
     expect(window.scrollBy).toHaveBeenCalledWith({
       top: contentTop - getWantedTop(),
       behavior: 'smooth',
+    });
+  });
+});
+
+describe('IntlayerContentSelectorWrapperElement with several matching wrappers', () => {
+  const LIST_KEY_PATH: KeyPath[] = [
+    { type: 'object', key: 'items' } as KeyPath,
+  ];
+
+  beforeEach(() => {
+    vi.spyOn(window, 'top', 'get').mockReturnValue({} as Window);
+    window.scrollBy = vi.fn();
+    defineIntlayerElements();
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+    setGlobalEditorManager(null);
+    vi.restoreAllMocks();
+  });
+
+  /** The wrapper hosting the selection box being measured */
+  const getHostWrapper = (element: Element): Element | null => {
+    let host: Element | null = element;
+
+    while (host && host.tagName !== 'INTLAYER-CONTENT-SELECTOR-WRAPPER') {
+      host = (host.getRootNode() as ShadowRoot).host ?? null;
+    }
+
+    return host;
+  };
+
+  /**
+   * Renders one wrapper per entry, in document order, measured at the given
+   * top, then focuses `focusedKeyPath`.
+   */
+  const selectAmong = async (
+    wrappers: { keyPath: KeyPath[]; top: number }[],
+    focusedKeyPath: KeyPath[]
+  ) => {
+    const focusedContent = createStateMock<FileContent | null>(null);
+
+    setGlobalEditorManager({
+      editorEnabled: createStateMock(true),
+      focusedContent,
+      editedContent: createStateMock({}),
+      currentLocale: createStateMock(undefined),
+      getContentValue: () => undefined,
+    } as unknown as EditorStateManager);
+
+    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(
+      function (this: HTMLElement) {
+        const top = Number(getHostWrapper(this)?.getAttribute('data-top'));
+
+        return {
+          top,
+          bottom: top + 20,
+          height: 20,
+          left: 0,
+          right: 100,
+        } as DOMRect;
+      }
+    );
+
+    for (const { keyPath, top } of wrappers) {
+      const wrapper = document.createElement(
+        'intlayer-content-selector-wrapper'
+      );
+      wrapper.setAttribute('dictionary-key', 'home');
+      wrapper.setAttribute('key-path', JSON.stringify(keyPath));
+      wrapper.setAttribute('data-top', String(top));
+      document.body.appendChild(wrapper);
+    }
+
+    focusedContent.dispatchEvent(
+      new CustomEvent('change', {
+        detail: { dictionaryKey: 'home', keyPath: focusedKeyPath },
+      })
+    );
+    await flushReveal();
+  };
+
+  it('scrolls to the first item of a selected list', async () => {
+    const firstItemTop = window.innerHeight + 200;
+
+    await selectAmong(
+      [0, 1, 2].map((index) => ({
+        keyPath: [...LIST_KEY_PATH, { type: 'array', key: index } as KeyPath],
+        top: firstItemTop + index * 100,
+      })),
+      LIST_KEY_PATH
+    );
+
+    expect(window.scrollBy).toHaveBeenCalledTimes(1);
+    expect(window.scrollBy).toHaveBeenCalledWith({
+      top: firstItemTop - getWantedTop(),
+      behavior: 'smooth',
+    });
+  });
+
+  it('scrolls to the first occurrence of content rendered twice', async () => {
+    const firstOccurrenceTop = window.innerHeight + 200;
+
+    await selectAmong(
+      [
+        { keyPath: KEY_PATH, top: firstOccurrenceTop },
+        { keyPath: KEY_PATH, top: firstOccurrenceTop + 1000 },
+      ],
+      KEY_PATH
+    );
+
+    expect(window.scrollBy).toHaveBeenCalledTimes(1);
+    expect(window.scrollBy).toHaveBeenCalledWith({
+      top: firstOccurrenceTop - getWantedTop(),
+      behavior: 'smooth',
+    });
+  });
+
+  it('keeps the view when the first occurrence is already visible', async () => {
+    await selectAmong(
+      [
+        { keyPath: KEY_PATH, top: 100 },
+        { keyPath: KEY_PATH, top: window.innerHeight + 1000 },
+      ],
+      KEY_PATH
+    );
+
+    expect(window.scrollBy).not.toHaveBeenCalled();
+  });
+});
+
+describe('IntlayerContentSelectorWrapperElement click outside', () => {
+  beforeEach(() => {
+    vi.spyOn(window, 'top', 'get').mockReturnValue({} as Window);
+    defineIntlayerElements();
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+    setGlobalEditorManager(null);
+    vi.restoreAllMocks();
+  });
+
+  it('deselects focused content when clicking outside', async () => {
+    const focusedContent = Object.assign(new EventTarget(), {
+      value: { dictionaryKey: 'home', keyPath: KEY_PATH } as FileContent | null,
+      set: vi.fn(function (this: any, val: FileContent | null) {
+        this.value = val;
+        this.dispatchEvent(new CustomEvent('change', { detail: val }));
+      }),
+    });
+
+    setGlobalEditorManager({
+      editorEnabled: createStateMock(true),
+      focusedContent,
+      editedContent: createStateMock({}),
+      currentLocale: createStateMock(undefined),
+      getContentValue: () => undefined,
+    } as unknown as EditorStateManager);
+
+    const wrapper = document.createElement('intlayer-content-selector-wrapper');
+    wrapper.setAttribute('dictionary-key', 'home');
+    wrapper.setAttribute('key-path', JSON.stringify(KEY_PATH));
+    document.body.appendChild(wrapper);
+
+    const selector = wrapper.shadowRoot?.querySelector(
+      'intlayer-content-selector'
+    );
+    expect(selector?.hasAttribute('is-selecting')).toBe(true);
+
+    // Simulate clicking outside by dispatching mousedown on document
+    document.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+
+    expect(focusedContent.set).toHaveBeenCalledWith(null);
+    expect(selector?.hasAttribute('is-selecting')).toBe(false);
+  });
+
+  it('does not deselect when clicking another instance of the same content', async () => {
+    const focusedContent = Object.assign(new EventTarget(), {
+      value: { dictionaryKey: 'home', keyPath: KEY_PATH } as FileContent | null,
+      set: vi.fn(function (this: any, val: FileContent | null) {
+        this.value = val;
+        this.dispatchEvent(new CustomEvent('change', { detail: val }));
+      }),
+    });
+
+    setGlobalEditorManager({
+      editorEnabled: createStateMock(true),
+      focusedContent,
+      editedContent: createStateMock({}),
+      currentLocale: createStateMock(undefined),
+      getContentValue: () => undefined,
+    } as unknown as EditorStateManager);
+
+    const wrapper1 = document.createElement(
+      'intlayer-content-selector-wrapper'
+    );
+    wrapper1.setAttribute('dictionary-key', 'home');
+    wrapper1.setAttribute('key-path', JSON.stringify(KEY_PATH));
+    document.body.appendChild(wrapper1);
+
+    const wrapper2 = document.createElement(
+      'intlayer-content-selector-wrapper'
+    );
+    wrapper2.setAttribute('dictionary-key', 'home');
+    wrapper2.setAttribute('key-path', JSON.stringify(KEY_PATH));
+    const span2 = document.createElement('span');
+    span2.textContent = 'Second instance';
+    wrapper2.appendChild(span2);
+    document.body.appendChild(wrapper2);
+
+    const selector1 = wrapper1.shadowRoot?.querySelector(
+      'intlayer-content-selector'
+    );
+    expect(selector1?.hasAttribute('is-selecting')).toBe(true);
+
+    // Click on span2 inside wrapper2
+    span2.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+
+    expect(focusedContent.set).not.toHaveBeenCalledWith(null);
+    expect(selector1?.hasAttribute('is-selecting')).toBe(true);
+  });
+
+  describe('pressing other content', () => {
+    const OTHER_KEY_PATH: KeyPath[] = [
+      { type: 'object', key: 'subtitle' } as KeyPath,
+    ];
+
+    const setup = () => {
+      const focusedContent = Object.assign(new EventTarget(), {
+        value: {
+          dictionaryKey: 'home',
+          keyPath: KEY_PATH,
+        } as FileContent | null,
+        set: vi.fn(function (
+          this: StateMock<FileContent | null>,
+          value: FileContent | null
+        ) {
+          this.value = value;
+          this.dispatchEvent(new CustomEvent('change', { detail: value }));
+        }),
+      });
+
+      setGlobalEditorManager({
+        editorEnabled: createStateMock(true),
+        focusedContent,
+        editedContent: createStateMock({}),
+        currentLocale: createStateMock(undefined),
+        getContentValue: () => undefined,
+      } as unknown as EditorStateManager);
+
+      const focusedWrapper = document.createElement(
+        'intlayer-content-selector-wrapper'
+      );
+      focusedWrapper.setAttribute('dictionary-key', 'home');
+      focusedWrapper.setAttribute('key-path', JSON.stringify(KEY_PATH));
+      document.body.appendChild(focusedWrapper);
+
+      const otherWrapper = document.createElement(
+        'intlayer-content-selector-wrapper'
+      );
+      otherWrapper.setAttribute('dictionary-key', 'home');
+      otherWrapper.setAttribute('key-path', JSON.stringify(OTHER_KEY_PATH));
+      const otherContent = document.createElement('span');
+      otherContent.textContent = 'Other content';
+      otherWrapper.appendChild(otherContent);
+      document.body.appendChild(otherWrapper);
+
+      return { focusedContent, otherContent };
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('keeps the focus until the press selects the other content', () => {
+      const { focusedContent, otherContent } = setup();
+
+      otherContent.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true })
+      );
+      expect(focusedContent.set).not.toHaveBeenCalled();
+
+      // Long press
+      vi.advanceTimersByTime(300);
+      otherContent.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+      vi.runAllTimers();
+
+      expect(focusedContent.set).not.toHaveBeenCalledWith(null);
+      expect(focusedContent.value).toEqual({
+        dictionaryKey: 'home',
+        keyPath: OTHER_KEY_PATH,
+      });
+    });
+
+    it('deselects once a press that selects nothing is released', () => {
+      const { focusedContent, otherContent } = setup();
+
+      otherContent.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true })
+      );
+      otherContent.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+      expect(focusedContent.set).not.toHaveBeenCalled();
+
+      vi.runAllTimers();
+
+      expect(focusedContent.set).toHaveBeenCalledWith(null);
     });
   });
 });

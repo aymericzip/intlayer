@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "ネスト：辞書間でコンテンツを再利用"
 description: "Intlayer の nest() ノードで辞書から別の辞書を参照し、翻訳を重複させずに共通コンテンツを再利用します。"
@@ -117,7 +117,7 @@ export default myNestingContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use nested content in a React component, leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified key. Here's an example of how to use it:
+React コンポーネントでネストされたコンテンツを使用するには、`react-intlayer` パッケージの `useIntlayer` フックを利用します。このフックは指定されたキーに基づいてコンテンツを取得します。
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -142,7 +142,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use nested content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Next.js のクライアントコンポーネントでネストされたコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -169,7 +169,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use nested content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Vue コンポーネントでネストされたコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -191,7 +191,7 @@ const { fullNestedContent, partialNestedContent } = useIntlayer(
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use nested content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Svelte コンポーネントでネストされたコンテンツを使用するには、`useIntlayer` フック経由で取得します。ストアは `$` で参照します。 以下は使用例です：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -209,7 +209,7 @@ const content = useIntlayer("key_of_my_second_dictionary");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use nested content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Preact コンポーネントでネストされたコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -234,7 +234,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use nested content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+SolidJS コンポーネントでネストされたコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -259,7 +259,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use nested content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Angular コンポーネントでネストされたコンテンツを使用するには、`useIntlayer` フック経由で取得します。 以下は使用例です：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -285,7 +285,7 @@ export class NestComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use nested content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+`vanilla-intlayer` でネストされたコンテンツを使用するには、`useIntlayer` を経由して取得します。以下は使用例です：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

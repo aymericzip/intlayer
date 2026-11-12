@@ -98,7 +98,7 @@ jobs:
       - name: 🥡 Setup bun
         uses: oven-sh/setup-bun@v2
         with:
-          version: 1.4.2
+          version: 1.4.4
           run_install: false
 
       - name: 🟢 Setup node
@@ -132,18 +132,23 @@ jobs:
       - name: 🧩 Install Dependencies
         run: bun install --frozen-lockfile
 
+      # Everything is built (and prepublished) up front: a failure stops the
+      # release before anything reaches the registry.
+      - name: 🏗️ Build packages
+        run: bun run publish:ci:build
+
       # The dist-tag comes from the version: 9.0.0 → latest, 9.0.0-canary.0 → canary
       - name: 🚀 Publish packages
         env:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
-        # turbo builds each package (dependsOn build + prepublish) before
-        # publishing it, in dependency order. `--continue` (in `publish:ci`)
+        # Packages are already built, so every package is published in
+        # parallel (`publish:ci` has no task dependency). `--continue`
         # keeps publishing the other packages when one fails. After each pass
         # the registry is checked for every package: missing ones trigger a
-        # new pass (already published packages are skipped), up to 3 passes,
+        # new pass (already published packages are skipped), up to 6 passes,
         # then the job fails so the run can be re-run.
         run: |
-          MAX_PASSES=3
+          MAX_PASSES=6
           for PASS in $(seq 1 $MAX_PASSES); do
             echo "🚀 Publishing packages (pass $PASS/$MAX_PASSES)..."
             if bun run publish:ci; then
@@ -161,11 +166,6 @@ jobs:
               if bun scripts/verify-published-packages.mjs; then
                 exit 0
               fi
-            fi
-
-            if [ "$PASS" -lt "$MAX_PASSES" ]; then
-              echo "⏳ Waiting 30s before the next pass..."
-              sleep 30
             fi
           done
           echo "❌ Some packages are still not published after $MAX_PASSES passes."
@@ -188,7 +188,7 @@ jobs:
       - name: 🥡 Setup bun
         uses: oven-sh/setup-bun@v2
         with:
-          version: 1.4.2
+          version: 1.4.4
           run_install: false
 
       - name: 🦀 Setup rust

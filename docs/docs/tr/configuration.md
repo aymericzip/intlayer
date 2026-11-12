@@ -410,7 +410,7 @@ const config: IntlayerConfig = {
     /**
      * Seçilen sağlayıcıdan kullanılacak model.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * Sağlayıcının API anahtarı.
@@ -816,8 +816,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -836,8 +836,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -868,8 +868,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -888,8 +888,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -908,12 +908,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Yeniden yazılmayan yollar için geri dönüş
@@ -1048,7 +1049,7 @@ Intlayer, maksimum esneklik için birden fazla yapay zeka sağlayıcısını des
 | Alan                 | Açıklama                                                                                                                                    | Tür                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Varsayılan  | Örnek                                                         | Not                                                                                                                                                                                          |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | Intlayer yapay zeka özellikleri için kullanılacak sağlayıcı.                                                                                | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | Farklı sağlayıcılar farklı API anahtarları gerektirir ve farklı fiyatlandırmalara sahiptir.                                                                                                  |
-| `model`              | Yapay zeka özellikleri için kullanılacak model.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Yok         | `'gpt-4o-2024-11-20'`                                         | Belirli model sağlayıcıya göre değişir.                                                                                                                                                      |
+| `model`              | Yapay zeka özellikleri için kullanılacak model.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Yok         | `'gpt-5.6-terra'`                                             | Belirli model sağlayıcıya göre değişir.                                                                                                                                                      |
 | `temperature`        | Yapay zeka yanıtlarının rastgeleliğini kontrol eder.                                                                                        | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Yok         | `0.1`                                                         | Daha yüksek sıcaklık = daha yaratıcı ve daha az tahmin edilebilir.                                                                                                                           |
 | `apiKey`             | Seçilen sağlayıcı için API anahtarınız.                                                                                                     | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Yok         | `process.env.OPENAI_API_KEY`                                  | Gizli tutulmalıdır; ortam değişkenlerinde saklayın.                                                                                                                                          |
 | `applicationContext` | Yapay zekanın daha doğru çeviriler üretmesine yardımcı olmak için uygulamanız hakkında ek bağlam (alan adı, hedef kitle, ton, terminoloji). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Yok         | `'Kendi uygulama bağlamım'`                                   | Kurallar eklemek için kullanılabilir (örneğin: `"URL'leri dönüştürmemelisiniz"`).                                                                                                            |

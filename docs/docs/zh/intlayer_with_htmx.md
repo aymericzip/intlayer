@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "htmx i18n - 完整的应用翻译指南"
 description: "在 htmx 中使用 Intlayer：在服务器端渲染翻译后的 HTML 片段，按请求检测语言，无需 SPA 即可切换语言。"

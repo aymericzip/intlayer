@@ -11,8 +11,8 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 import { getIntlayerClient } from './installIntlayer';
+import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 
 /**
  * Returns the translated content for the given dictionary key, wrapped in an

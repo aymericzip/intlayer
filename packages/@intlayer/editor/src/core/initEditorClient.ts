@@ -2,6 +2,7 @@ import { editor } from '@intlayer/config/built';
 import { defineIntlayerElements } from '../components';
 import type { MessengerConfig } from './CrossFrameMessenger';
 import { EditorStateManager } from './EditorStateManager';
+import { getLocalEditorParentOrigin } from './getLocalEditorParentOrigin';
 import {
   getGlobalEditorManager,
   setGlobalEditorManager,
@@ -17,8 +18,21 @@ const buildClientMessengerConfig = (): MessengerConfig => {
   const sameOrigin =
     typeof window !== 'undefined' ? window.location.origin : undefined;
 
+  // A local editor may run on another port than the configured one
+  const localEditorOrigin =
+    typeof window !== 'undefined'
+      ? getLocalEditorParentOrigin(
+          editor?.editorURL,
+          window.location.ancestorOrigins?.[0]
+        )
+      : undefined;
+
   const allowedOrigins = [
-    ...new Set([editor?.editorURL, editor?.cmsURL, sameOrigin].filter(Boolean)),
+    ...new Set(
+      [editor?.editorURL, editor?.cmsURL, sameOrigin, localEditorOrigin].filter(
+        Boolean
+      )
+    ),
   ] as string[];
 
   return {

@@ -6,6 +6,7 @@ import {
   Heading2,
   Heading3,
   ImageIcon,
+  Images,
   List,
   ListOrdered,
   Text,
@@ -14,10 +15,19 @@ import {
 import {
   Command,
   createSuggestionItems,
+  type EditorInstance,
   renderItems,
   type SuggestionItem,
   type UploadFn,
 } from './novel';
+
+export type SlashCommandOptions = {
+  /**
+   * Opens the asset library. When provided, an "Asset library" command is
+   * listed after the "Image" one.
+   */
+  onOpenAssetLibrary?: (editor: EditorInstance) => void;
+};
 
 /**
  * Builds the list of slash-command suggestions. The image command needs the
@@ -25,10 +35,12 @@ import {
  *
  * @param uploadFn - Novel upload handler used by the "Image" command.
  * @param content - The internationalized content object from useIntlayer.
+ * @param options - Optional commands depending on the host capabilities.
  */
 export const getSuggestionItems = (
   uploadFn: UploadFn,
-  content: any
+  content: any,
+  { onOpenAssetLibrary }: SlashCommandOptions = {}
 ): SuggestionItem[] =>
   createSuggestionItems([
     {
@@ -156,6 +168,20 @@ export const getSuggestionItems = (
         input.click();
       },
     },
+    ...(onOpenAssetLibrary
+      ? [
+          {
+            title: content.assetLibrary.value,
+            description: content.assetLibraryDesc.value,
+            searchTerms: ['asset', 'library', 'media', 'gallery', 'image'],
+            icon: <Images className="size-10" />,
+            command: ({ editor, range }) => {
+              editor.chain().focus().deleteRange(range).run();
+              onOpenAssetLibrary(editor);
+            },
+          } satisfies SuggestionItem,
+        ]
+      : []),
     {
       title: content.youtube.value,
       description: content.youtubeDesc.value,
@@ -186,9 +212,14 @@ export const getSuggestionItems = (
  *
  * @param uploadFn - Novel upload handler used by the "Image" command.
  * @param content - The internationalized content object from useIntlayer.
+ * @param options - Optional commands depending on the host capabilities.
  */
-export const createSlashCommand = (uploadFn: UploadFn, content: any) => {
-  const suggestionItems = getSuggestionItems(uploadFn, content);
+export const createSlashCommand = (
+  uploadFn: UploadFn,
+  content: any,
+  options?: SlashCommandOptions
+) => {
+  const suggestionItems = getSuggestionItems(uploadFn, content, options);
 
   const slashCommand = Command.configure({
     suggestion: {

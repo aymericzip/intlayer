@@ -64,29 +64,29 @@ getDictionaryAsync(
 ## Parametry
 
 - `dictionaryLoaders: PlainDynamicLoaderMap | QualifiedDynamicLoaderMap`
-  - **Description**: Mapa loaderów dla każdej lokalizacji. Mapy zwykłe powiązują lokalizację z loaderem; mapy kwalifikowane (używane przez kolekcje i warianty) powiązują lokalizację z identyfikatorem kwalifikatora, a następnie z loaderem. Dla mapy kwalifikowanej ładowane są tylko fragmenty, na które wskazuje selektor.
-  - **Type**: `PlainDynamicLoaderMap<T> | QualifiedDynamicLoaderMap`
-  - **Required**: Yes
+  - **Opis**: Mapa loaderów dla każdej lokalizacji. Mapy zwykłe powiązują lokalizację z loaderem; mapy kwalifikowane (używane przez kolekcje i warianty) powiązują lokalizację z identyfikatorem kwalifikatora, a następnie z loaderem. Dla mapy kwalifikowanej ładowane są tylko fragmenty, na które wskazuje selektor.
+  - **Typ**: `PlainDynamicLoaderMap<T> | QualifiedDynamicLoaderMap`
+  - **Wymagane**: Tak
 
 - `key: string`
-  - **Description**: Klucz słownika, używany do namespacing cache'u fragmentów.
-  - **Type**: `string`
-  - **Required**: Yes
+  - **Opis**: Klucz słownika, używany do namespacing cache'u fragmentów.
+  - **Typ**: `string`
+  - **Wymagane**: Tak
 
 - `localeOrSelector: LocalesValues | DictionarySelector`
-  - **Description**: Lokalizacja do interpretacji zawartości lub obiekt selektora (`{ item }`, `{ variant }`, opcjonalnie z `locale`). Patrz [dynamiczne słowniki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
-  - **Type**: `LocalesValues | DictionarySelector`
-  - **Required**: No (Optional), defaults to the configured `defaultLocale`.
+  - **Opis**: Lokalizacja do interpretacji zawartości lub obiekt selektora (`{ item }`, `{ variant }`, opcjonalnie z `locale`). Patrz [dynamiczne słowniki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/index.md).
+  - **Typ**: `LocalesValues | DictionarySelector`
+  - **Wymagane**: Nie (opcjonalne), domyślnie skonfigurowane `defaultLocale`.
 
 - `plugins: Plugins[]`
-  - **Description**: Transformatory węzłów. Domyślnie ustawiony na bazowy zestaw interpretera.
-  - **Type**: `Plugins[]`
-  - **Required**: No (Optional)
+  - **Opis**: Transformatory węzłów. Domyślnie ustawiony na bazowy zestaw interpretera.
+  - **Typ**: `Plugins[]`
+  - **Wymagane**: Nie (opcjonalne)
 
-### Returns
+### Zwracana wartość
 
-- **Type**: `Promise<Content>`, obietnica rozwiązująca się do interpretowanej zawartości załadowanego fragmentu.
-- **Description**: Rozwiązuje się do `null`, gdy mapa nie emituje żadnego fragmentu dla żądanej lokalizacji ani żadnych jej fallbacków, odzwierciedlając sposób, w jaki rozwiązuje się brakująca kwalifikowana współrzędna.
+- **Typ**: `Promise<Content>`, obietnica rozwiązująca się do interpretowanej zawartości załadowanego fragmentu.
+- **Opis**: Rozwiązuje się do `null`, gdy mapa nie emituje żadnego fragmentu dla żądanej lokalizacji ani żadnych jej fallbacków, odzwierciedlając sposób, w jaki rozwiązuje się brakująca kwalifikowana współrzędna.
 
 ## Przykładowe użycie
 

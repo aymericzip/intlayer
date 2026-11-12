@@ -229,7 +229,7 @@ export const RichContent: Story = {
   render: (args) => (
     <HeightResizer {...args}>
       <div className="space-y-3 p-4">
-        <h3 className="font-semibold text-lg">Resizable Content Panel</h3>
+        <h3 className="text-lg font-semibold">Resizable Content Panel</h3>
         <p className="text-gray-600">
           This area contains rich content to better visualize resizing behavior.
           Drag the handle above to adjust the visible height.
@@ -242,8 +242,8 @@ export const RichContent: Story = {
           <li>Smooth CSS transitions for polished UX</li>
           <li>Overflow handling for content that exceeds bounds</li>
         </ul>
-        <div className="mt-4 rounded border-blue-400 border-s-4 bg-blue-50 p-3">
-          <p className="text-blue-800 text-sm">
+        <div className="mt-4 rounded border-s-4 border-blue-400 bg-blue-50 p-3">
+          <p className="text-sm text-blue-800">
             <strong>Tip:</strong> This content will be clipped when the
             container height is smaller than the content height.
           </p>
@@ -282,7 +282,7 @@ export const CodeEditorSimulation: Story = {
   render: (args) => (
     <div className="overflow-hidden rounded-lg border">
       <div className="flex items-center justify-between border-b bg-gray-100 px-4 py-2">
-        <span className="font-medium text-sm">code-editor.tsx</span>
+        <span className="text-sm font-medium">code-editor.tsx</span>
         <div className="flex space-x-1">
           <div className="h-3 w-3 rounded-full bg-red-400"></div>
           <div className="h-3 w-3 rounded-full bg-yellow-400"></div>
@@ -290,7 +290,7 @@ export const CodeEditorSimulation: Story = {
         </div>
       </div>
       <HeightResizer {...args}>
-        <div className="h-full overflow-auto bg-gray-900 p-4 font-mono text-green-400 text-sm">
+        <div className="h-full overflow-auto bg-gray-900 p-4 font-mono text-sm text-green-400">
           <div className="space-y-1">
             <div>
               <span className="text-purple-300">import</span>{' '}
@@ -361,11 +361,11 @@ export const ChatInterface: Story = {
     <div className="mx-auto max-w-md overflow-hidden rounded-lg border bg-white">
       <div className="flex items-center space-x-3 bg-blue-600 px-4 py-3 text-white">
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-400">
-          <span className="font-bold text-sm">JD</span>
+          <span className="text-sm font-bold">JD</span>
         </div>
         <div>
           <div className="font-medium">John Doe</div>
-          <div className="text-blue-200 text-xs">Online</div>
+          <div className="text-xs text-blue-200">Online</div>
         </div>
       </div>
 
@@ -376,7 +376,7 @@ export const ChatInterface: Story = {
               <p className="text-sm">
                 Hey! How's the new component coming along?
               </p>
-              <span className="text-gray-500 text-xs">10:30 AM</span>
+              <span className="text-xs text-gray-500">10:30 AM</span>
             </div>
           </div>
 
@@ -385,14 +385,14 @@ export const ChatInterface: Story = {
               <p className="text-sm">
                 Great! Just finished the HeightResizer component.
               </p>
-              <span className="text-blue-200 text-xs">10:32 AM</span>
+              <span className="text-xs text-blue-200">10:32 AM</span>
             </div>
           </div>
 
           <div className="flex justify-start">
             <div className="max-w-xs rounded-lg bg-gray-200 p-2">
               <p className="text-sm">Awesome! Can users resize it?</p>
-              <span className="text-gray-500 text-xs">10:33 AM</span>
+              <span className="text-xs text-gray-500">10:33 AM</span>
             </div>
           </div>
 
@@ -401,14 +401,14 @@ export const ChatInterface: Story = {
               <p className="text-sm">
                 Absolutely! Just drag the handle at the top.
               </p>
-              <span className="text-blue-200 text-xs">10:34 AM</span>
+              <span className="text-xs text-blue-200">10:34 AM</span>
             </div>
           </div>
 
           <div className="flex justify-start">
             <div className="max-w-xs rounded-lg bg-gray-200 p-2">
               <p className="text-sm">Perfect for adjustable chat windows!</p>
-              <span className="text-gray-500 text-xs">10:35 AM</span>
+              <span className="text-xs text-gray-500">10:35 AM</span>
             </div>
           </div>
         </div>
@@ -499,18 +499,18 @@ export const CustomStyled: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         Use Tab to focus the resizer, then use arrow keys or drag to resize.
       </div>
 
       <HeightResizer initialHeight={200} minHeight={100} maxHeight={400}>
         <div className="p-4">
           <h3 className="mb-2 font-medium">Keyboard Accessible Resizer</h3>
-          <p className="text-gray-600 text-sm">
+          <p className="text-sm text-gray-600">
             This resizer component is fully accessible via keyboard navigation.
             Focus it with Tab and interact using standard slider controls.
           </p>
-          <ul className="mt-2 space-y-1 text-gray-500 text-xs">
+          <ul className="mt-2 space-y-1 text-xs text-gray-500">
             <li>• Tab: Focus the resizer</li>
             <li>• Arrow keys: Fine-tune height (if implemented)</li>
             <li>• Mouse/Touch: Drag the handle to resize</li>
@@ -546,7 +546,7 @@ export const KeyboardNavigation: Story = {
 export const ScreenReaderSupport: Story = {
   render: () => (
     <div className="space-y-6">
-      <div className="text-gray-700 text-sm">
+      <div className="text-sm text-gray-700">
         Screen readers will announce the resizer as a slider with current,
         minimum, and maximum values. The aria-label provides context about the
         interaction.
@@ -562,11 +562,11 @@ export const ScreenReaderSupport: Story = {
           <h3 className="mb-2 font-medium text-blue-900">
             Accessible Content Panel
           </h3>
-          <p className="mb-3 text-blue-700 text-sm">
+          <p className="mb-3 text-sm text-blue-700">
             This resizer provides comprehensive accessibility support for screen
             readers.
           </p>
-          <div className="space-y-1 text-blue-600 text-xs">
+          <div className="space-y-1 text-xs text-blue-600">
             <div>
               <strong>Current Height:</strong>{' '}
               <span id="current-height">180px</span>

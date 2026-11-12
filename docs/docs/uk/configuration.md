@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-22
+updatedAt: 2026-10-08
 priority: 8
 title: "Конфігурація Intlayer (intlayer.config.ts)"
 description: Дізнайтеся, як налаштувати Intlayer для вашого додатка. Зрозумійте різні налаштування та параметри, доступні для адаптації Intlayer під ваші потреби.
@@ -410,7 +410,7 @@ const config: IntlayerConfig = {
     /**
      * Модель, що використовується для вибраного провайдера.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * API-ключ для провайдера.
@@ -818,8 +818,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -838,8 +838,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -870,8 +870,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -890,8 +890,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -910,12 +910,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Резервний варіант для неперенаправлених шляхів
@@ -1050,7 +1051,7 @@ Intlayer підтримує широкий спектр провайдерів A
 | Поле                 | Опис                                                                                                                              | Тип                                                                                                                                                                                                                                                                                                                                                                                                                                                  | За замовчуванням | Приклад                                                       | Примітки                                                                                                                                                                                          |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | Провайдер, який використовуватиметься для функцій AI в Intlayer.                                                                  | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined`      | `'anthropic'`                                                 | Різні провайдери вимагають різних API-ключів та мають різні ціни.                                                                                                                                 |
-| `model`              | Модель AI, яка використовуватиметься для функцій AI.                                                                              | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Немає            | `'gpt-4o-2024-11-20'`                                         | Конкретні моделі залежать від провайдера.                                                                                                                                                         |
+| `model`              | Модель AI, яка використовуватиметься для функцій AI.                                                                              | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Немає            | `'gpt-5.6-terra'`                                             | Конкретні моделі залежать від провайдера.                                                                                                                                                         |
 | `temperature`        | Контролює випадковість відповідей AI.                                                                                             | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Немає            | `0.1`                                                         | Вища температура = креативніші та менш надійні відповіді.                                                                                                                                         |
 | `apiKey`             | Ваш API-ключ для вибраного провайдера.                                                                                            | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Немає            | `process.env.OPENAI_API_KEY`                                  | Повинно зберігатися в секреті; використовуйте змінні середовища.                                                                                                                                  |
 | `applicationContext` | Додатковий контекст про ваш додаток, щоб допомогти AI генерувати точніші переклади (домен, цільова аудиторія, тон, термінологія). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Немає            | `'мій власний контекст додатка'`                              | Може використовуватися для додавання правил (наприклад: `"Ви не повинні перекладати свої URL"` ).                                                                                                 |
@@ -1104,7 +1105,7 @@ Intlayer підтримує широкий спектр провайдерів A
 | --------- | -------------------------------------------- | ------------------ |
 | `plugins` | Список плагінів Intlayer, які слід включити. | `IntlayerPlugin[]` |
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 

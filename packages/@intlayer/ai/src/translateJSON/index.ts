@@ -1,9 +1,9 @@
-import { readAsset } from 'utils:asset';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { decode, encode } from '@toon-format/toon';
 import { generateText, Output } from 'ai';
+import { readAsset } from 'utils:asset';
 import { z } from 'zod/mini';
 import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
 import { extractJson } from '../utils/extractJSON';
@@ -32,7 +32,7 @@ export type TranslateJSONResultData<T = JSON> = {
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
-  model: 'gpt-5-mini',
+  model: 'gpt-5.6-terra',
 };
 
 /**

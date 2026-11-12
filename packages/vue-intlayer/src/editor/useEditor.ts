@@ -12,13 +12,19 @@ import {
   INTLAYER_SYMBOL,
   type IntlayerProvider,
 } from '../client/installIntlayer';
+import { setLocaleInStorage } from '../client/useLocaleStorage';
 
 /**
- * Starts the editor client and syncs the given locale ref into it.
+ * Starts the editor client, syncs the client locale into it and applies the
+ * locales requested by the editor.
  * Returns a cleanup function that stops the locale watcher and the client.
  */
-const startEditor = (locale: Ref<Locale> | undefined): (() => void) => {
+const startEditor = (
+  client: IntlayerProvider | null | undefined
+): (() => void) => {
+  const locale: Ref<Locale> | undefined = client?.locale;
   let stopLocaleWatch: (() => void) | null = null;
+  let unsubscribeLocaleRequest: (() => void) | null = null;
   let stopped = false;
 
   import('@intlayer/editor')
@@ -32,12 +38,20 @@ const startEditor = (locale: Ref<Locale> | undefined): (() => void) => {
           if (l) manager.currentLocale.set(l as Locale);
         });
       }
+
+      unsubscribeLocaleRequest = manager.onLocaleChangeRequested(
+        (requestedLocale) => {
+          client?.setLocale(requestedLocale);
+          setLocaleInStorage(requestedLocale, true);
+        }
+      );
     })
     .catch(() => {});
 
   return () => {
     stopped = true;
     stopLocaleWatch?.();
+    unsubscribeLocaleRequest?.();
     import('@intlayer/editor')
       .then(({ stopEditorClient }) => {
         stopEditorClient();
@@ -66,7 +80,7 @@ export const useEditor = (app?: App): void => {
       mounted() {
         if ((this as any).$parent !== null) return;
         const client = (this as any)._intlayerClient as IntlayerProvider | null;
-        stopEditor = startEditor(client?.locale);
+        stopEditor = startEditor(client);
       },
       unmounted() {
         if ((this as any).$parent !== null) return;
@@ -81,7 +95,7 @@ export const useEditor = (app?: App): void => {
   let stopEditor: (() => void) | null = null;
 
   onMounted(() => {
-    stopEditor = startEditor(intlayer?.locale);
+    stopEditor = startEditor(intlayer);
   });
 
   onUnmounted(() => {

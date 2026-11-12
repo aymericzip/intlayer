@@ -24,12 +24,9 @@ const finalPath = computed(() => {
   return getLocalizedUrl(props.href, targetLocale);
 });
 </script>
-  
-  <template>
-    <NuxtLink
-      :to="finalPath"
-      v-bind="$attrs"
-    >
-      <slot />
-    </NuxtLink>
-  </template>
+
+<template>
+  <NuxtLink :to="finalPath" v-bind="$attrs">
+    <slot />
+  </NuxtLink>
+</template>

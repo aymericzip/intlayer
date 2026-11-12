@@ -94,14 +94,14 @@ const StarRating: FC<{ rating: number; count: number; starSize?: number }> = ({
         />
       ))}
     </div>
-    <span className="text-neutral text-xs">
+    <span className="text-xs text-neutral">
       {rating.toFixed(1)} ({count})
     </span>
   </div>
 );
 
 const ReviewItem: FC<{ review: ReviewerReviewAPI }> = ({ review }) => (
-  <div className="flex flex-col gap-1 border-neutral/10 border-t pt-3">
+  <div className="flex flex-col gap-1 border-t border-neutral/10 pt-3">
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
@@ -116,7 +116,7 @@ const ReviewItem: FC<{ review: ReviewerReviewAPI }> = ({ review }) => (
       ))}
     </div>
     {review.comment && (
-      <p className="text-neutral text-xs leading-relaxed">{review.comment}</p>
+      <p className="text-xs leading-relaxed text-neutral">{review.comment}</p>
     )}
   </div>
 );
@@ -269,7 +269,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
         {profile.categories.length > 0 && (
           <div className="flex flex-col gap-1.5">
             <p
-              className={`font-medium text-neutral/60 ${sc.sectionLabelSize} uppercase tracking-wide`}
+              className={`font-medium text-neutral/60 ${sc.sectionLabelSize} tracking-wide uppercase`}
             >
               {content.categories}
             </p>
@@ -291,7 +291,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
         {profile.languagePairs.length > 0 && (
           <div className="flex flex-col gap-1.5">
             <p
-              className={`font-medium text-neutral/60 ${sc.sectionLabelSize} uppercase tracking-wide`}
+              className={`font-medium text-neutral/60 ${sc.sectionLabelSize} tracking-wide uppercase`}
             >
               {content.languages}
             </p>
@@ -342,7 +342,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 aria-label={content.portfolioAriaLabel.value}
-                className="flex items-center gap-1 text-neutral/60 text-xs transition-colors hover:text-text"
+                className="flex items-center gap-1 text-xs text-neutral/60 transition-colors hover:text-text"
               >
                 <ExternalLink size={13} />
                 {content.portfolioAriaLabel}
@@ -355,7 +355,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
         {sc.showReviews && reviews.length > 0 && (
           <div className="flex flex-col gap-3">
             <p
-              className={`font-medium text-neutral/60 ${sc.sectionLabelSize} uppercase tracking-wide`}
+              className={`font-medium text-neutral/60 ${sc.sectionLabelSize} tracking-wide uppercase`}
             >
               {content.recentReviews}
             </p>

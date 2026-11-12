@@ -410,7 +410,7 @@ const config: IntlayerConfig = {
     /**
      * Model yang akan digunakan dari penyedia yang dipilih.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * Kunci API penyedia.
@@ -818,8 +818,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -838,8 +838,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -870,8 +870,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -890,8 +890,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -910,12 +910,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Cadangan untuk path yang tidak ditulis ulang
@@ -1050,7 +1051,7 @@ Intlayer mendukung berbagai penyedia AI untuk memastikan fleksibilitas maksimal.
 | Bidang               | Deskripsi                                                                                                                                       | Tipe                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Default     | Contoh                                                        | Catatan                                                                                                                                                                               |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | Penyedia yang akan digunakan untuk fitur AI Intlayer.                                                                                           | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | Penyedia yang berbeda memerlukan kunci API yang berbeda dan memiliki struktur harga yang berbeda pula.                                                                                |
-| `model`              | Model AI yang akan digunakan dalam fitur AI.                                                                                                    | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Tidak ada   | `'gpt-4o-2024-11-20'`                                         | Model tertentu bergantung pada penyedia.                                                                                                                                              |
+| `model`              | Model AI yang akan digunakan dalam fitur AI.                                                                                                    | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Tidak ada   | `'gpt-5.6-terra'`                                             | Model tertentu bergantung pada penyedia.                                                                                                                                              |
 | `temperature`        | Mengontrol keacakan respons AI.                                                                                                                 | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Tidak ada   | `0.1`                                                         | Temperatur yang lebih tinggi = respons yang lebih kreatif tetapi kurang andal.                                                                                                        |
 | `apiKey`             | Kunci API Anda untuk penyedia yang dipilih.                                                                                                     | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Tidak ada   | `process.env.OPENAI_API_KEY`                                  | Jaga kerahasiaannya; simpan dalam variabel lingkungan.                                                                                                                                |
 | `applicationContext` | Konteks tambahan tentang aplikasi Anda untuk membantu AI menghasilkan terjemahan yang lebih akurat (domain, audiens target, nada, terminologi). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Tidak ada   | `'mój własny kontekst aplikacji'`                             | Dapat digunakan untuk menambahkan aturan (misalnya: `"Anda tidak boleh menerjemahkan URL Anda"` ).                                                                                    |

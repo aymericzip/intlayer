@@ -161,10 +161,10 @@ export const TypewriterTitle: FC<TypewriterTitleProps> = ({
             {Array.from(visibleRest, (letter, letterIndex) => (
               <span
                 // Index key: kept letters stay mounted, only new ones animate
-                // biome-ignore lint/suspicious/noArrayIndexKey: position is the identity
+                // oxlint-disable-next-line react/no-array-index-key -- position is the identity
                 key={letterIndex}
                 className={cn(
-                  'starting:text-text/60 transition-colors duration-500 ease-out',
+                  'transition-colors duration-500 ease-out starting:text-text/60',
                   // Delayed so the color trails a few letters behind the caret
                   state.phase === 'erasing' ? 'text-text/60' : 'delay-200'
                 )}

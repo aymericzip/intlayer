@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "How to pick the right Solid i18n library in 2026"
 description: "A decision guide for SolidJS and SolidStart i18n: the questions to answer before comparing @solid-primitives/i18n, solid-i18next, Paraglide, Lingui and Intlayer."
@@ -98,11 +98,11 @@ Library sizes are from the [Solid benchmark](https://github.com/aymericzip/intla
 
 | Library                  | Content model                          | Reactivity on locale change              | Type safety                               | Scoping and lazy loading    | Library size                                      |
 | :----------------------- | :------------------------------------- | :--------------------------------------- | :---------------------------------------- | :-------------------------- | :------------------------------------------------ |
-| `@solid-primitives/i18n` | Flat dictionary you own                | Signal, accessors returned by translator | 3/5 — Inferred from the source dictionary | None built in               | ~0.6 kB                                           |
-| `solid-i18next`          | i18next catalogs and namespaces        | Store, re-render via provider            | 2/5 — Manual declaration                  | Namespaces, lazy backends   | ~14.9 kB                                          |
-| Paraglide                | inlang project, generated functions    | Read per call from cookie or storage     | 3.5/5 — Generated                         | Tree-shaking (not in bench) | Near zero (due to generated code in the codebase) |
-| `@lingui/solid`          | Source text in code, compiled catalogs | Signal-based                             | 2/5 — From the compiler                   | Per catalog                 | ~11.8 kB                                          |
-| Intlayer                 | One `.content.ts` per component        | Signal-backed nodes, no component re-run | 5/5 — Generated, on by default            | Yes, per component          | ~4.3 kB                                           |
+| `@solid-primitives/i18n` | Flat dictionary you own                | Signal, accessors returned by translator | 3/5 - Inferred from the source dictionary | None built in               | ~0.6 kB                                           |
+| `solid-i18next`          | i18next catalogs and namespaces        | Store, re-render via provider            | 2/5 - Manual declaration                  | Namespaces, lazy backends   | ~14.9 kB                                          |
+| Paraglide                | inlang project, generated functions    | Read per call from cookie or storage     | 3.5/5 - Generated                         | Tree-shaking (not in bench) | Near zero (due to generated code in the codebase) |
+| `@lingui/solid`          | Source text in code, compiled catalogs | Signal-based                             | 2/5 - From the compiler                   | Per catalog                 | ~11.8 kB                                          |
+| Intlayer                 | One `.content.ts` per component        | Signal-backed nodes, no component re-run | 5/5 - Generated, on by default            | Yes, per component          | ~4.3 kB                                           |
 
 > Numbers are a snapshot at the benchmark's versions. `@lingui/solid` size comes from the TanStack Start benchmark. Run it on your own app before deciding on size alone.
 > Type safety: 5/5 means keys, parameters and every locale are checked without manual setup, including url formater and helpers.

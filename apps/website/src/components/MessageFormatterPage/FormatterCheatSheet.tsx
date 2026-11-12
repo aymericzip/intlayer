@@ -286,16 +286,16 @@ export const FormatterCheatSheet: FC<{ dialect: FormatterDialect }> = ({
       transparency="sm"
       className="flex flex-col gap-6 border border-border/80 bg-card/40 p-6 shadow-lg backdrop-blur-md sm:p-8"
     >
-      <div className="flex items-center justify-between border-border/50 border-b pb-4">
+      <div className="flex items-center justify-between border-b border-border/50 pb-4">
         <div className="flex items-center gap-3">
           <div className="flex size-9 items-center justify-center rounded-xl bg-muted text-foreground">
             <BookOpen className="size-5" />
           </div>
           <div>
-            <h3 className="font-bold text-foreground text-lg sm:text-xl">
+            <h3 className="text-lg font-bold text-foreground sm:text-xl">
               {sheet.title}
             </h3>
-            <p className="text-muted-foreground text-xs sm:text-sm">
+            <p className="text-xs text-muted-foreground sm:text-sm">
               {content.cheatSheet.subtitle}
             </p>
           </div>
@@ -306,7 +306,7 @@ export const FormatterCheatSheet: FC<{ dialect: FormatterDialect }> = ({
       <div className="overflow-x-auto">
         <table className="w-full text-start text-xs sm:text-sm">
           <thead>
-            <tr className="border-border/60 border-b bg-muted/40 font-semibold text-muted-foreground">
+            <tr className="border-b border-border/60 bg-muted/40 font-semibold text-muted-foreground">
               <th className="px-4 py-3">{content.cheatSheet.featureHeader}</th>
               <th className="px-4 py-3">{content.cheatSheet.syntaxHeader}</th>
               <th className="px-4 py-3">{content.cheatSheet.exampleHeader}</th>
@@ -328,18 +328,18 @@ export const FormatterCheatSheet: FC<{ dialect: FormatterDialect }> = ({
                 <td className="px-4 py-3.5 font-medium text-foreground">
                   {row.feature}
                 </td>
-                <td className="px-4 py-3.5 font-mono text-muted-foreground text-xs">
+                <td className="px-4 py-3.5 font-mono text-xs text-muted-foreground">
                   <code className="rounded bg-muted/70 px-1.5 py-0.5 text-foreground">
                     {row.syntax}
                   </code>
                 </td>
-                <td className="px-4 py-3.5 font-mono text-foreground text-xs">
+                <td className="px-4 py-3.5 font-mono text-xs text-foreground">
                   {row.example}
                 </td>
-                <td className="px-4 py-3.5 text-muted-foreground text-xs">
+                <td className="px-4 py-3.5 text-xs text-muted-foreground">
                   {row.notes}
                 </td>
-                <td className="px-4 py-3.5 font-medium font-mono text-foreground text-xs">
+                <td className="px-4 py-3.5 font-mono text-xs font-medium text-foreground">
                   <code className="rounded bg-muted/80 px-1.5 py-0.5 text-foreground">
                     {row.intlayerEquivalent}
                   </code>
@@ -350,7 +350,7 @@ export const FormatterCheatSheet: FC<{ dialect: FormatterDialect }> = ({
         </table>
       </div>
 
-      <div className="mt-2 flex items-center gap-2 text-muted-foreground text-xs">
+      <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
         <CheckCircle2 className="size-4 shrink-0 text-emerald-500" />
         <span>{content.cheatSheet.compilerTip}</span>
       </div>

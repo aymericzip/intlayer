@@ -1,16 +1,15 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
-title: react-i18next vs react-intl vs Intlayer
-description: React 앱의 국제화(i18n)를 위해 react-i18next를 next-intl 및 Intlayer와 통합하기
+title: "react-i18next vs react-intl vs Intlayer: 2026 React i18n 비교"
+description: "React 애플리케이션에 적합한 i18n 라이브러리는 무엇일까요? react-i18next, react-intl, Intlayer를 아키텍처, TypeScript 지원, 번들 크기, DX 관점에서 심층 비교합니다."
 keywords:
-  - next-intl
+  - react-intl
   - react-i18next
   - Intlayer
   - 국제화
   - 블로그
-  - Next.js
   - 자바스크립트
   - 리액트
 slugs:

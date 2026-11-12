@@ -1,6 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
@@ -68,5 +67,88 @@ describe('getContentNodeByKeyPath', () => {
     );
 
     expect(result).toBe('Edit `src/app.tsx` and save to test HMR');
+  });
+
+  it('should resolve node when root is translation and translation is in keyPath with fallbackLocale', () => {
+    const sampleDictionaryContent: Dictionary = {
+      key: 'test',
+      content: t({
+        en: {
+          welcomeMessage: 'Welcome',
+          numberOfCar: {
+            nodeType: NodeTypes.ENUMERATION,
+            enumeration: {
+              0: 'No cars',
+              1: 'One car',
+            },
+          },
+        },
+      }),
+    };
+    const keyPath: KeyPath[] = [
+      { type: NodeTypes.TRANSLATION, key: 'en' },
+      { type: NodeTypes.OBJECT, key: 'numberOfCar' },
+    ];
+
+    const result = getContentNodeByKeyPath(
+      sampleDictionaryContent.content,
+      keyPath,
+      'en'
+    );
+
+    expect(result).toEqual({
+      nodeType: NodeTypes.ENUMERATION,
+      enumeration: {
+        0: 'No cars',
+        1: 'One car',
+      },
+    });
+  });
+
+  it('should auto-resolve node when root is translation and translation is omitted from keyPath without fallbackLocale', () => {
+    const sampleDictionaryContent: Dictionary = {
+      key: 'test',
+      content: t({
+        en: {
+          welcomeMessage: 'Welcome',
+          numberOfCar: {
+            nodeType: NodeTypes.ENUMERATION,
+            enumeration: {
+              0: 'No cars',
+              1: 'One car',
+            },
+          },
+        },
+      }),
+    };
+    const keyPath: KeyPath[] = [{ type: NodeTypes.OBJECT, key: 'numberOfCar' }];
+
+    const result = getContentNodeByKeyPath(
+      sampleDictionaryContent.content,
+      keyPath
+    );
+
+    expect(result).toEqual({
+      nodeType: NodeTypes.ENUMERATION,
+      enumeration: {
+        0: 'No cars',
+        1: 'One car',
+      },
+    });
+  });
+
+  it('should return a copy that does not share references with the source', () => {
+    const content = { section: { items: ['first', 'second'] } };
+
+    const result = getContentNodeByKeyPath(content, [
+      { type: NodeTypes.OBJECT, key: 'section' },
+    ]) as typeof content.section;
+
+    expect(result).toEqual(content.section);
+    expect(result).not.toBe(content.section);
+
+    result.items.push('third');
+
+    expect(content.section.items).toEqual(['first', 'second']);
   });
 });

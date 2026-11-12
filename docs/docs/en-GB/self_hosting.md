@@ -426,6 +426,8 @@ Both Docker modes read the same file (`intlayer.env` for the container, `.env` f
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
+> The all-in-one image also accepts an empty `S3_SECRET_ACCESS_KEY`: it generates one on first boot and keeps it in `/data/.s3-secret-access-key`. Docker Compose still requires it.
+
 ### Fixed by the deployment
 
 These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology. `DOMAIN`, `APP_URL`, `BACKEND_URL` and `S3_PUBLIC_URL` are the exception: set in the env file, they take precedence in both modes (see [Custom domain](#custom-domain)).

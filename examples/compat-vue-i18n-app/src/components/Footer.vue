@@ -32,22 +32,22 @@ const footerLinks = computed(() => [
       <div class="grid gap-8 md:grid-cols-3">
         <div>
           <h3 class="mb-2 text-sm font-semibold text-foreground">
-            {{ t("footer.title") }}
+            {{ t('footer.title') }}
           </h3>
           <p class="text-sm text-muted-foreground">
-            {{ t("footer.description") }}
+            {{ t('footer.description') }}
           </p>
         </div>
         <div>
           <h3 class="mb-2 text-sm font-semibold text-foreground">
-            {{ t("footer.resources") }}
+            {{ t('footer.resources') }}
           </h3>
           <ul class="space-y-1">
             <li v-for="linkEl in footerLinks" :key="linkEl.label">
               <router-link
                 v-if="linkEl.isInternal"
                 :to="linkEl.to!"
-                class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                class="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {{ linkEl.label }}
               </router-link>
@@ -56,7 +56,7 @@ const footerLinks = computed(() => [
                 :href="linkEl.href"
                 target="_blank"
                 rel="noreferrer"
-                class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                class="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {{ linkEl.label }}
               </a>
@@ -65,15 +65,17 @@ const footerLinks = computed(() => [
         </div>
         <div>
           <h3 class="mb-2 text-sm font-semibold text-foreground">
-            {{ t("footer.contact") }}
+            {{ t('footer.contact') }}
           </h3>
           <p class="text-sm text-muted-foreground">
-            {{ t("shared.contactEmail") }}
+            {{ t('shared.contactEmail') }}
           </p>
         </div>
       </div>
-      <div class="mt-8 border-t border-border pt-4 text-center text-xs text-muted-foreground">
-        {{ t("footer.builtWith") }}
+      <div
+        class="mt-8 border-t border-border pt-4 text-center text-xs text-muted-foreground"
+      >
+        {{ t('footer.builtWith') }}
       </div>
     </div>
   </footer>

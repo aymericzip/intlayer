@@ -24,7 +24,7 @@ export const parseText = (text: string): OxcNode | null => {
  */
 export const walkAst = (
   node: unknown,
-  // biome-ignore lint/suspicious/noConfusingVoidType: visitors without a return value must stay assignable
+  // oxlint-disable-next-line typescript/no-invalid-void-type -- visitors without a return value must stay assignable
   visitor: (node: OxcNode) => boolean | void
 ): void => {
   if (!node || typeof node !== 'object') return;

@@ -24,9 +24,7 @@ useRewriteURL();
         <template #default>
           <component :is="Component" />
         </template>
-        <template #fallback>
-          Loading...
-        </template>
+        <template #fallback> Loading... </template>
       </Suspense>
     </RouterView>
   </div>

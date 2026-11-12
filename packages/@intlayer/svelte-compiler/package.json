@@ -1,25 +1,21 @@
 {
   "name": "@intlayer/svelte-compiler",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": false,
   "description": "Vite-compatible compiler plugin for Svelte with Intlayer, providing HMR support, file transformation, and optimized dictionary loading for Svelte applications.",
   "keywords": [
-    "intlayer",
-    "svelte",
-    "vite",
     "compiler",
+    "hmr",
     "i18n",
     "internationalization",
-    "hmr",
-    "typescript"
+    "intlayer",
+    "svelte",
+    "typescript",
+    "vite"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -33,15 +29,15 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
-    },
-    "./package.json": "./package.json"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "sideEffects": false,
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
@@ -52,19 +48,23 @@
       ]
     }
   },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -78,10 +78,10 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@babel/core": "8.0.1",
+    "@babel/core": "8.1.0",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "magic-string": "1.4.2"
+    "magic-string": "1.4.5"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",
@@ -93,10 +93,10 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.3",
-    "tsdown": "0.23.0",
+    "rimraf": "6.1.4",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   },
   "peerDependencies": {
     "@babel/core": ">=6.0.0",

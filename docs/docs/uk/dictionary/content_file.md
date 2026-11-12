@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Файли оголошення контенту (.content.ts)"
 description: "Оголошуйте багатомовний контент у файлах .content поруч із компонентами: підтримувані формати, розширення файлів і як Intlayer їх знаходить."
@@ -281,7 +281,7 @@ export default {
 - **Примітивні значення**: strings, numbers, booleans, null, undefined
 - **Типізовані вузли**: спеціальні типи контенту, такі як translations, conditions, markdown тощо
 - **Функції**: динамічний контент, який може бути виконаний під час виконання [див. Отримання функцій](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/function_fetching.md)
-- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
+- **Контент множини**: Дивіться [Контент множини](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
 - **Вкладений контент**: посилання на інші словники
 
 #### Типи контенту

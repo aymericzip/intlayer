@@ -288,8 +288,13 @@ Para bases de código que já contam com strings ICU, o [adaptador de compatibil
 - **Inserir `#` fora de uma ramificação de plural.** Ele só possui significado especial dentro de `plural` ou `selectordinal`. Em qualquer outro local, será tratado como caractere literal.
 - **Esquecer que `#` já vem formatado.** Caso precise do valor bruto sem separadores numéricos do locale, interpole o argumento pelo nome.
 
+Teste e formate suas mensagens ICU com o [Editor e Formatador de Mensagens ICU](https://intlayer.org/icu-message-formatter) gratuito:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Próximos passos
 
+- [Editor e Formatador de Mensagens ICU](https://intlayer.org/icu-message-formatter)
 - [Por que o ICU não foi feito para JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/why_icu_is_not_made_for_js.md)
 - [Conteúdo com plural no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/plurial.md)
 - [Conteúdo baseado em select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/select.md)

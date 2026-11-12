@@ -12,7 +12,7 @@ const TagRow: FunctionComponent<{
     <StatusIcon status={isValid ? 'success' : 'error'} />
     <span className="font-medium">{label}</span>
     {value !== undefined && (
-      <span className="ms-auto max-w-[55%] truncate text-neutral text-xs">
+      <span className="ms-auto max-w-[55%] truncate text-xs text-neutral">
         {value}
       </span>
     )}

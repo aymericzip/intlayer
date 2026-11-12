@@ -95,7 +95,7 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
       />
 
       {isDiscovering && (
-        <div className="mt-6 border-neutral border-t border-dotted pt-6 text-center text-sm text-text/60">
+        <div className="mt-6 border-t border-dotted border-neutral pt-6 text-center text-sm text-text/60">
           {discoveringUrls}
         </div>
       )}

@@ -13,6 +13,8 @@ type RepositoryListProps = {
   isProviderLinked: boolean | null;
   gitlabInstanceUrl?: string;
   onConfigDetected: (repo: RepoData, configPaths: string[]) => void;
+  /** Search pre-filled on mount (ex: the detected repository name) */
+  initialSearch?: string;
 };
 
 export const RepositoryList: FC<RepositoryListProps> = ({
@@ -20,6 +22,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
   isProviderLinked,
   gitlabInstanceUrl,
   onConfigDetected,
+  initialSearch = '',
 }) => {
   const { repositoryList } = useIntlayer('repository-link');
   const { repos, isLoadingRepos, processingRepoId, handleSelectRepo } =
@@ -30,7 +33,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
       onConfigDetected,
     });
   const { search, setSearch } = useSearch({
-    defaultValue: '',
+    defaultValue: initialSearch,
   });
 
   // Memoize the Fuse instance so it only rebuilds when 'repos' changes
@@ -64,9 +67,9 @@ export const RepositoryList: FC<RepositoryListProps> = ({
 
   return (
     <div className="flex max-h-125 flex-col">
-      <div className="border-card border-b p-4">
+      <div className="border-b border-card p-4">
         <SearchInput
-          placeholder={repositoryList.searchPlaceholder}
+          placeholder={repositoryList.searchPlaceholder.value}
           defaultValue={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -76,11 +79,11 @@ export const RepositoryList: FC<RepositoryListProps> = ({
       <div ref={parentRef} className="flex flex-1 flex-col overflow-y-auto">
         {isLoadingRepos ? (
           <div className="py-8 text-center">
-            <p className="text-neutral text-sm">{repositoryList.loading}</p>
+            <p className="text-sm text-neutral">{repositoryList.loading}</p>
           </div>
         ) : filteredRepos.length === 0 ? (
           <div className="py-8 text-center">
-            <p className="text-neutral text-sm">{repositoryList.empty}</p>
+            <p className="text-sm text-neutral">{repositoryList.empty}</p>
           </div>
         ) : (
           /* The Virtualized List Wrapper */

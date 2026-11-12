@@ -7,6 +7,7 @@ import {
   type PropsWithChildren,
   type SetStateAction,
   useContext,
+  useMemo,
   useState,
 } from 'react';
 
@@ -33,15 +34,10 @@ export const useTabContext = () => useContext(TabContext);
  */
 export const TabProvider: FC<PropsWithChildren> = ({ children }) => {
   const [tabsValues, setTabsValues] = useState<Record<string, any>>({});
-
-  return (
-    <TabContext
-      value={{
-        tabsValues,
-        setTabsValues,
-      }}
-    >
-      {children}
-    </TabContext>
+  const contextValue = useMemo<TabContextValue>(
+    () => ({ tabsValues, setTabsValues }),
+    [tabsValues]
   );
+
+  return <TabContext value={contextValue}>{children}</TabContext>;
 };

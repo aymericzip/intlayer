@@ -410,7 +410,7 @@ const config: IntlayerConfig = {
     /**
      * Použitý model zvoleného poskytovatele.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * API klíč poskytovatele.
@@ -814,8 +814,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -834,8 +834,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -866,8 +866,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -886,8 +886,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -906,12 +906,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Záloha pro nepřepsané cesty
@@ -1022,7 +1023,7 @@ Intlayer podporuje několik AI poskytovatelů pro maximální flexibilitu. V sou
 | Pole                 | Popis                                                                                                                        | Typ                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Výchozí     | Příklad                                                       | Poznámka                                                                                                                                                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | Poskytovatel použitý pro AI funkce Intlayer.                                                                                 | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | Různí poskytovatelé vyžadují různé API klíče a mají různé ceny.                                                                                                                       |
-| `model`              | Model použitý pro AI funkce.                                                                                                 | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Žádný       | `'gpt-4o-2024-11-20'`                                         | Konkrétní model závisí na poskytovateli.                                                                                                                                              |
+| `model`              | Model použitý pro AI funkce.                                                                                                 | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Žádný       | `'gpt-5.6-terra'`                                             | Konkrétní model závisí na poskytovateli.                                                                                                                                              |
 | `temperature`        | Ovládá náhodnost odpovědí AI.                                                                                                | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Žádný       | `0.1`                                                         | Vyšší teplota = kreativnější a méně předvídatelné.                                                                                                                                    |
 | `apiKey`             | Váš API klíč pro zvoleného poskytovatele.                                                                                    | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Žádný       | `process.env.OPENAI_API_KEY`                                  | Musí být uchováváno v tajnosti; použijte proměnné prostředí.                                                                                                                          |
 | `applicationContext` | Dodatečný kontext o vaší aplikaci, který pomůže AI generovat přesnější překlady (doména, cílová skupina, tón, terminologie). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Žádný       | `'Můj vlastní kontext aplikace'`                              | Lze použít k přidání pravidel (např.: `"Neměli byste transformovat URL"`).                                                                                                            |

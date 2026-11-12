@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Optimalizace Velikosti Bundle & Výkonu i18n
 description: Zmenšete velikost svého aplikačního bundlu optimalizací obsahu pro internacionalizaci (i18n). Zjistěte, jak v Intlayer využít tree shaking a líné načítání (lazy loading) pro slovníky.
@@ -36,17 +36,29 @@ author: aymericzip
 
 Jednou z nejčastějších výzev u tradičních i18n řešení spoléhajících na JSON soubory je správa velikosti obsahu. Pokud vývojáři ručně nerozdělují obsah do jmenných prostorů (namespaces), uživatelé často skončí stahováním překladů pro každou stránku a potenciálně pro každý jazyk, jen aby si prohlédli jednu jedinou stránku.
 
-Například aplikace s 10 stránkami přeloženými do 10 jazyků může vést k tomu, že si uživatel stáhne obsah v rozsahu 100 stránek, i když ve skutečnosti potřebuje pouze **jednu** (aktuální stránku v aktuálním jazyce). To vede k plýtvání šířkou pásma a delším časům načítání.
-
-Graf níže odhaduje velikost obsahu pro teoretickou aplikaci s 1 až 10 stránkami přeloženou do 1 až 10 jazyků, s přibližně 30 KB textu na stránku. Dynamické načítání obsahu podle locale odstraňuje osu jazyků, omezení obsahu na komponentu nebo route odstraňuje osu stránek a pouze jejich kombinace udrží velikost stabilní.
-
-![Teoretický únik obsahu podle architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer řeší tento problém pomocí optimalizace v čase sestavení (build-time).** Analyzuje váš kód, detekuje, které slovníky se skutečně používají u konkrétní komponenty, a vloží do vašeho bundlu pouze tento nezbytný obsah.
 
 ## Obsah
 
 <TOC />
+
+## Problémy, na které je třeba pamatovat
+
+Řešení i18n zvyšuje velikost vašeho bundlu pěti způsoby. Intlayer řeší každý z nich:
+
+1. **Kód knihovny.** Intlayer udržuje své funkce malé, sdílí logiku mezi nimi a zůstává tree-shakable: jakákoli funkce, kterou nepoužíváte, je vaším bundlerem odstraněna.
+
+2. **Obsah z ostatních stránek a jazyků.** Průměrná i18n knihovna váží 5 KB až 25 KB, zatímco textový obsah stránky v JS chunku váží 20 KB až 60 KB. Skutečným nákladem je únik obsahu (content leakage): aplikace s 10 stránkami v 10 jazycích může načítat obsah 100 stránek, i když je potřeba pouze **jedna**. Intlayer transformuje váš kód v čase sestavení (pluginy Babel / SWC / Vite) tak, aby načítal pouze obsah aktuální stránky v aktuálním jazyce.
+
+   ![Teoretický únik obsahu podle architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   Graf odhaduje tyto náklady pro 1 až 10 stránek v 1 až 10 jazycích s přibližně 30 KB textu na stránku. Dynamické importy eliminují osu jazyků, obsah na úrovni komponent eliminuje osu stránek a pouze jejich kombinace udržuje velikost stabilní.
+
+3. **Nepoužité funkce.** Cookies, lokální úložiště, předpony URL, záložní obsah (fallback), formát zpráv ICU: každá funkce přidává logiku. Místo generování kódu do vaší kódové základny (jak to dělá Paraglide) vkládá Intlayer v čase sestavení proměnné prostředí z vaší konfigurace, takže bundler může odstranit každou funkci, kterou nepoužíváte.
+
+4. **Nepoužitý a zbytečně dlouhý obsah.** Na Vite a Next.js Intlayer [odstraňuje (purge)](#purge-odstraněni-nepoužitych-poli) pole slovníku, která váš kód nikdy nečte, a [minifikuje](#minifikace-přejmenovani-kličů) zbývající klíče.
+
+5. **Duplicitní obsah.** Slovníky sdílející stejný klíč, ať už pocházejí z více souborů `.content` nebo z lokálních a vzdálených ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)) zdrojů, jsou sloučeny do jednoho slovníku.
 
 ## Jak to funguje
 

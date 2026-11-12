@@ -45,9 +45,8 @@ export const loadRemoteMarkdown = createServerFn()
       const markdown = urlRenamer(await fetchRemoteMarkdown(source), locale);
       const markdownParsed = parseMarkdown(markdown);
 
-      const { highlightMarkdownCodeBlocks } = await import(
-        '~/utils/highlightMarkdown'
-      );
+      const { highlightMarkdownCodeBlocks } =
+        await import('~/utils/highlightMarkdown');
       const codeStyleSheet = await highlightMarkdownCodeBlocks(markdownParsed);
 
       return { status: 'success', markdownParsed, codeStyleSheet };

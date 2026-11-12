@@ -7,16 +7,16 @@ const { t } = useI18n();
 <template>
   <section class="rounded-lg border border-border bg-card p-6">
     <h2 class="mb-4 text-lg font-semibold text-foreground">
-      {{ t("settings.preferences.title") }}
+      {{ t('settings.preferences.title') }}
     </h2>
     <div class="space-y-4">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-foreground">
-            {{ t("settings.preferences.emailNotifications") }}
+            {{ t('settings.preferences.emailNotifications') }}
           </p>
           <p class="text-xs text-muted-foreground">
-            {{ t("settings.preferences.weeklyReports") }}
+            {{ t('settings.preferences.weeklyReports') }}
           </p>
         </div>
         <button
@@ -32,10 +32,10 @@ const { t } = useI18n();
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-foreground">
-            {{ t("settings.preferences.darkMode") }}
+            {{ t('settings.preferences.darkMode') }}
           </p>
           <p class="text-xs text-muted-foreground">
-            {{ t("settings.preferences.darkColorScheme") }}
+            {{ t('settings.preferences.darkColorScheme') }}
           </p>
         </div>
         <button
@@ -53,19 +53,19 @@ const { t } = useI18n();
           for="language"
           class="mb-1 block text-sm font-medium text-foreground"
         >
-          {{ t("settings.preferences.defaultLanguage") }}
+          {{ t('settings.preferences.defaultLanguage') }}
         </label>
         <select
           id="language"
-          class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+          class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:ring-1 focus:ring-ring focus:outline-none"
         >
-          <option>{{ t("settings.preferences.english") }}</option>
-          <option>{{ t("settings.preferences.french") }}</option>
-          <option>{{ t("settings.preferences.german") }}</option>
-          <option>{{ t("settings.preferences.spanish") }}</option>
-          <option>{{ t("settings.preferences.japanese") }}</option>
-          <option>{{ t("settings.preferences.chinese") }}</option>
-          <option>{{ t("settings.preferences.arabic") }}</option>
+          <option>{{ t('settings.preferences.english') }}</option>
+          <option>{{ t('settings.preferences.french') }}</option>
+          <option>{{ t('settings.preferences.german') }}</option>
+          <option>{{ t('settings.preferences.spanish') }}</option>
+          <option>{{ t('settings.preferences.japanese') }}</option>
+          <option>{{ t('settings.preferences.chinese') }}</option>
+          <option>{{ t('settings.preferences.arabic') }}</option>
         </select>
       </div>
     </div>

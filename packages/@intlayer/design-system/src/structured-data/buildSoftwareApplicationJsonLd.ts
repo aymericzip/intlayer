@@ -44,14 +44,24 @@ export type BuildSoftwareApplicationJsonLdParams = {
  * displayed ratings.
  *
  * Google's `SoftwareApplication` rich result needs `aggregateRating` or
- * `review`, but ratings must describe the entity the page is about. Only pages
- * presenting Intlayer itself pass it; tools, docs and other apps omit it rather
- * than borrowing a rating that is not theirs.
+ * `review`, but ratings must describe the entity the page is about. Every
+ * `SoftwareApplication` node describing Intlayer itself passes it; feature and
+ * tool pages use `buildSoftwareFeaturePageJsonLd` instead of borrowing it.
  */
 export const INTLAYER_AGGREGATE_RATING = {
   ratingValue: '4.92',
   ratingCount: 64,
 } as const;
+
+/**
+ * Returns the stable `@id` of the `SoftwareApplication` node published at
+ * `url`, so other nodes (feature pages) can reference it without redeclaring it.
+ *
+ * @param url - Canonical URL of the application.
+ * @returns The node identifier, e.g. `https://intlayer.org/#software`.
+ */
+export const getSoftwareApplicationId = (url: string): string =>
+  `${normalizeJsonLdUrl(url).replace(/\/+$/, '')}/#software`;
 
 /**
  * Builds a Schema.org SoftwareApplication JSON-LD object.
@@ -85,6 +95,7 @@ export const buildSoftwareApplicationJsonLd = ({
   return {
     '@context': 'https://schema.org' as const,
     '@type': 'SoftwareApplication' as const,
+    '@id': getSoftwareApplicationId(url),
     name,
     url: normalizedUrl,
     description,

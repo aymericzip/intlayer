@@ -1,7 +1,6 @@
 'use client';
 
 import type { FC } from 'react';
-
 import { IntlayerProvider, type IntlayerProviderProps } from 'react-intlayer';
 
 /**

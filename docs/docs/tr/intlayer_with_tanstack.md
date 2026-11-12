@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "TanStack Start'ta Intlayer kurulumu: rotalarda locale parametresi, SSR uyumlu çevrilmiş içerik, yerelleştirilmiş head metadata, hreflang ve sitemap."
@@ -430,7 +430,7 @@ const appContent = {
 export default appContent;
 ```
 
-> İçerik bildirimleriniz, uygulamanızda herhangi bir yerde tanımlanabilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak, `./app`). Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+> İçerik bildirimleriniz, uygulamanızda herhangi bir yerde tanımlanabilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak, `['.']`). Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Daha fazla ayrıntı için, [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakınız.
 
@@ -487,11 +487,14 @@ Bu bileşenin iki amacı vardır:
 
 Daha sonra programatik gezinme için bir `useLocalizedNavigate` kancası oluşturabiliriz:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -526,13 +529,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -553,7 +557,7 @@ Uygulamanız genelinde içerik sözlüklerinize erişin:
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -568,7 +572,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -601,7 +605,7 @@ function RouteComponent() {
 - [useIntlayer Hook Dokümantasyonu | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Yerel Değiştirici Bileşeni Oluşturun">
+<Step number={10} title="Yerel Değiştirici Bileşeni Oluşturun">
 
 Kullanıcıların dil değiştirebilmesini sağlayan bir bileşen oluşturun:
 
@@ -665,7 +669,7 @@ export const LocaleSwitcher: FC = () => {
 - [useLocale Hook Dokümantasyonu | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="HTML Nitelikleri Yönetimi">
+<Step number={11} title="HTML Nitelikleri Yönetimi">
 
 Adım 5'te görüldüğü gibi, root bileşeninizde `useParams` kullanarak `html` etiketinin `lang` ve `dir` niteliklerini yönetebilirsiniz. Bu, doğru niteliklerin sunucu ve istemci tarafında ayarlanmasını sağlar.
 
@@ -685,7 +689,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Middleware Ekleyin">
+<Step number={12} title="Middleware Ekleyin">
 
 Uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'yi de kullanabilirsiniz. Bu eklenti, URL'ye dayalı olarak mevcut dili otomatik olarak algılayacak ve uygun yerel tanımlama bilgisini ayarlayacaktır. Hiçbir yerel belirtilmezse, eklenti kullanıcının tarayıcı dili tercihlerine göre en uygun dili belirleyecektir. Hiçbir yerel algılanmazsa, varsayılan dile yeniden yönlendirecektir.
 
@@ -722,7 +726,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Meta Verilerinizi Uluslararasılaştırın">
+<Step number={13} title="Meta Verilerinizi Uluslararasılaştırın">
 
 <Tabs>
 
@@ -768,7 +772,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -822,7 +826,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -884,7 +888,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -914,7 +918,7 @@ Yerel başına parçayı, head kritik yolunda maliyetini ödemeden tutarsınız.
 | Geliştirici deneyimi | en basit           | bir `await`                | içerik `loaderData` aracılığıyla iletilir |
 
 </Step>
-<Step number={13} title="Sunucu eylemlerinizde yerel ayarı alın">
+<Step number={14} title="Sunucu eylemlerinizde yerel ayarı alın">
 
 Sunucu eylemleri veya API uç noktalarınızda geçerli yerel ayara erişmek isteyebilirsiniz.
 Bunu `intlayer` öğesinden `getLocale` yardımcısını kullanarak yapabilirsiniz.
@@ -950,7 +954,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Bulunamayan sayfaları yönetme">
+<Step number={15} title="Bulunamayan sayfaları yönetme">
 
 Bir kullanıcı var olmayan bir sayfayı ziyaret ettiğinde, özel bir bulunamadı sayfası gösterebilirsiniz ve yerel ayar öneki, bulunamadı sayfasının tetiklenme şeklini etkileyebilir.
 
@@ -1025,7 +1029,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}> isOptional={true}>
+<Step number={16} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}> isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -1138,7 +1142,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Sitemap Oluştur">
+<Step number={17} title="Pre-render & Sitemap Oluştur">
 
 Intlayer, uygulamanız için bir sitemap oluşturmanıza kolayca yardımcı olmak için yerleşik bir sitemap oluşturucusu ile birlikte gelir. Yerelleştirilmiş rotaları işler ve arama motorları için gerekli meta verileri ekler.
 
@@ -1208,7 +1212,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="TypeScript'i Yapılandır">
+<Step number={18} title="TypeScript'i Yapılandır">
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve codebase'inizi güçlendirmek için module augmentation kullanır.
 
@@ -1359,12 +1363,12 @@ Hayır. URL şemasını `routing.mode` belirler: `"prefix-no-default"` (varsayı
 </Question>
 <Question title="Mevcut rotayı koruyan bir dil değiştirici nasıl oluşturulur?">
 
-Adım 9'da açıklanan yerelleştirilmiş link bileşeni ile birlikte `useLocale` kullanın.
+Adım 10'da açıklanan yerelleştirilmiş link bileşeni ile birlikte `useLocale` kullanın.
 
 </Question>
 <Question title="Yerelleştirilmiş rotalarda 404 sayfalarını nasıl yönetirim?">
 
-Adım 14 bunu kapsar. `validatePrefix`, URL'nin yerel segmentinin geçerli olup olmadığını doğrular.
+Adım 15 bunu kapsar. `validatePrefix`, URL'nin yerel segmentinin geçerli olup olmadığını doğrular.
 
 </Question>
 <Question title="TanStack Start uygulamasını AI ile otomatik olarak nasıl çeviririm?">

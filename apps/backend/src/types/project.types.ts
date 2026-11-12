@@ -2,6 +2,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Token } from '@node-oauth/oauth2-server';
 import type { RenameId } from '@utils/mongoDB/types';
+import type { Permission } from '@utils/permissions';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Organization, OrganizationAPI } from './organization.types';
 import type { User, UserAPI } from './user.types';
@@ -35,6 +36,8 @@ type ProjectConfigEditor = Partial<
 type ProjectConfigAI = Partial<IntlayerConfig['ai']> & {
   apiKey?: string;
   apiKeyConfigured?: boolean;
+  /** `false` runs AI calls on the plan credits instead of the own key. */
+  isOwnAPIKeyEnabled?: boolean;
 };
 
 export type Webhook = {
@@ -47,6 +50,8 @@ export type Webhook = {
 
 export type ProjectConfigCI = {
   autoTriggerBuilds?: boolean;
+  /** Commit CMS edits of `hybrid` dictionaries back to their `.content` file */
+  autoCommitDictionaries?: boolean;
   webhooks?: Webhook[];
 };
 
@@ -56,7 +61,12 @@ export type ProjectConfiguration = {
   ai?: ProjectConfigAI;
 };
 
-export type RepositoryProvider = 'github' | 'gitlab' | 'bitbucket';
+export type RepositoryProvider =
+  | 'github'
+  | 'gitlab'
+  | 'bitbucket'
+  | 'codeberg'
+  | 'gitee';
 
 export type BaseRepository = {
   provider: RepositoryProvider;
@@ -86,10 +96,22 @@ export type BitbucketRepository = BaseRepository & {
   workspace: string;
 };
 
+/** Codeberg (Forgejo) repository: addressed by `owner/repository`. */
+export type CodebergRepository = BaseRepository & {
+  provider: 'codeberg';
+};
+
+/** Gitee repository: addressed by `owner/repository` (namespace/path). */
+export type GiteeRepository = BaseRepository & {
+  provider: 'gitee';
+};
+
 export type RepositoryConnection =
   | GitHubRepository
   | GitLabRepository
-  | BitbucketRepository;
+  | BitbucketRepository
+  | CodebergRepository
+  | GiteeRepository;
 
 export type ProjectData = {
   organizationId: Organization['id'];
@@ -120,6 +142,12 @@ export type AccessKeyData = {
 };
 
 export type OAuth2AccessData = AccessKeyData & {
+  /**
+   * When true, `grants` narrows the creator's permissions on every request.
+   * Keys created before grant enforcement are `false` until backfilled by
+   * `scripts/backfill-access-key-grants.ts`, and keep the creator's full rights.
+   */
+  grantsEnforced?: boolean;
   clientId: string;
   clientSecret: string;
   accessToken: string[];
@@ -132,6 +160,8 @@ export type OAuth2AccessContext = {
   project?: ProjectAPI;
   organization?: OrganizationAPI;
   grants: Token['grants'];
+  /** Access key grants enforced on the session, `undefined` for legacy keys. */
+  permissions?: Permission[];
   allowedEnvironmentIds?: (string | null)[] | null;
   allowedLocales?: Locale[] | null;
 };

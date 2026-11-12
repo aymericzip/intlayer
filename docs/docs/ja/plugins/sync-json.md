@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "Sync JSON プラグイン：i18n の JSON ファイルを維持"
 description: "Intlayer の辞書を i18next、next-intl、react-intl、vue-i18n の JSON ファイルと同期し、Intlayer で管理・翻訳・テストします。"
@@ -66,7 +66,7 @@ pnpm add -D @intlayer/sync-json-plugin
 npm i -D @intlayer/sync-json-plugin
 ```
 
-## Plugins
+## プラグイン
 
 このパッケージは2つのプラグインを提供します：
 

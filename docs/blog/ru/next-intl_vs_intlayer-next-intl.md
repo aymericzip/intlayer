@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-10-08
 priority: 8
 title: "next-intl vs @intlayer/next-intl: Один и тот же API, разный Bundle"
 description: "Приложение Next.js сохраняет импорты next-intl, которые обслуживает адаптер @intlayer/next-intl. Измерены размер бандла, утечки, размер компонентов и гидратация."
@@ -404,14 +404,14 @@ export default withIntlayer(nextConfig);
 
 Та же серия адаптеров:
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
+- [Сравнение i18next и @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
 - [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer-lingui.md)
 - [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Прямое сравнение библиотек:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer.md)
-- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Сравнение next-i18next, next-intl и Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/is_next-intl_outdated.md)
 
 Справочная документация:

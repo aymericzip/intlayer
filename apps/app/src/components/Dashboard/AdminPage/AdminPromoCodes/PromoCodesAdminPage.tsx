@@ -100,7 +100,7 @@ export const PromoCodesAdminPage: FC = () => {
       ),
       cell: ({ row }) => (
         <CopyToClipboard text={row.original.code} size={10}>
-          <span className="font-medium font-mono text-base text-text">
+          <span className="font-mono text-base font-medium text-text">
             {row.original.code}
           </span>
         </CopyToClipboard>
@@ -111,7 +111,7 @@ export const PromoCodesAdminPage: FC = () => {
       enableSorting: true,
       header: () => content.discountCol.value,
       cell: ({ row }) => (
-        <span className="font-semibold text-sm">
+        <span className="text-sm font-semibold">
           {row.original.discountType === 'percentage'
             ? `${row.original.discountValue}%`
             : `$${row.original.discountValue.toFixed(2)}`}
@@ -123,9 +123,9 @@ export const PromoCodesAdminPage: FC = () => {
       enableSorting: false,
       header: () => content.affiliateCol.value,
       cell: ({ row }) => (
-        <span className="font-mono text-neutral-500 text-sm">
+        <span className="font-mono text-sm text-neutral-500">
           {row.original.affiliate?.referralCode ? (
-            <span className="rounded-md bg-text/10 px-2 py-1 font-semibold text-text text-xs">
+            <span className="rounded-md bg-text/10 px-2 py-1 text-xs font-semibold text-text">
               {row.original.affiliate.referralCode}
             </span>
           ) : (
@@ -175,7 +175,7 @@ export const PromoCodesAdminPage: FC = () => {
         </div>
       ),
       cell: ({ row }) => (
-        <span className="text-neutral-500 text-sm dark:text-neutral-400">
+        <span className="text-sm text-neutral-500 dark:text-neutral-400">
           {row.original.createdAt
             ? new Date(row.original.createdAt).toLocaleDateString()
             : '—'}
@@ -255,7 +255,7 @@ export const PromoCodesAdminPage: FC = () => {
                     <th
                       key={header.id}
                       className={cn(
-                        'whitespace-nowrap px-4 py-3 text-start font-medium text-neutral',
+                        'px-4 py-3 text-start font-medium whitespace-nowrap text-neutral',
                         header.column.getCanSort() &&
                           'cursor-pointer select-none hover:text-neutral-600'
                       )}
@@ -282,7 +282,7 @@ export const PromoCodesAdminPage: FC = () => {
                 return (
                   <tr
                     key={row.id}
-                    className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                    className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                     onClick={() =>
                       navigate({
                         to: '/admin/promo-code/$id',
@@ -294,7 +294,7 @@ export const PromoCodesAdminPage: FC = () => {
                       <td
                         key={cell.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3',
+                          'px-4 py-3 whitespace-nowrap',
                           cellIndex === 0 && 'first:rounded-s-2xl',
                           cellIndex === visibleCells.length - 1 &&
                             'last:rounded-e-2xl'

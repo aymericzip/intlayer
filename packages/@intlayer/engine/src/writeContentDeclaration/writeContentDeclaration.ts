@@ -4,126 +4,18 @@ import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, join, resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 import { COMPILER_NO_METADATA } from '@intlayer/config/defaultValues';
-import {
-  getFilteredLocalesDictionary,
-  getPerLocaleDictionary,
-} from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { detectFormatCommand } from '../detectFormatCommand';
-import {
-  type Extension,
-  getFormatFromExtension,
-} from '../utils/getFormatFromExtension';
 import { readDictionariesFromDisk } from '../utils/readDictionariesFromDisk';
 import type { DictionaryStatus } from './dictionaryStatus';
-import { processContentDeclarationContent } from './processContentDeclarationContent';
+import { formatContentDeclaration } from './renderContentDeclaration';
 import { transformJSONFile } from './transformJSONFile';
 import { writeJSFile } from './writeJSFile';
 import { writeMarkdownFile } from './writeMarkdownFile';
 import { writeYamlFile } from './writeYamlFile';
-
-const formatContentDeclaration = async (
-  dictionary: Dictionary,
-  configuration: IntlayerConfig,
-  localeList?: LocalesValues[]
-) => {
-  /**
-   * Clean Markdown, Insertion, File, etc. node metadata
-   */
-  const processedDictionary =
-    await processContentDeclarationContent(dictionary);
-
-  let content = processedDictionary.content;
-
-  /**
-   * Filter locales content
-   */
-
-  if (dictionary.locale) {
-    content = getPerLocaleDictionary(
-      processedDictionary,
-      dictionary.locale
-    ).content;
-  } else if (localeList) {
-    content = getFilteredLocalesDictionary(
-      processedDictionary,
-      localeList
-    ).content;
-  }
-
-  let pluginFormatResult: any = {
-    ...dictionary,
-    content,
-  } satisfies Dictionary;
-
-  /**
-   * Format the dictionary with the plugins
-   */
-
-  for await (const plugin of configuration.plugins ?? []) {
-    if (plugin.formatOutput) {
-      const formattedResult = await plugin.formatOutput?.({
-        dictionary: pluginFormatResult,
-        configuration,
-      });
-
-      if (formattedResult) {
-        pluginFormatResult = formattedResult;
-      }
-    }
-  }
-
-  const isDictionaryFormat =
-    pluginFormatResult.content && pluginFormatResult.key;
-
-  if (!isDictionaryFormat) return pluginFormatResult;
-
-  // Build result from the original dictionary so that extra user-defined fields
-  // (e.g. custom frontmatter in markdown files) are preserved.
-  // Strip internal-only fields that must never appear in persisted output.
-  const INTERNAL_FIELDS = new Set([
-    '$schema',
-    'filePath',
-    'localId',
-    'localIds',
-    'projectIds',
-  ]);
-
-  const preservedFields = Object.fromEntries(
-    Object.entries(dictionary as Record<string, unknown>).filter(
-      ([k]) => !INTERNAL_FIELDS.has(k)
-    )
-  );
-
-  let result: Dictionary = {
-    ...preservedFields,
-    content,
-  } as Dictionary;
-
-  /**
-   * Add $schema to JSON dictionaries
-   */
-  const extension = (
-    dictionary.filePath ? extname(dictionary.filePath) : '.json'
-  ) as Extension;
-  const format = getFormatFromExtension(extension);
-
-  if (
-    format === 'json' &&
-    pluginFormatResult.content &&
-    pluginFormatResult.key
-  ) {
-    result = {
-      $schema: 'https://intlayer.org/schema.json',
-      ...result,
-    };
-  }
-
-  return result;
-};
 
 type WriteContentDeclarationOptions = {
   newDictionariesPath?: string;
@@ -164,8 +56,7 @@ export const writeContentDeclaration = async (
 
   const formattedContentDeclaration = await formatContentDeclaration(
     dictionary,
-    configuration,
-    localeList
+    { configuration, localeList }
   );
 
   if (existingDictionary?.filePath) {

@@ -10,6 +10,11 @@ import type {
   UpdateDictionaryBody,
 } from '@intlayer/backend-contract/dictionary';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+import {
+  type PushDictionariesProgressState,
+  pushDictionariesInBatches,
+} from '../pushDictionariesInBatches';
 import { useDictionaryAPI } from '../useIntlayerAPI';
 import { type AppQueryOptions, useAppQuery, useAuthEnable } from './utils';
 
@@ -106,13 +111,24 @@ export const useAddDictionary = () => {
   });
 };
 
+/**
+ * Pushes dictionaries in parallel batches, so large sets stay below the
+ * request size limit. `progress` follows the push in flight, and keeps the
+ * last state once it settles (`null` before the first push).
+ */
 export const usePushDictionaries = () => {
   const dictionaryAPI = useDictionaryAPI();
+  const [progress, setProgress] =
+    useState<PushDictionariesProgressState | null>(null);
 
-  return useMutation({
+  const mutation = useMutation({
     mutationKey: ['dictionaries'],
     mutationFn: (args: PushDictionariesBody) =>
-      dictionaryAPI.pushDictionaries(args.dictionaries),
+      pushDictionariesInBatches(
+        args.dictionaries,
+        (batch) => dictionaryAPI.pushDictionaries(batch),
+        { onProgress: setProgress }
+      ),
     meta: {
       invalidateQueries: [
         ['dictionaries'],
@@ -121,6 +137,8 @@ export const usePushDictionaries = () => {
       ],
     },
   });
+
+  return { ...mutation, progress };
 };
 
 export const useUpdateDictionary = () => {

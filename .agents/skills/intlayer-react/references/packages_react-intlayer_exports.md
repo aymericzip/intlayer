@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-08-22
+priority: 5
 title: react-intlayer Package Documentation
 description: React-specific implementation of Intlayer, providing hooks and providers for React applications.
 keywords:
@@ -14,9 +15,16 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Add usePathname utility"
   - version: 7.5.14
     date: 2026-01-21
-    changes: Unified documentation for all exports
+    changes: "Unified documentation for all exports"
+author: aymericzip
 ---
 
 # react-intlayer Package
@@ -63,6 +71,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Hook that handles dynamic dictionaries loaded by key. Uses React Suspense internally for loading states.                                  | -                                                                                                                       |
 | `useLocale`            | Client-side hook to get the current locale, default locale, available locales, and a function to update the locale.                       | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | Hook to get the current locale and all related fields (locale, defaultLocale, availableLocales, setLocale) from context.                  | -                                                                                                                       |
+| `usePathname`          | Hook that returns the current pathname with the locale segment removed. Reactive to browser navigation via `popstate`.                    | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Client-side hook to manage URL rewrites. If a rewrite rule exists for the current pathname and locale, it will update the URL.            | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | Hook that provides a translation function `t()` for accessing nested content by key. Mimics i18next/next-intl pattern.                    | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook that provides a locale-bound `Intl` object. Automatically injects the current locale and uses optimized caching.                     | -                                                                                                                       |
@@ -132,13 +141,13 @@ Import:
 import "react-intlayer/server";
 ```
 
-| Export                   | Type        | Description                                      |
-| ------------------------ | ----------- | ------------------------------------------------ |
-| `IntlayerServerProvider` | `Component` | Provider for server-side rendering.              |
-| `IntlayerServer`         | `Component` | Server-side wrapper for Intlayer content.        |
-| `t`                      | `Function`  | Server-side version of the translation function. |
-| `useLocale`              | `Hook`      | Hook to access locale on the server side.        |
-| `useIntlayer`            | `Hook`      | Server-side version of `useIntlayer`.            |
-| `useDictionary`          | `Hook`      | Server-side version of `useDictionary`.          |
-| `useI18n`                | `Hook`      | Server-side version of `useI18n`.                |
-| `locale`                 | `Function`  | Function to get or set the locale on the server. |
+| Export                   | Type        | Description                                          |
+| ------------------------ | ----------- | ---------------------------------------------------- |
+| `IntlayerServerProvider` | `Component` | Provider for server-side rendering. (Intlayer < 9.4) |
+| `IntlayerServer`         | `Component` | Server-side wrapper for Intlayer content.            |
+| `t`                      | `Function`  | Server-side version of the translation function.     |
+| `useLocale`              | `Hook`      | Hook to access locale on the server side.            |
+| `useIntlayer`            | `Hook`      | Server-side version of `useIntlayer`.                |
+| `useDictionary`          | `Hook`      | Server-side version of `useDictionary`.              |
+| `useI18n`                | `Hook`      | Server-side version of `useI18n`.                    |
+| `locale`                 | `Function`  | Function to get or set the locale on the server.     |

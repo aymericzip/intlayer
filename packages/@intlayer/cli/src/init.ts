@@ -1,21 +1,30 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import {
+  CATALOG_MESSAGE_FORMATS,
+  type CatalogMessageFormat,
+  CONTENT_FORMATS_BY_LAYOUT,
+  type ContentFormat,
+  type ContentLayout,
   detectCompatI18nLibraries,
   hasLintTooling,
+  hasPrettier,
   hasUrlRoutingFramework,
   type InitOptions,
   initIntlayer,
   logInitSuccessMessage,
+  PRETTIER_CONFIG_FILES,
   type RoutingMode,
   setupCmsCredentials,
 } from '@intlayer/engine/cli';
 import { login } from './auth/login';
+import { setupRepository } from './auth/setupRepository';
 import { initChromeExtension } from './initChromeExtension';
 import { initInfra } from './initInfra';
 import { initMCP } from './initMCP';
 import { initSkills } from './initSkills';
 import { loadPrompts } from './loadPrompts';
+import { detectGitRepository } from './utils/detectGitRepository';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { parseChoice } from './utils/parseChoice';
 
@@ -46,10 +55,12 @@ export type InitStep =
   | 'vscodeExtension'
   | 'lsp'
   | 'eslint'
+  | 'prettier'
   | 'skills'
   | 'mcp'
   | 'infra'
   | 'cms'
+  | 'repository'
   | 'chromeExtension';
 
 /** A checkbox entry of the interactive init flow. */
@@ -80,15 +91,18 @@ export const DEFAULT_INIT_STEPS: InitStep[] = ['packages', 'projectSetup'];
  */
 export const INIT_STEP_COMMANDS: Record<InitStep, string> = {
   packages: 'intlayer init packages',
-  projectSetup: 'intlayer init project [--routing <routing>]',
+  projectSetup:
+    'intlayer init project [--routing <routing>] [--content <layout>] [--content-format <format>] [--message-format <format>]',
   githubActions: 'intlayer init github-actions',
   vscodeExtension: 'intlayer init vscode-extension',
   eslint: 'intlayer init eslint',
+  prettier: 'intlayer init prettier',
   chromeExtension: 'intlayer init extension [--browser <chrome|firefox>]',
   skills: 'intlayer init skills [--platform <platform>] [--skills <skills...>]',
   mcp: 'intlayer init mcp [--platform <platform>] [--transport <stdio|sse>]',
   lsp: 'intlayer init lsp',
   cms: 'intlayer init cms',
+  repository: 'intlayer init repository',
   infra: 'intlayer init infra --mode <desktop|docker|compose>',
 };
 
@@ -114,6 +128,7 @@ export const getInitOptionsForSteps = (
     baseOptions?.noVscodeExtension || !steps.includes('vscodeExtension'),
   noLsp: baseOptions?.noLsp || !steps.includes('lsp'),
   noEslint: baseOptions?.noEslint || !steps.includes('eslint'),
+  noPrettier: baseOptions?.noPrettier || !steps.includes('prettier'),
   // The documentation link only matters once the project itself is set up.
   skipFinalMessage:
     baseOptions?.skipFinalMessage || !steps.includes('projectSetup'),
@@ -150,6 +165,25 @@ export const initCms = async (projectRoot?: string): Promise<void> => {
     exitAfter: false,
     onCredentials: (credentials) => setupCmsCredentials(root, credentials),
   });
+};
+
+/**
+ * Connects the git repository of the project to its CMS project (and sets
+ * its build settings) in the browser, pre-filled with the `origin` remote.
+ */
+export const initRepository = async (projectRoot?: string): Promise<void> => {
+  const root = resolveProjectRoot(projectRoot);
+  const p = await loadPrompts();
+  const detectedRepository = detectGitRepository(root);
+
+  p.log.info(
+    detectedRepository
+      ? `Detected repository: ${detectedRepository.provider} ${detectedRepository.owner}/${detectedRepository.repository}`
+      : 'No supported git remote detected: pick the repository in the browser.'
+  );
+  p.log.info('Opening your browser to connect the repository...');
+
+  await setupRepository({ detectedRepository });
 };
 
 /** Explains why `--interactive` cannot run, and what to run instead. */
@@ -192,6 +226,11 @@ export const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
       hint: 'flag hardcoded text and dynamic calls the compiler cannot optimize',
     },
     {
+      value: 'prettier',
+      label: 'Prettier plugin',
+      hint: 'sort the keys of t(), plural(), enu() and select() on format',
+    },
+    {
       value: 'chromeExtension',
       label: 'Chrome extension',
       hint: 'for audit, debug and analysis purpose',
@@ -219,6 +258,11 @@ export const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
       value: 'cms',
       label: 'CMS',
       hint: 'log in through your browser, then store the credentials in your .env',
+    },
+    {
+      value: 'repository',
+      label: 'Git repository',
+      hint: 'connect the git repository to the CMS project and set its build settings (GitHub, GitLab, Bitbucket, Codeberg, Gitee)',
     },
     {
       value: 'infra',
@@ -284,6 +328,119 @@ export const getRoutingInitOptions = (
     ? { routingMode: 'no-prefix', enableProxy: false }
     : { routingMode: choice, enableProxy: true };
 
+/** Content declaration layouts offered by the interactive init flow. */
+const CONTENT_LAYOUT_OPTIONS: Array<{
+  value: ContentLayout;
+  label: string;
+  hint: string;
+}> = [
+  {
+    value: 'multilingual',
+    label: 'Multilingual content declaration',
+    hint: '/**/{fileName}.content.{ts,json} — every locale in one file',
+  },
+  {
+    value: 'per-locale',
+    label: 'Per-locale content declaration',
+    hint: '/**/{fileName}.{locale}.content.{ts,json}',
+  },
+  {
+    value: 'centralized',
+    label: 'Centralized',
+    hint: '/locales/{locale}.{json,po}',
+  },
+  {
+    value: 'namespaces',
+    label: 'Namespaces',
+    hint: '/locales/{locale}/{namespace}.{json,po}',
+  },
+];
+
+/** Labels of the content formats offered by the interactive init flow. */
+const CONTENT_FORMAT_LABELS: Record<ContentFormat, string> = {
+  ts: 'TypeScript (.ts)',
+  json: 'JSON (.json)',
+  po: 'Gettext (.po)',
+};
+
+/** Labels of the JSON catalog message formats, in display order. */
+const CATALOG_MESSAGE_FORMAT_OPTIONS: Record<
+  CatalogMessageFormat,
+  { label: string; hint: string }
+> = {
+  icu: { label: 'ICU', hint: '{count, plural, one {# item} other {# items}}' },
+  i18next: { label: 'i18next', hint: '{{count}} item, key_one / key_other' },
+  'vue-i18n': { label: 'vue-i18n', hint: '{count} item | {count} items' },
+  intlayer: { label: 'Intlayer', hint: 'Intlayer dictionary content' },
+};
+
+/** Content layouts accepted by `--content`. */
+export const CONTENT_LAYOUT_CHOICES = CONTENT_LAYOUT_OPTIONS.map(
+  (option) => option.value
+);
+
+/** Validates a `--content` value, throwing on an unknown layout. */
+export const parseContentLayoutChoice = (value: string): ContentLayout =>
+  parseChoice(value, CONTENT_LAYOUT_CHOICES, '--content');
+
+/** Init options set by the content layout questions / flags. */
+type ContentInitOptions = Pick<
+  InitOptions,
+  'contentLayout' | 'contentFormat' | 'contentMessageFormat'
+>;
+
+/** Whether a layout + format pair produces a JSON catalog (sync plugin). */
+const isJsonCatalog = (layout: ContentLayout, format: ContentFormat): boolean =>
+  (layout === 'centralized' || layout === 'namespaces') && format === 'json';
+
+/**
+ * Validates `--content` / `--content-format` / `--message-format` and maps
+ * them to the init options. The format must be one the layout accepts, and the
+ * message format only applies to JSON catalogs.
+ */
+export const getContentInitOptions = (
+  layoutValue?: string,
+  formatValue?: string,
+  messageFormatValue?: string
+): ContentInitOptions => {
+  if (!layoutValue) {
+    if (formatValue || messageFormatValue) {
+      throw new Error(
+        '--content-format and --message-format require --content.'
+      );
+    }
+    return {};
+  }
+
+  const contentLayout = parseContentLayoutChoice(layoutValue);
+  const contentFormat = formatValue
+    ? parseChoice(
+        formatValue,
+        CONTENT_FORMATS_BY_LAYOUT[contentLayout],
+        '--content-format'
+      )
+    : undefined;
+
+  if (!messageFormatValue) return { contentLayout, contentFormat };
+
+  // Catalog layouts default to JSON.
+  if (!isJsonCatalog(contentLayout, contentFormat ?? 'json')) {
+    throw new Error(
+      '--message-format only applies to JSON catalogs (--content centralized | namespaces with json).'
+    );
+  }
+
+  return {
+    contentLayout,
+    contentFormat,
+    contentMessageFormat: parseChoice(
+      messageFormatValue,
+      CATALOG_MESSAGE_FORMATS,
+      '--message-format'
+    ),
+  };
+};
+
 /** Known ESLint and oxlint configuration file names. */
 export const ESLINT_CONFIG_FILES = [
   'eslint.config.js',
@@ -320,6 +477,22 @@ export const isEslintInstalled = (
 };
 
 /**
+ * Checks whether Prettier is installed or configured in the project.
+ */
+export const isPrettierInstalled = (
+  dependencies: Record<string, string>,
+  root?: string
+): boolean => {
+  if (hasPrettier(dependencies)) return true;
+
+  if (root) {
+    return PRETTIER_CONFIG_FILES.some((file) => existsSync(join(root, file)));
+  }
+
+  return false;
+};
+
+/**
  * Computes the initial setup steps selected by default in the interactive prompt.
  * Steps like infrastructure and browser extension require opt-in, while
  * eslint is preselected only if installed on the project.
@@ -329,6 +502,7 @@ export const getInitialInitSteps = (
   root?: string
 ): InitStep[] => {
   const isEslintPresent = isEslintInstalled(dependencies, root);
+  const isPrettierPresent = isPrettierInstalled(dependencies, root);
 
   return Object.values(INIT_STEP_GROUPS)
     .flat()
@@ -336,6 +510,7 @@ export const getInitialInitSteps = (
     .filter((step) => {
       if (OPT_IN_INIT_STEPS.includes(step)) return false;
       if (step === 'eslint' && !isEslintPresent) return false;
+      if (step === 'prettier' && !isPrettierPresent) return false;
       return true;
     });
 };
@@ -429,8 +604,75 @@ const runInteractiveInit = async (
     routingOptions = getRoutingInitOptions(selectedRouting);
   }
 
+  // Content layout → `compiler.output` (+ `dictionary.locale`) for `.content`
+  // files, or the syncJSON / syncPO plugin for catalogs. Skipped for compat
+  // i18n libraries, which keep their own catalogs.
+  let contentOptions: ContentInitOptions = {};
+
+  if (
+    steps.includes('projectSetup') &&
+    baseOptions?.contentLayout === undefined &&
+    !hasCompatLib
+  ) {
+    const contentLayout = await p.select<ContentLayout>({
+      message: 'How do you want to declare your content?',
+      options: CONTENT_LAYOUT_OPTIONS,
+      initialValue: 'multilingual',
+    });
+
+    if (p.isCancel(contentLayout)) {
+      p.cancel('Operation cancelled.');
+      return;
+    }
+
+    const acceptedFormats = CONTENT_FORMATS_BY_LAYOUT[contentLayout];
+    const hasTypeScript = existsSync(join(root, 'tsconfig.json'));
+
+    const contentFormat = await p.select<ContentFormat>({
+      message: 'Which format for your content?',
+      options: acceptedFormats.map((format) => ({
+        value: format,
+        label: CONTENT_FORMAT_LABELS[format],
+      })),
+      initialValue:
+        acceptedFormats.includes('ts') && !hasTypeScript
+          ? 'json'
+          : acceptedFormats[0],
+    });
+
+    if (p.isCancel(contentFormat)) {
+      p.cancel('Operation cancelled.');
+      return;
+    }
+
+    contentOptions = { contentLayout, contentFormat };
+
+    // JSON catalogs carry a message syntax (plurals, interpolation…).
+    if (isJsonCatalog(contentLayout, contentFormat)) {
+      const contentMessageFormat = await p.select<CatalogMessageFormat>({
+        message: 'Which message format do your JSON catalogs use?',
+        options: CATALOG_MESSAGE_FORMATS.map((messageFormat) => ({
+          value: messageFormat,
+          ...CATALOG_MESSAGE_FORMAT_OPTIONS[messageFormat],
+        })),
+        initialValue: CATALOG_MESSAGE_FORMATS[0],
+      });
+
+      if (p.isCancel(contentMessageFormat)) {
+        p.cancel('Operation cancelled.');
+        return;
+      }
+
+      contentOptions = { ...contentOptions, contentMessageFormat };
+    }
+  }
+
   const options: InitOptions = {
-    ...getInitOptionsForSteps(steps, { ...baseOptions, ...routingOptions }),
+    ...getInitOptionsForSteps(steps, {
+      ...baseOptions,
+      ...routingOptions,
+      ...contentOptions,
+    }),
     skipFinalMessage: true,
   };
 
@@ -459,6 +701,11 @@ const runInteractiveInit = async (
   // so the browser flow does not interrupt setup.
   if (steps.includes('cms')) {
     await initCms(root);
+  }
+
+  // After the CMS login, so the browser is already signed in
+  if (steps.includes('repository')) {
+    await initRepository(root);
   }
 
   p.outro('Intlayer initialization complete');

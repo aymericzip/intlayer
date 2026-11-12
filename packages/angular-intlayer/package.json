@@ -1,24 +1,20 @@
 {
   "name": "angular-intlayer",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": false,
   "description": "Easily internationalize i18n your Angular applications with type-safe multilingual content management.",
   "keywords": [
-    "intlayer",
+    "angular",
     "data",
-    "internationalization",
-    "multilingual",
     "i18n",
-    "typescript",
-    "angular"
+    "internationalization",
+    "intlayer",
+    "multilingual",
+    "typescript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -32,7 +28,43 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "sideEffects": false,
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/format/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
+      ],
+      "webpack": [
+        "./dist/types/webpack/index.d.ts"
+      ],
+      "esbuild": [
+        "./dist/types/esbuild/index.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -66,47 +98,15 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./dist/types/index.d.ts"
-      ],
-      "format": [
-        "./dist/types/format/index.d.ts"
-      ],
-      "html": [
-        "./dist/types/html/index.d.ts"
-      ],
-      "markdown": [
-        "./dist/types/markdown/index.d.ts"
-      ],
-      "webpack": [
-        "./dist/types/webpack/index.d.ts"
-      ],
-      "esbuild": [
-        "./dist/types/esbuild/index.d.ts"
-      ],
-      "package.json": [
-        "./package.json"
-      ]
-    }
-  },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -119,7 +119,7 @@
   "dependencies": {
     "@babel/core": "^8.0.1",
     "@babel/plugin-syntax-import-attributes": "7.29.7",
-    "@babel/preset-env": "8.0.2",
+    "@babel/preset-env": "8.0.7",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
@@ -131,18 +131,18 @@
     "defu": "6.1.7"
   },
   "devDependencies": {
-    "@angular/common": "22.1.5",
-    "@angular/core": "22.1.5",
+    "@angular/common": "22.1.8",
+    "@angular/core": "22.1.8",
     "@types/node": "^26",
     "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "esbuild": "0.28.2",
-    "rimraf": "6.1.3",
-    "tsdown": "0.23.0",
+    "rimraf": "6.1.4",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   },
   "peerDependencies": {
     "@angular/common": ">=15",

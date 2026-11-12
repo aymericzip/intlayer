@@ -1,5 +1,4 @@
 import { isSameKeyPath } from '@intlayer/core/utils';
-
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
@@ -21,6 +20,35 @@ type RenderState = 'simple' | 'wrapped-slot' | 'wrapped-text';
  * keeping it clear of fixed navbars.
  */
 const SCROLL_TOP_OFFSET_RATIO = 0.3;
+
+const PRESS_END_EVENTS = ['mouseup', 'touchend', 'touchcancel'] as const;
+
+/**
+ * Clears the focus once a press on other content ends, unless that press
+ * selected it meanwhile (long press, or the click following the release).
+ * Clearing on press start would leave nothing focused for the whole press,
+ * so the editor UI would drop its panel until the new selection lands.
+ */
+const clearFocusAfterPress = (manager: EditorStateManager): void => {
+  const focusedContentAtPress = manager.focusedContent.value;
+
+  const handlePressEnd = () => {
+    for (const eventName of PRESS_END_EVENTS) {
+      document.removeEventListener(eventName, handlePressEnd, true);
+    }
+
+    // Runs after the click dispatched with the release
+    setTimeout(() => {
+      if (manager.focusedContent.value === focusedContentAtPress) {
+        manager.focusedContent.set(null);
+      }
+    });
+  };
+
+  for (const eventName of PRESS_END_EVENTS) {
+    document.addEventListener(eventName, handlePressEnd, true);
+  }
+};
 
 /** Parent in the flattened tree, crossing shadow roots up to their host. */
 const getComposedParent = (element: Element): Element | null =>
@@ -69,6 +97,45 @@ const getPendingRevealOffset = (element: Element): number => {
   return offset;
 };
 
+/**
+ * Reveal callbacks of the wrappers selected by the current focus change, keyed
+ * by wrapper. A focus matches every wrapper under its key path (list items,
+ * content rendered twice…), so they are batched and only the first is revealed.
+ */
+const pendingReveals = new Map<Element, () => void>();
+
+/** Whether `element` comes after `reference` in document order. */
+const isAfterInDocument = (element: Element, reference: Element): boolean => {
+  const position = reference.compareDocumentPosition(element);
+
+  // Across unrelated trees the order is arbitrary: keep the earlier selection
+  if (position & Node.DOCUMENT_POSITION_DISCONNECTED) return true;
+
+  return Boolean(position & Node.DOCUMENT_POSITION_FOLLOWING);
+};
+
+/** Reveals the first wrapper, in document order, among the pending ones. */
+const flushPendingReveals = (): void => {
+  let firstWrapper: Element | null = null;
+
+  for (const wrapper of pendingReveals.keys()) {
+    if (!wrapper.isConnected) continue;
+    if (!firstWrapper || !isAfterInDocument(wrapper, firstWrapper)) {
+      firstWrapper = wrapper;
+    }
+  }
+
+  const reveal = firstWrapper ? pendingReveals.get(firstWrapper) : undefined;
+  pendingReveals.clear();
+  reveal?.();
+};
+
+/** Queues a wrapper to reveal once every wrapper handled the focus change. */
+const scheduleReveal = (wrapper: Element, reveal: () => void): void => {
+  if (pendingReveals.size === 0) queueMicrotask(flushPendingReveals);
+  pendingReveals.set(wrapper, reveal);
+};
+
 const _HTMLElement =
   typeof HTMLElement !== 'undefined'
     ? HTMLElement
@@ -105,6 +172,14 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
 
   static get observedAttributes(): string[] {
     return ['key-path', 'dictionary-key'];
+  }
+
+  get dictionaryKey(): string {
+    return this._dictionaryKey;
+  }
+
+  get filteredKeyPath(): KeyPath[] {
+    return this._getFilteredKeyPath();
   }
 
   constructor() {
@@ -214,6 +289,7 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
   ): void {
     if (!focusedContent) {
       this._isSelected = false;
+      pendingReveals.delete(this);
       this._updateSelectorAttr();
       return;
     }
@@ -227,7 +303,9 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
 
     // Reveal content the editor focuses while it is off-screen in the app
     if (this._isSelected && !wasSelected) {
-      this._scrollIntoViewIfNeeded();
+      scheduleReveal(this, () => this._scrollIntoViewIfNeeded());
+    } else if (!this._isSelected) {
+      pendingReveals.delete(this);
     }
   }
 
@@ -364,6 +442,42 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
     );
   }
 
+  private _handleClickOutside(e: Event): void {
+    e.stopPropagation();
+    if (e.target !== this._selector) return;
+    if (!this._isSelected) return;
+
+    const manager = getGlobalEditorManager();
+    if (!manager) return;
+
+    const customEvent = e as CustomEvent<{ originalEvent?: Event }>;
+    const pressedWrappers = (
+      customEvent.detail?.originalEvent?.composedPath() ?? []
+    ).filter(
+      (target): target is IntlayerContentSelectorWrapperElement =>
+        target instanceof HTMLElement &&
+        target.tagName === 'INTLAYER-CONTENT-SELECTOR-WRAPPER'
+    );
+
+    const isClickedOnSameContent = pressedWrappers.some(
+      (wrapper) =>
+        wrapper.dictionaryKey === this._dictionaryKey &&
+        isSameKeyPath(wrapper.filteredKeyPath, this._getFilteredKeyPath())
+    );
+
+    if (isClickedOnSameContent) {
+      this._selector?.setAttribute('is-selecting', '');
+      return;
+    }
+
+    if (pressedWrappers.length > 0) {
+      clearFocusAfterPress(manager);
+      return;
+    }
+
+    manager.focusedContent.set(null);
+  }
+
   private _render(): void {
     const useWrapper = this._isInIframe && this._editorEnabled;
     const editedValue = this._editedValue;
@@ -413,6 +527,9 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
       selector.addEventListener('intlayer:hover', (e) => this._handleHover(e));
       selector.addEventListener('intlayer:unhover', (e) =>
         this._handleUnhover(e)
+      );
+      selector.addEventListener('intlayer:click-outside', (e) =>
+        this._handleClickOutside(e)
       );
 
       if (state === 'wrapped-text') {

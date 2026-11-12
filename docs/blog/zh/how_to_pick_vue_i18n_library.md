@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "如何在 2026 年选择合适的 Vue i18n 国际化库"
 description: "Vue 与 Nuxt i18n 选型指南：在比较 vue-i18n、@nuxtjs/i18n、fluent-vue、Paraglide 和 Intlayer 之前需要回答的问题。"
@@ -96,11 +96,11 @@ Paraglide 为每个 message 生成一个独立函数，并交由打包工具（b
 
 | 库             | 内容模型                                            | 类型安全                       | Message 格式                        | 按路由代码拆分        | 库体积                             |
 | :------------- | :-------------------------------------------------- | :----------------------------- | :---------------------------------- | :-------------------- | :--------------------------------- |
-| `vue-i18n`     | 每个 locale 集中式 catalog，可选 SFC `<i18n>` block | 2/5 — 通过 schema 泛型手动启用 | 自定义（管道符复数）                | 否                    | ~24.3 kB                           |
-| `@nuxtjs/i18n` | 与 `vue-i18n` 相同，外加路由与 SEO 标签支持         | 2/5 — 相同                     | 相同                                | 否，仅按 locale 拆分  | ~24.3 kB                           |
-| `fluent-vue`   | `.ftl` 文件（Mozilla Fluent）                       | 1/5 — 无                       | Fluent                              | 否                    | ~29.7 kB                           |
-| Paraglide      | inlang 项目，自动生成函数                           | 3.5/5 — 自动生成               | 自定义                              | 通过 tree-shaking     | 接近于 0（因为代码生成到代码库中） |
-| Intlayer       | 每个 component 一个 `.content.ts`                   | 5/5 — 自动生成，默认开启       | Intlayer (+ ICU, i18next, vue-i18n) | 是，按 component 拆分 | ~3.9 kB                            |
+| `vue-i18n`     | 每个 locale 集中式 catalog，可选 SFC `<i18n>` block | 2/5 - 通过 schema 泛型手动启用 | 自定义（管道符复数）                | 否                    | ~24.3 kB                           |
+| `@nuxtjs/i18n` | 与 `vue-i18n` 相同，外加路由与 SEO 标签支持         | 2/5 - 相同                     | 相同                                | 否，仅按 locale 拆分  | ~24.3 kB                           |
+| `fluent-vue`   | `.ftl` 文件（Mozilla Fluent）                       | 1/5 - 无                       | Fluent                              | 否                    | ~29.7 kB                           |
+| Paraglide      | inlang 项目，自动生成函数                           | 3.5/5 - 自动生成               | 自定义                              | 通过 tree-shaking     | 接近于 0（因为代码生成到代码库中） |
+| Intlayer       | 每个 component 一个 `.content.ts`                   | 5/5 - 自动生成，默认开启       | Intlayer (+ ICU, i18next, vue-i18n) | 是，按 component 拆分 | ~3.9 kB                            |
 
 > 数据仅代表基准测试当时版本的快照。在仅凭体积做决定之前，建议在自己的应用中进行测试。
 > 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。

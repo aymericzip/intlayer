@@ -5,7 +5,19 @@ import fastifyCors from '@fastify/cors';
 import fastifyHelmet from '@fastify/helmet';
 import dotenv from 'dotenv';
 import Fastify from 'fastify';
+import {
+  CLIENT_ID_HEADER,
+  CLIENT_SECRET_HEADER,
+  getRequestContextFromHeaders,
+} from './requestContext';
 import { loadServer, type McpServer } from './server';
+
+/** Idle MCP sessions are dropped after this delay. */
+const SESSION_IDLE_TIMEOUT_MS = 60 * 60 * 1000;
+/** Upper bound on concurrent sessions (oldest evicted first). */
+const MAX_SESSIONS = 5000;
+
+type StoredSession = { server: McpServer; lastUsedAt: number };
 
 const startServer = async () => {
   const app = Fastify();
@@ -25,10 +37,27 @@ const startServer = async () => {
   await app.register(fastifyCors, {
     origin: '*',
     methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'mcp-session-id'],
+    allowedHeaders: [
+      'Content-Type',
+      'mcp-session-id',
+      'Authorization',
+      CLIENT_ID_HEADER,
+      CLIENT_SECRET_HEADER,
+    ],
   });
 
-  const sessions = new Map<string, McpServer>();
+  // Sessions only hold the tool registry; credentials are read from every
+  // request, never stored on the session.
+  const sessions = new Map<string, StoredSession>();
+
+  const sweepIdleSessions = () => {
+    const idleBefore = Date.now() - SESSION_IDLE_TIMEOUT_MS;
+    for (const [sessionId, session] of sessions) {
+      if (session.lastUsedAt < idleBefore) sessions.delete(sessionId);
+    }
+  };
+
+  setInterval(sweepIdleSessions, 5 * 60 * 1000).unref();
 
   app.post('/', async (request, reply) => {
     const sessionId = request.headers['mcp-session-id'] as string | undefined;
@@ -36,20 +65,30 @@ const startServer = async () => {
     let server: McpServer;
     let currentSessionId: string;
 
-    if (sessionId && sessions.has(sessionId)) {
-      server = sessions.get(sessionId)!;
+    const existingSession = sessionId ? sessions.get(sessionId) : undefined;
+
+    if (sessionId && existingSession) {
+      existingSession.lastUsedAt = Date.now();
+      server = existingSession.server;
       currentSessionId = sessionId;
     } else if (!sessionId) {
+      if (sessions.size >= MAX_SESSIONS) {
+        const oldestSessionId = sessions.keys().next().value;
+        if (oldestSessionId) sessions.delete(oldestSessionId);
+      }
       currentSessionId = randomUUID();
       server = loadServer({ isLocal: false });
-      sessions.set(currentSessionId, server);
+      sessions.set(currentSessionId, { server, lastUsedAt: Date.now() });
       reply.header('mcp-session-id', currentSessionId);
     } else {
       return reply.status(400).send({ messages: 'Bad session id.' });
     }
 
     try {
-      const response = await server.handleMessage(request.body);
+      const response = await server.handleMessage(
+        request.body,
+        getRequestContextFromHeaders(request.headers)
+      );
       if (response !== null && response !== undefined) {
         return reply.send(response);
       }

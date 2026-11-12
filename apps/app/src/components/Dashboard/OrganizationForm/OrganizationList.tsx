@@ -142,7 +142,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
               borderColor="neutral"
             >
               {search ? (
-                <span className="m-auto text-neutral text-sm">
+                <span className="m-auto text-sm text-neutral">
                   {noOrganizationFound}
                 </span>
               ) : (
@@ -191,6 +191,8 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         onClose={() => setIsCreationModalOpen(false)}
         hasCloseButton
         padding="md"
+        border
+        borderColor="neutral"
       >
         <OrganizationCreationForm />
       </Modal>

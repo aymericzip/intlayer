@@ -1,9 +1,7 @@
-# syntax=docker/dockerfile:1.27.0
+# syntax=docker/dockerfile:1.28.0
 
 # Builder stage
-FROM node:26-alpine AS builder
-
-RUN npm install -g bun@1.4.2
+FROM oven/bun:1.4.4-alpine AS builder
 
 # Put the repo in /workspace
 WORKDIR /workspace
@@ -63,26 +61,24 @@ ENV STORYBOOK_TELEMETRY=false
 ENV STORYBOOK_STATIC=true
 RUN bun x storybook build --disable-telemetry
 
-# Runner — plain node + serve; no bun needed for static file serving
-FROM node:26-alpine AS runner
-
-RUN npm install -g bun@1.4.2
-
-RUN npm install -g serve
+# Runner — static file serving with `serve`
+FROM oven/bun:1.4.4-alpine AS runner
 
 WORKDIR /www
 
-# Copy the built static site
-COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static .
+# Install `serve` locally so startup needs no network fetch
+RUN bun add serve@14
 
-# Drop root privileges — node user ships with the base image
-RUN chown -R node:node /www
-USER node
+# Copy the built static site
+COPY --from=builder --chown=bun:bun /workspace/packages/@intlayer/design-system/storybook-static ./public
+
+# Drop root privileges — bun user ships with the base image
+USER bun
 
 EXPOSE 6006
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
   CMD bun -e "const r = await fetch('http://localhost:6006/'); process.exit(r.ok ? 0 : 1)"
 
-# -f foreground, -p port, -h doc root
-CMD ["bun", "x", "serve", ".", "-l", "6006"]
+# --bun: the image has no node binary, run serve on the bun runtime
+CMD ["bun", "x", "--bun", "serve", "public", "-l", "6006"]

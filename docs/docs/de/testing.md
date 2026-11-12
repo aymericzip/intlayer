@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-09-20
+updatedAt: 2026-10-27
 priority: 8
 title: "Übersetzungen mit Intlayer testen"
 description: "Testen Sie Ihre Intlayer-Inhalte: fehlende Übersetzungen erkennen, Wörterbücher in CI validieren und Komponenten pro Locale in Unit-Tests rendern."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Klarstellung, dass content test bei fehlenden erforderlichen Sprachversionen mit einem von Null verschiedenen Code endet"
   - version: 6.0.0
     date: 2025-09-20
     changes: "Einführung von Tests"
@@ -29,7 +32,7 @@ Dieser Leitfaden zeigt, wie Sie automatisch überprüfen können, ob Ihre Wörte
 
 - **Fehlende Übersetzungen**: CI schlägt fehl, wenn für ein Wörterbuch erforderliche Sprachversionen fehlen.
 - **Lokalisierte UI-Darstellung**: Komponenten mit einem bestimmten Sprachprovider rendern und sichtbaren Text/Attribute überprüfen.
-- **Build-Zeit Prüfungen**: Führen Sie lokal eine schnelle Prüfung über die CLI durch.
+- **Build-Zeit Prüfungen**: Führen Sie `npx intlayer content test` lokal oder in CI aus; der Befehl endet mit einem von Null verschiedenen Code, wenn erforderliche Übersetzungen fehlen.
 
 ## Schnellstart: Prüfung über CLI
 
@@ -59,7 +62,7 @@ Nützliche Optionen:
 - `--verbose`: zeigt ausführliche Protokolle an.
 - `--prefix [Label]`: fügt den Protokollzeilen ein Präfix hinzu.
 
-Hinweis: Die CLI gibt einen detaillierten Bericht aus, beendet sich jedoch bei Fehlern nicht mit einem Fehlercode. Für CI-Gates fügen Sie einen Unit-Test (siehe unten) hinzu, der sicherstellt, dass keine erforderlichen Sprachversionen fehlen.
+Der Befehl endet mit dem Code `1`, wenn eine erforderliche Sprachversion fehlt (siehe `requiredLocales` in Ihrer Konfiguration), andernfalls mit `0`. Sie können ihn direkt verwenden, um CI-Jobs oder Commit-Hooks fehlschlagen zu lassen. Der programmatische Test unten ist eine optionale Alternative.
 
 ## Programmatischer Test (Vitest/Jest)
 
@@ -155,14 +158,24 @@ Tipps:
 
 ## Kontinuierliche Integration
 
-Fügen Sie einen Test hinzu, der den Build fehlschlagen lässt, wenn erforderliche Übersetzungen fehlen.
+Führen Sie die CLI-Prüfung in CI aus. Sie lässt den Job fehlschlagen, wenn erforderliche Übersetzungen fehlen.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternative: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -181,7 +194,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Optional: Führen Sie die CLI-Prüfung für eine menschenlesbare Zusammenfassung neben den Tests aus:

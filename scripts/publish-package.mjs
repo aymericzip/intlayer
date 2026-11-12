@@ -175,7 +175,9 @@ const toExitCode = ({ status, output }) => {
   }
 
   if (republishPatterns.some((pattern) => pattern.test(output))) {
-    console.warn(`⚠️  ${packageLabel} is already published or staged, skipping`);
+    console.warn(
+      `⚠️  ${packageLabel} is already published or staged, skipping`
+    );
     return 0;
   }
 

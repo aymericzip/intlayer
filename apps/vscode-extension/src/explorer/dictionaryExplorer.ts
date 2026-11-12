@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { basename, extname, join, relative, resolve, sep } from 'node:path';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { listProjects } from '@intlayer/engine/cli';
 import {
   type Event,
@@ -152,9 +153,7 @@ const listWorkspaceProjectDirs = async (): Promise<string[]> => {
   return [...projectDirs];
 };
 
-export class DictionaryTreeDataProvider
-  implements TreeDataProvider<IntlayerTreeNode>
-{
+export class DictionaryTreeDataProvider implements TreeDataProvider<IntlayerTreeNode> {
   private readonly changeEmitter = new EventEmitter<
     IntlayerTreeNode | undefined
   >();
@@ -255,7 +254,7 @@ export class DictionaryTreeDataProvider
       return [];
     } catch (error) {
       await window.showErrorMessage(
-        `Failed to load Intlayer dictionaries: ${(error as Error).message}`
+        `Failed to load Intlayer dictionaries: ${extractErrorMessage(error)}`
       );
       return [];
     }

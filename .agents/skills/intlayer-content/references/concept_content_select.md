@@ -358,14 +358,11 @@ Messages using the ICU `select` argument are imported as `select` nodes:
 becomes
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 The ICU `other` case is renamed to `fallback`, which is Intlayer's canonical name for a catch-all. The second argument records the ICU variable name so the message round-trips back to the exact same ICU string when exported.

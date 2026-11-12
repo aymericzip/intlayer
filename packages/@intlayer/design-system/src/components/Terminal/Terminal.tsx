@@ -37,7 +37,7 @@ interface AnsiSegment {
 
 const parseAnsiCodes = (text: string, isDarkMode: boolean): AnsiSegment[] => {
   const segments: AnsiSegment[] = [];
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: we need to parse ANSI codes
+  // oxlint-disable-next-line no-control-regex -- we need to parse ANSI codes
   const ansiRegex = /(\x1b\[[0-9;]*m)/g;
   const parts = text.split(ansiRegex);
 
@@ -111,7 +111,7 @@ export const Terminal: FC<TerminalProps> = ({
     <Container
       roundedSize="lg"
       className={cn(
-        'flex min-w-0 max-w-full flex-col overflow-hidden border font-mono',
+        'flex max-w-full min-w-0 flex-col overflow-hidden border font-mono',
         className
       )}
       // Terminal output reads left-to-right even inside right-to-left locales
@@ -119,7 +119,7 @@ export const Terminal: FC<TerminalProps> = ({
       {...containerProps}
     >
       {/* Tab bar */}
-      <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200 text-muted-foreground text-xs dark:bg-neutral-950">
+      <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200 text-xs text-muted-foreground dark:bg-neutral-950">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
           <div className="size-3 rounded-full bg-error" />
           <div className="size-3 rounded-full bg-yellow-500" />
@@ -143,7 +143,7 @@ export const Terminal: FC<TerminalProps> = ({
       </div>
 
       {/* Terminal content - hide scrollbar */}
-      <pre className="min-w-0 max-w-full overflow-x-auto overflow-y-auto border-neutral/30 border-b p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <pre className="max-w-full min-w-0 [scrollbar-width:none] overflow-x-auto overflow-y-auto border-b border-neutral/30 p-3 [&::-webkit-scrollbar]:hidden">
         <code>
           {lines.map((line, lineIndex) => {
             const segments = parseAnsiCodes(line, isDarkMode);

@@ -213,7 +213,7 @@ export const getRepositoryFileContents = async (
 ): Promise<string | null> => {
   try {
     const response = await fetch(
-      `${BITBUCKET_API_URL}/repositories/${workspace}/${repoSlug}/src/${encodeURIComponent(branch)}/${encodeURIComponent(path)}`,
+      `${BITBUCKET_API_URL}/repositories/${workspace}/${repoSlug}/src/${encodeURIComponent(branch)}/${path.split('/').map(encodeURIComponent).join('/')}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -2,7 +2,6 @@
 
 import { observeScrollExtent } from '@utils/observeScrollExtent';
 import { useCallback, useEffect, useState } from 'react';
-
 import { useGetElementOrWindow } from './useGetElementOrWindow';
 import { useScrollBlockage } from './useScrollBlockage';
 

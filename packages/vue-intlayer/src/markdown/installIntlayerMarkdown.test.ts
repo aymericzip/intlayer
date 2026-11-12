@@ -12,9 +12,8 @@ const installFreshMarkdown = async (
 ) => {
   vi.resetModules();
 
-  const { installIntlayerMarkdown, useMarkdown } = await import(
-    './installIntlayerMarkdown'
-  );
+  const { installIntlayerMarkdown, useMarkdown } =
+    await import('./installIntlayerMarkdown');
 
   installIntlayerMarkdown(app, pluginOptions);
 

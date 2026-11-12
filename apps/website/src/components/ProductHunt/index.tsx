@@ -163,7 +163,7 @@ export const ProductHunt: FC = () => {
             <div className="flex w-72 flex-col gap-2 overflow-hidden rounded-lg">
               <strong className="text-xl uppercase">{title}</strong>
               <span>{content}</span>
-              <span className="text-muted-foreground text-sm">{details}</span>
+              <span className="text-sm text-muted-foreground">{details}</span>
             </div>
           </MaxWidthSmoother>
         </div>

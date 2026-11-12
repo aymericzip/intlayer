@@ -2959,9 +2959,8 @@ describe('options.wrapper', () => {
   });
 
   it('renders an array when `null`', () => {
-    expect(
-      compileMarkdown('Hello\n\nworld!', { wrapper: null })
-    ).toMatchInlineSnapshot(`
+    expect(compileMarkdown('Hello\n\nworld!', { wrapper: null }))
+      .toMatchInlineSnapshot(`
       [
         <p>
           Hello

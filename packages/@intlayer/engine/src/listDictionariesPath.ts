@@ -2,6 +2,7 @@ import { stat } from 'node:fs/promises';
 import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
+import { isDirectoryExcluded } from './utils/isDirectoryExcluded';
 
 /**
  * List all dictionaries absolute paths in the project
@@ -26,21 +27,11 @@ export const listDictionaries = async (
     const basePattern =
       magicIndex > -1 ? pattern.slice(0, magicIndex) : pattern;
 
-    // Filter the global ignored list for this specific pattern
-    const applicableIgnore = excludedPath.filter((excludePattern) => {
-      // Heuristic: Extract the key directory name from the glob
-      // e.g. "**/dist/**" -> "dist", "**/node_modules/**" -> "node_modules"
-      const cleanName = excludePattern.replace(/\*\*/g, '').replace(/\//g, '');
-
-      // If the explicit base path contains the excluded directory (e.g. ".../dist/..."),
-      // we assume you explicitly want it, so we REMOVE it from the ignore list.
-      // We check for `/${cleanName}/` to ensure we match whole folder names.
-      if (cleanName && basePattern.includes(`/${cleanName}/`)) {
-        return false; // Drop this exclude rule
-      }
-
-      return true; // Keep this exclude rule
-    });
+    // An exclusion matching the explicit base path itself (e.g. a contentDir
+    // inside `dist`) is dropped: the contentDir is more precise than it
+    const applicableIgnore = excludedPath.filter(
+      (excludePattern) => !isDirectoryExcluded(basePattern, [excludePattern])
+    );
 
     // Run fast-glob with the customized ignore list
     return fg(pattern, {

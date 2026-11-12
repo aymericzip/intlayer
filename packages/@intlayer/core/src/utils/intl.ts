@@ -165,11 +165,11 @@ const resolveIntlConstructor = (
 };
 
 type IntlConstructors = {
-  [K in keyof typeof Intl as (typeof Intl)[K] extends new (
-    ...args: any
-  ) => any
-    ? K
-    : never]: (typeof Intl)[K];
+  [
+    K in keyof typeof Intl as (typeof Intl)[K] extends new (...args: any) => any
+      ? K
+      : never
+  ]: (typeof Intl)[K];
 };
 
 type ReplaceLocaleWithLocalesValues<T> = T extends new (
@@ -182,9 +182,7 @@ type ReplaceLocaleWithLocalesValues<T> = T extends new (
       (locales?: LocalesValues, options?: Options): Instance;
       (options?: Options & { locale?: LocalesValues }): Instance;
     }
-  : T extends new (
-        locales: any
-      ) => infer Instance
+  : T extends new (locales: any) => infer Instance
     ? {
         new (locales?: LocalesValues): Instance;
         new (options?: { locale?: LocalesValues }): Instance;

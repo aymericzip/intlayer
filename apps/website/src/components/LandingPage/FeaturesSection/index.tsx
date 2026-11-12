@@ -54,7 +54,7 @@ const SectionDescription: FC<PropsWithChildren<SectionItemProps>> = ({
   directionFactor,
 }) => (
   <m.p
-    className="flex size-full items-center justify-center px-16 text-muted-foreground text-sm md:pe-0 lg:pe-16"
+    className="flex size-full items-center justify-center px-16 text-sm text-muted-foreground md:pe-0 lg:pe-16"
     initial={{ x: `${-100 * directionFactor}%`, opacity: 0 }}
     animate={{
       x: isActive ? '0%' : `${-100 * directionFactor}%`,
@@ -147,7 +147,7 @@ const Titles: FC<TitlesProps> = ({
     {sections.map((section, index) => (
       <m.h3
         key={section.id.value}
-        className="absolute inset-s-3 top-1/4 inline font-bold text-muted-foreground text-xl leading-snug drop-shadow-sm aria-selected:text-foreground"
+        className="absolute inset-s-3 top-1/4 inline text-xl leading-snug font-bold text-nowrap text-muted-foreground drop-shadow-sm aria-selected:text-foreground"
         initial={getTitlePlacement(
           index,
           INITIAL_ACTIVE_INDEX,
@@ -275,7 +275,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
 
   return (
     <section
-      className="relative z-0 border-neutral border-b"
+      className="relative z-0 border-b border-neutral"
       style={{
         // Make the entire container as tall as the number of sections * 150vh
         height: `${nbSections * 125}vh`,

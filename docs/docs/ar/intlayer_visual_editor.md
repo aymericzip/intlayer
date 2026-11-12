@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-10-08
 priority: 8
 title: "المحرّر المرئي في Intlayer: عدّل المحتوى في سياقه"
 description: اكتشف كيفية استخدام محرر Intlayer لإدارة موقعك الإلكتروني متعدد اللغات. اتبع الخطوات في هذه الوثيقة عبر الإنترنت لإعداد مشروعك في بضع دقائق.
@@ -38,9 +38,9 @@ author: aymericzip
 
 محرر Intlayer البصري هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر بصري للقواميس المحلية. بمجرد إجراء تغيير، سيتم استبدال المحتوى في قاعدة الكود. هذا يعني أن التطبيق سيتم إعادة بنائه وستتم إعادة تحميل الصفحة لعرض المحتوى الجديد.
 
-على النقيض من ذلك، فإن [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر بصري للقواميس البعيدة. بمجرد إجراء تغيير، لن يؤثر المحتوى على قاعدة الكود الخاصة بك. وسيعرض الموقع تلقائيًا المحتوى الذي تم تغييره.
+على النقيض من ذلك، فإن [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) هو أداة تتيح لك إدارة المحتوى الخاص بك في محرر بصري للقواميس البعيدة. بمجرد إجراء تغيير، لن يؤثر المحتوى على قاعدة الكود الخاصة بك. وسيعرض الموقع تلقائيًا المحتوى الذي تم تغييره.
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## دمج Intlayer في تطبيقك
 
@@ -305,9 +305,9 @@ pnpm intlayer-editor start -e development
 </Question>
 <Question title="هل يمكنني استخدام المحرر المرئي في بيئة الإنتاج؟">
 
-تم تصميمه لبيئات التطوير والمرحلة الانتقالية (staging)، حيث تكون إعادة البناء بعد التحرير مقبولة. لتحرير المحتوى على موقع إنتاج مباشر، يوصى باستخدام [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+تم تصميمه لبيئات التطوير والمرحلة الانتقالية (staging)، حيث تكون إعادة البناء بعد التحرير مقبولة. لتحرير المحتوى على موقع إنتاج مباشر، يوصى باستخدام [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Question>
 <Question title="ما هي تكلفة المحرر المرئي؟ هل هو مبالغ فيه إذا لم أكن بحاجة إليه؟">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "使用 next-i18next 实现 Next.js 16 i18n：App Router 配置指南"
 description: "在 Next.js 16 App Router 应用中逐步配置 next-i18next 和 i18next：命名空间、语言路由、服务端与客户端组件，以及 SEO 元数据。"
@@ -209,7 +209,7 @@ yarn add i18next react-i18next i18next-resources-to-backend
 ```
 
 - **i18next**：核心国际化框架，负责翻译文件的加载和管理。
-- **react-i18next**：i18next 的 React 绑定，提供如 `useTranslation` 的钩子，适用于客户端组件。
+- **react-i18next**：i18next 的 React 绑定，提供如 `useTranslation` 的Hook，适用于客户端组件。
 - **i18next-resources-to-backend**：一个插件，支持动态加载翻译文件，只加载你需要的命名空间。
 
 </Step>
@@ -667,9 +667,9 @@ export default async function AboutPage({
 </Step>
 <Step number={10} title="在客户端组件中使用翻译">
 
-客户端组件可以使用 `useTranslation` 钩子来访问翻译。该钩子提供对翻译函数和 i18n 实例的访问，允许你翻译内容并访问语言环境信息。
+客户端组件可以使用 `useTranslation` Hook来访问翻译。该Hook提供对翻译函数和 i18n 实例的访问，允许你翻译内容并访问语言环境信息。
 
-客户端组件需要 React 钩子来访问翻译。`useTranslation` 钩子与 i18next 无缝集成，并在语言环境变化时提供响应式更新。
+客户端组件需要 React Hook来访问翻译。`useTranslation` Hook与 i18next 无缝集成，并在语言环境变化时提供响应式更新。
 
 > 确保页面/提供者只包含你需要的命名空间（例如 `about`）。  
 > 如果你使用 React 版本低于 19，记得对像 `Intl.NumberFormat` 这样的重型格式化器进行缓存。
@@ -1188,7 +1188,7 @@ Intlayer 允许您：
   Intlayer 提供测试功能，可以集成到您的 CI/CD 流水线或单元测试中。了解更多关于[测试您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/testing.md)。
 
 - **自动化您的翻译**  
-  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译流程。它可以集成到您的 CI/CD 管道中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
+  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译流程。它可以集成到您的 CI/CD 流水线中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
   您可以使用您**自己的 API 密钥和您选择的 AI 提供商**。它还提供上下文感知的翻译，详见[填充内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
 
 - **连接外部内容**  

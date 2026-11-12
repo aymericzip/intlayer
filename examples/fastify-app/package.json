@@ -2,7 +2,14 @@
   "name": "fastify-app-example",
   "version": "1.1.12",
   "private": true,
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
   "type": "module",
+  "main": "dist/cjs/export.cjs",
+  "module": "dist/esm/export.mjs",
+  "types": "dist/types/export.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/export.d.ts",
@@ -11,26 +18,19 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/export.cjs",
-  "module": "dist/esm/export.mjs",
-  "types": "dist/types/export.d.ts",
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
   "scripts": {
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "dev": "bun --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "start": "bun dist/index.mjs",
     "test": ""
   },
   "dependencies": {
-    "fastify": "5.12.5",
+    "fastify": "5.12.8",
     "fastify-intlayer": "workspace:*",
     "intlayer": "workspace:*"
   },
@@ -39,7 +39,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "tsdown": "0.23.0",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2"
   }
 }

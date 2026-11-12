@@ -84,6 +84,10 @@ const contractSerializerCompiler: FastifySerializerCompiler<FastifySchema> =
  * Answers request validation failures with the backend error envelope
  * (`INVALID_REQUEST_BODY`) instead of Fastify's default payload, so clients
  * read every error the same way. Other errors keep the default handling.
+ *
+ * Plugins such as `@fastify/rate-limit` throw plain objects (not `Error`
+ * instances); `reply.send` serializes those as a 200 payload, so their
+ * `statusCode` is applied explicitly first.
  */
 const contractErrorHandler = (
   error: FastifyError,
@@ -91,6 +95,16 @@ const contractErrorHandler = (
   reply: FastifyReply
 ): void => {
   if (!error.validation) {
+    const { statusCode } = error;
+
+    if (
+      typeof statusCode === 'number' &&
+      statusCode >= 400 &&
+      statusCode < 600
+    ) {
+      reply.code(statusCode);
+    }
+
     reply.send(error);
     return;
   }

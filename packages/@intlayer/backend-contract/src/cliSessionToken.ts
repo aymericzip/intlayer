@@ -1,8 +1,10 @@
 import { z } from 'zod/mini';
 import { dateTimeSchema } from './common';
 import { defineRoute, defineRouteGroup } from './defineRoute';
+import { type OrganizationAPI, organizationSchema } from './organization';
 import { type ProjectAPI, projectSchema } from './project';
 import { type ResponseData, responseDataSchema } from './responseData';
+import { type UserAPI, userSchema } from './user';
 
 /** REST contract of the CLI session routes (`intlayer login`). */
 export const cliSessionTokenContract = defineRouteGroup({
@@ -24,10 +26,17 @@ export const cliSessionTokenContract = defineRouteGroup({
     getCliSessionMe: defineRoute({
       method: 'GET',
       path: '/me',
-      summary: 'Project bound to the CLI session token',
+      summary: 'User, organization and project bound to the CLI session token',
       schemas: {
         response: {
-          200: responseDataSchema(z.object({ project: projectSchema })),
+          200: responseDataSchema(
+            z.object({
+              project: projectSchema,
+              // Optional: backends before 9.6 only return the project
+              user: z.optional(z.nullable(userSchema)),
+              organization: z.optional(z.nullable(organizationSchema)),
+            })
+          ),
         },
       },
     }),
@@ -41,4 +50,8 @@ export type CreateCliSessionTokenResult = ResponseData<{
   token: string;
   expiresAt: string;
 }>;
-export type GetCliSessionMeResult = ResponseData<{ project: ProjectAPI }>;
+export type GetCliSessionMeResult = ResponseData<{
+  project: ProjectAPI;
+  user?: UserAPI | null;
+  organization?: OrganizationAPI | null;
+}>;

@@ -42,7 +42,7 @@ export const CommandsSection: FC = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <h2 className="font-semibold text-2xl text-foreground md:text-3xl">
+        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
           {title}
         </h2>
         <p className="mt-2 max-w-2xl text-base text-foreground/70">
@@ -73,10 +73,10 @@ export const CommandsSection: FC = () => {
                       <IconComponent className="size-5 text-foreground" />
                     </div>
                     <div>
-                      <div className="font-semibold text-base text-foreground">
+                      <div className="text-base font-semibold text-foreground">
                         {cmd.title}
                       </div>
-                      <div className="mt-1 text-foreground/70 text-sm">
+                      <div className="mt-1 text-sm text-foreground/70">
                         {cmd.description}
                       </div>
                     </div>
@@ -87,7 +87,7 @@ export const CommandsSection: FC = () => {
                   <Container
                     roundedSize="2xl"
                     padding="md"
-                    className="relative overflow-hidden text-foreground-dark"
+                    className="text-foreground-dark relative overflow-hidden"
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <span className="text-foreground-dark/70 text-xs">

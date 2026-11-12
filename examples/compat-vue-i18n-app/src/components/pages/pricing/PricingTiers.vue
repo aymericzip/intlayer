@@ -51,7 +51,7 @@ const tiers = [
         'flex flex-col rounded-lg border p-6',
         t.highlighted
           ? 'border-primary bg-primary/5 ring-1 ring-primary'
-          : 'border-border bg-card'
+          : 'border-border bg-card',
       ]"
     >
       <h3 class="text-lg font-semibold text-foreground">{{ t.name }}</h3>
@@ -74,10 +74,10 @@ const tiers = [
           'w-full rounded-md px-4 py-2 text-sm font-medium transition-opacity hover:opacity-90',
           t.highlighted
             ? 'bg-primary text-primary-foreground'
-            : 'border border-border text-foreground hover:bg-accent'
+            : 'border border-border text-foreground hover:bg-accent',
         ]"
       >
-        {{ t.name === "Enterprise" ? "Contact Sales" : "Get Started" }}
+        {{ t.name === 'Enterprise' ? 'Contact Sales' : 'Get Started' }}
       </button>
     </div>
   </div>

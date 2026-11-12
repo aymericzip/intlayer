@@ -11,11 +11,11 @@ import {
 } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { ExpandCollapse } from '@intlayer/design-system/expand-collapse';
-import { Loader } from '@intlayer/design-system/loader';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
+import { cn } from '@intlayer/design-system/utils';
 import { getLocaleName } from 'intlayer';
 import {
   CalendarDays,
@@ -26,11 +26,63 @@ import {
   MapPin,
   Users,
 } from 'lucide-react';
-import { type FC, type ReactNode, useMemo, useState } from 'react';
+import {
+  type FC,
+  lazy,
+  type PointerEvent,
+  type ReactNode,
+  Suspense,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import { Skeleton } from '#components/Skeleton';
+import { getAvailableAudienceRanges } from './audienceRanges';
+import { buildSmoothLinePath } from './smoothLinePath';
+import { useAnimatedRatios } from './useAnimatedRatios';
+import {
+  EMPTY_LIVE_VISITOR_SELECTION,
+  getHighlightedMinutes,
+  type LiveVisitorSelection,
+  selectLiveMinute,
+} from './WorldMap/liveVisitorSelection';
+import {
+  countryToFlag,
+  getCountryName,
+  UNKNOWN_COUNTRY_CODE,
+  WORLD_MAP_HEIGHT,
+  WORLD_MAP_WIDTH,
+} from './WorldMap/worldMap.utils';
+
+/** The map ships ~70 KB of country outlines, so it loads in its own chunk. */
+const WorldMap = lazy(() =>
+  import('./WorldMap/WorldMap').then((module) => ({
+    default: module.WorldMap,
+  }))
+);
+
+/** Averaged page-to-page user flow (Sankey diagram). */
+const PageFlow = lazy(() =>
+  import('./PageFlow/PageFlow').then((module) => ({
+    default: module.PageFlow,
+  }))
+);
+
+/** Most visited pages offered as starting points of the user flow. */
+const MAX_FLOW_START_OPTIONS = 20;
+
+/** Live map (dots, zoom, visitor journeys) — only loaded in the live view. */
+const LiveVisitorMap = lazy(() =>
+  import('./WorldMap/LiveVisitorMap').then((module) => ({
+    default: module.LiveVisitorMap,
+  }))
+);
 
 /** Selectable rolling windows for the audience report, shortest first. */
 const RANGE_OPTIONS = [
+  'live',
   '1h',
   '24h',
   '7d',
@@ -41,22 +93,19 @@ const RANGE_OPTIONS = [
   '3y',
 ] as const satisfies readonly AudienceRange[];
 
+/** How often the `live` view polls for fresh activity. */
+const LIVE_REFRESH_INTERVAL_MS = 15_000;
+
 /** Which breakdown tab is active. */
 type BreakdownTab = 'locales' | 'location' | 'pages';
 
-/**
- * Converts an ISO 3166-1 alpha-2 country code to its flag emoji.
- * Returns a globe for unknown / invalid codes.
- */
-const countryToFlag = (code: string): string => {
-  if (!/^[A-Za-z]{2}$/.test(code) || code.toUpperCase() === 'ZZ') return '🌐';
-  const base = 0x1f1e6;
-  const chars = code
-    .toUpperCase()
-    .split('')
-    .map((char) => base + (char.charCodeAt(0) - 65));
-  return String.fromCodePoint(...chars);
-};
+/** Pulsing dot marking the realtime view. */
+const LiveDot: FC = () => (
+  <span className="relative flex size-2 shrink-0" aria-hidden>
+    <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75" />
+    <span className="relative inline-flex size-2 rounded-full bg-success" />
+  </span>
+);
 
 type StatTileProps = {
   icon: ReactNode;
@@ -74,22 +123,30 @@ const StatTile: FC<StatTileProps> = ({ icon, label, value, hint }) => (
     border
     borderColor="neutral"
   >
-    <span className="flex items-center gap-2 text-neutral text-xs">
+    <span className="flex items-center gap-2 text-xs text-neutral">
       {icon}
       {label}
     </span>
-    <span className="font-semibold text-2xl text-text">{value}</span>
-    {hint && <span className="text-neutral text-xs">{hint}</span>}
+    <span className="text-2xl font-semibold text-text">{value}</span>
+    {hint && <span className="text-xs text-neutral">{hint}</span>}
   </Container>
 );
 
 type EvolutionChartProps = {
   series: AudienceSeriesPoint[];
+  /** `area` for trends, `bars` for the per-minute live activity. */
+  variant: 'area' | 'bars';
   granularity: AudienceGranularity;
   locale: string;
   usersLabel: string;
   maxLabel: string;
   chartLabel: string;
+  /** Buckets kept opaque, the others are dimmed; `null` dims none. */
+  highlightedBuckets?: Set<string> | null;
+  /** Makes non-empty bars clickable. */
+  onBucketSelect?: (bucket: string) => void;
+  /** Shown over the chart when no visitor is in the series. */
+  emptyLabel: ReactNode;
 };
 
 /**
@@ -127,54 +184,143 @@ const formatBucket = (
 };
 
 /**
- * Lightweight inline SVG area chart of daily distinct visitors. Dependency-free
- * and theme-aware (uses the `text` token via `currentColor`).
+ * Formats a series bucket in full for the hover cursor: a date (with the time
+ * for sub-day buckets), or a month and year for month buckets.
+ */
+const formatBucketDetail = (
+  bucket: string,
+  granularity: AudienceGranularity,
+  locale: string
+): string => {
+  const isSubDay = granularity === 'minute' || granularity === 'hour';
+  const date = new Date(isSubDay ? `${bucket}:00.000Z` : `${bucket}T00:00:00Z`);
+
+  if (Number.isNaN(date.getTime())) return bucket;
+
+  if (isSubDay) {
+    return date.toLocaleString(locale, {
+      dateStyle: 'short',
+      timeStyle: 'short',
+    });
+  }
+
+  if (granularity === 'month') {
+    return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
+  }
+
+  return date.toLocaleDateString(locale, { dateStyle: 'short' });
+};
+
+/** Area fill under the curve: text color fading out toward the baseline. */
+const AREA_GRADIENT_STOPS = [
+  { offset: '0%', opacity: 0.35 },
+  { offset: '40%', opacity: 0.1 },
+  { offset: '100%', opacity: 0 },
+] as const;
+
+/** Horizontal share of the chart past which the cursor label flips inward. */
+const CURSOR_LABEL_EDGE_RATIO = 0.15;
+
+/** Share of a bar slot left empty between two bars. */
+const BAR_GAP_RATIO = 0.25;
+
+/** Bar opacity: default, emphasized, dimmed by a selection. */
+const BAR_OPACITY = 0.7;
+const BAR_HIGHLIGHTED_OPACITY = 0.9;
+const BAR_DIMMED_OPACITY = 0.15;
+
+/**
+ * Lightweight inline SVG chart of distinct visitors, as an area or as bars.
+ * Dependency-free and theme-aware (uses the `text` token via `currentColor`).
  */
 const EvolutionChart: FC<EvolutionChartProps> = ({
   series,
+  variant,
   granularity,
   locale,
   usersLabel,
   maxLabel,
   chartLabel,
+  highlightedBuckets = null,
+  onBucketSelect,
+  emptyLabel,
 }) => {
   const width = 600;
   const height = 160;
   const paddingTop = 12;
   const paddingBottom = 18;
 
-  const { areaPath, linePath, maxUsers, peak } = useMemo(() => {
+  const usableHeight = height - paddingTop - paddingBottom;
+  // Unique per instance: two charts must not share one gradient definition
+  // (useId's `:`/`«` characters are not valid inside `url(#…)`)
+  const areaGradientId = `audience-area-${useId().replace(/[^\w-]/g, '')}`;
+
+  const { targetRatios, maxUsers, peak } = useMemo(() => {
     const values = series.map((point) => point.users);
     const max = Math.max(1, ...values);
-    const usableHeight = height - paddingTop - paddingBottom;
-    const step = series.length > 1 ? width / (series.length - 1) : 0;
 
-    const toPoint = (value: number, index: number): [number, number] => {
-      const x = series.length > 1 ? index * step : width / 2;
-      const y = paddingTop + usableHeight * (1 - value / max);
-      return [x, y];
+    return {
+      targetRatios: values.map((value) => value / max),
+      maxUsers: max,
+      peak: Math.max(...values, 0),
     };
+  }, [series]);
 
-    const points = values.map(toPoint);
-    const line = points
-      .map(([x, y], index) => `${index === 0 ? 'M' : 'L'}${x},${y}`)
-      .join(' ');
+  // The area curve morphs from the previous range to the new one
+  const displayedRatios = useAnimatedRatios(targetRatios, variant === 'area');
+
+  const { areaPath, linePath, chartPoints } = useMemo(() => {
+    const step =
+      displayedRatios.length > 1 ? width / (displayedRatios.length - 1) : 0;
+
+    const points = displayedRatios.map((ratio, index): [number, number] => [
+      displayedRatios.length > 1 ? index * step : width / 2,
+      paddingTop + usableHeight * (1 - ratio),
+    ]);
+    const line = buildSmoothLinePath(points);
     const area =
       points.length > 0
         ? `${line} L${points[points.length - 1][0]},${height - paddingBottom} L${points[0][0]},${height - paddingBottom} Z`
         : '';
 
-    const peakValue = Math.max(...values, 0);
+    return { areaPath: area, linePath: line, chartPoints: points };
+  }, [displayedRatios, usableHeight]);
 
-    return { areaPath: area, linePath: line, maxUsers: max, peak: peakValue };
-  }, [series]);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  /** Snaps the pointer to the nearest series point. */
+  const handleCursorMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (series.length === 0) return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const ratio = (event.clientX - bounds.left) / Math.max(1, bounds.width);
+    const nearestIndex = Math.round(ratio * (series.length - 1));
+
+    setHoveredIndex(Math.min(series.length - 1, Math.max(0, nearestIndex)));
+  };
+
+  const hoveredPoint = hoveredIndex === null ? undefined : series[hoveredIndex];
+  const hoveredChartPoint =
+    hoveredIndex === null ? undefined : chartPoints[hoveredIndex];
+
+  const barSlotWidth = width / Math.max(1, series.length);
+
+  const getBarLabel = (point: AudienceSeriesPoint): string =>
+    `${formatBucket(point.bucket, granularity, locale)} · ${point.users} ${usersLabel}`;
+
+  const getBarOpacity = (bucket: string): number =>
+    !highlightedBuckets
+      ? BAR_OPACITY
+      : highlightedBuckets.has(bucket)
+        ? BAR_HIGHLIGHTED_OPACITY
+        : BAR_DIMMED_OPACITY;
 
   const firstBucket = series[0]?.bucket;
   const lastBucket = series[series.length - 1]?.bucket;
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-1">
-      <div className="flex items-start justify-between text-neutral text-xs">
+      <div className="flex items-start justify-between text-xs text-neutral">
         <span>
           {peak} {usersLabel}
         </span>
@@ -193,13 +339,55 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
           aria-label={chartLabel}
         >
           <defs>
-            <linearGradient id="audienceArea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="currentColor" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+            {/* Spans the plot area (not the curve's bounding box) so the fade
+                is the same whatever the peak. */}
+            <linearGradient
+              id={areaGradientId}
+              gradientUnits="userSpaceOnUse"
+              x1="0"
+              y1={paddingTop}
+              x2="0"
+              y2={height - paddingBottom}
+            >
+              {AREA_GRADIENT_STOPS.map(({ offset, opacity }) => (
+                <stop
+                  key={offset}
+                  offset={offset}
+                  // Styles, not `stopColor`/`stopOpacity` props: Redact only
+                  // kebab-cases `fill*`/`stroke*`/`clip*` SVG props. A CSS
+                  // variable, not `currentColor`, which Chrome never repaints
+                  // on a theme change.
+                  style={{
+                    stopColor: 'var(--color-text)',
+                    stopOpacity: opacity,
+                  }}
+                />
+              ))}
             </linearGradient>
           </defs>
-          {areaPath && <path d={areaPath} fill="url(#audienceArea)" />}
-          {linePath && (
+          {variant === 'bars' &&
+            series.map((point, index) => {
+              const barHeight = usableHeight * (point.users / maxUsers);
+
+              return (
+                <rect
+                  key={point.bucket}
+                  x={index * barSlotWidth + (barSlotWidth * BAR_GAP_RATIO) / 2}
+                  y={height - paddingBottom - barHeight}
+                  width={barSlotWidth * (1 - BAR_GAP_RATIO)}
+                  height={barHeight}
+                  rx={2}
+                  opacity={getBarOpacity(point.bucket)}
+                  className="fill-current transition-opacity"
+                >
+                  <title>{getBarLabel(point)}</title>
+                </rect>
+              );
+            })}
+          {variant === 'area' && areaPath && (
+            <path d={areaPath} fill={`url(#${areaGradientId})`} />
+          )}
+          {variant === 'area' && linePath && (
             <path
               d={linePath}
               fill="none"
@@ -207,18 +395,132 @@ const EvolutionChart: FC<EvolutionChartProps> = ({
               strokeWidth={2}
               strokeLinejoin="round"
               strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
+              className="[vector-effect:non-scaling-stroke]"
             />
           )}
         </svg>
+        {peak === 0 && (
+          <p className="absolute inset-0 flex items-center justify-center p-4 text-center text-sm text-neutral">
+            {emptyLabel}
+          </p>
+        )}
+        {/* Hover cursor: snaps to the nearest point and shows its exact value */}
+        {variant === 'area' && peak > 0 && (
+          <div
+            className="absolute inset-0 cursor-crosshair"
+            dir="ltr"
+            onPointerMove={handleCursorMove}
+            onPointerLeave={() => setHoveredIndex(null)}
+            aria-hidden
+          >
+            {hoveredPoint && hoveredChartPoint && (
+              <CursorMarker
+                xRatio={hoveredChartPoint[0] / width}
+                yRatio={hoveredChartPoint[1] / height}
+                label={`${formatBucketDetail(hoveredPoint.bucket, granularity, locale)} · ${hoveredPoint.users} ${usersLabel}`}
+              />
+            )}
+          </div>
+        )}
+        {/* Full-height hit areas over the bars, in the SVG's (LTR) order. */}
+        {variant === 'bars' && onBucketSelect && (
+          <div className="absolute inset-0 flex" dir="ltr">
+            {series.map((point) =>
+              point.users > 0 ? (
+                <button
+                  key={point.bucket}
+                  type="button"
+                  onClick={() => onBucketSelect(point.bucket)}
+                  aria-label={getBarLabel(point)}
+                  aria-pressed={highlightedBuckets?.has(point.bucket) ?? false}
+                  title={getBarLabel(point)}
+                  className="flex-1 cursor-pointer rounded-sm transition-colors hover:bg-neutral/10"
+                />
+              ) : (
+                <span key={point.bucket} className="flex-1" aria-hidden />
+              )
+            )}
+          </div>
+        )}
       </div>
-      <div className="flex items-center justify-between text-neutral text-xs">
+      <div className="flex items-center justify-between text-xs text-neutral">
         <span>{formatBucket(firstBucket, granularity, locale)}</span>
         <span>{formatBucket(lastBucket, granularity, locale)}</span>
       </div>
     </div>
   );
 };
+
+type CursorMarkerProps = {
+  /** Point position as a share of the chart width / height, in `[0, 1]`. */
+  xRatio: number;
+  yRatio: number;
+  label: string;
+};
+
+/**
+ * Vertical guide, dot and value label of the hovered chart point. Drawn in
+ * HTML so the dot stays round despite the stretched SVG.
+ */
+const CursorMarker: FC<CursorMarkerProps> = ({ xRatio, yRatio, label }) => {
+  const labelTranslate =
+    xRatio < CURSOR_LABEL_EDGE_RATIO
+      ? '0%'
+      : xRatio > 1 - CURSOR_LABEL_EDGE_RATIO
+        ? '-100%'
+        : '-50%';
+
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      <span
+        className="absolute inset-y-0 w-px bg-text/30"
+        style={{ left: `${xRatio * 100}%` }}
+      />
+      <span
+        className="absolute size-2.5 -translate-1/2 rounded-full border-2 border-card bg-text"
+        style={{ left: `${xRatio * 100}%`, top: `${yRatio * 100}%` }}
+      />
+      <span
+        className="absolute rounded-md bg-text px-2 py-1 text-xs font-medium whitespace-nowrap text-text-opposite shadow-sm"
+        style={{
+          left: `${xRatio * 100}%`,
+          top: `${yRatio * 100}%`,
+          // Above the dot, or below it when the point is near the top edge
+          transform: `translate(${labelTranslate}, ${
+            yRatio < CURSOR_LABEL_EDGE_RATIO * 2
+              ? '0.75rem'
+              : 'calc(-100% - 0.75rem)'
+          })`,
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+};
+
+/** One skeleton per headline stat tile. */
+const STAT_TILE_SKELETON_KEYS = ['range', 'today', 'week', 'views'] as const;
+
+/** Placeholder mirroring the report layout during the first load. */
+const AudienceSkeleton: FC = () => (
+  <div className="flex flex-col gap-4" aria-busy>
+    <div className="flex flex-wrap gap-4">
+      {STAT_TILE_SKELETON_KEYS.map((key) => (
+        <Skeleton key={key} className="h-24 min-w-36 flex-1 rounded-2xl" />
+      ))}
+    </div>
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <Skeleton className="h-80 rounded-2xl lg:col-span-2 lg:h-112" />
+      <Skeleton className="h-80 rounded-2xl lg:h-112" />
+    </div>
+    <Skeleton
+      className="w-full rounded-2xl"
+      style={{ aspectRatio: `${WORLD_MAP_WIDTH} / ${WORLD_MAP_HEIGHT}` }}
+    />
+    <Skeleton className="h-60 w-full rounded-2xl" />
+  </div>
+);
 
 /** Collapsed height (px) of a breakdown list before the "show all" toggle appears. */
 const BREAKDOWN_COLLAPSED_HEIGHT = 400;
@@ -228,6 +530,8 @@ type BreakdownListProps = {
   usersLabel: string;
   viewsLabel: string;
   metric: 'users' | 'views';
+  /** Shown instead of the list when it has no row. */
+  emptyLabel: ReactNode;
 };
 
 /**
@@ -259,7 +563,16 @@ const BreakdownList: FC<BreakdownListProps> = ({
   usersLabel,
   viewsLabel,
   metric,
+  emptyLabel,
 }) => {
+  if (rows.length === 0) {
+    return (
+      <p className="flex flex-1 items-center justify-center py-10 text-center text-sm text-neutral">
+        {emptyLabel}
+      </p>
+    );
+  }
+
   const max = Math.max(1, ...rows.map((row) => row[metric]));
 
   return (
@@ -271,7 +584,7 @@ const BreakdownList: FC<BreakdownListProps> = ({
 
           return (
             <li
-              // biome-ignore lint/suspicious/noArrayIndexKey: rows are stable per fetch and labels can repeat
+              // oxlint-disable-next-line react/no-array-index-key -- rows are stable per fetch and labels can repeat
               key={index}
               className="flex flex-col gap-1"
             >
@@ -279,7 +592,7 @@ const BreakdownList: FC<BreakdownListProps> = ({
                 <div className="flex min-w-0 flex-1 items-start gap-2 text-text">
                   {row.label}
                 </div>
-                <span className="shrink-0 text-neutral text-xs">
+                <span className="shrink-0 text-xs text-neutral">
                   {formatRowCounters(row, usersLabel, viewsLabel, metric).join(
                     ' · '
                   )}
@@ -349,7 +662,7 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
         </a>
         {title && (
           <span
-            className="max-w-[160px] shrink-0 truncate font-mono text-neutral text-xs"
+            className="max-w-40 shrink-0 truncate font-mono text-xs text-neutral"
             title={pageUrl}
           >
             {pageUrl}
@@ -358,7 +671,7 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
       </div>
       {description && (
         <p
-          className="line-clamp-2 ps-5 text-neutral text-xs leading-relaxed"
+          className="line-clamp-2 ps-5 text-xs leading-relaxed text-neutral"
           title={description}
         >
           {description}
@@ -368,14 +681,25 @@ const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
   );
 };
 
+type DashboardAudienceProps = {
+  /**
+   * Renders nothing (no skeleton, no install hint) for a project that never
+   * collected analytics, e.g. on the dashboard home.
+   */
+  hideWhenEmpty?: boolean;
+};
+
 /**
  * Audience analytics section: distinct visitors (today / 7d / range), page
- * views, a visitor-evolution graph, and Locales / Location / Pages breakdown
- * tabs.
- * Backed by `@intlayer/analytics` ingestion; renders an empty state until data
- * is collected.
+ * views, a visitor-evolution graph, Locales / Location / Pages breakdown tabs,
+ * and a world map of visitors. The `live` range polls every 15s and shows
+ * sessions active in the last 30 minutes, per minute.
+ * Backed by `@intlayer/analytics` ingestion; renders an install hint until
+ * data is collected, or nothing with `hideWhenEmpty`.
  */
-export const DashboardAudience: FC = () => {
+export const DashboardAudience: FC<DashboardAudienceProps> = ({
+  hideWhenEmpty = false,
+}) => {
   const content = useIntlayer('dashboard-audience');
   const { locale } = useLocale();
   const { session } = useSession();
@@ -383,11 +707,37 @@ export const DashboardAudience: FC = () => {
     session?.project?.configuration?.editor?.applicationURL ?? null;
   const [range, setRange] = useState<AudienceRange>('30d');
   const [tab, setTab] = useState<BreakdownTab>('locales');
+  const [liveSelection, setLiveSelection] = useState<LiveVisitorSelection>(
+    EMPTY_LIVE_VISITOR_SELECTION
+  );
+  const mapContainerRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading } = useGetAnalyticsAudience(range);
+  const isLive = range === 'live';
+  const { data, isLoading, isPlaceholderData, dataUpdatedAt } =
+    useGetAnalyticsAudience(range, {
+      refetchInterval: isLive ? LIVE_REFRESH_INTERVAL_MS : false,
+    });
   const audience = data?.data as AudienceStats | undefined;
+  const liveVisitors = audience?.liveVisitors ?? [];
+
+  const handleRangeChange = (nextRange: AudienceRange) => {
+    setRange(nextRange);
+    setLiveSelection(EMPTY_LIVE_VISITOR_SELECTION);
+  };
+
+  /** A clicked activity bar lists who was active then, next to the map. */
+  const handleMinuteSelect = (minute: string) => {
+    setLiveSelection((selection) =>
+      selectLiveMinute(selection, liveVisitors, minute)
+    );
+    mapContainerRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+    });
+  };
 
   const rangeLabels: Record<AudienceRange, string> = {
+    live: content.rangeLive.value,
     '1h': content.rangeLast1Hour.value,
     '24h': content.rangeLast24Hours.value,
     '7d': content.rangeLast7Days.value,
@@ -398,12 +748,18 @@ export const DashboardAudience: FC = () => {
     '3y': content.rangeLast3Years.value,
   };
 
-  const rangeChoices: SwitchSelectorChoices<AudienceRange> = RANGE_OPTIONS.map(
-    (option) => ({
-      content: <span className="whitespace-nowrap">{rangeLabels[option]}</span>,
-      value: option,
-    })
-  );
+  const rangeChoices: SwitchSelectorChoices<AudienceRange> =
+    getAvailableAudienceRanges(RANGE_OPTIONS, audience?.dataSince).map(
+      (option) => ({
+        content: (
+          <span className="flex items-center gap-1.5 whitespace-nowrap">
+            {option === 'live' && <LiveDot />}
+            {rangeLabels[option]}
+          </span>
+        ),
+        value: option,
+      })
+    );
 
   const breakdownChoices = [
     {
@@ -442,7 +798,7 @@ export const DashboardAudience: FC = () => {
           <>
             <Globe className="size-3.5 shrink-0 text-neutral" />
             <span className="truncate">{getLocaleName(row.key, locale)}</span>
-            <span className="shrink-0 text-neutral text-xs">{row.key}</span>
+            <span className="shrink-0 text-xs text-neutral">{row.key}</span>
           </>
         ),
         users: row.users,
@@ -458,14 +814,17 @@ export const DashboardAudience: FC = () => {
           <>
             <span aria-hidden>{countryToFlag(row.key)}</span>
             <span className="truncate">
-              {row.key === 'ZZ' ? content.unknownCountry : row.key}
+              {row.key === UNKNOWN_COUNTRY_CODE
+                ? content.unknownCountry
+                : getCountryName(row.key, locale)}
             </span>
+            <span className="shrink-0 text-xs text-neutral">{row.key}</span>
           </>
         ),
         users: row.users,
         views: row.views,
       })),
-    [audience?.byCountry, content.unknownCountry]
+    [audience?.byCountry, content.unknownCountry, locale]
   );
 
   const pageRows = useMemo(
@@ -480,26 +839,31 @@ export const DashboardAudience: FC = () => {
     [audience?.byPage, applicationURL]
   );
 
+  // The install hint is for projects that never collected anything; a quiet
+  // period shows per-section messages instead
   const hasData =
     audience &&
-    (audience.usersInRange > 0 ||
+    (audience.dataSince !== null ||
+      audience.usersInRange > 0 ||
       audience.viewsInRange > 0 ||
       audience.usersToday > 0);
 
+  if (hideWhenEmpty && !hasData) return null;
+
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4">
+    <div className="flex flex-1 flex-col gap-4">
       {/* Header + range selector */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col">
-          <h2 className="font-semibold text-base text-text">{content.title}</h2>
-          <span className="text-neutral text-xs">{content.subtitle}</span>
+          <h2 className="text-base font-semibold text-text">{content.title}</h2>
+          <span className="text-xs text-neutral">{content.subtitle}</span>
         </div>
         {/* Eight ranges overflow a narrow header — scroll rather than wrap. */}
         <div className="-mx-1 max-w-full overflow-x-auto px-1">
           <SwitchSelector
             choices={rangeChoices}
             value={range}
-            onChange={setRange}
+            onChange={handleRangeChange}
             color="text"
             size="sm"
             className="w-max"
@@ -508,30 +872,38 @@ export const DashboardAudience: FC = () => {
       </div>
 
       {isLoading && !audience ? (
-        <div className="flex flex-1 items-center justify-center p-10">
-          <Loader />
-        </div>
+        <AudienceSkeleton />
       ) : !hasData ? (
         <Container
-          className="m-auto flex w-full items-center justify-center p-10"
+          className="m-auto flex items-center justify-center p-10"
           roundedSize="2xl"
           transparency="none"
           border
           borderColor="neutral"
         >
-          <p className="max-w-sm text-center text-neutral text-sm">
+          <p className="max-w-sm text-center text-sm text-neutral">
             {content.noData}
           </p>
         </Container>
       ) : (
-        <>
+        <div
+          className={cn(
+            'flex flex-col gap-4 transition-opacity',
+            isPlaceholderData && 'opacity-50'
+          )}
+          aria-busy={isPlaceholderData}
+        >
           {/* Stat tiles */}
           <div className="flex flex-wrap gap-4">
             <StatTile
               icon={<Users className="size-4" />}
               label={content.statActiveUsers}
               value={audience.usersInRange.toLocaleString()}
-              hint={`${content.statActiveUsersHint} (${rangeLabels[range]})`}
+              hint={
+                isLive
+                  ? content.liveActiveUsersHint
+                  : `${content.statActiveUsersHint} (${rangeLabels[range]})`
+              }
             />
             <StatTile
               icon={<CalendarDays className="size-4" />}
@@ -550,31 +922,54 @@ export const DashboardAudience: FC = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-4 lg:flex-row">
+          {/* Fixed 2/3 + 1/3 columns: switching tabs never resizes them. The
+              graph keeps its height and stays in view while a long breakdown
+              list is expanded below it. */}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start">
             {/* Evolution graph */}
             <Container
-              className="flex min-h-0 flex-2 flex-col gap-3 p-5"
+              className="flex min-h-80 flex-col gap-3 p-5 lg:sticky lg:top-24 lg:col-span-2 lg:h-112"
               roundedSize="2xl"
               transparency="none"
               border
               borderColor="neutral"
             >
-              <h3 className="font-semibold text-sm text-text">
-                {content.evolutionTitle}
+              <h3 className="flex items-center gap-2 text-sm font-semibold text-text">
+                {isLive && <LiveDot />}
+                {isLive ? content.liveEvolutionTitle : content.evolutionTitle}
               </h3>
               <EvolutionChart
                 series={audience.series}
+                variant={isLive ? 'bars' : 'area'}
                 granularity={audience.granularity}
                 locale={locale}
                 usersLabel={content.usersLabel.value}
                 maxLabel={content.maxLabel.value}
-                chartLabel={content.evolutionChartLabel.value}
+                chartLabel={
+                  isLive
+                    ? content.liveEvolutionChartLabel.value
+                    : content.evolutionChartLabel.value
+                }
+                highlightedBuckets={
+                  isLive
+                    ? getHighlightedMinutes(liveSelection, liveVisitors)
+                    : null
+                }
+                onBucketSelect={isLive ? handleMinuteSelect : undefined}
+                emptyLabel={
+                  isLive ? content.liveNoVisitors : content.rangeNoVisitors
+                }
               />
+              {isLive && (
+                <span className="text-xs text-neutral">
+                  {content.liveEvolutionHint}
+                </span>
+              )}
             </Container>
 
             {/* Locales / Location tabs */}
             <Container
-              className="flex flex-1 flex-col gap-4 p-5"
+              className="flex min-w-0 flex-col gap-4 p-5 lg:min-h-112"
               roundedSize="2xl"
               transparency="none"
               border
@@ -594,6 +989,7 @@ export const DashboardAudience: FC = () => {
                   rows={localeRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
+                  emptyLabel={content.breakdownEmpty}
                   metric="views"
                 />
               )}
@@ -602,6 +998,7 @@ export const DashboardAudience: FC = () => {
                   rows={countryRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
+                  emptyLabel={content.breakdownEmpty}
                   metric="users"
                 />
               )}
@@ -610,12 +1007,79 @@ export const DashboardAudience: FC = () => {
                   rows={pageRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
+                  emptyLabel={content.breakdownEmpty}
                   metric="views"
                 />
               )}
             </Container>
           </div>
-        </>
+
+          {/* Visitor location map */}
+          <Container
+            ref={mapContainerRef}
+            className="flex flex-col gap-3 p-5"
+            roundedSize="2xl"
+            transparency="none"
+            border
+            borderColor="neutral"
+          >
+            <h3 className="text-sm font-semibold text-text">
+              {content.mapTitle}
+            </h3>
+            {/* Placeholder keeps the map's aspect ratio while its chunk loads. */}
+            <Suspense
+              fallback={
+                <Skeleton
+                  className="w-full rounded-xl"
+                  style={{
+                    aspectRatio: `${WORLD_MAP_WIDTH} / ${WORLD_MAP_HEIGHT}`,
+                  }}
+                />
+              }
+            >
+              {isLive ? (
+                <LiveVisitorMap
+                  visitors={liveVisitors}
+                  rows={audience.byCountry}
+                  referenceTime={dataUpdatedAt}
+                  selection={liveSelection}
+                  onSelectionChange={setLiveSelection}
+                  locale={locale}
+                  usersLabel={content.usersLabel.value}
+                  chartLabel={content.mapChartLabel.value}
+                />
+              ) : (
+                <WorldMap
+                  rows={audience.byCountry}
+                  locale={locale}
+                  usersLabel={content.usersLabel.value}
+                  chartLabel={content.mapChartLabel.value}
+                />
+              )}
+            </Suspense>
+          </Container>
+
+          {/* Averaged user flow */}
+          <Container
+            className="flex flex-col p-5"
+            roundedSize="2xl"
+            transparency="none"
+            border
+            borderColor="neutral"
+          >
+            <Suspense
+              fallback={<Skeleton className="h-40 w-full rounded-xl" />}
+            >
+              <PageFlow
+                range={range}
+                pageOptions={audience.byPage
+                  .slice(0, MAX_FLOW_START_OPTIONS)
+                  .map((row) => row.key)}
+                locale={locale}
+              />
+            </Suspense>
+          </Container>
+        </div>
       )}
     </div>
   );

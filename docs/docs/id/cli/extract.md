@@ -50,12 +50,6 @@ Perintah ini menganalisis berkas kode Anda untuk mengekstrak string dari kompone
 
 > Contoh: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**Opsi keluaran:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: Direktori untuk menyimpan file deklarasi konten yang dihasilkan.
-
-  > Contoh: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: Hanya mengekstrak kode komponen (tidak menulis deklarasi konten).
 
   > Contoh: `npx intlayer extract --code-only`

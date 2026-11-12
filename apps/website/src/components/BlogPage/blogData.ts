@@ -1,14 +1,6 @@
 import type { BlogKey, BlogMetadata } from '@intlayer/docs';
-import { getIntlayer, Locales, type LocalesValues } from 'intlayer';
+import { getIntlayer, type LocalesValues } from 'intlayer';
 import type { BlogNavMetadata, CategorizedBlogData, Section } from './types';
-
-export const getBlogData = (
-  locale: LocalesValues = Locales.ENGLISH
-): Record<string, CategorizedBlogData> => {
-  const blog = getIntlayer('blog-data', locale);
-
-  return blog satisfies Record<string, CategorizedBlogData>;
-};
 
 /** Walks the section tree along the given keys. */
 export const getBlogSubSection = <
@@ -79,8 +71,12 @@ export const getPreviousNextBlogData = (
   docKey: BlogKey,
   locale: LocalesValues
 ) => {
-  const docData = getBlogData(locale);
-  const { blog, paths, title } = getBlogSection(docData);
+  const blogData = getIntlayer('blog-data', locale) as Record<
+    string,
+    CategorizedBlogData
+  >;
+
+  const { blog, paths, title } = getBlogSection(blogData);
 
   const blogIndex = blog.findIndex((blog) => blog.docKey === docKey);
   const nextBlogIndex = blogIndex + 1;

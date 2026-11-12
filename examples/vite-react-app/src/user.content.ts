@@ -5,15 +5,15 @@ const userContent: Dictionary = {
   key: 'user',
   schema: 'user',
   content: {
-    name: t({
-      en: 'John Doe',
-      fr: 'Jean Dupont',
-      es: 'Juan Pérez',
-    }),
     age: t({
       en: 30,
-      fr: 30,
       es: 30,
+      fr: 30,
+    }),
+    name: t({
+      en: 'John Doe',
+      es: 'Juan Pérez',
+      fr: 'Jean Dupont',
     }),
   },
 } satisfies Dictionary;
@@ -27,15 +27,15 @@ const userContent2 = {
   key: 'user',
   schema: 'user',
   content: {
-    name: t({
-      en: 'John Doe',
-      fr: 'Jean Dupont',
-      es: 'Juan Pérez',
-    }),
     age: t({
       en: 30,
-      fr: 30,
       es: 30,
+      fr: 30,
+    }),
+    name: t({
+      en: 'John Doe',
+      es: 'Juan Pérez',
+      fr: 'Jean Dupont',
     }),
   },
 } satisfies Dictionary<User>;

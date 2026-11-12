@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-
 import { getChunk } from './getChunk';
 
 // Sample multiline string used across test cases

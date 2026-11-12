@@ -1,3 +1,4 @@
+import type { AnalyticsRollup } from '@/types/analytics.types';
 import type { Dictionary, DictionaryAPI } from '@/types/dictionary.types';
 import type { Organization, OrganizationAPI } from '@/types/organization.types';
 import type { Project, ProjectAPI } from '@/types/project.types';
@@ -30,6 +31,8 @@ export type Action = 'read' | 'write' | 'admin';
  * A first‑class entity in your domain model that you want to protect.
  */
 export type Resource = {
+  /** Aggregated audience / content analytics of a project (read-only). */
+  analytics: AnalyticsRollup;
   organization: Organization;
   project: Project;
   dictionary: Dictionary;
@@ -66,6 +69,7 @@ export const ROLE_POLICY = {
     'user:read': () => true,
     'user:write': () => true,
     'user:admin': () => true,
+    'analytics:read': () => true,
   },
   user: {
     'user:read': ({
@@ -146,6 +150,9 @@ export const ROLE_POLICY = {
     'tag:write': ({ organization, project }: SessionContext) =>
       String(project?.organizationId) === String(organization?.id),
     'tag:admin': ({ organization, project }: SessionContext) =>
+      String(project?.organizationId) === String(organization?.id),
+
+    'analytics:read': ({ organization, project }: SessionContext) =>
       String(project?.organizationId) === String(organization?.id),
 
     'user:write': ({
@@ -244,6 +251,9 @@ export const ROLE_POLICY = {
       project?.adminsIds?.map(String).includes(String(user?.id)),
     'dictionary:admin': ({ project, user }: SessionContext) =>
       project?.adminsIds?.map(String).includes(String(user?.id)),
+
+    'analytics:read': ({ project, user }: SessionContext) =>
+      project?.adminsIds?.map(String).includes(String(user?.id)),
   },
   project_user: {
     'project:read': ({ user, organization, project }: SessionContext) =>
@@ -300,6 +310,9 @@ export const ROLE_POLICY = {
       targetUsers.every((targetUser) =>
         project?.membersIds?.map(String).includes(String(targetUser?.id))
       ),
+
+    'analytics:read': ({ user, project }: SessionContext) =>
+      project?.membersIds?.map(String).includes(String(user?.id)),
   },
   project_reviewer: {
     'project:read': ({ user, project }: SessionContext) =>
@@ -307,6 +320,9 @@ export const ROLE_POLICY = {
     'dictionary:read': ({ user, project }: SessionContext) =>
       (project as any)?.viewersIds?.map(String).includes(String(user?.id)),
     'tag:read': () => true,
+    // Read-only demo / reviewer access includes the audience dashboard.
+    'analytics:read': ({ user, project }: SessionContext) =>
+      (project as any)?.viewersIds?.map(String).includes(String(user?.id)),
   },
 } as const satisfies RolePolicy;
 
@@ -426,5 +442,19 @@ export const hasPermission = <P extends Permission>(
       ] ?? (() => false)
   ) as unknown as PermissionResult<Roles, P>[];
 
-  return ((args: any) => rolesCheck.some((check: any) => check(args))) as any;
+  return ((args: any) => {
+    // A session carries its effective permissions: the role permissions,
+    // narrowed to the access key grants for OAuth2 sessions. A permission the
+    // session was not granted is denied whatever the role policy says.
+    const grantedPermissions: Permission[] | undefined = args?.permissions;
+
+    if (
+      Array.isArray(grantedPermissions) &&
+      !grantedPermissions.includes(permission)
+    ) {
+      return false;
+    }
+
+    return rolesCheck.some((check: any) => check(args));
+  }) as any;
 };

@@ -69,10 +69,12 @@ export const DisableTwoFactor: FC = () => {
         title={modal.disable.title.value}
         padding="lg"
         className="max-h-[80vh]"
+        border
+        borderColor="neutral"
       >
         {isOpen && (
           <div className="mt-6 flex w-full flex-col gap-6">
-            <p className="text-neutral text-sm">{modal.disable.description}</p>
+            <p className="text-sm text-neutral">{modal.disable.description}</p>
 
             <Form
               schema={TwoFactorAuthSchema}

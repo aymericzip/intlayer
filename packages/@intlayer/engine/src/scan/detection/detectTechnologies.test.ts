@@ -102,13 +102,13 @@ describe('detectTechnologies', () => {
     ['gt-react', 't.__generaltranslation??={}'],
     ['lingo-dev', 'typeof process<`u`&&{}.LINGO_DEBUG===`true`'],
     ['wuchale', 'return a==null?`i18n-404:tag`:a(t)'],
-    // biome-ignore lint/suspicious/noTemplateCurlyInString: minified bundle fixture
+    // oxlint-disable-next-line no-template-curly-in-string -- minified bundle fixture
     ['fluent-vue', 'throw Error(`[fluent-vue] ${t}`)'],
-    // biome-ignore lint/suspicious/noTemplateCurlyInString: minified bundle fixture
+    // oxlint-disable-next-line no-template-curly-in-string -- minified bundle fixture
     ['fluent', 'e.reportError(ReferenceError(`Unknown term: ${i}`))'],
     [
       'solid-primitives-i18n',
-      // biome-ignore lint/suspicious/noTemplateCurlyInString: minified bundle fixture
+      // oxlint-disable-next-line no-template-curly-in-string -- minified bundle fixture
       'e=e.replace(RegExp(`{{\\\\s*${n}\\\\s*}}`,`g`),r)',
     ],
   ])('detects %s from its production bundle', (id, script) => {

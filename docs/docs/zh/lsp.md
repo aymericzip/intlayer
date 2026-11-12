@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "适用于 IDE 的 Intlayer 语言服务器（LSP）"
 description: 了解 Intlayer 语言服务器如何为你的 IDE 和 AI 智能体带来转到定义、查找引用、悬停预览、键名自动补全与诊断能力。

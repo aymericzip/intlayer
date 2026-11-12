@@ -1,10 +1,16 @@
 import {
+  getAnalyticsAnnotations,
   getAnalyticsAudience,
+  getAnalyticsSchema,
   getAnalyticsOverview,
   getContentStats,
   getExperimentResults,
+  getLiveVisitorFlow,
+  getPageFlow,
   getPageMetadata,
   ingestAnalyticsEvents,
+  runAnalyticsRealtimeReport,
+  runAnalyticsReport,
 } from '@controllers/analytics.controller';
 import { analyticsContract } from '@intlayer/backend-contract/analytics';
 import { registerContractRoutes } from '@utils/contract/registerContractRoutes';
@@ -26,8 +32,14 @@ export const analyticsRouter = async (fastify: FastifyInstance) => {
     // Authenticated dashboard reads.
     getAnalyticsOverview,
     getAnalyticsAudience,
+    getLiveVisitorFlow,
+    getPageFlow,
     getContentStats,
     getExperimentResults,
     getPageMetadata,
+    getAnalyticsSchema,
+    runAnalyticsReport,
+    runAnalyticsRealtimeReport,
+    getAnalyticsAnnotations,
   });
 };

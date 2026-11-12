@@ -1,23 +1,47 @@
-import { type FC, useRef } from 'react';
-import { IntlayerProviderContent } from 'react-intlayer';
-import { useLocation } from 'react-router-dom';
+import { ThemeProvider } from '@intlayer/design-system/providers';
+import type { FunctionComponent } from 'preact';
+import { IntlayerProviderContent } from 'preact-intlayer';
+import { useRef, useState } from 'preact/hooks';
 import { AppProvider } from './components/AppProvider';
-import { AppRouter } from './components/AppRouter';
 import { EditorLayout } from './components/Editor/EditorLayout';
 import { EditorProvider } from './components/Editor/EditorProvider';
+import { HostFrameBridge } from './components/Editor/HostFrameBridge';
 import { IframeController } from './components/Editor/IframeController';
+import { useHostTheme } from './components/Editor/useHostTheme';
 
-const AppContent: FC = () => {
+/**
+ * Query parameter showing the browser bar around the application frame, for
+ * hosts without an address bar of their own (e.g. the VS Code extension panel).
+ */
+const BROWSER_QUERY_PARAMETER = 'browser';
+
+const getIsBrowserVisible = (): boolean => {
+  const value = new URLSearchParams(window.location.search).get(
+    BROWSER_QUERY_PARAMETER
+  );
+
+  return value !== null && value !== 'false';
+};
+
+const AppContent: FunctionComponent = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const location = useLocation();
+
+  /**
+   * Path the application frame opens on. Read once: the frame navigates on its
+   * own afterwards, and the editor URL is only mirrored with `replaceState`.
+   */
+  const [applicationPath] = useState(() => window.location.pathname);
+  const [isBrowserVisible] = useState(getIsBrowserVisible);
 
   return (
     <EditorProvider iframeRef={iframeRef}>
-      <IntlayerProviderContent disableEditor>
+      <HostFrameBridge />
+      <IntlayerProviderContent>
         <EditorLayout>
           <IframeController
             iframeRef={iframeRef}
-            applicationPath={location.pathname}
+            applicationPath={applicationPath}
+            isBrowserVisible={isBrowserVisible}
           />
         </EditorLayout>
       </IntlayerProviderContent>
@@ -25,12 +49,15 @@ const AppContent: FC = () => {
   );
 };
 
-const App: FC = () => (
-  <AppRouter>
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
-  </AppRouter>
-);
+export const App: FunctionComponent = () => {
+  const hostTheme = useHostTheme();
 
-export default App;
+  return (
+    // Client-only page: no pre-hydration bootstrap to render
+    <ThemeProvider forcedTheme={hostTheme} hasBootstrapScript={false}>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
+    </ThemeProvider>
+  );
+};

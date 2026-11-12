@@ -1,4 +1,5 @@
 import { commands, type ExtensionContext, languages, window } from 'vscode';
+import { startCmsSync } from './cms/cmsSync';
 import { buildCommand } from './commands/buildAllCommand';
 import { extractCommand } from './commands/extractCommand';
 import { fillCommand, reviewCommand } from './commands/fillAllCommand';
@@ -30,6 +31,7 @@ import { PROVIDER_DOCUMENT_SELECTOR } from './documentSelector';
 import { buildActiveDictionary } from './editor/buildActiveDictionary';
 import { createDictionaryFile } from './editor/createDictionaryFile';
 import { fillActiveDictionary } from './editor/fillActiveDictionary';
+import { registerEditorPanel } from './editorPanel/editorPanel';
 import {
   DictionaryTreeDataProvider,
   type IntlayerTreeNode,
@@ -258,6 +260,10 @@ export const activate = (context: ExtensionContext) => {
   registerLanguageProviders(context);
   registerCommands(context);
   registerDictionaryExplorer(context);
+  registerEditorPanel(context);
 
   context.subscriptions.push(contentFileSaveWatcher());
+
+  // Last: subscribes to configuration changes, and runs in the background
+  startCmsSync(context);
 };

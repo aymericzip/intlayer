@@ -409,7 +409,7 @@ const config: IntlayerConfig = {
     /**
      * Model được sử dụng cho nhà cung cấp đã chọn.
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * Khóa API cho nhà cung cấp.
@@ -815,8 +815,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -835,8 +835,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -867,8 +867,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -887,8 +887,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -907,12 +907,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // Dự phòng cho các đường dẫn chưa được rewrite
@@ -1047,7 +1048,7 @@ Intlayer hỗ trợ đa dạng các nhà cung cấp AI để mang lại sự lin
 | Trường               | Mô tả                                                                                                                                   | Kiểu dữ liệu                                                                                                                                                                                                                                                                                                                                                                                                                                         | Mặc định    | Ví dụ                                                         | Nhận xét                                                                                                                                                                                        |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | Nhà cung cấp được sử dụng cho các tính năng AI của Intlayer.                                                                            | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | Các nhà cung cấp khác nhau yêu cầu các khóa API khác nhau và có mức giá khác nhau.                                                                                                              |
-| `model`              | Model AI được sử dụng cho các tính năng AI.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Không có    | `'gpt-4o-2024-11-20'`                                         | Các model cụ thể phụ thuộc vào nhà cung cấp.                                                                                                                                                    |
+| `model`              | Model AI được sử dụng cho các tính năng AI.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Không có    | `'gpt-5.6-terra'`                                             | Các model cụ thể phụ thuộc vào nhà cung cấp.                                                                                                                                                    |
 | `temperature`        | Điều khiển tính ngẫu nhiên của phản hồi AI.                                                                                             | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Không có    | `0.1`                                                         | Nhiệt độ cao hơn = sáng tạo hơn và kém đáng tin cậy hơn.                                                                                                                                        |
 | `apiKey`             | Khóa API của bạn cho nhà cung cấp đã chọn.                                                                                              | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Không có    | `process.env.OPENAI_API_KEY`                                  | Phải được giữ bí mật; sử dụng biến môi trường.                                                                                                                                                  |
 | `applicationContext` | Ngữ cảnh bổ sung về ứng dụng của bạn để giúp AI tạo ra các bản dịch chính xác hơn (lĩnh vực, đối tượng mục tiêu, tông điệu, thuật ngữ). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | Không có    | `'ngữ cảnh ứng dụng tùy chỉnh của tôi'`                       | Có thể được sử dụng để thêm các quy tắc (ví dụ: `"Bạn không nên dịch các URL của bạn"` ).                                                                                                       |

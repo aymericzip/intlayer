@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "محتوى Markdown في Intlayer"
 description: "عرّف Markdown مترجمًا في Intlayer باستخدام md() أو ملفات .content.md، واعرضه بمكوّناتك في أي إطار عمل."
@@ -1597,12 +1597,12 @@ export class MyComponent {
 
 يمكن تمرير هذه الخيارات إلى `MarkdownProvider` و `MarkdownRenderer` و `useMarkdownRenderer` و `renderMarkdown`.
 
-| Option                | Type        | Default | الوصف                                                                                 |
-| :-------------------- | :---------- | :------ | :------------------------------------------------------------------------------------ |
-| `forceBlock`          | `boolean`   | `false` | يجبر الإخراج على الالتفاف في عنصر على مستوى الكتلة (مثل `<div>`).                     |
-| `forceInline`         | `boolean`   | `false` | يجبر الإخراج على الالتفاف في عنصر مضمن (مثل `<span>`).                                |
-| `tagfilter`           | `boolean`   | `true`  | يمكّن عامل تصفية علامات GitHub لتحسين الأمان عن طريق إزالة علامات HTML الخطيرة.       |
-| `preserveFrontmatter` | `boolean`   | `false` | إذا كان `true`، فلن يتم إزالة البيانات الأولية (frontmatter) في بداية سلسلة Markdown. |
-| `components`          | `Overrides` | `{}`    | خريطة لعلامات HTML إلى مكونات مخصصة (مثل `{ h1: MyHeading }`).                        |
-| `wrapper`             | `Component` | `null`  | مكون مخصص لتغليف Markdown المعروض.                                                    |
-| `renderMarkdown`      | `Function`  | `null`  | وظيفة عرض مخصصة لاستبدال مترجم Markdown الافتراضي بالكامل.                            |
+| الخيار                | النوع       | القيمة الافتراضية | الوصف                                                                                 |
+| :-------------------- | :---------- | :---------------- | :------------------------------------------------------------------------------------ |
+| `forceBlock`          | `boolean`   | `false`           | يجبر الإخراج على الالتفاف في عنصر على مستوى الكتلة (مثل `<div>`).                     |
+| `forceInline`         | `boolean`   | `false`           | يجبر الإخراج على الالتفاف في عنصر مضمن (مثل `<span>`).                                |
+| `tagfilter`           | `boolean`   | `true`            | يمكّن عامل تصفية علامات GitHub لتحسين الأمان عن طريق إزالة علامات HTML الخطيرة.       |
+| `preserveFrontmatter` | `boolean`   | `false`           | إذا كان `true`، فلن يتم إزالة البيانات الأولية (frontmatter) في بداية سلسلة Markdown. |
+| `components`          | `Overrides` | `{}`              | خريطة لعلامات HTML إلى مكونات مخصصة (مثل `{ h1: MyHeading }`).                        |
+| `wrapper`             | `Component` | `null`            | مكون مخصص لتغليف Markdown المعروض.                                                    |
+| `renderMarkdown`      | `Function`  | `null`            | وظيفة عرض مخصصة لاستبدال مترجم Markdown الافتراضي بالكامل.                            |

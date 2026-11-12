@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n в TanStack Start + Solid: полное руководство"
 description: "Настройка Intlayer в TanStack Start с Solid: параметр локали в маршрутах, реактивный переведённый контент, локализованные head-метаданные и hreflang."
@@ -1013,7 +1013,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Начиная с версии 9, `intlayerCompiler` включен в плагин `intlayer`. Поэтому вам не нужно добавлять его вручную.
 
  </Tab>
  <Tab value='intlayer < 9'>

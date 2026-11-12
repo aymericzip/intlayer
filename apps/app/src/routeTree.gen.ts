@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HealthzRouteImport } from './routes/healthz'
+import { Route as OpenapiDotjsonRouteImport } from './routes/openapi[.]json'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
@@ -22,6 +23,7 @@ import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale
 import { Route as Char123LocaleChar125InitRouteImport } from './routes/{-$locale}/init'
 import { Route as Char123LocaleChar125DashboardIndexRouteImport } from './routes/{-$locale}/_dashboard/index'
 import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route'
+import { Route as Char123LocaleChar125DashboardAiUsageRouteImport } from './routes/{-$locale}/_dashboard/ai-usage'
 import { Route as Char123LocaleChar125DashboardAnalyticsRouteImport } from './routes/{-$locale}/_dashboard/analytics'
 import { Route as Char123LocaleChar125DashboardAssetsRouteImport } from './routes/{-$locale}/_dashboard/assets'
 import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{-$locale}/_dashboard/ide'
@@ -36,6 +38,7 @@ import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } 
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationRouteRouteImport } from './routes/{-$locale}/_other/auth/_authentication/route'
 import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
+import { Route as Char123LocaleChar125OtherAuthCliRepositoryRouteImport } from './routes/{-$locale}/_other/auth/cli-repository'
 import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo'
 import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route'
@@ -74,6 +77,11 @@ import { Route as Char123LocaleChar125OtherAuthAuthenticationPasswordResetRouteI
 const HealthzRoute = HealthzRouteImport.update({
   id: '/healthz',
   path: '/healthz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpenapiDotjsonRoute = OpenapiDotjsonRouteImport.update({
+  id: '/openapi.json',
+  path: '/openapi.json',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
@@ -139,6 +147,12 @@ const Char123LocaleChar125DashboardIndexRoute =
 const Char123LocaleChar125DashboardAdminRouteRoute =
   Char123LocaleChar125DashboardAdminRouteRouteImport.update({
     id: '/_admin',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAiUsageRoute =
+  Char123LocaleChar125DashboardAiUsageRouteImport.update({
+    id: '/ai-usage',
+    path: '/ai-usage',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardAnalyticsRoute =
@@ -222,6 +236,12 @@ const Char123LocaleChar125OtherAuthCliLoginRoute =
   Char123LocaleChar125OtherAuthCliLoginRouteImport.update({
     id: '/auth/cli-login',
     path: '/auth/cli-login',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any)
+const Char123LocaleChar125OtherAuthCliRepositoryRoute =
+  Char123LocaleChar125OtherAuthCliRepositoryRouteImport.update({
+    id: '/auth/cli-repository',
+    path: '/auth/cli-repository',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
 const Char123LocaleChar125OtherAuthDemoRoute =
@@ -450,6 +470,7 @@ const Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute =
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/healthz': typeof HealthzRoute
+  '/openapi.json': typeof OpenapiDotjsonRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/og': typeof ApiOgRoute
@@ -457,6 +478,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/init': typeof Char123LocaleChar125InitRoute
+  '/{-$locale}/ai-usage': typeof Char123LocaleChar125DashboardAiUsageRoute
   '/{-$locale}/analytics': typeof Char123LocaleChar125DashboardAnalyticsRoute
   '/{-$locale}/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
@@ -469,6 +491,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/auth/cli-repository': typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -508,6 +531,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125DashboardIndexRoute
   '/healthz': typeof HealthzRoute
+  '/openapi.json': typeof OpenapiDotjsonRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/og': typeof ApiOgRoute
@@ -515,6 +539,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/init': typeof Char123LocaleChar125InitRoute
+  '/{-$locale}/ai-usage': typeof Char123LocaleChar125DashboardAiUsageRoute
   '/{-$locale}/analytics': typeof Char123LocaleChar125DashboardAnalyticsRoute
   '/{-$locale}/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
@@ -526,6 +551,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/auth/cli-repository': typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -560,6 +586,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/healthz': typeof HealthzRoute
+  '/openapi.json': typeof OpenapiDotjsonRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren
@@ -570,6 +597,7 @@ export interface FileRoutesById {
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/init': typeof Char123LocaleChar125InitRoute
   '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  '/{-$locale}/_dashboard/ai-usage': typeof Char123LocaleChar125DashboardAiUsageRoute
   '/{-$locale}/_dashboard/analytics': typeof Char123LocaleChar125DashboardAnalyticsRoute
   '/{-$locale}/_dashboard/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/_dashboard/ide': typeof Char123LocaleChar125DashboardIdeRoute
@@ -584,6 +612,7 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/_authentication': typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/_other/auth/cli-repository': typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   '/{-$locale}/_other/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
   '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/_other/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -625,6 +654,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/{-$locale}'
     | '/healthz'
+    | '/openapi.json'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/api/og'
@@ -632,6 +662,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/404'
     | '/{-$locale}/demo'
     | '/{-$locale}/init'
+    | '/{-$locale}/ai-usage'
     | '/{-$locale}/analytics'
     | '/{-$locale}/assets'
     | '/{-$locale}/ide'
@@ -644,6 +675,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth'
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
+    | '/{-$locale}/auth/cli-repository'
     | '/{-$locale}/auth/demo'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/affiliation/'
@@ -683,6 +715,7 @@ export interface FileRouteTypes {
   to:
     | '/{-$locale}'
     | '/healthz'
+    | '/openapi.json'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/api/og'
@@ -690,6 +723,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/404'
     | '/{-$locale}/demo'
     | '/{-$locale}/init'
+    | '/{-$locale}/ai-usage'
     | '/{-$locale}/analytics'
     | '/{-$locale}/assets'
     | '/{-$locale}/ide'
@@ -701,6 +735,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth'
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
+    | '/{-$locale}/auth/cli-repository'
     | '/{-$locale}/auth/demo'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/affiliation'
@@ -734,6 +769,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/{-$locale}'
     | '/healthz'
+    | '/openapi.json'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/{-$locale}/_dashboard'
@@ -744,6 +780,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/demo'
     | '/{-$locale}/init'
     | '/{-$locale}/_dashboard/_admin'
+    | '/{-$locale}/_dashboard/ai-usage'
     | '/{-$locale}/_dashboard/analytics'
     | '/{-$locale}/_dashboard/assets'
     | '/{-$locale}/_dashboard/ide'
@@ -758,6 +795,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/_authentication'
     | '/{-$locale}/_other/affiliation/$invitationId'
     | '/{-$locale}/_other/auth/cli-login'
+    | '/{-$locale}/_other/auth/cli-repository'
     | '/{-$locale}/_other/auth/demo'
     | '/{-$locale}/_other/onboarding/$step'
     | '/{-$locale}/_other/affiliation/'
@@ -798,6 +836,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
   HealthzRoute: typeof HealthzRoute
+  OpenapiDotjsonRoute: typeof OpenapiDotjsonRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiOgRoute: typeof ApiOgRoute
@@ -810,6 +849,13 @@ declare module '@tanstack/react-router' {
       path: '/healthz'
       fullPath: '/healthz'
       preLoaderRoute: typeof HealthzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/openapi.json': {
+      id: '/openapi.json'
+      path: '/openapi.json'
+      fullPath: '/openapi.json'
+      preLoaderRoute: typeof OpenapiDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/robots.txt': {
@@ -894,6 +940,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/{-$locale}'
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
+    '/{-$locale}/_dashboard/ai-usage': {
+      id: '/{-$locale}/_dashboard/ai-usage'
+      path: '/ai-usage'
+      fullPath: '/{-$locale}/ai-usage'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAiUsageRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
     '/{-$locale}/_dashboard/analytics': {
@@ -992,6 +1045,13 @@ declare module '@tanstack/react-router' {
       path: '/auth/cli-login'
       fullPath: '/{-$locale}/auth/cli-login'
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
+    '/{-$locale}/_other/auth/cli-repository': {
+      id: '/{-$locale}/_other/auth/cli-repository'
+      path: '/auth/cli-repository'
+      fullPath: '/{-$locale}/auth/cli-repository'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliRepositoryRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
     '/{-$locale}/_other/auth/demo': {
@@ -1411,6 +1471,7 @@ const Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren =
 
 interface Char123LocaleChar125DashboardRouteRouteChildren {
   Char123LocaleChar125DashboardAdminRouteRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  Char123LocaleChar125DashboardAiUsageRoute: typeof Char123LocaleChar125DashboardAiUsageRoute
   Char123LocaleChar125DashboardAnalyticsRoute: typeof Char123LocaleChar125DashboardAnalyticsRoute
   Char123LocaleChar125DashboardAssetsRoute: typeof Char123LocaleChar125DashboardAssetsRoute
   Char123LocaleChar125DashboardIdeRoute: typeof Char123LocaleChar125DashboardIdeRoute
@@ -1426,6 +1487,8 @@ const Char123LocaleChar125DashboardRouteRouteChildren: Char123LocaleChar125Dashb
   {
     Char123LocaleChar125DashboardAdminRouteRoute:
       Char123LocaleChar125DashboardAdminRouteRouteWithChildren,
+    Char123LocaleChar125DashboardAiUsageRoute:
+      Char123LocaleChar125DashboardAiUsageRoute,
     Char123LocaleChar125DashboardAnalyticsRoute:
       Char123LocaleChar125DashboardAnalyticsRoute,
     Char123LocaleChar125DashboardAssetsRoute:
@@ -1499,6 +1562,7 @@ interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherAuthAuthenticationRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticationRouteRouteWithChildren
   Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  Char123LocaleChar125OtherAuthCliRepositoryRoute: typeof Char123LocaleChar125OtherAuthCliRepositoryRoute
   Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute
   Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute
   Char123LocaleChar125OtherAffiliationIndexRoute: typeof Char123LocaleChar125OtherAffiliationIndexRoute
@@ -1516,6 +1580,8 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherAffiliationInvitationIdRoute,
     Char123LocaleChar125OtherAuthCliLoginRoute:
       Char123LocaleChar125OtherAuthCliLoginRoute,
+    Char123LocaleChar125OtherAuthCliRepositoryRoute:
+      Char123LocaleChar125OtherAuthCliRepositoryRoute,
     Char123LocaleChar125OtherAuthDemoRoute:
       Char123LocaleChar125OtherAuthDemoRoute,
     Char123LocaleChar125OtherOnboardingStepRoute:
@@ -1558,6 +1624,7 @@ const Char123LocaleChar125RouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
   HealthzRoute: HealthzRoute,
+  OpenapiDotjsonRoute: OpenapiDotjsonRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiOgRoute: ApiOgRoute,

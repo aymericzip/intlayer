@@ -8,7 +8,7 @@ Shared React UI library + TanStack Query API hooks. Used by `apps/app`, `apps/we
 bun run dev          # tsdown --watch
 bun run build        # tsdown build
 bun run test         # vitest run
-bun run lint:fix     # biome lint --write
+bun run lint:fix     # oxlint --fix
 bun run typecheck    # tsc --noEmit
 ```
 

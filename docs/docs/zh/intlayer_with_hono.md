@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Hono i18n - 翻译你的应用的完整指南"
 description: "在 Hono 中配置 Intlayer：通过中间件按请求检测语言，翻译 API 响应，可运行在 Node、Bun 或边缘运行时。"

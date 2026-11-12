@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
-title: useIntlayer 钩子文档 | remix-intlayer
-description: 了解如何在 Remix 3 应用程序中使用 useIntlayer 钩子按键访问本地化内容。
+title: useIntlayer Hook文档 | remix-intlayer
+description: 了解如何在 Remix 3 应用程序中使用 useIntlayer Hook按键访问本地化内容。
 keywords:
   - useIntlayer
   - dictionary
@@ -21,13 +21,13 @@ slugs:
 history:
   - version: 9.5.5
     date: 2026-09-19
-    changes: "useIntlayer 钩子初始文档"
+    changes: "useIntlayer Hook初始文档"
 author: aymericzip
 ---
 
-# useIntlayer 钩子文档
+# useIntlayer Hook文档
 
-`useIntlayer` 钩子允许在 Remix 3 应用程序中按键从 Intlayer 字典检索本地化内容。
+`useIntlayer` Hook允许在 Remix 3 应用程序中按键从 Intlayer 字典检索本地化内容。
 
 它会自动从当前请求上下文（通过 `AsyncLocalStorage`）读取活动语言环境，因此无需通过路由处理程序、视图模板或组件传递语言环境。
 
@@ -81,7 +81,7 @@ useIntlayer(key, localeOrSelector?)
 
 ## 说明
 
-该钩子执行以下任务：
+该Hook执行以下任务：
 
 1. **上下文语言环境检测**: 从 `intlayer()` 中间件建立的与请求绑定的 `AsyncLocalStorage` 作用域中检测当前语言环境。
 2. **字典获取**: 检索与提供的键对应的预编译字典。
@@ -91,5 +91,5 @@ useIntlayer(key, localeOrSelector?)
 ## 相关文档
 
 - [`intlayer` 中间件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/intlayerMiddleware.md)
-- [`useDictionary` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useDictionary.md)
-- [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)
+- [`useDictionary` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useDictionary.md)
+- [`useLocale` Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)

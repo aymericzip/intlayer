@@ -9,6 +9,8 @@ import {
   translationCancelKey,
   translationPauseKey,
 } from '@services/translationQueue.service';
+import { prepareAICreditMeter } from '@utils/AI/aiCreditMetering';
+import { getProjectAIOptions } from '@utils/AI/getProjectAIOptions';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { getRedisClient } from '@utils/redis/connectRedis';
 import { formatResponse, type ResponseData } from '@utils/responseData';
@@ -26,7 +28,7 @@ export const translateDictionaries = async (
   request: FastifyRequest<{ Body: TranslateDictionariesBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.session || {};
+  const { project, user, organization } = request.session || {};
   const { dictionaryIds, targetLocales, mode = 'complete' } = request.body;
 
   if (!project) {
@@ -40,6 +42,15 @@ export const translateDictionaries = async (
   }
 
   try {
+    // Fail fast instead of queueing a job that would stop on its first chunk
+    await prepareAICreditMeter({
+      organization,
+      project,
+      user,
+      feature: 'translation',
+      aiOptionSources: [await getProjectAIOptions(project)],
+    });
+
     const validIds = dictionaryIds.filter((id) => Types.ObjectId.isValid(id));
 
     if (validIds.length === 0) {

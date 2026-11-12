@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Guia completo para traduzir seu aplicativo"
 description: "Configure o Intlayer no TanStack Start: parâmetro de locale nas rotas, conteúdo traduzido compatível com SSR, metadados head localizados, hreflang e sitemap."
@@ -432,7 +432,7 @@ export default appContent;
 export default appContent;
 ```
 
-> Suas declarações de conteúdo podem ser definidas em qualquer lugar da sua aplicação assim que forem incluídas no diretório `contentDir` (por padrão, `./app`). E devem corresponder à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+> Suas declarações de conteúdo podem ser definidas em qualquer lugar da sua aplicação assim que forem incluídas no diretório `contentDir` (por padrão, `['.']`). E devem corresponder à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
@@ -489,11 +489,14 @@ Este componente tem dois objetivos:
 
 Então, podemos criar um hook `useLocalizedNavigate` para navegação programática:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -528,13 +531,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -555,7 +559,7 @@ Acesse seus dicionários de conteúdo em toda a sua aplicação:
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -570,7 +574,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -603,7 +607,7 @@ function RouteComponent() {
 - [Documentação do Hook useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Criar um Componente de Alternador de Localidade">
+<Step number={10} title="Criar um Componente de Alternador de Localidade">
 
 Crie um componente para permitir que os usuários alterem idiomas:
 
@@ -667,7 +671,7 @@ export const LocaleSwitcher: FC = () => {
 - [Documentação do Hook useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Gerenciamento de Atributos HTML">
+<Step number={11} title="Gerenciamento de Atributos HTML">
 
 Como visto na Etapa 5, você pode gerenciar os atributos `lang` e `dir` da tag `html` usando `useParams` no seu componente raiz. Isso garante que os atributos corretos sejam definidos no servidor e no cliente.
 
@@ -687,7 +691,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Adicionar middleware">
+<Step number={12} title="Adicionar middleware">
 
 Você também pode usar `intlayerProxy` para adicionar roteamento no servidor à sua aplicação. Este plugin detectará automaticamente a localidade atual com base na URL e definirá o cookie de localidade apropriado. Se nenhuma localidade for especificada, o plugin determinará a localidade mais apropriada com base nas preferências de idioma do navegador do usuário. Se nenhuma localidade for detectada, ela será redirecionada para a localidade padrão.
 
@@ -724,7 +728,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Internacionalizar seus Metadados">
+<Step number={13} title="Internacionalizar seus Metadados">
 
 <Tabs>
 
@@ -770,7 +774,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -824,7 +828,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -886,7 +890,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -916,7 +920,7 @@ Você mantém o chunk por localidade sem pagar seu custo no caminho crítico do 
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="Recuperar a locale em suas server actions">
+<Step number={14} title="Recuperar a locale em suas server actions">
 
 Você pode querer acessar a locale atual de dentro de suas server actions ou API endpoints.
 Você pode fazer isso usando o helper `getLocale` de `intlayer`.
@@ -952,7 +956,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Gerenciar páginas não encontradas">
+<Step number={15} title="Gerenciar páginas não encontradas">
 
 Quando um usuário visita uma página inexistente, você pode exibir uma página personalizada de não encontrada e o prefixo de locale pode afetar a forma como a página de não encontrada é acionada.
 
@@ -1027,7 +1031,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Extrair o conteúdo dos seus componentes" isOptional={true}> isOptional={true}>
+<Step number={16} title="Extrair o conteúdo dos seus componentes" isOptional={true}> isOptional={true}>
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
 
@@ -1140,7 +1144,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Gerar um Sitemap">
+<Step number={17} title="Gerar um Sitemap">
 
 O Intlayer vem com um gerador de sitemap integrado para ajudá-lo a criar facilmente um sitemap para sua aplicação. Ele cuida das rotas localizadas e adiciona os metadados necessários para os mecanismos de busca.
 
@@ -1210,7 +1214,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Configurar TypeScript">
+<Step number={18} title="Configurar TypeScript">
 
 O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e fortalecer sua base de código.
 

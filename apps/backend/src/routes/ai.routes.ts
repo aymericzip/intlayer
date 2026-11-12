@@ -7,6 +7,8 @@ import {
   autocomplete,
   chat,
   customQuery,
+  getAICredits,
+  getAICreditUsage,
   getAIStats,
   getDiscussions,
   translateJSON,
@@ -31,6 +33,10 @@ export const aiRouter = async (fastify: FastifyInstance) => {
     autocomplete,
     getDiscussions,
     getAIStats,
+    // Self-hosted has no credits but still reports its own-key usage
+    getAICredits,
+    // The daily series only covers billed credits; self-hosted has none
+    getAICreditUsage: isSelfHosted() ? null : getAICreditUsage,
     // Registered below, behind the chatbot rate limiter
     ask: null,
     chat: null,
@@ -53,6 +59,8 @@ export const aiRouter = async (fastify: FastifyInstance) => {
     autocomplete: null,
     getDiscussions: null,
     getAIStats: null,
+    getAICredits: null,
+    getAICreditUsage: null,
     // The doc assistant relies on the doc embeddings, which self-hosted
     // deployments do not ship (see utils/AI/askDocQuestion).
     ask: isSelfHosted() ? null : askDocQuestion,

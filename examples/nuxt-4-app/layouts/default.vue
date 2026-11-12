@@ -16,4 +16,3 @@ import LocaleSwitcher from '~/components/LocaleSwitcher.vue';
     <Links href="/about">About</Links>
   </div>
 </template>
-

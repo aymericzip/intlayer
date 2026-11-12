@@ -32,6 +32,11 @@ export type ProjectConfigAI = Partial<AiConfig> & {
   /** Masked API key (`sk-proj-****abcd`), never the real one. */
   apiKey?: string;
   apiKeyConfigured?: boolean;
+  /**
+   * `false` runs AI calls on the plan credits instead of the own key.
+   * Missing means enabled.
+   */
+  isOwnAPIKeyEnabled?: boolean;
 };
 
 /**
@@ -67,6 +72,8 @@ export const webhookSchema = z.looseObject({
 /** Build triggers: git provider pipeline + generic webhooks. */
 export const projectCISchema = z.object({
   autoTriggerBuilds: z.optional(z.boolean()),
+  /** Commit CMS edits of `hybrid` dictionaries back to their source file. */
+  autoCommitDictionaries: z.optional(z.boolean()),
   webhooks: z.optional(z.array(webhookSchema)),
 });
 
@@ -75,6 +82,8 @@ export const repositoryProviderSchema = z.enum([
   'github',
   'gitlab',
   'bitbucket',
+  'codeberg',
+  'gitee',
 ]);
 
 const baseRepositoryShape = {
@@ -107,6 +116,8 @@ export const repositoryConnectionSchema = z.discriminatedUnion('provider', [
     ...baseRepositoryShape,
     workspace: z.string(),
   }),
+  z.looseObject({ provider: z.literal('codeberg'), ...baseRepositoryShape }),
+  z.looseObject({ provider: z.literal('gitee'), ...baseRepositoryShape }),
 ]);
 
 /** null = unrestricted, [] = no access, array = allowed ids (null = production). */

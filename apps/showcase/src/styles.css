@@ -1,5 +1,5 @@
-@import "@intlayer/design-system/css";
-@import "tailwindcss";
+@import '@intlayer/design-system/css';
+@import 'tailwindcss';
 
 @layer base {
   /* 1. Standard Scale (Landing Page) */
@@ -14,7 +14,7 @@
 }
 
 @theme {
-  --font-sans: "Geist", "Inter", sans-serif;
+  --font-sans: 'Geist', 'Inter', sans-serif;
 
   --color-background: rgba(255, 255, 255);
   --color-background-opposite: rgba(18, 18, 18);
@@ -119,8 +119,8 @@
 @variant light (:where([data-theme="light"], [data-theme="light"] *) &);
 
 :root,
-[data-theme="light"] {
-  --font-sans: "Geist", "Inter", sans-serif;
+[data-theme='light'] {
+  --font-sans: 'Geist', 'Inter', sans-serif;
 
   --color-background: rgba(255, 255, 255);
   --color-background-opposite: rgba(18, 18, 18);
@@ -149,12 +149,12 @@
 
   --color-white: rgba(255, 255, 255);
   --color-black: rgba(0, 0, 0);
-  
+
   --navbar-height: 64px;
 }
 
-[data-theme="dark"] {
-  --font-sans: "Geist", "Inter", sans-serif;
+[data-theme='dark'] {
+  --font-sans: 'Geist', 'Inter', sans-serif;
 
   --color-background: rgba(23, 23, 23);
   --color-background-opposite: rgba(255, 255, 255);
@@ -181,7 +181,7 @@
 
   --color-white: rgba(255, 255, 255);
   --color-black: rgba(0, 0, 0);
-  
+
   --navbar-height: 64px;
 }
 

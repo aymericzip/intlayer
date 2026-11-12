@@ -108,11 +108,11 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 size="sm"
               />
               <div className="flex min-w-0 flex-1 flex-col text-start">
-                <span className="truncate font-semibold text-sm text-text leading-tight">
+                <span className="truncate text-sm leading-tight font-semibold text-text">
                   {userName}
                 </span>
                 {user?.email && (
-                  <span className="truncate text-neutral text-xs leading-none">
+                  <span className="truncate text-xs leading-none text-neutral">
                     {user.email}
                   </span>
                 )}
@@ -143,7 +143,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 className="flex w-full flex-row justify-center px-3 py-2"
               >
                 <User2 size={10} />
-                <span className="ms-2 w-full text-center text-text text-xs">
+                <span className="ms-2 w-full text-center text-xs text-text">
                   {goToProfile}
                 </span>
               </Link>

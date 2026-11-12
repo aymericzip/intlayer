@@ -1,5 +1,4 @@
 import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const updateNodeChildren = <

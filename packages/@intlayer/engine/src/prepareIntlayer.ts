@@ -49,7 +49,7 @@ export const prepareIntlayer = async (
   const intlayerCacheVersion = await versionCache.get();
   const isCorrectVersion = Boolean(
     intlayerCacheVersion === undefined ||
-      intlayerCacheVersion === packageJson.version
+    intlayerCacheVersion === packageJson.version
   );
 
   const isConfigSimilar = await isCachedConfigurationUpToDate(configuration);

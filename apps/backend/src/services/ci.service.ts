@@ -2,6 +2,12 @@ import { logger } from '@logger';
 import type { Types } from 'mongoose';
 import type { Project } from '@/types/project.types';
 import * as bitbucketService from './bitbucket.service';
+import {
+  CODEBERG_WORKFLOW_FILENAME,
+  codebergService,
+} from './codeberg.service';
+import type { ForgeService } from './forge.service';
+import { GITEE_PIPELINE_FILENAME, giteeService } from './gitee.service';
 import * as githubService from './github.service';
 import * as gitlabService from './gitlab.service';
 import { getProjectById } from './project.service';
@@ -45,6 +51,58 @@ export const BITBUCKET_TEMPLATE = `pipelines:
             - npm run build
 `;
 
+export const CODEBERG_TEMPLATE = `name: Intlayer CMS Update
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: codeberg-tiny
+    container:
+      image: node:lts
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - run: npm ci
+      - run: npm run build
+`;
+
+/** Gitee Go pipeline, run manually from the Gitee pipeline page. */
+export const GITEE_TEMPLATE = `version: '1.0'
+name: intlayer-cms-update
+displayName: Intlayer CMS Update
+triggers:
+  trigger: manual
+stages:
+  - name: build
+    displayName: Build
+    strategy: naturally
+    trigger: auto
+    steps:
+      - step: build@nodejs
+        name: build_nodejs
+        displayName: Build
+        nodeVersion: 20.10.0
+        commands:
+          - npm ci
+          - npm run build
+`;
+
+/** CI file installed in the repositories of each Gitea-compatible forge. */
+const FORGE_CI_FILES = {
+  codeberg: {
+    service: codebergService,
+    path: CODEBERG_WORKFLOW_FILENAME,
+    content: CODEBERG_TEMPLATE,
+  },
+  gitee: {
+    service: giteeService,
+    path: GITEE_PIPELINE_FILENAME,
+    content: GITEE_TEMPLATE,
+  },
+} as const satisfies Record<
+  'codeberg' | 'gitee',
+  { service: ForgeService; path: string; content: string }
+>;
+
 export type CIStatus = {
   exists: boolean;
   content: string;
@@ -56,12 +114,12 @@ export type CIStatus = {
 /**
  * Get the best available token for CI operations on a repository.
  * Prefers the repo-scoped token stored on the repository connection,
- * falls back to the social login token from the account collection.
+ * falls back to the social login token of `userId` from the account collection.
  */
-const getProviderToken = async (
+export const getProviderToken = async (
   projectId: string | Types.ObjectId,
   repository: NonNullable<Project['repository']>,
-  userId: string | Types.ObjectId
+  userId?: string | Types.ObjectId
 ): Promise<string | null> => {
   // 1. Prefer the repo-scoped token stored on the repository (has write access).
   // Read from the DB: API-mapped projects (session) never carry the token.
@@ -72,6 +130,8 @@ const getProviderToken = async (
     return repositoryToken;
   }
 
+  if (!userId) return null;
+
   // 2. Fall back to the social login token from Better Auth account collection
   const userIdStr = String(userId);
   switch (repository.provider) {
@@ -81,6 +141,11 @@ const getProviderToken = async (
       return gitlabService.getGitLabTokenFromUser(userIdStr);
     case 'bitbucket':
       return bitbucketService.getBitbucketTokenFromUser(userIdStr);
+    case 'codeberg':
+    case 'gitee':
+      return FORGE_CI_FILES[repository.provider].service.getTokenFromUser(
+        userIdStr
+      );
     default:
       return null;
   }
@@ -186,6 +251,27 @@ export const getCIStatus = async (
         };
       }
 
+      case 'codeberg':
+      case 'gitee': {
+        const { owner, repository: repoName } = repository;
+        const { service, path, content } = FORGE_CI_FILES[provider];
+        const exists = await service.fileExists(
+          accessToken,
+          owner,
+          repoName,
+          path,
+          branch
+        );
+
+        return {
+          exists,
+          content,
+          path,
+          fileUrl: service.getFileUrl(owner, repoName, branch, path),
+          allowAutoPush: true, // Created through the contents API
+        };
+      }
+
       default:
         throw new Error(`Unsupported repository provider: ${provider}`);
     }
@@ -259,6 +345,23 @@ export const installCI = async (
         throw new Error(
           'Bitbucket does not support automatic CI file installation. Please add the file manually.'
         );
+      }
+
+      case 'codeberg':
+      case 'gitee': {
+        const { owner, repository: repoName } = repository;
+        const { service, path, content } = FORGE_CI_FILES[installProvider];
+
+        await service.createOrUpdateFile(
+          accessToken,
+          owner,
+          repoName,
+          path,
+          content,
+          branch,
+          'Add Intlayer CMS workflow'
+        );
+        break;
       }
 
       default:

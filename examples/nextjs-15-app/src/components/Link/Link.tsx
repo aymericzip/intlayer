@@ -1,8 +1,8 @@
 'use client';
 
 import { configuration, getLocalizedUrl, type LocalesValues } from 'intlayer';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import { useLocale } from 'next-intlayer';
+import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import type { FC, PropsWithChildren } from 'react';
 
 export type LinkProps = NextLinkProps &

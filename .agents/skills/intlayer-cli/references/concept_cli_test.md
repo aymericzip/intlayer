@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Test Missing Translations
 description: Learn how to test and identify missing translations in your dictionaries.
 keywords:
@@ -13,12 +14,25 @@ slugs:
   - concept
   - cli
   - test
+author: aymericzip
 ---
 
 # Test missing translations
 
-```bash
+```bash packageManager="npm"
 npx intlayer test
+```
+
+```bash packageManager="yarn"
+yarn intlayer test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test
+```
+
+```bash packageManager="bun"
+bun x intlayer test
 ```
 
 ## Aliases:
@@ -74,8 +88,20 @@ Total missing required locales: 0
 
 ## Example:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 The output helps you quickly identify which translations need to be completed to ensure your application works properly across all configured locales.

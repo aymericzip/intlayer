@@ -5,6 +5,7 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Trash, TriangleAlert } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { AICredits } from '#components/AICredits/AICredits';
 import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import { DeleteOrganizationModal } from './DeleteOrganizationModal';
 import { MailerSettings } from './Mailer';
@@ -60,6 +61,15 @@ const OrganizationFormContent: FC = () => {
               borderColor="neutral"
               className="flex size-full justify-center"
             >
+              <AICredits />
+            </Container>
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
+              className="flex size-full justify-center"
+            >
               <SSOSettings />
             </Container>
             <Container
@@ -103,10 +113,10 @@ const OrganizationFormContent: FC = () => {
                 <TriangleAlert className="size-5 text-error" />
               </div>
               <div className="flex-1">
-                <h3 className="font-medium text-base text-error">
+                <h3 className="text-base font-medium text-error">
                   {dangerZoneTitle}
                 </h3>
-                <p className="mt-1 text-neutral text-sm">
+                <p className="mt-1 text-sm text-neutral">
                   {dangerZoneDescription}
                 </p>
                 <Button
@@ -145,6 +155,8 @@ const OrganizationFormContent: FC = () => {
           onClose={() => setIsCreationModalOpen(false)}
           hasCloseButton
           padding="md"
+          border
+          borderColor="neutral"
         >
           <OrganizationCreationForm
             onOrganizationCreated={() => setIsCreationModalOpen(false)}

@@ -2,8 +2,8 @@ import { Button } from '@intlayer/design-system/button';
 import { Input } from '@intlayer/design-system/input';
 import { getLocalizedPages } from '@intlayer/engine/scan/detection';
 import type { FunctionComponent } from 'preact';
-import { useMemo, useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
+import { useMemo, useState } from 'preact/hooks';
 import type { PageDetectionResult } from '../../detector/types';
 import type { SitemapPages } from '../../navigation/useSitemapPages';
 
@@ -59,11 +59,11 @@ export const PageNavigator: FunctionComponent<{
   return (
     <div className="flex flex-col gap-3">
       <div>
-        <h3 className="mt-0 mb-1.5 font-semibold text-neutral text-xs">
+        <h3 className="mt-0 mb-1.5 text-xs font-semibold text-neutral">
           {localizedPagesTitle}
         </h3>
         {localizedPages.length === 0 ? (
-          <p className="m-0 text-neutral text-xs">{noLocalizedPages}</p>
+          <p className="m-0 text-xs text-neutral">{noLocalizedPages}</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {localizedPages.map(({ hreflang, url, isCurrent }) => (
@@ -89,7 +89,7 @@ export const PageNavigator: FunctionComponent<{
       </div>
 
       <div>
-        <h3 className="mt-0 mb-1.5 font-semibold text-neutral text-xs">
+        <h3 className="mt-0 mb-1.5 text-xs font-semibold text-neutral">
           {sitemapTitle}
         </h3>
         <Input
@@ -106,7 +106,7 @@ export const PageNavigator: FunctionComponent<{
         />
 
         {sitemapState && (
-          <p className="mt-2 mb-0 text-neutral text-xs">{sitemapState}</p>
+          <p className="mt-2 mb-0 text-xs text-neutral">{sitemapState}</p>
         )}
 
         {matchingPages.length > 0 && (

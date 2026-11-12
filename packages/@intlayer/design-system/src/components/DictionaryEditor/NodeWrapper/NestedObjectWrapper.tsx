@@ -2,7 +2,6 @@ import { camelCaseToSentence } from '@intlayer/config/client';
 import { isSameKeyPath } from '@intlayer/core/utils';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { type FC, memo, useMemo } from 'react';
 import { ItemLayout } from '../ItemLayout';

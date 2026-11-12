@@ -1,23 +1,19 @@
 {
   "name": "@intlayer/ai",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": false,
   "description": "SDK that provides AI capabilities for Intlayer applications",
   "keywords": [
-    "intlayer",
-    "application",
     "ai",
+    "application",
     "backend",
     "i18n",
-    "internationalization"
+    "internationalization",
+    "intlayer"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -31,15 +27,15 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
-    },
-    "./package.json": "./package.json"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "sideEffects": false,
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
@@ -50,19 +46,23 @@
       ]
     }
   },
-  "files": [
-    "./dist",
-    "./package.json"
-  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "prepublish": "cp -f ../../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -73,25 +73,25 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "4.0.71",
-    "@ai-sdk/openai": "4.0.83",
+    "@ai-sdk/anthropic": "4.0.102",
+    "@ai-sdk/openai": "4.0.114",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@toon-format/toon": "4.1.1",
-    "ai": "7.0.127",
-    "zod": "4.6.5"
+    "@toon-format/toon": "4.4.0",
+    "ai": "7.0.169",
+    "zod": "4.6.7"
   },
   "devDependencies": {
-    "@types/node": "^26",
+    "@types/node": "^26.6.4",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "rimraf": "6.1.3",
-    "tsdown": "0.23.0",
+    "rimraf": "6.1.4",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   },
   "peerDependencies": {
     "@ai-sdk/alibaba": "<=1.0.0",

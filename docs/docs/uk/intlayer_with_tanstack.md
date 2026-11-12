@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer у TanStack Start: параметр локалі в маршрутах, сумісний із SSR перекладений контент, локалізовані head-метадані, hreflang і sitemap."
@@ -90,7 +90,7 @@ Intlayer повністю оптимізовано для TanStack Start, заб
 </Accordion>
 <Accordion header="Автоматизація">
 
-Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації вилучення контенту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
 
 - [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
@@ -102,10 +102,10 @@ Intlayer повністю оптимізовано для TanStack Start, заб
 </Accordion>
 <Accordion header="Співпраця з не-розробниками">
 
-Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
-- [повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -430,7 +430,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Оголошення вмісту можна визначати будь-де у вашому застосунку, за умови, що вони включені у директорію `contentDir` (за замовчуванням, `./app`) та відповідають розширенню файлу декларації вмісту (за замовчуванням, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+> Оголошення вмісту можна визначати будь-де у вашому застосунку, за умови, що вони включені у директорію `contentDir` (за замовчуванням, `['.']`) та відповідають розширенню файлу декларації вмісту (за замовчуванням, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Для детальнішої інформації зверніться до [документації з оголошення вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
@@ -487,11 +487,14 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
 
 Потім ми можемо створити хук `useLocalizedNavigate` для програмної навігації:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -526,13 +529,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -553,7 +557,7 @@ export const useLocalizedNavigate = () => {
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -568,7 +572,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -601,7 +605,7 @@ function RouteComponent() {
 - [Документація хуку useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Створення компоненту перемикача локалей">
+<Step number={10} title="Створення компоненту перемикача локалей">
 
 Створіть компонент, щоб дозволити користувачам змінювати мови:
 
@@ -665,7 +669,7 @@ export const LocaleSwitcher: FC = () => {
 - [Хук useLocale, документація | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Управління HTML атрибутами">
+<Step number={11} title="Управління HTML атрибутами">
 
 Як видно з кроку 5, ви можете керувати атрибутами `lang` та `dir` тега `html` за допомогою `useParams` у вашому кореневому компоненті. Це забезпечує встановлення правильних атрибутів на сервері та клієнті.
 
@@ -685,7 +689,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Додавання middleware">
+<Step number={12} title="Додавання middleware">
 
 Ви також можете використовувати `intlayerProxy` для додавання маршрутизації на стороні сервера до вашої програми. Цей плагін автоматично визначить поточну локаль на основі URL-адреси та встановить відповідну cookie-файл локалі. Якщо локаль не вказана, плагін визначить найбільш відповідну локаль на основі параметрів мови браузера користувача. Якщо локаль не виявлена, він перенаправить на локаль за замовчуванням.
 
@@ -722,7 +726,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Інтернаціоналізація ваших метаданих">
+<Step number={13} title="Інтернаціоналізація ваших метаданих">
 
 <Tabs>
 
@@ -768,7 +772,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -822,7 +826,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -884,7 +888,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -903,18 +907,18 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 </Tabs>
 
-### Яку резолюцію вибрати?
+### Яку стратегію отримання контенту вибрати?
 
-|                      | Статична резолюція    | Динамічна резолюція        | Кешована динамічна резолюція           |
-| -------------------- | --------------------- | -------------------------- | -------------------------------------- |
-| API                  | `getIntlayer`         | `getIntlayerAsync` (v9.4+) | `getIntlayerAsync` in `loader` (v9.4+) |
-| `head` signature     | synchronous           | `async`                    | synchronous, reads `loaderData`        |
-| Locales shipped      | every declared locale | requested locale only      | requested locale only                  |
-| Client navigations   | nothing to resolve    | re-entered on every match  | served from the router cache           |
-| Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
+|                      | Статична резолюція   | Динамічна резолюція                  | Кешована динамічна резолюція           |
+| -------------------- | -------------------- | ------------------------------------ | -------------------------------------- |
+| API                  | `getIntlayer`        | `getIntlayerAsync` (v9.4+)           | `getIntlayerAsync` in `loader` (v9.4+) |
+| Сигнатура `head`     | синхронна            | `async`                              | синхронна, читає `loaderData`          |
+| Доставлені локалі    | кожна оголошена мова | лише запитана мова                   | лише запитана мова                     |
+| Клієнтська навігація | немає очікування     | повторний вхід під час кожного збігу | береться з кешу маршрутизатора         |
+| Досвід розробника    | найпростіший         | один `await`                         | контент передається через `loaderData` |
 
 </Step>
-<Step number={13} title="Отримайте локаль у своїх серверних діях">
+<Step number={14} title="Отримайте локаль у своїх серверних діях">
 
 Можливо, вам потрібно отримати доступ до поточної локалі всередині ваших серверних дій або API endpoints.
 Ви можете це зробити, використовуючи помічник `getLocale` з `intlayer`.
@@ -950,7 +954,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Керування сторінками «Не знайдено»">
+<Step number={15} title="Керування сторінками «Не знайдено»">
 
 Коли користувач переходить на неіснуючу сторінку, ви можете відобразити власну сторінку «не знайдено», і префікс локалі може впливати на те, як ця сторінка викликається.
 
@@ -1025,7 +1029,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Витягніть вміст ваших компонентів" isOptional={true}> isOptional={true}>
+<Step number={16} title="Витягніть вміст ваших компонентів" isOptional={true}> isOptional={true}>
 
 Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.
 
@@ -1094,7 +1098,7 @@ bun x intlayer extract
  <Tabs>
  <Tab value='intlayer >= 9'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> Починаючи з версії 9, `intlayerCompiler` включено до плагіна `intlayer`. Тому вам не потрібно додавати його вручну.
 
  </Tab>
  <Tab value='intlayer < 9'>
@@ -1138,7 +1142,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 Intlayer має вбудований генератор sitemap, який допомагає легко створити sitemap для вашої програми. Він обробляє локалізовані маршрути та додає необхідні метадані для пошукових систем.
 
@@ -1208,7 +1212,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Налаштувати TypeScript">
+<Step number={18} title="Налаштувати TypeScript">
 
 Intlayer використовує module augmentation для отримання переваг TypeScript та зміцнення вашого codebase.
 
@@ -1249,16 +1253,16 @@ Intlayer використовує module augmentation для отримання 
 
 - **Автодоповнення** для ключів перекладу.
 - **Виявлення помилок у реальному часі** для відсутніх перекладів.
-- **Вбудовані переглади** перекладеного контенту.
+- **Вбудований попередній перегляд** перекладеного контенту.
 - **Швидкі дії** для простого створення та оновлення перекладів.
 
 Для детальнішої інформації про використання розширення див. [документацію розширення Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
 - [документацію розширення Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
 
-## Йти далі
+## Додаткові можливості
 
-Щоб йти далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або екстерналізувати ваш вміст за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+Щоб йти далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або керувати вашим контентом за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
@@ -1267,12 +1271,12 @@ Intlayer використовує module augmentation для отримання 
 
 - [Документація Intlayer](https://intlayer.org)
 - [Документація Tanstack Start](https://reactrouter.com/)
-- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md)
-- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md)
-- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
-- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
+- [Хук useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md)
+- [Хук useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md)
+- [Оголошення контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
+- [Конфігурація](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 
@@ -1364,7 +1368,7 @@ TanStack Start не має власного шару i18n:
 </Question>
 <Question title="Як обробляти сторінки 404 у локалізованих маршрутах?">
 
-Крок 14 описує це. `validatePrefix` перевіряє валідність сегмента мови в URL.
+Крок 15 описує це. `validatePrefix` перевіряє валідність сегмента мови в URL.
 
 </Question>
 <Question title="Як автоматично перекласти додаток TanStack Start за допомогою AI?">

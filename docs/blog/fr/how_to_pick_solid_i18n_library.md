@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Comment choisir la bonne bibliothèque i18n pour Solid en 2026"
 description: "Un guide de décision pour l'i18n SolidJS et SolidStart : les questions à se poser avant de comparer @solid-primitives/i18n, solid-i18next, Paraglide, Lingui et Intlayer."
@@ -98,11 +98,11 @@ La taille des bibliothèques provient du [benchmark Solid](https://github.com/ay
 
 | Bibliothèque             | Modèle de contenu                              | Réactivité au changement de locale                         | Sûreté des types                           | Scoping et lazy loading       | Taille de la bibliothèque                                  |
 | :----------------------- | :--------------------------------------------- | :--------------------------------------------------------- | :----------------------------------------- | :---------------------------- | :--------------------------------------------------------- |
-| `@solid-primitives/i18n` | Dictionnaire plat géré par vos soins           | Signal, accessors retournés par translator                 | 3/5 — Inféré depuis le dictionnaire source | Aucun intégré                 | ~0,6 ko                                                    |
-| `solid-i18next`          | Catalogues et namespaces i18next               | Store, re-render via le provider                           | 2/5 — Déclaration manuelle                 | Namespaces, backends lazy     | ~14,9 ko                                                   |
-| Paraglide                | Projet inlang, fonctions générées              | Lecture par appel depuis cookie/storage                    | 3.5/5 — Généré                             | Tree-shaking (hors benchmark) | Proche de zéro (grâce au code généré dans la base de code) |
-| `@lingui/solid`          | Texte source dans le code, catalogues compilés | Basé sur des signals                                       | 2/5 — Depuis le compilateur                | Par catalogue                 | ~11,8 ko                                                   |
-| Intlayer                 | Un `.content.ts` par composant                 | Nœuds adossés à des signals, pas de re-render du composant | 5/5 — Généré, activé par défaut            | Oui, par composant            | ~4,3 ko                                                    |
+| `@solid-primitives/i18n` | Dictionnaire plat géré par vos soins           | Signal, accessors retournés par translator                 | 3/5 - Inféré depuis le dictionnaire source | Aucun intégré                 | ~0,6 ko                                                    |
+| `solid-i18next`          | Catalogues et namespaces i18next               | Store, re-render via le provider                           | 2/5 - Déclaration manuelle                 | Namespaces, backends lazy     | ~14,9 ko                                                   |
+| Paraglide                | Projet inlang, fonctions générées              | Lecture par appel depuis cookie/storage                    | 3.5/5 - Généré                             | Tree-shaking (hors benchmark) | Proche de zéro (grâce au code généré dans la base de code) |
+| `@lingui/solid`          | Texte source dans le code, catalogues compilés | Basé sur des signals                                       | 2/5 - Depuis le compilateur                | Par catalogue                 | ~11,8 ko                                                   |
+| Intlayer                 | Un `.content.ts` par composant                 | Nœuds adossés à des signals, pas de re-render du composant | 5/5 - Généré, activé par défaut            | Oui, par composant            | ~4,3 ko                                                    |
 
 > Ces chiffres sont un instantané basé sur les versions du benchmark. La taille de `@lingui/solid` provient du benchmark TanStack Start. Testez sur votre propre application avant de décider uniquement sur la taille.
 > Sûreté des types : 5/5 signifie que les clés, les paramètres et chaque locale sont vérifiés sans configuration manuelle, y compris le formateur d'URL et les helpers.

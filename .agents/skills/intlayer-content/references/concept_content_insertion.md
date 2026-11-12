@@ -1,8 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
-title: Insertion
-description: Learn how to declare and use insertion placeholders in your content. This documentation guides you through the steps to dynamically insert values within predefined content structures.
+updatedAt: 2026-09-27
+priority: 8
+title: "Insertion: Variables in Translated Content"
+description: "Insert dynamic values into translated strings with Intlayer's insert() node and {{placeholders}}, typed from your content declaration."
 keywords:
   - Insertion
   - Dynamic Content
@@ -19,10 +20,11 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Automatic decoration of insertion content
+    changes: "Automatic decoration of insertion content"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
+author: aymericzip
 ---
 
 # Insertion Content / Insertion in Intlayer
@@ -56,37 +58,6 @@ To set up insertion content in your Intlayer project, create a content module th
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert(
-          "Hello, my name is {{name}} and I am {{age}} years old!"
-        ),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert(
-          "Hello, my name is {{name}} and I am {{age}} years old!"
-        ),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
 
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
@@ -135,7 +106,7 @@ To set up insertion content in your Intlayer project, create a content module th
 
 To utilize insertion content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the content for the specified key and allows you to pass in an object that maps each placeholder in your content to the value you wish to display.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -161,60 +132,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* You can reuse the same insertion with different values */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* You can reuse the same insertion with different values */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Additional Resources

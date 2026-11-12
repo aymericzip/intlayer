@@ -25,11 +25,13 @@ import {
 } from '@components/Form';
 import { Checkbox, Input } from '@components/Input';
 import { Loader } from '@components/Loader';
-import { Pagination } from '@components/Pagination';
+import { PopoverStatic } from '@components/Popover';
 import { MultiSelect, Select } from '@components/Select';
-import { useEditedContent } from '@intlayer/editor-react';
+import {
+  useDictionariesRecord,
+  useEditedContent,
+} from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import { cn } from '@utils/cn';
 import { AnimatePresence, m } from 'framer-motion';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo, useState } from 'react';
@@ -39,12 +41,22 @@ import {
   formatDictionaryVariant,
   parseDictionaryVariant,
 } from '../dictionaryVariant';
+import { isSameDictionary } from '../SiblingSwitcher/siblingSelection';
+import { LinkedDictionariesTable } from './LinkedDictionariesTable';
+import { type LinkedTag, LinkedTagsTable } from './LinkedTagsTable';
+import { StructuredVariantFieldsEditor } from './StructuredVariantFieldsEditor';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
   mode: ('local' | 'remote')[];
   onSelectSibling?: (dictionary: Dictionary) => void;
+  /** Dictionaries sharing the key; fetched by key when omitted. */
+  siblings?: Dictionary[];
+  /** Opens a dictionary of another key (same-tags table). */
+  onOpenDictionary?: (dictionary: Dictionary) => void;
+  /** Opens the page of a tag of the dictionary. */
+  onOpenTag?: (tagKey: string) => void;
 };
 
 type QualifierType = 'collection' | 'variant';
@@ -82,6 +94,9 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
   mode,
   onSelectSibling,
+  siblings: siblingsProp,
+  onOpenDictionary,
+  onOpenTag,
 }) => {
   const { session } = useSession();
   const { project } = session ?? {};
@@ -124,16 +139,99 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const { data: siblingsData, isLoading: isLoadingSiblings } =
     useGetDictionaries(
       { keys: [dictionary.key] },
-      { enabled: !!dictionary.key }
+      { enabled: !siblingsProp && Boolean(dictionary.key) }
     );
 
   const siblings = useMemo<Dictionary[]>(
     () =>
-      ((siblingsData?.data ?? []) as unknown as Dictionary[]).filter(
-        (d: Dictionary) => d.localId !== dictionary.localId
+      (
+        siblingsProp ?? ((siblingsData?.data ?? []) as unknown as Dictionary[])
+      ).filter(
+        (sibling) =>
+          sibling.key === dictionary.key &&
+          !isSameDictionary(sibling, dictionary)
       ),
-    [siblingsData, dictionary.localId]
+    [siblingsProp, siblingsData, dictionary]
   );
+
+  /** The dictionary and its same-key siblings: by variant, item, locale. */
+  const linkedDictionaries = useMemo<Dictionary[]>(
+    () =>
+      [dictionary, ...siblings].sort(
+        (firstDictionary, secondDictionary) =>
+          formatDictionaryVariant(firstDictionary.variant).localeCompare(
+            formatDictionaryVariant(secondDictionary.variant)
+          ) ||
+          (firstDictionary.item ?? -1) - (secondDictionary.item ?? -1) ||
+          String(firstDictionary.locale ?? '').localeCompare(
+            String(secondDictionary.locale ?? '')
+          )
+      ),
+    [dictionary, siblings]
+  );
+  const dictionaryTags = dictionary.tags ?? [];
+
+  /** Tags of the dictionary, with their name / description when known. */
+  const linkedTags = useMemo<LinkedTag[]>(
+    () =>
+      dictionaryTags.map((tagKey) => {
+        const tagRecord = (allTags as LinkedTag[]).find(
+          (tag) => tag.key === tagKey
+        );
+
+        return {
+          key: tagKey,
+          name: tagRecord?.name,
+          description: tagRecord?.description,
+        };
+      }),
+    [dictionaryTags, allTags]
+  );
+  const {
+    data: taggedDictionariesData,
+    isLoading: isLoadingTaggedDictionaries,
+  } = useGetDictionaries(
+    { tags: dictionaryTags, pageSize: 100 },
+    { enabled: dictionaryTags.length > 0 }
+  );
+  const { localeDictionaries } = useDictionariesRecord();
+
+  /** Other keys sharing at least one tag (backend + local-only). */
+  const sameTagDictionaries = useMemo<Dictionary[]>(() => {
+    if (dictionaryTags.length === 0) return [];
+
+    const localeOnlyDictionaries = Object.values(
+      localeDictionaries ?? {}
+    ).filter((localeDictionary) => !localeDictionary.id);
+
+    return [
+      ...((taggedDictionariesData?.data ?? []) as unknown as Dictionary[]),
+      ...localeOnlyDictionaries,
+    ]
+      .filter(
+        (taggedDictionary) =>
+          taggedDictionary.key !== dictionary.key &&
+          taggedDictionary.tags?.some((tag) => dictionaryTags.includes(tag))
+      )
+      .sort((firstDictionary, secondDictionary) =>
+        firstDictionary.key.localeCompare(secondDictionary.key)
+      );
+  }, [
+    taggedDictionariesData,
+    localeDictionaries,
+    dictionary.key,
+    dictionaryTags,
+  ]);
+
+  const linkedDictionaryLabels = {
+    key: siblingContent.keyColumn,
+    locale: siblingContent.localeColumn,
+    variant: siblingContent.variants,
+    item: siblingContent.itemIndex,
+    tags: siblingContent.tagsColumn,
+    title: siblingContent.titleColumn,
+    current: siblingContent.currentTag,
+  };
 
   const itemSiblings = useMemo(
     () =>
@@ -157,13 +255,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     }
     return itemSiblings;
   }, [dictionary, itemSiblings]);
-
-  const allVariantDicts = useMemo<Dictionary[]>(() => {
-    if (dictionary.variant !== undefined) {
-      return [dictionary, ...variantSiblings];
-    }
-    return variantSiblings;
-  }, [dictionary, variantSiblings]);
 
   useEffect(() => {
     form.reset({
@@ -224,8 +315,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const isLocalChecked =
     watchedLocation === 'local' || watchedLocation === 'hybrid';
 
-  const hasSiblings = siblings.length > 0;
-
   const [selectedTypes, setSelectedTypes] = useState<QualifierType[]>(() =>
     deriveQualifierTypes(dictionary)
   );
@@ -234,6 +323,13 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     formatDictionaryVariant(dictionary.variant)
   );
   const [variantJsonError, setVariantJsonError] = useState(false);
+  const parsedVariant = parseDictionaryVariant(variantValue);
+  const structuredVariantFields =
+    !parsedVariant.error &&
+    typeof parsedVariant.variant === 'object' &&
+    !Array.isArray(parsedVariant.variant)
+      ? parsedVariant.variant
+      : undefined;
   const [showSiblingPicker, setShowSiblingPicker] = useState(false);
 
   const allQualifiedSiblings = useMemo<Dictionary[]>(
@@ -281,7 +377,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
   return (
     <Form
-      className="flex w-full flex-col gap-8"
+      className="relative flex w-full flex-col gap-8"
       {...form}
       schema={DictionaryDetailsSchema}
     >
@@ -571,8 +667,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         borderColor="card"
       >
         <div className="flex flex-col gap-1">
-          <p className="ms-1 font-semibold text-sm">{typeSwitch.label}</p>
-          <p className="ms-1 text-muted text-xs">{typeSwitch.description}</p>
+          <p className="ms-1 text-sm font-semibold">{typeSwitch.label}</p>
+          <p className="ms-1 text-xs text-neutral">{typeSwitch.description}</p>
         </div>
         <MultiSelect
           values={selectedTypes}
@@ -610,7 +706,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               <div className="flex flex-col gap-2 px-1">
                 <label
                   htmlFor="qualifier-item-value"
-                  className="ms-1 font-medium text-sm"
+                  className="ms-1 text-sm font-medium"
                 >
                   {typeSwitch.itemValueLabel}
                 </label>
@@ -645,33 +741,58 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               transition={{ duration: 0.2 }}
             >
               <div className="flex flex-col gap-2 px-1">
-                <label
-                  htmlFor="qualifier-variant-value"
-                  className="ms-1 font-medium text-sm"
-                >
-                  {typeSwitch.variantValueLabel}
-                </label>
-                <Input
-                  id="qualifier-variant-value"
-                  type="text"
-                  value={variantValue}
-                  placeholder={typeSwitch.variantValuePlaceholder.value}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setVariantValue(value);
-                    const { variant, error } = parseDictionaryVariant(value);
-                    setVariantJsonError(error);
-                    if (!error) {
+                {structuredVariantFields ? (
+                  <StructuredVariantFieldsEditor
+                    key={dictionary.localId}
+                    fields={structuredVariantFields}
+                    labels={{
+                      title: typeSwitch.variantFieldsLabel.value,
+                      fieldName: typeSwitch.variantFieldName.value,
+                      fieldValue: typeSwitch.variantFieldValue.value,
+                      addField: typeSwitch.addVariantField.value,
+                      removeField: typeSwitch.removeVariantField.value,
+                    }}
+                    onChange={(fields) => {
+                      setVariantValue(JSON.stringify(fields));
                       setEditedDictionary({
                         ...dictionary,
                         ...(updatedDictionary ?? {}),
-                        variant,
+                        variant: fields,
                       });
-                    }
-                  }}
-                />
+                    }}
+                  />
+                ) : (
+                  <>
+                    <label
+                      htmlFor="qualifier-variant-value"
+                      className="ms-1 text-sm font-medium"
+                    >
+                      {typeSwitch.variantValueLabel}
+                    </label>
+                    <Input
+                      id="qualifier-variant-value"
+                      type="text"
+                      value={variantValue}
+                      placeholder={typeSwitch.variantValuePlaceholder.value}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setVariantValue(value);
+                        const { variant, error } =
+                          parseDictionaryVariant(value);
+                        setVariantJsonError(error);
+                        if (!error) {
+                          setEditedDictionary({
+                            ...dictionary,
+                            ...(updatedDictionary ?? {}),
+                            variant,
+                          });
+                        }
+                      }}
+                    />
+                  </>
+                )}
                 {variantJsonError && (
-                  <p className="ms-1 text-destructive text-xs">
+                  <p className="text-destructive ms-1 text-xs">
                     {typeSwitch.variantJsonError}
                   </p>
                 )}
@@ -695,10 +816,10 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 padding="md"
                 className="gap-3"
               >
-                <p className="font-medium text-sm">
+                <p className="text-sm font-medium">
                   {typeSwitch.disablePickerTitle}
                 </p>
-                <p className="text-muted text-xs">
+                <p className="text-xs text-muted">
                   {typeSwitch.disablePickerDescription}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -741,87 +862,56 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         border
         borderColor="neutral"
       >
-        <p className="font-semibold text-sm">{siblingContent.title}</p>
-        <Loader isLoading={isLoadingSiblings}>
-          {!hasSiblings && (
-            <p className="text-muted text-sm">{siblingContent.noSiblings}</p>
+        <p className="text-sm font-semibold">{siblingContent.title}</p>
+        <Loader
+          isLoading={
+            (!siblingsProp && isLoadingSiblings) || isLoadingTaggedDictionaries
+          }
+        >
+          {siblings.length === 0 &&
+            sameTagDictionaries.length === 0 &&
+            linkedTags.length === 0 && (
+              <span className="m-auto text-sm text-neutral">
+                {siblingContent.noSiblings}
+              </span>
+            )}
+          {siblings.length > 0 && (
+            <LinkedDictionariesTable
+              title={siblingContent.sameKeyTitle}
+              dictionaries={linkedDictionaries}
+              currentDictionary={dictionary}
+              onSelectDictionary={onSelectSibling}
+              labels={linkedDictionaryLabels}
+            />
           )}
-
-          {allItemDicts.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <p className="font-medium text-muted text-xs uppercase tracking-wide">
-                {siblingContent.collectionItems}
-              </p>
-              <Pagination
-                currentPage={
-                  allItemDicts.findIndex(
-                    (dictionaryEl) =>
-                      dictionaryEl.localId === dictionary.localId
-                  ) + 1 || 1
-                }
-                totalPages={allItemDicts.length}
-                onPageChange={(page) => {
-                  const target = allItemDicts[page - 1];
-                  if (target && onSelectSibling) {
-                    onSelectSibling(target);
-                  }
-                }}
-                showPrevNext
-              />
-              <div className="mt-1 flex flex-wrap gap-2">
-                {allItemDicts.map((sibling) => {
-                  const isActive = sibling.localId === dictionary.localId;
-                  return (
-                    <button
-                      key={sibling.localId}
-                      type="button"
-                      onClick={() => !isActive && onSelectSibling?.(sibling)}
-                      className={cn(
-                        'rounded-lg px-3 py-1 text-xs transition-colors',
-                        isActive
-                          ? 'bg-text font-semibold text-foreground-opposite'
-                          : 'cursor-pointer border border-border hover:bg-text/10'
-                      )}
-                    >
-                      {siblingContent.itemIndex} {sibling.item}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+          {sameTagDictionaries.length > 0 && (
+            <LinkedDictionariesTable
+              title={siblingContent.sameTagsTitle}
+              dictionaries={sameTagDictionaries}
+              currentDictionary={dictionary}
+              onSelectDictionary={onOpenDictionary}
+              labels={linkedDictionaryLabels}
+            />
           )}
-
-          {allVariantDicts.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <p className="font-medium text-muted text-xs uppercase tracking-wide">
-                {siblingContent.variants}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {allVariantDicts.map((sibling) => {
-                  const isActive = sibling.localId === dictionary.localId;
-                  return (
-                    <button
-                      key={sibling.localId}
-                      type="button"
-                      onClick={() => !isActive && onSelectSibling?.(sibling)}
-                      className={cn(
-                        'rounded-lg px-3 py-1 text-xs transition-colors',
-                        isActive
-                          ? 'bg-text font-semibold text-foreground-opposite'
-                          : 'cursor-pointer border border-border hover:bg-text/10'
-                      )}
-                    >
-                      {formatDictionaryVariant(sibling.variant)}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+          {linkedTags.length > 0 && (
+            <LinkedTagsTable
+              title={siblingContent.tagsColumn}
+              tags={linkedTags}
+              onSelectTag={onOpenTag}
+              labels={{
+                key: siblingContent.keyColumn,
+                name: siblingContent.nameColumn,
+                description: siblingContent.descriptionColumn,
+              }}
+            />
           )}
         </Loader>
       </Container>
 
-      <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
+      <PopoverStatic
+        identifier="audit-dictionary-details"
+        className="absolute top-0 right-0"
+      >
         <FormButton
           type="button"
           size="icon-md"
@@ -829,12 +919,19 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           Icon={WandSparkles}
           variant="outline"
           color="text"
-          className="max-md:w-full"
           onClick={handleOnAuditFile}
           disabled={isSubmitting || isAuditing}
           isLoading={isAuditing}
         />
-      </div>
+        <PopoverStatic.Detail
+          identifier="audit-dictionary-details"
+          xAlign="end"
+        >
+          <Container padding="sm" roundedSize="xl">
+            <span className="text-nowrap">{auditButton.popover}</span>
+          </Container>
+        </PopoverStatic.Detail>
+      </PopoverStatic>
     </Form>
   );
 };

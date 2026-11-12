@@ -10,7 +10,7 @@ export const ShowcaseHeader = () => {
   return (
     <div className="flex w-full max-w-7xl flex-col gap-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-16">
       <div>
-        <H1 className="font-bold text-4xl text-text">
+        <H1 className="text-4xl font-bold text-text">
           {content.showcase.title}
         </H1>
         <p className="mt-2 text-lg text-neutral-500">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: 2026 年，next-intl 已经过时了吗？
 description: next-intl 已成为 Next.js App Router 的主流国际化方案。然而，其运行时打包体积开销以及繁琐的手动命名空间拆分依然是不可忽视的短板。
@@ -306,7 +306,7 @@ Intlayer 则直接基于内容声明生成全局类型。开启 [`strictMode`](h
 
 内置的 LSP 与 MCP Server 赋予 AI 编程助手透视多语言依赖结构的能力，极大提升代码生成与维护的精准度。
 
-## 与 Crowdin 的商业捆绑
+## 与 Crowdin 的商业打包
 
 `next-intl` 与 Crowdin 拥有官方合作关系。商业赞助对开源生态固然有益，但也左右了功能演进的路线图：作为一个定位偏向商业翻译服务（TMS）客户端的工具，`next-intl` 缺乏动力在命令行中提供完全免费且本地化的 AI 自动翻译能力。
 

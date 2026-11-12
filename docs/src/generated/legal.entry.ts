@@ -92,7 +92,7 @@ const readLocale = (
   };
 
   return {
-    // biome-ignore lint/suspicious/noThenProperty: the thenable is intentional — `await` is what triggers the lazy read.
+    // oxlint-disable-next-line unicorn/no-thenable -- the thenable is intentional — `await` is what triggers the lazy read.
     then: (onFulfilled, onRejected) => read().then(onFulfilled, onRejected),
     catch: (onRejected) => read().catch(onRejected),
     finally: (onFinally) => read().finally(onFinally),
@@ -120,6 +120,7 @@ export const legalEntry = {
     id: readLocale('privacy_notice.md', 'id'),
     vi: readLocale('privacy_notice.md', 'vi'),
     uk: readLocale('privacy_notice.md', 'uk'),
+    'he-IL': readLocale('privacy_notice.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './legal/en/terms_of_service.md': {
     en: readLocale('terms_of_service.md', 'en'),
@@ -140,5 +141,6 @@ export const legalEntry = {
     id: readLocale('terms_of_service.md', 'id'),
     vi: readLocale('terms_of_service.md', 'vi'),
     uk: readLocale('terms_of_service.md', 'uk'),
+    'he-IL': readLocale('terms_of_service.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

@@ -1,3 +1,4 @@
+import { isSelfHosted } from '@utils/isSelfHosted';
 import type { Plan } from '@/types/plan.types';
 
 /**
@@ -27,7 +28,7 @@ export const retrievePlanInformation = (
 export const isLifetimePriceId = (priceId: string): boolean =>
   Boolean(
     process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID &&
-      priceId === process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID
+    priceId === process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID
   );
 
 type PlanDetails = {
@@ -36,6 +37,8 @@ type PlanDetails = {
   totalStorage?: number;
   SeoAI: boolean;
   contentAI: boolean;
+  /** AI credits granted each calendar month (UTC) when using Intlayer's AI key. */
+  monthlyAICredits: number;
 };
 
 const planDetails: Record<Plan['type'], PlanDetails> = {
@@ -45,6 +48,7 @@ const planDetails: Record<Plan['type'], PlanDetails> = {
     totalStorage: 100, // 100 MB
     SeoAI: false,
     contentAI: false,
+    monthlyAICredits: 100,
   },
   PREMIUM: {
     numberOfOrganizationUsers: 20,
@@ -52,6 +56,7 @@ const planDetails: Record<Plan['type'], PlanDetails> = {
     totalStorage: 500, // 500 MB
     SeoAI: false,
     contentAI: true,
+    monthlyAICredits: 2_000,
   },
   ENTERPRISE: {
     numberOfOrganizationUsers: undefined,
@@ -59,6 +64,7 @@ const planDetails: Record<Plan['type'], PlanDetails> = {
     totalStorage: undefined,
     SeoAI: true,
     contentAI: true,
+    monthlyAICredits: 10_000,
   },
   LIFETIME: {
     numberOfOrganizationUsers: undefined,
@@ -66,10 +72,30 @@ const planDetails: Record<Plan['type'], PlanDetails> = {
     totalStorage: undefined,
     SeoAI: true,
     contentAI: true,
+    monthlyAICredits: 10_000,
   },
 };
 
-export const getPlanDetails = (plan?: Plan): PlanDetails => {
+/**
+ * Self-hosted deployments have no subscription: nothing is limited, and AI
+ * runs on the projects' own AI configuration, never on credits.
+ */
+const selfHostedPlanDetails: PlanDetails = {
+  numberOfOrganizationUsers: undefined,
+  numberOfProjects: undefined,
+  totalStorage: undefined,
+  SeoAI: true,
+  contentAI: true,
+  monthlyAICredits: 0,
+};
+
+export const getPlanDetails = (
+  plan?: Pick<Plan, 'status' | 'type'>
+): PlanDetails => {
+  if (isSelfHosted()) {
+    return selfHostedPlanDetails;
+  }
+
   if (plan?.status !== 'active') {
     return planDetails.FREE;
   }

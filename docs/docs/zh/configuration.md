@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Intlayer 配置（intlayer.config.ts）"
 description: 了解如何为您的应用程序配置 Intlayer。了解可用于根据您的需求自定义 Intlayer 的各种设置和选项。
@@ -409,7 +409,7 @@ const config: IntlayerConfig = {
     /**
      * 所选提供商使用的模型。
      */
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
 
     /**
      * 提供商的 API 密钥。
@@ -814,8 +814,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -834,8 +834,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default",
@@ -866,8 +866,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "search-params",
@@ -886,8 +886,8 @@ import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr", "es"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "no-prefix",
@@ -906,12 +906,13 @@ export default config;
 
 ```typescript
 // intlayer.config.ts
+import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
   },
   routing: {
     mode: "prefix-no-default", // 未重写路径的回退
@@ -1046,7 +1047,7 @@ Intlayer 支持多个 AI 提供商，以提供最大的灵活性。当前支持�
 | 字段                 | 说明                                                                                 | 类型                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 默认值      | 示例                                                          | 备注                                                                                                                                              |
 | -------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `provider`           | 要为 Intlayer AI 功能使用的提供商。                                                  | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` &#124; <br/> `'moonshotai'` | `undefined` | `'anthropic'`                                                 | 不同的提供商需要不同的 API 密钥，且价格不同。                                                                                                     |
-| `model`              | 要为 AI 功能使用的 AI 模型。                                                         | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | 无          | `'gpt-4o-2024-11-20'`                                         | 具体模型取决于提供商。                                                                                                                            |
+| `model`              | 要为 AI 功能使用的 AI 模型。                                                         | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | 无          | `'gpt-5.6-terra'`                                             | 具体模型取决于提供商。                                                                                                                            |
 | `temperature`        | 控制 AI 响应的随机性。                                                               | `number`                                                                                                                                                                                                                                                                                                                                                                                                                                             | 无          | `0.1`                                                         | 温度越高 = 越具创造力且越不可靠。                                                                                                                 |
 | `apiKey`             | 所选提供商的您的 API 密钥。                                                          | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | 无          | `process.env.OPENAI_API_KEY`                                  | 应保持私密；使用环境变量。                                                                                                                        |
 | `applicationContext` | 有关应用程序的其他上下文，以帮助 AI 生成更准确的翻译（领域、目标受众、语气、术语）。 | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                             | 无          | `'我的自定义应用程序上下文'`                                  | 可用于添加规则（例如：`"您不应转换您的 URL"` ）。                                                                                                 |

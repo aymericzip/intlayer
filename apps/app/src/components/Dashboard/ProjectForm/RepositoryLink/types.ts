@@ -1,4 +1,6 @@
-export type RepositoryProvider = 'github' | 'gitlab' | 'bitbucket';
+import type { RepositoryProvider } from '@intlayer/backend-contract/project';
+
+export type { RepositoryProvider };
 
 export type ConfigPreviewState = {
   repo: RepoData;
@@ -40,34 +42,20 @@ export type RepoData = {
   slug?: string;
 };
 
-// Provider info for UI
-export type ProviderInfo = {
-  id: RepositoryProvider;
-  name: string;
-  icon: string;
-  supportsCustomDomain: boolean;
+/**
+ * Repository detected outside the dashboard (ex: the `origin` remote read by
+ * `intlayer init`), used to pre-fill the repository link.
+ */
+export type DetectedRepository = {
+  provider: RepositoryProvider;
+  owner: string;
+  repository: string;
+  branch?: string;
+  /** Intlayer configuration file, relative to the repository root */
+  configFilePath?: string;
+  /** Self-managed GitLab instance */
+  instanceUrl?: string;
 };
-
-export const PROVIDERS: ProviderInfo[] = [
-  {
-    id: 'github',
-    name: 'GitHub',
-    icon: 'github',
-    supportsCustomDomain: false,
-  },
-  {
-    id: 'gitlab',
-    name: 'GitLab',
-    icon: 'gitlab',
-    supportsCustomDomain: true,
-  },
-  {
-    id: 'bitbucket',
-    name: 'Bitbucket',
-    icon: 'bitbucket',
-    supportsCustomDomain: false,
-  },
-];
 
 // Connected repository state (stored in project)
 export type ConnectedRepository = {

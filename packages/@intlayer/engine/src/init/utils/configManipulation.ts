@@ -277,6 +277,63 @@ export const setIntlayerConfigCompilerOutput = (
 };
 
 /**
+ * Sets `dictionary.locale` in an Intlayer configuration file to the configured
+ * `internationalization.defaultLocale`, making new content declarations
+ * per-locale. The default locale expression is copied as-is (e.g.
+ * `Locales.ENGLISH`), falling back to `'en'` when it cannot be read.
+ * Idempotent. Supports `.ts`, `.mjs`, `.js`, `.cjs` and `.json` configs.
+ */
+export const setIntlayerConfigDictionaryLocale = (
+  content: string,
+  extension: string
+): string => {
+  if (extension === 'json') {
+    const parsed = JSON.parse(content);
+    parsed.dictionary = {
+      ...parsed.dictionary,
+      locale: parsed.internationalization?.defaultLocale ?? 'en',
+    };
+    return JSON.stringify(parsed, null, 2);
+  }
+
+  const ast = recast.parse(content, {
+    parser: typescriptParser,
+  });
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (!isObjectExpression(objExpr)) return;
+
+    const internationalizationValue = (objExpr.properties as any[]).find(
+      (prop: any) =>
+        (prop?.key?.name ?? prop?.key?.value) === 'internationalization'
+    )?.value;
+
+    const defaultLocaleNode = isObjectExpression(internationalizationValue)
+      ? (internationalizationValue.properties as any[]).find(
+          (prop: any) =>
+            (prop?.key?.name ?? prop?.key?.value) === 'defaultLocale'
+        )?.value
+      : undefined;
+
+    const dictionaryProperty = ensureObjectProperty(
+      objExpr,
+      'dictionary',
+      b.objectExpression([])
+    );
+
+    if (!isObjectExpression(dictionaryProperty.value)) return;
+
+    setObjectPropertyValue(
+      dictionaryProperty.value,
+      'locale',
+      defaultLocaleNode ?? b.stringLiteral('en')
+    );
+  });
+
+  return recast.print(ast).code;
+};
+
+/**
  * Enables the Intlayer visual editor in a configuration file: sets
  * `editor.enabled` to `true` and wires `clientId` / `clientSecret` to the
  * `INTLAYER_CLIENT_ID` / `INTLAYER_CLIENT_SECRET` environment variables.

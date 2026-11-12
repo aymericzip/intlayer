@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Solid Start i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer у SolidStart: серверна маршрутизація за локалями, реактивний перекладений контент, hreflang і багатомовна карта сайту."
@@ -488,7 +488,7 @@ export default function Home() {
 
 > Щоб дізнатися більше про хук `useIntlayer`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useIntlayer.md).
 
-- [useIntlayer Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useIntlayer.md)
+- [Документація хука useIntlayer | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useIntlayer.md)
 
 Вузли контенту не обмежуються простими перекладами. Наприклад, лічильник з множиною:
 
@@ -649,7 +649,7 @@ export const LocaleSwitcher: Component = () => {
 >
 > Щоб дізнатися більше про хук `useLocale`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useLocale.md).
 
-- [useLocale Hook Documentation | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useLocale.md)
+- [Документація хука useLocale | solid-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useLocale.md)
 
 </Step>
 <Step number={11} title="Сформуйте посилання canonical та hreflang" isOptional={true}>
@@ -1069,7 +1069,7 @@ node .output/server/index.mjs
 
 Для детальнішої інформації про використання розширення зверніться до документації [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
-- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [Розширення Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
 
 ## Поглиблення
 
@@ -1087,7 +1087,7 @@ node .output/server/index.mjs
 - [Декларація контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
 - [Конфігурація](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 

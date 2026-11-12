@@ -38,7 +38,7 @@ export const AffiliateOnboarding: FC = () => {
 
   if (isError) {
     return (
-      <p className="text-error text-sm">
+      <p className="text-sm text-error">
         {content.failedToLoadOnboardingPlease}
       </p>
     );
@@ -46,10 +46,10 @@ export const AffiliateOnboarding: FC = () => {
 
   return (
     <div className="flex flex-col items-start gap-4">
-      <p className="text-neutral/60 text-sm">
+      <p className="text-sm text-neutral/60">
         {content.completeYourPayoutSetup}
       </p>
-      <p className="text-neutral/60 text-sm">
+      <p className="text-sm text-neutral/60">
         {content.onceCompletedReturnHereAnd}
       </p>
       <Button

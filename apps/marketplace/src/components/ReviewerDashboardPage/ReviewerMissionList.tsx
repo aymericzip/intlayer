@@ -47,7 +47,7 @@ export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
   const isReviewer = perspective === 'reviewer';
 
   if (missions.length === 0) {
-    return <p className="text-neutral text-sm">{content.noMissionsYet}</p>;
+    return <p className="text-sm text-neutral">{content.noMissionsYet}</p>;
   }
 
   return (
@@ -70,7 +70,7 @@ export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
                 >
                   {STATUS_LABELS[mission.status] ?? mission.status}
                 </Badge>
-                <span className="text-neutral text-xs">
+                <span className="text-xs text-neutral">
                   {mission.sourceLocale} → {mission.targetLocales.join(', ')}
                 </span>
               </div>
@@ -82,7 +82,7 @@ export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
                 </span>
               </p>
               {mission.notes && (
-                <p className="line-clamp-1 text-neutral text-xs">
+                <p className="line-clamp-1 text-xs text-neutral">
                   {mission.notes}
                 </p>
               )}

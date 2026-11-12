@@ -29,29 +29,29 @@ export const FeaturesSection: FC = () => {
       <section className="grid grid-cols-4 gap-px border-b bg-border">
         <div className="col-span-2 flex flex-col gap-4 bg-background p-6">
           <IDESection />
-          <h1 className="text-3xl">{sectionsData[0].title}</h1>
-          <p className="text-muted-foreground leading-6">
+          <h1 className="text-3xl text-nowrap">{sectionsData[0].title}</h1>
+          <p className="leading-6 text-muted-foreground">
             {sectionsData[0].description}
           </p>
         </div>
         <div className="col-span-2 flex flex-col gap-4 bg-background p-6">
           <CompilerSection />
           <h1 className="text-3xl">{sectionsData[1].title}</h1>
-          <p className="text-muted-foreground leading-6">
+          <p className="leading-6 text-muted-foreground">
             {sectionsData[1].description}
           </p>
         </div>
         <div className="col-span-4 flex flex-col gap-4 bg-background p-6">
           <LanguageSection />
           <h1 className="text-3xl">{sectionsData[3].title}</h1>
-          <p className="text-muted-foreground leading-6">
+          <p className="leading-6 text-muted-foreground">
             {sectionsData[3].description}
           </p>
         </div>
         <div className="col-span-2 flex flex-col gap-4 bg-background p-6">
           <VisualEditorSection />
           <h1 className="text-3xl">{sectionsData[2].title}</h1>
-          <p className="text-muted-foreground leading-6">
+          <p className="leading-6 text-muted-foreground">
             {sectionsData[2].description}
           </p>
           <Link
@@ -71,7 +71,7 @@ export const FeaturesSection: FC = () => {
         <div className="col-span-2 flex flex-col gap-4 bg-background p-6">
           <TestSection />
           <h1 className="text-3xl">{sectionsData[4].title}</h1>
-          <p className="text-muted-foreground leading-6">
+          <p className="leading-6 text-muted-foreground">
             {sectionsData[4].description}
           </p>
         </div>

@@ -24,9 +24,12 @@ export const CopyMarkdownMessage: FC<CopyMarkdownMessageProps> = ({
   const markdownRequest = useRef<Promise<string> | null>(null);
 
   const loadMarkdown = () => {
-    markdownRequest.current ??= fetch(markdownUrl, {
-      headers: { Accept: 'text/markdown' },
-    }).then((response) => response.text());
+    // Plain `if` rather than `??=`, which the React Compiler cannot compile yet.
+    if (!markdownRequest.current) {
+      markdownRequest.current = fetch(markdownUrl, {
+        headers: { Accept: 'text/markdown' },
+      }).then((response) => response.text());
+    }
 
     return markdownRequest.current;
   };

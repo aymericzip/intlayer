@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Angular 19 i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer в Angular 19 з Angular CLI: типізований контент поруч із компонентами, зміна локалі в рантаймі та локалізована маршрутизація."
@@ -67,7 +67,7 @@ Intlayer оптимізовано для ідеальної роботи з Angu
 </Accordion>
 <Accordion header="Автоматизація">
 
-Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації вилучення контенту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
 
 - [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
@@ -79,10 +79,10 @@ Intlayer оптимізовано для ідеальної роботи з Angu
 </Accordion>
 <Accordion header="Співпраця з не-розробниками">
 
-Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
-- [повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -482,14 +482,14 @@ Intlayer використовує розширення модулів (module au
 
 - [документацію розширення Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
 
-### Йти далі
+### Додаткові можливості
 
 Щоб йти далі, ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій вміст у зовнішню систему за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 
@@ -519,7 +519,7 @@ Intlayer використовує розширення модулів (module au
 Більшою мірою так. Скористайтеся [оглядом адаптерів сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md). Ви також можете зберігати файли JSON через [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md).
 
 - [Міграція з NGX-Translate на Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/ngx-translate.md)
-- [Transloco migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/transloco.md)
+- [Посібник з міграції з Transloco](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/transloco.md)
 - [sync JSON плагін](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/plugins/sync-json.md)
 
 </Question>
@@ -611,7 +611,7 @@ Intlayer використовує розширення модулів (module au
 </Question>
 <Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
 
-Так, за ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS — це необов'язковий платний сервіс, який також можна [розгорнути самостійно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+Так, за ліцензією Apache 2.0, включно з комерційним використанням. Хмарна CMS - це необов'язковий платний сервіс, який також можна [розгорнути самостійно](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
 
 - [самостійне розгортання](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
 

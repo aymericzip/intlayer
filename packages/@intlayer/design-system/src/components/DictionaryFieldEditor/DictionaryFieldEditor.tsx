@@ -1,178 +1,427 @@
 'use client';
 
+import { useGetDictionaries } from '@api/index';
 import { Container } from '@components/Container';
 import { CopyToClipboard } from '@components/CopyToClipboard';
+import { usePersistedStore } from '@hooks/usePersistedStore';
 import {
   useConfiguration,
   useDictionariesRecordActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import { cn } from '@utils/cn';
 import { ArrowLeft } from 'lucide-react';
-import { type FC, type ReactNode, useEffect, useState } from 'react';
+import { type FC, type ReactNode, useEffect, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
 import { TabSelector } from '../TabSelector';
+import { ContentGrid } from './ContentGrid/ContentGrid';
+import {
+  ContentGridProvider,
+  useContentGrid,
+} from './ContentGrid/ContentGridContext';
+import { getIsMarkdownDocument } from './ContentGrid/flattenContentRows';
+import { MarkdownDocument } from './ContentGrid/MarkdownDocument';
+import { useIsNarrowContainer } from './ContentGrid/useIsNarrowContainer';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { JSONEditor } from './JSONEditor';
 import { NodeEditor } from './NodeEditor';
 import { SaveForm } from './SaveForm/SaveForm';
+import { DictionarySiblingSwitcher } from './SiblingSwitcher/DictionarySiblingSwitcher';
+import {
+  findSiblingForSelection,
+  getBaseSibling,
+  getSelectionOfSibling,
+  isSameDictionary,
+  type SiblingSelection,
+} from './SiblingSwitcher/siblingSelection';
 import { StructureEditor } from './StructureEditor';
+import { useUnsavedChangesGuard } from './useUnsavedChangesGuard';
 
-type DictionaryFieldEditorProps = {
+/** Ways to look at the content of a dictionary. */
+export type DictionaryEditorView =
+  | 'document'
+  | 'grid'
+  | 'tree'
+  | 'structure'
+  | 'json';
+
+export type DictionaryEditorTab = 'content' | 'details';
+
+export const TAB_STORAGE_KEY = 'intlayer:dictionary-editor:tab';
+export const VIEW_STORAGE_KEY = 'intlayer:dictionary-editor:view';
+
+const STORABLE_VIEWS: DictionaryEditorView[] = [
+  'grid',
+  'tree',
+  'structure',
+  'json',
+];
+
+/** Prompts before unload while the dictionary has unsaved changes. */
+const UnsavedChangesGuard: FC = () => {
+  const { changeSet } = useContentGrid();
+  useUnsavedChangesGuard(changeSet.length > 0);
+
+  return null;
+};
+
+export type DictionaryFieldEditorProps = {
   dictionary: Dictionary;
   onClickDictionaryList?: () => void;
+  /** Opens a related dictionary of another key (same tags). */
+  onOpenDictionary?: (dictionary: Dictionary) => void;
+  /** Opens the page of a tag of the dictionary. */
+  onOpenTag?: (tagKey: string) => void;
   onDelete?: () => void;
   onSave?: () => void;
   isDarkMode?: boolean;
   mode: ('local' | 'remote')[];
   showReturnButton?: boolean;
   rightContent?: ReactNode;
+  /** Locales the current user cannot edit (per-member restrictions). */
+  lockedLocales?: string[];
+  /**
+   * Dictionaries sharing the key (collection items, variants). Fetched from
+   * the CMS when omitted.
+   */
+  siblings?: Dictionary[];
+  tab?: DictionaryEditorTab;
+  onTabChange?: (tab: DictionaryEditorTab) => void;
+  view?: DictionaryEditorView;
+  onViewChange?: (view: DictionaryEditorView) => void;
 };
 
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
   onClickDictionaryList,
+  onOpenDictionary,
+  onOpenTag,
   isDarkMode,
   mode,
   onDelete,
   onSave,
   showReturnButton = true,
   rightContent,
+  lockedLocales,
+  siblings: siblingsProp,
+  tab: tabProp,
+  onTabChange,
+  view: viewProp,
+  onViewChange,
 }) => {
   const config = useConfiguration();
-  const { returnToDictionaryList } = useIntlayer('dictionary-field-editor');
-  const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
+  const {
+    returnToDictionaryList,
+    contentTab,
+    detailsTab,
+    viewSwitcherLabel,
+    documentView,
+    gridView,
+    treeView,
+    structureView,
+    jsonView,
+  } = useIntlayer('dictionary-field-editor');
+  const { setFocusedContent } = useFocusUnmergedDictionary();
   const { setLocaleDictionary } = useDictionariesRecordActions();
-  const [activeTab, setActiveTab] = useState<string>('content');
+  const { containerRef, isNarrow } = useIsNarrowContainer();
+  const isRemote = mode.includes('remote');
+
+  const [storedTab, setStoredTab] = usePersistedStore<DictionaryEditorTab>(
+    TAB_STORAGE_KEY,
+    'content'
+  );
+  const activeTab: DictionaryEditorTab =
+    tabProp ?? (isRemote && storedTab === 'details' ? 'details' : 'content');
+
+  const selectTab = (tab: DictionaryEditorTab) => {
+    onTabChange?.(tab);
+    setStoredTab(tab);
+  };
+
+  // Sibling selection (collection item / variant) applies to every view
+  const [activeDictionary, setActiveDictionary] =
+    useState<Dictionary>(dictionary);
+
+  // Follow the prop: after a save the query hands back fresh content
+  useEffect(() => {
+    setActiveDictionary(dictionary);
+  }, [dictionary]);
+
+  const hasQualifier =
+    dictionary.item !== undefined || dictionary.variant !== undefined;
+  const { data: siblingsResult } = useGetDictionaries(
+    { keys: [dictionary.key] },
+    {
+      enabled:
+        !siblingsProp && Boolean(dictionary.key) && (isRemote || hasQualifier),
+    }
+  );
+  const siblings = useMemo<Dictionary[]>(
+    () =>
+      siblingsProp ?? ((siblingsResult?.data ?? []) as unknown as Dictionary[]),
+    [siblingsProp, siblingsResult]
+  );
+
+  const activeSelection = getSelectionOfSibling(activeDictionary);
+
+  /** Switches every view to the given sibling dictionary. */
+  const activateSibling = (target: Dictionary | undefined) => {
+    if (!target || isSameDictionary(target, activeDictionary)) return;
+
+    setActiveDictionary(target);
+    setFocusedContent({
+      dictionaryKey: target.key,
+      dictionaryLocalId: target.localId,
+      keyPath: [],
+    });
+    setLocaleDictionary(target);
+  };
+
+  /** Switches every view to the sibling at the selected coordinates. */
+  const selectSibling = (selection: SiblingSelection) =>
+    activateSibling(
+      selection.item === null && selection.variant === null
+        ? (getBaseSibling(siblings) ?? dictionary)
+        : findSiblingForSelection(siblings, selection)
+    );
+
+  const isMarkdownDocument = getIsMarkdownDocument(activeDictionary.content);
+  const [storedView, setStoredView, , clearStoredView] = usePersistedStore<
+    DictionaryEditorView | undefined
+  >(VIEW_STORAGE_KEY, undefined);
+  // The document view is chosen by the dictionary itself, never remembered
+  const rememberedView = STORABLE_VIEWS.find((view) => view === storedView);
+  const [documentViewOverride, setDocumentViewOverride] =
+    useState<DictionaryEditorView>();
+  const activeView: DictionaryEditorView =
+    viewProp ??
+    documentViewOverride ??
+    rememberedView ??
+    (isMarkdownDocument ? 'document' : 'grid');
 
   useEffect(() => {
-    setFocusedContent({
-      ...(focusedContent ?? {}),
-      dictionaryKey: dictionary.key,
-      dictionaryLocalId: dictionary.localId,
+    setFocusedContent((prev) => {
+      if (
+        prev?.dictionaryKey === dictionary.key &&
+        prev?.dictionaryLocalId === dictionary.localId
+      ) {
+        return prev;
+      }
+      return {
+        ...(prev ?? {}),
+        dictionaryKey: dictionary.key,
+        dictionaryLocalId: dictionary.localId,
+      };
     });
     setLocaleDictionary(dictionary);
-  }, []);
+  }, [dictionary.key, dictionary.localId]);
+
+  const selectView = (view: DictionaryEditorView) => {
+    onViewChange?.(view);
+    if (view === 'document') {
+      setDocumentViewOverride('document');
+      clearStoredView();
+    } else {
+      setDocumentViewOverride(undefined);
+      setStoredView(view);
+    }
+  };
+
+  const viewChoices: { content: string; value: DictionaryEditorView }[] = [
+    ...(isMarkdownDocument
+      ? [{ content: documentView.value, value: 'document' as const }]
+      : []),
+    { content: gridView.value, value: 'grid' },
+    { content: treeView.value, value: 'tree' },
+    { content: structureView.value, value: 'structure' },
+    { content: jsonView.value, value: 'json' },
+  ];
+
+  const tabClassName =
+    'cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none';
 
   return (
     <LocaleSwitcherContentProvider
       availableLocales={config?.internationalization?.locales ?? []}
     >
-      <div className="relative flex h-full min-h-0 w-full flex-1 flex-col md:overflow-hidden">
-        {showReturnButton && (
-          <Button
-            onClick={onClickDictionaryList}
-            variant="hoverable"
-            className="z-10 ms-5 me-auto mb-6 shrink-0"
-            color="text"
-            Icon={ArrowLeft}
-            label={returnToDictionaryList.label.value}
-          >
-            {returnToDictionaryList.text}
-          </Button>
-        )}
+      <ContentGridProvider
+        dictionary={activeDictionary}
+        lockedLocales={lockedLocales}
+      >
+        <UnsavedChangesGuard />
+        <div
+          ref={containerRef}
+          className="relative flex h-full min-h-0 w-full flex-1 flex-col md:overflow-hidden"
+        >
+          {showReturnButton && (
+            <Button
+              onClick={onClickDictionaryList}
+              variant="hoverable"
+              className="z-10 ms-5 me-auto mb-6 shrink-0"
+              color="text"
+              Icon={ArrowLeft}
+              label={returnToDictionaryList.label.value}
+            >
+              {returnToDictionaryList.text}
+            </Button>
+          )}
 
-        <div className="mb-22 flex min-h-0 flex-1 flex-col overflow-hidden">
-          {/* Tab headers */}
-          <div className="sticky top-0 z-10 flex shrink-0 gap-3 rounded-xl bg-background/20 p-3 pb-4">
-            <TabSelector
-              selectedChoice={activeTab}
-              tabs={[
-                ...(mode.includes('remote')
-                  ? [
+          <DictionarySiblingSwitcher
+            className="mx-3 mb-3 shrink-0"
+            dictionaryKey={dictionary.key}
+            siblings={siblings}
+            selectedItem={activeSelection.item}
+            selectedVariant={activeSelection.variant}
+            onSelect={selectSibling}
+            isCompact={isNarrow}
+          />
+
+          <div className="mb-22 flex min-h-0 flex-1 flex-col overflow-hidden">
+            {/* Tab headers */}
+            <div className="sticky top-0 z-10 flex shrink-0 flex-wrap items-center gap-x-16 gap-y-3 rounded-xl bg-background/20 p-3 pb-4">
+              {isRemote && (
+                <TabSelector
+                  selectedChoice={activeTab}
+                  tabs={[
+                    <button
+                      key="content"
+                      className={tabClassName}
+                      data-active={activeTab === 'content'}
+                      onClick={() => selectTab('content')}
+                      type="button"
+                    >
+                      {contentTab}
+                    </button>,
+                    <button
+                      key="details"
+                      className={tabClassName}
+                      data-active={activeTab === 'details'}
+                      onClick={() => selectTab('details')}
+                      type="button"
+                    >
+                      {detailsTab}
+                    </button>,
+                  ]}
+                  hoverable
+                  color="text"
+                  className="w-auto"
+                />
+              )}
+
+              {activeTab === 'content' && (
+                <div
+                  title={viewSwitcherLabel.value}
+                  className="overflow-x-auto"
+                >
+                  <TabSelector
+                    selectedChoice={activeView}
+                    tabs={viewChoices.map(({ content: viewLabel, value }) => (
                       <button
-                        key="details"
-                        className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
-                        data-active={activeTab === 'details'}
-                        onClick={() => setActiveTab('details')}
+                        key={value}
+                        className={tabClassName}
+                        data-active={activeView === value}
+                        onClick={() => selectView(value)}
                         type="button"
                       >
-                        Details
-                      </button>,
-                    ]
-                  : []),
-                <button
-                  key="structure"
-                  className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
-                  data-active={activeTab === 'structure'}
-                  onClick={() => setActiveTab('structure')}
-                  type="button"
-                >
-                  Structure
-                </button>,
-                <button
-                  key="content"
-                  className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
-                  data-active={activeTab === 'content'}
-                  onClick={() => setActiveTab('content')}
-                  type="button"
-                >
-                  Content
-                </button>,
-                <button
-                  key="json"
-                  className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
-                  data-active={activeTab === 'json'}
-                  onClick={() => setActiveTab('json')}
-                  type="button"
-                >
-                  JSON
-                </button>,
-              ]}
-              hoverable
-              color="text"
-            />
-            <div className="flex w-full items-center justify-end">
-              {rightContent}
-            </div>
-          </div>
-          {/* Tab content — only active panel is mounted */}
-          <div className="min-h-0 flex-1 overflow-y-auto p-6">
-            <div className="flex w-full min-w-0 flex-col items-stretch gap-6">
-              {mode.includes('remote') && activeTab === 'details' && (
-                <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+                        {viewLabel}
+                      </button>
+                    ))}
+                    hoverable
+                    color="text"
+                    className="w-auto"
+                  />
+                </div>
               )}
-              {activeTab === 'structure' && (
-                <StructureEditor dictionary={dictionary} />
-              )}
-              {activeTab === 'content' && (
-                <NodeEditor dictionary={dictionary} />
-              )}
-              {activeTab === 'json' && (
-                <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
-              )}
-            </div>
-          </div>
-        </div>
 
-        <div className="absolute bottom-3 z-20 w-full p-2">
-          <Container
-            color="card"
-            roundedSize="2xl"
-            padding="sm"
-            className="w-full shrink-0 flex-row flex-wrap items-center justify-end gap-10 bg-background/20 md:bottom-0"
-          >
-            <CopyToClipboard
-              text={dictionary.id!}
-              className="text-nowrap text-muted-foreground text-sm"
-              size={9}
+              <div className="ms-auto flex items-center justify-end">
+                {rightContent}
+              </div>
+            </div>
+
+            {/* Tab content — only the active panel is mounted */}
+            <div
+              className={cn(
+                'min-h-0 flex-1 p-6',
+                activeTab === 'content' && activeView === 'grid'
+                  ? 'flex min-h-0 flex-col overflow-hidden'
+                  : 'overflow-y-auto'
+              )}
             >
-              {dictionary.id}
-            </CopyToClipboard>
-            <SaveForm
-              dictionary={dictionary}
-              mode={mode}
-              onDelete={() => {
-                setFocusedContent(null);
-                onDelete?.();
-              }}
-              onSave={onSave}
-            />
-          </Container>
+              <div
+                className={cn(
+                  'flex w-full min-w-0 flex-col items-stretch gap-6',
+                  activeTab === 'content' &&
+                    activeView === 'grid' &&
+                    'h-full min-h-0 flex-1'
+                )}
+              >
+                {isRemote && activeTab === 'details' && (
+                  <DictionaryDetailsForm
+                    dictionary={activeDictionary}
+                    mode={mode}
+                    onSelectSibling={activateSibling}
+                    siblings={siblings}
+                    onOpenDictionary={onOpenDictionary}
+                    onOpenTag={onOpenTag}
+                  />
+                )}
+                {activeTab === 'content' && (
+                  <>
+                    {activeView === 'document' && <MarkdownDocument />}
+                    {activeView === 'grid' && (
+                      <ContentGrid dictionary={activeDictionary} />
+                    )}
+                    {activeView === 'tree' && (
+                      <NodeEditor dictionary={activeDictionary} />
+                    )}
+                    {activeView === 'structure' && (
+                      <StructureEditor dictionary={activeDictionary} />
+                    )}
+                    {activeView === 'json' && (
+                      <JSONEditor
+                        dictionary={activeDictionary}
+                        isDarkMode={isDarkMode}
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-3 z-20 w-full p-2">
+            <Container
+              color="card"
+              roundedSize="2xl"
+              padding="sm"
+              className="w-full shrink-0 flex-row flex-wrap items-center justify-end gap-x-10 gap-y-2 bg-background/20 md:bottom-0"
+            >
+              {activeDictionary.id && (
+                <CopyToClipboard
+                  text={activeDictionary.id}
+                  className="font-mono text-sm text-nowrap text-muted-foreground"
+                  size={9}
+                >
+                  {activeDictionary.id}
+                </CopyToClipboard>
+              )}
+              <SaveForm
+                dictionary={activeDictionary}
+                mode={mode}
+                className="flex-1"
+                onDelete={() => {
+                  setFocusedContent(null);
+                  onDelete?.();
+                }}
+                onSave={onSave}
+              />
+            </Container>
+          </div>
         </div>
-      </div>
+      </ContentGridProvider>
     </LocaleSwitcherContentProvider>
   );
 };

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Siapkan Intlayer di TanStack Start: parameter locale di rute, konten terjemahan yang aman untuk SSR, metadata head terlokalisasi, hreflang, dan sitemap."
@@ -74,14 +74,14 @@ Intlayer sepenuhnya dioptimalkan untuk TanStack Start, menyediakan **perutean mu
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
 </Accordion>
-<Accordion header="Kemampuan Pemeliharaan">
+<Accordion header="Kemudahan Pemeliharaan">
 
-Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **fully typed** (memiliki type safety penuh) untuk memastikan keakuratan konten Anda.
 
 </Accordion>
 <Accordion header="Agen AI">
 
-Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)
@@ -90,14 +90,14 @@ Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model B
 </Accordion>
 <Accordion header="Otomatisasi">
 
-Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+Gunakan otomatisasi untuk menerjemahkan dalam pipeline CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
 - [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="Pertunjukan">
+<Accordion header="Performa">
 
-Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah performa dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada saat build.
 
 </Accordion>
 <Accordion header="Menskalakan tanpa pengembang">
@@ -430,7 +430,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Deklarasi konten Anda dapat ditentukan di mana saja dalam aplikasi Anda segera setelah mereka dimasukkan ke dalam direktori `contentDir` (secara default, `./app`). Dan cocok dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+> Deklarasi konten Anda dapat ditentukan di mana saja dalam aplikasi Anda segera setelah mereka dimasukkan ke dalam direktori `contentDir` (secara default, `['.']`). Dan cocok dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
@@ -487,11 +487,14 @@ Komponen ini memiliki dua tujuan:
 
 Kemudian kita dapat membuat hook `useLocalizedNavigate` untuk navigasi secara terprogram:
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -526,13 +529,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -553,7 +557,7 @@ Akses kamus konten Anda di seluruh aplikasi Anda:
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -568,7 +572,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -601,7 +605,7 @@ function RouteComponent() {
 - [Dokumentasi Hook useIntlayer | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="Buat Komponen Locale Switcher">
+<Step number={10} title="Buat Komponen Locale Switcher">
 
 Buat komponen untuk memungkinkan pengguna mengubah bahasa:
 
@@ -665,7 +669,7 @@ export const LocaleSwitcher: FC = () => {
 - [Dokumentasi Hook useLocale | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="Manajemen Atribut HTML">
+<Step number={11} title="Manajemen Atribut HTML">
 
 Seperti yang terlihat di Step 5, Anda dapat mengelola atribut `lang` dan `dir` dari tag `html` menggunakan `useParams` di komponen root Anda. Ini memastikan bahwa atribut yang benar ditetapkan di server dan klien.
 
@@ -685,7 +689,7 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="Tambahkan middleware">
+<Step number={12} title="Tambahkan middleware">
 
 Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan menetapkan cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, plugin akan mengalihkan ke locale default.
 
@@ -722,7 +726,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="Internasionalisasi Metadata Anda">
+<Step number={13} title="Internasionalisasi Metadata Anda">
 
 <Tabs>
 
@@ -768,7 +772,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -822,7 +826,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -884,7 +888,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -914,7 +918,7 @@ Anda menyimpan chunk per-locale tanpa membayar biayanya di jalur penting head. H
 | Developer experience | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="Ambil locale di server actions Anda">
+<Step number={14} title="Ambil locale di server actions Anda">
 
 Anda mungkin ingin mengakses locale saat ini dari dalam server actions atau API endpoints Anda.
 Anda dapat melakukan ini menggunakan helper `getLocale` dari `intlayer`.
@@ -950,7 +954,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="Kelola halaman tidak ditemukan">
+<Step number={15} title="Kelola halaman tidak ditemukan">
 
 Ketika seorang pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman tidak ditemukan yang disesuaikan dan awalan locale dapat mempengaruhi cara halaman tidak ditemukan dipicu.
 
@@ -1025,7 +1029,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="Ekstrak konten komponen Anda" isOptional={true}> isOptional={true}>
+<Step number={16} title="Ekstrak konten komponen Anda" isOptional={true}> isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -1138,7 +1142,7 @@ bun run build # Or bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="Pre-render & Generate Sitemap">
+<Step number={17} title="Pre-render & Generate Sitemap">
 
 Intlayer dilengkapi dengan pembuat sitemap bawaan untuk membantu Anda membuat sitemap untuk aplikasi Anda dengan mudah. Ini menangani rute yang dilokalisasi dan menambahkan metadata yang diperlukan untuk mesin pencari.
 
@@ -1208,7 +1212,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="Konfigurasi TypeScript">
+<Step number={18} title="Konfigurasi TypeScript">
 
 Intlayer menggunakan module augmentation untuk mendapatkan keuntungan dari TypeScript dan membuat codebase Anda lebih kuat.
 
@@ -1364,7 +1368,7 @@ Gunakan `useLocale` bersama dengan komponen link terlokalisasi yang dijelaskan p
 </Question>
 <Question title="Bagaimana cara menangani halaman 404 pada rute terlokalisasi?">
 
-Langkah 14 membahas hal ini. `validatePrefix` memvalidasi segmen bahasa di URL.
+Langkah 15 membahas hal ini. `validatePrefix` memvalidasi segmen bahasa di URL.
 
 </Question>
 <Question title="Bagaimana cara menerjemahkan aplikasi TanStack Start secara otomatis dengan AI?">

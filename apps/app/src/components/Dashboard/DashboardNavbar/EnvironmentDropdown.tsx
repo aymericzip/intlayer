@@ -58,7 +58,7 @@ export const EnvironmentDropdown: FC<EnvironmentDropdownProps> = (props) => {
           className="gap-2 border border-text/10"
         >
           <div className="flex flex-col gap-3">
-            <span className="font-bold text-sm">{switchEnvironment}</span>
+            <span className="text-sm font-bold">{switchEnvironment}</span>
             {otherEnvironments.map((env) => (
               <Button
                 key={String(env.id)}

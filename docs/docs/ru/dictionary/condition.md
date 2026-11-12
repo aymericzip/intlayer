@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Условный контент в Intlayer"
 description: "Показывайте разный контент в зависимости от булева условия с узлом cond() в Intlayer: объявляется один раз и вычисляется при рендеринге."
@@ -28,7 +28,7 @@ author: aymericzip
 
 ## Настройка Условного Контента
 
-To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+В Intlayer условный контент достигается с помощью функции `cond`, которая сопоставляет определенные условия (обычно булевы значения) с соответствующим контентом. Этот подход позволяет динамически выбирать контент на основе заданного условия. При интеграции с React Intlayer или Next Intlayer соответствующий контент автоматически выбирается в зависимости от условия, переданного во время выполнения.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -66,14 +66,14 @@ const ConditionalComponent: Component = () => {
 export default ConditionalComponent;
 ```
 
-To utilize conditional content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать условный контент с `vanilla-intlayer`, извлеките его через `useIntlayer`. Вот пример:
 
 ## Использование Условного Контента с React Intlayer
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
+Чтобы использовать условный контент в компоненте React, импортируйте и примените хук `useIntlayer` из пакета `react-intlayer`. Этот хук извлекает контент по указанному ключу и позволяет передать условие для выбора нужного вывода.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -118,7 +118,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize conditional content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать условный контент в клиентских компонентах Next.js, извлеките его через хук `useIntlayer`. Вот пример:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -143,7 +143,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To utilize conditional content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать условный контент в компонентах Vue, извлеките его через `useIntlayer`. Вот пример:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -163,7 +163,7 @@ const { myCondition } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+Чтобы использовать условный контент в компонентах Svelte, извлеките его через хранилище `useIntlayer`. Доступ к хранилищу осуществляется через `$`. Вот пример:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -181,7 +181,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To utilize conditional content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать условный контент в компонентах Preact, извлеките его через хук `useIntlayer`. Вот пример:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -204,7 +204,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To utilize conditional content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать условный контент в компонентах SolidJS, извлеките его через хук `useIntlayer`. Вот пример:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -227,7 +227,7 @@ export default ConditionalComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To utilize conditional content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать условный контент в компонентах Angular, извлеките его через `useIntlayer`. Вот пример:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";

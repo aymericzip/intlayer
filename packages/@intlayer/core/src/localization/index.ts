@@ -29,19 +29,13 @@ export { getPrefix, isDeclaredLocale } from './getPrefix';
 export { localeDetector } from './localeDetector';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';
-export type {
-  ProxyMode,
-  ProxyStorageSuppressionPurpose,
-} from './proxyMode';
+export type { ProxyMode, ProxyStorageSuppressionPurpose } from './proxyMode';
 export {
   formatProxyEnabledMessage,
   isProxyStorageLocaleEnabled,
   resolveProxyMode,
 } from './proxyMode';
-export {
-  getPreloadLocale,
-  resolveBrowserLocale,
-} from './resolveBrowserLocale';
+export { getPreloadLocale, resolveBrowserLocale } from './resolveBrowserLocale';
 export { getRewriteRules } from './rewriteMatch';
 export type { LocalizedPathResult } from './rewriteUtils';
 export {

@@ -15,8 +15,8 @@ import type {
 import type { ReactiveControllerHost } from 'lit';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 import { getIntlayerClient } from './installIntlayer';
+import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 
 /**
  * Returns the content for a raw dictionary (or qualified dictionary group),
@@ -32,9 +32,8 @@ import { getIntlayerClient } from './installIntlayer';
  */
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
-  const A extends
-    | LocalesValues
-    | DictionarySelectorForGroup<T> = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForGroup<T> =
+    DeclaredLocales,
 >(
   dictionary: T,
   localeOrSelector?: A

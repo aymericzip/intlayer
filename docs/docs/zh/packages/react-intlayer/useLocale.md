@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 5
 title: useLocale Hook 文档 | react-intlayer
 description: "在 React 中使用 useLocale 读取当前、默认和可用的语言，并在任意组件中切换语言。"
@@ -73,7 +73,7 @@ export default LocaleSwitcher;
 
 ## 参数和返回值
 
-当你调用 `useLocale` 钩子时，它会返回一个包含以下属性的对象：
+当你调用 `useLocale` Hook时，它会返回一个包含以下属性的对象：
 
 - **`locale`**：当前在 React 上下文中设置的语言环境。
 - **`defaultLocale`**：配置中定义的主要语言环境。
@@ -82,7 +82,7 @@ export default LocaleSwitcher;
 
 ## 示例
 
-以下示例展示了一个使用 `useLocale` 钩子的组件，用于渲染语言切换器，允许用户动态更改应用程序的语言环境：
+以下示例展示了一个使用 `useLocale` Hook的组件，用于渲染语言切换器，允许用户动态更改应用程序的语言环境：
 
 ```tsx fileName="src/components/LocaleSelector.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -109,4 +109,4 @@ const LocaleSelector: FC = () => {
 
 ## 结论
 
-来自 `react-intlayer` 的 `useLocale` 钩子是管理 React 应用中语言环境的关键工具，提供了适应各种国际受众所需的功能。
+来自 `react-intlayer` 的 `useLocale` Hook是管理 React 应用中语言环境的关键工具，提供了适应各种国际受众所需的功能。

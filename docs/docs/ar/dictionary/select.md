@@ -362,14 +362,11 @@ publishStatus("draft")({ name: "Alice" }); // المخرجات: حفظ Alice م�
 ستصبح:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 تم إعادة تسمية الحالة `other` في ICU إلى `fallback`، وهو الاسم القياسي في Intlayer لجميع الحالات غير المتطابقة. يسجل المعامل الثاني اسم المتغير الخاص بـ ICU لكي يتم إرجاع الرسالة كجملة ICU كما هي تمامًا في وقت التصدير.

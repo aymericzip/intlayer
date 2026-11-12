@@ -36,10 +36,24 @@ export {
   type SchemaOrgOffer,
 } from './buildProductJsonLd';
 export {
+  AI_BOT_USER_AGENTS,
+  type BuildRobotsTxtParams,
+  buildRobotsTxt,
+  type ContentSignals,
+  type ContentSignalValue,
+  getContentSignalDirective,
+  INTLAYER_CONTENT_SIGNALS,
+} from './buildRobotsTxt';
+export {
   type BuildSoftwareApplicationJsonLdParams,
   buildSoftwareApplicationJsonLd,
+  getSoftwareApplicationId,
   INTLAYER_AGGREGATE_RATING,
 } from './buildSoftwareApplicationJsonLd';
+export {
+  type BuildSoftwareFeaturePageJsonLdParams,
+  buildSoftwareFeaturePageJsonLd,
+} from './buildSoftwareFeaturePageJsonLd';
 export {
   type BuildWebsiteJsonLdParams,
   buildWebsiteJsonLd,

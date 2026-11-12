@@ -87,6 +87,28 @@ describe('ThemeProvider', () => {
     expect(getProbeValue('resolved-theme')).toBe('dark');
   });
 
+  test('applies a forced theme over the preference without persisting it', () => {
+    localStorage.setItem('theme', 'light');
+
+    const { rerender } = render(
+      <ThemeProvider forcedTheme="dark">
+        <ThemeProbe />
+      </ThemeProvider>
+    );
+
+    expect(getAppliedTheme()).toBe('dark');
+    expect(getProbeValue('resolved-theme')).toBe('dark');
+    expect(localStorage.getItem('theme')).toBe('light');
+
+    rerender(
+      <ThemeProvider>
+        <ThemeProbe />
+      </ThemeProvider>
+    );
+
+    expect(getAppliedTheme()).toBe('light');
+  });
+
   test('discards an unknown persisted value', () => {
     localStorage.setItem('theme', 'sepia');
 
@@ -208,6 +230,19 @@ describe('ThemeProvider', () => {
 
     // Browsers hide the nonce value from the DOM, so only the server emits it.
     expect(container.querySelector('script')?.getAttribute('nonce')).toBe('');
+  });
+
+  test('renders an inert script on the client', () => {
+    const { container } = render(
+      <ThemeProvider nonce="test-nonce">
+        <ThemeProbe />
+      </ThemeProvider>
+    );
+
+    // Executed without its nonce, a client-mounted copy would violate the CSP.
+    expect(container.querySelector('script')?.getAttribute('type')).toBe(
+      'text/plain'
+    );
   });
 });
 

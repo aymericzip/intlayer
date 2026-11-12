@@ -149,6 +149,8 @@ export const SSOButton: FC<SSOButtonProps> = ({
         title={modalTitle.value}
         hasCloseButton
         size="sm"
+        border
+        borderColor="neutral"
       >
         <div className="flex flex-col gap-4 p-4">
           {showDomainInput && (
@@ -156,7 +158,7 @@ export const SSOButton: FC<SSOButtonProps> = ({
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="sso-domain-input"
-                  className="font-medium text-sm"
+                  className="text-sm font-medium"
                 >
                   {domainInputLabel}
                 </label>
@@ -199,7 +201,7 @@ export const SSOButton: FC<SSOButtonProps> = ({
           {showLoading && (
             <div className="flex flex-col items-center gap-4">
               <Loader />
-              <span className="py-10 text-neutral text-sm">
+              <span className="py-10 text-sm text-neutral">
                 {fetchingConfig}
               </span>
             </div>
@@ -207,7 +209,7 @@ export const SSOButton: FC<SSOButtonProps> = ({
 
           {showNoConfig && (
             <div className="flex flex-col items-center gap-4">
-              <span className="py-10 text-neutral text-sm">
+              <span className="py-10 text-sm text-neutral">
                 {noSSOConfigured}
               </span>
               <Button

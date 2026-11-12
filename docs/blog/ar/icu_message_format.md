@@ -292,8 +292,13 @@ totalOpenings(5); // اللغة العربية → "5 وظائف شاغرة"
 - **وضع الرمز `#` خارج فروع الجمع.** يعمل `#` كعنصر استبدال فقط داخل `plural` أو `selectordinal`، وخارج ذلك يُعامل كرمز هاش عادي.
 - **نسيان أن الرمز `#` منسق مسبقًا.** إذا كنت بحاجة إلى الرقم الخام دون فواصل أو تنسيقات محلية، قم بتضمين المعامل باسمه بدلاً من ذلك.
 
+اختبر ونسّق رسائل ICU الخاصة بك باستخدام [محرر ومنسق رسائل ICU](https://intlayer.org/icu-message-formatter) المجاني:
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## مراجع إضافية
 
+- [محرر ومنسق رسائل ICU](https://intlayer.org/icu-message-formatter)
 - [لماذا لم يتم تصميم ICU لبيئة JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/why_icu_is_not_made_for_js.md)
 - [المحتوى الجمعي في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
 - [المحتوى القائم على select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md)

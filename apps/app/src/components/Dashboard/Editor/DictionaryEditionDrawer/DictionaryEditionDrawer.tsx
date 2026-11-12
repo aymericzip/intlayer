@@ -12,20 +12,24 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import { ChevronLeft, PencilRuler } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  useDashboardRightPanel,
+  useDashboardRightPanelContainer,
+} from '#hooks/useDashboardRightPanel';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
-import { useDictionaryEditionDrawer } from './useDictionaryEditionDrawer';
+import {
+  dictionaryEditionDrawerIdentifier,
+  useDictionaryEditionDrawer,
+} from './useDictionaryEditionDrawer';
 
 type DictionaryEditionDrawerProps = {
-  dictionaryKey: string;
   isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
-  dictionaryKey,
   isDarkMode,
 }) => {
   const {
@@ -37,14 +41,10 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
     focusedDictionaryNotFound,
   } = useIntlayer('dictionary-edition-drawer');
 
-  const { close, isOpen } = useDictionaryEditionDrawer(dictionaryKey);
+  const { close, isOpen } = useDictionaryEditionDrawer();
   const { open } = useDashboardRightPanel();
   const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setPortalTarget(document.getElementById('dashboard-right-panel'));
-  }, []);
+  const portalTarget = useDashboardRightPanelContainer();
 
   const handleOnBack = () => {
     close();
@@ -67,7 +67,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   if (!focusedContent?.dictionaryKey)
     return createPortal(
       <div className="flex size-full items-center justify-center">
-        <span className="text-neutral text-sm">{noDictionaryFocused}</span>
+        <span className="text-sm text-neutral">{noDictionaryFocused}</span>
       </div>,
       portalTarget
     );
@@ -79,7 +79,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   if (!dictionary)
     return createPortal(
       <div className="flex size-full items-center justify-center">
-        <span className="text-neutral text-sm">
+        <span className="text-sm text-neutral">
           {focusedDictionaryNotFound}
         </span>
       </div>,
@@ -99,7 +99,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             label={backButtonText.value}
             className="absolute inset-s-0 top-0"
           />
-          <h3 className="w-full px-10 text-center font-medium text-lg">
+          <h3 className="w-full px-10 text-center text-lg font-medium">
             {dictionary.title ? dictionary.title : dictionary.key}
           </h3>
 
@@ -114,7 +114,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
                 onClick={() => setEditionModalOpen(true)}
               />
               <Popover.Detail identifier="open-dictionary-editor">
-                <span className="whitespace-nowrap p-2 text-neutral text-xs">
+                <span className="p-2 text-xs whitespace-nowrap text-neutral">
                   {openDictionaryInEditor}
                 </span>
               </Popover.Detail>
@@ -122,7 +122,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           </div>
         </header>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dotted pb-3">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-b border-dotted border-text/20 pb-3">
           <Tag color="text" roundedSize="full" size="xs">
             {dictionary.key}
           </Tag>
@@ -150,6 +150,8 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
               size="xl"
               transparency="lg"
               className="h-full"
+              border
+              borderColor="neutral"
             >
               <div className="flex h-full min-h-0 w-full flex-1 flex-col px-3 pt-5">
                 <DictionaryFieldEditor
@@ -173,11 +175,11 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         )}
       </div>
 
-      <div className="shrink-0 border-text/20 border-t bg-background pt-4">
+      <div className="shrink-0 border-t border-text/20 pt-4">
         <SaveForm
           dictionary={dictionary}
           mode={['remote']}
-          className="mb-4 flex-col px-3"
+          className="mb-4 px-3"
           onDelete={handleOnBack}
         />
       </div>
@@ -194,16 +196,23 @@ export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
 > = ({ isDarkMode }) => {
   const { focusedContent } = useFocusUnmergedDictionary();
+  const { open } = useDashboardRightPanel();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
+  const previousDictionaryKeyRef = useRef(dictionaryKey);
+
+  // Open the node editor when the user focuses another dictionary, but not on
+  // mount: coming back to the editor page must keep the selected panel.
+  useEffect(() => {
+    if (previousDictionaryKeyRef.current === dictionaryKey) return;
+
+    previousDictionaryKeyRef.current = dictionaryKey;
+
+    if (dictionaryKey) open(dictionaryEditionDrawerIdentifier);
+  }, [dictionaryKey, open]);
 
   if (!dictionaryKey) {
     return <></>;
   }
 
-  return (
-    <DictionaryEditionDrawer
-      dictionaryKey={dictionaryKey}
-      isDarkMode={isDarkMode}
-    />
-  );
+  return <DictionaryEditionDrawer isDarkMode={isDarkMode} />;
 };

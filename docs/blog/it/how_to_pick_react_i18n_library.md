@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Come scegliere la giusta libreria i18n per React nel 2026"
 description: "Una guida decisionale per l'i18n in React: le domande da porsi prima di confrontare react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer."
@@ -110,13 +110,13 @@ Le dimensioni delle librerie provengono dal [benchmark TanStack Start](https://g
 
 | Libreria                | Ondata       | Modello dei contenuti                 | Type safety                        | Formato dei messaggi          | Dimensione libreria                              |
 | :---------------------- | :----------- | :------------------------------------ | :--------------------------------- | :---------------------------- | :----------------------------------------------- |
-| `react-i18next`         | Runtime      | JSON centralizzato, namespace         | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (plurali a suff.)     | ~18.4 kB                                         |
-| `react-intl` (FormatJS) | Runtime      | JSON centralizzato, ICU               | 2/5 — Opt-in (estrazione + union)  | ICU                           | ~15.3 kB                                         |
-| `use-intl`              | Server-first | JSON centralizzato, ICU               | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                                         |
-| `@tolgee/react`         | Runtime      | Centralizzato, in-context editing     | 1/5 — No                           | ICU                           | ~11.1 kB                                         |
-| Lingui                  | Macro        | Testo sorgente nel codice, cat. comp. | 2/5 — Ottimo, dal compiler         | ICU tramite macro             | ~11.8 kB                                         |
-| Paraglide               | Compiler     | Progetto inlang, funzioni generate    | 3.5/5 — Generati                   | Proprietario                  | Quasi zero (per il codice generato nel progetto) |
-| Intlayer                | Compiler     | `.content.ts` per componente          | 5/5 — Generati, attivi di default  | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                          |
+| `react-i18next`         | Runtime      | JSON centralizzato, namespace         | 2/5 - Opt-in (`CustomTypeOptions`) | i18next (plurali a suff.)     | ~18.4 kB                                         |
+| `react-intl` (FormatJS) | Runtime      | JSON centralizzato, ICU               | 2/5 - Opt-in (estrazione + union)  | ICU                           | ~15.3 kB                                         |
+| `use-intl`              | Server-first | JSON centralizzato, ICU               | 2/5 - Opt-in (declaration merging) | ICU                           | ~14.1 kB                                         |
+| `@tolgee/react`         | Runtime      | Centralizzato, in-context editing     | 1/5 - No                           | ICU                           | ~11.1 kB                                         |
+| Lingui                  | Macro        | Testo sorgente nel codice, cat. comp. | 2/5 - Ottimo, dal compiler         | ICU tramite macro             | ~11.8 kB                                         |
+| Paraglide               | Compiler     | Progetto inlang, funzioni generate    | 3.5/5 - Generati                   | Proprietario                  | Quasi zero (per il codice generato nel progetto) |
+| Intlayer                | Compiler     | `.content.ts` per componente          | 5/5 - Generati, attivi di default  | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                          |
 
 > I dati rappresentano uno snapshot delle versioni utilizzate nel benchmark e variano con le nuove release. Eseguite il benchmark sulla vostra applicazione prima di basare la decisione solo sulle dimensioni.
 > Type safety: 5/5 significa che chiavi, parametri e ogni locale vengono verificati senza configurazione manuale, inclusi formattatori di URL e helper.

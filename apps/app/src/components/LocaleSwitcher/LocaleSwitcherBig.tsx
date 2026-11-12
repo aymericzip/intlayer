@@ -69,7 +69,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
         >
           <div className="flex h-10 w-full items-center justify-between">
             <div
-              className="text-nowrap px-2 text-base"
+              className="px-2 text-base text-nowrap"
               suppressHydrationWarning
             >
               {localeName}
@@ -152,13 +152,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                             {ownLocaleName}
                           </span>
                           <span
-                            className="text-neutral text-xs"
+                            className="text-xs text-neutral"
                             suppressHydrationWarning
                           >
                             {currentLocaleName}
                           </span>
                         </div>
-                        <span className="text-nowrap text-neutral text-sm">
+                        <span className="text-sm text-nowrap text-neutral">
                           {localeItem.toUpperCase()}
                         </span>
                       </div>

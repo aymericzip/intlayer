@@ -50,12 +50,6 @@ Lệnh này phân tích các tệp mã của bạn để trích xuất chuỗi t
 
   > Ví dụ: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**Tùy chọn đầu ra:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: Thư mục để lưu các tệp khai báo nội dung được tạo.
-
-  > Ví dụ: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: Chỉ trích xuất mã component (không ghi khai báo nội dung).
 
   > Ví dụ: `npx intlayer extract --code-only`

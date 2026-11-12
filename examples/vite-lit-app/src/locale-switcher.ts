@@ -1,7 +1,7 @@
 import { getLocaleName } from 'intlayer';
 import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { useLocale } from 'lit-intlayer';
+import { customElement } from 'lit/decorators.js';
 
 /**
  * `<locale-switcher>` — dropdown to switch the application locale.
@@ -20,10 +20,7 @@ export class LocaleSwitcher extends LitElement {
 
   override render() {
     return html`
-      <select
-        aria-label="Language"
-        @change=${this._onChange}
-      >
+      <select aria-label="Language" @change=${this._onChange}>
         ${this.locale.availableLocales.map(
           (loc) => html`
             <option value=${loc} ?selected=${loc === this.locale.locale}>

@@ -1,20 +1,21 @@
 import { createServerFn } from '@tanstack/react-start';
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
+import { getIntlayer } from 'intlayer';
 import { parseMarkdown } from 'react-intlayer/markdown';
-import {
-  getBlogData,
-  getPreviousNextBlogData,
-} from '~/components/BlogPage/blogData';
-import type { BlogNavMetadata, Section } from '~/components/BlogPage/types';
+import { getPreviousNextBlogData } from '~/components/BlogPage/blogData';
+import type {
+  BlogNavMetadata,
+  CategorizedBlogData,
+  Section,
+} from '~/components/BlogPage/types';
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadBlogPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
   .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
-    const { getBlog, getBlogMetadataBySlug, getAuthor } = await import(
-      '@intlayer/docs'
-    );
+    const { getBlog, getBlogMetadataBySlug, getAuthor } =
+      await import('@intlayer/docs');
 
     const blogsData = await getBlogMetadataBySlug(
       ['blog', ...slugs],
@@ -28,9 +29,8 @@ export const loadBlogPage = createServerFn()
 
     if (!exactMatch) return { exactMatch: null, blogsData, content: null };
 
-    const { highlightMarkdownCodeBlocks } = await import(
-      '~/utils/highlightMarkdown'
-    );
+    const { highlightMarkdownCodeBlocks } =
+      await import('~/utils/highlightMarkdown');
 
     const file = await getBlog(exactMatch.docKey as any, locale);
     const blogContent = urlRenamer(file, locale);
@@ -84,7 +84,10 @@ export const loadBlogNavData = createServerFn()
   .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => {
     const { getAuthor } = await import('@intlayer/docs');
-    const blogData = getBlogData(locale);
+    const blogData = getIntlayer('blog-data', locale) as Record<
+      string,
+      CategorizedBlogData
+    >;
 
     /** Replaces every author handle of the tree with its profile. */
     const resolveAuthors = (section: Section): Section<BlogNavMetadata> => {

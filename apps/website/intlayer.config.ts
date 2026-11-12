@@ -29,6 +29,7 @@ export const locales: Locale[] = isChina
       Locales.INDONESIAN,
       Locales.VIETNAMESE,
       Locales.UKRAINIAN,
+      Locales.HEBREW_ISRAEL,
     ];
 
 export const defaultLocale = isChina ? Locales.CHINESE : Locales.ENGLISH;
@@ -88,7 +89,7 @@ const config: CustomIntlayerConfig = {
   content: {
     contentDir: ['./src', '../../packages/@intlayer/design-system/dist'],
     codeDir: ['./src', '../../packages/@intlayer/design-system/dist'],
-    formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
+    formatCommand: 'bun x oxfmt "{{file}}"',
   },
   compiler: {
     output: ({ fileName }) => `./${fileName}.content.ts`,
@@ -122,7 +123,7 @@ const config: CustomIntlayerConfig = {
 
   // ai: {
   //   provider: 'openai',
-  //   model: 'gpt-5-mini',
+  //   model: 'gpt-5.6-terra',
   //   apiKey: import.meta.env.OPENAI_API_KEY,
   //   applicationContext: [
   //     'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',

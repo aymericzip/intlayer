@@ -155,7 +155,7 @@ export const ContentTypes: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="mb-2 font-medium text-gray-700 text-sm">
+          <h3 className="mb-2 text-sm font-medium text-gray-700">
             Text Content
           </h3>
           <ContentSelector onSelect={() => alert('Text selected!')}>
@@ -167,17 +167,17 @@ export const ContentTypes: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-gray-700 text-sm">
+          <h3 className="mb-2 text-sm font-medium text-gray-700">
             Structured Content
           </h3>
           <ContentSelector onSelect={() => alert('Card selected!')}>
             <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
               <h4 className="mb-2 font-semibold text-gray-900">Content Card</h4>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm text-gray-600">
                 This entire card becomes selectable as a unit. Perfect for
                 content management interfaces.
               </p>
-              <div className="mt-3 text-gray-500 text-xs">
+              <div className="mt-3 text-xs text-gray-500">
                 Created: March 15, 2024
               </div>
             </div>
@@ -185,7 +185,7 @@ export const ContentTypes: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-gray-700 text-sm">
+          <h3 className="mb-2 text-sm font-medium text-gray-700">
             Media Content
           </h3>
           <ContentSelector onSelect={() => alert('Media selected!')}>
@@ -195,7 +195,7 @@ export const ContentTypes: Story = {
                   Image Placeholder
                 </span>
               </div>
-              <div className="absolute inset-s-2 bottom-2 rounded bg-black bg-opacity-50 px-2 py-1 text-white text-xs">
+              <div className="bg-opacity-50 absolute inset-s-2 bottom-2 rounded bg-black px-2 py-1 text-xs text-white">
                 Selectable media content
               </div>
             </div>
@@ -266,7 +266,7 @@ export const ControlledSelection: Story = {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <span className="font-medium text-sm">
+          <span className="text-sm font-medium">
             Selected: {selectedItems.length} item
             {selectedItems.length !== 1 ? 's' : ''}
           </span>
@@ -294,7 +294,7 @@ export const ControlledSelection: Story = {
               }`}
             >
               <h4 className="font-medium text-gray-900">{item.title}</h4>
-              <p className="mt-1 text-gray-600 text-sm">{item.content}</p>
+              <p className="mt-1 text-sm text-gray-600">{item.content}</p>
             </ContentSelector>
           ))}
         </div>
@@ -419,7 +419,7 @@ export const MultiSelectionInterface: Story = {
           </div>
 
           {operationLog.length > 0 && (
-            <div className="space-y-1 text-gray-600 text-xs">
+            <div className="space-y-1 text-xs text-gray-600">
               <div className="font-medium">Recent Actions:</div>
               {operationLog.map((log, index) => (
                 <div key={index}>• {log}</div>
@@ -449,7 +449,7 @@ export const MultiSelectionInterface: Story = {
                   <div className="flex-1">
                     <div className="mb-1 flex items-center gap-2">
                       <span
-                        className={`rounded px-2 py-0.5 font-medium text-xs ${
+                        className={`rounded px-2 py-0.5 text-xs font-medium ${
                           item.type === 'Article'
                             ? 'bg-green-100 text-green-700'
                             : item.type === 'Tutorial'
@@ -463,10 +463,10 @@ export const MultiSelectionInterface: Story = {
                       </span>
                     </div>
                     <h4 className="font-medium text-gray-900">{item.title}</h4>
-                    <p className="mt-1 text-gray-600 text-sm">{item.snippet}</p>
+                    <p className="mt-1 text-sm text-gray-600">{item.snippet}</p>
                   </div>
                   {selectedContentIds.includes(item.id) && (
-                    <div className="ms-2 font-medium text-blue-500 text-sm">
+                    <div className="ms-2 text-sm font-medium text-blue-500">
                       ✓
                     </div>
                   )}
@@ -574,8 +574,8 @@ export const KeyboardNavigation: Story = {
         </div>
 
         <div className="rounded-lg bg-gray-50 p-3">
-          <h4 className="mb-2 font-medium text-sm">Keyboard Action Log:</h4>
-          <div className="max-h-24 space-y-1 overflow-y-auto text-gray-600 text-xs">
+          <h4 className="mb-2 text-sm font-medium">Keyboard Action Log:</h4>
+          <div className="max-h-24 space-y-1 overflow-y-auto text-xs text-gray-600">
             {keyboardLog.length === 0 ? (
               <div>Use keyboard to interact with content above</div>
             ) : (
@@ -621,7 +621,7 @@ export const ARIALabelsAndDescriptions: Story = {
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
-          <h3 className="mb-2 font-medium text-sm">
+          <h3 className="mb-2 text-sm font-medium">
             Content with Custom ARIA Label
           </h3>
           <ContentSelector
@@ -630,7 +630,7 @@ export const ARIALabelsAndDescriptions: Story = {
           >
             <div className="rounded-lg border border-gray-200 p-4">
               <h4 className="mb-2 font-semibold">Understanding React Hooks</h4>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm text-gray-600">
                 A comprehensive guide to using React Hooks in modern
                 applications.
               </p>
@@ -639,7 +639,7 @@ export const ARIALabelsAndDescriptions: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-sm">Content with Description</h3>
+          <h3 className="mb-2 text-sm font-medium">Content with Description</h3>
           <div>
             <ContentSelector
               onSelect={() => alert('Media item selected')}
@@ -648,12 +648,12 @@ export const ARIALabelsAndDescriptions: Story = {
             >
               <div className="rounded-lg border border-gray-200 bg-linear-to-r from-purple-100 to-pink-100 p-4">
                 <h4 className="mb-2 font-semibold">Featured Image</h4>
-                <div className="text-gray-600 text-sm">
+                <div className="text-sm text-gray-600">
                   High-resolution banner image for the homepage
                 </div>
               </div>
             </ContentSelector>
-            <div id="media-help" className="mt-2 text-gray-500 text-xs">
+            <div id="media-help" className="mt-2 text-xs text-gray-500">
               Long press to select this media item. Once selected, you can edit
               properties, replace the file, or move it to different sections.
             </div>
@@ -661,7 +661,7 @@ export const ARIALabelsAndDescriptions: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium text-sm">
+          <h3 className="mb-2 text-sm font-medium">
             Interactive Content Block
           </h3>
           <ContentSelector
@@ -669,12 +669,12 @@ export const ARIALabelsAndDescriptions: Story = {
             aria-label="Configure interactive widget settings"
             className="block"
           >
-            <div className="rounded-lg border-2 border-blue-300 border-dotted bg-blue-50 p-4">
+            <div className="rounded-lg border-2 border-dotted border-blue-300 bg-blue-50 p-4">
               <div className="text-center">
                 <div className="mb-1 font-medium text-blue-600">
                   Interactive Widget
                 </div>
-                <div className="text-blue-500 text-sm">
+                <div className="text-sm text-blue-500">
                   Click to configure widget settings and behavior
                 </div>
               </div>
@@ -683,7 +683,7 @@ export const ARIALabelsAndDescriptions: Story = {
         </div>
       </div>
 
-      <div className="rounded bg-blue-50 p-4 text-gray-600 text-sm">
+      <div className="rounded bg-blue-50 p-4 text-sm text-gray-600">
         <strong>Accessibility Note:</strong> All ContentSelector components
         inherit proper ARIA attributes from PressableSpan, including
         role="button" and aria-pressed states that update based on selection.
@@ -790,7 +790,7 @@ export const ContentManagementSystem: Story = {
       <div className="space-y-6">
         <div className="rounded-lg bg-gray-50 p-4">
           <h3 className="mb-2 font-medium">Content Management Interface</h3>
-          <div className="text-gray-600 text-sm">
+          <div className="text-sm text-gray-600">
             Long press any content block to select it. Selected content can be
             edited, moved, or configured.
           </div>
@@ -862,7 +862,7 @@ export const ContentManagementSystem: Story = {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="mb-2 flex items-center gap-2">
-                          <span className="rounded bg-gray-100 px-2 py-1 font-medium text-gray-700 text-xs">
+                          <span className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
                             {block.type}
                           </span>
                           {!block.editable && (
@@ -874,7 +874,7 @@ export const ContentManagementSystem: Story = {
                         <h4 className="mb-1 font-semibold text-gray-900">
                           {block.title}
                         </h4>
-                        <p className="text-gray-600 text-sm">{block.content}</p>
+                        <p className="text-sm text-gray-600">{block.content}</p>
                       </div>
                       {selectedContent === block.id && (
                         <div className="ms-3 text-blue-500">

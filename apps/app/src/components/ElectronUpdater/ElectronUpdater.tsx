@@ -62,12 +62,12 @@ export const ElectronUpdater = () => {
     <div className="fixed inset-e-4 bottom-4 z-50 flex max-w-sm flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-900">
       {update.status === 'available' && (
         <>
-          <p className="font-medium text-sm">
+          <p className="text-sm font-medium">
             {updateAvailableVersion({
               version: update.version,
             })}
           </p>
-          <p className="text-neutral-500 text-xs dark:text-neutral-400">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">
             {aNewVersionOfIntlayer}
           </p>
           <div className="flex gap-2">
@@ -92,7 +92,7 @@ export const ElectronUpdater = () => {
 
       {update.status === 'downloading' && (
         <>
-          <p className="font-medium text-sm">
+          <p className="text-sm font-medium">
             {downloadingPercent({
               percent: update.percent,
             })}
@@ -108,8 +108,8 @@ export const ElectronUpdater = () => {
 
       {update.status === 'ready' && (
         <>
-          <p className="font-medium text-sm">{updateReadyToInstall}</p>
-          <p className="text-neutral-500 text-xs dark:text-neutral-400">
+          <p className="text-sm font-medium">{updateReadyToInstall}</p>
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">
             {restartIntlayerToApplyThe}
           </p>
           <div className="flex gap-2">
@@ -133,7 +133,7 @@ export const ElectronUpdater = () => {
       )}
 
       {update.status === 'error' && (
-        <p className="text-error text-sm">
+        <p className="text-sm text-error">
           {updateErrorMessage({
             message: update.message,
           })}

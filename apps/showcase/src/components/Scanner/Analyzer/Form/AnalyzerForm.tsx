@@ -57,7 +57,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
           aria-label={input.label.value}
           type="url"
           placeholder={input.placeholder.value}
-          className="flex-1 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
+          className="flex-1 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:outline-none"
         />
         <div className="flex items-stretch gap-2">
           <FormButton

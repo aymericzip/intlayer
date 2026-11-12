@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-06-23
+updatedAt: 2026-10-08
 priority: 9
 title: "Next.js 14 i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer у Next.js 14 App Router: middleware маршрутизації за локалями, Server і Client Components, локалізовані метадані та sitemap."
@@ -62,9 +62,9 @@ Intlayer оптимізовано для роботи з **компонента�
 > Локальна маршрутизація корисна для SEO, розміру пакета та продуктивності. Якщо він вам не потрібен, ви можете звернутися до цього [посібника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md).
 > Щодо Next.js 12, 13, 14 і 15 із маршрутизатором програм див. цей [посібник](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_14.md).
 
-- [Next.js Pages Router i18n: Complete Translation Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_page_router.md)
+- [Next.js Pages Router i18n: Повний посібник із перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_page_router.md)
 - [посібника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
-- [Next.js 14 i18n - Complete guide to translate your app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_14.md)
+- [Next.js 14 i18n - Повний посібник із перекладу вашого застосунку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_14.md)
 
 </Accordion>
 <Accordion header="Розмір бандлу">
@@ -88,7 +88,7 @@ Intlayer оптимізовано для роботи з **компонента�
 </Accordion>
 <Accordion header="Автоматизація">
 
-Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації вилучення контенту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
 
 - [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
@@ -100,10 +100,10 @@ Intlayer оптимізовано для роботи з **компонента�
 </Accordion>
 <Accordion header="Співпраця з не-розробниками">
 
-Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)** і **[повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
 
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
-- [повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [повноцінну CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>
@@ -189,7 +189,7 @@ bun add intlayer next-intlayer
 </Step>
 <Step number={2} title="Налаштуйте свій проєкт">
 
-Here is the final structure that we will make:
+Ось остаточна структура, яку ми створимо:
 
 ```bash
 .
@@ -215,7 +215,7 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md) for more details.
+> Якщо вам не потрібна маршрутизація на основі локалей, intlayer можна використовувати як простий провайдер або хук. Дивіться [цей посібник](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md) для деталей.
 
 - [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 
@@ -531,8 +531,7 @@ export default Page;
 - **`IntlayerClientProvider`** використовується для надання локалі компонентам на боці клієнта. Його можна розмістити в будь-якому батьківському компоненті, включно з layout. Проте рекомендується розміщувати його в layout, оскільки Next.js ділить код layout між сторінками, що робить це більш ефективним. Використовуючи `IntlayerClientProvider` у layout, ви уникаєте повторної ініціалізації на кожній сторінці, покращуєте продуктивність і підтримуєте послідовний контекст локалізації в усьому додатку.
 - **`IntlayerServerProvider`** використовується для надання локалі серверним дочірнім елементам. Його не можна встановлювати в layout.
 
-  > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React’s cache](https://react.dev/reference/react/cache) mechanism), causing each “context” to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
-  > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React’s cache](https://react.dev/reference/react/cache) mechanism), causing each “context” to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+  > Layout та сторінка не можуть ділити спільний серверний контекст, оскільки система серверного контексту базується на сховищі даних для кожного запиту (через механізм [React cache](https://react.dev/reference/react/cache)), що призводить до повторного створення кожного "контексту" для різних сегментів застосунку. Розміщення провайдера у спільному layout порушило б цю ізоляцію, перешкоджаючи правильній передачі значень серверного контексту до ваших серверних компонентів.
 
  </Tab>
 </Tabs>
@@ -861,18 +860,18 @@ return (
 > Посилання на документацію:
 >
 > - [`useLocale` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md)
-> - [`getLocaleName` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getHTMLTextDir.md)
+> - [`getLocaleName` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` атрибут](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` атрибут](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` атрибут](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` атрибут](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 - [`useLocale` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md)
-- [`getLocaleName` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocaleName.md)
-- [`getLocalizedUrl` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)
-- [`getHTMLTextDir` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getHTMLTextDir.md)
+- [`getLocaleName` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocaleName.md)
+- [`getLocalizedUrl` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)
+- [`getHTMLTextDir` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getHTMLTextDir.md)
 
 </Step>
 <Step number={11} title="Створення локалізованого компоненту `Link`" isOptional={true}>
@@ -1058,7 +1057,7 @@ Intlayer використовує module augmentation, щоб скористат
 - [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 
@@ -1144,7 +1143,7 @@ Next.js 12, 13, 14, 15 та 16. Цей посібник охоплює Next.js 1
 Ні. Налаштування `routing.mode` приймає `"prefix-no-default"` (за замовчуванням: `/about` для основної мови та `/uk/about` для інших), `"prefix-all"`, `"no-prefix"` та `"search-params"`. Налаштування `routing.domains` прив'язує кожну мову до власного домену. Див. [довідник конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 - [довідник конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
-- [guide without locale path](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
+- [посібник без шляху локалі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
 
 </Question>
 <Question title="Як додати теги hreflang та локалізовані метадані для SEO?">

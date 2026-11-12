@@ -287,8 +287,13 @@ ICUの概念との対応は非常に明確です。
 - **`#`をpluralの外に配置すること。** `#`が特別な意味を持つのは`plural`や`selectordinal`の内部のみです。それ以外の場所ではただの記号として扱われます。
 - **`#`がすでにロケール整形済みであることを忘れること。** 区切り文字のない生の数値が必要な場合は、引数名を直接指定してインライン展開してください。
 
+無料の[ICU メッセージフォーマッター＆エディター](https://intlayer.org/icu-message-formatter)でICUメッセージのテストとフォーマットを実行できます：
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## 関連リソース
 
+- [ICU メッセージフォーマッター＆エディター](https://intlayer.org/icu-message-formatter)
 - [なぜICUはJavaScript向けではないのか](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/why_icu_is_not_made_for_js.md)
 - [Intlayerの複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
 - [Selectベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md)

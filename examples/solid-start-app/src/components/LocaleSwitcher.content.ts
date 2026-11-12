@@ -5,8 +5,8 @@ const localeSwitcherContent = {
   content: {
     label: t({
       en: 'Change language',
-      fr: 'Changer de langue',
       es: 'Cambiar idioma',
+      fr: 'Changer de langue',
     }),
   },
 } satisfies Dictionary;

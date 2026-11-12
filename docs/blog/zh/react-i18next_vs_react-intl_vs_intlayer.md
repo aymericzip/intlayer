@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: 将 react-i18next 与 next-intl 和 Intlayer 集成，用于 React 应用的国际化 (i18n)
@@ -84,7 +84,7 @@ author: aymericzip
 ### 2) TypeScript 与安全性
 
 - **react-intl**：类型定义扎实，但**没有自动键类型**；你需要自己强制安全模式。
-- **react-i18next**：为钩子提供强类型；**严格的键类型**通常需要额外配置或生成器。
+- **react-i18next**：为Hook提供强类型；**严格的键类型**通常需要额外配置或生成器。
 - **Intlayer**：**从您的内容自动生成严格类型**。IDE 自动完成和**编译时错误**可以在运行时之前捕获拼写错误和缺失的键。
 
 **重要原因：** 将失败“左移”（到构建/CI阶段）可以减少生产环境问题并加快开发者反馈循环。

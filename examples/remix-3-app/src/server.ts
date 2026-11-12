@@ -1,8 +1,8 @@
 import * as http from 'node:http';
+import { intlayer, useIntlayer, useLocale } from 'remix-intlayer';
 import { createRequestListener } from 'remix/node-fetch-server';
 import { createHtmlResponse } from 'remix/response/html';
 import { createRouter } from 'remix/router';
-import { intlayer, useIntlayer, useLocale } from 'remix-intlayer';
 import { routes } from './routes';
 import { renderAboutPage } from './views/about';
 import { renderHomePage } from './views/home';

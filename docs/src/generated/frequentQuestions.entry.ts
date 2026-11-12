@@ -98,7 +98,7 @@ const readLocale = (
   };
 
   return {
-    // biome-ignore lint/suspicious/noThenProperty: the thenable is intentional — `await` is what triggers the lazy read.
+    // oxlint-disable-next-line unicorn/no-thenable -- the thenable is intentional — `await` is what triggers the lazy read.
     then: (onFulfilled, onRejected) => read().then(onFulfilled, onRejected),
     catch: (onRejected) => read().catch(onRejected),
     finally: (onFinally) => read().finally(onFinally),
@@ -126,6 +126,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('SSR_Next_no_[locale].md', 'id'),
     vi: readLocale('SSR_Next_no_[locale].md', 'vi'),
     uk: readLocale('SSR_Next_no_[locale].md', 'uk'),
+    'he-IL': readLocale('SSR_Next_no_[locale].md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/array_as_content_declaration.md': {
     en: readLocale('array_as_content_declaration.md', 'en'),
@@ -146,6 +147,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('array_as_content_declaration.md', 'id'),
     vi: readLocale('array_as_content_declaration.md', 'vi'),
     uk: readLocale('array_as_content_declaration.md', 'uk'),
+    'he-IL': readLocale('array_as_content_declaration.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/build_dictionaries.md': {
     en: readLocale('build_dictionaries.md', 'en'),
@@ -166,6 +168,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('build_dictionaries.md', 'id'),
     vi: readLocale('build_dictionaries.md', 'vi'),
     uk: readLocale('build_dictionaries.md', 'uk'),
+    'he-IL': readLocale('build_dictionaries.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/build_error_CI_CD.md': {
     en: readLocale('build_error_CI_CD.md', 'en'),
@@ -186,6 +189,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('build_error_CI_CD.md', 'id'),
     vi: readLocale('build_error_CI_CD.md', 'vi'),
     uk: readLocale('build_error_CI_CD.md', 'uk'),
+    'he-IL': readLocale('build_error_CI_CD.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/bun_set_up.md': {
     en: readLocale('bun_set_up.md', 'en'),
@@ -206,6 +210,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('bun_set_up.md', 'id'),
     vi: readLocale('bun_set_up.md', 'vi'),
     uk: readLocale('bun_set_up.md', 'uk'),
+    'he-IL': readLocale('bun_set_up.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/claude_code_token_consumption.md': {
     en: readLocale('claude_code_token_consumption.md', 'en'),
@@ -226,6 +231,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('claude_code_token_consumption.md', 'id'),
     vi: readLocale('claude_code_token_consumption.md', 'vi'),
     uk: readLocale('claude_code_token_consumption.md', 'uk'),
+    'he-IL': readLocale('claude_code_token_consumption.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/customized_locale_list.md': {
     en: readLocale('customized_locale_list.md', 'en'),
@@ -246,6 +252,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('customized_locale_list.md', 'id'),
     vi: readLocale('customized_locale_list.md', 'vi'),
     uk: readLocale('customized_locale_list.md', 'uk'),
+    'he-IL': readLocale('customized_locale_list.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/domain_routing.md': {
     en: readLocale('domain_routing.md', 'en'),
@@ -266,6 +273,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('domain_routing.md', 'id'),
     vi: readLocale('domain_routing.md', 'vi'),
     uk: readLocale('domain_routing.md', 'uk'),
+    'he-IL': readLocale('domain_routing.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/error-vite-env-only.md': {
     en: readLocale('error-vite-env-only.md', 'en'),
@@ -286,6 +294,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('error-vite-env-only.md', 'id'),
     vi: readLocale('error-vite-env-only.md', 'vi'),
     uk: readLocale('error-vite-env-only.md', 'uk'),
+    'he-IL': readLocale('error-vite-env-only.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/esbuild_error.md': {
     en: readLocale('esbuild_error.md', 'en'),
@@ -306,6 +315,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('esbuild_error.md', 'id'),
     vi: readLocale('esbuild_error.md', 'vi'),
     uk: readLocale('esbuild_error.md', 'uk'),
+    'he-IL': readLocale('esbuild_error.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/get_locale_cookie.md': {
     en: readLocale('get_locale_cookie.md', 'en'),
@@ -326,6 +336,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('get_locale_cookie.md', 'id'),
     vi: readLocale('get_locale_cookie.md', 'vi'),
     uk: readLocale('get_locale_cookie.md', 'uk'),
+    'he-IL': readLocale('get_locale_cookie.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/intlayerNode.md': {
     en: readLocale('intlayerNode.md', 'en'),
@@ -346,6 +357,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('intlayerNode.md', 'id'),
     vi: readLocale('intlayerNode.md', 'vi'),
     uk: readLocale('intlayerNode.md', 'uk'),
+    'he-IL': readLocale('intlayerNode.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/intlayer_command_undefined.md': {
     en: readLocale('intlayer_command_undefined.md', 'en'),
@@ -366,6 +378,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('intlayer_command_undefined.md', 'id'),
     vi: readLocale('intlayer_command_undefined.md', 'vi'),
     uk: readLocale('intlayer_command_undefined.md', 'uk'),
+    'he-IL': readLocale('intlayer_command_undefined.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/locale_incorect_in_url.md': {
     en: readLocale('locale_incorect_in_url.md', 'en'),
@@ -386,6 +399,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('locale_incorect_in_url.md', 'id'),
     vi: readLocale('locale_incorect_in_url.md', 'vi'),
     uk: readLocale('locale_incorect_in_url.md', 'uk'),
+    'he-IL': readLocale('locale_incorect_in_url.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/multiple_plurals_in_one_sentence.md': {
     en: readLocale('multiple_plurals_in_one_sentence.md', 'en'),
@@ -406,6 +420,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('multiple_plurals_in_one_sentence.md', 'id'),
     vi: readLocale('multiple_plurals_in_one_sentence.md', 'vi'),
     uk: readLocale('multiple_plurals_in_one_sentence.md', 'uk'),
+    'he-IL': readLocale('multiple_plurals_in_one_sentence.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/package_version_error.md': {
     en: readLocale('package_version_error.md', 'en'),
@@ -426,6 +441,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('package_version_error.md', 'id'),
     vi: readLocale('package_version_error.md', 'vi'),
     uk: readLocale('package_version_error.md', 'uk'),
+    'he-IL': readLocale('package_version_error.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/static_rendering.md': {
     en: readLocale('static_rendering.md', 'en'),
@@ -446,6 +462,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('static_rendering.md', 'id'),
     vi: readLocale('static_rendering.md', 'vi'),
     uk: readLocale('static_rendering.md', 'uk'),
+    'he-IL': readLocale('static_rendering.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/translated_path_url.md': {
     en: readLocale('translated_path_url.md', 'en'),
@@ -466,6 +483,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('translated_path_url.md', 'id'),
     vi: readLocale('translated_path_url.md', 'vi'),
     uk: readLocale('translated_path_url.md', 'uk'),
+    'he-IL': readLocale('translated_path_url.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/unknown_command.md': {
     en: readLocale('unknown_command.md', 'en'),
@@ -486,6 +504,7 @@ export const frequentQuestionsEntry = {
     id: readLocale('unknown_command.md', 'id'),
     vi: readLocale('unknown_command.md', 'vi'),
     uk: readLocale('unknown_command.md', 'uk'),
+    'he-IL': readLocale('unknown_command.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './frequent_questions/en/use_without_provider.md': {
     en: readLocale('use_without_provider.md', 'en'),
@@ -506,5 +525,6 @@ export const frequentQuestionsEntry = {
     id: readLocale('use_without_provider.md', 'id'),
     vi: readLocale('use_without_provider.md', 'vi'),
     uk: readLocale('use_without_provider.md', 'uk'),
+    'he-IL': readLocale('use_without_provider.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

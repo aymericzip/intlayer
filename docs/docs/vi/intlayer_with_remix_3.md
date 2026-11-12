@@ -38,7 +38,7 @@ Hướng dẫn này minh họa cách tích hợp **Intlayer** để quốc tế 
 **Remix 3** đại diện cho một bước chuyển đổi kiến trúc cơ bản hướng tới một **framework web có thể kết hợp, độc lập với môi trường chạy (runtime-agnostic) và được xây dựng hoàn toàn dựa trên các tiêu chuẩn web**. Thay vì gắn liền với các công cụ đóng gói cụ thể hoặc API máy chủ độc quyền, Remix 3 được phân phối dưới dạng các gói đơn nhiệm có thể kết hợp:
 
 - **`remix/fetch-router`** (hoặc `remix/router`): Định tuyến nhẹ, tuân thủ tiêu chuẩn dựa trên Fetch API (`Request` và `Response`).
-- **`remix/ui`**: Mô hình thành phần JSX (`jsxImportSource: "remix/ui"`). Một thành phần là một hàm thiết lập (setup function) trả về một hàm kết xuất (render function), nhận props qua một handle có định kiểu.
+- **`remix/component`**: Mô hình thành phần JSX (`jsxImportSource: "remix/component"`). Một thành phần là một hàm thiết lập (setup function) trả về một hàm kết xuất (render function), nhận props qua một handle có định kiểu.
 - **`remix/middleware/render`**: Cài đặt `context.render(<Page />)` trên mỗi yêu cầu, truyền phát (streaming) cây JSX sang một `Response` HTML.
 - **`remix/node-fetch-server`**: Bộ điều hợp máy chủ cho Node.js, hỗ trợ nguyên bản cho Bun, Deno và các môi trường edge.
 - **`remix/cookie`**: Phân tích cú pháp và tuần tự hóa cookie được ký bằng mật mã.
@@ -56,7 +56,7 @@ So với các giải pháp truyền thống như `i18next` hoặc các trình t�
 <AccordionGroup>
 <Accordion header="Hỗ trợ đầy đủ Remix 3 & Tiêu chuẩn Web">
 
-Intlayer được xây dựng để hoạt động liền mạch với các tiêu chuẩn web (`Request`, `Response`, `Headers` và `URL`). `remix-intlayer` cắm vào bộ định tuyến Fetch của Remix 3 dưới dạng một middleware nhẹ, trích xuất ngôn ngữ từ đường dẫn URL, cookie hoặc tiêu đề `Accept-Language` và hiển thị nó cho phần còn lại của yêu cầu, trình xử lý, chế độ xem và thành phần `remix/ui`, mà không cần truyền thủ công hay ràng buộc bạn vào một runtime cụ thể.
+Intlayer được xây dựng để hoạt động liền mạch với các tiêu chuẩn web (`Request`, `Response`, `Headers` và `URL`). `remix-intlayer` cắm vào bộ định tuyến Fetch của Remix 3 dưới dạng một middleware nhẹ, trích xuất ngôn ngữ từ đường dẫn URL, cookie hoặc tiêu đề `Accept-Language` và hiển thị nó cho phần còn lại của yêu cầu, trình xử lý, chế độ xem và thành phần `remix/component`, mà không cần truyền thủ công hay ràng buộc bạn vào một runtime cụ thể.
 
 </Accordion>
 <Accordion header="Khai báo nội dung an toàn kiểu dữ liệu">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: Công cụ quốc tế hóa cốt lõi cung cấp quản lý cấu hình, khai báo từ điển (`t()`, `Dictionary`), các công cụ CLI và trình thông dịch lúc chạy.
 - **`remix-intlayer`**: Tích hợp Remix 3: middleware bộ định tuyến `intlayer()` phân giải ngôn ngữ của mỗi yêu cầu, và các hook `useIntlayer`, `useDictionary` và `useLocale` đọc ngôn ngữ đó ở bất kỳ vị trí nào phía sau.
-- **`remix`**: Gói khung thống nhất Remix 3 xuất ra `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` và `remix/node-fetch-server`.
+- **`remix`**: Gói khung thống nhất Remix 3 xuất ra `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render` và `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Cấu hình Intlayer">
 
 ### Kiến trúc
 
-Trong kiến trúc này, middleware `intlayer()` của `remix-intlayer` được đăng ký trong `createRouter()` trước middleware `render()`. Nó loại bỏ tiền tố locale trước khi router khớp, do đó các route chỉ được khai báo một lần trong `src/routes.ts` mà không có phân đoạn `:locale`, đồng thời chạy phần còn lại của yêu cầu bên trong phạm vi `AsyncLocalStorage`, cho phép `useIntlayer` / `useLocale` đọc locale mà không cần đối số trong các trình xử lý route và view `remix/ui`. Các khai báo nội dung được đặt cùng với các view của bạn trong `src/`:
+Trong kiến trúc này, middleware `intlayer()` của `remix-intlayer` được đăng ký trong `createRouter()` trước middleware `render()`. Nó loại bỏ tiền tố locale trước khi router khớp, do đó các route chỉ được khai báo một lần trong `src/routes.ts` mà không có phân đoạn `:locale`, đồng thời chạy phần còn lại của yêu cầu bên trong phạm vi `AsyncLocalStorage`, cho phép `useIntlayer` / `useLocale` đọc locale mà không cần đối số trong các trình xử lý route và view `remix/component`. Các khai báo nội dung được đặt cùng với các view của bạn trong `src/`:
 
 ```bash
 .
@@ -297,7 +297,7 @@ Remix 3 cung cấp quy trình middleware có thể kết hợp thông qua `creat
 2. Ngôn ngữ được lưu bởi máy khách: cookie lưu trữ (`INTLAYER_LOCALE`) hoặc tiêu đề tùy chỉnh (`x-intlayer-locale`).
 3. Thương lượng `Accept-Language` tiêu chuẩn, dự phòng về `defaultLocale` đã định cấu hình của bạn.
 
-Kết quả được lưu trữ trong ngữ cảnh yêu cầu Remix dưới dạng `context.intlayer` (hoặc `context.get(Intlayer)`), cùng với `locale`, `defaultLocale` và `availableLocales`. Middleware sau đó chạy phần còn lại của yêu cầu bên trong phạm vi `AsyncLocalStorage` được liên kết với ngữ cảnh đó, cho phép các hook của gói đọc ngôn ngữ mà không cần đối số, trong các trình xử lý tuyến đường, chế độ xem cũng như các thành phần `remix/ui`:
+Kết quả được lưu trữ trong ngữ cảnh yêu cầu Remix dưới dạng `context.intlayer` (hoặc `context.get(Intlayer)`), cùng với `locale`, `defaultLocale` và `availableLocales`. Middleware sau đó chạy phần còn lại của yêu cầu bên trong phạm vi `AsyncLocalStorage` được liên kết với ngữ cảnh đó, cho phép các hook của gói đọc ngôn ngữ mà không cần đối số, trong các trình xử lý tuyến đường, chế độ xem cũng như các thành phần `remix/component`:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -340,14 +340,14 @@ routes.localizedHome.href({ locale: "vi" }); // "/vi"
 </Step>
 <Step number={7} title="Kết xuất các trang được bản địa hóa bằng JSX">
 
-Remix 3 sử dụng `remix/ui` cho các thành phần JSX. Một thành phần là một **hàm thiết lập (setup function)** trả về một **hàm kết xuất (render function)**. Props được truyền qua một `handle` có định kiểu (ví dụ: `handle.props.locale`):
+Remix 3 sử dụng `remix/component` cho các thành phần JSX. Một thành phần là một **hàm thiết lập (setup function)** trả về một **hàm kết xuất (render function)**. Props được truyền qua một `handle` có định kiểu (ví dụ: `handle.props.locale`):
 
 Bắt đầu với một khung `Document` dùng chung thiết lập các thuộc tính `<html lang="..." dir="...">` từ ngôn ngữ được phân giải bởi middleware:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -526,7 +526,7 @@ bun x intlayer fill
 
 ## Cấu hình TypeScript
 
-Cấu hình `tsconfig.json` để trỏ JSX đến runtime `remix/ui` và bao gồm các kiểu `.intlayer` đã tạo:
+Cấu hình `tsconfig.json` để trỏ JSX đến runtime `remix/component` và bao gồm các kiểu `.intlayer` đã tạo:
 
 ```json fileName="tsconfig.json"
 {
@@ -535,7 +535,7 @@ Cấu hình `tsconfig.json` để trỏ JSX đến runtime `remix/ui` và bao g�
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -543,7 +543,7 @@ Cấu hình `tsconfig.json` để trỏ JSX đến runtime `remix/ui` và bao g�
 }
 ```
 
-> `jsxImportSource: "remix/ui"` là yếu tố giúp `<HomePage />` phân giải thành hàm `createElement` của Remix thay vì của React. Không có runtime React nào được tải.
+> `jsxImportSource: "remix/component"` là yếu tố giúp `<HomePage />` phân giải thành hàm `createElement` của Remix thay vì của React. Không có runtime React nào được tải.
 
 ## Kết luận
 

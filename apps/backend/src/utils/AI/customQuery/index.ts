@@ -15,7 +15,7 @@ export type CustomQueryOptions = {
 export type { CustomQueryResultData };
 
 export const aiDefaultOptions: AIOptions = {
-  model: 'gpt-4o-mini',
+  model: 'gpt-6-luna',
   // Keep default options
 };
 

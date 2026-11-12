@@ -19,7 +19,7 @@ import { WithResizer } from '@intlayer/design-system/with-resizer';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayerAsync, getPathWithoutLocale } from 'intlayer';
 import { X } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardFooter } from '#components/Dashboard/DashboardFooter';
@@ -31,7 +31,8 @@ import {
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
 import { TranslationStatusBar } from '#components/TranslationStatusBar';
 import {
-  dashboardRightPanelManager,
+  DashboardRightPanelId,
+  setDashboardRightPanelContainer,
   useDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
@@ -103,20 +104,11 @@ function DashboardLayout() {
     unpin: unpinEditorPage,
     removeRecent: removeRecentEditorPage,
   } = useEditorPagesSidebar();
-  const {
-    activePanel,
-    close: closeRightPanel,
-    open: openRightPanel,
-  } = useDashboardRightPanel();
+  const { activePanel, close: closeRightPanel } = useDashboardRightPanel();
   const { pathname } = useLocation();
-  const wasVisualEditorOpenRef = useRef(false);
   const hasProject = !!session?.project;
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
-
-  const isVisualEditorPage =
-    pathWithoutLocale.startsWith(App_Dashboard_Translate_Path) ||
-    pathWithoutLocale.startsWith(App_Dashboard_Dictionaries_Path);
 
   const dictionaryDetailMatch = pathWithoutLocale.match(
     new RegExp(`^${App_Dashboard_Dictionaries_Path}/(.+)$`)
@@ -127,17 +119,6 @@ function DashboardLayout() {
     new RegExp(`^${App_Dashboard_Tags_Path}/(.+)$`)
   );
   const currentTagKey = tagDetailMatch?.[1] ?? null;
-
-  useEffect(() => {
-    const currentPanel = dashboardRightPanelManager.getSnapshot().activePanel;
-    if (!isVisualEditorPage && currentPanel === 'visual-editor') {
-      wasVisualEditorOpenRef.current = true;
-      closeRightPanel();
-    } else if (isVisualEditorPage && wasVisualEditorOpenRef.current) {
-      wasVisualEditorOpenRef.current = false;
-      openRightPanel('visual-editor');
-    }
-  }, [isVisualEditorPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (currentDictionaryKey) {
@@ -158,15 +139,19 @@ function DashboardLayout() {
     translationStatus,
     aiAssistant,
     visualEditor,
+    nodeEditor,
+    dictionaryList,
     closePanel,
     mainContentAriaLabel,
     sidePanelAriaLabel,
   } = useIntlayer('dashboard-route');
 
-  const PANEL_TITLES: Record<string, string> = {
-    'translation-status': translationStatus.value,
-    'dashboard-chat': aiAssistant.value,
-    'visual-editor': visualEditor.value,
+  const PANEL_TITLES: Record<DashboardRightPanelId, string> = {
+    [DashboardRightPanelId.TranslationStatus]: translationStatus.value,
+    [DashboardRightPanelId.Chat]: aiAssistant.value,
+    [DashboardRightPanelId.VisualEditor]: visualEditor.value,
+    [DashboardRightPanelId.DictionaryEdition]: nodeEditor.value,
+    [DashboardRightPanelId.DictionaryList]: dictionaryList.value,
   };
 
   const navigationItems: SidebarNavigationItem[] = [
@@ -176,6 +161,7 @@ function DashboardLayout() {
       icon: 'LayoutDashboard',
       label: navigation.overview.label.value,
       title: navigation.overview.title.value,
+      description: navigation.overview.description.value,
     },
     {
       key: 'content-group',
@@ -183,6 +169,7 @@ function DashboardLayout() {
       icon: 'FileText',
       label: navigation.content.label.value,
       title: navigation.content.title.value,
+      description: navigation.content.description.value,
       items: [
         {
           key: 'editor',
@@ -190,6 +177,7 @@ function DashboardLayout() {
           icon: 'PenTool',
           label: navigation.editor.label.value,
           title: navigation.editor.title.value,
+          description: navigation.editor.description.value,
           items:
             editorPageSidebarKeys.length > 0
               ? editorPageSidebarKeys.map((path) => ({
@@ -206,6 +194,7 @@ function DashboardLayout() {
           icon: 'Globe',
           label: navigation.translate.label.value,
           title: navigation.translate.title.value,
+          description: navigation.translate.description.value,
         },
         {
           key: 'dictionaries',
@@ -213,6 +202,7 @@ function DashboardLayout() {
           icon: 'Book',
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
+          description: navigation.dictionaries.description.value,
           items:
             sidebarKeys.length > 0
               ? sidebarKeys.map((dictionaryKey) => ({
@@ -229,6 +219,7 @@ function DashboardLayout() {
           icon: 'Tags',
           label: navigation.tags.label.value,
           title: navigation.tags.title.value,
+          description: navigation.tags.description.value,
           items:
             tagSidebarKeys.length > 0
               ? tagSidebarKeys.map((tagKey) => ({
@@ -245,6 +236,7 @@ function DashboardLayout() {
           icon: 'Image',
           label: navigation.assets.label.value,
           title: navigation.assets.title.value,
+          description: navigation.assets.description.value,
         },
       ],
     },
@@ -254,6 +246,7 @@ function DashboardLayout() {
       icon: 'ScanLine',
       label: navigation.scanner.label.value,
       title: navigation.scanner.title.value,
+      description: navigation.scanner.description.value,
     },
     {
       key: 'analytics',
@@ -261,6 +254,7 @@ function DashboardLayout() {
       icon: 'BarChart3',
       label: navigation.analytics.label.value,
       title: navigation.analytics.title.value,
+      description: navigation.analytics.description.value,
     },
     {
       key: 'ide',
@@ -268,6 +262,7 @@ function DashboardLayout() {
       icon: 'SquareCode',
       label: navigation.ide.label.value,
       title: navigation.ide.title.value,
+      description: navigation.ide.description.value,
     },
     {
       key: 'projects',
@@ -277,6 +272,7 @@ function DashboardLayout() {
       title: hasProject
         ? navigation.project.title.value
         : navigation.projects.title.value,
+      description: navigation.projects.description.value,
     },
     {
       key: 'organization',
@@ -284,6 +280,7 @@ function DashboardLayout() {
       icon: 'Building2',
       label: navigation.organization.label.value,
       title: navigation.organization.title.value,
+      description: navigation.organization.description.value,
     },
     {
       key: 'admin',
@@ -291,6 +288,7 @@ function DashboardLayout() {
       icon: 'Shield',
       label: navigation.admin.label.value,
       title: navigation.admin.title.value,
+      description: navigation.admin.description.value,
     },
   ];
 
@@ -342,22 +340,20 @@ function DashboardLayout() {
             className={cn(
               'md:min-w-2',
               activePanel !== null &&
-                'max-md:absolute! max-md:inset-e-0 max-md:inset-y-0 max-md:z-50 max-md:w-full! max-md:max-w-none!'
+                'max-md:absolute! max-md:inset-y-0 max-md:inset-e-0 max-md:z-50 max-md:w-full! max-md:max-w-none!'
             )}
           >
             <aside
               aria-label={
-                activePanel && PANEL_TITLES[activePanel]
+                activePanel
                   ? PANEL_TITLES[activePanel]
                   : sidePanelAriaLabel.value
               }
               className="ms-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mx-2"
             >
-              <div className="flex shrink-0 items-center justify-between border-neutral/20 border-b px-3 py-2">
-                <span className="font-medium text-sm" aria-hidden="true">
-                  {activePanel && PANEL_TITLES[activePanel]
-                    ? PANEL_TITLES[activePanel]
-                    : ''}
+              <div className="flex shrink-0 items-center justify-between border-b border-neutral/20 px-3 py-2">
+                <span className="text-sm font-medium" aria-hidden="true">
+                  {activePanel ? PANEL_TITLES[activePanel] : ''}
                 </span>
                 <Button
                   type="button"
@@ -369,6 +365,7 @@ function DashboardLayout() {
                 />
               </div>
               <div
+                ref={setDashboardRightPanelContainer}
                 id="dashboard-right-panel"
                 className="relative flex-1 overflow-hidden"
               />

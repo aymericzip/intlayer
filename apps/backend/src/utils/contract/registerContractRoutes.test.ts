@@ -119,6 +119,41 @@ describe('registerContractRoutes', () => {
     expect(payload.error.code).toBe('INVALID_REQUEST_BODY');
   });
 
+  it('keeps the status code of a plain object thrown by a hook', async () => {
+    const limitedApp = Fastify();
+
+    await limitedApp.register(
+      async (scope) => {
+        // Mirrors @fastify/rate-limit, which throws its errorResponseBuilder result
+        scope.addHook('onRequest', async () => {
+          throw {
+            statusCode: 429,
+            error: { code: 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED' },
+          };
+        });
+        registerContractRoutes(
+          scope,
+          tagContract,
+          createEchoHandlers(tagContract)
+        );
+      },
+      { prefix: tagContract.prefix }
+    );
+    await limitedApp.ready();
+
+    const response = await limitedApp.inject({
+      method: 'GET',
+      url: '/api/tag',
+    });
+
+    expect(response.statusCode).toBe(429);
+    expect(response.json().error.code).toBe(
+      'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED'
+    );
+
+    await limitedApp.close();
+  });
+
   it('keeps unknown keys of loose bodies', async () => {
     const response = await app.inject({
       method: 'PUT',

@@ -1,5 +1,6 @@
 'use client';
 
+import { useIframePointerEventsShield } from '@hooks/useIframePointerEventsShield';
 import { cn } from '@utils/cn';
 import React, {
   type FC,
@@ -197,6 +198,10 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
     isHandleOnPhysicalLeft: false,
   });
 
+  // Shield against iframes swallowing pointer events while dragging (#524)
+  const { disableIframePointerEvents, restoreIframePointerEvents } =
+    useIframePointerEventsShield();
+
   /** Whether the handle renders on the physical left, given the text direction. */
   const getIsHandleOnPhysicalLeft = useCallback(() => {
     const container = containerRef.current;
@@ -243,11 +248,12 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
     setIsResizing(false);
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
+    restoreIframePointerEvents();
     window.removeEventListener('mousemove', resize);
     window.removeEventListener('mouseup', stopResizing);
     window.removeEventListener('touchmove', resize);
     window.removeEventListener('touchend', stopResizing);
-  }, [resize]);
+  }, [resize, restoreIframePointerEvents]);
 
   // Handler to start resizing
   const startResizing = useCallback(
@@ -283,23 +289,31 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       setIsResizing(true);
       document.body.style.cursor = 'ew-resize';
       document.body.style.userSelect = 'none';
+      disableIframePointerEvents();
 
       window.addEventListener('mousemove', resize, { passive: true });
       window.addEventListener('mouseup', stopResizing);
       window.addEventListener('touchmove', resize, { passive: true });
       window.addEventListener('touchend', stopResizing);
     },
-    [isOpen, resize, stopResizing, getIsHandleOnPhysicalLeft]
+    [
+      isOpen,
+      resize,
+      stopResizing,
+      getIsHandleOnPhysicalLeft,
+      disableIframePointerEvents,
+    ]
   );
 
   useEffect(() => {
     return () => {
+      restoreIframePointerEvents();
       window.removeEventListener('mousemove', resize);
       window.removeEventListener('mouseup', stopResizing);
       window.removeEventListener('touchmove', resize);
       window.removeEventListener('touchend', stopResizing);
     };
-  }, [resize, stopResizing]);
+  }, [resize, stopResizing, restoreIframePointerEvents]);
 
   useEffect(() => {
     if (width > minWidth) {
@@ -372,7 +386,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       role="slider"
       tabIndex={0}
     >
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: This div stops event propagation to prevent content clicks from triggering resize */}
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- This div stops event propagation to prevent content clicks from triggering resize */}
       <div
         role="presentation"
         className="absolute inset-s-0 top-0 size-full cursor-default overflow-hidden"
@@ -381,7 +395,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       >
         {children}
       </div>
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Invisible handle strip — owns resize events so content stopPropagation doesn't block them */}
+      {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- Invisible handle strip — owns resize events so content stopPropagation doesn't block them */}
       <div
         role="presentation"
         className={cn(

@@ -5,6 +5,7 @@ import {
   enableIntlayerEditorConfig,
   type RoutingMode,
   setIntlayerConfigCompilerOutput,
+  setIntlayerConfigDictionaryLocale,
   setIntlayerConfigEnableProxy,
   setIntlayerConfigRoutingMode,
   setIntlayerConfigRoutingStorageOnly,
@@ -285,6 +286,32 @@ export const setCompilerOutputInConfig = async (
     await writeFileToRoot(rootDir, configFile, updatedContent);
     logger(
       `${v} Set ${colorize(`compiler.output = '${outputTemplate}'`, ANSIColors.GREY_LIGHT)} in ${colorizePath(configFile)}`
+    );
+  }
+
+  return configFile;
+};
+
+/**
+ * Sets `dictionary.locale` to the default locale in the project's Intlayer
+ * configuration file. Returns the config file that was updated, or `undefined`
+ * when none was found.
+ */
+export const setDictionaryLocaleInConfig = async (
+  rootDir: string
+): Promise<string | undefined> => {
+  const configFile = await findIntlayerConfigFile(rootDir);
+
+  if (!configFile) return undefined;
+
+  const extension = configFile.split('.').pop()!;
+  const content = await readFileFromRoot(rootDir, configFile);
+  const updatedContent = setIntlayerConfigDictionaryLocale(content, extension);
+
+  if (updatedContent !== content) {
+    await writeFileToRoot(rootDir, configFile, updatedContent);
+    logger(
+      `${v} Set ${colorize('dictionary.locale', ANSIColors.GREY_LIGHT)} to the default locale in ${colorizePath(configFile)}`
     );
   }
 

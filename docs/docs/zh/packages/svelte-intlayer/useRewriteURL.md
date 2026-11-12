@@ -1,8 +1,8 @@
 ---
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 createdAt: 2025-08-23
-title: "useRewriteURL 钩子文档 | svelte-intlayer"
+title: "useRewriteURL Hook文档 | svelte-intlayer"
 description: "在 Svelte 中使用 useRewriteURL，按照配置中的 URL 重写规则将浏览器 URL 改写为本地化版本。"
 keywords:
   - useRewriteURL
@@ -19,15 +19,15 @@ slugs:
 author: aymericzip
 ---
 
-# useRewriteURL 钩子
+# useRewriteURL Hook
 
-针对 Svelte 的 `useRewriteURL` 钩子用于在客户端管理本地化 URL 的重写。它会根据当前 locale 和 `intlayer.config.ts` 中的配置，自动将浏览器的 URL 校正为更“漂亮”的本地化别名。
+针对 Svelte 的 `useRewriteURL` Hook用于在客户端管理本地化 URL 的重写。它会根据当前 locale 和 `intlayer.config.ts` 中的配置，自动将浏览器的 URL 校正为更“漂亮”的本地化别名。
 
 它通过 `window.history.replaceState` 静默更新 URL，从而避免触发完整的 SvelteKit 导航。
 
 ## 用法
 
-在 Svelte 组件中调用该钩子。
+在 Svelte 组件中调用该Hook。
 
 ```svelte
 <script>

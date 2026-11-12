@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Arquivos de declaração de conteúdo por locale"
 description: Descubra como declarar conteúdo por localidade no Intlayer. Siga a documentação para entender os diferentes formatos e casos de uso.
@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Usando essa configuração, todos os arquivos por localidade serão gerados com a localidade padrão definida como Inglês. Isso também inclui a geração de arquivos `.content` usando o comando `extract` e o compiler. (Veja [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) ou [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) para mais informações.)
+Usando essa configuração, todos os arquivos por localidade serão gerados com a localidade padrão definida como Inglês. Isso também inclui a geração de arquivos `.content` usando o comando `extract` e o compiler. (Veja [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) ou [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/pt/cli/extract.md) para mais informações.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
 

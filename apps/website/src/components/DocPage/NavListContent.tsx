@@ -44,7 +44,7 @@ export const NavListContent = <
     <nav
       ref={navRef}
       aria-label={ariaLabel}
-      className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-y-4 overflow-auto px-2 pt-6 pb-20"
+      className="m-auto flex max-h-[calc(100vh-8.2rem)] max-w-xl min-w-40 flex-col gap-y-4 overflow-auto px-2 pt-6 pb-20"
     >
       <FrameworkLogoSprite logoKeys={collectFrameworkLogoKeys(data)} />
       {Object.entries(filteredData).map(([key, sectionData]) => (
@@ -61,7 +61,7 @@ export const NavListContent = <
       ))}
 
       {footer && (
-        <div className="mt-3 flex flex-col gap-y-2 border-border/60 border-t pt-2">
+        <div className="mt-3 flex flex-col gap-y-2 border-t border-border/60 pt-2">
           {footer}
         </div>
       )}

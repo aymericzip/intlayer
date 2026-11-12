@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "NestJS i18n - 翻译你的应用的完整指南"
 description: "在 NestJS 中配置 Intlayer：按请求检测语言，翻译控制器响应和校验消息，保持类型安全。"

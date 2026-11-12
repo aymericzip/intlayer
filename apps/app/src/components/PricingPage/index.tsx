@@ -19,7 +19,7 @@ export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
     <div className="m-auto w-full max-w-full">
       <div className="m-auto max-w-5xl px-10 py-4">
         <H1 className="my-10 ms-4 text-4xl">{title}</H1>
-        <p className="py-4 text-neutral text-sm">{description}</p>
+        <p className="py-4 text-sm text-neutral">{description}</p>
       </div>
 
       <SwitchSelector
@@ -43,7 +43,7 @@ export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
         </Suspense>
       ) : (
         <div className="m-auto flex size-full items-center justify-center">
-          <p className="text-neutral text-sm">
+          <p className="text-sm text-neutral">
             Failed to fetch pricing data. Please try again later.
           </p>
         </div>

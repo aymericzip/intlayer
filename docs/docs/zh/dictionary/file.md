@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "文件内容：嵌入外部文件"
 description: "使用 file() 函数将 Markdown 或文本等外部文件嵌入 Intlayer 字典，并与源文件保持同步。"
@@ -62,12 +62,12 @@ export default myFileContent;
 }
 ```
 
-## 在 React Intlayer 中使用文件内容
+## 在各框架中使用文件内容
 
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use embedded file content in a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This retrieves the content from the specified key and allows it to be displayed dynamically.
+要在 React 组件中使用嵌入的文件内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` Hook。该 Hook 会从指定的键获取内容并动态渲染：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -89,7 +89,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Next.js 客户端组件中使用嵌入的文件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -113,7 +113,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vue 组件中使用嵌入的文件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -132,7 +132,7 @@ const { myFile } = useIntlayer("my_key");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+要在 Svelte 组件中使用嵌入的文件内容，可通过 `useIntlayer` Hook 获取。使用 `$` 访问 store。示例如下：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -149,7 +149,7 @@ const content = useIntlayer("my_key");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use embedded file content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Preact 组件中使用嵌入的文件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -171,7 +171,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use embedded file content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 SolidJS 组件中使用嵌入的文件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -193,7 +193,7 @@ export default FileComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use embedded file content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Angular 组件中使用嵌入的文件内容，可通过 `useIntlayer` Hook 获取。示例如下：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -215,7 +215,7 @@ export class FileComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use embedded file content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+要在 Vanilla JS 中使用嵌入的文件内容，可通过 `vanilla-intlayer` 的 `useIntlayer` 获取。示例如下：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -226,7 +226,7 @@ const content = useIntlayer("my_key").onChange((newContent) => {
   document.getElementById("file-content")!.textContent = newContent.myFile;
 });
 
-// Initial render
+// 初始渲染
 document.getElementById("file-content")!.textContent = content.myFile;
 ```
 
@@ -265,16 +265,6 @@ export default myMultilingualContent;
 
 - 识别内容来源于特定文件。
 - 当关联文件被编辑时，自动更新字典内容。
-- 确保文件与字典之间的同步，保持内容的完整性。
-
-## 额外资源
-
-有关在 Intlayer 中配置和使用文件嵌入的更多详细信息，请参阅以下资源：
-
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
-- [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
-- [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
-- [Markdown 内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)
 - 确保文件与字典之间的同步，保持内容的完整性。
 
 ## 额外资源

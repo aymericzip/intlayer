@@ -9,6 +9,7 @@ import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent
 import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
+import { applyEditorServerOverride } from './editorServerOverride';
 import { loadConfigurationFile } from './loadConfigurationFile';
 import { searchConfigurationFile } from './searchConfigurationFile';
 
@@ -33,6 +34,20 @@ export type GetConfigurationAndFilePathResult = {
   customConfiguration: CustomIntlayerConfig | undefined;
   numCustomConfiguration: number;
   configurationFilePath: string | undefined;
+};
+
+/**
+ * Applies the editor server override outside the cache: the editor server
+ * sets it once listening, after its configuration was first read.
+ */
+const withEditorServerOverride = (
+  result: GetConfigurationAndFilePathResult
+): GetConfigurationAndFilePathResult => {
+  const configuration = applyEditorServerOverride(result.configuration);
+
+  return configuration === result.configuration
+    ? result
+    : { ...result, configuration };
 };
 
 /**
@@ -63,7 +78,7 @@ export const getConfigurationAndFilePath = (
   const cachedConfiguration =
     cacheMemory.get<GetConfigurationAndFilePathResult>(options);
 
-  if (cachedConfiguration) return cachedConfiguration;
+  if (cachedConfiguration) return withEditorServerOverride(cachedConfiguration);
 
   // Search for configuration files
   const { configurationFilePath, numCustomConfiguration } =
@@ -130,12 +145,12 @@ export const getConfigurationAndFilePath = (
     configurationFilePath,
   });
 
-  return {
+  return withEditorServerOverride({
     configuration,
     customConfiguration,
     numCustomConfiguration,
     configurationFilePath,
-  };
+  });
 };
 
 /**

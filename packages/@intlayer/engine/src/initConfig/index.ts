@@ -1,11 +1,11 @@
 import { writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
-import { readAsset } from 'utils:asset';
 import { colorizePath, logger, v } from '@intlayer/config/logger';
 import {
   type configurationFilesCandidates,
   searchConfigurationFile,
 } from '@intlayer/config/node';
+import { readAsset } from 'utils:asset';
 
 type ConfigFormat = 'ts' | 'cjs' | 'mjs' | 'js' | 'json';
 

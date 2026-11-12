@@ -2,7 +2,7 @@
  * Grammar registrations, as default-exported by the `shiki/langs/*` modules.
  */
 export type LanguageGrammar =
-  typeof import('shiki/langs/typescript.mjs')['default'];
+  (typeof import('shiki/langs/typescript.mjs'))['default'];
 
 /**
  * Loads a single Shiki grammar (and its embedded dependencies).

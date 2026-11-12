@@ -38,19 +38,9 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
     pushConfig(undefined);
   };
 
-  const getTemplateContent = () => {
-    if (provider === 'github') {
-      return ciTemplates.github.value;
-    } else if (provider === 'gitlab') {
-      return ciTemplates.gitlab.value;
-    } else if (provider === 'bitbucket') {
-      return ciTemplates.bitbucket.value;
-    }
-    return '';
-  };
-
   // Use actual content from server if available, otherwise fallback to default template
-  const displayContent = ciStatus?.content || getTemplateContent();
+  const displayContent =
+    ciStatus?.content || (provider ? ciTemplates(provider).value : '');
   const hasContent = !!displayContent;
 
   const { isCopied, copy } = useCopyToClipboard(displayContent ?? '');
@@ -75,9 +65,11 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
       size="lg"
       hasCloseButton
       padding="lg"
+      border
+      borderColor="neutral"
     >
       <div className="flex flex-col gap-4">
-        <p className="text-neutral text-sm">{description}</p>
+        <p className="text-sm text-neutral">{description}</p>
 
         <div className="relative max-h-96 overflow-auto rounded-md bg-neutral/5 p-4">
           {isLoading ? (

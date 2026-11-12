@@ -51,10 +51,10 @@ const Field: FC<{ label: string; children: React.ReactNode }> = ({
   children,
 }) => (
   <div className="flex flex-col gap-1">
-    <span className="text-neutral/60 text-xs uppercase tracking-wide">
+    <span className="text-xs tracking-wide text-neutral/60 uppercase">
       {label}
     </span>
-    <div className="font-medium text-sm">{children}</div>
+    <div className="text-sm font-medium">{children}</div>
   </div>
 );
 
@@ -104,7 +104,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
   if (!affiliate) {
     return (
       <div className="flex flex-1 items-center justify-center p-10 text-center">
-        <p className="text-neutral/60 text-sm">{affiliateNotFound}</p>
+        <p className="text-sm text-neutral/60">{affiliateNotFound}</p>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
 
   return (
     <div className="m-auto flex w-full max-w-3xl flex-col gap-6 p-8">
-      <h1 className="font-semibold text-2xl">{affiliateDetailTitle}</h1>
+      <h1 className="text-2xl font-semibold">{affiliateDetailTitle}</h1>
 
       <Container
         roundedSize="3xl"
@@ -233,7 +233,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
         className="w-full"
       >
         <div className="flex flex-col gap-4">
-          <h2 className="font-semibold text-lg">{promoCodesLabel}</h2>
+          <h2 className="text-lg font-semibold">{promoCodesLabel}</h2>
 
           <Select
             key={selectKey}
@@ -254,8 +254,8 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
               ) : (
                 unattachedCodes.map((promo) => (
                   <Select.Item key={promo.id} value={promo.id}>
-                    <span className="font-medium font-mono">{promo.code}</span>
-                    <span className="ms-2 text-neutral/60 text-xs">
+                    <span className="font-mono font-medium">{promo.code}</span>
+                    <span className="ms-2 text-xs text-neutral/60">
                       {promo.discountType === 'percentage'
                         ? `${promo.discountValue}%`
                         : `$${promo.discountValue}`}
@@ -269,7 +269,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
           </Select>
 
           {attachedCodes.length === 0 ? (
-            <p className="text-neutral/60 text-sm">{noPromoCodesYet}</p>
+            <p className="text-sm text-neutral/60">{noPromoCodesYet}</p>
           ) : (
             <div className="flex flex-col gap-2">
               {attachedCodes.map((promo) => (
@@ -279,7 +279,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
                 >
                   <div className="flex items-center gap-3">
                     <CopyToClipboard text={promo.code} size={10}>
-                      <span className="font-medium font-mono text-sm">
+                      <span className="font-mono text-sm font-medium">
                         {promo.code}
                       </span>
                     </CopyToClipboard>
@@ -293,7 +293,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
                         : `$${promo.discountValue}`}
                     </Badge>
                     {promo.expiresAt && (
-                      <span className="text-neutral/60 text-xs">
+                      <span className="text-xs text-neutral/60">
                         exp {new Date(promo.expiresAt).toLocaleDateString()}
                       </span>
                     )}

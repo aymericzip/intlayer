@@ -27,6 +27,27 @@ import { UrlStateManager } from './UrlStateManager';
 
 export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
 
+/** Delay between two editor pings checking the client still answers. */
+export const CLIENT_HEARTBEAT_INTERVAL_MS = 3_000;
+
+/**
+ * Silence after which the client counts as disconnected (e.g. its dev server
+ * restarted). Pings go on, so it is activated again as soon as it answers.
+ */
+export const CLIENT_HEARTBEAT_TIMEOUT_MS = 10_000;
+
+/** Sent by the client with `INTLAYER_CLIENT_READY`. */
+export type ClientReadyPayload = {
+  /** Whether the editor already activated this client. */
+  isActivated: boolean;
+};
+
+/** Clients older than the heartbeat announce themselves without payload. */
+const isClientReadyPayload = (data: unknown): data is ClientReadyPayload =>
+  typeof data === 'object' &&
+  data !== null &&
+  typeof (data as ClientReadyPayload).isActivated === 'boolean';
+
 type EditorConfig = Pick<IntlayerConfig, 'editor'>;
 
 const sharedEditedContent =
@@ -78,11 +99,14 @@ export class EditorStateManager {
   private _unsubActivate: (() => void) | null = null;
   // Editor-mode handshake subscriber
   private _unsubClientReady: (() => void) | null = null;
+  private _clientHeartbeatTimer: ReturnType<typeof setInterval> | null = null;
+  private _lastClientReadyAt = 0;
 
   // Client-mode displayed-keys tracking
   private _displayedKeysObserver: MutationObserver | null = null;
   private _displayedKeysTimer: ReturnType<typeof setTimeout> | null = null;
   private _displayedKeysListeners: Array<[string, EventListener]> = [];
+  private _unsubDisplayedKeysGet: (() => void) | null = null;
 
   // Sync with the other managers of this window
   private _stopSharedStateSyncs: Array<() => void> = [];
@@ -142,7 +166,7 @@ export class EditorStateManager {
       {
         emit: config.mode === 'client',
         receive: config.mode === 'editor',
-        initialValue: [],
+        initialValue: config.mode === 'client' ? [] : undefined,
       }
     );
 
@@ -193,6 +217,7 @@ export class EditorStateManager {
     this._unsubAreYouThere = null;
     this._unsubActivate = null;
     this._unsubClientReady = null;
+    this._stopClientHeartbeat();
     this.messenger.stop();
     this.editorEnabled.stop();
     this.focusedContent.stop();
@@ -223,17 +248,39 @@ export class EditorStateManager {
     this.messenger.send(`${MessageKey.INTLAYER_EDITOR_ENABLED}/post`, true);
   }
 
+  // ─── Locale helpers ─────────────────────────────────────────────────────────
+
+  /**
+   * EDITOR mode: asks the client to switch locale. Covers applications whose
+   * locale is held in memory or storage only (no locale segment in the URL).
+   */
+  requestLocaleChange(locale: Locale): void {
+    if (this._mode !== 'editor') return;
+
+    this.messenger.send(MessageKey.INTLAYER_LOCALE_CHANGE_REQUESTED, locale);
+  }
+
+  /**
+   * CLIENT mode: subscribes to the locale changes requested by the editor.
+   * Returns an unsubscribe function.
+   */
+  onLocaleChangeRequested(handler: (locale: Locale) => void): () => void {
+    if (this._mode !== 'client') return () => {};
+
+    return this.messenger.subscribe<Locale>(
+      MessageKey.INTLAYER_LOCALE_CHANGE_REQUESTED,
+      handler
+    );
+  }
+
   // ─── Focus helpers ──────────────────────────────────────────────────────────
 
   setFocusedContentKeyPath(keyPath: KeyPath[]): void {
-    const filtered = keyPath.filter(
-      (key) => key.type !== NodeTypes.TRANSLATION
-    );
     const prev = this.focusedContent.value;
 
     if (!prev) return;
 
-    this.focusedContent.set({ ...prev, keyPath: filtered });
+    this.focusedContent.set({ ...prev, keyPath });
   }
 
   // ─── Dictionary record helpers ───────────────────────────────────────────
@@ -529,6 +576,13 @@ export class EditorStateManager {
       this._displayedKeysListeners.push([evt, listener]);
     }
 
+    this._unsubDisplayedKeysGet = this.messenger.subscribe(
+      `${MessageKey.INTLAYER_DISPLAYED_DICTIONARY_KEYS}/get`,
+      () => {
+        this._scanDisplayedDictionaryKeys();
+      }
+    );
+
     this._scanDisplayedDictionaryKeys();
   }
 
@@ -543,6 +597,8 @@ export class EditorStateManager {
       window.removeEventListener(evt, listener);
     }
     this._displayedKeysListeners = [];
+    this._unsubDisplayedKeysGet?.();
+    this._unsubDisplayedKeysGet = null;
   }
 
   // ─── Handshake helpers ───────────────────────────────────────────────────────
@@ -555,9 +611,25 @@ export class EditorStateManager {
     // When the client announces it is ready, activate it
     this._unsubClientReady = this.messenger.subscribe(
       MessageKey.INTLAYER_CLIENT_READY,
-      () => {
+      (data) => {
+        if (!isClientReadyPayload(data)) {
+          // Legacy client: activated on every answer, so no heartbeat
+          this.editorEnabled.set(true);
+          this.messenger.send(MessageKey.INTLAYER_EDITOR_ACTIVATE);
+          return;
+        }
+
+        // A client answering a ping of this editor needs no new broadcast; a
+        // re-created editor (e.g. reloaded module) needs the client data again
+        const isConnected = data.isActivated && this.editorEnabled.value;
+
+        this._lastClientReadyAt = Date.now();
+        this._startClientHeartbeat();
         this.editorEnabled.set(true);
-        this.messenger.send(MessageKey.INTLAYER_EDITOR_ACTIVATE);
+
+        if (!isConnected) {
+          this.messenger.send(MessageKey.INTLAYER_EDITOR_ACTIVATE);
+        }
       }
     );
 
@@ -565,16 +637,44 @@ export class EditorStateManager {
     this.messenger.send(MessageKey.INTLAYER_ARE_YOU_THERE);
   }
 
+  /**
+   * EDITOR mode: keeps pinging the client. A client that stopped answering
+   * (dev server restart, reloaded frame, re-evaluated client module) is marked
+   * disconnected, then activated again on its next answer.
+   */
+  private _startClientHeartbeat(): void {
+    if (this._clientHeartbeatTimer) return;
+
+    this._clientHeartbeatTimer = setInterval(() => {
+      const isClientSilent =
+        Date.now() - this._lastClientReadyAt > CLIENT_HEARTBEAT_TIMEOUT_MS;
+
+      if (this.editorEnabled.value && isClientSilent) {
+        this.editorEnabled.set(false);
+      }
+
+      this.messenger.send(MessageKey.INTLAYER_ARE_YOU_THERE);
+    }, CLIENT_HEARTBEAT_INTERVAL_MS);
+  }
+
+  private _stopClientHeartbeat(): void {
+    if (this._clientHeartbeatTimer) clearInterval(this._clientHeartbeatTimer);
+    this._clientHeartbeatTimer = null;
+  }
+
   private _setupActivationHandshake(): void {
+    const announceReady = () =>
+      this.messenger.send(MessageKey.INTLAYER_CLIENT_READY, {
+        isActivated: this.editorEnabled.value === true,
+      } satisfies ClientReadyPayload);
+
     // Announce to the editor that the client is ready
-    this.messenger.send(MessageKey.INTLAYER_CLIENT_READY);
+    announceReady();
 
     // Respond to "are you there?" pings from the editor
     this._unsubAreYouThere = this.messenger.subscribe(
       MessageKey.INTLAYER_ARE_YOU_THERE,
-      () => {
-        this.messenger.send(MessageKey.INTLAYER_CLIENT_READY);
-      }
+      announceReady
     );
 
     // When the editor activates us, enable the selector and broadcast state
@@ -582,6 +682,7 @@ export class EditorStateManager {
       MessageKey.INTLAYER_EDITOR_ACTIVATE,
       () => {
         this.editorEnabled.set(true);
+        this._scanDisplayedDictionaryKeys();
         this._broadcastData();
       }
     );
@@ -610,6 +711,14 @@ export class EditorStateManager {
       this.messenger.send(
         `${MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED}/post`,
         dicts
+      );
+    }
+    const displayedKeys = this.displayedDictionaryKeys.value;
+
+    if (displayedKeys) {
+      this.messenger.send(
+        `${MessageKey.INTLAYER_DISPLAYED_DICTIONARY_KEYS}/post`,
+        displayedKeys
       );
     }
   }

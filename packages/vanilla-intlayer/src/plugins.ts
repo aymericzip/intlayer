@@ -140,11 +140,9 @@ export const insertionPlugin: Plugins =
               // inside a raw string. Interpolate into that string, then re-run
               // the transform so the html/markdown renderer applies afterwards.
               if (isInterpolableWrapperNode(node)) {
-                return (
-                  values: {
-                    [K in InsertionContent['fields'][number]]: string | number;
-                  }
-                ) =>
+                return (values: {
+                  [K in InsertionContent['fields'][number]]: string | number;
+                }) =>
                   transformInterpolableNode(
                     node,
                     values,
@@ -162,11 +160,9 @@ export const insertionPlugin: Plugins =
                 ),
               });
 
-              return (
-                values: {
-                  [K in InsertionContent['fields'][number]]: string | number;
-                }
-              ) => {
+              return (values: {
+                [K in InsertionContent['fields'][number]]: string | number;
+              }) => {
                 const result = splitInsertionTemplate(
                   transformedResult,
                   values

@@ -12,7 +12,7 @@ export const useLoadDynamic = <T extends Record<string, any>>(
 ): T => {
   // A module‐level cache of Promises, so we only import once per key.
   const cache: Map<string, Promise<T>> = (useLoadDynamic as any)._cache ??
-  // biome-ignore lint/suspicious/noAssignInExpressions: <To fix the error>
+  // oxlint-disable-next-line no-cond-assign -- <To fix the error>
   ((useLoadDynamic as any)._cache = new Map());
 
   // Hold the "current" value as a reactive object

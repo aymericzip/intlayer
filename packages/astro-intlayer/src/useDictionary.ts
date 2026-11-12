@@ -42,9 +42,8 @@ import { withInertOnChange } from './withInertOnChange';
  */
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
-  const A extends
-    | LocalesValues
-    | DictionarySelectorForGroup<T> = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForGroup<T> =
+    DeclaredLocales,
 >(
   dictionary: T,
   localeOrSelector?: A

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Solid Start i18n - 앱 번역을 위한 완벽한 가이드"
 description: "SolidStart에 Intlayer 설정: 서버 렌더링 로케일 라우팅, 반응형 번역 콘텐츠, hreflang, 다국어 사이트맵."
@@ -39,7 +39,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-solid-start-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
+  title="CodeSandbox 데모 - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -51,7 +51,7 @@ author: aymericzip
 <iframe
   src="https://intlayer-solid-start-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo Intlayer Solid Start Template"
+  title="Intlayer Solid Start 템플릿 데모"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -65,7 +65,7 @@ author: aymericzip
 
 이 가이드는 **서버 렌더링** SolidStart 애플리케이션을 다룹니다: 로케일 감지는 요청 시 수행되고, 페이지는 올바른 언어로 서버에서 렌더링되며, 검색 엔진에 필요한 `<html lang>`, `hreflang` 및 사이트맵 신호가 서버 측에서 내보내집니다.
 
-## 다른 대안 대신 Intlayer를 선택해야 하는 이유
+## 왜 다른 대안 대신 Intlayer인가요?
 
 `@solid-primitives/i18n` 또는 `i18next`와 같은 주요 솔루션과 비교하여 Intlayer는 다음과 같은 통합 최적화를 제공하는 솔루션입니다:
 
@@ -82,7 +82,7 @@ Intlayer는 **컴포넌트 수준의 콘텐츠 스코핑**, **반응형 번역**
 </Accordion>
 <Accordion header="유지 보수성">
 
-애플리케이션의 콘텐츠 범위를 지정하면 대규모 애플리케이션의 **유지 보수가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 정신적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 콘텐츠의 정확성을 보장하기 위해 **완전히 타입 지원**됩니다.
+애플리케이션의 콘텐츠 범위를 지정하면 대규모 애플리케이션의 **유지 보수가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 인지적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 콘텐츠의 정확성을 보장하기 위해 **완전한 TypeScript 타입 지원**됩니다.
 
 </Accordion>
 <Accordion header="AI 에이전트">

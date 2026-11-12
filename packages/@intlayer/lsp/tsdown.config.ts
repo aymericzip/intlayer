@@ -5,7 +5,7 @@ const [esm, , types] = getOptions({
   types: {
     dts: {
       generator: 'oxc',
-      emitDtsOnly: true,
+      dtsOnly: true,
     },
   },
 });

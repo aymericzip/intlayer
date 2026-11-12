@@ -196,14 +196,13 @@ export const loadCommitCounts = createServerFn({ method: 'GET' })
       GITHUB_REPOSITORY_PATTERN.test(repository)
     ),
   }))
-  .handler(
-    ({ data: { repositories } }): Promise<RepositoryCommitCount[]> =>
-      Promise.all(
-        repositories.map(async (repository) => ({
-          repository,
-          commitCount: await fetchCommitCountCached(repository),
-        }))
-      )
+  .handler(({ data: { repositories } }): Promise<RepositoryCommitCount[]> =>
+    Promise.all(
+      repositories.map(async (repository) => ({
+        repository,
+        commitCount: await fetchCommitCountCached(repository),
+      }))
+    )
   );
 
 /**

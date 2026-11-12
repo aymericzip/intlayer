@@ -1,5 +1,5 @@
 import { existsSync, lstatSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fastifyCompress from '@fastify/compress';
 import fastifyCookie from '@fastify/cookie';
@@ -10,10 +10,21 @@ import fastifyStatic from '@fastify/static';
 import * as ANSIColors from '@intlayer/config/colors';
 import { getEnvFilePath } from '@intlayer/config/env';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
-import { getConfiguration } from '@intlayer/config/node';
+import {
+  EDITOR_SERVER_PORT_ENV_VAR,
+  getConfiguration,
+  getEditorURLForPort,
+} from '@intlayer/config/node';
+import {
+  type BuiltEditorOverride,
+  overrideBuiltEditorConfiguration,
+  watchBuiltEditorConfiguration,
+} from '@intlayer/engine/build';
+import { authRouter } from '@routes/auth.routes';
+import { clientLogRouter } from '@routes/clientLog.routes';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
-import { checkPortAvailability } from '@utils/checkPortAvailability';
+import { findAvailablePort } from '@utils/checkPortAvailability';
 import Fastify, { type FastifyInstance, LogController } from 'fastify';
 import { intlayer } from 'fastify-intlayer';
 import mime from 'mime';
@@ -29,17 +40,9 @@ const FALLBACK_PORT = 8000;
 const config = getConfiguration(envFileOptions);
 
 const appLogger = getAppLogger(config);
-const port = config.editor.port ?? FALLBACK_PORT;
-
-if (!config.editor.enabled) {
-  appLogger(
-    `Editor is not enabled. Add ${colorize('editor.enabled', ANSIColors.BLUE)} to ${colorizePath('intlayer.config.ts')} file to enable it.`,
-    {
-      level: 'error',
-    }
-  );
-  process.exit(0);
-}
+/** Port tried first; the next free one is used when it is taken. */
+const preferredPort = config.editor.port ?? FALLBACK_PORT;
+const HOST = '0.0.0.0';
 
 // Load package.json
 const packageJson = JSON.parse(
@@ -64,18 +67,87 @@ const corsOptions: FastifyCorsOptions = {
 };
 
 const startServer = async (app: FastifyInstance) => {
-  const isPortAvailable = await checkPortAvailability(port);
+  const port = await findAvailablePort(preferredPort, HOST);
 
-  if (!isPortAvailable) {
-    appLogger(`Error: Port ${port} is already in use.`, {
+  if (port === undefined) {
+    appLogger(`Error: Port ${preferredPort} and the next ones are in use.`, {
       level: 'error',
     });
     process.exit(255);
   }
 
+  if (port !== preferredPort) {
+    appLogger(`Port ${preferredPort} is in use, using port ${port} instead.`, {
+      level: 'warn',
+    });
+  }
+
+  // Served by `/api/config`: the client calls the editor at its actual URL
+  process.env[EDITOR_SERVER_PORT_ENV_VAR] = String(port);
+
+  // Adapted in the built configuration only: the application must load the
+  // editor client, and accept messages from the URL the editor is served at
+  const editorOverride: BuiltEditorOverride = {
+    enabled: true,
+    editorURL: getEditorURLForPort(config.editor.editorURL, port),
+  };
+  const overriddenKeys = await overrideBuiltEditorConfiguration(
+    config,
+    editorOverride
+  );
+
+  if (overriddenKeys.length > 0) {
+    const overriddenSettings = overriddenKeys.map((key) =>
+      colorize(`editor.${key}`, ANSIColors.BLUE)
+    );
+
+    appLogger(
+      `${overriddenSettings.join(' and ')} temporarily adapted in ${colorizePath(relative(config.system.baseDir, config.system.configDir))}. Set it in ${colorizePath('intlayer.config.ts')} to keep it after the next build.`,
+      {
+        level: 'warn',
+      }
+    );
+
+    // An application (re)started aside rebuilds the configuration without them
+    watchBuiltEditorConfiguration(config.system.configDir, {
+      loadConfiguration: () =>
+        getConfiguration({ ...envFileOptions, cache: false }),
+      editorOverride,
+      onRestore: () =>
+        appLogger(
+          `${overriddenSettings.join(' and ')} adapted again in ${colorizePath(relative(config.system.baseDir, config.system.configDir))} after the application rebuilt it.`
+        ),
+      onError: (error) =>
+        appLogger(
+          `Failed to keep the editor settings in the built configuration: ${(error as Error).message}`,
+          { level: 'warn' }
+        ),
+    });
+  }
+
   // Security Headers
   await app.register(fastifyHelmet, {
-    contentSecurityPolicy: false,
+    // Only restrict who may frame the editor: itself and IDE webviews (the
+    // VS Code extension panel). `X-Frame-Options` cannot list a scheme.
+    contentSecurityPolicy: {
+      useDefaults: false,
+      directives: {
+        // Helmet requires a `default-src`; the editor sets no other policy
+        defaultSrc:
+          fastifyHelmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
+        frameAncestors: [
+          "'self'",
+          'vscode-webview:',
+          'vscode-file:',
+          'https://*.vscode-cdn.net',
+          'https://*.vscode-webview.net',
+          'localhost:*',
+          'http://localhost:*',
+          'http://127.0.0.1:*',
+        ],
+      },
+    },
+    frameguard: false,
     global: true,
   });
 
@@ -94,6 +166,8 @@ const startServer = async (app: FastifyInstance) => {
   // Register Routes
   await app.register(dictionaryRouter, { prefix: '/api/dictionary' });
   await app.register(configurationRouter, { prefix: '/api/config' });
+  await app.register(authRouter, { prefix: '/api/auth' });
+  await app.register(clientLogRouter, { prefix: '/api/log' });
 
   // Serve Static Files
   await app.register(fastifyStatic, {
@@ -116,7 +190,7 @@ const startServer = async (app: FastifyInstance) => {
   });
 
   try {
-    await app.listen({ port, host: '0.0.0.0' });
+    await app.listen({ port, host: HOST });
 
     const dotEnvFilePath = getEnvFilePath(
       envFileOptions.env,
@@ -131,9 +205,14 @@ const startServer = async (app: FastifyInstance) => {
     ${colorize('➜', ANSIColors.GREY_DARK)}  Access key:               ${config.editor.clientId ?? '-'}
     ${colorize('➜', ANSIColors.GREY_DARK)}  Environment:              ${dotEnvFilePath ?? '-'}
     `);
-  } catch (err) {
-    app.log.error(err);
-    process.exit(1);
+  } catch (error) {
+    // The Fastify logger is disabled, so `app.log` would swallow this
+    appLogger(`Failed to start the editor: ${(error as Error).message}`, {
+      level: 'error',
+    });
+    process.exit(
+      (error as NodeJS.ErrnoException).code === 'EADDRINUSE' ? 255 : 1
+    );
   }
 };
 

@@ -128,9 +128,8 @@ export const createIntlayerLeafProxy = (leafRef: ComputedRef<any>) => {
 
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
-  const A extends
-    | LocalesValues
-    | DictionarySelectorForGroup<T> = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForGroup<T> =
+    DeclaredLocales,
 >(
   dictionary: MaybeRefOrGetter<T>,
   localeOrSelector?: MaybeRefOrGetter<A | null | undefined>

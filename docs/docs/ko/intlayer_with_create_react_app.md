@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 3
 title: "Create React App i18n: 완벽한 번역 가이드"
 description: "Create React App 프로젝트에 Intlayer 설정: 컴포넌트 옆의 타입 콘텐츠, 언어 전환기, 로케일별로 로드되는 번역."
@@ -47,7 +47,7 @@ author: aymericzip
 `react-i18next` 또는 `i18next`와 같은 주요 솔루션과 비교하여 Intlayer는 다음과 같은 통합 최적화를 제공하는 솔루션입니다:
 
 <AccordionGroup>
-<Accordion header="전체 React 커버리지">
+<Accordion header="완벽한 React 지원">
 
 **Intlayer**는 현대 웹 애플리케이션에서 다국어 지원을 간소화하기 위해 설계된 혁신적이고 오픈 소스인 국제화(i18n) 라이브러리입니다.
 
@@ -73,7 +73,7 @@ author: aymericzip
 </Accordion>
 <Accordion header="자동화">
 
-CI/CD 파이프라인에서 선택한 LLM을 사용하여 자동화로 번역하면 AI 공급자의 비용으로 처리할 수 있습니다. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
+CI/CD 파이프라인에서 선택한 LLM을 사용하여 자동화로 번역하면 자체 AI 제공업체의 API 비용만으로 처리할 수 있습니다. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
 
 - [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
@@ -96,7 +96,7 @@ CI/CD 파이프라인에서 선택한 LLM을 사용하여 자동화로 번역하
 ## React 애플리케이션에서 Intlayer 설정 단계별 가이드
 
 <Steps>
-<Step number={1} title="종속성 설치">
+<Step number={1} title="의존성 패키지 설치">
 
 npm을 사용하여 필요한 패키지를 설치합니다:
 

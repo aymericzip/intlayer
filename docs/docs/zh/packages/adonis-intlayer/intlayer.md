@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-09-29
+updatedAt: 2026-10-08
 priority: 5
 title: intlayer AdonisJS 中间件文档 | adonis-intlayer
 description: "AdonisJS 的 intlayer 中间件会检测用户语言，并通过请求上下文提供翻译函数。"

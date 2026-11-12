@@ -288,8 +288,13 @@ Pour les projets existants contenant déjà des chaînes ICU, [l'adaptateur de c
 - **Placer `#` en dehors d'une branche de pluriel.** Ce caractère n'a de signification spéciale qu'au sein d'un bloc `plural` ou `selectordinal`. Ailleurs, il est traité comme un simple dièse.
 - **Oublier que `#` est déjà formaté.** Si vous souhaitez afficher le nombre brut sans séparateur de milliers, interpolez plutôt l'argument par son nom.
 
+Testez et formatez vos messages ICU avec l'[Éditeur & Formateur de Messages ICU](https://intlayer.org/icu-message-formatter) gratuit :
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Pour aller plus loin
 
+- [Éditeur & Formateur de Messages ICU](https://intlayer.org/icu-message-formatter)
 - [Pourquoi ICU n'est pas fait pour JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/why_icu_is_not_made_for_js.md)
 - [Contenu pluriel dans Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md)
 - [Contenu basé sur select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/select.md)

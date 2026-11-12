@@ -20,6 +20,7 @@ export const locales = [
   Locales.INDONESIAN,
   Locales.VIETNAMESE,
   Locales.UKRAINIAN,
+  Locales.HEBREW_ISRAEL,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -32,7 +33,7 @@ const config: Partial<CustomIntlayerConfig> = {
 
   ai: {
     provider: 'anthropic',
-    model: 'claude-haiku-4-5-20251001',
+    model: 'claude-haiku-5-5',
     apiKey: process.env.ANTROPIC_API_KEY,
   },
 

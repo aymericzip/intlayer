@@ -26,16 +26,16 @@ function App() {
         <div class="pointer-events-none absolute -inset-s-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
         <div class="pointer-events-none absolute -inset-e-20 -bottom-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
         <p class="island-kicker mb-3">{content.kicker}</p>
-        <h1 class="display-title mb-5 max-w-3xl font-bold text-4xl text-[var(--sea-ink)] leading-[1.02] tracking-tight sm:text-6xl">
+        <h1 class="display-title mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
           {content.heroTitle}
         </h1>
-        <p class="mb-8 max-w-2xl text-[var(--sea-ink-soft)] text-base sm:text-lg">
+        <p class="mb-8 max-w-2xl text-base text-[var(--sea-ink-soft)] sm:text-lg">
           {content.heroDesc}
         </p>
         <div class="flex flex-wrap gap-3">
           <a
             href="/about"
-            class="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 font-semibold text-[var(--lagoon-deep)] text-sm no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
+            class="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
           >
             {content.aboutLink}
           </a>
@@ -43,7 +43,7 @@ function App() {
             href="https://tanstack.com/router"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-full border border-[rgba(23,58,64,0.2)] bg-white/50 px-5 py-2.5 font-semibold text-[var(--sea-ink)] text-sm no-underline transition hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.35)]"
+            class="rounded-full border border-[rgba(23,58,64,0.2)] bg-white/50 px-5 py-2.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.35)]"
           >
             {content.routerGuide}
           </a>
@@ -56,17 +56,17 @@ function App() {
             class="island-shell feature-card rise-in rounded-2xl p-5"
             style={{ 'animation-delay': `${index * 90 + 80}ms` }}
           >
-            <h2 class="mb-2 font-semibold text-[var(--sea-ink)] text-base">
+            <h2 class="mb-2 text-base font-semibold text-[var(--sea-ink)]">
               {title}
             </h2>
-            <p class="m-0 text-[var(--sea-ink-soft)] text-sm">{desc}</p>
+            <p class="m-0 text-sm text-[var(--sea-ink-soft)]">{desc}</p>
           </article>
         ))}
       </section>
 
       <section class="island-shell mt-8 rounded-2xl p-6">
         <p class="island-kicker mb-2">{content.quickStart.kicker}</p>
-        <ul class="m-0 list-disc space-y-2 ps-5 text-[var(--sea-ink-soft)] text-sm">
+        <ul class="m-0 list-disc space-y-2 ps-5 text-sm text-[var(--sea-ink-soft)]">
           <li>{content.quickStart.editIndex}</li>
           <li>{content.quickStart.editHeader}</li>
           <li>{content.quickStart.editRoutes}</li>

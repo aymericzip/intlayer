@@ -78,10 +78,12 @@ type InViewSectionProps = PropsWithChildren<{
  */
 const InViewSection: FC<InViewSectionProps> = ({
   children,
-  fallback = <Loader />,
+  fallback: fallbackProp,
   rootMargin = '300px',
   minHeight = '400px',
 }) => {
+  // Resolved in the body: a JSX default parameter makes the compiler skip this.
+  const fallback = fallbackProp ?? <Loader />;
   const [isInView, setIsInView] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -155,7 +157,7 @@ export const LandingPage: FC = () => {
 
         <section aria-label={content.supportedLanguagesSection.value}>
           <InViewSection minHeight="250px">
-            <LanguageSection className="border-neutral border-b" />
+            <LanguageSection className="border-b border-neutral" />
           </InViewSection>
         </section>
 

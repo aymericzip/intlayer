@@ -44,7 +44,7 @@ export const LibCard: FC<{
         </div>
 
         {/* Logo container */}
-        <div className="flex h-5 min-w-0 max-w-12 flex-1 shrink items-center justify-center sm:max-w-16 md:max-w-20">
+        <div className="flex h-5 max-w-12 min-w-0 flex-1 shrink items-center justify-center sm:max-w-16 md:max-w-20">
           <LibLogo
             id={lib.id}
             className="max-h-full max-w-full object-contain"
@@ -53,11 +53,11 @@ export const LibCard: FC<{
 
         {/* Text container */}
         <div className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 text-start">
-          <span className="whitespace-nowrap font-semibold text-xs leading-tight">
+          <span className="text-xs leading-tight font-semibold whitespace-nowrap">
             {lib.name}
           </span>
           {lib.version && (
-            <span className="whitespace-nowrap text-muted-foreground text-xs leading-none">
+            <span className="text-xs leading-none whitespace-nowrap text-muted-foreground">
               v{lib.version}
             </span>
           )}

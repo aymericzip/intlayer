@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Intlayer 시작하기: 모든 프레임워크를 위한 i18n"
 description: Intlayer의 작동 방식을 알아보세요. Intlayer가 애플리케이션에서 사용하는 단계를 확인하세요. 다양한 패키지가 어떤 역할을 하는지 알아보세요.
@@ -89,24 +89,24 @@ export const MyComponent: FC = () => {
 };
 ```
 
-### 왜 대안들보다 Intlayer인가요?
+### 왜 다른 대안 대신 Intlayer인가요?
 
 `next-intl`이나 `i18next`와 같은 주요 솔루션과 비교하여 Intlayer는 다음과 같은 통합된 최적화를 제공하는 솔루션입니다:
 
 <AccordionGroup>
 <Accordion header="번들 크기 (Bundle size)">
 
-거대한 JSON 파일을 페이지에 로드하는 대신 필요한 콘텐츠만 로드하세요. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄여줍니다**.
+페이지에 대용량 JSON 파일을 로드하는 대신, 꼭 필요한 콘텐츠만 로드합니다. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 기여합니다.
 
 </Accordion>
 <Accordion header="유지 보수성 (Maintainability)">
 
-애플리케이션 콘텐츠의 범위를 제한하는 것은 대규모 애플리케이션의 **유지 보수를 용이하게 합니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 정신적 부담 없이 단일 기능(feature) 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 콘텐츠의 정확성을 보장하기 위해 **완전히 타입화(fully typed)**되어 있습니다.
+애플리케이션 콘텐츠의 범위를 컴포넌트 단위로 분할하여 **대규모 애플리케이션의 유지보수를 원활하게** 합니다. 전체 콘텐츠 코드베이스를 전부 검토해야 하는 인지적 부담 없이 단일 기능(feature) 폴더를 간편하게 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 콘텐츠 선언의 정확성을 보장하기 위해 **완전한 TypeScript 타입 지원(fully typed)**을 제공합니다.
 
 </Accordion>
 <Accordion header="AI 에이전트 (AI Agent)">
 
-콘텐츠를 코드와 같은 위치에 두면 대규모 언어 모델(LLM)이 **필요로 하는 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등과 같은 일련의 도구가 함께 제공되어 AI 에이전트의 개발자 경험(DX)을 훨씬 더 매끄럽게 만듭니다.
+콘텐츠 선언을 컴포넌트와 동일한 위치에 두는 것(Co-location)은 대형 언어 모델(LLM)에 필요한 **컨텍스트 크기를 크게 줄여줍니다**. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등 일련의 도구를 지원하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 매끄럽게 만듭니다.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
@@ -115,19 +115,19 @@ export const MyComponent: FC = () => {
 </Accordion>
 <Accordion header="자동화 (Automation)">
 
-원하는 LLM과 AI 제공자의 비용으로 CI/CD 파이프라인에서 번역을 자동화하세요. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러(compiler)**를 제공할 뿐만 아니라 **백그라운드에서 번역**할 수 있도록 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
+CI/CD 파이프라인에서 원하는 LLM을 사용하여 자체 AI 제공업체의 API 비용만으로 번역을 손쉽게 자동화할 수 있습니다. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러**와 함께 **백그라운드에서 편리하게 번역할 수 있는** [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
 
 - [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능 (Performance)">
 
-거대한 JSON 파일을 컴포넌트에 연결하면 성능 및 반응성(reactivity) 문제가 발생할 수 있습니다. Intlayer는 빌드 시(build time) 콘텐츠 로딩을 최적화합니다.
+대규모 JSON 파일을 컴포넌트에 직접 연결하면 렌더링 성능 저하와 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시점에 콘텐츠 로딩을 최적화하여 이를 해결합니다.
 
 </Accordion>
 <Accordion header="비개발자와의 협업 및 확장 (Scaling with non-dev)">
 
-단순한 i18n 솔루션을 넘어, Intlayer는 **자체 호스팅 가능한 [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공하여 다국어 콘텐츠를 **실시간**으로 관리할 수 있도록 지원하며, 번역가, 카피라이터 및 기타 팀원과의 협업을 원활하게 합니다. 콘텐츠는 로컬 및/또는 원격에 저장될 수 있습니다.
+단순한 i18n 솔루션 이상의 가치를 제공하기 위해, Intlayer는 **자체 호스팅 가능한 [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 지원합니다. 이를 통해 번역가, 카피라이터 및 팀원들과 **실시간**으로 다국어 콘텐츠를 매끄럽게 관리할 수 있습니다. 콘텐츠는 로컬 및/또는 원격에 안전하게 보관할 수 있습니다.
 
 - [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
 - [완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)

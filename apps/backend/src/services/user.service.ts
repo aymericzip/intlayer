@@ -1,3 +1,5 @@
+import { OrganizationModel } from '@schemas/organization.schema';
+import { ProjectModel } from '@schemas/project.schema';
 import { UserModel } from '@schemas/user.schema';
 import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
@@ -167,9 +169,10 @@ export const updateUserById = async (
 };
 
 /**
- * Deletes a user from the database.
- * @param userId - The user object.
- * @returns
+ * Deletes a user from the database and detaches them from every
+ * organization and project so no orphaned member id remains.
+ * @param userId - The user id.
+ * @returns The deleted user.
  */
 export const deleteUser = async (
   userId: string | Types.ObjectId
@@ -181,6 +184,31 @@ export const deleteUser = async (
   if (!user) {
     throw new GenericError('USER_NOT_FOUND', { userId });
   }
+
+  await Promise.all([
+    OrganizationModel.updateMany(
+      { $or: [{ membersIds: user._id }, { adminsIds: user._id }] },
+      { $pull: { membersIds: user._id, adminsIds: user._id } }
+    ),
+    ProjectModel.updateMany(
+      {
+        $or: [
+          { membersIds: user._id },
+          { adminsIds: user._id },
+          { viewersIds: user._id },
+          { 'memberAccess.userId': user._id },
+        ],
+      },
+      {
+        $pull: {
+          membersIds: user._id,
+          adminsIds: user._id,
+          viewersIds: user._id,
+          memberAccess: { userId: user._id },
+        },
+      }
+    ),
+  ]);
 
   return user;
 };

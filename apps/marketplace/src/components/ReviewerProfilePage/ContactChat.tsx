@@ -69,18 +69,18 @@ export const ContactChat: FC<ContactChatProps> = ({ reviewer }) => {
       transparency="full"
       className="flex flex-1 flex-col overflow-hidden"
     >
-      <div className="border-neutral border-neutral/20 border-b px-4 py-3">
-        <p className="font-semibold text-sm">
+      <div className="border-b border-neutral border-neutral/20 px-4 py-3">
+        <p className="text-sm font-semibold">
           {content.contact} {reviewer.name ?? 'reviewer'}
         </p>
-        <p className="text-neutral text-xs">
+        <p className="text-xs text-neutral">
           {content.eachMessageIsForwardedBy}
         </p>
       </div>
 
       <div className="flex min-h-32 flex-1 flex-col gap-3 overflow-y-auto p-4">
         {messages.length === 0 && (
-          <p className="py-4 text-center text-neutral text-xs">
+          <p className="py-4 text-center text-xs text-neutral">
             {content.sendAMessageToStart}
           </p>
         )}
@@ -98,7 +98,7 @@ export const ContactChat: FC<ContactChatProps> = ({ reviewer }) => {
         <div ref={bottomRef} />
       </div>
 
-      <div className="flex items-end gap-2 border-neutral/20 border-t p-3">
+      <div className="flex items-end gap-2 border-t border-neutral/20 p-3">
         <AutoSizedTextArea
           value={input}
           onChange={(e) => setInput(e.target.value)}

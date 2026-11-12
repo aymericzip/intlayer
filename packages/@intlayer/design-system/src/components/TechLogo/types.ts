@@ -36,5 +36,7 @@ export type TechLogoName =
   | 'github'
   | 'gitlab'
   | 'bitbucket'
+  | 'codeberg'
+  | 'gitee'
   | 'google'
   | 'linkedin';

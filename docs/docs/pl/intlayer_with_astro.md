@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Astro i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Konfiguracja Intlayer w Astro: zlokalizowane trasy, przetłumaczone strony .astro i wyspy, tagi hreflang i wielojęzyczna mapa witryny."
@@ -348,24 +348,78 @@ const { title } = useIntlayer("app");
 </Step>
 <Step number={6} title="Zlokalizowany routing">
 
-Twórz dynamiczne segmenty tras (np. `src/pages/[locale]/index.astro`), aby serwować zlokalizowane strony:
+Utwórz dynamiczny segment trasy, aby serwować zlokalizowane strony. Aby obsłużyć zarówno domyślne locale (bez prefiksu), jak i wszystkie pozostałe locale, użyj parametru rest `[...locale]` w strukturze stron, na przykład `src/pages/[...locale]/index.astro`:
 
-```astro fileName="src/pages/[locale]/index.astro"
+```astro fileName="src/pages/[...locale]/index.astro"
 ---
-import { getIntlayer } from "intlayer";
+import { useIntlayer, useLocale } from "astro-intlayer";
+import {
+  getLocalizedUrl,
+  getPrefix,
+  localeMap,
+  defaultLocale,
+  getHTMLTextDir,
+} from "intlayer";
+import LocaleSwitcher from "../../components/LocaleSwitcher.astro";
 
-const { title } = getIntlayer('app');
+export const getStaticPaths = () => {
+  return localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+};
+
+const { locale } = useLocale();
+const { title } = useIntlayer("app");
 ---
 
-<h1>{title}</h1>
+<!doctype html>
+<html lang={locale} dir={getHTMLTextDir(locale)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    <link
+      rel="canonical"
+      href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
+    />
+
+    {
+      localeMap(({ locale: mapLocale }) => (
+        <link
+          rel="alternate"
+          hreflang={mapLocale}
+          href={new URL(
+            getLocalizedUrl(Astro.url.pathname, mapLocale),
+            Astro.site
+          )}
+        />
+      ))
+    }
+
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(
+        getLocalizedUrl(Astro.url.pathname, defaultLocale),
+        Astro.site
+      )}
+    />
+  </head>
+  <body>
+    <LocaleSwitcher />
+    <h1>{title}</h1>
+  </body>
+</html>
 ```
 
 > **Uwaga dotycząca konfiguracji routingu:**
-> Struktura katalogów, którą używasz, zależy od ustawienia `middleware.routing` w pliku `intlayer.config.ts`:
+> Struktura katalogów, której używasz, zależy od ustawienia `middleware.routing` w Twoim pliku `intlayer.config.ts`:
 >
-> - **`prefix-no-default` (domyślnie):** Przechowuje domyślny język w katalogu głównym (bez prefiksu) i dodaje prefiksy do pozostałych. Użyj `[...locale]`, aby uwzględnić wszystkie przypadki.
-> - **`prefix-all`:** Wszystkie adresy URL mają prefiks języka. Możesz użyć standardowego `[locale]`, jeśli nie musisz obsługiwać katalogu głównego osobno.
-> - **`search-param` lub `no-prefix`:** Folder z językiem nie jest potrzebny. Język jest obsługiwany za pośrednictwem parametrów wyszukiwania lub ciasteczek.
+> - **`prefix-no-default` (domyślnie):** Zachowuje domyślne locale w katalogu głównym (bez prefiksu) i dodaje prefiks dla pozostałych. Użyj `[...locale]`, aby obsłużyć wszystkie przypadki.
+> - **`prefix-all`:** Wszystkie adresy URL mają prefiks locale. Możesz użyć standardowego `[locale]`, jeśli nie musisz obsługiwać katalogu głównego osobno.
+> - **`search-param` lub `no-prefix`:** Folder locale nie jest potrzebny. Język jest obsługiwany za pośrednictwem parametrów wyszukiwania lub ciasteczek.
 
 </Step>
 <Step number={7} title="Dodaj przełącznik języka">

@@ -2,20 +2,20 @@
   "$schema": "https://intlayer.org/schema.json",
   "key": "comp-page",
   "content": {
-    "myTitle2": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "My title 2",
-        "fr": "mon titre 2",
-        "es": "mi título 2"
-      }
-    },
     "myTitle": {
       "nodeType": "translation",
       "translation": {
         "en": "My title",
-        "fr": "Mon titre",
-        "es": "Mi título"
+        "es": "Mi título",
+        "fr": "Mon titre"
+      }
+    },
+    "myTitle2": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "My title 2",
+        "es": "mi título 2",
+        "fr": "mon titre 2"
       }
     }
   }

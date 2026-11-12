@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "AdonisJS i18n - 翻译你的应用的完整指南"
 description: "在 AdonisJS 中配置 Intlayer：通过中间件按请求检测语言，翻译 API 响应和视图，并保持内容类型安全。"

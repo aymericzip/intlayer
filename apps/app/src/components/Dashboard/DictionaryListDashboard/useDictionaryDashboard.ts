@@ -12,9 +12,13 @@ import type {
   RowSelectionState,
 } from '@tanstack/react-table';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
+import { getMatchesFilterTypes } from './dictionaryFilterType';
 
 const searchParams = {
   page: { type: 'number', fallbackValue: 1 },
@@ -24,16 +28,25 @@ const searchParams = {
   sortOrder: { type: 'string', fallbackValue: 'desc' },
   location: { type: 'string', fallbackValue: 'none' },
   tags: { type: 'string', fallbackValue: '' },
+  type: { type: 'string', fallbackValue: '' },
 } as const;
 
-export const useDictionaryDashboard = () => {
+type UseDictionaryDashboardOptions = {
+  fixedTag?: string;
+};
+
+export const useDictionaryDashboard = (
+  options?: UseDictionaryDashboardOptions
+) => {
+  const fixedTag = options?.fixedTag;
+
   // Search & Pagination Params
   const { params, setParam, setParams } = useSearchParamState(searchParams);
 
   const { isOpen } = useDashboardRightPanel();
   const visualEditorKeys = useVisualEditorKeys();
   const activeVisualEditorKeys =
-    isOpen('visual-editor') && visualEditorKeys.length > 0
+    isOpen(DashboardRightPanelId.VisualEditor) && visualEditorKeys.length > 0
       ? visualEditorKeys
       : undefined;
 
@@ -45,13 +58,16 @@ export const useDictionaryDashboard = () => {
       ),
     [localeDictionaries]
   );
-  const filteredLocaleOnlyDicts = useMemo(
-    () =>
-      activeVisualEditorKeys
-        ? localeOnlyDicts.filter((d) => activeVisualEditorKeys.includes(d.key))
-        : localeOnlyDicts,
-    [localeOnlyDicts, activeVisualEditorKeys]
-  );
+  const filteredLocaleOnlyDicts = useMemo(() => {
+    let list = localeOnlyDicts;
+    if (fixedTag) {
+      list = list.filter((d) => d.tags?.includes(fixedTag));
+    }
+    if (activeVisualEditorKeys) {
+      list = list.filter((d) => activeVisualEditorKeys.includes(d.key));
+    }
+    return list;
+  }, [localeOnlyDicts, activeVisualEditorKeys, fixedTag]);
 
   // Modals & Selection State
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -65,7 +81,7 @@ export const useDictionaryDashboard = () => {
   const [isMergeModalOpen, setIsMergeModalOpen] = useState(false);
 
   const [rowSelection, setRowSelection] = usePersistedStore<RowSelectionState>(
-    'dict-selection',
+    fixedTag ? `dict-selection-${fixedTag}` : 'dict-selection',
     {}
   );
   const [columnVisibility, setColumnVisibility] =
@@ -81,7 +97,7 @@ export const useDictionaryDashboard = () => {
     search: params.search,
     sortBy: params.sortBy,
     sortOrder: params.sortOrder,
-    tags: params.tags,
+    tags: fixedTag ? [fixedTag] : params.tags,
     location:
       params.location !== 'none'
         ? (params.location as 'none' | 'remote' | 'local' | 'both')
@@ -207,6 +223,7 @@ export const useDictionaryDashboard = () => {
   );
 
   return {
+    fixedTag,
     params,
     setParam,
     setParams,
@@ -230,10 +247,16 @@ export const useDictionaryDashboard = () => {
     },
     data: {
       // Locale-only dicts (no backend id) are prepended to the first page
-      dictionaries:
-        params.page === 1
-          ? [...filteredLocaleOnlyDicts, ...(data?.data ?? [])]
-          : (data?.data ?? []),
+      // The API has no type filter: the "Type" filter applies to the page
+      dictionaries: (params.page === 1
+        ? [...filteredLocaleOnlyDicts, ...(data?.data ?? [])]
+        : (data?.data ?? [])
+      ).filter((dictionary) =>
+        getMatchesFilterTypes(
+          dictionary as Dictionary,
+          params.type ? params.type.split(',') : []
+        )
+      ),
       totalItems: (data?.total_items ?? 0) + filteredLocaleOnlyDicts.length,
       totalPages: data?.total_pages ?? 1,
       isPending,

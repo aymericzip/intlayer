@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   getMarkdownHeadings,
   runMarkdownFormattingTest,
+  stripFrontmatter,
   validateHeadingStructure,
 } from './markdownFormatting';
 
@@ -106,6 +107,28 @@ describe('validateMarkdown (via @intlayer/core)', () => {
       expect(valid).toBe(false);
       expect(issues.length).toBeGreaterThanOrEqual(2);
     });
+  });
+});
+
+describe('stripFrontmatter', () => {
+  it('should blank the frontmatter and keep line numbers', () => {
+    const content = [
+      '---',
+      'description: Why is it an IntlayerNode<string>?',
+      '---',
+      '# Title',
+    ].join('\n');
+    const stripped = stripFrontmatter(content);
+
+    expect(stripped).toBe('\n\n\n# Title');
+    expect(validateMarkdown(stripped).valid).toBe(true);
+  });
+
+  it('should return the content unchanged when there is no frontmatter', () => {
+    const content = '# Title\n\n<div>unclosed';
+
+    expect(stripFrontmatter(content)).toBe(content);
+    expect(validateMarkdown(stripFrontmatter(content)).valid).toBe(false);
   });
 });
 

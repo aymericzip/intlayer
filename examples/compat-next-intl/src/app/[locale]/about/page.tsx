@@ -22,22 +22,22 @@ export default async function AboutPage() {
           <LocaleSwitcher />
         </div>
         <div className="flex w-full flex-col items-center gap-8 text-center sm:items-start sm:text-start">
-          <h1 className="font-bold text-4xl text-black dark:text-zinc-50">
+          <h1 className="text-4xl font-bold text-black dark:text-zinc-50">
             {tAbout('title')}
           </h1>
           <p className="text-lg text-zinc-600 dark:text-zinc-400">
             {tAbout('description')}
           </p>
 
-          <div className="mt-8 w-full border-zinc-200 border-t pt-8 dark:border-zinc-800">
-            <h2 className="mb-6 font-semibold text-2xl text-black dark:text-zinc-50">
+          <div className="mt-8 w-full border-t border-zinc-200 pt-8 dark:border-zinc-800">
+            <h2 className="mb-6 text-2xl font-semibold text-black dark:text-zinc-50">
               Client Component Example
             </h2>
             <ClientComponent />
           </div>
 
-          <div className="mt-8 w-full border-zinc-200 border-t pt-8 dark:border-zinc-800">
-            <h2 className="mb-6 font-semibold text-2xl text-black dark:text-zinc-50">
+          <div className="mt-8 w-full border-t border-zinc-200 pt-8 dark:border-zinc-800">
+            <h2 className="mb-6 text-2xl font-semibold text-black dark:text-zinc-50">
               Server Component Example
             </h2>
             <ServerComponent

@@ -88,28 +88,28 @@ export const Default: Story = {
     <div className="max-w-4xl">
       <SmartTable displayModal>
         <thead>
-          <tr className="border-gray-200 border-b bg-gray-50">
+          <tr className="border-b border-gray-200 bg-gray-50">
             <th
               scope="col"
-              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
             >
               Name
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
             >
               Email
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
             >
               Role
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
             >
               Status
             </th>
@@ -117,49 +117,49 @@ export const Default: Story = {
         </thead>
         <tbody className="divide-y divide-gray-200 bg-white">
           <tr className="transition-colors hover:bg-gray-50">
-            <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
+            <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
               John Doe
             </td>
-            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+            <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
               john@example.com
             </td>
-            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+            <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
               Administrator
             </td>
-            <td className="whitespace-nowrap px-6 py-4">
-              <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 font-medium text-green-800 text-xs">
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
                 Active
               </span>
             </td>
           </tr>
           <tr className="transition-colors hover:bg-gray-50">
-            <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
+            <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
               Jane Smith
             </td>
-            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+            <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
               jane@example.com
             </td>
-            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+            <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
               Editor
             </td>
-            <td className="whitespace-nowrap px-6 py-4">
-              <span className="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 font-medium text-xs text-yellow-800">
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">
                 Pending
               </span>
             </td>
           </tr>
           <tr className="transition-colors hover:bg-gray-50">
-            <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
+            <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
               Bob Johnson
             </td>
-            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+            <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
               bob@example.com
             </td>
-            <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+            <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
               Viewer
             </td>
-            <td className="whitespace-nowrap px-6 py-4">
-              <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 font-medium text-red-800 text-xs">
+            <td className="px-6 py-4 whitespace-nowrap">
+              <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
                 Inactive
               </span>
             </td>
@@ -290,17 +290,17 @@ export const ProductInventory: Story = {
     return (
       <div className="max-w-6xl space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-lg">Product Inventory</h3>
+          <h3 className="text-lg font-semibold">Product Inventory</h3>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <label htmlFor="category-filter" className="font-medium text-sm">
+              <label htmlFor="category-filter" className="text-sm font-medium">
                 Filter:
               </label>
               <select
                 id="category-filter"
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
-                className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
@@ -309,7 +309,7 @@ export const ProductInventory: Story = {
                 ))}
               </select>
             </div>
-            <div className="text-gray-500 text-sm">
+            <div className="text-sm text-gray-500">
               {sortedProducts.length} products
             </div>
           </div>
@@ -320,7 +320,7 @@ export const ProductInventory: Story = {
             <tr>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
                 onClick={() => handleSort('name')}
               >
                 <div className="flex items-center gap-1">
@@ -334,13 +334,13 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+                className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
               >
                 Category
               </th>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
                 onClick={() => handleSort('price')}
               >
                 <div className="flex items-center gap-1">
@@ -354,7 +354,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
                 onClick={() => handleSort('stock')}
               >
                 <div className="flex items-center gap-1">
@@ -368,7 +368,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="cursor-pointer px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider hover:bg-gray-100"
+                className="cursor-pointer px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase hover:bg-gray-100"
                 onClick={() => handleSort('rating')}
               >
                 <div className="flex items-center gap-1">
@@ -382,7 +382,7 @@ export const ProductInventory: Story = {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+                className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
               >
                 Actions
               </th>
@@ -396,33 +396,33 @@ export const ProductInventory: Story = {
                   key={product.id}
                   className="transition-colors hover:bg-gray-50"
                 >
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <div className="font-medium text-gray-900 text-sm">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">
                       {product.name}
                     </div>
-                    <div className="text-gray-500 text-sm">
+                    <div className="text-sm text-gray-500">
                       ID: #{product.id}
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+                  <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                     {product.category}
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
+                  <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
                     ${product.price.toLocaleString()}
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4">
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-900 text-sm">
+                      <span className="text-sm text-gray-900">
                         {product.stock}
                       </span>
                       <span
-                        className={`inline-flex items-center rounded-full px-2 py-1 font-medium text-xs ${stockStatus.color}`}
+                        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${stockStatus.color}`}
                       >
                         {stockStatus.text}
                       </span>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-gray-900 text-sm">
+                  <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                     <div className="flex items-center gap-1">
                       <span>{product.rating}</span>
                       <span className="text-yellow-400">
@@ -430,7 +430,7 @@ export const ProductInventory: Story = {
                       </span>
                     </div>
                   </td>
-                  <td className="space-x-2 whitespace-nowrap px-6 py-4 font-medium text-sm">
+                  <td className="space-x-2 px-6 py-4 text-sm font-medium whitespace-nowrap">
                     <button
                       type="button"
                       className="text-blue-600 hover:text-blue-900"
@@ -525,8 +525,8 @@ export const FinancialReport: Story = {
     return (
       <div className="max-w-5xl space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-lg">Quarterly Financial Report</h3>
-          <div className="text-gray-500 text-sm">Fiscal Year 2024</div>
+          <h3 className="text-lg font-semibold">Quarterly Financial Report</h3>
+          <div className="text-sm text-gray-500">Fiscal Year 2024</div>
         </div>
 
         <SmartTable className="overflow-hidden rounded-lg border border-gray-300 shadow-sm">
@@ -534,31 +534,31 @@ export const FinancialReport: Story = {
             <tr className="bg-linear-to-r from-gray-50 to-gray-100">
               <th
                 scope="col"
-                className="px-8 py-4 text-start font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-start text-sm font-bold tracking-wider text-gray-700 uppercase"
               >
                 Period
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end text-sm font-bold tracking-wider text-gray-700 uppercase"
               >
                 Revenue
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end text-sm font-bold tracking-wider text-gray-700 uppercase"
               >
                 Expenses
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end text-sm font-bold tracking-wider text-gray-700 uppercase"
               >
                 Net Profit
               </th>
               <th
                 scope="col"
-                className="px-8 py-4 text-end font-bold text-gray-700 text-sm uppercase tracking-wider"
+                className="px-8 py-4 text-end text-sm font-bold tracking-wider text-gray-700 uppercase"
               >
                 Growth Rate
               </th>
@@ -568,40 +568,40 @@ export const FinancialReport: Story = {
             {financialData.map((quarter, index) => (
               <tr
                 key={quarter.period}
-                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-gray-200 border-b transition-colors hover:bg-blue-50`}
+                className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-b border-gray-200 transition-colors hover:bg-blue-50`}
               >
-                <td className="whitespace-nowrap px-8 py-6">
-                  <div className="font-bold text-gray-900 text-sm">
+                <td className="px-8 py-6 whitespace-nowrap">
+                  <div className="text-sm font-bold text-gray-900">
                     {quarter.period}
                   </div>
-                  <div className="text-gray-500 text-xs">
+                  <div className="text-xs text-gray-500">
                     Quarter {index + 1}
                   </div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-end">
-                  <div className="font-bold text-gray-900 text-lg">
+                <td className="px-8 py-6 text-end whitespace-nowrap">
+                  <div className="text-lg font-bold text-gray-900">
                     {formatCurrency(quarter.revenue)}
                   </div>
-                  <div className="text-gray-500 text-xs">Total Revenue</div>
+                  <div className="text-xs text-gray-500">Total Revenue</div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-end">
-                  <div className="font-medium text-lg text-red-600">
+                <td className="px-8 py-6 text-end whitespace-nowrap">
+                  <div className="text-lg font-medium text-red-600">
                     {formatCurrency(quarter.expenses)}
                   </div>
-                  <div className="text-gray-500 text-xs">Operating Costs</div>
+                  <div className="text-xs text-gray-500">Operating Costs</div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-end">
-                  <div className="font-bold text-green-600 text-lg">
+                <td className="px-8 py-6 text-end whitespace-nowrap">
+                  <div className="text-lg font-bold text-green-600">
                     {formatCurrency(quarter.profit)}
                   </div>
-                  <div className="text-gray-500 text-xs">
+                  <div className="text-xs text-gray-500">
                     Margin:{' '}
                     {((quarter.profit / quarter.revenue) * 100).toFixed(1)}%
                   </div>
                 </td>
-                <td className="whitespace-nowrap px-8 py-6 text-end">
+                <td className="px-8 py-6 text-end whitespace-nowrap">
                   <div
-                    className={`font-bold text-lg ${getGrowthColor(quarter.growth)}`}
+                    className={`text-lg font-bold ${getGrowthColor(quarter.growth)}`}
                   >
                     +{quarter.growth}%
                   </div>
@@ -615,7 +615,7 @@ export const FinancialReport: Story = {
                           ? '→'
                           : '↘️'}
                     </span>
-                    <span className="text-gray-500 text-xs">
+                    <span className="text-xs text-gray-500">
                       vs prev quarter
                     </span>
                   </div>
@@ -625,23 +625,23 @@ export const FinancialReport: Story = {
           </tbody>
           <tfoot className="bg-gray-800 text-white">
             <tr>
-              <td className="px-8 py-4 font-bold text-sm">TOTAL</td>
-              <td className="px-8 py-4 text-end font-bold text-lg">
+              <td className="px-8 py-4 text-sm font-bold">TOTAL</td>
+              <td className="px-8 py-4 text-end text-lg font-bold">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.revenue, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-end font-bold text-lg">
+              <td className="px-8 py-4 text-end text-lg font-bold">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.expenses, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-end font-bold text-green-400 text-lg">
+              <td className="px-8 py-4 text-end text-lg font-bold text-green-400">
                 {formatCurrency(
                   financialData.reduce((sum, q) => sum + q.profit, 0)
                 )}
               </td>
-              <td className="px-8 py-4 text-end font-bold text-lg">
+              <td className="px-8 py-4 text-end text-lg font-bold">
                 {(
                   financialData.reduce((sum, q) => sum + q.growth, 0) /
                   financialData.length
@@ -652,7 +652,7 @@ export const FinancialReport: Story = {
           </tfoot>
         </SmartTable>
 
-        <div className="flex items-center gap-6 text-gray-600 text-sm">
+        <div className="flex items-center gap-6 text-sm text-gray-600">
           <div className="flex items-center gap-2">
             <div className="h-3 w-3 rounded bg-green-600"></div>
             <span>High Growth ({'>'}15%)</span>
@@ -712,8 +712,8 @@ export const CollapsibleLargeTable: Story = {
     return (
       <div className="max-w-7xl space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-lg">Employee Directory</h3>
-          <div className="text-gray-500 text-sm">
+          <h3 className="text-lg font-semibold">Employee Directory</h3>
+          <div className="text-sm text-gray-500">
             {employees.length} employees • Click to expand/collapse
           </div>
         </div>
@@ -723,43 +723,43 @@ export const CollapsibleLargeTable: Story = {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
               >
                 ID
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
               >
                 Employee
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
               >
                 Department
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
               >
                 Position
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
               >
                 Salary
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
               >
                 Start Date
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase"
+                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
               >
                 Status
               </th>
@@ -768,30 +768,30 @@ export const CollapsibleLargeTable: Story = {
           <tbody className="divide-y divide-gray-200 bg-white">
             {employees.map((employee) => (
               <tr key={employee.id} className="hover:bg-gray-50">
-                <td className="whitespace-nowrap px-6 py-4 text-gray-900 text-sm">
+                <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                   #{employee.id.toString().padStart(3, '0')}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4">
-                  <div className="font-medium text-gray-900 text-sm">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">
                     {employee.name}
                   </div>
-                  <div className="text-gray-500 text-sm">{employee.email}</div>
+                  <div className="text-sm text-gray-500">{employee.email}</div>
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+                <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                   {employee.department}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+                <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                   {employee.position}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-sm">
+                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
                   ${employee.salary.toLocaleString()}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-500 text-sm">
+                <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                   {employee.startDate.toLocaleDateString()}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs ${
+                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
                       employee.status === 'Active'
                         ? 'bg-green-100 text-green-800'
                         : employee.status === 'On Leave'
@@ -835,19 +835,19 @@ export const EmptyState: Story = {
           <tr>
             <th
               scope="col"
-              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
             >
               Name
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
             >
               Email
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-start font-medium text-gray-500 text-xs uppercase tracking-wider"
+              className="px-6 py-3 text-start text-xs font-medium tracking-wider text-gray-500 uppercase"
             >
               Status
             </th>
@@ -859,17 +859,17 @@ export const EmptyState: Story = {
               <div className="space-y-4">
                 <div className="text-6xl text-gray-300">📋</div>
                 <div>
-                  <h3 className="mb-2 font-medium text-gray-900 text-lg">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900">
                     No data available
                   </h3>
-                  <p className="mb-6 text-gray-500 text-sm">
+                  <p className="mb-6 text-sm text-gray-500">
                     There are currently no items to display in this table.
                     <br />
                     Try adjusting your filters or adding some data.
                   </p>
                   <button
                     type="button"
-                    className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 font-medium text-sm text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
                   >
                     Add New Item
                   </button>

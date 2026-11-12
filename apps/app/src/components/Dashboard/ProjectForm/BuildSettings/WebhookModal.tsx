@@ -67,13 +67,15 @@ export const WebhookModal: FC<WebhookModalProps> = ({
       size="lg"
       hasCloseButton
       padding="lg"
+      border
+      borderColor="neutral"
     >
       <Form schema={schema} onSubmitSuccess={onSubmit} {...form}>
         <div className="flex flex-col gap-6">
           {/* Name Field */}
           <div className="flex flex-col gap-2">
             <FormLabel>{modal.nameLabel.value}</FormLabel>
-            <p className="text-neutral text-xs">
+            <p className="text-xs text-neutral">
               {modal.nameDescription.value}
             </p>
             <FormInput
@@ -86,7 +88,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
           {/* URL Field */}
           <div className="flex flex-col gap-2">
             <FormLabel>{modal.urlLabel.value}</FormLabel>
-            <p className="text-neutral text-xs">{modal.urlDescription.value}</p>
+            <p className="text-xs text-neutral">{modal.urlDescription.value}</p>
             <FormInput
               name="url"
               placeholder="https://api.vercel.com/..."
@@ -97,7 +99,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
           {/* Secret Field */}
           <div className="flex flex-col gap-2">
             <FormLabel>{modal.secretLabel.value}</FormLabel>
-            <p className="text-neutral text-xs">
+            <p className="text-xs text-neutral">
               {modal.secretDescription.value}
             </p>
             <FormInput

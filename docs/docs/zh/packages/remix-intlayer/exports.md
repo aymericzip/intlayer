@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-19
-updatedAt: 2026-09-19
+updatedAt: 2026-10-08
 priority: 5
 title: remix-intlayer 包文档
 description: remix-intlayer 包的导出项文档，为 Remix 3 应用程序提供国际化 (i18n) 支持。
@@ -25,7 +25,7 @@ author: aymericzip
 
 # remix-intlayer 包
 
-`remix-intlayer` 包提供了将 Intlayer 集成到 Remix 3 应用程序中所需的工具。它包含用于请求语言环境检测的中间件、请求上下文访问以及用于检索字典和管理语言环境的钩子 (hooks)。
+`remix-intlayer` 包提供了将 Intlayer 集成到 Remix 3 应用程序中所需的工具。它包含用于请求语言环境检测的中间件、请求上下文访问以及用于检索字典和管理语言环境的Hook (hooks)。
 
 ## 安装
 
@@ -60,7 +60,7 @@ import { Intlayer, INTLAYER_CONTEXT_PROPERTY } from "remix-intlayer";
 | `Intlayer`                  | RequestContext 键 / 存储标识 | 用于从 Remix 3 请求上下文 (`context.get(Intlayer)`) 中检索 Intlayer 状态的请求上下文键。                          | [Intlayer 上下文](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/Intlayer.md) |
 | `INTLAYER_CONTEXT_PROPERTY` | `string`                     | 直接安装在请求上下文中的属性名称（`'intlayer'`），允许通过 `context.intlayer` 以及 `context.get(Intlayer)` 访问。 | -                                                                                                                    |
 
-### 钩子 (Hooks)
+### Hook (Hooks)
 
 导入：
 
@@ -70,9 +70,9 @@ import { useIntlayer, useDictionary, useLocale } from "remix-intlayer";
 
 | 导出项          | 类型 | 描述                                                                           | 相关文档                                                                                                                     |
 | --------------- | ---- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | 钩子 | 根据当前请求语言环境，按键获取并处理字典内容。                                 | [useIntlayer 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)     |
-| `useDictionary` | 钩子 | 从导入的字典对象中获取与当前请求语言环境匹配的内容。                           | [useDictionary 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useDictionary.md) |
-| `useLocale`     | 钩子 | 提供对当前请求语言环境、默认语言环境以及项目中所有可用语言环境列表的访问权限。 | [useLocale 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)         |
+| `useIntlayer`   | Hook | 根据当前请求语言环境，按键获取并处理字典内容。                                 | [useIntlayer Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useIntlayer.md)     |
+| `useDictionary` | Hook | 从导入的字典对象中获取与当前请求语言环境匹配的内容。                           | [useDictionary Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useDictionary.md) |
+| `useLocale`     | Hook | 提供对当前请求语言环境、默认语言环境以及项目中所有可用语言环境列表的访问权限。 | [useLocale Hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/remix-intlayer/useLocale.md)         |
 
 ### 实用工具
 
@@ -105,7 +105,7 @@ import {
 } from "remix-intlayer/format";
 ```
 
-| 钩子              | 描述                                                                       |
+| Hook              | 描述                                                                       |
 | ----------------- | -------------------------------------------------------------------------- |
 | `useIntl`         | 返回绑定到请求或客户端语言环境的 Intl 实例，具备缓存和订阅功能。           |
 | `useDate`         | 返回预绑定到当前语言环境的日期格式化函数 (`Intl.DateTimeFormat`)。         |
@@ -128,8 +128,8 @@ import { renderHTML, useHTML, useHTMLRenderer } from "remix-intlayer/html";
 | 导出项            | 类型       | 描述                                 |
 | ----------------- | ---------- | ------------------------------------ |
 | `renderHTML`      | `Function` | 用于渲染 HTML 节点的独立实用函数。   |
-| `useHTML`         | `Hook`     | 获取 HTML 提供者上下文和配置的钩子。 |
-| `useHTMLRenderer` | `Hook`     | 获取预配置的 HTML 渲染器函数的钩子。 |
+| `useHTML`         | `Hook`     | 获取 HTML 提供者上下文和配置的Hook。 |
+| `useHTMLRenderer` | `Hook`     | 获取预配置的 HTML 渲染器函数的Hook。 |
 
 ### Markdown 实用工具 (remix-intlayer/markdown)
 
@@ -150,8 +150,8 @@ import {
 | `compileMarkdown`     | `Function` | 将 Markdown 字符串编译为结构化表示。     |
 | `renderMarkdown`      | `Function` | 将 Markdown 内容渲染为输出节点。         |
 | `parseMarkdown`       | `Function` | 将原始 Markdown 内容解析为 AST。         |
-| `useMarkdown`         | `Hook`     | 获取 Markdown 提供者上下文的钩子。       |
-| `useMarkdownRenderer` | `Hook`     | 获取预配置的 Markdown 渲染器函数的钩子。 |
+| `useMarkdown`         | `Hook`     | 获取 Markdown 提供者上下文的Hook。       |
+| `useMarkdownRenderer` | `Hook`     | 获取预配置的 Markdown 渲染器函数的Hook。 |
 
 ### 类型
 

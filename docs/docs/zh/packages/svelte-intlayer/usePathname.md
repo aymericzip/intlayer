@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: usePathname 函数文档 | svelte-intlayer
 description: "在 Svelte 中使用 usePathname，以只读 store 的形式获取去掉语言段的当前路径，用于支持语言的导航。"

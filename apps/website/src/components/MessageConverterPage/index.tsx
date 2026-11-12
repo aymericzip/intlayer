@@ -34,23 +34,23 @@ export const MessageConverterPage: FC = () => {
     <div className="relative flex size-full flex-1 flex-col">
       <BackgroundLayout />
 
-      <main className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center gap-16 px-4 pt-24 pb-20 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center gap-16 px-4 pt-24 pb-20 sm:px-6 lg:px-8">
         {/* HERO SECTION */}
         <section className="flex flex-col items-center gap-4 text-center">
           <Badge
             size="md"
             color="text"
-            className="flex items-center gap-1.5 px-3 py-1 font-medium text-xs backdrop-blur-md"
+            className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium backdrop-blur-md"
           >
             <Sparkles className="size-3.5 text-text-opposite" />
             {content.badge}
           </Badge>
 
-          <h1 className="max-w-4xl font-extrabold text-3xl text-foreground tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="max-w-4xl text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             {content.title}
           </h1>
 
-          <p className="max-w-2xl text-muted-foreground text-sm leading-relaxed sm:text-base md:text-lg">
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
             {content.description}
           </p>
 
@@ -60,7 +60,7 @@ export const MessageConverterPage: FC = () => {
               to={Website_MessageConverter_Path}
               label="All Formats Converter"
               color="text"
-              className="flex items-center gap-2 rounded-xl bg-foreground px-3 py-1.5 font-semibold text-background text-xs shadow-sm"
+              className="flex items-center gap-2 rounded-xl bg-foreground px-3 py-1.5 text-xs font-semibold text-background shadow-sm"
             >
               <ArrowLeftRight className="size-3.5" />
               <span>Multi-Format Converter</span>
@@ -69,7 +69,7 @@ export const MessageConverterPage: FC = () => {
               to={Website_IntlayerFormatter_Path}
               label="Intlayer"
               color="text"
-              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
             >
               <Sparkles className="size-3.5" />
               <span>Intlayer Formatter</span>
@@ -78,7 +78,7 @@ export const MessageConverterPage: FC = () => {
               to={Website_ICUFormatter_Path}
               label="ICU MessageFormat"
               color="text"
-              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
             >
               <Braces className="size-3.5" />
               <span>ICU Formatter</span>
@@ -87,7 +87,7 @@ export const MessageConverterPage: FC = () => {
               to={Website_I18nextFormatter_Path}
               label="i18next Formatter"
               color="text"
-              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
             >
               <Code2 className="size-3.5" />
               <span>i18next Formatter</span>
@@ -96,7 +96,7 @@ export const MessageConverterPage: FC = () => {
               to={Website_VueI18nFormatter_Path}
               label="Vue I18n Formatter"
               color="text"
-              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
             >
               <Columns2 className="size-3.5" />
               <span>Vue I18n Formatter</span>
@@ -105,7 +105,7 @@ export const MessageConverterPage: FC = () => {
               to={Website_POFormatter_Path}
               label="Gettext PO Formatter"
               color="text"
-              className="flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-muted-foreground text-xs transition-all hover:bg-muted/60 hover:text-foreground"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
             >
               <FileCode className="size-3.5" />
               <span>Gettext PO Formatter</span>
@@ -136,16 +136,16 @@ export const MessageConverterPage: FC = () => {
                 size="sm"
                 color="text"
                 variant="outline"
-                className="font-mono text-text text-xs"
+                className="font-mono text-xs text-text"
               >
                 {content.ecosystemBadge}
               </Badge>
 
-              <h3 className="font-bold text-2xl text-foreground sm:text-3xl">
+              <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
                 {content.ctaTitle}
               </h3>
 
-              <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+              <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
                 {content.ctaDescription}
               </p>
 
@@ -159,7 +159,7 @@ export const MessageConverterPage: FC = () => {
                   label={content.ctaButton.value}
                   className="flex flex-row items-center justify-center gap-2"
                 >
-                  <span className="flex flex-row flex-nowrap items-center gap-2 text-foreground text-sm sm:text-lg">
+                  <span className="flex flex-row flex-nowrap items-center gap-2 text-sm text-foreground sm:text-lg">
                     {content.ctaButton}
                     <ArrowRight className="size-5 transition-transform" />
                   </span>
@@ -182,7 +182,7 @@ export const MessageConverterPage: FC = () => {
             </div>
           </Container>
         </section>
-      </main>
+      </div>
     </div>
   );
 };

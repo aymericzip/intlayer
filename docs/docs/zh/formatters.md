@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-10-02
+updatedAt: 2026-10-08
 priority: 8
 title: "格式化工具：按语言格式化数字、日期和货币"
 description: "使用 Intlayer 带缓存的 Intl 辅助函数，按语言环境格式化数字、百分比、货币、日期、相对时间和单位。"
@@ -52,9 +52,9 @@ Intlayer 提供了一组基于原生 `Intl` API 构建的轻量级辅助工具�
 
 ## 使用哪个语言环境？
 
-当你传入 `locale` 选项时，它始终优先。否则，格式化器、它们的钩子（`useNumber`、`useDate`、`useList`…）以及 `useIntl` 按以下顺序确定语言环境：
+当你传入 `locale` 选项时，它始终优先。否则，格式化器、它们的Hook（`useNumber`、`useDate`、`useList`…）以及 `useIntl` 按以下顺序确定语言环境：
 
-1. **provider 的语言环境**（`IntlayerProvider`），适用于钩子和组合式函数。
+1. **provider 的语言环境**（`IntlayerProvider`），适用于Hook和组合式函数。
 2. **当前请求的语言环境**，在服务器上由 Intlayer 集成处理请求时（`express-intlayer`、`fastify-intlayer`、`hono-intlayer`、`remix-intlayer`、`astro-intlayer`…）。
 3. **浏览器中存储的语言环境**（cookie、`localStorage`、`sessionStorage`），即语言切换器保存的值。
 4. 配置中的 **`defaultLocale`**。

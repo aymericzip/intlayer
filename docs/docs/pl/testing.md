@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2026-09-27
+updatedAt: 2026-10-27
 priority: 8
 title: "Testowanie tłumaczeń z Intlayer"
 description: "Testuj treść Intlayer: wykrywaj brakujące tłumaczenia, weryfikuj słowniki w CI i renderuj komponenty per locale w testach jednostkowych."
@@ -15,6 +15,9 @@ slugs:
   - doc
   - testing
 history:
+  - version: 6.1.0
+    date: 2026-10-27
+    changes: "Wyjaśnienie, że content test kończy się kodem innym niż zero, gdy brakuje wymaganych lokalizacji"
   - version: 6.0.1
     date: 2025-10-05
     changes: "Uczynienie testu asynchronicznym i dodanie opcji build"
@@ -32,7 +35,7 @@ Ten przewodnik pokazuje, jak automatycznie weryfikować kompletność słownikó
 
 - **Brakujące tłumaczenia**: przerwij CI, jeśli w którymkolwiek słowniku brakuje wymaganych lokalizacji.
 - **Renderowanie zlokalizowanego UI**: renderuj komponenty z określonym dostawcą lokalizacji i sprawdzaj widoczny tekst/atrybuty.
-- **Audyt w czasie budowania**: uruchom szybki audyt lokalnie za pomocą CLI.
+- **Audyt w czasie budowania**: uruchom `npx intlayer content test` lokalnie lub w CI; kończy się kodem innym niż zero, gdy brakuje wymaganych tłumaczeń.
 
 ## Szybki start: audyt przez CLI
 
@@ -63,7 +66,7 @@ Przydatne flagi:
 - `--prefix [etykieta]`: prefiksuj linie logów.
 - `--build [build]`: zbuduj słowniki przed testowaniem, aby upewnić się, że zawartość jest aktualna. True wymusi budowanie, false pominie budowanie, undefined pozwoli użyć cache budowania.
 
-Uwaga: CLI generuje szczegółowy raport, ale nie zwraca kodu błędu przy niepowodzeniach. Aby zabezpieczyć CI, dodaj test jednostkowy (poniżej), który sprawdza brak brakujących wymaganych lokalizacji.
+Polecenie kończy się kodem `1`, gdy brakuje dowolnej wymaganej lokalizacji (zobacz `requiredLocales` w konfiguracji), a `0` w przeciwnym razie. Możesz użyć go bezpośrednio, aby przerwać zadania CI lub hooki commitów. Test programowy poniżej jest opcjonalną alternatywą.
 
 ## Test programowy (Vitest/Jest)
 
@@ -160,14 +163,24 @@ Wskazówki:
 
 ## Continuous Integration
 
-Dodaj test, który przerwie budowanie, gdy braknie wymaganych tłumaczeń.
+Uruchom audyt CLI w CI. Przerywa zadanie, gdy brakuje wymaganych tłumaczeń.
 
 `package.json`:
 
 ```json
 {
   "scripts": {
-    "test:i18n": "vitest run -c"
+    "test:i18n": "npx intlayer content test"
+  }
+}
+```
+
+Alternatywa: Vitest
+
+```json
+{
+  "scripts": {
+    "test:i18n": "vitest run"
   }
 }
 ```
@@ -186,7 +199,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run test:i18n
+      - run: npx intlayer content test
 ```
 
 Opcjonalnie: uruchom audyt CLI, aby uzyskać czytelne podsumowanie wraz z testami:

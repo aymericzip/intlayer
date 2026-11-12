@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "Plugin Sync JSON: zachowaj swoje pliki JSON i18n"
 description: "Synchronizuj słowniki Intlayer z plikami JSON i18next, next-intl, react-intl lub vue-i18n i zarządzaj nimi, tłumacz je i testuj w Intlayer."
@@ -63,23 +63,23 @@ pnpm add -D @intlayer/sync-json-plugin
 npm i -D @intlayer/sync-json-plugin
 ```
 
-## Plugins
+## Wtyczki (Plugins)
 
-This package provides two plugins:
+Ten pakiet dostarcza dwie wtyczki:
 
-- `loadJSON`: Load JSON files into Intlayer dictionaries.
-  - This plugin is used to load JSON files from a source and will be loaded into Intlayer dictionaries. It can scan all the codebase and search for specific JSON files.
-    This plugin can be used
-    - if you use an i18n library that impose a specific location for your JSON to be loaded (ex: `next-intl`, `i18next`, `react-intl`, `vue-i18n`, etc.), but you want to place your content declaration where you want in your code base.
-    - It can also be used if you want to fetch your messages from a remote source (ex: a CMS, a API, etc.) and store your messages in JSON files.
+- `loadJSON`: Ładuje pliki JSON do słowników Intlayer.
+  - Ta wtyczka służy do wczytywania plików JSON ze źródła do słowników Intlayer. Może przeszukać całą bazę kodu w poszukiwaniu określonych plików JSON.
+    Wtyczka ta jest przydatna:
+    - gdy używasz biblioteki i18n narzucającej określoną lokalizację dla plików JSON (np. `next-intl`, `i18next`, `react-intl`, `vue-i18n` itp.), ale chcesz umieszczać deklaracje treści w dowolnym miejscu w bazie kodu.
+    - gdy chcesz pobierać komunikaty ze zdalnego źródła (np. CMS, API itp.) i przechowywać je w plikach JSON.
 
-  > Under the hood, this plugin will scan all the codebase and search for specific JSON files and load them into Intlayer dictionaries.
-  > Note that this plugin will not write the output and translations back to the JSON files.
+  > Pod maską wtyczka przeszukuje całą bazę kodu, odnajduje określone pliki JSON i ładuje je do słowników Intlayer.
+  > Pamiętaj, że ta wtyczka nie zapisuje wyników ani tłumaczeń z powrotem do plików JSON.
 
-- `syncJSON`: Synchronize JSON files with Intlayer dictionaries.
-  - This plugin is used to synchronize JSON files with Intlayer dictionaries. It can scan the given location and load the JSON that match the pattern for specific JSON files. This plugin is useful if you want to get the benefits of Intlayer while using another i18n library.
+- `syncJSON`: Synchronizuje pliki JSON ze słownikami Intlayer.
+  - Ta wtyczka służy do dwukierunkowej synchronizacji plików JSON ze słownikami Intlayer. Skanuje wskazaną lokalizację i ładuje pliki JSON pasujące do wzorca. Jest idealna, jeśli chcesz korzystać z możliwości Intlayer, zachowując jednocześnie inną bibliotekę i18n.
 
-## Using both plugins
+## Używanie obu wtyczek jednocześnie
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -91,19 +91,19 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
 
-  // Keep your current JSON files in sync with Intlayer dictionaries
+  // Synchronizuj obecne pliki JSON ze słownikami Intlayer
   plugins: [
     /**
-     * Will load all the JSON files in the src that match the pattern {key}.i18n json
+     * Wczyta wszystkie pliki JSON w katalogu src pasujące do wzorca {key}.i18n.json
      */
     loadJSON({
       source: ({ key }) => `./src/**/${key}.i18n.json`,
       locale: Locales.ENGLISH,
-      priority: 1, // Ensures these JSON files take precedence over files at `./locales/en/${key}.json`
-      format: "intlayer", // Format of the JSON content
+      priority: 1, // Zapewnia pierwszeństwo tym plikom JSON nad plikami w ./locales/en/${key}.json
+      format: "intlayer", // Format treści JSON
     }),
     /**
-     * Will load, and write the output and translations back to the JSON files in the locales directory
+     * Wczyta oraz zapisze wyniki i tłumaczenia z powrotem do plików JSON w katalogu locales
      */
     syncJSON({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
@@ -116,11 +116,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-## `syncJSON` plugin
+## Wtyczka `syncJSON`
 
-### Quick start
+### Szybki start
 
-Add the plugin to your `intlayer.config.ts` and point it at your existing JSON structure.
+Dodaj wtyczkę do pliku `intlayer.config.ts` i wskaż swoją istniejącą strukturę plików JSON:
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -132,7 +132,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
 
-  // Synchronizuj swoje obecne pliki JSON ze słownikami Intlayer
+  // Synchronizuj obecne pliki JSON ze słownikami Intlayer
   plugins: [
     syncJSON({
       // Układ per-locale, per-namespace (np. next-intl, i18next z przestrzeniami nazw)
@@ -158,7 +158,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
       format: "i18next",
     }),
@@ -168,9 +167,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-#### How it works
+#### Jak to działa
 
-- Odczyt: wtyczka wykrywa pliki JSON zdefiniowane przez twój builder `source` i ładuje je jako słowniki Intlayer.
+- Odczyt: wtyczka wykrywa pliki JSON zdefiniowane przez funkcję `source` i ładuje je jako słowniki Intlayer.
 - Zapis: po budowaniu i wypełnianiu, zapisuje zlokalizowane pliki JSON z powrotem pod te same ścieżki (z końcowym znakiem nowej linii, aby uniknąć problemów z formatowaniem).
 - Auto‑uzupełnianie: wtyczka deklaruje ścieżkę `autoFill` dla każdego słownika. Uruchomienie `intlayer fill` domyślnie aktualizuje tylko brakujące tłumaczenia w twoich plikach JSON.
 
@@ -195,8 +194,8 @@ Określa formatator, który będzie używany do zawartości słownika podczas sy
 - `'icu'`: Używa formatowania wiadomości ICU (zgodne z bibliotekami takimi jak react-intl, vue-i18n).
 - `'i18next'`: Używa formatowania wiadomości i18next (zgodne z i18next, next-i18next, Solid-i18next).
 
-> Należy pamiętać, że użycie formatora przekształci zawartość JSON na wejściu i wyjściu. W przypadku złożonych reguł JSON, takich jak liczba mnoga ICU, parsowanie może nie zapewnić mapowania 1 do 1 między wejściem a wyjściem.
-> Jeśli nie używasz runtime Intlayer, możesz preferować nie ustawiać formatora.
+> Należy pamiętać, że użycie formatatora przekształci zawartość JSON na wejściu i wyjściu. W przypadku złożonych reguł JSON, takich jak liczba mnoga ICU, parsowanie może nie zapewnić mapowania 1 do 1 między wejściem a wyjściem.
+> Jeśli nie używasz runtime Intlayer, możesz preferować brak ustawienia formatatora.
 
 **Przykład:**
 
@@ -235,13 +234,13 @@ syncJSON({
 }),
 ```
 
-Tworzy to trzy słowniki (`Hero`, `Nav` i `About`) dzięki czemu `useTranslations('Hero')` (next-intl) rozwiązuje się poprawnie. Podczas zapisu zwrotnego wszystkie przestrzenie nazw są ponownie składane w ten sam plik dla danej lokalizacji.
+Tworzy to trzy słowniki (`Hero`, `Nav` i `About`), dzięki czemu `useTranslations('Hero')` (next-intl) rozwiązuje się poprawnie. Podczas zapisu zwrotnego wszystkie przestrzenie nazw są ponownie składane w ten sam plik dla danej lokalizacji.
 
 > Kiedy zachowujesz jawny segment `{key}` w swoim `source` (np. `./locales/${locale}/${key}.json`), każdy plik jest już jedną przestrzenią nazw, więc dzielenie jest domyślnie wyłączone.
 
-### Multiple JSON sources and priority
+### Wiele źródeł JSON i priorytety
 
-You can add multiple `syncJSON` plugins to synchronize different JSON sources. This is useful when you have multiple i18n libraries or different JSON structures in your project.
+Możesz dodać wiele instancji wtyczki `syncJSON`, aby zsynchronizować różne źródła plików JSON. Jest to przydatne, gdy w projekcie korzystasz z wielu bibliotek i18n lub różnych struktur plików JSON.
 
 #### System priorytetów
 
@@ -292,11 +291,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-## Load JSON plugin
+## Wtyczka `loadJSON`
 
-### Quick start
+### Szybki start
 
-Add the plugin to your `intlayer.config.ts` to ingest existing JSON files as Intlayer dictionaries. This plugin is read‑only (no writes to disk):
+Dodaj wtyczkę do pliku `intlayer.config.ts`, aby wczytać istniejące pliki JSON jako słowniki Intlayer. Ta wtyczka działa wyłącznie w trybie do odczytu (nie zapisuje na dysk):
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -309,10 +308,10 @@ const config: IntlayerConfig = {
   },
 
   plugins: [
-    // Ingest JSON messages located anywhere in your source tree
+    // Wczytuj komunikaty JSON znajdujące się w dowolnym miejscu w drzewie źródłowym
     loadJSON({
       source: ({ key }) => `./src/**/${key}.i18n.json`,
-      // Load a single locale per plugin instance (defaults to the config defaultLocale)
+      // Ładuje pojedyncze locale na instancję wtyczki (domyślnie defaultLocale z konfiguracji)
       locale: Locales.ENGLISH,
       priority: 0,
     }),
@@ -322,7 +321,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Alternative: per‑locale layout, still read‑only (only the selected locale is loaded):
+Alternatywa: układ per-locale, wciąż w trybie tylko do odczytu (ładowane jest tylko wybrane locale):
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -335,7 +334,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     loadJSON({
-      // Only files for Locales.FRENCH will be loaded from this pattern
+      // Z tego wzorca załadowane zostaną tylko pliki dla Locales.FRENCH
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       locale: Locales.FRENCH,
     }),
@@ -345,53 +344,53 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### How it works
+### Jak to działa
 
-- Discover: builds a glob from your `source` builder and collects matching JSON files.
-- Ingest: loads each JSON file as an Intlayer dictionary with the provided `locale`.
-- Read‑only: does not write or format output files; use `syncJSON` if you need round‑trip sync.
-- Auto‑fill ready: defines a `fill` pattern so `intlayer content fill` can populate missing keys.
+- Wykrywanie: tworzy wzorzec glob na podstawie funkcji `source` i zbiera pasujące pliki JSON.
+- Wczytywanie: ładuje każdy plik JSON jako słownik Intlayer z podanym `locale`.
+- Tylko do odczytu: nie modyfikuje ani nie formatuje plików wyjściowych na dysku; użyj `syncJSON`, jeśli potrzebujesz synchronizacji dwukierunkowej.
+- Gotowość do auto-uzupełniania: definiuje wzorzec `fill`, dzięki czemu `intlayer content fill` może uzupełniać brakujące klucze.
 
 ### API
 
 ```ts
 loadJSON({
-  // Build paths to your JSON. `locale` is optional if your structure has no locale segment
+  // Buduj ścieżki do plików JSON. `locale` jest opcjonalne, jeśli struktura nie ma segmentu locale
   source: ({ key, locale }) => string,
 
-  // Target locale for the dictionaries loaded by this plugin instance
-  // Defaults to configuration.internationalization.defaultLocale
+  // Docelowe locale dla słowników ładowanych przez tę instancję wtyczki
+  // Domyślnie configuration.internationalization.defaultLocale
   locale?: Locale,
 
-  // Optional label to identify the source
-  location?: string, // default: "plugin"
+  // Opcjonalna etykieta identyfikująca źródło
+  location?: string, // domyślnie: "plugin"
 
-  // Priority used for conflict resolution against other sources
-  priority?: number, // default: 0
+  // Priorytet używany do rozwiązywania konfliktów z innymi źródłami
+  priority?: number, // domyślnie: 0
 
-  // Optional formatter for the JSON content
-  format?: 'intlayer' | 'icu' | 'i18next', // default: 'intlayer'
+  // Opcjonalny formatator zawartości JSON
+  format?: 'intlayer' | 'icu' | 'i18next', // domyślnie: 'intlayer'
 
-  // Split a single file into one dictionary per top-level key (auto-detected)
+  // Dzieli pojedynczy plik na jeden słownik na klucz najwyższego poziomu (automatycznie wykrywane)
   splitKeys?: boolean,
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Specifies the formatter to use for the dictionary content when loading JSON files. This allows using different message formatting syntaxes compatible with various i18n libraries.
+Określa formatator używany do zawartości słownika podczas ładowania plików JSON. Pozwala to na obsługę różnych składni formatowania komunikatów zgodnych z różnymi bibliotekami i18n.
 
-- `'intlayer'`: The default Intlayer formatter (default).
-- `'icu'`: Uses ICU message formatting (compatible with libraries like react-intl, vue-i18n).
-- `'i18next'`: Uses i18next message formatting (compatible with i18next, next-i18next, Solid-i18next).
+- `'intlayer'`: Domyślny formatator Intlayer (domyślnie).
+- `'icu'`: Używa formatowania komunikatów ICU (zgodne z bibliotekami takimi jak react-intl, vue-i18n).
+- `'i18next'`: Używa formatowania komunikatów i18next (zgodne z i18next, next-i18next, Solid-i18next).
 
-**Example:**
+**Przykład:**
 
 ```ts
 loadJSON({
   source: ({ key }) => `./src/**/${key}.i18n.json`,
   locale: Locales.ENGLISH,
-  format: "icu", // Use ICU formatting for compatibility
+  format: "icu", // Użyj formatowania ICU dla zgodności
 }),
 ```
 
@@ -406,29 +405,29 @@ Takie samo zachowanie jak w [`syncJSON`](#splitkeys-boolean): gdy pojedynczy pli
 loadJSON({
   source: ({ locale }) => `./messages/${locale}.json`,
   format: "icu",
-  // splitKeys auto-enabled: `Hero`, `Nav`, `About`, … each become a dictionary
+  // splitKeys automatycznie włączone: `Hero`, `Nav`, `About` stają się osobnymi słownikami
 }),
 ```
 
-### Behavior and conventions
+### Zachowanie i konwencje
 
-- If your `source` mask includes a locale placeholder, only files for the selected `locale` are ingested.
+- Jeśli maska `source` zawiera symbol zastępczy locale, ładowane są tylko pliki dla wybranego `locale`.
 - Jeśli w masce nie ma segmentu `{key}`, każdy klucz najwyższego poziomu pliku staje się domyślnie własnym słownikiem (zobacz [`splitKeys`](#splitkeys-boolean)). Ustaw `splitKeys: false`, aby zamiast tego załadować cały plik jako pojedynczy słownik indeksowy.
-- Keys are derived from file paths by substituting the `{key}` placeholder in your `source` builder.
-- The plugin only uses discovered files and does not fabricate missing locales or keys.
-- The `fill` path is inferred from your `source` and used to update missing values via CLI when you opt‑in.
+- Klucze są wyprowadzane ze ścieżek plików poprzez podstawienie parametru `{key}` we wzorcu `source`.
+- Wtyczka przetwarza wyłącznie wykryte pliki i nie tworzy sztucznie brakujących lokalizacji czy kluczy.
+- Ścieżka `fill` jest określana na podstawie `source` i używana do aktualizacji brakujących wartości przez CLI po wywołaniu polecenia.
 
-## Conflict resolution
+## Rozwiązywanie konfliktów
 
-When the same translation key exists in multiple JSON sources:
+Gdy ten sam klucz tłumaczenia istnieje w wielu źródłach JSON:
 
-1. Wtyczka o najwyższym priorytecie decyduje o ostatecznej wartości
-2. Źródła o niższym priorytecie są używane jako zapasowe dla brakujących kluczy
-3. Pozwala to na utrzymanie tłumaczeń dziedziczonych podczas stopniowej migracji do nowych struktur
+1. Wtyczka o najwyższym priorytecie decyduje o ostatecznej wartości.
+2. Źródła o niższym priorytecie są używane jako zapasowe dla brakujących kluczy.
+3. Pozwala to na zachowanie tłumaczeń dziedziczonych podczas stopniowej migracji do nowych struktur.
 
 ## CLI
 
-Synchronizowane pliki JSON będą traktowane jak inne pliki `.content`. Oznacza to, że wszystkie polecenia intlayer będą dostępne dla synchronizowanych plików JSON. W tym:
+Synchronizowane pliki JSON będą traktowane jak inne pliki `.content`. Oznacza to, że wszystkie polecenia Intlayer CLI będą dostępne dla synchronizowanych plików JSON, w tym:
 
 - `intlayer content test` do testowania, czy brakuje tłumaczeń
 - `intlayer content list` do wyświetlania listy synchronizowanych plików JSON
@@ -436,13 +435,11 @@ Synchronizowane pliki JSON będą traktowane jak inne pliki `.content`. Oznacza 
 - `intlayer content push` do wysyłania synchronizowanych plików JSON
 - `intlayer content pull` do pobierania synchronizowanych plików JSON
 
-Zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) po więcej szczegółów.
-
-- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
+Zobacz [Dokumentację Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) po więcej szczegółów.
 
 ## Ograniczenia (aktualne)
 
-- Brak wsparcia dla wstawek lub liczby mnogiej/ICU przy celowaniu w biblioteki firm trzecich.
+- Brak wsparcia dla wstawek lub liczby mnogiej/ICU przy kierowaniu do bibliotek firm trzecich.
 - Edytor wizualny nie jest jeszcze dostępny dla środowisk uruchomieniowych innych niż Intlayer.
 - Synchronizacja tylko plików JSON; formaty katalogów inne niż JSON nie są obsługiwane.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Файлы объявления контента (.content.ts)"
 description: "Объявляйте многоязычный контент в файлах .content рядом с компонентами: поддерживаемые форматы, расширения файлов и как Intlayer их находит."
@@ -887,7 +887,7 @@ export default {
 } satisfies Dictionary;
 ```
 
-### JSON Content File
+### Файл содержимого JSON
 
 You can also create content files in JSON format:
 
@@ -918,7 +918,7 @@ You can also create content files in JSON format:
 }
 ```
 
-### Markdown Content File
+### Файл содержимого Markdown
 
 ```markdown
 ---
@@ -931,12 +931,12 @@ tags:
   - welcome
 ---
 
-# Welcome to Our Platform
+# Добро пожаловать на нашу платформу
 
-## Build amazing applications with ease
+## Создавайте потрясающие приложения с легкостью
 ```
 
-### YAML Content File
+### Файл содержимого YAML
 
 ```yaml
 key: welcome-page

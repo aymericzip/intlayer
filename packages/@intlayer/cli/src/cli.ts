@@ -339,9 +339,25 @@ export const setAPI = (): Command => {
       '--routing <routing>',
       'Locale routing: prefix-no-default | prefix-all | no-prefix | search-params | none'
     )
+    .option(
+      '--content <layout>',
+      'Content declaration layout: multilingual | per-locale | centralized | namespaces'
+    )
+    .option(
+      '--content-format <format>',
+      'Content format, used with --content: ts | json (multilingual, per-locale), json | po (centralized, namespaces)'
+    )
+    .option(
+      '--message-format <format>',
+      'Message format of JSON catalogs, used with --content centralized | namespaces: icu | i18next | vue-i18n | intlayer'
+    )
     .action(async (options) => {
-      const { init, parseLocaleRoutingChoice, getRoutingInitOptions } =
-        await import('./init');
+      const {
+        init,
+        parseLocaleRoutingChoice,
+        getRoutingInitOptions,
+        getContentInitOptions,
+      } = await import('./init');
       return init(
         options.projectRoot,
         {
@@ -352,6 +368,11 @@ export const setAPI = (): Command => {
           ...(options.routing
             ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
             : {}),
+          ...getContentInitOptions(
+            options.content,
+            options.contentFormat,
+            options.messageFormat
+          ),
         },
         options.interactive === true
       );
@@ -382,14 +403,35 @@ export const setAPI = (): Command => {
       '--routing <routing>',
       'Locale routing: prefix-no-default | prefix-all | no-prefix | search-params | none'
     )
+    .option(
+      '--content <layout>',
+      'Content declaration layout: multilingual | per-locale | centralized | namespaces'
+    )
+    .option(
+      '--content-format <format>',
+      'Content format, used with --content: ts | json (multilingual, per-locale), json | po (centralized, namespaces)'
+    )
+    .option(
+      '--message-format <format>',
+      'Message format of JSON catalogs, used with --content centralized | namespaces: icu | i18next | vue-i18n | intlayer'
+    )
     .action(async (options) => {
-      const { initSteps, parseLocaleRoutingChoice, getRoutingInitOptions } =
-        await import('./init');
+      const {
+        initSteps,
+        parseLocaleRoutingChoice,
+        getRoutingInitOptions,
+        getContentInitOptions,
+      } = await import('./init');
       return initSteps(options.projectRoot, ['projectSetup'], {
         noGitignore: options.gitignore === false,
         ...(options.routing
           ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
           : {}),
+        ...getContentInitOptions(
+          options.content,
+          options.contentFormat,
+          options.messageFormat
+        ),
       });
     });
 
@@ -443,6 +485,19 @@ export const setAPI = (): Command => {
     });
 
   initCmd
+    .command('prettier')
+    .description(
+      'Add the Intlayer Prettier plugin, when the project already formats with Prettier'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initSteps } = await import('./init');
+      return initSteps(options.projectRoot, ['prettier'], {
+        upgradeToVersion: packageJson.version,
+      });
+    });
+
+  initCmd
     .command('skills')
     .description('Initialize Intlayer skills in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
@@ -455,9 +510,8 @@ export const setAPI = (): Command => {
       'Skills to install (e.g. Usage Content React). Defaults to the project stack without a terminal'
     )
     .action(async (options) => {
-      const { initSkills, parsePlatform, parseSkills } = await import(
-        './initSkills'
-      );
+      const { initSkills, parsePlatform, parseSkills } =
+        await import('./initSkills');
       await initSkills(options.projectRoot, {
         platform: options.platform
           ? parsePlatform(options.platform)
@@ -503,6 +557,17 @@ export const setAPI = (): Command => {
     });
 
   initCmd
+    .command('repository')
+    .description(
+      'Connect the git repository of the project (GitHub, GitLab, Bitbucket, Codeberg, Gitee) to its CMS project and set its build settings, through your browser'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action(async (options) => {
+      const { initRepository } = await import('./init');
+      return initRepository(options.projectRoot);
+    });
+
+  initCmd
     .command('infra')
     .description(
       'Set up the Intlayer infrastructure: desktop app, all-in-one Docker container or Docker Compose stack (runs https://intlayer.org/install.sh, or install.ps1 on Windows)'
@@ -529,9 +594,8 @@ export const setAPI = (): Command => {
       'Browsers to open the store page for: chrome | firefox. Without a terminal, the links are only printed'
     )
     .action(async (options) => {
-      const { initChromeExtension, parseExtensionBrowsers } = await import(
-        './initChromeExtension'
-      );
+      const { initChromeExtension, parseExtensionBrowsers } =
+        await import('./initChromeExtension');
       return initChromeExtension({
         browsers: options.browser
           ? parseExtensionBrowsers(options.browser)
@@ -893,9 +957,8 @@ export const setAPI = (): Command => {
     .option('--json', 'Output the results as JSON')
     .option('--absolute', 'Output the results as absolute paths')
     .action(async (options) => {
-      const { listContentDeclaration } = await import(
-        './listContentDeclaration'
-      );
+      const { listContentDeclaration } =
+        await import('./listContentDeclaration');
       listContentDeclaration({
         json: options.json,
         absolute: options.absolute,
@@ -909,9 +972,8 @@ export const setAPI = (): Command => {
     .option('--json', 'Output the results as JSON')
     .option('--absolute', 'Output the results as absolute paths')
     .action(async (options) => {
-      const { listContentDeclaration } = await import(
-        './listContentDeclaration'
-      );
+      const { listContentDeclaration } =
+        await import('./listContentDeclaration');
       listContentDeclaration({
         json: options.json,
         absolute: options.absolute,
@@ -1246,7 +1308,10 @@ export const setAPI = (): Command => {
     .description(
       'Scan a website to measure its page size and audit its i18n / SEO health'
     )
-    .argument('<url>', 'URL of the website to scan')
+    .argument(
+      '<url>',
+      'URL or domain of the website to scan (e.g. intlayer.org)'
+    )
     .option('--no-deep', 'Disable the deeper puppeteer-based render scan')
     .option('--json', 'Output the results as JSON');
 

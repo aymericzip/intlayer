@@ -25,58 +25,58 @@ const benchmarkContent = {
     n02_enu: enu({
       '<-1': 'Less than -1',
       '-1': 'Minus one',
-      '0': t({ en: 'No items', fr: 'Aucun article', es: 'Sin artículos' }),
-      '1': t({ en: 'One item', fr: 'Un article', es: 'Un artículo' }),
+      '0': t({ en: 'No items', es: 'Sin artículos', fr: 'Aucun article' }),
+      '1': t({ en: 'One item', es: 'Un artículo', fr: 'Un article' }),
       '>5': t({
         en: 'Several items',
-        fr: 'Plusieurs articles',
         es: 'Varios artículos',
+        fr: 'Plusieurs articles',
       }),
       '>19': t({
         en: 'Many items',
-        fr: "Beaucoup d'articles",
         es: 'Muchos artículos',
+        fr: "Beaucoup d'articles",
       }),
       fallback: t({
         en: 'Some items',
-        fr: 'Des articles',
         es: 'Algunos artículos',
+        fr: 'Des articles',
       }),
     }),
 
     n03_cond: cond({
       true: t({
         en: 'Condition is true',
-        fr: 'La condition est vraie',
         es: 'La condición es verdadera',
+        fr: 'La condition est vraie',
       }),
       false: t({
         en: 'Condition is false',
-        fr: 'La condition est fausse',
         es: 'La condición es falsa',
+        fr: 'La condition est fausse',
       }),
       fallback: t({
         en: 'Condition unknown',
-        fr: 'Condition inconnue',
         es: 'Condición desconocida',
+        fr: 'Condition inconnue',
       }),
     }),
 
     n04_gender: gender({
       male: t({
         en: 'He is a user',
-        fr: 'Il est un utilisateur',
         es: 'Él es un usuario',
+        fr: 'Il est un utilisateur',
       }),
       female: t({
         en: 'She is a user',
-        fr: 'Elle est une utilisatrice',
         es: 'Ella es una usuaria',
+        fr: 'Elle est une utilisatrice',
       }),
       fallback: t({
         en: 'They are a user',
-        fr: 'Ils sont un utilisateur',
         es: 'Son un usuario',
+        fr: 'Ils sont un utilisateur',
       }),
     }),
 
@@ -90,70 +90,70 @@ const benchmarkContent = {
     n08_insert_t: insert(
       t({
         en: 'Hello {{name}}, welcome to {{place}}!',
-        fr: 'Bonjour {{name}}, bienvenue à {{place}}!',
         es: '¡Hola {{name}}, bienvenido a {{place}}!',
+        fr: 'Bonjour {{name}}, bienvenue à {{place}}!',
       })
     ),
 
     n09_t_of_md: t({
       en: md('## English Title\n\nContent in **English**'),
-      fr: md('## Titre Français\n\nContenu en **Français**'),
       es: md('## Título Español\n\nContenido en **Español**'),
+      fr: md('## Titre Français\n\nContenu en **Français**'),
     }),
 
     n10_md_t: md(
       t({
         en: '## Hello\n\nThis is **English** content.',
-        fr: '## Bonjour\n\nCeci est du contenu **Français**.',
         es: '## Hola\n\nEste es contenido en **Español**.',
+        fr: '## Bonjour\n\nCeci est du contenu **Français**.',
       })
     ),
 
     n11_enu_t: enu({
-      '0': t({ en: 'No cars', fr: 'Aucune voiture', es: 'Sin autos' }),
-      '1': t({ en: 'One car', fr: 'Une voiture', es: 'Un auto' }),
+      '0': t({ en: 'No cars', es: 'Sin autos', fr: 'Aucune voiture' }),
+      '1': t({ en: 'One car', es: 'Un auto', fr: 'Une voiture' }),
       '>1': t({
         en: 'Many cars',
-        fr: 'Beaucoup de voitures',
         es: 'Muchos autos',
+        fr: 'Beaucoup de voitures',
       }),
-      fallback: t({ en: 'Some cars', fr: 'Des voitures', es: 'Algunos autos' }),
+      fallback: t({ en: 'Some cars', es: 'Algunos autos', fr: 'Des voitures' }),
     }),
 
     n12_insert_enu_t: insert(
       enu({
-        '0': t({ en: 'No items', fr: 'Aucun article', es: 'Sin artículos' }),
+        '0': t({ en: 'No items', es: 'Sin artículos', fr: 'Aucun article' }),
         '1': t({
           en: 'One item: {{name}}',
-          fr: 'Un article: {{name}}',
           es: 'Un artículo: {{name}}',
+          fr: 'Un article: {{name}}',
         }),
         '>1': t({
           en: '{{count}} items incl. {{name}}',
-          fr: '{{count}} articles dont {{name}}',
           es: '{{count}} artículos incl. {{name}}',
+          fr: '{{count}} articles dont {{name}}',
         }),
       })
     ),
 
     n13_cond_t: cond({
-      true: t({ en: 'Show all', fr: 'Afficher tout', es: 'Mostrar todo' }),
-      false: t({ en: 'Show less', fr: 'Afficher moins', es: 'Mostrar menos' }),
+      true: t({ en: 'Show all', es: 'Mostrar todo', fr: 'Afficher tout' }),
+      false: t({ en: 'Show less', es: 'Mostrar menos', fr: 'Afficher moins' }),
     }),
 
     n14_cond_insert_t: cond({
       true: insert(
         t({
           en: 'Welcome back, {{name}}!',
-          fr: 'Content de vous revoir, {{name}}!',
           es: '¡Bienvenido de nuevo, {{name}}!',
+          fr: 'Content de vous revoir, {{name}}!',
         })
       ),
       false: insert(
         t({
           en: 'Goodbye, {{name}}!',
-          fr: 'Au revoir, {{name}}!',
           es: '¡Adiós, {{name}}!',
+          fr: 'Au revoir, {{name}}!',
         })
       ),
     }),
@@ -162,22 +162,22 @@ const benchmarkContent = {
       male: insert(
         t({
           en: '{{name}} updated his profile',
-          fr: '{{name}} a mis à jour son profil',
           es: '{{name}} actualizó su perfil',
+          fr: '{{name}} a mis à jour son profil',
         })
       ),
       female: insert(
         t({
           en: '{{name}} updated her profile',
-          fr: '{{name}} a mis à jour son profil',
           es: '{{name}} actualizó su perfil',
+          fr: '{{name}} a mis à jour son profil',
         })
       ),
       fallback: insert(
         t({
           en: '{{name}} updated their profile',
-          fr: '{{name}} a mis à jour son profil',
           es: '{{name}} actualizó su perfil',
+          fr: '{{name}} a mis à jour son profil',
         })
       ),
     }),
@@ -187,8 +187,8 @@ const benchmarkContent = {
       level1: {
         level2: t({
           en: 'Deep nested value',
-          fr: 'Valeur profondément imbriquée',
           es: 'Valor profundamente anidado',
+          fr: 'Valeur profondément imbriquée',
         }),
       },
     },
@@ -196,19 +196,19 @@ const benchmarkContent = {
     n18_array_strings: ['item1', 'item2', 'item3'],
 
     n19_array_translations: [
-      t({ en: 'First', fr: 'Premier', es: 'Primero' }),
-      t({ en: 'Second', fr: 'Deuxième', es: 'Segundo' }),
-      t({ en: 'Third', fr: 'Troisième', es: 'Tercero' }),
+      t({ en: 'First', es: 'Primero', fr: 'Premier' }),
+      t({ en: 'Second', es: 'Segundo', fr: 'Deuxième' }),
+      t({ en: 'Third', es: 'Tercero', fr: 'Troisième' }),
     ],
 
     n20_array_objects: [
       {
-        name: t({ en: 'Alice', fr: 'Alice', es: 'Alice' }),
-        role: t({ en: 'Developer', fr: 'Développeuse', es: 'Desarrolladora' }),
+        name: 'Alice',
+        role: t({ en: 'Developer', es: 'Desarrolladora', fr: 'Développeuse' }),
       },
       {
-        name: t({ en: 'Bob', fr: 'Bob', es: 'Bob' }),
-        role: t({ en: 'Designer', fr: 'Concepteur', es: 'Diseñador' }),
+        name: 'Bob',
+        role: t({ en: 'Designer', es: 'Diseñador', fr: 'Concepteur' }),
       },
     ],
 
@@ -217,13 +217,13 @@ const benchmarkContent = {
     n22_plural: plural({
       one: t({
         en: '{{count}} item',
-        fr: '{{count}} article',
         es: '{{count}} artículo',
+        fr: '{{count}} article',
       }),
       other: t({
         en: '{{count}} items',
-        fr: '{{count}} articles',
         es: '{{count}} artículos',
+        fr: '{{count}} articles',
       }),
     }),
 
@@ -234,13 +234,13 @@ const benchmarkContent = {
         one: html('<b>{{count}}</b> day'),
         other: html('<b>{{count}}</b> days'),
       }),
-      fr: plural({
-        one: html('<b>{{count}}</b> jour'),
-        other: html('<b>{{count}}</b> jours'),
-      }),
       es: plural({
         one: html('<b>{{count}}</b> día'),
         other: html('<b>{{count}}</b> días'),
+      }),
+      fr: plural({
+        one: html('<b>{{count}}</b> jour'),
+        other: html('<b>{{count}}</b> jours'),
       }),
     }),
 
@@ -249,8 +249,8 @@ const benchmarkContent = {
     n24_insert_html: insert(
       t({
         en: html('Hello <b>{{name}}</b>'),
-        fr: html('Bonjour <b>{{name}}</b>'),
         es: html('Hola <b>{{name}}</b>'),
+        fr: html('Bonjour <b>{{name}}</b>'),
       })
     ),
 
@@ -261,13 +261,13 @@ const benchmarkContent = {
         one: md('**{{count}}** day'),
         other: md('**{{count}}** days'),
       }),
-      fr: plural({
-        one: md('**{{count}}** jour'),
-        other: md('**{{count}}** jours'),
-      }),
       es: plural({
         one: md('**{{count}}** día'),
         other: md('**{{count}}** días'),
+      }),
+      fr: plural({
+        one: md('**{{count}}** jour'),
+        other: md('**{{count}}** jours'),
       }),
     }),
 
@@ -276,8 +276,8 @@ const benchmarkContent = {
     n26_insert_md: insert(
       t({
         en: md('Hello **{{name}}**'),
-        fr: md('Bonjour **{{name}}**'),
         es: md('Hola **{{name}}**'),
+        fr: md('Bonjour **{{name}}**'),
       })
     ),
 
@@ -287,23 +287,23 @@ const benchmarkContent = {
     n27_select: select({
       draft: t({
         en: 'This post is a draft',
-        fr: 'Cet article est un brouillon',
         es: 'Esta publicación es un borrador',
+        fr: 'Cet article est un brouillon',
       }),
       published: t({
         en: 'This post is live',
-        fr: 'Cet article est en ligne',
         es: 'Esta publicación está publicada',
+        fr: 'Cet article est en ligne',
       }),
       scheduled: t({
         en: 'This post is scheduled',
-        fr: 'Cet article est programmé',
         es: 'Esta publicación está programada',
+        fr: 'Cet article est programmé',
       }),
       fallback: t({
         en: 'Unknown status',
-        fr: 'Statut inconnu',
         es: 'Estado desconocido',
+        fr: 'Statut inconnu',
       }),
     }),
 
@@ -312,22 +312,22 @@ const benchmarkContent = {
       draft: insert(
         t({
           en: '{{name}} saved a draft',
-          fr: '{{name}} a enregistré un brouillon',
           es: '{{name}} guardó un borrador',
+          fr: '{{name}} a enregistré un brouillon',
         })
       ),
       published: insert(
         t({
           en: '{{name}} published the post',
-          fr: '{{name}} a publié l’article',
           es: '{{name}} publicó la publicación',
+          fr: '{{name}} a publié l’article',
         })
       ),
       fallback: insert(
         t({
           en: '{{name}} updated the post',
-          fr: '{{name}} a mis à jour l’article',
           es: '{{name}} actualizó la publicación',
+          fr: '{{name}} a mis à jour l’article',
         })
       ),
     }),

@@ -1,5 +1,6 @@
 import { type FillOptions, fill } from '@intlayer/cli';
 import { getConfiguration } from '@intlayer/config/node';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { window } from 'vscode';
 import {
   type CommandSource,
@@ -63,7 +64,7 @@ const fillProjectDictionaries = async (
     );
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}${actionLabel} failed: ${(error as Error).message}`
+      `${prefix}${actionLabel} failed: ${extractErrorMessage(error)}`
     );
   }
 };

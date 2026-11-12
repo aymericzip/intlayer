@@ -103,7 +103,7 @@ export const ComparisonBarChart: FC<ComparisonBarChartProps> = ({
           );
         })}
       </ul>
-      <p className="text-text/50 text-xs">{footer}</p>
+      <p className="text-xs text-text/50">{footer}</p>
     </Container>
   );
 };

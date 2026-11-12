@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "2026 में सही Solid i18n लाइब्रेरी कैसे चुनें"
 description: "SolidJS और SolidStart i18n चुनने की गाइड: @solid-primitives/i18n, solid-i18next, Paraglide, Lingui और Intlayer की तुलना से पहले के सवाल।"
@@ -98,11 +98,11 @@ Paraglide प्रति संदेश एक फ़ंक्शन generate 
 
 | Library                  | Content model                              | Reactivity on locale change                       | टाइप सुरक्षा                            | Scoping and lazy loading          | Library size                                     |
 | :----------------------- | :----------------------------------------- | :------------------------------------------------ | :-------------------------------------- | :-------------------------------- | :----------------------------------------------- |
-| `@solid-primitives/i18n` | Flat dictionary जिसे आप नियंत्रित करते हैं | Signal, accessors translator द्वारा रिटर्न किए गए | 3/5 — Source dictionary से infer किए गए | कुछ भी इन-बिल्ट नहीं              | ~0.6 kB                                          |
-| `solid-i18next`          | i18next catalogs और namespaces             | Store, provider के माध्यम से re-render            | 2/5 — मैनुअल डिक्लेरेशन                 | Namespaces, lazy backends         | ~14.9 kB                                         |
-| Paraglide                | inlang प्रोजेक्ट, generated फ़ंक्शंस       | Cookie या storage से प्रति कॉल रीड                | 3.5/5 — Generated                       | Tree-shaking (बेंचमार्क में नहीं) | लगभग शून्य (कोडबेस में जनरेट किए गए कोड के कारण) |
-| `@lingui/solid`          | कोड में सोर्स टेक्स्ट, compiled catalogs   | Signal-आधारित                                     | 2/5 — कंपाइलर से                        | प्रति catalog                     | ~11.8 kB                                         |
-| Intlayer                 | प्रति कंपोनेंट एक `.content.ts`            | Signal-backed nodes, कोई कंपोनेंट re-run नहीं     | 5/5 — Generated, डिफ़ॉल्ट रूप से चालू   | हाँ, प्रति component              | ~4.3 kB                                          |
+| `@solid-primitives/i18n` | Flat dictionary जिसे आप नियंत्रित करते हैं | Signal, accessors translator द्वारा रिटर्न किए गए | 3/5 - Source dictionary से infer किए गए | कुछ भी इन-बिल्ट नहीं              | ~0.6 kB                                          |
+| `solid-i18next`          | i18next catalogs और namespaces             | Store, provider के माध्यम से re-render            | 2/5 - मैनुअल डिक्लेरेशन                 | Namespaces, lazy backends         | ~14.9 kB                                         |
+| Paraglide                | inlang प्रोजेक्ट, generated फ़ंक्शंस       | Cookie या storage से प्रति कॉल रीड                | 3.5/5 - Generated                       | Tree-shaking (बेंचमार्क में नहीं) | लगभग शून्य (कोडबेस में जनरेट किए गए कोड के कारण) |
+| `@lingui/solid`          | कोड में सोर्स टेक्स्ट, compiled catalogs   | Signal-आधारित                                     | 2/5 - कंपाइलर से                        | प्रति catalog                     | ~11.8 kB                                         |
+| Intlayer                 | प्रति कंपोनेंट एक `.content.ts`            | Signal-backed nodes, कोई कंपोनेंट re-run नहीं     | 5/5 - Generated, डिफ़ॉल्ट रूप से चालू   | हाँ, प्रति component              | ~4.3 kB                                          |
 
 > संख्याएँ बेंचमार्क के वर्ज़न का एक स्नैपशॉट हैं। `@lingui/solid` का आकार TanStack Start बेंचमार्क से लिया गया है। केवल आकार के आधार पर निर्णय लेने से पहले इसे अपने ऐप पर चलाएं।
 > टाइप सुरक्षा: 5/5 का अर्थ है कि URL फॉर्मेटर और हेल्पर्स सहित कुंजियाँ, पैरामीटर और हर लोकेल बिना किसी मैन्युअल सेटअप के जाँचे जाते हैं।

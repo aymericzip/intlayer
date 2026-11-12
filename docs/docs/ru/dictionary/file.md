@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Контент из файлов: встраивание внешних файлов"
 description: "Встраивайте внешние файлы, например markdown или текст, в словари Intlayer с функцией file(), синхронно с исходным файлом."
@@ -30,7 +30,7 @@ author: aymericzip
 
 ## Как работает встраивание файлов
 
-To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать встроенный файловый контент в клиентских компонентах Next.js, извлеките его через хук `useIntlayer`. Вот пример:
 
 ## Настройка содержимого файла
 
@@ -67,7 +67,7 @@ export default myFileContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use embedded file content in a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This retrieves the content from the specified key and allows it to be displayed dynamically.
+Чтобы использовать встроенный файловый контент в компоненте React, импортируйте и примените хук `useIntlayer` из пакета `react-intlayer`. This retrieves the content from the specified key and allows it to be displayed dynamically.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";

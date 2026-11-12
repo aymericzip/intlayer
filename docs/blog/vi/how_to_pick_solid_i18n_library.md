@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cách chọn đúng thư viện Solid i18n năm 2026"
 description: "Hướng dẫn chọn i18n cho SolidJS và SolidStart: những câu hỏi trước khi so sánh @solid-primitives/i18n, solid-i18next, Paraglide, Lingui và Intlayer."
@@ -98,11 +98,11 @@ Kích thước thư viện được lấy từ [Solid benchmark](https://github.
 
 | Thư viện                 | Mô hình nội dung                           | Tính phản ứng khi đổi locale               | An toàn kiểu                        | Scoping và lazy loading            | Kích thước thư viện                                |
 | :----------------------- | :----------------------------------------- | :----------------------------------------- | :---------------------------------- | :--------------------------------- | :------------------------------------------------- |
-| `@solid-primitives/i18n` | Dictionary phẳng do bạn làm chủ            | Signal, accessors trả về từ translator     | 3/5 — Suy luận từ source dictionary | Không có sẵn                       | ~0.6 kB                                            |
-| `solid-i18next`          | Catalog và namespace của i18next           | Store, re-render qua provider              | 2/5 — Khai báo thủ công             | Namespaces, lazy backends          | ~14.9 kB                                           |
-| Paraglide                | inlang project, các hàm được generate      | Đọc mỗi lần gọi từ cookie hoặc storage     | 3.5/5 — Được generate               | Tree-shaking (chưa có trong bench) | Gần như bằng 0 (do mã được sinh ra trong codebase) |
-| `@lingui/solid`          | Source text trong code, catalog đã compile | Dựa trên signal                            | 2/5 — Từ trình biên dịch            | Theo từng catalog                  | ~11.8 kB                                           |
-| Intlayer                 | Một file `.content.ts` cho mỗi component   | Node hỗ trợ signal, không re-run component | 5/5 — Được generate, bật mặc định   | Có, theo từng component            | ~4.3 kB                                            |
+| `@solid-primitives/i18n` | Dictionary phẳng do bạn làm chủ            | Signal, accessors trả về từ translator     | 3/5 - Suy luận từ source dictionary | Không có sẵn                       | ~0.6 kB                                            |
+| `solid-i18next`          | Catalog và namespace của i18next           | Store, re-render qua provider              | 2/5 - Khai báo thủ công             | Namespaces, lazy backends          | ~14.9 kB                                           |
+| Paraglide                | inlang project, các hàm được generate      | Đọc mỗi lần gọi từ cookie hoặc storage     | 3.5/5 - Được generate               | Tree-shaking (chưa có trong bench) | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| `@lingui/solid`          | Source text trong code, catalog đã compile | Dựa trên signal                            | 2/5 - Từ trình biên dịch            | Theo từng catalog                  | ~11.8 kB                                           |
+| Intlayer                 | Một file `.content.ts` cho mỗi component   | Node hỗ trợ signal, không re-run component | 5/5 - Được generate, bật mặc định   | Có, theo từng component            | ~4.3 kB                                            |
 
 > Các con số là ảnh chụp nhanh tại các phiên bản của bài benchmark. Kích thước của `@lingui/solid` lấy từ benchmark TanStack Start. Hãy chạy thử nghiệm trên ứng dụng của riêng bạn trước khi đưa ra quyết định chỉ dựa vào kích thước.
 > An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.

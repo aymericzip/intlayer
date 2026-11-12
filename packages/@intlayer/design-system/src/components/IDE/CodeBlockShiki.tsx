@@ -54,7 +54,7 @@ export const CodeBlockShiki: FC<CodeBlockShikiProps> = ({ children, lang }) => {
   return (
     <div className={shikiWrapperClassName}>
       {html ? (
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
+        // oxlint-disable-next-line react/no-danger -- Shiki generates safe HTML for code highlighting
         <div dangerouslySetInnerHTML={{ __html: html }} />
       ) : (
         <CodeDefault>{children}</CodeDefault>

@@ -221,7 +221,7 @@ export const UsersAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const user = row.original as UserAPI;
         return (
-          <div className="text-neutral-900 text-sm dark:text-neutral-100">
+          <div className="text-sm text-neutral-900 dark:text-neutral-100">
             <CopyToClipboard text={user.email} size={10}>
               {user.email}
             </CopyToClipboard>
@@ -285,7 +285,7 @@ export const UsersAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const user = row.original as UserAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {user.createdAt
               ? new Date(user.createdAt).toLocaleDateString()
               : noData}
@@ -316,7 +316,7 @@ export const UsersAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const user = row.original as UserAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {user.updatedAt
               ? new Date(user.updatedAt).toLocaleDateString()
               : noData}
@@ -494,7 +494,7 @@ export const UsersAdminPageContent: FC = () => {
                       <th
                         key={header.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          'px-4 py-3 font-medium whitespace-nowrap text-neutral',
                           ['selection', 'actions', 'active'].includes(header.id)
                             ? 'text-center'
                             : 'text-start',
@@ -524,7 +524,7 @@ export const UsersAdminPageContent: FC = () => {
                   return (
                     <tr
                       key={row.id}
-                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                       onClick={() => {
                         navigate({
                           to: getAppAdminUserRoute(row.original.id) as any,
@@ -535,7 +535,7 @@ export const UsersAdminPageContent: FC = () => {
                         <td
                           key={cell.id}
                           className={cn(
-                            'whitespace-nowrap px-4 py-3',
+                            'px-4 py-3 whitespace-nowrap',
                             cellIndex === 0 && 'first:rounded-s-2xl',
                             cellIndex === visibleCells.length - 1 &&
                               'last:rounded-e-2xl'

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cara Memilih Library Svelte i18n yang Tepat di Tahun 2026"
 description: "Panduan memilih i18n untuk Svelte dan SvelteKit: pertanyaan sebelum membandingkan svelte-i18n, Paraglide, typesafe-i18n, wuchale, dan Intlayer."
@@ -98,11 +98,11 @@ Ukuran library diambil dari [benchmark Svelte](https://github.com/aymericzip/int
 
 | Library         | Tempat konten berada                 | State locale                                          | Keamanan tipe              | Format pesan                  | Pemisahan per route  | Ukuran library                                           |
 | :-------------- | :----------------------------------- | :---------------------------------------------------- | :------------------------- | :---------------------------- | :------------------- | :------------------------------------------------------- |
-| `svelte-i18n`   | Katalog JSON per locale              | Store Svelte tingkat modul                            | 2/5 — Union manual         | ICU                           | Tidak                | ~16.6 kB                                                 |
-| `typesafe-i18n` | Modul TS yang di-generate            | Adaptor store                                         | 4/5 — Di-generate          | Kustom                        | Parsial              | Kecil                                                    |
-| Paraglide       | Proyek inlang, dikompilasi ke fungsi | Dibaca per pemanggilan dari cookie, URL, atau storage | 3.5/5 — Di-generate        | Kustom                        | Ya, via tree-shaking | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
+| `svelte-i18n`   | Katalog JSON per locale              | Store Svelte tingkat modul                            | 2/5 - Union manual         | ICU                           | Tidak                | ~16.6 kB                                                 |
+| `typesafe-i18n` | Modul TS yang di-generate            | Adaptor store                                         | 4/5 - Di-generate          | Kustom                        | Parsial              | Kecil                                                    |
+| Paraglide       | Proyek inlang, dikompilasi ke fungsi | Dibaca per pemanggilan dari cookie, URL, atau storage | 3.5/5 - Di-generate        | Kustom                        | Ya, via tree-shaking | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
 | `wuchale`       | Diekstrak dari markup saat build     | Store                                                 | N/A (tanpa kunci)          | Kustom                        | Ya                   | ~30.7 kB                                                 |
-| Intlayer        | `.content.ts` di samping komponen    | Context ditambah store, mendukung rune                | 5/5 — Di-generate, default | Intlayer (+ ICU, i18next, PO) | Ya, per komponen     | ~3.6 kB                                                  |
+| Intlayer        | `.content.ts` di samping komponen    | Context ditambah store, mendukung rune                | 5/5 - Di-generate, default | Intlayer (+ ICU, i18next, PO) | Ya, per komponen     | ~3.6 kB                                                  |
 
 > Angka-angka tersebut merupakan gambaran pada versi saat benchmark dilakukan. Jalankan pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
 > Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).

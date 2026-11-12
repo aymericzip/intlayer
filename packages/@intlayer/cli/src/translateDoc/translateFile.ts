@@ -1,7 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, relative } from 'node:path';
 import { performance } from 'node:perf_hooks';
-import { readAsset } from 'utils:asset';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,
@@ -11,6 +10,7 @@ import {
 } from '@intlayer/config/logger';
 import { retryManager } from '@intlayer/config/utils';
 import { formatLocale, formatPath } from '@intlayer/engine/utils';
+import { readAsset } from 'utils:asset';
 import { chunkText } from '../utils/calculateChunks';
 import { chunkInference } from '../utils/chunkInference';
 import { fixChunkStartEndChars } from '../utils/fixChunkStartEndChars';
@@ -81,14 +81,14 @@ export const translateFile = async ({
 
         // Context Preparation
         const getPrevChunkPrompt = () =>
-          `>>> CONTEXT: PREVIOUS SOURCE CONTENT <<<\n\`\`\`\n` +
-          (chunks[i - 1]?.content ?? '') +
-          `\n\`\`\`\n>>> END PREVIOUS CONTEXT <<<`;
+          `>>> CONTEXT: PREVIOUS SOURCE CONTENT <<<\n\`\`\`\n${ 
+          chunks[i - 1]?.content ?? '' 
+          }\n\`\`\`\n>>> END PREVIOUS CONTEXT <<<`;
 
         const getBaseChunkContextPrompt = () =>
-          `>>> CONTEXT: NEXT CONTENT <<<\n\`\`\`\n` +
-          (chunks[i + 1]?.content ?? '') +
-          `\n\`\`\`\n>>> END NEXT CONTEXT <<<`;
+          `>>> CONTEXT: NEXT CONTENT <<<\n\`\`\`\n${ 
+          chunks[i + 1]?.content ?? '' 
+          }\n\`\`\`\n>>> END NEXT CONTEXT <<<`;
 
         chunkLogger('Process started');
 

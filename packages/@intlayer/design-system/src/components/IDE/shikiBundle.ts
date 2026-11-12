@@ -34,7 +34,7 @@ import type { ShikiThemeId } from './shikiThemes';
 
 /** Theme registrations, as default-exported by the `shiki/themes/*` modules. */
 export type ThemeRegistration =
-  typeof import('shiki/themes/github-dark.mjs')['default'];
+  (typeof import('shiki/themes/github-dark.mjs'))['default'];
 
 /** Loads a single Shiki theme. */
 export type ThemeLoader = () => Promise<{ default: ThemeRegistration }>;
@@ -83,7 +83,10 @@ export const createHighlighter = createBundledHighlighter<
 >({
   langs: bundledLanguages,
   themes: bundledThemes,
-  engine: () => createOnigurumaEngine(import('shiki/wasm')),
+  // Not `shiki/wasm`: its `unwasm` export condition (picked by Nitro) resolves
+  // to the raw `onig.wasm`, whose `env` import fails to resolve at build.
+  engine: () =>
+    createOnigurumaEngine(import('@shikijs/engine-oniguruma/wasm-inlined')),
 });
 
 /** Highlighter instance produced by {@link createHighlighter}. */

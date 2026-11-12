@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
+import Image from 'next/image';
 import type { FC } from 'react';
 import { ClientComponentExample } from '../../components/ClientComponentExample';
 import { IsomorphicComponentExample } from '../../components/IsomorphicComponentExample';
@@ -31,10 +31,10 @@ const PageContent: FC = () => {
           priority
         />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-start">
-          <h1 className="max-w-xs font-semibold text-3xl text-black leading-10 tracking-tight dark:text-zinc-50">
+          <h1 className="max-w-xs text-3xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
             {content.title}
           </h1>
-          <p className="max-w-md text-lg text-zinc-600 leading-8 dark:text-zinc-400">
+          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             {content.description}{' '}
             <a
               href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
@@ -52,7 +52,7 @@ const PageContent: FC = () => {
             {content.center}
           </p>
         </div>
-        <div className="flex flex-col gap-4 font-medium text-base sm:flex-row">
+        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <a
             className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] md:w-39.5 dark:hover:bg-[#ccc]"
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
@@ -69,7 +69,7 @@ const PageContent: FC = () => {
             {content.deployNow}
           </a>
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-black/8 border-solid px-5 transition-colors hover:border-transparent hover:bg-black/4 md:w-39.5 dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
+            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/8 px-5 transition-colors hover:border-transparent hover:bg-black/4 md:w-39.5 dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"

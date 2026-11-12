@@ -1,23 +1,19 @@
 {
   "name": "intlayer-editor",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": false,
   "description": "Integrate the Intlayer visual editor into your Intlayer projects, enabling CMS-like content management with multilingual support.",
   "keywords": [
-    "intlayer",
+    "CMS",
     "application",
     "editor",
-    "CMS",
-    "typescript",
-    "javascript"
+    "intlayer",
+    "javascript",
+    "typescript"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -31,27 +27,9 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": [
-    "*.css"
-  ],
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./server/dist/export.d.ts",
-      "import": "./server/dist/export.mjs",
-      "require": "./server/dist/export.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "./server/dist/export.cjs",
-  "module": "./server/dist/export.mjs",
-  "types": "./server/dist/export.d.ts",
-  "typesVersions": {
-    "*": {
-      "package.json": [
-        "./package.json"
-      ]
-    }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "bin": {
     "intlayer-editor": "./bin/intlayer-editor.mjs"
@@ -62,6 +40,28 @@
     "./bin",
     "./package.json"
   ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./server/dist/export.cjs",
+  "module": "./server/dist/export.mjs",
+  "types": "./server/dist/export.d.ts",
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./server/dist/export.d.ts",
+      "import": "./server/dist/export.mjs",
+      "require": "./server/dist/export.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "bun build:client && bun build:server",
     "build:ci": "bun build:client:ci && bun build:server:ci",
@@ -71,10 +71,10 @@
     "build:server:ci": "bun --bun tsdown --config ./server/tsdown.config.ts --tsconfig ./server/tsconfig.json",
     "dev:client": "bun --bun vite dev --config ./client/vite.config.ts",
     "dev:server": "bun --watch  --hot ./server/src/index.ts",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
-    "lint:fix": "bun --bun biome lint --write .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "preview": "bun --bun vite preview --config ./client/vite.config.ts",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
@@ -88,47 +88,47 @@
     "typecheck": "tsc --project ./server/tsconfig.types.json --noEmit"
   },
   "dependencies": {
-    "@fastify/compress": "9.2.0",
-    "@fastify/cookie": "11.1.2",
-    "@fastify/cors": "11.3.0",
-    "@fastify/formbody": "9.0.0",
-    "@fastify/helmet": "13.1.1",
-    "@fastify/static": "10.1.3",
+    "@fastify/compress": "9.3.0",
+    "@fastify/cookie": "11.1.5",
+    "@fastify/cors": "11.4.1",
+    "@fastify/formbody": "9.0.1",
+    "@fastify/helmet": "13.2.0",
+    "@fastify/static": "10.1.8",
+    "@intlayer/api": "workspace:*",
+    "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/engine": "workspace:*",
-    "fastify": "5.12.5",
+    "fastify": "5.12.8",
     "fastify-intlayer": "workspace:*",
-    "mime": "4.1.0"
+    "mime": "4.1.2",
+    "preact-intlayer": "workspace:*",
+    "react-intlayer": "workspace:*",
+    "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
+    "@intlayer/backend-contract": "workspace:*",
+    "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@tailwindcss/vite": "4.3.3",
-    "@tanstack/react-query": "5.104.1",
+    "@preact/preset-vite": "2.10.6",
+    "@tailwindcss/vite": "4.3.5",
+    "@tanstack/react-query": "5.107.1",
     "@types/node": "^26",
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
     "@utils/ts-config": "workspace:*",
-    "@vitejs/plugin-react": "6.1.1",
-    "autoprefixer": "10.6.1",
-    "framer-motion": "14.0.0",
+    "autoprefixer": "10.6.2",
+    "framer-motion": "14.12.0",
     "fuse.js": "7.5.0",
-    "globals": "17.13.0",
+    "globals": "17.14.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.51.0",
-    "oxc-transform-react": "^0.152.0",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "react-intlayer": "workspace:*",
-    "react-router-dom": "7.18.4",
-    "tailwindcss": "4.3.3",
-    "tsdown": "0.23.0",
+    "lucide-react": "1.71.0",
+    "preact": "11.2.0",
+    "tailwindcss": "4.3.5",
+    "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vite": "8.3.2",
-    "vite-intlayer": "workspace:*",
-    "vitest": "5.0.3"
+    "vite": "8.3.8",
+    "vitest": "5.1.0"
   },
   "engines": {
     "node": ">=18.0.0"

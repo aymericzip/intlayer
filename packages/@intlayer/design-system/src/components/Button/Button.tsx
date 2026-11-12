@@ -74,7 +74,7 @@ export type ButtonTextAlign = 'left' | 'center' | 'right';
  * Enhanced button variants with improved accessibility and focus states
  */
 export const buttonVariants = cva(
-  'rtl-mirror-icons relative inline-flex cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex rtl-mirror-icons cursor-pointer items-center justify-center font-medium ring-0 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       size: {
@@ -91,7 +91,7 @@ export const buttonVariants = cva(
       },
       color: {
         neutral: 'text-neutral ring-neutral-500/5 *:text-text-light',
-        card: 'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
+        card: 'hover-card-500/20 ring-card-500/20 text-card *:text-text-light',
         text: 'text-text ring-text/20 *:text-text-opposite',
         foreground:
           'text-foreground ring-foreground/20 *:text-foreground-opposite',
@@ -150,7 +150,7 @@ export const buttonVariants = cva(
         input: [
           // base styles
           'text-text',
-          'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none supports-[corner-shape:squircle]:rounded-4xl',
+          'w-full resize-none rounded-2xl text-base shadow-none outline-none select-text supports-[corner-shape:squircle]:rounded-4xl',
           'transition-shadow duration-100 md:text-sm',
           'ring-0', // base ring
           'disabled:opacity-50',

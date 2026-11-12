@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Astro + Svelte i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Konfiguracja Intlayer w Astro z wyspami Svelte: przetłumaczone komponenty, zlokalizowane trasy i hreflang, typowana treść per komponent."
@@ -471,9 +471,9 @@ Intlayer oferuje narzędzia do dynamicznego generowania zlokalizowanej mapy witr
 
 #### Sitemap
 
-Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localized routes and adds the necessary metadata for search engines.
+Intlayer zawiera wbudowany generator sitemapy, który ułatwia tworzenie mapy witryny dla Twojej aplikacji. Obsługuje zlokalizowane trasy i dodaje niezbędne metadane dla wyszukiwarek.
 
-> The Intlayer generated sitemap supports the `xhtml:link` namespace (Hreflang XML Extensions). Unlike the default sitemap generators that only list raw URLs, Intlayer automatically creates the required bidirectional links between all language versions of a page (e.g., `/about`, `/about?lang=fr`, and `/about?lang=es`). This ensures search engines correctly index and serve the right language version to the right audience.
+> Mapa witryny generowana przez Intlayer obsługuje przestrzeń nazw `xhtml:link` (rozszerzenia XML Hreflang). W przeciwieństwie do domyślnych generatorów map witryn, które wyświetlają jedynie surowe adresy URL, Intlayer automatycznie tworzy wymagane dwukierunkowe powiązania między wszystkimi wersjami językowymi strony (np. `/about`, `/about?lang=fr` i `/about?lang=es`). Zapewnia to, że wyszukiwarki poprawnie indeksują i wyświetlają właściwą wersję językową odpowiednim odbiorcom.
 
 Utwórz plik `src/pages/sitemap.xml.ts`, aby wygenerować mapę witryny obejmującą wszystkie Twoje zlokalizowane trasy.
 

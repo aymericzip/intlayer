@@ -1,4 +1,5 @@
 import { fill } from '@intlayer/cli';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import { window } from 'vscode';
 import { getConfigurationOptions } from '../utils/getConfiguration';
 import { prefix } from '../utils/logFunctions';
@@ -27,7 +28,7 @@ export const fillDictionary = async (node?: IntlayerTreeNode) => {
     await showFillResult(fillResult, 'Fill', filePath);
   } catch (error) {
     await window.showErrorMessage(
-      `${prefix}Fill failed: ${(error as Error).message}`
+      `${prefix}Fill failed: ${extractErrorMessage(error)}`
     );
   }
 };

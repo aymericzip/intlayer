@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "كيفية اختيار مكتبة React i18n المناسبة في عام 2026"
 description: "دليل لاختيار i18n في React: الأسئلة التي يجب الإجابة عنها قبل مقارنة react-i18next وreact-intl وLingui وuse-intl وParaglide وIntlayer."
@@ -109,13 +109,13 @@ author: aymericzip
 
 | المكتبة                 | الموجة       | نموذج المحتوى                         | أمان الأنواع                        | تنسيق الرسائل                 | حجم المكتبة                                        |
 | :---------------------- | :----------- | :------------------------------------ | :---------------------------------- | :---------------------------- | :------------------------------------------------- |
-| `react-i18next`         | وقت التشغيل  | JSON مركزي، namespaces                | 2/5 — اختياري (`CustomTypeOptions`) | i18next (لواحق الجمع)         | ~18.4 kB                                           |
-| `react-intl` (FormatJS) | وقت التشغيل  | JSON مركزي، ICU                       | 2/5 — اختياري (استخراج + union)     | ICU                           | ~15.3 kB                                           |
-| `use-intl`              | الخادم أولاً | JSON مركزي، ICU                       | 2/5 — اختياري (دمج التصريحات)       | ICU                           | ~14.1 kB                                           |
-| `@tolgee/react`         | وقت التشغيل  | مركزي، تحرير مباشر في السياق          | 1/5 — لا                            | ICU                           | ~11.1 kB                                           |
-| Lingui                  | ماكرو        | النص المصدري في الكود، كتالوجات مجمعة | 2/5 — جيد، من المترجم               | ICU عبر الماكرو               | ~11.8 kB                                           |
-| Paraglide               | مترجم        | مشروع inlang، دوال مولدة              | 3.5/5 — مُولد                       | خاص                           | يقارب الصفر (بسبب الكود المولَّد داخل قاعدة الكود) |
-| Intlayer                | مترجم        | `.content.ts` لكل مكون                | 5/5 — مُولد، مفعّل افتراضياً        | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                            |
+| `react-i18next`         | وقت التشغيل  | JSON مركزي، namespaces                | 2/5 - اختياري (`CustomTypeOptions`) | i18next (لواحق الجمع)         | ~18.4 kB                                           |
+| `react-intl` (FormatJS) | وقت التشغيل  | JSON مركزي، ICU                       | 2/5 - اختياري (استخراج + union)     | ICU                           | ~15.3 kB                                           |
+| `use-intl`              | الخادم أولاً | JSON مركزي، ICU                       | 2/5 - اختياري (دمج التصريحات)       | ICU                           | ~14.1 kB                                           |
+| `@tolgee/react`         | وقت التشغيل  | مركزي، تحرير مباشر في السياق          | 1/5 - لا                            | ICU                           | ~11.1 kB                                           |
+| Lingui                  | ماكرو        | النص المصدري في الكود، كتالوجات مجمعة | 2/5 - جيد، من المترجم               | ICU عبر الماكرو               | ~11.8 kB                                           |
+| Paraglide               | مترجم        | مشروع inlang، دوال مولدة              | 3.5/5 - مُولد                       | خاص                           | يقارب الصفر (بسبب الكود المولَّد داخل قاعدة الكود) |
+| Intlayer                | مترجم        | `.content.ts` لكل مكون                | 5/5 - مُولد، مفعّل افتراضياً        | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                            |
 
 > الأرقام تمثل لقطة لإصدارات benchmark وتتغير مع التحديثات. قم بتشغيل اختبار الأداء على تطبيقك الخاص قبل اتخاذ القرار بناءً على الحجم وحده.
 > أمان الأنواع: 5/5 يعني أن المفاتيح والمعاملات وكل لغة يتم التحقق منها دون إعداد يدوي، بما في ذلك منسق العناوين (URL formatter) والدوال المساعدة (helpers).
@@ -554,9 +554,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 **هل المكتبة جاهزة لوكلاء الذكاء الاصطناعي (AI agents)؟**
 
-لا يزال الوكلاء يواجهون صعوبات مع التدويل: ينسون اللغات، ويخترعون مفاتيح من عندهم، ويخلطون بين صيغ الرسائل. هل توفر المكتبة [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) أو [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md) حتى يتمكن الوكيل من سرد المحتوى وملئه واختباره؟ وهل يتم تحسين تحميل المحتوى افتراضياً، أم يتعين على شخص ما مراجعة الـ namespaces والاستيرادات الكسولة كل ربع سنة؟
+لا يزال الوكلاء يواجهون صعوبات مع التدويل: ينسون اللغات، ويخترعون مفاتيح من عندهم، ويخلطون بين صيغ الرسائل. هل توفر المكتبة [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) أو [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md) حتى يتمكن الوكيل من سرد المحتوى وملئه واختباره؟ وهل يتم تحسين تحميل المحتوى افتراضياً، أم يتعين على شخص ما مراجعة الـ namespaces والاستيرادات الكسولة كل ربع سنة؟
 
-- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
 - [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
 
 **أمان الأنواع فور التثبيت.**

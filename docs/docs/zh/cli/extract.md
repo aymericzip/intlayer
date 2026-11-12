@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: "intlayer extract：从组件中提取文本"
 description: 了解如何将组件中的字符串提取到靠近组件的 .content 文件中。
@@ -49,12 +49,6 @@ bun x intlayer extract
 - **`-f, --file [files...]`**：要提取的特定文件列表。如果未提供，CLI 将扫描匹配的文件（`**/*.{tsx,jsx,vue,svelte,ts,js}`）并提示您选择要提取的文件。
 
   > 示例：`npx intlayer extract -f src/components/MyComponent.tsx`
-
-**输出选项：**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**：保存生成的内容声明文件的目录。
-
-  > 示例：`npx intlayer extract -o src/content`
 
 - **`--code-only`**：仅提取组件代码（不写入内容声明）。
 

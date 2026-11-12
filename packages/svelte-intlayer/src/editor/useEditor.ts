@@ -3,6 +3,7 @@ import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
 import { onDestroy, onMount } from 'svelte';
 import { intlayerStore } from '../client/intlayerStore';
+import { setLocaleInStorage } from '../client/useLocaleStorage';
 
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.
@@ -17,6 +18,7 @@ export const useEditor = () => {
   if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
   let unsubscribeLocale: (() => void) | null = null;
+  let unsubscribeLocaleRequest: (() => void) | null = null;
 
   onMount(() => {
     import('@intlayer/editor')
@@ -28,12 +30,20 @@ export const useEditor = () => {
         unsubscribeLocale = intlayerStore.subscribe(({ locale }) => {
           if (locale) manager.currentLocale.set(locale as Locale);
         });
+
+        unsubscribeLocaleRequest = manager.onLocaleChangeRequested(
+          (requestedLocale) => {
+            intlayerStore.setLocale(requestedLocale);
+            setLocaleInStorage(requestedLocale, true);
+          }
+        );
       })
       .catch(() => {});
   });
 
   onDestroy(() => {
     unsubscribeLocale?.();
+    unsubscribeLocaleRequest?.();
     import('@intlayer/editor')
       .then(({ stopEditorClient }) => {
         stopEditorClient();

@@ -50,12 +50,6 @@ bun x intlayer extract
 
   > 例: `npx intlayer extract -f src/components/MyComponent.tsx`
 
-**出力オプション:**
-
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: 生成されたコンテンツ宣言ファイルを保存するディレクトリ。
-
-  > 例: `npx intlayer extract -o src/content`
-
 - **`--code-only`**: コンポーネントのコードのみを抽出する（コンテンツ宣言は書き込まない）。
 
   > 例: `npx intlayer extract --code-only`

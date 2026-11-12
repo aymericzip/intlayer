@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 10
 title: "Astro i18n - 앱을 번역하는 완전 가이드"
 description: "Astro에 Intlayer 설정: 현지화된 라우트, 번역된 .astro 페이지와 아일랜드, hreflang 태그, 다국어 사이트맵."
@@ -65,52 +65,52 @@ author: aymericzip
 
 <TOC/>
 
-## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
+## 왜 다른 대안 대신 Intlayer인가요?
 
-'astro-i18n' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
+`astro-i18n`이나 `i18next`와 같은 주요 솔루션과 비교할 때, Intlayer는 다음과 같은 통합된 최적화를 제공합니다:
 
 <AccordionGroup>
-<Accordion header="전체 Astro 적용 범위">
+<Accordion header="Astro 완벽 지원">
 
-Intlayer는 **다국어 라우팅**, **사이트맵** 및 국제화 확장(i18n)에 필요한 모든 기능을 제공하여 Astro와 완벽하게 작동하도록 최적화되어 있습니다.
+Intlayer는 **다국어 라우팅**, **사이트맵** 및 국제화(i18n) 확장에 필요한 모든 기능을 제공하여 Astro와 완벽하게 작동하도록 최적화되어 있습니다.
 
 </Accordion>
 <Accordion header="번들 크기">
 
-대용량 JSON 파일을 페이지에 로드하는 대신 필요한 콘텐츠만 로드하세요. Intlayer는 **번들 및 페이지 크기를 최대 50%** 줄이는 데 도움이 됩니다.
+페이지에 대용량 JSON 파일을 로드하는 대신, 꼭 필요한 콘텐츠만 로드합니다. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 기여합니다.
 
 </Accordion>
-<Accordion header="유지관리성">
+<Accordion header="유지보수성">
 
-애플리케이션 콘텐츠의 범위를 지정하면 대규모 애플리케이션의 **유지 관리가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 정신적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 **완전히 유형**되어 콘텐츠의 정확성을 보장합니다.
+애플리케이션 콘텐츠의 범위를 컴포넌트 단위로 분할하여 **대규모 애플리케이션의 유지보수를 원활하게** 합니다. 전체 콘텐츠 코드베이스를 전부 검토해야 하는 인지적 부담 없이 단일 기능 폴더를 간편하게 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 **완전한 TypeScript 타입 지원**을 통해 콘텐츠 선언의 정확성을 보장합니다.
 
 </Accordion>
 <Accordion header="AI 에이전트">
 
-콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
+콘텐츠 선언을 컴포넌트와 동일한 위치에 두는 것(Co-location)은 대형 언어 모델(LLM)에 필요한 **컨텍스트 크기를 크게 줄여줍니다**. Intlayer는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등 일련의 도구를 지원하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 매끄럽게 만듭니다.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)
 - [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)
 
 </Accordion>
-<Accordion header="오토메이션">
+<Accordion header="자동화">
 
-AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인을 번역하려면 자동화를 사용하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
+CI/CD 파이프라인에서 원하는 LLM을 사용하여 자체 AI 제공업체의 API 비용만으로 번역을 손쉽게 자동화할 수 있습니다. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러**와 함께 **백그라운드에서 편리하게 번역할 수 있는** [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
 
 - [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="성능">
 
-대규모 JSON 파일을 구성 요소에 연결하면 성능 및 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시 콘텐츠 로딩을 최적화합니다.
+대규모 JSON 파일을 컴포넌트에 직접 연결하면 렌더링 성능 저하와 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시점에 콘텐츠 로딩을 최적화하여 이를 해결합니다.
 
 </Accordion>
-<Accordion header="개발자가 없는 경우 확장">
+<Accordion header="비개발자와의 협업 및 확장 (Scaling with non-dev)">
 
-Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는 **자체 호스팅 [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)** 및 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공합니다. 다국어 콘텐츠를 **실시간**으로 제공하여 번역가, 카피라이터, 기타 팀원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
+단순한 i18n 솔루션 이상의 가치를 제공하기 위해, Intlayer는 **자체 호스팅 가능한 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[완전한 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 지원합니다. 이를 통해 번역가, 카피라이터 및 팀원들과 **실시간**으로 다국어 콘텐츠를 매끄럽게 관리할 수 있습니다. 콘텐츠는 로컬 및/또는 원격에 안전하게 보관할 수 있습니다.
 
-- [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
 - [전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 </Accordion>
@@ -121,7 +121,7 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-astro-template) 보기.
 
 <Steps>
-<Step number={1} title="종속성 설치">
+<Step number={1} title="의존성 패키지 설치">
 
 선호하는 패키지 관리자를 사용하여 필요한 패키지를 설치합니다:
 
@@ -143,7 +143,7 @@ bunx intlayer init --interactive
 
 > `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`을 사용하세요.
 
-> 이 명령어는 당신의 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
+> 이 명령어는 환경을 감지하고 필요한 패키지를 자동으로 설치합니다. 예를 들어:
 
 ```bash packageManager="npm"
 npm install intlayer astro-intlayer
@@ -301,13 +301,13 @@ const { title } = useIntlayer("app");
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
 
-    <!-- Canonical link: Tells search engines which is the primary version of this page -->
+    <!-- 정규(Canonical) 링크: 검색 엔진에 이 페이지의 대표 버전을 알립니다 -->
     <link
       rel="canonical"
       href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
     />
 
-    <!-- Hreflang: Tell Google about all localized versions -->
+    <!-- Hreflang: 검색 엔진에 로컬라이즈된 모든 언어 버전을 알립니다 -->
     {
       localeMap(({ locale: mapLocale }) => (
         <link

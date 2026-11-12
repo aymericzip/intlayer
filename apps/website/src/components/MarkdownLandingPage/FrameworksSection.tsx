@@ -103,10 +103,10 @@ export const FrameworksSection: FC = () => {
           transition={{ duration: 0.6 }}
           className="mb-14 text-center"
         >
-          <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
             {title}
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
             {description}
           </p>
         </m.div>
@@ -135,10 +135,10 @@ export const FrameworksSection: FC = () => {
                 className="flex h-full flex-col items-center gap-3 text-center transition-colors hover:bg-neutral/5"
               >
                 <TechLogo name={logo} className="size-10" />
-                <span className="font-semibold text-foreground text-sm">
+                <span className="text-sm font-semibold text-foreground">
                   {name}
                 </span>
-                <span className="text-muted-foreground text-xs">
+                <span className="text-xs text-muted-foreground">
                   {outputLabel} <span className="font-mono">{output}</span>
                 </span>
               </MotionContainer>

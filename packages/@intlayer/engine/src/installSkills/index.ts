@@ -1,8 +1,8 @@
 import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
-import { readAsset } from 'utils:asset';
 import { v } from '@intlayer/config/logger';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import { readAsset } from 'utils:asset';
 
 /**
  * Metadata for each available documentation skill.
@@ -18,6 +18,8 @@ export const SKILLS_METADATA = {
     'Intlayer Compiler setup and usage for automatic content extraction without .content files',
   BundleOptimization:
     'Purge, minify and import modes; writing code the bundle optimizer can follow',
+  DynamicDictionaries:
+    'Collections (item) and variants (A/B tests, CMS records, ambient variant)',
   RemoteContent: 'How to use Intlayer with Remote/CMS/Server-side content',
   DevTools: 'ESLint, LSP, VS Code & Chrome extensions, MCP server and CI/CD',
   Compat:

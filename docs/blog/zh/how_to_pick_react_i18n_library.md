@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "如何在 2026 年选择合适的 React i18n 库"
 description: "React i18n 选型指南：在比较 react-i18next、react-intl、Lingui、use-intl、Paraglide 和 Intlayer 之前需要回答的问题。"
@@ -109,13 +109,13 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 | 库                      | 演进浪潮   | 内容模型                                | 类型安全                           | 消息格式                      | 库体积                             |
 | :---------------------- | :--------- | :-------------------------------------- | :--------------------------------- | :---------------------------- | :--------------------------------- |
-| `react-i18next`         | 运行时     | 集中式 JSON，namespaces                 | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (后缀复数)            | ~18.4 kB                           |
-| `react-intl` (FormatJS) | 运行时     | 集中式 JSON，ICU                        | 2/5 — Opt-in (提取 + union)        | ICU                           | ~15.3 kB                           |
-| `use-intl`              | 服务端优先 | 集中式 JSON，ICU                        | 2/5 — Opt-in (declaration merging) | ICU                           | ~14.1 kB                           |
-| `@tolgee/react`         | 运行时     | 集中式，上下文内可视化编辑 (in-context) | 1/5 — 无                           | ICU                           | ~11.1 kB                           |
-| Lingui                  | 宏         | 代码内源码文本，编译后目录              | 2/5 — 良好，由编译器生成           | 基于宏的 ICU                  | ~11.8 kB                           |
-| Paraglide               | 编译器     | inlang 项目，生成函数                   | 3.5/5 — 自动生成                   | 自研格式                      | 接近于零（因为代码生成到代码库中） |
-| Intlayer                | 编译器     | 单组件 `.content.ts` 声明               | 5/5 — 自动生成，默认开启           | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                            |
+| `react-i18next`         | 运行时     | 集中式 JSON，namespaces                 | 2/5 - Opt-in (`CustomTypeOptions`) | i18next (后缀复数)            | ~18.4 kB                           |
+| `react-intl` (FormatJS) | 运行时     | 集中式 JSON，ICU                        | 2/5 - Opt-in (提取 + union)        | ICU                           | ~15.3 kB                           |
+| `use-intl`              | 服务端优先 | 集中式 JSON，ICU                        | 2/5 - Opt-in (declaration merging) | ICU                           | ~14.1 kB                           |
+| `@tolgee/react`         | 运行时     | 集中式，上下文内可视化编辑 (in-context) | 1/5 - 无                           | ICU                           | ~11.1 kB                           |
+| Lingui                  | 宏         | 代码内源码文本，编译后目录              | 2/5 - 良好，由编译器生成           | 基于宏的 ICU                  | ~11.8 kB                           |
+| Paraglide               | 编译器     | inlang 项目，生成函数                   | 3.5/5 - 自动生成                   | 自研格式                      | 接近于零（因为代码生成到代码库中） |
+| Intlayer                | 编译器     | 单组件 `.content.ts` 声明               | 5/5 - 自动生成，默认开启           | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                            |
 
 > 数据为基准测试特定版本时的快照，会随版本更新而变动。在仅凭体积做决定前，建议在自己的应用中运行基准测试。
 > 类型安全：5/5 表示键、参数和每个语言环境均无需手动配置即可得到校验，包括 URL 格式化工具与辅助函数。

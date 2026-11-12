@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Angular 22 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "Vite を使う Angular 22 に Intlayer を導入：コンポーネント隣の型付きコンテンツ、言語ごとのビルド不要なロケール切り替え、SEO。"
@@ -38,7 +38,7 @@ author: aymericzip
 
 <TOC/>
 
-## 代替手段ではなく Interlayer を使用する理由
+## なぜ他の選択肢ではなく Intlayer なのか？
 
 「ngx-translate」や「​​angular-l10n」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
@@ -48,19 +48,19 @@ author: aymericzip
 Intlayer は、**コンポーネント レベルのコンテンツ スコープ**、**遅延読み込み**、および国際化 (i18n) のスケーリングに必要なすべての機能を提供することにより、Angular と完全に連携するように最適化されています。
 
 </Accordion>
-<Accordion header="Bundle size">
+<Accordion header="バンドルサイズ (Bundle Size)">
 
-大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
+巨大な JSON ファイルをページ全体に読み込む代わりに、必要なコンテンツのみをロードします。Intlayer は**バンドルサイズとページ容量を最大 50% 削減**します。
 
 </Accordion>
 <Accordion header="保守性">
 
-アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツコードベース全体を確認するという認知的負荷を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全な型安全性（TypeScript 型定義）**を提供し、コンテンツの正確性を保証します。
 
 </Accordion>
 <Accordion header="AI Agent">
 
-コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)** などのツール スイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+コンテンツをコンポーネントと同一ディレクトリに配置（Co-location）すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)** などのツールスイートも付属しています。および **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
@@ -69,21 +69,21 @@ Intlayer は、**コンポーネント レベルのコンテンツ スコープ*
 </Accordion>
 <Accordion header="オートメーション">
 
-AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
+自前の AI プロバイダーの API 利用料のみで、好みの LLM を使って CI/CD パイプライン内で翻訳を自動化します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンド翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
 
 - [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
 
-大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+大量の JSON ファイルをコンポーネントに接続すると、レンダリングパフォーマンスの低下や反応性の遅延を引き起こす可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
 </Accordion>
-<Accordion header="Scaling with none-dev">
+<Accordion header="非エンジニアとの連携・スケール">
 
-Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
+Intlayer は単なる i18n ソリューションではなく、**セルフホスト可能な[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチームメンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
-- [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
 - [完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
@@ -116,7 +116,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
   </Tab>
 </Tabs>
 
-GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-angular-22-template)を参照してください。
+GitHub で [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-angular-22-template)を参照してください。
 
 <Steps>
 <Step number={1} title="依存関係のインストール">
@@ -513,7 +513,7 @@ Intlayerでの開発エクスペリエンスを向上させるために、公式
 
 - **`@angular/localize`**、組み込みのi18n: メッセージはXLIFFに抽出され、各ロケールは独自のビルドにコンパイルされます。これは、言語ごとに1つのデプロイメントアーティファクトが必要で、ランタイムでのロケール切り替えができないことを意味します。
 - **`ngx-translate`** および **`Transloco`**: サービスを介してロードされるランタイムJSONカタログで、ロケール切り替えは可能ですが、ビルド時の型付けはありません。
-- **`Intlayer`**: 最も先進的なソリューションです。コードベースのどこにでも宣言されたコンテンツ（[各コンポーネントの隣、または一元化された場所](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）がビルド時にコンパイルされ、完全に型付けされ、ランタイムでのロケール切り替え、AI翻訳、ビジュアルエディター、CMSが利用できます。
+- **`Intlayer`**: 最も先進的なソリューションです。コードベースのどこにでも宣言されたコンテンツ（[各コンポーネントの隣、または一元化された場所](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）がビルド時にコンパイルされ、完全な型安全性を備え、ランタイムでのロケール切り替え、AI翻訳、ビジュアルエディター、CMSが利用できます。
 
 `@angular/localize` を使用しない主な理由は、ロケールごとに1つのビルドが必要となるモデルです。Intlayerは単一のビルドを維持し、ランタイムで言語を切り替えます。[Intlayerの利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
 

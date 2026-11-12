@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "使用自定义组件的 HTML 内容"
 description: "在 Intlayer 中声明 HTML 内容，并在渲染时将标签替换为你的组件，无需 dangerouslySetInnerHTML 即可显示翻译后的富文本。"

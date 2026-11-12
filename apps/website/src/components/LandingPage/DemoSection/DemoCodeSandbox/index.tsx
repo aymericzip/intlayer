@@ -10,8 +10,11 @@ interface DemoCodeSandboxProps {
 
 export const DemoCodeSandbox: FC<DemoCodeSandboxProps> = ({
   repoPath = '/aymericzip/intlayer-next-16-template',
-  framework = repoPath.split('/').pop() ?? '',
+  framework: frameworkProp,
 }) => {
+  // Derived in the body: a default parameter reading another one makes the
+  // compiler skip this component.
+  const framework = frameworkProp ?? repoPath.split('/').pop() ?? '';
   const content = useIntlayer('demo-code-sandbox');
   const { resolvedTheme } = useTheme();
   const ref = useRef<HTMLDivElement>(null);

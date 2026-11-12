@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-06
+updatedAt: 2026-10-08
 priority: 5
 title: useIntlayer Hook 文档 | next-intlayer
 description: "在 Next.js 中使用 useIntlayer，在 Client 和 Server Components 中按键读取字典的本地化内容。"
@@ -80,7 +80,7 @@ author: aymericzip
 
 ## 在 Next.js 中的示例用法
 
-以下示例展示了如何在 Next.js 页面中实现 `useIntlayer` 钩子，根据应用程序当前的语言环境动态加载本地化内容：
+以下示例展示了如何在 Next.js 页面中实现 `useIntlayer` Hook，根据应用程序当前的语言环境动态加载本地化内容：
 
 <Tabs>
  <Tab label='Intlayer >=9.4' value='>=9.4'>
@@ -146,7 +146,7 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 const ClientComponentExample: FC = () => {
-  const content = useIntlayer("component-content"); // 使用 useIntlayer 钩子获取组件内容
+  const content = useIntlayer("component-content"); // 使用 useIntlayer Hook获取组件内容
 
   return (
     <div>
@@ -187,4 +187,4 @@ const ServerComponentExample: FC = () => {
 
 - **Intlayer 可视化编辑器**：了解如何使用可视化编辑器以更轻松地管理内容，请点击[这里](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
-本档说明文档专门介绍了在 Next.js 环境中使用 `useIntlayer` 钩子，提供了一个强大的解决方案来管理您 Next.js 应用中的本地化内容。
+本档说明文档专门介绍了在 Next.js 环境中使用 `useIntlayer` Hook，提供了一个强大的解决方案来管理您 Next.js 应用中的本地化内容。

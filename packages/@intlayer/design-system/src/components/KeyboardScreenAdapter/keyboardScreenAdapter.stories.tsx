@@ -41,7 +41,7 @@ export const Default: Story = {
     children: (
       <div className="flex h-full items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100">
         <div className="p-6 text-center">
-          <h1 className="mb-4 font-bold text-2xl text-gray-800">
+          <h1 className="mb-4 text-2xl font-bold text-gray-800">
             KeyboardScreenAdapter Demo
           </h1>
           <p className="mb-6 text-gray-600">
@@ -51,7 +51,7 @@ export const Default: Story = {
           <input
             type="text"
             placeholder="Try typing here on a mobile device"
-            className="w-full max-w-md rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full max-w-md rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
       </div>
@@ -72,69 +72,69 @@ export const FormExample: Story = {
     children: (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md">
-          <h2 className="mb-6 font-semibold text-gray-800 text-xl">
+          <h2 className="mb-6 text-xl font-semibold text-gray-800">
             Contact Form
           </h2>
           <form className="space-y-4">
             <div>
               <label
                 htmlFor="name"
-                className="mb-2 block font-medium text-gray-700 text-sm"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
                 Full Name
               </label>
               <input
                 id="name"
                 type="text"
-                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter your full name"
               />
             </div>
             <div>
               <label
                 htmlFor="email"
-                className="mb-2 block font-medium text-gray-700 text-sm"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
                 Email Address
               </label>
               <input
                 id="email"
                 type="email"
-                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter your email"
               />
             </div>
             <div>
               <label
                 htmlFor="phone"
-                className="mb-2 block font-medium text-gray-700 text-sm"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
                 Phone Number
               </label>
               <input
                 id="phone"
                 type="tel"
-                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter your phone number"
               />
             </div>
             <div>
               <label
                 htmlFor="message"
-                className="mb-2 block font-medium text-gray-700 text-sm"
+                className="mb-2 block text-sm font-medium text-gray-700"
               >
                 Message
               </label>
               <textarea
                 id="message"
                 rows={4}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter your message"
               />
             </div>
             <button
               type="submit"
-              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
               Send Message
             </button>
@@ -172,8 +172,8 @@ export const ChatInterface: Story = {
       <div className="flex h-screen flex-col bg-gray-100">
         {/* Header */}
         <div className="bg-blue-600 p-4 text-white">
-          <h2 className="font-semibold text-lg">Chat Support</h2>
-          <p className="text-blue-100 text-sm">
+          <h2 className="text-lg font-semibold">Chat Support</h2>
+          <p className="text-sm text-blue-100">
             Online • Typically replies instantly
           </p>
         </div>
@@ -183,14 +183,14 @@ export const ChatInterface: Story = {
           <div className="flex">
             <div className="max-w-xs rounded-lg bg-white p-3 shadow-sm">
               <p className="text-sm">Hello! How can we help you today?</p>
-              <p className="mt-1 text-gray-500 text-xs">10:30 AM</p>
+              <p className="mt-1 text-xs text-gray-500">10:30 AM</p>
             </div>
           </div>
 
           <div className="flex justify-end">
             <div className="max-w-xs rounded-lg bg-blue-600 p-3 text-white">
               <p className="text-sm">I need help with my account settings</p>
-              <p className="mt-1 text-blue-100 text-xs">10:32 AM</p>
+              <p className="mt-1 text-xs text-blue-100">10:32 AM</p>
             </div>
           </div>
 
@@ -200,7 +200,7 @@ export const ChatInterface: Story = {
                 I'd be happy to help you with that! What specific setting would
                 you like to change?
               </p>
-              <p className="mt-1 text-gray-500 text-xs">10:33 AM</p>
+              <p className="mt-1 text-xs text-gray-500">10:33 AM</p>
             </div>
           </div>
         </div>
@@ -211,7 +211,7 @@ export const ChatInterface: Story = {
             <input
               type="text"
               placeholder="Type your message..."
-              className="flex-1 rounded-full border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 rounded-full border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
             <button
               type="button"
@@ -245,7 +245,7 @@ export const SearchInterface: Story = {
               <input
                 type="search"
                 placeholder="Search for anything..."
-                className="w-full rounded-full border border-gray-300 px-4 py-3 ps-12 pe-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-full border border-gray-300 px-4 py-3 ps-12 pe-4 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
               <div className="absolute inset-s-4 top-1/2 -translate-y-1/2 transform">
                 <svg
@@ -283,11 +283,11 @@ export const SearchInterface: Story = {
                 className="rounded-lg border border-gray-200 p-4 hover:bg-gray-50"
               >
                 <h3 className="font-medium text-gray-900">{result}</h3>
-                <p className="mt-1 text-gray-600 text-sm">
+                <p className="mt-1 text-sm text-gray-600">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                   do eiusmod tempor incididunt ut labore.
                 </p>
-                <div className="mt-2 flex items-center text-gray-500 text-xs">
+                <div className="mt-2 flex items-center text-xs text-gray-500">
                   <span>example.com</span>
                   <span className="mx-2">•</span>
                   <span>2 min read</span>
@@ -316,19 +316,19 @@ export const CustomStyling: Story = {
     children: (
       <div className="flex h-full items-center justify-center p-8">
         <div className="w-full max-w-md rounded-xl bg-white/80 p-8 shadow-xl backdrop-blur-sm">
-          <h2 className="mb-6 text-center font-bold text-2xl text-gray-800">
+          <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
             Custom Styled Container
           </h2>
           <div className="space-y-4">
             <input
               type="text"
               placeholder="Username"
-              className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             />
             <input
               type="password"
               placeholder="Password"
-              className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             />
             <button
               type="button"
@@ -356,17 +356,17 @@ export const MinimalHeight: Story = {
     className: 'min-h-100 max-w-md mx-auto bg-gray-50',
     children: (
       <div className="h-full p-6">
-        <h3 className="mb-4 font-semibold text-lg">Compact Form</h3>
+        <h3 className="mb-4 text-lg font-semibold">Compact Form</h3>
         <div className="space-y-3">
           <input
             type="email"
             placeholder="Email address"
-            className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <button
             type="button"
@@ -395,12 +395,12 @@ export const AccessibilityTest: Story = {
     'aria-label': 'Main application content with keyboard adaptation',
     children: (
       <div className="mx-auto max-w-lg p-6">
-        <h1 className="mb-4 font-bold text-xl">Accessible Form</h1>
+        <h1 className="mb-4 text-xl font-bold">Accessible Form</h1>
         <form className="space-y-4">
           <div>
             <label
               htmlFor="acc-name"
-              className="mb-1 block font-medium text-sm"
+              className="mb-1 block text-sm font-medium"
             >
               Name (required)
             </label>
@@ -409,16 +409,16 @@ export const AccessibilityTest: Story = {
               type="text"
               required
               aria-describedby="name-help"
-              className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
-            <p id="name-help" className="mt-1 text-gray-600 text-sm">
+            <p id="name-help" className="mt-1 text-sm text-gray-600">
               Enter your full legal name
             </p>
           </div>
           <div>
             <label
               htmlFor="acc-email"
-              className="mb-1 block font-medium text-sm"
+              className="mb-1 block text-sm font-medium"
             >
               Email (required)
             </label>
@@ -427,15 +427,15 @@ export const AccessibilityTest: Story = {
               type="email"
               required
               aria-describedby="email-help"
-              className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
-            <p id="email-help" className="mt-1 text-gray-600 text-sm">
+            <p id="email-help" className="mt-1 text-sm text-gray-600">
               We'll use this to contact you
             </p>
           </div>
           <button
             type="submit"
-            className="w-full rounded bg-green-600 py-2 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full rounded bg-green-600 py-2 text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:outline-none"
           >
             Submit Form
           </button>
@@ -488,10 +488,10 @@ export const LongContent: Story = {
   args: {
     children: (
       <div className="p-6">
-        <h1 className="mb-4 font-bold text-2xl">Long Scrollable Content</h1>
+        <h1 className="mb-4 text-2xl font-bold">Long Scrollable Content</h1>
         <div className="space-y-6">
           {Array.from({ length: 10 }, (_, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: This is a story demonstration with static content
+            // oxlint-disable-next-line react/no-array-index-key -- This is a story demonstration with static content
             <div key={i} className="rounded-lg bg-white p-4 shadow">
               <h3 className="mb-2 font-semibold">Section {i + 1}</h3>
               <p className="mb-4 text-gray-600">
@@ -504,7 +504,7 @@ export const LongContent: Story = {
                 <input
                   type="text"
                   placeholder="Input in the middle of long content"
-                  className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               )}
             </div>
@@ -514,7 +514,7 @@ export const LongContent: Story = {
             <input
               type="text"
               placeholder="Try typing here after scrolling"
-              className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
         </div>
@@ -542,7 +542,7 @@ export const MultiStepForm: Story = {
               {[1, 2, 3].map((step, index) => (
                 <div key={step} className="flex items-center">
                   <div
-                    className={`flex h-8 w-8 items-center justify-center rounded-full font-medium text-sm ${
+                    className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium ${
                       index === 0
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-200 text-gray-600'
@@ -554,19 +554,19 @@ export const MultiStepForm: Story = {
                 </div>
               ))}
             </div>
-            <p className="mt-2 text-center text-gray-600 text-sm">
+            <p className="mt-2 text-center text-sm text-gray-600">
               Step 1 of 3: Personal Information
             </p>
           </div>
 
           {/* Form Content */}
           <div className="rounded-lg bg-white p-6 shadow-md">
-            <h2 className="mb-6 font-semibold text-xl">Personal Information</h2>
+            <h2 className="mb-6 text-xl font-semibold">Personal Information</h2>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label
-                    className="mb-1 block font-medium text-gray-700 text-sm"
+                    className="mb-1 block text-sm font-medium text-gray-700"
                     htmlFor="first-name-input"
                   >
                     First Name
@@ -574,13 +574,13 @@ export const MultiStepForm: Story = {
                   <input
                     id="first-name-input"
                     type="text"
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     placeholder="John"
                   />
                 </div>
                 <div>
                   <label
-                    className="mb-1 block font-medium text-gray-700 text-sm"
+                    className="mb-1 block text-sm font-medium text-gray-700"
                     htmlFor="last-name-input"
                   >
                     Last Name
@@ -588,7 +588,7 @@ export const MultiStepForm: Story = {
                   <input
                     id="last-name-input"
                     type="text"
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     placeholder="Doe"
                   />
                 </div>
@@ -596,7 +596,7 @@ export const MultiStepForm: Story = {
 
               <div>
                 <label
-                  className="mb-1 block font-medium text-gray-700 text-sm"
+                  className="mb-1 block text-sm font-medium text-gray-700"
                   htmlFor="dob-input"
                 >
                   Date of Birth
@@ -604,13 +604,13 @@ export const MultiStepForm: Story = {
                 <input
                   id="dob-input"
                   type="date"
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               </div>
 
               <div>
                 <label
-                  className="mb-1 block font-medium text-gray-700 text-sm"
+                  className="mb-1 block text-sm font-medium text-gray-700"
                   htmlFor="phone-input"
                 >
                   Phone Number
@@ -618,7 +618,7 @@ export const MultiStepForm: Story = {
                 <input
                   id="phone-input"
                   type="tel"
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   placeholder="+1 (555) 123-4567"
                 />
               </div>

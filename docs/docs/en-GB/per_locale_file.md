@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Per-Locale Content Declaration Files"
 description: Discover how to declare content per locale in Intlayer. Follow the documentation to understand the different formats and use cases.
@@ -124,7 +124,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Using this configuration, all per-locale files will be generated with the default locale set to English. It also includes generation of `.content` files using the `extract` command, and the compiler. (See [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) or [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) for more information.)
+Using this configuration, all per-locale files will be generated with the default locale set to English. It also includes generation of `.content` files using the `extract` command, and the compiler. (See [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) or [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en-GB/cli/extract.md) for more information.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md)
 

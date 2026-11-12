@@ -27,14 +27,16 @@ const mockPages = computed(() => [
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-lg">
+  <header
+    class="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-lg"
+  >
     <nav class="container flex h-16 items-center justify-between">
       <div class="flex items-center gap-8">
         <router-link
           :to="`/${currentLocale}`"
           class="text-lg font-bold tracking-tight text-primary no-underline"
         >
-          {{ t("shared.appName") }}
+          {{ t('shared.appName') }}
         </router-link>
 
         <div class="hidden items-center gap-6 text-sm font-medium md:flex">
@@ -49,7 +51,7 @@ const mockPages = computed(() => [
               :class="{ 'router-link-active': isExactActive }"
               @click="navigate"
             >
-              {{ t("header.home") }}
+              {{ t('header.home') }}
             </a>
           </router-link>
           <router-link
@@ -63,37 +65,42 @@ const mockPages = computed(() => [
               :class="{ 'router-link-active': isActive }"
               @click="navigate"
             >
-              {{ t("header.methodology") }}
+              {{ t('header.methodology') }}
             </a>
           </router-link>
 
           <div class="relative">
             <button
               type="button"
-              class="flex items-center gap-1 nav-link bg-transparent border-none cursor-pointer"
+              class="nav-link flex cursor-pointer items-center gap-1 border-none bg-transparent"
               @mouseenter="isMockPagesOpen = true"
               @mouseleave="isMockPagesOpen = false"
               @click="isMockPagesOpen = !isMockPagesOpen"
             >
-              {{ t("header.mockPages") }}
+              {{ t('header.mockPages') }}
               <ChevronDown
                 :size="14"
-                :class="['transition-transform', isMockPagesOpen ? 'rotate-180' : '']"
+                :class="[
+                  'transition-transform',
+                  isMockPagesOpen ? 'rotate-180' : '',
+                ]"
               />
             </button>
 
             <div
               v-if="isMockPagesOpen"
-              class="absolute left-0 top-full pt-2 w-48"
+              class="absolute top-full left-0 w-48 pt-2"
               @mouseenter="isMockPagesOpen = true"
               @mouseleave="isMockPagesOpen = false"
             >
-              <div class="bg-card border border-border rounded-md shadow-lg overflow-hidden py-1">
+              <div
+                class="overflow-hidden rounded-md border border-border bg-card py-1 shadow-lg"
+              >
                 <router-link
                   v-for="page in mockPages"
                   :key="page.to"
                   :to="page.to"
-                  class="block px-4 py-2 text-sm text-foreground hover:bg-accent transition-colors"
+                  class="block px-4 py-2 text-sm text-foreground transition-colors hover:bg-accent"
                   @click="isMockPagesOpen = false"
                 >
                   {{ page.label }}
@@ -111,7 +118,7 @@ const mockPages = computed(() => [
           rel="noreferrer"
           class="text-muted-foreground transition hover:text-foreground"
         >
-          <span class="sr-only">{{ t("shared.goToGithub") }}</span>
+          <span class="sr-only">{{ t('shared.goToGithub') }}</span>
           <svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20">
             <path
               fill="currentColor"

@@ -362,14 +362,11 @@ publishStatus("draft")({ name: "Alice" }); // आउटपुट: Alice ने �
 यह बन जाएगा:
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 ICU की `other` स्थिति को `fallback` के रूप में नाम दिया गया है, जो कि Intlayer में सभी कैच-ऑल (catch-all) स्थितियों के लिए विहित (canonical) नाम है। दूसरा तर्क ICU चर नाम को रिकॉर्ड करता है, ताकि निर्यात (export) के समय संदेश बिल्कुल उसी ICU स्ट्रिंग में वापस आ सके।

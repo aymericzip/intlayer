@@ -40,7 +40,7 @@ export const HowItWorksSection: FC = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <h2 className="font-semibold text-2xl text-foreground md:text-3xl">
+        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
           {title}
         </h2>
         <p className="mt-2 max-w-2xl text-base text-foreground/70">
@@ -76,10 +76,10 @@ export const HowItWorksSection: FC = () => {
                     </span>
                     <IconComponent className="size-6 text-muted-foreground" />
                   </div>
-                  <h3 className="font-semibold text-sm md:text-lg">
+                  <h3 className="text-sm font-semibold md:text-lg">
                     {s.title}
                   </h3>
-                  <p className="text-muted-foreground text-xs leading-5">
+                  <p className="text-xs leading-5 text-muted-foreground">
                     {s.description}
                   </p>
                 </Container>

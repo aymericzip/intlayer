@@ -83,7 +83,7 @@ export const AsideNavigation: FC = () => {
     <>
       <div className="relative flex min-h-0 w-70 flex-1 flex-col">
         <div className="relative z-10 mt-10 flex w-full flex-row items-center pt-2">
-          <h2 className="ms-3 text-nowrap font-mono text-foreground text-sm uppercase">
+          <h2 className="ms-3 font-mono text-sm text-nowrap text-foreground uppercase">
             {title}
           </h2>
         </div>

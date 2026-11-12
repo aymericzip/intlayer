@@ -44,7 +44,7 @@ export const BenchmarkTable: FC<BenchmarkTableProps> = ({
                 ? `${item.min.toFixed(1)} - ${item.max.toFixed(1)}`
                 : '-'}
             </td>
-            <td className="px-4 py-2 text-muted-foreground text-xs">
+            <td className="px-4 py-2 text-xs text-muted-foreground">
               {item.version ? `v${item.version}` : '-'}
             </td>
           </tr>

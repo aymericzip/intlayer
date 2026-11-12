@@ -5,6 +5,7 @@ import type {
 import type { GetUsersResult, UserAPI } from '@intlayer/backend-contract/user';
 import { useGetDiscussions, useGetUsers } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
@@ -18,7 +19,12 @@ import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import { flexRender, type SortingState } from '@tanstack/react-table';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+} from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
@@ -26,6 +32,8 @@ import { useSearchParamState } from '#hooks/useSearchParamState';
 import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
 import { DiscussionAdminDetail } from './DiscussionAdminDetail';
 import { DiscussionsAdminSkeleton } from './DiscussionsAdminSkeleton';
+
+type NavigationDirection = 'previous' | 'next';
 
 export const DiscussionsAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
@@ -57,8 +65,15 @@ export const DiscussionsAdminPageContent: FC = () => {
   // users fetched after discussions are loaded
 
   const { data, error, isFetching } = discussionsQuery;
-  const { tableHeaders, noData, errorMessages, searchPlaceholder, modalTitle } =
-    useIntlayer('discussion-admin-detail');
+  const {
+    tableHeaders,
+    noData,
+    errorMessages,
+    searchPlaceholder,
+    modalTitle,
+    previousDiscussion,
+    nextDiscussion,
+  } = useIntlayer('discussion-admin-detail');
 
   const discussionsResponse = data as GetDiscussionsResult | undefined;
   const discussions = discussionsResponse?.data ?? [];
@@ -87,6 +102,97 @@ export const DiscussionsAdminPageContent: FC = () => {
   const totalItems: number = discussionsResponse?.total_items ?? 0;
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
+
+  /**
+   * Set when navigating past the edge of the current page: once the target
+   * page is loaded, the first (next) or last (previous) discussion is opened.
+   */
+  const [pendingNavigation, setPendingNavigation] = useState<
+    { direction: NavigationDirection; page: number } | undefined
+  >(undefined);
+
+  const currentDiscussionIndex = discussions.findIndex(
+    (discussion) => String(discussion.id) === discussionId
+  );
+  const isDiscussionInPage = currentDiscussionIndex !== -1;
+  const hasPreviousDiscussion =
+    isDiscussionInPage && (currentDiscussionIndex > 0 || currentPage > 1);
+  const hasNextDiscussion =
+    isDiscussionInPage &&
+    (currentDiscussionIndex < discussions.length - 1 ||
+      currentPage < totalPages);
+
+  const navigateDiscussion = (direction: NavigationDirection) => {
+    if (!isDiscussionInPage || pendingNavigation) return;
+
+    const targetDiscussion =
+      discussions[
+        direction === 'next'
+          ? currentDiscussionIndex + 1
+          : currentDiscussionIndex - 1
+      ];
+
+    if (targetDiscussion) {
+      setDiscussionId(String(targetDiscussion.id));
+      return;
+    }
+
+    const targetPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
+
+    if (targetPage < 1 || targetPage > totalPages) return;
+
+    setPendingNavigation({ direction, page: targetPage });
+    setParam('page', targetPage);
+  };
+
+  // Open the edge discussion once the page targeted by a cross-page navigation is loaded
+  if (
+    pendingNavigation &&
+    !isFetching &&
+    discussionsResponse?.page === pendingNavigation.page
+  ) {
+    const targetDiscussion =
+      pendingNavigation.direction === 'next'
+        ? discussions[0]
+        : discussions[discussions.length - 1];
+
+    if (targetDiscussion) setDiscussionId(String(targetDiscussion.id));
+    setPendingNavigation(undefined);
+  }
+
+  // Keyboard navigation (←/→) while the discussion modal is open
+  useEffect(() => {
+    if (!discussionId) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+        return;
+      }
+
+      const target = event.target as HTMLElement | null;
+      if (
+        target?.isContentEditable ||
+        target?.tagName === 'INPUT' ||
+        target?.tagName === 'TEXTAREA' ||
+        target?.tagName === 'SELECT'
+      ) {
+        return;
+      }
+
+      const isRightToLeft =
+        getComputedStyle(document.documentElement).direction === 'rtl';
+      const isForwardKey =
+        event.key === (isRightToLeft ? 'ArrowLeft' : 'ArrowRight');
+
+      event.preventDefault();
+      navigateDiscussion(isForwardKey ? 'next' : 'previous');
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  });
 
   const sorting: SortingState = params.sortBy
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
@@ -226,7 +332,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const discussion = row.original as DiscussionAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {discussion.createdAt
               ? new Date(discussion.createdAt).toLocaleDateString()
               : noData.value}
@@ -257,7 +363,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const discussion = row.original as DiscussionAPI;
         return (
-          <div className="text-neutral-500 text-sm dark:text-neutral-400">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
             {discussion.updatedAt
               ? new Date(discussion.updatedAt).toLocaleDateString()
               : noData.value}
@@ -344,7 +450,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                       <th
                         key={header.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          'px-4 py-3 font-medium whitespace-nowrap text-neutral',
                           header.id === 'numberOfMessages'
                             ? 'text-center'
                             : 'text-start',
@@ -374,7 +480,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                   return (
                     <tr
                       key={row.id}
-                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      className="cursor-pointer rounded-xl border-b border-card whitespace-nowrap transition-colors hover:bg-card/30 focus-visible:ring-1 focus-visible:ring-card focus-visible:outline-none"
                       onClick={() => setDiscussionId(String(row.original.id))}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -388,7 +494,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                         <td
                           key={cell.id}
                           className={cn(
-                            'whitespace-nowrap px-4 py-3',
+                            'px-4 py-3 whitespace-nowrap',
                             cellIndex === 0 && 'first:rounded-s-2xl',
                             cellIndex === visibleCells.length - 1 &&
                               'last:rounded-e-2xl'
@@ -438,10 +544,36 @@ export const DiscussionsAdminPageContent: FC = () => {
       <Modal
         isOpen={!!discussionId}
         onClose={() => setDiscussionId(undefined)}
-        title={modalTitle({ discussionId: discussionId ?? '' }).value}
+        title={
+          <div className="flex items-center gap-2">
+            <Button
+              variant="hoverable"
+              color="text"
+              size="icon-md"
+              Icon={ChevronLeft}
+              label={previousDiscussion.value}
+              disabled={!hasPreviousDiscussion || !!pendingNavigation}
+              onClick={() => navigateDiscussion('previous')}
+            />
+            <Button
+              variant="hoverable"
+              color="text"
+              size="icon-md"
+              Icon={ChevronRight}
+              label={nextDiscussion.value}
+              disabled={!hasNextDiscussion || !!pendingNavigation}
+              onClick={() => navigateDiscussion('next')}
+            />
+            <span>
+              {modalTitle({ discussionId: discussionId ?? '' }).value}
+            </span>
+          </div>
+        }
         size="xl"
         hasCloseButton
         isScrollable
+        border
+        borderColor="neutral"
       >
         <DiscussionAdminDetail discussionId={discussionId} />
       </Modal>

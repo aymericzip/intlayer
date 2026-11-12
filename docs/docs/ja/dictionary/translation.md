@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-10-08
 priority: 8
 title: "翻訳コンテンツ：t() 関数"
 description: "Intlayer の t() 関数でロケールごとの翻訳を宣言。型チェックによりビルド時に不足しているロケールを検出します。"
@@ -89,7 +89,7 @@ export default config;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-With `react-intlayer`, you can use translations in React components. Here's an example:
+With `react-intlayer`, you can use translations in React components. 以下は使用例です：
 
 ```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -113,7 +113,7 @@ This component fetches the corresponding translation based on the current locale
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-With `next-intlayer`, you can use translations in React Server Components or Client Components. Here's an example in a Client Component:
+With `next-intlayer`, you can use translations in React Server Components or Client Components. 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -137,7 +137,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-With `vue-intlayer`, you can use translations in Vue components. Here's an example:
+With `vue-intlayer`, you can use translations in Vue components. 以下は使用例です：
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -156,7 +156,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
+With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. 以下は使用例です：
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -173,7 +173,7 @@ const content = useIntlayer("multi_lang");
   </Tab>
   <Tab label="Preact" value="preact">
 
-With `preact-intlayer`, you can use translations in Preact components. Here's an example:
+With `preact-intlayer`, you can use translations in Preact components. 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -195,7 +195,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-With `solid-intlayer`, you can use translations in SolidJS components. Here's an example:
+With `solid-intlayer`, you can use translations in SolidJS components. 以下は使用例です：
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -217,7 +217,7 @@ export default MyComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-With `angular-intlayer`, you can use translations in Angular components. Here's an example:
+With `angular-intlayer`, you can use translations in Angular components. 以下は使用例です：
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -239,7 +239,7 @@ export class MyComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-With `vanilla-intlayer`, you can use translations by subscribing to content changes. Here's an example:
+With `vanilla-intlayer`, you can use translations by subscribing to content changes. 以下は使用例です：
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

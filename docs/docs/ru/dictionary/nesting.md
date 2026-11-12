@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Вложенность: повторное использование контента между словарями"
 description: "Ссылайтесь из одного словаря на другой с узлом nest() в Intlayer, чтобы использовать общий контент без дублирования переводов."
@@ -142,7 +142,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use nested content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать вложенный контент в клиентских компонентах Next.js, извлеките его через хук `useIntlayer`. Вот пример:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";

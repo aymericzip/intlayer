@@ -300,6 +300,15 @@ export const searchChunkReference = async (
   return rankedChunks.map(({ chunk }) => chunk);
 };
 
+/**
+ * Output budget per answer. Thinking tokens count toward it, so it must leave
+ * room for reasoning on top of the visible answer (length is steered by PROMPT.md).
+ */
+const MAX_OUTPUT_TOKENS = 16_000;
+
+/** Reasoning depth for the doc assistant (Anthropic `output_config.effort`). */
+const REASONING_EFFORT = 'high';
+
 const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 // Initial prompt configuration for the chatbot
@@ -315,6 +324,8 @@ export type AskDocQuestionResult = {
 
 export type AskDocQuestionOptions = {
   onMessage?: (chunk: string) => void;
+  /** Receives the summarized reasoning of the model as it streams. */
+  onReasoning?: (chunk: string) => void;
 };
 
 /**
@@ -386,13 +397,27 @@ export const askDocQuestion = async (
     ...aiConfig,
     system: systemPrompt,
     messages: processedMessages,
-    maxOutputTokens: 500,
+    maxOutputTokens: MAX_OUTPUT_TOKENS,
+    // Ignored by non-Anthropic providers
+    providerOptions: {
+      anthropic: {
+        // `summarized` returns readable thinking; the default sends it empty
+        thinking: { type: 'adaptive', display: 'summarized' },
+        effort: REASONING_EFFORT,
+      },
+    },
   });
 
   // Process the stream
-  for await (const chunk of stream.textStream) {
-    fullResponse += chunk;
-    options?.onMessage?.(chunk);
+  for await (const part of stream.fullStream) {
+    if (part.type === 'reasoning-delta') {
+      options?.onReasoning?.(part.text);
+    } else if (part.type === 'text-delta') {
+      fullResponse += part.text;
+      options?.onMessage?.(part.text);
+    } else if (part.type === 'error') {
+      throw part.error;
+    }
   }
 
   // Extract unique related files

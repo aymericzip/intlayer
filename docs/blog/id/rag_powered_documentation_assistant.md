@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Membangun asisten dokumentasi berbasis RAG"
 description: "Cara kami membangun asisten AI untuk dokumentasi: memecah markdown, membuat embedding, pencarian vektor, dan prompt, beserta kompromi yang kami temui."
@@ -313,9 +313,9 @@ Dan jika Anda juga bereksperimen dengan RAG, saya ingin sekali mendengar bagaima
 </Steps>
 ## Lewati Kompleksitas dengan Sanity
 
-Sanity layak disebutkan di sini sebagai opsi CMS yang ditunjukkan oleh artikel. Di mana file Markdown memerlukan pemisahan token arbitrer — dengan trade-off ukuran chunk dan overlap yang dijelaskan artikel — Content Lake Sanity menyimpan dokumentasi sebagai dokumen JSON yang terdefinisi skema dan bertipe. Setiap field, heading, dan blok konten adalah sudah merupakan unit semantik, yang berarti pengambilan RAG beroperasi pada batas-batas yang bermakna daripada perkiraan jumlah token.
+Sanity layak disebutkan di sini sebagai opsi CMS yang ditunjukkan oleh artikel. Di mana file Markdown memerlukan pemisahan token arbitrer - dengan trade-off ukuran chunk dan overlap yang dijelaskan artikel - Content Lake Sanity menyimpan dokumentasi sebagai dokumen JSON yang terdefinisi skema dan bertipe. Setiap field, heading, dan blok konten adalah sudah merupakan unit semantik, yang berarti pengambilan RAG beroperasi pada batas-batas yang bermakna daripada perkiraan jumlah token.
 
-Bahasa query GROQ Sanity memungkinkan Anda untuk mengambil dengan tepat field dokumen yang relevan dengan pertanyaan pengguna — title, body, bagian terkait — tanpa mengambil seluruh dokumen. Server MCP menghubungkan Content Lake langsung ke agen AI, sehingga konten terstruktur yang sama yang mendukung situs docs Anda juga memberi makan pipeline RAG Anda tanpa langkah ingestion terpisah.
+Bahasa query GROQ Sanity memungkinkan Anda untuk mengambil dengan tepat field dokumen yang relevan dengan pertanyaan pengguna - title, body, bagian terkait - tanpa mengambil seluruh dokumen. Server MCP menghubungkan Content Lake langsung ke agen AI, sehingga konten terstruktur yang sama yang mendukung situs docs Anda juga memberi makan pipeline RAG Anda tanpa langkah ingestion terpisah.
 
 ## Kesimpulan
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-02
 priority: 10
 title: "TanStack Start i18n - 翻译你的应用的完整指南"
 description: "在 TanStack Start 中配置 Intlayer：路由中的语言参数、兼容 SSR 的翻译内容、本地化 head 元数据、hreflang 与站点地图。"
@@ -52,58 +52,58 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的Tanstack Start
+# 使用 Intlayer 翻译您的 TanStack Start 网站
 
 ## 目录
 
 <TOC/>
 
-本指南演示如何在 Tanstack Start 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域设置的路由、TypeScript 支持以及现代开发实践。
+本指南演示如何在 TanStack Start 项目中集成 **Intlayer**，实现无缝国际化，支持基于语言环境的路由、TypeScript 支持以及现代开发实践。
 
-## 为什么选择 Inlayer 而不是替代品？
+## 为什么选择 Intlayer 而不是其他方案？
 
-与“react-i18next”或“use-intl”或“paraglide”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
+与 `react-i18next`、`use-intl` 或 `paraglide` 等主流解决方案相比，Intlayer 是一个自带多项集成的优化方案，例如：
 
 <AccordionGroup>
 <Accordion header="完整的 TanStack Start 覆盖">
 
-Intlayer 针对 TanStack Start 进行了全面优化，提供**多语言路由**、**cookie 管理**、**站点地图生成**、**动态内容加载**以及扩展国际化 (i18n) 工作所需的所有功能。
+Intlayer 针对 TanStack Start 进行了全面优化，提供**语言环境路由**、**Cookie 管理**、**站点地图生成**、**动态内容加载**以及扩展国际化 (i18n) 工作所需的全部功能。
 
 </Accordion>
-<Accordion header="捆绑尺寸">
+<Accordion header="打包体积 (Bundle Size)">
 
-不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+您无需在页面中加载庞大的 JSON 文件，而是只加载所需的内容。Intlayer 可以帮助 **将您的打包产物和页面体积减少多达 50%**。
 
 </Accordion>
 <Accordion header="可维护性">
 
-确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+将应用程序内容与组件就近维护在相应作用域内，**极大提升了大体量应用的可维护性**。您可以直接复制或删除单个功能目录，而无需承担检查整个全局内容代码库的认知负担。此外，Intlayer 提供 **完整的 TypeScript 类型支持**，确保内容的准确性与安全性。
 
 </Accordion>
-<Accordion header="人工智能代理">
+<Accordion header="AI Agent 支持">
 
-共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 和 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+内容就近组织 (Co-location) **显著减少了大型语言模型 (LLM) 所需的上下文**。Intlayer 还配备了一套完整工具链，例如用于检测缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，让 AI 智能体的开发体验 (DX) 更加流畅丝滑。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
+- [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)
 
 </Accordion>
 <Accordion header="自动化">
 
-使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)来帮助**在后台翻译**。
+在 CI/CD 流水线中，使用您自选的 LLM（直接基于您自有的 AI 提供商 API 计费）实现自动化翻译。Intlayer 还提供了可自动提取内容的 **编译器**，并配备了 [Web 平台 / CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 以便在后台管理系统中执行翻译。
 
-- [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-
-</Accordion>
-<Accordion header="表现">
-
-将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+- [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="与非开发人员协作">
+<Accordion header="性能表现 (Performance)">
 
-Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+将大型 JSON 文件全局挂载到各个组件容易导致渲染性能下降与响应迟滞。Intlayer 会在构建阶段自动优化内容加载。
+
+</Accordion>
+<Accordion header="赋能非技术人员协同扩展 (Scaling with non-dev)">
+
+Intlayer 不仅仅是一个简单的 i18n 解决方案。它还提供了 **支持自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 以及 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)**。借此，您可以 **实时** 管理多语言内容，让译者、文案及团队其他成员实现无缝协作。内容可存储在本地和/或远程服务器上。
 
 - [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
 - [完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
@@ -111,15 +111,15 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 </Accordion>
 </AccordionGroup>
 
-## 在 Tanstack Start 应用程序中设置 Intlayer 的分步指南
+## 在 TanStack Start 应用程序中设置 Intlayer 的分步指南
 
 <Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+  <Tab label="视频" value="video">
 
 <iframe title="The best i18n solution for Tanstack Start? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="代码" value="code">
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-template?file=intlayer.config.ts"
@@ -130,7 +130,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 />
 
   </Tab>
-  <Tab label="Demo" value="demo">
+  <Tab label="演示" value="demo">
 
 <iframe
   src="https://intlayer-tanstack-start-template.vercel.app"
@@ -200,7 +200,7 @@ bun add vite-intlayer --dev
   核心包，为配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 提供国际化工具。
 
 - **react-intlayer**
-  将 Intlayer 与 React 应用程序集成的包。为 React 国际化提供上下文提供程序和 hooks。
+  将 Intlayer 与 React 应用程序集成的包。为 React 国际化提供上下文 Provider和 hooks。
 
 - **vite-intlayer**
   包含用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选语言、管理 cookies 和处理 URL 重定向的 middleware。
@@ -435,14 +435,14 @@ const appContent = {
 export default appContent;
 ```
 
-> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认为 `./app`）。并匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认为 `['.']`）。并匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
 > 有关更多详情，请参考 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
 - [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)
 
 </Step>
-<Step number={7} title="创建语言感知组件和 Hooks">
+<Step number={8} title="创建语言感知组件和 Hooks">
 
 为语言感知导航创建一个 `LocalizedLink` 组件：
 
@@ -492,11 +492,14 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
 
 然后我们可以创建一个 `useLocalizedNavigate` hook 来进行编程导航：
 
-```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+```tsx fileName="src/hooks/useLocalizedNavigate.ts"
 import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
-import type { StripLocalePrefix } from "@/components/localized-link";
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
 type NavigateFn = ReturnType<typeof useNavigate>;
@@ -531,13 +534,14 @@ export const useLocalizedNavigate = () => {
       });
     }
 
-    const { to, ...rest } = args;
+    const { to, params, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
     return navigate({
+      ...rest,
       to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      params: { locale: localePrefix, ...params } as any,
     });
   };
 
@@ -546,7 +550,7 @@ export const useLocalizedNavigate = () => {
 ```
 
 </Step>
-<Step number={8} title="在您的页面中使用 Intlayer">
+<Step number={9} title="在您的页面中使用 Intlayer">
 
 > 在组件中请默认使用 **`useIntlayer`**：这是读取内容的推荐方式，编译器会把它解析为当前渲染的语言环境。仅在 React 树之外（路由 `head`、loader 和服务端函数）才使用 `getIntlayer` / `getIntlayerAsync`。
 
@@ -558,7 +562,7 @@ export const useLocalizedNavigate = () => {
 import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
-import LocaleSwitcher from "@/components/locale-switcher";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LocalizedLink } from "@/components/localized-link";
 import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
@@ -573,7 +577,7 @@ function RouteComponent() {
   return (
     <div>
       <div>
-        {content.title}
+        {content.meta.title}
         <LocaleSwitcher />
         <div>
           <LocalizedLink to="/">{content.links.home}</LocalizedLink>
@@ -606,7 +610,7 @@ function RouteComponent() {
 - [useIntlayer Hook 文档 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
 
 </Step>
-<Step number={9} title="创建语言切换器组件">
+<Step number={10} title="创建语言切换器组件">
 
 创建一个组件来允许用户更改语言：
 
@@ -670,7 +674,7 @@ export const LocaleSwitcher: FC = () => {
 - [useLocale Hook 文档 | react-intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
 
 </Step>
-<Step number={10} title="HTML 属性管理">
+<Step number={11} title="HTML 属性管理">
 
 如第 5 步所述，您可以在根组件中使用 `useParams` 来管理 `html` 标签的 `lang` 和 `dir` 属性。这确保在服务器和客户端上设置正确的属性。
 
@@ -690,13 +694,13 @@ function RootDocument({ children }: { children: ReactNode }) {
 ```
 
 </Step>
-<Step number={11} title="添加中间件">
+<Step number={12} title="添加中间件">
 
 您也可以使用 `intlayerProxy` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前区域设置并设置适当的区域设置 cookie。如果未指定任何区域设置，该插件将根据用户的浏览器语言偏好确定最合适的区域设置。如果未检测到任何区域设置，它将重定向到默认区域设置。
 
 > 注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 软件包从 `devDependencies` 切换到 `dependencies`。
 
-> 从 Intlayer v9 开始，`intlayerProxy()` 直接捆绑在 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示分别注册它现在是可选的：为了向后兼容性和需要控制插件顺序的设置而保留。设置 `routing.enableProxy: false` 以选择退出。请参考 [v9 发行说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 从 Intlayer v9 开始，`intlayerProxy()` 直接内置在 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示分别注册它现在是可选的：为了向后兼容性和需要控制插件顺序的设置而保留。设置 `routing.enableProxy: false` 以选择退出。请参考 [v9 发行说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 - [v9 发行说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 
@@ -727,7 +731,7 @@ export default defineConfig({
 ```
 
 </Step>
-<Step number={12} title="国际化您的元数据">
+<Step number={13} title="国际化您的元数据">
 
 <Tabs>
 
@@ -773,7 +777,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -827,7 +831,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: metaContent.title },
+        { title: metaContent.meta.title },
         { name: "description", content: metaContent.meta.description },
       ],
     };
@@ -889,7 +893,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         },
       ],
       meta: [
-        { title: loaderData?.metaContent.title },
+        { title: loaderData?.metaContent.meta.title },
         {
           name: "description",
           content: loaderData?.metaContent.meta.description,
@@ -919,7 +923,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 | 开发者体验     | simplest              | one `await`                | content threaded through `loaderData`  |
 
 </Step>
-<Step number={13} title="在服务器操作中检索语言">
+<Step number={14} title="在服务器操作中检索语言">
 
 您可能希望从服务器操作或 API 端点内访问当前语言。
 您可以使用 `intlayer` 中的 `getLocale` 帮助器来实现此目的。
@@ -955,7 +959,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 ```
 
 </Step>
-<Step number={14} title="管理未找到页面">
+<Step number={15} title="管理未找到页面">
 
 当用户访问不存在的页面时，你可以显示自定义的未找到页面，语言区域前缀可能会影响未找到页面的触发方式。
 
@@ -1030,7 +1034,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 ```
 
 </Step>
-<Step number={15} title="提取组件内容" isOptional={true}> isOptional={true}>
+<Step number={16} title="提取组件内容" isOptional={true}> isOptional={true}>
 
 如果你有现有的 codebase，转换数千个文件可能会很耗时。
 
@@ -1147,7 +1151,7 @@ bun run build # 或 bun run dev
 </Tabs>
 
 </Step>
-<Step number={16} title="预渲染 & 生成 Sitemap">
+<Step number={17} title="预渲染 & 生成 Sitemap">
 
 Intlayer 配备了内置的 sitemap 生成器，可以帮助你轻松为应用程序创建 sitemap。它处理本地化路由并为搜索引擎添加必要的元数据。
 
@@ -1217,7 +1221,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 ```
 
 </Step>
-<Step number={17} title="配置 TypeScript">
+<Step number={18} title="配置 TypeScript">
 
 Intlayer 使用模块扩展以获得 TypeScript 的好处并使你的 codebase 更强大。
 
@@ -1331,7 +1335,7 @@ TanStack Start 本身没有自带的 i18n 层，因此需要选择第三方库�
 
 不需要。运行 `npx intlayer extract`，Intlayer 会读取您的组件，提取面向用户的字符串，并在每个组件旁边生成 `.content` 文件，这样您只需审查 diff，而无需手动逐一复制字符串到语言目录中。本指南的第 15 步详细介绍了此过程。
 
-如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过热模块替换 (HMR) 保持同步，因此完全无需手动维护键名。
+如需全自动流程，[Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 可在构建时执行相同操作：它在每次更改时扫描您的 JSX、TSX、Vue 和 Svelte 源代码，生成字典并通过模块热替换 (HMR) 保持同步，因此完全无需手动维护键名。
 
 - [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 

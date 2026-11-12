@@ -15,7 +15,7 @@ export default defineConfig(
         alwaysBundle: ['intlayer-editor'],
       },
       dts: {
-        emitDtsOnly: true,
+        dtsOnly: true,
       },
     },
   })

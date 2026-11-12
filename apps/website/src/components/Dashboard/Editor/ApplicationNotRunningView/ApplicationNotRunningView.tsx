@@ -45,7 +45,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
         borderColor="neutral"
       >
         <H3 className="mb-4 text-lg">{title}</H3>
-        <span className="font-semibold text-xs">
+        <span className="text-xs font-semibold">
           {urlLabel}
           {applicationUrl ? (
             <Link
@@ -68,7 +68,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
             borderColor="error"
             padding="md"
             background="none"
-            className="mb-6 flex flex-col gap-1 pb-3 font-mono text-muted-foreground text-xs"
+            className="mb-6 flex flex-col gap-1 pb-3 font-mono text-xs text-muted-foreground"
           >
             {errors.map((error, index) => {
               if (error.type === 'connect') {
@@ -100,7 +100,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 ps-3">
             {tips.map((tip, index) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: static list
+              // oxlint-disable-next-line react/no-array-index-key -- static list
               <li key={index} className="text-muted-foreground">
                 {typeof tip === 'function'
                   ? // Each tip inserts its own subset of these values

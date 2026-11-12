@@ -8,8 +8,8 @@ import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Button } from '../Button';
-import { Container } from '../Container';
+import { Button, type ButtonColor, type ButtonVariant } from '../Button';
+import { Container, type ContainerProps } from '../Container';
 import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
 
@@ -20,13 +20,22 @@ export type LocaleSwitcherProps = {
   fullLocaleName?: boolean;
   setLocale: (locale: Locale) => void;
   panelProps?: Omit<PanelProps, 'identifier'>;
+  /** Border of the locale list container. */
+  border?: ContainerProps['border'];
+  borderColor?: ContainerProps['borderColor'];
+  /** Trigger style. When set, the trigger draws its own border. */
+  variant?: ButtonVariant;
+  color?: ButtonColor;
+  /** Corner rounding of the locale list container. */
+  roundedSize?: ContainerProps['roundedSize'];
   /** `sm` renders a compact pill, matching the `xs` `SwitchSelector`. */
   size?: LocaleSwitcherSize;
+  className?: string;
 };
 
 export type LocaleSwitcherSize = 'sm' | 'md';
 
-const sizeClassNames: Record<
+export const sizeClassNames: Record<
   LocaleSwitcherSize,
   { nav: string; trigger: string; label: string; icon: string }
 > = {
@@ -61,10 +70,16 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   setLocale,
   panelProps,
   size = 'md',
+  border,
+  borderColor,
+  roundedSize,
+  variant,
+  color,
+  className,
 }) => {
-  let localeName = 'Select a locale';
+  let localeName = '-';
   const { switchTo, searchInput, languageListLabel, localeSwitcherLabel } =
-    useIntlayer('locale-switcher');
+    useIntlayer('locale-switcher-drop-down');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(
@@ -123,18 +138,21 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
   return (
     <nav
-      className={sizeClassNames[size].nav}
+      // A trigger variant draws its own border
+      className={cn(variant ? undefined : sizeClassNames[size].nav, className)}
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
         <DropDown.Trigger
           identifier={DROPDOWN_IDENTIFIER}
+          // Unset, the trigger keeps its transparent `none` variant
+          {...(variant && { variant })}
           // `text` color paints children with `text-opposite`, unreadable on
           // the transparent `none` variant.
-          color="custom"
+          color={color ?? 'custom'}
           size={size === 'sm' ? 'custom' : 'md'}
           roundedSize={size === 'sm' ? 'full' : 'md'}
-          className={cn('text-text', sizeClassNames[size].trigger)}
+          className={cn(!color && 'text-text', sizeClassNames[size].trigger)}
         >
           <div className="flex w-full items-center justify-between">
             <div className={cn('text-nowrap', sizeClassNames[size].label)}>
@@ -158,6 +176,9 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
             separator="y"
             role="listbox"
             transparency="xs"
+            border={border}
+            borderColor={borderColor}
+            roundedSize={roundedSize}
             aria-label={languageListLabel.value}
           >
             <div className="p-3">
@@ -195,13 +216,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                             {ownLocaleName}
                           </span>
                           <span
-                            className="text-neutral text-xs"
+                            className="text-xs text-neutral"
                             suppressHydrationWarning
                           >
                             {currentLocaleName}
                           </span>
                         </div>
-                        <span className="text-neutral text-sm">
+                        <span className="text-sm text-neutral">
                           {localeItem.toUpperCase()}
                         </span>
                       </div>

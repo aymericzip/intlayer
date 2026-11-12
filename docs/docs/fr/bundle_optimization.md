@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-09-16
+updatedAt: 2026-10-09
 priority: 8
 title: Optimisation de la taille et des performances du bundle i18n
 description: Réduisez la taille du bundle de votre application en optimisant le contenu d'internationalisation (i18n). Apprenez à exploiter le tree shaking et le lazy loading pour les dictionnaires avec Intlayer.
@@ -36,17 +36,29 @@ author: aymericzip
 
 L'un des défis les plus courants avec les solutions i18n traditionnelles basées sur des fichiers JSON est la gestion de la taille du contenu. Si les développeurs ne séparent pas manuellement le contenu en namespaces, les utilisateurs finissent souvent par télécharger les traductions de chaque page et potentiellement de chaque langue simplement pour afficher une seule page.
 
-Par exemple, une application avec 10 pages traduites en 10 langues peut entraîner le téléchargement par un utilisateur du contenu de 100 pages, alors qu'il n'a besoin que d'**une seule** (la page actuelle dans la langue actuelle). Cela conduit à un gaspillage de bande passante et à des temps de chargement plus lents.
-
-Le graphique ci-dessous estime le poids du contenu pour une application théorique de 1 à 10 pages traduite en 1 à 10 langues, avec environ 30 Ko de texte par page. Charger le contenu dynamiquement par locale supprime l'axe des langues, scoper le contenu par composant ou par route supprime l'axe des pages, et seule la combinaison des deux garde un poids stable.
-
-![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
-
 **Intlayer résout ce problème grâce à une optimisation au moment de la compilation.** Il analyse votre code pour détecter quels dictionnaires sont réellement utilisés par composant et réinjecte uniquement le contenu nécessaire dans votre bundle.
 
 ## Table des matières
 
 <TOC />
+
+## Problèmes à garder à l'esprit
+
+Une solution i18n alourdit votre bundle de cinq manières. Intlayer répond à chacune d'entre elles :
+
+1. **Code de la bibliothèque.** Intlayer conserve ses fonctions légères, partage la logique entre elles et reste compatible avec le tree-shaking : toute fonction que vous n'utilisez pas est éliminée par votre bundler.
+
+2. **Contenu issu d'autres pages et locales.** Une bibliothèque i18n pèse en moyenne entre 5 Ko et 25 Ko, tandis que le contenu textuel d'une page dans un chunk JS pèse entre 20 Ko et 60 Ko. Le coût réel réside dans la fuite de contenu : une application comportant 10 pages dans 10 locales peut livrer le contenu de 100 pages alors qu'**une seule** est nécessaire. Intlayer transforme votre code au moment du build (plugins Babel / SWC / Vite) pour ne charger que le contenu de la page courante dans la locale courante.
+
+   ![Fuite de contenu théorique selon l'architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+   Le graphique estime ce coût pour 1 à 10 pages dans 1 à 10 langues, avec environ 30 Ko de texte par page. Les imports dynamiques suppriment l'axe des locales, le contenu par composant supprime l'axe des pages, et seule leur combinaison permet de maintenir la taille du payload stable.
+
+3. **Fonctionnalités inutilisées.** Cookies, stockage local, préfixes d'URL, repli de contenu (fallback), format de message ICU : chaque fonctionnalité ajoute de la logique. Au lieu de générer du code dans votre base de code (comme le fait Paraglide), Intlayer injecte des variables d'environnement au moment du build à partir de votre configuration, permettant au bundler de retirer toutes les fonctionnalités que vous n'utilisez pas.
+
+4. **Contenu inutilisé et verbeux.** Sur Vite et Next.js, Intlayer [purge](#purge-suppression-des-champs-inutilises) les champs du dictionnaire que votre code ne lit jamais et [minifie](#minification-renommage-des-cles-de-champs) les clés restantes.
+
+5. **Contenu dupliqué.** Les dictionnaires partageant la même clé, qu'ils proviennent de plusieurs fichiers `.content` ou de sources locales et distantes ([CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)), sont fusionnés en un seul dictionnaire.
 
 ## Comment ça fonctionne
 

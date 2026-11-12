@@ -1,8 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
-title: Debug Intlayer Command
-description: Learn how to debug and troubleshoot Intlayer CLI issues.
+updatedAt: 2026-09-27
+priority: 5
+title: "Debug the Intlayer CLI"
+description: "Troubleshoot the Intlayer CLI: check the installed version, enable verbose logs and fix common command and configuration errors."
 keywords:
   - Debug
   - Troubleshoot
@@ -13,6 +14,7 @@ slugs:
   - concept
   - cli
   - debug
+author: aymericzip
 ---
 
 # Debug intlayer command
@@ -21,18 +23,48 @@ slugs:
 
 Run:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # current locale intlayer version
 npx intlayer@latest --version           # current latest intlayer version
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # current locale intlayer version
+yarn intlayer@latest --version           # current latest intlayer version
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # current locale intlayer version
+pnpm intlayer@latest --version           # current latest intlayer version
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # current locale intlayer version
+bun x intlayer@latest --version           # current latest intlayer version
 ```
 
 ## 2. **Check if the command is registered**
 
 You can check with:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # Shows the list of available commands and usage information
 npx intlayer dictionary build --help    # Shows the list of available options for a command
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # Shows the list of available commands and usage information
+yarn intlayer dictionary build --help    # Shows the list of available options for a command
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # Shows the list of available commands and usage information
+pnpm intlayer dictionary build --help    # Shows the list of available options for a command
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # Shows the list of available commands and usage information
+bun x intlayer dictionary build --help    # Shows the list of available options for a command
 ```
 
 ## 3. **Restart your terminal**

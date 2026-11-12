@@ -1,16 +1,9 @@
-# syntax=docker/dockerfile:1.27.0
+# syntax=docker/dockerfile:1.28.0
 
 
-# FROM oven/bun:1.3.2-alpine AS builder
-# Use node because of bun issue blocking at `Creating an optimized production build ...`
-# https://github.com/oven-sh/bun/issues/17136
-# https://github.com/oven-sh/bun/issues/4795
-FROM node:26-alpine AS builder
-
-RUN npm install -g bun@1.4.2
+FROM oven/bun:1.4.4-alpine AS builder
 
 ARG INTLAYER_CLIENT_ID
-ARG INTLAYER_CLIENT_SECRET
 ARG VITE_DOMAIN
 ARG VITE_URL
 ARG VITE_EDITOR_URL
@@ -22,7 +15,6 @@ ARG INTLAYER_BACKEND_URL
 ARG DISABLE_OPTIMIZATION
 
 ENV INTLAYER_CLIENT_ID=${INTLAYER_CLIENT_ID}
-ENV INTLAYER_CLIENT_SECRET=${INTLAYER_CLIENT_SECRET}
 ENV VITE_DOMAIN=${VITE_DOMAIN}
 ENV VITE_URL=${VITE_URL}
 ENV VITE_EDITOR_URL=${VITE_EDITOR_URL}
@@ -60,6 +52,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/intlayer-cli \
+    --exclude=packages/intlayer-editor \
     --exclude=packages/lit-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/nuxt-intlayer \
@@ -78,7 +71,11 @@ COPY \
 RUN bun install
 
 # Build workspace package dependencies (packages/* and docs) that this app depends on
-RUN bun x turbo run build:ci --filter=website-tanstack^... --filter=./docs
+# INTLAYER_CLIENT_SECRET is a BuildKit secret, not an ARG/ENV, so it never lands
+# in the image layers or history. Pass it with:
+#   docker build --secret id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET …
+RUN --mount=type=secret,id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET \
+    bun x turbo run build:ci --filter=website-tanstack^... --filter=./docs
 
 # Set working directory to the tanstack website package and build it
 WORKDIR /workspace/apps/website
@@ -87,14 +84,13 @@ ENV NODE_ENV=production
 
 # Build the React Router website 
 # (Note: postbuild script in package.json will auto-trigger generate-sw.ts)
-RUN bun run build && bun scripts/baidu-push.ts 
+RUN --mount=type=secret,id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET \
+    bun run build && bun scripts/baidu-push.ts 
 
 # ---------------------------------------------------------
 # Runner Stage
 # ---------------------------------------------------------
-FROM node:26-alpine AS runner
-
-RUN npm install -g bun@1.4.2
+FROM oven/bun:1.4.4-alpine AS runner
 
 WORKDIR /app
 

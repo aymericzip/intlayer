@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: getDictionaryAsync 関数ドキュメント | intlayer
 description: "getDictionaryAsync で辞書の 1 つのロケールだけを読み込み、他の言語なしで解釈済みのコンテンツを取得します。"
@@ -30,7 +30,7 @@ author: aymericzip
 
 # Documentation: `getDictionaryAsync` Function in `intlayer`
 
-## Description
+## 説明
 
 `getDictionaryAsync` 関数は、辞書の**単一ロケールチャンク**を読み込み、その解釈されたコンテンツを返します。
 
@@ -83,7 +83,7 @@ getDictionaryAsync(
   - **型**: `Plugins[]`
   - **必須**: いいえ（オプション）
 
-### Returns
+### 戻り値
 
 - **Type**: `Promise<Content>`、読み込まれたチャンクの解釈されたコンテンツに解決されるプロミス。
 - **Description**: マップが要求されたロケール、またはそのフォールバックのいずれに対してもチャンクを出さない場合、`null` に解決されます。これは、欠落した適格な座標がどのように解決されるかを反映しています。

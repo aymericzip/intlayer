@@ -48,7 +48,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
   <Container
     roundedSize="3xl"
     className={cn(
-      'min-w-80 max-w-lg flex-1 flex-col gap-8 p-4 transition-all duration-300',
+      'max-w-lg min-w-80 flex-1 flex-col gap-8 p-4 transition-all duration-300',
       className
     )}
     itemScope
@@ -69,11 +69,11 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     <div className="flex min-h-18 flex-col justify-center">
       <Loader isLoading={isPriceLoading}>
         {priceLabel ? (
-          <span className="relative m-auto text-center font-bold text-4xl">
+          <span className="relative m-auto text-center text-4xl font-bold">
             {priceLabel}
           </span>
         ) : (
-          <span className="relative m-auto text-center font-bold text-6xl">
+          <span className="relative m-auto text-center text-6xl font-bold">
             <span itemProp="price" className="hidden">
               {totalPrice.toFixed(2)}
             </span>
@@ -86,7 +86,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
             </span>
 
             {totalPrice !== basePrice && (
-              <span className="absolute inset-s-full top-0 m-auto scale-90 text-center font-bold text-2xl text-neutral">
+              <span className="absolute inset-s-full top-0 m-auto scale-90 text-center text-2xl font-bold text-neutral">
                 <span className="absolute inset-s-0 top-1/2 h-0.5 w-full bg-neutral" />
 
                 <span itemProp="price" className="hidden">
@@ -105,7 +105,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
         )}
       </Loader>
       <span
-        className="text-center text-neutral text-xl"
+        className="text-center text-xl text-neutral"
         itemProp="billingPeriod"
       >
         {period} {/* This can be 'monthly' or 'yearly' */}
@@ -121,7 +121,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       {callToActionText}
     </Link>
     <span
-      className="justify-center text-md text-text/50 leading-7"
+      className="text-md justify-center leading-7 text-text/50"
       itemProp="description"
     >
       {description}

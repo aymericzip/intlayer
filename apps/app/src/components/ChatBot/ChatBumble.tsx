@@ -21,8 +21,9 @@ export const ChatBumble: FC<ChatBumbleProps> = ({
     <div
       className={cn(
         type === ChatBumbleType.QUESTION &&
-          'ms-auto me-4 w-auto max-w-[90%] whitespace-pre-wrap rounded-xl rounded-se-none bg-text/95 px-8 py-2 text-text-opposite',
-        type === ChatBumbleType.ANSWER && 'w-full px-4'
+          'ms-auto me-4 w-auto max-w-[90%] rounded-xl rounded-se-none bg-text/95 px-8 py-2 whitespace-pre-wrap text-text-opposite',
+        type === ChatBumbleType.ANSWER &&
+          'w-full px-4 text-text/65 dark:text-text/50'
       )}
       {...props}
     >

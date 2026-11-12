@@ -362,14 +362,11 @@ Nachrichten, die das ICU-Argument `select` verwenden, werden als `select`-Knoten
 wird zu
 
 ```typescript
-select(
-  {
-    draft: "draft",
-    published: "published",
-    fallback: "Unknown",
-  },
-  "publishType"
-);
+select({
+  draft: "draft",
+  published: "published",
+  fallback: "Unknown",
+});
 ```
 
 Der ICU-Fall `other` wird in `fallback` umbenannt, was der kanonische Name von Intlayer für einen Auffangfall (Catch-All) ist. Das zweite Argument zeichnet den ICU-Variablennamen auf, sodass die Nachricht beim Exportieren wieder in genau dieselbe ICU-Zeichenfolge umgewandelt wird.

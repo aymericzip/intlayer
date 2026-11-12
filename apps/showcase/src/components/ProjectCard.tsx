@@ -50,7 +50,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
         preload="intent"
         className="flex flex-1 flex-col"
       >
-        <div className="relative aspect-video overflow-hidden bg-background">
+        <div className="aspect-video relative overflow-hidden bg-background">
           {/* Main Image Skeleton */}
           {!isImageLoaded && (
             <div className="absolute inset-0 animate-pulse bg-neutral/20" />
@@ -88,10 +88,10 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
           )}
         </div>
         <div className="flex-1 p-4">
-          <h3 className="font-bold text-lg text-text transition-colors group-hover:text-text/70">
+          <h3 className="text-lg font-bold text-text transition-colors group-hover:text-text/70">
             {project.title}
           </h3>
-          <p className="mt-1 line-clamp-2 text-neutral-500 text-sm">
+          <p className="mt-1 line-clamp-2 text-sm text-neutral-500">
             {project.description}
           </p>
         </div>
@@ -133,7 +133,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
               disabled={isDisabled}
               isActive={isUpvoted}
             />
-            <span className="min-w-6 text-center font-medium text-sm text-text">
+            <span className="min-w-6 text-center text-sm font-medium text-text">
               {score}
             </span>
             <Button

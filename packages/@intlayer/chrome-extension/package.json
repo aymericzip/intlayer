@@ -1,23 +1,19 @@
 {
   "name": "@intlayer/chrome-extension",
-  "version": "9.6.0",
+  "version": "9.7.3",
   "private": true,
   "description": "Chrome extension that inspects the i18n implementation of the current website (framework, i18n library, locales, SEO tags) and runs a full Intlayer scan through the backend.",
   "keywords": [
-    "intlayer",
     "chrome-extension",
     "i18n",
-    "seo",
+    "internationalization",
+    "intlayer",
     "scanner",
-    "internationalization"
+    "seo"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aymericzip/intlayer.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -31,17 +27,21 @@
       "url": "https://github.com/aymericzip"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
   "type": "module",
   "scripts": {
     "build": "vite build",
     "build:ci": "vite build",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "vite build --watch",
-    "format": "bun --bun biome format . --check",
-    "format:fix": "bun --bun biome format --write .",
-    "lint": "bun --bun biome lint .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "lint": "oxlint .",
     "lint:firefox": "npx -y web-ext@latest lint --source-dir dist",
-    "lint:fix": "bun --bun biome lint --write .",
+    "lint:fix": "oxlint --fix .",
     "test": "bun --bun vitest run",
     "test:watch": "bun --bun vitest",
     "typecheck": "tsc --noEmit",
@@ -54,20 +54,20 @@
     "@intlayer/engine": "workspace:*",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.51.0",
-    "preact": "11.0.0",
+    "lucide-react": "1.71.0",
+    "preact": "11.2.0",
     "preact-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@preact/preset-vite": "2.10.6",
     "@tailwindcss/aspect-ratio": "0.4.2",
-    "@tailwindcss/vite": "4.3.3",
-    "@types/chrome": "0.3.4",
-    "rimraf": "6.1.3",
-    "tailwindcss": "4.3.3",
+    "@tailwindcss/vite": "4.3.5",
+    "@types/chrome": "0.3.7",
+    "rimraf": "6.1.4",
+    "tailwindcss": "4.3.5",
     "typescript": "7.0.2",
-    "vite": "8.3.2",
+    "vite": "8.3.8",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.0.3"
+    "vitest": "5.1.0"
   }
 }

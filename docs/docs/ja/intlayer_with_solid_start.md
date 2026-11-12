@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Solid Start i18n - アプリを翻訳する完全ガイド"
 description: "SolidStart に Intlayer を導入：サーバーレンダリングされたロケールルーティング、リアクティブな翻訳コンテンツ、hreflang、多言語サイトマップ。"
@@ -77,17 +77,17 @@ Intlayer は、**コンポーネントレベルのコンテンツスコープ**�
 </Accordion>
 <Accordion header="バンドルサイズ">
 
-大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
+巨大な JSON ファイルをページ全体に読み込む代わりに、必要なコンテンツのみをロードします。Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
 </Accordion>
 <Accordion header="保守性">
 
-アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの**メンテナンスが容易になります**。コンテンツコードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの**メンテナンスが容易になります**。コンテンツコードベース全体を確認するという認知的負荷を負うことなく、単一の機能フォルダを複製または削除できます。さらに、Intlayer は**完全な型安全性（TypeScript 型定義）**を提供し、コンテンツの正確性を保証します。
 
 </Accordion>
 <Accordion header="AI エージェント">
 
-コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) をさらにスムーズにします。
+コンテンツをコンポーネントと同一ディレクトリに配置（Co-location）すると、大規模言語モデル (LLM) によって**必要なコンテキストが削減**されます。Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)**、**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)** などのツールスイートも付属しており、AI エージェントの開発者エクスペリエンス (DX) をさらにスムーズにします。
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)
@@ -96,14 +96,14 @@ Intlayer は、**コンポーネントレベルのコンテンツスコープ**�
 </Accordion>
 <Accordion header="自動化">
 
-AI プロバイダーのコストで、選択した LLM を使用して CI/CD パイプラインで翻訳を自動化します。Intlayer は、コンテンツ抽出を自動化する**コンパイラ**や、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
+自前の AI プロバイダーの API 利用料で、選択した LLM を使用して CI/CD パイプラインで翻訳を自動化します。Intlayer は、コンテンツ抽出を自動化する**コンパイラ**や、**バックグラウンド翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) も提供します。
 
 - [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 
 </Accordion>
 <Accordion header="パフォーマンス">
 
-大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。Intlayer は、ビルド時のコンテンツ読み込みを最適化します。
+大量の JSON ファイルをコンポーネントに接続すると、レンダリングパフォーマンスの低下や反応性の遅延を引き起こす可能性があります。Intlayer は、ビルド時のコンテンツ読み込みを最適化します。
 
 </Accordion>
 <Accordion header="開発者以外のメンバーとのスケーリング">

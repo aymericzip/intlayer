@@ -4,7 +4,6 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
 import { formatNodeType, NESTED } from '@intlayer/types/nodeType';
-
 import type { DeepTransformContent } from '../../interpreter';
 
 /**

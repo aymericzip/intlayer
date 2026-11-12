@@ -8,19 +8,10 @@ import { ConfigPreviewModal } from '../RepositoryLink/ConfigPreviewModal';
 import { ConfigSelectionModal } from '../RepositoryLink/ConfigSelectionModal';
 import { useProjectConfigActions } from '../RepositoryLink/hooks/useProjectConfigActions';
 import { useProviderLink } from '../RepositoryLink/hooks/useProviderLink';
+import { PROVIDER_NAMES } from '../RepositoryLink/providers';
 import { ProviderSelector } from '../RepositoryLink/ProviderSelector';
 import { RepositoryList } from '../RepositoryLink/RepositoryList';
-import type {
-  ConfigPreviewState,
-  RepoData,
-  RepositoryProvider,
-} from '../RepositoryLink/types';
-
-const PROVIDER_NAMES: Record<RepositoryProvider, string> = {
-  github: 'GitHub',
-  gitlab: 'GitLab',
-  bitbucket: 'Bitbucket',
-};
+import type { ConfigPreviewState, RepoData } from '../RepositoryLink/types';
 
 type ConfigImportFlowProps = {
   isOpen: boolean;
@@ -82,6 +73,8 @@ export const ConfigImportFlow: FC<ConfigImportFlowProps> = ({
         title={content.title}
         size="md"
         padding="lg"
+        border
+        borderColor="neutral"
       >
         <div className="flex flex-col gap-4">
           <ProviderSelector
@@ -94,7 +87,7 @@ export const ConfigImportFlow: FC<ConfigImportFlowProps> = ({
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="importGitlabInstanceUrl"
-                className="text-neutral text-sm"
+                className="text-sm text-neutral"
               >
                 {content.gitlab?.instanceUrl}{' '}
                 <span className="text-neutral/60">
@@ -169,6 +162,8 @@ export const ConfigImportFlow: FC<ConfigImportFlowProps> = ({
         hasCloseButton
         size="lg"
         padding="md"
+        border
+        borderColor="neutral"
       >
         <RepositoryList
           selectedProvider={selectedProvider}

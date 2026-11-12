@@ -8,7 +8,7 @@ const AboutPageContent = () => {
 
   return (
     <div>
-      <h1 className="font-bold text-2xl text-neutral-400">{title}</h1>
+      <h1 className="text-2xl font-bold text-neutral-400">{title}</h1>
     </div>
   );
 };

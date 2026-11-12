@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "التداخل: إعادة استخدام المحتوى بين القواميس"
 description: "أشر من قاموس إلى آخر باستخدام العقدة nest() في Intlayer لإعادة استخدام المحتوى المشترك دون تكرار الترجمات."
@@ -117,7 +117,7 @@ export default myNestingContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To use nested content in a React component, leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified key. Here's an example of how to use it:
+لاستخدام المحتوى المتداخل في مكون React، استفد من خطاف `useIntlayer` من حزمة `react-intlayer`. يسترجع هذا الخطاف المحتوى المناسب بناءً على المفتاح المحدد. فيما يلي مثال على كيفية استخدامه:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -142,7 +142,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To use nested content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المتداخل في مكونات عميل Next.js، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";
@@ -169,7 +169,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Vue" value="vue">
 
-To use nested content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المتداخل في مكونات Vue، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```vue fileName="**/*.vue"
 <script setup lang="ts">
@@ -191,7 +191,7 @@ const { fullNestedContent, partialNestedContent } = useIntlayer(
   </Tab>
   <Tab label="Svelte" value="svelte">
 
-To use nested content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+لاستخدام المحتوى المتداخل في مكونات Svelte، استرجعه عبر خطاف `useIntlayer`. يتم الوصول إلى المخزن باستخدام `$`. فيما يلي مثال:
 
 ```svelte fileName="**/*.svelte"
 <script lang="ts">
@@ -209,7 +209,7 @@ const content = useIntlayer("key_of_my_second_dictionary");
   </Tab>
   <Tab label="Preact" value="preact">
 
-To use nested content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المتداخل في مكونات Preact، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "preact";
@@ -234,7 +234,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Solid" value="solid">
 
-To use nested content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المتداخل في مكونات SolidJS، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { Component } from "solid-js";
@@ -259,7 +259,7 @@ export default NestComponent;
   </Tab>
   <Tab label="Angular" value="angular">
 
-To use nested content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المتداخل في مكونات Angular، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="app.component.ts" codeFormat="typescript"
 import { Component } from "@angular/core";
@@ -285,7 +285,7 @@ export class NestComponent {
   </Tab>
   <Tab label="Vanilla JS" value="vanilla">
 
-To use nested content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+لاستخدام المحتوى المتداخل مع `vanilla-intlayer`، استرجعه عبر خطاف `useIntlayer`. فيما يلي مثال:
 
 ```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";

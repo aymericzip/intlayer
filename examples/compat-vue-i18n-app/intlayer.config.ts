@@ -3,7 +3,6 @@ import { syncJSON } from '@intlayer/sync-json-plugin';
  * Intlayer configuration file documentation
  * @see https://intlayer.org/doc/concept/configuration
  */
-
 import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
@@ -56,7 +55,7 @@ const config: IntlayerConfig = {
      * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      */
     provider: 'openai',
-    model: 'gpt-5-mini',
+    model: 'gpt-5.6-terra',
     apiKey: process.env.OPENAI_API_KEY,
     /**
      * Additional context for the translations

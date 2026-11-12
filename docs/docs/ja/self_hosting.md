@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Docker で Intlayer をセルフホストする"
 description: "デスクトップアプリ、オールインワンの Docker コンテナ、Docker Compose スタックとして、クラウドアカウントなしで自前のインフラ上で Intlayer を運用します。"
@@ -29,7 +29,7 @@ Intlayer は独自のインフラストラクチャ上で実行でき、Intlayer
 | **オールインワン Docker** | ダッシュボード、API、MongoDB、Redis、MinIO を**単一コンテナ**に集約           | テストや小規模な単一マシンへの導入             |
 | **Docker Compose**        | **サービスごとに1つのコンテナ**、各データストアをマネージドサービスに置換可能 | 本番環境、スケーリング、マネージドデータベース |
 
-## Table of Contents
+## 目次
 
 <TOC/>
 
@@ -425,6 +425,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
 | `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
 | `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
+
+> all-in-one イメージは `S3_SECRET_ACCESS_KEY` が空でも起動できます。初回起動時に生成し、`/data/.s3-secret-access-key` に保存します。Docker Compose では引き続き必須です。
 
 ### デプロイによって固定
 

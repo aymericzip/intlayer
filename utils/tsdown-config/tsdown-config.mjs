@@ -1,6 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { builtinModules } from 'node:module';
 import { AssetPlugin } from './asset-plugin.mjs';
+import { SkipUnchangedOutputPlugin } from './skip-unchanged-output-plugin.mjs';
+
+export { SkipUnchangedOutputPlugin };
 
 const cwd = process.cwd();
 
@@ -64,7 +67,7 @@ export const commonOptions = {
     // Externalize ALL bare imports (i.e., all packages)
     neverBundle: isExternal,
   },
-  plugins: [AssetPlugin()],
+  plugins: [AssetPlugin(), SkipUnchangedOutputPlugin()],
 };
 
 /** @type {import('tsdown').UserConfig} */
@@ -87,12 +90,17 @@ export const typesOptions = {
   outDir: 'dist/types',
   dts: {
     // generator: 'oxc',
-    emitDtsOnly: true,
+    dtsOnly: true,
     // Avoid inlining external type references which causes TS2742 in monorepos
     respectExternal: true,
   },
+  // rolldown-plugin-dts ≥0.30 names dts-only entry chunks without the `.d`
+  // suffix, so tsdown gives them the `js` extension (default `.mjs` → `.d.mts`,
+  // which misses the package.json exports). Chunks still named `*.d` take the
+  // `dts` extension, so it only appends `.ts`.
   outExtensions: () => ({
-    dts: '.d.ts',
+    js: '.d.ts',
+    dts: '.ts',
   }),
   tsconfig: './tsconfig.types.json',
 };

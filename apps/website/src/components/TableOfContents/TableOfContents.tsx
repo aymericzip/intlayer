@@ -76,19 +76,19 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
                 window.history.pushState(null, '', `#${id}`);
               }}
               className={cn(
-                'flex flex-1 items-center justify-between text-wrap p-2 pe-4 text-base transition-colors',
+                'flex flex-1 items-center justify-between p-2 pe-4 text-base text-wrap transition-colors',
                 depth === 1 && 'text-sm text-text/65 dark:text-text/50',
                 depth === 2 && 'text-sm text-text/60 dark:text-text/45',
                 depth === 3 && 'text-sm text-text/50 dark:text-text/40',
-                depth === 4 && 'text-text/40 text-xs dark:text-text/35',
-                depth === 5 && 'text-text/30 text-xs dark:text-text/30',
-                depth === 6 && 'text-text/20 text-xs dark:text-text/20'
+                depth === 4 && 'text-xs text-text/40 dark:text-text/35',
+                depth === 5 && 'text-xs text-text/30 dark:text-text/30',
+                depth === 6 && 'text-xs text-text/20 dark:text-text/20'
               )}
             >
               {title}
             </Link>
             {hasChildren && (
-              <div className="border-neutral/20 border-s">
+              <div className="border-s border-neutral/20">
                 <NavTitlesChildren
                   headings={subChildren}
                   childrenMap={childrenMap}
@@ -152,12 +152,12 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
                   }
                   window.history.pushState(null, '', `#${id}`);
                 }}
-                className="flex w-full items-center justify-between text-wrap p-2 pe-4 text-base text-muted-foreground transition-colors"
+                className="flex w-full items-center justify-between p-2 pe-4 text-base text-wrap text-muted-foreground transition-colors"
               >
                 {title}
               </Link>
               {hasChildren && (
-                <div className="border-neutral/20 border-s">
+                <div className="border-s border-neutral/20">
                   <NavTitlesChildren
                     headings={children}
                     childrenMap={headingMap}

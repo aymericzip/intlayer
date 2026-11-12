@@ -1,32 +1,12 @@
 import { useGetDictionaries } from '@intlayer/design-system/api';
-import {
-  useDictionariesRecord,
-  useEditorStateManager,
-} from '@intlayer/editor-react';
+import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { type FC, useEffect } from 'react';
-import { visualEditorKeysManager } from '#hooks/useVisualEditorKeys';
-
 export const DictionaryLoaderDashboard: FC = () => {
   // Will receive the locale dictionaries from the client, and will add remote dictionaries to the list
   const { localeDictionaries, setLocaleDictionaries } = useDictionariesRecord();
-  const manager = useEditorStateManager();
 
   const { data, isFetching } = useGetDictionaries();
-
-  useEffect(() => {
-    if (!manager) return;
-    const handler = (e: Event) => {
-      visualEditorKeysManager.setKeys(
-        (e as CustomEvent<string[]>).detail ?? []
-      );
-    };
-    manager.displayedDictionaryKeys.addEventListener('change', handler);
-    return () => {
-      manager.displayedDictionaryKeys.removeEventListener('change', handler);
-      visualEditorKeysManager.setKeys([]);
-    };
-  }, [manager]);
 
   useEffect(() => {
     // Wait for the locale dictionaries to be loaded for security

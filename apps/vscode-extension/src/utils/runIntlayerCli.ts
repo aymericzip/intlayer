@@ -31,6 +31,11 @@ export type IntlayerCliCommandOptions = {
    */
   remote?: boolean;
   /**
+   * Version of the `intlayer` package to run remotely (e.g. `9.6.0`).
+   * Ignored for the installed binary. Defaults to the latest version.
+   */
+  version?: string;
+  /**
    * Forward the environment selected in the dictionaries view as `--env`.
    * Disable for commands without configuration options (`upgrade`).
    * Defaults to `true`, except for remote runs.
@@ -54,6 +59,7 @@ export const getIntlayerCliCommand = (
   {
     args,
     remote = false,
+    version,
     forwardEnvironment = !remote,
   }: IntlayerCliCommandOptions
 ): string => {
@@ -67,10 +73,12 @@ export const getIntlayerCliCommand = (
     ? getSelectedEnvironment(projectDir)
     : undefined;
   const environmentArgs = environment ? ['--env', environment] : [];
+  const packageSpecifier =
+    remote && version ? `intlayer@${version}` : 'intlayer';
 
   return [
     runner,
-    'intlayer',
+    packageSpecifier,
     ...[...args, ...environmentArgs].map(quoteShellArgument),
   ].join(' ');
 };

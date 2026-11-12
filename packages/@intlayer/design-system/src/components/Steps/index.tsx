@@ -33,10 +33,10 @@ export const Step: FC<StepProps> = ({
       {...props}
     >
       <div className="flex flex-col max-md:hidden" aria-hidden="true">
-        <div className="ms-4 h-10 border-text/20 border-s border-dashed group-first-of-type:hidden" />
+        <div className="ms-4 h-10 border-s border-dashed border-text/20 group-first-of-type:hidden" />
         <span
           className={cn(
-            'flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-text/30 border-dotted bg-background font-black text-base text-foreground/70 max-md:hidden',
+            'flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-dotted border-text/30 bg-background text-base font-black text-foreground/70 max-md:hidden',
             'group-first-of-type:mt-10'
           )}
         >
@@ -44,25 +44,25 @@ export const Step: FC<StepProps> = ({
         </span>
         <div
           className={cn(
-            'ms-4 flex-1 border-text/20 border-s border-dashed',
-            'group-last-of-type:h-40 group-last-of-type:flex-none group-last-of-type:[-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] group-last-of-type:[mask-image:linear-gradient(to_bottom,black,transparent)]'
+            'ms-4 flex-1 border-s border-dashed border-text/20',
+            'group-last-of-type:h-40 group-last-of-type:flex-none group-last-of-type:[mask-image:linear-gradient(to_bottom,black,transparent)] group-last-of-type:[-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]'
           )}
         />
       </div>
 
       <div className="mt-10 mb-8 flex w-full min-w-0 flex-col gap-8">
         {title && (
-          <div className="flex items-center items-center gap-2">
+          <div className="flex items-center gap-2">
             <H3
               isClickable
               id={`step-${number}-${slugify(title)}`}
               aria-label={`${stepLabel} ${number}: ${title}`}
-              className="font-semibold text-foreground text-lg"
+              className="text-lg font-semibold text-foreground"
             >
               {title}
             </H3>
             {isOptional && (
-              <span className="ms-4 mb-2 rounded-full bg-neutral/15 px-3 py-1 text-foreground/90 text-xs">
+              <span className="ms-4 mb-2 rounded-full bg-neutral/15 px-3 py-1 text-xs text-foreground/90">
                 {optionalLabel}
               </span>
             )}

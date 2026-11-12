@@ -58,11 +58,11 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
             >
               {profile.status}
             </Badge>
-            <span className="font-bold text-2xl">
+            <span className="text-2xl font-bold">
               ${(profile.pricePerHour / 100).toFixed(0)}/hr
             </span>
           </div>
-          <div className="flex items-center gap-1 text-neutral text-sm">
+          <div className="flex items-center gap-1 text-sm text-neutral">
             <Clock size={13} />
             <span>
               {profile.totalMissions} missions · avg{' '}
@@ -109,7 +109,7 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
 
       {profile.bio && (
         <div className="flex flex-col gap-1">
-          <p className="font-medium text-neutral/60 text-xs uppercase tracking-wide">
+          <p className="text-xs font-medium tracking-wide text-neutral/60 uppercase">
             Bio
           </p>
           <p className="text-sm leading-relaxed">{profile.bio}</p>
@@ -118,7 +118,7 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
 
       {profile.languagePairs.length > 0 && (
         <div className="flex flex-col gap-2">
-          <p className="font-medium text-neutral/60 text-xs uppercase tracking-wide">
+          <p className="text-xs font-medium tracking-wide text-neutral/60 uppercase">
             Language pairs
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -137,13 +137,13 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
 
       {reviews.length > 0 && (
         <div className="flex flex-col gap-3">
-          <p className="font-medium text-neutral/60 text-xs uppercase tracking-wide">
+          <p className="text-xs font-medium tracking-wide text-neutral/60 uppercase">
             Recent reviews
           </p>
           {reviews.map((review: any) => (
             <div
               key={review.id}
-              className="flex flex-col gap-1 border-neutral/10 border-t pt-3"
+              className="flex flex-col gap-1 border-t border-neutral/10 pt-3"
             >
               <div className="flex items-center gap-0.5">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -159,7 +159,7 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
                 ))}
               </div>
               {review.comment && (
-                <p className="text-neutral text-xs leading-relaxed">
+                <p className="text-xs leading-relaxed text-neutral">
                   {review.comment}
                 </p>
               )}

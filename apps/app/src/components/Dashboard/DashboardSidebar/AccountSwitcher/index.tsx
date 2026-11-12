@@ -53,6 +53,13 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
   const isSwitching =
     switchAccountMutation.isPending || signOutAccountMutation.isPending;
 
+  /** Token of the session currently being switched to or signed out of */
+  const pendingSessionToken = switchAccountMutation.isPending
+    ? switchAccountMutation.variables
+    : signOutAccountMutation.isPending
+      ? signOutAccountMutation.variables
+      : undefined;
+
   const handleSwitch = useCallback(
     (token: string) => {
       switchAccountMutation.mutate(token);
@@ -121,10 +128,10 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
                 />
 
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate font-semibold text-sm text-text leading-tight">
+                  <span className="truncate text-sm leading-tight font-semibold text-text">
                     {displayName}
                   </span>
-                  <span className="truncate text-neutral text-xs leading-snug">
+                  <span className="truncate text-xs leading-snug text-neutral">
                     {session.user.email}
                   </span>
                 </div>
@@ -133,7 +140,7 @@ export const AccountSwitcher: FC<AccountSwitcherProps> = ({ className }) => {
                   <Loader
                     className="size-4"
                     aria-label={switchingAccountAriaLabel.value}
-                    isLoading={isSwitching}
+                    isLoading={session.token === pendingSessionToken}
                   >
                     {isActive && (
                       <Check

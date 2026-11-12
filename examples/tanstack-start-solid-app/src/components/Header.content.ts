@@ -3,11 +3,11 @@ import { type Dictionary, t } from 'intlayer';
 const headerContent = {
   key: 'header',
   content: {
-    tanstack: 'TanStack Start',
     intlayer: 'Intlayer',
-    navHome: t({ en: 'Home', fr: 'Accueil', es: 'Inicio' }),
-    navAbout: t({ en: 'About', fr: 'À propos', es: 'Acerca de' }),
-    navDocs: t({ en: 'Docs', fr: 'Documentation', es: 'Documentación' }),
+    navAbout: t({ en: 'About', es: 'Acerca de', fr: 'À propos' }),
+    navDocs: t({ en: 'Docs', es: 'Documentación', fr: 'Documentation' }),
+    navHome: t({ en: 'Home', es: 'Inicio', fr: 'Accueil' }),
+    tanstack: 'TanStack Start',
   },
 } satisfies Dictionary;
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Inhaltsdeklarationsdateien pro Locale"
 description: Entdecken Sie, wie Inhalte pro Gebietsschema in Intlayer deklariert werden. Folgen Sie der Dokumentation, um die verschiedenen Formate und Anwendungsfälle zu verstehen.
@@ -125,7 +125,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Mit dieser Konfiguration werden alle Per-Locale-Dateien mit der Standard-Locale Englisch generiert. Dies beinhaltet auch die Generierung von `.content`-Dateien unter Verwendung des `extract`-Befehls und des Compilers. (Siehe [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) oder [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) für weitere Informationen.)
+Mit dieser Konfiguration werden alle Per-Locale-Dateien mit der Standard-Locale Englisch generiert. Dies beinhaltet auch die Generierung von `.content`-Dateien unter Verwendung des `extract`-Befehls und des Compilers. (Siehe [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) oder [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/de/cli/extract.md) für weitere Informationen.)
 
 - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
 

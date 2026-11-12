@@ -47,6 +47,8 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
         padding="md"
         hasCloseButton
         title={content.createDictionaryButton.label.value}
+        border
+        borderColor="neutral"
       >
         <Suspense>
           <DictionaryCreationForm
@@ -104,6 +106,7 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
           params={params}
           setParam={setParam}
           setParams={setParams}
+          fixedTag={dashboard.fixedTag}
         />
       </Suspense>
 

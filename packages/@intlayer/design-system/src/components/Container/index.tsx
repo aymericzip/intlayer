@@ -67,7 +67,7 @@ export const containerVariants = cva(
       background: {
         none: 'backdrop-blur-none',
         hoverable:
-          'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! hover:backdrop-blur focus:bg-opacity-10! focus:backdrop-blur aria-selected:bg-opacity-15! aria-selected:backdrop-blur',
+          'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! focus:bg-opacity-10! aria-selected:bg-opacity-15! hover:backdrop-blur focus:backdrop-blur aria-selected:backdrop-blur',
         with: '',
       },
       gap: {

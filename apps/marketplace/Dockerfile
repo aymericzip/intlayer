@@ -1,12 +1,6 @@
-# syntax=docker/dockerfile:1.27.0
+# syntax=docker/dockerfile:1.28.0
 
-# FROM oven/bun:1.3.2-alpine AS builder
-# Use node because of bun issue blocking at `Creating an optimized production build ...`
-# https://github.com/oven-sh/bun/issues/17136
-# https://github.com/oven-sh/bun/issues/4795
-FROM node:26-alpine AS builder
-
-RUN npm install -g bun@1.4.2
+FROM oven/bun:1.4.4-alpine AS builder
 
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
@@ -67,7 +61,7 @@ ENV NODE_ENV=production
 RUN bun run build && bun scripts/generate-sw.ts
 
 # Runner — use oven/bun base image to avoid npm install overhead
-FROM oven/bun:1.4.2-alpine AS runner
+FROM oven/bun:1.4.4-alpine AS runner
 
 WORKDIR /app
 

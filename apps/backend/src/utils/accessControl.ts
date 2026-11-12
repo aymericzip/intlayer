@@ -1,5 +1,4 @@
 import { logger } from '@logger';
-
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { HttpStatusCodes } from './httpStatusCodes';
 

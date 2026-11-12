@@ -10,9 +10,11 @@ import { getAnalyticsAPI } from '@intlayer/api/analytics';
 import { getAssetAPI } from '@intlayer/api/asset';
 import { getAuditAPI } from '@intlayer/api/audit';
 import { getBitbucketAPI } from '@intlayer/api/bitbucket';
+import { getCodebergAPI } from '@intlayer/api/codeberg';
 import { getDictionaryAPI } from '@intlayer/api/dictionary';
 import { getEditorAPI } from '@intlayer/api/editor';
 import { getEnvironmentAPI } from '@intlayer/api/environment';
+import { getGiteeAPI } from '@intlayer/api/gitee';
 import { getGithubAPI } from '@intlayer/api/github';
 import { getGitlabAPI } from '@intlayer/api/gitlab';
 import { getNewsletterAPI } from '@intlayer/api/newsletter';
@@ -31,6 +33,7 @@ import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { useLocale } from 'react-intlayer';
 import { type AuthAPI, getAuthAPI } from '../libs/auth';
+import { useBearerAuth } from './useAuth/BearerAuthProvider';
 
 export type UseIntlayerAuthProps = {
   options?: FetcherOptions;
@@ -52,6 +55,8 @@ export type UseIntlayerAuthProps = {
 export const useIntlayerOAuthOptions = (props?: UseIntlayerAuthProps) => {
   const configuration = useConfiguration();
   const { locale } = useLocale();
+  const bearerAuth = useBearerAuth();
+  const sessionToken = props?.sessionToken ?? bearerAuth?.accessToken;
 
   // On a first-party origin the session cookie authenticates every call (the
   // fetcher sends `credentials: 'include'`), so no header is needed. Elsewhere
@@ -61,8 +66,8 @@ export const useIntlayerOAuthOptions = (props?: UseIntlayerAuthProps) => {
   const options: FetcherOptions = {
     headers: {
       [HEADER_NAME]: locale,
-      ...(props?.sessionToken && {
-        Authorization: `Bearer ${props.sessionToken}`,
+      ...(sessionToken && {
+        Authorization: `Bearer ${sessionToken}`,
       }),
     },
     ...(props?.options ?? {}),
@@ -198,6 +203,20 @@ export const useBitbucketAPI = (
 ): ReturnType<typeof getBitbucketAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getBitbucketAPI(options, resolvedConfig);
+};
+
+export const useCodebergAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getCodebergAPI> => {
+  const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
+  return getCodebergAPI(options, resolvedConfig);
+};
+
+export const useGiteeAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getGiteeAPI> => {
+  const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
+  return getGiteeAPI(options, resolvedConfig);
 };
 
 export const useShowcaseProjectAPI = (

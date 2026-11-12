@@ -12,12 +12,17 @@ import {
   type ChatCompletionRequestMessage,
   MessagesList,
 } from '#components/ChatBot/MessagesList';
-import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  DashboardRightPanelId,
+  useDashboardRightPanel,
+  useDashboardRightPanelContainer,
+  useRegisterDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 
 const uuid = () => Math.random().toString(36).slice(2);
 
-const DRAWER_ID = 'dashboard-chat';
+const DRAWER_ID = DashboardRightPanelId.Chat;
 const STORE_KEY = 'dashboard-chat-discussion-store';
 
 type ChatResult = {
@@ -36,14 +41,12 @@ export const DashboardChatBot: FC = () => {
     aiAssistant,
   } = useIntlayer('dashboard-chat-bot');
   const { mutate: sendChat, isPending } = useChat();
-  const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
+  const { toggle: togglePanel, isOpen: checkIsOpen } = useDashboardRightPanel();
+  useRegisterDashboardRightPanel(DRAWER_ID);
   const isOpen = checkIsOpen(DRAWER_ID);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+  const portalTarget = useDashboardRightPanelContainer();
   const isFirstRender = useRef(true);
 
-  useEffect(() => {
-    setPortalTarget(document.getElementById('dashboard-right-panel'));
-  }, []);
   const [currentResponse, setCurrentResponse] = useState('');
   const navigate = useLocalizedNavigate();
   const queryClient = useQueryClient();
@@ -150,7 +153,7 @@ export const DashboardChatBot: FC = () => {
     <>
       <PopoverStatic identifier={DRAWER_ID}>
         <Button
-          onClick={() => openPanel(DRAWER_ID)}
+          onClick={() => togglePanel(DRAWER_ID)}
           type="button"
           variant="hoverable"
           label={openAiAssistant.value}
@@ -159,7 +162,7 @@ export const DashboardChatBot: FC = () => {
           isActive={isOpen}
         />
         <PopoverStatic.Detail identifier={DRAWER_ID} xAlign="end">
-          <span className="flex gap-4 text-nowrap py-2 ps-4 pe-2 text-neutral text-sm">
+          <span className="flex gap-4 py-2 ps-4 pe-2 text-sm text-nowrap text-neutral">
             {aiAssistant}
           </span>
         </PopoverStatic.Detail>

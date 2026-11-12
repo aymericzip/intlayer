@@ -22,7 +22,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
         'supports-[corner-shape:squircle]:[&_tbody_tr:last-child_td:first-child]:rounded-es-3xl',
         'supports-[corner-shape:squircle]:[&_tbody_tr:last-child_td:last-child]:rounded-ee-3xl',
         isInteractive &&
-          '[&_tbody_tr:hover]:bg-neutral/40 [&_tbody_tr]:cursor-pointer [&_tbody_tr]:transition-colors',
+          '[&_tbody_tr]:cursor-pointer [&_tbody_tr]:transition-colors [&_tbody_tr:hover]:bg-neutral/40',
         className
       )}
       {...props}

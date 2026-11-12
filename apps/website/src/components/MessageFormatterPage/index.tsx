@@ -110,23 +110,23 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
     <div className="relative flex size-full flex-1 flex-col">
       <BackgroundLayout />
 
-      <main className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center gap-12 px-4 pt-24 pb-20 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center gap-12 px-4 pt-24 pb-20 sm:px-6 lg:px-8">
         {/* HERO SECTION */}
         <section className="flex max-w-4xl flex-col items-center gap-4 text-center">
           <Badge
             size="md"
             color="text"
-            className="flex items-center gap-1.5 px-3 py-1 font-medium text-xs backdrop-blur-md"
+            className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium backdrop-blur-md"
           >
             <Sparkles className="size-3.5 text-text-opposite" />
             {content.freeBadge}
           </Badge>
 
-          <h1 className="font-extrabold text-3xl text-foreground tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             {metaByDialect.title}
           </h1>
 
-          <p className="max-w-2xl text-muted-foreground text-sm leading-relaxed sm:text-base md:text-lg">
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
             {metaByDialect.description}
           </p>
 
@@ -143,7 +143,7 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
                   label={tab.label}
                   color="text"
                   className={cn(
-                    'flex items-center gap-2 rounded-xl px-3 py-1.5 font-semibold text-xs transition-all',
+                    'flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs font-semibold transition-all',
                     isActive
                       ? 'bg-foreground text-background shadow-sm'
                       : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
@@ -180,16 +180,16 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
                 size="sm"
                 color="text"
                 variant="outline"
-                className="font-mono text-text text-xs"
+                className="font-mono text-xs text-text"
               >
                 {content.ecosystemBadge}
               </Badge>
 
-              <h3 className="font-bold text-2xl text-foreground sm:text-3xl">
+              <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
                 {content.cta.title}
               </h3>
 
-              <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+              <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
                 {content.cta.description}
               </p>
 
@@ -203,7 +203,7 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
                   label={content.cta.button.value}
                   className="flex flex-row items-center justify-center gap-2"
                 >
-                  <span className="flex flex-row flex-nowrap items-center gap-2 text-foreground text-sm sm:text-lg">
+                  <span className="flex flex-row flex-nowrap items-center gap-2 text-sm text-foreground sm:text-lg">
                     {content.cta.button}
                     <ArrowRight className="size-5 transition-transform" />
                   </span>
@@ -226,7 +226,7 @@ export const MessageFormatterPage: FC<{ dialect: FormatterDialect }> = ({
             </div>
           </Container>
         </section>
-      </main>
+      </div>
     </div>
   );
 };

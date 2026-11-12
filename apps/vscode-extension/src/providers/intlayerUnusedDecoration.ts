@@ -24,6 +24,7 @@ import { findProjectRoot } from '../utils/findProjectRoot';
 import {
   ALL_FIELDS_USED,
   findCachedUsagesOfDictionary,
+  UNTRACKED_FIELDS,
 } from '../utils/findUsages';
 import {
   getCachedConfig,
@@ -57,7 +58,10 @@ const strikeDecorationType = window.createTextEditorDecorationType({
   opacity: '0.6',
 });
 
-/** End-of-line label: `(unused)`, or the duplicate declarations count. */
+/**
+ * End-of-line label: `(unused)`, `(unclear)` for untraced fields, or the
+ * duplicate declarations count.
+ */
 const lineLabelDecorationType = window.createTextEditorDecorationType({
   after: {
     contentText: ' (unused)',
@@ -213,6 +217,15 @@ const updateUnusedDecorations = async (editor: TextEditor) => {
     lineLabelDecorations.push({ range: endOfLine(range.start.line) });
   };
 
+  /** Label only, no strike: the field may well be read. */
+  const markUnclear = (range: Range, hoverMessage: string) => {
+    lineLabelDecorations.push({
+      range: endOfLine(range.start.line),
+      hoverMessage,
+      renderOptions: { after: { contentText: ' (unclear)' } },
+    });
+  };
+
   const duplicateLabel = await getDuplicateLabel(
     document,
     projectDir,
@@ -249,19 +262,27 @@ const updateUnusedDecorations = async (editor: TextEditor) => {
     const program = parseText(extractScriptContent(text, extension));
     const contentObject = program ? findContentObject(program) : null;
 
+    const hasUntrackedUsage = usedKeys.has(UNTRACKED_FIELDS);
+
     if (contentObject && !usedKeys.has(ALL_FIELDS_USED)) {
       for (const { dottedKey, keyNode } of collectContentFields(
         contentObject
       )) {
         if (usedKeys.has(dottedKey)) continue;
 
-        markUnused(
-          new Range(
-            document.positionAt(nodeStart(keyNode)),
-            document.positionAt(nodeEnd(keyNode))
-          ),
-          `Property '${dottedKey}' is unused`
+        const fieldRange = new Range(
+          document.positionAt(nodeStart(keyNode)),
+          document.positionAt(nodeEnd(keyNode))
         );
+
+        if (hasUntrackedUsage) {
+          markUnclear(
+            fieldRange,
+            `Property '${dottedKey}' may be used: the dictionary is read where its fields cannot be traced`
+          );
+        } else {
+          markUnused(fieldRange, `Property '${dottedKey}' is unused`);
+        }
       }
     }
   }

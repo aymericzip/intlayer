@@ -56,11 +56,23 @@ import { extractContent } from './extractContent';
 
 const tmpDir = join(process.cwd(), 'tmp_test_extract_advanced');
 
+/**
+ * Pins the auto-detected formatter's style in the given directory so
+ * assertions don't depend on the repository's own formatter configuration.
+ */
+const writeFormatterConfig = (directory: string): void => {
+  writeFileSync(
+    join(directory, '.prettierrc.json'),
+    JSON.stringify({ singleQuote: true, trailingComma: 'es5' })
+  );
+};
+
 describe('extractIntlayer', () => {
   beforeEach(() => {
     if (!existsSync(tmpDir)) {
       mkdirSync(tmpDir, { recursive: true });
     }
+    writeFormatterConfig(tmpDir);
     vi.mocked(getConfiguration).mockReturnValue({
       internationalization: {
         locales: ['en', 'fr'],
@@ -904,6 +916,7 @@ export const useCustomHook = () => {
       if (!existsSync(tmpDir)) {
         mkdirSync(tmpDir, { recursive: true });
       }
+      writeFormatterConfig(tmpDir);
       vi.mocked(getConfiguration).mockReturnValue({
         internationalization: { locales: ['en'], defaultLocale: 'en' },
         content: {
@@ -1204,6 +1217,7 @@ export function LocaleSwitcher() {
       if (!existsSync(tmpDir)) {
         mkdirSync(tmpDir, { recursive: true });
       }
+      writeFormatterConfig(tmpDir);
       vi.mocked(getConfiguration).mockReturnValue({
         internationalization: { locales: ['en'], defaultLocale: 'en' },
         content: {

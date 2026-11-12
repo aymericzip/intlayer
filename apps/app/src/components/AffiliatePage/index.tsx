@@ -32,8 +32,8 @@ export const AffiliatePage: FC = () => {
   if (!affiliate) {
     return (
       <div className="flex flex-col items-center gap-4 p-10 text-center">
-        <p className="font-medium text-lg">{content.affiliateProgram}</p>
-        <p className="max-w-md text-neutral/60 text-sm">
+        <p className="text-lg font-medium">{content.affiliateProgram}</p>
+        <p className="max-w-md text-sm text-neutral/60">
           {content.youHaventBeenInvitedTo}
         </p>
       </div>
@@ -47,7 +47,7 @@ export const AffiliatePage: FC = () => {
     <div className="flex flex-col gap-8 p-8">
       {needsOnboarding && (
         <section className="flex flex-col gap-4">
-          <h2 className="font-semibold text-base">
+          <h2 className="text-base font-semibold">
             {content.completeYourSetup}
           </h2>
           <AffiliateOnboarding />
@@ -63,14 +63,14 @@ export const AffiliatePage: FC = () => {
       {!needsOnboarding && stats && (
         <>
           <section className="flex flex-col gap-4">
-            <h2 className="font-semibold text-base">
+            <h2 className="text-base font-semibold">
               {content.yourReferralLink}
             </h2>
             <ReferralLink referralLink={stats.referralLink} />
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="font-semibold text-base">{content.performance}</h2>
+            <h2 className="text-base font-semibold">{content.performance}</h2>
             <AffiliateStatsPanel stats={stats} />
           </section>
         </>

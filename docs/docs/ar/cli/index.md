@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "واجهة سطر أوامر Intlayer: كل الأوامر للتطبيقات متعددة اللغات"
 description: اكتشف كيفية استخدام Intlayer CLI لإدارة موقعك متعدد اللغات. اتبع الخطوات الواردة في هذه الوثائق عبر الإنترنت لإعداد مشروعك في دقائق معدودة.
@@ -145,8 +145,8 @@ bun add intlayer-cli -g
 
 - [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build.md)
 - [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/watch.md)
-- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/standalone.md)
-- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/version.md)
+- [إنشاء حزمة مستقلة (Standalone Bundle)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/standalone.md)
+- [التحقق من إصدار CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/version.md)
 - [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list_projects.md)
 
 ### إدارة القواميس
@@ -154,8 +154,8 @@ bun add intlayer-cli -g
 - [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/push.md)
 - [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/pull.md)
 - [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)
-- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/test.md)
-- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list.md)
+- [اختبار الترجمات المفقودة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/test.md)
+- [سرد ملفات إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list.md)
 
 ### إدارة المكونات
 
@@ -176,7 +176,7 @@ bun add intlayer-cli -g
 ### المحرر والمزامنة المباشرة (Live Sync)
 
 - [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/editor.md)
-- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)
+- [أوامر المزامنة المباشرة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)
 
 ### التدقيق والتشخيص
 
@@ -185,7 +185,7 @@ bun add intlayer-cli -g
 ### أدوات التطوير
 
 - [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/sdk.md)
-- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/debug.md)
+- [أمر تصحيح الأخطاء لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/debug.md)
 
 ## استخدم أوامر intlayer في ملف `package.json` الخاص بك
 

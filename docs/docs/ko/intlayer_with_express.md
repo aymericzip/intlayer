@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Express i18n - 앱을 번역하는 완전 가이드"
 description: "Express에 Intlayer 설정: 미들웨어로 요청마다 로케일을 감지하고, API 응답과 오류 메시지를 번역하며, 엔드투엔드 타입을 보장합니다."
@@ -38,28 +38,24 @@ author: aymericzip
 - **사용자 언어로 백엔드 오류 표시**: 오류가 발생했을 때, 사용자의 모국어로 메시지를 표시하면 이해도를 높이고 좌절감을 줄일 수 있습니다. 이는 토스트나 모달과 같은 프론트엔드 구성 요소에 표시될 수 있는 동적 오류 메시지에 특히 유용합니다.
 
 - **다국어 콘텐츠 검색**: 데이터베이스에서 콘텐츠를 가져오는 애플리케이션의 경우, 국제화는 이 콘텐츠를 여러 언어로 제공할 수 있도록 보장합니다. 이는 전자 상거래 사이트나 콘텐츠 관리 시스템과 같이 제품 설명, 기사 및 기타 콘텐츠를 사용자가 선호하는 언어로 표시해야 하는 플랫폼에 필수적입니다.
-- **다국어 이메일 전송**: 거래 이메일, 마케팅 캠페인 또는 알림 등 수신자의 언어로 이메일을 보내면 참여도와 효과를 크게 높일 수 있습니다.
-
 - **다국어 이메일 전송**: 트랜잭션 이메일, 마케팅 캠페인, 알림 등 어떤 경우든 수신자의 언어로 이메일을 전송하면 참여도와 효과를 크게 높일 수 있습니다.
 
 - **다국어 푸시 알림**: 모바일 애플리케이션의 경우, 사용자가 선호하는 언어로 푸시 알림을 보내면 상호작용과 유지율을 높일 수 있습니다. 이러한 개인화된 접근은 알림을 더 관련성 있고 실행 가능하게 만듭니다.
 
 - **기타 커뮤니케이션**: SMS 메시지, 시스템 알림 또는 사용자 인터페이스 업데이트와 같은 백엔드의 모든 형태의 커뮤니케이션은 사용자의 언어로 제공될 때 명확성을 보장하고 전반적인 사용자 경험을 향상시킵니다.
-  백엔드를 국제화함으로써 애플리케이션은 문화적 차이를 존중할 뿐만 아니라 글로벌 시장 요구에 더 잘 부합하게 되어 서비스를 전 세계적으로 확장하는 데 중요한 단계가 됩니다.
-
-백엔드를 국제화함으로써, 당신의 애플리케이션은 문화적 차이를 존중할 뿐만 아니라 글로벌 시장 수요에도 더 잘 맞춰지며, 이는 서비스를 전 세계적으로 확장하는 핵심 단계입니다.
+  백엔드를 국제화함으로써 애플리케이션은 문화적 차이를 존중할 뿐만 아니라 글로벌 시장 수요에도 더 잘 맞춰지며, 이는 서비스를 전 세계적으로 확장하는 핵심 단계입니다.
 
 ## 시작하기
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-express-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="CodeSandbox 데모 - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-express-template) on GitHub.
+GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-express-template)을 확인하세요.
 
 ### 설치
 

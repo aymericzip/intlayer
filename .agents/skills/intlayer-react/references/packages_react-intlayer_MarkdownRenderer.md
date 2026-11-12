@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: MarkdownRenderer Component Documentation | react-intlayer
 description: See how to use the MarkdownRenderer component for react-intlayer package
 keywords:
@@ -18,7 +19,8 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Init doc
+    changes: "Init doc"
+author: aymericzip
 ---
 
 # MarkdownRenderer Component Documentation
@@ -28,7 +30,7 @@ The `MarkdownRenderer` component renders markdown content with custom components
 ## Usage
 
 ```tsx
-import { MarkdownRenderer } from "react-intlayer";
+import { MarkdownRenderer } from "react-intlayer/markdown";
 
 const MyComponent = () => (
   <MarkdownRenderer># My Title My content</MarkdownRenderer>

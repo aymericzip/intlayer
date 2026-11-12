@@ -1,6 +1,33 @@
 import type { AIOptions } from '@intlayer/ai';
 import { getProjectById } from '@services/project.service';
-import type { Project, ProjectAPI } from '@/types/project.types';
+import { isSelfHosted } from '@utils/isSelfHosted';
+import type {
+  Project,
+  ProjectAPI,
+  ProjectConfiguration,
+} from '@/types/project.types';
+
+/**
+ * Returns the project AI configuration as AI options, or `undefined` when the
+ * project disabled its own key (`isOwnAPIKeyEnabled: false`) to run on the
+ * plan credits instead. Self-hosted instances ignore that switch: they have
+ * no platform key to fall back on.
+ */
+export const resolveProjectAIOptions = (
+  aiConfiguration: ProjectConfiguration['ai'] | undefined
+): AIOptions | undefined => {
+  if (!aiConfiguration) return undefined;
+
+  const {
+    isOwnAPIKeyEnabled,
+    apiKeyConfigured: _apiKeyConfigured,
+    ...aiOptions
+  } = aiConfiguration;
+
+  if (isOwnAPIKeyEnabled === false && !isSelfHosted()) return undefined;
+
+  return aiOptions as AIOptions;
+};
 
 /**
  * Returns the project's AI options with the real (unmasked) API key.
@@ -12,16 +39,14 @@ import type { Project, ProjectAPI } from '@/types/project.types';
 export const getProjectAIOptions = async (
   project: Project | ProjectAPI | null | undefined
 ): Promise<AIOptions | undefined> => {
-  if (!project?.configuration?.ai) return undefined;
+  const sessionOptions = resolveProjectAIOptions(project?.configuration?.ai);
 
-  const sessionOptions = project.configuration.ai as AIOptions;
-
-  if (!sessionOptions.apiKey?.includes('*')) {
+  if (!sessionOptions?.apiKey?.includes('*')) {
     return sessionOptions;
   }
 
-  const realProject = await getProjectById(String(project.id));
+  const realProject = await getProjectById(String(project?.id));
   return (
-    (realProject?.configuration?.ai as AIOptions | undefined) ?? sessionOptions
+    resolveProjectAIOptions(realProject?.configuration?.ai) ?? sessionOptions
   );
 };

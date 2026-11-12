@@ -7,11 +7,7 @@ const metaContent = {
       es: 'Esta es la descripción de la página de about.',
       fr: 'Ceci est la description de la page about.',
     }),
-    title: t({
-      en: 'About',
-      es: 'About',
-      fr: 'About',
-    }),
+    title: 'About',
   },
   key: 'about-meta',
 } satisfies Dictionary;

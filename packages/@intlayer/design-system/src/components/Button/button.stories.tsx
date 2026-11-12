@@ -353,7 +353,7 @@ export const ColorThemes: Story = {
       {['text-inverse', 'neutral', 'text', 'card', 'error', 'success'].map(
         (color) => (
           <div key={color} className="space-y-2">
-            <h4 className="font-medium text-sm capitalize">
+            <h4 className="text-sm font-medium capitalize">
               {color.replace('_', ' ')}
             </h4>
             <div className="flex gap-2">
@@ -686,7 +686,7 @@ export const FullWidthButton: Story = {
         <div className="mb-4">
           <label
             htmlFor="full-width-email"
-            className="mb-2 block font-medium text-sm"
+            className="mb-2 block text-sm font-medium"
           >
             Email
           </label>
@@ -783,7 +783,7 @@ export const TextAlignment: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         Use Tab to navigate between buttons, Enter or Space to activate them.
       </div>
       <div className="flex flex-wrap gap-4">
@@ -845,7 +845,7 @@ export const ARIAAttributes: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-2 font-medium text-sm">Dropdown Button</h3>
+        <h3 className="mb-2 text-sm font-medium">Dropdown Button</h3>
         <Button
           label="Open menu options"
           color="text"
@@ -858,7 +858,7 @@ export const ARIAAttributes: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Toggle Button</h3>
+        <h3 className="mb-2 text-sm font-medium">Toggle Button</h3>
         <Button
           label="Toggle favorite status"
           variant="outline"
@@ -871,7 +871,7 @@ export const ARIAAttributes: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Button with Description</h3>
+        <h3 className="mb-2 text-sm font-medium">Button with Description</h3>
         <div>
           <Button
             label="Delete selected items"
@@ -881,7 +881,7 @@ export const ARIAAttributes: Story = {
           >
             Delete
           </Button>
-          <div id="delete-help" className="mt-1 text-gray-500 text-xs">
+          <div id="delete-help" className="mt-1 text-xs text-gray-500">
             This action cannot be undone
           </div>
         </div>
@@ -944,7 +944,7 @@ export const FormButtons: Story = {
       }}
     >
       <div>
-        <label htmlFor="name" className="mb-2 block font-medium text-sm">
+        <label htmlFor="name" className="mb-2 block text-sm font-medium">
           Name
         </label>
         <input
@@ -956,7 +956,7 @@ export const FormButtons: Story = {
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-2 block font-medium text-sm">
+        <label htmlFor="email" className="mb-2 block text-sm font-medium">
           Email
         </label>
         <input

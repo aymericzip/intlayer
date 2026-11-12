@@ -76,7 +76,7 @@ export const CliAccountSelector: FC<CliAccountSelectorProps> = ({
   return (
     <div className="flex flex-col gap-5">
       <H2>{accountSelector.title}</H2>
-      <span className="text-neutral text-sm">
+      <span className="text-sm text-neutral">
         {accountSelector.description}
       </span>
 
@@ -127,10 +127,10 @@ export const CliAccountSelector: FC<CliAccountSelectorProps> = ({
                     isLoggedIn
                   />
                   <div className="flex min-w-0 flex-1 flex-col text-start">
-                    <span className="truncate font-semibold text-sm text-text leading-tight">
+                    <span className="truncate text-sm leading-tight font-semibold text-text">
                       {displayName}
                     </span>
-                    <span className="truncate text-neutral text-xs leading-snug">
+                    <span className="truncate text-xs leading-snug text-neutral">
                       {deviceSession.user.email}
                     </span>
                   </div>

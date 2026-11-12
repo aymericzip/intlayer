@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: getPrefix 函数文档 | intlayer
 description: "使用 getPrefix 按路由模式获取某个语言的 URL 前缀，提供可直接用于链接和路由的三种格式。"

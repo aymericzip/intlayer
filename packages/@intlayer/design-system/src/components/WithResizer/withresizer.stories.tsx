@@ -105,14 +105,14 @@ export const Default: Story = {
       <div className="flex h-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
         <WithResizer initialWidth={280}>
           <div className="h-full bg-white p-4 dark:bg-gray-800">
-            <h3 className="mb-3 font-semibold text-lg">Resizable Panel</h3>
-            <p className="text-gray-600 text-sm leading-relaxed dark:text-gray-300">
+            <h3 className="mb-3 text-lg font-semibold">Resizable Panel</h3>
+            <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
               Drag the handle on the right edge to resize this panel. The
               content will adapt to the new width dynamically.
             </p>
 
             <div className="mt-4 rounded bg-blue-50 p-3 dark:bg-blue-900/20">
-              <div className="font-medium text-blue-800 text-xs dark:text-blue-200">
+              <div className="text-xs font-medium text-blue-800 dark:text-blue-200">
                 💡 Tip: Look for the rounded handle on the right border
               </div>
             </div>
@@ -120,8 +120,8 @@ export const Default: Story = {
         </WithResizer>
 
         <div className="flex-1 bg-gray-100 p-4 dark:bg-gray-700">
-          <h3 className="mb-3 font-semibold text-lg">Fixed Content</h3>
-          <p className="text-gray-600 text-sm dark:text-gray-300">
+          <h3 className="mb-3 text-lg font-semibold">Fixed Content</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             This area remains fixed while the left panel resizes. Perfect for
             main content areas that need to adapt to sidebar changes.
           </p>
@@ -147,8 +147,8 @@ export const WithConstraints: Story = {
   render: () => (
     <div className="h-80 bg-gray-50 p-6 dark:bg-gray-900">
       <div className="mb-4">
-        <h3 className="mb-2 font-semibold text-lg">Constrained Resizing</h3>
-        <p className="text-gray-600 text-sm dark:text-gray-400">
+        <h3 className="mb-2 text-lg font-semibold">Constrained Resizing</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           This resizer has minimum width of 200px and maximum width of 500px.
         </p>
       </div>
@@ -158,7 +158,7 @@ export const WithConstraints: Story = {
           <div className="flex h-full flex-col bg-white p-4 dark:bg-gray-800">
             <div className="flex-1">
               <h4 className="mb-2 font-semibold">Constrained Panel</h4>
-              <p className="mb-4 text-gray-600 text-sm dark:text-gray-300">
+              <p className="mb-4 text-sm text-gray-600 dark:text-gray-300">
                 Try resizing - you'll find the width is limited between 200px
                 and 500px.
               </p>
@@ -180,7 +180,7 @@ export const WithConstraints: Story = {
 
         <div className="flex-1 bg-gray-100 p-4 dark:bg-gray-700">
           <h4 className="mb-2 font-semibold">Benefits of Constraints</h4>
-          <ul className="space-y-2 text-gray-600 text-sm dark:text-gray-300">
+          <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
             <li>• Prevents panels from becoming too narrow to use</li>
             <li>• Ensures layouts don't break at extreme sizes</li>
             <li>• Maintains readable content width</li>
@@ -230,7 +230,7 @@ export const ApplicationLayout: Story = {
         <div className="flex h-14 items-center bg-blue-600 px-4 dark:bg-blue-700">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20">
-              <span className="font-bold text-sm text-white">A</span>
+              <span className="text-sm font-bold text-white">A</span>
             </div>
             <h1 className="font-semibold text-white">My Application</h1>
           </div>
@@ -252,7 +252,7 @@ export const ApplicationLayout: Story = {
           >
             <div className="flex h-full flex-col bg-gray-50 dark:bg-gray-800">
               {/* Sidebar Header */}
-              <div className="border-gray-200 border-b p-4 dark:border-gray-700">
+              <div className="border-b border-gray-200 p-4 dark:border-gray-700">
                 <h2 className="font-semibold text-gray-900 dark:text-white">
                   Navigation
                 </h2>
@@ -279,14 +279,14 @@ export const ApplicationLayout: Story = {
               </div>
 
               {/* Sidebar Footer */}
-              <div className="border-gray-200 border-t p-4 dark:border-gray-700">
+              <div className="border-t border-gray-200 p-4 dark:border-gray-700">
                 <div className="flex items-center gap-3">
                   <div className="h-8 w-8 rounded-full bg-gray-300 dark:bg-gray-600"></div>
                   <div className="min-w-0 flex-1">
-                    <div className="truncate font-medium text-gray-900 text-sm dark:text-white">
+                    <div className="truncate text-sm font-medium text-gray-900 dark:text-white">
                       John Doe
                     </div>
-                    <div className="truncate text-gray-500 text-xs dark:text-gray-400">
+                    <div className="truncate text-xs text-gray-500 dark:text-gray-400">
                       john@example.com
                     </div>
                   </div>
@@ -298,13 +298,13 @@ export const ApplicationLayout: Story = {
           {/* Main Content */}
           <div className="flex flex-1 flex-col">
             {/* Content Header */}
-            <div className="border-gray-200 border-b bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
+            <div className="border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="font-semibold text-gray-900 text-xl dark:text-white">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                     Dashboard-Section
                   </h2>
-                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     Welcome back! Here's what's happening.
                   </p>
                 </div>
@@ -357,15 +357,15 @@ export const ApplicationLayout: Story = {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-gray-600 text-sm dark:text-gray-400">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                           {stat.title}
                         </p>
-                        <p className="font-semibold text-2xl text-gray-900 dark:text-white">
+                        <p className="text-2xl font-semibold text-gray-900 dark:text-white">
                           {stat.value}
                         </p>
                       </div>
                       <div
-                        className={`font-medium text-sm ${
+                        className={`text-sm font-medium ${
                           stat.color === 'green'
                             ? 'text-green-600'
                             : stat.color === 'red'
@@ -381,7 +381,7 @@ export const ApplicationLayout: Story = {
               </div>
 
               <div className="rounded-lg bg-gray-50 p-6 dark:bg-gray-800">
-                <h3 className="mb-4 font-semibold text-gray-900 text-lg dark:text-white">
+                <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
                   Recent Activity
                 </h3>
                 <div className="space-y-3">
@@ -392,10 +392,10 @@ export const ApplicationLayout: Story = {
                     >
                       <div className="h-2 w-2 rounded-full bg-blue-500"></div>
                       <div className="flex-1">
-                        <div className="text-gray-900 text-sm dark:text-white">
+                        <div className="text-sm text-gray-900 dark:text-white">
                           User activity #{i + 1}
                         </div>
-                        <div className="text-gray-500 text-xs dark:text-gray-400">
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
                           {i + 1} minutes ago
                         </div>
                       </div>
@@ -431,13 +431,13 @@ export const CodeEditorLayout: Story = {
   render: () => (
     <div className="h-96 overflow-hidden rounded-lg bg-gray-900 text-white">
       {/* Editor Header */}
-      <div className="flex h-10 items-center border-gray-700 border-b bg-gray-800 px-4">
+      <div className="flex h-10 items-center border-b border-gray-700 bg-gray-800 px-4">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-error"></div>
           <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
           <div className="h-3 w-3 rounded-full bg-green-500"></div>
         </div>
-        <div className="ms-4 text-gray-300 text-sm">
+        <div className="ms-4 text-sm text-gray-300">
           Code Editor - project/src/components/App.tsx
         </div>
       </div>
@@ -447,8 +447,8 @@ export const CodeEditorLayout: Story = {
         {/* File Explorer */}
         <WithResizer initialWidth={200} minWidth={150} maxWidth={300}>
           <div className="flex h-full flex-col bg-gray-800">
-            <div className="border-gray-700 border-b p-2">
-              <h3 className="font-semibold text-gray-300 text-xs uppercase tracking-wide">
+            <div className="border-b border-gray-700 p-2">
+              <h3 className="text-xs font-semibold tracking-wide text-gray-300 uppercase">
                 Explorer
               </h3>
             </div>
@@ -537,8 +537,8 @@ export const CodeEditorLayout: Story = {
 
             {/* Properties Panel */}
             <div className="flex min-w-0 flex-1 flex-col bg-gray-800">
-              <div className="border-gray-700 border-b p-2">
-                <h3 className="font-semibold text-gray-300 text-xs uppercase tracking-wide">
+              <div className="border-b border-gray-700 p-2">
+                <h3 className="text-xs font-semibold tracking-wide text-gray-300 uppercase">
                   Properties
                 </h3>
               </div>
@@ -574,13 +574,13 @@ export const CodeEditorLayout: Story = {
           </div>
 
           {/* Terminal */}
-          <div className="h-32 border-gray-700 border-t bg-black">
-            <div className="border-gray-700 border-b bg-gray-800 p-2">
-              <h3 className="font-semibold text-gray-300 text-xs uppercase tracking-wide">
+          <div className="h-32 border-t border-gray-700 bg-black">
+            <div className="border-b border-gray-700 bg-gray-800 p-2">
+              <h3 className="text-xs font-semibold tracking-wide text-gray-300 uppercase">
                 Terminal
               </h3>
             </div>
-            <div className="p-2 font-mono text-green-400 text-sm">
+            <div className="p-2 font-mono text-sm text-green-400">
               <div>$ npm run dev</div>
               <div className="text-gray-500">Local: http://localhost:3000/</div>
               <div className="text-gray-500">
@@ -611,10 +611,10 @@ export const DashboardWidgets: Story = {
   render: () => (
     <div className="h-96 bg-gray-100 p-4 dark:bg-gray-900">
       <div className="mb-4">
-        <h3 className="font-semibold text-gray-900 text-lg dark:text-white">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
           Customizable Dashboard
         </h3>
-        <p className="text-gray-600 text-sm dark:text-gray-400">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Resize widgets to customize your dashboard layout
         </p>
       </div>
@@ -656,14 +656,14 @@ export const DashboardWidgets: Story = {
                   key={`feed-${String(i)}`}
                   className="flex items-start gap-3 rounded-lg bg-gray-50 p-2 dark:bg-gray-700"
                 >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 font-bold text-white text-xs">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">
                     U
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="truncate text-gray-900 text-sm dark:text-white">
+                    <div className="truncate text-sm text-gray-900 dark:text-white">
                       User performed action {i + 1}
                     </div>
-                    <div className="text-gray-500 text-xs dark:text-gray-400">
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
                       {i + 2} min ago
                     </div>
                   </div>
@@ -694,10 +694,10 @@ export const DashboardWidgets: Story = {
                 className="rounded-lg bg-gray-50 p-3 text-center dark:bg-gray-700"
               >
                 <div className="mb-2 text-2xl">{stat.icon}</div>
-                <div className="font-semibold text-gray-900 text-lg dark:text-white">
+                <div className="text-lg font-semibold text-gray-900 dark:text-white">
                   {stat.value}
                 </div>
-                <div className="text-gray-600 text-xs dark:text-gray-400">
+                <div className="text-xs text-gray-600 dark:text-gray-400">
                   {stat.label}
                 </div>
               </div>

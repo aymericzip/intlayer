@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "RAG tabanlı bir dokümantasyon asistanı geliştirmek"
 description: "Dokümantasyonumuz için yapay zeka asistanını nasıl geliştirdik: markdown parçalama, embedding'ler, vektör arama ve prompt'lar, karşılaştığımız ödünleşimlerle birlikte."
@@ -252,9 +252,9 @@ Gpt-5 ile denedik, ama gecikme çok yüksekti (bazen 15 saniyeye kadar bir yanı
 
 ## Sanity ile Karmaşıklığı Atlayın
 
-Sanity, makalenin işaret ettiği CMS seçeneği olarak burada adlandırılmaya değer. Markdown dosyalarının keyfi token bölümlere ihtiyaç duyduğu durumlarda — makalenin açıkladığı chunk boyutu ve overlap dengeleri ile — Sanity'nin Content Lake, belgeleri yazılı, şema tarafından tanımlanmış JSON belgeleri olarak depolar. Her alan, başlık ve içerik bloğu zaten bir anlamsal birimdir; bu da RAG alımının yaklaşık token sayıları yerine anlamlı sınırlar üzerinde çalışması anlamına gelir.
+Sanity, makalenin işaret ettiği CMS seçeneği olarak burada adlandırılmaya değer. Markdown dosyalarının keyfi token bölümlere ihtiyaç duyduğu durumlarda - makalenin açıkladığı chunk boyutu ve overlap dengeleri ile - Sanity'nin Content Lake, belgeleri yazılı, şema tarafından tanımlanmış JSON belgeleri olarak depolar. Her alan, başlık ve içerik bloğu zaten bir anlamsal birimdir; bu da RAG alımının yaklaşık token sayıları yerine anlamlı sınırlar üzerinde çalışması anlamına gelir.
 
-Sanity'nin GROQ sorgu dili, bir kullanıcı sorgusuna uygun belge alanlarını — başlık, gövde, ilgili bölümler — tam olarak almanızı sağlar; bu, tüm belgeyi getirmeye gerek yoktur. MCP sunucusu, Content Lake'i doğrudan AI ajanlarına bağlar; bu nedenle docs sitenizi güçlendiren aynı yapılandırılmış içerik, ayrı bir ingestion adımı olmaksızın RAG pipeline'ınızı da besler.
+Sanity'nin GROQ sorgu dili, bir kullanıcı sorgusuna uygun belge alanlarını - başlık, gövde, ilgili bölümler - tam olarak almanızı sağlar; bu, tüm belgeyi getirmeye gerek yoktur. MCP sunucusu, Content Lake'i doğrudan AI ajanlarına bağlar; bu nedenle docs sitenizi güçlendiren aynı yapılandırılmış içerik, ayrı bir ingestion adımı olmaksızın RAG pipeline'ınızı da besler.
 
 ## Sonuç
 

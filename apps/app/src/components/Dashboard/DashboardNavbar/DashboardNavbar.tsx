@@ -27,6 +27,11 @@ import { EnvironmentDropdown } from './EnvironmentDropdown';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 
+const AICreditsQuotaDropdown = lazy(() =>
+  import('#components/AICredits/AICreditsQuotaDropdown').then((m) => ({
+    default: m.AICreditsQuotaDropdown,
+  }))
+);
 const TranslationStatusAside = lazy(() =>
   import('#components/TranslationStatusAside').then((m) => ({
     default: m.TranslationStatusAside,
@@ -161,6 +166,11 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
         </div>
         <div className="flex items-center gap-4">
           <div className="me-1 flex items-center gap-2">
+            {organization && (
+              <Suspense fallback={null}>
+                <AICreditsQuotaDropdown />
+              </Suspense>
+            )}
             {project && isEditorDrawerVisible && (
               <Suspense fallback={<div className="size-10" />}>
                 <VisualEditorDrawer />

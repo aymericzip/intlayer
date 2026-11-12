@@ -5,6 +5,7 @@
 import { exec } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { EDITOR_SERVER_PORT_ENV_VAR } from '@intlayer/config/node';
 import { runParallel } from '@intlayer/engine/utils';
 
 // Get the current file's directory
@@ -17,22 +18,24 @@ const distPath = join(__dirname, '../server/dist/index.mjs');
 // Get arguments passed to the command (ignoring "node" and the script name)
 const args = process.argv.slice(2);
 
-let env = 'production'; // Default environment
+// Development first: the editor runs next to a dev server, and a
+// `.env.production.local` would otherwise win
+let env = 'development';
 let envFile = ''; // Default to no env file
 let withCommand;
 let parallelProcess = null;
 
 // Check for --env or -e flag
-const envIndex = args.findIndex(
-  (arg) => arg === '---environment' ?? arg === '--env' ?? arg === '-e'
+const envIndex = args.findIndex((arg) =>
+  ['--environment', '--env', '-e'].includes(arg)
 );
 if (envIndex !== -1 && args[envIndex + 1]) {
   env = args[envIndex + 1]; // Get the next argument as the environment
 }
 
 // Check for --env-file or -f flag
-const envFileIndex = args.findIndex(
-  (arg) => arg === '---env-file' ?? arg === '--env-file' ?? arg === '-f'
+const envFileIndex = args.findIndex((arg) =>
+  ['--env-file', '-f'].includes(arg)
 );
 if (envFileIndex !== -1 && args[envFileIndex + 1]) {
   envFile = args[envFileIndex + 1];
@@ -44,11 +47,23 @@ if (withIndex !== -1 && args[withIndex + 1]) {
   withCommand = args[withIndex + 1];
 }
 
-if (withCommand) {
+// Line the editor server prints once listening (its port may be shifted)
+const EDITOR_RUNNING_AT_PATTERN =
+  /Editor running at:\s+https?:\/\/[^:\s]+:(\d+)/;
+
+/**
+ * Starts the `--with` command once the editor server listens: its port turns
+ * the editor on for the application, at the URL the server is served at,
+ * without editing the configuration file.
+ */
+const startWithCommand = (editorServerPort) => {
+  if (!withCommand || parallelProcess) return;
+
+  process.env[EDITOR_SERVER_PORT_ENV_VAR] = editorServerPort;
   parallelProcess = runParallel(withCommand);
   // Suppress unhandled rejection — lifecycle is managed by the editor server's close handler
   parallelProcess.result.catch(() => {});
-}
+};
 
 if (args[0] === 'start') {
   // Start the server pointing to the package's 'dist' directory
@@ -64,6 +79,13 @@ if (args[0] === 'start') {
   // Pipe child's stdout and stderr to the parent process
   child.stdout.on('data', (data) => {
     process.stdout.write(data);
+
+    const editorServerPort = EDITOR_RUNNING_AT_PATTERN.exec(
+      // oxlint-disable-next-line no-control-regex -- ANSI escapes
+      data.toString().replace(/\u001b\[[0-9;]*m/g, '')
+    )?.[1];
+
+    if (editorServerPort) startWithCommand(editorServerPort);
   });
 
   child.stderr.on('data', (data) => {

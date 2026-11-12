@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from 'storybook/test';
-
 import { EditableFieldTextArea } from '.';
 
 /**
@@ -214,7 +213,7 @@ export const TextAreaVariants: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div>
-        <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
+        <h3 className="mb-2 text-sm font-medium">Default Variant</h3>
         <EditableFieldTextArea
           defaultValue="Default styled textarea with multiple lines\nand proper formatting preservation."
           variant="default"
@@ -224,7 +223,7 @@ export const TextAreaVariants: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Invisible Variant</h3>
+        <h3 className="mb-2 text-sm font-medium">Invisible Variant</h3>
         <EditableFieldTextArea
           defaultValue="Invisible styled textarea perfect for\nclean content management interfaces."
           variant="invisible"
@@ -234,7 +233,7 @@ export const TextAreaVariants: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
+        <h3 className="mb-2 text-sm font-medium">Default Variant</h3>
         <EditableFieldTextArea
           defaultValue="Default styled textarea with\nclear visual boundaries for form contexts."
           variant="default"
@@ -273,7 +272,7 @@ export const AutoSizingOptions: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div>
-        <h4 className="mb-2 font-medium text-sm">
+        <h4 className="mb-2 text-sm font-medium">
           Auto-size Enabled (Max 5 rows)
         </h4>
         <EditableFieldTextArea
@@ -285,7 +284,7 @@ export const AutoSizingOptions: Story = {
       </div>
 
       <div>
-        <h4 className="mb-2 font-medium text-sm">
+        <h4 className="mb-2 text-sm font-medium">
           Fixed Height (Auto-size Disabled)
         </h4>
         <EditableFieldTextArea
@@ -296,7 +295,7 @@ export const AutoSizingOptions: Story = {
       </div>
 
       <div>
-        <h4 className="mb-2 font-medium text-sm">
+        <h4 className="mb-2 text-sm font-medium">
           Large Max Rows (Max 15 rows)
         </h4>
         <EditableFieldTextArea
@@ -477,7 +476,7 @@ export const CodeSnippetContent: Story = {
     <div className="max-w-lg p-4">
       <label
         htmlFor="editableFieldTextArea-code-snippet"
-        className="mb-2 block font-medium text-sm"
+        className="mb-2 block text-sm font-medium"
       >
         Code Snippet
       </label>
@@ -540,7 +539,7 @@ After completing the setup, you can:
     <div className="max-w-2xl p-4">
       <label
         htmlFor="editableFieldTextArea-documentation-content"
-        className="mb-2 block font-medium text-sm"
+        className="mb-2 block text-sm font-medium"
       >
         Documentation Content
       </label>
@@ -579,7 +578,7 @@ After completing the setup, you can:
 export const KeyboardNavigation: Story = {
   render: () => (
     <div className="space-y-4 p-4">
-      <div className="mb-4 rounded-lg bg-blue-50 p-3 text-gray-600 text-sm">
+      <div className="mb-4 rounded-lg bg-blue-50 p-3 text-sm text-gray-600">
         <p className="mb-1 font-medium">Keyboard Navigation Test:</p>
         <ul className="space-y-1 text-xs">
           <li>• Tab: Navigate between text areas</li>
@@ -642,13 +641,13 @@ export const KeyboardNavigation: Story = {
 export const BlogPostEditor: Story = {
   render: () => (
     <div className="mx-auto max-w-4xl rounded-lg border border-gray-200 bg-white p-6">
-      <h2 className="mb-6 font-semibold text-xl">Blog Post Editor</h2>
+      <h2 className="mb-6 text-xl font-semibold">Blog Post Editor</h2>
 
       <div className="space-y-6">
         <div>
           <label
             htmlFor="editableFieldTextArea-post-title"
-            className="mb-2 block font-medium text-gray-700 text-sm"
+            className="mb-2 block text-sm font-medium text-gray-700"
           >
             Post Title
           </label>
@@ -665,7 +664,7 @@ export const BlogPostEditor: Story = {
         <div>
           <label
             htmlFor="editableFieldTextArea-introduction"
-            className="mb-2 block font-medium text-gray-700 text-sm"
+            className="mb-2 block text-sm font-medium text-gray-700"
           >
             Introduction
           </label>
@@ -682,7 +681,7 @@ export const BlogPostEditor: Story = {
         <div>
           <label
             htmlFor="editableFieldTextArea-main-content"
-            className="mb-2 block font-medium text-gray-700 text-sm"
+            className="mb-2 block text-sm font-medium text-gray-700"
           >
             Main Content
           </label>
@@ -746,17 +745,17 @@ React Hooks provide a powerful way to manage state and side effects in functiona
 export const CommentSystem: Story = {
   render: () => (
     <div className="mx-auto max-w-2xl p-6">
-      <h3 className="mb-6 font-medium text-lg">User Comments</h3>
+      <h3 className="mb-6 text-lg font-medium">User Comments</h3>
 
       <div className="space-y-4">
         <div className="rounded-lg border border-gray-200 p-4">
           <div className="mb-3 flex items-center">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 font-medium text-sm text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm font-medium text-white">
               JD
             </div>
             <div className="ms-3">
-              <p className="font-medium text-gray-900 text-sm">John Doe</p>
-              <p className="text-gray-500 text-xs">2 hours ago</p>
+              <p className="text-sm font-medium text-gray-900">John Doe</p>
+              <p className="text-xs text-gray-500">2 hours ago</p>
             </div>
           </div>
           <EditableFieldTextArea
@@ -770,12 +769,12 @@ export const CommentSystem: Story = {
 
         <div className="rounded-lg border border-gray-200 p-4">
           <div className="mb-3 flex items-center">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 font-medium text-sm text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-sm font-medium text-white">
               AS
             </div>
             <div className="ms-3">
-              <p className="font-medium text-gray-900 text-sm">Alice Smith</p>
-              <p className="text-gray-500 text-xs">5 hours ago</p>
+              <p className="text-sm font-medium text-gray-900">Alice Smith</p>
+              <p className="text-xs text-gray-500">5 hours ago</p>
             </div>
           </div>
           <EditableFieldTextArea

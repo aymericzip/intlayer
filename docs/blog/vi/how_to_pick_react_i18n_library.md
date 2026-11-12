@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cách chọn đúng thư viện React i18n năm 2026"
 description: "Hướng dẫn chọn i18n cho React: những câu hỏi cần trả lời trước khi so sánh react-i18next, react-intl, Lingui, use-intl, Paraglide và Intlayer."
@@ -109,13 +109,13 @@ Kích thước thư viện được lấy từ [bài benchmark trên TanStack St
 
 | Thư viện                | Làn sóng        | Mô hình nội dung                               | An toàn kiểu                         | Định dạng message             | Kích thước thư viện                                |
 | :---------------------- | :-------------- | :--------------------------------------------- | :----------------------------------- | :---------------------------- | :------------------------------------------------- |
-| `react-i18next`         | Runtime         | JSON tập trung, namespace                      | 2/5 — Tùy chọn (`CustomTypeOptions`) | i18next (hậu tố số nhiều)     | ~18.4 kB                                           |
-| `react-intl` (FormatJS) | Runtime         | JSON tập trung, ICU                            | 2/5 — Tùy chọn (trích xuất + union)  | ICU                           | ~15.3 kB                                           |
-| `use-intl`              | Server-first    | JSON tập trung, ICU                            | 2/5 — Tùy chọn (declaration merging) | ICU                           | ~14.1 kB                                           |
-| `@tolgee/react`         | Runtime         | Tập trung, chỉnh sửa trực tiếp (in-context)    | 1/5 — Không                          | ICU                           | ~11.1 kB                                           |
-| Lingui                  | Macro           | Văn bản nguồn trong code, catalog đã biên dịch | 2/5 — Tốt, từ trình biên dịch        | ICU qua macro                 | ~11.8 kB                                           |
-| Paraglide               | Trình biên dịch | Dự án inlang, sinh ra các hàm                  | 3.5/5 — Tự động tạo                  | Riêng                         | Gần như bằng 0 (do mã được sinh ra trong codebase) |
-| Intlayer                | Trình biên dịch | `.content.ts` theo từng component              | 5/5 — Tự động tạo, bật mặc định      | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                            |
+| `react-i18next`         | Runtime         | JSON tập trung, namespace                      | 2/5 - Tùy chọn (`CustomTypeOptions`) | i18next (hậu tố số nhiều)     | ~18.4 kB                                           |
+| `react-intl` (FormatJS) | Runtime         | JSON tập trung, ICU                            | 2/5 - Tùy chọn (trích xuất + union)  | ICU                           | ~15.3 kB                                           |
+| `use-intl`              | Server-first    | JSON tập trung, ICU                            | 2/5 - Tùy chọn (declaration merging) | ICU                           | ~14.1 kB                                           |
+| `@tolgee/react`         | Runtime         | Tập trung, chỉnh sửa trực tiếp (in-context)    | 1/5 - Không                          | ICU                           | ~11.1 kB                                           |
+| Lingui                  | Macro           | Văn bản nguồn trong code, catalog đã biên dịch | 2/5 - Tốt, từ trình biên dịch        | ICU qua macro                 | ~11.8 kB                                           |
+| Paraglide               | Trình biên dịch | Dự án inlang, sinh ra các hàm                  | 3.5/5 - Tự động tạo                  | Riêng                         | Gần như bằng 0 (do mã được sinh ra trong codebase) |
+| Intlayer                | Trình biên dịch | `.content.ts` theo từng component              | 5/5 - Tự động tạo, bật mặc định      | Intlayer (+ ICU, i18next, PO) | ~5.0 kB                                            |
 
 > Các con số là ảnh chụp nhanh tại các phiên bản benchmark và có thể thay đổi theo các bản phát hành. Hãy chạy benchmark trên chính ứng dụng của bạn trước khi đưa ra quyết định chỉ dựa vào kích thước.
 > An toàn kiểu: 5/5 nghĩa là khóa, tham số và mọi locale đều được kiểm tra mà không cần thiết lập thủ công, bao gồm cả trình định dạng URL và các helper.

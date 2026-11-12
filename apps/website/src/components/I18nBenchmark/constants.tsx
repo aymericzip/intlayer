@@ -7,7 +7,6 @@ import LinguiLogo from './logo/lingui.svg';
 import NextInternationalLogo from './logo/next-international.png';
 import NextIntlLogo from './logo/next-intl.svg';
 import NextTranslateLogo from './logo/next-translate.svg';
-import ParaglideLogo from './logo/paraglide.svg';
 import ParaglideJSLogo from './logo/paragrlidejs.png';
 import SolidPrimitivesI18nLogo from './logo/solid-primitive.png';
 import SvelteI18nLogo from './logo/svelte-i18n.png';
@@ -141,8 +140,8 @@ const LIB_LOGOS: Record<string, string> = {
   'gt-react': GTLogo,
   gt: GTLogo,
   tolgee: TolgeeLogo,
-  'paraglide-next': ParaglideLogo,
-  paraglide: ParaglideLogo,
+  'paraglide-next': ParaglideJSLogo,
+  paraglide: ParaglideJSLogo,
   'paraglide-js': ParaglideJSLogo,
   'lingo.dev': LingoDevLogo,
   'react-intl': FormatJSLogo,

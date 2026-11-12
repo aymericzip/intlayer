@@ -10,7 +10,7 @@ export const ServerComponentExample: FC = () => {
 
   return (
     <div className="mt-8 rounded border p-4">
-      <h2 className="font-semibold text-2xl">{title}</h2>
+      <h2 className="text-2xl font-semibold">{title}</h2>
       <p className="mt-2">{description}</p>
     </div>
   );

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-29
+updatedAt: 2026-10-08
 priority: 9
 title: "Elysia i18n - Повний посібник щодо перекладу вашого додатка"
 description: "Налаштування Intlayer в Elysia: визначення локалі для кожного запиту через плагін, переклад відповідей API та типізований контент на Bun."
@@ -347,7 +347,7 @@ export default config;
 .intlayer
 ```
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 
@@ -372,7 +372,7 @@ export default config;
 </Question>
 <Question title="Чи можу я мігрувати з `i18next` без переписування обробників?">
 
-Так, і є два шляхи. Ви можете поступово мігрувати вміст за допомогою [посібника з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md). Або ви можете повністю зберегти поточний API: [compat-адаптери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) надають точно такий самий API, як `i18next`, але обслуговуються словниками Intlayer, тож змінюються лише імпорти, а код обробників — ні.
+Так, і є два шляхи. Ви можете поступово мігрувати вміст за допомогою [посібника з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md). Або ви можете повністю зберегти поточний API: [compat-адаптери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md) надають точно такий самий API, як `i18next`, але обслуговуються словниками Intlayer, тож змінюються лише імпорти, а код обробників - ні.
 
 - [посібник з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md)
 - [compat-адаптери](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)
@@ -474,7 +474,7 @@ export default config;
 </Question>
 <Question title="Чи є Intlayer безкоштовним та відкритим кодом?">
 
-Так, за ліцензією Apache 2.0, включно з комерційним використанням. Хмарна [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) — це необов'язковий платний сервіс, який також можна [розгорнути на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
+Так, за ліцензією Apache 2.0, включно з комерційним використанням. Хмарна [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) - це необов'язковий платний сервіс, який також можна [розгорнути на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md).
 
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 - [розгортання на власному сервері](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)

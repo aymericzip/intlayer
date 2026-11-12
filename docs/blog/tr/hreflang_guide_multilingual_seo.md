@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang, çok dilli SEO rehberi"
 description: "Hreflang nedir, arama motorlarının uyguladığı kurallar, x-default neden neredeyse her zaman yanlıştır ve Next.js ile TanStack Start'ta doğru etiketler nasıl oluşturulur."
@@ -39,11 +39,11 @@ Bir sayfadaki bir ek açıklama şöyle der: _bu URL'nin orada, bu diller için 
 
 İki şey kazanırsınız: doğru sürümün doğru kullanıcıya gösterilmesi ve locale'lerinizin birbirini yutan kopyalar olarak değil de tek bir küme halinde birleştirilmesi.
 
-Ne olmadığını açık olmak gerekir. Bu **bir yönlendirme değildir** — bu bir ipuçudur ve Google bunu geçersiz kılabilir. Bu **bir sıralama artışı değildir** — hangi sürümün sıralandığını değiştirir, _sıralanıp sıralanmayacağını_ değil. Ve Bing bunu tamamen görmezden gelir, bunun yerine `content-language` ve coğrafi hedeflemesine güvenir.
+Ne olmadığını açık olmak gerekir. Bu **bir yönlendirme değildir** - bu bir ipuçudur ve Google bunu geçersiz kılabilir. Bu **bir sıralama artışı değildir** - hangi sürümün sıralandığını değiştirir, _sıralanıp sıralanmayacağını_ değil. Ve Bing bunu tamamen görmezden gelir, bunun yerine `content-language` ve coğrafi hedeflemesine güvenir.
 
 ## Nerede Beyan Etmeli
 
-Üç yerleştirme, hepsi geçerli. Birini seçin ve orada kalın — aynı küme iki yerde beyan edilirse setler farklılaşır.
+Üç yerleştirme, hepsi geçerli. Birini seçin ve orada kalın - aynı küme iki yerde beyan edilirse setler farklılaşır.
 
 **HTML `<head>`** olağan seçimdir. Bir uyarı: hidrasyon sonrası enjekte edilen etiketler güvenilir değildir. Eğer framework'ünüz onları yalnızca istemci tarafında ekliyorsa, crawler bunları asla görmeyebilir.
 
@@ -69,24 +69,24 @@ Uygulamada bu, **bir kümedeki her sayfanın özdeş bağlantı setini gönderdi
 <link rel="alternate" hreflang="fr" href="https://example.com/fr/about" />
 ```
 
-Bunun nedeni ezberlenmekten ziyade anlaşılmaya değerdir. `hreflang`, belge içi bir referanstır: arama motorları URL'ye göre anahtarlanmış bir küme oluşturur ve bunu içindeki her sayfada paylaşırlar. Göreli bir yol, yalnızca bulunduğu belgeye göre anlamlıdır, bu nedenle bunu ifade edemez. Ayrıca bir konak geçemez — ve bir alternatif sıklıkla geçer, bir locale `example.fr` veya `fr.example.com` üzerinde yaşadığında. Bir sitemap veya bir HTTP başlığında karşısında çözülmesi gereken bir temel belge yoktur.
+Bunun nedeni ezberlenmekten ziyade anlaşılmaya değerdir. `hreflang`, belge içi bir referanstır: arama motorları URL'ye göre anahtarlanmış bir küme oluşturur ve bunu içindeki her sayfada paylaşırlar. Göreli bir yol, yalnızca bulunduğu belgeye göre anlamlıdır, bu nedenle bunu ifade edemez. Ayrıca bir konak geçemez - ve bir alternatif sıklıkla geçer, bir locale `example.fr` veya `fr.example.com` üzerinde yaşadığında. Bir sitemap veya bir HTTP başlığında karşısında çözülmesi gereken bir temel belge yoktur.
 
-Bunun kodda doğrudan bir sonucu vardır. `getLocalizedUrl("/about", "fr")` `/fr/about` döndürür — giriş göreceli, çıkış göreceli. `hreflang` için mutlak bir URL sağlamanız gerekir:
+Bunun kodda doğrudan bir sonucu vardır. `getLocalizedUrl("/about", "fr")` `/fr/about` döndürür - giriş göreceli, çıkış göreceli. `hreflang` için mutlak bir URL sağlamanız gerekir:
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ düşürüldü
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-Tek istisna, göreceli değerleri render etmeden önce sizin için çözen bir framework'tür: Next.js göreceli `alternates`'i `metadataBase`'e karşı genişletir. Tamam — ancak kural **emit edilen HTML**'ye uygulanır, bu nedenle DevTools inspector'ı değil `curl` ile kontrol edin.
+Tek istisna, göreceli değerleri render etmeden önce sizin için çözen bir framework'tür: Next.js göreceli `alternates`'i `metadataBase`'e karşı genişletir. Tamam - ancak kural **emit edilen HTML**'ye uygulanır, bu nedenle DevTools inspector'ı değil `curl` ile kontrol edin.
 
 ### Dil kodları
 
 Dil için ISO 639-1, isteğe bağlı bölge için ISO 3166-1 Alpha 2: `fr`, `fr-CA`, `pt-BR`.
 
-İki tuzak neredeyse herkesi yakalar. Yalnız bir bölge geçersizdir — `hreflang="ca"` Katalanca'dır, Kanada değil; `en-CA` veya `fr-CA` gerekir. Ve `en-UK` mevcut değildir: Birleşik Krallık'ın ülke kodu `GB`'dir, bu nedenle `en-GB`'dir.
+İki tuzak neredeyse herkesi yakalar. Yalnız bir bölge geçersizdir - `hreflang="ca"` Katalanca'dır, Kanada değil; `en-CA` veya `fr-CA` gerekir. Ve `en-UK` mevcut değildir: Birleşik Krallık'ın ülke kodu `GB`'dir, bu nedenle `en-GB`'dir.
 
-Yalnızca o bölgeye gerçekten farklı içerik sunduğunuzda bir bölge ekleyin — farklı fiyatlar, farklı yasal bildirimler. `fr` ve `fr-FR` özdeş içerikte gürültüdür.
+Yalnızca o bölgeye gerçekten farklı içerik sunduğunuzda bir bölge ekleyin - farklı fiyatlar, farklı yasal bildirimler. `fr` ve `fr-FR` özdeş içerikte gürültüdür.
 
 ### x-default
 
@@ -94,7 +94,7 @@ Yalnızca o bölgeye gerçekten farklı içerik sunduğunuzda bir bölge ekleyin
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-En sık unutulan ve yanlış anlaşılan bir kavram `x-default`'dur — uygulamaların 30'undan azı bunu düzgün şekilde uygular.
+En sık unutulan ve yanlış anlaşılan bir kavram `x-default`'dur - uygulamaların 30'undan azı bunu düzgün şekilde uygular.
 
 Dili hiçbir girişinizle eşleşmeyen kullanıcılar için geri dönüş mekanizmasıdır. Bir Hollandaca konuşan kişi, İngilizce, Fransızca ve İspanyolca sunan bir sitede hiçbir girişle eşleşmez; `x-default` olmadan, Google sizin için seçim yapar.
 
@@ -116,7 +116,7 @@ Her yerelleştirilmiş sayfa **kendi canonical'ı** olmalıdır:
 Her yerel sürümün canonical'ını İngilizce sürüme işaret ettirmek yerine:
 
 ```html
-<!-- https://example.com/fr/about üzerinde — sayfayı ortadan kaldırır -->
+<!-- https://example.com/fr/about üzerinde  -  sayfayı ortadan kaldırır -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ Fransız sayfasının dizine alınmaması gereken bir kopya olduğunu söylerken
 
 | Yapı             | Örnek             | Takas                                                                    |
 | ---------------- | ----------------- | ------------------------------------------------------------------------ |
-| **Alt dizinler** | `example.com/fr/` | Bir domain, paylaşılan yetki — daha zayıf coğrafi sinyal                 |
-| **Alt alanlar**  | `fr.example.com`  | Bir bölge ekleme veya bırakma kolaydır — ayrı bir site olarak okunabilir |
-| **ccTLDs**       | `example.fr`      | En güçlü ülke sinyali — otorite her domain için oluşturulur              |
+| **Alt dizinler** | `example.com/fr/` | Bir domain, paylaşılan yetki - daha zayıf coğrafi sinyal                 |
+| **Alt alanlar**  | `fr.example.com`  | Bir bölge ekleme veya bırakma kolaydır - ayrı bir site olarak okunabilir |
+| **ccTLDs**       | `example.fr`      | En güçlü ülke sinyali - otorite her domain için oluşturulur              |
 
 Subdirectories, çoğu proje için doğru varsayılandır. ccTLDs'ye sadece gerçekten ayrı ülke işletmeleri olarak faaliyet gösterdiğinizde başvurun.
 
@@ -258,15 +258,15 @@ const sitemap = generateSitemap(
 
 Bilmeniz gereken iki seçenek:
 
-- `xhtmlLinks` (varsayılan `true`) — alternatif linkler yalnızca locale URL'leri gerçekten farklı olduğunda yayınlanır. `no-prefix` modunda her locale bir URL'i paylaşır, bu nedenle `routing.domains` locale'lere kendi hostname'lerini vermediği sürece atlanırlar.
-- `entryPerLocale` (default `false`) — varsayılan olarak bir `<url>` girişi tüm alternatifleri taşır. Her iki form de geçerlidir, ancak yalnızca `<loc>` olarak listelenen bir URL Search Console'da _gönderilen_ olarak sayılır; yalnızca alternatif olan locales keşfedilebilir ancak hiçbir sitemap'e atfedilmez. Bunu açmak her yerelleştirilmiş URL'ye tam alternatif seti tekrarlanan kendi girişini verir. Bu, giriş sayısını locale sayısı ile çarpar, bu nedenle 50 000 URL / 50 MB limitini izleyin ve bunu aşarsanız bir sitemap indeksine bölün.
+- `xhtmlLinks` (varsayılan `true`) - alternatif linkler yalnızca locale URL'leri gerçekten farklı olduğunda yayınlanır. `no-prefix` modunda her locale bir URL'i paylaşır, bu nedenle `routing.domains` locale'lere kendi hostname'lerini vermediği sürece atlanırlar.
+- `entryPerLocale` (default `false`) - varsayılan olarak bir `<url>` girişi tüm alternatifleri taşır. Her iki form de geçerlidir, ancak yalnızca `<loc>` olarak listelenen bir URL Search Console'da _gönderilen_ olarak sayılır; yalnızca alternatif olan locales keşfedilebilir ancak hiçbir sitemap'e atfedilmez. Bunu açmak her yerelleştirilmiş URL'ye tam alternatif seti tekrarlanan kendi girişini verir. Bu, giriş sayısını locale sayısı ile çarpar, bu nedenle 50 000 URL / 50 MB limitini izleyin ve bunu aşarsanız bir sitemap indeksine bölün.
 
 </Step>
 <Step number={3} title="Crawler'ın neyi aldığını doğrulayın">
 
 `hreflang` sessizce başarısız olur, bu nedenle varsaymak yerine kontrol edin.
 
-Kaynağı okuyun, inspector'ı değil — `curl https://example.com/fr/about | grep hreflang` bir crawler'ın aldığını gösterir; DevTools JavaScript çalıştıktan sonra DOM'u gösterir. Ardından her alternate'i takip edin ve aynı seti geri gösterdiğini, ve bunların hiçbirinin redirect olmadığını doğrulayın. Search Console'un International Targeting raporu, tüm site genelinde geriye kalanları yakalar.
+Kaynağı okuyun, inspector'ı değil - `curl https://example.com/fr/about | grep hreflang` bir crawler'ın aldığını gösterir; DevTools JavaScript çalıştıktan sonra DOM'u gösterir. Ardından her alternate'i takip edin ve aynı seti geri gösterdiğini, ve bunların hiçbirinin redirect olmadığını doğrulayın. Search Console'un International Targeting raporu, tüm site genelinde geriye kalanları yakalar.
 
 Çok dilli özel bir crawl için, [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) eksik etiketleri, bozuk alternates'leri ve lokalize sayfalarınızda canonical çakışmalarını kontrol eder.
 

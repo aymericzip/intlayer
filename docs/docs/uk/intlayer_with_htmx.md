@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "htmx i18n - Повний посібник для перекладу вашої програми"
 description: "Intlayer з htmx: рендеринг перекладених HTML-фрагментів на сервері, визначення локалі для кожного запиту та зміна мови без SPA."
@@ -657,13 +657,13 @@ export default config;
 
 - [документації Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
 
-### Йти далі
+### Додаткові можливості
 
 Щоб йти далі, ви можете екстерналізувати свій вміст за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб перекладачі змінювали копію без розгортання.
 
 - [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
-## Часто задавані запитання
+## Поширені запитання
 
 <FAQ>
 

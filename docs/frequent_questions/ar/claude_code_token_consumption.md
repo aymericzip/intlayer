@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 4
 title: "تقليل استهلاك رموز Claude Code عند الترجمة"
 description: "لماذا تستهلك الترجمة باستخدام Claude Code رموزًا كثيرة، وما الذي يفعله Intlayer بدلًا من ذلك، وكيف تعيد استخدام اشتراك Claude للترجمة."
@@ -119,7 +119,7 @@ npx intlayer doc review --mode report --locales fr
 claude mcp add intlayer npx -y @intlayer/mcp
 ```
 
-كما أن تثبيت [Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) عبر `npx intlayer init skills` يمنع الوكيل من تخمين واجهة برمجة تطبيقات Intlayer وإعادة قراءة التوثيق عند كل مهمة.
+كما أن تثبيت [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md) عبر `npx intlayer init skills` يمنع الوكيل من تخمين واجهة برمجة تطبيقات Intlayer وإعادة قراءة التوثيق عند كل مهمة.
 
 ### 5. إعادة استخدام اشتراك Claude عبر `claude setup-token`
 

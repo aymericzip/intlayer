@@ -291,8 +291,13 @@ totalOpenings(5); // Українська локаль → "5 вакансій"
 - **Розміщення символу `#` поза межами гілки plural.** Він має спеціальне значення лише всередині блоків `plural` або `selectordinal`. В інших місцях він сприймається як звичайний символ решітки.
 - **Забування про те, що `#` уже відформатовано.** Якщо потрібне число без регіональних розділювачів розрядів, інтерполюйте аргумент за його назвою.
 
+Тестуйте та форматуйте повідомлення ICU за допомогою безкоштовного [редактора та форматувальника повідомлень ICU](https://intlayer.org/icu-message-formatter):
+
+<ClickToOpenIframe src="https://intlayer.org/icu-message-formatter" width="100%" height="700px" style="border:none;"/>
+
 ## Корисні матеріали
 
+- [Редактор та форматувальник повідомлень ICU](https://intlayer.org/icu-message-formatter)
 - [Чому ICU не підходить для JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/why_icu_is_not_made_for_js.md)
 - [Контент множини в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
 - [Контент на основі select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/select.md)

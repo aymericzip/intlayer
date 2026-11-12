@@ -1,8 +1,9 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
-title: HTML Content
-description: Learn how to declare and use HTML content with custom components in Intlayer. Follow this documentation to embed rich HTML-like content with dynamic component replacement in your internationalized project.
+updatedAt: 2026-09-27
+priority: 8
+title: "HTML Content with Custom Components"
+description: "Declare HTML content in Intlayer and replace tags with your own components at render time, for rich translated text without dangerouslySetInnerHTML."
 keywords:
   - HTML
   - Custom Components
@@ -13,18 +14,27 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Remix
+  - Astro
 slugs:
   - doc
   - concept
   - content
   - html
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/html`"
   - version: 8.0.0
     date: 2026-01-22
-    changes: Add HTMLRenderer / useHTMLRenderer / renderHTML utility
+    changes: "Add HTMLRenderer / useHTMLRenderer / renderHTML utility"
   - version: 8.0.0
     date: 2026-01-20
-    changes: Add HTML parsing support
+    changes: "Add HTML parsing support"
+author: aymericzip
 ---
 
 # HTML Content / HTML in Intlayer
@@ -228,6 +238,83 @@ When you access content via `useIntlayer`, HTML nodes are already prepared for r
     ```
 
   </Tab>
+  <Tab label="Remix" value="remix">
+    In Remix 3, HTML nodes resolve to an HTML string. Inject it with the `innerHTML` prop of Remix JSX, or with `html.raw` in an `html-template` view.
+
+    ```tsx fileName="src/views/home.tsx"
+    import { useIntlayer } from "remix-intlayer";
+
+    export const HomePage = () => () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return <div innerHTML={myHtmlContent.value} />;
+    };
+    ```
+
+    ```ts fileName="src/views/home.ts"
+    import { html } from "remix/html-template";
+    import { useIntlayer } from "remix-intlayer";
+
+    export const renderHomePage = () => {
+      const { myHtmlContent } = useIntlayer("app");
+
+      return html.raw`<div>${myHtmlContent.value}</div>`;
+    };
+    ```
+
+    > Remix escapes interpolated values by default. `innerHTML` and `html.raw` are the two opt-outs, which is what an HTML string needs.
+
+    Use the `.use()` method to override tags or map custom components. Overrides are functions returning an HTML string:
+
+    ```tsx
+    <div
+      innerHTML={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    In Astro, HTML nodes resolve to an HTML string. Inject it with the `set:html` directive in the template, or with `innerHTML` in a client `<script>`.
+
+    ```astro fileName="src/pages/index.astro"
+    ---
+    import { useIntlayer } from "astro-intlayer";
+
+    const { myHtmlContent } = useIntlayer("app");
+    ---
+
+    <div set:html={myHtmlContent.value} />
+    ```
+
+    ```astro fileName="src/components/Content.astro"
+    <div id="content"></div>
+
+    <script>
+      import { useIntlayer } from "astro-intlayer";
+
+      const { myHtmlContent } = useIntlayer("app");
+
+      document.querySelector("#content")!.innerHTML = myHtmlContent.value;
+    </script>
+    ```
+
+    > Astro escapes `{expressions}` by default. `set:html` is the opt-out, which is what an HTML string needs.
+
+    Use the `.use()` method to override tags or map custom components. Overrides are functions returning an HTML string:
+
+    ```astro
+    <div
+      set:html={myHtmlContent.use({
+        p: ({ children }) => `<p class="prose">${children}</p>`,
+        CustomLink: ({ children }) => `<a href="/details">${children}</a>`,
+      })}
+    />
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Global Configuration with `HTMLProvider`
@@ -252,6 +339,25 @@ You can configure HTML rendering globally for your entire application. This is i
     );
     ```
 
+    You can also use your own HTML renderer:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Importing your HTML renderer dynamically is a good way to reduce the bundle size of your application.
+
   </Tab>
   <Tab label="Vue" value="vue">
 
@@ -274,12 +380,35 @@ You can configure HTML rendering globally for your entire application. This is i
     app.mount("#app");
     ```
 
+    You can also use your own HTML renderer:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Importing your HTML renderer dynamically is a good way to reduce the bundle size of your application.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { HTMLProvider } from "svelte-intlayer";
+      import { HTMLProvider } from "svelte-intlayer/html";
       import MyCustomP from "./MyCustomP.svelte";
     </script>
 
@@ -291,6 +420,25 @@ You can configure HTML rendering globally for your entire application. This is i
       <slot />
     </HTMLProvider>
     ```
+
+    You can also use your own HTML renderer:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > Importing your HTML renderer dynamically is a good way to reduce the bundle size of your application.
 
   </Tab>
   <Tab label="Preact" value="preact">
@@ -309,6 +457,25 @@ You can configure HTML rendering globally for your entire application. This is i
     );
     ```
 
+    You can also use your own HTML renderer:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Importing your HTML renderer dynamically is a good way to reduce the bundle size of your application.
+
   </Tab>
   <Tab label="Solid" value="solid">
 
@@ -325,6 +492,25 @@ You can configure HTML rendering globally for your entire application. This is i
       </HTMLProvider>
     );
     ```
+
+    You can also use your own HTML renderer:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Importing your HTML renderer dynamically is a good way to reduce the bundle size of your application.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -343,6 +529,60 @@ You can configure HTML rendering globally for your entire application. This is i
       ],
     };
     ```
+
+    You can also use your own HTML renderer:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Importing your HTML renderer dynamically is a good way to reduce the bundle size of your application.
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+    Remix has no component tree to hold a provider, so the configuration is installed once, as a singleton, at server start. It configures the renderer returned by `useHTMLRenderer()`. The `html` nodes returned by `useIntlayer` are rendered as-is; override their tags per node with `.use()`.
+
+    ```typescript fileName="src/router.ts"
+    import { installIntlayerHTML } from "remix-intlayer/html";
+
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+    ```
+
+    > Use `installIntlayerHTMLDynamic(async () => …)` to load the renderer itself lazily; the loader runs on the first call only.
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+
+    Astro has no component tree to hold a provider, so the configuration is installed once, as a singleton, in the middleware (server) and in a client `<script>` (browser). It configures the renderer returned by `useHTMLRenderer()`. The `html` nodes returned by `useIntlayer` are rendered as-is; override their tags per node with `.use()`.
+
+    ```typescript fileName="src/middleware.ts"
+    import { installIntlayerHTML } from "astro-intlayer/html";
+    import { defineMiddleware } from "astro:middleware";
+
+    // Runs once when the server starts; the Intlayer middleware itself is
+    // registered by the integration, ahead of this file.
+    installIntlayerHTML({
+      renderHTML: (html) => html.replaceAll("<p>", '<p class="prose">'),
+    });
+
+    export const onRequest = defineMiddleware((_context, next) => next());
+    ```
+
+    > Use `installIntlayerHTMLDynamic(async () => …)` to load the renderer itself lazily; the loader runs on the first call only.
 
   </Tab>
 </Tabs>
@@ -395,7 +635,7 @@ If you need to render raw HTML strings or have more control over the component m
 
     ```vue
     <script setup>
-    import { HTMLRenderer } from "vue-intlayer";
+    import { HTMLRenderer } from "vue-intlayer/html";
     </script>
 
     <template>
@@ -501,19 +741,73 @@ If you need to render raw HTML strings or have more control over the component m
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### `IntlayerMarkdownService` Service
+    #### `IntlayerHTMLService` Service
     Render an HTML string using the service.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
-      constructor(private markdownService: IntlayerMarkdownService) {}
+      constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
+    ```
+
+  </Tab>
+  <Tab label="Remix" value="remix">
+    #### `useHTMLRenderer()` Hook
+
+    Get a renderer function pre-configured by `installIntlayerHTML()`. It returns an HTML string.
+
+    ```tsx
+    import { useHTMLRenderer } from "remix-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+
+    return <div innerHTML={renderHTML("<p>Hello <strong>World</strong></p>")} />;
+    ```
+
+    #### `renderHTML()` Utility
+
+    Standalone utility that ignores the global configuration.
+
+    ```tsx
+    import { renderHTML } from "remix-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ```
+
+  </Tab>
+  <Tab label="Astro" value="astro">
+    #### `useHTMLRenderer()` Hook
+
+    Get a renderer function pre-configured by `installIntlayerHTML()`. It returns an HTML string.
+
+    ```astro
+    ---
+    import { useHTMLRenderer } from "astro-intlayer/html";
+
+    const renderHTML = useHTMLRenderer();
+    ---
+
+    <div set:html={renderHTML("<p>Hello <strong>World</strong></p>")} />
+    ```
+
+    #### `renderHTML()` Utility
+
+    Standalone utility that ignores the global configuration.
+
+    ```astro
+    ---
+    import { renderHTML } from "astro-intlayer/html";
+
+    const html = renderHTML("<p>Hello</p>");
+    ---
+
+    <div set:html={html} />
     ```
 
   </Tab>
@@ -523,9 +817,9 @@ If you need to render raw HTML strings or have more control over the component m
 
 These options can be passed to `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer`, and `renderHTML`.
 
-| Option       | Type                  | Default | Description                                                                                                |
-| :----------- | :-------------------- | :------ | :--------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`    | A map of HTML tags or custom component names to components.                                                |
-| `renderHTML` | `Function`            | `null`  | A custom rendering function to completely replace the default HTML parser (Only for Vue/Svelte providers). |
+| Option       | Type                  | Default | Description                                                                                                         |
+| :----------- | :-------------------- | :------ | :------------------------------------------------------------------------------------------------------------------ |
+| `components` | `Record<string, any>` | `{}`    | A map of HTML tags or custom component names to components.                                                         |
+| `renderHTML` | `Function`            | `null`  | A custom rendering function to completely replace the default HTML parser (Vue, Svelte, Remix and Astro providers). |
 
 > Note: For React and Preact, standard HTML tags are automatically provided. You only need to pass the `components` prop if you want to override them or add custom components.

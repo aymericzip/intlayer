@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 5
 title: getDictionary 函数文档 | intlayer
 description: "使用 getDictionary 解析你传入的字典对象，应用所有内容插件后获取某个语言的内容。"

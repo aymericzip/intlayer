@@ -1,10 +1,23 @@
 import { z } from 'zod/mini';
 import {
+  type AnalyticsAnnotation,
+  type AnalyticsReport,
+  type AnalyticsSchemaInfo,
+  analyticsAnnotationSchema,
+  analyticsAnnotationsQuerySchema,
+  analyticsRealtimeReportRequestSchema,
+  analyticsReportRequestSchema,
+  analyticsReportSchema,
+  analyticsSchemaInfoSchema,
+} from './analyticsReport';
+import {
   defineRoute,
   defineRouteGroup,
   type RouteBodyInput,
 } from './defineRoute';
 import { type ResponseData, responseDataSchema } from './responseData';
+
+export * from './analyticsReport';
 
 /** Kind of analytics event sent by the SDK. */
 export const analyticsEventTypeSchema = z.enum([
@@ -31,8 +44,12 @@ export const incomingAnalyticsEventSchema = z.looseObject({
   value: z.optional(z.number()),
 });
 
-/** Time windows of the audience report. */
+/**
+ * Time windows of the audience report. `live` covers the sessions active in the
+ * last 30 minutes, bucketed per minute.
+ */
 export const audienceRangeSchema = z.enum([
+  'live',
   '1h',
   '24h',
   '7d',
@@ -64,6 +81,87 @@ const audienceBreakdownRowSchema = z.object({
   views: z.number(),
 });
 
+/** A session active in the `live` window, placed on the map. */
+export const liveVisitorSchema = z.object({
+  /** Opaque, non-reversible visitor id (prefix of the hashed session). */
+  visitorId: z.string(),
+  /** ISO country code, `ZZ` when unknown. */
+  country: z.string(),
+  /** City reported by the CDN, when available. */
+  city: z.optional(z.string()),
+  /** City-level latitude (rounded to ~1 km), when available. */
+  latitude: z.optional(z.number()),
+  /** City-level longitude (rounded to ~1 km), when available. */
+  longitude: z.optional(z.number()),
+  /** Locale the visitor is browsing in. */
+  locale: z.optional(z.string()),
+  /** Page of the visitor's latest activity. */
+  currentUrl: z.string(),
+  /** Pages the visitor was active on during the window. */
+  pageCount: z.number(),
+  /** Page views during the window. */
+  views: z.number(),
+  /** ISO date of the visitor's first activity in the window. */
+  firstSeenAt: z.string(),
+  /** ISO date of the visitor's latest activity. */
+  lastSeenAt: z.string(),
+  /** Minutes (`YYYY-MM-DDTHH:mm`, UTC) the visitor was active in, oldest first. */
+  activeMinutes: z.array(z.string()),
+});
+
+/** One step of a live visitor's journey, oldest first. */
+export const liveVisitorFlowStepSchema = z.object({
+  url: z.string(),
+  locale: z.optional(z.string()),
+  /** ISO date the visitor reached the page. */
+  firstSeenAt: z.string(),
+  /** ISO date of the visitor's latest activity on the page. */
+  lastSeenAt: z.string(),
+  views: z.number(),
+});
+
+/**
+ * Page journey of one live visitor over the `live` window. `visitor` is `null`
+ * once the session has left the window (not an error: it simply went quiet).
+ */
+export const liveVisitorFlowSchema = z.object({
+  visitor: z.nullable(liveVisitorSchema),
+  steps: z.array(liveVisitorFlowStepSchema),
+});
+
+/**
+ * Pseudo-page a session starts from. Used as the flow's starting page, the
+ * next step lists the landing pages.
+ */
+export const PAGE_FLOW_ENTRANCE = '(entrance)';
+
+/** One page of a flow step; `url` is `null` for the "other pages" bucket. */
+export const pageFlowNodeSchema = z.object({
+  url: z.nullable(z.string()),
+  /** Average navigations reaching this page at this step. */
+  value: z.number(),
+  /** Part of `value` that left the site from this page (`null` if unknown). */
+  exits: z.nullable(z.number()),
+});
+
+/** Average navigations from a page of one step to a page of the next. */
+export const pageFlowLinkSchema = z.object({
+  /** Step of the source page; the target is on `fromStep + 1`. */
+  fromStep: z.number(),
+  fromUrl: z.nullable(z.string()),
+  toUrl: z.nullable(z.string()),
+  value: z.number(),
+});
+
+/** Averaged navigation flow starting from one page. */
+export const pageFlowSchema = z.object({
+  startUrl: z.string(),
+  range: audienceRangeSchema,
+  /** Pages per step, the starting page alone on step 0. */
+  steps: z.array(z.array(pageFlowNodeSchema)),
+  links: z.array(pageFlowLinkSchema),
+});
+
 export const audienceStatsSchema = z.object({
   usersToday: z.number(),
   usersLast7Days: z.number(),
@@ -76,6 +174,10 @@ export const audienceStatsSchema = z.object({
   byLocale: z.array(audienceBreakdownRowSchema),
   byCountry: z.array(audienceBreakdownRowSchema),
   byPage: z.array(audienceBreakdownRowSchema),
+  /** Active sessions with their location — `live` range only. */
+  liveVisitors: z.optional(z.array(liveVisitorSchema)),
+  /** First UTC day with collected data (`YYYY-MM-DD`), `null` before any. */
+  dataSince: z.nullable(z.string()),
 });
 
 const analyticsOverviewRowSchema = z.object({
@@ -158,6 +260,30 @@ export const analyticsContract = defineRouteGroup({
         response: { 200: responseDataSchema(audienceStatsSchema) },
       },
     }),
+    getLiveVisitorFlow: defineRoute({
+      method: 'GET',
+      path: '/audience/live/visitors/:visitorId',
+      summary: 'Page journey of a visitor active in the last 30 minutes',
+      schemas: {
+        params: z.object({
+          visitorId: z.string().check(z.regex(/^[a-f0-9]{16}$/)),
+        }),
+        response: { 200: responseDataSchema(liveVisitorFlowSchema) },
+      },
+    }),
+    getPageFlow: defineRoute({
+      method: 'GET',
+      path: '/page-flow',
+      summary: 'Average page-to-page navigation flow from a starting page',
+      schemas: {
+        querystring: z.object({
+          range: z.optional(z.string()),
+          /** Starting page pathname; defaults to `/`. */
+          startUrl: z.optional(z.string()),
+        }),
+        response: { 200: responseDataSchema(pageFlowSchema) },
+      },
+    }),
     getContentStats: defineRoute({
       method: 'GET',
       path: '/content-stats',
@@ -173,6 +299,46 @@ export const analyticsContract = defineRouteGroup({
       schemas: {
         params: z.object({ experimentKey: z.string().check(z.minLength(1)) }),
         response: { 200: responseDataSchema(experimentResultSchema) },
+      },
+    }),
+    getAnalyticsSchema: defineRoute({
+      method: 'GET',
+      path: '/schema',
+      summary:
+        'Report dimensions, metrics, their compatibility, retention and experiments',
+      schemas: {
+        response: { 200: responseDataSchema(analyticsSchemaInfoSchema) },
+      },
+    }),
+    runAnalyticsReport: defineRoute({
+      method: 'POST',
+      path: '/report',
+      summary:
+        'Aggregated report: metrics broken down by dimensions over date ranges',
+      schemas: {
+        body: analyticsReportRequestSchema,
+        response: { 200: responseDataSchema(analyticsReportSchema) },
+      },
+    }),
+    runAnalyticsRealtimeReport: defineRoute({
+      method: 'POST',
+      path: '/realtime-report',
+      summary: 'Aggregated activity of the last minutes (up to one hour)',
+      schemas: {
+        body: analyticsRealtimeReportRequestSchema,
+        response: { 200: responseDataSchema(analyticsReportSchema) },
+      },
+    }),
+    getAnalyticsAnnotations: defineRoute({
+      method: 'GET',
+      path: '/annotations',
+      summary:
+        'Dated content and traffic events (dictionary edits, repo syncs, new locales, experiments)',
+      schemas: {
+        querystring: analyticsAnnotationsQuerySchema,
+        response: {
+          200: responseDataSchema(z.array(analyticsAnnotationSchema)),
+        },
       },
     }),
     getPageMetadata: defineRoute({
@@ -199,6 +365,12 @@ export type AudienceGranularity = z.output<typeof audienceGranularitySchema>;
 export type AudienceSeriesPoint = z.output<typeof audienceSeriesPointSchema>;
 export type AudienceBreakdownRow = z.output<typeof audienceBreakdownRowSchema>;
 export type AudienceStats = z.output<typeof audienceStatsSchema>;
+export type LiveVisitor = z.output<typeof liveVisitorSchema>;
+export type LiveVisitorFlowStep = z.output<typeof liveVisitorFlowStepSchema>;
+export type LiveVisitorFlow = z.output<typeof liveVisitorFlowSchema>;
+export type PageFlowNode = z.output<typeof pageFlowNodeSchema>;
+export type PageFlowLink = z.output<typeof pageFlowLinkSchema>;
+export type PageFlow = z.output<typeof pageFlowSchema>;
 export type AnalyticsOverviewRow = z.output<typeof analyticsOverviewRowSchema>;
 export type ContentStatRow = z.output<typeof contentStatRowSchema>;
 export type ExperimentResult = z.output<typeof experimentResultSchema>;
@@ -212,4 +384,15 @@ export type GetAnalyticsOverviewResult = ResponseData<AnalyticsOverviewRow[]>;
 export type GetContentStatsResult = ResponseData<ContentStatRow[]>;
 export type GetExperimentResultsResult = ResponseData<ExperimentResult>;
 export type GetAudienceResult = ResponseData<AudienceStats>;
+export type GetLiveVisitorFlowResult = ResponseData<LiveVisitorFlow>;
+export type GetPageFlowResult = ResponseData<PageFlow>;
 export type GetPageMetadataResult = ResponseData<PageMetadata>;
+export type GetAnalyticsSchemaResult = ResponseData<AnalyticsSchemaInfo>;
+export type RunAnalyticsReportResult = ResponseData<AnalyticsReport>;
+export type GetAnalyticsAnnotationsResult = ResponseData<AnalyticsAnnotation[]>;
+export type RunAnalyticsReportBody = RouteBodyInput<
+  AnalyticsRoutes['runAnalyticsReport']
+>;
+export type RunAnalyticsRealtimeReportBody = RouteBodyInput<
+  AnalyticsRoutes['runAnalyticsRealtimeReport']
+>;

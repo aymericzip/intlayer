@@ -159,7 +159,7 @@ export const NodeSelector: FC = () => {
           e.preventDefault();
           setIsOpen((prev) => !prev);
         }}
-        className="flex items-center gap-1 whitespace-nowrap rounded-none px-3 py-1.5 text-sm hover:bg-accent"
+        className="flex items-center gap-1 rounded-none px-3 py-1.5 text-sm whitespace-nowrap hover:bg-accent"
       >
         <span>{getItemName(activeItem.name)}</span>
         <ChevronDown

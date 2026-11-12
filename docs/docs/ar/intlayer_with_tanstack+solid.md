@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "i18n في TanStack Start + Solid: دليل الترجمة الكامل"
 description: "إعداد Intlayer في TanStack Start مع Solid: معامل اللغة في المسارات، ومحتوى مترجم تفاعلي، وبيانات head مترجمة، وhreflang."
@@ -42,7 +42,7 @@ author: aymericzip
 
 يوضح هذا الدليل كيفية دمج **Intlayer** من أجل تدويل سلس في مشاريع Tanstack Start مع Solid.js، وتوجيه مدرك للغة، ودعم TypeScript، وممارسات التطوير الحديثة.
 
-## لماذا Intlayer على البدائل؟
+## لماذا تختار Intlayer مقارنة بالبدائل الأخرى؟
 
 بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
@@ -54,41 +54,41 @@ author: aymericzip
 </Accordion>
 <Accordion header="حجم الحزمة">
 
-بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer في **تقليل حجم حزمة JavaScript (bundle size) وصفحاتك بنسبة تصل إلى 50%**.
 
 </Accordion>
 <Accordion header="قابلية الصيانة">
 
-يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+تحديد نطاق المحتوى لكل مكوّن على حدة **يُسهّل صيانة التطبيقات الكبيرة**. يمكنك نسخ مجلد ميزة بالكامل أو حذفه دون القلق بشأن مراجعة قاعدة بيانات المحتوى بأكملها. بالإضافة إلى ذلك، فإن Intlayer **مكتوب بنظام أنواع قوي (Fully Typed)** لضمان الدقة الكاملة لمحتواك.
 
 </Accordion>
-<Accordion header="وكيل الذكاء الاصطناعي">
+<Accordion header="وكلاء الذكاء الاصطناعي (AI Agents)">
 
-يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)** و**[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+يؤدي وضع المحتوى إلى جانب المكونات (Co-location) إلى **تقليل السياق المطلوب** بواسطة نماذج اللغات الكبيرة (LLMs). كما يوفر Intlayer مجموعة أدوات متكاملة مثل **واجهة سطر الأوامر (CLI)** لفحص الترجمات المفقودة، و**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و**[خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و**[مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لتوفير أفضل تجربة تطوير لوكلاء الذكاء الاصطناعي.
 
 - [LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)
 - [MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)
-- [agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
+- [مهارات الوكلاء (Agent Skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)
 
 </Accordion>
 <Accordion header="أتمتة">
 
-استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+استخدم الأتمتة لترجمة المحتوى مباشرةً في مسار CI/CD الخاص بك باستخدام نموذج اللغة الكبير (LLM) الذي تختاره ووفق تكلفة مزود الذكاء الاصطناعي لديك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
 
 - [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
-<Accordion header="أداء">
+<Accordion header="الأداء الفائق">
 
-يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+قد يؤدي تحميل ملفات JSON ضخمة في المكونات إلى مشكلات في الأداء وسرعة الاستجابة. يعمل Intlayer على تحسين تحميل المحتوى بدقة عند وقت البناء (Build Time).
 
 </Accordion>
-<Accordion header="التحجيم مع عدم وجود مطور">
+<Accordion header="تمكين الفرق غير التقنية (Non-Developers)">
 
-أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و**[نظام إدارة محتوى كامل (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لإدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين وكتاب المحتوى وأعضاء الفريق الآخرين سلسًا للغاية. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 - [المحرّر المرئي في Intlayer: عدّل المحتوى في سياقه](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
-- [كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 </Accordion>
 </AccordionGroup>

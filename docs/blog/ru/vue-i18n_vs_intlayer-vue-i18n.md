@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-10-08
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: Одинаковый API, Разные Bundle"
 description: "Приложение Vue 3 сохраняет вызовы vue-i18n, которые обслуживает адаптер @intlayer/vue-i18n. Измерены JavaScript на страницу, размер рантайма и компонентов, утечки."
@@ -375,8 +375,8 @@ export const i18n = createI18n({ locale: "en" });
 
 Та же серия адаптеров:
 
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
+- [Сравнение next-intl и @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
+- [Сравнение i18next и @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
 - [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer-lingui.md)
 
 Прямое сравнение библиотек:

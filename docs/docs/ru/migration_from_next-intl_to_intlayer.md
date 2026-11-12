@@ -293,7 +293,7 @@ const config: IntlayerConfig = {
   ai: {
     apiKey: process.env.OPENAI_API_KEY,
     // provider: "openai",     // по умолчанию
-    // model: "gpt-4o-mini",   // по умолчанию
+    // model: "gpt-5.6-terra",   // по умолчанию
   },
 };
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-10
 priority: 6
 title: "Intlayer MCP Server for AI Assistants"
 description: "Connect the Intlayer MCP server to Cursor, VS Code or Claude Desktop so your AI assistant can read the docs and help set up Intlayer."
@@ -16,6 +16,9 @@ slugs:
   - doc
   - mcp-server
 history:
+  - version: 9.7.3
+    date: 2026-11-10
+    changes: "Add analytics tools and access key authentication on the remote server"
   - version: 9.3.3
     date: 2026-08-21
     changes: "Group the platform setup sections into tabs"
@@ -56,6 +59,9 @@ By enabling the Intlayer MCP Server in your IDE, you unlock:
 
   > View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
+- **CMS and Analytics Access**
+  With an access key, your AI assistant can manage the dictionaries of your Intlayer CMS project and analyze its audience: traffic per locale and page, content exposure, conversions and A/B tests.
+
 ## Local server (stdio) vs Remote server (Streamable HTTP)
 
 The MCP server can be used in two ways:
@@ -73,7 +79,7 @@ This server is the recommended way to use the MCP server. As it integrates all t
 
 The MCP server can also be used remotely, using the Streamable HTTP transport method. This server is hosted by Intlayer, and is available at https://mcp.intlayer.org. This server can be accessed publicly, without any authentication, and is free to use.
 
-Note that the remote server does not integrate CLI tools, AI autocompletion, etc. The distant server is only for interaction with the documentation to help your AI assistant with the Intlayer ecosystem.
+Note that the remote server does not integrate CLI tools, AI autocompletion, etc. Without credentials, it exposes the documentation tools only. Send an access key to also use the CMS and analytics tools, see [Analytics tools](#analytics-tools).
 
 > Due to server hosting costs, the availability of the remote server cannot be guaranteed. We limit the number of simultaneous connections. We recommend using the local server (stdio) transport method for the most reliable experience.
 
@@ -289,3 +295,66 @@ npm install -g @intlayer/mcp
 # Or use directly with npx (recommended)
 npx @intlayer/mcp
 ```
+
+## Analytics tools
+
+The MCP server can answer questions such as "which locales grew this month?", "which pages do French visitors land on?" or "why did conversions drop last week?" using the analytics collected by your Intlayer CMS project.
+
+| Tool                                     | Use it for                                                                                    |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `intlayer-analytics-get-schema`          | List the available dimensions and metrics, data retention, locales and A/B experiments        |
+| `intlayer-analytics-run-report`          | Page views, visitors, landing pages, content exposure and conversions by date, locale, page…  |
+| `intlayer-analytics-run-realtime-report` | Activity of the last 60 minutes                                                               |
+| `intlayer-analytics-list-annotations`    | Dated events explaining a change: content edits, repository commits, new locales, experiments |
+| `intlayer-analytics-page-flow`           | Navigation paths from a page                                                                  |
+| `intlayer-analytics-experiment`          | A/B test result with its statistical significance                                             |
+
+Reports only contain aggregated, anonymous data. All dates are in UTC.
+
+### Authentication
+
+Create an access key in the dashboard of your project (**Project settings > Access keys**) and enable the **ANALYTICS : READ** right. Keep only the rights your assistant needs.
+
+<Tabs>
+  <Tab label="Local server (stdio)" value="local-server">
+
+Set the credentials as environment variables of the server:
+
+```json fileName=".cursor/mcp.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "command": "npx",
+      "args": ["-y", "@intlayer/mcp"],
+      "env": {
+        "INTLAYER_CLIENT_ID": "<your-client-id>",
+        "INTLAYER_CLIENT_SECRET": "<your-client-secret>"
+      }
+    }
+  }
+}
+```
+
+  </Tab>
+  <Tab label="Remote server (Streamable HTTP)" value="remote-server">
+
+Send the credentials as headers:
+
+```json fileName=".cursor/mcp.json"
+{
+  "mcpServers": {
+    "intlayer": {
+      "url": "https://mcp.intlayer.org",
+      "headers": {
+        "x-intlayer-client-id": "<your-client-id>",
+        "x-intlayer-client-secret": "<your-client-secret>"
+      }
+    }
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+> Avoid pasting your client secret in the chat: it would be stored in the conversation history.

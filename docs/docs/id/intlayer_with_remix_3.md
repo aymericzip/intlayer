@@ -38,7 +38,7 @@ Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalis
 **Remix 3** mewakili perubahan arsitektur fundamental menuju **kerangka kerja web modular dan agnostik runtime yang dibangun sepenuhnya di atas standar web**. Alih-alih terikat pada bundler tertentu atau API server proprietary, Remix 3 didistribusikan sebagai paket modular serbaguna:
 
 - **`remix/fetch-router`** (atau `remix/router`): Perutean ringan yang mematuhi standar dan dibangun di atas Fetch API (`Request` dan `Response`).
-- **`remix/ui`**: Model komponen JSX (`jsxImportSource: "remix/ui"`). Sebuah komponen adalah fungsi setup yang mengembalikan fungsi render, menerima props melalui handle bertipe.
+- **`remix/component`**: Model komponen JSX (`jsxImportSource: "remix/component"`). Sebuah komponen adalah fungsi setup yang mengembalikan fungsi render, menerima props melalui handle bertipe.
 - **`remix/middleware/render`**: Memasang `context.render(<Page />)` pada setiap permintaan, mengalirkan (streaming) pohon JSX ke HTML `Response`.
 - **`remix/node-fetch-server`**: Adapter server untuk Node.js dengan dukungan bawaan untuk Bun, Deno, dan runtime edge.
 - **`remix/cookie`**: Penguraian dan serialisasi cookie yang ditandatangani secara kriptografis.
@@ -56,7 +56,7 @@ Dibandingkan dengan solusi tradisional seperti `i18next` atau pemuat terjemahan 
 <AccordionGroup>
 <Accordion header="Cakupan Penuh Remix 3 & Standar Web">
 
-Intlayer dirancang untuk bekerja secara mulus dengan standar web (`Request`, `Response`, `Headers`, dan `URL`). `remix-intlayer` terhubung ke perute Fetch Remix 3 sebagai middleware ringan, mengekstrak lokal dari jalur URL, cookie, atau header `Accept-Language` dan mengeksposnya ke sisa permintaan, penangan, tampilan, dan komponen `remix/ui`, tanpa meneruskannya secara manual atau mengunci Anda ke runtime tertentu.
+Intlayer dirancang untuk bekerja secara mulus dengan standar web (`Request`, `Response`, `Headers`, dan `URL`). `remix-intlayer` terhubung ke perute Fetch Remix 3 sebagai middleware ringan, mengekstrak lokal dari jalur URL, cookie, atau header `Accept-Language` dan mengeksposnya ke sisa permintaan, penangan, tampilan, dan komponen `remix/component`, tanpa meneruskannya secara manual atau mengunci Anda ke runtime tertentu.
 
 </Accordion>
 <Accordion header="Deklarasi Konten yang Aman Secara Tipe">
@@ -136,14 +136,14 @@ bun add intlayer remix-intlayer remix@next
 
 - **`intlayer`**: Mesin inti internasionalisasi yang menyediakan manajemen konfigurasi, deklarasi kamus (`t()`, `Dictionary`), alat CLI, dan penerjemah runtime.
 - **`remix-intlayer`**: Integrasi Remix 3: middleware perute `intlayer()` yang menyelesaikan lokal setiap permintaan, dan hook `useIntlayer`, `useDictionary`, dan `useLocale` yang membacanya di mana pun setelahnya.
-- **`remix`**: Paket kerangka kerja terpadu Remix 3 yang mengekspor `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, dan `remix/node-fetch-server`.
+- **`remix`**: Paket kerangka kerja terpadu Remix 3 yang mengekspor `remix/router`, `remix/routes`, `remix/component`, `remix/middleware/render`, dan `remix/node-fetch-server`.
 
 </Step>
 <Step number={2} title="Konfigurasikan Intlayer">
 
 ### Arsitektur
 
-Dalam arsitektur ini, middleware `intlayer()` dari `remix-intlayer` didaftarkan di `createRouter()` sebelum middleware `render()`. Middleware ini menghapus awalan locale sebelum router mencocokkan, sehingga rute dideklarasikan sekali di `src/routes.ts` tanpa segmen `:locale`, dan menjalankan sisa permintaan di dalam cakupan `AsyncLocalStorage`, yang memungkinkan `useIntlayer` / `useLocale` membaca locale tanpa argumen di route handler dan tampilan `remix/ui`. Deklarasi konten ditempatkan bersama tampilan Anda di `src/`:
+Dalam arsitektur ini, middleware `intlayer()` dari `remix-intlayer` didaftarkan di `createRouter()` sebelum middleware `render()`. Middleware ini menghapus awalan locale sebelum router mencocokkan, sehingga rute dideklarasikan sekali di `src/routes.ts` tanpa segmen `:locale`, dan menjalankan sisa permintaan di dalam cakupan `AsyncLocalStorage`, yang memungkinkan `useIntlayer` / `useLocale` membaca locale tanpa argumen di route handler dan tampilan `remix/component`. Deklarasi konten ditempatkan bersama tampilan Anda di `src/`:
 
 ```bash
 .
@@ -297,7 +297,7 @@ Remix 3 menyediakan pipa middleware yang dapat disusun melalui `createRouter({ m
 2. Lokal yang disimpan oleh klien: cookie penyimpanan (`INTLAYER_LOCALE`) atau header kustom (`x-intlayer-locale`).
 3. Negosiasi standar `Accept-Language`, kembali ke `defaultLocale` yang Anda konfigurasikan.
 
-Hasilnya disimpan dalam konteks permintaan Remix sebagai `context.intlayer` (atau `context.get(Intlayer)`), dengan `locale`, `defaultLocale`, dan `availableLocales`. Middleware kemudian menjalankan sisa permintaan di dalam cakupan `AsyncLocalStorage` yang terikat pada konteks tersebut, yang memungkinkan hook dari paket membaca lokal tanpa argumen, baik di penangan rute, tampilan, maupun komponen `remix/ui`:
+Hasilnya disimpan dalam konteks permintaan Remix sebagai `context.intlayer` (atau `context.get(Intlayer)`), dengan `locale`, `defaultLocale`, dan `availableLocales`. Middleware kemudian menjalankan sisa permintaan di dalam cakupan `AsyncLocalStorage` yang terikat pada konteks tersebut, yang memungkinkan hook dari paket membaca lokal tanpa argumen, baik di penangan rute, tampilan, maupun komponen `remix/component`:
 
 ```typescript
 import { useIntlayer, useLocale } from "remix-intlayer";
@@ -340,14 +340,14 @@ routes.localizedHome.href({ locale: "id" }); // "/id"
 </Step>
 <Step number={7} title="Render Halaman Terlokalisasi dengan JSX">
 
-Remix 3 menggunakan `remix/ui` untuk komponen JSX. Sebuah komponen adalah **fungsi setup** yang mengembalikan **fungsi render**. Props diteruskan melalui `handle` yang bertipe (misalnya, `handle.props.locale`):
+Remix 3 menggunakan `remix/component` untuk komponen JSX. Sebuah komponen adalah **fungsi setup** yang mengembalikan **fungsi render**. Props diteruskan melalui `handle` yang bertipe (misalnya, `handle.props.locale`):
 
 Mulailah dengan shell `Document` bersama yang menyetel atribut `<html lang="..." dir="...">` dari lokal yang diselesaikan oleh middleware:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
 import { getHTMLTextDir } from "intlayer";
 import { useLocale } from "remix-intlayer";
-import type { Handle, RemixNode } from "remix/ui";
+import type { Handle, RemixNode } from "remix/component";
 
 type DocumentProps = {
   title: string;
@@ -526,7 +526,7 @@ bun x intlayer fill
 
 ## Konfigurasi TypeScript
 
-Konfigurasikan `tsconfig.json` untuk mengarahkan JSX ke runtime `remix/ui` dan menyertakan tipe `.intlayer` yang dihasilkan:
+Konfigurasikan `tsconfig.json` untuk mengarahkan JSX ke runtime `remix/component` dan menyertakan tipe `.intlayer` yang dihasilkan:
 
 ```json fileName="tsconfig.json"
 {
@@ -535,7 +535,7 @@ Konfigurasikan `tsconfig.json` untuk mengarahkan JSX ke runtime `remix/ui` dan m
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "react-jsx",
-    "jsxImportSource": "remix/ui",
+    "jsxImportSource": "remix/component",
     "skipLibCheck": true,
     "strict": true
   },
@@ -543,7 +543,7 @@ Konfigurasikan `tsconfig.json` untuk mengarahkan JSX ke runtime `remix/ui` dan m
 }
 ```
 
-> `jsxImportSource: "remix/ui"` adalah apa yang membuat `<HomePage />` diselesaikan ke `createElement` milik Remix dan bukan React. Tidak ada runtime React yang dimuat.
+> `jsxImportSource: "remix/component"` adalah apa yang membuat `<HomePage />` diselesaikan ke `createElement` milik Remix dan bukan React. Tidak ada runtime React yang dimuat.
 
 ## Kesimpulan
 

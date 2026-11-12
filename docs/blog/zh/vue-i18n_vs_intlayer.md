@@ -364,7 +364,7 @@ export default defineConfig({
 
 <FAQ>
 
-<Question title="Intlayer 是 vue-i18n 的替代品还是其上层的封装？">
+<Question title="Intlayer 是 vue-i18n 的替代方案还是其上层的封装？">
 
 两者兼具，取决于您的采纳方式。`vue-intlayer` 是一个拥有独立 `useIntlayer()` 组合式函数的原生运行时。`@intlayer/vue-i18n` 则是一个兼容适配器，它保留了 `vue-i18n` 的 API 并替换了其底层绑定，让您无需改动组件即可平滑迁移，随后逐个文件进行过渡。
 

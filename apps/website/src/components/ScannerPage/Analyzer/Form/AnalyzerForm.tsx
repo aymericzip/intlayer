@@ -60,7 +60,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
           toolParamDescription="Public URL of the website to audit, e.g. https://example.com"
           type="url"
           placeholder={input.placeholder.value}
-          className="flex-1 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2"
+          className="flex-1 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:outline-none"
         />
         <div className="flex items-stretch gap-2">
           <FormButton

@@ -31,7 +31,7 @@ const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
-  model: 'gpt-4o-mini',
+  model: 'gpt-6-luna',
   temperature: 0.7,
 };
 

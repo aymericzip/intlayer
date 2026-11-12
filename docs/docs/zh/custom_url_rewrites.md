@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "自定义 URL 重写：本地化路径"
 description: 了解如何在 Intlayer 中配置并使用自定义 URL 重写，以定义特定于 locale 的路径。
@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: "使用框架特定的格式化器实现集中式 URL 重写，并使用 useRewriteURL 钩子。"
+    changes: "使用框架特定的格式化器实现集中式 URL 重写，并使用 useRewriteURL Hook。"
 author: aymericzip
 ---
 
@@ -243,7 +243,7 @@ Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路�
 
 ## 客户端 URL 校正：`useRewriteURL`
 
-为确保浏览器的地址栏始终反映“友好”的本地化 URL，Intlayer 提供了 `useRewriteURL` 钩子。该钩子在用户进入一个规范路径时，会静默地使用 `window.history.replaceState` 更新 URL。
+为确保浏览器的地址栏始终反映“友好”的本地化 URL，Intlayer 提供了 `useRewriteURL` Hook。该Hook在用户进入一个规范路径时，会静默地使用 `window.history.replaceState` 更新 URL。
 
 ### 在各框架中的用法
 
@@ -341,7 +341,7 @@ export function middleware(request: NextRequest) {
 
 对于 SolidJS、Vue 和 Svelte，`intlayerProxy` Vite 插件在开发期间管理重写。
 
-> 自 Intlayer v9 起，`intlayerProxy()` 已直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的，它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 来禁用。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+> 自 Intlayer v9 起，`intlayerProxy()` 已直接内置集成到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册现在是可选的，它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 来禁用。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
 - [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)
 

@@ -1,7 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
-title: Translate Document
+updatedAt: 2026-09-27
+priority: 5
+title: "intlayer doc translate: Translate Markdown Docs"
 description: Learn how to automatically translate documentation files using AI translation services.
 keywords:
   - Translate
@@ -15,6 +16,7 @@ slugs:
   - concept
   - cli
   - doc-translate
+author: aymericzip
 ---
 
 # Translate Document
@@ -29,8 +31,20 @@ The `doc translate` command automatically translates documentation files from a 
 - Preserves existing translations by not overwriting them.
 - Processes files, chunks, and locales in parallel using a queue system to increase speed.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Arguments:

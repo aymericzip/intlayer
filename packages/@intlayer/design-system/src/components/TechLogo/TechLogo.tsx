@@ -67,6 +67,8 @@ const logoRecord: Record<TechLogoName, ReturnType<typeof dynamicLogo>> = {
   github: dynamicLogo(() => import('./logos/GitHub'), 'GitHubLogo'),
   gitlab: dynamicLogo(() => import('./logos/GitLab'), 'GitLabLogo'),
   bitbucket: dynamicLogo(() => import('./logos/Bitbucket'), 'BitbucketLogo'),
+  codeberg: dynamicLogo(() => import('./logos/Codeberg'), 'CodebergLogo'),
+  gitee: dynamicLogo(() => import('./logos/Gitee'), 'GiteeLogo'),
   google: dynamicLogo(() => import('./logos/Google'), 'GoogleLogo'),
   linkedin: dynamicLogo(() => import('./logos/LinkedIn'), 'LinkedInLogo'),
 };

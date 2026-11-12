@@ -1,6 +1,9 @@
+import type { ForgeRepository } from '@intlayer/backend-contract/gitProviders';
 import {
   useBitbucketCheckConfig,
   useBitbucketRepos,
+  useForgeCheckConfig,
+  useForgeRepos,
   useGithubCheckConfig,
   useGithubRepos,
   useGitlabCheckConfig,
@@ -9,7 +12,27 @@ import {
 import { useToast } from '@intlayer/design-system/toaster';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { isForgeProvider } from '../providers';
 import type { RepoData, RepositoryProvider } from '../types';
+
+/** Maps a Codeberg / Gitee repository to the unified repository shape. */
+const mapForgeRepository = (
+  repository: ForgeRepository,
+  provider: 'codeberg' | 'gitee'
+): RepoData => ({
+  id: repository.id,
+  name: repository.name,
+  fullName: repository.full_name,
+  url: repository.html_url,
+  defaultBranch: repository.default_branch || 'main',
+  updatedAt: repository.updated_at ?? new Date().toISOString(),
+  provider,
+  isPrivate: repository.private,
+  owner: {
+    login: repository.owner.login,
+    avatarUrl: repository.owner.avatar_url,
+  },
+});
 
 type UseRepositoryListProps = {
   selectedProvider: RepositoryProvider | null;
@@ -49,6 +72,14 @@ export const useRepositoryList = ({
     useBitbucketRepos(shouldFetchBitbucket);
   const { mutateAsync: checkBitbucketConfig } = useBitbucketCheckConfig();
 
+  const isForgeLinked = isProviderLinked === true;
+  const { data: codebergReposData, isLoading: isLoadingCodebergRepos } =
+    useForgeRepos('codeberg', selectedProvider === 'codeberg' && isForgeLinked);
+  const { mutateAsync: checkCodebergConfig } = useForgeCheckConfig('codeberg');
+  const { data: giteeReposData, isLoading: isLoadingGiteeRepos } =
+    useForgeRepos('gitee', selectedProvider === 'gitee' && isForgeLinked);
+  const { mutateAsync: checkGiteeConfig } = useForgeCheckConfig('gitee');
+
   const isLoadingRepos =
     selectedProvider === 'github'
       ? isLoadingGithubRepos
@@ -56,7 +87,11 @@ export const useRepositoryList = ({
         ? isLoadingGitlabProjects
         : selectedProvider === 'bitbucket'
           ? isLoadingBitbucketRepos
-          : false;
+          : selectedProvider === 'codeberg'
+            ? isLoadingCodebergRepos
+            : selectedProvider === 'gitee'
+              ? isLoadingGiteeRepos
+              : false;
 
   const repos: RepoData[] =
     selectedProvider === 'github'
@@ -107,7 +142,16 @@ export const useRepositoryList = ({
                 login: repo.workspace?.slug || repo.owner?.display_name || '',
               },
             }))
-          : [];
+          : selectedProvider === 'codeberg' || selectedProvider === 'gitee'
+            ? (
+                (selectedProvider === 'codeberg'
+                  ? codebergReposData
+                  : giteeReposData
+                )?.data ?? []
+              ).map((repository) =>
+                mapForgeRepository(repository, selectedProvider)
+              )
+            : [];
 
   const handleSelectRepo = async (repo: RepoData) => {
     if (!repo?.id) {
@@ -150,6 +194,17 @@ export const useRepositoryList = ({
         configPaths =
           (checkResult.data as unknown as { configPaths: string[] })
             .configPaths ?? [];
+      }
+
+      if (isForgeProvider(repo.provider)) {
+        const checkForgeConfig =
+          repo.provider === 'codeberg' ? checkCodebergConfig : checkGiteeConfig;
+        const checkResult = await checkForgeConfig({
+          owner: repo.owner?.login ?? '',
+          repository: repo.name,
+          branch: repo.defaultBranch,
+        });
+        configPaths = checkResult.data?.configPaths ?? [];
       }
 
       if (!configPaths || configPaths.length === 0) {

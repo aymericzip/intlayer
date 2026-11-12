@@ -2,7 +2,16 @@
   <app-locale-switcher></app-locale-switcher>
 
   <div
-    style="display: flex; flex-direction: column; gap: 10px; margin: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; text-align: left;"
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: left;
+    "
   >
     <h2>Formatters</h2>
     <p>Number: {{ number()(123456.789) }}</p>
@@ -39,6 +48,6 @@
 
   <hr style="margin: 20px 0" />
   <h2>Insertion</h2>
-  <p>Insertion 0: {{ content().insertion({count: 0}) }}</p>
+  <p>Insertion 0: {{ content().insertion({ count: 0 }) }}</p>
 </div>
 <router-outlet></router-outlet>

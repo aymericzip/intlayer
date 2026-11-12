@@ -10,24 +10,24 @@ const appContent = {
           Edit <code>src/App.tsx</code> and save to reload
         </>
       ),
-      fr: (
-        <>
-          Éditez <code>src/App.tsx</code> et enregistrez pour recharger
-        </>
-      ),
       es: (
         <>
           Edita <code>src/App.tsx</code> y guarda para recargar
         </>
       ),
+      fr: (
+        <>
+          Éditez <code>src/App.tsx</code> et enregistrez pour recharger
+        </>
+      ),
     }),
     reactLink: {
-      href: 'https://reactjs.org',
       content: t({
         en: 'Learn React',
-        fr: 'Apprendre React',
         es: 'Aprender React',
+        fr: 'Apprendre React',
       }),
+      href: 'https://reactjs.org',
     },
   },
 } satisfies Dictionary;

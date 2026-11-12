@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 8
 title: "Контент в зависимости от пола в Intlayer"
 description: "Адаптируйте сообщения к полу читателя с узлом gender() в Intlayer: мужской, женский и вариант по умолчанию в одном месте."
@@ -75,7 +75,7 @@ export default myGenderContent;
 <Tabs group="framework">
   <Tab label="React" value="react">
 
-To utilize gender-based content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a gender to select the appropriate output.
+Чтобы использовать гендерно-зависимый контент в компоненте React, импортируйте и примените хук `useIntlayer` из пакета `react-intlayer`. Этот хук извлекает контент по указанному ключу и позволяет передать пол (gender) для выбора нужного варианта.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -132,7 +132,7 @@ export default GenderComponent;
   </Tab>
   <Tab label="Next.js" value="nextjs">
 
-To utilize gender-based content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+Чтобы использовать гендерно-зависимый контент в клиентских компонентах Next.js, извлеките его через хук `useIntlayer`. Вот пример:
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 "use client";

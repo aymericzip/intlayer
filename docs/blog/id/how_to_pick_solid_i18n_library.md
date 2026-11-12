@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-28
+updatedAt: 2026-10-08
 priority: 8
 title: "Cara Memilih Library Solid i18n yang Tepat di Tahun 2026"
 description: "Panduan memilih i18n untuk SolidJS dan SolidStart: pertanyaan sebelum membandingkan @solid-primitives/i18n, solid-i18next, Paraglide, Lingui, dan Intlayer."
@@ -98,11 +98,11 @@ Ukuran library diambil dari [benchmark Solid](https://github.com/aymericzip/intl
 
 | Library                  | Model konten                              | Reactivity pada pergantian locale           | Keamanan tipe                           | Scoping dan lazy loading      | Ukuran library                                           |
 | :----------------------- | :---------------------------------------- | :------------------------------------------ | :-------------------------------------- | :---------------------------- | :------------------------------------------------------- |
-| `@solid-primitives/i18n` | Kamus flat yang Anda kelola               | Signal, accessor dikembalikan translator    | 3/5 — Di-infer dari kamus sumber        | Tidak ada bawaan              | ~0.6 kB                                                  |
-| `solid-i18next`          | Katalog dan namespace i18next             | Store, re-render via provider               | 2/5 — Deklarasi manual                  | Namespace, lazy backend       | ~14.9 kB                                                 |
-| Paraglide                | Proyek inlang, fungsi yang di-generate    | Dibaca per pemanggilan dari cookie/storage  | 3.5/5 — Di-generate                     | Tree-shaking (tidak di bench) | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
-| `@lingui/solid`          | Teks sumber dalam kode, katalog kompilasi | Berbasis signal                             | 2/5 — Dari compiler                     | Per katalog                   | ~11.8 kB                                                 |
-| Intlayer                 | Satu `.content.ts` per komponen           | Node berbasis signal, tanpa re-run komponen | 5/5 — Di-generate, aktif secara default | Ya, per komponen              | ~4.3 kB                                                  |
+| `@solid-primitives/i18n` | Kamus flat yang Anda kelola               | Signal, accessor dikembalikan translator    | 3/5 - Di-infer dari kamus sumber        | Tidak ada bawaan              | ~0.6 kB                                                  |
+| `solid-i18next`          | Katalog dan namespace i18next             | Store, re-render via provider               | 2/5 - Deklarasi manual                  | Namespace, lazy backend       | ~14.9 kB                                                 |
+| Paraglide                | Proyek inlang, fungsi yang di-generate    | Dibaca per pemanggilan dari cookie/storage  | 3.5/5 - Di-generate                     | Tree-shaking (tidak di bench) | Hampir nol (karena kode yang dihasilkan di dalam proyek) |
+| `@lingui/solid`          | Teks sumber dalam kode, katalog kompilasi | Berbasis signal                             | 2/5 - Dari compiler                     | Per katalog                   | ~11.8 kB                                                 |
+| Intlayer                 | Satu `.content.ts` per komponen           | Node berbasis signal, tanpa re-run komponen | 5/5 - Di-generate, aktif secara default | Ya, per komponen              | ~4.3 kB                                                  |
 
 > Angka-angka tersebut merupakan gambaran pada versi saat benchmark dilakukan. Ukuran `@lingui/solid` diambil dari benchmark TanStack Start. Jalankan pada aplikasi Anda sendiri sebelum memutuskan hanya berdasarkan ukuran.
 > Keamanan tipe: 5/5 berarti kunci, parameter, dan setiap locale diperiksa tanpa penyiapan manual, termasuk pemformat URL dan pembantu (helpers).

@@ -119,7 +119,7 @@ export const Default: Story = {
       <input
         id={args.htmlFor}
         type="email"
-        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
         placeholder="Enter your email"
       />
     </div>
@@ -158,7 +158,7 @@ export const RequiredField: Story = {
         id={args.htmlFor}
         type="password"
         required
-        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
         placeholder="Enter your password"
       />
     </div>
@@ -240,7 +240,7 @@ export const CustomStyling: Story = {
       <input
         id={args.htmlFor}
         type="text"
-        className="w-full rounded-md border border-blue-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-blue-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
         placeholder="Custom styled input"
       />
     </div>
@@ -341,7 +341,7 @@ export const DifferentFormControls: Story = {
 
       {/* Radio Buttons */}
       <div className="space-y-2">
-        <div className="font-medium text-sm">Preferred Contact Method</div>
+        <div className="text-sm font-medium">Preferred Contact Method</div>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <input
@@ -410,7 +410,7 @@ export const DifferentFormControls: Story = {
 export const ScreenReaderSupport: Story = {
   render: () => (
     <div className="max-w-md space-y-6">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         This form demonstrates proper label-control relationships for screen
         readers. Each label is properly associated with its control.
       </div>
@@ -428,7 +428,7 @@ export const ScreenReaderSupport: Story = {
             className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your username"
           />
-          <div id="username-help" className="text-gray-500 text-xs">
+          <div id="username-help" className="text-xs text-gray-500">
             Username must be at least 3 characters long
           </div>
         </div>
@@ -445,7 +445,7 @@ export const ScreenReaderSupport: Story = {
             className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Enter a strong password"
           />
-          <div id="password-help" className="text-gray-500 text-xs">
+          <div id="password-help" className="text-xs text-gray-500">
             Password must contain at least 8 characters, including uppercase,
             lowercase, and numbers
           </div>
@@ -460,7 +460,7 @@ export const ScreenReaderSupport: Story = {
             className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="(555) 123-4567"
           />
-          <div id="phone-help" className="text-gray-500 text-xs">
+          <div id="phone-help" className="text-xs text-gray-500">
             Optional. Format: (555) 123-4567
           </div>
         </div>
@@ -505,7 +505,7 @@ export const ScreenReaderSupport: Story = {
 export const KeyboardNavigation: Story = {
   render: () => (
     <form className="max-w-md space-y-4">
-      <div className="mb-4 text-gray-600 text-sm">
+      <div className="mb-4 text-sm text-gray-600">
         Use Tab to navigate between fields. Click any label to focus its
         associated input.
       </div>
@@ -604,7 +604,7 @@ export const KeyboardNavigation: Story = {
 export const RegistrationForm: Story = {
   render: () => (
     <div className="mx-auto max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-6 font-bold text-2xl">Create Account</h2>
+      <h2 className="mb-6 text-2xl font-bold">Create Account</h2>
 
       <form className="space-y-4">
         <div className="grid grid-cols-2 gap-4">

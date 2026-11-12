@@ -3,10 +3,12 @@
 import { scheduleFrameTask } from '@utils/scheduleFrameTask';
 import type { FC } from 'react';
 import { useLayoutEffect, useRef, useState } from 'react';
+import { PopoverPanel, type PopoverPanelProps } from './panel';
 import {
   type DetailProps,
   type PopoverProps,
   PopoverStatic,
+  PopoverTrigger,
   type PopoverType,
   Detail as StaticDetail,
   usePopoverIds,
@@ -253,7 +255,15 @@ const Detail: FC<DetailProps> = ({
   );
 };
 
-// Create Popover with Detail attached
-export const Popover: PopoverType = PopoverComponent as PopoverType;
+/** Client Popover: `Detail` on hover/focus, `Trigger` + `Panel` on click */
+export type DynamicPopoverType = PopoverType & {
+  Panel: FC<PopoverPanelProps>;
+};
+
+// Create Popover with Detail, Trigger and Panel attached
+export const Popover: DynamicPopoverType =
+  PopoverComponent as DynamicPopoverType;
 
 Popover.Detail = Detail;
+Popover.Trigger = PopoverTrigger;
+Popover.Panel = PopoverPanel;

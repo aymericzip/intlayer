@@ -21,7 +21,7 @@ export const ComparisonSection: FC = () => {
     <section className="py-24">
       <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
         <m.div {...fadeUp} className="mb-16 text-center">
-          <h2 className="font-bold text-3xl text-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
             {comparisonTitle}
           </h2>
         </m.div>

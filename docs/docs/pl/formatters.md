@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-10-02
+updatedAt: 2026-10-08
 priority: 8
 title: "Formattery: liczby, daty i waluty według locale"
 description: "Formatuj liczby, procenty, waluty, daty, czas względny i jednostki według locale za pomocą cache'owanych helperów Intl w Intlayer."
@@ -207,23 +207,39 @@ const MyComponent = () => {
 
 ## Vue Formatters
 
-### `Intl.DisplayNames`
+### Szybki start
 
-```ts
-import { Intl } from "intlayer";
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+  useIntl,
+} from "vue-intlayer/format";
 
-const languageNames = new Intl.DisplayNames("en", { type: "language" });
-languageNames.of("fr"); // "French"
+const currency = useCurrency();
+const percentage = usePercentage();
+</script>
 
-const regionNames = new Intl.DisplayNames("fr", { type: "region" });
-regionNames.of("US"); // "États-Unis"
+<template>
+  <div>
+    <p>Cena: {{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>Rabat: {{ percentage.value(0.25) }}</p>
+  </div>
+</template>
 ```
 
 ### Dostępne Composables
 
-Wszystkie composables zwracają computed refs, które automatycznie używają locale'a z wstrzykniętego `IntlayerProvider`.
+Wszystkie composables zwracają computed refs, które automatycznie używają locale z wstrzykniętego `IntlayerProvider`.
 
-| Composable          | Description                              | Example Output                |
+| Composable          | Opis                                     | Przykładowy wynik             |
 | ------------------- | ---------------------------------------- | ----------------------------- |
 | `useNumber()`       | Formatowanie liczb z grupowaniem         | `"123,456.789"`               |
 | `useCurrency()`     | Formatowanie wartości walut              | `"€1,234.50"`                 |
@@ -235,7 +251,7 @@ Wszystkie composables zwracają computed refs, które automatycznie używają lo
 | `useList()`         | Formatowanie tablic jako listy           | `"apple, banana, and orange"` |
 | `useIntl()`         | Pobierz obiekt `Intl` powiązany z locale | Pełny dostęp do API `Intl`    |
 
-### Kompletny Przykład
+### Kompletny przykład
 
 ```vue
 <script setup>
@@ -274,38 +290,44 @@ const unit = useUnit();
 </template>
 ```
 
-### `Intl.Collator`
+### Composable `useIntl`
 
-Do porównywania i sortowania łańcuchów znaków z uwzględnieniem lokalizacji:
+Composable `useIntl` zapewnia bezpośredni dostęp do obiektu `Intl` powiązanego z kontekstem locale. Jest to przydatne, gdy potrzebujesz pełnego API `Intl` z automatycznym wstrzykiwaniem locale.
 
-```ts
-import { Intl } from "intlayer";
+```vue
+<script setup>
+import { useIntl } from "vue-intlayer/format";
 
-const collator = new Intl.Collator("de", {
-  sensitivity: "base",
-  numeric: true,
+const intl = useIntl(); // używa locale z kontekstu
+
+// Standardowe API Intl, ale locale jest automatycznie wstrzykiwane, gdy wynosi undefined
+const formatted = new intl.value.NumberFormat(undefined, {
+  style: "currency",
+  currency: "USD",
+}).format(123.45);
+
+// Nadal możesz nadpisać locale w razie potrzeby
+const date = new intl.value.DateTimeFormat("fr-FR").format(new Date());
+
+// Dostęp do innych funkcji Intl
+const displayNames = new intl.value.DisplayNames(undefined, {
+  type: "language",
 });
+const languageName = displayNames.of("fr"); // "French" (lub zlokalizowana nazwa)
+</script>
 
-const words = ["äpfel", "zebra", "100", "20"];
-words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
+<template>
+  <div>
+    <p>{{ formatted }}</p>
+    <p>{{ date }}</p>
+    <p>{{ languageName }}</p>
+  </div>
+</template>
 ```
 
 ## Vanilla JS / Node.js Formatters
 
 W kontekstach bez frameworka, importuj formatters bezpośrednio z `intlayer`. Opcja `locale` jest opcjonalna: bez niej używana jest lokalizacja żądania, następnie zapisana lokalizacja, a na końcu `defaultLocale`.
-
-### `Intl.PluralRules`
-
-```ts
-import { Intl } from "intlayer";
-
-const pluralRules = new Intl.PluralRules("ar");
-pluralRules.select(0); // "zero"
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "two"
-pluralRules.select(3); // "few"
-pluralRules.select(11); // "many"
-```
 
 ### Funkcje formatujące
 

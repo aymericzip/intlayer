@@ -3,20 +3,20 @@ import { type Dictionary, t } from 'intlayer';
 const notFoundContent = {
   key: 'not-found-page',
   content: {
-    title: t({
-      en: 'Page Not Found',
-      fr: 'Page introuvable',
-      es: 'Página no encontrada',
+    backHome: t({
+      en: 'Back to home',
+      es: 'Volver al inicio',
+      fr: 'Retour à l’accueil',
     }),
     metaTitle: t({
       en: 'Not Found',
-      fr: 'Introuvable',
       es: 'No encontrada',
+      fr: 'Introuvable',
     }),
-    backHome: t({
-      en: 'Back to home',
-      fr: 'Retour à l’accueil',
-      es: 'Volver al inicio',
+    title: t({
+      en: 'Page Not Found',
+      es: 'Página no encontrada',
+      fr: 'Page introuvable',
     }),
   },
 } satisfies Dictionary;

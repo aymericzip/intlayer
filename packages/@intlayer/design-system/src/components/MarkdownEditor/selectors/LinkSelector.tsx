@@ -51,7 +51,7 @@ export const LinkSelector: FC = () => {
           setIsOpen((prev) => !prev);
         }}
         className={cn(
-          'flex items-center gap-1 whitespace-nowrap rounded-none px-3 py-1.5 text-sm hover:bg-accent',
+          'flex items-center gap-1 rounded-none px-3 py-1.5 text-sm whitespace-nowrap hover:bg-accent',
           editor.isActive('link') && 'text-blue-500'
         )}
       >

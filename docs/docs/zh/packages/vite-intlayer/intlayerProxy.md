@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-25
-updatedAt: 2026-06-25
+updatedAt: 2026-10-08
 priority: 5
 title: intlayerProxy Vite 插件文档 | vite-intlayer
 description: 适用于 Vite 开发/预览服务器和生产环境 SSR 的语言路由中间件。处理语言检测、URL 重定向和内部重写。
@@ -169,7 +169,7 @@ Nitro 处理器使用 h3 v2 的 Web Fetch API 事件模型（而不是 `fromNode
 
 ## 弃用的别名
 
-| 弃用的导出                 | 替代品          |
+| 弃用的导出                 | 替代方案        |
 | -------------------------- | --------------- |
 | `intlayerMiddleware`       | `intlayerProxy` |
 | `intLayerMiddlewarePlugin` | `intlayerProxy` |

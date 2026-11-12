@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-10-08
 priority: 8
 title: "Hreflang, guide for multilingual SEO"
 description: "What hreflang is, the rules search engines enforce, why x-default is almost always wrong, and how to generate correct tags in Next.js and TanStack Start."
@@ -39,11 +39,11 @@ An annotation on a page saying: _this URL has equivalent versions over there, fo
 
 It gives you two things: the correct version shown to the correct user, and your locales consolidated into one cluster instead of cannibalising each other as duplicates.
 
-It is worth being clear about what it is not. It is **not a redirect** — it is a hint, and Google may override it. It is **not a ranking boost** — it changes _which_ version ranks, not _whether_ you rank. And Bing ignores it entirely, relying on `content-language` and geo-targeting instead.
+It is worth being clear about what it is not. It is **not a redirect** - it is a hint, and Google may override it. It is **not a ranking boost** - it changes _which_ version ranks, not _whether_ you rank. And Bing ignores it entirely, relying on `content-language` and geo-targeting instead.
 
 ## Where to declare it
 
-Three placements, all valid. Pick one and stay there — the same cluster declared in two places is how sets drift apart.
+Three placements, all valid. Pick one and stay there - the same cluster declared in two places is how sets drift apart.
 
 **HTML `<head>`** is the usual choice. One caveat: tags injected after hydration are unreliable. If your framework only adds them client-side, the crawler may never see them.
 
@@ -69,24 +69,24 @@ In practice this means **every page in a cluster ships the identical set of link
 <link rel="alternate" hreflang="fr" href="https://example.com/fr/about" />
 ```
 
-The reason is worth understanding rather than memorising. `hreflang` is a cross-document reference: search engines build a cluster keyed by URL, shared across every page in it. A relative path only has meaning relative to the document it sits in, so it cannot express that. It also cannot cross a host — and an alternate very often does, when a locale lives on `example.fr` or `fr.example.com`. In a sitemap or an HTTP header there is no base document to resolve against at all.
+The reason is worth understanding rather than memorising. `hreflang` is a cross-document reference: search engines build a cluster keyed by URL, shared across every page in it. A relative path only has meaning relative to the document it sits in, so it cannot express that. It also cannot cross a host - and an alternate very often does, when a locale lives on `example.fr` or `fr.example.com`. In a sitemap or an HTTP header there is no base document to resolve against at all.
 
-This has a direct consequence in code. `getLocalizedUrl("/about", "fr")` returns `/fr/about` — relative in, relative out. For `hreflang` you must feed it an absolute URL:
+This has a direct consequence in code. `getLocalizedUrl("/about", "fr")` returns `/fr/about` - relative in, relative out. For `hreflang` you must feed it an absolute URL:
 
 ```ts
 getLocalizedUrl("/about", "fr"); // → "/fr/about"          ❌ dropped
 getLocalizedUrl("https://example.com/about", "fr"); // → "https://example.com/fr/about"  ✅
 ```
 
-The one exception is a framework that resolves relative values for you before rendering: Next.js expands relative `alternates` against `metadataBase`. Fine — but the rule applies to the **emitted HTML**, so check with `curl`, not the DevTools inspector.
+The one exception is a framework that resolves relative values for you before rendering: Next.js expands relative `alternates` against `metadataBase`. Fine - but the rule applies to the **emitted HTML**, so check with `curl`, not the DevTools inspector.
 
 ### Language codes
 
 ISO 639-1 for the language, ISO 3166-1 Alpha 2 for the optional region: `fr`, `fr-CA`, `pt-BR`.
 
-Two traps catch almost everyone. A region alone is invalid — `hreflang="ca"` is Catalan, not Canada; you need `en-CA` or `fr-CA`. And `en-UK` does not exist: the country code for the United Kingdom is `GB`, so it is `en-GB`.
+Two traps catch almost everyone. A region alone is invalid - `hreflang="ca"` is Catalan, not Canada; you need `en-CA` or `fr-CA`. And `en-UK` does not exist: the country code for the United Kingdom is `GB`, so it is `en-GB`.
 
-Only add a region when you genuinely serve that region different content — different prices, different legal notices. `fr` and `fr-FR` on identical content is noise.
+Only add a region when you genuinely serve that region different content - different prices, different legal notices. `fr` and `fr-FR` on identical content is noise.
 
 ### x-default
 
@@ -94,11 +94,11 @@ Only add a region when you genuinely serve that region different content — dif
 <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 ```
 
-One concept that is the most frequently forgotten, and badly understood, is `x-default` — less than 30% of apps implement it properly.
+One concept that is the most frequently forgotten, and badly understood, is `x-default` - less than 30% of apps implement it properly.
 
 It is the fallback for users whose language matches nothing in your set. A Dutch speaker on a site offering English, French, and Spanish matches no entry; without `x-default`, Google picks for you.
 
-What people get wrong is what it means. `x-default` is **not "the English version"** and **not "the default locale"**, even though it usually points there. It means _the page for users this set does not cover_. That is why it is legitimate — and often better — to point it at a language-selector or geo-redirecting landing page rather than at `/en`. If you have no such page, your primary language is the sensible answer.
+What people get wrong is what it means. `x-default` is **not "the English version"** and **not "the default locale"**, even though it usually points there. It means _the page for users this set does not cover_. That is why it is legitimate - and often better - to point it at a language-selector or geo-redirecting landing page rather than at `/en`. If you have no such page, your primary language is the sensible answer.
 
 Two things to keep straight: `x-default` is one extra entry in the set, not a replacement for the self-referencing one, and like every other entry it must appear identically on every page in the cluster.
 
@@ -116,7 +116,7 @@ Each localised page must be **its own canonical**:
 Pointing every locale's canonical at the English version instead:
 
 ```html
-<!-- On https://example.com/fr/about — kills the page -->
+<!-- On https://example.com/fr/about  -  kills the page -->
 <link rel="canonical" href="https://example.com/about" />
 ```
 
@@ -130,9 +130,9 @@ states that the French page is a duplicate that should not be indexed, whilst `h
 
 | Structure          | Example           | Trade-off                                                  |
 | ------------------ | ----------------- | ---------------------------------------------------------- |
-| **Subdirectories** | `example.com/fr/` | One domain, shared authority — weaker geo-signal           |
-| **Subdomains**     | `fr.example.com`  | Easy to add or drop a locale — may read as a separate site |
-| **ccTLDs**         | `example.fr`      | Strongest country signal — authority built per domain      |
+| **Subdirectories** | `example.com/fr/` | One domain, shared authority - weaker geo-signal           |
+| **Subdomains**     | `fr.example.com`  | Easy to add or drop a locale - may read as a separate site |
+| **ccTLDs**         | `example.fr`      | Strongest country signal - authority built per domain      |
 
 Subdirectories are the right default for most projects. Reach for ccTLDs only when you really operate as separate country businesses.
 
@@ -258,15 +258,15 @@ const sitemap = generateSitemap(
 
 Two options worth knowing:
 
-- `xhtmlLinks` (default `true`) — alternates are emitted only where locale URLs actually differ. In `no-prefix` mode every locale shares one URL, so they are skipped unless `routing.domains` gives locales their own hostnames.
-- `entryPerLocale` (default `false`) — by default one `<url>` entry carries all the alternates. Both forms are valid, but only a URL listed as a `<loc>` counts as _submitted_ in Search Console; alternate-only locales stay discoverable yet attributed to no sitemap. Turning this on gives every localised URL its own entry with the full alternate set repeated. It multiplies entries by locale count, so watch the 50 000 URL / 50 MB limit and split into a sitemap index past it.
+- `xhtmlLinks` (default `true`) - alternates are emitted only where locale URLs actually differ. In `no-prefix` mode every locale shares one URL, so they are skipped unless `routing.domains` gives locales their own hostnames.
+- `entryPerLocale` (default `false`) - by default one `<url>` entry carries all the alternates. Both forms are valid, but only a URL listed as a `<loc>` counts as _submitted_ in Search Console; alternate-only locales stay discoverable yet attributed to no sitemap. Turning this on gives every localised URL its own entry with the full alternate set repeated. It multiplies entries by locale count, so watch the 50 000 URL / 50 MB limit and split into a sitemap index past it.
 
 </Step>
 <Step number={3} title="Verify what the crawler receives">
 
 `hreflang` fails silently, so check it rather than assume it.
 
-Read the source, not the inspector — `curl https://example.com/fr/about | grep hreflang` shows what a crawler gets; DevTools shows the DOM after JavaScript ran. Then follow each alternate and confirm it points back with the identical set, and that none of them redirect. Search Console's International Targeting report catches the rest across the whole site.
+Read the source, not the inspector - `curl https://example.com/fr/about | grep hreflang` shows what a crawler gets; DevTools shows the DOM after JavaScript ran. Then follow each alternate and confirm it points back with the identical set, and that none of them redirect. Search Console's International Targeting report catches the rest across the whole site.
 
 For a multilingual-specific crawl, the [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) checks missing tags, broken alternates, and canonical conflicts across your localised pages.
 

@@ -310,7 +310,7 @@ const config: IntlayerConfig = {
   ai: {
     apiKey: process.env.OPENAI_API_KEY,
     // provider: "openai",     // défaut
-    // model: "gpt-4o-mini",   // défaut
+    // model: "gpt-5.6-terra",   // défaut
   },
 };
 

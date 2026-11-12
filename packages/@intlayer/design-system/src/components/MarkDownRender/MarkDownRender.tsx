@@ -1,7 +1,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import {
   type MarkdownRenderer as MarkdownRendererIntlayer,
   type ParsedMarkdown,
@@ -21,7 +21,7 @@ export type { ParsedMarkdown };
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
-  <H1 isClickable className="mb-16 mb-8 text-foreground" {...props} />
+  <H1 isClickable className="mb-8 mb-16 text-foreground" {...props} />
 );
 const H2Renderer = (props: ComponentProps<'h2'>) => (
   <H2 isClickable className="mt-16 text-foreground" {...props} />
@@ -103,7 +103,7 @@ const BlockquoteRenderer = ({
 }: ComponentProps<'blockquote'>) => (
   <blockquote
     className={cn(
-      'mt-5 gap-3 border-card border-s-4 ps-5 text-muted-foreground [&_strong]:text-neutral',
+      'mt-5 gap-3 border-s-4 border-card ps-5 text-muted-foreground [&_strong]:text-neutral',
       className
     )}
     {...props}
@@ -256,13 +256,18 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   components: componentsProp,
   wrapper,
 }) => {
-  const markdownComponents = createMarkdownComponents(locale);
+  /**
+   * Overrides are element types: rebuilding them each render (the link
+   * renderer closes over `locale`) remounts every link, and the design-system
+   * dist is not run through the React Compiler, so memoize by hand.
+   */
+  const components = useMemo(
+    () => ({ ...createMarkdownComponents(locale), ...componentsProp }),
+    [locale, componentsProp]
+  );
 
   const markdownContent = renderMarkdown(children, {
-    components: {
-      ...markdownComponents,
-      ...componentsProp,
-    },
+    components,
     wrapper,
     forceBlock,
     preserveFrontmatter,

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: ESLint 插件 | Intlayer 的 Lint 规则
 description: "使用 eslint-plugin-intlayer 发现硬编码文本、Intlayer 编译器无法优化的动态调用以及未使用的内容，支持 ESLint 和 oxlint。"

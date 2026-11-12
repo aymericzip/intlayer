@@ -3,7 +3,6 @@ import { fileURLToPath } from 'node:url';
 import fg from 'fast-glob';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-
 import packageJson from './package.json' with { type: 'json' };
 
 const entry: Record<string, string> = Object.fromEntries(
@@ -58,7 +57,7 @@ export default defineConfig({
     rolldownOptions: {
       external: (id) =>
         external.some((pkg) => id === pkg || id.startsWith(`${pkg}/`)) ||
-        /^lit/.test(id),
+        id.startsWith('lit'),
       output: [
         {
           format: 'es',

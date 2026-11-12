@@ -97,7 +97,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         {signUpButton.text}
       </FormButton>
 
-      <span className="m-auto mt-3 flex w-full items-center justify-center text-center align-middle text-neutral text-xs">
+      <span className="m-auto mt-3 flex w-full items-center justify-center text-center align-middle text-xs text-neutral">
         {loginLink.message}
         <FormButton
           variant="link"

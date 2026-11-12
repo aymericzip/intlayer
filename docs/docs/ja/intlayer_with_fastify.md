@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 9
 title: "Fastify i18n - あなたのアプリを翻訳する完全ガイド"
 description: "Fastify に Intlayer を導入：プラグインでリクエストごとにロケールを検出し、API レスポンスとエラーメッセージを翻訳、エンドツーエンドで型付け。"
@@ -55,7 +55,7 @@ author: aymericzip
   loading="lazy"
 />
 
-GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-fastify-template)を確認してください。
+GitHub で [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-fastify-template)を確認してください。
 
 ### インストール
 

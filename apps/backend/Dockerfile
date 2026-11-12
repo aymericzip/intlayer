@@ -1,9 +1,7 @@
-# syntax=docker/dockerfile:1.27.0
+# syntax=docker/dockerfile:1.28.0
 
 # Base stage: system deps shared between builder and runner
-FROM node:26-alpine AS base
-
-RUN npm install -g bun@1.4.2
+FROM oven/bun:1.4.4-alpine AS base
 
 # System deps for headless Chromium (Puppeteer)
 RUN apk add --no-cache \

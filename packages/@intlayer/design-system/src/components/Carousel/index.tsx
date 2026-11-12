@@ -172,7 +172,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
 
         <Popover.Detail identifier="carousel-prev">
           <div className="flex items-center gap-2 p-2">
-            <span className="whitespace-nowrap text-muted-foreground text-xs">
+            <span className="text-xs whitespace-nowrap text-muted-foreground">
               {previousSlide.value}
             </span>
             <KeyboardShortcut
@@ -197,7 +197,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
             }}
             aria-label={goToSlide({ index: index + 1 }).value}
             className={cn(
-              'size-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2',
+              'size-2.5 rounded-full transition-all duration-300 focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:outline-none',
               isActive ? 'size-3.5 bg-text' : 'bg-text/20 hover:bg-text/40'
             )}
           />
@@ -221,7 +221,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
 
         <Popover.Detail identifier="carousel-next">
           <div className="flex items-center gap-2 p-2">
-            <span className="whitespace-nowrap text-muted-foreground text-xs">
+            <span className="text-xs whitespace-nowrap text-muted-foreground">
               {nextSlide.value}
             </span>
             <KeyboardShortcut
@@ -443,7 +443,7 @@ const CarouselRoot: FC<CarouselProps> = ({
       <div
         ref={containerRef}
         className={cn(
-          'relative flex w-full cursor-grab select-none items-center overflow-hidden pb-4 outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
+          'relative flex w-full cursor-grab items-center overflow-hidden pb-4 transition-[height] duration-300 ease-in-out outline-none select-none focus:ring-0 focus:outline-none active:cursor-grabbing',
           'max-w-350',
           className
         )}
@@ -475,7 +475,7 @@ const CarouselRoot: FC<CarouselProps> = ({
               // CSS units allow correct SSR rendering.
               className={cn(
                 'absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-in-out',
-                'outline-none ring-0 focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0',
+                'ring-0 outline-none focus:ring-0 focus:ring-offset-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none',
                 getCardStyle(index, displayedIndex)
               )}
               onClick={(e) => {

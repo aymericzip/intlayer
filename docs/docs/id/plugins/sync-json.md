@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-09-27
+updatedAt: 2026-10-08
 priority: 6
 title: "Plugin Sync JSON: pertahankan file JSON i18n Anda"
 description: "Sinkronkan kamus Intlayer dengan file JSON i18next, next-intl, react-intl, atau vue-i18n, lalu kelola, terjemahkan, dan uji dengan Intlayer."
@@ -55,7 +55,7 @@ Catatan dan cakupan saat ini:
 
 ## Kapan menggunakan plugin ini
 
-- Anda sudah menggunakan perpustakaan i18n dan menyimpan pesan dalam file JSON.
+- Anda sudah menggunakan library i18n dan menyimpan pesan dalam file JSON.
 - Anda menginginkan pengisian berbantuan AI, pengujian di CI, dan operasi konten tanpa mengubah runtime rendering Anda.
 
 ## Instalasi

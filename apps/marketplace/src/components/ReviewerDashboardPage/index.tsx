@@ -70,7 +70,7 @@ export const ReviewerDashboardPage: FC = () => {
   const clientBookingsSection = (
     <section aria-label={myBookingsAriaLabel.value} className="flex flex-col">
       <div className="mb-4 flex items-center justify-between gap-4">
-        <h2 className="font-semibold text-xl">{myBookingsTitle}</h2>
+        <h2 className="text-xl font-semibold">{myBookingsTitle}</h2>
         <Link
           to={Marketplace_Root_Path}
           color="text"
@@ -91,14 +91,14 @@ export const ReviewerDashboardPage: FC = () => {
 
   return (
     <div className="m-auto flex w-full max-w-6xl flex-col gap-6 p-8">
-      <h1 className="font-bold text-3xl">{title}</h1>
+      <h1 className="text-3xl font-bold">{title}</h1>
 
       {!profile ? (
         <div className="flex flex-col gap-8">
           {clientBookingsSection}
 
-          <div className="flex flex-col gap-4 border-neutral/20 border-t pt-8">
-            <p className="text-neutral text-sm">{notRegisteredMessage}</p>
+          <div className="flex flex-col gap-4 border-t border-neutral/20 pt-8">
+            <p className="text-sm text-neutral">{notRegisteredMessage}</p>
             <ReviewerOnboarding />
           </div>
         </div>
@@ -137,10 +137,10 @@ export const ReviewerDashboardPage: FC = () => {
                   )}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-medium text-base">
+                  <h3 className="text-base font-medium">
                     {profileVisibilityTitle}
                   </h3>
-                  <p className="mt-1 text-neutral text-sm">
+                  <p className="mt-1 text-sm text-neutral">
                     {hiddenProfileInfo}
                   </p>
                   <Button
@@ -180,8 +180,8 @@ export const ReviewerDashboardPage: FC = () => {
                 hasCloseButton
               >
                 <div className="flex flex-col gap-4 p-2">
-                  <p className="font-semibold text-lg">{deleteConfirmTitle}</p>
-                  <p className="text-neutral text-sm">
+                  <p className="text-lg font-semibold">{deleteConfirmTitle}</p>
+                  <p className="text-sm text-neutral">
                     {deleteConfirmDescription}
                   </p>
                   <div className="flex gap-2">
@@ -219,10 +219,10 @@ export const ReviewerDashboardPage: FC = () => {
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-medium text-base text-error">
+                  <h3 className="text-base font-medium text-error">
                     {deleteConfirmTitle}
                   </h3>
-                  <p className="mt-1 text-neutral text-sm">
+                  <p className="mt-1 text-sm text-neutral">
                     {deleteConfirmDescription}
                   </p>
                   <Button
@@ -240,7 +240,7 @@ export const ReviewerDashboardPage: FC = () => {
             </Container>
 
             <section aria-label={missionsAriaLabel.value}>
-              <h2 className="mb-4 font-semibold text-xl">{myMissionsTitle}</h2>
+              <h2 className="mb-4 text-xl font-semibold">{myMissionsTitle}</h2>
               {missionsLoading ? (
                 <div role="status" aria-label={loadingMissionsAriaLabel.value}>
                   <Loader />

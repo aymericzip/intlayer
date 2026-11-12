@@ -157,7 +157,7 @@ const config: IntlayerConfig = {
   },
   ai: {
     provider: "openai",
-    model: "gpt-4o-mini",
+    model: "gpt-5.6-terra",
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "面向团队协作与生产力的 SaaS 控制台",
   },
