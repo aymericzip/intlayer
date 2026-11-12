@@ -29,6 +29,12 @@ export type LoadExternalFileOptions = {
    * Values are restored (or deleted) after `runInNewContext` returns.
    */
   preloadGlobals?: Record<string, unknown>;
+  /**
+   * Content to load instead of reading `filePath` from disk (for example an
+   * older version of the file read from git). `filePath` is still used to
+   * pick the loader and resolve imports.
+   */
+  code?: string;
 } & SandBoxContextOptions;
 
 /**
@@ -146,12 +152,13 @@ export const loadExternalFile = async (
       fileExtension === '.jsonc'
     ) {
       // Remove cache to force getting fresh content
-      const fileContent = await readFile(filePath, 'utf-8');
+      const fileContent =
+        options?.code ?? (await readFile(filePath, 'utf-8'));
       return parseJSON5(fileContent);
     }
 
     // Rest is JS, MJS or TS
-    const code = await readFile(filePath, 'utf-8');
+    const code = options?.code ?? (await readFile(filePath, 'utf-8'));
 
     const moduleResultString: string | undefined = await transpileTSToCJS(
       code,
