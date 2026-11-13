@@ -17,10 +17,10 @@ const config = {
   routing: {
     /**
      * Locale routing strategy.
-     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
-     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
-     * - "no-prefix": No locale in the URL.
-     * - "search-params": Use search params to define the locale (e.g., /dashboard/?locale=en, /dashboard/?locale=fr)
+     * - "prefix-no-default":  Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
+     * - "prefix-all":         Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
+     * - "no-prefix":          No locale in the URL.
+     * - "search-params":      Use search params to define the locale (e.g., /dashboard/?locale=en, /dashboard/?locale=fr)
      * Default: "prefix-no-default"
      */
     mode: 'prefix-no-default',
@@ -88,15 +88,15 @@ const config = {
      * ```
      * 
      * Variable list:
-     *   - `fileName`: The name of the file.
-     *   - `key`: The key of the content.
-     *   - `locale`: The locale of the content.
-     *   - `extension`: The extension of the file.
-     *   - `componentFileName`: The name of the component file.
+     *   - `fileName`:           The name of the file.
+     *   - `key`:                The key of the content.
+     *   - `locale`:             The locale of the content.
+     *   - `extension`:          The extension of the file.
+     *   - `componentFileName`:  The name of the component file.
      *   - `componentExtension`: The extension of the component file.
-     *   - `format`: The format of the dictionary.
-     *   - `componentFormat`: The format of the component dictionary.
-     *   - `componentDirPath`: The directory path of the component.
+     *   - `format`:             The format of the dictionary.
+     *   - `componentFormat`:    The format of the component dictionary.
+     *   - `componentDirPath`:   The directory path of the component.
      */
     output: ({ fileName }) => `./${fileName}.content.ts`,
 
@@ -112,9 +112,10 @@ const config = {
   dictionary: {
     /**
      * Controls how dictionaries are imported.
-     * - "static": Statically imported at build time.
-     * - "dynamic": Dynamically imported using Suspense.
-     * - "fetch": Fetched dynamically via the live sync API.
+     * - "static":   Statically imported at build time.
+     * - "dynamic":  Dynamically imported using Suspense.
+     * - "fetch":    Fetched dynamically via the live sync API.
+
      */
     importMode: 'static',
   },

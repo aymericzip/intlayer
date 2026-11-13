@@ -682,15 +682,15 @@ const buildDictionaryFields = (
      *
      *
      * Variable list:
-     *   - `fileName`: The name of the file.
-     *   - `key`: The key of the content.
-     *   - `locale`: The locale of the content.
-     *   - `extension`: The extension of the file.
-     *   - `componentFileName`: The name of the component file.
+     *   - `fileName`:           The name of the file.
+     *   - `key`:                The key of the content.
+     *   - `locale`:             The locale of the content.
+     *   - `extension`:          The extension of the file.
+     *   - `componentFileName`:  The name of the component file.
      *   - `componentExtension`: The extension of the component file.
-     *   - `format`: The format of the dictionary.
-     *   - `componentFormat`: The format of the component dictionary.
-     *   - `componentDirPath`: The directory path of the component.
+     *   - `format`:             The format of the dictionary.
+     *   - `componentFormat`:    The format of the component dictionary.
+     *   - `componentDirPath`:   The directory path of the component.
      */
     fill: customConfiguration?.fill ?? FILL,
 
