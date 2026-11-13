@@ -34,6 +34,25 @@ const isOwnedByComponent = (
 };
 
 /**
+ * Key of a dictionary already extracted from this component, whatever its
+ * name, so translations survive a change in how keys are derived.
+ */
+const findKeyOwnedByComponent = (
+  dictionariesByKey: Record<string, unknown>,
+  componentFilePath: string,
+  usedKeys: Set<string>
+): string | undefined =>
+  Object.keys(dictionariesByKey).find((key) => {
+    const dictionaries = dictionariesByKey[key] as Dictionary[] | undefined;
+
+    return (
+      !usedKeys.has(key) &&
+      Array.isArray(dictionaries) &&
+      isOwnedByComponent(dictionaries, componentFilePath)
+    );
+  });
+
+/**
  * Resolves a unique dictionary key, checking for existing dictionaries and files.
  * A key already used by a dictionary extracted from the same component is
  * reused, so the key stays stable when the component is not rewritten.
@@ -50,6 +69,10 @@ export const resolveDictionaryKey = (
 
   const { fileExtensions } = configuration.content;
   const componentFilePath = getComponentFilePath(filePath, configuration);
+
+  const ownedKey = findKeyOwnedByComponent(dicts, componentFilePath, usedKeys);
+
+  if (ownedKey) return ownedKey;
 
   const dirName = dirname(filePath);
   const firstExtension = fileExtensions[0] ?? '.ts';

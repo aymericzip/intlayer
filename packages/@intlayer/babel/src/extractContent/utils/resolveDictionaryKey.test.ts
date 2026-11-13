@@ -129,4 +129,19 @@ describe('resolveDictionaryKey', () => {
       )
     ).toBe('home1');
   });
+
+  it('keeps the key a component already owns when its derived key changes', () => {
+    const unmergedDictionaries = {
+      async: [createDictionary('async', 'src/app/about/page.tsx')],
+    };
+
+    expect(
+      resolveDictionaryKey(
+        'about',
+        `${BASE_DIR}/src/app/about/page.tsx`,
+        configuration,
+        unmergedDictionaries
+      )
+    ).toBe('async');
+  });
 });

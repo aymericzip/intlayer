@@ -1,44 +1,96 @@
 /**
- * Attempt to detect an exported React component name in the file text.
- * Looks for patterns like:
- *   - export const MyComponent = ...
- *   - export function MyComponent(...)
- *   - export default function MyComponent(...)
+ * Names that do not tell components apart: route config exports (TanStack
+ * Router `Route`) and file-convention names shared by every page or layout
+ * (Next.js `Page`, `Layout`…). The file path names those dictionaries better.
+ */
+const NON_DESCRIPTIVE_NAMES = new Set([
+  'Route',
+  'Page',
+  'Layout',
+  'RootLayout',
+  'Template',
+  'Loading',
+  'Error',
+  'GlobalError',
+  'NotFound',
+  'Default',
+  'Index',
+]);
+
+/**
+ * Wrappers whose first argument is the actual component:
+ * `memo(Card)`, `React.forwardRef(function Card() {})`, `observer(Card)`.
+ */
+const WRAPPER_PATTERN = String.raw`(?:[\w$]+\.)?(?:memo|forwardRef|observer|lazy)\s*\(\s*`;
+
+/** `export default [async] function [*] Name` or `export default class Name`. */
+const DEFAULT_DECLARATION_REGEX =
+  /export\s+default\s+(?:async\s+)?(?:function\s*\*?|class)\s*([A-Za-z_$][\w$]*)/;
+
+/** `export default memo(function Name` or `export default memo(Name)`. */
+const DEFAULT_WRAPPED_REGEX = new RegExp(
+  String.raw`export\s+default\s+${WRAPPER_PATTERN}(?:(?:async\s+)?function\s*\*?\s*)?([A-Za-z_$][\w$]*)`
+);
+
+/** `export default Name;`: a bare identifier, not an expression. */
+const DEFAULT_IDENTIFIER_REGEX =
+  /export\s+default\s+([A-Za-z_$][\w$]*)\s*(?:;|$)/m;
+
+/** `module.exports = Name` and `exports.default = Name`. */
+const COMMON_JS_DEFAULT_REGEX =
+  /(?:module\.exports|exports\.default)\s*=\s*([A-Za-z_$][\w$]*)\s*(?:;|$)/m;
+
+/** `export [async] function Name`, `export const Name`, `export class Name`. */
+const NAMED_EXPORT_REGEX =
+  /export\s+(?:(?:async\s+)?function\s*\*?|const|let|var|class)\s*([A-Za-z_$][\w$]*)/g;
+
+/** Identifiers that a looser pattern could capture but never name a component. */
+const RESERVED_WORDS = new Set([
+  'async',
+  'await',
+  'class',
+  'function',
+  'new',
+  'null',
+  'this',
+  'undefined',
+]);
+
+const isComponentName = (name: string | undefined): name is string =>
+  Boolean(name) &&
+  !RESERVED_WORDS.has(name!) &&
+  !NON_DESCRIPTIVE_NAMES.has(name!);
+
+/**
+ * Detects the name of the component exported by a file, used to name its
+ * dictionary. Handles:
+ *   - `export default [async] function Name()` / `export default class Name`
+ *   - `export default memo(function Name() {})` / `export default memo(Name)`
+ *   - `export default Name;` / `module.exports = Name`
+ *   - `export const Name = …` / `export function Name()` (capitalized only)
+ *
+ * Anonymous default exports and non-descriptive names (`Route`, `Page`,
+ * `Layout`…) return `null`, so the caller falls back to the file path.
  */
 export const detectExportedComponentName = (
   fileText: string
 ): string | null => {
-  // Added regexes for default ESM, default CJS, and named exports
-  const defaultEsmFnRegex = /export\s+default\s+function\s+(\w+)/;
-  const defaultEsmVarRegex = /export\s+default\s+(\w+)/;
-  const cjsDefaultRegex = /module\.exports\s*=\s*(\w+)/;
-  const cjsDefaultVarRegex = /exports\.default\s*=\s*(\w+)/;
-  const namedExportRegex = /export\s+(?:const|function)\s+(\w+)/g;
+  const defaultExportName = [
+    DEFAULT_DECLARATION_REGEX,
+    DEFAULT_WRAPPED_REGEX,
+    DEFAULT_IDENTIFIER_REGEX,
+    COMMON_JS_DEFAULT_REGEX,
+  ]
+    .map((regex) => fileText.match(regex)?.[1])
+    .find(isComponentName);
 
-  // Check for default ESM function or variable
-  const defaultEsmFnMatch = fileText.match(defaultEsmFnRegex);
+  if (defaultExportName) return defaultExportName;
 
-  if (defaultEsmFnMatch?.[1]) {
-    return defaultEsmFnMatch[1];
-  }
-
-  const defaultEsmVarMatch = fileText.match(defaultEsmVarRegex);
-  if (defaultEsmVarMatch?.[1]) {
-    return defaultEsmVarMatch[1];
-  }
-
-  // Check for default CJS
-  const cjsDefaultMatch =
-    fileText.match(cjsDefaultRegex) || fileText.match(cjsDefaultVarRegex);
-
-  if (cjsDefaultMatch?.[1]) return cjsDefaultMatch[1];
-
-  // Otherwise, look for capitalized named exports
-  for (const match of fileText.matchAll(namedExportRegex)) {
+  for (const match of fileText.matchAll(NAMED_EXPORT_REGEX)) {
     const name = match[1];
-    if (name && /^[A-Z]/.test(name)) return name;
+
+    if (isComponentName(name) && /^[A-Z]/.test(name)) return name;
   }
 
-  // If we can’t find it, return null
   return null;
 };
