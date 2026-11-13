@@ -1,3 +1,4 @@
+import type { OffsetSpan } from './findFieldDeclaration';
 import { type OxcNode, parseText, walkAst } from './oxcUtils';
 
 // Group 2: quoted value   — key: "foo" | key: 'foo' | key: `foo`  (TS/JS/JSON)
@@ -195,31 +196,103 @@ const JSON_INTLAYER_NODE_KEYS: ReadonlySet<string> = new Set([
   'importMode',
 ]);
 
-/**
- * Find the byte offset of `fieldName` (as a JSON property key) inside `text`,
- * searching within the range [searchFrom, searchTo).
- *
- * Matches `"fieldName"` surrounded by typical JSON delimiters.
- */
-const findJsonKeyOffset = (
-  text: string,
-  fieldName: string,
-  searchFrom: number,
-  searchTo: number
-): number => {
-  const pattern = new RegExp(
-    `"${fieldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`,
-    'g'
-  );
-  pattern.lastIndex = searchFrom;
-  let match: RegExpExecArray | null;
-  while (true) {
-    match = pattern.exec(text);
-    if (match === null) break;
-    if (match.index >= searchTo) break;
-    return match.index;
+/** Separator of the path segments in the keys of {@link scanJsonKeySpans}. */
+const JSON_PATH_SEPARATOR = '\u0000';
+
+type JsonContainerFrame = {
+  isObject: boolean;
+  path: string[];
+  /** Object: the next string is a property key. */
+  expectsKey: boolean;
+  /** Object: key of the property being read. */
+  currentKey: string;
+  /** Array: index of the element being read. */
+  index: number;
+};
+
+/** Offset just after the string literal opening at `start`. */
+const findJsonStringEnd = (text: string, start: number): number => {
+  let index = start + 1;
+
+  while (index < text.length && text[index] !== '"') {
+    index += text[index] === '\\' ? 2 : 1;
   }
-  return -1;
+
+  return Math.min(index + 1, text.length);
+};
+
+/** Value of a raw JSON string literal, quotes included. */
+const readJsonString = (literal: string): string => {
+  try {
+    return JSON.parse(literal) as string;
+  } catch {
+    return literal.slice(1, -1);
+  }
+};
+
+/**
+ * Span of every property key (quotes included) of a JSON/JSONC text, indexed
+ * by its path joined with {@link JSON_PATH_SEPARATOR}. Scans the raw text, so
+ * a key is never confused with a string value or a same-named key elsewhere.
+ */
+const scanJsonKeySpans = (text: string): Map<string, OffsetSpan> => {
+  const spans = new Map<string, OffsetSpan>();
+  const frames: JsonContainerFrame[] = [];
+
+  const pushFrame = (isObject: boolean): void => {
+    const parent = frames.at(-1);
+    const path = parent
+      ? [
+          ...parent.path,
+          parent.isObject ? parent.currentKey : String(parent.index),
+        ]
+      : [];
+
+    frames.push({
+      isObject,
+      path,
+      expectsKey: isObject,
+      currentKey: '',
+      index: 0,
+    });
+  };
+
+  let index = 0;
+
+  while (index < text.length) {
+    const character = text[index];
+    const frame = frames.at(-1);
+
+    if (character === '/' && text[index + 1] === '/') {
+      const lineEnd = text.indexOf('\n', index);
+      index = lineEnd === -1 ? text.length : lineEnd;
+    } else if (character === '/' && text[index + 1] === '*') {
+      const commentEnd = text.indexOf('*/', index + 2);
+      index = commentEnd === -1 ? text.length : commentEnd + 2;
+    } else if (character === '"') {
+      const end = findJsonStringEnd(text, index);
+
+      if (frame?.isObject && frame.expectsKey) {
+        frame.currentKey = readJsonString(text.slice(index, end));
+        frame.expectsKey = false;
+        spans.set([...frame.path, frame.currentKey].join(JSON_PATH_SEPARATOR), {
+          start: index,
+          end,
+        });
+      }
+      index = end;
+    } else {
+      if (character === '{' || character === '[') pushFrame(character === '{');
+      else if (character === '}' || character === ']') frames.pop();
+      else if (character === ',' && frame) {
+        if (frame.isObject) frame.expectsKey = true;
+        else frame.index++;
+      }
+      index++;
+    }
+  }
+
+  return spans;
 };
 
 /**
@@ -241,6 +314,71 @@ type FieldResult = {
   fieldPath: string[];
 };
 
+/** A content field of a JSON content file, with the span of its key. */
+export type JsonContentField = {
+  dottedKey: string;
+  fieldPath: string[];
+  start: number;
+  end: number;
+};
+
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  value !== null && typeof value === 'object' && !Array.isArray(value);
+
+/** Parse a JSON/JSON5/JSONC content file, `null` when it is not an object. */
+const parseJsonContentFile = (text: string): Record<string, unknown> | null => {
+  try {
+    const parsed: unknown = JSON.parse(stripJsonComments(text));
+
+    return isPlainObject(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Every content field declared in a JSON/JSON5/JSONC content file, nested
+ * ones as dotted keys, each with the span of its quoted key. Typed nodes
+ * (`translation`, `insertion`, …) are leaves. Returns `[]` for invalid JSON.
+ */
+export const collectJsonContentFields = (text: string): JsonContentField[] => {
+  const contentObject = parseJsonContentFile(text)?.['content'];
+
+  if (!isPlainObject(contentObject)) return [];
+
+  const keySpans = scanJsonKeySpans(text);
+  const fields: JsonContentField[] = [];
+
+  const walk = (
+    objectValue: Record<string, unknown>,
+    parentPath: string[]
+  ): void => {
+    for (const [fieldName, fieldValue] of Object.entries(objectValue)) {
+      const fieldPath = [...parentPath, fieldName];
+      const span = keySpans.get(
+        ['content', ...fieldPath].join(JSON_PATH_SEPARATOR)
+      );
+
+      if (!span) continue;
+
+      fields.push({ dottedKey: fieldPath.join('.'), fieldPath, ...span });
+
+      if (isPlainObject(fieldValue) && !('nodeType' in fieldValue)) {
+        walk(fieldValue, fieldPath);
+      }
+    }
+  };
+
+  walk(contentObject, []);
+
+  return fields;
+};
+
+/** Intlayer node keys and locale codes: not navigable content fields. */
+const isJsonSystemKey = (fieldName: string): boolean =>
+  JSON_INTLAYER_NODE_KEYS.has(fieldName) ||
+  /^[a-z]{2}(-[A-Z]{2})?$/.test(fieldName);
+
 /**
  * Parse a JSON/JSON5/JSONC content file and, if `offset` falls on a content
  * field key, return the dictionary key, leaf field name, and full field path.
@@ -254,168 +392,22 @@ const findContentFieldAtOffsetJson = (
   text: string,
   offset: number
 ): FieldResult | null => {
-  let parsed: Record<string, unknown>;
-  try {
-    parsed = JSON.parse(stripJsonComments(text)) as Record<string, unknown>;
-  } catch {
-    return null;
-  }
+  const dictionaryKey = parseJsonContentFile(text)?.['key'];
 
-  const dictionaryKey =
-    typeof parsed['key'] === 'string' ? parsed['key'] : null;
-  if (!dictionaryKey) return null;
+  if (typeof dictionaryKey !== 'string' || !dictionaryKey) return null;
 
-  const contentObj = parsed['content'];
-  if (
-    !contentObj ||
-    typeof contentObj !== 'object' ||
-    Array.isArray(contentObj)
-  )
-    return null;
-
-  // Find the byte range of the "content" block in raw text so we can scope
-  // offset comparisons to content fields only.
-  const contentKeyIndex = text.indexOf('"content"');
-  if (contentKeyIndex === -1) return null;
-
-  /**
-   * Recursively walk the parsed content object.
-   * For each property key, check whether the raw text position of that key
-   * (within the remaining text slice) overlaps with `offset`.
-   *
-   * `textFrom` is where we start searching for each key in the raw text —
-   * we advance it as we consume properties to avoid false matches on
-   * identically-named sibling keys.
-   */
-  const walk = (
-    obj: Record<string, unknown>,
-    path: string[],
-    searchFrom: number,
-    searchTo: number
-  ): FieldResult | null => {
-    for (const [fieldName, fieldValue] of Object.entries(obj)) {
-      // Skip Intlayer-internal node keys — they are not navigable content fields
-      if (JSON_INTLAYER_NODE_KEYS.has(fieldName)) continue;
-
-      // Skip keys that look like locale codes (e.g. "en", "fr", "en-GB")
-      if (/^[a-z]{2}(-[A-Z]{2})?$/.test(fieldName)) continue;
-
-      const keyStart = findJsonKeyOffset(text, fieldName, searchFrom, searchTo);
-      if (keyStart === -1) continue;
-      const keyEnd = keyStart + fieldName.length + 2; // +2 for surrounding quotes
-
-      if (offset >= keyStart && offset <= keyEnd) {
-        return {
-          dictionaryKey,
-          fieldName,
-          fieldPath: [...path, fieldName],
-        };
-      }
-
-      // Recurse into plain nested objects (skip typed nodes — they have nodeType)
-      if (
-        fieldValue !== null &&
-        typeof fieldValue === 'object' &&
-        !Array.isArray(fieldValue)
-      ) {
-        const nested = fieldValue as Record<string, unknown>;
-        // Skip Intlayer typed nodes — their children are not content fields
-        if ('nodeType' in nested) continue;
-
-        const result = walk(nested, [...path, fieldName], keyEnd, searchTo);
-        if (result) return result;
-      }
-    }
-    return null;
-  };
-
-  return walk(
-    contentObj as Record<string, unknown>,
-    [],
-    contentKeyIndex,
-    text.length
-  );
-};
-
-/** A content field of a JSON content file, with the span of its key. */
-export type JsonContentField = {
-  dottedKey: string;
-  start: number;
-  end: number;
-};
-
-/**
- * Every content field declared in a JSON/JSON5/JSONC content file, nested
- * ones as dotted keys, each with the span of its quoted key. Typed nodes
- * (`translation`, `insertion`, …) are leaves. Returns `[]` for invalid JSON.
- */
-export const collectJsonContentFields = (text: string): JsonContentField[] => {
-  let parsed: unknown;
-
-  try {
-    parsed = JSON.parse(stripJsonComments(text));
-  } catch {
-    return [];
-  }
-
-  const contentObject = (parsed as Record<string, unknown> | null)?.['content'];
-  const contentKeyIndex = text.indexOf('"content"');
-
-  if (
-    !contentObject ||
-    typeof contentObject !== 'object' ||
-    Array.isArray(contentObject) ||
-    contentKeyIndex === -1
-  ) {
-    return [];
-  }
-
-  const fields: JsonContentField[] = [];
-
-  const walk = (
-    objectValue: Record<string, unknown>,
-    parentKey: string,
-    searchFrom: number,
-    searchTo: number
-  ): void => {
-    let cursor = searchFrom;
-
-    for (const [fieldName, fieldValue] of Object.entries(objectValue)) {
-      const keyStart = findJsonKeyOffset(text, fieldName, cursor, searchTo);
-
-      if (keyStart === -1) continue;
-
-      const keyEnd = keyStart + fieldName.length + 2; // surrounding quotes
-      const dottedKey = parentKey ? `${parentKey}.${fieldName}` : fieldName;
-
-      fields.push({ dottedKey, start: keyStart, end: keyEnd });
-      cursor = keyEnd;
-
-      const isPlainObject =
-        fieldValue !== null &&
-        typeof fieldValue === 'object' &&
-        !Array.isArray(fieldValue) &&
-        !('nodeType' in fieldValue);
-
-      if (isPlainObject) {
-        walk(
-          fieldValue as Record<string, unknown>,
-          dottedKey,
-          keyEnd,
-          searchTo
-        );
-      }
-    }
-  };
-
-  walk(
-    contentObject as Record<string, unknown>,
-    '',
-    contentKeyIndex + '"content"'.length,
-    text.length
+  const field = collectJsonContentFields(text).find(
+    ({ start, end, fieldPath }) =>
+      offset >= start && offset <= end && !fieldPath.some(isJsonSystemKey)
   );
 
-  return fields;
+  return field
+    ? {
+        dictionaryKey,
+        fieldName: field.fieldPath.at(-1)!,
+        fieldPath: field.fieldPath,
+      }
+    : null;
 };
 
 // ---------------------------------------------------------------------------

@@ -6,4 +6,5 @@ export * from './generateKey';
 export * from './getComponentName';
 export * from './getExistingIntlayerInfo';
 export * from './getOrGenerateKey';
+export * from './getReadFields';
 export * from './resolveDictionaryKey';

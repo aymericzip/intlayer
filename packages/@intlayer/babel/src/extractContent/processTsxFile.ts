@@ -5,7 +5,10 @@ import _traverse, { type NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
 import { detectFormatCommand } from '@intlayer/engine/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { extractBabelContentForComponents } from './babelProcessor';
+import {
+  extractBabelContentForComponents,
+  type SourceSelection,
+} from './babelProcessor';
 import {
   type ExistingIntlayerInfo,
   type PackageName,
@@ -50,7 +53,8 @@ export const processTsxFile = (
   configuration: IntlayerConfig,
   save: boolean = true,
   unmergedDictionaries: Record<string, unknown> = {},
-  providedFileCode?: string
+  providedFileCode?: string,
+  selection?: SourceSelection
 ): {
   extractedContent: Record<string, Record<string, string>>;
   modifiedCode: string;
@@ -91,7 +95,8 @@ export const processTsxFile = (
     componentKey,
     configuration,
     filePath,
-    unmergedDictionaries
+    unmergedDictionaries,
+    selection
   );
 
   if (Object.keys(extractedContent).length === 0) return null;

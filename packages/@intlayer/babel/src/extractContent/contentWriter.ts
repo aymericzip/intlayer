@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
-import { mkdir } from 'node:fs/promises';
-import { dirname, relative } from 'node:path';
+import { mkdir, readFile } from 'node:fs/promises';
+import { dirname, extname, relative } from 'node:path';
 import { insertContentInDictionary } from '@intlayer/core/plugins';
 import {
   buildDictionary,
@@ -13,6 +13,10 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { resolveContentFilePaths } from './utils/extractDictionaryInfo';
+import {
+  getReadFieldsByDictionary,
+  type ReadFields,
+} from './utils/getReadFields';
 import { getComponentFilePath } from './utils/resolveDictionaryKey';
 
 const hasInsertionVars = (str: string): boolean => /\{\{[^}]+\}\}/.test(str);
@@ -44,6 +48,45 @@ type TranslationNode = {
  */
 type DictionaryContentMap = Record<string, TranslationNode>;
 
+/** The fields of `content` named in `fieldNames`, in their original order. */
+const pickFields = <Content extends Record<string, unknown>>(
+  content: Content,
+  fieldNames: ReadonlySet<string>
+): Content =>
+  Object.fromEntries(
+    Object.entries(content).filter(([fieldName]) => fieldNames.has(fieldName))
+  ) as Content;
+
+/** Component files whose dictionary reads the Babel parser can trace. */
+const TRACEABLE_EXTENSIONS = new Set([
+  '.tsx',
+  '.jsx',
+  '.ts',
+  '.js',
+  '.cjs',
+  '.mjs',
+]);
+
+/**
+ * Fields of `dictionaryKey` the component still reads through its hook
+ * (`content.title`): the extractor only lists the strings left hardcoded, so
+ * pruning must spare them. Empty when the component cannot be analyzed.
+ */
+const getComponentReadFields = async (
+  filePath: string,
+  dictionaryKey: string
+): Promise<ReadFields> => {
+  if (!TRACEABLE_EXTENSIONS.has(extname(filePath))) return new Set();
+
+  try {
+    const fileCode = await readFile(filePath, 'utf-8');
+
+    return getReadFieldsByDictionary(fileCode).get(dictionaryKey) ?? new Set();
+  } catch {
+    return new Set();
+  }
+};
+
 /**
  * Cached bundle file path to optimize performance
  */
@@ -58,7 +101,9 @@ let cachedBundleFilePath: string | undefined;
 export const mergeWithExistingMultilingualDictionary = (
   extractedContent: Record<string, string>,
   existingDictionary: Dictionary | null,
-  defaultLocale: string
+  defaultLocale: string,
+  prune = true,
+  keptFields: ReadonlySet<string> = new Set()
 ): DictionaryContentMap => {
   const dictionary: Dictionary =
     existingDictionary ??
@@ -76,8 +121,10 @@ export const mergeWithExistingMultilingualDictionary = (
 
   const mergedContent = mergedDictionary.content as DictionaryContentMap;
 
-  // Pruning: remove keys not in extractedContent
-  const finalContent: DictionaryContentMap = {};
+  // Pruning: remove keys neither extracted nor kept
+  const finalContent: DictionaryContentMap = prune
+    ? pickFields(mergedContent, keptFields)
+    : { ...mergedContent };
   for (const key in extractedContent) {
     const contentNode = mergedContent[key];
     if (contentNode) {
@@ -111,7 +158,9 @@ export const mergeWithExistingMultilingualDictionary = (
  */
 export const mergeWithExistingPerLocaleDictionary = (
   extractedContent: Record<string, string>,
-  existingDictionary: Dictionary | null
+  existingDictionary: Dictionary | null,
+  prune = true,
+  keptFields: ReadonlySet<string> = new Set()
 ): Record<string, string> => {
   const dictionary: Dictionary =
     existingDictionary ??
@@ -128,8 +177,10 @@ export const mergeWithExistingPerLocaleDictionary = (
 
   const mergedContent = mergedDictionary.content as Record<string, string>;
 
-  // Pruning: remove keys not in extractedContent
-  const finalContent: Record<string, string> = {};
+  // Pruning: remove keys neither extracted nor kept
+  const finalContent: Record<string, string> = prune
+    ? pickFields(mergedContent, keptFields)
+    : { ...mergedContent };
   for (const key in extractedContent) {
     const contentStr = mergedContent[key];
     if (contentStr) {
@@ -157,12 +208,17 @@ export const mergeWithExistingPerLocaleDictionary = (
 
 /**
  * Helper to write extracted content to dictionary file(s).
+ *
+ * @param prune - Drop the existing fields that are neither in
+ * `extractedContent` nor read by the component through its hook (full-file
+ * extraction). Off for a partial extraction, which only adds.
  */
 export const writeContentHelper = async (
   extractedContent: Record<string, string>,
   dictionaryKey: DictionaryKey,
   filePath: string,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  prune = true
 ): Promise<string> => {
   const { absolutePath, isPerLocale } = await resolveContentFilePaths(
     filePath,
@@ -199,8 +255,21 @@ export const writeContentHelper = async (
     }
   }
 
+  // A full extraction prunes the fields absent from the component, except the
+  // ones it reads through its hook; untraceable reads disable pruning.
+  const readFields = prune
+    ? await getComponentReadFields(filePath, dictionaryKey)
+    : new Set<string>();
+  const isPruned = prune && readFields !== 'all';
+  const keptFields = readFields === 'all' ? new Set<string>() : readFields;
+
   const relativeContentFilePath = relative(baseDir, absolutePath);
-  const componentFilePath = getComponentFilePath(filePath, configuration);
+  // A partial extraction into a hand-written dictionary keeps it unowned:
+  // only compiler-generated dictionaries carry `componentFilePath`.
+  const ownership =
+    prune || !existingDictionary || existingDictionary.componentFilePath
+      ? { componentFilePath: getComponentFilePath(filePath, configuration) }
+      : {};
 
   let mergedDictionary: Dictionary;
 
@@ -208,7 +277,9 @@ export const writeContentHelper = async (
     // Per-locale format: simple string content for a single locale
     const mergedContent = mergeWithExistingPerLocaleDictionary(
       extractedContent,
-      existingDictionary
+      existingDictionary,
+      isPruned,
+      keptFields
     );
 
     mergedDictionary = {
@@ -218,14 +289,16 @@ export const writeContentHelper = async (
       content: mergedContent,
       locale: defaultLocale,
       filePath: relativeContentFilePath,
-      componentFilePath,
+      ...ownership,
     };
   } else {
     // Multilingual format: content wrapped in translation nodes for multiple locales
     const mergedContent = mergeWithExistingMultilingualDictionary(
       extractedContent,
       existingDictionary,
-      defaultLocale
+      defaultLocale,
+      isPruned,
+      keptFields
     );
 
     mergedDictionary = {
@@ -234,7 +307,7 @@ export const writeContentHelper = async (
       key: dictionaryKey,
       content: mergedContent,
       filePath: relativeContentFilePath,
-      componentFilePath,
+      ...ownership,
     };
   }
 

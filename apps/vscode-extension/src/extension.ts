@@ -2,6 +2,12 @@ import { commands, type ExtensionContext, languages, window } from 'vscode';
 import { startCmsSync } from './cms/cmsSync';
 import { buildCommand } from './commands/buildAllCommand';
 import { extractCommand } from './commands/extractCommand';
+import {
+  EXTRACT_CONTENT_COMMAND,
+  extractContentAtCommand,
+  IGNORE_CONTENT_COMMAND,
+  ignoreContentAtCommand,
+} from './commands/extractContentAtCommand';
 import { fillCommand, reviewCommand } from './commands/fillAllCommand';
 import { initMCP } from './commands/initMCP';
 import { initProject } from './commands/initProject';
@@ -47,6 +53,7 @@ import { intlayerContentDefinitionProvider } from './providers/intlayerContentDe
 import { intlayerContentRedirectionProvider } from './providers/intlayerContentRedirectionProvider';
 import { intlayerDecorationProvider } from './providers/intlayerDecoration';
 import { intlayerDefinitionProvider } from './providers/intlayerDefinitionProvider';
+import { intlayerExtractInlayHintsProvider } from './providers/intlayerExtractInlayHints';
 import { intlayerHoverProvider } from './providers/intlayerHoverProvider';
 import { intlayerUnusedDecorationProvider } from './providers/intlayerUnusedDecoration';
 import {
@@ -105,7 +112,9 @@ const registerLanguageProviders = (context: ExtensionContext): void => {
       intlayerHoverProvider
     ),
     ...intlayerDecorationProvider(),
-    ...intlayerUnusedDecorationProvider()
+    ...intlayerUnusedDecorationProvider(),
+    // End-of-line `Extract · Ignore` hints on hardcoded component strings
+    ...intlayerExtractInlayHintsProvider()
   );
 };
 
@@ -121,6 +130,8 @@ const registerCommands = (context: ExtensionContext): void => {
       createDictionaryFile
     ),
     commands.registerCommand('extension.buildDictionaries', buildCommand),
+    commands.registerCommand(EXTRACT_CONTENT_COMMAND, extractContentAtCommand),
+    commands.registerCommand(IGNORE_CONTENT_COMMAND, ignoreContentAtCommand),
     commands.registerCommand(
       'extension.buildActiveDictionary',
       buildActiveDictionary

@@ -473,6 +473,16 @@
           "icon": "logo.svg"
         }
       ]
+    },
+    "configuration": {
+      "title": "Intlayer",
+      "properties": {
+        "intlayer.extractHints.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show `Extract · Ignore` at the end of the lines of `.tsx` / `.jsx` components holding hardcoded text: move the text to the component's content declaration file, or exclude it with an `intlayer-ignore-next-line` comment."
+        }
+      }
     }
   },
   "activationEvents": [

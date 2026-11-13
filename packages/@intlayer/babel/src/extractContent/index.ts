@@ -1,4 +1,5 @@
 export * from './contentWriter';
+export * from './detectExtractableContent';
 export * from './extractContent';
 export * from './utils/constants';
 export * from './utils/detectPackageName';

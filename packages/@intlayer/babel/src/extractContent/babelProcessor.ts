@@ -12,6 +12,7 @@ import {
   getComponentName,
   getExistingIntlayerInfo,
   getOrGenerateKey,
+  getReadFieldsOfComponent,
 } from './utils';
 
 export type BabelReplacement = {
@@ -27,6 +28,59 @@ export type BabelReplacement = {
   componentKey: string;
   childrenToReplace?: t.Node[];
   variables?: string[];
+};
+
+/** Offset range of the source, end exclusive. */
+export type SourceSelection = { start: number; end: number };
+
+/**
+ * Source span a replacement rewrites: its JSX children for combined text,
+ * its node otherwise.
+ */
+export const getReplacementSpan = (
+  replacement: BabelReplacement
+): SourceSelection => {
+  const children = replacement.childrenToReplace;
+
+  if (children && children.length > 0) {
+    return {
+      start: children[0]!.start ?? 0,
+      end: children[children.length - 1]!.end ?? 0,
+    };
+  }
+
+  return {
+    start: replacement.path.node.start ?? 0,
+    end: replacement.path.node.end ?? 0,
+  };
+};
+
+/** Whether a replacement rewrites any part of `selection`. */
+const isReplacementInSelection = (
+  replacement: BabelReplacement,
+  selection: SourceSelection
+): boolean => {
+  const span = getReplacementSpan(replacement);
+
+  return span.start < selection.end && selection.start < span.end;
+};
+
+/** Top-level content field names already declared under `dictionaryKey`. */
+const getDeclaredFieldNames = (
+  unmergedDictionaries: Record<string, unknown>,
+  dictionaryKey: string
+): Set<string> => {
+  const dictionaries = [unmergedDictionaries[dictionaryKey] ?? []].flat() as {
+    content?: unknown;
+  }[];
+
+  return new Set(
+    dictionaries.flatMap((dictionary) =>
+      typeof dictionary.content === 'object' && dictionary.content !== null
+        ? Object.keys(dictionary.content)
+        : []
+    )
+  );
 };
 
 // CJS/ESM interop: @babel/traverse exports its function as `.default` in CJS bundles
@@ -319,7 +373,8 @@ export const extractBabelContentForComponents = (
   defaultKey: string = 'default',
   configuration: IntlayerConfig,
   filePath: string,
-  unmergedDictionaries: Record<string, unknown> = {}
+  unmergedDictionaries: Record<string, unknown> = {},
+  selection?: SourceSelection
 ): {
   extractedContent: Record<string, Record<string, string>>;
   replacements: BabelReplacement[];
@@ -331,7 +386,7 @@ export const extractBabelContentForComponents = (
   existingInfoByNode: Map<t.Node, ExistingIntlayerInfo | undefined>;
   isSolid: boolean;
 } => {
-  const extractedContent: Record<string, Record<string, string>> = {};
+  let extractedContent: Record<string, Record<string, string>> = {};
   const replacements: BabelReplacement[] = [];
   const handledNodes = new Set<t.Node>();
   const componentKeyMap = new Map<t.Node, string>();
@@ -447,6 +502,25 @@ export const extractBabelContentForComponents = (
         );
       }
     }
+  }
+
+  // Field names a new string must not take: the ones the components already
+  // read through their hook (their text may differ), and for a partial
+  // extraction, which merges, every field declared in the target dictionaries.
+  for (const path of componentPaths) {
+    const existingInfo = existingInfoByNode.get(path.node);
+    const readFields = existingInfo
+      ? getReadFieldsOfComponent(path, existingInfo)
+      : new Set<string>();
+    const reservedNames =
+      selection || readFields === 'all'
+        ? getDeclaredFieldNames(
+            unmergedDictionaries,
+            componentKeyMap.get(path.node) ?? defaultKey
+          )
+        : readFields;
+
+    for (const name of reservedNames) existingKeys.add(name);
   }
 
   const getComponentKeyForPath = (path: NodePath): string => {
@@ -715,6 +789,27 @@ export const extractBabelContentForComponents = (
       });
     },
   });
+
+  // Extract only what the selection covers: hooks are then injected only in
+  // the components that receive one of the kept replacements.
+  if (selection) {
+    const selectedReplacements = replacements.filter((replacement) =>
+      isReplacementInSelection(replacement, selection)
+    );
+    const selectedContent: Record<string, Record<string, string>> = {};
+
+    for (const { componentKey, key } of selectedReplacements) {
+      const value = extractedContent[componentKey]?.[key];
+
+      if (value === undefined) continue;
+
+      selectedContent[componentKey] ??= {};
+      selectedContent[componentKey][key] = value;
+    }
+
+    replacements.splice(0, replacements.length, ...selectedReplacements);
+    extractedContent = selectedContent;
+  }
 
   /** Returns true when `componentNode` encloses the replacement's path. */
   const replacementIsInside = (

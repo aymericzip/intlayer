@@ -17,7 +17,7 @@ import { getProjectRequire } from '@intlayer/config/utils';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { detectFormatCommand } from '@intlayer/engine/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { extractTsContent } from './babelProcessor';
+import { extractTsContent, type SourceSelection } from './babelProcessor';
 import { writeContentHelper } from './contentWriter';
 import { processTsxFile } from './processTsxFile';
 import { extractDictionaryKeyFromPath, type PackageName } from './utils';
@@ -31,6 +31,11 @@ export type ExtractIntlayerOptions = {
   unmergedDictionaries?: Record<string, unknown>;
   configuration?: IntlayerConfig;
   code?: string;
+  /**
+   * Extract only the strings overlapping this offset range (JS/TS files).
+   * The content is merged into the existing dictionary, never pruned.
+   */
+  selection?: SourceSelection;
   onExtract?: (result: {
     key: string;
     content: Record<string, string>;
@@ -56,6 +61,9 @@ type ExternalCompilerOptions = {
     path: string
   ) => ReturnType<typeof extractTsContent>;
 };
+
+/** Files handled by the Babel processor itself. */
+const SCRIPT_EXTENSIONS = ['.tsx', '.jsx', '.ts', '.js', '.cjs', '.mjs'];
 
 type VueCompiler = typeof import('@intlayer/vue-compiler');
 type SvelteCompiler = typeof import('@intlayer/svelte-compiler');
@@ -109,6 +117,12 @@ const processFileInternal = (
       dependencies.configuration.compiler.dictionaryKeyPrefix
     );
   const ext = extname(filePath);
+
+  if (options?.selection && !SCRIPT_EXTENSIONS.includes(ext)) {
+    throw new Error(
+      `Extracting a selection is supported in ${SCRIPT_EXTENSIONS.join(', ')} files only.`
+    );
+  }
 
   const { vueCompiler, svelteCompiler, unmergedDictionaries, configuration } =
     dependencies;
@@ -236,7 +250,7 @@ const processFileInternal = (
     };
   }
 
-  if (['.tsx', '.jsx', '.ts', '.js', '.cjs', '.mjs'].includes(ext)) {
+  if (SCRIPT_EXTENSIONS.includes(ext)) {
     const result = processTsxFile(
       filePath,
       componentKey,
@@ -244,7 +258,8 @@ const processFileInternal = (
       configuration,
       saveComponent,
       unmergedDictionaries,
-      fileText
+      fileText,
+      options?.selection
     );
 
     if (result) {
@@ -287,7 +302,8 @@ const handleExtractionSideEffects = async (
         content,
         key,
         filePath,
-        configuration
+        configuration,
+        !options?.selection
       );
 
       const relativeContentFilePath = relative(baseDir, contentFilePath);

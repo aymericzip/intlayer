@@ -129,18 +129,45 @@ export const collectCompilerTextFields = (
 };
 
 /**
+ * Whitespace as written in the source: the compiler collapses line wraps,
+ * `&nbsp;` entities and `\n` escapes into the extracted text.
+ */
+const SOURCE_WHITESPACE_PATTERN = '(?:\\s|&nbsp;|&#(?:160|x[aA]0);|\\\\[nrt])+';
+
+/** An HTML entity or a JS escape sequence standing for one character. */
+const ENCODED_CHARACTER_PATTERN =
+  '&[#\\w]+;|\\\\u[0-9a-fA-F]{4}|\\\\u\\{[0-9a-fA-F]+\\}|\\\\x[0-9a-fA-F]{2}';
+
+/** Characters a source may write as an entity or an escape sequence. */
+const ENCODABLE_CHARACTER = /[^\x20-\x7e]|[&<>"'`{}\\]/u;
+
+/**
+ * One character of a field text as written in the source: the compiler stores
+ * the decoded value, the component may hold `&amp;`, `\u00e9` or `\'`.
+ */
+const toCharacterPattern = (character: string): string =>
+  ENCODABLE_CHARACTER.test(character)
+    ? `(?:\\\\?${escapeRegularExpression(character)}|${ENCODED_CHARACTER_PATTERN})`
+    : escapeRegularExpression(character);
+
+/**
  * Literal part of a field text: runs of whitespace match any whitespace (JSX
- * wraps lines), quotes may be escaped in a JS string.
+ * wraps lines), other characters may be escaped or written as entities.
  */
 const toLiteralPattern = (literal: string): string =>
   literal
     .split(/(\s+)/)
     .map((part) =>
       /^\s+$/.test(part)
-        ? '\\s+'
-        : escapeRegularExpression(part).replace(/(['"`])/g, '\\\\?$1')
+        ? SOURCE_WHITESPACE_PATTERN
+        : [...part].map(toCharacterPattern).join('')
     )
     .join('');
+
+const REPEATED_SOURCE_WHITESPACE = new RegExp(
+  `(?:${escapeRegularExpression(SOURCE_WHITESPACE_PATTERN)}){2,}`,
+  'g'
+);
 
 /**
  * Pattern matching a compiler field text as written in its component.
@@ -156,7 +183,7 @@ export const buildCompilerTextPattern = (text: string): RegExp | null => {
     .map(toLiteralPattern)
     .join(SOURCE_PLACEHOLDER_PATTERN)
     // `{{x}} {{y}}` leaves blank literals between placeholders
-    .replace(/(?:\\s\+)+/g, '\\s+');
+    .replace(REPEATED_SOURCE_WHITESPACE, SOURCE_WHITESPACE_PATTERN);
 
   // Whole words only: `Save` must not match inside `onSave` / `Saved`
   const startBoundary = WORD_CHARACTER.test(trimmedText.charAt(0))
@@ -199,8 +226,25 @@ export const findCompilerTextMatches = (
   );
 
 /**
+ * Offset of the last `'dictionaryKey'` literal before `offset`, `-1` when the
+ * file never names the dictionary there (a component declaring its own
+ * `useIntlayer('key')` owns the strings that follow it).
+ */
+const getPrecedingKeyOffset = (
+  sourceText: string,
+  offset: number,
+  dictionaryKey: string
+): number =>
+  Math.max(
+    ...["'", '"', '`'].map((quote) =>
+      sourceText.lastIndexOf(`${quote}${dictionaryKey}${quote}`, offset)
+    )
+  );
+
+/**
  * The field written at `offset`. When several match (`Add` inside `Add item`),
- * the longest wins: it is the string the compiler extracted.
+ * the longest wins: it is the string the compiler extracted. The same text
+ * extracted into several dictionaries goes to the one named closest above.
  */
 export const findCompilerTextAtOffset = (
   sourceText: string,
@@ -208,14 +252,26 @@ export const findCompilerTextAtOffset = (
   fields: CompilerTextField[]
 ): CompilerTextMatch | null => {
   let bestMatch: CompilerTextMatch | null = null;
+  let bestKeyOffset = -1;
 
   for (const match of findCompilerTextMatches(sourceText, fields)) {
     if (offset < match.start || offset > match.end) continue;
 
-    const isLonger =
-      !bestMatch || match.end - match.start > bestMatch.end - bestMatch.start;
+    const length = match.end - match.start;
+    const bestLength = bestMatch ? bestMatch.end - bestMatch.start : -1;
 
-    if (isLonger) bestMatch = match;
+    if (length < bestLength) continue;
+
+    const keyOffset = getPrecedingKeyOffset(
+      sourceText,
+      match.start,
+      match.field.dictionaryKey
+    );
+
+    if (length > bestLength || keyOffset > bestKeyOffset) {
+      bestMatch = match;
+      bestKeyOffset = keyOffset;
+    }
   }
 
   return bestMatch;

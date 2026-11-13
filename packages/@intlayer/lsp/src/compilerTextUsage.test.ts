@@ -126,6 +126,19 @@ describe('findCompilerTextSpans', () => {
     );
   });
 
+  it('matches text written with entities or escape sequences', () => {
+    const cases: [source: string, text: string][] = [
+      ['<p>Fish &amp; chips</p>', 'Fish & chips'],
+      ['<p>Hello&nbsp;world</p>', 'Hello\u00a0world'],
+      ["const label = 'Line one\\nLine two'", 'Line one\nLine two'],
+      ["const label = 'Caf\\u00e9 open'", 'Café open'],
+    ];
+
+    for (const [source, text] of cases) {
+      expect(findCompilerTextSpans(source, text)).toHaveLength(1);
+    }
+  });
+
   it('builds no pattern for placeholder-only text', () => {
     expect(buildCompilerTextPattern('{{count}}')).toBeNull();
   });
@@ -160,5 +173,25 @@ describe('findCompilerTextAtOffset', () => {
     const source = '<h1 className="title">My title</h1>';
 
     expect(findCompilerTextAtOffset(source, 5, fields)).toBeNull();
+  });
+
+  it('gives text shared by several dictionaries to the one named above', () => {
+    const sharedFields = [
+      { dictionaryKey: 'header', fieldPath: ['save'], text: 'Save' },
+      { dictionaryKey: 'footer', fieldPath: ['save'], text: 'Save' },
+    ];
+    const source = [
+      "const Header = () => { useIntlayer('header'); return <b>Save</b>; };",
+      "const Footer = () => { useIntlayer('footer'); return <b>Save</b>; };",
+    ].join('\n');
+
+    expect(
+      findCompilerTextAtOffset(source, source.indexOf('Save'), sharedFields)
+        ?.field.dictionaryKey
+    ).toBe('header');
+    expect(
+      findCompilerTextAtOffset(source, source.lastIndexOf('Save'), sharedFields)
+        ?.field.dictionaryKey
+    ).toBe('footer');
   });
 });

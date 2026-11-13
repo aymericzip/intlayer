@@ -594,6 +594,38 @@ describe('collectJsonContentFields', () => {
     }
   });
 
+  it('locates a key after a same-named nested key or string value', () => {
+    const text = [
+      '{',
+      '  "key": "content",',
+      '  // "title": commented out',
+      '  "content": {',
+      '    "hero": { "title": "A" },',
+      '    "title": "B",',
+      '    "kind": "label",',
+      '    "label": "C"',
+      '  }',
+      '}',
+    ].join('\n');
+
+    const lineOf = (dottedKey: string): number => {
+      const field = collectJsonContentFields(text).find(
+        (candidate) => candidate.dottedKey === dottedKey
+      )!;
+
+      expect(text.slice(field.start, field.end)).toBe(
+        `"${field.fieldPath.at(-1)}"`
+      );
+
+      return text.slice(0, field.start).split('\n').length;
+    };
+
+    expect(lineOf('hero.title')).toBe(5);
+    expect(lineOf('title')).toBe(6);
+    expect(lineOf('kind')).toBe(7);
+    expect(lineOf('label')).toBe(8);
+  });
+
   it('returns nothing for invalid JSON', () => {
     expect(collectJsonContentFields('{ "key": ')).toEqual([]);
   });
