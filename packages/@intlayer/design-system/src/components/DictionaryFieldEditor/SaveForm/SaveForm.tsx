@@ -41,6 +41,10 @@ import { useDictionarySave } from './useDictionarySave';
 /** Stable empty change set, so memoized consumers skip re-rendering. */
 const EMPTY_CHANGE_SET: ChangeSetEntry[] = [];
 
+/** Capped in a row; full width once the form is stacked (`flex-col`). */
+const ACTION_BUTTON_CLASS_NAME =
+  'max-w-2xs flex-1 group-[.flex-col]/save-form:w-full group-[.flex-col]/save-form:max-w-none';
+
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
   mode: ('local' | 'remote')[];
@@ -195,7 +199,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
       Icon={Save}
       color="text"
-      className="max-w-2xs flex-1"
+      className={ACTION_BUTTON_CLASS_NAME}
       isLoading={isPushing}
       onClick={handlePushDictionary}
     >
@@ -211,7 +215,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       <ChangeSetPopover
         changeSet={changeSet}
         onRevert={contentGrid?.revertChange}
-        className="max-w-2xs flex-1"
+        className={ACTION_BUTTON_CLASS_NAME}
       >
         {saveButtonElement}
       </ChangeSetPopover>
@@ -249,7 +253,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               disabled={!isEdited || isLoading}
               Icon={Save}
               color="text"
-              className="max-w-2xs flex-1"
+              className={ACTION_BUTTON_CLASS_NAME}
               isLoading={isWriting}
               onClick={handleSaveDictionaryConfirmation}
             >
@@ -260,7 +264,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               label={confirmation.cancelButton.label.value}
               disabled={isLoading}
               color="text"
-              className="max-w-2xs flex-1"
+              className={ACTION_BUTTON_CLASS_NAME}
               variant="outline"
               onClick={() => setIsFormatAlertModalOpen(false)}
             >
@@ -271,7 +275,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       </Modal>
       <form
         className={cn(
-          'flex flex-row flex-row-reverse flex-wrap items-end justify-start gap-2',
+          'group/save-form flex flex-row flex-row-reverse flex-wrap items-end justify-start gap-2',
           className
         )}
         {...props}
@@ -296,7 +300,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             disabled={isLoading}
             Icon={ArrowUpFromLine}
             color="text"
-            className="max-w-2xs flex-1"
+            className={ACTION_BUTTON_CLASS_NAME}
             isLoading={isPushAwaitingLogin}
             onClick={handleLoginToPush}
           >
@@ -310,7 +314,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             disabled={isLoading || !hasDictionaryWritePermission}
             Icon={ArrowUpFromLine}
             color="text"
-            className="max-w-2xs flex-1"
+            className={ACTION_BUTTON_CLASS_NAME}
             isLoading={isPushing}
             onClick={handlePushDictionary}
           >
@@ -325,7 +329,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             Icon={FileDown}
             color="text"
             variant={isAuthenticated || canLoginToPush ? 'outline' : 'default'}
-            className="max-w-2xs flex-1"
+            className={ACTION_BUTTON_CLASS_NAME}
             isLoading={isWriting}
             onClick={() => setIsFormatAlertModalOpen(true)}
           >
@@ -340,7 +344,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             Icon={RotateCcw}
             variant="outline"
             color="text"
-            className="max-w-2xs flex-1"
+            className={ACTION_BUTTON_CLASS_NAME}
             onClick={() => restoreEditedContent(dictionary.localId!)}
           >
             {changeCount > 0
@@ -358,7 +362,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               Icon={Trash}
               color="error"
               variant="outline"
-              className="max-w-2xs flex-1"
+              className={ACTION_BUTTON_CLASS_NAME}
               isLoading={isDeleting}
               onClick={handleDeleteDictionary}
               disabled={!hasDictionaryDeletePermission}
