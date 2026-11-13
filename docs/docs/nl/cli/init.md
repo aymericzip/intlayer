@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: Initialiseer Intlayer
 description: Leer hoe u Intlayer in uw project kunt initialiseren.
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init registreert ook de lint- / Prettier-plugins; init ai toegevoegd; .content-bestanden in TanStack-routes worden genegeerd"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init installeert alleen de pakketten en richt het framework in; één subcommando per stap; --interactive faalt zonder terminal"
@@ -58,6 +61,8 @@ Al het andere (CI-workflows, AI-skills, MCP-server, editor-tools, lint-regels, C
 - `--project-root [projectRoot]` - Optioneel. Specificeer de hoofdmap van het project. Indien niet opgegeven, zoekt het commando naar de projectmap vanaf de huidige werkmap.
 - `--no-gitignore` - Optioneel. Slaat het automatisch bijwerken van het `.gitignore`-bestand over. Als deze vlag is ingesteld, wordt `.intlayer` niet toegevoegd aan `.gitignore`.
 - `--no-framework-setup` - Optioneel. Installeert alleen de pakketten, zonder de projectbestanden aan te passen.
+- `--no-eslint` - Optioneel. Schakelt de Intlayer-lintregels niet in.
+- `--no-prettier` - Optioneel. Voegt de Intlayer Prettier-plugin niet toe.
 - `--routing <routing>` - Optioneel. Locale-routing: `prefix-no-default` (standaard), `prefix-all`, `no-prefix`, `search-params` of `none`.
 - `--content <layout>` - Optioneel. Hoe inhoud wordt gedeclareerd:
   - `multilingual` - `{fileName}.content.{ts,json}` naast het component, elke locale in één bestand (stelt `compiler.output` in).
@@ -78,25 +83,28 @@ Het `init` commando voert de volgende configuratietaken uit:
 3. **Werkt `.gitignore` bij** - Voegt `.intlayer` toe aan uw `.gitignore` bestand om gegenereerde bestanden uit te sluiten van versiebeheer (kan worden overgeslagen met `--no-gitignore`).
 4. **Configureert TypeScript** - Werkt eventuele `tsconfig.json` bestanden bij om Intlayer type-definities op te nemen (`.intlayer/**/*.ts`).
 5. **Maakt configuratiebestand aan** - Genereert een `intlayer.config.ts` (voor TypeScript-projecten) of `intlayer.config.mjs` (voor JavaScript-projecten) met standaardinstellingen.
-6. **Werkt de bundler- / frameworkconfiguratie bij** - Voegt de Intlayer-plugin toe aan je Vite-, Next.js-, Nuxt-, Astro-, …-configuratie en maakt de middleware/proxy en providers aan wanneer het framework dat ondersteunt.
+6. **Werkt de bundler- / frameworkconfiguratie bij** - Voegt de Intlayer-plugin toe aan je Vite-, Next.js-, Nuxt-, Astro-, …-configuratie en maakt de middleware/proxy en providers aan wanneer het framework dat ondersteunt. Bij TanStack Start / Router wordt `routeFileIgnorePattern` ingesteld, zodat `.content`-bestanden in `routes/` niet als routes worden behandeld.
+7. **Lint- en formatteerplugins** - Als het project ESLint / oxlint of Prettier gebruikt, worden `eslint-plugin-intlayer` / `prettier-plugin-intlayer` geïnstalleerd en geregistreerd in je ESLint flat config, `.oxlintrc.json` en Prettier-config. Een config die niet veilig kan worden aangepast, krijgt in plaats daarvan het fragment om te plakken.
 
 ## Eén stap tegelijk instellen
 
 Elke stap van de `--interactive`-checklist heeft een eigen subcommando. Ze stellen geen vragen wanneer hun waarden als flags worden meegegeven, dus je kunt ze veilig uitvoeren vanuit een AI-agent of een CI-job.
 
-| Commando                                                              | Wat het instelt                                                                              |
-| --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `intlayer init packages`                                              | Installeert ontbrekende Intlayer-pakketten en werkt verouderde bij                           |
-| `intlayer init project [--routing <routing>] [--content <layout>]`    | Configuratiebestand, TypeScript, bundler-plugin, middleware/proxy, providers en `.gitignore` |
-| `intlayer init github-actions`                                        | De GitHub Actions-workflows `fill` en `test`                                                 |
-| `intlayer init vscode-extension`                                      | Raadt de Intlayer-extensie aan in `.vscode/extensions.json`                                  |
-| `intlayer init lsp`                                                   | De Intlayer-taalserver in `.vscode/settings.json`                                            |
-| `intlayer init eslint`                                                | De Intlayer-lintregels (ESLint / oxlint), als het project al lint                            |
-| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | De Intlayer-documentatie als skills voor AI-agents                                           |
-| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | De Intlayer MCP-server                                                                       |
-| `intlayer init extension [--browser <chrome/firefox>]`                | Opent de storepagina van de Intlayer-browserextensie                                         |
-| `intlayer init cms`                                                   | Logt in op het Intlayer CMS via je browser en slaat de inloggegevens op in `.env`            |
-| `intlayer init infra --mode <desktop/docker/compose>`                 | De desktop-app of een zelf-gehoste stack                                                     |
+| Commando                                                              | Wat het instelt                                                                               |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | Installeert ontbrekende Intlayer-pakketten en werkt verouderde bij                            |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Configuratiebestand, TypeScript, bundler-plugin, middleware/proxy, providers en `.gitignore`  |
+| `intlayer init github-actions`                                        | De GitHub Actions-workflows `fill` en `test`                                                  |
+| `intlayer init vscode-extension`                                      | Raadt de Intlayer-extensie aan in `.vscode/extensions.json`                                   |
+| `intlayer init lsp`                                                   | De Intlayer-taalserver in `.vscode/settings.json`                                             |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Installeert de SDK van de AI-provider, toont de modellen en slaat de API-sleutel op in `.env` |
+| `intlayer init eslint`                                                | De Intlayer-lintregels (ESLint / oxlint), als het project al lint                             |
+| `intlayer init prettier`                                              | De Intlayer Prettier-plugin, als het project al met Prettier formatteert                      |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | De Intlayer-documentatie als skills voor AI-agents                                            |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | De Intlayer MCP-server                                                                        |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Opent de storepagina van de Intlayer-browserextensie                                          |
+| `intlayer init cms`                                                   | Logt in op het Intlayer CMS via je browser en slaat de inloggegevens op in `.env`             |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | De desktop-app of een zelf-gehoste stack                                                      |
 
 ### Vanuit een AI-agent of een CI-job
 

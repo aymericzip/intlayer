@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Intlayerパッケージのアップグレード
 description: Intlayer CLIのupgradeコマンドを使用して、プロジェクトまたはモノレポ内のすべてのIntlayerパッケージをリストし、最新バージョンにアップグレードする方法を学びます。
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "lint / Prettier プラグインのインストールと登録、MCP サーバーのエントリを更新"
   - version: 9.5.8
     date: 2026-09-23
     changes: "upgradeコマンドの追加"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-`upgrade` コマンドは、モノレポのワークスペースを含むプロジェクト内の各 `package.json` に宣言されているIntlayerパッケージを一覧表示し、公開されている最新バージョンにアップグレードします。`intlayer init` と同様のパッケージアップグレード手順を単体で実行します。
+`upgrade` コマンドは、モノレポのワークスペースを含むプロジェクト内のすべての `package.json` に宣言された Intlayer パッケージを一覧表示し、公開済みの最新バージョンにアップグレードします。対象はフレームワーク統合、`eslint-plugin-intlayer`、`prettier-plugin-intlayer`、`intlayer-editor`、`@intlayer/mcp`、その他すべての `@intlayer/*` パッケージです。その後、関連するツールを最新の状態にします。
 
 ## 引数:
 
 - `--project-root [projectRoot]` - 省略可能。プロジェクトのルートディレクトリ。デフォルトでは、現在の作業ディレクトリの上にある最も近い `package.json` から開始します。
 - `--dry-run` - 省略可能。ファイルを変更せずに、パッケージとその対象バージョンを一覧表示します。
 - `--tag <tag>` - 省略可能。アップグレード先のnpm dist-tag（例: `canary`）。デフォルトは `latest` です。
+- `--no-eslint` - 任意。Intlayer の lint ルールをインストール・登録しません。
+- `--no-prettier` - 任意。Intlayer の Prettier プラグインをインストール・登録しません。
 
 ## 処理内容:
 
@@ -66,6 +71,9 @@ bun x intlayer upgrade
 ロックファイルが存在しない場合は、npmにフォールバックする前に `package.json` の `packageManager` フィールド（例: `"bun@1.2.0"`）が使用されます。
 
 `workspace:*`、`file:`、`link:`、`catalog:`、またはgit URLなど、レジストリを指していない範囲は変更されません。
+
+5. **lint / Prettier プラグイン** - プロジェクトが ESLint / oxlint または Prettier を使っている場合、不足している `eslint-plugin-intlayer` / `prettier-plugin-intlayer` をインストールして登録します。ESLint の flat config には `...intlayer.configs.recommended`、`.oxlintrc.json` にはルール、Prettier の設定（JSON、YAML、JavaScript、TypeScript）にはプラグインを追加します。安全に編集できない設定の場合は、代わりに貼り付け用のスニペットを表示します。
+6. **MCP サーバー** - プロジェクト内の stdio 方式の Intlayer MCP エントリ（`.mcp.json`、`.cursor/mcp.json`、`.vscode/mcp.json` など）を `@intlayer/mcp@<tag>` に向け、`npx` がキャッシュされたコピーではなくアップグレードされたサーバーを起動するようにします。
 
 ## 例:
 

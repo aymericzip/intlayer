@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: 프로젝트에 Intlayer 설정"
 description: "intlayer init으로 기존 프로젝트에 Intlayer를 추가하세요. 프레임워크를 감지하고 패키지를 설치하며 설정 파일을 작성합니다."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init이 lint / Prettier 플러그인도 등록; init ai 추가; TanStack 라우트에서 .content 파일 무시"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init는 패키지 설치와 프레임워크 설정만 수행; 단계별 전용 하위 명령 추가; 터미널이 없으면 --interactive가 실패"
@@ -61,6 +64,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - 선택 사항. 프로젝트 루트 디렉토리를 지정합니다. 제공되지 않으면 명령어는 현재 작업 디렉토리부터 프로젝트 루트를 검색합니다.
 - `--no-gitignore` - 선택 사항. `.gitignore` 파일의 자동 업데이트를 건너뜁니다. 이 플래그가 설정되면 `.intlayer`가 `.gitignore`에 추가되지 않습니다.
 - `--no-framework-setup` - 선택 사항. 프로젝트 파일은 건드리지 않고 패키지만 설치합니다.
+- `--no-eslint` - 선택 사항. Intlayer lint 규칙을 활성화하지 않습니다.
+- `--no-prettier` - 선택 사항. Intlayer Prettier 플러그인을 추가하지 않습니다.
 - `--routing <routing>` - 선택 사항. 로케일 라우팅: `prefix-no-default`(기본값), `prefix-all`, `no-prefix`, `search-params` 또는 `none`.
 - `--content <layout>` - 선택 사항. 콘텐츠 선언 방식:
   - `multilingual` - `{fileName}.content.{ts,json}` 컴포넌트 옆, 모든 로케일을 하나의 파일에 위치시킴(`compiler.output` 설정).
@@ -81,7 +86,8 @@ bun x intlayer init
 3. **`.gitignore` 업데이트** - 생성된 파일을 버전 관리에서 제외하기 위해 `.gitignore` 파일에 `.intlayer`를 추가합니다 (`--no-gitignore`로 건너뛸 수 있음).
 4. **TypeScript 구성** - Intlayer 타입 정의(`.intlayer/**/*.ts`)를 포함하도록 모든 `tsconfig.json` 파일을 업데이트합니다.
 5. **설정 파일 생성** - 기본 설정을 사용하여 `intlayer.config.ts`(TypeScript 프로젝트용) 또는 `intlayer.config.mjs`(JavaScript 프로젝트용)를 생성합니다.
-6. **번들러 / 프레임워크 설정 업데이트** - Vite, Next.js, Nuxt, Astro 등의 설정에 Intlayer 플러그인을 추가하고, 프레임워크가 지원하면 미들웨어/프록시와 프로바이더를 생성합니다.
+6. **번들러 / 프레임워크 설정 업데이트** - Vite, Next.js, Nuxt, Astro 등의 설정에 Intlayer 플러그인을 추가하고, 프레임워크가 지원하면 미들웨어/프록시와 프로바이더를 생성합니다. TanStack Start / Router에서는 `routes/`의 `.content` 파일이 라우트로 처리되지 않도록 `routeFileIgnorePattern`을 설정합니다.
+7. **lint 및 포맷 플러그인** - 프로젝트가 ESLint / oxlint 또는 Prettier를 사용하면 `eslint-plugin-intlayer` / `prettier-plugin-intlayer`를 설치하고 ESLint flat config, `.oxlintrc.json`, Prettier 설정에 등록합니다. 안전하게 수정할 수 없는 설정에는 대신 붙여넣을 스니펫을 출력합니다.
 
 ## 한 단계씩 설정하기
 
@@ -94,7 +100,9 @@ bun x intlayer init
 | `intlayer init github-actions`                                        | `fill` 및 `test` GitHub Actions 워크플로                                          |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json`에 Intlayer 확장 프로그램 추천                           |
 | `intlayer init lsp`                                                   | `.vscode/settings.json`의 Intlayer 언어 서버                                      |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | AI 제공자 SDK를 설치하고, 모델 목록을 보여 주며, API 키를 `.env`에 저장합니다     |
 | `intlayer init eslint`                                                | 프로젝트가 이미 린트를 사용할 때 Intlayer 린트 규칙(ESLint / oxlint)              |
+| `intlayer init prettier`                                              | 프로젝트가 이미 Prettier로 포맷하는 경우 Intlayer Prettier 플러그인               |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI 에이전트용 스킬 형태의 Intlayer 문서                                           |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP 서버                                                                 |
 | `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer 브라우저 확장 프로그램의 스토어 페이지 열기                              |

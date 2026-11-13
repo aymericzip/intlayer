@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: Intlayer im Projekt einrichten"
 description: "Führen Sie intlayer init aus, um Intlayer zu einem bestehenden Projekt hinzuzufügen: Framework erkennen, Pakete installieren, Konfiguration schreiben."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init registriert auch die Lint- / Prettier-Plugins; init ai hinzugefügt; .content-Dateien in TanStack-Routen werden ignoriert"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init installiert nur die Pakete und richtet das Framework ein; ein Unterbefehl pro Einrichtungsschritt; --interactive schlägt ohne Terminal fehl"
@@ -58,6 +61,8 @@ Alles andere (CI-Workflows, KI-Skills, MCP-Server, Editor-Tools, Lint-Regeln, CM
 - `--project-root [projectRoot]` - Optional. Geben Sie das Projektstammverzeichnis an. Wenn nicht angegeben, sucht der Befehl das Projektstammverzeichnis ausgehend vom aktuellen Arbeitsverzeichnis.
 - `--no-gitignore` - Optional. Überspringt die automatische Aktualisierung der `.gitignore`-Datei. Wenn dieses Flag gesetzt ist, wird `.intlayer` nicht zu `.gitignore` hinzugefügt.
 - `--no-framework-setup` - Optional. Installiert nur die Pakete, ohne die Projektdateien zu verändern.
+- `--no-eslint` - Optional. Aktiviert die Intlayer-Lint-Regeln nicht.
+- `--no-prettier` - Optional. Fügt das Intlayer-Prettier-Plugin nicht hinzu.
 - `--routing <routing>` - Optional. Locale-Routing: `prefix-no-default` (Standard), `prefix-all`, `no-prefix`, `search-params` oder `none`.
 - `--content <layout>` - Optional. Wie Inhalte deklariert werden:
   - `multilingual` - `{fileName}.content.{ts,json}` neben der Komponente, alle Locales in einer Datei (setzt `compiler.output`).
@@ -78,25 +83,28 @@ Der `init`-Befehl führt die folgenden Einrichtungsschritte aus:
 3. **Aktualisiert `.gitignore`** - Fügt `.intlayer` zu Ihrer `.gitignore`-Datei hinzu, um generierte Dateien von der Versionskontrolle auszuschließen
 4. **Konfiguriert TypeScript** - Aktualisiert alle `tsconfig.json`-Dateien, um Intlayer-Typdefinitionen einzuschließen (`.intlayer/**/*.ts`)
 5. **Erstellt Konfigurationsdatei** - Generiert eine `intlayer.config.ts` (für TypeScript-Projekte) oder `intlayer.config.mjs` (für JavaScript-Projekte) mit Standardeinstellungen
-6. **Aktualisiert die Bundler- / Framework-Konfiguration** - Fügt das Intlayer-Plugin zu Ihrer Vite-, Next.js-, Nuxt-, Astro-, …-Konfiguration hinzu und erstellt Middleware/Proxy und Provider, wenn das Framework es unterstützt
+6. **Aktualisiert die Bundler- / Framework-Konfiguration** - Fügt das Intlayer-Plugin zu Ihrer Vite-, Next.js-, Nuxt-, Astro-, …-Konfiguration hinzu und erstellt Middleware/Proxy und Provider, wenn das Framework es unterstützt. Bei TanStack Start / Router wird `routeFileIgnorePattern` gesetzt, damit `.content`-Dateien in `routes/` nicht als Routen behandelt werden.
+7. **Lint- und Format-Plugins** - Wenn das Projekt ESLint / oxlint oder Prettier nutzt, werden `eslint-plugin-intlayer` / `prettier-plugin-intlayer` installiert und in Ihrer ESLint-Flat-Config, `.oxlintrc.json` und Prettier-Config registriert. Kann eine Config nicht sicher bearbeitet werden, wird stattdessen das einzufügende Snippet ausgegeben.
 
 ## Einen Schritt nach dem anderen einrichten
 
 Jeder Schritt der `--interactive`-Checkliste hat einen eigenen Unterbefehl. Sie stellen keine Fragen, wenn ihre Werte als Flags übergeben werden, und lassen sich daher sicher aus einem KI-Agenten oder einem CI-Job ausführen.
 
-| Befehl                                                                | Was er einrichtet                                                                            |
-| --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `intlayer init packages`                                              | Installiert fehlende Intlayer-Pakete und aktualisiert veraltete                              |
-| `intlayer init project [--routing <routing>] [--content <layout>]`    | Konfigurationsdatei, TypeScript, Bundler-Plugin, Middleware/Proxy, Provider und `.gitignore` |
-| `intlayer init github-actions`                                        | Die GitHub-Actions-Workflows `fill` und `test`                                               |
-| `intlayer init vscode-extension`                                      | Empfiehlt die Intlayer-Erweiterung in `.vscode/extensions.json`                              |
-| `intlayer init lsp`                                                   | Den Intlayer-Language-Server in `.vscode/settings.json`                                      |
-| `intlayer init eslint`                                                | Die Intlayer-Lint-Regeln (ESLint / oxlint), wenn das Projekt bereits lintet                  |
-| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | Die Intlayer-Dokumentation als Skills für KI-Agenten                                         |
-| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Den Intlayer-MCP-Server                                                                      |
-| `intlayer init extension [--browser <chrome/firefox>]`                | Öffnet die Store-Seite der Intlayer-Browsererweiterung                                       |
-| `intlayer init cms`                                                   | Meldet Sie über Ihren Browser beim Intlayer-CMS an und speichert die Zugangsdaten in `.env`  |
-| `intlayer init infra --mode <desktop/docker/compose>`                 | Die Desktop-App oder einen selbst gehosteten Stack                                           |
+| Befehl                                                                | Was er einrichtet                                                                                        |
+| --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | Installiert fehlende Intlayer-Pakete und aktualisiert veraltete                                          |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Konfigurationsdatei, TypeScript, Bundler-Plugin, Middleware/Proxy, Provider und `.gitignore`             |
+| `intlayer init github-actions`                                        | Die GitHub-Actions-Workflows `fill` und `test`                                                           |
+| `intlayer init vscode-extension`                                      | Empfiehlt die Intlayer-Erweiterung in `.vscode/extensions.json`                                          |
+| `intlayer init lsp`                                                   | Den Intlayer-Language-Server in `.vscode/settings.json`                                                  |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Installiert das SDK des KI-Anbieters, listet seine Modelle auf und speichert den API-Schlüssel in `.env` |
+| `intlayer init eslint`                                                | Die Intlayer-Lint-Regeln (ESLint / oxlint), wenn das Projekt bereits lintet                              |
+| `intlayer init prettier`                                              | Das Intlayer-Prettier-Plugin, wenn das Projekt bereits mit Prettier formatiert                           |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | Die Intlayer-Dokumentation als Skills für KI-Agenten                                                     |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Den Intlayer-MCP-Server                                                                                  |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Öffnet die Store-Seite der Intlayer-Browsererweiterung                                                   |
+| `intlayer init cms`                                                   | Meldet Sie über Ihren Browser beim Intlayer-CMS an und speichert die Zugangsdaten in `.env`              |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | Die Desktop-App oder einen selbst gehosteten Stack                                                       |
 
 ### Aus einem KI-Agenten oder einem CI-Job
 

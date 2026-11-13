@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: thiết lập Intlayer trong dự án"
 description: "Chạy intlayer init để thêm Intlayer vào dự án hiện có: lệnh phát hiện framework, cài gói và ghi file cấu hình."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init cũng đăng ký plugin lint / Prettier; thêm init ai; bỏ qua tệp .content trong route TanStack"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init chỉ cài đặt các gói và thiết lập framework; thêm một lệnh con cho mỗi bước; --interactive thất bại khi không có terminal"
@@ -61,6 +64,8 @@ Mọi thứ khác (workflow CI, skill AI, máy chủ MCP, công cụ editor, quy
 - `--project-root [projectRoot]` - Tùy chọn. Chỉ định thư mục gốc của dự án. Nếu không được cung cấp, lệnh sẽ tìm kiếm thư mục dự án bắt đầu từ thư mục làm việc hiện tại.
 - `--no-gitignore` - Tùy chọn. Bỏ qua việc tự động cập nhật tệp `.gitignore`. Nếu cờ này được đặt, `.intlayer` sẽ không được thêm vào `.gitignore`.
 - `--no-framework-setup` - Tùy chọn. Chỉ cài đặt các gói, không thay đổi các tệp của dự án.
+- `--no-eslint` - Tùy chọn. Không bật các quy tắc lint của Intlayer.
+- `--no-prettier` - Tùy chọn. Không thêm plugin Prettier của Intlayer.
 - `--routing <routing>` - Tùy chọn. Định tuyến locale: `prefix-no-default` (mặc định), `prefix-all`, `no-prefix`, `search-params` hoặc `none`.
 - `--content <layout>` - Tùy chọn. Cách khai báo nội dung:
   - `multilingual` - `{fileName}.content.{ts,json}` bên cạnh component, mọi locale trong một tệp (thiết lập `compiler.output`).
@@ -81,7 +86,8 @@ Lệnh `init` thực hiện các tác vụ thiết lập sau:
 3. **Cập nhật `.gitignore`** - Thêm `.intlayer` vào tệp `.gitignore` của bạn để loại bỏ các tệp được tạo tự động khỏi trình quản lý phiên bản (có thể bỏ qua bằng `--no-gitignore`).
 4. **Cấu hình TypeScript** - Cập nhật bất kỳ tệp `tsconfig.json` nào để bao gồm các định nghĩa kiểu của Intlayer (`.intlayer/**/*.ts`).
 5. **Tạo tệp cấu hình** - Tạo `intlayer.config.ts` (cho các dự án TypeScript) hoặc `intlayer.config.mjs` (cho các dự án JavaScript) với các cài đặt mặc định.
-6. **Cập nhật cấu hình bundler / framework** - Thêm plugin Intlayer vào cấu hình Vite, Next.js, Nuxt, Astro, … và tạo middleware/proxy cùng provider khi framework hỗ trợ.
+6. **Cập nhật cấu hình bundler / framework** - Thêm plugin Intlayer vào cấu hình Vite, Next.js, Nuxt, Astro, … và tạo middleware/proxy cùng provider khi framework hỗ trợ. Với TanStack Start / Router, đặt `routeFileIgnorePattern` để các tệp `.content` trong `routes/` không bị coi là route.
+7. **Plugin lint và định dạng** - Khi dự án dùng ESLint / oxlint hoặc Prettier, cài `eslint-plugin-intlayer` / `prettier-plugin-intlayer` và đăng ký chúng trong flat config ESLint, `.oxlintrc.json` và config Prettier của bạn. Config không thể chỉnh sửa an toàn sẽ nhận đoạn mã để dán thủ công.
 
 ## Thiết lập từng bước một
 
@@ -94,7 +100,9 @@ Mỗi bước trong checklist `--interactive` đều có lệnh con riêng. Chú
 | `intlayer init github-actions`                                        | Các workflow GitHub Actions `fill` và `test`                                         |
 | `intlayer init vscode-extension`                                      | Đề xuất tiện ích Intlayer trong `.vscode/extensions.json`                            |
 | `intlayer init lsp`                                                   | Máy chủ ngôn ngữ Intlayer trong `.vscode/settings.json`                              |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Cài SDK của nhà cung cấp AI, liệt kê các model và lưu API key vào `.env`             |
 | `intlayer init eslint`                                                | Các quy tắc lint của Intlayer (ESLint / oxlint), khi dự án đã dùng linter            |
+| `intlayer init prettier`                                              | Plugin Prettier của Intlayer, khi dự án đã định dạng bằng Prettier                   |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | Tài liệu Intlayer dưới dạng skill cho agent AI                                       |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Máy chủ MCP của Intlayer                                                             |
 | `intlayer init extension [--browser <chrome/firefox>]`                | Mở trang cửa hàng của tiện ích trình duyệt Intlayer                                  |

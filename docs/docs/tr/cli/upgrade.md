@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Intlayer Paketlerini Yükseltme
 description: Projenizin veya monorepo'nuzun her Intlayer paketini listelemek ve bunları en son sürüme yükseltmek için Intlayer CLI upgrade komutunu nasıl kullanacağınızı öğrenin.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "Lint / Prettier eklentilerini kurar ve kaydeder, MCP sunucu girdilerini günceller"
   - version: 9.5.8
     date: 2026-09-23
     changes: "upgrade komutunu ekle"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-`upgrade` komutu, monorepo çalışma alanları da dahil olmak üzere projenizin her `package.json` dosyasında bildirilen Intlayer paketlerini listeler ve bunları yayınlanan en son sürüme yükseltir. `intlayer init` ile aynı paket yükseltme adımını bağımsız olarak çalıştırır.
+`upgrade` komutu, monorepo workspace'leri dahil projenizin her `package.json` dosyasında tanımlı Intlayer paketlerini listeler ve en son yayınlanan sürüme yükseltir: framework entegrasyonları, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` ve diğer tüm `@intlayer/*` paketleri. Ardından ilgili araçları günceller.
 
 ## Argümanlar:
 
 - `--project-root [projectRoot]` - İsteğe bağlı. Proje kök dizini. Varsayılan olarak komut, mevcut çalışma dizininin üzerindeki en yakın `package.json` dosyasından başlar.
 - `--dry-run` - İsteğe bağlı. Herhangi bir dosyayı değiştirmeden paketleri ve hedef sürümlerini listeler.
 - `--tag <tag>` - İsteğe bağlı. Yükseltilecek npm dist-tag (örneğin `canary`). Varsayılan olarak `latest` değeridir.
+- `--no-eslint` - İsteğe bağlı. Intlayer lint kurallarını kurmaz ve kaydetmez.
+- `--no-prettier` - İsteğe bağlı. Intlayer Prettier eklentisini kurmaz ve kaydetmez.
 
 ## Ne yapar:
 
@@ -66,6 +71,9 @@ bun x intlayer upgrade
 Kilit dosyası yoksa, npm'e geri dönmeden önce `package.json` dosyasının `packageManager` alanı (örneğin `"bun@1.2.0"`) kullanılır.
 
 `workspace:*`, `file:`, `link:`, `catalog:` veya git URL'leri gibi kayıt defterini işaret etmeyen aralıklar asla değiştirilmez.
+
+5. **Lint ve Prettier eklentileri** - Proje ESLint / oxlint veya Prettier kullanıyorsa eksik `eslint-plugin-intlayer` / `prettier-plugin-intlayer` paketlerini kurar ve kaydeder: ESLint flat config'e `...intlayer.configs.recommended`, `.oxlintrc.json` dosyasına kurallar ve Prettier config'e eklenti (JSON, YAML, JavaScript veya TypeScript). Güvenle düzenlenemeyen bir config için bunun yerine yapıştırılacak kod parçası gösterilir.
+6. **MCP sunucusu** - Projedeki stdio Intlayer MCP girdilerini (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) `@intlayer/mcp@<tag>` olarak günceller, böylece `npx` önbellekteki kopya yerine yükseltilmiş sunucuyu başlatır.
 
 ## Örnekler:
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init：プロジェクトに Intlayer を導入"
 description: "intlayer init で既存プロジェクトに Intlayer を追加：フレームワークを検出し、パッケージをインストールして設定ファイルを書き込みます。"
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init が lint / Prettier プラグインも登録するように; init ai を追加; TanStack のルートで .content ファイルを無視"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init はパッケージのインストールとフレームワークの設定のみを行う。各ステップ専用のサブコマンドを追加。ターミナルがない場合 --interactive は失敗する"
@@ -61,6 +64,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - 任意。プロジェクトのルートディレクトリを指定します。指定しない場合、コマンドは現在の作業ディレクトリからプロジェクトのルートを探します。
 - `--no-gitignore` - 任意。`.gitignore` ファイルの自動更新をスキップします。このフラグが設定されている場合、`.intlayer` は `.gitignore` に追加されません。
 - `--no-framework-setup` - 任意。プロジェクトのファイルを変更せず、パッケージのインストールのみを行います。
+- `--no-eslint` - 任意。Intlayer の lint ルールを有効にしません。
+- `--no-prettier` - 任意。Intlayer の Prettier プラグインを追加しません。
 - `--routing <routing>` - 任意。ロケールのルーティング: `prefix-no-default`（デフォルト）、`prefix-all`、`no-prefix`、`search-params`、`none`。
 - `--content <layout>` - 任意。コンテンツの宣言方法:
   - `multilingual` - `{fileName}.content.{ts,json}` コンポーネントの隣、すべてのロケールを1つのファイルに（`compiler.output` を設定）。
@@ -81,7 +86,8 @@ bun x intlayer init
 3. **`.gitignore` の更新** - 生成されたファイルをバージョン管理から除外するために、`.intlayer` を `.gitignore` ファイルに追加します（`--no-gitignore` でスキップ可能）。
 4. **TypeScript の構成** - すべての `tsconfig.json` ファイルを更新し、Intlayer の型定義 (`.intlayer/**/*.ts`) を含めます。
 5. **設定ファイルの作成** - デフォルト設定で `intlayer.config.ts`（TypeScript プロジェクトの場合）または `intlayer.config.mjs`（JavaScript プロジェクトの場合）を生成します。
-6. **バンドラー / フレームワークの設定を更新** - Vite、Next.js、Nuxt、Astro などの設定に Intlayer プラグインを追加し、フレームワークが対応している場合はミドルウェア/プロキシとプロバイダーを作成します。
+6. **バンドラー / フレームワークの設定を更新** - Vite、Next.js、Nuxt、Astro などの設定に Intlayer プラグインを追加し、フレームワークが対応している場合はミドルウェア/プロキシとプロバイダーを作成します。TanStack Start / Router では `routeFileIgnorePattern` を設定し、`routes/` 内の `.content` ファイルがルートとして扱われないようにします。
+7. **lint / フォーマットプラグイン** - プロジェクトが ESLint / oxlint または Prettier を使っている場合、`eslint-plugin-intlayer` / `prettier-plugin-intlayer` をインストールし、ESLint の flat config、`.oxlintrc.json`、Prettier の設定に登録します。安全に編集できない設定の場合は、代わりに貼り付け用のスニペットを表示します。
 
 ## 1 ステップずつ設定する
 
@@ -94,7 +100,9 @@ bun x intlayer init
 | `intlayer init github-actions`                                        | `fill` と `test` の GitHub Actions ワークフロー                                                   |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json` で Intlayer 拡張機能を推奨                                              |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` に Intlayer 言語サーバー                                                  |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | AI プロバイダーの SDK をインストールし、モデルを一覧表示して、API キーを `.env` に保存します      |
 | `intlayer init eslint`                                                | プロジェクトがすでに lint を使っている場合の Intlayer lint ルール（ESLint / oxlint）              |
+| `intlayer init prettier`                                              | プロジェクトがすでに Prettier でフォーマットしている場合の Intlayer Prettier プラグイン           |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI エージェント向けスキルとしての Intlayer ドキュメント                                           |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP サーバー                                                                             |
 | `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer ブラウザ拡張機能のストアページを開く                                                     |

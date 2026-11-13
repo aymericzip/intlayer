@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Aggiorna i pacchetti Intlayer
 description: Scopri come utilizzare il comando upgrade della CLI di Intlayer per elencare ogni pacchetto Intlayer del tuo progetto o monorepo e aggiornarli alla versione più recente.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "Installa e registra i plugin di lint / Prettier, aggiorna le voci del server MCP"
   - version: 9.5.8
     date: 2026-09-23
     changes: "Aggiungi il comando upgrade"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-Il comando `upgrade` elenca i pacchetti Intlayer dichiarati in ogni `package.json` del tuo progetto, compresi i workspace del monorepo, e li aggiorna all'ultima versione pubblicata. Esegue autonomamente lo stesso passaggio di aggiornamento dei pacchetti di `intlayer init`.
+Il comando `upgrade` elenca i pacchetti Intlayer dichiarati in ogni `package.json` del progetto, compresi i workspace di un monorepo, e li aggiorna all'ultima versione pubblicata: integrazioni di framework, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` e ogni altro pacchetto `@intlayer/*`. Poi aggiorna gli strumenti collegati.
 
 ## Argomenti:
 
 - `--project-root [projectRoot]` - Opzionale. La directory principale del progetto. Per impostazione predefinita, il comando parte dal `package.json` più vicino sopra la directory di lavoro corrente.
 - `--dry-run` - Opzionale. Elenca i pacchetti e la loro versione di destinazione senza modificare alcun file.
 - `--tag <tag>` - Opzionale. Il dist-tag npm a cui aggiornare (ad esempio `canary`). Il valore predefinito è `latest`.
+- `--no-eslint` - Opzionale. Non installa né registra le regole di lint di Intlayer.
+- `--no-prettier` - Opzionale. Non installa né registra il plugin Prettier di Intlayer.
 
 ## Cosa fa:
 
@@ -66,6 +71,9 @@ Il comando `upgrade` elenca i pacchetti Intlayer dichiarati in ogni `package.jso
 Se non è presente alcun lock file, viene utilizzato il campo `packageManager` di `package.json` (ad esempio `"bun@1.2.0"`) prima di ricorrere a npm.
 
 Gli intervalli che non puntano al registro, come `workspace:*`, `file:`, `link:`, `catalog:` o URL git, non vengono mai modificati.
+
+5. **Plugin di lint e Prettier** - Se il progetto usa ESLint / oxlint o Prettier, installa `eslint-plugin-intlayer` / `prettier-plugin-intlayer` se mancano e li registra: `...intlayer.configs.recommended` nella config flat di ESLint, le regole in `.oxlintrc.json` e il plugin nella config di Prettier (JSON, YAML, JavaScript o TypeScript). Una config che non può essere modificata in sicurezza riceve invece lo snippet da incollare.
+6. **Server MCP** - Punta le voci MCP stdio di Intlayer del progetto (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) a `@intlayer/mcp@<tag>`, così `npx` avvia il server aggiornato invece di una copia in cache.
 
 ## Esempi:
 

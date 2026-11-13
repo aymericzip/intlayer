@@ -9,6 +9,7 @@ export * from './lintConfig';
 export * from './nextCompilerBabel';
 export * from './packageManager';
 export * from './prettierConfig';
+export * from './toolConfigManipulation';
 export * from './tsConfig';
 export * from './urlRoutingFramework';
 export * from './version';

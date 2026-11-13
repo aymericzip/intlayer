@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: siapkan Intlayer di proyek Anda"
 description: "Jalankan intlayer init untuk menambahkan Intlayer ke proyek yang ada: mendeteksi framework, memasang paket, dan menulis konfigurasi."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init juga mendaftarkan plugin lint / Prettier; menambahkan init ai; file .content diabaikan di rute TanStack"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init hanya memasang paket dan menyiapkan framework; satu sub-perintah untuk tiap langkah; --interactive gagal tanpa terminal"
@@ -61,6 +64,8 @@ Selebihnya (workflow CI, skill AI, server MCP, alat editor, aturan lint, CMS, in
 - `--project-root [projectRoot]` - Opsional. Tentukan direktori akar proyek. Jika tidak disediakan, perintah akan mencari akar proyek mulai dari direktori kerja saat ini.
 - `--no-gitignore` - Opsional. Melewati pembaruan otomatis file `.gitignore`. Jika flag ini disetel, `.intlayer` tidak akan ditambahkan ke `.gitignore`.
 - `--no-framework-setup` - Opsional. Hanya memasang paket, tanpa mengubah file proyek.
+- `--no-eslint` - Opsional. Tidak mengaktifkan aturan lint Intlayer.
+- `--no-prettier` - Opsional. Tidak menambahkan plugin Prettier Intlayer.
 - `--routing <routing>` - Opsional. Routing locale: `prefix-no-default` (default), `prefix-all`, `no-prefix`, `search-params`, atau `none`.
 - `--content <layout>` - Opsional. Bagaimana konten dideklarasikan:
   - `multilingual` - `{fileName}.content.{ts,json}` di samping komponen, setiap locale dalam satu file (menyetel `compiler.output`).
@@ -81,7 +86,8 @@ Perintah `init` melakukan tugas setup berikut:
 3. **Memperbarui `.gitignore`** - Menambahkan `.intlayer` ke file `.gitignore` Anda untuk mengecualikan file yang dihasilkan dari kontrol versi (dapat dilewati dengan `--no-gitignore`).
 4. **Mengonfigurasi TypeScript** - Memperbarui file `tsconfig.json` apa pun untuk menyertakan definisi tipe Intlayer (`.intlayer/**/*.ts`).
 5. **Membuat file konfigurasi** - Menghasilkan `intlayer.config.ts` (untuk proyek TypeScript) atau `intlayer.config.mjs` (untuk proyek JavaScript) dengan pengaturan default.
-6. **Memperbarui konfigurasi bundler / framework** - Menambahkan plugin Intlayer ke konfigurasi Vite, Next.js, Nuxt, Astro, …, serta membuat middleware/proxy dan provider jika framework mendukungnya.
+6. **Memperbarui konfigurasi bundler / framework** - Menambahkan plugin Intlayer ke konfigurasi Vite, Next.js, Nuxt, Astro, …, serta membuat middleware/proxy dan provider jika framework mendukungnya. Pada TanStack Start / Router, mengatur `routeFileIgnorePattern` agar file `.content` di `routes/` tidak dianggap sebagai rute.
+7. **Plugin lint dan format** - Jika proyek menggunakan ESLint / oxlint atau Prettier, memasang `eslint-plugin-intlayer` / `prettier-plugin-intlayer` dan mendaftarkannya di config flat ESLint, `.oxlintrc.json`, dan config Prettier Anda. Config yang tidak dapat diubah dengan aman akan menampilkan cuplikan untuk ditempel.
 
 ## Siapkan satu langkah sekaligus
 
@@ -94,7 +100,9 @@ Setiap langkah di checklist `--interactive` punya sub-perintah sendiri. Sub-peri
 | `intlayer init github-actions`                                        | Workflow GitHub Actions `fill` dan `test`                                                  |
 | `intlayer init vscode-extension`                                      | Merekomendasikan ekstensi Intlayer di `.vscode/extensions.json`                            |
 | `intlayer init lsp`                                                   | Language server Intlayer di `.vscode/settings.json`                                        |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Memasang SDK penyedia AI, menampilkan daftar modelnya, dan menyimpan API key di `.env`     |
 | `intlayer init eslint`                                                | Aturan lint Intlayer (ESLint / oxlint), jika proyek sudah memakai linter                   |
+| `intlayer init prettier`                                              | Plugin Prettier Intlayer, jika proyek sudah memformat dengan Prettier                      |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | Dokumentasi Intlayer sebagai skill untuk agen AI                                           |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Server MCP Intlayer                                                                        |
 | `intlayer init extension [--browser <chrome/firefox>]`                | Membuka halaman store ekstensi browser Intlayer                                            |

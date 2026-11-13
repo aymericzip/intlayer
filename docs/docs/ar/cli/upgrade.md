@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - ترقية حزم Intlayer
 description: تعرف على كيفية استخدام أمر upgrade في Intlayer CLI لسرد كل حزمة Intlayer في مشروعك أو monorepo وترقيتها إلى أحدث إصدار.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "تثبيت إضافات lint / Prettier وتسجيلها، وتحديث إدخالات خادم MCP"
   - version: 9.5.8
     date: 2026-09-23
     changes: "إضافة أمر upgrade"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-يسرد الأمر `upgrade` حزم Intlayer المعلنة في كل `package.json` من مشروعك، بما في ذلك مساحات عمل (workspaces) الـ monorepo، ويقوم بترقيتها إلى أحدث إصدار منشور. وهو ينفذ نفس خطوة ترقية الحزم الخاصة بـ `intlayer init` بشكل مستقل.
+يعرض الأمر `upgrade` حزم Intlayer المعرّفة في كل ملف `package.json` في مشروعك، بما في ذلك مساحات العمل في monorepo، ويرقّيها إلى أحدث إصدار منشور: تكاملات أطر العمل، و`eslint-plugin-intlayer`، و`prettier-plugin-intlayer`، و`intlayer-editor`، و`@intlayer/mcp`، وكل حزم `@intlayer/*` الأخرى. ثم يحدّث الأدوات المرتبطة بها.
 
 ## الوسيطات:
 
 - `--project-root [projectRoot]` - اختياري. دليل جذر المشروع. افتراضيًا، يبدأ الأمر من أقرب `package.json` أعلى دليل العمل الحالي.
 - `--dry-run` - اختياري. يسرد الحزم وإصدارها المستهدف دون تعديل أي ملف.
 - `--tag <tag>` - اختياري. npm dist-tag للترقية إليه (على سبيل المثال `canary`). الافتراضي هو `latest`.
+- `--no-eslint` - اختياري. لا يثبّت ولا يسجّل قواعد lint الخاصة بـ Intlayer.
+- `--no-prettier` - اختياري. لا يثبّت ولا يسجّل إضافة Prettier الخاصة بـ Intlayer.
 
 ## ما يقوم به:
 
@@ -56,7 +61,7 @@ bun x intlayer upgrade
 3. **يعيد كتابة النطاقات** - يحدّث كل نطاق قديم في مكانه، مع الحفاظ على المعامل الخاص به (`^` أو `~` أو لا شيء) ومسافات بادئة الملف.
 4. **يثبت مرة واحدة** - ينفذ عملية تثبيت واحدة من جذر مساحة العمل (أقرب دليل يحتوي على lock file)، باستخدام مدير الحزم المالك لملف القفل:
 
-| ملف القفل (Lock file)           | الأمر          |
+| ملف القفل (Lock file)           | الأمر           |
 | ------------------------------- | -------------- |
 | `bun.lock` / `bun.lockb`        | `bun install`  |
 | `pnpm-lock.yaml`                | `pnpm install` |
@@ -66,6 +71,9 @@ bun x intlayer upgrade
 إذا لم يكن هناك ملف قفل، فسيتم استخدام حقل `packageManager` في `package.json` (على سبيل المثال `"bun@1.2.0"`) قبل الرجوع إلى npm.
 
 النطاقات التي لا تشير إلى السجل، مثل `workspace:*` أو `file:` أو `link:` أو `catalog:` أو عناوين git URL، لا يتم تعديلها أبدًا.
+
+5. **إضافات lint وPrettier** - عندما يستخدم المشروع ESLint / oxlint أو Prettier، يثبّت `eslint-plugin-intlayer` / `prettier-plugin-intlayer` إن كانت مفقودة ويسجّلها: `...intlayer.configs.recommended` في إعداد ESLint flat، والقواعد في `.oxlintrc.json`، والإضافة في إعداد Prettier (JSON أو YAML أو JavaScript أو TypeScript). إذا تعذّر تعديل الإعداد بأمان، يُعرض المقتطف لتلصقه بنفسك.
+6. **خادم MCP** - يوجّه إدخالات MCP من نوع stdio الخاصة بـ Intlayer في المشروع (`.mcp.json`، `.cursor/mcp.json`، `.vscode/mcp.json`…) إلى `@intlayer/mcp@<tag>`، حتى يشغّل `npx` الخادم المحدَّث بدلًا من نسخة مخزنة مؤقتًا.
 
 ## أمثلة:
 

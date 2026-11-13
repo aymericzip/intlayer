@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Оновлення пакетів Intlayer
 description: Дізнайтеся, як використовувати команду upgrade в Intlayer CLI, щоб отримати список усіх пакетів Intlayer вашого проєкту або монорепозиторію та оновити їх до останньої версії.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "Встановлення та реєстрація плагінів lint / Prettier, оновлення записів MCP-сервера"
   - version: 9.5.8
     date: 2026-09-23
     changes: "Додати команду upgrade"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-Команда `upgrade` виводить список пакетів Intlayer, оголошених у кожному `package.json` вашого проєкту, включно з робочими просторами (workspaces) монорепозиторію, та оновлює їх до останньої опублікованої версії. Вона автономно виконує той самий крок оновлення пакетів, що й `intlayer init`.
+Команда `upgrade` виводить пакети Intlayer, оголошені в кожному `package.json` проєкту, включно з workspaces монорепозиторію, і оновлює їх до останньої опублікованої версії: інтеграції з фреймворками, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` та всі інші пакети `@intlayer/*`. Потім оновлює пов'язані інструменти.
 
 ## Аргументи:
 
 - `--project-root [projectRoot]` - Необов'язково. Кореневий каталог проєкту. За замовчуванням команда починає з найближчого `package.json` вище поточного робочого каталогу.
 - `--dry-run` - Необов'язково. Виводить список пакетів та їхніх цільових версій без зміни будь-яких файлів.
 - `--tag <tag>` - Необов'язково. npm dist-tag для оновлення (наприклад, `canary`). За замовчуванням `latest`.
+- `--no-eslint` - Необов'язково. Не встановлює й не реєструє правила лінтингу Intlayer.
+- `--no-prettier` - Необов'язково. Не встановлює й не реєструє плагін Prettier від Intlayer.
 
 ## Що вона робить:
 
@@ -66,6 +71,9 @@ bun x intlayer upgrade
 Якщо lock-файлу немає, використовується поле `packageManager` з `package.json` (наприклад, `"bun@1.2.0"`), перш ніж перейти до npm.
 
 Діапазони, які не вказують на реєстр, такі як `workspace:*`, `file:`, `link:`, `catalog:` або URL-адреси git, ніколи не змінюються.
+
+5. **Плагіни лінтингу та Prettier** - Якщо проєкт використовує ESLint / oxlint або Prettier, встановлює відсутні `eslint-plugin-intlayer` / `prettier-plugin-intlayer` і реєструє їх: `...intlayer.configs.recommended` у flat-конфігурації ESLint, правила в `.oxlintrc.json` і плагін у конфігурації Prettier (JSON, YAML, JavaScript або TypeScript). Якщо конфігурацію не можна безпечно змінити, виводиться фрагмент для вставлення.
+6. **MCP-сервер** - Спрямовує stdio-записи MCP Intlayer у проєкті (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) на `@intlayer/mcp@<tag>`, щоб `npx` запускав оновлений сервер, а не кешовану копію.
 
 ## Приклади:
 

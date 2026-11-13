@@ -184,7 +184,7 @@ describe('isPrettierInstalled', () => {
 });
 
 describe('getInitOptionsForSteps', () => {
-  it('only installs the packages and sets up the framework by default', () => {
+  it('installs the packages, sets up the framework and the lint / Prettier plugins by default', () => {
     expect(getInitOptionsForSteps(DEFAULT_INIT_STEPS)).toEqual({
       noInstallPackages: false,
       noGitignore: false,
@@ -192,8 +192,8 @@ describe('getInitOptionsForSteps', () => {
       noFrameworkSetup: false,
       noVscodeExtension: true,
       noLsp: true,
-      noEslint: true,
-      noPrettier: true,
+      noEslint: false,
+      noPrettier: false,
       skipFinalMessage: false,
     });
   });

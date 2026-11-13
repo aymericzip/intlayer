@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-10-08
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - 升级 Intlayer 软件包
 description: 了解如何使用 Intlayer CLI upgrade 命令列出项目或 monorepo 中的每个 Intlayer 软件包，并将它们升级到最新版本。
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "安装并注册 lint / Prettier 插件，更新 MCP 服务器条目"
   - version: 9.5.8
     date: 2026-09-23
     changes: "添加 upgrade 命令"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-`upgrade` 命令会列出项目中每个 `package.json`（包括 monorepo 工作区）中声明的 Intlayer 软件包，并将它们升级到已发布的最新版本。它独立运行与 `intlayer init` 相同的软件包升级步骤。
+`upgrade` 命令会列出项目中每个 `package.json`（包括 monorepo 工作区）声明的 Intlayer 包，并将其升级到最新发布的版本：框架集成、`eslint-plugin-intlayer`、`prettier-plugin-intlayer`、`intlayer-editor`、`@intlayer/mcp` 以及其他所有 `@intlayer/*` 包。随后会更新相关工具。
 
 ## 参数:
 
 - `--project-root [projectRoot]` - 可选。项目根目录。默认情况下，命令从当前工作目录上方最近的 `package.json` 开始。
 - `--dry-run` - 可选。列出软件包及其目标版本，而不修改任何文件。
 - `--tag <tag>` - 可选。要升级到的 npm dist-tag（例如 `canary`）。默认为 `latest`。
+- `--no-eslint` - 可选。不安装或注册 Intlayer lint 规则。
+- `--no-prettier` - 可选。不安装或注册 Intlayer Prettier 插件。
 
 ## 它的工作原理:
 
@@ -66,6 +71,9 @@ bun x intlayer upgrade
 如果不存在锁文件，则在回退到 npm 之前会先使用 `package.json` 中的 `packageManager` 字段（例如 `"bun@1.2.0"`）。
 
 未指向 registry 的范围（例如 `workspace:*`、`file:`、`link:`、`catalog:` 或 git URL）绝不会被修改。
+
+5. **lint 与 Prettier 插件** - 当项目使用 ESLint / oxlint 或 Prettier 时，安装缺失的 `eslint-plugin-intlayer` / `prettier-plugin-intlayer` 并进行注册：在 ESLint flat config 中添加 `...intlayer.configs.recommended`，在 `.oxlintrc.json` 中添加规则，在 Prettier 配置（JSON、YAML、JavaScript 或 TypeScript）中添加插件。无法安全编辑的配置会改为输出需要粘贴的代码片段。
+6. **MCP 服务器** - 将项目中 stdio 方式的 Intlayer MCP 条目（`.mcp.json`、`.cursor/mcp.json`、`.vscode/mcp.json` 等）指向 `@intlayer/mcp@<tag>`，让 `npx` 启动升级后的服务器，而不是缓存的副本。
 
 ## 示例:
 

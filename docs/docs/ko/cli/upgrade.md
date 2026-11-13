@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Intlayer 패키지 업그레이드
 description: Intlayer CLI upgrade 명령어를 사용하여 프로젝트 또는 모노레포의 모든 Intlayer 패키지를 나열하고 최신 버전으로 업그레이드하는 방법을 알아봅니다.
@@ -18,6 +18,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "lint / Prettier 플러그인 설치 및 등록, MCP 서버 항목 갱신"
   - version: 9.5.8
     date: 2026-09-23
     changes: "upgrade 명령어 추가"
@@ -42,13 +45,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-`upgrade` 명령어는 모노레포 워크스페이스를 포함하여 프로젝트의 모든 `package.json`에 선언된 Intlayer 패키지를 나열하고 최신 배포 버전으로 업그레이드합니다. `intlayer init`과 동일한 패키지 업그레이드 단계를 독립적으로 실행합니다.
+`upgrade` 명령은 모노레포 워크스페이스를 포함해 프로젝트의 모든 `package.json`에 선언된 Intlayer 패키지를 나열하고 최신 배포 버전으로 업그레이드합니다. 대상은 프레임워크 통합, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` 및 기타 모든 `@intlayer/*` 패키지입니다. 그런 다음 관련 도구를 최신 상태로 맞춥니다.
 
 ## 인수:
 
 - `--project-root [projectRoot]` - 선택 사항. 프로젝트 루트 디렉터리입니다. 기본적으로 현재 작업 디렉터리 상위의 가장 가까운 `package.json`부터 시작합니다.
 - `--dry-run` - 선택 사항. 파일을 수정하지 않고 패키지와 대상 버전을 나열합니다.
 - `--tag <tag>` - 선택 사항. 업그레이드할 npm dist-tag입니다(예: `canary`). 기본값은 `latest`입니다.
+- `--no-eslint` - 선택 사항. Intlayer lint 규칙을 설치하거나 등록하지 않습니다.
+- `--no-prettier` - 선택 사항. Intlayer Prettier 플러그인을 설치하거나 등록하지 않습니다.
 
 ## 동작 방식:
 
@@ -67,6 +72,9 @@ bun x intlayer upgrade
 잠금 파일이 없는 경우 npm으로 대체하기 전에 `package.json`의 `packageManager` 필드(예: `"bun@1.2.0"`)가 사용됩니다.
 
 `workspace:*`, `file:`, `link:`, `catalog:` 또는 git URL과 같이 레지스트리를 가리키지 않는 범위는 수정되지 않습니다.
+
+5. **lint 및 Prettier 플러그인** - 프로젝트가 ESLint / oxlint 또는 Prettier를 사용하면 누락된 `eslint-plugin-intlayer` / `prettier-plugin-intlayer`를 설치하고 등록합니다. ESLint flat config에는 `...intlayer.configs.recommended`, `.oxlintrc.json`에는 규칙, Prettier 설정(JSON, YAML, JavaScript 또는 TypeScript)에는 플러그인을 추가합니다. 안전하게 수정할 수 없는 설정에는 대신 붙여넣을 스니펫을 출력합니다.
+6. **MCP 서버** - 프로젝트의 stdio Intlayer MCP 항목(`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…)이 `@intlayer/mcp@<tag>`를 가리키도록 하여, `npx`가 캐시된 사본 대신 업그레이드된 서버를 실행하게 합니다.
 
 ## 예제:
 

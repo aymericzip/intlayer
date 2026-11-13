@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Upgrade Intlayer packages
 description: Learn how to use the Intlayer CLI upgrade command to list every Intlayer package of your project or monorepo and upgrade them to the latest version.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "Install and register the lint / Prettier plugins, refresh the MCP server entries"
   - version: 9.5.8
     date: 2026-09-23
     changes: "Add upgrade command"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-The `upgrade` command lists the Intlayer packages declared in every `package.json` of your project, including monorepo workspaces, and upgrades them to the latest published version. It runs the same package upgrade step as `intlayer init`, on its own.
+The `upgrade` command lists the Intlayer packages declared in every `package.json` of your project, including monorepo workspaces, and upgrades them to the latest published version: framework integrations, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` and every other `@intlayer/*` package. It then brings the tooling around them up to date.
 
 ## Arguments:
 
 - `--project-root [projectRoot]` - Optional. The project root directory. By default, the command starts from the nearest `package.json` above the current working directory.
 - `--dry-run` - Optional. Lists the packages and their target version without modifying any file.
 - `--tag <tag>` - Optional. The npm dist-tag to upgrade to (for example `canary`). Defaults to `latest`.
+- `--no-eslint` - Optional. Do not install or register the Intlayer lint rules.
+- `--no-prettier` - Optional. Do not install or register the Intlayer Prettier plugin.
 
 ## What it does:
 
@@ -66,6 +71,9 @@ The `upgrade` command lists the Intlayer packages declared in every `package.jso
 If there is no lock file, the `packageManager` field of `package.json` (for example `"bun@1.2.0"`) is used before falling back to npm.
 
 Ranges that do not point to the registry, such as `workspace:*`, `file:`, `link:`, `catalog:` or git URLs, are never modified.
+
+5. **Lint and Prettier plugins** - When the project lints with ESLint / oxlint or formats with Prettier, installs `eslint-plugin-intlayer` / `prettier-plugin-intlayer` if missing and registers them: `...intlayer.configs.recommended` in the ESLint flat config, the rules in `.oxlintrc.json`, and the plugin in the Prettier config (JSON, YAML, JavaScript or TypeScript). A config whose shape cannot be edited safely gets the snippet to paste instead.
+6. **MCP server** - Points the stdio Intlayer MCP entries of the project (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) at `@intlayer/mcp@<tag>`, so `npx` starts the upgraded server instead of a cached copy.
 
 ## Examples:
 

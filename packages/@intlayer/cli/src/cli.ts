@@ -331,6 +331,8 @@ export const setAPI = (): Command => {
       '--no-framework-setup',
       'Do not set up the project (Intlayer config, tsconfig, bundler plugin, middleware/proxy, providers in layout/page)'
     )
+    .option('--no-eslint', 'Do not enable the Intlayer lint rules')
+    .option('--no-prettier', 'Do not add the Intlayer Prettier plugin')
     .option(
       '-i, --interactive',
       'Interactively choose what to set up (packages, skills, MCP, VS Code extension, LSP, …). Needs a terminal'
@@ -364,6 +366,8 @@ export const setAPI = (): Command => {
           noGitignore: options.gitignore === false,
           noGithubActions: options.githubActions === false,
           noFrameworkSetup: options.frameworkSetup === false,
+          noEslint: options.eslint === false,
+          noPrettier: options.prettier === false,
           upgradeToVersion: packageJson.version,
           ...(options.routing
             ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
@@ -468,6 +472,27 @@ export const setAPI = (): Command => {
     .action(async (options) => {
       const { initSteps } = await import('./init');
       return initSteps(options.projectRoot, ['lsp']);
+    });
+
+  initCmd
+    .command('ai')
+    .description(
+      'Set up AI translation: install the provider SDK, pick a model and store the API key in .env'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .option('--provider <provider>', 'AI provider (e.g. anthropic, openai)')
+    .option('--model <model>', 'Model id (e.g. claude-haiku-5-5)')
+    .option('--api-key <apiKey>', 'API key, stored in .env')
+    .action(async (options) => {
+      const { initAI, parseAiProvider } = await import('./initAI');
+      return initAI(options.projectRoot, {
+        provider: options.provider
+          ? parseAiProvider(options.provider)
+          : undefined,
+        model: options.model,
+        apiKey: options.apiKey,
+        intlayerVersion: packageJson.version,
+      });
     });
 
   initCmd
@@ -609,16 +634,23 @@ export const setAPI = (): Command => {
   program
     .command('upgrade')
     .description(
-      'List the Intlayer packages of every package.json of the project and upgrade them to the latest version'
+      'Upgrade every Intlayer package (plugins, editor, MCP included) to the latest version, then install and register the lint / Prettier plugins and refresh the MCP server entries'
     )
     .option('--project-root [projectRoot]', 'Project root directory')
     .option('--dry-run', 'List the packages and their target version only')
     .option('--tag <tag>', 'npm dist-tag to upgrade to (e.g. canary)', 'latest')
+    .option('--no-eslint', 'Do not install or register the Intlayer lint rules')
+    .option(
+      '--no-prettier',
+      'Do not install or register the Intlayer Prettier plugin'
+    )
     .action(async (options) => {
       const { upgrade } = await import('./upgrade');
       return upgrade(options.projectRoot, {
         dryRun: options.dryRun === true,
         distTag: options.tag,
+        noEslint: options.eslint === false,
+        noPrettier: options.prettier === false,
       });
     });
 

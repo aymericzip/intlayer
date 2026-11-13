@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Aktualizacja pakietów Intlayer
 description: Dowiedz się, jak używać polecenia upgrade w Intlayer CLI, aby wyświetlić listę wszystkich pakietów Intlayer w projekcie lub monorepo i zaktualizować je do najnowszej wersji.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "Instalacja i rejestracja wtyczek lint / Prettier, odświeżenie wpisów serwera MCP"
   - version: 9.5.8
     date: 2026-09-23
     changes: "Dodaj polecenie upgrade"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-Polecenie `upgrade` wyświetla listę pakietów Intlayer zadeklarowanych w każdym pliku `package.json` Twojego projektu, w tym w obszarach roboczych monorepo, i aktualizuje je do najnowszej opublikowanej wersji. Wykonuje samodzielnie ten sam krok aktualizacji pakietów co `intlayer init`.
+Polecenie `upgrade` wyświetla pakiety Intlayer zadeklarowane w każdym `package.json` projektu, w tym w workspace'ach monorepo, i aktualizuje je do najnowszej opublikowanej wersji: integracje frameworków, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` i wszystkie inne pakiety `@intlayer/*`. Następnie aktualizuje powiązane narzędzia.
 
 ## Argumenty:
 
 - `--project-root [projectRoot]` - Opcjonalne. Katalog główny projektu. Domyślnie polecenie rozpoczyna wyszukiwanie od najbliższego pliku `package.json` powyżej bieżącego katalogu roboczego.
 - `--dry-run` - Opcjonalne. Wyświetla listę pakietów i ich wersji docelowych bez modyfikowania jakichkolwiek plików.
 - `--tag <tag>` - Opcjonalne. npm dist-tag, do którego ma nastąpić aktualizacja (np. `canary`). Wartość domyślna to `latest`.
+- `--no-eslint` - Opcjonalne. Nie instaluje ani nie rejestruje reguł lint Intlayer.
+- `--no-prettier` - Opcjonalne. Nie instaluje ani nie rejestruje wtyczki Prettier Intlayer.
 
 ## Jak to działa:
 
@@ -66,6 +71,9 @@ Polecenie `upgrade` wyświetla listę pakietów Intlayer zadeklarowanych w każd
 Jeśli nie ma pliku blokady, przed powrotem do npm używane jest pole `packageManager` z pliku `package.json` (na przykład `"bun@1.2.0"`).
 
 Zakresy, które nie wskazują na rejestr, takie jak `workspace:*`, `file:`, `link:`, `catalog:` lub adresy URL git, nigdy nie są modyfikowane.
+
+5. **Wtyczki lint i Prettier** - Gdy projekt używa ESLint / oxlint lub Prettier, instaluje brakujące `eslint-plugin-intlayer` / `prettier-plugin-intlayer` i rejestruje je: `...intlayer.configs.recommended` w konfiguracji flat ESLint, reguły w `.oxlintrc.json` i wtyczkę w konfiguracji Prettier (JSON, YAML, JavaScript lub TypeScript). Gdy konfiguracji nie da się bezpiecznie edytować, wyświetlany jest fragment do wklejenia.
+6. **Serwer MCP** - Kieruje wpisy MCP stdio Intlayer w projekcie (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) na `@intlayer/mcp@<tag>`, aby `npx` uruchamiał zaktualizowany serwer zamiast kopii z pamięci podręcznej.
 
 ## Przykłady:
 

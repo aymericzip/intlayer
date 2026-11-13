@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: налаштування Intlayer у проєкті"
 description: "Запустіть intlayer init, щоб додати Intlayer до наявного проєкту: команда визначить фреймворк, встановить пакети й запише конфігурацію."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init також реєструє плагіни lint / Prettier; додано init ai; файли .content ігноруються в маршрутах TanStack"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init лише встановлює пакети й налаштовує фреймворк; додано окрему підкоманду для кожного кроку; --interactive завершується помилкою без термінала"
@@ -61,6 +64,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - Опціонально. Вкажіть кореневу директорію проєкту. Якщо не вказано, команда шукатиме корінь проєкту, починаючи з поточної робочої директорії.
 - `--no-gitignore` - Опціонально. Пропускає автоматичне оновлення файлу `.gitignore`. Якщо цей прапорець встановлено, `.intlayer` не буде додано до `.gitignore`.
 - `--no-framework-setup` - Необов'язково. Лише встановлює пакети, не змінюючи файли проєкту.
+- `--no-eslint` - Необов'язково. Не вмикає правила лінтингу Intlayer.
+- `--no-prettier` - Необов'язково. Не додає плагін Prettier від Intlayer.
 - `--routing <routing>` - Необов'язково. Маршрутизація локалей: `prefix-no-default` (за замовчуванням), `prefix-all`, `no-prefix`, `search-params` або `none`.
 - `--content <layout>` - Необов'язково. Як оголошується контент:
   - `multilingual` - `{fileName}.content.{ts,json}` поруч із компонентом, усі локалі в одному файлі (задає `compiler.output`).
@@ -81,7 +86,8 @@ bun x intlayer init
 3. **Оновлення `.gitignore`** - Додає `.intlayer` до вашого файлу `.gitignore`, щоб виключити згенеровані файли з системи контролю версій (можна пропустити за допомогою `--no-gitignore`).
 4. **Конфігурація TypeScript** - Оновлює будь-які файли `tsconfig.json`, щоб включити визначення типів Intlayer (`.intlayer/**/*.ts`).
 5. **Створення файлу конфігурації** - Генерує `intlayer.config.ts` (для проєктів на TypeScript) або `intlayer.config.mjs` (для проєктів на JavaScript) з налаштуваннями за замовчуванням.
-6. **Оновлює конфігурацію бандлера / фреймворка** - Додає плагін Intlayer до конфігурації Vite, Next.js, Nuxt, Astro, …, і створює middleware/proxy та провайдери, якщо фреймворк це підтримує.
+6. **Оновлює конфігурацію бандлера / фреймворка** - Додає плагін Intlayer до конфігурації Vite, Next.js, Nuxt, Astro, …, і створює middleware/proxy та провайдери, якщо фреймворк це підтримує. У TanStack Start / Router задає `routeFileIgnorePattern`, щоб файли `.content` у `routes/` не вважалися маршрутами.
+7. **Плагіни лінтингу та форматування** - Якщо проєкт використовує ESLint / oxlint або Prettier, встановлює `eslint-plugin-intlayer` / `prettier-plugin-intlayer` і реєструє їх у flat-конфігурації ESLint, `.oxlintrc.json` та конфігурації Prettier. Якщо конфігурацію не можна безпечно змінити, виводиться фрагмент для вставлення.
 
 ## Налаштування по одному кроку
 
@@ -94,7 +100,9 @@ bun x intlayer init
 | `intlayer init github-actions`                                        | Воркфлоу GitHub Actions `fill` і `test`                                                      |
 | `intlayer init vscode-extension`                                      | Рекомендує розширення Intlayer у `.vscode/extensions.json`                                   |
 | `intlayer init lsp`                                                   | Мовний сервер Intlayer у `.vscode/settings.json`                                             |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Встановлює SDK AI-провайдера, показує його моделі та зберігає API-ключ у `.env`              |
 | `intlayer init eslint`                                                | Правила лінтера Intlayer (ESLint / oxlint), якщо в проєкті вже є лінтер                      |
+| `intlayer init prettier`                                              | Плагін Prettier від Intlayer, якщо проєкт уже форматується Prettier                          |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | Документацію Intlayer у вигляді скілів для AI-агентів                                        |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | MCP-сервер Intlayer                                                                          |
 | `intlayer init extension [--browser <chrome/firefox>]`                | Відкриває сторінку розширення Intlayer для браузера в магазині                               |

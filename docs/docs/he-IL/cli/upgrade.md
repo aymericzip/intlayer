@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-11-03
+updatedAt: 2026-11-13
 priority: 5
 title: CLI, שדרוג חבילות Intlayer
 description: למד כיצד להשתמש בפקודת upgrade של Intlayer CLI כדי להציג את כל חבילות Intlayer בפרויקט או במונוריפו שלך ולשדרג אותן לגרסה העדכנית ביותר.
@@ -21,6 +21,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "התקנה ורישום של תוספי lint / Prettier, רענון רשומות שרת ה-MCP"
   - version: 9.5.8
     date: 2026-09-23
     changes: "הוספת פקודת upgrade"
@@ -45,13 +48,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-הפקודה `upgrade` מציגה את חבילות Intlayer המוצהרות בכל `package.json` של הפרויקט שלך, כולל סביבות עבודה (workspaces) במונוריפו, ומשדרגת אותן לגרסה המפורסמת העדכנית ביותר. היא מריצה את אותו שלב שדרוג חבילות כמו `intlayer init`, באופן עצמאי.
+הפקודה `upgrade` מציגה את חבילות Intlayer המוצהרות בכל `package.json` בפרויקט, כולל workspaces של monorepo, ומשדרגת אותן לגרסה האחרונה שפורסמה: אינטגרציות framework, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` וכל שאר חבילות `@intlayer/*`. לאחר מכן היא מעדכנת את הכלים הקשורים.
 
 ## ארגומנטים:
 
 - `--project-root [projectRoot]` - אופציונלי. ספריית השורש של הפרויקט. כברירת מחדל, הפקודה מתחילה מה-`package.json` הקרוב ביותר מעל ספריית העבודה הנוכחית.
 - `--dry-run` - אופציונלי. מציגה את החבילות ואת גרסת היעד שלהן מבלי לשנות קבצים.
 - `--tag <tag>` - אופציונלי. תגית ה-dist-tag של npm לשדרוג אליה (למשל `canary`). ברירת המחדל היא `latest`.
+- `--no-eslint` - אופציונלי. לא מתקין ולא רושם את כללי ה-lint של Intlayer.
+- `--no-prettier` - אופציונלי. לא מתקין ולא רושם את תוסף ה-Prettier של Intlayer.
 
 ## מה הפקודה עושה:
 
@@ -70,6 +75,9 @@ bun x intlayer upgrade
 אם אין קובץ נעילה, שדה `packageManager` ב-`package.json` (למשל `"bun@1.2.0"`) ייבדק לפני נסיגה ל-npm.
 
 טווחים שאינם מצביעים על ה-registry, כגון `workspace:*`, `file:`, `link:`, `catalog:` או כתובות URL של git, לעולם אינם משתנים.
+
+5. **תוספי lint ו-Prettier** - כשהפרויקט משתמש ב-ESLint / oxlint או ב-Prettier, מתקין את `eslint-plugin-intlayer` / `prettier-plugin-intlayer` אם הם חסרים ורושם אותם: `...intlayer.configs.recommended` ב-flat config של ESLint, הכללים ב-`.oxlintrc.json` והתוסף בהגדרות Prettier (JSON, YAML, JavaScript או TypeScript). הגדרה שלא ניתן לערוך בבטחה מקבלת במקום זאת קטע קוד להדבקה.
+6. **שרת MCP** - מפנה את רשומות ה-MCP מסוג stdio של Intlayer בפרויקט (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) אל `@intlayer/mcp@<tag>`, כך ש-`npx` יפעיל את השרת המשודרג במקום עותק מהמטמון.
 
 ## דוגמאות:
 

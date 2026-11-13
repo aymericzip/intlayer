@@ -22,20 +22,26 @@ import { upgradeIntlayerPackages } from './upgradeIntlayerPackages';
 import type { CompatSyncConfig, RoutingMode } from './utils';
 import {
   addIntlayerPluginToPrettierConfig,
+  addIntlayerPluginToPrettierScriptConfig,
+  addIntlayerPluginToPrettierYamlConfig,
+  addIntlayerPresetToEslintFlatConfig,
   addIntlayerRulesToOxlintConfig,
   BACKEND_INTLAYER_PACKAGES,
+  CONTENT_DECLARATION_ROUTE_IGNORE_PATTERN,
   detectCompatI18nLibraries,
   detectJsonLocalePattern,
   detectLinguiCatalogPattern,
   detectMissingIntlayerPackages,
   detectNextIntlMessagesPattern,
   detectPackageManager,
+  ESLINT_FLAT_CONFIG_FILES,
   ensureDirectory,
   exists,
   findTsConfigFiles,
   getGithubWorkflows,
   getMetroConfigTemplate,
   hasIntlayerVitePlugin,
+  hasTanStackRouterVitePlugin,
   hasLegacyEslint,
   hasLintTooling,
   hasPrettier,
@@ -54,7 +60,10 @@ import {
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
   resolveGithubWorkflowsContext,
+  SCRIPT_PRETTIER_CONFIG_FILES,
+  setTanStackRouteFileIgnorePattern,
   setupNextCompilerBabelConfig,
+  type ToolConfigPatchResult,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
   updateMetroConfig,
@@ -67,6 +76,7 @@ import {
   updateViteConfig,
   updateViteConfigForCompatPlugin,
   writeFileToRoot,
+  YAML_PRETTIER_CONFIG_FILES,
 } from './utils';
 import {
   type CatalogMessageFormat,
@@ -169,6 +179,42 @@ export type InitOptions = {
 };
 
 /**
+ * Patches the first existing file of `configFiles` with `patch`, logging the
+ * outcome. Resolves to `undefined` when no candidate exists or its shape is not
+ * supported, so the caller can print the manual snippet.
+ */
+const patchFirstConfigFile = async (
+  rootDir: string,
+  configFiles: string[],
+  patch: (content: string, extension: string) => ToolConfigPatchResult,
+  description: string
+): Promise<ToolConfigPatchResult['status'] | undefined> => {
+  for (const configFile of configFiles) {
+    if (!(await exists(rootDir, configFile))) continue;
+
+    try {
+      const content = await readFileFromRoot(rootDir, configFile);
+      const result = patch(content, configFile.split('.').pop() ?? 'js');
+
+      if (result.status === 'updated') {
+        await writeFileToRoot(rootDir, configFile, result.content);
+        logger(`${v} Added ${description} to ${colorizePath(configFile)}`);
+      } else if (result.status === 'already') {
+        logger(
+          `${v} ${colorizePath(configFile)} already includes ${description}`
+        );
+      }
+
+      return result.status === 'unsupported' ? undefined : result.status;
+    } catch {
+      return undefined;
+    }
+  }
+
+  return undefined;
+};
+
+/**
  * Installs `prettier-plugin-intlayer` (when the package step is skipped) and
  * registers it in the first JSON Prettier config found: `.prettierrc.json`, a
  * JSON `.prettierrc`, or the `prettier` field of `package.json`. Any other
@@ -255,6 +301,18 @@ const setupPrettierPlugin = async (
   );
 
   if (packageJsonResult !== undefined) return;
+
+  const scriptResult = await patchFirstConfigFile(
+    rootDir,
+    [...SCRIPT_PRETTIER_CONFIG_FILES, ...YAML_PRETTIER_CONFIG_FILES],
+    (content, extension) =>
+      extension === 'yaml' || extension === 'yml'
+        ? addIntlayerPluginToPrettierYamlConfig(content)
+        : addIntlayerPluginToPrettierScriptConfig(content),
+    pluginName
+  );
+
+  if (scriptResult !== undefined) return;
 
   logger([
     colorize('Intlayer Prettier plugin →', ANSIColors.MAGENTA),
@@ -630,10 +688,9 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // would just be noise. The same check gates the install in
   // `detectMissingIntlayerPackages`, so the two never disagree.
   //
-  // Only the oxlint config is patched here: `.oxlintrc.json` is plain JSON and
-  // safe to edit, whereas an ESLint flat config is arbitrary JavaScript that
-  // cannot be rewritten reliably — that one is left to the user, with the
-  // snippet printed below.
+  // `.oxlintrc.json` is plain JSON. An ESLint flat config is JavaScript: it is
+  // patched through the AST when its export is an array or a
+  // `defineConfig(…)`-style call, otherwise the snippet is printed.
   if (!options?.noEslint && hasLegacyEslint(allDeps)) {
     logger(
       `${x} ${colorize(LINT_PLUGIN_PACKAGE_NAME, ANSIColors.MAGENTA)} needs ESLint ${MINIMUM_ESLINT_MAJOR}+ (flat config) — skipped the Intlayer lint rules. Upgrade ESLint to enable them: ${colorizePath(DocumentationRouter.ESLint)}`,
@@ -697,8 +754,20 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
           { level: 'warn' }
         );
       }
-    } else {
-      // ESLint flat config — print the snippet instead of rewriting the file.
+    }
+
+    // ESLint flat config — patched when its export is an array or a
+    // `defineConfig(…)`-style call; any other shape gets the snippet.
+    const eslintResult = allDeps.eslint
+      ? await patchFirstConfigFile(
+          rootDir,
+          ESLINT_FLAT_CONFIG_FILES,
+          addIntlayerPresetToEslintFlatConfig,
+          `the ${colorize(LINT_PLUGIN_PACKAGE_NAME, ANSIColors.MAGENTA)} preset`
+        )
+      : undefined;
+
+    if (allDeps.eslint && eslintResult === undefined) {
       logger([
         colorize('Intlayer lint rules →', ANSIColors.MAGENTA),
         colorize(
@@ -981,6 +1050,26 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
           logger(
             `${v} Updated ${colorizePath(file)} to include Intlayer plugin`
           );
+        }
+
+        // TanStack Router treats every file under `routes/` as a route, so
+        // co-located `.content.*` files must be ignored explicitly.
+        if (
+          hasTanStackRouterVitePlugin(await readFileFromRoot(rootDir, file))
+        ) {
+          const routerConfigResult = await patchFirstConfigFile(
+            rootDir,
+            [file],
+            setTanStackRouteFileIgnorePattern,
+            colorize('routeFileIgnorePattern', ANSIColors.GREY_LIGHT)
+          );
+
+          if (routerConfigResult === undefined) {
+            logger(
+              `${x} Could not set ${colorize('routeFileIgnorePattern', ANSIColors.GREY_LIGHT)} in ${colorizePath(file)}. Add ${colorize(`routeFileIgnorePattern: '${CONTENT_DECLARATION_ROUTE_IGNORE_PATTERN}'`, ANSIColors.GREY_LIGHT)} to the TanStack Router options so .content files are not treated as routes.`,
+              { level: 'warn' }
+            );
+          }
         }
         break;
       }

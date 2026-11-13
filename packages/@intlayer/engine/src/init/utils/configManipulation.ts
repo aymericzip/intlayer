@@ -137,6 +137,74 @@ export const setIntlayerConfigRoutingMode = (
   return recast.print(ast).code;
 };
 
+/** AI settings written to the `ai` block of an Intlayer configuration. */
+export type IntlayerConfigAiSettings = {
+  provider: string;
+  model?: string;
+  /** Environment variable holding the API key, referenced as `process.env.X`. */
+  apiKeyEnvironmentVariable?: string;
+};
+
+/**
+ * Sets `ai.provider`, `ai.model` and `ai.apiKey` (as a `process.env`
+ * reference) in an Intlayer configuration file, keeping the other `ai`
+ * fields. JSON configs get the provider and model only: they cannot reference
+ * environment variables.
+ */
+export const setIntlayerConfigAi = (
+  content: string,
+  extension: string,
+  { provider, model, apiKeyEnvironmentVariable }: IntlayerConfigAiSettings
+): string => {
+  if (extension === 'json') {
+    const config = JSON.parse(content) as Record<string, unknown>;
+    const aiConfig = (
+      typeof config.ai === 'object' && config.ai !== null ? config.ai : {}
+    ) as Record<string, unknown>;
+
+    config.ai = { ...aiConfig, provider, ...(model ? { model } : {}) };
+
+    return `${JSON.stringify(config, null, 2)}\n`;
+  }
+
+  const ast = recast.parse(content, {
+    parser: typescriptParser,
+  });
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (!isObjectExpression(objExpr)) return;
+
+    const aiProperty = ensureObjectProperty(
+      objExpr,
+      'ai',
+      b.objectExpression([])
+    );
+
+    if (!isObjectExpression(aiProperty.value)) return;
+
+    const aiObject = aiProperty.value;
+
+    setObjectPropertyValue(aiObject, 'provider', b.stringLiteral(provider));
+
+    if (model) {
+      setObjectPropertyValue(aiObject, 'model', b.stringLiteral(model));
+    }
+
+    if (apiKeyEnvironmentVariable) {
+      setObjectPropertyValue(
+        aiObject,
+        'apiKey',
+        b.memberExpression(
+          b.memberExpression(b.identifier('process'), b.identifier('env')),
+          b.identifier(apiKeyEnvironmentVariable)
+        )
+      );
+    }
+  });
+
+  return recast.print(ast).code;
+};
+
 /**
  * Sets `routing.enableProxy` in an Intlayer configuration file. Idempotent and
  * comment-preserving: an existing property only has its value swapped. Supports

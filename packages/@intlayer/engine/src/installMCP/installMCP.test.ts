@@ -2,7 +2,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { installMCP } from './installMCP';
+import { installMCP, upgradeMCPConfigs } from './installMCP';
 
 // Build-time virtual module pulled in through the platform metadata.
 vi.mock('utils:asset', () => ({ readAsset: () => '' }));
@@ -29,7 +29,7 @@ describe('installMCP', () => {
       mcpServers: {
         intlayer: {
           command: 'npx',
-          args: ['-y', '@intlayer/mcp'],
+          args: ['-y', '@intlayer/mcp@latest'],
           type: 'stdio',
         },
       },
@@ -69,10 +69,33 @@ describe('installMCP', () => {
       servers: {
         intlayer: {
           command: 'npx',
-          args: ['-y', '@intlayer/mcp'],
+          args: ['-y', '@intlayer/mcp@latest'],
           type: 'stdio',
         },
       },
     });
+  });
+
+  it('points existing stdio entries at the dist-tag on upgrade', async () => {
+    writeFileSync(
+      join(projectRoot, '.mcp.json'),
+      JSON.stringify({
+        mcpServers: {
+          intlayer: { command: 'npx', args: ['-y', '@intlayer/mcp'] },
+          other: { command: 'npx', args: ['-y', 'other-mcp'] },
+        },
+      })
+    );
+
+    const updatedPaths = await upgradeMCPConfigs(projectRoot, 'canary');
+
+    expect(updatedPaths).toEqual([join(projectRoot, '.mcp.json')]);
+    expect(readJson('.mcp.json')).toEqual({
+      mcpServers: {
+        intlayer: { command: 'npx', args: ['-y', '@intlayer/mcp@canary'] },
+        other: { command: 'npx', args: ['-y', 'other-mcp'] },
+      },
+    });
+    expect(await upgradeMCPConfigs(projectRoot, 'canary')).toEqual([]);
   });
 });

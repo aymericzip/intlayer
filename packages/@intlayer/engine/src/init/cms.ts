@@ -3,7 +3,9 @@ import { colorize, colorizePath, logger, v, x } from '@intlayer/config/logger';
 import fg from 'fast-glob';
 import {
   enableIntlayerEditorConfig,
+  type IntlayerConfigAiSettings,
   type RoutingMode,
+  setIntlayerConfigAi,
   setIntlayerConfigCompilerOutput,
   setIntlayerConfigDictionaryLocale,
   setIntlayerConfigEnableProxy,
@@ -104,31 +106,118 @@ export const writeCmsCredentialsToEnv = async (
   rootDir: string,
   { clientId, clientSecret }: CmsCredentials
 ): Promise<string> => {
-  const envFile = await findEnvFile(rootDir);
+  const envFile = await writeEnvVariables(rootDir, {
+    INTLAYER_CLIENT_ID: clientId,
+    INTLAYER_CLIENT_SECRET: clientSecret,
+  });
 
-  let content = '';
-  if (await exists(rootDir, envFile)) {
-    content = await readFileFromRoot(rootDir, envFile);
-  }
-
-  let updatedContent = content;
-  updatedContent = upsertEnvVariable(
-    updatedContent,
-    'INTLAYER_CLIENT_ID',
-    clientId
-  );
-  updatedContent = upsertEnvVariable(
-    updatedContent,
-    'INTLAYER_CLIENT_SECRET',
-    clientSecret
-  );
-
-  await writeFileToRoot(rootDir, envFile, updatedContent);
   logger(
     `${v} Saved Intlayer CMS credentials to ${colorizePath(envFile)} (${colorize('INTLAYER_CLIENT_ID', ANSIColors.GREY_LIGHT)}, ${colorize('INTLAYER_CLIENT_SECRET', ANSIColors.GREY_LIGHT)})`
   );
 
   return envFile;
+};
+
+/**
+ * Upserts `KEY=value` lines in the project's environment file (detected with
+ * {@link findEnvFile}, created when missing), and makes sure git ignores it.
+ * Returns the relative path of the file that was written.
+ */
+export const writeEnvVariables = async (
+  rootDir: string,
+  variables: Record<string, string>
+): Promise<string> => {
+  const envFile = await findEnvFile(rootDir);
+  const content = (await exists(rootDir, envFile))
+    ? await readFileFromRoot(rootDir, envFile)
+    : '';
+
+  const updatedContent = Object.entries(variables).reduce(
+    (currentContent, [key, value]) =>
+      upsertEnvVariable(currentContent, key, value),
+    content
+  );
+
+  await writeFileToRoot(rootDir, envFile, updatedContent);
+  await ensureGitIgnored(rootDir, envFile);
+
+  return envFile;
+};
+
+/**
+ * Appends `fileName` to an existing `.gitignore` unless a line already covers
+ * it (exact name or a `.env*` style glob), so secrets are never committed.
+ */
+const ensureGitIgnored = async (
+  rootDir: string,
+  fileName: string
+): Promise<void> => {
+  const gitignorePath = '.gitignore';
+
+  if (!(await exists(rootDir, gitignorePath))) return;
+
+  const gitignoreContent = await readFileFromRoot(rootDir, gitignorePath);
+  const isIgnored = gitignoreContent
+    .split('\n')
+    .map((line) => line.trim().replace(/^\//, ''))
+    .some(
+      (pattern) =>
+        pattern === fileName ||
+        (pattern.endsWith('*') && fileName.startsWith(pattern.slice(0, -1)))
+    );
+
+  if (isIgnored) return;
+
+  const separator = gitignoreContent.endsWith('\n') ? '' : '\n';
+  await writeFileToRoot(
+    rootDir,
+    gitignorePath,
+    `${gitignoreContent}${separator}${fileName}\n`
+  );
+  logger(
+    `${v} Added ${colorizePath(fileName)} to ${colorizePath(gitignorePath)}`
+  );
+};
+
+/**
+ * Writes the AI provider, model and API key reference to the `ai` block of the
+ * project's Intlayer configuration file. Returns the config file that was
+ * updated, or `undefined` when none was found.
+ */
+export const setAiInConfig = async (
+  rootDir: string,
+  settings: IntlayerConfigAiSettings
+): Promise<string | undefined> => {
+  const configFile = await findIntlayerConfigFile(rootDir);
+
+  if (!configFile) {
+    logger(
+      `${x} Could not find an Intlayer configuration file to set the AI provider. Run ${colorize('intlayer init', ANSIColors.MAGENTA)} first.`,
+      { level: 'warn' }
+    );
+    return undefined;
+  }
+
+  const extension = configFile.split('.').pop()!;
+  const content = await readFileFromRoot(rootDir, configFile);
+  const updatedContent = setIntlayerConfigAi(content, extension, settings);
+
+  if (updatedContent !== content) {
+    await writeFileToRoot(rootDir, configFile, updatedContent);
+  }
+
+  logger(
+    `${v} Set ${colorize(`ai.provider = '${settings.provider}'`, ANSIColors.GREY_LIGHT)}${settings.model ? `, ${colorize(`ai.model = '${settings.model}'`, ANSIColors.GREY_LIGHT)}` : ''} in ${colorizePath(configFile)}`
+  );
+
+  if (extension === 'json' && settings.apiKeyEnvironmentVariable) {
+    logger(
+      `${x} ${colorizePath(configFile)} is a JSON config and cannot reference ${colorize(settings.apiKeyEnvironmentVariable, ANSIColors.GREY_LIGHT)}: pass the key with ${colorize('--api-key', ANSIColors.MAGENTA)} when running the AI commands.`,
+      { level: 'warn' }
+    );
+  }
+
+  return configFile;
 };
 
 /**

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: प्रोजेक्ट में Intlayer सेट करें"
 description: "मौजूदा प्रोजेक्ट में Intlayer जोड़ने के लिए intlayer init चलाएँ: यह फ़्रेमवर्क पहचानता है, पैकेज इंस्टॉल करता है और कॉन्फ़िगरेशन लिखता है।"
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init अब lint / Prettier प्लगइन भी रजिस्टर करता है; init ai जोड़ा गया; TanStack रूट्स में .content फ़ाइलें अनदेखी की जाती हैं"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init अब केवल पैकेज इंस्टॉल करता है और फ़्रेमवर्क सेट करता है; हर चरण के लिए अलग सब-कमांड; टर्मिनल के बिना --interactive विफल होता है"
@@ -61,6 +64,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - वैकल्पिक। प्रोजेक्ट रूट निर्देशिका निर्दिष्ट करें। यदि प्रदान नहीं किया जाता है, तो कमांड वर्तमान कार्य निर्देशिका से शुरू होकर प्रोजेक्ट रूट की खोज करेगा।
 - `--no-gitignore` - वैकल्पिक। `.gitignore` फ़ाइल के स्वचालित अपडेट को छोड़ देता है। यदि यह फ़्लैग सेट है, तो `.intlayer` को `.gitignore` में नहीं जोड़ा जाएगा।
 - `--no-framework-setup` - वैकल्पिक। प्रोजेक्ट फ़ाइलों को छुए बिना केवल पैकेज इंस्टॉल करता है।
+- `--no-eslint` - वैकल्पिक। Intlayer lint नियम चालू नहीं करता।
+- `--no-prettier` - वैकल्पिक। Intlayer Prettier प्लगइन नहीं जोड़ता।
 - `--routing <routing>` - वैकल्पिक। लोकेल रूटिंग: `prefix-no-default` (डिफ़ॉल्ट), `prefix-all`, `no-prefix`, `search-params` या `none`।
 - `--content <layout>` - वैकल्पिक। सामग्री कैसे घोषित की जाती है:
   - `multilingual` - `{fileName}.content.{ts,json}` कम्पोनेंट के बगल में, प्रत्येक लोकेल एक ही फ़ाइल में (`compiler.output` सेट करता है)।
@@ -81,25 +86,28 @@ bun x intlayer init
 3. **`.gitignore` अपडेट करना** - जनरेट की गई फ़ाइलों को संस्करण नियंत्रण से बाहर करने के लिए आपकी `.gitignore` फ़ाइल में `.intlayer` जोड़ता है (`--no-gitignore` के साथ छोड़ा जा सकता है)।
 4. **TypeScript कॉन्फ़िगर करना** - Intlayer प्रकार परिभाषाओं (`.intlayer/**/*.ts`) को शामिल करने के लिए किसी भी `tsconfig.json` फ़ाइलों को अपडेट करता है।
 5. **कॉन्फ़िगरेशन फ़ाइल बनाना** - डिफ़ॉल्ट सेटिंग्स के साथ `intlayer.config.ts` (TypeScript प्रोजेक्ट्स के लिए) या `intlayer.config.mjs` (JavaScript प्रोजेक्ट्स के लिए) जनरेट करता है।
-6. **बंडलर / फ़्रेमवर्क कॉन्फ़िग अपडेट करता है** - आपके Vite, Next.js, Nuxt, Astro, … कॉन्फ़िगरेशन में Intlayer प्लगइन जोड़ता है, और फ़्रेमवर्क के समर्थन करने पर middleware/proxy और प्रोवाइडर बनाता है।
+6. **बंडलर / फ़्रेमवर्क कॉन्फ़िग अपडेट करता है** - आपके Vite, Next.js, Nuxt, Astro, … कॉन्फ़िगरेशन में Intlayer प्लगइन जोड़ता है, और फ़्रेमवर्क के समर्थन करने पर middleware/proxy और प्रोवाइडर बनाता है। TanStack Start / Router में `routeFileIgnorePattern` सेट करता है, ताकि `routes/` की `.content` फ़ाइलें रूट न मानी जाएँ।
+7. **Lint और फ़ॉर्मैट प्लगइन** - जब प्रोजेक्ट ESLint / oxlint या Prettier इस्तेमाल करता है, तो `eslint-plugin-intlayer` / `prettier-plugin-intlayer` इंस्टॉल करता है और उन्हें आपके ESLint flat config, `.oxlintrc.json` और Prettier config में रजिस्टर करता है। जिस config को सुरक्षित रूप से नहीं बदला जा सकता, उसके लिए पेस्ट करने वाला स्निपेट दिखाया जाता है।
 
 ## एक-एक चरण सेट करें
 
 `--interactive` चेकलिस्ट के हर चरण का अपना सब-कमांड है। जब मान फ़्लैग के रूप में दिए जाते हैं तो ये कोई सवाल नहीं पूछते, इसलिए इन्हें AI एजेंट या CI जॉब से सुरक्षित रूप से चलाया जा सकता है।
 
-| कमांड                                                                 | क्या सेट करता है                                                                          |
-| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `intlayer init packages`                                              | ग़ायब Intlayer पैकेज इंस्टॉल करता है और पुराने अपग्रेड करता है                            |
+| कमांड                                                                  | क्या सेट करता है                                                                      |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | ग़ायब Intlayer पैकेज इंस्टॉल करता है और पुराने अपग्रेड करता है                                |
 | `intlayer init project [--routing <routing>] [--content <layout>]`    | कॉन्फ़िगरेशन फ़ाइल, TypeScript, बंडलर प्लगइन, middleware/proxy, प्रोवाइडर और `.gitignore` |
-| `intlayer init github-actions`                                        | `fill` और `test` GitHub Actions वर्कफ़्लो                                                 |
+| `intlayer init github-actions`                                        | `fill` और `test` GitHub Actions वर्कफ़्लो                                             |
 | `intlayer init vscode-extension`                                      | `.vscode/extensions.json` में Intlayer एक्सटेंशन की सिफ़ारिश करता है                      |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` में Intlayer लैंग्वेज सर्वर                                       |
-| `intlayer init eslint`                                                | प्रोजेक्ट पहले से lint करता हो तो Intlayer lint नियम (ESLint / oxlint)                    |
-| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI एजेंट स्किल्स के रूप में Intlayer दस्तावेज़                                            |
-| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP सर्वर                                                                        |
-| `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer ब्राउज़र एक्सटेंशन का स्टोर पेज खोलता है                                         |
-| `intlayer init cms`                                                   | ब्राउज़र से Intlayer CMS में लॉग इन करता है और क्रेडेंशियल `.env` में सहेजता है           |
-| `intlayer init infra --mode <desktop/docker/compose>`                 | डेस्कटॉप ऐप या सेल्फ़-होस्टेड स्टैक                                                       |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | AI प्रदाता का SDK इंस्टॉल करता है, उसके मॉडल दिखाता है और API key को `.env` में सेव करता है  |
+| `intlayer init eslint`                                                | प्रोजेक्ट पहले से lint करता हो तो Intlayer lint नियम (ESLint / oxlint)                  |
+| `intlayer init prettier`                                              | Intlayer Prettier प्लगइन, जब प्रोजेक्ट पहले से Prettier से फ़ॉर्मैट होता है                   |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI एजेंट स्किल्स के रूप में Intlayer दस्तावेज़                                                |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP सर्वर                                                                  |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer ब्राउज़र एक्सटेंशन का स्टोर पेज खोलता है                                          |
+| `intlayer init cms`                                                   | ब्राउज़र से Intlayer CMS में लॉग इन करता है और क्रेडेंशियल `.env` में सहेजता है                  |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | डेस्कटॉप ऐप या सेल्फ़-होस्टेड स्टैक                                                         |
 
 ### AI एजेंट या CI जॉब से
 

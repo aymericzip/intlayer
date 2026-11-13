@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Intlayer-Pakete aktualisieren
 description: Erfahren Sie, wie Sie mit dem Befehl upgrade des Intlayer-CLI alle Intlayer-Pakete Ihres Projekts oder Monorepos auflisten und auf die neueste Version aktualisieren.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "Lint- / Prettier-Plugins installieren und registrieren, MCP-Server-Einträge aktualisieren"
   - version: 9.5.8
     date: 2026-09-23
     changes: "Befehl upgrade hinzufügen"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-Der Befehl `upgrade` listet die in jeder `package.json` Ihres Projekts deklarierten Intlayer-Pakete auf, einschließlich Monorepo-Workspaces, und aktualisiert sie auf die neueste veröffentlichte Version. Er führt denselben Paketaktualisierungsschritt wie `intlayer init` eigenständig aus.
+Der Befehl `upgrade` listet die in jeder `package.json` Ihres Projekts deklarierten Intlayer-Pakete auf, einschließlich Monorepo-Workspaces, und aktualisiert sie auf die neueste veröffentlichte Version: Framework-Integrationen, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp` und alle anderen `@intlayer/*`-Pakete. Danach bringt er das zugehörige Tooling auf den neuesten Stand.
 
 ## Argumente:
 
 - `--project-root [projectRoot]` - Optional. Das Projekt-Stammverzeichnis. Standardmäßig startet der Befehl von der nächstgelegenen `package.json` oberhalb des aktuellen Arbeitsverzeichnisses.
 - `--dry-run` - Optional. Listet die Pakete und ihre Zielversion auf, ohne Dateien zu ändern.
 - `--tag <tag>` - Optional. Das npm-dist-tag, auf das aktualisiert werden soll (zum Beispiel `canary`). Standardmäßig `latest`.
+- `--no-eslint` - Optional. Installiert und registriert die Intlayer-Lint-Regeln nicht.
+- `--no-prettier` - Optional. Installiert und registriert das Intlayer-Prettier-Plugin nicht.
 
 ## Funktionsweise:
 
@@ -66,6 +71,9 @@ Der Befehl `upgrade` listet die in jeder `package.json` Ihres Projekts deklarier
 Wenn keine Lock-Datei vorhanden ist, wird das Feld `packageManager` der `package.json` (zum Beispiel `"bun@1.2.0"`) verwendet, bevor auf npm zurückgegriffen wird.
 
 Bereiche, die nicht auf die Registry verweisen, wie `workspace:*`, `file:`, `link:`, `catalog:` oder Git-URLs, werden niemals geändert.
+
+5. **Lint- und Prettier-Plugins** - Wenn das Projekt ESLint / oxlint oder Prettier nutzt, werden fehlende `eslint-plugin-intlayer` / `prettier-plugin-intlayer` installiert und registriert: `...intlayer.configs.recommended` in der ESLint-Flat-Config, die Regeln in `.oxlintrc.json` und das Plugin in der Prettier-Config (JSON, YAML, JavaScript oder TypeScript). Kann eine Config nicht sicher bearbeitet werden, wird stattdessen das einzufügende Snippet ausgegeben.
+6. **MCP-Server** - Richtet die stdio-Intlayer-MCP-Einträge des Projekts (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) auf `@intlayer/mcp@<tag>` aus, damit `npx` den aktualisierten Server statt einer gecachten Kopie startet.
 
 ## Beispiele:
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: Inicializace Intlayeru
 description: Naučte se, jak inicializovat Intlayer ve vašem projektu.
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init také registruje pluginy lint / Prettier; přidán init ai; soubory .content jsou v routách TanStack ignorovány"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init pouze instaluje balíčky a nastavuje framework; samostatný podpříkaz pro každý krok; --interactive bez terminálu selže"
@@ -58,6 +61,8 @@ Vše ostatní (CI workflowy, AI skilly, MCP server, nástroje editoru, pravidla 
 - `--project-root [projectRoot]` - Volitelné. Určete kořenový adresář projektu. Pokud není zadán, příkaz bude hledat kořen projektu počínaje aktuálním pracovním adresářem.
 - `--no-gitignore` - Volitelné. Přeskočí automatickou aktualizaci souboru `.gitignore`. Pokud je tento příznak nastaven, `.intlayer` nebude přidán do `.gitignore`.
 - `--no-framework-setup` - Volitelné. Pouze nainstaluje balíčky, bez úprav souborů projektu.
+- `--no-eslint` - Volitelné. Nezapne pravidla lintu Intlayer.
+- `--no-prettier` - Volitelné. Nepřidá plugin Prettier Intlayer.
 - `--routing <routing>` - Volitelné. Směrování lokalizací: `prefix-no-default` (výchozí), `prefix-all`, `no-prefix`, `search-params` nebo `none`.
 - `--content <layout>` - Volitelné. Jak je obsah deklarován:
   - `multilingual` - `{fileName}.content.{ts,json}` vedle komponenty, všechny lokalizace v jednom souboru (nastavuje `compiler.output`).
@@ -78,7 +83,8 @@ Příkaz `init` provádí následující úlohy nastavení:
 3. **Aktualizace `.gitignore`** - Přidá `.intlayer` do vašeho souboru `.gitignore`, aby byly vygenerované soubory vyloučeny ze správy verzí (lze přeskočit pomocí `--no-gitignore`).
 4. **Konfigurace TypeScriptu** - Aktualizuje soubory `tsconfig.json`, aby obsahovaly definice typů Intlayer (`.intlayer/**/*.ts`).
 5. **Vytvoření konfiguračního souboru** - Vygeneruje `intlayer.config.ts` (pro projekty v TypeScriptu) nebo `intlayer.config.mjs` (pro projekty v JavaScriptu) s výchozím nastavením.
-6. **Aktualizuje konfiguraci bundleru / frameworku** - Přidá plugin Intlayer do konfigurace Vite, Next.js, Nuxt, Astro, … a vytvoří middleware/proxy a providery, pokud to framework podporuje.
+6. **Aktualizuje konfiguraci bundleru / frameworku** - Přidá plugin Intlayer do konfigurace Vite, Next.js, Nuxt, Astro, … a vytvoří middleware/proxy a providery, pokud to framework podporuje. V TanStack Start / Router nastaví `routeFileIgnorePattern`, aby se soubory `.content` v `routes/` nepovažovaly za routy.
+7. **Pluginy pro lint a formátování** - Pokud projekt používá ESLint / oxlint nebo Prettier, nainstaluje `eslint-plugin-intlayer` / `prettier-plugin-intlayer` a zaregistruje je ve vaší flat konfiguraci ESLint, v `.oxlintrc.json` a v konfiguraci Prettier. Konfigurace, kterou nelze bezpečně upravit, dostane místo toho úryvek ke vložení.
 
 ## Nastavení po jednotlivých krocích
 
@@ -91,7 +97,9 @@ Každý krok checklistu `--interactive` má vlastní podpříkaz. Na nic se nept
 | `intlayer init github-actions`                                        | Workflowy GitHub Actions `fill` a `test`                                                     |
 | `intlayer init vscode-extension`                                      | Doporučí rozšíření Intlayer v `.vscode/extensions.json`                                      |
 | `intlayer init lsp`                                                   | Jazykový server Intlayer v `.vscode/settings.json`                                           |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Nainstaluje SDK poskytovatele AI, vypíše jeho modely a uloží API klíč do `.env`              |
 | `intlayer init eslint`                                                | Pravidla linteru Intlayer (ESLint / oxlint), pokud projekt už linter používá                 |
+| `intlayer init prettier`                                              | Plugin Prettier Intlayer, pokud projekt už formátuje pomocí Prettier                         |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | Dokumentaci Intlayer jako skilly pro AI agenty                                               |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | MCP server Intlayer                                                                          |
 | `intlayer init extension [--browser <chrome/firefox>]`                | Otevře stránku rozšíření prohlížeče Intlayer v obchodě                                       |

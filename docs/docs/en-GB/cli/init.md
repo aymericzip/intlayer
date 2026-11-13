@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: Set Up Intlayer in Your Project"
 description: "Run intlayer init to add Intlayer to an existing project: it detects your framework, installs packages and writes the configuration files."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init also registers the lint / Prettier plugins; add init ai; ignore .content files in TanStack routes"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init only installs the packages and sets up the framework; add one sub-command per setup step; --interactive fails without a terminal"
@@ -61,6 +64,8 @@ Everything else (CI workflows, AI skills, MCP server, editor tooling, lint rules
 - `--project-root [projectRoot]` - Optional. Specify the project's root directory. If not provided, the command will search for the project root starting from the current working directory.
 - `--no-gitignore` - Optional. Skips the automatic update of the `.gitignore` file. If this flag is set, `.intlayer` will not be added to `.gitignore`.
 - `--no-framework-setup` - Optional. Only install the packages, without touching the project files.
+- `--no-eslint` - Optional. Do not enable the Intlayer lint rules.
+- `--no-prettier` - Optional. Do not add the Intlayer Prettier plugin.
 - `--routing <routing>` - Optional. Locale routing: `prefix-no-default` (default), `prefix-all`, `no-prefix`, `search-params` or `none`.
 - `--content <layout>` - Optional. How content is declared:
   - `multilingual` - `{fileName}.content.{ts,json}` next to the component, every locale in one file (sets `compiler.output`).
@@ -81,7 +86,8 @@ The `init` command performs the following setup tasks:
 3. **Updates `.gitignore`** - Adds `.intlayer` to your `.gitignore` file to exclude generated files from version control (can be skipped with `--no-gitignore`).
 4. **Configures TypeScript** - Updates any `tsconfig.json` files to include the Intlayer type definitions (`.intlayer/**/*.ts`).
 5. **Creates configuration file** - Generates `intlayer.config.ts` (for TypeScript projects) or `intlayer.config.mjs` (for JavaScript projects) with default settings.
-6. **Updates the bundler / framework config** - Adds the Intlayer plugin to your Vite, Next.js, Nuxt, Astro, … configuration, and scaffolds the middleware/proxy and providers when the framework supports it.
+6. **Updates the bundler / framework config** - Adds the Intlayer plugin to your Vite, Next.js, Nuxt, Astro, … configuration, and scaffolds the middleware/proxy and providers when the framework supports it. On TanStack Start / Router, sets `routeFileIgnorePattern` so `.content` files in `routes/` are not treated as routes.
+7. **Lint and format plugins** - When the project lints with ESLint / oxlint or formats with Prettier, installs `eslint-plugin-intlayer` / `prettier-plugin-intlayer` and registers them in your ESLint flat config, `.oxlintrc.json` and Prettier config. A config that cannot be edited safely gets the snippet to paste instead.
 
 ## Set up one step at a time
 
@@ -94,7 +100,9 @@ Every step of the `--interactive` checklist has its own sub-command. They never 
 | `intlayer init github-actions`                                        | The `fill` and `test` GitHub Actions workflows                                               |
 | `intlayer init vscode-extension`                                      | Recommends the Intlayer extension in `.vscode/extensions.json`                               |
 | `intlayer init lsp`                                                   | The Intlayer language server in `.vscode/settings.json`                                      |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Installs the AI provider SDK, lists its models and stores the API key in `.env`              |
 | `intlayer init eslint`                                                | The Intlayer lint rules (ESLint / oxlint), when the project already lints                    |
+| `intlayer init prettier`                                              | The Intlayer Prettier plugin, when the project already formats with Prettier                 |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | The Intlayer documentation as AI agent skills                                                |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | The Intlayer MCP server                                                                      |
 | `intlayer init extension [--browser <chrome/firefox>]`                | Opens the store page of the Intlayer browser extension                                       |

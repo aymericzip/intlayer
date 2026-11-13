@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: projenize Intlayer kurun"
 description: "Mevcut bir projeye Intlayer eklemek için intlayer init çalıştırın: framework'ü algılar, paketleri kurar ve yapılandırmayı yazar."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init artık lint / Prettier eklentilerini de kaydeder; init ai eklendi; TanStack rotalarındaki .content dosyaları yok sayılır"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init yalnızca paketleri kurar ve framework'ü ayarlar; her adım için ayrı bir alt komut; --interactive terminal olmadan başarısız olur"
@@ -61,6 +64,8 @@ Geri kalan her şey (CI iş akışları, AI skill'leri, MCP sunucusu, editör ar
 - `--project-root [projectRoot]` - İsteğe bağlı. Projenin kök dizinini belirtin. Sağlanmazsa, komut mevcut çalışma dizininden başlayarak proje kökünü arayacaktır.
 - `--no-gitignore` - İsteğe bağlı. `.gitignore` dosyasının otomatik olarak güncellenmesini atlar. Bu bayrak ayarlanırsa, `.intlayer` dosyası `.gitignore` dosyasına eklenmez.
 - `--no-framework-setup` - İsteğe bağlı. Proje dosyalarına dokunmadan yalnızca paketleri kurar.
+- `--no-eslint` - İsteğe bağlı. Intlayer lint kurallarını etkinleştirmez.
+- `--no-prettier` - İsteğe bağlı. Intlayer Prettier eklentisini eklemez.
 - `--routing <routing>` - İsteğe bağlı. Yerel ayar yönlendirmesi: `prefix-no-default` (varsayılan), `prefix-all`, `no-prefix`, `search-params` veya `none`.
 - `--content <layout>` - İsteğe bağlı. İçeriğin nasıl bildirildiği:
   - `multilingual` - `{fileName}.content.{ts,json}` bileşenin yanında, her yerel ayar tek bir dosyada (`compiler.output` ayarını yapar).
@@ -81,25 +86,28 @@ Geri kalan her şey (CI iş akışları, AI skill'leri, MCP sunucusu, editör ar
 3. **`.gitignore` dosyasını günceller** - Oluşturulan dosyaları sürüm kontrolünden hariç tutmak için `.gitignore` dosyanıza `.intlayer` ekler (`--no-gitignore` ile atlanabilir).
 4. **TypeScript'i yapılandırır** - Intlayer tür tanımlarını (`.intlayer/**/*.ts`) içerecek şekilde tüm `tsconfig.json` dosyalarını günceller.
 5. **Yapılandırma dosyası oluşturur** - Varsayılan ayarlarla `intlayer.config.ts` (TypeScript projeleri için) veya `intlayer.config.mjs` (JavaScript projeleri için) oluşturur.
-6. **Bundler / framework yapılandırmasını günceller** - Intlayer eklentisini Vite, Next.js, Nuxt, Astro, … yapılandırmanıza ekler ve framework destekliyorsa middleware/proxy ile provider'ları oluşturur.
+6. **Bundler / framework yapılandırmasını günceller** - Intlayer eklentisini Vite, Next.js, Nuxt, Astro, … yapılandırmanıza ekler ve framework destekliyorsa middleware/proxy ile provider'ları oluşturur. TanStack Start / Router'da, `routes/` içindeki `.content` dosyaları rota olarak işlenmesin diye `routeFileIgnorePattern` ayarlanır.
+7. **Lint ve biçimlendirme eklentileri** - Proje ESLint / oxlint veya Prettier kullanıyorsa `eslint-plugin-intlayer` / `prettier-plugin-intlayer` kurulur ve ESLint flat config, `.oxlintrc.json` ve Prettier config dosyalarınıza kaydedilir. Güvenle düzenlenemeyen bir config için bunun yerine yapıştırılacak kod parçası gösterilir.
 
 ## Her seferinde bir adım kurun
 
 `--interactive` kontrol listesindeki her adımın kendi alt komutu vardır. Değerler flag olarak verildiğinde soru sormazlar, bu yüzden bir AI ajanından veya CI işinden güvenle çalıştırılabilirler.
 
-| Komut                                                                 | Ne kurar                                                                                            |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `intlayer init packages`                                              | Eksik Intlayer paketlerini kurar ve eski olanları günceller                                         |
-| `intlayer init project [--routing <routing>] [--content <layout>]`    | Yapılandırma dosyası, TypeScript, bundler eklentisi, middleware/proxy, provider'lar ve `.gitignore` |
-| `intlayer init github-actions`                                        | `fill` ve `test` GitHub Actions iş akışları                                                         |
-| `intlayer init vscode-extension`                                      | `.vscode/extensions.json` içinde Intlayer eklentisini önerir                                        |
-| `intlayer init lsp`                                                   | `.vscode/settings.json` içinde Intlayer dil sunucusu                                                |
-| `intlayer init eslint`                                                | Proje zaten lint kullanıyorsa Intlayer lint kuralları (ESLint / oxlint)                             |
-| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI ajanları için skill olarak Intlayer dokümantasyonu                                               |
-| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP sunucusu                                                                               |
-| `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer tarayıcı eklentisinin mağaza sayfasını açar                                                |
-| `intlayer init cms`                                                   | Tarayıcınız üzerinden Intlayer CMS'e giriş yapar ve kimlik bilgilerini `.env` dosyasına kaydeder    |
-| `intlayer init infra --mode <desktop/docker/compose>`                 | Masaüstü uygulaması veya kendi sunucunuzda barındırılan bir stack                                   |
+| Komut                                                                 | Ne kurar                                                                                                   |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | Eksik Intlayer paketlerini kurar ve eski olanları günceller                                                |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | Yapılandırma dosyası, TypeScript, bundler eklentisi, middleware/proxy, provider'lar ve `.gitignore`        |
+| `intlayer init github-actions`                                        | `fill` ve `test` GitHub Actions iş akışları                                                                |
+| `intlayer init vscode-extension`                                      | `.vscode/extensions.json` içinde Intlayer eklentisini önerir                                               |
+| `intlayer init lsp`                                                   | `.vscode/settings.json` içinde Intlayer dil sunucusu                                                       |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | Yapay zeka sağlayıcısının SDK'sını kurar, modellerini listeler ve API anahtarını `.env` dosyasına kaydeder |
+| `intlayer init eslint`                                                | Proje zaten lint kullanıyorsa Intlayer lint kuralları (ESLint / oxlint)                                    |
+| `intlayer init prettier`                                              | Proje zaten Prettier ile biçimlendiriyorsa Intlayer Prettier eklentisi                                     |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI ajanları için skill olarak Intlayer dokümantasyonu                                                      |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP sunucusu                                                                                      |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer tarayıcı eklentisinin mağaza sayfasını açar                                                       |
+| `intlayer init cms`                                                   | Tarayıcınız üzerinden Intlayer CMS'e giriş yapar ve kimlik bilgilerini `.env` dosyasına kaydeder           |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | Masaüstü uygulaması veya kendi sunucunuzda barındırılan bir stack                                          |
 
 ### Bir AI ajanından veya CI işinden
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: Intlayer شروع کریں (Init)
 description: سیکھیں کہ اپنے پروجیکٹ میں Intlayer کو کیسے شروع کیا جائے۔
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init اب lint / Prettier پلگ اِنز بھی رجسٹر کرتا ہے؛ init ai شامل کیا گیا؛ TanStack روٹس میں .content فائلیں نظر انداز کی جاتی ہیں"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init اب صرف پیکجز انسٹال کرتا ہے اور فریم ورک سیٹ اپ کرتا ہے؛ ہر مرحلے کے لیے الگ سب کمانڈ؛ ٹرمینل کے بغیر --interactive ناکام ہوتا ہے"
@@ -58,6 +61,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - اختیاری۔ پروجیکٹ کی جڑ (root) ڈائریکٹری متعین کریں۔ اگر نہیں دی گئی، تو کمانڈ موجودہ ورکنگ ڈائریکٹری سے شروع کر کے پروجیکٹ روٹ تلاش کرے گی۔
 - `--no-gitignore` - اختیاری۔ `.gitignore` فائل کی خودکار اپ ڈیٹ کو نظر انداز کرتا ہے۔ اگر یہ فلیگ لگا ہو، تو `.intlayer` کو `.gitignore` میں شامل نہیں کیا جائے گا۔
 - `--no-framework-setup` - اختیاری۔ پروجیکٹ فائلوں کو چھوئے بغیر صرف پیکجز انسٹال کرتا ہے۔
+- `--no-eslint` - اختیاری۔ Intlayer کے lint قواعد فعال نہیں کرتا۔
+- `--no-prettier` - اختیاری۔ Intlayer کا Prettier پلگ اِن شامل نہیں کرتا۔
 - `--routing <routing>` - اختیاری۔ لوکیل روٹنگ: `prefix-no-default` (ڈیفالٹ)، `prefix-all`، `no-prefix`، `search-params` یا `none`۔
 - `--content <layout>` - اختیاری۔ مواد کا اعلان کیسے کیا جاتا ہے:
   - `multilingual` - `{fileName}.content.{ts,json}` کمپوننٹ کے ساتھ، تمام لوکیلز ایک ہی فائل میں (`compiler.output` سیٹ کرتا ہے)۔
@@ -78,25 +83,28 @@ bun x intlayer init
 3. **`.gitignore` کو اپ ڈیٹ کرنا** - آپ کی `.gitignore` فائل میں `.intlayer` شامل کرتی ہے تاکہ تیار کردہ فائلوں کو ورژن کنٹرول سے خارج کیا جا سکے (`--no-gitignore` کے ذریعے اسے نظر انداز کیا جا سکتا ہے)۔
 4. **TypeScript کو کنفیگر کرنا** - کسی بھی `tsconfig.json` فائلوں کو اپ ڈیٹ کرتی ہے تاکہ Intlayer کی ٹائپ ڈیفینیشنز (`.intlayer/**/*.ts`) شامل کی جا سکیں۔
 5. **کنفیگریشن فائل بنانا** - ڈیفالٹ سیٹنگز کے ساتھ `intlayer.config.ts` (TypeScript پروجیکٹس کے لیے) یا `intlayer.config.mjs` (JavaScript پروجیکٹس کے لیے) تیار کرتی ہے۔
-6. **بنڈلر / فریم ورک کنفیگ اپ ڈیٹ کرتا ہے** - آپ کی Vite، Next.js، Nuxt، Astro، … کنفیگریشن میں Intlayer پلگ ان شامل کرتا ہے، اور فریم ورک سپورٹ کرے تو middleware/proxy اور پرووائیڈرز بناتا ہے۔
+6. **بنڈلر / فریم ورک کنفیگ اپ ڈیٹ کرتا ہے** - آپ کی Vite، Next.js، Nuxt، Astro، … کنفیگریشن میں Intlayer پلگ ان شامل کرتا ہے، اور فریم ورک سپورٹ کرے تو middleware/proxy اور پرووائیڈرز بناتا ہے۔ TanStack Start / Router میں `routeFileIgnorePattern` سیٹ کرتا ہے تاکہ `routes/` میں موجود `.content` فائلیں روٹس نہ سمجھی جائیں۔
+7. **Lint اور فارمیٹ پلگ اِنز** - جب پروجیکٹ ESLint / oxlint یا Prettier استعمال کرتا ہے تو `eslint-plugin-intlayer` / `prettier-plugin-intlayer` انسٹال کر کے انہیں آپ کی ESLint flat config، `.oxlintrc.json` اور Prettier config میں رجسٹر کرتا ہے۔ جس config میں محفوظ طریقے سے ترمیم نہ ہو سکے، اس کے لیے پیسٹ کرنے والا اسنیپٹ دکھایا جاتا ہے۔
 
 ## ایک وقت میں ایک مرحلہ سیٹ اپ کریں
 
 `--interactive` چیک لسٹ کے ہر مرحلے کی اپنی سب کمانڈ ہے۔ جب قدریں فلیگز کے طور پر دی جائیں تو یہ کوئی سوال نہیں پوچھتیں، اس لیے انہیں AI ایجنٹ یا CI جاب سے محفوظ طریقے سے چلایا جا سکتا ہے۔
 
-| کمانڈ                                                                 | کیا سیٹ اپ کرتی ہے                                                                      |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `intlayer init packages`                                              | غائب Intlayer پیکجز انسٹال کرتی ہے اور پرانے اپ گریڈ کرتی ہے                            |
-| `intlayer init project [--routing <routing>] [--content <layout>]`    | کنفیگریشن فائل، TypeScript، بنڈلر پلگ ان، middleware/proxy، پرووائیڈرز اور `.gitignore` |
-| `intlayer init github-actions`                                        | `fill` اور `test` GitHub Actions ورک فلوز                                               |
-| `intlayer init vscode-extension`                                      | `.vscode/extensions.json` میں Intlayer ایکسٹینشن کی سفارش کرتی ہے                       |
-| `intlayer init lsp`                                                   | `.vscode/settings.json` میں Intlayer لینگویج سرور                                       |
-| `intlayer init eslint`                                                | اگر پروجیکٹ پہلے سے lint استعمال کرتا ہو تو Intlayer lint قواعد (ESLint / oxlint)       |
-| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI ایجنٹ اسکلز کی صورت میں Intlayer دستاویزات                                           |
-| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP سرور                                                                       |
-| `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer براؤزر ایکسٹینشن کا اسٹور صفحہ کھولتی ہے                                       |
-| `intlayer init cms`                                                   | براؤزر کے ذریعے Intlayer CMS میں لاگ ان کرتی ہے اور اسناد `.env` میں محفوظ کرتی ہے      |
-| `intlayer init infra --mode <desktop/docker/compose>`                 | ڈیسک ٹاپ ایپ یا سیلف ہوسٹڈ اسٹیک                                                        |
+| کمانڈ                                                                 | کیا سیٹ اپ کرتی ہے                                                                                  |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | غائب Intlayer پیکجز انسٹال کرتی ہے اور پرانے اپ گریڈ کرتی ہے                                        |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | کنفیگریشن فائل، TypeScript، بنڈلر پلگ ان، middleware/proxy، پرووائیڈرز اور `.gitignore`             |
+| `intlayer init github-actions`                                        | `fill` اور `test` GitHub Actions ورک فلوز                                                           |
+| `intlayer init vscode-extension`                                      | `.vscode/extensions.json` میں Intlayer ایکسٹینشن کی سفارش کرتی ہے                                   |
+| `intlayer init lsp`                                                   | `.vscode/settings.json` میں Intlayer لینگویج سرور                                                   |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | AI فراہم کنندہ کا SDK انسٹال کرتا ہے، اس کے ماڈلز دکھاتا ہے اور API key کو `.env` میں محفوظ کرتا ہے |
+| `intlayer init eslint`                                                | اگر پروجیکٹ پہلے سے lint استعمال کرتا ہو تو Intlayer lint قواعد (ESLint / oxlint)                   |
+| `intlayer init prettier`                                              | Intlayer کا Prettier پلگ اِن، جب پروجیکٹ پہلے سے Prettier سے فارمیٹ ہوتا ہو                          |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | AI ایجنٹ اسکلز کی صورت میں Intlayer دستاویزات                                                       |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP سرور                                                                                   |
+| `intlayer init extension [--browser <chrome/firefox>]`                | Intlayer براؤزر ایکسٹینشن کا اسٹور صفحہ کھولتی ہے                                                   |
+| `intlayer init cms`                                                   | براؤزر کے ذریعے Intlayer CMS میں لاگ ان کرتی ہے اور اسناد `.env` میں محفوظ کرتی ہے                   |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | ڈیسک ٹاپ ایپ یا سیلف ہوسٹڈ اسٹیک                                                                    |
 
 ### AI ایجنٹ یا CI جاب سے
 

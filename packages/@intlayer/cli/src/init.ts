@@ -19,6 +19,7 @@ import {
 } from '@intlayer/engine/cli';
 import { login } from './auth/login';
 import { setupRepository } from './auth/setupRepository';
+import { initAI } from './initAI';
 import { initChromeExtension } from './initChromeExtension';
 import { initInfra } from './initInfra';
 import { initMCP } from './initMCP';
@@ -50,6 +51,7 @@ export const resolveProjectRoot = (projectRoot?: string): string =>
 /** Individually selectable setup steps exposed by the interactive init flow. */
 export type InitStep =
   | 'packages'
+  | 'ai'
   | 'githubActions'
   | 'projectSetup'
   | 'vscodeExtension'
@@ -78,12 +80,17 @@ export type InitStepOption = {
 export const OPT_IN_INIT_STEPS: InitStep[] = ['infra', 'chromeExtension'];
 
 /**
- * Steps run by `intlayer init` without `--interactive`: install the packages
- * and set up the framework. Every other step has its own command
- * ({@link INIT_STEP_COMMANDS}), so nothing outside the app code is touched
- * unless asked for.
+ * Steps run by `intlayer init` without `--interactive`: install the packages,
+ * set up the framework, and plug Intlayer into the linter / formatter the
+ * project already uses (both steps are no-ops without ESLint / oxlint /
+ * Prettier). Every other step has its own command ({@link INIT_STEP_COMMANDS}).
  */
-export const DEFAULT_INIT_STEPS: InitStep[] = ['packages', 'projectSetup'];
+export const DEFAULT_INIT_STEPS: InitStep[] = [
+  'packages',
+  'projectSetup',
+  'eslint',
+  'prettier',
+];
 
 /**
  * Command running each interactive step on its own, without prompts when every
@@ -91,6 +98,7 @@ export const DEFAULT_INIT_STEPS: InitStep[] = ['packages', 'projectSetup'];
  */
 export const INIT_STEP_COMMANDS: Record<InitStep, string> = {
   packages: 'intlayer init packages',
+  ai: 'intlayer init ai --provider <provider> [--model <model>] [--api-key <key>]',
   projectSetup:
     'intlayer init project [--routing <routing>] [--content <layout>] [--content-format <format>] [--message-format <format>]',
   githubActions: 'intlayer init github-actions',
@@ -191,7 +199,7 @@ const getNoTerminalMessage = (): string =>
   [
     '`intlayer init --interactive` needs a terminal to answer its prompts (none is attached, e.g. when run by an AI agent or in CI).',
     'Run the steps directly instead:',
-    '  intlayer init    (installs the packages and sets up the framework)',
+    '  intlayer init    (installs the packages, sets up the framework and the lint / Prettier plugins)',
     ...Object.values(INIT_STEP_COMMANDS).map((command) => `  ${command}`),
   ].join('\n');
 
@@ -207,6 +215,11 @@ export const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
       value: 'projectSetup',
       label: 'Project setup',
       hint: 'intlayer config, tsconfig, bundler plugin, middleware/proxy and providers in layout/page',
+    },
+    {
+      value: 'ai',
+      label: 'AI translation',
+      hint: 'pick a provider and model, install its SDK and store the API key in .env',
     },
     {
       value: 'githubActions',
@@ -685,6 +698,11 @@ const runInteractiveInit = async (
 
   if (steps.includes('mcp')) {
     await initMCP(root, { platform: skillsPlatform });
+  }
+
+  // After the project setup, so the `ai` block lands in the config file.
+  if (steps.includes('ai')) {
+    await initAI(root, { intlayerVersion: baseOptions?.upgradeToVersion });
   }
 
   // Delegated to the hosted install script, which owns its own menu.

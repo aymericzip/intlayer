@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-11-13
 priority: 5
 title: CLI - Tingkatkan Paket Intlayer
 description: Pelajari cara menggunakan perintah upgrade Intlayer CLI untuk mencantumkan setiap paket Intlayer dari proyek atau monorepo Anda dan meningkatkannya ke versi terbaru.
@@ -17,6 +17,9 @@ slugs:
   - cli
   - upgrade
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "Memasang dan mendaftarkan plugin lint / Prettier, memperbarui entri server MCP"
   - version: 9.5.8
     date: 2026-09-23
     changes: "Menambahkan perintah upgrade"
@@ -41,13 +44,15 @@ pnpm intlayer upgrade
 bun x intlayer upgrade
 ```
 
-Perintah `upgrade` mencantumkan paket Intlayer yang dideklarasikan di setiap `package.json` proyek Anda, termasuk workspace monorepo, dan meningkatkannya ke versi terbaru yang dipublikasikan. Perintah ini menjalankan langkah peningkatan paket yang sama dengan `intlayer init`, secara mandiri.
+Perintah `upgrade` menampilkan paket Intlayer yang dideklarasikan di setiap `package.json` proyek Anda, termasuk workspace monorepo, lalu memperbaruinya ke versi terbaru yang dipublikasikan: integrasi framework, `eslint-plugin-intlayer`, `prettier-plugin-intlayer`, `intlayer-editor`, `@intlayer/mcp`, dan semua paket `@intlayer/*` lainnya. Setelah itu, perintah ini memperbarui tooling terkait.
 
 ## Argumen:
 
 - `--project-root [projectRoot]` - Opsional. Direktori root proyek. Secara default, perintah dimulai dari `package.json` terdekat di atas direktori kerja saat ini.
 - `--dry-run` - Opsional. Mencantumkan paket beserta versi targetnya tanpa mengubah file apa pun.
 - `--tag <tag>` - Opsional. Dist-tag npm untuk peningkatan (misalnya `canary`). Default adalah `latest`.
+- `--no-eslint` - Opsional. Tidak memasang atau mendaftarkan aturan lint Intlayer.
+- `--no-prettier` - Opsional. Tidak memasang atau mendaftarkan plugin Prettier Intlayer.
 
 ## Apa yang dilakukannya:
 
@@ -66,6 +71,9 @@ Perintah `upgrade` mencantumkan paket Intlayer yang dideklarasikan di setiap `pa
 Jika tidak ada file lock, bidang `packageManager` dari `package.json` (misalnya `"bun@1.2.0"`) digunakan sebelum kembali ke npm.
 
 Rentang yang tidak mengarah ke registry, seperti `workspace:*`, `file:`, `link:`, `catalog:` atau URL git, tidak pernah diubah.
+
+5. **Plugin lint dan Prettier** - Jika proyek menggunakan ESLint / oxlint atau Prettier, memasang `eslint-plugin-intlayer` / `prettier-plugin-intlayer` yang belum ada dan mendaftarkannya: `...intlayer.configs.recommended` di config flat ESLint, aturan di `.oxlintrc.json`, dan plugin di config Prettier (JSON, YAML, JavaScript, atau TypeScript). Config yang tidak dapat diubah dengan aman akan menampilkan cuplikan untuk ditempel.
+6. **Server MCP** - Mengarahkan entri MCP stdio Intlayer di proyek (`.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json`…) ke `@intlayer/mcp@<tag>`, sehingga `npx` menjalankan server yang sudah diperbarui, bukan salinan dari cache.
 
 ## Contoh:
 

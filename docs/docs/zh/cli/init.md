@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-10-08
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init：在项目中配置 Intlayer"
 description: "运行 intlayer init 为现有项目添加 Intlayer：自动检测框架、安装依赖并写入配置文件。"
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init 也会注册 lint / Prettier 插件；新增 init ai；在 TanStack 路由中忽略 .content 文件"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init 仅安装依赖包并配置框架；为每个步骤新增专用子命令；没有终端时 --interactive 会失败"
@@ -61,6 +64,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - 可选。指定项目的根目录。如果未提供，命令将从当前工作目录开始搜索项目根目录。
 - `--no-gitignore` - 可选。跳过自动更新 `.gitignore` 文件。如果设置了此标志，`.intlayer` 将不会添加到 `.gitignore` 中。
 - `--no-framework-setup` - 可选。只安装依赖包，不修改项目文件。
+- `--no-eslint` - 可选。不启用 Intlayer lint 规则。
+- `--no-prettier` - 可选。不添加 Intlayer Prettier 插件。
 - `--routing <routing>` - 可选。语言路由：`prefix-no-default`（默认）、`prefix-all`、`no-prefix`、`search-params` 或 `none`。
 - `--content <layout>` - 可选。内容声明方式：
   - `multilingual` - `{fileName}.content.{ts,json}` 位于组件旁，所有语言在一个文件中（设置 `compiler.output`）。
@@ -81,7 +86,8 @@ bun x intlayer init
 3. **更新 `.gitignore`** - 将 `.intlayer` 添加到您的 `.gitignore` 文件中，以将生成的文件排除在版本控制之外（可以使用 `--no-gitignore` 跳过）。
 4. **配置 TypeScript** - 更新任何 `tsconfig.json` 文件以包含 Intlayer 类型定义 (`.intlayer/**/*.ts`)。
 5. **创建配置文件** - 使用默认设置生成 `intlayer.config.ts`（对于 TypeScript 项目）或 `intlayer.config.mjs`（对于 JavaScript 项目）。
-6. **更新打包工具 / 框架配置** - 将 Intlayer 插件添加到 Vite、Next.js、Nuxt、Astro 等配置中，并在框架支持时生成中间件/代理和 Provider。
+6. **更新打包工具 / 框架配置** - 将 Intlayer 插件添加到 Vite、Next.js、Nuxt、Astro 等配置中，并在框架支持时生成中间件/代理和 Provider。在 TanStack Start / Router 中设置 `routeFileIgnorePattern`，使 `routes/` 中的 `.content` 文件不会被当作路由。
+7. **lint 与格式化插件** - 当项目使用 ESLint / oxlint 或 Prettier 时，安装 `eslint-plugin-intlayer` / `prettier-plugin-intlayer`，并将其注册到 ESLint flat config、`.oxlintrc.json` 和 Prettier 配置中。无法安全编辑的配置会改为输出需要粘贴的代码片段。
 
 ## 逐步配置
 
@@ -94,7 +100,9 @@ bun x intlayer init
 | `intlayer init github-actions`                                        | `fill` 和 `test` 两个 GitHub Actions 工作流                               |
 | `intlayer init vscode-extension`                                      | 在 `.vscode/extensions.json` 中推荐 Intlayer 扩展                         |
 | `intlayer init lsp`                                                   | `.vscode/settings.json` 中的 Intlayer 语言服务器                          |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | 安装 AI 提供商的 SDK，列出其模型，并将 API 密钥保存到 `.env`              |
 | `intlayer init eslint`                                                | 项目已使用 lint 时的 Intlayer lint 规则（ESLint / oxlint）                |
+| `intlayer init prettier`                                              | 当项目已使用 Prettier 格式化时，添加 Intlayer Prettier 插件               |
 | `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | 作为 AI 代理技能的 Intlayer 文档                                          |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | Intlayer MCP 服务器                                                       |
 | `intlayer init extension [--browser <chrome/firefox>]`                | 打开 Intlayer 浏览器扩展的商店页面                                        |

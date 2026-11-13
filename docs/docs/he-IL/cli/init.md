@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-11-03
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: הגדרת Intlayer בפרויקט שלך"
 description: "הרץ את intlayer init כדי להוסיף את Intlayer לפרויקט קיים: הפקודה מזהה את הפריימוורק שלך, מתקינה חבילות וכותבת את קובצי התצורה."
@@ -16,6 +16,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "init רושם גם את תוספי ה-lint / Prettier; נוסף init ai; קובצי .content מתעלמים מהם בנתיבי TanStack"
   - version: 9.5.13
     date: 2026-09-29
     changes: "init מתקין כעת רק את החבילות ומגדיר את הפריימוורק, הוספת תת-פקודה ייעודית לכל שלב הגדרה, --interactive נכשל ללא טרמינל"
@@ -62,6 +65,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - אופציונלי. ציון ספריית השורש של הפרויקט. אם לא סופק, הפקודה תחפש את שורש הפרויקט החל מספריית העבודה הנוכחית.
 - `--no-gitignore` - אופציונלי. דילוג על העדכון האוטומטי של קובץ `.gitignore`. אם דגל זה מוגדר, `.intlayer` לא יתווסף ל-`.gitignore`.
 - `--no-framework-setup` - אופציונלי. התקנת החבילות בלבד, מבלי לגעת בקובצי הפרויקט.
+- `--no-eslint` - אופציונלי. לא מפעיל את כללי ה-lint של Intlayer.
+- `--no-prettier` - אופציונלי. לא מוסיף את תוסף ה-Prettier של Intlayer.
 - `--routing <routing>` - אופציונלי. ניתוב שפות: `prefix-no-default` (ברירת מחדל), `prefix-all`, `no-prefix`, `search-params` או `none`.
 - `--content <layout>` - אופציונלי. כיצד מוגדר התוכן:
   - `multilingual` - `{fileName}.content.{ts,json}` לצד הרכיב, כל השפות בקובץ אחד (מגדיר את `compiler.output`).
@@ -82,25 +87,28 @@ bun x intlayer init
 3. **עדכון `.gitignore`** - מוסיפה את `.intlayer` לקובץ ה-`.gitignore` שלך כדי להחריג קבצים שנוצרו מבקרת גרסאות (ניתן לדלג באמצעות `--no-gitignore`).
 4. **הגדרת TypeScript** - מעדכנת את כל קובצי ה-`tsconfig.json` כדי לכלול הגדרות טיפוסים של Intlayer (`.intlayer/**/*.ts`).
 5. **יצירת קובץ תצורה** - מייצרת `intlayer.config.ts` (עבור פרויקטי TypeScript) או `intlayer.config.mjs` (עבור פרויקטי JavaScript) עם הגדרות ברירת מחדל.
-6. **עדכון תצורת הבאנדלר / הפריימוורק** - מוסיפה את תוסף Intlayer לתצורת Vite, Next.js, Nuxt, Astro ועוד, ומקימה את ה-middleware/proxy והספקים כאשר הפריימוורק תומך בכך.
+6. **עדכון תצורת הבאנדלר / הפריימוורק** - מוסיפה את תוסף Intlayer לתצורת Vite, Next.js, Nuxt, Astro ועוד, ומקימה את ה-middleware/proxy והספקים כאשר הפריימוורק תומך בכך. ב-TanStack Start / Router, מגדיר `routeFileIgnorePattern` כדי שקובצי `.content` בתוך `routes/` לא ייחשבו כנתיבים.
+7. **תוספי lint ועיצוב** - כשהפרויקט משתמש ב-ESLint / oxlint או ב-Prettier, מתקין את `eslint-plugin-intlayer` / `prettier-plugin-intlayer` ורושם אותם ב-flat config של ESLint, ב-`.oxlintrc.json` ובהגדרות Prettier. הגדרה שלא ניתן לערוך בבטחה מקבלת במקום זאת קטע קוד להדבקה.
 
 ## הגדרה שלב אחר שלב
 
 לכל שלב ברשימת המשימות של `--interactive` יש תת-פקודה משלו. הן לעולם אינן מציגות שאלות בטרמינל כאשר הערכים מועברים כדגלים, ולכן בטוח להריץ אותן מתוך סוכן AI או משימת CI.
 
-| פקודה                                                                 | מה היא מגדירה                                                               |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `intlayer init packages`                                              | מתקינה את חבילות Intlayer החסרות ומשדרגת חבילות ישנות                       |
-| `intlayer init project [--routing <routing>] [--content <layout>]`    | קובץ תצורה, TypeScript, תוסף באנדלר, middleware/proxy, ספקים ו-`.gitignore` |
-| `intlayer init github-actions`                                        | תהליכי העבודה של GitHub Actions עבור `fill` ו-`test`                        |
-| `intlayer init vscode-extension`                                      | ממליצה על הרחבת Intlayer ב-`.vscode/extensions.json`                        |
-| `intlayer init lsp`                                                   | שרת שפת Intlayer (LSP) ב-`.vscode/settings.json`                            |
-| `intlayer init eslint`                                                | כללי ה-lint של Intlayer (ESLint / oxlint), כאשר הפרויקט כבר משתמש ב-linter  |
-| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | תיעוד Intlayer כמיומנויות סוכן AI (skills)                                  |
-| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | שרת ה-MCP של Intlayer                                                       |
-| `intlayer init extension [--browser <chrome/firefox>]`                | פותחת את עמוד החנות של תוסף הדפדפן של Intlayer                              |
-| `intlayer init cms`                                                   | מתחברת ל-Intlayer CMS דרך הדפדפן שלך ושומרת את האישורים ב-`.env`            |
-| `intlayer init infra --mode <desktop/docker/compose>`                 | אפליקציית שולחן העבודה או סטאק באירוח עצמי                                  |
+| פקודה                                                                 | מה היא מגדירה                                                                    |
+| --------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `intlayer init packages`                                              | מתקינה את חבילות Intlayer החסרות ומשדרגת חבילות ישנות                            |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | קובץ תצורה, TypeScript, תוסף באנדלר, middleware/proxy, ספקים ו-`.gitignore`      |
+| `intlayer init github-actions`                                        | תהליכי העבודה של GitHub Actions עבור `fill` ו-`test`                             |
+| `intlayer init vscode-extension`                                      | ממליצה על הרחבת Intlayer ב-`.vscode/extensions.json`                             |
+| `intlayer init lsp`                                                   | שרת שפת Intlayer (LSP) ב-`.vscode/settings.json`                                 |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | מתקין את ה-SDK של ספק ה-AI, מציג את המודלים שלו ושומר את מפתח ה-API בקובץ `.env` |
+| `intlayer init eslint`                                                | כללי ה-lint של Intlayer (ESLint / oxlint), כאשר הפרויקט כבר משתמש ב-linter       |
+| `intlayer init prettier`                                              | תוסף ה-Prettier של Intlayer, כשהפרויקט כבר מעוצב עם Prettier                     |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | תיעוד Intlayer כמיומנויות סוכן AI (skills)                                       |
+| `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | שרת ה-MCP של Intlayer                                                            |
+| `intlayer init extension [--browser <chrome/firefox>]`                | פותחת את עמוד החנות של תוסף הדפדפן של Intlayer                                   |
+| `intlayer init cms`                                                   | מתחברת ל-Intlayer CMS דרך הדפדפן שלך ושומרת את האישורים ב-`.env`                 |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | אפליקציית שולחן העבודה או סטאק באירוח עצמי                                       |
 
 ### מתוך סוכן AI או משימת CI
 

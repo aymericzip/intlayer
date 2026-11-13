@@ -1,10 +1,13 @@
 export * from './detectFormatCommand';
 export * from './getContentDeclarationFileTemplate';
+export * from './init/aiSetup';
 export {
   type CmsCredentials,
   enableEditorInConfig,
+  setAiInConfig,
   setupCmsCredentials,
   writeCmsCredentialsToEnv,
+  writeEnvVariables,
 } from './init/cms';
 export * from './init/index';
 export * from './init/upgradeIntlayerPackages';

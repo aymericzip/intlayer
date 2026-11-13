@@ -9,6 +9,16 @@ export const MCP_TRANSPORTS: MCPTransport[] = ['stdio', 'sse'];
 
 const MCP_CONFIG_FILENAME = 'mcp.json';
 
+/** Package run by the stdio MCP server entry. */
+const MCP_PACKAGE_NAME = '@intlayer/mcp';
+
+/**
+ * `npx` spec of the MCP server. The dist-tag makes `npx` resolve the published
+ * version on start, where a bare name keeps serving its cached copy.
+ */
+const getMCPPackageSpecifier = (distTag: string = 'latest'): string =>
+  `${MCP_PACKAGE_NAME}@${distTag}`;
+
 /** Project-scoped MCP configuration file read by Claude Code. */
 const CLAUDE_CODE_MCP_CONFIG_FILENAME = '.mcp.json';
 
@@ -49,7 +59,7 @@ const getMCPServerConfig = (
   if (transport === 'stdio') {
     return {
       command: 'npx',
-      args: ['-y', '@intlayer/mcp'],
+      args: ['-y', getMCPPackageSpecifier()],
       ...(isTypedTransport ? { type: 'stdio' } : {}),
     };
   }
@@ -94,4 +104,66 @@ export const installMCP = async (
   await fs.writeFile(configPath, JSON.stringify(config, null, 2), 'utf-8');
 
   return `MCP server configuration updated in ${configPath}`;
+};
+
+/** Matches `@intlayer/mcp`, optionally followed by a version or dist-tag. */
+const MCP_PACKAGE_ARGUMENT_PATTERN = /^@intlayer\/mcp(@.+)?$/;
+
+/**
+ * Points the stdio Intlayer MCP entries of every platform config of the
+ * project at the given dist-tag (`npx -y @intlayer/mcp@latest`), so agents
+ * start the upgraded server. Returns the config files that were rewritten.
+ */
+export const upgradeMCPConfigs = async (
+  projectRoot: string,
+  distTag: string = 'latest'
+): Promise<string[]> => {
+  const packageSpecifier = getMCPPackageSpecifier(distTag);
+  const configPaths = [
+    ...new Set(
+      (Object.keys(PLATFORMS_METADATA) as Platform[]).map((platform) =>
+        getMCPConfigPath(projectRoot, platform)
+      )
+    ),
+  ];
+  const updatedConfigPaths: string[] = [];
+
+  for (const configPath of configPaths) {
+    let config: MCPConfigFile;
+
+    try {
+      config = JSON.parse(await fs.readFile(configPath, 'utf-8'));
+    } catch {
+      continue;
+    }
+
+    let isUpdated = false;
+
+    for (const serversKey of ['servers', 'mcpServers']) {
+      const servers = config[serversKey] as
+        | Record<string, MCPServerConfig>
+        | undefined;
+
+      for (const server of Object.values(servers ?? {})) {
+        server.args = server.args?.map((argument) => {
+          if (
+            !MCP_PACKAGE_ARGUMENT_PATTERN.test(argument) ||
+            argument === packageSpecifier
+          ) {
+            return argument;
+          }
+
+          isUpdated = true;
+          return packageSpecifier;
+        });
+      }
+    }
+
+    if (isUpdated) {
+      await fs.writeFile(configPath, JSON.stringify(config, null, 2), 'utf-8');
+      updatedConfigPaths.push(configPath);
+    }
+  }
+
+  return updatedConfigPaths;
 };

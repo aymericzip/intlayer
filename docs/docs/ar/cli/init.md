@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-29
+updatedAt: 2026-11-13
 priority: 5
 title: "intlayer init: إعداد Intlayer في مشروعك"
 description: "شغّل intlayer init لإضافة Intlayer إلى مشروع موجود: يكتشف إطار العمل، ويثبّت الحزم، ويكتب ملفات الإعداد."
@@ -15,6 +15,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.8.1
+    date: 2026-11-13
+    changes: "يسجّل init أيضًا إضافات lint / Prettier؛ إضافة init ai؛ تجاهل ملفات .content في مسارات TanStack"
   - version: 9.5.13
     date: 2026-09-29
     changes: "أصبح init يثبّت الحزم ويُعدّ إطار العمل فقط؛ إضافة أمر فرعي لكل خطوة؛ يفشل --interactive دون طرفية"
@@ -61,6 +64,8 @@ bun x intlayer init
 - `--project-root [projectRoot]` - اختياري. حدد الدليل الجذر للمشروع. إذا لم يتم توفيره ، فسيقوم الأمر بالبحث عن جذر المشروع بدءًا من دليل العمل الحالي.
 - `--no-gitignore` - اختياري. يتخطى التحديث التلقائي لملف `.gitignore`. إذا تم تعيين هذا العلم ، فلن يتم إضافة `.intlayer` إلى `.gitignore`.
 - `--no-framework-setup` - اختياري. يثبّت الحزم فقط، دون تعديل ملفات المشروع.
+- `--no-eslint` - اختياري. لا يفعّل قواعد lint الخاصة بـ Intlayer.
+- `--no-prettier` - اختياري. لا يضيف إضافة Prettier الخاصة بـ Intlayer.
 - `--routing <routing>` - اختياري. توجيه اللغات: `prefix-no-default` (افتراضي)، `prefix-all`، `no-prefix`، `search-params` أو `none`.
 - `--content <layout>` - اختياري. كيفية التصريح عن المحتوى:
   - `multilingual` - `{fileName}.content.{ts,json}` بجوار المكوّن، جميع اللغات في ملف واحد (يحدد `compiler.output`).
@@ -81,25 +86,28 @@ bun x intlayer init
 3. **تحديث `.gitignore`** - يضيف `.intlayer` إلى ملف `.gitignore` الخاص بك لاستبعاد الملفات التي تم إنشاؤها من التحكم في الإصدار (يمكن تخطيه باستخدام `--no-gitignore`).
 4. **تكوين TypeScript** - يقوم بتحديث أي ملفات `tsconfig.json` لتشمل تعريفات أنواع Intlayer (`.intlayer/**/*.ts`).
 5. **إنشاء ملف التكوين** - ينشئ `intlayer.config.ts` (لمشاريع TypeScript) أو `intlayer.config.mjs` (لمشاريع JavaScript) مع الإعدادات الافتراضية.
-6. **يحدّث إعداد المُجمِّع / إطار العمل** - يضيف إضافة Intlayer إلى إعداد Vite أو Next.js أو Nuxt أو Astro أو غيرها، ويُنشئ middleware/proxy والمزوّدات عندما يدعم إطار العمل ذلك.
+6. **يحدّث إعداد المُجمِّع / إطار العمل** - يضيف إضافة Intlayer إلى إعداد Vite أو Next.js أو Nuxt أو Astro أو غيرها، ويُنشئ middleware/proxy والمزوّدات عندما يدعم إطار العمل ذلك. في TanStack Start / Router، يضبط `routeFileIgnorePattern` حتى لا تُعامل ملفات `.content` داخل `routes/` كمسارات.
+7. **إضافات lint والتنسيق** - عندما يستخدم المشروع ESLint / oxlint أو Prettier، يثبّت `eslint-plugin-intlayer` / `prettier-plugin-intlayer` ويسجّلها في إعداد ESLint flat و`.oxlintrc.json` وإعداد Prettier. إذا تعذّر تعديل الإعداد بأمان، يُعرض المقتطف لتلصقه بنفسك.
 
 ## الإعداد خطوة بخطوة
 
 لكل خطوة في قائمة `--interactive` أمر فرعي خاص بها. لا تطرح هذه الأوامر أي سؤال عند تمرير القيم كخيارات، لذا يمكن تشغيلها بأمان من وكيل ذكاء اصطناعي أو من مهمة CI.
 
-| الأمر                                                                 | ما يُعدّه                                                                             |
+| الأمر                                                                  | ما يُعدّه                                                                               |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `intlayer init packages`                                              | يثبّت حزم Intlayer الناقصة ويحدّث القديمة                                             |
-| `intlayer init project [--routing <routing>] [--content <layout>]`    | ملف الإعداد، TypeScript، إضافة المُجمِّع، middleware/proxy، المزوّدات و`.gitignore`   |
+| `intlayer init packages`                                              | يثبّت حزم Intlayer الناقصة ويحدّث القديمة                                               |
+| `intlayer init project [--routing <routing>] [--content <layout>]`    | ملف الإعداد، TypeScript، إضافة المُجمِّع، middleware/proxy، المزوّدات و`.gitignore`        |
 | `intlayer init github-actions`                                        | مسارا عمل GitHub Actions `fill` و`test`                                               |
 | `intlayer init vscode-extension`                                      | يوصي بإضافة Intlayer في `.vscode/extensions.json`                                     |
 | `intlayer init lsp`                                                   | خادم لغة Intlayer في `.vscode/settings.json`                                          |
+| `intlayer init ai [--provider <provider>] [--model <model>]`          | يثبّت SDK مزوّد الذكاء الاصطناعي، ويعرض نماذجه، ويحفظ مفتاح API في `.env`                |
 | `intlayer init eslint`                                                | قواعد lint الخاصة بـ Intlayer (ESLint / oxlint)، إذا كان المشروع يستخدم linter بالفعل |
-| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | توثيق Intlayer على شكل مهارات لوكلاء الذكاء الاصطناعي                                 |
+| `intlayer init prettier`                                              | إضافة Prettier الخاصة بـ Intlayer، عندما يستخدم المشروع Prettier بالفعل               |
+| `intlayer init skills [--platform <platform>] [--skills <skills…>]`   | توثيق Intlayer على شكل مهارات لوكلاء الذكاء الاصطناعي                                   |
 | `intlayer init mcp [--platform <platform>] [--transport <stdio/sse>]` | خادم MCP الخاص بـ Intlayer                                                            |
 | `intlayer init extension [--browser <chrome/firefox>]`                | يفتح صفحة إضافة المتصفح Intlayer في المتجر                                            |
-| `intlayer init cms`                                                   | تسجيل الدخول إلى Intlayer CMS عبر المتصفح وحفظ بيانات الاعتماد في `.env`              |
-| `intlayer init infra --mode <desktop/docker/compose>`                 | تطبيق سطح المكتب أو مكدّس مستضاف ذاتيًا                                               |
+| `intlayer init cms`                                                   | تسجيل الدخول إلى Intlayer CMS عبر المتصفح وحفظ بيانات الاعتماد في `.env`               |
+| `intlayer init infra --mode <desktop/docker/compose>`                 | تطبيق سطح المكتب أو مكدّس مستضاف ذاتيًا                                                 |
 
 ### من وكيل ذكاء اصطناعي أو مهمة CI
 
