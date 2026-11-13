@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Compilateur Intlayer | Extraction automatique de contenu pour l'i18n
 description: "Extrayez automatiquement le contenu de vos composants avec le compilateur Intlayer, pour une i18n plus rapide dans Vite, Next.js et plus."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-10
     changes: "Update compiler options, add FilePathPattern support"
@@ -340,6 +343,32 @@ Les propriétés suivantes peuvent être configurées dans le bloc `compiler` de
   - _Description_: Indique si les composants doivent être enregistrés après avoir été transformés.
     - Si `true`, le compilateur réécrira le fichier du composant sur le disque. La transformation sera permanente et le compilateur pourra ensuite être supprimé.
     - Si `false`, le compilateur injectera l'appel de fonction `useIntlayer()` dans le code du build uniquement et gardera la base de code intacte. La transformation sera effectuée uniquement en mémoire.
+
+### Exclure des chaînes de l'extraction
+
+Le compilateur extrait toute chaîne qui ressemble à du texte affiché, y compris les mots seuls comme `Save`, `Settings` ou `Counter`. Il ne peut pas distinguer un libellé d'un nom propre ou d'une marque : marquez ces derniers avec une directive en commentaire :
+
+- `intlayer-ignore-next-line`: ignore les chaînes de la ligne suivante. Placée au-dessus d'un élément JSX, Vue ou Svelte, elle ignore aussi le texte et les attributs de l'élément.
+- `intlayer-ignore-line`: ignore les chaînes de sa propre ligne.
+- `intlayer-ignore-file`: ignore tout le fichier. Placez-la en haut du fichier.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Dans les templates Vue et Svelte, utilisez un commentaire HTML : `<!-- intlayer-ignore-next-line -->`.
+
+La règle ESLint `intlayer/no-raw-text` lit les mêmes directives : les chaînes ignorées ne sont pas signalées non plus.
 
 ### Remplir les traductions manquantes
 

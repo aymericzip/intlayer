@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer Compiler | Automatisierte Inhaltsextraktion für i18n
 description: "Extrahieren Sie Inhalte automatisch aus Ihren Komponenten mit dem Intlayer-Compiler, für schnellere i18n in Vite, Next.js und mehr."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-10
     changes: "Update compiler options, add FilePathPattern support"
@@ -340,6 +343,32 @@ Die folgenden Eigenschaften können im Block `compiler` Ihrer Datei `intlayer.co
   - _Beschreibung_: Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
     - Wenn `true`, schreibt der Compiler die Komponentendatei auf die Festplatte um. Die Transformation ist dauerhaft und der Compiler kann anschließend entfernt werden.
     - Wenn `false`, fügt der Compiler den `useIntlayer()` Funktionsaufruf nur in den Code der Build-Ausgabe ein und lässt die Basis-Code-Basis intakt. Die Transformation erfolgt nur im Speicher.
+
+### Strings von der Extraktion ausschließen
+
+Der Compiler extrahiert jeden String, der wie sichtbarer Text aussieht, auch einzelne Wörter wie `Save`, `Settings` oder `Counter`. Er kann ein Label nicht von einem Eigennamen oder einem Markennamen unterscheiden. Markieren Sie diese daher mit einer Kommentar-Direktive:
+
+- `intlayer-ignore-next-line`: überspringt die Strings der nächsten Zeile. Über einem JSX-, Vue- oder Svelte-Element platziert, überspringt sie auch dessen Text und Attribute.
+- `intlayer-ignore-line`: überspringt die Strings der eigenen Zeile.
+- `intlayer-ignore-file`: überspringt die gesamte Datei. Platzieren Sie sie am Anfang der Datei.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Verwenden Sie in Vue- und Svelte-Templates einen HTML-Kommentar: `<!-- intlayer-ignore-next-line -->`.
+
+Die ESLint-Regel `intlayer/no-raw-text` liest dieselben Direktiven, ignorierte Strings werden also auch nicht gemeldet.
 
 ### Fehlende Übersetzungen ausfüllen
 

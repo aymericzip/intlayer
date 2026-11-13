@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer Compiler | Zautomatyzowane wydobywanie treści dla i18n
 description: "Automatycznie wyodrębniaj treść z komponentów za pomocą kompilatora Intlayer, aby szybciej wdrażać i18n w Vite, Next.js i innych."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Aktualizacja opcji kompilatora, dodanie wsparcia dla FilePathPattern"
@@ -333,6 +336,32 @@ Następujące właściwości można skonfigurować w bloku `compiler` pliku `int
   - _Typ_: `boolean`
   - _Domyślny_: `false`
   - _Opis_: Wskazuje, czy komponenty powinny być zapisywane po transformacji.
+
+### Wykluczanie tekstów z ekstrakcji
+
+Kompilator wyodrębnia każdy tekst, który wygląda na treść widoczną dla użytkownika, w tym pojedyncze słowa, takie jak `Save`, `Settings` czy `Counter`. Nie potrafi odróżnić etykiety od nazwy własnej lub nazwy marki, więc oznacz je dyrektywą w komentarzu:
+
+- `intlayer-ignore-next-line`: pomija teksty z następnej linii. Umieszczona nad elementem JSX, Vue lub Svelte pomija też tekst i atrybuty elementu.
+- `intlayer-ignore-line`: pomija teksty z własnej linii.
+- `intlayer-ignore-file`: pomija cały plik. Umieść ją na początku pliku.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+W szablonach Vue i Svelte użyj komentarza HTML: `<!-- intlayer-ignore-next-line -->`.
+
+Reguła ESLint `intlayer/no-raw-text` odczytuje te same dyrektywy, więc pominięte teksty nie są też zgłaszane.
 
 ### Uzupełnij brakujące tłumaczenia
 

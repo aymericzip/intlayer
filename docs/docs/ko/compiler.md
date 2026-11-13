@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer 컴파일러 | i18n을 위한 자동화된 콘텐츠 추출
 description: "Intlayer 컴파일러로 컴포넌트에서 콘텐츠를 자동 추출해 Vite, Next.js 등에서 더 빠르게 i18n을 적용하세요."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "컴파일러 옵션 업데이트, FilePathPattern 지원 추가"
@@ -335,6 +338,32 @@ export default config;
   - _형식_: `boolean`
   - _기본값_: `false`
   - _설명_: 변환된 후 컴포넌트를 저장할지 여부를 나타냅니다.
+
+### 추출에서 문자열 제외하기
+
+컴파일러는 사용자에게 보이는 텍스트로 보이는 모든 문자열을 추출합니다. `Save`, `Settings`, `Counter` 같은 단일 단어도 포함됩니다. 레이블과 고유명사나 브랜드 이름을 구분할 수 없으므로, 이런 문자열은 주석 지시어로 표시하세요:
+
+- `intlayer-ignore-next-line`: 다음 줄의 문자열을 건너뜁니다. JSX, Vue, Svelte 요소 위에 두면 해당 요소의 텍스트와 속성도 건너뜁니다.
+- `intlayer-ignore-line`: 자신이 있는 줄의 문자열을 건너뜁니다.
+- `intlayer-ignore-file`: 파일 전체를 건너뜁니다. 파일 맨 위에 두세요.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Vue와 Svelte 템플릿에서는 HTML 주석을 사용하세요: `<!-- intlayer-ignore-next-line -->`.
+
+ESLint 규칙 `intlayer/no-raw-text`도 같은 지시어를 읽으므로, 건너뛴 문자열은 보고되지 않습니다.
 
 ### 누락된 번역 채우기
 

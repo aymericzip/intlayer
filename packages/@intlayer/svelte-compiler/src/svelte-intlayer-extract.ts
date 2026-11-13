@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parseSync as babelParse, types as t, traverse } from '@babel/core';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import { getExtractionIgnoreDirectives } from '@intlayer/config/extract';
 import type { Locale } from '@intlayer/types/allLocales';
 import MagicString from 'magic-string';
 import { parse } from 'svelte/compiler';
@@ -156,6 +157,10 @@ export const intlayerSvelteExtract = (
   if (!shouldProcessFile(filename, filesList)) return null;
   if (!filename.endsWith('.svelte')) return null;
 
+  const ignoreDirectives = getExtractionIgnoreDirectives(code);
+
+  if (ignoreDirectives.isFileIgnored) return null;
+
   const magic = new MagicString(code);
   const extractedContent: ExtractedContent = {};
   const existingKeys = new Set<string>();
@@ -203,10 +208,26 @@ export const intlayerSvelteExtract = (
     node.type === 8 || // Svelte 4 numeric
     node.type === 'ExpressionTag'; // Svelte 5
 
-  const walkSvelte = (node: any) => {
+  /**
+   * Walks the markup; `isParentIgnored` is true when an ignore directive
+   * covers the opening tag of the enclosing element.
+   */
+  const walkSvelte = (node: any, isParentIgnored = false) => {
+    const isNodeIgnored = ignoreDirectives.isOffsetIgnored(node.start);
+    // Only elements pass their ignored state down, not the root fragment or
+    // logic blocks, which may start on an ignored line.
+    const isElementNode =
+      typeof node.name === 'string' && !isAttributeNode(node);
+    const isChildIgnored = isElementNode ? isNodeIgnored : isParentIgnored;
+
     if (isTextNode(node)) {
       const text = node.data ?? node.content ?? '';
-      if (shouldExtract?.(text) && generateKey) {
+      const leadingWhitespaceLength = text.length - text.trimStart().length;
+      const isTextIgnored =
+        isParentIgnored ||
+        ignoreDirectives.isOffsetIgnored(node.start + leadingWhitespaceLength);
+
+      if (!isTextIgnored && shouldExtract?.(text) && generateKey) {
         const key = generateKey(text, existingKeys);
         existingKeys.add(key);
         // Destructured: each property is a plain value → `{key}`.
@@ -224,7 +245,13 @@ export const intlayerSvelteExtract = (
       isAttributeNode(node) &&
       (attributesToExtract as readonly string[]).includes(node.name)
     ) {
-      if (node.value && node.value.length === 1 && isTextNode(node.value[0])) {
+      if (
+        !isParentIgnored &&
+        !isNodeIgnored &&
+        node.value &&
+        node.value.length === 1 &&
+        isTextNode(node.value[0])
+      ) {
         const text = node.value[0].data ?? node.value[0].content ?? '';
         if (shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
@@ -245,7 +272,7 @@ export const intlayerSvelteExtract = (
       node.children ?? node.fragment?.nodes ?? node.fragment?.children;
 
     // Try to handle mixed text + expression children as an insertion
-    if (children?.some(isExpressionTagNode)) {
+    if (!isChildIgnored && children?.some(isExpressionTagNode)) {
       const parts: {
         type: 'text' | 'var';
         value: string;
@@ -312,14 +339,18 @@ export const intlayerSvelteExtract = (
           });
 
           // Don't recurse into these children
-          if (node.attributes) node.attributes.forEach(walkSvelte);
+          node.attributes?.forEach((attribute: any) =>
+            walkSvelte(attribute, isNodeIgnored)
+          );
           return;
         }
       }
     }
 
-    if (children) children.forEach(walkSvelte);
-    if (node.attributes) node.attributes.forEach(walkSvelte);
+    children?.forEach((child: any) => walkSvelte(child, isChildIgnored));
+    node.attributes?.forEach((attribute: any) =>
+      walkSvelte(attribute, isNodeIgnored)
+    );
   };
 
   if (ast.html) {
@@ -369,6 +400,13 @@ export const intlayerSvelteExtract = (
             }
 
             const text = path.node.value;
+
+            if (
+              path.node.start != null &&
+              ignoreDirectives.isOffsetIgnored(offset + path.node.start)
+            )
+              return;
+
             if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);

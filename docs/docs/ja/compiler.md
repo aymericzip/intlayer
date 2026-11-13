@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer コンパイラー | i18n のための自動コンテンツ抽出
 description: "Intlayer コンパイラでコンポーネントからコンテンツを自動抽出し、Vite や Next.js などでの i18n をより速く。"
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "コンパイラーオプションの更新、FilePathPattern のサポート追加"
@@ -335,6 +338,32 @@ export default config;
   - _タイプ_: `boolean`
   - _デフォルト_: `false`
   - _説明_: 変換後にコンポーネントを保存するかどうかを示します。
+
+### 抽出から文字列を除外する
+
+コンパイラは、ユーザーに表示されるテキストに見える文字列をすべて抽出します。`Save`、`Settings`、`Counter` のような単語ひとつの文字列も対象です。ラベルと固有名詞やブランド名を区別できないため、それらはコメントディレクティブで指定してください:
+
+- `intlayer-ignore-next-line`: 次の行の文字列をスキップします。JSX、Vue、Svelte の要素の上に置くと、その要素のテキストと属性もスキップします。
+- `intlayer-ignore-line`: その行自身の文字列をスキップします。
+- `intlayer-ignore-file`: ファイル全体をスキップします。ファイルの先頭に置いてください。
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Vue と Svelte のテンプレートでは HTML コメントを使います: `<!-- intlayer-ignore-next-line -->`。
+
+ESLint ルール `intlayer/no-raw-text` も同じディレクティブを読み取るため、スキップした文字列は報告されません。
 
 ### 欠落した翻訳を埋める
 

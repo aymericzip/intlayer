@@ -309,11 +309,9 @@ const tiers = [
     expect(updatedCode).toMatch(
       /const content = getIntlayer\(['"]top-level-array-test['"]\);/
     );
-    // Single capitalized words (tier names) are treated as proper nouns and skipped
-    expect(updatedCode).toMatch(/name:\s*['"]Starter['"]/);
-    expect(updatedCode).toMatch(/name:\s*['"]Pro['"]/);
-    expect(updatedCode).not.toContain('content.starter');
-    expect(updatedCode).not.toContain('content.pro');
+    // Single capitalized words (tier names) are labels and are extracted
+    expect(updatedCode).toContain('content.starter');
+    expect(updatedCode).toContain('content.pro');
     // Multi-word feature labels are still extracted
     expect(updatedCode).toContain('content.communitySupport');
     expect(updatedCode).toContain('content.publicResults');
@@ -645,22 +643,75 @@ export const useCustomHook = () => {
     expect(updatedCode).toContain('content.aRealTranslatableSentence');
   });
 
-  it('should not extract single capitalized words (proper/brand nouns)', async () => {
-    const componentPath = join(tmpDir, 'SingleWordTest.tsx');
+  it('should extract single capitalized words (UI labels)', async () => {
+    const componentPath = join(tmpDir, 'SingleWordLabelTest.tsx');
     const componentCode = `
-      export function SingleWordTest() {
-        const author = "Intlayer";
-        return <meta name="author" content={author} />;
+      export function SingleWordLabelTest() {
+        return <h1>Counter</h1>;
       }
     `;
     writeFileSync(componentPath, componentCode);
     await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
-    // The single word "Intlayer" stays a plain string literal
+    expect(updatedCode).toContain('content.counter');
+  });
+
+  it('should skip a string on a line marked intlayer-ignore-line', async () => {
+    const componentPath = join(tmpDir, 'IgnoreLineTest.tsx');
+    const componentCode = `
+      export function IgnoreLineTest() {
+        const author = "Intlayer"; // intlayer-ignore-line
+        return <p title={author}>Welcome home</p>;
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+    await extractContent(componentPath, 'react-intlayer');
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
     expect(updatedCode).toMatch(/const author = ['"]Intlayer['"]/);
     expect(updatedCode).not.toContain('content.intlayer');
-    expect(updatedCode).not.toContain('useIntlayer');
+    expect(updatedCode).toContain('content.welcomeHome');
+  });
+
+  it('should skip the element after an intlayer-ignore-next-line comment', async () => {
+    const componentPath = join(tmpDir, 'IgnoreNextLineTest.tsx');
+    const componentCode = `
+      export function IgnoreNextLineTest() {
+        return (
+          <div>
+            {/* intlayer-ignore-next-line */}
+            <p title="Author">
+              John
+            </p>
+            <p>Welcome home</p>
+          </div>
+        );
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+    await extractContent(componentPath, 'react-intlayer');
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toContain('John');
+    expect(updatedCode).toMatch(/title=['"]Author['"]/);
+    expect(updatedCode).not.toContain('content.john');
+    expect(updatedCode).not.toContain('content.author');
+    expect(updatedCode).toContain('content.welcomeHome');
+  });
+
+  it('should leave a file marked intlayer-ignore-file untouched', async () => {
+    const componentPath = join(tmpDir, 'IgnoreFileTest.tsx');
+    const componentCode = `// intlayer-ignore-file
+export function IgnoreFileTest() {
+  return <h1>Welcome home</h1>;
+}
+`;
+    writeFileSync(componentPath, componentCode);
+    await extractContent(componentPath, 'react-intlayer');
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toBe(componentCode);
   });
 
   it('should extract JSX text and inject useIntlayer properly', async () => {

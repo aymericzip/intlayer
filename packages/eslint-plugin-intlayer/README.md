@@ -184,8 +184,14 @@ Reports user-facing strings that are not declared in a dictionary.
 
 The predicate is `shouldExtract` from `@intlayer/config/extract` — the very same
 heuristic `intlayer extract` uses — so what this rule reports is exactly what the
-extractor would rewrite. Brand names, CSS class strings, technical identifiers
-and code-shaped strings are filtered out.
+extractor would rewrite. CSS class strings, technical identifiers and
+code-shaped strings are filtered out.
+
+Proper nouns and brand names cannot be told apart from labels, so they are
+skipped with the compiler's comment directives, which this rule honors too:
+`// intlayer-ignore-line`, `// intlayer-ignore-next-line` (or
+`{/* intlayer-ignore-next-line */}` / `<!-- intlayer-ignore-next-line -->` above
+an element) and `// intlayer-ignore-file`.
 
 ```jsx
 // ✗

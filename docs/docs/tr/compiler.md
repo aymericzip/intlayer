@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
 description: "Intlayer derleyicisiyle bileşenlerinizden içeriği otomatik çıkarın; Vite, Next.js ve daha fazlasında i18n'i hızlandırın."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Derleyici seçeneklerini güncelle, FilePathPattern desteği ekle"
@@ -333,6 +336,32 @@ Aşağıdaki özellikler `intlayer.config.ts` dosyanızın `compiler` bloğunda 
   - _Tip_: `boolean`
   - _Varsayılan_: `false`
   - _Açıklama_: Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
+
+### Metinleri çıkarma işleminden hariç tutma
+
+Derleyici, kullanıcıya görünen metin gibi duran her dizeyi çıkarır; `Save`, `Settings` veya `Counter` gibi tek kelimeler de buna dahildir. Bir etiketi özel isimden veya marka adından ayıramaz, bu yüzden bunları bir yorum direktifiyle işaretleyin:
+
+- `intlayer-ignore-next-line`: sonraki satırdaki dizeleri atlar. Bir JSX, Vue veya Svelte öğesinin üstüne konduğunda öğenin metnini ve özniteliklerini de atlar.
+- `intlayer-ignore-line`: kendi satırındaki dizeleri atlar.
+- `intlayer-ignore-file`: tüm dosyayı atlar. Dosyanın en üstüne yerleştirin.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Vue ve Svelte şablonlarında bir HTML yorumu kullanın: `<!-- intlayer-ignore-next-line -->`.
+
+`intlayer/no-raw-text` ESLint kuralı aynı direktifleri okur, bu nedenle atlanan dizeler raporlanmaz.
 
 ### Eksik çevirileri doldur
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-11-03
+updatedAt: 2026-11-12
 priority: 8
 title: "מהדר Intlayer | חילוץ תוכן אוטומטי עבור i18n"
 description: "חלץ תוכן מהרכיבים שלך באופן אוטומטי באמצעות מהדר ה-Intlayer, עבור i18n מהיר יותר ב-Vite, ב-Next.js ועוד."
@@ -26,6 +26,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 9.0.0
     date: 2026-06-24
     changes: "הוספת שינוי לגבי Intlayer v9"
@@ -342,6 +345,32 @@ export default config;
   - _תיאור_: מציין אם יש לשמור את הרכיבים לאחר הטרנספורמציה.
     - אם `true`, המהדר ישכתב את קובץ הרכיב בדיסק. השינוי יהיה קבוע, ולאחר מכן ניתן יהיה להסיר את המהדר.
     - אם `false`, המהדר יזריק את קריאת הפונקציה `useIntlayer()` לתוך הקוד בפלט הבנייה בלבד, וישמור על בסיס הקוד המקורי ללא שינוי. השינוי יתבצע בזיכרון בלבד.
+
+### החרגת מחרוזות מהחילוץ
+
+המהדר מחלץ כל מחרוזת שנראית כמו טקסט שמוצג למשתמש, כולל מילים בודדות כמו `Save`, `Settings` או `Counter`. הוא לא יכול להבדיל בין תווית לבין שם פרטי או שם מותג, לכן סמנו אותם בהנחיה בהערה:
+
+- `intlayer-ignore-next-line`: מדלגת על המחרוזות של השורה הבאה. כשהיא ממוקמת מעל רכיב JSX, Vue או Svelte, היא מדלגת גם על הטקסט והמאפיינים של הרכיב.
+- `intlayer-ignore-line`: מדלגת על המחרוזות של השורה שלה עצמה.
+- `intlayer-ignore-file`: מדלגת על הקובץ כולו. מקמו אותה בראש הקובץ.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+בתבניות Vue ו-Svelte, השתמשו בהערת HTML: `<!-- intlayer-ignore-next-line -->`.
+
+כלל ה-ESLint `intlayer/no-raw-text` קורא את אותן הנחיות, כך שמחרוזות שדולגו גם לא מדווחות.
 
 ### השלמת תרגומים חסרים
 

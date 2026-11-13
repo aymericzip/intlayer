@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-12
 priority: 8
 title: مترجم Intlayer | استخراج المحتوى الآلي للتدويل
 description: "استخرج المحتوى من مكوّناتك تلقائيًا باستخدام مترجم Intlayer البرمجي لتنفيذ i18n أسرع في Vite وNext.js وغيرها."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "تحديث خيارات المترجم، إضافة دعم FilePathPattern"
@@ -335,6 +338,32 @@ export default config;
   - _النوع_: `boolean`
   - _الافتراضي_: `false`
   - _الوصف_: يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
+
+### استبعاد النصوص من الاستخراج
+
+يستخرج المُصرِّف كل نص يبدو كنص موجّه للمستخدم، بما في ذلك الكلمات المفردة مثل `Save` أو `Settings` أو `Counter`. لا يمكنه التمييز بين التسمية واسم العلم أو اسم العلامة التجارية، لذا ضع عليها توجيهًا في تعليق:
+
+- `intlayer-ignore-next-line`: يتخطى نصوص السطر التالي. عند وضعه فوق عنصر JSX أو Vue أو Svelte، يتخطى أيضًا نص العنصر وخصائصه.
+- `intlayer-ignore-line`: يتخطى نصوص السطر الذي يوجد فيه.
+- `intlayer-ignore-file`: يتخطى الملف بالكامل. ضعه في أعلى الملف.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+في قوالب Vue وSvelte، استخدم تعليق HTML: `<!-- intlayer-ignore-next-line -->`.
+
+تقرأ قاعدة ESLint `intlayer/no-raw-text` التوجيهات نفسها، لذلك لا يتم الإبلاغ عن النصوص المتخطاة أيضًا.
 
 ### ملء الترجمات المفقودة
 

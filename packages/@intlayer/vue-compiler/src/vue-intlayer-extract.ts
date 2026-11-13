@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parseSync as babelParse, types as t, traverse } from '@babel/core';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import { getExtractionIgnoreDirectives } from '@intlayer/config/extract';
 import type { Locale } from '@intlayer/types/allLocales';
 import vueSfc from '@vue/compiler-sfc';
 import MagicString from 'magic-string';
@@ -194,6 +195,10 @@ export const intlayerVueExtract = (
   if (!shouldProcessFile(filename, filesList)) return null;
   if (!filename.endsWith('.vue')) return null;
 
+  const ignoreDirectives = getExtractionIgnoreDirectives(code);
+
+  if (ignoreDirectives.isFileIgnored) return null;
+
   let parseVue: (code: string) => VueParseResult;
 
   try {
@@ -227,11 +232,25 @@ export const intlayerVueExtract = (
 
   // Walk Vue Template AST
   if (sfc.descriptor.template) {
-    const walkVueAst = (node: VueAstNode) => {
+    /**
+     * Walks the template; `isParentIgnored` is true when an ignore directive
+     * covers the opening tag of the enclosing element.
+     */
+    const walkVueAst = (node: VueAstNode, isParentIgnored = false) => {
+      const isNodeIgnored = ignoreDirectives.isOffsetIgnored(
+        node.loc.start.offset
+      );
+
       if (node.type === NODE_TYPES.TEXT) {
         const text = node.content ?? '';
+        const leadingWhitespaceLength = text.length - text.trimStart().length;
+        const isTextIgnored =
+          isParentIgnored ||
+          ignoreDirectives.isOffsetIgnored(
+            node.loc.start.offset + leadingWhitespaceLength
+          );
 
-        if (shouldExtract?.(text) && generateKey) {
+        if (!isTextIgnored && shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
           existingKeys.add(key);
           // When the existing call is destructured, access the key directly;
@@ -248,10 +267,16 @@ export const intlayerVueExtract = (
       } else if (node.type === NODE_TYPES.ELEMENT) {
         const children = node.children ?? [];
 
+        /** Attributes on an ignored tag or line stay untouched. */
+        const isPropIgnored = (prop: VueAstProp): boolean =>
+          isNodeIgnored ||
+          ignoreDirectives.isOffsetIgnored(prop.loc.start.offset);
+
         // Try to handle as insertion (mixed TEXT + INTERPOLATION children)
         if (
-          children.length > 0 &&
-          children.some((c) => c.type === NODE_TYPES.INTERPOLATION)
+          !isNodeIgnored &&
+          (children.length ?? 0) > 0 &&
+          children.some((child) => child.type === NODE_TYPES.INTERPOLATION)
         ) {
           const parts: {
             type: 'text' | 'var';
@@ -317,8 +342,8 @@ export const intlayerVueExtract = (
               const firstChild = children[0];
               const lastChild = children[children.length - 1];
               replacements.push({
-                start: firstChild.loc.start.offset,
-                end: lastChild.loc.end.offset,
+                start: firstChild?.loc.start.offset ?? 0,
+                end: lastChild?.loc.end.offset ?? 0,
                 replacement,
                 key,
                 value: cleanString,
@@ -331,7 +356,8 @@ export const intlayerVueExtract = (
                   (attributesToExtract as readonly string[]).includes(
                     prop.name
                   ) &&
-                  prop.value
+                  prop.value &&
+                  !isPropIgnored(prop)
                 ) {
                   const text = prop.value.content;
                   if (shouldExtract?.(text) && generateKey) {
@@ -360,7 +386,8 @@ export const intlayerVueExtract = (
           if (
             prop.type === NODE_TYPES.ATTRIBUTE &&
             (attributesToExtract as readonly string[]).includes(prop.name) &&
-            prop.value
+            prop.value &&
+            !isPropIgnored(prop)
           ) {
             const text = prop.value.content;
 
@@ -381,7 +408,12 @@ export const intlayerVueExtract = (
       }
 
       if (node.children) {
-        node.children.forEach(walkVueAst);
+        node.children.forEach((child) =>
+          walkVueAst(
+            child,
+            node.type === NODE_TYPES.ELEMENT ? isNodeIgnored : isParentIgnored
+          )
+        );
       }
     };
 
@@ -437,6 +469,12 @@ export const intlayerVueExtract = (
             }
 
             const text = path.node.value;
+
+            if (
+              path.node.start != null &&
+              ignoreDirectives.isOffsetIgnored(offset + path.node.start)
+            )
+              return;
 
             if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);

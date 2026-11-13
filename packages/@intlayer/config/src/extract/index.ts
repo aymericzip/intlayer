@@ -10,4 +10,11 @@
  *   what the linter reports is exactly what the extractor would take.
  */
 export { ATTRIBUTES_TO_EXTRACT } from './constants';
+export {
+  type ExtractionIgnoreDirectives,
+  getExtractionIgnoreDirectives,
+  IGNORE_FILE_DIRECTIVE,
+  IGNORE_LINE_DIRECTIVE,
+  IGNORE_NEXT_LINE_DIRECTIVE,
+} from './ignoreDirectives';
 export { shouldExtract } from './shouldExtract';

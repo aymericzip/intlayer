@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer Compiler | i18n के लिए स्वचालित सामग्री निष्कर्षण
 description: "Intlayer कंपाइलर से अपने कंपोनेंट से कंटेंट अपने आप निकालें, ताकि Vite, Next.js और अन्य में i18n तेज़ी से हो।"
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"
@@ -335,6 +338,32 @@ export default config;
   - _प्रकार_: `boolean`
   - _डिफ़ॉल्ट_: `false`
   - _विवरण_: इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
+
+### स्ट्रिंग्स को एक्सट्रैक्शन से बाहर रखना
+
+कंपाइलर हर उस स्ट्रिंग को एक्सट्रैक्ट करता है जो उपयोगकर्ता को दिखने वाले टेक्स्ट जैसी लगती है, जिसमें `Save`, `Settings` या `Counter` जैसे अकेले शब्द भी शामिल हैं। यह किसी लेबल को व्यक्तिवाचक संज्ञा या ब्रांड नाम से अलग नहीं कर सकता, इसलिए उन्हें कमेंट डायरेक्टिव से चिह्नित करें:
+
+- `intlayer-ignore-next-line`: अगली लाइन की स्ट्रिंग्स को छोड़ देता है। JSX, Vue या Svelte एलिमेंट के ऊपर रखने पर यह एलिमेंट के टेक्स्ट और एट्रिब्यूट्स को भी छोड़ देता है।
+- `intlayer-ignore-line`: अपनी ही लाइन की स्ट्रिंग्स को छोड़ देता है।
+- `intlayer-ignore-file`: पूरी फ़ाइल को छोड़ देता है। इसे फ़ाइल के सबसे ऊपर रखें।
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Vue और Svelte टेम्पलेट्स में HTML कमेंट का उपयोग करें: `<!-- intlayer-ignore-next-line -->`।
+
+ESLint नियम `intlayer/no-raw-text` भी यही डायरेक्टिव्स पढ़ता है, इसलिए छोड़ी गई स्ट्रिंग्स रिपोर्ट नहीं होतीं।
 
 ### लापता अनुवाद भरें
 

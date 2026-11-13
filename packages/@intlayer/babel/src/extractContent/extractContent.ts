@@ -3,7 +3,11 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { extname, relative } from 'node:path';
 import type * as t from '@babel/types';
 import * as ANSIColors from '@intlayer/config/colors';
-import { ATTRIBUTES_TO_EXTRACT, shouldExtract } from '@intlayer/config/extract';
+import {
+  ATTRIBUTES_TO_EXTRACT,
+  getExtractionIgnoreDirectives,
+  shouldExtract,
+} from '@intlayer/config/extract';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -93,6 +97,10 @@ const processFileInternal = (
   providedComponentKey?: string
 ): InternalExtractResult | undefined => {
   const fileText = options?.code ?? readFileSync(filePath, 'utf-8');
+
+  // `// intlayer-ignore-file` keeps the whole file out of extraction.
+  if (getExtractionIgnoreDirectives(fileText).isFileIgnored) return undefined;
+
   const componentKey =
     providedComponentKey ??
     extractDictionaryKey(

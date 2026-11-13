@@ -1,5 +1,9 @@
 import { FILE_EXTENSIONS } from '@intlayer/config/defaultValues';
-import { ATTRIBUTES_TO_EXTRACT, shouldExtract } from '@intlayer/config/extract';
+import {
+  ATTRIBUTES_TO_EXTRACT,
+  getExtractionIgnoreDirectives,
+  shouldExtract,
+} from '@intlayer/config/extract';
 import {
   type AstNode,
   type AstNodeWithParent,
@@ -56,6 +60,31 @@ const isContentDeclarationFile = (filename: string): boolean =>
  *
  * @param node - The reported node.
  */
+/** Start offset of an ESLint node (`range[0]`), when it has one. */
+const getNodeStart = (node: AstNode | undefined): number | undefined => {
+  const range = node?.['range'];
+
+  return Array.isArray(range) && typeof range[0] === 'number'
+    ? range[0]
+    : undefined;
+};
+
+/**
+ * Start offset of the element a text, `{'literal'}` child or attribute
+ * belongs to (JSX, Vue and Svelte trees alike).
+ */
+const getEnclosingElementStart = (
+  node: AstNodeWithParent
+): number | undefined => {
+  let current = node.parent;
+
+  if (current?.type === 'JSXExpressionContainer') current = current.parent;
+  if (current?.type === 'JSXAttribute') current = current.parent;
+  if (current?.type === 'JSXOpeningElement') current = current.parent;
+
+  return getNodeStart(current);
+};
+
 const getEnclosingElementName = (
   node: AstNodeWithParent | undefined
 ): string | null => {
@@ -148,6 +177,31 @@ export const noRawText = createRule<[NoRawTextOptions?], MessageIds>(
       // Content declaration files hold the translations themselves.
       if (isContentDeclarationFile(filename)) return {};
 
+      const sourceText = context.sourceCode.text;
+      const ignoreDirectives = getExtractionIgnoreDirectives(sourceText);
+
+      // Same comment directives as the compiler: what it skips is not reported.
+      if (ignoreDirectives.isFileIgnored) return {};
+
+      /**
+       * Whether an `intlayer-ignore-line` / `intlayer-ignore-next-line`
+       * directive covers the node: on the line where its text starts, or on
+       * the opening tag of its element.
+       */
+      const isIgnoredNode = (node: unknown): boolean => {
+        const astNode = toAstNode(node as never);
+        let textStart = getNodeStart(astNode);
+
+        if (textStart !== undefined) {
+          while (/\s/u.test(sourceText[textStart] ?? '')) textStart++;
+        }
+
+        return (
+          ignoreDirectives.isOffsetIgnored(textStart) ||
+          ignoreDirectives.isOffsetIgnored(getEnclosingElementStart(astNode))
+        );
+      };
+
       const [options = {}] = context.options;
       const attributes = new Set<string>(
         options.attributes ?? ATTRIBUTES_TO_EXTRACT
@@ -188,6 +242,8 @@ export const noRawText = createRule<[NoRawTextOptions?], MessageIds>(
 
           if (!isReportableText(text)) return;
 
+          if (isIgnoredNode(node)) return;
+
           context.report({
             node: node as never,
             messageId: attributeName === null ? 'rawText' : 'rawAttribute',
@@ -209,6 +265,8 @@ export const noRawText = createRule<[NoRawTextOptions?], MessageIds>(
           const elementName = getEnclosingElementName(astNode.parent);
 
           if (elementName && ignoredElements.has(elementName)) return;
+
+          if (isIgnoredNode(node)) return;
 
           context.report({
             node: node as never,
@@ -232,6 +290,8 @@ export const noRawText = createRule<[NoRawTextOptions?], MessageIds>(
 
           if (elementName && ignoredElements.has(elementName)) return;
 
+          if (isIgnoredNode(node)) return;
+
           context.report({
             node: node as never,
             messageId: 'rawAttribute',
@@ -251,6 +311,8 @@ export const noRawText = createRule<[NoRawTextOptions?], MessageIds>(
           const text = astNode['value'] as string;
 
           if (!isReportableText(text)) return;
+
+          if (isIgnoredNode(node)) return;
 
           context.report({
             node: node as never,

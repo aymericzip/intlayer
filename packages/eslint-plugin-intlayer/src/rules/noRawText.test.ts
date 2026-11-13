@@ -31,9 +31,31 @@ ruleTester.run('no-raw-text', noRawText, {
       `,
     },
     {
-      name: 'single capitalized word reads as a brand name',
+      name: 'proper noun skipped with intlayer-ignore-line',
       filename: SOURCE_FILENAME,
-      code: `const Component = () => <span>Intlayer</span>;`,
+      code: `const Component = () => <span>John</span>; // intlayer-ignore-line`,
+    },
+    {
+      name: 'element skipped with intlayer-ignore-next-line',
+      filename: SOURCE_FILENAME,
+      code: `
+        const Component = () => (
+          <div>
+            {/* intlayer-ignore-next-line */}
+            <span>
+              Intlayer
+            </span>
+          </div>
+        );
+      `,
+    },
+    {
+      name: 'file skipped with intlayer-ignore-file',
+      filename: SOURCE_FILENAME,
+      code: `
+        // intlayer-ignore-file
+        const Component = () => <h1>Welcome to our documentation</h1>;
+      `,
     },
     {
       name: 'className strings are not copy',
@@ -70,6 +92,12 @@ ruleTester.run('no-raw-text', noRawText, {
   ],
 
   invalid: [
+    {
+      name: 'single capitalized word is a UI label',
+      filename: SOURCE_FILENAME,
+      code: `const Component = () => <button>Save</button>;`,
+      errors: [{ messageId: 'rawText', data: { text: 'Save' } }],
+    },
     {
       name: 'raw JSX text',
       filename: SOURCE_FILENAME,

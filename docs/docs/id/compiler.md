@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer Compiler | Ekstraksi Konten Otomatis untuk i18n
 description: "Ekstrak konten dari komponen secara otomatis dengan compiler Intlayer untuk i18n yang lebih cepat di Vite, Next.js, dan lainnya."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Perbarui opsi kompiler, tambah dukungan FilePathPattern"
@@ -333,6 +336,32 @@ Properti berikut dapat dikonfigurasi dalam blok `compiler` pada file `intlayer.c
   - _Tipe_: `boolean`
   - _Default_: `false`
   - _Deskripsi_: Menunjukkan apakah komponen harus disimpan setelah ditransformasi.
+
+### Mengecualikan string dari ekstraksi
+
+Compiler mengekstrak setiap string yang terlihat seperti teks untuk pengguna, termasuk kata tunggal seperti `Save`, `Settings`, atau `Counter`. Compiler tidak bisa membedakan label dari nama diri atau nama merek, jadi tandai keduanya dengan direktif komentar:
+
+- `intlayer-ignore-next-line`: melewati string pada baris berikutnya. Jika diletakkan di atas elemen JSX, Vue, atau Svelte, direktif ini juga melewati teks dan atribut elemen tersebut.
+- `intlayer-ignore-line`: melewati string pada barisnya sendiri.
+- `intlayer-ignore-file`: melewati seluruh file. Letakkan di bagian atas file.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Di template Vue dan Svelte, gunakan komentar HTML: `<!-- intlayer-ignore-next-line -->`.
+
+Aturan ESLint `intlayer/no-raw-text` membaca direktif yang sama, sehingga string yang dilewati juga tidak dilaporkan.
 
 ### Isi terjemahan yang hilang
 

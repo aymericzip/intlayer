@@ -19,11 +19,11 @@ describe('shouldExtract', () => {
     expect(shouldExtract('{ content.value }')).toBe(false);
   });
 
-  it('should return false for single capitalized words (likely proper/brand nouns)', () => {
-    expect(shouldExtract('Contact')).toBe(false);
-    expect(shouldExtract('Submit')).toBe(false);
-    expect(shouldExtract('Home')).toBe(false);
-    expect(shouldExtract('Intlayer')).toBe(false);
+  it('should return true for single capitalized words (UI labels)', () => {
+    expect(shouldExtract('Contact')).toBe(true);
+    expect(shouldExtract('Submit')).toBe(true);
+    expect(shouldExtract('Counter')).toBe(true);
+    expect(shouldExtract('Settings')).toBe(true);
   });
 
   it('should return false for single or short uncapitalized strings (<= 2 words)', () => {

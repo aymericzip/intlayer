@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer Compiler | Automated Content Extraction for i18n
 description: "Extract content from your components automatically with the Intlayer Compiler, for faster i18n in Vite, Next.js and more."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"
@@ -336,6 +339,32 @@ The following properties can be configured in the `compiler` block of your `intl
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Indicates if the components should be saved after being transformed.
+
+### Exclude strings from extraction
+
+The compiler extracts every string that reads as user-facing copy, including single words such as `Save`, `Settings` or `Counter`. It cannot tell a label from a proper noun or a brand name, so mark those with a comment directive:
+
+- `intlayer-ignore-next-line`: skips the strings of the next line. Placed above a JSX, Vue or Svelte element, it also skips the element's text and attributes.
+- `intlayer-ignore-line`: skips the strings of its own line.
+- `intlayer-ignore-file`: skips the whole file. Place it at the top of the file.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+In Vue and Svelte templates, use an HTML comment: `<!-- intlayer-ignore-next-line -->`.
+
+The `intlayer/no-raw-text` ESLint rule reads the same directives, so ignored strings are not reported either.
 
 ### Fill missing translation
 

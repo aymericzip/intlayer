@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer 编译器 | 用于 i18n 的自动内容提取
 description: "使用 Intlayer 编译器自动从组件中提取内容，让 Vite、Next.js 等项目的 i18n 更快完成。"
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "更新编译器选项，添加 FilePathPattern 支持"
@@ -340,6 +343,32 @@ export default config;
   - _描述_: 指示在转换后是否应保存组件。
     - 如果为 `true`，编译器将重写磁盘中的组件文件。转换将是永久性的，编译器随后可以被移除。
     - 如果为 `false`，编译器仅在构建输出中将 `useIntlayer()` 函数调用注入代码中，并保持基础代码库不变。转换将仅在内存中进行。
+
+### 从提取中排除字符串
+
+编译器会提取所有看起来像面向用户文本的字符串，包括 `Save`、`Settings` 或 `Counter` 这样的单个单词。它无法区分标签与专有名词或品牌名称，因此请用注释指令标记这些字符串：
+
+- `intlayer-ignore-next-line`: 跳过下一行的字符串。放在 JSX、Vue 或 Svelte 元素上方时，也会跳过该元素的文本和属性。
+- `intlayer-ignore-line`: 跳过其所在行的字符串。
+- `intlayer-ignore-file`: 跳过整个文件。请将其放在文件顶部。
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+在 Vue 和 Svelte 模板中，使用 HTML 注释：`<!-- intlayer-ignore-next-line -->`。
+
+ESLint 规则 `intlayer/no-raw-text` 读取相同的指令，因此被跳过的字符串也不会被报告。
 
 ### 填充缺失的翻译
 

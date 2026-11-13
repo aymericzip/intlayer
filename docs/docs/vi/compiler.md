@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-27
+updatedAt: 2026-11-12
 priority: 8
 title: Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n
 description: "Tự động trích xuất nội dung từ component bằng trình biên dịch Intlayer để làm i18n nhanh hơn trong Vite, Next.js và nhiều nền tảng khác."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Cập nhật các tùy chọn trình biên dịch, thêm hỗ trợ FilePathPattern"
@@ -335,6 +338,32 @@ Các thuộc tính sau có thể được cấu hình trong khối `compiler` c�
   - _Loại_: `boolean`
   - _Mặc định_: `false`
   - _Mô tả_: Cho biết liệu các component có nên được lưu sau khi được chuyển đổi hay không.
+
+### Loại trừ chuỗi khỏi quá trình trích xuất
+
+Compiler trích xuất mọi chuỗi trông giống văn bản hiển thị cho người dùng, kể cả các từ đơn như `Save`, `Settings` hoặc `Counter`. Nó không phân biệt được nhãn với tên riêng hay tên thương hiệu, vì vậy hãy đánh dấu chúng bằng một chỉ thị trong comment:
+
+- `intlayer-ignore-next-line`: bỏ qua các chuỗi của dòng tiếp theo. Khi đặt phía trên một phần tử JSX, Vue hoặc Svelte, chỉ thị này cũng bỏ qua văn bản và thuộc tính của phần tử.
+- `intlayer-ignore-line`: bỏ qua các chuỗi trên chính dòng của nó.
+- `intlayer-ignore-file`: bỏ qua toàn bộ tệp. Hãy đặt nó ở đầu tệp.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+Trong template Vue và Svelte, hãy dùng comment HTML: `<!-- intlayer-ignore-next-line -->`.
+
+Quy tắc ESLint `intlayer/no-raw-text` đọc cùng các chỉ thị này, nên các chuỗi bị bỏ qua cũng không bị báo cáo.
 
 ### Điền các bản dịch còn thiếu
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-10-08
+updatedAt: 2026-11-12
 priority: 8
 title: Intlayer Compiler | Автоматизированное извлечение контента для i18n
 description: "Автоматически извлекайте контент из компонентов с компилятором Intlayer для более быстрой i18n в Vite, Next.js и других."
@@ -21,6 +21,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.7.4
+    date: 2026-11-12
+    changes: "Extract single capitalized words, add intlayer-ignore comment directives"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Обновление опций компилятора, добавление поддержки FilePathPattern"
@@ -333,6 +336,32 @@ const config: IntlayerConfig = {
   - _Тип_: `boolean`
   - _По умолчанию_: `false`
   - _Описание_: Указывает, должны ли компоненты сохраняться после трансформации.
+
+### Исключение строк из извлечения
+
+Компилятор извлекает каждую строку, похожую на видимый пользователю текст, включая отдельные слова, такие как `Save`, `Settings` или `Counter`. Он не может отличить подпись от имени собственного или названия бренда, поэтому отмечайте их директивой в комментарии:
+
+- `intlayer-ignore-next-line`: пропускает строки следующей строки кода. Если поставить её над элементом JSX, Vue или Svelte, она также пропускает текст и атрибуты элемента.
+- `intlayer-ignore-line`: пропускает строки своей собственной строки кода.
+- `intlayer-ignore-file`: пропускает весь файл. Разместите её в начале файла.
+
+```tsx fileName="src/components/Author.tsx"
+export const Author = () => {
+  const brand = "Intlayer"; // intlayer-ignore-line
+
+  return (
+    <div>
+      {/* intlayer-ignore-next-line */}
+      <p title="John Doe">John Doe</p>
+      <p>Written with {brand}</p>
+    </div>
+  );
+};
+```
+
+В шаблонах Vue и Svelte используйте HTML-комментарий: `<!-- intlayer-ignore-next-line -->`.
+
+Правило ESLint `intlayer/no-raw-text` читает те же директивы, поэтому пропущенные строки тоже не помечаются.
 
 ### Заполнить недостающие переводы
 

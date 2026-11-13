@@ -507,3 +507,45 @@ describe('transformation snapshot – Svelte', () => {
     `);
   });
 });
+
+describe('intlayerSvelteExtract – ignore directives', () => {
+  it('leaves a file marked intlayer-ignore-file untouched', () => {
+    const code = `<!-- intlayer-ignore-file -->
+<h1>Welcome home</h1>
+`;
+
+    expect(extract(code)).toBeNull();
+  });
+
+  it('skips the element after an intlayer-ignore-next-line comment', () => {
+    const code = `<div>
+  <!-- intlayer-ignore-next-line -->
+  <p title="John Doe page">
+    John Doe
+  </p>
+  <p>Welcome home</p>
+</div>
+`;
+    const result = extract(code);
+
+    expect(result?.code).toContain('John Doe');
+    expect(result?.code).toContain('title="John Doe page"');
+    expect(result?.code).not.toContain('content.johnDoe');
+    expect(result?.code).toContain('content.welcomeHome');
+  });
+
+  it('skips a script string on a line marked intlayer-ignore-line', () => {
+    const code = `<script>
+  const author = 'John Doe'; // intlayer-ignore-line
+  const title = 'Welcome home';
+</script>
+
+<p>{title}</p>
+`;
+    const result = extract(code);
+
+    expect(result?.code).toContain("'John Doe'");
+    expect(result?.code).not.toContain('johnDoe');
+    expect(result?.code).toContain('welcomeHome');
+  });
+});

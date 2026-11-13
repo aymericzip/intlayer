@@ -1,6 +1,10 @@
 import _traverse, { type NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { ATTRIBUTES_TO_EXTRACT, shouldExtract } from '@intlayer/config/extract';
+import {
+  ATTRIBUTES_TO_EXTRACT,
+  getExtractionIgnoreDirectives,
+  shouldExtract,
+} from '@intlayer/config/extract';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { resolveDictionaryKey } from '../extractContent/utils';
 import {
@@ -456,9 +460,49 @@ export const extractBabelContentForComponents = (
     return globalFileKey || defaultKey;
   };
 
+  const ignoreDirectives = getExtractionIgnoreDirectives(fileCode);
+
+  /**
+   * Start offset of the JSX element a string directly belongs to: its text,
+   * a `{'literal'}` child, or one of its attributes.
+   */
+  const getEnclosingJsxElementStart = (path: NodePath): number | undefined => {
+    let current: NodePath | null = path.parentPath;
+
+    if (current?.isJSXExpressionContainer()) current = current.parentPath;
+    if (current?.isJSXAttribute()) current = current.parentPath;
+    if (current?.isJSXOpeningElement()) current = current.parentPath;
+
+    return current?.isJSXElement() || current?.isJSXFragment()
+      ? (current.node.start ?? undefined)
+      : undefined;
+  };
+
+  /**
+   * Whether an `intlayer-ignore-line` / `intlayer-ignore-next-line` directive
+   * covers the string: on the line where its text starts, or on the opening
+   * tag of its JSX element.
+   */
+  const isIgnoredPath = (path: NodePath): boolean => {
+    const { node } = path;
+
+    if (typeof node.start === 'number') {
+      const text = t.isJSXText(node) ? node.value : '';
+      const leadingWhitespaceLength = text.length - text.trimStart().length;
+
+      if (
+        ignoreDirectives.isOffsetIgnored(node.start + leadingWhitespaceLength)
+      )
+        return true;
+    }
+
+    return ignoreDirectives.isOffsetIgnored(getEnclosingJsxElementStart(path));
+  };
+
   traverse(ast, {
     JSXElement(path) {
       if (handledNodes.has(path.node)) return;
+      if (isIgnoredPath(path)) return;
 
       handleJsxInsertionBabel(
         path,
@@ -472,6 +516,7 @@ export const extractBabelContentForComponents = (
     },
     JSXFragment(path) {
       if (handledNodes.has(path.node)) return;
+      if (isIgnoredPath(path)) return;
 
       handleJsxInsertionBabel(
         path,
@@ -485,6 +530,7 @@ export const extractBabelContentForComponents = (
     },
     JSXText(path) {
       if (handledNodes.has(path.node)) return;
+      if (isIgnoredPath(path)) return;
 
       const text = path.node.value;
 
@@ -501,6 +547,7 @@ export const extractBabelContentForComponents = (
     },
     JSXAttribute(path) {
       if (handledNodes.has(path.node)) return;
+      if (isIgnoredPath(path)) return;
 
       const name = path.node.name.name;
 
@@ -524,6 +571,7 @@ export const extractBabelContentForComponents = (
     },
     StringLiteral(path) {
       if (handledNodes.has(path.node)) return;
+      if (isIgnoredPath(path)) return;
 
       const text = path.node.value;
 
@@ -609,6 +657,7 @@ export const extractBabelContentForComponents = (
     },
     TemplateLiteral(path) {
       if (handledNodes.has(path.node)) return;
+      if (isIgnoredPath(path)) return;
 
       const { quasis, expressions } = path.node;
 
