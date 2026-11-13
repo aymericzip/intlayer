@@ -10,7 +10,6 @@ build/
 
 # Git history and cache files
 .git/
-.gitignore
 .github/
 .husky/
 .changeset/
