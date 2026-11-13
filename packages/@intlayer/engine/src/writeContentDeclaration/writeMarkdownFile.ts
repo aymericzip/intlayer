@@ -1,9 +1,8 @@
-import { execSync } from 'node:child_process';
 import { mkdir, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { detectFormatCommand } from '../detectFormatCommand';
+import { runFormatCommand } from '../detectFormatCommand';
 import { renderMarkdownContentDeclaration } from './renderContentDeclaration';
 
 export const writeMarkdownFile = async (
@@ -36,15 +35,5 @@ export const writeMarkdownFile = async (
     throw error;
   }
 
-  const formatCommand = detectFormatCommand(configuration);
-  if (formatCommand) {
-    try {
-      execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
-        stdio: 'inherit',
-        cwd: configuration.system.baseDir,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  runFormatCommand(absoluteFilePath, configuration);
 };

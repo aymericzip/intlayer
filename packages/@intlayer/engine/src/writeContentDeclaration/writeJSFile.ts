@@ -1,11 +1,10 @@
-import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, extname, join } from 'node:path';
 import { getAppLogger, logger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { detectFormatCommand } from '../detectFormatCommand';
+import { runFormatCommand } from '../detectFormatCommand';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
   type Extension,
@@ -134,16 +133,5 @@ export const writeJSFile = async (
     throw new Error(`Failed to write updated file ${filePath}: ${err.message}`);
   }
 
-  const formatCommand = detectFormatCommand(configuration);
-
-  if (formatCommand) {
-    try {
-      execSync(formatCommand.replace('{{file}}', filePath), {
-        stdio: 'inherit',
-        cwd: configuration.system.baseDir,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  runFormatCommand(filePath, configuration);
 };

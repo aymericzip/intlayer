@@ -1,4 +1,3 @@
-import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { extname, relative } from 'node:path';
 import type * as t from '@babel/types';
@@ -15,7 +14,7 @@ import {
 } from '@intlayer/config/node';
 import { getProjectRequire } from '@intlayer/config/utils';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
-import { detectFormatCommand } from '@intlayer/engine/cli';
+import { runFormatCommand } from '@intlayer/engine/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { extractTsContent, type SourceSelection } from './babelProcessor';
 import { writeContentHelper } from './contentWriter';
@@ -230,18 +229,7 @@ const processFileInternal = (
 
     if (saveComponent) {
       writeFileSync(filePath, modifiedFullCode);
-
-      const formatCommand = detectFormatCommand(configuration);
-      if (formatCommand) {
-        try {
-          execSync(formatCommand.replace('{{file}}', filePath), {
-            stdio: 'inherit',
-            cwd: dependencies.configuration.system.baseDir,
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      }
+      runFormatCommand(filePath, configuration);
     }
 
     return {
@@ -314,18 +302,7 @@ const handleExtractionSideEffects = async (
   }
 
   if (saveComponent) {
-    const formatCommand = detectFormatCommand(configuration);
-
-    if (formatCommand) {
-      try {
-        execSync(formatCommand.replace('{{file}}', filePath), {
-          stdio: 'inherit',
-          cwd: baseDir,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    runFormatCommand(filePath, configuration);
 
     appLogger(
       `${colorize('Compiler:', ANSIColors.GREY_DARK)} Updated component: ${colorizePath(relative(baseDir, filePath))}`

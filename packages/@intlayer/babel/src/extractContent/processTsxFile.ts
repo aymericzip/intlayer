@@ -1,9 +1,8 @@
-import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parse } from '@babel/parser';
 import _traverse, { type NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import { detectFormatCommand } from '@intlayer/engine/cli';
+import { runFormatCommand } from '@intlayer/engine/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import {
   extractBabelContentForComponents,
@@ -570,19 +569,7 @@ export const processTsxFile = (
 
   if (save) {
     writeFileSync(filePath, formattedCode);
-
-    const formatCommand = detectFormatCommand(configuration);
-
-    if (formatCommand) {
-      try {
-        execSync(formatCommand.replace('{{file}}', filePath), {
-          stdio: 'inherit',
-          cwd: configuration.system.baseDir,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    runFormatCommand(filePath, configuration);
   }
 
   return { extractedContent, modifiedCode: formattedCode };

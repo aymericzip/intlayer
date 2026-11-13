@@ -1,4 +1,3 @@
-import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, join, resolve } from 'node:path';
@@ -8,7 +7,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { detectFormatCommand } from '../detectFormatCommand';
+import { runFormatCommand } from '../detectFormatCommand';
 import { readDictionariesFromDisk } from '../utils/readDictionariesFromDisk';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { formatContentDeclaration } from './renderContentDeclaration';
@@ -182,18 +181,7 @@ const writeFileWithDirectories = async (
       throw error;
     }
 
-    const formatCommand = detectFormatCommand(configuration);
-
-    if (formatCommand) {
-      try {
-        execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
-          stdio: 'inherit',
-          cwd: configuration.system.baseDir,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    runFormatCommand(absoluteFilePath, configuration);
 
     return;
   }
