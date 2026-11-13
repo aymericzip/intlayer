@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-intlayer",
-  "version": "9.8.0-canary.1",
+  "version": "9.8.0",
   "private": false,
   "description": "Prettier plugin for Intlayer. Sorts t() locales alphabetically (pinned locales first), plural() categories in CLDR order and enu() conditions by threshold.",
   "keywords": [
