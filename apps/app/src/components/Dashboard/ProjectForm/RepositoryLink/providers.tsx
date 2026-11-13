@@ -52,6 +52,16 @@ export const LINK_SCOPES: Record<RepositoryProvider, string[]> = {
   gitee: ['user_info', 'projects', 'pull_requests', 'emails'],
 };
 
+/**
+ * Scopes a linked account must hold to browse repositories. An account created
+ * by a plain sign-in lacks them and has to be linked again.
+ */
+export const REQUIRED_LINK_SCOPES: Partial<
+  Record<RepositoryProvider, readonly string[]>
+> = {
+  github: ['repo'],
+};
+
 const PROVIDER_LOGOS: Record<
   RepositoryProvider,
   FC<SVGProps<SVGSVGElement>>

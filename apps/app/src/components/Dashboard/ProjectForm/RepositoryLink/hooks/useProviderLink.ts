@@ -3,10 +3,13 @@ import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useCallback, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useOAuthCallbackError } from '#hooks/useOAuthCallbackError.ts';
+import { hasRequiredScopes } from '#utils/oAuthCallbackError.ts';
 import {
   AUTH_PROVIDER_IDS,
   LINK_SCOPES,
   REPOSITORY_PROVIDERS,
+  REQUIRED_LINK_SCOPES,
 } from '../providers';
 import type { RepositoryProvider } from '../types';
 
@@ -24,6 +27,8 @@ export const useProviderLink = ({
   const { session } = useSession();
   const { toast } = useToast();
   const { authentication } = useIntlayer('repository-link');
+
+  useOAuthCallbackError();
 
   const [selectedProvider, setSelectedProvider] =
     useState<RepositoryProvider | null>(initialProvider ?? null);
@@ -45,9 +50,14 @@ export const useProviderLink = ({
         const response = await getAuthAPI().listAccounts();
         const accounts = response?.data ?? [];
 
+        // A sign-in only account lacks the repository scopes: link it again
         const hasProvider = accounts.some(
-          (account: { providerId: string }) =>
-            account.providerId === AUTH_PROVIDER_IDS[provider]
+          (account: { providerId: string; scopes?: string[] }) =>
+            account.providerId === AUTH_PROVIDER_IDS[provider] &&
+            hasRequiredScopes(
+              REQUIRED_LINK_SCOPES[provider] ?? [],
+              account.scopes
+            )
         );
 
         setIsProviderLinked(hasProvider);
@@ -106,11 +116,15 @@ export const useProviderLink = ({
     try {
       setIsLinking(true);
 
-      await getAuthAPI().linkSocial({
+      const { error } = await getAuthAPI().linkSocial({
         provider: AUTH_PROVIDER_IDS[selectedProvider],
         scopes: LINK_SCOPES[selectedProvider],
         callbackURL: callbackURL.toString(),
+        errorCallbackURL: window.location.href,
       });
+
+      // better-auth resolves with the error instead of throwing
+      if (error) throw new Error(error.message);
     } catch {
       setIsLinking(false);
       toast({

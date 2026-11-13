@@ -10,6 +10,7 @@ import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { CircleCheck, Link2 } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useOAuthCallbackError } from '#hooks/useOAuthCallbackError.ts';
 
 type ProviderId =
   | 'google'
@@ -42,6 +43,8 @@ export const ConnectedAccounts: FC = () => {
   const { connectedAccountsTitle, connectButton, disconnectButton, providers } =
     useIntlayer('profile-form');
 
+  useOAuthCallbackError();
+
   const { data: accountsData } = useListAccounts();
   const accounts = (accountsData?.data ?? []) as Array<{
     id: string;
@@ -62,7 +65,11 @@ export const ConnectedAccounts: FC = () => {
   const handleConnect = (provider: ProviderId) => {
     setPendingProvider(provider);
     linkSocial(
-      { provider, callbackURL: window.location.href },
+      {
+        provider,
+        callbackURL: window.location.href,
+        errorCallbackURL: window.location.href,
+      },
       { onSettled: () => setPendingProvider(null) }
     );
   };

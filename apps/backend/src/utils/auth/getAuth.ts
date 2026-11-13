@@ -444,22 +444,22 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
     trustedOrigins: getConfiguredOrigins(),
 
-    accountLinking: {
-      enabled: true, // allow linking in general
-      trustedProviders: [
-        'google',
-        'github',
-        'linkedin',
-        'gitlab',
-        'atlassian',
-        'codeberg',
-        'gitee',
-        'microsoft',
-        'email-password',
-        'magic-link',
-        'passkey',
-      ],
+    account: {
+      // better-auth only reads account linking options under `account`
+      accountLinking: {
+        enabled: true,
+        // A repository provider account (GitHub, GitLab…) linked from the
+        // dashboard often uses another email than the Intlayer account
+        allowDifferentEmails: true,
+      },
     },
+
+    // Failed OAuth callbacks without their own error URL land on the login
+    // page (which displays the error) instead of the backend root
+    onAPIError: {
+      errorURL: `${process.env.APP_URL}/auth/login`,
+    },
+
     socialProviders: {
       google: {
         clientId: process.env.GOOGLE_CLIENT_ID as string,

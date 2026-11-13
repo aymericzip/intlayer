@@ -5,6 +5,7 @@ import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AppleLogo } from '#components/logos/AppleLogo';
+import { useOAuthCallbackError } from '#hooks/useOAuthCallbackError.ts';
 import { LastUsedIndicator } from '../LastUsedIndicator';
 
 export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
@@ -22,6 +23,7 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
     await getAuthAPI().signInSocial({
       provider: 'github',
       callbackURL: finalCallbackUrl,
+      errorCallbackURL: origin,
     });
   };
 
@@ -56,6 +58,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
     await getAuthAPI().signInSocial({
       provider: 'google',
       callbackURL: finalCallbackUrl,
+      errorCallbackURL: origin,
     });
   };
 
@@ -93,6 +96,7 @@ export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
     await getAuthAPI().signInSocial({
       provider: 'linkedin',
       callbackURL: finalCallbackUrl,
+      errorCallbackURL: origin,
     });
   };
 
@@ -127,6 +131,7 @@ export const AppleLoginButton: FC<ExternalsLoginButtonsProps> = ({
     await getAuthAPI().signInSocial({
       provider: 'apple',
       callbackURL: finalCallbackUrl,
+      errorCallbackURL: origin,
     });
   };
 
@@ -161,6 +166,7 @@ export const BitbucketLoginButton: FC<ExternalsLoginButtonsProps> = ({
     await getAuthAPI().signInSocial({
       provider: 'atlassian',
       callbackURL: finalCallbackUrl,
+      errorCallbackURL: origin,
     });
   };
 
@@ -195,6 +201,7 @@ export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
     await getAuthAPI().signInSocial({
       provider: 'gitlab',
       callbackURL: finalCallbackUrl,
+      errorCallbackURL: origin,
     });
   };
 
@@ -225,6 +232,7 @@ export const ExternalsLoginButtons: FC<ExternalsLoginButtonsProps> = ({
   ...props
 }) => {
   // const { isIOS, isMac } = useDevice();
+  useOAuthCallbackError();
 
   return (
     <div className="relative flex flex-col justify-center gap-y-3">

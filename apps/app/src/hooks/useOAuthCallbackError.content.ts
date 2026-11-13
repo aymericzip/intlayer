@@ -1,0 +1,80 @@
+import { type Dictionary, insert, t } from 'intlayer';
+
+const oAuthCallbackErrorContent = {
+  key: 'oauth-callback-error',
+  content: {
+    title: t({
+      en: 'Authentication failed',
+      ar: 'فشلت المصادقة',
+      de: 'Authentifizierung fehlgeschlagen',
+      'en-GB': 'Authentication failed',
+      es: 'Error de autenticación',
+      fr: "Échec de l'authentification",
+      'he-IL': 'האימות נכשל',
+      hi: 'प्रमाणीकरण विफल',
+      id: 'Autentikasi gagal',
+      it: 'Autenticazione fallita',
+      ja: '認証に失敗しました',
+      ko: '인증 실패',
+      pl: 'Uwierzytelnianie nie powiodło się',
+      pt: 'Falha na autenticação',
+      ru: 'Ошибка аутентификации',
+      tr: 'Kimlik doğrulama başarısız',
+      uk: 'Не вдалося автентифікуватися',
+      vi: 'Xác thực thất bại',
+      zh: '认证失败',
+    }),
+    accountNotLinked: t({
+      en: 'An account already exists with this email. Sign in with your usual method, verify your email, then connect this provider from your profile.',
+      ar: 'يوجد حساب بهذا البريد الإلكتروني بالفعل. سجّل الدخول بطريقتك المعتادة، وتحقق من بريدك الإلكتروني، ثم اربط هذا المزوّد من ملفك الشخصي.',
+      de: 'Mit dieser E-Mail existiert bereits ein Konto. Melden Sie sich mit Ihrer üblichen Methode an, bestätigen Sie Ihre E-Mail und verbinden Sie diesen Anbieter dann in Ihrem Profil.',
+      'en-GB':
+        'An account already exists with this email. Sign in with your usual method, verify your email, then connect this provider from your profile.',
+      es: 'Ya existe una cuenta con este correo. Inicia sesión con tu método habitual, verifica tu correo y luego conecta este proveedor desde tu perfil.',
+      fr: 'Un compte existe déjà avec cet e-mail. Connectez-vous avec votre méthode habituelle, vérifiez votre e-mail, puis connectez ce fournisseur depuis votre profil.',
+      'he-IL':
+        'כבר קיים חשבון עם כתובת האימייל הזו. התחברו בשיטה הרגילה שלכם, אמתו את האימייל ולאחר מכן חברו את הספק הזה מהפרופיל.',
+      hi: 'इस ईमेल से एक खाता पहले से मौजूद है। अपने सामान्य तरीके से साइन इन करें, अपना ईमेल सत्यापित करें, फिर अपनी प्रोफ़ाइल से इस प्रदाता को कनेक्ट करें।',
+      id: 'Akun dengan email ini sudah ada. Masuk dengan metode biasa Anda, verifikasi email Anda, lalu hubungkan penyedia ini dari profil Anda.',
+      it: 'Esiste già un account con questa email. Accedi con il tuo metodo abituale, verifica la tua email, quindi collega questo provider dal tuo profilo.',
+      ja: 'このメールアドレスのアカウントは既に存在します。通常の方法でサインインし、メールアドレスを確認してから、プロフィールでこのプロバイダーを接続してください。',
+      ko: '이 이메일로 된 계정이 이미 있습니다. 평소 방식으로 로그인하고 이메일을 인증한 다음 프로필에서 이 제공자를 연결하세요.',
+      pl: 'Konto z tym adresem e-mail już istnieje. Zaloguj się swoją zwykłą metodą, zweryfikuj adres e-mail, a następnie połącz tego dostawcę w swoim profilu.',
+      pt: 'Já existe uma conta com este e-mail. Inicie sessão com o seu método habitual, verifique o seu e-mail e, em seguida, ligue este fornecedor a partir do seu perfil.',
+      ru: 'Аккаунт с этим адресом электронной почты уже существует. Войдите привычным способом, подтвердите почту, затем подключите этого провайдера в профиле.',
+      tr: 'Bu e-postayla zaten bir hesap var. Her zamanki yönteminizle giriş yapın, e-postanızı doğrulayın, ardından bu sağlayıcıyı profilinizden bağlayın.',
+      uk: 'Обліковий запис із цією електронною поштою вже існує. Увійдіть звичним способом, підтвердьте пошту, а потім підключіть цього провайдера у профілі.',
+      vi: 'Đã có tài khoản với email này. Hãy đăng nhập bằng phương thức thường dùng, xác minh email, rồi kết nối nhà cung cấp này từ hồ sơ của bạn.',
+      zh: '此邮箱已存在账户。请使用您常用的方式登录，验证邮箱，然后在个人资料中连接此提供商。',
+    }),
+    generic: insert(
+      t({
+        en: 'The provider sign-in could not be completed ({{code}}).',
+        ar: 'تعذّر إكمال تسجيل الدخول عبر المزوّد ({{code}}).',
+        de: 'Die Anmeldung über den Anbieter konnte nicht abgeschlossen werden ({{code}}).',
+        'en-GB': 'The provider sign-in could not be completed ({{code}}).',
+        es: 'No se pudo completar el inicio de sesión con el proveedor ({{code}}).',
+        fr: "La connexion via le fournisseur n'a pas pu aboutir ({{code}}).",
+        'he-IL': 'לא ניתן היה להשלים את ההתחברות דרך הספק ({{code}}).',
+        hi: 'प्रदाता से साइन-इन पूरा नहीं हो सका ({{code}})।',
+        id: 'Proses masuk melalui penyedia tidak dapat diselesaikan ({{code}}).',
+        it: "Impossibile completare l'accesso tramite il provider ({{code}}).",
+        ja: 'プロバイダーでのサインインを完了できませんでした（{{code}}）。',
+        ko: '제공자 로그인을 완료할 수 없습니다 ({{code}}).',
+        pl: 'Nie udało się dokończyć logowania przez dostawcę ({{code}}).',
+        pt: 'Não foi possível concluir o início de sessão com o fornecedor ({{code}}).',
+        ru: 'Не удалось завершить вход через провайдера ({{code}}).',
+        tr: 'Sağlayıcı ile giriş tamamlanamadı ({{code}}).',
+        uk: 'Не вдалося завершити вхід через провайдера ({{code}}).',
+        vi: 'Không thể hoàn tất đăng nhập qua nhà cung cấp ({{code}}).',
+        zh: '无法完成通过提供商的登录（{{code}}）。',
+      })
+    ),
+  },
+  title: 'OAuth callback error',
+  description:
+    'Messages shown when a third-party sign-in or account link (GitHub, GitLab, Google…) comes back with an error.',
+  tags: ['authentication', 'oauth', 'error'],
+} satisfies Dictionary;
+
+export default oAuthCallbackErrorContent;
