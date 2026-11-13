@@ -539,8 +539,29 @@ const genericRecastVisit = (
   callNames: string[] = ['defineConfig']
 ) => {
   /**
+   * Unwraps a config expression — either a bare `{ ... }` object literal or a
+   * `defineConfig({ ... })` call — and runs `updateConfigObject` on its object
+   * expression.
+   */
+  const applyToConfigExpression = (expr: any) => {
+    if (!expr) return;
+
+    if (n.ObjectExpression.check(expr)) {
+      updateConfigObject(expr);
+    } else if (
+      n.CallExpression.check(expr) &&
+      n.Identifier.check(expr.callee) &&
+      callNames.includes(expr.callee.name)
+    ) {
+      if (n.ObjectExpression.check(expr.arguments[0])) {
+        updateConfigObject(expr.arguments[0]);
+      }
+    }
+  };
+
+  /**
    * Resolves an identifier reference (e.g. `export default config` /
-   * `module.exports = config`) back to the object expression it was declared
+   * `module.exports = config`) back to the config expression it was declared
    * with, then runs the updater on it.
    */
   const resolveIdentifierConfig = (name: string) => {
@@ -550,10 +571,9 @@ const genericRecastVisit = (
           if (
             n.VariableDeclarator.check(vdecl) &&
             n.Identifier.check(vdecl.id) &&
-            vdecl.id.name === name &&
-            n.ObjectExpression.check(vdecl.init)
+            vdecl.id.name === name
           ) {
-            updateConfigObject(vdecl.init);
+            applyToConfigExpression(vdecl.init);
           }
         });
       }
@@ -564,18 +584,10 @@ const genericRecastVisit = (
     visitExportDefaultDeclaration(path) {
       const decl = path.node.declaration;
 
-      if (n.ObjectExpression.check(decl)) {
-        updateConfigObject(decl);
-      } else if (
-        n.CallExpression.check(decl) &&
-        n.Identifier.check(decl.callee) &&
-        callNames.includes(decl.callee.name)
-      ) {
-        if (n.ObjectExpression.check(decl.arguments[0])) {
-          updateConfigObject(decl.arguments[0]);
-        }
-      } else if (n.Identifier.check(decl)) {
+      if (n.Identifier.check(decl)) {
         resolveIdentifierConfig(decl.name);
+      } else {
+        applyToConfigExpression(decl);
       }
       return false;
     },
@@ -586,18 +598,10 @@ const genericRecastVisit = (
         n.MemberExpression.check(left) &&
         recast.print(left).code === 'module.exports'
       ) {
-        if (n.ObjectExpression.check(right)) {
-          updateConfigObject(right);
-        } else if (
-          n.CallExpression.check(right) &&
-          n.Identifier.check(right.callee) &&
-          callNames.includes(right.callee.name)
-        ) {
-          if (n.ObjectExpression.check(right.arguments[0])) {
-            updateConfigObject(right.arguments[0]);
-          }
-        } else if (n.Identifier.check(right)) {
+        if (n.Identifier.check(right)) {
           resolveIdentifierConfig(right.name);
+        } else {
+          applyToConfigExpression(right);
         }
       }
       return false;

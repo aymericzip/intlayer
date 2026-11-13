@@ -96,6 +96,39 @@ export default config;
       expect(updated).toContain('plugins: [intlayer()]');
     });
 
+    it('should handle variable declaration with defineConfig then export default', () => {
+      const content = `
+import { defineConfig } from 'vite';
+import viteReact from '@vitejs/plugin-react';
+
+const config = defineConfig({
+  plugins: [viteReact()],
+});
+
+export default config;
+`;
+      const updated = updateViteConfig(content, 'ts');
+      expect(updated).toContain('import { intlayer } from "vite-intlayer";');
+      expect(updated).toContain('plugins: [viteReact(), intlayer()]');
+    });
+
+    it('should handle variable declaration with defineConfig then module.exports', () => {
+      const content = `
+const { defineConfig } = require('vite');
+
+const config = defineConfig({
+  plugins: [],
+});
+
+module.exports = config;
+`;
+      const updated = updateViteConfig(content, 'js');
+      expect(updated).toMatch(
+        /const\s*{\s*intlayer\s*}\s*=\s*require\("vite-intlayer"\);/
+      );
+      expect(updated).toContain('plugins: [intlayer()]');
+    });
+
     it('should handle module.exports', () => {
       const content = `
 module.exports = {
