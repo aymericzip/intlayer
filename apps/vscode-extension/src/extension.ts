@@ -48,6 +48,7 @@ import { pushDictionary } from './explorer/pushDictionary';
 import { SearchBarViewProvider } from './explorer/searchBarViewProvider';
 import { startLSPClient } from './lsp/client';
 import { promptCompatSetup } from './prompts/compatSetupPrompt';
+import { promptIntlayerUpgrade } from './prompts/upgradePrompt';
 import { dictionaryKeyDefinitionProvider } from './providers/dictionaryKeyDefinitionProvider';
 import { intlayerContentDefinitionProvider } from './providers/intlayerContentDefinitionProvider';
 import { intlayerContentRedirectionProvider } from './providers/intlayerContentRedirectionProvider';
@@ -265,6 +266,9 @@ export const activate = (context: ExtensionContext) => {
 
   // Suggest `intlayer init` for projects using a compat-compatible i18n library
   void promptCompatSetup(context);
+
+  // Suggest `intlayer upgrade` for projects older than the extension
+  void promptIntlayerUpgrade(context);
 
   // First: the views below subscribe to its change events
   watchCacheInvalidation(context);
