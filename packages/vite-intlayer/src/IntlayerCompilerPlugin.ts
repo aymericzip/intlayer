@@ -391,6 +391,8 @@ export const intlayerCompiler = (
       const result = await extractContent(filename, packageName, {
         configuration: config,
         code,
+        // Keep the transformation in memory unless `saveComponents` is enabled.
+        declarationOnly: !config.compiler.saveComponents,
         // Dictionary writing is handled by handleExtractedContent below.
         onExtract: async ({ key, content }) => {
           await handleExtractedContent({
