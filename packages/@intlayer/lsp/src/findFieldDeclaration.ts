@@ -214,7 +214,8 @@ const toSpan = (match: PropertyMatch, offsetShift: number): OffsetSpan => ({
  *
  * - JSON catalogs may hold the dictionary at their root or under a property
  *   named after it (one file splitting into several dictionaries); both are
- *   tried, with nested and flat dotted keys.
+ *   tried, with nested and flat dotted keys. JSON content declarations
+ *   (`key` + `content`, as the compiler writes them) are walked from `content`.
  * - Content declaration files (`.content.ts`) are walked from the exported
  *   object's `content` property.
  * - Other formats fall back to a text search on the leaf name.
@@ -237,6 +238,18 @@ export const findFieldDeclaration = (
     const json = getJsonRootObject(text);
 
     if (!json) return findLeafPropertyByText(text, fieldPath);
+
+    // JSON content declaration (`{ "key": …, "content": { … } }`), as the
+    // compiler writes them
+    if (findPropertyByName(json.rootObject, 'key')) {
+      const contentPath =
+        segments.length > 0 ? ['content', ...segments] : ['key'];
+      const underContent = findDeepestProperty(json.rootObject, contentPath);
+
+      if (underContent?.matchedSegmentCount === contentPath.length) {
+        return toSpan(underContent, json.offsetShift);
+      }
+    }
 
     const underNamespace = findDeepestProperty(json.rootObject, [
       dictionaryKey,

@@ -337,6 +337,87 @@ const findContentFieldAtOffsetJson = (
   );
 };
 
+/** A content field of a JSON content file, with the span of its key. */
+export type JsonContentField = {
+  dottedKey: string;
+  start: number;
+  end: number;
+};
+
+/**
+ * Every content field declared in a JSON/JSON5/JSONC content file, nested
+ * ones as dotted keys, each with the span of its quoted key. Typed nodes
+ * (`translation`, `insertion`, …) are leaves. Returns `[]` for invalid JSON.
+ */
+export const collectJsonContentFields = (text: string): JsonContentField[] => {
+  let parsed: unknown;
+
+  try {
+    parsed = JSON.parse(stripJsonComments(text));
+  } catch {
+    return [];
+  }
+
+  const contentObject = (parsed as Record<string, unknown> | null)?.['content'];
+  const contentKeyIndex = text.indexOf('"content"');
+
+  if (
+    !contentObject ||
+    typeof contentObject !== 'object' ||
+    Array.isArray(contentObject) ||
+    contentKeyIndex === -1
+  ) {
+    return [];
+  }
+
+  const fields: JsonContentField[] = [];
+
+  const walk = (
+    objectValue: Record<string, unknown>,
+    parentKey: string,
+    searchFrom: number,
+    searchTo: number
+  ): void => {
+    let cursor = searchFrom;
+
+    for (const [fieldName, fieldValue] of Object.entries(objectValue)) {
+      const keyStart = findJsonKeyOffset(text, fieldName, cursor, searchTo);
+
+      if (keyStart === -1) continue;
+
+      const keyEnd = keyStart + fieldName.length + 2; // surrounding quotes
+      const dottedKey = parentKey ? `${parentKey}.${fieldName}` : fieldName;
+
+      fields.push({ dottedKey, start: keyStart, end: keyEnd });
+      cursor = keyEnd;
+
+      const isPlainObject =
+        fieldValue !== null &&
+        typeof fieldValue === 'object' &&
+        !Array.isArray(fieldValue) &&
+        !('nodeType' in fieldValue);
+
+      if (isPlainObject) {
+        walk(
+          fieldValue as Record<string, unknown>,
+          dottedKey,
+          keyEnd,
+          searchTo
+        );
+      }
+    }
+  };
+
+  walk(
+    contentObject as Record<string, unknown>,
+    '',
+    contentKeyIndex + '"content"'.length,
+    text.length
+  );
+
+  return fields;
+};
+
 // ---------------------------------------------------------------------------
 // YAML / Markdown frontmatter fallback
 // ---------------------------------------------------------------------------

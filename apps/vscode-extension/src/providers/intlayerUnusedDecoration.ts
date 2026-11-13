@@ -1,5 +1,6 @@
 import { dirname, extname, join } from 'node:path';
 import {
+  collectJsonContentFields,
   getPropertyKeyName,
   nodeEnd,
   nodeStart,
@@ -38,6 +39,8 @@ const DEBOUNCE_DELAY = 1000;
 /** Usage scans are reused this long between keystrokes. */
 const USAGE_SCAN_MAX_AGE = 5 * 1000;
 
+const JSON_EXTENSIONS = new Set(['.json', '.jsonc', '.json5']);
+
 const SUPPORTED_EXTENSIONS = new Set([
   '.ts',
   '.tsx',
@@ -71,7 +74,7 @@ const lineLabelDecorationType = window.createTextEditorDecorationType({
   },
 });
 
-type ContentField = { dottedKey: string; keyNode: OxcNode };
+type ContentField = { dottedKey: string; start: number; end: number };
 
 const isObjectProperty = (node: OxcNode): boolean =>
   node['type'] === 'Property' || node['type'] === 'ObjectProperty';
@@ -94,7 +97,11 @@ const collectContentFields = (
     const name = getPropertyKeyName(keyNode) ?? '';
     const dottedKey = parentKey ? `${parentKey}.${name}` : name;
     const value = property['value'] as OxcNode | undefined;
-    const field = { dottedKey, keyNode };
+    const field = {
+      dottedKey,
+      start: nodeStart(keyNode),
+      end: nodeEnd(keyNode),
+    };
 
     return value?.['type'] === 'ObjectExpression'
       ? [field, ...collectContentFields(value, dottedKey)]
@@ -128,6 +135,19 @@ const findContentObject = (program: OxcNode): OxcNode | null => {
   });
 
   return contentObject;
+};
+
+/**
+ * Content fields of a content declaration file — a JS/TS object literal or a
+ * JSON file — with the span of each key.
+ */
+const getContentFields = (text: string, extension: string): ContentField[] => {
+  if (JSON_EXTENSIONS.has(extension)) return collectJsonContentFields(text);
+
+  const program = parseText(extractScriptContent(text, extension));
+  const contentObject = program ? findContentObject(program) : null;
+
+  return contentObject ? collectContentFields(contentObject) : [];
 };
 
 /** End-of-line label for another declaration of the same dictionary. */
@@ -173,13 +193,14 @@ const updateUnusedDecorations = async (editor: TextEditor) => {
   const text = document.getText();
 
   // Cheap pre-filter before resolving the project
-  if (!text.includes('key:') || !text.includes('content:')) return;
+  if (!/\bkey"?\s*:/.test(text) || !/\bcontent"?\s*:/.test(text)) return;
 
   const projectDir = findProjectRoot(dirname(filePath));
 
   if (!projectDir) return;
 
-  const keyMatch = /key\s*:\s*(["'])(.*?)\1/.exec(text);
+  // `key: 'x'` in JS/TS, `"key": "x"` in JSON
+  const keyMatch = /\bkey"?\s*:\s*(["'])(.*?)\1/.exec(text);
 
   if (!keyMatch) return;
 
@@ -193,14 +214,24 @@ const updateUnusedDecorations = async (editor: TextEditor) => {
 
   if (!isContentDeclarationFile(filePath, configuration)) return;
 
-  // Compiler-managed content: components are not scanned, nothing to judge
+  // Compiler content without saveComponents: the components keep their raw
+  // strings, traceable only through the `componentFilePath` of the built
+  // dictionary. Without it (e.g. `compiler.noMetadata`), nothing to judge.
   if (
     configuration.compiler?.enabled &&
     !configuration.compiler?.saveComponents
   ) {
-    editor.setDecorations(strikeDecorationType, []);
-    editor.setDecorations(lineLabelDecorationType, []);
-    return;
+    const dictionaries =
+      (await getCachedUnmergedDictionaries(configuration, dictionaryKey)) ?? [];
+    const isTraceable = dictionaries.some(
+      (dictionary) => dictionary.componentFilePath
+    );
+
+    if (!isTraceable) {
+      editor.setDecorations(strikeDecorationType, []);
+      editor.setDecorations(lineLabelDecorationType, []);
+      return;
+    }
   }
 
   const strikeDecorations: DecorationOptions[] = [];
@@ -259,20 +290,18 @@ const updateUnusedDecorations = async (editor: TextEditor) => {
     }
   } else {
     const usedKeys = new Set(usages.flatMap((usage) => [...usage.keysUsed]));
-    const program = parseText(extractScriptContent(text, extension));
-    const contentObject = program ? findContentObject(program) : null;
-
     const hasUntrackedUsage = usedKeys.has(UNTRACKED_FIELDS);
 
-    if (contentObject && !usedKeys.has(ALL_FIELDS_USED)) {
-      for (const { dottedKey, keyNode } of collectContentFields(
-        contentObject
+    if (!usedKeys.has(ALL_FIELDS_USED)) {
+      for (const { dottedKey, start, end } of getContentFields(
+        text,
+        extension
       )) {
         if (usedKeys.has(dottedKey)) continue;
 
         const fieldRange = new Range(
-          document.positionAt(nodeStart(keyNode)),
-          document.positionAt(nodeEnd(keyNode))
+          document.positionAt(start),
+          document.positionAt(end)
         );
 
         if (hasUntrackedUsage) {

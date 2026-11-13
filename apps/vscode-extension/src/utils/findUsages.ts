@@ -1,15 +1,22 @@
 import { extname, resolve } from 'node:path';
 import {
   collectCallerBindings,
+  collectCompilerTextFields,
   collectMessageUsages,
+  findCompilerTextMatches,
+  resolveComponentFilePath,
 } from '@intlayer/lsp/utils';
+import type { Dictionary } from '@intlayer/types';
 import fg from 'fast-glob';
 import { Range, Uri, workspace } from 'vscode';
 import {
   ANGULAR_INLINE_TEMPLATE_PATTERN,
   extractScriptContent,
 } from './extractScript';
-import { getCachedConfig } from './intlayerCache';
+import {
+  getCachedConfig,
+  getCachedUnmergedDictionaries,
+} from './intlayerCache';
 import { createOffsetToPosition } from './textPosition';
 
 /** Usage marker: field usage cannot be tracked, every field may be read. */
@@ -171,7 +178,143 @@ export const findUsagesOfDictionary = async (
     );
   }
 
+  for (const compilerUsage of await findCompilerTextUsagesOfDictionary(
+    projectDir,
+    dictionaryKey
+  )) {
+    const existingUsage = usageLocations.find(
+      (usage) => usage.uri.fsPath === compilerUsage.uri.fsPath
+    );
+
+    if (!existingUsage) {
+      usageLocations.push(compilerUsage);
+      continue;
+    }
+
+    for (const key of compilerUsage.keysUsed) existingUsage.keysUsed.add(key);
+
+    for (const [key, ranges] of compilerUsage.keyLocations) {
+      existingUsage.keyLocations.set(key, [
+        ...(existingUsage.keyLocations.get(key) ?? []),
+        ...ranges,
+      ]);
+    }
+  }
+
   return usageLocations;
+};
+
+/**
+ * Usages of a compiler-generated dictionary (`compiler.saveComponents:
+ * false`): its component keeps the raw strings and never names the
+ * dictionary, so each field is located by its source-locale text in the file
+ * named by `componentFilePath`.
+ */
+const findCompilerTextUsagesOfDictionary = async (
+  projectDir: string,
+  dictionaryKey: string
+): Promise<UsageLocation[]> => {
+  const configuration = await getCachedConfig(projectDir);
+  const dictionaries =
+    (await getCachedUnmergedDictionaries(configuration, dictionaryKey)) ?? [];
+
+  const dictionariesByComponent = new Map<string, Dictionary[]>();
+
+  for (const dictionary of dictionaries) {
+    if (!dictionary.componentFilePath) continue;
+
+    dictionariesByComponent.set(dictionary.componentFilePath, [
+      ...(dictionariesByComponent.get(dictionary.componentFilePath) ?? []),
+      dictionary,
+    ]);
+  }
+
+  const usages = await Promise.all(
+    [...dictionariesByComponent].map(
+      async ([componentFilePath, componentDictionaries]) => {
+        const fileUri = Uri.file(
+          resolveComponentFilePath(
+            configuration.system.baseDir,
+            componentFilePath
+          )
+        );
+
+        try {
+          const text = new TextDecoder('utf-8').decode(
+            await workspace.fs.readFile(fileUri)
+          );
+          const fields = collectCompilerTextFields(
+            componentDictionaries,
+            configuration.internationalization.defaultLocale
+          );
+
+          return analyzeCompilerTextUsages(
+            text,
+            findCompilerTextMatches(text, fields).map((match) => ({
+              dottedKey: match.field.fieldPath.join('.'),
+              start: match.start,
+              end: match.end,
+            })),
+            fileUri
+          );
+        } catch {
+          // Component deleted or moved since the dictionary was built
+          return null;
+        }
+      }
+    )
+  );
+
+  return usages.filter((usage): usage is UsageLocation => usage !== null);
+};
+
+/** Usage location of the given field spans, `null` when there are none. */
+const analyzeCompilerTextUsages = (
+  text: string,
+  fieldSpans: { dottedKey: string; start: number; end: number }[],
+  fileUri: Uri
+): UsageLocation | null => {
+  if (fieldSpans.length === 0) return null;
+
+  const offsetToPosition = createOffsetToPosition(text);
+  const offsetsToRange = (start: number, end: number): Range => {
+    const startPosition = offsetToPosition(start);
+    const endPosition = offsetToPosition(end);
+
+    return new Range(
+      startPosition.line,
+      startPosition.character,
+      endPosition.line,
+      endPosition.character
+    );
+  };
+
+  const keysUsed = new Set<string>();
+  const keyLocations = new Map<string, Range[]>();
+
+  for (const { dottedKey, start, end } of fieldSpans) {
+    const parts = dottedKey.split('.');
+
+    for (let index = 1; index <= parts.length; index++) {
+      keysUsed.add(parts.slice(0, index).join('.'));
+    }
+
+    keyLocations.set(dottedKey, [
+      ...(keyLocations.get(dottedKey) ?? []),
+      offsetsToRange(start, end),
+    ]);
+  }
+
+  const firstSpan = [...fieldSpans].sort(
+    (first, second) => first.start - second.start
+  )[0]!;
+
+  return {
+    uri: fileUri,
+    range: offsetsToRange(firstSpan.start, firstSpan.end),
+    keysUsed,
+    keyLocations,
+  };
 };
 
 /**

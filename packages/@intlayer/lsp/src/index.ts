@@ -38,6 +38,15 @@ import {
   getCallerNamesAlternation,
 } from './callers/patterns';
 import {
+  type CompilerDictionary,
+  type CompilerTextField,
+  collectCompilerTextFields,
+  findCompilerTextAtOffset,
+  findCompilerTextMatches,
+  resolveComponentFilePath,
+  toComponentFilePath,
+} from './compilerTextUsage';
+import {
   formatDictionaryHover,
   formatFieldHover,
   formatFieldValue,
@@ -260,6 +269,114 @@ const getDictionariesForKey = (
     >
   )[dictionaryKey] ?? [];
 
+/** Whether `fieldPath` is `parentPath` or lies under it. */
+const isFieldPathWithin = (
+  fieldPath: string[],
+  parentPath: string[]
+): boolean =>
+  parentPath.every((segment, index) => fieldPath[index] === segment);
+
+/**
+ * Text fields of the dictionaries the compiler extracted from `absolutePath`
+ * (`compiler.saveComponents: false` leaves the raw strings in the component).
+ */
+const getCompilerTextFieldsOfFile = (
+  absolutePath: string,
+  config: WorkspaceConfig
+): CompilerTextField[] => {
+  const componentFilePath = toComponentFilePath(
+    config.system.baseDir,
+    absolutePath
+  );
+  const dictionaries = Object.values(
+    getUnmergedDictionariesCached(config) as Record<
+      string,
+      CompilerDictionary[] | undefined
+    >
+  )
+    .flat()
+    .filter(
+      (dictionary): dictionary is CompilerDictionary =>
+        dictionary?.componentFilePath === componentFilePath
+    );
+
+  return collectCompilerTextFields(
+    dictionaries,
+    config.internationalization.defaultLocale
+  );
+};
+
+/** The compiler-extracted string written at `offset`, as a usage target. */
+const findCompilerTextTarget = (
+  text: string,
+  offset: number,
+  absolutePath: string,
+  config: WorkspaceConfig
+): UsageTarget | null => {
+  const fields = getCompilerTextFieldsOfFile(absolutePath, config);
+
+  if (fields.length === 0) return null;
+
+  const match = findCompilerTextAtOffset(text, offset, fields);
+
+  return match
+    ? {
+        dictionaryKey: match.field.dictionaryKey,
+        fieldPath: match.field.fieldPath,
+      }
+    : null;
+};
+
+/**
+ * Where the compiler extracted the fields of `dictionaryKey` under
+ * `fieldPath` (every field when empty): the raw strings left in the
+ * components named by `componentFilePath`.
+ */
+const getCompilerTextUsageLocations = async (
+  dictionaryKey: string,
+  fieldPath: string[],
+  config: WorkspaceConfig
+): Promise<Location[]> => {
+  const dictionariesByComponent = new Map<string, Dictionary[]>();
+
+  for (const dictionary of getDictionariesForKey(config, dictionaryKey)) {
+    if (!dictionary.componentFilePath) continue;
+
+    dictionariesByComponent.set(dictionary.componentFilePath, [
+      ...(dictionariesByComponent.get(dictionary.componentFilePath) ?? []),
+      dictionary,
+    ]);
+  }
+
+  const locations = await Promise.all(
+    [...dictionariesByComponent].map(
+      async ([componentFilePath, dictionaries]) => {
+        const sourcePath = resolveComponentFilePath(
+          config.system.baseDir,
+          componentFilePath
+        );
+        const text = await tryReadFile(sourcePath);
+
+        if (text === null) return [];
+
+        const fields = collectCompilerTextFields(
+          dictionaries,
+          config.internationalization.defaultLocale
+        ).filter((field) => isFieldPathWithin(field.fieldPath, fieldPath));
+
+        return findCompilerTextMatches(text, fields).map((match) =>
+          Location.create(
+            pathToFileURL(sourcePath).href,
+            offsetToRange(text, match.start, match.end)
+          )
+        );
+      }
+    )
+  );
+
+  return locations.flat();
+};
+
 /**
  * Match a usage (or a bare dictionary key) against the built dictionaries,
  * following the compat adapters' fallbacks (`index` whole-file catalog, flat
@@ -414,6 +531,8 @@ const getKeyUsageLocations = async (
     }
   });
 
+  locations.push(...(await getCompilerTextUsageLocations(key, [], config)));
+
   log(
     `getKeyUsageLocations("${key}") — ${filePaths.length} file(s) searched in ${Date.now() - startTime}ms → ${locations.length} hit(s)`
   );
@@ -469,6 +588,10 @@ const getFieldUsageLocations = async (
       locations.push(Location.create(pathToFileURL(filePath).href, range));
     }
   });
+
+  locations.push(
+    ...(await getCompilerTextUsageLocations(dictionaryKey, fieldPath, config))
+  );
 
   log(
     `getFieldUsageLocations("${dictionaryKey}.${fieldPath.join('.')}") — ${filePaths.length} file(s) searched in ${Date.now() - startTime}ms → ${locations.length} hit(s)`
@@ -760,6 +883,23 @@ connection.onDefinition(async (parameters) => {
     return locations.length ? locations : null;
   }
 
+  // Cursor on a raw string the compiler extracted (`saveComponents: false`)
+  const compilerTarget = config
+    ? findCompilerTextTarget(text, offset, absolutePath, config)
+    : null;
+
+  if (compilerTarget) {
+    log(
+      `onDefinition — compiler text: "${[compilerTarget.dictionaryKey, ...compilerTarget.fieldPath].join('.')}" → searching declaration`
+    );
+    const locations = await getDeclarationLocations(
+      compilerTarget,
+      absolutePath
+    );
+    log(`onDefinition — found ${locations.length} declaration(s)`);
+    return locations.length ? locations : null;
+  }
+
   log('onDefinition — no Intlayer key at cursor, no result');
   return null;
 });
@@ -838,10 +978,17 @@ connection.onReferences(async (parameters: ReferenceParams) => {
   // → content-file field definitions
   const usage = findMessageUsageAtOffset(text, offset);
 
-  if (usage && usage.fieldPath.length > 0) {
-    const locations = await getDeclarationLocations(usage, absolutePath);
+  const fieldTarget =
+    usage && usage.fieldPath.length > 0
+      ? usage
+      : config
+        ? findCompilerTextTarget(text, offset, absolutePath, config)
+        : null;
+
+  if (fieldTarget) {
+    const locations = await getDeclarationLocations(fieldTarget, absolutePath);
     log(
-      `onReferences — field "${usage.fieldPath.join('.')}" → ${locations.length} content definition(s)`
+      `onReferences — field "${fieldTarget.fieldPath.join('.')}" → ${locations.length} content definition(s)`
     );
     return locations.length ? locations : null;
   }
@@ -916,7 +1063,8 @@ connection.onHover(async (parameters: HoverParams): Promise<Hover | null> => {
   // <Trans>, lingui t`…`, …)
   const target: UsageTarget | null = key
     ? { dictionaryKey: key, fieldPath: [] }
-    : findMessageUsageAtOffset(text, offset);
+    : (findMessageUsageAtOffset(text, offset) ??
+      findCompilerTextTarget(text, offset, absolutePath, config));
 
   if (!target) return null;
 

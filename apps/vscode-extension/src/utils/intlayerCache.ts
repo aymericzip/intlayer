@@ -1,5 +1,5 @@
-import { readFile, stat } from 'node:fs/promises';
-import { join } from 'node:path';
+import { readdir, readFile, stat } from 'node:fs/promises';
+import { extname, join } from 'node:path';
 import { FILE_EXTENSIONS } from '@intlayer/config/defaultValues';
 import {
   getConfiguration,
@@ -164,3 +164,22 @@ export const getCachedUnmergedDictionaries = (
   getCachedDictionary(
     join(configuration.system.unmergedDictionariesDir, `${dictionaryKey}.json`)
   );
+
+/**
+ * Every built unmerged dictionary of the project. Each file is re-read only
+ * when it changes, so repeated calls cost one `stat` per dictionary.
+ */
+export const getAllCachedUnmergedDictionaries = async (
+  configuration: IntlayerConfig
+): Promise<Dictionary[]> => {
+  const directory = configuration.system.unmergedDictionariesDir;
+  const fileNames = await readdir(directory).catch(() => [] as string[]);
+
+  const dictionaries = await Promise.all(
+    fileNames
+      .filter((fileName) => extname(fileName) === '.json')
+      .map((fileName) => getCachedDictionary(join(directory, fileName)))
+  );
+
+  return dictionaries.flatMap((dictionary) => dictionary ?? []);
+};

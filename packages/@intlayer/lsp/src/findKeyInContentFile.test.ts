@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  collectJsonContentFields,
   findContentFieldAtOffset,
   findKeyInContentFile,
 } from './findKeyInContentFile';
@@ -561,5 +562,39 @@ describe('findContentFieldAtOffset — TS leaf helpers', () => {
       fieldName: 'deepField',
       fieldPath: ['nestedPlain', 'deepField'],
     });
+  });
+});
+
+describe('collectJsonContentFields', () => {
+  it('lists content fields with the span of their key, typed nodes as leaves', () => {
+    const text = JSON.stringify(
+      {
+        key: 'home',
+        content: {
+          title: { nodeType: 'translation', translation: { en: 'Title' } },
+          section: { label: 'Label' },
+        },
+        componentFilePath: 'src/Home.tsx',
+      },
+      null,
+      2
+    );
+
+    const fields = collectJsonContentFields(text);
+
+    expect(fields.map((field) => field.dottedKey)).toEqual([
+      'title',
+      'section',
+      'section.label',
+    ]);
+    for (const field of fields) {
+      expect(text.slice(field.start, field.end)).toBe(
+        `"${field.dottedKey.split('.').at(-1)}"`
+      );
+    }
+  });
+
+  it('returns nothing for invalid JSON', () => {
+    expect(collectJsonContentFields('{ "key": ')).toEqual([]);
   });
 });

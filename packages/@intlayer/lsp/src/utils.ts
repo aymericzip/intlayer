@@ -18,6 +18,18 @@ export {
   buildKeyUsagePatterns,
   getCallerNamesAlternation,
 } from './callers/patterns';
+export {
+  buildCompilerTextPattern,
+  type CompilerDictionary,
+  type CompilerTextField,
+  type CompilerTextMatch,
+  collectCompilerTextFields,
+  findCompilerTextAtOffset,
+  findCompilerTextMatches,
+  findCompilerTextSpans,
+  resolveComponentFilePath,
+  toComponentFilePath,
+} from './compilerTextUsage';
 export { findFieldDeclaration, type OffsetSpan } from './findFieldDeclaration';
 export {
   escapeRegularExpression,
@@ -26,8 +38,10 @@ export {
 } from './findFieldInFile';
 export { findKeyAtOffset } from './findKeyAtOffset';
 export {
+  collectJsonContentFields,
   findContentFieldAtOffset,
   findKeyInContentFile,
+  type JsonContentField,
 } from './findKeyInContentFile';
 export { findTCallAtOffset } from './findTCallAtOffset';
 export { findUsageFieldAtOffset } from './findUsageFieldAtOffset';

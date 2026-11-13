@@ -1,6 +1,7 @@
 import { dirname } from 'node:path';
 import type { DefinitionProvider } from 'vscode';
 import { isDefinitionHandledByLSPServer } from '../lsp/lspCoverage';
+import { findCompilerTextTarget } from '../utils/findCompilerTextTarget';
 import { findProjectRoot } from '../utils/findProjectRoot';
 import { getKeyOriginRange } from '../utils/getKeyOriginRange';
 import { resolveIntlayerPath } from '../utils/intlayerPathResolver';
@@ -24,12 +25,19 @@ export const intlayerDefinitionProvider: DefinitionProvider = {
     }
 
     const origin = await resolveIntlayerPath(document, position);
+    const target = origin
+      ? {
+          ...origin,
+          fieldPath: stripAccessorSuffix(origin.fieldPath).fieldPath,
+        }
+      : // Raw string extracted by the compiler (`saveComponents: false`)
+        await findCompilerTextTarget(document, position, projectDir);
 
-    if (!origin) return null;
+    if (!target) return null;
 
     const links = await getDeclarationLinks(
       projectDir,
-      { ...origin, fieldPath: stripAccessorSuffix(origin.fieldPath).fieldPath },
+      target,
       getKeyOriginRange(document, position)
     );
 

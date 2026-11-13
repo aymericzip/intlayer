@@ -105,3 +105,34 @@ describe('findFieldDeclaration — other formats', () => {
     ).toBe('title');
   });
 });
+
+describe('findFieldDeclaration — JSON content declarations', () => {
+  const text = JSON.stringify(
+    {
+      key: 'home',
+      content: {
+        title: { nodeType: 'translation', translation: { en: 'Title' } },
+        section: { title: 'Nested' },
+      },
+      componentFilePath: 'src/Home.tsx',
+    },
+    null,
+    2
+  );
+
+  it('locates a field under `content`', () => {
+    expect(locateLine(text, 'home.content.json', 'home', ['title'])).toBe(
+      text.split('\n').findIndex((line) => line.includes('"title": {'))
+    );
+  });
+
+  it('locates a nested field under `content`', () => {
+    expect(
+      locateLine(text, 'home.content.json', 'home', ['section', 'title'])
+    ).toBe(text.split('\n').findIndex((line) => line.includes('"Nested"')));
+  });
+
+  it('locates the dictionary on its `key` property', () => {
+    expect(locate(text, 'home.content.json', 'home', [])).toBe('"key"');
+  });
+});
