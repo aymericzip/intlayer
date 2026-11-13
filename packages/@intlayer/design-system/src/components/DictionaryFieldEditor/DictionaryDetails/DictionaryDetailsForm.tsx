@@ -126,6 +126,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     locationSelect,
     importModeSelect,
     filePathInput,
+    componentFilePathField,
     auditButton,
     qualifierSection,
     siblingDictionaries: siblingContent,
@@ -548,6 +549,27 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             </m.div>
           )}
         </AnimatePresence>
+
+        {dictionary.componentFilePath && (
+          <div className="flex flex-col gap-2 px-1">
+            <label
+              htmlFor="component-file-path"
+              className="ms-1 text-sm font-medium"
+            >
+              {componentFilePathField.label}
+            </label>
+            <Input
+              id="component-file-path"
+              type="text"
+              dir="ltr"
+              value={dictionary.componentFilePath}
+              readOnly
+            />
+            <p className="ms-1 text-sm text-neutral">
+              {componentFilePathField.description}
+            </p>
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
         <FormSelect

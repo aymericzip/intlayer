@@ -83,13 +83,17 @@ const extractQualifiers = (
 
 /**
  * Picks where the dictionary is declared in the codebase, so CMS edits can be
- * committed back to its `.content` file.
+ * committed back to its `.content` file, and the component the compiler
+ * extracted it from.
  */
 const extractSource = (
-  source: Pick<LocalDictionary, 'location' | 'filePath'>
+  source: Pick<LocalDictionary, 'location' | 'filePath' | 'componentFilePath'>
 ): Partial<DictionaryData> => ({
   ...(source.location !== undefined && { location: source.location }),
   ...(source.filePath !== undefined && { filePath: source.filePath }),
+  ...(source.componentFilePath !== undefined && {
+    componentFilePath: source.componentFilePath,
+  }),
 });
 
 /**

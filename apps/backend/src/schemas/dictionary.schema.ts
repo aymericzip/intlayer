@@ -118,6 +118,10 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       type: String,
       default: undefined,
     },
+    componentFilePath: {
+      type: String,
+      default: undefined,
+    },
     sourceSync: {
       type: dictionarySourceSyncSchema,
       default: undefined,

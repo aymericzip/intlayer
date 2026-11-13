@@ -13,6 +13,7 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { resolveContentFilePaths } from './utils/extractDictionaryInfo';
+import { getComponentFilePath } from './utils/resolveDictionaryKey';
 
 const hasInsertionVars = (str: string): boolean => /\{\{[^}]+\}\}/.test(str);
 
@@ -199,6 +200,7 @@ export const writeContentHelper = async (
   }
 
   const relativeContentFilePath = relative(baseDir, absolutePath);
+  const componentFilePath = getComponentFilePath(filePath, configuration);
 
   let mergedDictionary: Dictionary;
 
@@ -216,6 +218,7 @@ export const writeContentHelper = async (
       content: mergedContent,
       locale: defaultLocale,
       filePath: relativeContentFilePath,
+      componentFilePath,
     };
   } else {
     // Multilingual format: content wrapped in translation nodes for multiple locales
@@ -231,6 +234,7 @@ export const writeContentHelper = async (
       key: dictionaryKey,
       content: mergedContent,
       filePath: relativeContentFilePath,
+      componentFilePath,
     };
   }
 

@@ -55,6 +55,8 @@ export type DictionarySource = {
   location?: string;
   /** Path of the `.content` file, relative to the intlayer config directory */
   filePath?: string;
+  /** Component the compiler extracted the dictionary from, relative to the project root */
+  componentFilePath?: string;
   sourceSync?: DictionarySourceSync;
 };
 

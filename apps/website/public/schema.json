@@ -45,6 +45,9 @@
     "filePath": {
       "type": "string"
     },
+    "componentFilePath": {
+      "type": "string"
+    },
     "locale": {
       "type": "string"
     },

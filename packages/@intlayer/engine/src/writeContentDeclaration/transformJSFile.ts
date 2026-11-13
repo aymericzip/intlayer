@@ -909,6 +909,7 @@ export const transformJSFile = async (
     'version',
     'priority',
     'contentAutoTransformation',
+    'componentFilePath',
   ];
 
   if (noMetadata) {

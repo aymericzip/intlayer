@@ -185,6 +185,7 @@ export const transformJSONFile = (
       'version',
       'priority',
       'contentAutoTransformation',
+      'componentFilePath',
       '$schema',
     ];
 
