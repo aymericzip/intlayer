@@ -30,6 +30,34 @@ import { createPrimaryInstanceGuard } from './dedupePlugin';
 const COMPILER_PLUGIN_NAME = 'vite-intlayer-compiler';
 
 /**
+ * Query parameters marking a module that is not the component source itself:
+ * Vite asset imports (`?raw`, `?url`, `?worker`…) and Vue / Svelte / Astro
+ * sub-blocks, which are compiled from the already transformed parent file.
+ */
+const NON_SOURCE_QUERY_REGEX =
+  /(?:^|&)(?:raw|url|inline|worker|sharedworker|import|direct|vue|svelte|astro)(?:&|=|$)/;
+
+/**
+ * Splits a Vite module id into its file path and query. Returns `undefined`
+ * for ids that must not be compiled. Other queries (e.g. TanStack Router
+ * `?tsr-split=component`) are virtual modules rebuilt from the original
+ * source, so they are compiled like the file itself.
+ */
+export const getCompilableModule = (
+  moduleId: string
+): { filePath: string; isVirtualModule: boolean } | undefined => {
+  const queryIndex = moduleId.indexOf('?');
+
+  if (queryIndex === -1) return { filePath: moduleId, isVirtualModule: false };
+
+  const query = moduleId.slice(queryIndex + 1);
+
+  if (NON_SOURCE_QUERY_REGEX.test(query)) return undefined;
+
+  return { filePath: moduleId.slice(0, queryIndex), isVirtualModule: true };
+};
+
+/**
  * Options for initializing the compiler
  */
 export type IntlayerCompilerOptions = {
@@ -364,13 +392,15 @@ export const intlayerCompiler = (
       return undefined;
     }
 
-    // Skip virtual modules (query strings indicate compiled/virtual modules)
-    // e.g., App.svelte?svelte&type=style, Component.vue?vue&type=script
-    if (id.includes('?')) {
+    const compilableModule = getCompilableModule(id);
+
+    if (!compilableModule) {
       return undefined;
     }
 
-    const filename = id;
+    // Query-free path, so the dictionary key and `componentFilePath` match
+    // the ones of the plain file.
+    const filename = compilableModule.filePath;
 
     // Compare as POSIX paths; filename stays raw for extraction below.
     if (!filesList.includes(normalizePath(filename))) {
@@ -392,7 +422,9 @@ export const intlayerCompiler = (
         configuration: config,
         code,
         // Keep the transformation in memory unless `saveComponents` is enabled.
-        declarationOnly: !config.compiler.saveComponents,
+        // A virtual module holds only part of the file, never write it back.
+        declarationOnly:
+          compilableModule.isVirtualModule || !config.compiler.saveComponents,
         // Dictionary writing is handled by handleExtractedContent below.
         onExtract: async ({ key, content }) => {
           await handleExtractedContent({
