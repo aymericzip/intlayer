@@ -37,7 +37,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.7.20",
+    "@better-auth/sso": "1.7.23",
     "@electron-toolkit/utils": "4.0.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -71,10 +71,10 @@
     "@tanstack/router-plugin": "1.169.0",
     "@tanstack/start-static-server-functions": "1.167.44",
     "defu": "6.1.7",
-    "framer-motion": "14.12.0",
+    "framer-motion": "14.14.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.71.0",
+    "lucide-react": "1.72.0",
     "nitro": "latest",
     "posthog-js": "^1.447.5",
     "react": "19.3.1",

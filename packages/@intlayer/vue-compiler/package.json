@@ -78,7 +78,7 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@babel/core": "8.1.0",
+    "@babel/core": "8.1.2",
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@vue/compiler-sfc": ">=3.0.0",
