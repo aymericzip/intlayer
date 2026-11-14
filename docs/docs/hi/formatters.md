@@ -42,9 +42,12 @@ history:
     date: 2025-08-20
     changes: "सामग्री प्रबंधन उपयोगिताएँ जोड़ें (getContent, getTranslation, getIntlayer, आदि)"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Intlayer Formatters
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## विषय सूची
 
@@ -56,14 +59,14 @@ Intlayer नेटिव `Intl` APIs के ऊपर बनाए गए हल
 
 **React, Vue, और अन्य frameworks के लिए**, अपने ऐप के locale context से स्वचालित रूप से जुड़ने वाले framework-specific hooks/composables का उपयोग करें:
 
-| Framework                | Import                                 |
-| ------------------------ | -------------------------------------- |
-| **React** (client)       | `react-intlayer/format`                |
-| **React** (server)       | `react-intlayer/server/format`         |
-| **Next.js** (client)     | `next-intlayer/client/format`          |
-| **Next.js** (server)     | `next-intlayer/server/format`          |
-| **Vue**                  | `vue-intlayer/format`                  |
-| **Preact**               | `preact-intlayer/format`               |
+| Framework                | Import                               |
+| ------------------------ | ------------------------------------ |
+| **React** (client)       | `react-intlayer/format`              |
+| **React** (server)       | `react-intlayer/server/format`       |
+| **Next.js** (client)     | `next-intlayer/client/format`        |
+| **Next.js** (server)     | `next-intlayer/server/format`        |
+| **Vue**                  | `vue-intlayer/format`                |
+| **Preact**               | `preact-intlayer/format`             |
 | **Vanilla JS / Node.js** | `intlayer` (provider की आवश्यकता नहीं) |
 
 ## कौन सा locale उपयोग होता है?
@@ -119,17 +122,17 @@ import {
 
 सभी hooks स्वचालित रूप से `IntlayerProvider` या `IntlayerServerProvider` से locale का उपयोग करते हैं।
 
-| Hook                | विवरण                                           | उदाहरण आउटपुट                 |
-| ------------------- | ----------------------------------------------- | ----------------------------- |
-| `useNumber()`       | समूहन के साथ संख्याओं को प्रारूपित करें         | `"123,456.789"`               |
-| `useCurrency()`     | मुद्रा मानों को प्रारूपित करें                  | `"€1,234.50"`                 |
-| `usePercentage()`   | प्रतिशत को प्रारूपित करें                       | `"25%"`                       |
-| `useDate()`         | तारीखें और समय प्रारूपित करें                   | `"Aug 2, 2025"`               |
-| `useRelativeTime()` | सापेक्ष समय प्रारूपित करें                      | `"in 3 days"`                 |
-| `useUnit()`         | इकाइयों के साथ मानों को प्रारूपित करें          | `"5 kilometers"`              |
+| Hook                | विवरण                              | उदाहरण आउटपुट                  |
+| ------------------- | ---------------------------------- | ----------------------------- |
+| `useNumber()`       | समूहन के साथ संख्याओं को प्रारूपित करें     | `"123,456.789"`               |
+| `useCurrency()`     | मुद्रा मानों को प्रारूपित करें            | `"€1,234.50"`                 |
+| `usePercentage()`   | प्रतिशत को प्रारूपित करें               | `"25%"`                       |
+| `useDate()`         | तारीखें और समय प्रारूपित करें            | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | सापेक्ष समय प्रारूपित करें               | `"in 3 days"`                 |
+| `useUnit()`         | इकाइयों के साथ मानों को प्रारूपित करें    | `"5 kilometers"`              |
 | `useCompact()`      | कॉम्पैक्ट नोटेशन में संख्याओं को प्रारूपित करें | `"1.2K"`                      |
-| `useList()`         | सरणियों को सूचियों के रूप में प्रारूपित करें    | `"apple, banana, and orange"` |
-| `useIntl()`         | locale-bound `Intl` ऑब्जेक्ट प्राप्त करें       | Full `Intl` API access        |
+| `useList()`         | सरणियों को सूचियों के रूप में प्रारूपित करें  | `"apple, banana, and orange"` |
+| `useIntl()`         | locale-bound `Intl` ऑब्जेक्ट प्राप्त करें | Full `Intl` API access        |
 
 ### संपूर्ण उदाहरण
 
@@ -206,17 +209,17 @@ words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 
 सभी composables computed refs return करते हैं जो injected `IntlayerProvider` से locale को स्वचालित रूप से उपयोग करते हैं।
 
-| Composable          | Description                                  | Example Output                |
-| ------------------- | -------------------------------------------- | ----------------------------- |
-| `useNumber()`       | grouping के साथ संख्याओं को format करें      | `"123,456.789"`               |
-| `useCurrency()`     | currency values को format करें               | `"€1,234.50"`                 |
-| `usePercentage()`   | प्रतिशत को format करें                       | `"25%"`                       |
-| `useDate()`         | तारीखों और समय को format करें                | `"Aug 2, 2025"`               |
-| `useRelativeTime()` | सापेक्ष समय को format करें                   | `"in 3 days"`                 |
-| `useUnit()`         | units के साथ values को format करें           | `"5 kilometers"`              |
+| Composable          | Description                           | Example Output                |
+| ------------------- | ------------------------------------- | ----------------------------- |
+| `useNumber()`       | grouping के साथ संख्याओं को format करें     | `"123,456.789"`               |
+| `useCurrency()`     | currency values को format करें          | `"€1,234.50"`                 |
+| `usePercentage()`   | प्रतिशत को format करें                   | `"25%"`                       |
+| `useDate()`         | तारीखों और समय को format करें            | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | सापेक्ष समय को format करें                | `"in 3 days"`                 |
+| `useUnit()`         | units के साथ values को format करें       | `"5 kilometers"`              |
 | `useCompact()`      | compact notation में संख्याओं को format करें | `"1.2K"`                      |
-| `useList()`         | arrays को lists के रूप में format करें       | `"apple, banana, and orange"` |
-| `useIntl()`         | locale-bound `Intl` object प्राप्त करें      | Full `Intl` API access        |
+| `useList()`         | arrays को lists के रूप में format करें      | `"apple, banana, and orange"` |
+| `useIntl()`         | locale-bound `Intl` object प्राप्त करें   | Full `Intl` API access        |
 
 ### पूर्ण उदाहरण
 

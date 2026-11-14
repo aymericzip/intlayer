@@ -19,9 +19,12 @@ slugs:
   - blog
   - history-of-js-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=716s
 ---
 
 # Sejarah Internasionalisasi JavaScript (i18n)
+
+<iframe title="Semua tentang i18n: Panduan lengkap internasionalisasi web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=716&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Internasionalisasi bukanlah hal baru. Jauh sebelum JavaScript dan web modern hadir, perangkat lunak sudah harus menangani berbagai bahasa, mata uang, format tanggal, dan konvensi regional. Sistem operasi grafis awal seperti GEM dan Mac OS telah memecahkan banyak masalah ini sejak tahun 1980-an.
 

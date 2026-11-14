@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Intl ile Dillere Göre Tarih ve Sayı Formatlama
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Metin dizelerini çevirmek uluslararasılaştırmanın (i18n) yalnızca görünen yarısıdır. Sürekli hata bildirimleri üreten diğer yarısı ise formatlamadır: Alman bir kullanıcının `1.234,56` yerine `1,234.56` görmesi, Japon bir kullanıcının `08/02/2026` tarihini Ağustos olarak okuması veya bir tarihin sunucuda ve istemcide farklı render edilerek React hidrasyon hatasıyla sayfayı çökertmesi.
 

@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # 使用 Intl 针对不同语言环境格式化日期和数字
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 翻译文本只是国际化（i18n）肉眼可见的一半。产生大量缺陷工单的另一半往往是格式化：德国用户看到的数字是 `1,234.56` 而不是标准的 `1.234,56`；日本用户把 `08/02/2026` 误以为是 8 月；或者同一个日期在服务端与客户端渲染结果不一致，导致 React 发生注水错误（Hydration mismatch）而白屏。
 

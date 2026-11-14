@@ -17,9 +17,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # i18n לפי-רכיב (Per-Component) מול גישה מרוכזת (Centralized)
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 גישת ה-per-component אינה מושג חדש. לדוגמה, באקוסיסטם של Vue, הספרייה `vue-i18n` תומכת ב-[Single File Component (SFC) i18n](https://vue-i18n.intlify.dev/guide/advanced/sfc.html). גם Nuxt מציעה [תרגומים לפי רכיב](https://i18n.nuxtjs.org/docs/guide/per-component-translations), ו-Angular משתמשת בתבנית דומה באמצעות [Feature Modules](https://v17.angular.io/guide/feature-modules).
 

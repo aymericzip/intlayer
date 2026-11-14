@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # ICU मैसेज फॉर्मेट: सिंटैक्स और वो हिस्से जहां लोग गलती करते हैं
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat एक स्ट्रिंग सिंटैक्स है जो अनुवाद को अपने स्वयं के ब्रांचिंग लॉजिक को शामिल करने की अनुमति देता है: बहुवचन, लिंग-आधारित रूप, संख्या और दिनांक स्वरूपण। इसका अस्तित्व इसलिए है क्योंकि व्याकरण अनुवादक का विषय है, न कि `if (count === 1)` लिखने वाले डेवलपर का। यह लेख सिंटैक्स, भाषा-निर्भर पहलुओं जो सरल कार्यान्वयनों को विफल करते हैं, और जावास्क्रिप्ट इकोसिस्टम इसे कैसे संभालता है, इस पर चर्चा करता है।
 
@@ -99,18 +102,18 @@ Hello, {name}!
 
 यह वह हिस्सा है जहाँ लोग सबसे अधिक गलती करते हैं। श्रेणी नाम `zero`, `one`, `two`, `few`, `many`, `other` सार्वभौमिक बकेट नहीं हैं जिन्हें आप हर भाषा के लिए भरते हैं। प्रत्येक स्थानीय भाषा [CLDR बहुवचन नियमों](https://cldr.unicode.org/index/cldr-spec/plural-rules) द्वारा परिभाषित एक _उपसमूह_ का उपयोग करती है, और ये नियम व्याकरणिक हैं, न कि सहज गणितीय।
 
-| भाषा     | टैग  | प्रयुक्त श्रेणियां               | संख्या |
-| -------- | ---- | -------------------------------- | ------ |
-| जापानी   | `ja` | other                            | 1      |
-| चीनी     | `zh` | other                            | 1      |
-| अंग्रेजी | `en` | one, other                       | 2      |
-| जर्मन    | `de` | one, other                       | 2      |
-| फ्रेंच   | `fr` | one, many, other                 | 3      |
-| चेक      | `cs` | one, few, many, other            | 4      |
-| पोलिश    | `pl` | one, few, many, other            | 4      |
-| रूसी     | `ru` | one, few, many, other            | 4      |
-| अरबी     | `ar` | zero, one, two, few, many, other | 6      |
-| वेल्श    | `cy` | zero, one, two, few, many, other | 6      |
+| भाषा   | टैग   | प्रयुक्त श्रेणियां                     | संख्या |
+| ------ | ---- | -------------------------------- | ---- |
+| जापानी | `ja` | other                            | 1    |
+| चीनी   | `zh` | other                            | 1    |
+| अंग्रेजी  | `en` | one, other                       | 2    |
+| जर्मन   | `de` | one, other                       | 2    |
+| फ्रेंच    | `fr` | one, many, other                 | 3    |
+| चेक     | `cs` | one, few, many, other            | 4    |
+| पोलिश  | `pl` | one, few, many, other            | 4    |
+| रूसी    | `ru` | one, few, many, other            | 4    |
+| अरबी   | `ar` | zero, one, two, few, many, other | 6    |
+| वेल्श    | `cy` | zero, one, two, few, many, other | 6    |
 
 दो परिणाम जो लोगों को आश्चर्यचकित करते हैं:
 
@@ -198,13 +201,13 @@ ICU संयोजन योग्य है। एक बहुवचन श�
 
 ## जेएस लाइब्रेरीज़ ICU को कैसे संभालती हैं
 
-| लाइब्रेरी             | ICU समर्थन    | आप वास्तव में क्या लिखते हैं                                                 |
-| --------------------- | ------------- | ---------------------------------------------------------------------------- |
-| react-intl (FormatJS) | नेटिव, पूर्ण  | स्केलेटन और रिच-टेक्स्ट टैग सहित ICU स्ट्रिंग्स                              |
-| next-intl             | नेटिव         | FormatJS के `intl-messageformat` के माध्यम से ICU स्ट्रिंग्स                 |
+| लाइब्रेरी               | ICU समर्थन   | आप वास्तव में क्या लिखते हैं                                                  |
+| --------------------- | ----------- | ---------------------------------------------------------------------- |
+| react-intl (FormatJS) | नेटिव, पूर्ण   | स्केलेटन और रिच-टेक्स्ट टैग सहित ICU स्ट्रिंग्स                                   |
+| next-intl             | नेटिव        | FormatJS के `intl-messageformat` के माध्यम से ICU स्ट्रिंग्स                   |
 | i18next               | प्लगइन आवश्यक | प्रत्यय कुंजियाँ `key_one` / `key_other` और `{{name}}`; ICU `i18next-icu` से |
-| vue-i18n              | आंशिक / अपना  | `{name}` इंटरपोलेशन और पाइप से अलग की गई बहुवचन शाखाएं                       |
-| Angular (`$localize`) | उपसमूह        | टेम्प्लेट के अंदर ICU `plural` / `select`, XLIFF में निकाला गया              |
+| vue-i18n              | आंशिक / अपना | `{name}` इंटरपोलेशन और पाइप से अलग की गई बहुवचन शाखाएं                      |
+| Angular (`$localize`) | उपसमूह       | टेम्प्लेट के अंदर ICU `plural` / `select`, XLIFF में निकाला गया                |
 
 तालिका के संदर्भ में कुछ महत्वपूर्ण बिंदु:
 
@@ -253,15 +256,15 @@ totalOpenings(5); // पोलिश लोकेल → "5 ofert"
 
 ICU अवधारणाओं के साथ मैपिंग सीधी है:
 
-| ICU निर्माण                   | Intlayer समकक्ष                               |
-| ----------------------------- | --------------------------------------------- |
+| ICU निर्माण                    | Intlayer समकक्ष                               |
+| ----------------------------- | -------------------------------------------- |
 | `{name}`                      | `insert("Hello {{name}}")`, या स्वचालित पहचान |
-| `{count, plural, …}`          | `plural({ one, few, many, other })`           |
-| `{value, select, …}`          | `select({ draft, published, fallback })`      |
-| `select` की लिंग शाखा         | `gender({ male, female, fallback })`          |
-| `select` की बूलियन शाखा       | `cond({ true, false })`                       |
-| संख्यात्मक सीमाएं (गैर-CLDR)  | `enu({ "0": …, ">5": …, fallback: … })`       |
-| `{n, number, ::currency/EUR}` | `useCurrency()(1234.5, { currency: "EUR" })`  |
+| `{count, plural, …}`          | `plural({ one, few, many, other })`          |
+| `{value, select, …}`          | `select({ draft, published, fallback })`     |
+| `select` की लिंग शाखा          | `gender({ male, female, fallback })`         |
+| `select` की बूलियन शाखा        | `cond({ true, false })`                      |
+| संख्यात्मक सीमाएं (गैर-CLDR)       | `enu({ "0": …, ">5": …, fallback: … })`      |
+| `{n, number, ::currency/EUR}` | `useCurrency()(1234.5, { currency: "EUR" })` |
 
 `plural` श्रेणी चयन को सीधे `Intl.PluralRules` को सौंपता है, इसलिए ऊपर दी गई CLDR तालिका बिना किसी बदलाव के लागू होती है। फ़ॉर्मेटिंग अलग रहती है: संख्याएं, दिनांक, मुद्राएं और सूचियां संदेश में एम्बेड होने के बजाय [फ़ॉर्मेटर हुक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/formatters.md) के माध्यम से नियंत्रित की जाती हैं।
 

@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # 最適なReact i18nライブラリを選ぶ方法
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Reactには標準のi18nプリミティブが用意されていません。プロジェクトの初期段階でどのライブラリを選択するかによって、翻訳がどのように保存され、どのようにバンドルへ組み込まれ、今後数年間にわたってどれだけの作業負荷が開発者に残り続けるかが決まります。多くのチームは知名度だけでライブラリを選び、翻訳キーが2,000個に達した段階でそのトレードオフに気づくことになります。
 

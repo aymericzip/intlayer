@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Formatowanie dat i liczb według lokalizacji za pomocą Intl
+
+<iframe title="Wszystko o i18n: kompletny przewodnik po internacjonalizacji stron" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Tłumaczenie tekstów to zaledwie widoczna połowa internacjonalizacji (i18n). Druga połowa, która regularnie generuje zgłoszenia błędów, to formatowanie: niemiecki użytkownik widzący `1,234.56` zamiast `1.234,56`, japoński użytkownik widzący `08/02/2026` i czytający to jako sierpień, lub data renderująca się inaczej na serwerze i w przeglądarce, powodująca błąd hydratacji w React.
 

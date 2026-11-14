@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-i18next-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # i18next 2026'da Güncelliğini Yitirdi mi?
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 `i18next`, React bileşenleri, Webpack paketlemesi veya TypeScript standart hale gelmeden çok önce, 2011 yılında piyasaya sürüldü. Esnekliği ve yaygınlığı ile ekosistemi ele geçirdi, her teknoloji için eklentilere ve StackOverflow'da olası her hata için hazır yanıtlara sahip oldu.
 

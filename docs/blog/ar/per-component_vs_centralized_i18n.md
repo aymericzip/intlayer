@@ -15,9 +15,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # التعريب لكل مكوّن مقابل التعريب المركزي
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 نهج التعريب لكل مكوّن ليس مفهومًا جديدًا. على سبيل المثال، في بيئة Vue، تدعم مكتبة `vue-i18n` [i18n SFC (Single File Component)](https://vue-i18n.intlify.dev/guide/advanced/sfc.html). كما يقدم Nuxt [ترجمات لكل مكوّن](https://i18n.nuxtjs.org/docs/guide/per-component-translations)، ويستخدم Angular نمطًا مشابهًا من خلال [Feature Modules](https://v17.angular.io/guide/feature-modules).
 
@@ -124,7 +127,7 @@ extension Localization on String {
 المثال الأول لا يتضمن ترجمات تُحمّل عند الطلب لكل لغة ولا تقسيمًا للـ namespaces. المثال الثاني يتضمن تنقية المحتوى (content purging) + التحميل الديناميكي للترجمات.
 
 | حزمة مُحسّنة                                                                                                           | حزمة غير مُحسّنة                                                                                   |
-| ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | ![حزمة غير مُحسّنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![حزمة مُحسّنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 إذن، بفضل الـnamespaces، انتقلنا من هذا الهيكل:

@@ -25,9 +25,12 @@ history:
     date: 2026-01-06
     changes: "Inicio del benchmark"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2081s
 ---
 
 # Benchmark - Informe
+
+<iframe title="Todo sobre i18n: la guía completa de la internacionalización web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2081&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Benchmark Bloom es una suite de benchmarks de rendimiento que mide el impacto real de las librerías i18n (internacionalización) en varios frameworks de React y estrategias de carga.
 

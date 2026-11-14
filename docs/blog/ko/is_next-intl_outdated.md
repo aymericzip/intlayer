@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-next-intl-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # 2026년에도 next-intl을 계속 써야 할까요?
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Vercel이 App Router를 발표하며 Pages Router의 내장 i18n 기능을 배제했을 때, `next-intl`은 그 공백을 훌륭히 메웠습니다. Jan Amann의 명쾌한 문서화와 기민한 App Router 지원 덕분에 커뮤니티의 기본 선택지로 자리잡았습니다.
 

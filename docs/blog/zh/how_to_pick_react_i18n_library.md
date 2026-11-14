@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # 如何选择合适的 React i18n 库
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 React 本身并没有提供内置的 i18n 原语。你在项目第一天选择的库，将决定翻译如何存储、如何打包进 bundle，以及未来几年需要承担多少维护工作。大多数团队通常根据流行度来选型，随后在翻译键达到 2,000 个时才发现各种妥协与限制。
 

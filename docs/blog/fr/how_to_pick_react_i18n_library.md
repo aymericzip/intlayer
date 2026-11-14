@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # Comment choisir la bonne bibliothèque i18n pour React
+
+<iframe title="Tout sur l'i18n : le guide complet de l'internationalisation web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 React ne fournit aucune primitive i18n. La bibliothèque que vous choisissez dès le premier jour détermine la manière dont les traductions sont stockées, comment elles arrivent dans le bundle, et la charge de maintenance qui vous incombera pour les années à venir. La plupart des équipes choisissent par popularité, puis découvrent les compromis une fois arrivées à 2 000 clés.
 

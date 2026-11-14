@@ -24,9 +24,12 @@ history:
     date: 2026-05-04
     changes: "Init history"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2357s
 ---
 
 # 複数形コンテンツ / Intlayerにおける複数形
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2357&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## 複数形の仕組み
 

@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Datums- und Zahlenformatierung nach Locale mit Intl
+
+<iframe title="Alles über i18n: Der komplette Leitfaden zur Web-Internationalisierung" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Das Übersetzen von Texten ist nur die sichtbare Hälfte der Internationalisierung. Die andere Hälfte, die regelmäßig Fehlerberichte erzeugt, ist die Formatierung: ein deutscher Nutzer, der `1,234.56` statt `1.234,56` sieht, ein japanischer Nutzer, der `08/02/2026` als August liest, oder ein Datum, das auf Server und Client unterschiedlich rendert und beim Hydrieren die Anwendung zum Absturz bringt.
 

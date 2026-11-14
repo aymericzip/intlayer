@@ -21,9 +21,12 @@ slugs:
   - blog
   - what-is-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us
 ---
 
 # अंतर्राष्ट्रीयकरण (i18n) क्या है? अर्थ, परिभाषा और चुनौतियाँ
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## विषय सूची
 

@@ -27,9 +27,12 @@ history:
     date: 2025-06-29
     changes: "初始化历史记录"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1317s
 ---
 
 # 为什么你应该考虑使用 Intlayer？
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1317&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## 什么是 Intlayer？
 

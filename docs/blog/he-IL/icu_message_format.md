@@ -17,9 +17,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # פורמט הודעות ICU: התחביר, והמקומות שבהם אנשים נופלים
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat הוא תחביר מחרוזות המאפשר לתרגום להכיל לוגיקת פיצול (branching) משלו: צורות רבים, צורות מבוססות מגדר, ועיצוב מספרים ותאריכים. הוא נוצר משום שדקדוק שייך למתרגם, ולא למפתח שכותב `if (count === 1)`. פוסט זה מכסה את התחביר, את החלקים תלויי השפה ששוברים מימושים נאיביים, ואת האופן שבו האקוסיסטם של JS מתמודד איתו.
 

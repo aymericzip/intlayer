@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Форматирование дат и чисел по локалям с помощью Intl
+
+<iframe title="Всё об i18n: полное руководство по интернационализации веба" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Перевод строк, это лишь видимая верхушка айсберга интернационализации. Вторая половина, порождающая регулярные баг-репорты, это форматирование: когда пользователь из Германии видит `1,234.56` вместо `1.234,56`, пользователь из Японии видит `08/02/2026` и читает это как август, или когда дата по-разному отображается на сервере и клиенте, ломая гидратацию React.
 

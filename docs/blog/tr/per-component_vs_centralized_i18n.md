@@ -15,9 +15,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # Bileşen-Başına (Per-Component) vs Merkezileştirilmiş (Centralized) i18n
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Bileşen başına yaklaşımı yeni bir kavram değildir. Örneğin, Vue ekosisteminde `vue-i18n` [SFC i18n (Single File Component)](https://vue-i18n.intlify.dev/guide/advanced/sfc.html) destekler. Nuxt ayrıca [bileşen başına çeviriler](https://i18n.nuxtjs.org/docs/guide/per-component-translations) sunar ve Angular, [Feature Modules](https://v17.angular.io/guide/feature-modules) aracılığıyla benzer bir desen kullanır.
 

@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "ビルド設定に `minify` と `purge` オプションを追加"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # i18nバンドルサイズとパフォーマンスの最適化
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 JSONファイルに依存する従来のi18nソリューションで最も一般的な課題の1つは、コンテンツサイズの管理です。開発者が手動でコンテンツを名前空間に分割しない場合、ユーザーは1つのページを表示するためだけに、すべてのページ、さらにすべての言語の翻訳をダウンロードすることになることがよくあります。
 

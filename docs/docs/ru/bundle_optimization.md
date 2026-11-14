@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Добавлены параметры `minify` и `purge` в конфигурацию сборки"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # Оптимизация размера сборки i18n и производительности
+
+<iframe title="Всё об i18n: полное руководство по интернационализации веба" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Одной из самых распространенных проблем при использовании традиционных решений i18n, опирающихся на JSON-файлы, является управление размером контента. Если разработчики не разделяют контент на пространства имен (namespaces) вручную, пользователи часто вынуждены скачивать переводы для каждой страницы и, потенциально, для каждого языка только для того, чтобы просмотреть одну единственную страницу.
 

@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Přidány možnosti `minify` a `purge` do konfigurace sestavení (build)"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # Optimalizace Velikosti Bundle & Výkonu i18n
+
+<iframe title="Vše o i18n: kompletní průvodce internacionalizací webu" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Jednou z nejčastějších výzev u tradičních i18n řešení spoléhajících na JSON soubory je správa velikosti obsahu. Pokud vývojáři ručně nerozdělují obsah do jmenných prostorů (namespaces), uživatelé často skončí stahováním překladů pro každou stránku a potenciálně pro každý jazyk, jen aby si prohlédli jednu jedinou stránku.
 

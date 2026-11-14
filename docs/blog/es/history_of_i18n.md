@@ -19,9 +19,12 @@ slugs:
   - blog
   - history-of-js-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=716s
 ---
 
 # La historia de la internacionalización en JavaScript (i18n)
+
+<iframe title="Todo sobre i18n: la guía completa de la internacionalización web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=716&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 La internacionalización no es algo nuevo. Mucho antes de JavaScript y la web moderna, el software ya tenía que gestionar múltiples idiomas, monedas, formatos de fecha y convenciones regionales. Los primeros sistemas operativos gráficos como GEM y Mac OS ya resolvían muchos de estos problemas en la década de 1980.
 

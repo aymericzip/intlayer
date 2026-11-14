@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "向构建配置中添加了 `minify` 和 `purge` 选项"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # 优化 i18n 打包体积与性能
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 依赖 JSON 文件的传统 i18n 解决方案中最常见的挑战之一是管理内容体积。如果开发者没有手动将内容拆分到各个命名空间（namespaces），用户通常会为了查看一个页面而下载所有页面、甚至是所有语言的翻译。
 

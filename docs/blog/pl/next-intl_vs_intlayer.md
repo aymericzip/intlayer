@@ -19,9 +19,12 @@ slugs:
   - blog
   - next-intl-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # next-intl VS Intlayer: Benchmark internacjonalizacji (i18n) w React i Next.js
+
+<iframe title="Wszystko o i18n: kompletny przewodnik po internacjonalizacji stron" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 

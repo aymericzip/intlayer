@@ -19,9 +19,12 @@ slugs:
   - blog
   - history-of-js-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=716s
 ---
 
 # JavaScript 国際化 (i18n) の歴史と進化
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=716&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 国際化（i18n）は決して新しい技術課題ではありません。JavaScript や近代的な Web が登場するずっと以前から、ソフトウェアは多言語、通貨単位、日付表記、地域の慣習を適切に扱う必要がありました。1980 年代の GEM や Mac OS などの初期 GUI オペレーティングシステムも、既にこれらの問題に取り組んでいました。
 

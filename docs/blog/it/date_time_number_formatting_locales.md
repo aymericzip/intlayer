@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Formattare date e numeri per lingua con Intl
+
+<iframe title="Tutto sull'i18n: la guida completa all'internazionalizzazione web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Tradurre stringhe è la metà visibile dell'internazionalizzazione. L'altra metà, quella che produce costantemente segnalazioni di bug, è la formattazione: un utente tedesco che visualizza `1,234.56` invece di `1.234,56`, un utente giapponese che vede `08/02/2026` interpretandolo come agosto, o una data che renderizza in modo disallineato tra server e client, mandando in crash l'idratazione in React.
 

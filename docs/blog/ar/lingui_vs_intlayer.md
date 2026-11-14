@@ -21,9 +21,12 @@ slugs:
   - blog
   - lingui-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1691s
 ---
 
 # Lingui مقابل Intlayer: مقارنة أداء التدويل (i18n) في React وNext.js
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1691&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 تعد Lingui وIntlayer المكتبتين الوحيدتين في هذا الاختبار اللتين تعتمدان على **مترجم (Compiler)** بدلاً من بيئة تشغيل بحتة (Pure Runtime). تستخرج Lingui الرسائل من وحدات الماكرو في وقت البناء وتقوم بتجميع الكتالوجات لكل لغة. بينما يقوم Intlayer بتجميع القواميس لكل مكون مع تقليم الشجرة (Tree-shaking) لكل لغة. نظرياً، يجب أن تكون النتائج متقاربة، لكن الأرقام توضح أين يختلفان.
 
@@ -38,35 +41,35 @@ author: aymericzip
 - **Lingui** - يعتمد على وحدات الماكرو (`` t`...` ``, `<Trans>`, `msg`)، ومعيار ICU MessageFormat، وكتالوجات `.po` / JSON، وسير عمل `lingui extract` + `lingui compile`. يقوم بتجميع معرفات الرسائل إلى تجزئات قصيرة (hashes)، ويدعم التحميل الديناميكي للكتالوجات لكل لغة. مشروع راسخ، ومستقل عن أطر العمل، وله توافقية ممتازة مع أدوات المترجمين حول ملفات `.po`.
 - **Intlayer** - نموذج محتوى يتمحور حول المكونات. توضع قواميس `.content.ts` بجانب المكون الذي تخدمه، ويقوم مترجم وقت البناء بتقليم الشجرة والتحميل الكسول لكل مكون ولكل لغة، مع توليد أنواع TypeScript صارمة تلقائياً من محتواك، وفشل البناء عند فقدان أي ترجمات. يتضمن برمجيات وسيطة، ومساعدات SEO، ومحرراً مرئياً / CMS، وترجمة مدعومة بالذكاء الاصطناعي.
 
-| المكتبة               | نجوم GitHub                                                                                                                                                                    | إجمالي التعديلات (Commits)                                                                                                                                                         | آخر تعديل                                                                                                                                           | الإصدار الأول | إصدار NPM                                                                                                           | تنزيلات NPM                                                                                                                    |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `aymericzip/intlayer` | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) | أبريل 2024    | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         |
-| `lingui/js-lingui`    | [![GitHub Repo stars](https://img.shields.io/github/stars/lingui/js-lingui?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/lingui/js-lingui/stargazers)       | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/lingui/js-lingui?style=for-the-badge&label=commits)](https://github.com/lingui/js-lingui/commits)       | [![Last Commit](https://img.shields.io/github/last-commit/lingui/js-lingui?style=for-the-badge)](https://github.com/lingui/js-lingui/commits)       | ديسمبر 2016   | [![npm](https://img.shields.io/npm/v/@lingui/core?style=for-the-badge)](https://www.npmjs.com/package/@lingui/core) | [![npm downloads](https://img.shields.io/npm/dm/@lingui/core?style=for-the-badge)](https://www.npmjs.com/package/@lingui/core) |
+| المكتبة               | نجوم GitHub                                                                                                                                                                    | إجمالي التعديلات (Commits)                                                                                                                                                          | آخر تعديل                                                                                                                                           | الإصدار الأول | إصدار NPM                                                                                                           | تنزيلات NPM                                                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `aymericzip/intlayer` | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) | أبريل 2024  | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)         |
+| `lingui/js-lingui`    | [![GitHub Repo stars](https://img.shields.io/github/stars/lingui/js-lingui?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/lingui/js-lingui/stargazers)       | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/lingui/js-lingui?style=for-the-badge&label=commits)](https://github.com/lingui/js-lingui/commits)       | [![Last Commit](https://img.shields.io/github/last-commit/lingui/js-lingui?style=for-the-badge)](https://github.com/lingui/js-lingui/commits)       | ديسمبر 2016 | [![npm](https://img.shields.io/npm/v/@lingui/core?style=for-the-badge)](https://www.npmjs.com/package/@lingui/core) | [![npm downloads](https://img.shields.io/npm/dm/@lingui/core?style=for-the-badge)](https://www.npmjs.com/package/@lingui/core) |
 
 > يتم تحديث الشارات تلقائياً. تختلف اللقطات بمرور الوقت.
 
 ## مقارنة الميزات وجهاً لوجه
 
-| الميزة                                                 | Intlayer (`react-intlayer` / `next-intlayer`)                             | Lingui (`@lingui/core` / `@lingui/react`)                                            |
-| ------------------------------------------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **الترجمات بجانب المكونات**                            | ✅ نعم، ملف `.content.ts` موجود بجوار كل مكون                             | ⚠️ نصوص المصدر مضمنة داخل JSX عبر الماكرو؛ الترجمات في كتالوجات `.po` مركزية         |
-| **التكامل مع TypeScript**                              | ✅ أنواع صارمة يتم إنشاؤها تلقائياً من المحتوى                            | ⚠️ وحدات الماكرو ذات أنواع محددة؛ لكن معرفات الرسائل والترجمات المفقودة لا يتم كشفها |
+| الميزة                                                 | Intlayer (`react-intlayer` / `next-intlayer`)                             | Lingui (`@lingui/core` / `@lingui/react`)                                           |
+| ------------------------------------------------------ | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **الترجمات بجانب المكونات**                            | ✅ نعم، ملف `.content.ts` موجود بجوار كل مكون                             | ⚠️ نصوص المصدر مضمنة داخل JSX عبر الماكرو؛ الترجمات في كتالوجات `.po` مركزية        |
+| **التكامل مع TypeScript**                              | ✅ أنواع صارمة يتم إنشاؤها تلقائياً من المحتوى                             | ⚠️ وحدات الماكرو ذات أنواع محددة؛ لكن معرفات الرسائل والترجمات المفقودة لا يتم كشفها |
 | **اكتشاف الترجمات المفقودة**                           | ✅ خطأ TypeScript + خطأ/تحذير في وقت البناء                               | ⚠️ يعرض `lingui extract` إحصائيات؛ بينما تعود بيئة التشغيل إلى نص المصدر تلقائياً    |
-| **المحتوى الغني (JSX / Markdown / مكونات)**            | ✅ دعم مباشر                                                              | ✅ `<Trans>` مع مكونات متداخلة                                                       |
-| **دعم معيار ICU**                                      | ⚠️ قيد التطوير                                                            | ✅ نعم (وحدات ماكرو `plural` و`select` و`selectOrdinal`)                             |
-| **التنسيق (التواريخ، الأرقام، العملات)**               | ✅ `useNumber` و`useDate` وغيرها (تعتمد على Intl داخلياً)                 | ✅ `i18n.date()` و`i18n.number()`                                                    |
+| **المحتوى الغني (JSX / Markdown / مكونات)**            | ✅ دعم مباشر                                                              | ✅ `<Trans>` مع مكونات متداخلة                                                      |
+| **دعم معيار ICU**                                      | ⚠️ قيد التطوير                                                            | ✅ نعم (وحدات ماكرو `plural` و`select` و`selectOrdinal`)                            |
+| **التنسيق (التواريخ، الأرقام، العملات)**                 | ✅ `useNumber` و`useDate` وغيرها (تعتمد على Intl داخلياً)                  | ✅ `i18n.date()` و`i18n.number()`                                                   |
 | **التوجيه المترجم والبرمجيات الوسيطة**                 | ✅ وكيل وبرمجية وسيطة مدمجة، دالة `getMultilingualUrls`                   | ❌ ليست جزءاً من النواة                                                              |
-| **مساعدات تحسين محركات البحث SEO**                     | ✅ مساعدات مدمجة (hreflang وsitemap وrobots)                              | ❌ يدوية                                                                             |
+| **مساعدات تحسين محركات البحث SEO**                     | ✅ مساعدات مدمجة (hreflang وsitemap وrobots)                              | ❌ يدوية                                                                            |
 | **مكونات الخادم المتزامنة (Server Components)**        | ✅ دالة `useIntlayer` من `next-intlayer/server` تعمل في أي مكون خادم فرعي | ⚠️ تحتاج إلى كائن `I18n` لكل طلب، يتم تمريره لأسفل أو تعيينه عبر `setI18n`           |
-| **تقليم الشجرة Tree-shaking (إرسال المحتوى المستخدم)** | ✅ لكل مكون، ولكل لغة، وبشكل تلقائي بواسطة المترجم                        | ⚠️ لكل لغة عبر `lingui compile`؛ وتتطلب تقسيماً يدوياً لكل مسار                      |
-| **التحميل الكسول (Lazy loading)**                      | ✅ `importMode: 'dynamic'` (سطر إعداد واحد)                               | ⚠️ استخدام `import()` يدوي للكتالوجات المجمعة + `i18n.load()` / `i18n.activate()`    |
-| **تنظيف المحتوى غير المستخدم**                         | ✅ يتم التخلص من القواميس غير المستخدمة أثناء البناء                      | ✅ أمر `lingui extract --clean` يزيل الرسائل المهملة                                 |
-| **اختبار الترجمات المفقودة (CLI / CI)**                | ✅ `npx intlayer content test`                                            | ⚠️ إحصائيات `lingui extract` (لا يوجد رمز خروج بالخطأ افتراضياً)                     |
-| **مسار البناء (Build pipeline)**                       | ✅ إضافة واحدة (`@intlayer/swc` / `@intlayer/babel` / `vite-intlayer`)    | ⚠️ إضافة ماكرو (Babel أو SWC) + خطوات `extract` + `compile`                          |
-| **ترجمة مدعومة بالذكاء الاصطناعي**                     | ✅ مدمجة وتستخدم مفاتيح الموفر الخاصة بك                                  | ❌ لا يوجد                                                                           |
+| **تقليم الشجرة Tree-shaking (إرسال المحتوى المستخدم)** | ✅ لكل مكون، ولكل لغة، وبشكل تلقائي بواسطة المترجم                        | ⚠️ لكل لغة عبر `lingui compile`؛ وتتطلب تقسيماً يدوياً لكل مسار                       |
+| **التحميل الكسول (Lazy loading)**                      | ✅ `importMode: 'dynamic'` (سطر إعداد واحد)                               | ⚠️ استخدام `import()` يدوي للكتالوجات المجمعة + `i18n.load()` / `i18n.activate()`   |
+| **تنظيف المحتوى غير المستخدم**                         | ✅ يتم التخلص من القواميس غير المستخدمة أثناء البناء                      | ✅ أمر `lingui extract --clean` يزيل الرسائل المهملة                                |
+| **اختبار الترجمات المفقودة (CLI / CI)**                | ✅ `npx intlayer content test`                                            | ⚠️ إحصائيات `lingui extract` (لا يوجد رمز خروج بالخطأ افتراضياً)                      |
+| **مسار البناء (Build pipeline)**                       | ✅ إضافة واحدة (`@intlayer/swc` / `@intlayer/babel` / `vite-intlayer`)    | ⚠️ إضافة ماكرو (Babel أو SWC) + خطوات `extract` + `compile`                         |
+| **ترجمة مدعومة بالذكاء الاصطناعي**                      | ✅ مدمجة وتستخدم مفاتيح الموفر الخاصة بك                                  | ❌ لا يوجد                                                                           |
 | **محرر مرئي / CMS**                                    | ✅ محرر مرئي مجاني + نظام إدارة محتوى (CMS) اختياري                       | ❌ لا يوجد (ملفات `.po` تعمل مع أنظمة TMS خارجية)                                    |
-| **خادم MCP ومهارات الوكلاء (Agent Skills)**            | ✅ نعم                                                                    | ❌ لا يوجد                                                                           |
-| **النظام البيئي والمجتمع**                             | ⚠️ أصغر لكنه ينمو بسرعة                                                   | ✅ راسخ ومستقل عن أطر العمل                                                          |
+| **خادم MCP ومهارات الوكلاء (Agent Skills)**             | ✅ نعم                                                                    | ❌ لا يوجد                                                                           |
+| **النظام البيئي والمجتمع**                             | ⚠️ أصغر لكنه ينمو بسرعة                                                   | ✅ راسخ ومستقل عن أطر العمل                                                         |
 
 ## الاختبار
 
@@ -74,12 +77,12 @@ author: aymericzip
 
 تبني مجموعة [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) **التطبيق نفسه** باستخدام كل مكتبة: **10 صفحات** (الرئيسية، من نحن، المدونة، الوظائف، اتصل بنا، الأسئلة الشائعة، الأسعار، المنتجات، الإعدادات، الفريق)، و**10 لغات** (`en`، `fr`، `es`، `de`، `it`، `pt`، `zh`، `ja`، `ko`، `ru`)، مع مكونات متطابقة ومحتوى متطابق. يتم قياس الصفحات باللغتين `en` و`fr`. يتم تنفيذ كل مكتبة في ما يصل إلى أربع **استراتيجيات تحميل**، بدءاً من التهيئة البسيطة وحتى التهيئة المثلى:
 
-| الاستراتيجية       | الوصف                                                                               | من يستخدمها                                      |
-| ------------------ | ----------------------------------------------------------------------------------- | ------------------------------------------------ |
-| **static**         | يتم استيراد الكتالوج المجمع لكل لغة وتحميله مسبقاً بالكامل                          | النماذج الأولية السريعة، الأكواد المولدة بالذكاء |
-| **dynamic**        | يتم استيراد كتالوج اللغة النشطة فقط عبر `import()`، ولكنه يحتوي على جميع الصفحات    | معظم المشاريع                                    |
-| **scoped-static**  | كتالوج واحد لكل مسار، يتم تجميعها جميعاً مسبقاً                                     | نادرة الاستخدام                                  |
-| **scoped-dynamic** | كتالوج واحد لكل مسار + تحميل كسول عبر `import()`. فقط الصفحة الحالية واللغة الحالية | التطبيقات ذات ميزانية الأداء الصارمة             |
+| الاستراتيجية        | الوصف                                                                               | من يستخدمها                                    |
+| ------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------- |
+| **static**         | يتم استيراد الكتالوج المجمع لكل لغة وتحميله مسبقاً بالكامل                           | النماذج الأولية السريعة، الأكواد المولدة بالذكاء |
+| **dynamic**        | يتم استيراد كتالوج اللغة النشطة فقط عبر `import()`، ولكنه يحتوي على جميع الصفحات    | معظم المشاريع                                  |
+| **scoped-static**  | كتالوج واحد لكل مسار، يتم تجميعها جميعاً مسبقاً                                       | نادرة الاستخدام                                 |
+| **scoped-dynamic** | كتالوج واحد لكل مسار + تحميل كسول عبر `import()`. فقط الصفحة الحالية واللغة الحالية | التطبيقات ذات ميزانية الأداء الصارمة            |
 
 لا يحتوي Intlayer على متغير "مخصص النطاق" (scoped): يقوم المترجم بتحديد نطاق المحتوى **لكل مكون** تلقائياً، وبالتالي فإن صفي `static` و`dynamic` محصوران بالفعل بطبيعتهما.
 
@@ -101,7 +104,7 @@ author: aymericzip
 
 <I18nBenchmark framework="nextjs" packages="lingui,next-intlayer" vertical/>
 
-| المكتبة              | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
+| المكتبة              | الاستراتيجية    | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
 | -------------------- | -------------- | ---------------: | -------------------: | ---------: | ----------: | ----------------: | ----------: | ------: |
 | **base** (بدون i18n) | -              |           0.0 KB |             141.0 KB |       0.0% |        0.0% |            0.9 KB |     13.4 ms | 11.8 ms |
 | Lingui               | static         |          11.9 KB |             207.4 KB |      50.0% |       90.0% |           73.3 KB |     15.3 ms | 15.2 ms |
@@ -132,7 +135,7 @@ style="border:none;"
 
 ### النتائج على TanStack Start
 
-| المكتبة                    | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
+| المكتبة                    | الاستراتيجية    | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
 | -------------------------- | -------------- | ---------------: | -------------------: | ---------: | ----------: | ----------------: | ----------: | ------: |
 | **base** (بدون i18n)       | -              |           0.0 KB |             111.0 KB |       0.0% |        0.0% |            0.7 KB |      8.1 ms | 21.6 ms |
 | Lingui                     | static         |          11.2 KB |             152.2 KB |      50.0% |       90.0% |           58.0 KB |      3.9 ms | 19.9 ms |

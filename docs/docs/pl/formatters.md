@@ -45,9 +45,12 @@ history:
     date: 2025-08-20
     changes: "Dodano narzędzia do obsługi treści (getContent, getTranslation, getIntlayer, itd.)"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Formatery Intlayer
+
+<iframe title="Wszystko o i18n: kompletny przewodnik po internacjonalizacji stron" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Spis treści
 

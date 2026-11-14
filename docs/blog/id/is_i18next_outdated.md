@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-i18next-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # Apakah i18next Sudah Ketinggalan Zaman di Tahun 2026?
+
+<iframe title="Semua tentang i18n: Panduan lengkap internasionalisasi web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 `i18next` diluncurkan pada tahun 2011, jauh sebelum komponen React, bundling Webpack, atau TypeScript menjadi standar umum. Pustaka ini mendominasi ekosistem karena fleksibilitas dan jangkauannya yang luas, memiliki plugin untuk hampir setiap tech stack, dan solusi StackOverflow untuk setiap kendala.
 

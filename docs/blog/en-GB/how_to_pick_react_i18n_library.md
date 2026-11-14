@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # How to pick the right React i18n library
+
+<iframe title="All About i18n: The Complete Guide to Web Internationalisation" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 React ships no i18n primitive. The library you pick on day one decides how translations are stored, how they reach the bundle, and how much of the work stays yours for the next few years. Most teams pick by popularity, then discover the trade-offs at 2,000 keys.
 

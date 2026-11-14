@@ -27,9 +27,12 @@ history:
     date: 2025-06-29
     changes: "Inicialização do histórico"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1317s
 ---
 
 # Por que você deve considerar o Intlayer?
+
+<iframe title="Tudo sobre i18n: o guia completo de internacionalização web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1317&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## O que é o Intlayer?
 

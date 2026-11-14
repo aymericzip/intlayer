@@ -24,9 +24,12 @@ history:
     date: 2026-05-04
     changes: "Init history"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2357s
 ---
 
 # Treści w liczbie mnogiej / Liczba mnoga w Intlayer
+
+<iframe title="Wszystko o i18n: kompletny przewodnik po internacjonalizacji stron" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2357&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Jak działa liczba mnoga
 

@@ -19,9 +19,12 @@ slugs:
   - blog
   - why-icu-is-not-made-for-js
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # ICU MessageFormat जावास्क्रिप्ट के लिए क्यों नहीं बना है
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat एक बेहतरीन मानक है। यह पूरी तरह से परिपूर्ण है, अनुवादक इसे अच्छी तरह समझते हैं, और अधिकांश अनुवाद प्रबंधन प्रणालियाँ (TMS) इसे पढ़ सकती हैं। समस्या उस रनटाइम परिवेश में है जिसके लिए इसे तैयार किया गया था। ICU का जन्म C++ और Java की दुनिया में हुआ था, जहाँ पूरे एप्लिकेशन के आकार की तुलना में एक संपूर्ण संदेश पार्सर और फॉर्मेटर का आकार नगण्य होता है। लेकिन ब्राउज़र बंडल में यह अतिरिक्त लागत हर पेज लोड पर चुकानी पड़ती है।
 

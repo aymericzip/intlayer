@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-intlayer-lighter-than-paraglide
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2081s
 ---
 
 # Intlayer는 Paraglide보다 가벼운가요?
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2081&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 네, 그렇습니다.
 

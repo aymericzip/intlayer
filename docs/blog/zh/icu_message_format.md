@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # ICU 消息格式：核心语法与常见误区
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat 是一种字符串语法规范，允许翻译文本自带条件分支逻辑：复数处理、性别形式、数字与日期格式化等。它的核心理念在于：语法归翻译人员掌控，而非编写 `if (count === 1)` 的开发人员。本文将介绍该语法的基本构成、导致简单实现失效的语言特性，以及 JavaScript 生态系统对该标准的支持情况。
 

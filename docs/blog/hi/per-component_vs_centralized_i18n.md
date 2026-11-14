@@ -15,9 +15,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # प्रति-कम्पोनेंट बनाम केंद्रीकृत i18n
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 प्रति-कम्पोनेंट दृष्टिकोण एक नया अवधारणा नहीं है। उदाहरण के लिए, Vue इकोसिस्टम में, `vue-i18n` [SFC i18n (Single File Component)](https://vue-i18n.intlify.dev/guide/advanced/sfc.html) का समर्थन करता है। Nuxt भी [प्रति-कम्पोनेंट अनुवाद](https://i18n.nuxtjs.org/docs/guide/per-component-translations) प्रदान करता है, और Angular अपने [Feature Modules](https://v17.angular.io/guide/feature-modules) के माध्यम से एक समान पैटर्न का उपयोग करता है।
 
@@ -124,8 +127,8 @@ Let me tell you why it can be problematic for your app:
 
 पहला उदाहरण प्रति-लोकल lazy-loaded अनुवाद शामिल नहीं करता है और namespace splitting नहीं है। दूसरा content purging + dynamic loading के साथ अनुवाद दिखाता है।
 
-| ऑप्टिमाइज़्ड बंडल                                                                                                                 | अनऑप्टिमाइज़्ड बंडल                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ऑप्टिमाइज़्ड बंडल                                                                                                                 | अनऑप्टिमाइज़्ड बंडल                                                                                  |
+| ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | ![अनुकूलित नहीं किया गया बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![अनुकूलित बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Namespaces के कारण, हम इस संरचना से नीचे दी गई संरचना में आ गए:

@@ -19,9 +19,12 @@ slugs:
   - blog
   - why-icu-is-not-made-for-js
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Por qué ICU MessageFormat no está hecho para JavaScript
+
+<iframe title="Todo sobre i18n: la guía completa de la internacionalización web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat es un estándar sólido. Es completo, los traductores lo conocen y la mayoría de los sistemas de gestión de traducciones (TMS) pueden leerlo. El inconveniente radica en el entorno de ejecución para el que fue creado. ICU proviene de C++ y Java, donde un parser y formateador de mensajes completo supone un coste ínfimo frente al resto del programa. En el bundle del navegador, ese coste se asume en cada carga de página.
 

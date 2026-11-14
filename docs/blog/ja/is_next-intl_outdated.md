@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-next-intl-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # 2026年においてnext-intlは時代遅れなのか？
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 VercelがApp Routerを導入し、Pages Routerの組み込みi18n機能を非推奨とした際、その受け皿として急速に支持を集めたのが`next-intl`でした。Jan Amann氏による丁寧なドキュメントと迅速なApp Router対応により、コミュニティの標準的な選択肢としての地位を確立しました。
 

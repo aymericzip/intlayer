@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Format de Message ICU : la syntaxe et les pièges courants
+
+<iframe title="Tout sur l'i18n : le guide complet de l'internationalisation web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat est une syntaxe de chaîne permettant à une traduction d'embarquer sa propre logique conditionnelle : pluriels, formes selon le genre, formatage de nombres et de dates. Elle part du principe que la grammaire appartient au traducteur, non au développeur qui écrirait `if (count === 1)`. Cet article aborde la syntaxe, les aspects linguistiques qui mettent en échec les implémentations naïves et la façon dont l'écosystème JS gère ces problématiques.
 

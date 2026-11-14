@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Toevoeging van de `minify` en `purge` opties aan de buildconfiguratie"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # i18n Bundelgrootte & Prestatie-optimalisatie
+
+<iframe title="Alles over i18n: de complete gids voor webinternationalisatie" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Een van de meest voorkomende uitdagingen bij traditionele i18n-oplossingen die op JSON-bestanden vertrouwen, is het beheren van de contentgrootte. Als ontwikkelaars de content niet handmatig scheiden in namespaces, downloaden gebruikers vaak vertalingen voor elke pagina en mogelijk voor elke taal, alleen maar om één enkele pagina te bekijken.
 

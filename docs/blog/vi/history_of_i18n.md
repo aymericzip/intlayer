@@ -19,9 +19,12 @@ slugs:
   - blog
   - history-of-js-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=716s
 ---
 
 # Lịch sử Quốc tế hóa JavaScript (i18n)
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=716&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Quốc tế hóa không phải là một khái niệm mới. Từ rất lâu trước khi JavaScript và web hiện đại phổ biến, phần mềm đã phải xử lý nhiều ngôn ngữ, tiền tệ, định dạng ngày tháng và quy ước theo từng khu vực. Các hệ điều hành đồ họa thời kỳ đầu như GEM và Mac OS đã giải quyết nhiều vấn đề này từ những năm 1980.
 

@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Додано опції `minify` та `purge` до конфігурації збірки"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # Оптимізація розміру бандлу та продуктивності i18n
+
+<iframe title="Усе про i18n: повний посібник з інтернаціоналізації вебу" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Одним із найпоширеніших викликів під час використання традиційних рішень i18n, що покладаються на JSON-файли, є керування розміром контенту. Якщо розробники не розділяють контент на простори імен (namespaces) вручну, користувачі часто завантажують переклади для кожної сторінки та потенційно кожної мови лише для того, щоб переглянути одну сторінку.
 

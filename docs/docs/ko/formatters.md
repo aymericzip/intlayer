@@ -42,9 +42,12 @@ history:
     date: 2025-08-20
     changes: "콘텐츠 처리 유틸리티 추가 (getContent, getTranslation, getIntlayer 등)"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Intlayer 포매터
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## 개요
 

@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # Cách chọn đúng thư viện React i18n
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 React không đi kèm primitive i18n nào. Thư viện bạn chọn ngay từ ngày đầu tiên sẽ quyết định cách các bản dịch được lưu trữ, cách chúng được nạp vào bundle, và bạn sẽ phải tự xử lý bao nhiêu công việc trong vài năm tiếp theo. Hầu hết các đội ngũ lựa chọn dựa trên mức độ phổ biến, rồi sau đó mới nhận ra sự đánh đổi khi ứng dụng chạm mốc 2.000 key.
 

@@ -22,9 +22,12 @@ slugs:
   - blog
   - i18next-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # i18next बनाम Intlayer: React और Next.js अंतर्राष्ट्रीयकरण (i18n) बेंचमार्क
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -41,37 +44,37 @@ author: aymericzip
 - **i18next / react-i18next / next-i18next** - परिपक्व, प्लगइन्स से भरपूर, और फ्रेमवर्क-अज्ञेयवादी। नेमस्पेस, लैंग्वेज डिटेक्टर्स, बैकएंड्स, प्लगइन के जरिए ICU, और रिच कंटेंट के लिए `<Trans>` का समर्थन। कंटेंट `locales/{lng}/{ns}.json` में केंद्रीकृत रहता है। शक्तिशाली है, लेकिन प्रत्येक अनुकूलन (नेमस्पेस विभाजन, प्रति पेज लोडिंग, टाइप सुरक्षा) मैन्युअल कॉन्फ़िगरेशन मांगता है।
 - **Intlayer** - कंपोनेंट-केंद्रित कंटेंट मॉडल। `.content.ts` शब्दकोश उसी कंपोनेंट के बगल में स्थित होते हैं जिसे वे सेवा प्रदान करते हैं, बिल्ड-टाइम कंपाइलर कंपोनेंट और लोकेल के आधार पर ट्री-शेकिंग और लेज़ी-लोडिंग करता है, कंटेंट से स्वचालित रूप से सख्त TypeScript प्रकार उत्पन्न होते हैं, और अनुवाद छूटने पर बिल्ड तुरंत फेल हो जाता है। मिडलवेयर, SEO हेल्पर्स, विजुअल एडिटर / CMS और AI अनुवाद प्रदान करता है।
 
-| लाइब्रेरी               | GitHub स्टार्स                                                                                                                                                                     | कुल कमिट्स                                                                                                                                                                             | अंतिम कमिट                                                                                                                                              | पहला संस्करण | NPM संस्करण                                                                                                           | NPM मासिक डाउनलोड                                                                                                                |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| लाइब्रेरी                 | GitHub स्टार्स                                                                                                                                                                       | कुल कमिट्स                                                                                                                                                                               | अंतिम कमिट                                                                                                                                               | पहला संस्करण | NPM संस्करण                                                                                                             | NPM मासिक डाउनलोड                                                                                                                |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `aymericzip/intlayer`   | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers)     | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits)     | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits)     | अप्रैल 2024  | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)           | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)           |
-| `i18next/i18next`       | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/i18next/stargazers)             | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/i18next?style=for-the-badge&label=commits)](https://github.com/i18next/i18next/commits)             | [![Last Commit](https://img.shields.io/github/last-commit/i18next/i18next?style=for-the-badge)](https://github.com/i18next/i18next/commits)             | जनवरी 2012   | [![npm](https://img.shields.io/npm/v/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)             | [![npm downloads](https://img.shields.io/npm/dm/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)             |
-| `i18next/react-i18next` | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/react-i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/react-i18next/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/react-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/react-i18next/commits) | [![Last Commit](https://img.shields.io/github/last-commit/i18next/react-i18next?style=for-the-badge)](https://github.com/i18next/react-i18next/commits) | दिसंबर 2015  | [![npm](https://img.shields.io/npm/v/react-i18next?style=for-the-badge)](https://www.npmjs.com/package/react-i18next) | [![npm downloads](https://img.shields.io/npm/dm/react-i18next?style=for-the-badge)](https://www.npmjs.com/package/react-i18next) |
-| `i18next/next-i18next`  | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/next-i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/next-i18next/stargazers)   | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/next-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/next-i18next/commits)   | [![Last Commit](https://img.shields.io/github/last-commit/i18next/next-i18next?style=for-the-badge)](https://github.com/i18next/next-i18next/commits)   | नवंबर 2018   | [![npm](https://img.shields.io/npm/v/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next)   | [![npm downloads](https://img.shields.io/npm/dm/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next)   |
+| `i18next/i18next`       | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/i18next/stargazers)             | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/i18next?style=for-the-badge&label=commits)](https://github.com/i18next/i18next/commits)             | [![Last Commit](https://img.shields.io/github/last-commit/i18next/i18next?style=for-the-badge)](https://github.com/i18next/i18next/commits)             | जनवरी 2012 | [![npm](https://img.shields.io/npm/v/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)             | [![npm downloads](https://img.shields.io/npm/dm/i18next?style=for-the-badge)](https://www.npmjs.com/package/i18next)             |
+| `i18next/react-i18next` | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/react-i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/react-i18next/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/react-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/react-i18next/commits) | [![Last Commit](https://img.shields.io/github/last-commit/i18next/react-i18next?style=for-the-badge)](https://github.com/i18next/react-i18next/commits) | दिसंबर 2015 | [![npm](https://img.shields.io/npm/v/react-i18next?style=for-the-badge)](https://www.npmjs.com/package/react-i18next) | [![npm downloads](https://img.shields.io/npm/dm/react-i18next?style=for-the-badge)](https://www.npmjs.com/package/react-i18next) |
+| `i18next/next-i18next`  | [![GitHub Repo stars](https://img.shields.io/github/stars/i18next/next-i18next?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/i18next/next-i18next/stargazers)   | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/i18next/next-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/next-i18next/commits)   | [![Last Commit](https://img.shields.io/github/last-commit/i18next/next-i18next?style=for-the-badge)](https://github.com/i18next/next-i18next/commits)   | नवंबर 2018  | [![npm](https://img.shields.io/npm/v/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next)   | [![npm downloads](https://img.shields.io/npm/dm/next-i18next?style=for-the-badge)](https://www.npmjs.com/package/next-i18next)   |
 
 > बैज अपने आप अपडेट होते हैं। आंकड़े समय के साथ बदल सकते हैं।
 
 ## तुलनात्मक फीचर विश्लेषण
 
-| फीचर                                          | Intlayer (`react-intlayer` / `next-intlayer`)                                 | i18next (`react-i18next` / `next-i18next`)                              |
-| --------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| **कंपोनेंट के पास अनुवाद**                    | ✅ हाँ, `.content.ts` प्रत्येक कंपोनेंट के साथ स्थित                          | ❌ नहीं, `locales/{lng}/{ns}.json` में केंद्रीकृत                       |
-| **TypeScript एकीकरण**                         | ✅ कंटेंट से स्वतः सख्त प्रकार उत्पन्न                                        | ⚠️ बुनियादी; सख्त कुंजियों के लिए `CustomTypeOptions` विस्तार आवश्यक    |
-| **छूटे हुए अनुवाद का पता लगाना**              | ✅ TypeScript त्रुटि + बिल्ड समय पर त्रुटि/चेतावनी                            | ⚠️ रनटाइम फ़ॉलबैक (`saveMissing`, कुंजी की प्रतिध्वनि)                  |
-| **रिच कंटेंट (JSX / Markdown / कंपोनेंट्स)**  | ✅ प्रत्यक्ष मूल समर्थन                                                       | ⚠️ अनुक्रमित प्लेसहोल्डर्स के साथ `<Trans>`                             |
-| **ICU समर्थन**                                | ⚠️ प्रगति पर है                                                               | ⚠️ प्लगइन के माध्यम से (`i18next-icu`)                                  |
-| **बहुवचन (Pluralization)**                    | ✅ गणना आधारित पैटर्न                                                         | ✅ `_one` / `_other` प्रत्यय (Intl.PluralRules)                         |
-| **प्रारूपण (दिनांक, संख्याएँ, मुद्राएँ)**     | ✅ `useNumber`, `useDate`, आदि (आंतरिक रूप से Intl आधारित)                    | ⚠️ इंटरपोलेशन फॉर्मैटर्स या मैन्युअल `Intl.*` कॉल                       |
-| **स्थानीयकृत रूटिंग और मिडलवेयर**             | ✅ अंतर्निहित प्रॉक्सी/मिडलवेयर, `getMultilingualUrls`                        | ⚠️ मुख्य लाइब्रेरी में नहीं; कस्टम मिडलवेयर या तीसरे पक्ष के टूल आवश्यक |
-| **SEO हेल्पर्स (hreflang, sitemap, robots)**  | ✅ अंतर्निहित सहायता                                                          | ❌ मैन्युअल                                                             |
-| **सिंक्रोनस सर्वर कंपोनेंट्स**                | ✅ `next-intlayer/server` से `useIntlayer` किसी भी सर्वर कंपोनेंट में चलता है | ⚠️ पेज स्तर पर `getFixedT`, फिर Props के रूप में `t` को नीचे भेजना      |
-| **ट्री-शेकिंग (केवल प्रयुक्त सामग्री शामिल)** | ✅ कंपोनेंट और भाषा स्तर पर कंपाइलर द्वारा स्वचालित                           | ⚠️ मैन्युअल: नेमस्पेस + पेज स्तर पर `ns` सूची + बैकएंड                  |
-| **लेज़ी लोडिंग (Lazy loading)**               | ✅ `importMode: 'dynamic'` (कॉन्फ़िगरेशन की एक पंक्ति)                        | ✅ बैकएंड प्लगइन्स के माध्यम से (`i18next-resources-to-backend` आदि)    |
-| **अप्रयुक्त सामग्री हटाना (Purge)**           | ✅ अप्रयुक्त शब्दकोश बिल्ड के समय हटा दिए जाते हैं                            | ❌ अंतर्निहित नहीं                                                      |
-| **अनुवाद परीक्षण (CLI / CI)**                 | ✅ `npx intlayer content test`                                                | ⚠️ `i18next-parser` या बाहरी उपकरण                                      |
-| **AI-संचालित अनुवाद**                         | ✅ अंतर्निहित, आपकी अपनी API कुंजियों का उपयोग करता है                        | ❌ नहीं (Locize एक अलग सशुल्क सेवा है)                                  |
-| **विजुअल एडिटर / CMS**                        | ✅ मुफ़्त विजुअल एडिटर + वैकल्पिक CMS                                         | ❌ नहीं (Locize या बाहरी प्लेटफ़ॉर्म)                                   |
-| **MCP सर्वर और Agent Skills**                 | ✅ समर्थित                                                                    | ❌ असमर्थित                                                             |
-| **इकोसिस्टम और समुदाय**                       | ⚠️ नया लेकिन तेजी से बढ़ रहा है                                               | ✅ सबसे बड़ा और सबसे परिपक्व                                            |
+| फीचर                                      | Intlayer (`react-intlayer` / `next-intlayer`)                         | i18next (`react-i18next` / `next-i18next`)                    |
+| ----------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **कंपोनेंट के पास अनुवाद**                     | ✅ हाँ, `.content.ts` प्रत्येक कंपोनेंट के साथ स्थित                           | ❌ नहीं, `locales/{lng}/{ns}.json` में केंद्रीकृत                    |
+| **TypeScript एकीकरण**                     | ✅ कंटेंट से स्वतः सख्त प्रकार उत्पन्न                                         | ⚠️ बुनियादी; सख्त कुंजियों के लिए `CustomTypeOptions` विस्तार आवश्यक  |
+| **छूटे हुए अनुवाद का पता लगाना**              | ✅ TypeScript त्रुटि + बिल्ड समय पर त्रुटि/चेतावनी                          | ⚠️ रनटाइम फ़ॉलबैक (`saveMissing`, कुंजी की प्रतिध्वनि)              |
+| **रिच कंटेंट (JSX / Markdown / कंपोनेंट्स)**     | ✅ प्रत्यक्ष मूल समर्थन                                                    | ⚠️ अनुक्रमित प्लेसहोल्डर्स के साथ `<Trans>`                          |
+| **ICU समर्थन**                             | ⚠️ प्रगति पर है                                                         | ⚠️ प्लगइन के माध्यम से (`i18next-icu`)                            |
+| **बहुवचन (Pluralization)**                 | ✅ गणना आधारित पैटर्न                                                   | ✅ `_one` / `_other` प्रत्यय (Intl.PluralRules)                 |
+| **प्रारूपण (दिनांक, संख्याएँ, मुद्राएँ)**          | ✅ `useNumber`, `useDate`, आदि (आंतरिक रूप से Intl आधारित)               | ⚠️ इंटरपोलेशन फॉर्मैटर्स या मैन्युअल `Intl.*` कॉल                     |
+| **स्थानीयकृत रूटिंग और मिडलवेयर**              | ✅ अंतर्निहित प्रॉक्सी/मिडलवेयर, `getMultilingualUrls`                     | ⚠️ मुख्य लाइब्रेरी में नहीं; कस्टम मिडलवेयर या तीसरे पक्ष के टूल आवश्यक     |
+| **SEO हेल्पर्स (hreflang, sitemap, robots)** | ✅ अंतर्निहित सहायता                                                    | ❌ मैन्युअल                                                      |
+| **सिंक्रोनस सर्वर कंपोनेंट्स**                   | ✅ `next-intlayer/server` से `useIntlayer` किसी भी सर्वर कंपोनेंट में चलता है | ⚠️ पेज स्तर पर `getFixedT`, फिर Props के रूप में `t` को नीचे भेजना    |
+| **ट्री-शेकिंग (केवल प्रयुक्त सामग्री शामिल)**     | ✅ कंपोनेंट और भाषा स्तर पर कंपाइलर द्वारा स्वचालित                          | ⚠️ मैन्युअल: नेमस्पेस + पेज स्तर पर `ns` सूची + बैकएंड                   |
+| **लेज़ी लोडिंग (Lazy loading)**              | ✅ `importMode: 'dynamic'` (कॉन्फ़िगरेशन की एक पंक्ति)                     | ✅ बैकएंड प्लगइन्स के माध्यम से (`i18next-resources-to-backend` आदि) |
+| **अप्रयुक्त सामग्री हटाना (Purge)**           | ✅ अप्रयुक्त शब्दकोश बिल्ड के समय हटा दिए जाते हैं                             | ❌ अंतर्निहित नहीं                                               |
+| **अनुवाद परीक्षण (CLI / CI)**               | ✅ `npx intlayer content test`                                        | ⚠️ `i18next-parser` या बाहरी उपकरण                            |
+| **AI-संचालित अनुवाद**                       | ✅ अंतर्निहित, आपकी अपनी API कुंजियों का उपयोग करता है                      | ❌ नहीं (Locize एक अलग सशुल्क सेवा है)                             |
+| **विजुअल एडिटर / CMS**                     | ✅ मुफ़्त विजुअल एडिटर + वैकल्पिक CMS                                       | ❌ नहीं (Locize या बाहरी प्लेटफ़ॉर्म)                              |
+| **MCP सर्वर और Agent Skills**              | ✅ समर्थित                                                             | ❌ असमर्थित                                                    |
+| **इकोसिस्टम और समुदाय**                     | ⚠️ नया लेकिन तेजी से बढ़ रहा है                                            | ✅ सबसे बड़ा और सबसे परिपक्व                                      |
 
 ## बेंचमार्क परिणाम
 
@@ -79,12 +82,12 @@ author: aymericzip
 
 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) सूट प्रत्येक लाइब्रेरी के साथ **समान एप्लिकेशन** बनाता है: **10 पेज** (home, about, blog, careers, contact, FAQ, pricing, products, settings, team), **10 भाषाएँ** (`en`, `fr`, `es`, `de`, `it`, `pt`, `zh`, `ja`, `ko`, `ru`), समान कंपोनेंट्स और समान कंटेंट। परीक्षण अंग्रेजी और फ्रेंच में किए गए। प्रत्येक लाइब्रेरी को चार **लोडिंग रणनीतियों** में परखा गया:
 
-| रणनीति             | विवरण                                                                         | सामान्य उपयोग                     |
-| ------------------ | ----------------------------------------------------------------------------- | --------------------------------- |
-| **static**         | सभी भाषाएँ और सभी पेज एक साथ बंडल किए गए (`init()` में इनलाइन `resources`)    | त्वरित प्रोटोटाइप, AI-जनरेटेड कोड |
-| **dynamic**        | केवल सक्रिय भाषा बैकएंड के माध्यम से लोड होती है, लेकिन सभी नेमस्पेस एक साथ   | अधिकांश सामान्य प्रोजेक्ट्स       |
-| **scoped-static**  | प्रति रूट एक नेमस्पेस, सभी पहले से बंडल                                       | दुर्लभ                            |
-| **scoped-dynamic** | प्रति रूट एक नेमस्पेस + बैकएंड लेज़ी लोडिंग। केवल वर्तमान पेज और वर्तमान भाषा | सख्त प्रदर्शन बजट वाले एप्लिकेशन  |
+| रणनीति             | विवरण                                                                 | सामान्य उपयोग                  |
+| ------------------ | --------------------------------------------------------------------- | ----------------------------- |
+| **static**         | सभी भाषाएँ और सभी पेज एक साथ बंडल किए गए (`init()` में इनलाइन `resources`) | त्वरित प्रोटोटाइप, AI-जनरेटेड कोड |
+| **dynamic**        | केवल सक्रिय भाषा बैकएंड के माध्यम से लोड होती है, लेकिन सभी नेमस्पेस एक साथ       | अधिकांश सामान्य प्रोजेक्ट्स         |
+| **scoped-static**  | प्रति रूट एक नेमस्पेस, सभी पहले से बंडल                                       | दुर्लभ                          |
+| **scoped-dynamic** | प्रति रूट एक नेमस्पेस + बैकएंड लेज़ी लोडिंग। केवल वर्तमान पेज और वर्तमान भाषा       | सख्त प्रदर्शन बजट वाले एप्लिकेशन    |
 
 Intlayer में कोई "scoped" संस्करण नहीं है: कंपाइलर स्वचालित रूप से **प्रति कंपोनेंट** सामग्री को अलग करता है, इसलिए इसके `static` और `dynamic` विकल्प पहले से ही अनुकूलित हैं।
 
@@ -106,17 +109,17 @@ Intlayer में कोई "scoped" संस्करण नहीं है:
 
 <I18nBenchmark framework="nextjs" packages="next-i18next,next-intlayer" vertical/>
 
-| लाइब्रेरी                       | रणनीति         | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E प्रतिक्रिया | Hydration |
-| ------------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
-| **base** (बिना i18n)            | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |         13.4 ms |   11.8 ms |
-| `next-i18next`                  | static         |       19.7 KB |         218.5 KB |        0.0% |     89.8% |            78.5 KB |         16.4 ms |   15.6 ms |
-| `next-i18next`                  | dynamic        |       19.7 KB |         169.5 KB |       50.0% |     89.8% |            26.1 KB |         15.4 ms |   27.7 ms |
-| `next-i18next`                  | scoped-static  |       19.7 KB |         220.1 KB |        0.0% |     89.8% |            78.9 KB |         16.4 ms |   14.7 ms |
-| `next-i18next`                  | scoped-dynamic |       19.7 KB |         163.4 KB |        0.0% |      0.0% |            27.1 KB |         15.9 ms |   15.1 ms |
-| **`next-intlayer`**             | static         |    **5.5 KB** |     **141.3 KB** |    **0.0%** |  **0.0%** |         **8.5 KB** |     **15.5 ms** |   16.9 ms |
-| **`next-intlayer`**             | dynamic        |    **5.5 KB** |     **141.3 KB** |    **0.0%** |  **0.0%** |         **6.9 KB** |     **15.3 ms** |   15.9 ms |
-| `@intlayer/next-i18next` (संगत) | static         |        9.4 KB |         150.7 KB |        0.0% |      0.0% |             9.7 KB |         10.7 ms |   11.3 ms |
-| `@intlayer/next-i18next` (संगत) | dynamic        |        9.4 KB |         150.7 KB |        0.0% |      0.0% |             9.7 KB |         11.9 ms |   10.6 ms |
+| लाइब्रेरी                        | रणनीति         | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E प्रतिक्रिया | Hydration |
+| ------------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | ------------: | --------: |
+| **base** (बिना i18n)           | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |       13.4 ms |   11.8 ms |
+| `next-i18next`                 | static         |       19.7 KB |         218.5 KB |        0.0% |     89.8% |            78.5 KB |       16.4 ms |   15.6 ms |
+| `next-i18next`                 | dynamic        |       19.7 KB |         169.5 KB |       50.0% |     89.8% |            26.1 KB |       15.4 ms |   27.7 ms |
+| `next-i18next`                 | scoped-static  |       19.7 KB |         220.1 KB |        0.0% |     89.8% |            78.9 KB |       16.4 ms |   14.7 ms |
+| `next-i18next`                 | scoped-dynamic |       19.7 KB |         163.4 KB |        0.0% |      0.0% |            27.1 KB |       15.9 ms |   15.1 ms |
+| **`next-intlayer`**            | static         |    **5.5 KB** |     **141.3 KB** |    **0.0%** |  **0.0%** |         **8.5 KB** |   **15.5 ms** |   16.9 ms |
+| **`next-intlayer`**            | dynamic        |    **5.5 KB** |     **141.3 KB** |    **0.0%** |  **0.0%** |         **6.9 KB** |   **15.3 ms** |   15.9 ms |
+| `@intlayer/next-i18next` (संगत) | static         |        9.4 KB |         150.7 KB |        0.0% |      0.0% |             9.7 KB |       10.7 ms |   11.3 ms |
+| `@intlayer/next-i18next` (संगत) | dynamic        |        9.4 KB |         150.7 KB |        0.0% |      0.0% |             9.7 KB |       11.9 ms |   10.6 ms |
 
 **डेटा का विश्लेषण**
 
@@ -141,15 +144,15 @@ style="border:none;"
 
 Next.js की विशेषताओं को अलग करके TanStack Start पर शुद्ध `react-i18next` के साथ समान परीक्षण:
 
-| लाइब्रेरी            | रणनीति         | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E प्रतिक्रिया | Hydration |
-| -------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
-| **base** (बिना i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |          8.1 ms |   21.6 ms |
-| `react-i18next`      | static         |       18.4 KB |         180.3 KB |       50.0% |     89.8% |            24.3 KB |         12.9 ms |   85.1 ms |
-| `react-i18next`      | dynamic        |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |        123.1 ms |   32.9 ms |
-| `react-i18next`      | scoped-static  |       18.4 KB |         184.2 KB |       50.7% |     89.8% |            25.3 KB |        185.1 ms |   25.2 ms |
-| `react-i18next`      | scoped-dynamic |       18.4 KB |         127.2 KB |        0.0% |      0.0% |            26.7 KB |         17.6 ms |   11.3 ms |
-| **`intlayer`**       | static         |    **5.0 KB** |     **125.8 KB** |       50.0% |  **0.0%** |         **8.1 KB** |      **3.2 ms** |   11.5 ms |
-| **`intlayer`**       | dynamic        |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |      **3.6 ms** |   14.1 ms |
+| लाइब्रेरी              | रणनीति         | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E प्रतिक्रिया | Hydration |
+| -------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | ------------: | --------: |
+| **base** (बिना i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |        8.1 ms |   21.6 ms |
+| `react-i18next`      | static         |       18.4 KB |         180.3 KB |       50.0% |     89.8% |            24.3 KB |       12.9 ms |   85.1 ms |
+| `react-i18next`      | dynamic        |       18.4 KB |         136.4 KB |       23.1% |     89.8% |            24.8 KB |      123.1 ms |   32.9 ms |
+| `react-i18next`      | scoped-static  |       18.4 KB |         184.2 KB |       50.7% |     89.8% |            25.3 KB |      185.1 ms |   25.2 ms |
+| `react-i18next`      | scoped-dynamic |       18.4 KB |         127.2 KB |        0.0% |      0.0% |            26.7 KB |       17.6 ms |   11.3 ms |
+| **`intlayer`**       | static         |    **5.0 KB** |     **125.8 KB** |       50.0% |  **0.0%** |         **8.1 KB** |    **3.2 ms** |   11.5 ms |
+| **`intlayer`**       | dynamic        |    **5.0 KB** |     **118.6 KB** |    **0.0%** |  **0.0%** |         **6.3 KB** |    **3.6 ms** |   14.1 ms |
 
 **डेटा का विश्लेषण**
 

@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-next-intl-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # Устарел ли next-intl в 2026 году?
+
+<iframe title="Всё об i18n: полное руководство по интернационализации веба" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Когда Vercel представил App Router и убрал встроенную i18n из Pages Router, `next-intl` оперативно занял освободившуюся нишу. Качественная документация Яна Аманна и своевременная поддержка App Router сделали эту библиотеку выбором по умолчанию для многих разработчиков.
 

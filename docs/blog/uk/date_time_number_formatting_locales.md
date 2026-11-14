@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Форматування дат і чисел за локалями за допомогою Intl
+
+<iframe title="Усе про i18n: повний посібник з інтернаціоналізації вебу" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Переклад текстових рядків - це лише видима половина інтернаціоналізації (i18n). Інша половина, яка регулярно генерує звіти про помилки, це форматування: німецький користувач бачить `1,234.56` замість `1.234,56`, японський користувач бачить `08/02/2026` і сприймає це як серпень, або дата по-різному рендериться на сервері та клієнті, спричиняючи помилку гідратації в React.
 

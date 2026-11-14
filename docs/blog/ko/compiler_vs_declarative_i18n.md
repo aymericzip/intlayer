@@ -18,9 +18,12 @@ slugs:
   - blog
   - compiler-vs-declarative-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1230s
 ---
 
 # 컴파일러 기반 i18n에 대한 찬반 논쟁
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1230&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 10년 이상 웹 애플리케이션을 개발해왔다면, 국제화(i18n)가 항상 마찰 지점이었음을 알 것입니다. 문자열 추출, JSON 파일 관리, 복수형 규칙 처리 등 아무도 하고 싶어 하지 않는 작업인 경우가 많습니다.
 

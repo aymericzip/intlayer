@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-intlayer-lighter-than-paraglide
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2081s
 ---
 
 # هل Intlayer أخف من Paraglide؟
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2081&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 نعم.
 
@@ -79,20 +82,20 @@ src/paraglide/
 
 تطبيق TanStack Start، يتكون من 10 صفحات، تم القياس على مساري `en` و `fr`، بضغط gzip:
 
-| الإعداد                            | متوسط JS للصفحة (gz) | الزيادة عن الأساس | تسريب اللغات | تسريب الصفحات الأخرى |
-| ---------------------------------- | -------------------- | ----------------- | ------------ | -------------------- |
-| الأساس (بدون i18n)                 | 111.0 KB             | -                 | 0.0%         | 0.0%                 |
-| `paraglide` (أي استراتيجية)        | 125.1 KB             | +14.1 KB          | 49.7%        | 0.0%                 |
-| `intlayer` (`importMode: static`)  | 125.8 KB             | +14.8 KB          | 50.0%        | 0.0%                 |
-| `intlayer` (`importMode: dynamic`) | **118.6 KB**         | **+7.6 KB**       | **0.0%**     | **0.0%**             |
+| الإعداد                             | متوسط JS للصفحة (gz) | الزيادة عن الأساس | تسريب اللغات | تسريب الصفحات الأخرى |
+| ---------------------------------- | -------------------- | ---------------- | ------------ | ------------------- |
+| الأساس (بدون i18n)                  | 111.0 KB             | -                | 0.0%         | 0.0%                |
+| `paraglide` (أي استراتيجية)        | 125.1 KB             | +14.1 KB         | 49.7%        | 0.0%                |
+| `intlayer` (`importMode: static`)  | 125.8 KB             | +14.8 KB         | 50.0%        | 0.0%                |
+| `intlayer` (`importMode: dynamic`) | **118.6 KB**         | **+7.6 KB**      | **0.0%**     | **0.0%**            |
 
 تطبيق Next.js 16 App Router، نفس التطبيق:
 
 | الإعداد            | متوسط JS للصفحة (gz) | الزيادة عن الأساس |
-| ------------------ | -------------------- | ----------------- |
-| الأساس (بدون i18n) | 141.0 KB             | -                 |
-| `paraglide-next`   | 155.3 KB             | +14.3 KB          |
-| `next-intlayer`    | **141.3 KB**         | **+0.3 KB**       |
+| ----------------- | -------------------- | ---------------- |
+| الأساس (بدون i18n) | 141.0 KB             | -                |
+| `paraglide-next`  | 155.3 KB             | +14.3 KB         |
+| `next-intlayer`   | **141.3 KB**         | **+0.3 KB**      |
 
 <I18nBenchmark framework="tanstack" packages="paraglide,intlayer" vertical/>
 
@@ -242,7 +245,7 @@ export default config;
 
 | `importMode` | ما يتم إرساله إلى العميل                            | مقارنة بـ Paraglide            |
 | ------------ | --------------------------------------------------- | ------------------------------ |
-| `static`     | جميع لغات القواميس التي تستخدمها الصفحة             | نفس المحتوى نظرياً             |
+| `static`     | جميع لغات القواميس التي تستخدمها الصفحة             | نفس المحتوى نظرياً              |
 | `dynamic`    | اللغة الحالية فقط، محملة بكسل لكل قاموس             | **أخف بـ N مرة** مع وجود N لغة |
 | `fetch`      | اللغة الحالية فقط، مجلوبة عبر واجهة برمجة Live Sync | **أخف بـ N مرة** مع وجود N لغة |
 

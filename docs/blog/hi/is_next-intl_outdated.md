@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-next-intl-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # क्या 2026 में next-intl पुराना हो चुका है?
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 जब Vercel ने App Router पेश किया और Pages Router के इनबिल्ट i18n को हटा दिया, तब `next-intl` ने तेजी से इस अंतर को पाटा। Jan Amann के उत्कृष्ट दस्तावेज़ीकरण और समय पर App Router समर्थन ने इस लाइब्रेरी को कम्युनिटी की स्वाभाविक पसंद बना दिया।
 
@@ -57,7 +60,7 @@ Crowdin का आधिकारिक पार्टनर होने क�
 
 पिछले 12 महीनों की कमिट गतिविधि:
 
-| रिपॉजिटरी             | स्टार्स                                                                                                                                                | कुल कमिट्स                                                                                                                                                          | कमिट्स / वर्ष                                                                                                                                                      | अंतिम कमिट                                                                                                                                   |
+| रिपॉजिटरी             | स्टार्स                                                                                                                                                  | कुल कमिट्स                                                                                                                                                            | कमिट्स / वर्ष                                                                                                                                                        | अंतिम कमिट                                                                                                                                    |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `amannn/next-intl`    | [![stars](https://img.shields.io/github/stars/amannn/next-intl?style=for-the-badge&label=stars)](https://github.com/amannn/next-intl/stargazers)       | [![commits](https://img.shields.io/github/commit-activity/t/amannn/next-intl?style=for-the-badge&label=commits)](https://github.com/amannn/next-intl/commits)       | [![yearly](https://img.shields.io/github/commit-activity/y/amannn/next-intl?style=for-the-badge&label=%2Fyear)](https://github.com/amannn/next-intl/commits)       | [![last](https://img.shields.io/github/last-commit/amannn/next-intl?style=for-the-badge)](https://github.com/amannn/next-intl/commits)       |
 | `aymericzip/intlayer` | [![stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=stars)](https://github.com/aymericzip/intlayer/stargazers) | [![commits](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![yearly](https://img.shields.io/github/commit-activity/y/aymericzip/intlayer?style=for-the-badge&label=%2Fyear)](https://github.com/aymericzip/intlayer/commits) | [![last](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) |
@@ -106,19 +109,19 @@ style="border:none;"
 
 ट्रांसलेशन फाइल्स लोड होने से पहले क्लाइंट पर लोड:
 
-| लाइब्रेरी              | Gzipped    | Minified    |
+| लाइब्रेरी                | Gzipped    | Minified    |
 | ---------------------- | ---------- | ----------- |
 | `next-intl@4.9.1`      | 12.8 KB    | 51.0 KB     |
 | `next-intlayer@8.7.12` | **4.3 KB** | **13.3 KB** |
 
 ### पेज का आकार और डेटा लीकेज
 
-| कॉन्फ़िगरेशन           | औसत पेज JS (gz) | भाषा लीकेज | अन्य पेज लीकेज | औसत कंपोनेंट (gz) |
-| ---------------------- | --------------- | ---------- | -------------- | ----------------- |
-| बेस (बिना i18n)        | 150.8 KB        | 0.0%       | 0.0%           | 0.7 KB            |
-| `next-intl` (स्टैटिक)  | 163.5 KB        | 4.2%       | **89.8%**      | 20.5 KB           |
-| `next-intl` (डायनामिक) | 163.4 KB        | 9.7%       | **89.9%**      | 20.5 KB           |
-| `next-intlayer`        | **152.1 KB**    | **0.0%**   | **0.0%**       | **7.2 KB**        |
+| कॉन्फ़िगरेशन              | औसत पेज JS (gz) | भाषा लीकेज | अन्य पेज लीकेज | औसत कंपोनेंट (gz) |
+| ---------------------- | -------------- | --------- | ----------- | -------------- |
+| बेस (बिना i18n)         | 150.8 KB       | 0.0%      | 0.0%        | 0.7 KB         |
+| `next-intl` (स्टैटिक)    | 163.5 KB       | 4.2%      | **89.8%**   | 20.5 KB        |
+| `next-intl` (डायनामिक) | 163.4 KB       | 9.7%      | **89.9%**   | 20.5 KB        |
+| `next-intlayer`        | **152.1 KB**   | **0.0%**  | **0.0%**    | **7.2 KB**     |
 
 ### पेजों के बीच डेटा लीकेज क्यों होता है?
 
@@ -296,13 +299,13 @@ Intlayer सभी कंटेंट फाइलों से सीधे ट
 
 ### टूलिंग और एआई इंटीग्रेशन
 
-| फीचर                            | `next-intl` | Intlayer                                                                                                         |
-| ------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------- |
-| **VS Code एक्सटेंशन**           | ❌ नहीं है  | ✅ [ऑफिशियल एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)       |
-| **Language Server (LSP)**       | ❌ नहीं है  | ✅ [समर्पित LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)                           |
-| **AI एजेंट्स के लिए MCP सर्वर** | ❌ नहीं है  | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)              |
-| **एजेंट स्किल्स**               | ❌ नहीं है  | ✅ [रेडी-टू-यूज़ स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)         |
-| **विजुअल सीएमएस**               | ❌ नहीं है  | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
+| फीचर                       | `next-intl` | Intlayer                                                                                                      |
+| -------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
+| **VS Code एक्सटेंशन**         | ❌ नहीं है    | ✅ [ऑफिशियल एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)       |
+| **Language Server (LSP)**  | ❌ नहीं है    | ✅ [समर्पित LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)                         |
+| **AI एजेंट्स के लिए MCP सर्वर** | ❌ नहीं है    | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)             |
+| **एजेंट स्किल्स**              | ❌ नहीं है    | ✅ [रेडी-टू-यूज़ स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)            |
+| **विजुअल सीएमएस**           | ❌ नहीं है    | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
 
 LSP और MCP सर्वर की उपलब्धता से एआई कोडिंग असिस्टेंट्स पूरे प्रोजेक्ट के ट्रांसलेशन स्ट्रक्चर को गहराई से समझ पाते हैं।
 

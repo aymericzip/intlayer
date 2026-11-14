@@ -18,9 +18,12 @@ slugs:
   - blog
   - compiler-vs-declarative-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1230s
 ---
 
 # Derleyici Tabanlı i18n İçin ve Karşı Argümanlar
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1230&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 On yıldan fazla süredir web uygulamaları geliştiriyorsanız, Uluslararasılaştırmanın (i18n) her zaman bir sürtüşme noktası olduğunu bilirsiniz. Genellikle kimsenin yapmak istemediği bir görevdir, metinleri çıkarmak, JSON dosyalarını yönetmek ve çoğul kurallarıyla uğraşmak.
 

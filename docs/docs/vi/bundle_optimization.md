@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Thêm tùy chọn `minify` và `purge` vào cấu hình build"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # Tối ưu hóa dung lượng Bundle & Hiệu suất i18n
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Một trong những thách thức phổ biến nhất với các giải pháp i18n truyền thống dựa trên file JSON là quản lý dung lượng nội dung. Nếu lập trình viên không tự tay phân tách nội dung vào các namespace một cách hợp lý, người dùng cuối thường phải tải về toàn bộ bản dịch cho tất cả các trang và có thể là cả tất cả các ngôn ngữ chỉ để xem một trang duy nhất.
 

@@ -25,9 +25,12 @@ history:
     date: 2026-01-06
     changes: "ベンチマーク初期化"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2081s
 ---
 
 # Benchmark - レポート
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2081&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Benchmark Bloom は、複数の React フレームワークとロード戦略における i18n（国際化）ライブラリの実環境への影響を測るパフォーマンスベンチマークの一式です。
 

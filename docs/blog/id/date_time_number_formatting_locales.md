@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Memformat Tanggal dan Angka Berdasarkan Bahasa dengan Intl
+
+<iframe title="Semua tentang i18n: Panduan lengkap internasionalisasi web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Menerjemahkan teks hanyalah separuh bagian yang terlihat dari internasionalisasi (i18n). Separuh lainnya yang rutin memicu laporan bug adalah pemformatan: pengguna di Jerman melihat `1,234.56` alih-alih `1.234,56`, pengguna di Jepang melihat `08/02/2026` dan mengiranya bulan Agustus, atau tanggal yang dirender berbeda di server dan browser sehingga menyebabkan kerusakan hidrasi (hydration mismatch) di React.
 

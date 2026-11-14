@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-next-intl-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # هل أصبحت مكتبة next-intl قديمة في عام 2026؟
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 حين أطلقت Vercel نظام App Router وألغت الدعم الأصلي للتدويل الذي كان موجوداً في Pages Router، بادرت `next-intl` سريعاً لملء الفراغ. وبفضل التوثيق المميز من Jan Amann والدعم السريع للـ App Router، باتت المكتبة الخيار الافتراضي لمجتمع المطورين.
 
@@ -57,7 +60,7 @@ author: aymericzip
 
 حركة التعديلات خلال الاثني عشر شهراً الماضية:
 
-| المستودع              | النجوم                                                                                                                                                 | إجمالي التعديلات                                                                                                                                                    | التعديلات / سنة                                                                                                                                                    | آخر تعديل                                                                                                                                    |
+| المستودع              | النجوم                                                                                                                                                 | إجمالي التعديلات                                                                                                                                                     | التعديلات / سنة                                                                                                                                                     | آخر تعديل                                                                                                                                    |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `amannn/next-intl`    | [![stars](https://img.shields.io/github/stars/amannn/next-intl?style=for-the-badge&label=stars)](https://github.com/amannn/next-intl/stargazers)       | [![commits](https://img.shields.io/github/commit-activity/t/amannn/next-intl?style=for-the-badge&label=commits)](https://github.com/amannn/next-intl/commits)       | [![yearly](https://img.shields.io/github/commit-activity/y/amannn/next-intl?style=for-the-badge&label=%2Fyear)](https://github.com/amannn/next-intl/commits)       | [![last](https://img.shields.io/github/last-commit/amannn/next-intl?style=for-the-badge)](https://github.com/amannn/next-intl/commits)       |
 | `aymericzip/intlayer` | [![stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=stars)](https://github.com/aymericzip/intlayer/stargazers) | [![commits](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![yearly](https://img.shields.io/github/commit-activity/y/aymericzip/intlayer?style=for-the-badge&label=%2Fyear)](https://github.com/aymericzip/intlayer/commits) | [![last](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) |
@@ -113,12 +116,12 @@ style="border:none;"
 
 ### وزن الصفحة وتسريب المحتوى
 
-| الإعداد                | متوسط JS / صفحة (gz) | تسريب اللغات | تسريب الصفحات الأخرى | متوسط المكون (gz) |
-| ---------------------- | -------------------- | ------------ | -------------------- | ----------------- |
-| الأساس (دون i18n)      | 150.8 KB             | 0.0%         | 0.0%                 | 0.7 KB            |
-| `next-intl` (ثابت)     | 163.5 KB             | 4.2%         | **89.8%**            | 20.5 KB           |
-| `next-intl` (ديناميكي) | 163.4 KB             | 9.7%         | **89.9%**            | 20.5 KB           |
-| `next-intlayer`        | **152.1 KB**         | **0.0%**     | **0.0%**             | **7.2 KB**        |
+| الإعداد                 | متوسط JS / صفحة (gz) | تسريب اللغات | تسريب الصفحات الأخرى | متوسط المكون (gz) |
+| ---------------------- | -------------------- | ------------ | ------------------- | ----------------- |
+| الأساس (دون i18n)       | 150.8 KB             | 0.0%         | 0.0%                | 0.7 KB            |
+| `next-intl` (ثابت)     | 163.5 KB             | 4.2%         | **89.8%**           | 20.5 KB           |
+| `next-intl` (ديناميكي) | 163.4 KB             | 9.7%         | **89.9%**           | 20.5 KB           |
+| `next-intlayer`        | **152.1 KB**         | **0.0%**     | **0.0%**            | **7.2 KB**        |
 
 ### أسباب التسريب بين المسارات
 
@@ -296,13 +299,13 @@ declare global {
 
 ### أدوات التطوير والذكاء الاصطناعي
 
-| الميزة                               | `next-intl`  | Intlayer                                                                                                          |
-| ------------------------------------ | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| **إضافة VS Code**                    | ❌ غير متوفر | ✅ [إضافة رسمية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)              |
-| **خادم اللغة (LSP)**                 | ❌ غير متوفر | ✅ [LSP مخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)                               |
+| الميزة                             | `next-intl`  | Intlayer                                                                                                          |
+| ---------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| **إضافة VS Code**                  | ❌ غير متوفر | ✅ [إضافة رسمية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)              |
+| **خادم اللغة (LSP)**               | ❌ غير متوفر | ✅ [LSP مخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)                               |
 | **خادم MCP لوكلاء الذكاء الاصطناعي** | ❌ غير متوفر | ✅ [خادم MCP مدمج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)                   |
-| **مهارات الوكلاء (Skills)**          | ❌ غير متوفر | ✅ [مهارات متكاملة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)                |
-| **نظام CMS مرئي**                    | ❌ غير متوفر | ✅ [مجاني ومفتوح المصدر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) |
+| **مهارات الوكلاء (Skills)**         | ❌ غير متوفر | ✅ [مهارات متكاملة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)                |
+| **نظام CMS مرئي**                  | ❌ غير متوفر | ✅ [مجاني ومفتوح المصدر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) |
 
 يمكّن وجود خوادم LSP وMCP المساعدات الذكية من فهم البنية الكاملة للمشروع وترقية الترجمات بدقة واقتدار.
 

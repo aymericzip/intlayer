@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # ICU MessageFormat: 構文とよくある落とし穴
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormatは、翻訳文字列の中に複数形、性別による変化、数値や日付のフォーマットといった分岐ロジックを直接持たせることができる構文規格です。これは、文法は`if (count === 1)`を書くエンジニアではなく、翻訳者が管理すべきものだという思想に基づいています。本記事では、構文の基本、単純な実装が破綻しやすい言語特有のルール、そしてJavaScriptエコシステムにおける対応状況を解説します。
 
