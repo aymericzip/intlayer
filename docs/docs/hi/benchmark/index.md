@@ -25,9 +25,12 @@ history:
     date: 2026-01-06
     changes: "बेंचमार्क इनिशियलाइज़ेशन"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2081s
 ---
 
 # Benchmark - रिपोर्ट
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2081&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Benchmark Bloom एक परफॉरमेंस बेंचमार्किंग सुइट है जो कई React फ़्रेमवर्क और लोडिंग रणनीतियों में i18n (अंतर्राष्ट्रीयकरण) लाइब्रेरीज़ के वास्तविक प्रभाव को मापता है।
 

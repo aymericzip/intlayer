@@ -21,9 +21,12 @@ slugs:
   - blog
   - lingui-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1691s
 ---
 
 # Lingui מול Intlayer: מבחן ביצועים (i18n) עבור React ו-Next.js
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1691&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Lingui ו-Intlayer הן שתי הספריות במבחן ביצועים זה המסתמכות על **קומפיילר** ולא על ספריית זמן ריצה (runtime) טהורה. Lingui מחלצת הודעות ממאקרואים בזמן build ומקמפלת קטלוגים לכל שפה. Intlayer מקמפלת מילונים ברמת הקומפוננטה ומבצעת tree-shaking לכל שפה. על הנייר הן אמורות להיות קרובות מאוד. המספרים מראים היכן הן נפרדות.
 
@@ -51,7 +54,7 @@ Lingui ו-Intlayer הן שתי הספריות במבחן ביצועים זה ה�
 | ------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
 | **תרגומים צמודים לקומפוננטות**              | ✅ כן, קובצי `.content.ts` ממוקמים לצד כל קומפוננטה                      | ⚠️ מחרוזות מקור ב-JSX דרך מאקרואים; תרגומים בקטלוגי `.po` מרכזיים               |
 | **אינטגרציה עם TypeScript**                 | ✅ טיפוסים קפדניים שנוצרים אוטומטית מהתוכן                               | ⚠️ המאקרואים בעלי טיפוסים; מזהי הודעות אינם מוקלדים, רשומות חסרות אינן מתגלות   |
-| **זיהוי תרגומים חסרים**                     | ✅ שגיאת TypeScript + שגיאה/אזהרה בזמן build                             | ⚠️ ‏`lingui extract` מדווח סטטיסטיקות; זמן הריצה נופל למחרוזת המקור             |
+| **זיהוי תרגומים חסרים**                     | ✅ שגיאת TypeScript + שגיאה/אזהרה בזמן build                             | ⚠️ ‏`lingui extract` מדווח סטטיסטיקות; זמן הריצה נופל למחרוזת המקור              |
 | **תוכן עשיר (JSX / Markdown / קומפוננטות)** | ✅ תמיכה ישירה ומובנית                                                   | ✅ תמיכה ב-`<Trans>` עם קומפוננטות מקוננות                                      |
 | **תמיכה ב-ICU**                             | ⚠️ בפיתוח (WIP)                                                          | ✅ כן (מאקרואי `plural`, `select`, `selectOrdinal`)                             |
 | **עיצוב (תאריכים, מספרים, מטבעות)**         | ✅ `useNumber`, `useDate`, ... (`Intl` מקורי מתחת למכסה המנוע)           | ✅ `i18n.date()`, `i18n.number()`                                               |

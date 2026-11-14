@@ -17,9 +17,12 @@ slugs:
   - blog
   - next-i18next-vs-next-intl-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # next-i18next מול next-intl מול Intlayer
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ![next-i18next מול next-intl מול Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -64,7 +67,7 @@ author: aymericzip
 | **יצירת נתיבים דינמית**                   | ✅ כן                                                                             | ✅ כן                                                                         | ✅ כן                                                                         |
 | **כללי רבים (Pluralization)**             | ✅ תבניות מבוססות ספירה (Enumeration)                                             | ✅ טובה                                                                       | ✅ טובה                                                                       |
 | **עיצוב (תאריכים, מספרים, מטבעות)**       | ✅ מעבדי פורמט ממוטבים (`Intl` מתחת למכסה המנוע)                                  | ✅ טובה (עזרי Intl)                                                           | ✅ טובה (עזרי Intl)                                                           |
-| **פורמט תוכן**                            | ✅ ‎.tsx, .ts, .js, .json, .md, .txt, (.yaml בפיתוח)                              | ✅ ‎.json, .js, .ts                                                           | ⚠️ ‎.json                                                                     |
+| **פורמט תוכן**                            | ✅ ‎.tsx, .ts, .js, .json, .md, .txt, (.yaml בפיתוח)                               | ✅ ‎.json, .js, .ts                                                            | ⚠️ ‎.json                                                                      |
 | **תמיכה ב-ICU**                           | ⚠️ בפיתוח                                                                         | ✅ כן                                                                         | ⚠️ באמצעות תוסף (`i18next-icu`)                                               |
 | **עזרי SEO (hreflang, sitemap)**          | ✅ כלים מובנים: מפות אתר, robots.txt ומטא-דאטה                                    | ✅ טובה                                                                       | ✅ טובה                                                                       |
 | **אקוסיסטם וקהילה**                       | ⚠️ קטנה יותר אך בצמיחה מהירה ותגובתית                                             | ✅ טובה                                                                       | ✅ טובה                                                                       |

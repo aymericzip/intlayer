@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Định dạng thông điệp ICU: Cú pháp và những cạm bẫy thường gặp
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat là cú pháp chuỗi cho phép bản dịch chứa logic rẽ nhánh của riêng nó: số nhiều, dạng theo giới tính, định dạng số và ngày tháng. Triết lý cốt lõi là ngữ pháp thuộc về dịch giả, chứ không phải của lập trình viên viết `if (count === 1)`. Bài viết này đề cập đến cú pháp cơ bản, các yếu tố phụ thuộc ngôn ngữ khiến các giải pháp đơn giản bị phá vỡ, và cách hệ sinh thái JavaScript xử lý vấn đề này.
 

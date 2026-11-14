@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-next-intl-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # Liệu next-intl Đã Lỗi Thời Vào Năm 2026?
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Khi Vercel giới thiệu App Router và loại bỏ tính năng i18n tích hợp sẵn của Pages Router, `next-intl` đã nhanh chóng lấp đầy khoảng trống đó. Nhờ tài liệu rõ ràng của Jan Amann và khả năng hỗ trợ kịp thời cho App Router, thư viện này đã trở thành lựa chọn mặc định của cộng đồng.
 

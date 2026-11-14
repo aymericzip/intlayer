@@ -17,9 +17,12 @@ slugs:
   - blog
   - react-i18next-vs-react-intl-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # react-Intl VS react-i18next VS intlayer: Quốc tế hóa React (i18n)
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Hướng dẫn này so sánh ba lựa chọn i18n đã được thiết lập cho **React**: **react-intl** (FormatJS), **react-i18next** (i18next), và **Intlayer**.
 Chúng tôi tập trung vào các ứng dụng **React thuần** (ví dụ: Vite, CRA, SPA). Nếu bạn đang sử dụng Next.js, hãy xem so sánh dành riêng cho Next.js của chúng tôi.

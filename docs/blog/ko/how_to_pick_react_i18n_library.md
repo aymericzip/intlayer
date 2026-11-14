@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # 올바른 React i18n 라이브러리를 선택하는 방법
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 React는 기본 i18n 프리미티브를 제공하지 않습니다. 첫날 선택한 라이브러리가 번역 저장 방식, 번들 포함 방식, 향후 수년간 개발자가 직접 감당해야 할 작업의 양을 결정합니다. 대부분의 팀은 인기도를 기준으로 선택했다가, 키가 2,000개에 도달했을 때 비로소 트레이드오프를 깨닫게 됩니다.
 

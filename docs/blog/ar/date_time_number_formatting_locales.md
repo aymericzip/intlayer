@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # تنسيق التواريخ والأرقام حسب اللغة باستخدام Intl
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ترجمة النصوص هي النصف المرئي فقط من التدويل (i18n). أما النصف الآخر الذي يولد تقارير الأخطاء باستمرار فهو التنسيق: مستخدم ألماني يرى `1,234.56` بدلاً من `1.234,56`، أو مستخدم ياباني يرى `08/02/2026` ويفهم أنه شهر أغسطس، أو تاريخ يتم عرضه بشكل مختلف بين الخادم والمتصفح فيؤدي إلى تعطل الصفحة بسبب عدم تطابق الهيدرة (Hydration mismatch) في React.
 
@@ -50,14 +53,14 @@ new Intl.DateTimeFormat("ja-JP", { dateStyle: "long" }).format(date);
 
 ## ما تغطيه واجهة `Intl`
 
-| الواجهة البرمجية          | استخداماتها                                                        |
-| :------------------------ | :----------------------------------------------------------------- |
-| `Intl.DateTimeFormat`     | التواريخ والأوقات مع إعدادات جاهزة مثل `dateStyle` و `timeStyle`   |
+| الواجهة البرمجية          | استخداماتها                                                      |
+| :------------------------ | :--------------------------------------------------------------- |
+| `Intl.DateTimeFormat`     | التواريخ والأوقات مع إعدادات جاهزة مثل `dateStyle` و `timeStyle`  |
 | `Intl.NumberFormat`       | الأرقام العشرية، العملات، النسب المئوية، الوحدات، والترميز المختصر |
-| `Intl.RelativeTimeFormat` | "منذ 3 أيام"، "خلال ساعتين"                                        |
-| `Intl.ListFormat`         | دمج القوائم مثل "أ، ب، وج"                                         |
-| `Intl.PluralRules`        | تحديد فئة الجمع المناسبة للرقم                                     |
-| `Intl.Collator`           | الترتيب الهجائي السليم للنصوص وفق قواعد اللغة                      |
+| `Intl.RelativeTimeFormat` | "منذ 3 أيام"، "خلال ساعتين"                                       |
+| `Intl.ListFormat`         | دمج القوائم مثل "أ، ب، وج"                                       |
+| `Intl.PluralRules`        | تحديد فئة الجمع المناسبة للرقم                                   |
+| `Intl.Collator`           | الترتيب الهجائي السليم للنصوص وفق قواعد اللغة                    |
 
 تعتبر `Intl.Collator` من أكثر الأدوات التي يغفل عنها المطورون. ترتيب النصوص عبر `array.sort()` العادية يعتمد على ترتيب محارف يونيكود، مما يضع الحروف المشكولة بعد حرف `z` ويخل بترتيب الحروف الخاصة. عند ترتيب قوائم يراها المستخدم، استخدم دائماً أداة collator.
 

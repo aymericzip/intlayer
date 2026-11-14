@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Формат сообщений ICU: синтаксис и типичные ошибки
+
+<iframe title="Всё об i18n: полное руководство по интернационализации веба" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat представляет собой синтаксис строк, позволяющий переводу содержать собственную логику ветвления: множественные числа, грамматический род, форматирование чисел и дат. Этот подход основан на том, что грамматика находится в компетенции переводчика, а не разработчика, пишущего `if (count === 1)`. В этой статье рассматриваются синтаксис, языковые нюансы, на которых спотыкаются простые реализации, и работа экосистемы JavaScript с этим стандартом.
 

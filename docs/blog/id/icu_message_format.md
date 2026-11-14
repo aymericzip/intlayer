@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Format Pesan ICU: Sintaksis dan Bagian yang Sering Menjebak Pengembang
+
+<iframe title="Semua tentang i18n: Panduan lengkap internasionalisasi web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat adalah sintaksis string yang memungkinkan terjemahan memiliki logika percabangannya sendiri: bentuk jamak, bentuk berdasarkan gender, serta pemformatan angka dan tanggal. Gagasan utamanya adalah bahwa tata bahasa merupakan ranah penerjemah, bukan pengembang yang menulis `if (count === 1)`. Artikel ini mengulas sintaksis dasar, aspek ketergantungan bahasa yang menggagalkan implementasi sederhana, dan bagaimana ekosistem JavaScript mengelolanya.
 

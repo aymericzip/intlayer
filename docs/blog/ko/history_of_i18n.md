@@ -19,9 +19,12 @@ slugs:
   - blog
   - history-of-js-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=716s
 ---
 
 # JavaScript 국제화(i18n)의 역사와 아키텍처 진화
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=716&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 국제화는 결코 새로운 과제가 아닙니다. JavaScript와 현대 웹이 등장하기 훨씬 이전부터 소프트웨어는 다양한 언어, 통화, 날짜 형식, 지역 규격을 처리해야 했습니다. 1980년대 GEM과 Mac OS 같은 초기 그래픽 운영체제도 이러한 문제들을 이미 해결해 나가고 있었습니다.
 

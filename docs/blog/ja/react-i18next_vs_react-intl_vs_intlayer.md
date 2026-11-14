@@ -17,9 +17,12 @@ slugs:
   - blog
   - react-i18next-vs-react-intl-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # react-Intl VS react-i18next VS intlayer
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 本ガイドでは、**React**向けの3つの確立されたi18nオプション、**react-intl**（FormatJS）、**react-i18next**（i18next）、および**Intlayer**を比較します。  
 対象は**プレーンなReact**アプリケーション（例：Vite、CRA、SPA）です。Next.jsを使用している場合は、専用のNext.js比較をご覧ください。

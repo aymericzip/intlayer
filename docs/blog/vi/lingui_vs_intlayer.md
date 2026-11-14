@@ -21,9 +21,12 @@ slugs:
   - blog
   - lingui-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1691s
 ---
 
 # Lingui VS Intlayer: Điểm chuẩn quốc tế hóa (i18n) trên React & Next.js
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1691&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Lingui và Intlayer là hai thư viện trong bài đánh giá điểm chuẩn này dựa trên một **trình biên dịch (compiler)** thay vì một runtime thuần túy. Lingui trích xuất các thông điệp từ macro trong thời gian build và biên dịch các danh mục theo từng ngôn ngữ. Intlayer biên dịch các từ điển theo từng component và thực hiện tree-shake chúng theo từng ngôn ngữ. Về mặt lý thuyết, chúng phải rất gần nhau. Các con số cho thấy chúng bắt đầu phân kỳ ở đâu.
 

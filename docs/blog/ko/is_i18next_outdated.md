@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-i18next-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # 2026년에도 i18next를 계속 써야 할까요?
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 `i18next`는 React 컴포넌트, Webpack 번들링, TypeScript가 대세가 되기 훨씬 전인 2011년에 출시되었습니다. 뛰어난 유연성과 범용성 덕분에 생태계를 장악했고, 거의 모든 기술 스택을 위한 플러그인과 StackOverflow의 풍부한 레퍼런스를 구축했습니다.
 

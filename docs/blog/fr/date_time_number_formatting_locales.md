@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Formater les dates et les nombres par locale avec Intl
+
+<iframe title="Tout sur l'i18n : le guide complet de l'internationalisation web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Traduire des chaînes n'est que la partie visible de l'i18n. La moitié qui génère des retours de bugs concerne le formatage : un utilisateur allemand qui voit `1,234.56` au lieu de `1.234,56`, un utilisateur japonais qui voit `08/02/2026` et le lit comme le mois d'août, ou une date qui s'affiche différemment entre le serveur et le client, cassant la page lors de l'hydratation.
 

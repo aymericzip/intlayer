@@ -21,9 +21,12 @@ slugs:
   - blog
   - lingui-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1691s
 ---
 
 # Lingui ve Intlayer Karşılaştırması: React & Next.js Uluslararasılaşma (i18n) Testi
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1691&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Lingui ve Intlayer, bu karşılaştırmada saf bir çalışma zamanı (runtime) yerine bir **derleyiciye (compiler)** dayanan iki kütüphanedir. Lingui derleme sırasında makrolardan mesajları çıkarır ve her dil için kataloglar derler. Intlayer ise bileşen başına sözlükler derler ve bunları dil başına tree-shake eder. Kağıt üzerinde birbirine çok yakın görünmelidirler. Ancak sayılar nerede ayrıştıklarını açıkça ortaya koyuyor.
 

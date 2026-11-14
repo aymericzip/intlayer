@@ -21,9 +21,12 @@ slugs:
   - blog
   - lingui-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1691s
 ---
 
 # Lingui VS Intlayer: React & Next.js 국제화 (i18n) 벤치마크 비교
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1691&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Lingui와 Intlayer는 이번 벤치마크에서 단순한 런타임 대신 **컴파일러**를 기반으로 작동하는 두 라이브러리입니다. Lingui는 빌드 시 매크로에서 메시지를 추출하여 언어별 카탈로그를 컴파일합니다. Intlayer는 컴포넌트 단위로 딕셔너리를 컴파일하고 언어별로 Tree-shaking을 적용합니다. 이론상 두 라이브러리의 성능은 매우 유사해야 하지만, 실제 측정 데이터는 명확한 차이점을 보여줍니다.
 

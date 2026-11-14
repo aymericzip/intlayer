@@ -19,9 +19,12 @@ slugs:
   - blog
   - history-of-js-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=716s
 ---
 
 # JavaScript 国际化 (i18n) 的演进历史
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=716&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 国际化并不是新鲜概念。早在 JavaScript 和现代 Web 兴起之前，软件系统就必须处理多种语言、货币、日期格式以及区域规范。早在 1980 年代，GEM 和 Mac OS 等早期图形化操作系统就已在着手解决此类问题。
 

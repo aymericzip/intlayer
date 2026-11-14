@@ -22,9 +22,12 @@ history:
     date: 2025-06-29
     changes: "초기 이력"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2357s
 ---
 
 # 열거형 / 복수형 처리
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2357&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## 열거형 작동 방식
 

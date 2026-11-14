@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Intl を使ってロケールごとに日付と数値をフォーマットする
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 文言の翻訳は、国際化（i18n）の目に見える半分にすぎません。バグ報告の大半を生み出すもう半分はフォーマットです。ドイツ人ユーザーに `1.234,56` ではなく `1,234.56` と表示されたり、日本人ユーザーが `08/02/2026` を8月と誤読したり、サーバーとクライアントで日付の文字列が食い違って React のハイドレーションエラーで画面が真っ白になったりします。
 

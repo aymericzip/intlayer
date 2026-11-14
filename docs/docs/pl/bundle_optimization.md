@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Dodano opcje `minify` i `purge` do konfiguracji budowania"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # Optymalizacja Rozmiaru Paczki i Wydajności i18n
+
+<iframe title="Wszystko o i18n: kompletny przewodnik po internacjonalizacji stron" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Jednym z najczęstszych wyzwań w tradycyjnych rozwiązaniach i18n opartych na plikach JSON jest zarządzanie rozmiarem treści. Jeśli programiści nie rozdzielą treści na przestrzenie nazw (namespaces) ręcznie, użytkownicy często pobierają tłumaczenia dla każdej strony i potencjalnie każdego języka, tylko po to, aby wyświetlić pojedynczą stronę.
 

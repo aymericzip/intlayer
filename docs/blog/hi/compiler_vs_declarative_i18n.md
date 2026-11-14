@@ -18,9 +18,12 @@ slugs:
   - blog
   - compiler-vs-declarative-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1230s
 ---
 
 # कंपाइलर-आधारित i18n के पक्ष और विपक्ष
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1230&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 यदि आप एक दशक से अधिक समय से वेब एप्लिकेशन बना रहे हैं, तो आप जानते हैं कि अंतरराष्ट्रीयकरण (i18n) हमेशा एक संघर्ष का बिंदु रहा है। यह अक्सर वह कार्य होता है जिसे कोई करना नहीं चाहता, स्ट्रिंग्स निकालना, JSON फाइलों का प्रबंधन करना, और बहुवचन नियमों की चिंता करना।
 

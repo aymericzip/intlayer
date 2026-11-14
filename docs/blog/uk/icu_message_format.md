@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Формат повідомлень ICU: синтаксис і типові підводні камені
+
+<iframe title="Усе про i18n: повний посібник з інтернаціоналізації вебу" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat є синтаксисом рядків, що дозволяє перекладу містити власну логіку розгалуження: форми множини, узгодження за родом, форматування чисел і дат. Він базується на тому, що граматика належить перекладачеві, а не розробнику, який пише `if (count === 1)`. У цій статті розглядаються синтаксис, мовні особливості, які ламають наївні реалізації, та способи роботи екосистеми JavaScript із цим стандартом.
 

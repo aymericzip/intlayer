@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # עיצוב תאריכים ומספרים לפי שפה ואזור (Locale) באמצעות Intl
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 תרגום מחרוזות הוא החצי הגלוי של i18n. החצי שמייצר את מרבית דיווחי הבאגים הוא העיצוב (formatting): משתמש גרמני שרואה `1,234.56` במקום `1.234,56`, משתמש יפני שרואה `08/02/2026` וקורא זאת כחודש אוגוסט, או תאריך שמרונדר באופן שונה בשרת ובדפדפן ומפיל את העמוד במהלך ה-hydration.
 

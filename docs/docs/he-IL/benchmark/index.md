@@ -25,9 +25,12 @@ history:
     date: 2026-01-06
     changes: "אתחול בנצ'מרק"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=2081s
 ---
 
 # בנצ'מרק - דוח
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=2081&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Benchmark Bloom היא חבילת בדיקות ביצועים המודדת את ההשפעה בעולם האמיתי של ספריות i18n (בינאום) על פני מספר סביבות פיתוח של React ואסטרטגיות טעינה שונות.
 

@@ -19,9 +19,12 @@ slugs:
   - blog
   - next-intl-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # next-intl مقابل Intlayer: مقارنة أداء التدويل (i18n) في React وNext.js
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -38,28 +41,28 @@ author: aymericzip
 - **next-intl** - معيار مجتمع Next.js. قواميس JSON مركزية لكل لغة، دعم كامل لـ ICU MessageFormat، وتكامل وثيق مع معالجة طلبات Next.js ونظام التوجيه الخاص به.
 - **Intlayer** - نموذج محتوى يتمحور حول المكونات. توضع ملفات `.content.ts` بجانب مكوناتها، ويقوم مترجم وقت البناء بتقليم الشجرة (tree-shaking) والتحميل الكسول للمحتوى لكل مكون ولكل لغة، مع توليد أنواع TypeScript صارمة تلقائياً.
 
-| المكتبة               | نجوم GitHub                                                                                                                                                                    | إجمالي التعديلات                                                                                                                                                                   | آخر تعديل                                                                                                                                           | الإصدار الأول | إصدار NPM                                                                                                     | تنزيلات NPM                                                                                                              |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `aymericzip/intlayer` | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) | أبريل 2024    | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)   | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)   |
-| `amannn/next-intl`    | [![GitHub Repo stars](https://img.shields.io/github/stars/amannn/next-intl?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/amannn/next-intl/stargazers)       | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/amannn/next-intl?style=for-the-badge&label=commits)](https://github.com/amannn/next-intl/commits)       | [![Last Commit](https://img.shields.io/github/last-commit/amannn/next-intl?style=for-the-badge)](https://github.com/amannn/next-intl/commits)       | مارس 2021     | [![npm](https://img.shields.io/npm/v/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl) | [![npm downloads](https://img.shields.io/npm/dm/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl) |
+| المكتبة               | نجوم GitHub                                                                                                                                                                    | إجمالي التعديلات                                                                                                                                                                    | آخر تعديل                                                                                                                                           | الإصدار الأول | إصدار NPM                                                                                                     | تنزيلات NPM                                                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `aymericzip/intlayer` | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) | أبريل 2024  | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)   | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer)   |
+| `amannn/next-intl`    | [![GitHub Repo stars](https://img.shields.io/github/stars/amannn/next-intl?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/amannn/next-intl/stargazers)       | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/amannn/next-intl?style=for-the-badge&label=commits)](https://github.com/amannn/next-intl/commits)       | [![Last Commit](https://img.shields.io/github/last-commit/amannn/next-intl?style=for-the-badge)](https://github.com/amannn/next-intl/commits)       | مارس 2021   | [![npm](https://img.shields.io/npm/v/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl) | [![npm downloads](https://img.shields.io/npm/dm/next-intl?style=for-the-badge)](https://www.npmjs.com/package/next-intl) |
 
 > يتم تحديث الشارات تلقائياً.
 
 ## مقارنة الميزات جنباً إلى جنب
 
-| الميزة                                      | Intlayer (`react-intlayer` / `next-intlayer`)                          | next-intl (`next-intl` / `use-intl`)                       |
-| ------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------- |
-| **الترجمات بجانب المكونات**                 | ✅ نعم، ملف `.content.ts` بجوار كل مكون                                | ❌ قواميس JSON مركزية في مجلد `messages/`                  |
-| **التكامل مع TypeScript**                   | ✅ أنواع صارمة مولدة تلقائياً من المحتوى                               | ⚠️ مدعوم عبر إعدادات `global.d.ts` يدوية لمسارات الرسائل   |
-| **اكتشاف الترجمات المفقودة**                | ✅ خطأ TypeScript + خطأ/تحذير وقت البناء                               | ⚠️ وقت التشغيل يعيد المفتاح أو يرمي خطأ حسب الإعدادات      |
-| **المحتوى الغني (JSX / Markdown / مكونات)** | ✅ دعم مباشر                                                           | ⚠️ عبر `t.rich()` مع توفير مكونات التحويل                  |
-| **دعم ICU MessageFormat**                   | ⚠️ قيد التطوير                                                         | ✅ نعم، دعم كامل لمعيار ICU                                |
-| **مكونات الخادم المتزامنة**                 | ✅ `useIntlayer` من `next-intlayer/server` يعمل في أي مكون خادم متزامن | ❌ يتطلب تمرير الترجمات عبر الـ props من خادم غير متزامن   |
-| **تقليم الشجرة (Tree-shaking)**             | ✅ تلقائي لكل مكون ولكل لغة                                            | ⚠️ يتطلب تقسيماً يدوياً لمساحات الأسماء واستخدام `pick()`  |
-| **التحميل الكسول (Lazy loading)**           | ✅ سطر إعداد واحد (`importMode: 'dynamic'`)                            | ⚠️ يتطلب استيراداً ديناميكياً يدوياً في `getRequestConfig` |
-| **محرر مرئي / CMS**                         | ✅ محرر مرئي مجاني + CMS اختياري                                       | ❌ لا يوجد                                                 |
-| **ترجمة مدعومة بالذكاء الاصطناعي**          | ✅ مدمجة وتستخدم مفاتيحك الخاصة                                        | ❌ لا يوجد                                                 |
-| **خادم MCP ومهارات الوكلاء**                | ✅ نعم                                                                 | ❌ لا يوجد                                                 |
+| الميزة                                      | Intlayer (`react-intlayer` / `next-intlayer`)                          | next-intl (`next-intl` / `use-intl`)                     |
+| ------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------- |
+| **الترجمات بجانب المكونات**                 | ✅ نعم، ملف `.content.ts` بجوار كل مكون                                | ❌ قواميس JSON مركزية في مجلد `messages/`                |
+| **التكامل مع TypeScript**                   | ✅ أنواع صارمة مولدة تلقائياً من المحتوى                                | ⚠️ مدعوم عبر إعدادات `global.d.ts` يدوية لمسارات الرسائل |
+| **اكتشاف الترجمات المفقودة**                | ✅ خطأ TypeScript + خطأ/تحذير وقت البناء                               | ⚠️ وقت التشغيل يعيد المفتاح أو يرمي خطأ حسب الإعدادات     |
+| **المحتوى الغني (JSX / Markdown / مكونات)** | ✅ دعم مباشر                                                           | ⚠️ عبر `t.rich()` مع توفير مكونات التحويل                |
+| **دعم ICU MessageFormat**                   | ⚠️ قيد التطوير                                                         | ✅ نعم، دعم كامل لمعيار ICU                              |
+| **مكونات الخادم المتزامنة**                 | ✅ `useIntlayer` من `next-intlayer/server` يعمل في أي مكون خادم متزامن | ❌ يتطلب تمرير الترجمات عبر الـ props من خادم غير متزامن |
+| **تقليم الشجرة (Tree-shaking)**             | ✅ تلقائي لكل مكون ولكل لغة                                            | ⚠️ يتطلب تقسيماً يدوياً لمساحات الأسماء واستخدام `pick()`   |
+| **التحميل الكسول (Lazy loading)**           | ✅ سطر إعداد واحد (`importMode: 'dynamic'`)                            | ⚠️ يتطلب استيراداً ديناميكياً يدوياً في `getRequestConfig`  |
+| **محرر مرئي / CMS**                         | ✅ محرر مرئي مجاني + CMS اختياري                                       | ❌ لا يوجد                                                |
+| **ترجمة مدعومة بالذكاء الاصطناعي**           | ✅ مدمجة وتستخدم مفاتيحك الخاصة                                        | ❌ لا يوجد                                                |
+| **خادم MCP ومهارات الوكلاء**                 | ✅ نعم                                                                 | ❌ لا يوجد                                                |
 
 ## الاختبار
 
@@ -67,12 +70,12 @@ author: aymericzip
 
 تبني مجموعة [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) **نفس التطبيق** مع كل مكتبة: **10 صفحات** (الرئيسية، من نحن، المدونة، الوظائف، اتصل بنا، الأسئلة الشائعة، الأسعار، المنتجات، الإعدادات، الفريق)، و**10 لغات** (`en`، `fr`، `es`، `de`، `it`، `pt`، `zh`، `ja`, `ko`, `ru`)، مع مكونات متطابقة ومحتوى متطابق. يتم قياس الصفحات باللغتين `en` و`fr`. يتم تطبيق كل مكتبة في ما يصل إلى أربع **استراتيجيات تحميل**:
 
-| الاستراتيجية       | الوصف                                                                           | من يستخدمها                                      |
-| ------------------ | ------------------------------------------------------------------------------- | ------------------------------------------------ |
-| **static**         | يتم تجميع كل لغة وكل صفحة معاً وتحميلها دفعة واحدة                              | النماذج الأولية السريعة، الأكواد المولدة بالذكاء |
-| **dynamic**        | يتم تحميل لغة العرض النشطة فقط، ولكن لجميع الصفحات دفعة واحدة                   | معظم المشاريع                                    |
-| **scoped-static**  | مساحات أسماء لكل مسار، بدون تحميل كسول                                          | نادرة                                            |
-| **scoped-dynamic** | مساحات أسماء لكل مسار + تحميل كسول. يتم إرسال الصفحة الحالية باللغة الحالية فقط | التطبيقات ذات الميزانيات الصارمة في الأداء       |
+| الاستراتيجية        | الوصف                                                                           | من يستخدمها                                    |
+| ------------------ | ------------------------------------------------------------------------------- | ---------------------------------------------- |
+| **static**         | يتم تجميع كل لغة وكل صفحة معاً وتحميلها دفعة واحدة                               | النماذج الأولية السريعة، الأكواد المولدة بالذكاء |
+| **dynamic**        | يتم تحميل لغة العرض النشطة فقط، ولكن لجميع الصفحات دفعة واحدة                   | معظم المشاريع                                  |
+| **scoped-static**  | مساحات أسماء لكل مسار، بدون تحميل كسول                                          | نادرة                                          |
+| **scoped-dynamic** | مساحات أسماء لكل مسار + تحميل كسول. يتم إرسال الصفحة الحالية باللغة الحالية فقط | التطبيقات ذات الميزانيات الصارمة في الأداء      |
 
 لا تملك Intlayer متغيراً "مخصص النطاق" (scoped): يقوم المترجم تلقائياً بتحديد نطاق المحتوى **لكل مكون**، لذلك فإن صفي `static` و`dynamic` محصوران بالفعل.
 
@@ -94,7 +97,7 @@ author: aymericzip
 
 <I18nBenchmark framework="nextjs" packages="next-intl,next-intlayer" vertical/>
 
-| المكتبة                       | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
+| المكتبة                       | الاستراتيجية    | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
 | ----------------------------- | -------------- | ---------------: | -------------------: | ---------: | ----------: | ----------------: | ----------: | ------: |
 | **base** (بدون i18n)          | -              |           0.0 KB |             141.0 KB |       0.0% |        0.0% |            0.9 KB |     13.4 ms | 11.8 ms |
 | `next-intl`                   | static         |          14.7 KB |             153.6 KB |       4.2% |       89.8% |           21.8 KB |     16.0 ms | 14.7 ms |
@@ -127,7 +130,7 @@ style="border:none;"
 
 تعتبر `use-intl` النواة المستقلة عن أي إطار عمل لمكتبة `next-intl`. نفس واجهة برمجة التطبيقات ونفس تنسيق الرسائل. مقارنتها مع `intlayer` على TanStack Start تزيل العوامل الخاصة بـ Next.js من المعادلة.
 
-| المكتبة                      | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E |
+| المكتبة                      | الاستراتيجية    | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E |
 | ---------------------------- | -------------- | ---------------: | -------------------: | ---------: | ----------: | ----------------: | ----------: |
 | **base** (بدون i18n)         | -              |           0.0 KB |             111.0 KB |       0.0% |        0.0% |            0.7 KB |      8.1 ms |
 | `use-intl`                   | static         |          14.1 KB |             179.8 KB |      50.0% |       89.8% |           76.0 KB |      6.7 ms |

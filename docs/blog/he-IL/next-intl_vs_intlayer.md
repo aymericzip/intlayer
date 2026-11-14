@@ -21,9 +21,12 @@ slugs:
   - blog
   - next-intl-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # next-intl מול Intlayer
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ![next-intl מול Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -54,12 +57,12 @@ author: aymericzip
 | **תרגומים צמודים לקומפוננטות**              | ✅ כן, קובצי `.content.ts` ממוקמים לצד כל קומפוננטה                     | ❌ לא, קובצי `messages/{locale}.json` מרכזיים                                                  |
 | **אינטגרציה עם TypeScript**                 | ✅ טיפוסים קפדניים שנוצרים אוטומטית מהתוכן                              | ✅ טובה, מפתחות מוקלדים דרך הרחבת `global.d.ts`                                                |
 | **זיהוי תרגומים חסרים**                     | ✅ שגיאת TypeScript + שגיאה/אזהרה בזמן build                            | ⚠️ ברירת מחדל בזמן ריצה + אזהרה במסוף                                                          |
-| **תוכן עשיר (JSX / Markdown / קומפוננטות)** | ✅ תמיכה ישירה ומובנית                                                  | ⚠️ ‏`t.rich()` / `t.markup()` עם תגיות מחזיקות מקום                                            |
+| **תוכן עשיר (JSX / Markdown / קומפוננטות)** | ✅ תמיכה ישירה ומובנית                                                  | ⚠️ ‏`t.rich()` / `t.markup()` עם תגיות מחזיקות מקום                                             |
 | **תמיכה ב-ICU**                             | ⚠️ בפיתוח                                                               | ✅ כן                                                                                          |
 | **עיצוב (תאריכים, מספרים, מטבעות)**         | ✅ `useNumber`, `useDate`, ... (`Intl` מתחת למכסה המנוע)                | ✅ `useFormatter()` (`Intl` מתחת למכסה המנוע)                                                  |
 | **ניתוב מתורגם ו-middleware**               | ✅ פרוקסי/middleware מובנים, `getMultilingualUrls`                      | ✅ middleware מובנה, `Link`, `redirect`, `usePathname`                                         |
 | **עזרי SEO (hreflang, sitemap, robots)**    | ✅ עזרים מובנים                                                         | ⚠️ ידני, מבוסס על תצורת הניתוב                                                                 |
-| **Server Components סינכרוניים**            | ✅ `useIntlayer` מ-`next-intlayer/server` עובד בכל קומפוננטת שרת צאצאית | ⚠️ ‏`getTranslations` הוא async; קומפוננטות צאצאיות סינכרוניות דורשות העברת `t` כפרופס         |
+| **Server Components סינכרוניים**            | ✅ `useIntlayer` מ-`next-intlayer/server` עובד בכל קומפוננטת שרת צאצאית | ⚠️ ‏`getTranslations` הוא async; קומפוננטות צאצאיות סינכרוניות דורשות העברת `t` כפרופס          |
 | **רינדור סטטי (Static rendering)**          | ✅ אינו חוסם רינדור סטטי                                                | ⚠️ דורש `setRequestLocale()`; במבחנים שלנו קטלוגים עם namespaces ביטלו רינדור סטטי בחלק מהדפים |
 | **Tree-shaking (שליחת תוכן בשימוש בלבד)**   | ✅ לכל קומפוננטה, לכל שפה, אוטומטי לחלוטין על ידי הקומפיילר             | ⚠️ ידני: חלוקת namespaces ו-`pick(messages, [...])` לכל דף                                     |
 | **טעינה עצלה (Lazy loading)**               | ✅ `importMode: 'dynamic'` (שורת הגדרה בודדת)                           | ⚠️ ייבוא דינמי ידני בתוך `getRequestConfig`                                                    |

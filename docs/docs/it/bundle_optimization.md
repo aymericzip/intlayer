@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Aggiunte le opzioni `minify` e `purge` alla configurazione di build"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # Ottimizzazione delle dimensioni e delle prestazioni del bundle i18n
+
+<iframe title="Tutto sull'i18n: la guida completa all'internazionalizzazione web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Una delle sfide più comuni con le tradizionali soluzioni i18n basate su file JSON è la gestione delle dimensioni dei contenuti. Se gli sviluppatori non separano manualmente i contenuti in namespace, gli utenti finiscono spesso per scaricare le traduzioni per ogni pagina e potenzialmente per ogni lingua solo per visualizzare una singola pagina.
 

@@ -15,9 +15,12 @@ slugs:
   - blog
   - date-time-number-formatting-locales
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Intl을 사용해 로케일별로 날짜와 숫자 포맷팅하기
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 텍스트 번역은 다국어화(i18n)의 눈에 보이는 절반에 불과합니다. 버그 리포트의 단골 원인이 되는 나머지 절반은 포맷팅입니다. 독일 사용자가 `1.234,56` 대신 `1,234.56`을 보거나, 일본 사용자가 `08/02/2026`을 보고 8월로 오해하거나, 서버와 클라이언트의 렌더링 결과가 달라 React 하이드레이션 에러로 화면이 멈추는 현상이 대표적입니다.
 

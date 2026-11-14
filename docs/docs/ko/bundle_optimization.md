@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "빌드 구성에 `minify` 및 `purge` 옵션 추가"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # i18n 번들 크기 및 성능 최적화
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 JSON 파일에 의존하는 전통적인 i18n 솔루션에서 가장 일반적인 문제 중 하나는 콘텐츠 크기를 관리하는 것입니다. 개발자가 콘텐츠를 네임스페이스로 수동으로 분리하지 않으면 사용자는 단일 페이지를 보기 위해 모든 페이지와 잠재적으로 모든 언어에 대한 번역을 다운로드해야 하는 경우가 많습니다.
 

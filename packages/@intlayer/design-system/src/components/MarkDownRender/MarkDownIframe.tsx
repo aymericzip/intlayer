@@ -15,6 +15,7 @@ import {
 } from 'react';
 import {
   getYoutubeEmbedUrl,
+  getYoutubeStartTime,
   getYoutubeVideoId,
   getYoutubeWatchUrl,
 } from './youtubeUrl';
@@ -39,7 +40,7 @@ type ResolvedFrame = {
  * A YouTube address, in any of its forms, becomes the player embed carrying
  * the attributes YouTube's own embed code ships with. Query parameters are
  * dropped on purpose: docs written for one origin (`origin=…`) break the
- * player on every other one.
+ * player on every other one. Only the start time (`start=` / `t=`) is kept.
  *
  * `referrerPolicy` is the attribute that matters: the player refuses to start
  * ("Video player configuration error", error 153) unless the request carries
@@ -57,7 +58,7 @@ const resolveFrame = (
 
   return {
     isYoutubeVideo: true,
-    src: getYoutubeEmbedUrl(youtubeVideoId),
+    src: getYoutubeEmbedUrl(youtubeVideoId, getYoutubeStartTime(src)),
     frameProps: {
       ...frameProps,
       allow: YOUTUBE_PLAYER_ALLOW,
@@ -75,7 +76,7 @@ const getEmbedLinkMeta = (
   const youtubeVideoId = getYoutubeVideoId(src);
   if (youtubeVideoId) {
     return {
-      href: getYoutubeWatchUrl(youtubeVideoId),
+      href: getYoutubeWatchUrl(youtubeVideoId, getYoutubeStartTime(src)),
       label: 'youtube.com',
     };
   }

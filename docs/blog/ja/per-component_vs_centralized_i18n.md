@@ -15,9 +15,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # コンポーネント単位 vs 集中型 i18n
+
+<iframe title="i18nのすべて：Web国際化の完全ガイド" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 コンポーネント単位のアプローチは新しい概念ではありません。例えば、Vue エコシステムでは、`vue-i18n` が [SFC i18n（Single File Component）](https://vue-i18n.intlify.dev/guide/advanced/sfc.html) をサポートしています。Nuxt も [コンポーネント単位の翻訳](https://i18n.nuxtjs.org/docs/guide/per-component-translations) を提供しており、Angular は [Feature Modules](https://v17.angular.io/guide/feature-modules) を通じて同様のパターンを採用しています。
 

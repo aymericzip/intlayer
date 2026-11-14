@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-i18next-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # क्या 2026 में i18next पुराना हो चुका है?
+
+<iframe title="i18n के बारे में सब कुछ: वेब अंतर्राष्ट्रीयकरण की पूरी गाइड" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 `i18next` 2011 में लॉन्च हुआ था, रिएक्ट कंपोनेंट्स, वेबपैक बंडलिंग या टाइपस्क्रिप्ट के मानक बनने से बहुत पहले। इसने अपनी अनुकूलन क्षमता और व्यापकता से पूरे इकोसिस्टम पर बढ़त बनाई, लगभग हर टेक स्टैक के लिए प्लगइन्स विकसित किए और स्टैक ओवरफ्लो पर अनगिनत समाधान तैयार किए।
 
@@ -55,7 +58,7 @@ author: aymericzip
 
 गिटहब स्टार्स ऐतिहासिक लोकप्रियता दर्शाते हैं, वर्तमान आर्किटेक्चरल गति को नहीं।
 
-| रिपॉजिटरी               | स्टार्स                                                                                                                                                    | कुल कमिट्स                                                                                                                                                              | कमिट्स / वर्ष                                                                                                                                                          | अंतिम कमिट                                                                                                                                       |
+| रिपॉजिटरी               | स्टार्स                                                                                                                                                      | कुल कमिट्स                                                                                                                                                                | कमिट्स / वर्ष                                                                                                                                                            | अंतिम कमिट                                                                                                                                        |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `i18next/i18next`       | [![stars](https://img.shields.io/github/stars/i18next/i18next?style=for-the-badge&label=stars)](https://github.com/i18next/i18next/stargazers)             | [![commits](https://img.shields.io/github/commit-activity/t/i18next/i18next?style=for-the-badge&label=commits)](https://github.com/i18next/i18next/commits)             | [![yearly](https://img.shields.io/github/commit-activity/y/i18next/i18next?style=for-the-badge&label=%2Fyear)](https://github.com/i18next/i18next/commits)             | [![last](https://img.shields.io/github/last-commit/i18next/i18next?style=for-the-badge)](https://github.com/i18next/i18next/commits)             |
 | `i18next/react-i18next` | [![stars](https://img.shields.io/github/stars/i18next/react-i18next?style=for-the-badge&label=stars)](https://github.com/i18next/react-i18next/stargazers) | [![commits](https://img.shields.io/github/commit-activity/t/i18next/react-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/react-i18next/commits) | [![yearly](https://img.shields.io/github/commit-activity/y/i18next/react-i18next?style=for-the-badge&label=%2Fyear)](https://github.com/i18next/react-i18next/commits) | [![last](https://img.shields.io/github/last-commit/i18next/react-i18next?style=for-the-badge)](https://github.com/i18next/react-i18next/commits) |
@@ -64,12 +67,12 @@ author: aymericzip
 
 पिछले 12 महीनों की कमिट गतिविधि:
 
-| प्रोजेक्ट       | सर्वकालिक कमिट्स | पिछले 12 महीने | मुख्य फोकस                             |
-| --------------- | ---------------- | -------------- | -------------------------------------- |
-| `next-i18next`  | 1,311            | **63**         | Next.js संगतता और बग फिक्स             |
-| `react-i18next` | 1,988            | **157**        | टाइप्स और मेंटेनेंस                    |
-| `i18next` core  | 2,626            | **259**        | छोटे सुधार                             |
-| Intlayer        | 7,156            | **4,343**      | कंपाइलर, आईडीई टूल्स और एआई इंजन विकास |
+| प्रोजेक्ट          | सर्वकालिक कमिट्स | पिछले 12 महीने | मुख्य फोकस                           |
+| --------------- | -------------- | ------------ | ---------------------------------- |
+| `next-i18next`  | 1,311          | **63**       | Next.js संगतता और बग फिक्स           |
+| `react-i18next` | 1,988          | **157**      | टाइप्स और मेंटेनेंस                      |
+| `i18next` core  | 2,626          | **259**      | छोटे सुधार                           |
+| Intlayer        | 7,156          | **4,343**    | कंपाइलर, आईडीई टूल्स और एआई इंजन विकास |
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
@@ -108,7 +111,7 @@ style="border:none;"
 
 ट्रांसलेशन कंटेंट जोड़े बिना शुरुआती बंडल लोड:
 
-| लाइब्रेरी              | Gzipped    | Minified    |
+| लाइब्रेरी                | Gzipped    | Minified    |
 | ---------------------- | ---------- | ----------- |
 | `next-i18next@16.0.5`  | 17.8 KB    | 61.2 KB     |
 | `react-i18next@17.0.2` | 17.3 KB    | 59.8 KB     |
@@ -118,19 +121,19 @@ style="border:none;"
 
 React / TanStack Start (स्टैटिक रणनीति) में मापन:
 
-| लाइब्रेरी             | औसत पेज JS (gz) | भाषा लीकेज | अन्य पेज लीकेज | औसत कंपोनेंट (gz) | हाइड्रेशन   |
-| --------------------- | --------------- | ---------- | -------------- | ----------------- | ----------- |
-| `react-i18next`       | 180.3 KB        | **50.0%**  | **89.8%**      | 24.3 KB           | 85.1 ms     |
-| Intlayer              | **127.8 KB**    | 50.0%      | **0.8%**       | **7.1 KB**        | **24.1 ms** |
-| Intlayer (scoped dyn) | **118.1 KB**    | **0.0%**   | **0.8%**       | **4.6 KB**        | 23.7 ms     |
+| लाइब्रेरी               | औसत पेज JS (gz) | भाषा लीकेज | अन्य पेज लीकेज | औसत कंपोनेंट (gz) | हाइड्रेशन     |
+| --------------------- | -------------- | --------- | ----------- | -------------- | ----------- |
+| `react-i18next`       | 180.3 KB       | **50.0%** | **89.8%**   | 24.3 KB        | 85.1 ms     |
+| Intlayer              | **127.8 KB**   | 50.0%     | **0.8%**    | **7.1 KB**     | **24.1 ms** |
+| Intlayer (scoped dyn) | **118.1 KB**   | **0.0%**  | **0.8%**    | **4.6 KB**     | 23.7 ms     |
 
 Next.js में:
 
-| लाइब्रेरी       | औसत पेज JS (gz) | अन्य पेज लीकेज | औसत कंपोनेंट (gz) |
-| --------------- | --------------- | -------------- | ----------------- |
-| बेस (बिना i18n) | 150.8 KB        | 0.0%           | 0.7 KB            |
-| `next-i18next`  | **227.5 KB**    | **89.8%**      | 24.5 KB           |
-| `next-intlayer` | **152.1 KB**    | **0.0%**       | **7.2 KB**        |
+| लाइब्रेरी         | औसत पेज JS (gz) | अन्य पेज लीकेज | औसत कंपोनेंट (gz) |
+| --------------- | -------------- | ----------- | -------------- |
+| बेस (बिना i18n)  | 150.8 KB       | 0.0%        | 0.7 KB         |
+| `next-i18next`  | **227.5 KB**   | **89.8%**   | 24.5 KB        |
+| `next-intlayer` | **152.1 KB**   | **0.0%**    | **7.2 KB**     |
 
 ### प्रमुख निष्कर्ष
 
@@ -257,13 +260,13 @@ Intlayer सीधे कंटेंट डिक्लेरेशन से �
 
 ### टूलिंग इकोसिस्टम की तुलना
 
-| फीचर                      | i18next इकोसिस्टम | Intlayer                                                                                                         |
-| ------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **VS Code एक्सटेंशन**     | केवल थर्ड-पार्टी  | ✅ [ऑफिशियल एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)       |
-| **Language Server (LSP)** | ❌ उपलब्ध नहीं    | ✅ [समर्पित LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)                           |
-| **AI के लिए MCP सर्वर**   | ❌ उपलब्ध नहीं    | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)              |
-| **एजेंट स्किल्स**         | ❌ उपलब्ध नहीं    | ✅ [रेडी-टू-यूज़ स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)         |
-| **विजुअल सीएमएस**         | Locize (पेड SaaS) | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
+| फीचर                      | i18next इकोसिस्टम | Intlayer                                                                                                      |
+| ------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| **VS Code एक्सटेंशन**        | केवल थर्ड-पार्टी    | ✅ [ऑफिशियल एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)       |
+| **Language Server (LSP)** | ❌ उपलब्ध नहीं     | ✅ [समर्पित LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)                         |
+| **AI के लिए MCP सर्वर**     | ❌ उपलब्ध नहीं     | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)             |
+| **एजेंट स्किल्स**             | ❌ उपलब्ध नहीं     | ✅ [रेडी-टू-यूज़ स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)            |
+| **विजुअल सीएमएस**          | Locize (पेड SaaS) | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
 
 ## ट्रांसलेशन और Locize मॉडल
 

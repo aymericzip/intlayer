@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # Cara Memilih Library React i18n yang Tepat
+
+<iframe title="Semua tentang i18n: Panduan lengkap internasionalisasi web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 React tidak menyediakan primitif i18n bawaan. Library yang Anda pilih sejak hari pertama menentukan bagaimana terjemahan disimpan, bagaimana terjemahan masuk ke dalam bundle, dan seberapa banyak pekerjaan yang harus Anda tangani sendiri selama beberapa tahun ke depan. Sebagian besar tim memilih berdasarkan popularitas, lalu baru menyadari konsekuensi dan komprominya saat sudah mencapai 2.000 kunci.
 

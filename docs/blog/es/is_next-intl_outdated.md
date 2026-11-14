@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-next-intl-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1617s
 ---
 
 # ¿Está next-intl obsoleto en 2026?
+
+<iframe title="Todo sobre i18n: la guía completa de la internacionalización web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1617&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Cuando Vercel introdujo App Router y descontinuó la i18n integrada de Pages Router, `next-intl` cubrió el vacío rápidamente. Jan Amann ofreció una documentación clara y un soporte ágil para App Router, consolidándolo como la solución estándar de la comunidad.
 

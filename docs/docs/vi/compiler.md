@@ -34,9 +34,12 @@ history:
     date: 2025-11-27
     changes: "Phát hành Trình Biên Dịch"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1230s
 ---
 
 # Trình Biên Dịch Intlayer: Trích Xuất Nội Dung Tự Động cho i18n
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1230&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Trình Biên Dịch Intlayer là gì?
 

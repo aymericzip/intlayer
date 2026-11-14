@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Menambahkan opsi `minify` dan `purge` ke konfigurasi build"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # Optimasi Ukuran Bundle & Performa i18n
+
+<iframe title="Semua tentang i18n: Panduan lengkap internasionalisasi web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Salah satu tantangan paling umum dari solusi i18n tradisional yang bergantung pada file JSON adalah mengelola ukuran konten. Jika developer tidak secara manual memisahkan konten ke dalam berbagai namespace, sering kali pengguna akan mengunduh terjemahan untuk semua halaman dan berpotensi untuk semua bahasa hanya demi melihat satu halaman saja.
 

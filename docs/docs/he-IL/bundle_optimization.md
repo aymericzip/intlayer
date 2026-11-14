@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "הוספת אפשרויות `minify` ו-`purge` להגדרות הבנייה"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # אופטימיזציית גודל ה-Bundle וביצועי i18n
+
+<iframe title="הכול על i18n: המדריך המלא לבינאום ווב" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 אחד האתגרים הנפוצים ביותר בפתרונות i18n מסורתיים הנשענים על קובצי JSON הוא ניהול גודל התוכן. אם מפתחים אינם מפרידים ידנית את התוכן ל-namespaces, משתמשים מוצאים את עצמם לעיתים קרובות מורידים תרגומים של כל דף ובפוטנציאל של כל שפה רק כדי לצפות בדף בודד.
 

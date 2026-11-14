@@ -18,9 +18,12 @@ slugs:
   - blog
   - compiler-vs-declarative-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1230s
 ---
 
 # O Caso a Favor e Contra a i18n Baseada em Compilador
+
+<iframe title="Tudo sobre i18n: o guia completo de internacionalização web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1230&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Se você tem construído aplicações web por mais de uma década, sabe que a Internacionalização (i18n) sempre foi um ponto de atrito. Frequentemente, é a tarefa que ninguém quer fazer, extrair strings, gerenciar arquivos JSON e se preocupar com regras de pluralização.
 

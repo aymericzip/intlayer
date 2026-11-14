@@ -21,9 +21,12 @@ slugs:
   - blog
   - lingui-vs-intlayer
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1691s
 ---
 
 # Lingui VS Intlayer：React & Next.js 国际化 (i18n) 基准测试对比
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1691&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Lingui 和 Intlayer 是本次基准测试中仅有的两个依赖**编译器**而非纯运行时的国际化库。Lingui 在构建时从宏中提取消息，并为每个语言环境编译目录。Intlayer 按组件编译字典，并按语言环境进行 Tree-shaking。理论上它们的表现应当十分接近，但实际测试数据揭示了它们在哪方面走向了分歧。
 

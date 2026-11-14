@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-i18next-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # O i18next está obsoleto em 2026?
+
+<iframe title="Tudo sobre i18n: o guia completo de internacionalização web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Lançado em 2011, muito antes de componentes React, empacotamento com Webpack ou TypeScript se tornarem padrão, o `i18next` dominou o ecossistema por ser flexível e onipresente, conquistando plugins para diversas stacks e respostas no StackOverflow para quase todo tipo de dúvida.
 

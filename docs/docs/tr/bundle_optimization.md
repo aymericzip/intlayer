@@ -30,9 +30,12 @@ history:
     date: 2026-04-08
     changes: "Derleme (build) yapılandırmasına `minify` ve `purge` seçenekleri eklendi"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=260s
 ---
 
 # i18n Paket Boyutu ve Performans Optimizasyonu
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=260&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 JSON dosyalarına dayanan geleneksel i18n çözümlerinde en yaygın zorluklardan biri içerik boyutunu yönetmektir. Geliştiriciler içeriği manuel olarak isim alanlarına (namespaces) ayırmazlarsa, kullanıcılar genellikle yalnızca tek bir sayfayı görüntülemek için her sayfanın ve potansiyel olarak her dilin çevirilerini indirir.
 

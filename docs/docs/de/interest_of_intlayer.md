@@ -27,9 +27,12 @@ history:
     date: 2025-06-29
     changes: "Verlauf initialisiert"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1317s
 ---
 
 # Warum sollten Sie Intlayer in Betracht ziehen?
+
+<iframe title="Alles über i18n: Der komplette Leitfaden zur Web-Internationalisierung" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1317&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Was ist Intlayer?
 

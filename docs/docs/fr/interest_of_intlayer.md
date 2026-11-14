@@ -27,9 +27,12 @@ history:
     date: 2025-06-29
     changes: "Historique initial"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1317s
 ---
 
 # Pourquoi devriez-vous envisager Intlayer ?
+
+<iframe title="Tout sur l'i18n : le guide complet de l'internationalisation web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1317&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Qu'est-ce qu'Intlayer ?
 

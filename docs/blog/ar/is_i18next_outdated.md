@@ -17,9 +17,12 @@ slugs:
   - blog
   - is-i18next-outdated
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # هل أصبحت مكتبة i18next قديمة في عام 2026؟
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 أُطلقت `i18next` في عام 2011، قبل أن تصبح مكونات React وحزم Webpack ولغة TypeScript معايير أساسية في تطوير الويب. هيمنت على النظام البيئي بفضل مرونتها وانتشارها، وحصلت على إضافات لمعظم التقنيات وحلول جاهزة على StackOverflow لكل مشكلة تقريباً.
 
@@ -55,7 +58,7 @@ author: aymericzip
 
 تعكس نجوم GitHub الشعبية التاريخية للمشروع، لكنها لا تعكس وتيرة التحديث المعماري الراهنة.
 
-| المستودع                | النجوم                                                                                                                                                     | إجمالي التعديلات                                                                                                                                                        | التعديلات / سنة                                                                                                                                                        | آخر تعديل                                                                                                                                        |
+| المستودع                | النجوم                                                                                                                                                     | إجمالي التعديلات                                                                                                                                                         | التعديلات / سنة                                                                                                                                                         | آخر تعديل                                                                                                                                        |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `i18next/i18next`       | [![stars](https://img.shields.io/github/stars/i18next/i18next?style=for-the-badge&label=stars)](https://github.com/i18next/i18next/stargazers)             | [![commits](https://img.shields.io/github/commit-activity/t/i18next/i18next?style=for-the-badge&label=commits)](https://github.com/i18next/i18next/commits)             | [![yearly](https://img.shields.io/github/commit-activity/y/i18next/i18next?style=for-the-badge&label=%2Fyear)](https://github.com/i18next/i18next/commits)             | [![last](https://img.shields.io/github/last-commit/i18next/i18next?style=for-the-badge)](https://github.com/i18next/i18next/commits)             |
 | `i18next/react-i18next` | [![stars](https://img.shields.io/github/stars/i18next/react-i18next?style=for-the-badge&label=stars)](https://github.com/i18next/react-i18next/stargazers) | [![commits](https://img.shields.io/github/commit-activity/t/i18next/react-i18next?style=for-the-badge&label=commits)](https://github.com/i18next/react-i18next/commits) | [![yearly](https://img.shields.io/github/commit-activity/y/i18next/react-i18next?style=for-the-badge&label=%2Fyear)](https://github.com/i18next/react-i18next/commits) | [![last](https://img.shields.io/github/last-commit/i18next/react-i18next?style=for-the-badge)](https://github.com/i18next/react-i18next/commits) |
@@ -64,12 +67,12 @@ author: aymericzip
 
 نشاط التطوير في الأشهر الاثني عشر الماضية:
 
-| المشروع         | إجمالي التعديلات | آخر 12 شهراً | محور التركيز                               |
-| --------------- | ---------------- | ------------ | ------------------------------------------ |
-| `next-i18next`  | 1,311            | **63**       | التوافق مع Next.js وإصلاح الأخطاء          |
-| `react-i18next` | 1,988            | **157**      | تعريفات الأنواع والصيانة                   |
-| `i18next` core  | 2,626            | **259**      | تحسينات طفيفة                              |
-| Intlayer        | 7,156            | **4,343**    | المترجم، أدوات IDE، ومحرك الذكاء الاصطناعي |
+| المشروع         | إجمالي التعديلات | آخر 12 شهراً | محور التركيز                              |
+| --------------- | --------------- | ----------- | ----------------------------------------- |
+| `next-i18next`  | 1,311           | **63**      | التوافق مع Next.js وإصلاح الأخطاء           |
+| `react-i18next` | 1,988           | **157**     | تعريفات الأنواع والصيانة                   |
+| `i18next` core  | 2,626           | **259**     | تحسينات طفيفة                             |
+| Intlayer        | 7,156           | **4,343**   | المترجم، أدوات IDE، ومحرك الذكاء الاصطناعي |
 
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
@@ -119,18 +122,18 @@ style="border:none;"
 الاختبار في بيئة React / TanStack Start (استراتيجية ثابتة):
 
 | المكتبة               | متوسط JS / صفحة (gz) | تسريب اللغات | تسريب الصفحات الأخرى | متوسط المكون (gz) | وقت الـ Hydration |
-| --------------------- | -------------------- | ------------ | -------------------- | ----------------- | ----------------- |
-| `react-i18next`       | 180.3 KB             | **50.0%**    | **89.8%**            | 24.3 KB           | 85.1 ms           |
-| Intlayer              | **127.8 KB**         | 50.0%        | **0.8%**             | **7.1 KB**        | **24.1 ms**       |
-| Intlayer (scoped dyn) | **118.1 KB**         | **0.0%**     | **0.8%**             | **4.6 KB**        | 23.7 ms           |
+| --------------------- | -------------------- | ------------ | ------------------- | ----------------- | ----------------- |
+| `react-i18next`       | 180.3 KB             | **50.0%**    | **89.8%**           | 24.3 KB           | 85.1 ms           |
+| Intlayer              | **127.8 KB**         | 50.0%        | **0.8%**            | **7.1 KB**        | **24.1 ms**       |
+| Intlayer (scoped dyn) | **118.1 KB**         | **0.0%**     | **0.8%**            | **4.6 KB**        | 23.7 ms           |
 
 في Next.js:
 
-| المكتبة           | متوسط JS / صفحة (gz) | تسريب الصفحات الأخرى | متوسط المكون (gz) |
-| ----------------- | -------------------- | -------------------- | ----------------- |
-| الأساس (دون i18n) | 150.8 KB             | 0.0%                 | 0.7 KB            |
-| `next-i18next`    | **227.5 KB**         | **89.8%**            | 24.5 KB           |
-| `next-intlayer`   | **152.1 KB**         | **0.0%**             | **7.2 KB**        |
+| المكتبة          | متوسط JS / صفحة (gz) | تسريب الصفحات الأخرى | متوسط المكون (gz) |
+| ---------------- | -------------------- | ------------------- | ----------------- |
+| الأساس (دون i18n) | 150.8 KB             | 0.0%                | 0.7 KB            |
+| `next-i18next`   | **227.5 KB**         | **89.8%**           | 24.5 KB           |
+| `next-intlayer`  | **152.1 KB**         | **0.0%**            | **7.2 KB**        |
 
 ### أهم النتائج
 
@@ -257,13 +260,13 @@ export const Hero = () => {
 
 ### مقارنة الأدوات
 
-| الميزة                        | بيئة i18next         | Intlayer                                                                                                          |
-| ----------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **إضافة VS Code**             | إضافات خارجية فقط    | ✅ [إضافة رسمية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)              |
-| **خادم اللغة (LSP)**          | ❌ غير متوفر         | ✅ [LSP مدمج ومخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)                         |
+| الميزة                       | بيئة i18next         | Intlayer                                                                                                          |
+| ---------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **إضافة VS Code**            | إضافات خارجية فقط    | ✅ [إضافة رسمية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)              |
+| **خادم اللغة (LSP)**         | ❌ غير متوفر         | ✅ [LSP مدمج ومخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)                         |
 | **خادم MCP للذكاء الاصطناعي** | ❌ غير متوفر         | ✅ [خادم MCP جاهز](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)                   |
 | **مهارات الوكلاء (Skills)**   | ❌ غير متوفر         | ✅ [مهارات جاهزة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)                  |
-| **نظام CMS مرئي**             | Locize (خدمة مدفوعة) | ✅ [مجاني ومفتوح المصدر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) |
+| **نظام CMS مرئي**            | Locize (خدمة مدفوعة) | ✅ [مجاني ومفتوح المصدر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) |
 
 ## الترجمة ونموذج Locize
 

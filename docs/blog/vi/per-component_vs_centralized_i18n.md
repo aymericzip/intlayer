@@ -15,9 +15,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # i18n theo thành phần so với i18n tập trung
+
+<iframe title="Tất cả về i18n: Hướng dẫn đầy đủ về quốc tế hóa web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Cách tiếp cận theo thành phần không phải là một khái niệm mới. Ví dụ, trong hệ sinh thái Vue, `vue-i18n` hỗ trợ [i18n SFC (Single File Component)](https://vue-i18n.intlify.dev/guide/advanced/sfc.html). Nuxt cũng cung cấp [bản dịch theo thành phần](https://i18n.nuxtjs.org/docs/guide/per-component-translations), và Angular sử dụng một mẫu tương tự thông qua [Feature Modules](https://v17.angular.io/guide/feature-modules) của nó.
 

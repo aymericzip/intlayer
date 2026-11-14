@@ -18,9 +18,12 @@ slugs:
   - blog
   - compiler-vs-declarative-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1230s
 ---
 
 # Argumen Mendukung dan Menentang i18n Berbasis Compiler
+
+<iframe title="Semua tentang i18n: Panduan lengkap internasionalisasi web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1230&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Jika Anda telah membangun aplikasi web selama lebih dari satu dekade, Anda tahu bahwa Internasionalisasi (i18n) selalu menjadi titik gesekan. Ini sering menjadi tugas yang tidak ingin dilakukan siapa pun, mengekstrak string, mengelola file JSON, dan khawatir tentang aturan pluralisasi.
 

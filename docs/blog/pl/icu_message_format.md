@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # Format komunikatów ICU: składnia i typowe pułapki
+
+<iframe title="Wszystko o i18n: kompletny przewodnik po internacjonalizacji stron" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat to składnia ciągów znaków, która pozwala, aby tłumaczenie zawierało własną logikę warunkową: liczbę mnogą, formy zależne od płci oraz formatowanie liczb i dat. Opiera się na założeniu, że gramatyka należy do tłumacza, a nie do programisty piszącego `if (count === 1)`. W tym artykule omawiamy składnię, niuanse językowe sprawiające trudności naiwnym implementacjom oraz sposób, w jaki radzi sobie z tym ekosystem JavaScript.
 

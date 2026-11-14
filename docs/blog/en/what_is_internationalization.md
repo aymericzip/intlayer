@@ -21,9 +21,12 @@ slugs:
   - blog
   - what-is-internationalization
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us
 ---
 
 # What is Internationalization (i18n)? Meaning, Definition and Challenges
+
+<iframe title="All About i18n: The Complete Guide to Web Internationalization" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Table of Contents
 

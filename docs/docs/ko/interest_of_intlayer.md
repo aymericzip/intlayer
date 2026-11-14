@@ -27,9 +27,12 @@ history:
     date: 2025-06-29
     changes: "기록 초기화"
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1317s
 ---
 
 # 왜 Intlayer를 고려해야 할까요?
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1317&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Intlayer란 무엇인가요?
 

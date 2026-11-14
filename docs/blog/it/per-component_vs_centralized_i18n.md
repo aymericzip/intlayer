@@ -15,9 +15,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # i18n per componente vs i18n centralizzato
+
+<iframe title="Tutto sull'i18n: la guida completa all'internazionalizzazione web" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 L'approccio per-componente non è un concetto nuovo. Ad esempio, nell'ecosistema Vue, `vue-i18n` supporta l'[i18n SFC (Single File Component)](https://vue-i18n.intlify.dev/guide/advanced/sfc.html). Nuxt offre anche [traduzioni per-componente](https://i18n.nuxtjs.org/docs/guide/per-component-translations), e Angular utilizza un pattern simile attraverso i suoi [Feature Modules](https://v17.angular.io/guide/feature-modules).
 

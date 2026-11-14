@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # ICU Message Format: Syntax und typische Stolpersteine
+
+<iframe title="Alles über i18n: Der komplette Leitfaden zur Web-Internationalisierung" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat ist eine String-Syntax, mit der eine Übersetzung ihre eigene Verzweigungslogik enthalten kann: Plurale, geschlechtsspezifische Formen sowie Zahlen- und Datumsformatierungen. Der Grundgedanke ist, dass Grammatik in die Hände des Übersetzers gehört und nicht in den Code eines Entwicklers, der `if (count === 1)` schreibt. Dieser Artikel behandelt die Syntax, die sprachabhängigen Besonderheiten, an denen naive Implementierungen scheitern, und wie das JS-Ökosystem damit umgeht.
 

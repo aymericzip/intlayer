@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # ICU Message Format: Sözdizimi ve en çok hata yapılan noktalar
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat, bir çevirinin kendi dallanma mantığını (çoğullar, cinsiyete bağlı biçimler, sayı ve tarih biçimlendirmesi) içermesini sağlayan bir metin sözdizimidir. Temel mantığı, dilbilgisinin `if (count === 1)` yazan geliştiriciye değil, çevirmene ait olması gerektiğidir. Bu makalede sözdizimi, basit yaklaşımların yetersiz kaldığı dile özgü kurallar ve JavaScript ekosisteminin bu süreci nasıl ele aldığı açıklanmaktadır.
 

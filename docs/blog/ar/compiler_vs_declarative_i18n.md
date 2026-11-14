@@ -18,9 +18,12 @@ slugs:
   - blog
   - compiler-vs-declarative-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1230s
 ---
 
 # الحجج المؤيدة والمعارضة للتدويل المعتمد على المترجم
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1230&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 إذا كنت تبني تطبيقات ويب لأكثر من عقد من الزمن، فأنت تعلم أن التدويل (i18n) كان دائمًا نقطة احتكاك. غالبًا ما تكون مهمة لا يرغب أحد في القيام بها - استخراج النصوص، إدارة ملفات JSON، والقلق بشأن قواعد الجمع.
 

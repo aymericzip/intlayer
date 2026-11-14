@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # ICU MessageFormat: 구문과 자주 겪는 함정
+
+<iframe title="i18n의 모든 것: 웹 국제화 완벽 가이드" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ICU MessageFormat은 번역 문자열 자체에 조건 분기 로직(복수형, 성별에 따른 형태, 숫자 및 날짜 서식)을 직접 포함할 수 있도록 해주는 문자열 구문 규격입니다. 문법 처리는 `if (count === 1)`을 작성하는 개발자가 아니라 번역가의 영역이어야 한다는 원칙에 기반합니다. 이 글에서는 기본 구문, 단순한 구현을 망가뜨리는 언어별 특징, 그리고 JavaScript 생태계가 이를 처리하는 방식을 살펴봅니다.
 

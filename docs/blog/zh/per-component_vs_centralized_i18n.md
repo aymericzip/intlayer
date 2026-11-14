@@ -15,9 +15,12 @@ slugs:
   - blog
   - per-component-vs-centralized-i18n
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=69s
 ---
 
 # 每组件（Per-Component）与集中式（Centralized）i18n
+
+<iframe title="关于 i18n 的一切：Web 国际化完整指南" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=69&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 每组件（per-component）方法并非新概念。例如，在 Vue 生态系统中，`vue-i18n` 支持 [SFC i18n（单文件组件）](https://vue-i18n.intlify.dev/guide/advanced/sfc.html)。Nuxt 也提供 [按组件翻译](https://i18n.nuxtjs.org/docs/guide/per-component-translations)，Angular 通过其 [Feature Modules](https://v17.angular.io/guide/feature-modules) 采用类似的模式。
 

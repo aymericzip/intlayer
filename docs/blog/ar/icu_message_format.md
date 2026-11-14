@@ -16,9 +16,12 @@ slugs:
   - blog
   - icu-message-format
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=864s
 ---
 
 # صيغة رسائل ICU: القواعد والتفاصيل التي يخطئ فيها الكثيرون
+
+<iframe title="كل شيء عن i18n: الدليل الكامل لتدويل الويب" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=864&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 تُعد ICU MessageFormat صيغة نصوص تتيح للترجمة أن تحتوي على منطق التفرع الخاص بها: صيغ الجمع، الأشكال المعتمدة على الجنس، وتنسيق الأرقام والتواريخ. تعتمد فكرتها الأساسية على أن القواعد النحوية مسؤولية المترجم وليست مسؤولية المطور الذي يكتب `if (count === 1)`. يستعرض هذا المقال بناء الجملة، والخصائص المعتمدة على اللغة التي تفشل فيها التطبيقات البسيطة، وكيف يتعامل نظام JavaScript البيئي مع هذه التحديات.
 
@@ -99,18 +102,18 @@ Hello, {name}!
 
 هذا هو الجانب الذي يقع فيه أغلب المطورين في الخطأ. أسماء الفئات `zero`، `one`، `two`، `few`، `many`، `other` ليست قوالب ثابتة تُطبق على جميع اللغات. تستخدم كل لغة _مجموعة فرعية_ تحددها [قواعد الجمع في CLDR](https://cldr.unicode.org/index/cldr-spec/plural-rules)، وتخضع هذه القواعد للبناء النحوي وليس للمنطق الحسابي المجرد.
 
-| اللغة      | الرمز | الفئات المستخدمة                 | الإجمالي |
-| ---------- | ----- | -------------------------------- | -------- |
-| اليابانية  | `ja`  | other                            | 1        |
-| الصينية    | `zh`  | other                            | 1        |
-| الإنجليزية | `en`  | one, other                       | 2        |
-| الألمانية  | `de`  | one, other                       | 2        |
-| الفرنسية   | `fr`  | one, many, other                 | 3        |
-| التشيكية   | `cs`  | one, few, many, other            | 4        |
-| البولندية  | `pl`  | one, few, many, other            | 4        |
-| الروسية    | `ru`  | one, few, many, other            | 4        |
-| العربية    | `ar`  | zero, one, two, few, many, other | 6        |
-| الويلزية   | `cy`  | zero, one, two, few, many, other | 6        |
+| اللغة     | الرمز | الفئات المستخدمة                 | الإجمالي |
+| --------- | ----- | -------------------------------- | ------- |
+| اليابانية | `ja`  | other                            | 1       |
+| الصينية   | `zh`  | other                            | 1       |
+| الإنجليزية | `en`  | one, other                       | 2       |
+| الألمانية  | `de`  | one, other                       | 2       |
+| الفرنسية  | `fr`  | one, many, other                 | 3       |
+| التشيكية  | `cs`  | one, few, many, other            | 4       |
+| البولندية | `pl`  | one, few, many, other            | 4       |
+| الروسية   | `ru`  | one, few, many, other            | 4       |
+| العربية   | `ar`  | zero, one, two, few, many, other | 6       |
+| الويلزية  | `cy`  | zero, one, two, few, many, other | 6       |
 
 نتيجتان تفاجئان الكثيرين:
 
@@ -198,7 +201,7 @@ Conversion: {rate, number, percent}
 
 ## كيفية تعامل مكتبات JavaScript مع ICU
 
-| المكتبة               | دعم ICU              | ما تكتبه عمليًا في الكود                                                       |
+| المكتبة               | دعم ICU              | ما تكتبه عمليًا في الكود                                                        |
 | --------------------- | -------------------- | ------------------------------------------------------------------------------ |
 | react-intl (FormatJS) | دعم أصيل وكامل       | نصوص ICU كاملة بما يشمل الهياكل ووسوم النصوص الغنية                            |
 | next-intl             | دعم أصيل             | نصوص ICU عبر مكتبة `intl-messageformat` التابعة لـ FormatJS                    |

@@ -18,9 +18,12 @@ slugs:
   - blog
   - how-to-pick-react-i18n-library
 author: aymericzip
+youtubeVideo: https://www.youtube.com/watch?v=7VtLdbtV1us&t=1465s
 ---
 
 # Doğru React i18n kütüphanesi nasıl seçilir
+
+<iframe title="i18n hakkında her şey: Web uluslararasılaştırmasının tam rehberi" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/7VtLdbtV1us?autoplay=0&amp;start=1465&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 React yerleşik bir i18n primitive'i sunmaz. İlk gün seçtiğiniz kütüphane, çevirilerin nasıl saklanacağını, bundle'a nasıl ulaşacağını ve önümüzdeki birkaç yıl boyunca iş yükünün ne kadarının size kalacağını belirler. Çoğu ekip popülariteye göre seçim yapar, ardından 2.000 anahtara ulaştığında trade-off'ları keşfeder.
 
