@@ -92,7 +92,7 @@
     "fast-glob": "3.3.3",
     "husky": "9.1.7",
     "intlayer": "workspace:*",
-    "lint-staged": "17.6.0",
+    "lint-staged": "17.6.1",
     "minimist": "1.2.8",
     "oxfmt": "0.78.0",
     "oxlint": "1.93.0",
