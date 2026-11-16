@@ -2,6 +2,8 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
 import { enu, gender, html, insert, plural, select } from '../transpiler';
+import type { GenderContentStates } from '../transpiler/gender/gender';
+import { DEFAULT_PLURAL_VARIABLE } from '../transpiler/plural/plural';
 
 /**
  * ICU MessageFormat Converter
@@ -56,6 +58,36 @@ export type JsonValue =
   | JsonValue[]
   | { [key: string]: JsonValue };
 
+/** Characters an ICU apostrophe can quote to make them literal. */
+const QUOTABLE_SYNTAX_CHARACTERS = ['{', '}'];
+
+/** ICU plural categories (CLDR) and the enumeration key each maps to. */
+const PLURAL_CATEGORY_TO_ENUMERATION_KEY: Record<string, string> = {
+  one: '1',
+  two: '2',
+  few: '<=3',
+  many: '>=4',
+  other: 'fallback',
+};
+
+/**
+ * Converts Intlayer text to ICU text:
+ * - `{{name}}` → `{name}`
+ * - formatted arguments `{value, number, percent}` are kept as is
+ * - any other `{` / `}` is a literal and gets quoted (`'{'`)
+ */
+const intlayerTextToIcu = (text: string): string => {
+  const tokenPattern =
+    /\{\{\s*([^{}\s]+?)\s*\}\}|\{\s*[\w.]+\s*,\s*\w+\s*(?:,[^{}]*)?\}|'(?=[{}])|[{}]/g;
+
+  return text.replace(tokenPattern, (match, variableName?: string) => {
+    if (variableName) return `{${variableName}}`;
+    if (match === "'") return "''"; // keep a literal apostrophe before a quoted brace
+    if (match === '{' || match === '}') return `'${match}'`;
+    return match;
+  });
+};
+
 const parseICU = (text: string): ICUNode[] => {
   let index = 0;
 
@@ -82,17 +114,26 @@ const parseICU = (text: string): ICUNode[] => {
           currentText += "'";
           index += 2;
         } else {
-          // Find next quote
-          const nextQuote = text.indexOf("'", index + 1);
+          // ICU only opens a quoted literal when the apostrophe precedes a
+          // syntax character; any other apostrophe ("It's") is plain text.
+          const nextQuote = QUOTABLE_SYNTAX_CHARACTERS.includes(
+            text[index + 1] ?? ''
+          )
+            ? text.indexOf("'", index + 1)
+            : -1;
+
           if (nextQuote !== -1) {
-            // Determine if this is escaping syntax characters
-            // For simplicity, we'll treat content between single quotes as literal
-            // provided it contains syntax chars.
-            // Standard ICU: ' quoted string '
-            // If it is just an apostrophe, it should be doubled.
-            // But simplified: take content between quotes literally.
-            currentText += text.substring(index + 1, nextQuote);
+            // `''` inside a quoted literal is an escaped apostrophe
+            currentText += text
+              .substring(index + 1, nextQuote)
+              .replace(/''/g, "'");
             index = nextQuote + 1;
+          } else if (
+            QUOTABLE_SYNTAX_CHARACTERS.includes(text[index + 1] ?? '')
+          ) {
+            // Unterminated quote: ICU quotes up to the end of the message
+            currentText += text.substring(index + 1);
+            index = text.length;
           } else {
             currentText += "'";
             index++;
@@ -217,12 +258,24 @@ const parseICU = (text: string): ICUNode[] => {
   return parseNodes();
 };
 
+/**
+ * Whether a text holds a `{` / `}` that is not part of a `{{var}}` insertion,
+ * i.e. a brace that was quoted in the source ICU message.
+ */
+const hasLiteralBrace = (text: string): boolean =>
+  /[{}]/.test(text.replace(/\{\{[^{}]+\}\}/g, ''));
+
 const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
   if (nodes.length === 0) return '';
   if (nodes.length === 1 && typeof nodes[0] === 'string') {
     const node = nodes[0];
     if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) {
       return html(node);
+    }
+    // A plain string is emitted back verbatim, so literal braces need an
+    // `insert()` node to be re-quoted on the way back to ICU
+    if (hasLiteralBrace(node)) {
+      return insert(node);
     }
     return node;
   }
@@ -287,22 +340,20 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
       }
 
       if (hasExactMatch) {
+        const explicitKeys = Object.keys(node.options)
+          .filter((key) => key.startsWith('='))
+          .map((key) => key.substring(1));
+
         for (const [key, val] of Object.entries(node.options)) {
-          // Map ICU keys to Intlayer keys
-          let newKey = key;
-          if (key.startsWith('=')) {
-            newKey = key.substring(1); // =0 -> 0
-          } else if (key === 'one') {
-            newKey = '1';
-          } else if (key === 'two') {
-            newKey = '2';
-          } else if (key === 'few') {
-            newKey = '<=3';
-          } else if (key === 'many') {
-            newKey = '>=4';
-          } else if (key === 'other') {
-            newKey = 'fallback';
-          }
+          // Map ICU keys to Intlayer keys (=0 -> 0, one -> 1, other -> fallback).
+          // A category whose key is already taken by an explicit `=N` keeps
+          // its CLDR name: ICU checks `=N` first, so both must survive.
+          const categoryKey = PLURAL_CATEGORY_TO_ENUMERATION_KEY[key];
+          const newKey = key.startsWith('=')
+            ? key.substring(1)
+            : categoryKey && !explicitKeys.includes(categoryKey)
+              ? categoryKey
+              : key;
           // Handle # in plural value
           // For plural, we need to pass the variable name down or replace #
           // Intlayer uses {{n}} (or whatever var name) for simple variables
@@ -334,7 +385,14 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
           options[key] = icuNodesToIntlayer(replacedVal);
         }
 
-        return plural(options as any);
+        // Keep the selector name: it cannot be inferred back from the
+        // branches when they don't use `#`
+        return plural(
+          options as any,
+          node.name === DEFAULT_PLURAL_VARIABLE
+            ? undefined
+            : { variable: node.name }
+        );
       }
     }
     if (node?.type === 'select') {
@@ -345,21 +403,16 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
         options[key === 'other' ? 'fallback' : key] = icuNodesToIntlayer(val);
       }
 
-      // Check if it looks like gender
+      // A `gender` node always selects on `gender`, so only a select on that
+      // variable, with gender keys only, can become one without loss.
       const optionKeys = Object.keys(options);
-      // It is gender if it has 'male' OR 'female' AND only contains gender keys (male, female, other)
       const isGender =
-        (options.male || options.female) &&
-        optionKeys.every((k) =>
-          ['male', 'female', 'other', 'fallback'].includes(k)
-        );
+        node.name === 'gender' &&
+        optionKeys.some((key) => key === 'male' || key === 'female') &&
+        optionKeys.every((key) => ['male', 'female', 'fallback'].includes(key));
 
       if (isGender) {
-        return gender({
-          fallback: options.fallback,
-          male: options.male,
-          female: options.female,
-        });
+        return gender(options as GenderContentStates<unknown>);
       }
 
       // Any other discriminant (status, plan, platform…) maps to a `select`
@@ -479,16 +532,21 @@ const intlayerToIcuPlugin = {
   },
   transform: (node: any, props: any, next: any) => {
     // Convert Intlayer's double-brace format {{var}} to ICU's single-brace format {var}
+    // Plain strings may already be ICU messages: only unwrap `{{var}}`.
+    // Literal braces are carried by `insert()` nodes, escaped below.
     if (typeof node === 'string') {
       return node.replace(/\{\{([^}]+)\}\}/g, '{$1}');
     }
 
     if (node.nodeType === NodeTypes.INSERTION) {
-      return node[NodeTypes.INSERTION].replace(/\{\{([^}]+)\}\}/g, '{$1}');
+      return intlayerTextToIcu(node[NodeTypes.INSERTION]);
     }
 
     if (node.nodeType === NodeTypes.HTML) {
-      return node[NodeTypes.HTML];
+      const htmlContent = node[NodeTypes.HTML];
+      return typeof htmlContent === 'string'
+        ? intlayerTextToIcu(htmlContent)
+        : next(htmlContent, props);
     }
 
     if (node.nodeType === NodeTypes.PLURAL) {
@@ -501,17 +559,8 @@ const intlayerToIcuPlugin = {
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
       }
 
-      let varName = 'count';
-
-      const fallbackVal =
-        transformedOptions.other || Object.values(transformedOptions)[0];
-
-      if (fallbackVal) {
-        const match = fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
-        if (match) {
-          varName = match[1]!;
-        }
-      }
+      // The plural selects on its declared variable, `count` by default.
+      const varName: string = node.variable ?? DEFAULT_PLURAL_VARIABLE;
 
       const parts = [];
 
@@ -593,7 +642,8 @@ const intlayerToIcuPlugin = {
           else if (key === '<=3') icuKey = 'few';
           else if (key === '>=4') icuKey = 'many';
           else if (/^\d+$/.test(key)) icuKey = `=${key}`;
-          else if (['zero', 'few', 'many'].includes(key)) icuKey = key;
+          else if (['zero', 'one', 'two', 'few', 'many'].includes(key))
+            icuKey = key;
           else icuKey = 'other';
 
           let strVal = val;
@@ -631,6 +681,9 @@ const intlayerToIcuPlugin = {
       });
 
       for (const [key, val] of entries) {
+        // Branches absent from the source message are not emitted
+        if (val === undefined) continue;
+
         let icuKey = key;
         if (key === 'fallback') icuKey = 'other';
 

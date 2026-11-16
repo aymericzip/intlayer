@@ -133,6 +133,33 @@ describe('resolveMessage', () => {
     ).toBe('Hello Aymeric, you have 1 unread message.');
   });
 
+  it('should resolve a gender-like select on its own variable', () => {
+    const message = '{g, select, male {He} other {They}}';
+    expect(resolveMessage(message, { g: 'male' }, 'en', 'icu')).toBe('He');
+    expect(resolveMessage(message, { g: 'x' }, 'en', 'icu')).toBe('They');
+  });
+
+  it('should resolve a plural on a non-default variable', () => {
+    const message = '{n, plural, one {an item} other {items}}';
+    expect(resolveMessage(message, { n: 1 }, 'en', 'icu')).toBe('an item');
+    expect(resolveMessage(message, { n: 3 }, 'en', 'icu')).toBe('items');
+  });
+
+  it('should check `=N` before the CLDR category', () => {
+    const message = '{n, plural, =1 {one exact} one {one cat} other {# cats}}';
+    expect(resolveMessage(message, { n: 1 }, 'en', 'icu')).toBe('one exact');
+    expect(resolveMessage(message, { n: 2 }, 'en', 'icu')).toBe('2 cats');
+    // Russian `one` also covers 21
+    expect(
+      resolveMessage(
+        '{n, plural, =1 {exact} one {# one} other {# other}}',
+        { n: 21 },
+        'ru',
+        'icu'
+      )
+    ).toBe('21 one');
+  });
+
   it('should resolve ICU plural with exact matches', () => {
     expect(
       resolveMessage(

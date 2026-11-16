@@ -1,10 +1,16 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { getCachedIntl } from '../formatters';
-import { getEnumeration } from '../interpreter/getEnumeration';
+import {
+  findMatchingCondition,
+  getEnumeration,
+} from '../interpreter/getEnumeration';
 import { getPlural } from '../interpreter/getPlural';
 import { getSelect } from '../interpreter/getSelect';
-import type { PluralContentState } from '../transpiler/plural/plural';
+import {
+  DEFAULT_PLURAL_VARIABLE,
+  type PluralContentState,
+} from '../transpiler/plural/plural';
 import { i18nextToIntlayerFormatter } from './i18next';
 import { icuToIntlayerFormatter } from './ICU';
 import { vueI18nToIntlayerFormatter } from './vue-i18n';
@@ -206,7 +212,11 @@ export const resolveMessageNode = (
     const pluralState = typedNode[
       NodeTypes.PLURAL
     ] as PluralContentState<unknown>;
-    const count = Number(getSelectorValue(values, 'count') ?? 1);
+    const variableName =
+      typeof typedNode.variable === 'string'
+        ? typedNode.variable
+        : DEFAULT_PLURAL_VARIABLE;
+    const count = Number(getSelectorValue(values, variableName) ?? 1);
     const selected = getPlural(
       pluralState as PluralContentState<string>,
       count,
@@ -253,7 +263,14 @@ export const resolveMessageNode = (
       typeof selector === 'number' ||
       !Number.isNaN(Number(selector))
     ) {
-      selected = getEnumeration(options, Number(selector));
+      // Exact / range keys first, then a CLDR category kept by the ICU
+      // converter (`=1 {…} one {…}`), then the fallback
+      const count = Number(selector);
+      const matchedKey = findMatchingCondition(options, count);
+      selected = matchedKey
+        ? options[matchedKey]
+        : (options[getCachedIntl('PluralRules', locale).select(count)] ??
+          getEnumeration(options, count));
     } else {
       // String selector — ICU `select` converted to an enumeration
       selected = options[String(selector)] ?? options.fallback ?? options.other;

@@ -508,4 +508,52 @@ describe('ICU Formatter', () => {
       });
     });
   });
+
+  describe('lossless round-trip', () => {
+    const roundTrip = (message: string) =>
+      intlayerToICUFormatter(icuToIntlayerFormatter(message) as any);
+
+    it.each([
+      // select on a non-`gender` variable with gender-like keys
+      '{g, select, male {He} other {They}}',
+      // gender select with an omitted branch
+      '{gender, select, male {He} other {They}}',
+      // plural without `#` keeps its variable, nested select keeps its own
+      '{n, plural, one {{g, select, male {his} other {their}} item} other {items}}',
+      // explicit `=1` and CLDR `one` are distinct
+      '{n, plural, =1 {one exact} one {one cat} other {# cats}}',
+      '{count, plural, =2 {a pair} two {two} other {# things}}',
+      // quoted literal braces (each brace is quoted on its own)
+      "'{'literal'}' {x}",
+      "'{'only'}'",
+      // interpolation inside rich-text tags
+      '<b>{x}</b>',
+    ])('should round-trip %s', (message) => {
+      expect(roundTrip(message)).toBe(message);
+    });
+
+    it('should re-quote literal braces quoted as a whole', () => {
+      const backToIcu = roundTrip("'{literal}' {x}");
+      expect(backToIcu).toBe("'{'literal'}' {x}");
+      expect(icuToIntlayerFormatter(backToIcu as string)).toEqual(
+        insert('{literal} {{x}}')
+      );
+    });
+
+    it('should keep plain apostrophes literal', () => {
+      expect(icuToIntlayerFormatter("It's John's {x}")).toEqual(
+        insert("It's John's {{x}}")
+      );
+    });
+
+    it('should keep a literal apostrophe before a quoted brace', () => {
+      expect(intlayerToICUFormatter(insert("'{{x}}"))).toBe("''{x}");
+    });
+
+    it('should convert a non-gender-variable select into a select node', () => {
+      expect(
+        icuToIntlayerFormatter('{g, select, male {He} other {They}}')
+      ).toEqual(select({ male: 'He', fallback: 'They' }, 'g'));
+    });
+  });
 });
