@@ -2,6 +2,7 @@ import {
   getLocalizedUrl,
   getPathWithoutLocale,
 } from '@intlayer/core/localization';
+import { checkIsRelativeLink } from '@intlayer/design-system/link';
 import { useNavigate } from '@tanstack/react-router';
 import { useLocale } from 'react-intlayer';
 import { LOCALE_ROUTE, type StripLocalePrefix } from '~/components/Link/Link';
@@ -33,6 +34,10 @@ export const useLocalizedNavigate = () => {
 
   const localizedNavigate: LocalizedNavigate = (args) => {
     if (typeof args === 'string') {
+      // Relative targets (`.`, `..`) resolve against the current route
+      if (checkIsRelativeLink(args))
+        return navigate({ to: args as FileRouteTypes['to'] });
+
       const cleanPath = getCleanPath(args);
 
       return navigate({
@@ -41,6 +46,9 @@ export const useLocalizedNavigate = () => {
     }
 
     const { to, ...rest } = args;
+
+    if (checkIsRelativeLink(to))
+      return navigate({ ...rest, to: to as FileRouteTypes['to'] });
 
     const cleanTo = typeof to === 'string' ? getCleanPath(to) : to;
 

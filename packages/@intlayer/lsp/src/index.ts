@@ -80,9 +80,18 @@ import {
   matchCallNamespace,
 } from './usageAnalyzer';
 
-// Create a connection for the server, using Node's IPC as a transport.
-// Also include all preview / proposed LSP features.
-const connection = createConnection(ProposedFeatures.all);
+/** Transport flags understood by `createConnection` when read from argv. */
+const TRANSPORT_FLAGS = ['--stdio', '--node-ipc', '--socket=', '--pipe='];
+
+const hasTransportFlag = process.argv.some((argument) =>
+  TRANSPORT_FLAGS.some((flag) => argument.startsWith(flag))
+);
+
+// Honour an explicit transport flag; otherwise default to stdio so clients
+// launching the bare binary (e.g. Claude Code plugins) don't crash on start.
+const connection = hasTransportFlag
+  ? createConnection(ProposedFeatures.all)
+  : createConnection(ProposedFeatures.all, process.stdin, process.stdout);
 
 // Create a simple text document manager.
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);

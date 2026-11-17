@@ -231,6 +231,49 @@ export const checkIsExternalLink = (
   return true;
 };
 
+/**
+ * Whether `href` resolves against the current location (`.`, `..`, `./x`,
+ * `../x`, `?query`, `#hash`). Such links must not be localized: prefixing
+ * them with a locale turns them into the locale root.
+ */
+export const checkIsRelativeLink = (href: unknown): boolean =>
+  typeof href === 'string' && /^(\.\.?(\/|$)|[?#])/.test(href);
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (
+  event: Pick<MouseEvent, 'altKey' | 'ctrlKey' | 'metaKey' | 'shiftKey'>
+): boolean => event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+
+/**
+ * Applies `defaultParams` under the caller's router params, keeping the
+ * reducer form (`(previousParams) => nextParams`) working.
+ */
+export const withDefaultParams = <TParams extends Record<string, unknown>>(
+  defaultParams: TParams,
+  params: unknown
+):
+  | Record<string, unknown>
+  | ((previousParams: Record<string, unknown>) => Record<string, unknown>) => {
+  if (typeof params === 'function') {
+    const reduceParams = params as (
+      previousParams: Record<string, unknown>
+    ) => Record<string, unknown>;
+
+    return (previousParams) => ({
+      ...defaultParams,
+      ...reduceParams(previousParams),
+    });
+  }
+
+  return {
+    ...defaultParams,
+    ...(typeof params === 'object' && params !== null ? params : {}),
+  };
+};
+
 export const isTextChildren = (children: ReactNode): boolean => {
   if (typeof children === 'string' || typeof children === 'number') {
     return true;
@@ -283,7 +326,11 @@ export const Link: FC<LinkProps> = (props) => {
   const target = isExternalLink ? '_blank' : (targetProp ?? '_self');
 
   const resolvedHref =
-    locale && hrefProp && !isExternalLink && !isPageSection
+    locale &&
+    hrefProp &&
+    !isExternalLink &&
+    !isPageSection &&
+    !checkIsRelativeLink(hrefProp)
       ? getLocalizedUrl(hrefProp, locale)
       : hrefProp;
 

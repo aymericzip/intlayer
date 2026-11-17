@@ -1,3 +1,7 @@
+import {
+  checkIsRelativeLink,
+  withDefaultParams,
+} from '@intlayer/design-system/link';
 import { useNavigate } from '@tanstack/react-router';
 import { getPrefix } from 'intlayer';
 import { useLocale } from 'react-intlayer';
@@ -11,6 +15,8 @@ type StripLocalePrefix<T extends string> = T extends
   : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
     ? `/${Rest}`
     : never;
+
+type NavigateOptions = Parameters<ReturnType<typeof useNavigate>>[0];
 
 type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']>;
 
@@ -31,19 +37,17 @@ export const useLocalizedNavigate = () => {
   const localizedNavigate: LocalizedNavigate = (args: any) => {
     const { localePrefix } = getPrefix(locale);
 
-    if (typeof args === 'string') {
-      return navigate({
-        to: `/${LOCALE_ROUTE}${args}`,
-        params: { locale: localePrefix },
-      });
-    }
-
-    const { to, ...rest } = args;
-    const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
+    const { params, to, ...rest } =
+      typeof args === 'string' ? { to: args } : args;
 
     return navigate({
-      to: localizedTo,
-      params: { locale: localePrefix, ...rest } as any,
+      ...rest,
+      // Relative targets (`.`, `..`) resolve against the current route
+      to: checkIsRelativeLink(to) ? to : `/${LOCALE_ROUTE}${to}`,
+      params: withDefaultParams(
+        { locale: localePrefix },
+        params
+      ) as NavigateOptions['params'],
     });
   };
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-27
+updatedAt: 2026-11-17
 priority: 9
 title: "i18n TanStack Start + Solid: hướng dẫn dịch đầy đủ"
 description: "Thiết lập Intlayer trong TanStack Start với Solid: tham số locale trong route, nội dung dịch có tính phản ứng, metadata head bản địa hóa và hreflang."
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-17
+    changes: "Giữ nguyên đích tương đối và reducer của params trong LocalizedLink, bỏ qua các cú nhấp có phím bổ trợ trong bộ chuyển ngôn ngữ"
   - version: 9.4.0
     date: 2026-08-25
     changes: "So sánh phân giải tĩnh, động và động có cache cho từ điển metadata trong hàm head của route"
@@ -446,26 +449,73 @@ type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
   RemoveAll<TString, typeof LOCALE_ROUTE>
 >;
 
+type RouteParams = Record<string, unknown>;
+type RouteParamsReducer = (previousParams: RouteParams) => RouteParams;
+
+/**
+ * Prefixes absolute destinations with the optional locale segment.
+ * Relative destinations (`.`, `..`) keep their router meaning, and an
+ * omitted destination targets the locale root.
+ */
+export const localizeTo = (to: string | undefined): string => {
+  if (to === undefined) return `/${LOCALE_ROUTE}`;
+
+  return to.startsWith("/") ? `/${LOCALE_ROUTE}${to}` : to;
+};
+
+/**
+ * Defaults the `locale` param to the given prefix, under the caller's params.
+ * Supports both the object and the reducer form of router params.
+ */
+export const withLocaleParam = (
+  params: unknown,
+  localePrefix: string | undefined
+): RouteParams | RouteParamsReducer => {
+  if (typeof params === "function") {
+    const reduceParams = params as RouteParamsReducer;
+
+    return (previousParams) => ({
+      locale: localePrefix,
+      ...reduceParams(previousParams),
+    });
+  }
+
+  return {
+    locale: localePrefix,
+    ...(typeof params === "object" ? params : {}),
+  };
+};
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (event: MouseEvent): boolean =>
+  event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+
 export const LocalizedLink = (props: LocalizedLinkProps) => {
   const { locale } = useLocale();
 
   return (
     <Link
       {...props}
-      params={{
-        locale: getPrefix(locale()).localePrefix,
-        ...(typeof props.params === "object" ? props.params : {}),
-      }}
-      to={`/${LOCALE_ROUTE}${props.to ?? ""}` as LinkProps["to"]}
+      params={
+        withLocaleParam(
+          props.params,
+          getPrefix(locale()).localePrefix
+        ) as LinkProps["params"]
+      }
+      to={localizeTo(props.to as string | undefined) as LinkProps["to"]}
     />
   );
 };
 ```
 
-Component này phục vụ hai mục đích:
+Component này phục vụ ba mục đích:
 
 - Xóa tiền tố `{-$locale}` không cần thiết khỏi URL.
 - Chèn tham số ngôn ngữ vào URL để đảm bảo người dùng được chuyển hướng trực tiếp đến route đã được bản địa hóa.
+- Giữ nguyên các đích tương đối (`.`, `..`) để chúng giữ đúng ý nghĩa đối với router, và chấp nhận `params` ở cả dạng object lẫn dạng hàm reducer.
 
 Sau đó, chúng ta có thể tạo một hook `useLocalizedNavigate` để điều hướng bằng lập trình:
 
@@ -543,7 +593,7 @@ import { useLocation } from "@tanstack/solid-router";
 import { getLocaleName, getPathWithoutLocale, getPrefix } from "intlayer";
 import { For } from "solid-js";
 import { useIntlayer, useLocale } from "solid-intlayer";
-import { LocalizedLink, type To } from "./LocalizedLink";
+import { isModifiedClick, LocalizedLink, type To } from "./LocalizedLink";
 
 export const LocaleSwitcher = () => {
   const content = useIntlayer("locale-switcher");
@@ -559,7 +609,12 @@ export const LocaleSwitcher = () => {
         {(localeEl) => (
           <LocalizedLink
             aria-current={localeEl === locale() ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
+            onClick={(event) => {
+              // Modified clicks open a new tab: keep this tab's locale
+              if (isModifiedClick(event)) return;
+
+              setLocale(localeEl);
+            }}
             params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale() as To}
           >

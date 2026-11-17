@@ -1,6 +1,7 @@
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import {
   checkIsExternalLink,
+  checkIsRelativeLink,
   isTextChildren,
   type LinkProps as LinkUIProps,
   linkVariants,
@@ -32,6 +33,8 @@ const URL = import.meta.env.VITE_URL;
 interface LinkInfo {
   isExternalLink: boolean;
   isAsset: boolean;
+  /** Same-page target (`#hash`, `?query`): rendered as a plain anchor */
+  isSamePage: boolean;
   href: string;
 }
 
@@ -85,8 +88,13 @@ const getLinkInfo = (
       pathnameString
     );
 
+  // Relative targets resolve against the current page; localizing them
+  // would turn `#commands` into the locale root (`/fr#commands`)
+  const isRelative = checkIsRelativeLink(pathnameString);
+  const isSamePage = isRelative && /^[?#]/.test(pathnameString as string);
+
   const href =
-    locale && normalizedHref && !isExternalLink && !isAsset
+    locale && normalizedHref && !isExternalLink && !isAsset && !isRelative
       ? typeof normalizedHref === 'string'
         ? getLocalizedUrl(normalizedHref, locale)
         : typeof normalizedHref === 'object' &&
@@ -97,7 +105,7 @@ const getLinkInfo = (
       : (pathnameString ??
         (typeof normalizedHref === 'string' ? normalizedHref : '/'));
 
-  return { isExternalLink, isAsset, href };
+  return { isExternalLink, isAsset, isSamePage, href };
 };
 
 export const Link: FC<LinkProps> = (props) => {
@@ -122,7 +130,7 @@ export const Link: FC<LinkProps> = (props) => {
   const { locale: currentLocale } = useLocale();
   const locale = localeProp ?? currentLocale;
 
-  const { isExternalLink, isAsset, href } = getLinkInfo(
+  const { isExternalLink, isAsset, isSamePage, href } = getLinkInfo(
     toProp,
     locale,
     isExternalLinkProp
@@ -154,7 +162,7 @@ export const Link: FC<LinkProps> = (props) => {
   // from doc markdown) must never reach `<TanStackLink>`: the router resolves
   // `to` through `new URL(to, origin)`, which throws and aborts SSR when the
   // value is not a valid URL. A plain anchor also avoids pointless router work.
-  if (isAsset || isExternalLink) {
+  if (isAsset || isExternalLink || isSamePage) {
     return (
       <a
         {...(otherProps as any)}

@@ -21,6 +21,7 @@
       "lspServers": {
         "intlayer": {
           "command": "intlayer-lsp",
+          "args": ["--stdio"],
           "extensionToLanguage": {
             ".ts": "typescript",
             ".tsx": "typescriptreact",

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-27
+updatedAt: 2026-11-17
 priority: 9
 title: "TanStack Start + Solid i18n: vollständiger Übersetzungsleitfaden"
 description: "Intlayer in TanStack Start mit Solid einrichten: Locale-Routenparameter, reaktive übersetzte Inhalte, lokalisierte Head-Metadaten und hreflang."
@@ -23,6 +23,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-17
+    changes: "Relative Ziele und params-Reducer in LocalizedLink beibehalten, Klicks mit Zusatztasten im Sprachumschalter ignorieren"
   - version: 9.4.0
     date: 2026-08-25
     changes: "Statische, dynamische und gecachte dynamische Auflösung von Metadaten-Dictionaries in head-Funktionen von Routen vergleichen"
@@ -447,26 +450,73 @@ type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
   RemoveAll<TString, typeof LOCALE_ROUTE>
 >;
 
+type RouteParams = Record<string, unknown>;
+type RouteParamsReducer = (previousParams: RouteParams) => RouteParams;
+
+/**
+ * Prefixes absolute destinations with the optional locale segment.
+ * Relative destinations (`.`, `..`) keep their router meaning, and an
+ * omitted destination targets the locale root.
+ */
+export const localizeTo = (to: string | undefined): string => {
+  if (to === undefined) return `/${LOCALE_ROUTE}`;
+
+  return to.startsWith("/") ? `/${LOCALE_ROUTE}${to}` : to;
+};
+
+/**
+ * Defaults the `locale` param to the given prefix, under the caller's params.
+ * Supports both the object and the reducer form of router params.
+ */
+export const withLocaleParam = (
+  params: unknown,
+  localePrefix: string | undefined
+): RouteParams | RouteParamsReducer => {
+  if (typeof params === "function") {
+    const reduceParams = params as RouteParamsReducer;
+
+    return (previousParams) => ({
+      locale: localePrefix,
+      ...reduceParams(previousParams),
+    });
+  }
+
+  return {
+    locale: localePrefix,
+    ...(typeof params === "object" ? params : {}),
+  };
+};
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (event: MouseEvent): boolean =>
+  event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+
 export const LocalizedLink = (props: LocalizedLinkProps) => {
   const { locale } = useLocale();
 
   return (
     <Link
       {...props}
-      params={{
-        locale: getPrefix(locale()).localePrefix,
-        ...(typeof props.params === "object" ? props.params : {}),
-      }}
-      to={`/${LOCALE_ROUTE}${props.to ?? ""}` as LinkProps["to"]}
+      params={
+        withLocaleParam(
+          props.params,
+          getPrefix(locale()).localePrefix
+        ) as LinkProps["params"]
+      }
+      to={localizeTo(props.to as string | undefined) as LinkProps["to"]}
     />
   );
 };
 ```
 
-Diese Komponente hat zwei Ziele:
+Diese Komponente hat drei Ziele:
 
 - Entfernen des unnötigen `{-$locale}`-Präfixes aus der URL.
 - Einfügen des Gebietsschema-Parameters in die URL, um sicherzustellen, dass der Benutzer direkt auf die lokalisierte Route weitergeleitet wird.
+- Relative Ziele (`.`, `..`) unverändert lassen, damit sie ihre Bedeutung für den Router behalten, und `params` sowohl als Objekt als auch als Reducer-Funktion akzeptieren.
 
 Anschließend können wir einen `useLocalizedNavigate`-Hook für die programmgesteuerte Navigation erstellen:
 
@@ -544,7 +594,7 @@ import { useLocation } from "@tanstack/solid-router";
 import { getLocaleName, getPathWithoutLocale, getPrefix } from "intlayer";
 import { For } from "solid-js";
 import { useIntlayer, useLocale } from "solid-intlayer";
-import { LocalizedLink, type To } from "./LocalizedLink";
+import { isModifiedClick, LocalizedLink, type To } from "./LocalizedLink";
 
 export const LocaleSwitcher = () => {
   const content = useIntlayer("locale-switcher");
@@ -560,7 +610,12 @@ export const LocaleSwitcher = () => {
         {(localeEl) => (
           <LocalizedLink
             aria-current={localeEl === locale() ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
+            onClick={(event) => {
+              // Modified clicks open a new tab: keep this tab's locale
+              if (isModifiedClick(event)) return;
+
+              setLocale(localeEl);
+            }}
             params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale() as To}
           >

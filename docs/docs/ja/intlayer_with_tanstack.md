@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-11-02
+updatedAt: 2026-11-17
 priority: 10
 title: "TanStack Start i18n - あなたのアプリを翻訳する完全ガイド"
 description: "TanStack Start に Intlayer を導入：ルートのロケールパラメーター、SSR 対応の翻訳コンテンツ、ローカライズされた head メタデータ、hreflang とサイトマップ。"
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-17
+    changes: "LocalizedLink で相対パスと params のリデューサーを保持し、言語切り替えで修飾キー付きクリックを無視"
   - version: 9.4.0
     date: 2026-08-25
     changes: "ルートの head 関数におけるメタデータ辞書の静的解決・動的解決・キャッシュ付き動的解決を比較"
@@ -461,11 +464,60 @@ export const LOCALE_ROUTE = "{-$locale}" as const;
 export type To = StripLocalePrefix<LinkComponentProps["to"]>;
 
 export type StripLocalePrefix<T extends string | undefined> = T extends
-  `/${typeof LOCALE_ROUTE}/` | `/${typeof LOCALE_ROUTE}`
+  | `/${typeof LOCALE_ROUTE}/`
+  | `/${typeof LOCALE_ROUTE}`
   ? "/"
   : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
     ? `/${Rest}`
     : T;
+
+type RouteParams = Record<string, unknown>;
+type RouteParamsReducer = (previousParams: RouteParams) => RouteParams;
+
+/**
+ * Prefixes absolute destinations with the optional locale segment.
+ * Relative destinations (`.`, `..`) keep their router meaning, and an
+ * omitted destination targets the locale root.
+ */
+export const localizeTo = (to: string | undefined): string => {
+  if (to === undefined) return `/${LOCALE_ROUTE}`;
+
+  return to.startsWith("/") ? `/${LOCALE_ROUTE}${to}` : to;
+};
+
+/**
+ * Defaults the `locale` param to the given prefix, under the caller's params.
+ * Supports both the object and the reducer form of router params.
+ */
+export const withLocaleParam = (
+  params: unknown,
+  localePrefix: string | undefined
+): RouteParams | RouteParamsReducer => {
+  if (typeof params === "function") {
+    const reduceParams = params as RouteParamsReducer;
+
+    return (previousParams) => ({
+      locale: localePrefix,
+      ...reduceParams(previousParams),
+    });
+  }
+
+  return {
+    locale: localePrefix,
+    ...(typeof params === "object" ? params : {}),
+  };
+};
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (event: {
+  altKey: boolean;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  shiftKey: boolean;
+}): boolean => event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
 
 type LocalizedLinkProps = {
   to?: To;
@@ -473,25 +525,27 @@ type LocalizedLinkProps = {
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
-  const { localePrefix } = getPrefix(locale);
 
   return (
     <Link
       {...props}
-      params={{
-        locale: localePrefix,
-        ...(typeof props?.params === "object" ? props?.params : {}),
-      }}
-      to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps["to"]}
+      params={
+        withLocaleParam(
+          props.params,
+          getPrefix(locale).localePrefix
+        ) as LinkComponentProps["params"]
+      }
+      to={localizeTo(props.to) as LinkComponentProps["to"]}
     />
   );
 };
 ```
 
-このコンポーネントには2つの目的があります：
+このコンポーネントには3つの目的があります：
 
 - URLから不要な`{-$locale}`接頭辞を削除します。
 - ロケールパラメータをURLに挿入して、ユーザーがローカライズされたルートに直接リダイレクトされるようにします。
+- 相対パス（`.`、`..`）はルーター本来の意味を保つためそのまま渡し、`params` はオブジェクトとリデューサー関数のどちらの形式でも受け付けます。
 
 次に、プログラムによるナビゲーションのための `useLocalizedNavigate` フックを作成できます：
 
@@ -500,8 +554,9 @@ import { useNavigate } from "@tanstack/react-router";
 import { getPrefix } from "intlayer";
 import { useLocale } from "react-intlayer";
 import {
-  LOCALE_ROUTE,
+  localizeTo,
   type StripLocalePrefix,
+  withLocaleParam,
 } from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
 
@@ -527,26 +582,15 @@ export const useLocalizedNavigate = () => {
 
   const { locale } = useLocale();
 
-  const localizedNavigate: LocalizedNavigate = (args: any) => {
-    const { localePrefix } = getPrefix(locale);
-
-    if (typeof args === "string") {
-      return navigate({
-        to: `/${LOCALE_ROUTE}${args}`,
-        params: { locale: localePrefix },
-      });
-    }
-
-    const { to, params, ...rest } = args;
-
-    const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
-
-    return navigate({
+  const localizedNavigate: LocalizedNavigate = ({ params, to, ...rest }) =>
+    navigate({
       ...rest,
-      to: localizedTo,
-      params: { locale: localePrefix, ...params } as any,
+      params: withLocaleParam(
+        params,
+        getPrefix(locale).localePrefix
+      ) as BaseNavigateOptions["params"],
+      to: localizeTo(to) as BaseNavigateOptions["to"],
     });
-  };
 
   return localizedNavigate;
 };
@@ -629,7 +673,7 @@ import {
 import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
-import { LocalizedLink, type To } from "./localized-link";
+import { isModifiedClick, LocalizedLink, type To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
   const { pathname } = useLocation();
@@ -644,7 +688,12 @@ export const LocaleSwitcher: FC = () => {
         <li key={localeEl}>
           <LocalizedLink
             aria-current={localeEl === locale ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
+            onClick={(event) => {
+              // Modified clicks open a new tab: keep this tab's locale
+              if (isModifiedClick(event)) return;
+
+              setLocale(localeEl);
+            }}
             params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale as To}
           >

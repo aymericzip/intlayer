@@ -35,17 +35,63 @@ type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
   RemoveAll<TString, typeof LOCALE_ROUTE>
 >;
 
+type RouteParams = Record<string, unknown>;
+type RouteParamsReducer = (previousParams: RouteParams) => RouteParams;
+
+/**
+ * Prefixes absolute destinations with the optional locale segment.
+ * Relative destinations (`.`, `..`) keep their router meaning, and an
+ * omitted destination targets the locale root.
+ */
+export const localizeTo = (to: string | undefined): string => {
+  if (to === undefined) return `/${LOCALE_ROUTE}`;
+
+  return to.startsWith('/') ? `/${LOCALE_ROUTE}${to}` : to;
+};
+
+/**
+ * Defaults the `locale` param to the given prefix, under the caller's params.
+ * Supports both the object and the reducer form of router params.
+ */
+export const withLocaleParam = (
+  params: unknown,
+  localePrefix: string | undefined
+): RouteParams | RouteParamsReducer => {
+  if (typeof params === 'function') {
+    const reduceParams = params as RouteParamsReducer;
+
+    return (previousParams) => ({
+      locale: localePrefix,
+      ...reduceParams(previousParams),
+    });
+  }
+
+  return {
+    locale: localePrefix,
+    ...(typeof params === 'object' ? params : {}),
+  };
+};
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (event: MouseEvent): boolean =>
+  event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+
 const LocalizedLink = (props: LocalizedLinkProps) => {
   const { locale } = useLocale();
 
   return (
     <Link
       {...props}
-      params={{
-        locale: getPrefix(locale()).localePrefix,
-        ...(typeof props.params === 'object' ? props.params : {}),
-      }}
-      to={`/${LOCALE_ROUTE}${props.to ?? ''}` as LinkProps['to']}
+      params={
+        withLocaleParam(
+          props.params,
+          getPrefix(locale()).localePrefix
+        ) as LinkProps['params']
+      }
+      to={localizeTo(props.to as string | undefined) as LinkProps['to']}
     />
   );
 };

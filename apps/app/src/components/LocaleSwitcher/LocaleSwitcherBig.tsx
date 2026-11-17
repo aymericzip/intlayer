@@ -2,6 +2,7 @@ import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
 import { Input } from '@intlayer/design-system/input';
+import { isModifiedClick } from '@intlayer/design-system/link';
 import { useLocation } from '@tanstack/react-router';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useRef } from 'react';
@@ -140,7 +141,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                           : undefined
                       }
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
-                      onClick={() => setLocale(localeItem)}
+                      onClick={(event) => {
+                        // Modified clicks open a new tab: keep this tab's locale
+                        if (isModifiedClick(event)) return;
+
+                        setLocale(localeItem);
+                      }}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                         <div className="flex flex-col text-nowrap">

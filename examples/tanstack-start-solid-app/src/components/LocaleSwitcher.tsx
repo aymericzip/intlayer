@@ -2,7 +2,7 @@ import { useLocation } from '@tanstack/solid-router';
 import { getLocaleName, getPathWithoutLocale, getPrefix } from 'intlayer';
 import { useIntlayer, useLocale } from 'solid-intlayer';
 import { For } from 'solid-js';
-import { Link, type To } from './LocalizedLink';
+import { isModifiedClick, Link, type To } from './LocalizedLink';
 
 export const LocaleSwitcher = () => {
   const content = useIntlayer('locale-switcher');
@@ -24,7 +24,12 @@ export const LocaleSwitcher = () => {
                   language: getLocaleName(localeEl),
                 }).value
               }
-              onClick={() => setLocale(localeEl)}
+              onClick={(event) => {
+                // Modified clicks open a new tab: keep this tab's locale
+                if (isModifiedClick(event)) return;
+
+                setLocale(localeEl);
+              }}
               params={{ locale: getPrefix(localeEl).localePrefix }}
               to={pathWithoutLocale() as To}
               class="brand-pill"

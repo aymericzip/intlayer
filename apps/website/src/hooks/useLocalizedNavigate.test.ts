@@ -88,4 +88,17 @@ describe('useLocalizedNavigate', () => {
       replace: true,
     });
   });
+
+  it('keeps relative destinations unlocalized', () => {
+    currentLocale = 'fr';
+    const navigate = useLocalizedNavigate();
+    navigate('..');
+    navigate({ to: '.', replace: true });
+
+    expect(mockNavigate).toHaveBeenNthCalledWith(1, { to: '..' });
+    expect(mockNavigate).toHaveBeenNthCalledWith(2, {
+      to: '.',
+      replace: true,
+    });
+  });
 });

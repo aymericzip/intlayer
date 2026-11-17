@@ -81,4 +81,42 @@ describe('useLocalizedNavigate', () => {
       replace: true,
     });
   });
+
+  it('keeps relative destinations unlocalized', () => {
+    currentLocale = 'fr';
+    const navigate = useLocalizedNavigate();
+    navigate('.');
+    navigate({ to: '..', replace: true });
+
+    expect(mockNavigate).toHaveBeenNthCalledWith(1, {
+      to: '.',
+      params: { locale: 'fr' },
+    });
+    expect(mockNavigate).toHaveBeenNthCalledWith(2, {
+      to: '..',
+      params: { locale: 'fr' },
+      replace: true,
+    });
+  });
+
+  it('keeps reducer-form params and applies the locale under them', () => {
+    currentLocale = 'fr';
+    const navigate = useLocalizedNavigate();
+    navigate({
+      to: '/projects',
+      params: (previous: Record<string, unknown>) => ({
+        ...previous,
+        projectId: '42',
+      }),
+    });
+
+    const { params } = mockNavigate.mock.calls[0][0];
+
+    expect(typeof params).toBe('function');
+    expect(params({ organizationId: '7' })).toEqual({
+      locale: 'fr',
+      organizationId: '7',
+      projectId: '42',
+    });
+  });
 });

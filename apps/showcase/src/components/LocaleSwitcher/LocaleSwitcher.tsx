@@ -1,6 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
 import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
 import { Input } from '@intlayer/design-system/input';
+import { isModifiedClick } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import { Link, useLocation } from '@tanstack/react-router';
 import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
@@ -119,7 +120,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
                       aria-current={locale === localeItem ? 'true' : undefined}
                       preload="viewport"
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
-                      onClick={() => setLocale(localeItem)}
+                      onClick={(event) => {
+                        // Modified clicks open a new tab: keep this tab's locale
+                        if (isModifiedClick(event)) return;
+
+                        setLocale(localeItem);
+                      }}
                     >
                       <div
                         className={cn(

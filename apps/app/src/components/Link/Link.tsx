@@ -1,6 +1,8 @@
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import {
   checkIsExternalLink,
+  checkIsRelativeLink,
+  withDefaultParams,
   isTextChildren,
   type LinkProps as LinkUIProps,
   linkVariants,
@@ -69,7 +71,11 @@ export const Link: FC<LinkProps> = ({
   const isButton = variant === 'button' || variant === 'button-outlined';
 
   const resolvedHref =
-    locale && normalizedHref && !isExternalLink && !isPageSection
+    locale &&
+    normalizedHref &&
+    !isExternalLink &&
+    !isPageSection &&
+    !checkIsRelativeLink(normalizedHref)
       ? getLocalizedUrl(normalizedHref, locale)
       : normalizedHref;
 
@@ -125,10 +131,12 @@ export const Link: FC<LinkProps> = ({
         })
       )}
       {...otherProps}
-      params={{
-        locale,
-        ...(typeof otherProps?.params === 'object' ? otherProps.params : {}),
-      }}
+      params={
+        withDefaultParams(
+          { locale },
+          otherProps?.params
+        ) as TansStackLinkProps['params']
+      }
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
     </TanStackLink>

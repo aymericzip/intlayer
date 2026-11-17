@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-10-08
+updatedAt: 2026-11-17
 priority: 9
 title: "i18n في TanStack Start + Solid: دليل الترجمة الكامل"
 description: "إعداد Intlayer في TanStack Start مع Solid: معامل اللغة في المسارات، ومحتوى مترجم تفاعلي، وبيانات head مترجمة، وhreflang."
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-17
+    changes: "الحفاظ على الوجهات النسبية ودوال reducer الخاصة بـ params في LocalizedLink، وتجاهل النقرات مع مفاتيح التعديل في مبدّل اللغة"
   - version: 9.4.0
     date: 2026-08-25
     changes: "مقارنة التحليل الثابت والديناميكي والديناميكي المخزَّن مؤقتًا لقواميس البيانات الوصفية داخل دوال head للمسارات"
@@ -446,26 +449,73 @@ type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
   RemoveAll<TString, typeof LOCALE_ROUTE>
 >;
 
+type RouteParams = Record<string, unknown>;
+type RouteParamsReducer = (previousParams: RouteParams) => RouteParams;
+
+/**
+ * Prefixes absolute destinations with the optional locale segment.
+ * Relative destinations (`.`, `..`) keep their router meaning, and an
+ * omitted destination targets the locale root.
+ */
+export const localizeTo = (to: string | undefined): string => {
+  if (to === undefined) return `/${LOCALE_ROUTE}`;
+
+  return to.startsWith("/") ? `/${LOCALE_ROUTE}${to}` : to;
+};
+
+/**
+ * Defaults the `locale` param to the given prefix, under the caller's params.
+ * Supports both the object and the reducer form of router params.
+ */
+export const withLocaleParam = (
+  params: unknown,
+  localePrefix: string | undefined
+): RouteParams | RouteParamsReducer => {
+  if (typeof params === "function") {
+    const reduceParams = params as RouteParamsReducer;
+
+    return (previousParams) => ({
+      locale: localePrefix,
+      ...reduceParams(previousParams),
+    });
+  }
+
+  return {
+    locale: localePrefix,
+    ...(typeof params === "object" ? params : {}),
+  };
+};
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (event: MouseEvent): boolean =>
+  event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+
 export const LocalizedLink = (props: LocalizedLinkProps) => {
   const { locale } = useLocale();
 
   return (
     <Link
       {...props}
-      params={{
-        locale: getPrefix(locale()).localePrefix,
-        ...(typeof props.params === "object" ? props.params : {}),
-      }}
-      to={`/${LOCALE_ROUTE}${props.to ?? ""}` as LinkProps["to"]}
+      params={
+        withLocaleParam(
+          props.params,
+          getPrefix(locale()).localePrefix
+        ) as LinkProps["params"]
+      }
+      to={localizeTo(props.to as string | undefined) as LinkProps["to"]}
     />
   );
 };
 ```
 
-يخدم هذا المكون غرضين:
+يخدم هذا المكون ثلاثة أغراض:
 
 - إزالة بادئة `{-$locale}` غير الضرورية من الروابط.
 - حقن معلمة اللغة في الروابط لضمان إعادة توجيه المستخدم مباشرة إلى المسار المترجم.
+- ترك الوجهات النسبية (`.`، `..`) دون تغيير حتى تحتفظ بمعناها لدى الموجّه، وقبول `params` سواء ككائن أو كدالة reducer.
 
 بعد ذلك، يمكننا إنشاء خطاف `useLocalizedNavigate` للتنقل البرمجي:
 
@@ -543,7 +593,7 @@ import { useLocation } from "@tanstack/solid-router";
 import { getLocaleName, getPathWithoutLocale, getPrefix } from "intlayer";
 import { For } from "solid-js";
 import { useIntlayer, useLocale } from "solid-intlayer";
-import { LocalizedLink, type To } from "./LocalizedLink";
+import { isModifiedClick, LocalizedLink, type To } from "./LocalizedLink";
 
 export const LocaleSwitcher = () => {
   const content = useIntlayer("locale-switcher");
@@ -559,7 +609,12 @@ export const LocaleSwitcher = () => {
         {(localeEl) => (
           <LocalizedLink
             aria-current={localeEl === locale() ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
+            onClick={(event) => {
+              // Modified clicks open a new tab: keep this tab's locale
+              if (isModifiedClick(event)) return;
+
+              setLocale(localeEl);
+            }}
             params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale() as To}
           >
@@ -819,13 +874,13 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### أي طريقة تحليل ينبغي أن أختار؟
 
-|                    | التحليل الثابت    | التحليل الديناميكي         | التحليل الديناميكي المخزَّن مؤقتًا      |
-| ------------------ | ----------------- | -------------------------- | --------------------------------------- |
-| واجهة البرمجة      | `getIntlayer`     | `getIntlayerAsync` (9.4+)  | `getIntlayerAsync` داخل `loader` (9.4+) |
-| توقيع `head`       | متزامن            | `async`                    | متزامن، يقرأ `loaderData`               |
-| اللغات المُرسَلة   | كل اللغات المعلنة | اللغة المطلوبة فقط         | اللغة المطلوبة فقط                      |
-| التنقلات في العميل | لا شيء ليُحلّ     | يُعاد تنفيذه عند كل مطابقة | يُقدَّم من ذاكرة التوجيه المؤقتة        |
-| تجربة المطوّر      | الأبسط            | `await` واحد               | المحتوى يُمرَّر عبر `loaderData`        |
+|                   | التحليل الثابت    | التحليل الديناميكي        | التحليل الديناميكي المخزَّن مؤقتًا         |
+| ----------------- | ----------------- | ------------------------- | --------------------------------------- |
+| واجهة البرمجة     | `getIntlayer`     | `getIntlayerAsync` (9.4+) | `getIntlayerAsync` داخل `loader` (9.4+) |
+| توقيع `head`      | متزامن            | `async`                   | متزامن، يقرأ `loaderData`               |
+| اللغات المُرسَلة    | كل اللغات المعلنة | اللغة المطلوبة فقط        | اللغة المطلوبة فقط                      |
+| التنقلات في العميل | لا شيء ليُحلّ        | يُعاد تنفيذه عند كل مطابقة | يُقدَّم من ذاكرة التوجيه المؤقتة           |
+| تجربة المطوّر      | الأبسط             | `await` واحد              | المحتوى يُمرَّر عبر `loaderData`           |
 
 </Step>
 <Step number={14} title="الحصول على اللغة في إجراءات الخادم الخاص بك">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-27
+updatedAt: 2026-11-17
 priority: 9
 title: "TanStack Start + Solid i18n: पूरी अनुवाद गाइड"
 description: "Solid वाले TanStack Start में Intlayer सेट करें: रूट में लोकेल पैरामीटर, रिएक्टिव अनुवादित कंटेंट, स्थानीयकृत head मेटाडेटा और hreflang।"
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-17
+    changes: "LocalizedLink में सापेक्ष गंतव्य और params reducer बनाए रखें, भाषा स्विचर में मॉडिफ़ायर कुंजी वाले क्लिक को अनदेखा करें"
   - version: 9.4.0
     date: 2026-08-25
     changes: "रूट के head फ़ंक्शन में मेटाडेटा डिक्शनरी के स्टैटिक, डायनामिक और कैश्ड डायनामिक रिज़ॉल्यूशन की तुलना"
@@ -446,26 +449,73 @@ type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
   RemoveAll<TString, typeof LOCALE_ROUTE>
 >;
 
+type RouteParams = Record<string, unknown>;
+type RouteParamsReducer = (previousParams: RouteParams) => RouteParams;
+
+/**
+ * Prefixes absolute destinations with the optional locale segment.
+ * Relative destinations (`.`, `..`) keep their router meaning, and an
+ * omitted destination targets the locale root.
+ */
+export const localizeTo = (to: string | undefined): string => {
+  if (to === undefined) return `/${LOCALE_ROUTE}`;
+
+  return to.startsWith("/") ? `/${LOCALE_ROUTE}${to}` : to;
+};
+
+/**
+ * Defaults the `locale` param to the given prefix, under the caller's params.
+ * Supports both the object and the reducer form of router params.
+ */
+export const withLocaleParam = (
+  params: unknown,
+  localePrefix: string | undefined
+): RouteParams | RouteParamsReducer => {
+  if (typeof params === "function") {
+    const reduceParams = params as RouteParamsReducer;
+
+    return (previousParams) => ({
+      locale: localePrefix,
+      ...reduceParams(previousParams),
+    });
+  }
+
+  return {
+    locale: localePrefix,
+    ...(typeof params === "object" ? params : {}),
+  };
+};
+
+/**
+ * Whether a click opens the link elsewhere (new tab/window, download)
+ * instead of navigating the current tab.
+ */
+export const isModifiedClick = (event: MouseEvent): boolean =>
+  event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+
 export const LocalizedLink = (props: LocalizedLinkProps) => {
   const { locale } = useLocale();
 
   return (
     <Link
       {...props}
-      params={{
-        locale: getPrefix(locale()).localePrefix,
-        ...(typeof props.params === "object" ? props.params : {}),
-      }}
-      to={`/${LOCALE_ROUTE}${props.to ?? ""}` as LinkProps["to"]}
+      params={
+        withLocaleParam(
+          props.params,
+          getPrefix(locale()).localePrefix
+        ) as LinkProps["params"]
+      }
+      to={localizeTo(props.to as string | undefined) as LinkProps["to"]}
     />
   );
 };
 ```
 
-यह घटक दो उद्देश्यों की पूर्ति करता है:
+यह घटक तीन उद्देश्यों की पूर्ति करता है:
 
 - URL से अनावश्यक `{-$locale}` उपसर्ग हटाना।
 - URL में लोकेल मापदंड इंजेक्ट करना ताकि यह सुनिश्चित हो सके कि उपयोगकर्ता सीधे स्थानीयकृत रूट पर रीडायरेक्ट हो गया है।
+- सापेक्ष गंतव्यों (`.`, `..`) को अपरिवर्तित छोड़ना ताकि राउटर में उनका अर्थ बना रहे, और `params` को ऑब्जेक्ट तथा reducer फ़ंक्शन दोनों रूपों में स्वीकार करना।
 
 फिर, हम प्रोग्रामेटिक नेविगेशन के लिए `useLocalizedNavigate` हुक बना सकते हैं:
 
@@ -543,7 +593,7 @@ import { useLocation } from "@tanstack/solid-router";
 import { getLocaleName, getPathWithoutLocale, getPrefix } from "intlayer";
 import { For } from "solid-js";
 import { useIntlayer, useLocale } from "solid-intlayer";
-import { LocalizedLink, type To } from "./LocalizedLink";
+import { isModifiedClick, LocalizedLink, type To } from "./LocalizedLink";
 
 export const LocaleSwitcher = () => {
   const content = useIntlayer("locale-switcher");
@@ -559,7 +609,12 @@ export const LocaleSwitcher = () => {
         {(localeEl) => (
           <LocalizedLink
             aria-current={localeEl === locale() ? "page" : undefined}
-            onClick={() => setLocale(localeEl)}
+            onClick={(event) => {
+              // Modified clicks open a new tab: keep this tab's locale
+              if (isModifiedClick(event)) return;
+
+              setLocale(localeEl);
+            }}
             params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale() as To}
           >
@@ -819,13 +874,13 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ### कौन-सा रिज़ॉल्यूशन चुनें?
 
-|                  | स्टैटिक रिज़ॉल्यूशन | डायनामिक रिज़ॉल्यूशन       | कैश्ड डायनामिक रिज़ॉल्यूशन              |
-| ---------------- | ------------------- | -------------------------- | --------------------------------------- |
-| API              | `getIntlayer`       | `getIntlayerAsync` (v9.4+) | `loader` में `getIntlayerAsync` (v9.4+) |
-| `head` सिग्नेचर  | सिंक्रोनस           | `async`                    | सिंक्रोनस, `loaderData` पढ़ता है        |
-| भेजे गए लोकेल    | सभी घोषित लोकेल     | केवल अनुरोधित लोकेल        | केवल अनुरोधित लोकेल                     |
-| क्लाइंट नेविगेशन | हल करने को कुछ नहीं | हर मैच पर दोबारा चलता है   | राउटर कैश से मिलता है                   |
-| डेवलपर अनुभव     | सबसे सरल            | एक `await`                 | कंटेंट `loaderData` से पास होता है      |
+|               | स्टैटिक रिज़ॉल्यूशन   | डायनामिक रिज़ॉल्यूशन          | कैश्ड डायनामिक रिज़ॉल्यूशन                 |
+| ------------- | ---------------- | -------------------------- | ------------------------------------- |
+| API           | `getIntlayer`    | `getIntlayerAsync` (v9.4+) | `loader` में `getIntlayerAsync` (v9.4+) |
+| `head` सिग्नेचर | सिंक्रोनस          | `async`                    | सिंक्रोनस, `loaderData` पढ़ता है          |
+| भेजे गए लोकेल    | सभी घोषित लोकेल   | केवल अनुरोधित लोकेल           | केवल अनुरोधित लोकेल                      |
+| क्लाइंट नेविगेशन  | हल करने को कुछ नहीं | हर मैच पर दोबारा चलता है     | राउटर कैश से मिलता है                    |
+| डेवलपर अनुभव    | सबसे सरल          | एक `await`                 | कंटेंट `loaderData` से पास होता है         |
 
 </Step>
 <Step number={14} title="अपने सर्वर कार्यों में लोकेल प्राप्त करें">

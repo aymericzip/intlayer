@@ -1,6 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
-import { checkIsExternalLink, Link } from './Link';
+import {
+  checkIsExternalLink,
+  checkIsRelativeLink,
+  isModifiedClick,
+  Link,
+  withDefaultParams,
+} from './Link';
 
 // Mock the getLocalizedUrl function from @intlayer/core
 vi.mock('@intlayer/core/localization', () => ({
@@ -137,5 +143,86 @@ describe('Link', () => {
 
       expect(screen.getByTestId('link').className).toContain('block');
     });
+  });
+});
+
+describe('checkIsRelativeLink', () => {
+  test.each(['.', '..', './guide', '../guide', '?tab=1', '#faq'])(
+    'treats %s as relative',
+    (href) => {
+      expect(checkIsRelativeLink(href)).toBe(true);
+    }
+  );
+
+  test.each(['/', '/about', 'https://intlayer.org', '.well-known', undefined])(
+    'treats %s as not relative',
+    (href) => {
+      expect(checkIsRelativeLink(href)).toBe(false);
+    }
+  );
+});
+
+describe('isModifiedClick', () => {
+  const noModifier = {
+    altKey: false,
+    ctrlKey: false,
+    metaKey: false,
+    shiftKey: false,
+  };
+
+  test('is false for a plain click', () => {
+    expect(isModifiedClick(noModifier)).toBe(false);
+  });
+
+  test.each(['altKey', 'ctrlKey', 'metaKey', 'shiftKey'] as const)(
+    'is true when %s is pressed',
+    (key) => {
+      expect(isModifiedClick({ ...noModifier, [key]: true })).toBe(true);
+    }
+  );
+});
+
+describe('withDefaultParams', () => {
+  test('applies defaults under object params', () => {
+    expect(withDefaultParams({ locale: 'fr' }, { id: '1' })).toEqual({
+      locale: 'fr',
+      id: '1',
+    });
+    expect(withDefaultParams({ locale: 'fr' }, { locale: 'es' })).toEqual({
+      locale: 'es',
+    });
+  });
+
+  test('returns the defaults for missing or non-object params', () => {
+    expect(withDefaultParams({ locale: 'fr' }, undefined)).toEqual({
+      locale: 'fr',
+    });
+    expect(withDefaultParams({ locale: 'fr' }, true)).toEqual({
+      locale: 'fr',
+    });
+  });
+
+  test('keeps the reducer form and merges its result over the defaults', () => {
+    const params = withDefaultParams({ locale: 'fr' }, (previous: object) => ({
+      ...previous,
+      postId: '9',
+    }));
+
+    expect(typeof params).toBe('function');
+    expect(
+      (params as (previous: object) => object)({ section: 'blog' })
+    ).toEqual({ locale: 'fr', section: 'blog', postId: '9' });
+  });
+});
+
+describe('Link with relative href', () => {
+  test.each(['#faq', '?tab=1', '.'])('does not localize %s', (href) => {
+    render(
+      <Link label="relative" href={href} locale="fr" data-testid="link">
+        Relative
+      </Link>
+    );
+
+    expect(screen.getByTestId('link').getAttribute('href')).toBe(href);
   });
 });

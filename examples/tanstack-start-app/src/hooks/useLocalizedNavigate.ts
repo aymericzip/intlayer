@@ -2,8 +2,9 @@ import { useNavigate } from '@tanstack/react-router';
 import { getPrefix } from 'intlayer';
 import { useLocale } from 'react-intlayer';
 import {
-  LOCALE_ROUTE,
+  localizeTo,
   type StripLocalePrefix,
+  withLocaleParam,
 } from '#/components/localized-link';
 import type { FileRouteTypes } from '#/routeTree.gen';
 
@@ -29,20 +30,15 @@ export const useLocalizedNavigate = () => {
 
   const { locale } = useLocale();
 
-  const localizedNavigate: LocalizedNavigate = (args) => {
-    const { params: existingParams, to, ...rest } = args;
-
-    const localizedTo = `/${LOCALE_ROUTE}${to}`;
-
-    return navigate({
+  const localizedNavigate: LocalizedNavigate = ({ params, to, ...rest }) =>
+    navigate({
       ...rest,
-      params: {
-        ...(existingParams ?? {}),
-        locale: getPrefix(locale).localePrefix,
-      } as any,
-      to: localizedTo,
+      params: withLocaleParam(
+        params,
+        getPrefix(locale).localePrefix
+      ) as BaseNavigateOptions['params'],
+      to: localizeTo(to) as BaseNavigateOptions['to'],
     });
-  };
 
   return localizedNavigate;
 };
