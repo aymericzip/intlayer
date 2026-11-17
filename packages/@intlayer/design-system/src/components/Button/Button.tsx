@@ -361,6 +361,59 @@ export const Button: FC<ButtonProps> = ({
     size === 'icon-lg' ||
     size === 'icon-xl';
 
+  const resolvedTextAlign = textAlign ?? (IconRight ? 'left' : 'center');
+
+  /**
+   * Centered text-only buttons lay out as `[loader | text | empty]` on a
+   * `1fr auto 1fr` grid: the equal side tracks keep the text centered when the
+   * loader appears, the loader track never shrinks below the spinner (text
+   * truncates instead of overlapping it), and the empty end track collapses
+   * to 0 when space runs out, so no space is reserved on the right.
+   */
+  const isCenteredTextOnly =
+    resolvedTextAlign === 'center' &&
+    Boolean(children) &&
+    !Icon &&
+    !IconRight &&
+    !isSquareButton;
+
+  if (isCenteredTextOnly) {
+    return (
+      <button
+        disabled={isLoading || disabled}
+        role={isLink ? 'link' : 'button'}
+        type={type}
+        className={buttonVariants({
+          variant,
+          size,
+          color,
+          isFullWidth,
+          roundedSize,
+          textAlign: resolvedTextAlign,
+          className,
+        })}
+        {...accessibilityProps}
+        {...props}
+      >
+        <span className="grid min-w-0 grow grid-cols-[1fr_minmax(0,auto)_1fr] items-center">
+          <span className="flex justify-end">
+            <Loader
+              className={buttonIconVariants({
+                size,
+                className: cn('me-3', iconClassName),
+              })}
+              isLoading={isLoading}
+              aria-hidden="true"
+              data-testid="loader"
+            />
+          </span>
+          <span className="min-w-0 truncate whitespace-nowrap">{children}</span>
+          <span aria-hidden="true" />
+        </span>
+      </button>
+    );
+  }
+
   return (
     <button
       disabled={isLoading || disabled}
@@ -372,7 +425,7 @@ export const Button: FC<ButtonProps> = ({
         color,
         isFullWidth,
         roundedSize,
-        textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
+        textAlign: resolvedTextAlign,
         className,
       })}
       {...accessibilityProps}

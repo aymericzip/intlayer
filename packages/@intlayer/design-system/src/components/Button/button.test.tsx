@@ -23,4 +23,24 @@ describe('Button', () => {
 
     expect(labelResult).toBe(buttonLabel);
   });
+
+  test('keeps centered text in the middle grid track while loading', () => {
+    const buttonContent = 'Save';
+
+    render(
+      <Button label="save" isLoading>
+        {buttonContent}
+      </Button>
+    );
+
+    const textElement = screen.getByText(buttonContent);
+    const gridElement = textElement.parentElement;
+    const loaderElement = screen.getByTestId('loader');
+
+    expect(gridElement?.className).toContain(
+      'grid-cols-[1fr_minmax(0,auto)_1fr]'
+    );
+    expect(gridElement?.children).toHaveLength(3);
+    expect(gridElement?.firstElementChild?.contains(loaderElement)).toBe(true);
+  });
 });
