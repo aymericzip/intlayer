@@ -23,9 +23,9 @@ export const SolidLogo: FC<SVGProps<SVGSVGElement>> = (props) => {
           gradientTransform="translate(-3.22 1.507) scale(.80503)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset=".1" stopColor="#76b3e1" />
-          <stop offset=".3" stopColor="#dcf2fd" />
-          <stop offset="1" stopColor="#76b3e1" />
+          <stop offset=".1" style={{ stopColor: '#76b3e1' }} />
+          <stop offset=".3" style={{ stopColor: '#dcf2fd' }} />
+          <stop offset="1" style={{ stopColor: '#76b3e1' }} />
         </linearGradient>
         <linearGradient
           id={`${idPrefix}-b`}
@@ -36,9 +36,9 @@ export const SolidLogo: FC<SVGProps<SVGSVGElement>> = (props) => {
           gradientTransform="translate(-3.22 1.507) scale(.80503)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="#76b3e1" />
-          <stop offset=".5" stopColor="#4377bb" />
-          <stop offset="1" stopColor="#1f3b77" />
+          <stop offset="0" style={{ stopColor: '#76b3e1' }} />
+          <stop offset=".5" style={{ stopColor: '#4377bb' }} />
+          <stop offset="1" style={{ stopColor: '#1f3b77' }} />
         </linearGradient>
         <linearGradient
           id={`${idPrefix}-c`}
@@ -49,9 +49,9 @@ export const SolidLogo: FC<SVGProps<SVGSVGElement>> = (props) => {
           gradientTransform="translate(-3.22 1.507) scale(.80503)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="#315aa9" />
-          <stop offset=".5" stopColor="#518ac8" />
-          <stop offset="1" stopColor="#315aa9" />
+          <stop offset="0" style={{ stopColor: '#315aa9' }} />
+          <stop offset=".5" style={{ stopColor: '#518ac8' }} />
+          <stop offset="1" style={{ stopColor: '#315aa9' }} />
         </linearGradient>
         <linearGradient
           id={`${idPrefix}-d`}
@@ -62,9 +62,9 @@ export const SolidLogo: FC<SVGProps<SVGSVGElement>> = (props) => {
           gradientTransform="translate(-3.22 1.507) scale(.80503)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="#4377bb" />
-          <stop offset=".5" stopColor="#1a336b" />
-          <stop offset="1" stopColor="#1a336b" />
+          <stop offset="0" style={{ stopColor: '#4377bb' }} />
+          <stop offset=".5" style={{ stopColor: '#1a336b' }} />
+          <stop offset="1" style={{ stopColor: '#1a336b' }} />
         </linearGradient>
       </defs>
       <path

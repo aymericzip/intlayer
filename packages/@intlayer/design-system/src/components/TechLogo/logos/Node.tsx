@@ -16,11 +16,11 @@ export const NodejsLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
         y1="17.487%"
         y2="89.755%"
       >
-        <stop offset="0%" stopColor="#41873F" />
-        <stop offset="32.88%" stopColor="#418B3D" />
-        <stop offset="63.52%" stopColor="#419637" />
-        <stop offset="93.19%" stopColor="#3FA92D" />
-        <stop offset="100%" stopColor="#3FAE2A" />
+        <stop offset="0%" style={{ stopColor: '#41873F' }} />
+        <stop offset="32.88%" style={{ stopColor: '#418B3D' }} />
+        <stop offset="63.52%" style={{ stopColor: '#419637' }} />
+        <stop offset="93.19%" style={{ stopColor: '#3FA92D' }} />
+        <stop offset="100%" style={{ stopColor: '#3FAE2A' }} />
       </linearGradient>
       <linearGradient
         id="nodejs__c"
@@ -29,10 +29,10 @@ export const NodejsLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
         y1="55.169%"
         y2="-18.306%"
       >
-        <stop offset="13.76%" stopColor="#41873F" />
-        <stop offset="40.32%" stopColor="#54A044" />
-        <stop offset="71.36%" stopColor="#66B848" />
-        <stop offset="90.81%" stopColor="#6CC04A" />
+        <stop offset="13.76%" style={{ stopColor: '#41873F' }} />
+        <stop offset="40.32%" style={{ stopColor: '#54A044' }} />
+        <stop offset="71.36%" style={{ stopColor: '#66B848' }} />
+        <stop offset="90.81%" style={{ stopColor: '#6CC04A' }} />
       </linearGradient>
       <linearGradient
         id="nodejs__f"
@@ -41,10 +41,10 @@ export const NodejsLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
         y1="49.997%"
         y2="49.997%"
       >
-        <stop offset="9.192%" stopColor="#6CC04A" />
-        <stop offset="28.64%" stopColor="#66B848" />
-        <stop offset="59.68%" stopColor="#54A044" />
-        <stop offset="86.24%" stopColor="#41873F" />
+        <stop offset="9.192%" style={{ stopColor: '#6CC04A' }} />
+        <stop offset="28.64%" style={{ stopColor: '#66B848' }} />
+        <stop offset="59.68%" style={{ stopColor: '#54A044' }} />
+        <stop offset="86.24%" style={{ stopColor: '#41873F' }} />
       </linearGradient>
       <path
         id="nodejs__b"

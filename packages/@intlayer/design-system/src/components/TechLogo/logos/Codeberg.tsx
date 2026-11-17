@@ -19,9 +19,12 @@ export const CodebergLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
         y2="-6966.9307"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stopColor="#2185d0" stopOpacity="0" />
-        <stop offset="0.49517274" stopColor="#2185d0" stopOpacity="0.3" />
-        <stop offset="1" stopColor="#2185d0" stopOpacity="0.3" />
+        <stop offset="0" style={{ stopColor: '#2185d0', stopOpacity: 0 }} />
+        <stop
+          offset="0.49517274"
+          style={{ stopColor: '#2185d0', stopOpacity: 0.3 }}
+        />
+        <stop offset="1" style={{ stopColor: '#2185d0', stopOpacity: 0.3 }} />
       </linearGradient>
     </defs>
     <g transform="matrix(0.06551432,0,0,0.06551432,-2.232417,-1.431776)">

@@ -30,8 +30,8 @@ export const AstroLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
         y2="84.9468"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#D83333" />
-        <stop offset="1" stopColor="#F041FF" />
+        <stop style={{ stopColor: '#D83333' }} />
+        <stop offset="1" style={{ stopColor: '#F041FF' }} />
       </linearGradient>
     </defs>
   </svg>

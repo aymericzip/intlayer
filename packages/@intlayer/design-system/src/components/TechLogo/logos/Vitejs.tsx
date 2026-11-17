@@ -27,8 +27,8 @@ export const ViteLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
         y2="344"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#41D1FF" />
-        <stop offset="1" stopColor="#BD34FE" />
+        <stop style={{ stopColor: '#41D1FF' }} />
+        <stop offset="1" style={{ stopColor: '#BD34FE' }} />
       </linearGradient>
       <linearGradient
         id="paint1_linear"
@@ -38,9 +38,9 @@ export const ViteLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
         y2="292.989"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#FFEA83" />
-        <stop offset="0.0833333" stopColor="#FFDD35" />
-        <stop offset="1" stopColor="#FFA800" />
+        <stop style={{ stopColor: '#FFEA83' }} />
+        <stop offset="0.0833333" style={{ stopColor: '#FFDD35' }} />
+        <stop offset="1" style={{ stopColor: '#FFA800' }} />
       </linearGradient>
     </defs>
   </svg>
