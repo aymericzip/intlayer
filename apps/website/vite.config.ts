@@ -381,7 +381,7 @@ export default defineConfig(async ({ mode }) => {
       siteUrl,
       cmsUrl,
       mode === 'development' && editorUrl,
-    ],
+    ].filter(Boolean),
     'manifest-src': ["'self'"],
     'child-src': ["'self'", '*.googletagmanager.com'],
   };
