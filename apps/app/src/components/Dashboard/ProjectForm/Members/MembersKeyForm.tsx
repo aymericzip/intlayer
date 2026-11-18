@@ -18,6 +18,7 @@ import {
   FormButton,
   FormMultiSelect,
   useForm,
+  useWatch,
 } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Checkbox, Radio } from '@intlayer/design-system/input';
@@ -28,7 +29,6 @@ import { MultiSelect } from '@intlayer/design-system/select';
 import type { Locale } from '@intlayer/types/allLocales';
 import { Settings, Users } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { LocaleCheckboxList } from '#components/LocalePicker/LocaleCheckboxList';
 import {
@@ -396,7 +396,7 @@ export const MembersForm: FC = () => {
   // as a member is added, without waiting for a save (`getValues` is not reactive)
   const selectedMembersIds =
     useWatch({
-      control: form.control,
+      form,
       name: 'membersIds',
     }) ?? [];
 
@@ -460,12 +460,7 @@ export const MembersForm: FC = () => {
         )}
       </div>
 
-      <Form
-        className="w-full"
-        schema={MembersFormSchema}
-        onSubmitSuccess={onSubmitSuccess}
-        {...form}
-      >
+      <Form className="w-full" onSubmitSuccess={onSubmitSuccess} form={form}>
         <FormMultiSelect
           name="membersIds"
           label={membersSelect.label.value}

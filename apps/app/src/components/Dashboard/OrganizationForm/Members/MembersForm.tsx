@@ -122,11 +122,10 @@ export const MembersForm: FC = () => {
       <div className="flex flex-col gap-3">
         {isOrganizationAdmin && (
           <Form
-            schema={NewMembersFormSchema}
             onSubmitSuccess={onSubmitSuccessAddMember}
             className="flex flex-row items-end gap-3 align-bottom"
             autoComplete={false}
-            {...newUserForm}
+            form={newUserForm}
           >
             <FormInput
               name="userEmail"
@@ -148,9 +147,8 @@ export const MembersForm: FC = () => {
 
         <Form
           className="w-full"
-          schema={MembersFormSchema}
           onSubmitSuccess={updateOrganizationMembers}
-          {...form}
+          form={form}
         >
           <div className="flex flex-col gap-2 px-3">
             <FormLabel>{title}</FormLabel>

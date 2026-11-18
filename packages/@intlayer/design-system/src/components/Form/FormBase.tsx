@@ -1,16 +1,24 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@utils/cn';
-import type { HTMLAttributes, KeyboardEvent } from 'react';
 import {
-  FormProvider,
-  type FormProviderProps,
-  type UseFormProps,
-  useForm as useFormReactHookForm,
-  useFormState,
-} from 'react-hook-form';
-import type { ZodMiniObject, z } from 'zod/mini';
+  createContext,
+  type FormHTMLAttributes,
+  type KeyboardEvent,
+  useContext,
+  useState,
+  useSyncExternalStore,
+} from 'react';
+import type { z } from 'zod/mini';
+import {
+  type AnyFormInstance,
+  createFormInstance,
+  type FieldPath,
+  type FieldPathValue,
+  type FormInstance,
+  type FormOptions,
+  type FormState,
+} from './formStore';
 
 /**
  * Declarative WebMCP registration: a form carrying `toolname` becomes a tool
@@ -31,16 +39,6 @@ export type FormWebMCPProps = {
   toolAutoSubmit?: boolean;
 };
 
-type FormProps<T extends ZodMiniObject> = HTMLAttributes<HTMLFormElement> &
-  FormProviderProps<z.infer<T>> &
-  FormWebMCPProps & {
-    schema?: T;
-    onSubmit?: (data: z.infer<T>) => void | Promise<void>;
-    onSubmitSuccess?: (data: z.infer<T>) => void | Promise<void>;
-    onSubmitError?: (error: Error) => void | Promise<void>;
-    autoComplete?: boolean;
-  };
-
 /**
  * Maps the camelCase props onto the lowercase attributes the browser reads.
  * Typed as a plain record: React's JSX types do not know these attributes yet.
@@ -59,109 +57,157 @@ export const getFormWebMCPAttributes = ({
       }
     : {};
 
-const awaitFunction = async (fn: any) => {
-  // Check if result is a Promise (Thenable)
+const FormContext = createContext<AnyFormInstance | null>(null);
 
-  if (fn && typeof fn.then === 'function') {
-    // It's a Promise, so wait for it to resolve
-    return await fn;
+/** Control of the closest `<Form>`, `null` outside of one. */
+export const useFormContext = (): AnyFormInstance | null =>
+  useContext(FormContext);
+
+/**
+ * Subscribes to a slice of the form state. The selector must return a stable
+ * value (primitive or stored reference) to avoid re-rendering on every change.
+ */
+export const useFormSelector = <TValues, TSelected>(
+  form: FormInstance<TValues>,
+  selector: (state: FormState<TValues>) => TSelected
+): TSelected =>
+  useSyncExternalStore(
+    form.subscribe,
+    () => selector(form.getState()),
+    () => selector(form.getState())
+  );
+
+/**
+ * Re-renders when the watched value changes. Without `name`, watches every value.
+ * Without `form`, uses the closest `<Form>`.
+ */
+export const useWatch: {
+  <TValues>(options: { form: FormInstance<TValues> }): TValues;
+  <TValues, TPath extends FieldPath<TValues>>(options: {
+    form: FormInstance<TValues>;
+    name: TPath;
+  }): FieldPathValue<TValues, TPath>;
+  (options: { name?: string }): unknown;
+} = ({ form, name }: { form?: AnyFormInstance; name?: string }) => {
+  const contextForm = useFormContext();
+  const control = form ?? contextForm;
+
+  if (!control) {
+    throw new Error('useWatch needs a `form` option or a parent <Form>');
   }
-  // If not a Promise, it will just execute without awaiting
-  return fn;
+
+  return useFormSelector(control, () =>
+    name === undefined ? control.getValues() : control.getValues(name)
+  );
 };
 
-export const Form = <T extends ZodMiniObject>({
-  schema,
-  onSubmit: onSubmitProp,
-  onSubmitSuccess: onSubmitSuccessProp,
-  onSubmitError: onSubmitErrorProp,
+/**
+ * Creates a form bound to a zod schema.
+ *
+ * ```tsx
+ * const { form, isSubmitting } = useForm(Schema, { defaultValues });
+ * <Form form={form} onSubmitSuccess={save}>…</Form>
+ * ```
+ */
+export const useForm = <TSchema extends z.ZodMiniType>(
+  schema: TSchema,
+  options?: FormOptions<z.output<TSchema>>
+) => {
+  const [form] = useState(() =>
+    createFormInstance<z.output<TSchema>>(
+      schema as z.ZodMiniType<z.output<TSchema>>,
+      options
+    )
+  );
+
+  const isSubmitting = useFormSelector(form, (state) => state.isSubmitting);
+  const isSubmitted = useFormSelector(form, (state) => state.isSubmitted);
+  const isValid = useFormSelector(form, (state) => state.isValid);
+
+  return { form, isSubmitting, isSubmitted, isValid };
+};
+
+type FormProps<TValues> = Omit<
+  FormHTMLAttributes<HTMLFormElement>,
+  'onSubmit' | 'autoComplete' | 'onError'
+> &
+  FormWebMCPProps & {
+    form: FormInstance<TValues>;
+    onSubmit?: (data: TValues) => unknown;
+    onSubmitSuccess?: (data: TValues) => unknown;
+    /** Receives what `onSubmit` / `onSubmitSuccess` threw. */
+    onSubmitError?: (error: Error) => unknown;
+    autoComplete?: boolean;
+  };
+
+/** Moves focus to the next field on Enter instead of submitting. */
+const focusNextFieldOnEnter = (event: KeyboardEvent<HTMLFormElement>) => {
+  const target = event.target as HTMLElement;
+
+  if (event.key !== 'Enter' || target.tagName !== 'INPUT') return;
+
+  event.preventDefault();
+
+  const focusableElements = Array.from(
+    event.currentTarget.querySelectorAll<HTMLElement>(
+      'input:not([disabled]):not([type="hidden"]), textarea:not([disabled])'
+    )
+  );
+  const targetIndex = focusableElements.indexOf(target);
+
+  if (targetIndex >= 0) focusableElements[targetIndex + 1]?.focus();
+};
+
+/**
+ * Form bound to a {@link useForm} control.
+ *
+ * ```tsx
+ * const { form } = useForm(Schema);
+ * <Form form={form} onSubmitSuccess={save} autoComplete>
+ *   <FormInput name="name" label="Name" />
+ *   <FormButton type="submit" label="Submit">Submit</FormButton>
+ * </Form>
+ * ```
+ */
+export const Form = <TValues,>({
+  form,
+  onSubmit,
+  onSubmitSuccess,
+  onSubmitError,
   className,
-  children,
   autoComplete,
-  method,
   toolName,
   toolDescription,
   toolAutoSubmit,
   ...props
-}: FormProps<T> & { method?: string }) => {
-  const onSubmit = async (values: z.infer<T>) => {
-    const parsedValues = schema?.safeParse(values) ?? {
-      success: true,
-      data: undefined,
-    };
-
-    // onSubmitProp?.(values);
-    await awaitFunction(onSubmitProp?.(values));
-
-    if (parsedValues.success) {
-      await awaitFunction(onSubmitSuccessProp?.(parsedValues.data!));
-    } else {
-      await awaitFunction(
-        onSubmitErrorProp?.(
-          new Error(
-            parsedValues.error.issues.map((error) => error.message).join(', ')
-          )
-        )
+}: FormProps<TValues>) => {
+  const submit = form.handleSubmit(async (data) => {
+    try {
+      await onSubmit?.(data);
+      await onSubmitSuccess?.(data);
+    } catch (error) {
+      if (!onSubmitError) throw error;
+      await onSubmitError(
+        error instanceof Error ? error : new Error(String(error))
       );
     }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
-    if (e.key !== 'Enter') return;
-    const target = e.target as HTMLElement;
-    if (target.tagName !== 'INPUT') return;
-    e.preventDefault();
-    const formEl = e.currentTarget;
-    const focusable = Array.from(
-      formEl.querySelectorAll<HTMLElement>(
-        'input:not([disabled]):not([type="hidden"]), textarea:not([disabled])'
-      )
-    );
-    const idx = focusable.indexOf(target);
-    if (idx >= 0 && idx < focusable.length - 1) {
-      focusable[idx + 1]?.focus();
-    }
-  };
+  });
 
   return (
-    <FormProvider {...props}>
+    <FormContext value={form as unknown as AnyFormInstance}>
       <form
         className={cn('flex flex-col gap-y-6', className)}
-        onSubmit={props.handleSubmit(onSubmit)}
-        onKeyDown={handleKeyDown}
-        autoComplete={autoComplete ? 'on' : 'off'}
+        onKeyDown={focusNextFieldOnEnter}
         noValidate
-        method={method}
+        {...props}
+        onSubmit={submit}
+        autoComplete={autoComplete ? 'on' : 'off'}
         {...getFormWebMCPAttributes({
           toolName,
           toolDescription,
           toolAutoSubmit,
         })}
-      >
-        {children}
-      </form>
-    </FormProvider>
+      />
+    </FormContext>
   );
-};
-
-export const useForm = <T extends ZodMiniObject>(
-  schema: T,
-  props?: UseFormProps<z.infer<T>>
-) => {
-  const form = useFormReactHookForm<z.infer<T>>({
-    resolver: zodResolver(schema as any),
-    ...props,
-  });
-
-  const { isSubmitting, isSubmitted, isLoading, isValid } = useFormState({
-    control: form.control,
-  });
-
-  return {
-    form,
-    isSubmitting,
-    isSubmitted,
-    isLoading,
-    isValid,
-  };
 };

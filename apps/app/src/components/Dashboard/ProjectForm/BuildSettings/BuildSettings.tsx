@@ -221,10 +221,9 @@ export const BuildSettings: FC = () => {
   return (
     <>
       <Form
-        schema={buildSettingsSchema}
         onSubmitSuccess={handleSaveAll}
         className="flex w-full flex-col gap-8"
-        {...form}
+        form={form}
       >
         <div className="mb-2 flex items-center gap-2">
           <Zap className="size-5" />

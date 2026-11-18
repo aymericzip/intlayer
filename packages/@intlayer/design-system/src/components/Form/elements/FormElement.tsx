@@ -1,12 +1,7 @@
 'use client';
 
-import type { ComponentProps, ElementType, ReactNode } from 'react';
-import {
-  type ControllerRenderProps,
-  type FieldValues,
-  useFormContext,
-} from 'react-hook-form';
-import { FormField, useFormField } from '../FormField';
+import type { ComponentProps, ElementType, ReactNode, Ref } from 'react';
+import { type FieldBinding, FormField } from '../FormField';
 import { FormItemLayout, type FormItemLayoutProps } from '../layout';
 
 export type FormElementProps<T extends ElementType> = {
@@ -27,10 +22,24 @@ const getWebMCPParamAttributes = (
 ): Record<string, string> =>
   toolParamDescription ? { toolparamdescription: toolParamDescription } : {};
 
-type FormFieldElementProps<T extends ElementType> = FormElementProps<T> &
-  ComponentProps<T> & {
-    field: ControllerRenderProps<FieldValues, string>;
+/** Calls every ref with the element, so the form and the caller both receive it. */
+const mergeRefs =
+  <TElement,>(...refs: (Ref<TElement> | undefined)[]) =>
+  (element: TElement | null) => {
+    for (const ref of refs) {
+      if (typeof ref === 'function') ref(element);
+      else if (ref) ref.current = element;
+    }
   };
+
+type ElementOverrides = {
+  value?: unknown;
+  onChange?: (...args: unknown[]) => void;
+  ref?: Ref<HTMLElement>;
+};
+
+type FormFieldElementProps<T extends ElementType> = FormElementProps<T> &
+  ComponentProps<T> & { field: FieldBinding };
 
 const FormFieldElement = <T extends ElementType>({
   field,
@@ -45,31 +54,7 @@ const FormFieldElement = <T extends ElementType>({
   toolParamDescription,
   ...props
 }: FormFieldElementProps<T>) => {
-  const { error } = useFormField();
-
-  // Ensure controlled inputs and merge onChange with RHF controller
-  const {
-    value: fieldValue,
-    onChange: fieldOnChange,
-    ...fieldRest
-  } = (field as unknown as {
-    value: unknown;
-    onChange: (...args: unknown[]) => void;
-  }) ?? {};
-
-  const propsAny = props as unknown as {
-    value?: unknown;
-    onChange?: (...args: unknown[]) => void;
-    children?: unknown;
-  };
-
-  const mergedValue =
-    propsAny.value !== undefined ? propsAny.value : (fieldValue ?? '');
-
-  const mergedOnChange = (...args: unknown[]) => {
-    if (typeof fieldOnChange === 'function') fieldOnChange(...args);
-    if (typeof propsAny.onChange === 'function') propsAny.onChange(...args);
-  };
+  const { value, onChange, ref } = props as ElementOverrides;
 
   return (
     <FormItemLayout
@@ -79,43 +64,35 @@ const FormFieldElement = <T extends ElementType>({
       isRequired={isRequired}
       info={info}
       showErrorMessage={showErrorMessage}
-      aria-invalid={!!error}
       className={layoutClassName}
     >
       <Element
         data-testid="element"
         id={name}
-        {...fieldRest}
+        name={name}
         {...props}
         {...getWebMCPParamAttributes(toolParamDescription)}
-        // Force controlled value to avoid uncontrolled-to-controlled warnings
-        value={mergedValue as never}
-        // Merge onChange so RHF stays in sync while allowing custom handlers
-        onChange={mergedOnChange as never}
-      >
-        {props.children}
-      </Element>
+        ref={mergeRefs(field.ref, ref)}
+        // A caller-provided value wins; fall back to '' to stay controlled
+        value={value !== undefined ? value : (field.value ?? '')}
+        onChange={(...args: unknown[]) => {
+          field.onChange(args[0]);
+          onChange?.(...args);
+        }}
+      />
     </FormItemLayout>
   );
 };
 
 /**
- * FormElement is a component that allows you to create a form element with a label, description, error message, and validation.
- *
- * The Element prop is the type of the element that will be rendered.
- * This element will interact with the FormContext and will be controlled by the FormControl component.
- * The props used to control the element will be `value` and `onChange`.
+ * Renders `Element` as a form field with label, description and error message,
+ * controlled through its `value` / `onChange` props.
  */
 export const FormElement = <T extends ElementType>(
   props: FormElementProps<T> & ComponentProps<T>
-) => {
-  const { control } = useFormContext();
-
-  return (
-    <FormField
-      control={control}
-      name={props.name}
-      render={({ field }) => <FormFieldElement {...props} field={field} />}
-    />
-  );
-};
+) => (
+  <FormField
+    name={props.name}
+    render={({ field }) => <FormFieldElement {...props} field={field} />}
+  />
+);

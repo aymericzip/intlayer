@@ -572,7 +572,6 @@
     "vitest": "5.1.0"
   },
   "peerDependencies": {
-    "@hookform/resolvers": "7.0.7",
     "@monaco-editor/react": "4.7.0",
     "@resvg/resvg-wasm": "2.6.2",
     "@shikijs/core": "4.6.0",
@@ -586,7 +585,6 @@
     "lucide-react": "1.74.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "react-hook-form": "7.92.0",
     "react-intlayer": "workspace:*",
     "satori": "0.63.2",
     "shiki": "4.6.0",

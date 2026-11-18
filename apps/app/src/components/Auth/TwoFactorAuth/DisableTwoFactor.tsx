@@ -77,11 +77,10 @@ export const DisableTwoFactor: FC = () => {
             <p className="text-sm text-neutral">{modal.disable.description}</p>
 
             <Form
-              schema={TwoFactorAuthSchema}
               onSubmitSuccess={handleSubmit}
               className="mt-4 flex flex-col gap-4"
               autoComplete
-              {...form}
+              form={form}
             >
               <FormInputPassword
                 name="password"

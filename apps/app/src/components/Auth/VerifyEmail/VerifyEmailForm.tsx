@@ -80,9 +80,8 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
 
   return (
     <Form
-      schema={VerifyEmailSchema}
       autoComplete
-      {...form}
+      form={form}
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
     >

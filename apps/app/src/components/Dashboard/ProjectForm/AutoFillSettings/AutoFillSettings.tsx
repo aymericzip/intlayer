@@ -44,10 +44,9 @@ export const AutoFillSettings: FC = () => {
 
   return (
     <Form
-      schema={autoFillSchema}
       onSubmitSuccess={handleSave}
       className="flex w-full flex-col gap-8"
-      {...form}
+      form={form}
     >
       <div className="mb-2 flex items-center gap-2">
         <Sparkles className="size-5" />

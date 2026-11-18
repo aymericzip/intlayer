@@ -22,6 +22,7 @@ import {
   FormMultiSelect,
   FormSelect,
   useForm,
+  useWatch,
 } from '@components/Form';
 import { Checkbox, Input } from '@components/Input';
 import { Loader } from '@components/Loader';
@@ -35,7 +36,6 @@ import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { AnimatePresence, m } from 'framer-motion';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo, useState } from 'react';
-import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import {
   formatDictionaryVariant,
@@ -310,7 +310,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   };
 
   const watchedLocation = useWatch({
-    control: form.control,
+    form,
     name: 'location',
   });
   const isLocalChecked =
@@ -377,11 +377,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   };
 
   return (
-    <Form
-      className="relative flex w-full flex-col gap-8"
-      {...form}
-      schema={DictionaryDetailsSchema}
-    >
+    <Form className="relative flex w-full flex-col gap-8" form={form}>
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
         <FormEditableFieldInput
           name="key"
@@ -391,7 +387,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           disabled={isSubmitting}
           isRequired
           onSave={(value) => {
-            form.setValue('key', value, { shouldDirty: true });
+            form.setValue('key', value);
             setEditedDictionary({
               ...dictionary,
               ...(updatedDictionary ?? {}),
@@ -406,7 +402,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           description={titleInput.description}
           disabled={isSubmitting}
           onSave={(value) => {
-            form.setValue('title', value, { shouldDirty: true });
+            form.setValue('title', value);
             setEditedDictionary({
               ...dictionary,
               ...(updatedDictionary ?? {}),
@@ -422,7 +418,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         description={descriptionInput.description}
         disabled={isSubmitting}
         onSave={(value) => {
-          form.setValue('description', value, { shouldDirty: true });
+          form.setValue('description', value);
           setEditedDictionary({
             ...dictionary,
             ...(updatedDictionary ?? {}),
@@ -432,7 +428,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       />
       <div className="grid grid-cols-2 gap-8 px-1 max-md:grid-cols-1">
         <FormField
-          control={form.control}
           name="location"
           render={({ field }) => {
             const value = field.value;
@@ -577,7 +572,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           label={importModeSelect.label.value}
           description={importModeSelect.description.value}
           onValueChange={(value) => {
-            form.setValue('importMode', value as any, { shouldDirty: true });
+            form.setValue('importMode', value as any);
             setEditedDictionary({
               ...dictionary,
               ...(updatedDictionary ?? {}),
@@ -608,7 +603,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           description={projectInput.description}
           onValueChange={(value) => {
             const valueArray = [value].flat();
-            form.setValue('projectIds', valueArray, { shouldDirty: true });
+            form.setValue('projectIds', valueArray);
             setEditedDictionary({
               ...dictionary,
               ...(updatedDictionary ?? {}),
@@ -646,7 +641,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           description={tagsSelect.description}
           onValueChange={(value) => {
             const valueArray = [value].flat();
-            form.setValue('tags', valueArray, { shouldDirty: true });
+            form.setValue('tags', valueArray);
             setEditedDictionary({
               ...dictionary,
               ...(updatedDictionary ?? {}),

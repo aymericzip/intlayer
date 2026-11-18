@@ -47,10 +47,9 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
       className={cn('w-full max-w-lg p-2 shadow-sm', className)}
     >
       <Form
-        schema={urlSchema}
         onSubmitSuccess={onSubmitSuccess}
         className="flex flex-col gap-2 md:flex-row"
-        {...form}
+        form={form}
       >
         <FormInput
           name="url"

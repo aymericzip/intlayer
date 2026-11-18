@@ -112,11 +112,10 @@ const CommentForm: FC<CommentFormProps> = ({
       transparency="sm"
     >
       <Form
-        schema={commentSchema}
         onSubmitSuccess={handleSubmit}
         toolName="submitBlogComment"
         toolDescription="Post a public comment under this blog post. The user reviews the form before it is sent."
-        {...form}
+        form={form}
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <FormInput

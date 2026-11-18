@@ -290,10 +290,9 @@ export const AccessKeyForm: FC = () => {
 
       <Form
         className="w-full flex-1"
-        schema={AccessKeyFormSchema}
         onSubmitSuccess={() => Promise.resolve()}
         onSubmitError={() => Promise.resolve()}
-        {...form}
+        form={form}
       >
         <div className="mb-2 flex items-center gap-2">
           <Key className="size-5" />

@@ -78,12 +78,7 @@ export const VerifyEmailStepForm: FC = () => {
   ]);
 
   return (
-    <Form
-      schema={VerifyEmailSchema}
-      autoComplete
-      {...form}
-      onSubmitSuccess={onSubmitSuccess}
-    >
+    <Form autoComplete form={form} onSubmitSuccess={onSubmitSuccess}>
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
         isLoading={isSubmitting}

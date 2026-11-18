@@ -11,6 +11,7 @@ import {
   FormInputPassword,
   FormSwitchSelector,
   useForm,
+  useWatch,
 } from '@intlayer/design-system/form';
 import { H3, H4 } from '@intlayer/design-system/headers';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
@@ -115,7 +116,7 @@ export const OpenRouterSettings: FC = () => {
     });
   }, [isOpenRouter, aiConfig?.model, aiConfig?.baseURL]);
 
-  const isEnabled = Boolean(form.watch('enabled'));
+  const isEnabled = Boolean(useWatch({ form, name: 'enabled' }));
 
   const handleSave = (data: OpenRouterFormData) => {
     const baseConfig = (project?.configuration ?? {}) as ProjectConfiguration;
@@ -152,10 +153,9 @@ export const OpenRouterSettings: FC = () => {
 
   return (
     <Form
-      schema={schema as any}
       onSubmitSuccess={handleSave}
       className="flex w-full flex-col gap-8"
-      {...form}
+      form={form}
     >
       <div>
         <div className="mb-2 flex items-center gap-2">

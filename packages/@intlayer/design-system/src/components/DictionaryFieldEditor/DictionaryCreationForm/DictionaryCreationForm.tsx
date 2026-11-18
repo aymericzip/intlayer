@@ -9,11 +9,11 @@ import {
   FormMultiSelect,
   FormSelect,
   useForm,
+  useWatch,
 } from '@components/Form';
 import { MultiSelect, Select } from '@components/Select';
 import { AnimatePresence, m } from 'framer-motion';
 import type { FC } from 'react';
-import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import {
   type DictionaryFormData,
@@ -190,10 +190,9 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
 
   return (
     <Form
-      schema={DictionarySchema}
       onSubmitSuccess={onSubmitSuccess}
       className="m-auto w-full max-w-100"
-      {...form}
+      form={form}
     >
       <DictionaryCreationFormFields
         isSubmitting={isSubmitting}

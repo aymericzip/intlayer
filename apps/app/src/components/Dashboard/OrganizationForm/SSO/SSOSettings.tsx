@@ -14,6 +14,7 @@ import {
   FormInput,
   FormSwitchSelector,
   useForm,
+  useWatch,
 } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
@@ -193,7 +194,7 @@ export const SSOSettings: FC = () => {
   );
 
   // Derive state from form values instead of using effects
-  const formValues = form.watch();
+  const formValues = useWatch({ form });
   const [isSsoEnabled, setIsSsoEnabled] = useState(Boolean(formValues.enabled));
 
   const providerType = (formValues.providerType as 'saml' | 'oidc') ?? 'oidc';
@@ -299,12 +300,7 @@ export const SSOSettings: FC = () => {
         </p>
       </div>
 
-      <Form
-        schema={SSOConfigSchema as any}
-        onSubmitSuccess={onSubmitSuccess}
-        className="size-full"
-        {...form}
-      >
+      <Form onSubmitSuccess={onSubmitSuccess} className="size-full" form={form}>
         {/* Enable SSO Checkbox */}
         <Loader isLoading={isLoadingProviders}>
           <Container

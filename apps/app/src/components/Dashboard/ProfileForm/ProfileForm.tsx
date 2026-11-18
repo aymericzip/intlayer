@@ -204,11 +204,10 @@ const ProfileFormContent: FC = () => {
       >
         {isEditProfileOpen && (
           <Form
-            schema={ProfileFormSchema}
             onSubmitSuccess={onSubmitSuccess}
             onSubmitError={(data) => console.error(data)}
             className="mt-4 w-full"
-            {...form}
+            form={form}
           >
             <FormInput
               name="name"

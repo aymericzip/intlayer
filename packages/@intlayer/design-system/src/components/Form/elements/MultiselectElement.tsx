@@ -2,12 +2,11 @@
 
 import { MultiSelect } from '@components/Select/Multiselect';
 import type { ComponentProps, ReactNode } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { FormField, useFormField } from '../FormField';
+import { FormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';
 import type { FormElementProps } from './FormElement';
 
-type SelectElementsProps = Omit<
+type MultiSelectElementProps = Omit<
   FormElementProps<typeof MultiSelect>,
   'Element'
 > &
@@ -19,40 +18,6 @@ type SelectElementsProps = Omit<
     children?: ReactNode;
   };
 
-const MultiSelectFieldContent = ({
-  field,
-  name,
-  label,
-  description,
-  isRequired,
-  info,
-  showErrorMessage,
-  children,
-  ...props
-}: Omit<SelectElementsProps, 'control'> & { field: any }) => {
-  const { error } = useFormField();
-
-  return (
-    <FormItemLayout
-      htmlFor={name}
-      label={label}
-      description={description}
-      isRequired={isRequired}
-      info={info}
-      showErrorMessage={showErrorMessage}
-      aria-invalid={!!error}
-    >
-      <MultiSelect
-        onValueChange={field.onChange}
-        values={field.value}
-        {...props}
-      >
-        {children}
-      </MultiSelect>
-    </FormItemLayout>
-  );
-};
-
 export const MultiSelectElement = ({
   name,
   description,
@@ -62,27 +27,26 @@ export const MultiSelectElement = ({
   showErrorMessage,
   children,
   ...props
-}: SelectElementsProps) => {
-  const { control } = useFormContext();
-
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <MultiSelectFieldContent
-          field={field}
-          name={name}
-          label={label}
-          description={description}
-          isRequired={isRequired}
-          info={info}
-          showErrorMessage={showErrorMessage}
+}: MultiSelectElementProps) => (
+  <FormField
+    name={name}
+    render={({ field }) => (
+      <FormItemLayout
+        htmlFor={name}
+        label={label}
+        description={description}
+        isRequired={isRequired}
+        info={info}
+        showErrorMessage={showErrorMessage}
+      >
+        <MultiSelect
+          onValueChange={field.onChange}
+          values={field.value as string[] | undefined}
           {...props}
         >
           {children}
-        </MultiSelectFieldContent>
-      )}
-    />
-  );
-};
+        </MultiSelect>
+      </FormItemLayout>
+    )}
+  />
+);

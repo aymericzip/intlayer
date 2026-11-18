@@ -39,10 +39,9 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
 
   return (
     <Form
-      schema={schema}
       onSubmitSuccess={handleSubmit}
       className="flex flex-col gap-6"
-      {...form}
+      form={form}
     >
       <FormInput
         name="email"

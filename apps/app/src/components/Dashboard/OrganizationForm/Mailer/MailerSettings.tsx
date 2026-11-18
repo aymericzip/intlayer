@@ -11,6 +11,7 @@ import {
   FormInputPassword,
   FormSwitchSelector,
   useForm,
+  useWatch,
 } from '@intlayer/design-system/form';
 import { H3, H4 } from '@intlayer/design-system/headers';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
@@ -128,7 +129,7 @@ export const MailerSettings: FC = () => {
     },
   });
 
-  const formValues = form.watch();
+  const formValues = useWatch({ form });
   const [isActive, setIsActive] = useState(Boolean(formValues.isActive));
   const provider = (formValues.provider as 'resend' | 'smtp') ?? 'resend';
 
@@ -167,12 +168,7 @@ export const MailerSettings: FC = () => {
         </p>
       </div>
 
-      <Form
-        schema={MailerConfigSchema}
-        onSubmitSuccess={onSubmitSuccess}
-        className="size-full"
-        {...form}
-      >
+      <Form onSubmitSuccess={onSubmitSuccess} className="size-full" form={form}>
         <Container border borderColor="text" className="p-4" roundedSize="2xl">
           <FormCheckbox
             name="isActive"

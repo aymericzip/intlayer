@@ -6,7 +6,6 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { Blend, Columns, Filter, Plus, Trash2 } from 'lucide-react';
 import type { FC } from 'react';
-import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import {
   DashboardRightPanelId,
@@ -32,8 +31,6 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
     (session?.permissions?.includes('dictionary:admin') ||
       session?.permissions?.includes('dictionary:write')) ??
     false;
-
-  const { register } = useForm({ defaultValues: { search: params.search } });
 
   const { isOpen: checkIsOpen } = useDashboardRightPanel();
   const isEditorSidebarOpen = checkIsOpen(DashboardRightPanelId.VisualEditor);
@@ -63,9 +60,9 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
       <div className="flex max-w-md flex-1 items-center gap-4">
         <SearchInput
           placeholder={content.searchPlaceholder.value}
-          {...register('search', {
-            onChange: (e) => setParam('search', e.target.value),
-          })}
+          name="search"
+          defaultValue={params.search}
+          onChange={(event) => setParam('search', event.target.value)}
         />
 
         <div className="flex items-center gap-0.5">

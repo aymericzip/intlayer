@@ -12,6 +12,7 @@ import {
   FormMultiSelect,
   FormSelect,
   useForm,
+  useWatch,
 } from '@intlayer/design-system/form';
 import { H4 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
@@ -84,7 +85,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
     defaultValues,
   });
 
-  const selectedLocales = form.watch('locales');
+  const selectedLocales = useWatch({ form, name: 'locales' });
 
   useEffect(() => {
     if (projectConfig) {
@@ -138,10 +139,9 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
       borderColor="neutral"
     >
       <Form
-        schema={configSchema}
         onSubmitSuccess={onSubmitSuccess}
         className="flex flex-col gap-6 px-3 py-4"
-        {...form}
+        form={form}
       >
         {/* Internationalization Section */}
         <div className="flex flex-col gap-4">

@@ -44,11 +44,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({
 
   return (
     <Form
-      schema={SignUpSchema}
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
       autoComplete
-      {...form}
+      form={form}
     >
       <div className="flex flex-col gap-y-6">
         <FormInput

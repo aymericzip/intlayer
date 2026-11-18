@@ -97,10 +97,9 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
 
   return (
     <Form
-      schema={schema}
       onSubmitSuccess={handleSubmit}
       className="flex flex-col gap-6"
-      {...form}
+      form={form}
     >
       <FormInput
         name="code"

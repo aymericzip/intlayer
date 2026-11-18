@@ -69,23 +69,17 @@ export const SignInForm: FC<SignInFormProps> = ({
   } = useIntlayer('sign-in');
 
   // Watch email field changes
-  useEffect(() => {
-    const subscription = form.watch((values) => {
-      setEmail(values.email);
-    });
-    return () => subscription.unsubscribe();
-  }, [form]);
+  useEffect(() => form.watch((values) => setEmail(values.email)), [form]);
 
   return (
     <>
       <Form
-        schema={SignInSchema}
         onSubmitSuccess={onSubmitSuccess}
         onSubmitError={onSubmitError}
         autoComplete
         method="post"
         className="gap-y-0"
-        {...form}
+        form={form}
       >
         <div className="flex flex-col gap-y-6">
           <FormInput

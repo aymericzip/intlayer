@@ -70,7 +70,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
       border
       borderColor="neutral"
     >
-      <Form schema={schema} onSubmitSuccess={onSubmit} {...form}>
+      <Form onSubmitSuccess={onSubmit} form={form}>
         <div className="flex flex-col gap-6">
           {/* Name Field */}
           <div className="flex flex-col gap-2">

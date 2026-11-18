@@ -96,10 +96,9 @@ export const DeleteUser: FC = () => {
             </p>
 
             <Form
-              schema={DeleteUserSchema}
               onSubmitSuccess={handleSubmit}
               className="flex flex-col gap-4 pt-4"
-              {...form}
+              form={form}
             >
               <FormInput
                 name="email"

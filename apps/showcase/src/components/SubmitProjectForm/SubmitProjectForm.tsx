@@ -97,10 +97,9 @@ export const SubmitProjectForm: FC = () => {
       >
         <Loader isLoading={!isHydrated}>
           <Form
-            schema={schema}
             onSubmitSuccess={submitProject}
             className="space-y-1"
-            {...form}
+            form={form}
           >
             <ProjectFormFields />
 

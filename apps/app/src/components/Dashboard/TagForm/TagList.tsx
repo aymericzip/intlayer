@@ -15,7 +15,6 @@ import {
 import type { RowSelectionState } from '@tanstack/react-table';
 import { ArrowRight, Plus, Trash2 } from 'lucide-react';
 import { type FC, type MouseEvent, Suspense, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
@@ -71,8 +70,6 @@ export const TagList: FC = () => {
   const tags = tagResponse?.data ?? [];
   const totalPages: number = tagResponse?.total_pages ?? 1;
   const totalItems: number = tagResponse?.total_items ?? 0;
-
-  const { register } = useForm({ defaultValues: { search: params.search } });
 
   const selectedCount = Object.keys(rowSelection).length;
 
@@ -212,9 +209,9 @@ export const TagList: FC = () => {
         <SearchInput
           placeholder={searchPlaceholder.value}
           className="max-w-md"
-          {...register('search', {
-            onChange: (e) => setParam('search', e.target.value),
-          })}
+          name="search"
+          defaultValue={params.search}
+          onChange={(event) => setParam('search', event.target.value)}
         />
         <div className="flex items-center gap-2">
           {selectedCount > 0 && (

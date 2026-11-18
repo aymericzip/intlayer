@@ -102,10 +102,9 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
           <p className="text-sm text-neutral">{modal.description}</p>
 
           <Form
-            schema={MagicLinkSchema}
             onSubmitSuccess={handleSubmit}
             className="flex flex-col gap-4 py-4"
-            {...form}
+            form={form}
           >
             <FormInput
               name="email"

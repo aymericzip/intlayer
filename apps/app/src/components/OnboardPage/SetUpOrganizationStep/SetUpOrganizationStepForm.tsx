@@ -118,11 +118,7 @@ export const SetupOrganizationStepForm: FC = () => {
   };
 
   return (
-    <Form
-      schema={SetUpOrganizationSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      {...form}
-    >
+    <Form onSubmitSuccess={onSubmitSuccess} form={form}>
       <StepLayout
         onGoToPreviousStep={() => {
           if (session?.user) {
@@ -139,9 +135,6 @@ export const SetupOrganizationStepForm: FC = () => {
         onSkipStep={goNextStep}
       >
         <H2>{title}</H2>
-
-        {/* Hidden input to ensure React Hook Form tracks the value for re-renders */}
-        <input type="hidden" {...form.register('organizationId')} />
 
         {renderContent()}
       </StepLayout>

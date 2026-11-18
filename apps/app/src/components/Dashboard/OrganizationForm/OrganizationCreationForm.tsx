@@ -45,11 +45,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
     });
 
   return (
-    <Form
-      schema={organizationSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      {...form}
-    >
+    <Form onSubmitSuccess={onSubmitSuccess} form={form}>
       <FormInput
         name="name"
         id="organization-name-input"

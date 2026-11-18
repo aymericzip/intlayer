@@ -192,10 +192,9 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
               <H3 className="mb-8">{formLabels.title}</H3>
 
               <Form
-                schema={UserEditSchema}
                 onSubmitSuccess={onSubmitSuccess}
                 className="w-full"
-                {...form}
+                form={form}
               >
                 <UserFormFields
                   organizations={organizations}

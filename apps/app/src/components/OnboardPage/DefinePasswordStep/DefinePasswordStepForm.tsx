@@ -61,12 +61,7 @@ export const DefinePasswordStepForm: FC = () => {
   const userEmail = user?.email ?? registrationFormData?.email ?? '';
 
   return (
-    <Form
-      schema={DefinePasswordSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      autoComplete
-      {...form}
-    >
+    <Form onSubmitSuccess={onSubmitSuccess} autoComplete form={form}>
       <H2>{title}</H2>
       <StepLayout
         isLoading={isPending || isSubmitting}

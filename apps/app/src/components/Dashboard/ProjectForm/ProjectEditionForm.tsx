@@ -42,12 +42,7 @@ export const ProjectEditionForm: FC = () => {
         <H3 className="mb-0">{title}</H3>
       </div>
 
-      <Form
-        schema={ProjectSchema}
-        onSubmitSuccess={onSubmitSuccess}
-        className="w-full"
-        {...form}
-      >
+      <Form onSubmitSuccess={onSubmitSuccess} className="w-full" form={form}>
         <FormInput
           name="name"
           id="project-edit-name"

@@ -40,11 +40,10 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
     resendInText,
     backToLoginButton,
   } = useIntlayer('ask-reset-password');
-  const { form } = useForm(AskResetPasswordSchema, {
-    mode: 'onChange',
-    defaultValues: { email },
-  });
-  const { isSubmitting, isSubmitted, isValid } = form.formState;
+  const { form, isSubmitting, isSubmitted, isValid } = useForm(
+    AskResetPasswordSchema,
+    { mode: 'onChange', defaultValues: { email } }
+  );
 
   // Derive isFrozen from form state instead of using setState in effect
   const isFrozen = !isValid || isSubmitted;
@@ -80,11 +79,10 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
 
   return (
     <Form
-      schema={AskResetPasswordSchema}
       onSubmitSuccess={onSubmitSuccess}
       onSubmitError={onSubmitError}
       className="gap-y-0"
-      {...form}
+      form={form}
     >
       <div className="flex flex-col gap-y-6">
         <FormInput

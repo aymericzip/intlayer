@@ -130,10 +130,9 @@ export const EnableTwoFactor: FC = () => {
           <p className="text-sm text-neutral">{modal.enable.description}</p>
 
           <Form
-            schema={TwoFactorAuthSchema}
             onSubmitSuccess={handleSubmit}
             className="mt-4 flex flex-col gap-4"
-            {...form}
+            form={form}
           >
             <FormInputPassword
               name="password"
@@ -228,8 +227,7 @@ const QRCodeVerification: FC<{
       </p>
 
       <Form
-        {...form}
-        schema={TwoFactorAuthOTPSchema}
+        form={form}
         onSubmitSuccess={handleSubmit}
         autoComplete
         className="flex flex-col gap-4"

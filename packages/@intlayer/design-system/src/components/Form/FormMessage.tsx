@@ -8,7 +8,7 @@ export const FormMessage: FC<HTMLAttributes<HTMLParagraphElement>> = ({
   ...props
 }) => {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message ?? '') : children;
+  const body = error ?? children;
 
   if (!body) {
     return null;

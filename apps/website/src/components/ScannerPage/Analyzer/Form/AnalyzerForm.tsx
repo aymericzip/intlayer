@@ -47,12 +47,11 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
       className={cn('w-full max-w-lg p-2 shadow-sm', className)}
     >
       <Form
-        schema={urlSchema}
         onSubmitSuccess={onSubmitSuccess}
         toolName="submitWebsiteScanForm"
         toolDescription="Fill the i18n SEO scanner form with a website URL for the user to launch. To run the audit and get the report directly, call `createWebsiteI18nScan` instead."
         className="flex flex-col gap-2 md:flex-row"
-        {...form}
+        form={form}
       >
         <FormInput
           name="url"

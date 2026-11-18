@@ -2,8 +2,7 @@
 
 import { SwitchSelector } from '@components/SwitchSelector';
 import type { ComponentProps, ReactNode } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { FormField, useFormField } from '../FormField';
+import { FormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';
 import type { FormElementProps } from './FormElement';
 
@@ -19,43 +18,6 @@ type SwitchSelectorElementProps = Omit<
     children?: ReactNode;
   };
 
-const SwitchSelectorFieldContent = ({
-  field,
-  name,
-  label,
-  description,
-  isRequired,
-  info,
-  showErrorMessage,
-  children,
-  ...props
-}: Omit<SwitchSelectorElementProps, 'control'> & { field: any }) => {
-  const { error } = useFormField();
-
-  return (
-    <FormItemLayout
-      htmlFor={name}
-      label={label}
-      description={description}
-      isRequired={isRequired}
-      info={info}
-      showErrorMessage={showErrorMessage}
-      aria-invalid={!!error}
-    >
-      <SwitchSelector
-        {...field}
-        {...props}
-        onChange={(value: any) => {
-          field.onChange(value);
-          props.onChange?.(value);
-        }}
-      >
-        {children}
-      </SwitchSelector>
-    </FormItemLayout>
-  );
-};
-
 export const SwitchSelectorElement = ({
   name,
   description,
@@ -64,28 +26,32 @@ export const SwitchSelectorElement = ({
   info,
   showErrorMessage,
   children,
+  onChange,
   ...props
-}: SwitchSelectorElementProps) => {
-  const { control } = useFormContext();
-
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <SwitchSelectorFieldContent
-          field={field}
+}: SwitchSelectorElementProps) => (
+  <FormField
+    name={name}
+    render={({ field }) => (
+      <FormItemLayout
+        htmlFor={name}
+        label={label}
+        description={description}
+        isRequired={isRequired}
+        info={info}
+        showErrorMessage={showErrorMessage}
+      >
+        <SwitchSelector
           name={name}
-          label={label}
-          description={description}
-          isRequired={isRequired}
-          info={info}
-          showErrorMessage={showErrorMessage}
+          value={field.value}
           {...props}
+          onChange={(value) => {
+            field.onChange(value);
+            onChange?.(value);
+          }}
         >
           {children}
-        </SwitchSelectorFieldContent>
-      )}
-    />
-  );
-};
+        </SwitchSelector>
+      </FormItemLayout>
+    )}
+  />
+);

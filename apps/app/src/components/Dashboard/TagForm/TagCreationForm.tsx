@@ -30,10 +30,9 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
 
   return (
     <Form
-      schema={TagSchema}
       onSubmitSuccess={onSubmitSuccess}
       className="w-full max-w-xl"
-      {...form}
+      form={form}
     >
       <FormInput
         name="key"

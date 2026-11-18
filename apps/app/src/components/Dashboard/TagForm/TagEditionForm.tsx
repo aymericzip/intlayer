@@ -8,12 +8,12 @@ import {
   FormEditableFieldInput,
   FormEditableFieldTextArea,
   useForm,
+  useWatch,
 } from '@intlayer/design-system/form';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Dashboard_Tags_Path } from '@intlayer/design-system/routes';
 import { ArrowLeft, Save, WandSparkles, XCircle } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { DeleteTagModal } from './DeleteTagModal';
@@ -74,7 +74,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({
     );
   };
 
-  const formValues = useWatch({ control: form.control });
+  const formValues = useWatch({ form });
   const isEdited = Boolean(
     tag &&
     (formValues.key !== tag.key ||
@@ -91,10 +91,9 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({
         onClose={() => setIsDeleteModalOpen(false)}
       />
       <Form
-        schema={TagSchema}
         onSubmitSuccess={onSubmitSuccess}
         className="flex w-full flex-col gap-8"
-        {...form}
+        form={form}
       >
         <div className="flex items-center gap-2 px-10">
           {showReturnButton && (

@@ -2,12 +2,11 @@
 
 import { Select } from '@components/Select/Select';
 import type { ComponentProps, ReactNode } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { FormField, useFormField } from '../FormField';
+import { FormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';
 import type { FormElementProps } from './FormElement';
 
-type SelectElementsProps = Omit<FormElementProps<typeof Select>, 'Element'> &
+type SelectElementProps = Omit<FormElementProps<typeof Select>, 'Element'> &
   ComponentProps<typeof Select> & {
     name: string;
     description?: string;
@@ -15,40 +14,6 @@ type SelectElementsProps = Omit<FormElementProps<typeof Select>, 'Element'> &
     className?: string;
     children?: ReactNode;
   };
-
-const SelectFieldContent = ({
-  field,
-  name,
-  label,
-  description,
-  isRequired,
-  info,
-  showErrorMessage,
-  children,
-  ...props
-}: Omit<SelectElementsProps, 'control'> & { field: any }) => {
-  const { error } = useFormField();
-
-  return (
-    <FormItemLayout
-      htmlFor={name}
-      label={label}
-      description={description}
-      isRequired={isRequired}
-      info={info}
-      showErrorMessage={showErrorMessage}
-      aria-invalid={!!error}
-    >
-      <Select
-        onValueChange={field.onChange}
-        defaultValue={field.value}
-        {...props}
-      >
-        {children}
-      </Select>
-    </FormItemLayout>
-  );
-};
 
 export const SelectElement = ({
   name,
@@ -59,27 +24,26 @@ export const SelectElement = ({
   showErrorMessage,
   children,
   ...props
-}: SelectElementsProps) => {
-  const { control } = useFormContext();
-
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <SelectFieldContent
-          field={field}
-          name={name}
-          label={label}
-          description={description}
-          isRequired={isRequired}
-          info={info}
-          showErrorMessage={showErrorMessage}
+}: SelectElementProps) => (
+  <FormField
+    name={name}
+    render={({ field }) => (
+      <FormItemLayout
+        htmlFor={name}
+        label={label}
+        description={description}
+        isRequired={isRequired}
+        info={info}
+        showErrorMessage={showErrorMessage}
+      >
+        <Select
+          onValueChange={field.onChange}
+          defaultValue={field.value as string | undefined}
           {...props}
         >
           {children}
-        </SelectFieldContent>
-      )}
-    />
-  );
-};
+        </Select>
+      </FormItemLayout>
+    )}
+  />
+);

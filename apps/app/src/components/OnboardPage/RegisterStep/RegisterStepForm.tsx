@@ -47,12 +47,7 @@ export const RegisterStepForm: FC = () => {
   };
 
   return (
-    <Form
-      schema={RegisterSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      autoComplete
-      {...form}
-    >
+    <Form onSubmitSuccess={onSubmitSuccess} autoComplete form={form}>
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
         isLoading={isSubmitting}

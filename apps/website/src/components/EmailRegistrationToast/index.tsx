@@ -189,12 +189,11 @@ export const EmailRegistrationToast: FC = () => {
       <div className="flex items-center gap-6 rounded-lg">
         <Mail className="size-6" />
         <Form
-          schema={EmailSchema}
           onSubmitSuccess={handleRegister}
           autoComplete
           toolName="submitNewsletterSubscription"
           toolDescription="Subscribe an email address to the Intlayer newsletter. The user reviews the form before it is sent."
-          {...form}
+          form={form}
         >
           <span className="text-sm font-medium">{content.value}</span>
           {!isAuthenticated && (

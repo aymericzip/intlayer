@@ -41,12 +41,7 @@ export const OrganizationEditionForm: FC = () => {
         <Building2 className="size-5" />
         <H3 className="mb-0">{title}</H3>
       </div>
-      <Form
-        schema={OrganizationSchema}
-        onSubmitSuccess={onSubmitSuccess}
-        className="size-full"
-        {...form}
-      >
+      <Form onSubmitSuccess={onSubmitSuccess} className="size-full" form={form}>
         <FormInput
           name="name"
           id="organization-edit-name"

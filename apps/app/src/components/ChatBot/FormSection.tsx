@@ -139,9 +139,8 @@ export const FormSection: FC<FormSectionProps> = ({
   return (
     <Form
       className="item-end flex h-auto flex-col items-end justify-center gap-3 px-4 py-3"
-      schema={schema}
       onSubmitSuccess={handleSubmit}
-      {...form}
+      form={form}
     >
       <FormAutoSizedTextArea
         name="question"

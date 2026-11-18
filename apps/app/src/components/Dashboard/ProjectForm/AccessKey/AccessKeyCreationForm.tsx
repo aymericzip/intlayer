@@ -169,8 +169,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
 
   return (
     <Form
-      schema={AccessKeyCreationSchema}
-      {...form}
+      form={form}
       className="flex min-w-64 flex-col"
       autoComplete={false}
       onSubmitSuccess={onSubmitSuccess}

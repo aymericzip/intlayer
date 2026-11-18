@@ -8,25 +8,34 @@ import {
   InputOTPSlot,
 } from '@components/Input/OTPInput';
 import { useItemSelector } from '@hooks/useItemSelector';
-import { type ComponentProps, type ReactNode, useEffect, useRef } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { FormField, useFormField } from '../FormField';
+import {
+  type ComponentProps,
+  Fragment,
+  type ReactNode,
+  useEffect,
+  useRef,
+} from 'react';
+import { type FieldBinding, FormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';
 import type { FormElementProps } from './FormElement';
 
-type OTPElementsProps = Omit<FormElementProps<typeof InputOTP>, 'Element'> &
-  Omit<ComponentProps<typeof InputOTP>, 'children'> & {
+type OTPElementProps = Omit<FormElementProps<typeof InputOTP>, 'Element'> &
+  Omit<ComponentProps<typeof InputOTP>, 'children' | 'render'> & {
     name: string;
     description?: string;
     placeholder?: string;
     className?: string;
     children?: ReactNode;
-    /** Number of OTP slots (default: 6) */
-    slots?: number;
   };
 
-const selector = (option: HTMLElement) =>
+const isSelectedSlot = (option: HTMLElement) =>
   option?.getAttribute('aria-selected') === 'true';
+
+/** Two groups of three slots, separated by a dash. */
+const SLOT_GROUPS = [
+  [0, 1, 2],
+  [3, 4, 5],
+];
 
 const OTPFieldContent = ({
   field,
@@ -37,19 +46,13 @@ const OTPFieldContent = ({
   info,
   showErrorMessage,
   children,
-  slots = 6,
   maxLength = 6,
   ...props
-}: Omit<OTPElementsProps, 'control'> & { field: any }) => {
-  const { error } = useFormField();
-
-  const optionsRefs = useRef<HTMLElement[]>([]);
+}: OTPElementProps & { field: FieldBinding }) => {
+  const slotElements = useRef<HTMLElement[]>([]);
   const { choiceIndicatorPosition, scheduleMeasurement } = useItemSelector(
-    optionsRefs,
-    {
-      selector,
-      isHoverable: true,
-    }
+    slotElements,
+    { selector: isSelectedSlot, isHoverable: true }
   );
 
   useEffect(() => {
@@ -64,103 +67,48 @@ const OTPFieldContent = ({
       isRequired={isRequired}
       info={info}
       showErrorMessage={showErrorMessage}
-      aria-invalid={!!error}
     >
       <InputOTP
         onChange={field.onChange}
-        defaultValue={field.value}
+        defaultValue={field.value as string | undefined}
         maxLength={maxLength}
         pattern="^[0-9]+$"
         onActiveSlotChange={scheduleMeasurement}
-        {...(props as any)}
-      >
-        {children ?? (
-          <>
-            <InputOTPGroup>
-              <InputOTPSlot
-                index={0}
-                ref={(el) => {
-                  optionsRefs.current[0] = el!;
-                }}
-              />
-              <InputOTPSlot
-                index={1}
-                ref={(el) => {
-                  optionsRefs.current[1] = el!;
-                }}
-              />
-              <InputOTPSlot
-                index={2}
-                ref={(el) => {
-                  optionsRefs.current[2] = el!;
-                }}
-              />
-            </InputOTPGroup>
-            <InputOTPSeparator />
-            <InputOTPGroup>
-              <InputOTPSlot
-                index={3}
-                ref={(el) => {
-                  optionsRefs.current[3] = el!;
-                }}
-              />
-              <InputOTPSlot
-                index={4}
-                ref={(el) => {
-                  optionsRefs.current[4] = el!;
-                }}
-              />
-              <InputOTPSlot
-                index={5}
-                ref={(el) => {
-                  optionsRefs.current[5] = el!;
-                }}
-              />
-            </InputOTPGroup>
-            {choiceIndicatorPosition && (
-              <InputIndicator style={choiceIndicatorPosition} />
-            )}
-          </>
-        )}
-      </InputOTP>
+        {...props}
+        render={() =>
+          children ?? (
+            <>
+              {SLOT_GROUPS.map((slotIndexes, groupIndex) => (
+                <Fragment key={slotIndexes.join('-')}>
+                  {groupIndex > 0 && <InputOTPSeparator />}
+                  <InputOTPGroup>
+                    {slotIndexes.map((slotIndex) => (
+                      <InputOTPSlot
+                        key={slotIndex}
+                        index={slotIndex}
+                        ref={(element) => {
+                          if (element)
+                            slotElements.current[slotIndex] = element;
+                        }}
+                      />
+                    ))}
+                  </InputOTPGroup>
+                </Fragment>
+              ))}
+              {choiceIndicatorPosition && (
+                <InputIndicator style={choiceIndicatorPosition} />
+              )}
+            </>
+          )
+        }
+      />
     </FormItemLayout>
   );
 };
 
-export const OTPElement = ({
-  name,
-  description,
-  label,
-  isRequired,
-  info,
-  showErrorMessage,
-  children,
-  slots = 6,
-  maxLength = 6,
-  ...props
-}: OTPElementsProps) => {
-  const { control } = useFormContext();
-
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <OTPFieldContent
-          field={field}
-          name={name}
-          label={label}
-          description={description}
-          isRequired={isRequired}
-          info={info}
-          showErrorMessage={showErrorMessage}
-          slots={slots}
-          maxLength={maxLength}
-          {...props}
-        >
-          {children}
-        </OTPFieldContent>
-      )}
-    />
-  );
-};
+export const OTPElement = (props: OTPElementProps) => (
+  <FormField
+    name={props.name}
+    render={({ field }) => <OTPFieldContent {...props} field={field} />}
+  />
+);

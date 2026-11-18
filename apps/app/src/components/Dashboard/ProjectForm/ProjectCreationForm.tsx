@@ -37,7 +37,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
     });
 
   return (
-    <Form schema={ProjectSchema} onSubmitSuccess={onSubmitSuccess} {...form}>
+    <Form onSubmitSuccess={onSubmitSuccess} form={form}>
       <FormInput
         name="name"
         id="project-name-input"

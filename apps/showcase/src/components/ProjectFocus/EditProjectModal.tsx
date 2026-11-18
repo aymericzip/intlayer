@@ -96,12 +96,7 @@ export const EditProjectModal = ({
             </Button>
           </div>
         ) : (
-          <Form
-            schema={schema}
-            onSubmitSuccess={onSubmit}
-            className="space-y-1"
-            {...form}
-          >
+          <Form onSubmitSuccess={onSubmit} className="space-y-1" form={form}>
             <ProjectFormFields form={form} />
             {error && <p className="text-sm text-error">{error}</p>}
             <div className="flex gap-3 pt-4">

@@ -12,15 +12,24 @@ export { SearchInputElement as FormSearchInput } from './elements/SearchInputEle
 export { SelectElement as FormSelect } from './elements/SelectElement';
 export { SwitchSelectorElement as FormSwitchSelector } from './elements/SwitchSelectorElement';
 export { TextAreaElement as FormTextArea } from './elements/TextAreaElement';
-export { Form } from './Form';
 export {
+  Form,
   type FormWebMCPProps,
   getFormWebMCPAttributes,
   useForm,
+  useFormContext,
+  useWatch,
 } from './FormBase';
 export { FormControl } from './FormControl';
 export { FormDescription } from './FormDescription';
-export { FormField, useFormField } from './FormField';
+export { FormField, useField, useFormField } from './FormField';
 export { FormItem } from './FormItem';
 export { FormMessage } from './FormMessage';
+export type {
+  FieldPath,
+  FieldPathValue,
+  FormInstance,
+  FormErrors,
+  FormMode,
+} from './formStore';
 export { FormLabelLayout as FormLabel } from './layout';

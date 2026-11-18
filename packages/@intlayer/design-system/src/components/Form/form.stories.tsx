@@ -78,8 +78,7 @@ export const Default: Story = {
     return (
       <div className="max-w-xl">
         <Form
-          schema={Schema}
-          {...form}
+          form={form}
           onSubmitSuccess={onSubmitSuccess}
           onSubmitError={onSubmitError}
           autoComplete={autoComplete}

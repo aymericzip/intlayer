@@ -46,8 +46,7 @@ export const TotpForm: FC = () => {
 
   return (
     <Form
-      {...form}
-      schema={totpSchema}
+      form={form}
       onSubmitSuccess={handleTotpVerification}
       className="space-y-4"
     >

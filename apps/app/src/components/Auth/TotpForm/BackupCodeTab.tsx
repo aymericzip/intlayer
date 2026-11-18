@@ -44,8 +44,7 @@ export const BackupCodeTab: FC = () => {
 
   return (
     <Form
-      {...form}
-      schema={backupCodeSchema}
+      form={form}
       onSubmitSuccess={handleBackupCodeVerification}
       className="space-y-4"
     >

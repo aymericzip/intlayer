@@ -11,11 +11,10 @@ const NewsletterForm: FC<{ autoSubmit?: boolean }> = ({ autoSubmit }) => {
 
   return (
     <Form
-      schema={schema}
       toolName="subscribeToNewsletter"
       toolDescription="Subscribe an email address"
       toolAutoSubmit={autoSubmit}
-      {...form}
+      form={form}
     >
       <FormInput
         name="email"
