@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "Solid आइलैंड वाले Astro में Intlayer सेट करें: अनुवादित कंपोनेंट, स्थानीयकृत रूट और hreflang, प्रति कंपोनेंट टाइप्ड कंटेंट।"
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 और Solid 2 सपोर्ट का दस्तावेज़ीकरण"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Astro पेज में astro-intlayer के useIntlayer / useLocale हुक्स का उपयोग"
@@ -182,6 +185,8 @@ bun x intlayer init
 
 - **solid-intlayer**
   Solid अनुप्रयोगों में Intlayer को एकीकृत करने के लिए पैकेज। यह Solid में अंतर्राष्ट्रीयकरण के लिए `IntlayerProvider` के साथ-साथ `useIntlayer` और `useLocale` प्रिमिटिव्स (primitives) प्रदान करता है।
+
+> `solid-intlayer` एक ही package और एक ही API के साथ Solid 1.9 और Solid 2 दोनों को सपोर्ट करता है। यह runtime पर इंस्टॉल किए गए `solid-js` वर्ज़न का पता लगाता है, और Solid का Vite plugin इसके components को आपके ऐप के अपने Solid runtime के साथ compile करता है (`solid` export condition के ज़रिए)। कुछ भी configure करने की ज़रूरत नहीं है।
 
 - **@astrojs/solid-js**
   आधिकारिक Astro एकीकरण जो Solid घटक islands के उपयोग की अनुमति देता है।
@@ -685,6 +690,13 @@ Intlayer के साथ अपने विकास अनुभव को �
 
 <FAQ>
 
+<Question title="क्या Intlayer Solid 2 को सपोर्ट करता है?">
+
+हाँ। `solid-intlayer` एक ही package से, एक ही API (`IntlayerProvider`, `useIntlayer`, `useLocale` आदि) के साथ Solid 1.9 और Solid 2 पर काम करता है। यह runtime पर इंस्टॉल किए गए `solid-js` वर्ज़न का पता लगाता है और उसके अनुसार primitives इस्तेमाल करता है, जैसे dynamic dictionaries के लिए Solid 1 पर `<Suspense>` और Solid 2 पर `<Loading>`। आप कौन-सा Solid वर्ज़न चलाते हैं यह आपका framework तय करता है, और Intlayer उसी के अनुसार चलता है। पूरा Solid 2 setup [Vite + Solid उदाहरण](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) में उपलब्ध है।
+
+- [Vite + Solid उदाहरण](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid आइलैंड वाली Astro साइट के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
 
 Astro का अंतर्निहित `i18n` विकल्प उपसर्गों और पुनर्निर्देशों को संभालता है लेकिन सामग्री का प्रबंधन नहीं करता है। आइलैंड जोड़ने से एक अतिरिक्त चुनौती पैदा होती है: वे Astro नहीं बल्कि Solid चलाते हैं।

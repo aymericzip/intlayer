@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - 翻译你的应用的完整指南"
 description: "在 SolidStart 中配置 Intlayer：服务端渲染的语言路由、响应式翻译内容、hreflang 和多语言站点地图。"
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "说明对 Solid 1 和 Solid 2 的支持"
   - version: 9.1.3
     date: 2025-08-06
     changes: "初始历史"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   将 Intlayer 与 Solid 应用程序集成的软件包。它为 Solid 国际化提供上下文 Provider (context providers) 和 Hook (hooks)。
+
+> `solid-intlayer` 使用同一个包和同一套 API 同时支持 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本，而 Solid 的 Vite 插件会使用你应用自身的 Solid 运行时编译它的组件（通过 `solid` 导出条件）。无需任何配置。
 
 - **vite-intlayer**
 
@@ -1090,6 +1095,13 @@ node .output/server/index.mjs
 
 <FAQ>
 
+<Question title="Intlayer 支持 Solid 2 吗？">
+
+支持。`solid-intlayer` 通过同一个包、同一套 API（`IntlayerProvider`、`useIntlayer`、`useLocale` 等）同时适用于 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本并使用对应的原语，例如动态字典在 Solid 1 中使用 `<Suspense>`，在 Solid 2 中使用 `<Loading>`。使用哪个 Solid 版本由你的框架决定，Intlayer 会随之适配。完整的 Solid 2 配置可参考 [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)。
+
+- [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="国际化 Solid Start 应用有哪些不同的解决方案？">
 
 - **`@solid-primitives/i18n`**：社区的原语方案，需要开发者自行组装、加载和进行类型标注的扁平字典。

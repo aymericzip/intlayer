@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "تدويل Solid Start - الدليل الكامل لترجمة تطبيقك"
 description: "إعداد Intlayer في SolidStart: توجيه لغات يُعرض على الخادم، ومحتوى مترجم تفاعلي، وhreflang، وخريطة موقع متعددة اللغات."
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "توثيق دعم Solid 1 و Solid 2"
   - version: 9.1.3
     date: 2025-08-06
     changes: "السجل الأولي"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   الحزمة التي تدمج Intlayer مع تطبيق Solid. توفر مزودي السياق (context providers) والخطاطيف (hooks) لتدويل Solid.
+
+> يدعم `solid-intlayer` كلاً من Solid 1.9 و Solid 2 بنفس الحزمة ونفس الـ API. فهو يكتشف إصدار `solid-js` المثبت أثناء التشغيل، ويقوم إضافة Vite الخاصة بـ Solid بترجمة مكوناته باستخدام بيئة تشغيل Solid الخاصة بتطبيقك (عبر شرط التصدير `solid`). لا حاجة لأي إعداد.
 
 - **vite-intlayer**
 
@@ -348,10 +353,10 @@ export default function LocaleLayout(props: RouteSectionProps) {
 
 يقوم `@solidjs/router` بتوسيع `:locale?` إلى نمطين، أحدهما بالشريحة والآخر بدونها، ويجربها بالترتيب التنازلي للخصائص. `matchFilters` هو ما يصنع الفرق بين الإعداد الناجح والإعداد المربك:
 
-| URL         | بدون `matchFilters`                             | مع `matchFilters`                    |
-| ----------- | ----------------------------------------------- | ------------------------------------ |
-| `/fr/about` | صفحة حول بالفرنسية                              | صفحة حول بالفرنسية                   |
-| `/about`    | صفحة حول (تغلب الشريحة الثابتة)                 | صفحة حول                             |
+| URL         | بدون `matchFilters`                             | مع `matchFilters`                   |
+| ----------- | ----------------------------------------------- | ----------------------------------- |
+| `/fr/about` | صفحة حول بالفرنسية                              | صفحة حول بالفرنسية                  |
+| `/about`    | صفحة حول (تغلب الشريحة الثابتة)                 | صفحة حول                            |
 | `/unknown`  | **الصفحة الرئيسية**، بهدوء، مع `locale=unknown` | لا يوجد تطابق → ينتقل إلى 404 الشامل |
 
 > يفضل استخدام `[locale]` (مطلوب) بدلاً من `[[locale]]` إذا كنت تستخدم وضع التوجيه `'prefix-all'`، واستغنِ عن الشريحة تمامًا بالنسبة لـ `'no-prefix'` أو `'search-params'`.
@@ -748,7 +753,7 @@ export default function NotFound() {
 | الطلب             | النتيجة                              |
 | ----------------- | ------------------------------------ |
 | `/xx`             | `404`، `xx` ليست لغة مكونة           |
-| `/nonexistent`    | `404` باللغة الافتراضية              |
+| `/nonexistent`    | `404` باللغة الافتراضية               |
 | `/fr/nonexistent` | `404` بالفرنسية (`Page introuvable`) |
 
 </Step>
@@ -1027,17 +1032,17 @@ npm run build
 node .output/server/index.mjs
 ```
 
-| الطلب                                              | الاستجابة المتوقعة                     |
-| -------------------------------------------------- | -------------------------------------- |
-| `GET /`                                            | `200`، الإنجليزية                      |
-| `GET /` مع `Accept-Language: fr`                   | `302` → `/fr`                          |
+| الطلب                                             | الاستجابة المتوقعة                      |
+| ------------------------------------------------- | -------------------------------------- |
+| `GET /`                                           | `200`، الإنجليزية                       |
+| `GET /` مع `Accept-Language: fr`                  | `302` → `/fr`                          |
 | `GET /` مع ملف تعريف الارتباط `INTLAYER_LOCALE=es` | `302` → `/es`                          |
-| `GET /fr`                                          | `200`، الفرنسية, `<html lang="fr">`    |
-| `GET /fr/about`                                    | `200`، صفحة حول بالفرنسية              |
-| `GET /en/about`                                    | `302` → `/about` (إعادة توجيه معيارية) |
-| `GET /xx`                                          | `404`                                  |
-| `GET /fr/nonexistent`                              | `404` بالفرنسية                        |
-| `GET /sitemap.xml`                                 | `200`، خريطة موقع XML متعددة اللغات    |
+| `GET /fr`                                         | `200`، الفرنسية, `<html lang="fr">`    |
+| `GET /fr/about`                                   | `200`، صفحة حول بالفرنسية              |
+| `GET /en/about`                                   | `302` → `/about` (إعادة توجيه معيارية) |
+| `GET /xx`                                         | `404`                                  |
+| `GET /fr/nonexistent`                             | `404` بالفرنسية                        |
+| `GET /sitemap.xml`                                | `200`، خريطة موقع XML متعددة اللغات    |
 
 تعمل الصفوف التي تعرض صفحة بشكل مماثل تحت `vite dev`. تنطبق صفوف إعادة التوجيه الثلاثة فقط على خادم مجمّع ما لم تقم بتسجيل المعالج كوسيط بنفسك، انظر الخطوة 3.
 
@@ -1091,6 +1096,13 @@ node .output/server/index.mjs
 
 <FAQ>
 
+<Question title="هل يدعم Intlayer الإصدار Solid 2؟">
+
+نعم. يعمل `solid-intlayer` مع Solid 1.9 و Solid 2 من نفس الحزمة وبنفس الـ API (`IntlayerProvider` و `useIntlayer` و `useLocale` وغيرها). فهو يكتشف إصدار `solid-js` المثبت أثناء التشغيل ويستخدم الأدوات الأساسية المناسبة، مثل `<Suspense>` في Solid 1 و `<Loading>` في Solid 2 للقواميس الديناميكية. إطار العمل الذي تستخدمه هو من يحدد إصدار Solid، و Intlayer يتبعه. يتوفر إعداد كامل لـ Solid 2 في [مثال Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [مثال Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات Solid Start؟">
 
 - **`@solid-primitives/i18n`**: قاموس بسيط قائم على الإشارات مع دعم محدود لـ SSR.

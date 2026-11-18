@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - 翻译你的应用的完整指南"
 description: "在使用 Solid 岛屿的 Astro 中配置 Intlayer：翻译后的组件、本地化路由和 hreflang，以及按组件的类型化内容。"
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "说明对 Solid 1 和 Solid 2 的支持"
   - version: 9.5.5
     date: 2026-09-19
     changes: "在 Astro 页面中使用 astro-intlayer 的 useIntlayer / useLocale Hook"
@@ -170,6 +173,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   将 Intlayer 与 Solid 应用程序集成的软件包。它提供了 `IntlayerProvider`，以及用于 Solid 国际化的 `useIntlayer` 和 `useLocale` 基元。
+
+> `solid-intlayer` 使用同一个包和同一套 API 同时支持 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本，而 Solid 的 Vite 插件会使用你应用自身的 Solid 运行时编译它的组件（通过 `solid` 导出条件）。无需任何配置。
 
 - **@astrojs/solid-js**
   官方 Astro 集成，允许使用 Solid 组件岛 (islands)。
@@ -672,6 +677,13 @@ Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮
 
 <FAQ>
 
+<Question title="Intlayer 支持 Solid 2 吗？">
+
+支持。`solid-intlayer` 通过同一个包、同一套 API（`IntlayerProvider`、`useIntlayer`、`useLocale` 等）同时适用于 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本并使用对应的原语，例如动态字典在 Solid 1 中使用 `<Suspense>`，在 Solid 2 中使用 `<Loading>`。使用哪个 Solid 版本由你的框架决定，Intlayer 会随之适配。完整的 Solid 2 配置可参考 [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)。
+
+- [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="国际化带有 Solid 孤岛 (islands) 的 Astro 站点有哪些不同的解决方案？">
 
 Astro 内置的 `i18n` 选项仅处理语言前缀和重定向，并不包含内容层本身，因此您仍然需要消息层。此外，孤岛带来了第二个问题：孤岛运行的是 Solid，而不是 Astro。

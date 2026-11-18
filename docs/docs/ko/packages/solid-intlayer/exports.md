@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-11-18
 priority: 5
 title: solid-intlayer 패키지 문서
 description: Solid 애플리케이션을 위한 Intlayer의 Solid 전용 통합으로, 프로바이더와 훅을 제공합니다.
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 및 Solid 2 지원 문서화"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathname 유틸리티 추가"
@@ -27,6 +30,8 @@ author: aymericzip
 # solid-intlayer 패키지
 
 `solid-intlayer` 패키지는 Intlayer를 Solid 애플리케이션에 통합하는 데 필요한 도구를 제공합니다. 다국어 콘텐츠를 처리하기 위한 프로바이더와 훅을 포함합니다.
+
+하나의 패키지로 Solid 1.9와 Solid 2를 지원합니다. 설치된 `solid-js` 버전을 런타임에 감지하므로 설정이 필요 없습니다.
 
 ## 설치
 

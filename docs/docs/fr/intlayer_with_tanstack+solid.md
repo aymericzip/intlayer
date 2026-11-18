@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-11-17
+updatedAt: 2026-11-18
 priority: 9
 title: "i18n TanStack Start + Solid : guide complet de traduction"
 description: "Configurez Intlayer dans TanStack Start avec Solid : paramètre de locale dans les routes, contenu traduit réactif, métadonnées head localisées et hreflang."
@@ -23,6 +23,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Documenter la prise en charge de Solid 1 et Solid 2"
   - version: 9.8.2
     date: 2026-11-17
     changes: "Conserver les destinations relatives et les reducers de params dans LocalizedLink, ignorer les clics avec modificateur dans le sélecteur de langue"
@@ -187,6 +190,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   Le package qui intègre Intlayer avec une application Solid. Il fournit des fournisseurs de contexte et des hooks pour l'internationalisation Solid.
+
+> `solid-intlayer` prend en charge Solid 1.9 et Solid 2 avec le même package et la même API. Il détecte la version de `solid-js` installée au runtime, et le plugin Vite de Solid compile ses composants avec le runtime Solid de votre application (via la condition d'export `solid`). Aucune configuration n'est nécessaire.
 
 - **vite-intlayer**
   Inclut le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi qu'un middleware pour détecter la langue préférée de l'utilisateur, gérer les cookies et gérer la redirection d'URL.
@@ -1261,6 +1266,13 @@ Pour aller plus loin, vous pouvez implémenter l'[éditeur visuel](https://githu
 
 <FAQ>
 
+<Question title="Intlayer prend-il en charge Solid 2 ?">
+
+Oui. `solid-intlayer` fonctionne avec Solid 1.9 et Solid 2 depuis le même package, avec la même API (`IntlayerProvider`, `useIntlayer`, `useLocale`, etc.). Il détecte la version de `solid-js` installée au runtime et utilise les primitives correspondantes, par exemple `<Suspense>` sur Solid 1 et `<Loading>` sur Solid 2 pour les dictionnaires dynamiques. Votre framework détermine la version de Solid utilisée, et Intlayer s'y adapte. Une configuration complète sous Solid 2 est disponible dans l'[exemple Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [exemple Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Quelles sont les différentes solutions pour internationaliser une application TanStack Start et Solid ?">
 
 TanStack Start ne fournit aucune couche d'i18n, et les options de l'écosystème Solid sont minces :

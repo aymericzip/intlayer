@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - Guía completa para traducir tu aplicación"
 description: "Configura Intlayer en Astro con islas Solid: componentes traducidos, rutas localizadas y hreflang, con contenido tipado por componente."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Documentar la compatibilidad con Solid 1 y Solid 2"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Uso de los hooks useIntlayer / useLocale de astro-intlayer en la página de Astro"
@@ -170,6 +173,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   Paquete para integrar Intlayer con aplicaciones de Solid. Proporciona `IntlayerProvider`, así como los primitivos `useIntlayer` y `useLocale` para la internacionalización en Solid.
+
+> `solid-intlayer` es compatible con Solid 1.9 y Solid 2 con el mismo paquete y la misma API. Detecta la versión de `solid-js` instalada en tiempo de ejecución, y el plugin de Vite de Solid compila sus componentes con el runtime de Solid de tu aplicación (mediante la condición de exportación `solid`). No hace falta configurar nada.
 
 - **@astrojs/solid-js**
   Integración oficial de Astro que permite el uso de islas (islands) de componentes Solid.
@@ -671,6 +676,13 @@ Si quieres saber más, también puedes implementar el [Editor Visual](https://gi
 
 <FAQ>
 
+<Question title="¿Intlayer es compatible con Solid 2?">
+
+Sí. `solid-intlayer` funciona con Solid 1.9 y Solid 2 desde el mismo paquete, con la misma API (`IntlayerProvider`, `useIntlayer`, `useLocale`, etc.). Detecta la versión de `solid-js` instalada en tiempo de ejecución y usa las primitivas correspondientes, por ejemplo `<Suspense>` en Solid 1 y `<Loading>` en Solid 2 para los diccionarios dinámicos. Tu framework decide qué versión de Solid usas, e Intlayer la sigue. Hay una configuración completa con Solid 2 en el [ejemplo de Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [ejemplo de Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="¿Qué soluciones existen para internacionalizar un sitio Astro con islas de Solid?">
 
 La opción `i18n` integrada de Astro gestiona los prefijos de idioma y las redirecciones, pero no el contenido en sí, así que todavía necesitas una capa de mensajes, y una isla añade un segundo problema: la isla ejecuta Solid, no Astro.

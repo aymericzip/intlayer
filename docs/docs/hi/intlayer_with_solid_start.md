@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - अपने ऐप का अनुवाद करने का पूर्ण गाइड"
 description: "SolidStart में Intlayer सेट करें: सर्वर पर रेंडर होने वाली लोकेल रूटिंग, रिएक्टिव अनुवादित कंटेंट, hreflang और बहुभाषी साइटमैप।"
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 और Solid 2 सपोर्ट का दस्तावेज़ीकरण"
   - version: 9.1.3
     date: 2025-08-06
     changes: "प्रारंभिक इतिहास"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   पैकेज जो Intlayer को Solid एप्लिकेशन के साथ एकीकृत करता है। यह Solid अंतर्राष्ट्रीयकरण के लिए संदर्भ प्रदाता (context providers) और हुक्स (hooks) प्रदान करता है।
+
+> `solid-intlayer` एक ही package और एक ही API के साथ Solid 1.9 और Solid 2 दोनों को सपोर्ट करता है। यह runtime पर इंस्टॉल किए गए `solid-js` वर्ज़न का पता लगाता है, और Solid का Vite plugin इसके components को आपके ऐप के अपने Solid runtime के साथ compile करता है (`solid` export condition के ज़रिए)। कुछ भी configure करने की ज़रूरत नहीं है।
 
 - **vite-intlayer**
 
@@ -348,10 +353,10 @@ export default function LocaleLayout(props: RouteSectionProps) {
 
 `@solidjs/router` `:locale?` को दो पैटर्न में विस्तारित करता है, एक सेगमेंट के साथ और एक बिना, और विशिष्टता के घटते क्रम में उन्हें आजमाता है। `matchFilters` वही है जो एक काम करने वाले सेटअप और एक भ्रमित करने वाले सेटअप के बीच अंतर पैदा करता है:
 
-| URL         | matchFilters के बिना                         | matchFilters के साथ                  |
-| ----------- | -------------------------------------------- | ------------------------------------ |
-| `/fr/about` | फ्रेंच अबाउट पेज                             | फ्रेंच अबाउट पेज                     |
-| `/about`    | अबाउट पेज (स्टैटिक सेगमेंट जीतता है)         | अबाउट पेज                            |
+| URL         | matchFilters के बिना                       | matchFilters के साथ               |
+| ----------- | ----------------------------------------- | -------------------------------- |
+| `/fr/about` | फ्रेंच अबाउट पेज                              | फ्रेंच अबाउट पेज                     |
+| `/about`    | अबाउट पेज (स्टैटिक सेगमेंट जीतता है)             | अबाउट पेज                         |
 | `/unknown`  | **होम पेज**, चुपचाप, `locale=unknown` के साथ | कोई मैच नहीं → कैच-ऑल 404 पर जाता है |
 
 > यदि आप `'prefix-all'` रूटिंग मोड का उपयोग करते हैं तो `[[locale]]` के बजाय `[locale]` (आवश्यक) को प्राथमिकता दें, और `'no-prefix'` या `'search-params'` के लिए सेगमेंट को पूरी तरह से हटा दें।
@@ -744,8 +749,8 @@ export default function NotFound() {
 }
 ```
 
-| अनुरोध            | परिणाम                                       |
-| ----------------- | -------------------------------------------- |
+| अनुरोध             | परिणाम                                  |
+| ----------------- | --------------------------------------- |
 | `/xx`             | `404`, `xx` एक कॉन्फ़िगर की गई लोकेल नहीं है |
 | `/nonexistent`    | डिफ़ॉल्ट लोकेल में `404`                     |
 | `/fr/nonexistent` | फ्रेंच में `404` (`Page introuvable`)        |
@@ -1026,17 +1031,17 @@ npm run build
 node .output/server/index.mjs
 ```
 
-| अनुरोध                                   | अपेक्षित प्रतिक्रिया                   |
-| ---------------------------------------- | -------------------------------------- |
-| `GET /`                                  | `200`, अंग्रेजी                        |
-| `GET /` `Accept-Language: fr` के साथ     | `302` → `/fr`                          |
-| `GET /` `INTLAYER_LOCALE=es` कुकी के साथ | `302` → `/es`                          |
-| `GET /fr`                                | `200`, फ्रेंच, `<html lang="fr">`      |
-| `GET /fr/about`                          | `200`, फ्रेंच अबाउट पेज                |
-| `GET /en/about`                          | `302` → `/about` (कैनोनिकल रीडायरेक्ट) |
-| `GET /xx`                                | `404`                                  |
-| `GET /fr/nonexistent`                    | `404` फ्रेंच में                       |
-| `GET /sitemap.xml`                       | `200`, बहुभाषी XML साइटमैप             |
+| अनुरोध                                  | अपेक्षित प्रतिक्रिया                    |
+| -------------------------------------- | ----------------------------------- |
+| `GET /`                                | `200`, अंग्रेजी                        |
+| `GET /` `Accept-Language: fr` के साथ    | `302` → `/fr`                       |
+| `GET /` `INTLAYER_LOCALE=es` कुकी के साथ | `302` → `/es`                       |
+| `GET /fr`                              | `200`, फ्रेंच, `<html lang="fr">`      |
+| `GET /fr/about`                        | `200`, फ्रेंच अबाउट पेज                 |
+| `GET /en/about`                        | `302` → `/about` (कैनोनिकल रीडायरेक्ट) |
+| `GET /xx`                              | `404`                               |
+| `GET /fr/nonexistent`                  | `404` फ्रेंच में                         |
+| `GET /sitemap.xml`                     | `200`, बहुभाषी XML साइटमैप            |
 
 पेज को रेंडर करने वाली पंक्तियाँ `vite dev` के तहत समान रूप से व्यवहार करती हैं। तीन रीडायरेक्ट पंक्तियाँ केवल एक निर्मित सर्वर पर लागू होती हैं जब तक कि आप स्वयं हैंडलर को मिडलवेयर के रूप में पंजीकृत न करें, चरण 3 देखें।
 
@@ -1090,6 +1095,13 @@ Extension का उपयोग कैसे करें, इस पर अध
 
 <FAQ>
 
+<Question title="क्या Intlayer Solid 2 को सपोर्ट करता है?">
+
+हाँ। `solid-intlayer` एक ही package से, एक ही API (`IntlayerProvider`, `useIntlayer`, `useLocale` आदि) के साथ Solid 1.9 और Solid 2 पर काम करता है। यह runtime पर इंस्टॉल किए गए `solid-js` वर्ज़न का पता लगाता है और उसके अनुसार primitives इस्तेमाल करता है, जैसे dynamic dictionaries के लिए Solid 1 पर `<Suspense>` और Solid 2 पर `<Loading>`। आप कौन-सा Solid वर्ज़न चलाते हैं यह आपका framework तय करता है, और Intlayer उसी के अनुसार चलता है। पूरा Solid 2 setup [Vite + Solid उदाहरण](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) में उपलब्ध है।
+
+- [Vite + Solid उदाहरण](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid Start अनुप्रयोगों के अंतर्राष्ट्रीयकरण के लिए कौन से विभिन्न समाधान उपलब्ध हैं?">
 
 - **`@solid-primitives/i18n`**: सीमित SSR समर्थन वाला सरल सिग्नल-आधारित शब्दकोश।

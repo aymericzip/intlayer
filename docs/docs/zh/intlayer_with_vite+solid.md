@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Vite + Solid i18n - 翻译你的应用的完整指南"
 description: "在 Vite 和 Solid 应用中配置 Intlayer：响应式翻译内容、语言切换器、本地化路由和类型化字典。"
@@ -17,6 +17,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "说明对 Solid 1 和 Solid 2 的支持"
   - version: 8.9.0
     date: 2026-05-04
     changes: "更新 Solid useIntlayer API 用法以直接访问属性"
@@ -173,6 +176,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   将 Intlayer 与 Solid 应用程序集成的包。它为 Solid 国际化提供上下文 Provider和 hooks。
+
+> `solid-intlayer` 使用同一个包和同一套 API 同时支持 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本，而 Solid 的 Vite 插件会使用你应用自身的 Solid 运行时编译它的组件（通过 `solid` 导出条件）。无需任何配置。
 
 - **vite-intlayer**
   包括用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选语言、管理 cookie 和处理 URL 重定向的中间件。
@@ -517,6 +522,8 @@ const App: Component = () => (
 
 export default App;
 ```
+
+> **在使用 Solid 2？** 本指南中的代码基于 Solid 1.9。在 Solid 2 中，请从 `@solidjs/web` 而不是 `solid-js/web` 导入 `render`，使用 `@solidjs/vite-plugin` 和 `@solidjs/router` 2.x，并在 `tsconfig.json` 中设置 `"jsxImportSource": "@solidjs/web"`。`solid-intlayer` 的代码保持不变。参见 [Vite + Solid 2 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)。
 
 </Step>
 <Step number={8} title="当语言环境更改时更改 URL" isOptional={true}>
@@ -879,6 +886,13 @@ console.log("SEO files generated successfully.");
 
 <FAQ>
 
+<Question title="Intlayer 支持 Solid 2 吗？">
+
+支持。`solid-intlayer` 通过同一个包、同一套 API（`IntlayerProvider`、`useIntlayer`、`useLocale` 等）同时适用于 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本并使用对应的原语，例如动态字典在 Solid 1 中使用 `<Suspense>`，在 Solid 2 中使用 `<Loading>`。使用哪个 Solid 版本由你的框架决定，Intlayer 会随之适配。完整的 Solid 2 配置可参考 [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)。
+
+- [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="国际化 Vite + Solid 应用有哪些不同的解决方案？">
 
 Vite 本身对 i18n 没有特定偏好，因此选择主要来自 Solid 生态：

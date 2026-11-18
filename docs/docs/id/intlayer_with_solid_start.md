@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Siapkan Intlayer di SolidStart: routing locale yang dirender di server, konten terjemahan reaktif, hreflang, dan sitemap multibahasa."
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Dokumentasikan dukungan Solid 1 dan Solid 2"
   - version: 9.1.3
     date: 2025-08-06
     changes: "Initial history"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   Paket yang mengintegrasikan Intlayer dengan aplikasi Solid. Paket ini menyediakan penyedia konteks dan hook untuk internasionalisasi Solid.
+
+> `solid-intlayer` mendukung Solid 1.9 dan Solid 2 dengan package dan API yang sama. Package ini mendeteksi versi `solid-js` yang terpasang saat runtime, dan plugin Vite milik Solid mengompilasi komponennya dengan runtime Solid aplikasi Anda (melalui kondisi ekspor `solid`). Tidak ada yang perlu dikonfigurasi.
 
 - **vite-intlayer**
 
@@ -1091,6 +1096,13 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 
 <FAQ>
 
+<Question title="Apakah Intlayer mendukung Solid 2?">
+
+Ya. `solid-intlayer` bekerja dengan Solid 1.9 dan Solid 2 dari package yang sama, dengan API yang sama (`IntlayerProvider`, `useIntlayer`, `useLocale`, dll.). Package ini mendeteksi versi `solid-js` yang terpasang saat runtime dan memakai primitive yang sesuai, misalnya `<Suspense>` di Solid 1 dan `<Loading>` di Solid 2 untuk kamus dinamis. Framework Anda yang menentukan versi Solid yang dipakai, dan Intlayer mengikutinya. Setup Solid 2 lengkap tersedia di [contoh Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [contoh Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan aplikasi Solid Start?">
 
 - **`@solid-primitives/i18n`**: kamus sederhana berbasis signal dengan dukungan SSR terbatas.

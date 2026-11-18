@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-11-18
 priority: 5
 title: solid-intlayer パッケージのドキュメント
 description: Intlayer の Solid 向け統合。Solid アプリケーション向けの providers と hooks を提供します。
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 と Solid 2 のサポートを記載"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathnameユーティリティを追加"
@@ -27,6 +30,8 @@ author: aymericzip
 # solid-intlayer パッケージ
 
 `solid-intlayer` パッケージは、Intlayer を Solid アプリケーションに統合するために必要なツールを提供します。多言語コンテンツを扱うための providers と hooks を含みます。
+
+同じパッケージで Solid 1.9 と Solid 2 をサポートします。インストールされている `solid-js` のバージョンは実行時に検出されるため、設定は不要です。
 
 ## インストール
 

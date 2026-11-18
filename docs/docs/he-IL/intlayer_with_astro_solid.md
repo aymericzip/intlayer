@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-11-03
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - מדריך מלא לתרגום האפליקציה שלכם"
 description: "הגדירו את Intlayer ב-Astro עם islands של Solid: רכיבים מתורגמים, נתיבים מותאמי שפה ו-hreflang, עם תוכן בעל טיפוסיות לכל רכיב."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "תיעוד התמיכה ב-Solid 1 וב-Solid 2"
   - version: 9.5.5
     date: 2026-09-19
     changes: "שימוש בהוקים useIntlayer / useLocale של astro-intlayer בדף ה-Astro"
@@ -173,6 +176,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   החבילה המשלבת את Intlayer עם אפליקציות Solid. היא מספקת את `IntlayerProvider` ואת הפרימיטיבים `useIntlayer` ו-`useLocale` עבור בינאום ב-Solid.
+
+> `solid-intlayer` תומך גם ב-Solid 1.9 וגם ב-Solid 2 עם אותה חבילה ואותו API. הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה, והתוסף של Solid ל-Vite מקמפל את הקומפוננטות שלו עם ה-runtime של Solid באפליקציה שלכם (דרך תנאי הייצוא `solid`). אין צורך בשום הגדרה.
 
 - **@astrojs/solid-js**
   אינטגרציית Astro הרשמית המאפשרת שימוש ב-component islands של Solid.
@@ -680,6 +685,13 @@ Intlayer משתמש בהרחבת מודולים (module augmentation) כדי ל�
 
 <FAQ>
 
+<Question title="האם Intlayer תומך ב-Solid 2?">
+
+כן. `solid-intlayer` עובד עם Solid 1.9 ועם Solid 2 מאותה חבילה, עם אותו API (`IntlayerProvider`, `useIntlayer`, `useLocale` וכו'). הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה ומשתמש ב-primitives המתאימים, למשל `<Suspense>` ב-Solid 1 ו-`<Loading>` ב-Solid 2 עבור מילונים דינמיים. ה-framework שלכם קובע באיזו גרסת Solid אתם משתמשים, ו-Intlayer מתאים את עצמו. הגדרה מלאה של Solid 2 זמינה ב[דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="מהם הפתרונות השונים הזמינים לבינאום של אתר Astro עם Solid islands?">
 
 אפשרות ה-`i18n` המובנית של Astro מטפלת בקידומות שפה והפניות מחדש, אך אינה מנהלת את התוכן עצמו, ולכן עדיין נדרשת שכבת הודעות, ו-island מוסיף אתגר נוסף: ה-island מריץ Solid, לא Astro.

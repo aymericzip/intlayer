@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-11-03
+updatedAt: 2026-11-18
 priority: 5
 title: תיעוד חבילת solid-intlayer
 description: שילוב מותאם ל-Solid עבור Intlayer, המספק ספקים והוקים עבור יישומי Solid.
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "תיעוד התמיכה ב-Solid 1 וב-Solid 2"
   - version: 10.0.0
     date: 2026-06-23
     changes: "הוספת כלי העזר usePathname"
@@ -27,6 +30,8 @@ author: aymericzip
 # חבילת solid-intlayer
 
 חבילת `solid-intlayer` מספקת את הכלים הנדרשים לשילוב Intlayer ביישומי Solid. היא כוללת ספקים והוקים לטיפול בתוכן רב-לשוני.
+
+הוא תומך ב-Solid 1.9 וב-Solid 2 מאותה חבילה: גרסת `solid-js` המותקנת מזוהה בזמן ריצה, ולכן אין צורך בהגדרה.
 
 ## התקנה
 

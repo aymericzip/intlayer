@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "تدويل Astro + Solid - الدليل الكامل لترجمة تطبيقك"
 description: "إعداد Intlayer في Astro مع جزر Solid: مكوّنات مترجمة، ومسارات مترجمة وhreflang، ومحتوى مُنمَّط لكل مكوّن."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "توثيق دعم Solid 1 و Solid 2"
   - version: 9.5.5
     date: 2026-09-19
     changes: "استخدام خطافات useIntlayer / useLocale لـ astro-intlayer في صفحة Astro"
@@ -170,6 +173,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   حزمة لدمج Intlayer في تطبيقات Solid. توفر `IntlayerProvider` بالإضافة إلى الـ primitives `useIntlayer` و `useLocale` للتدويل في Solid.
+
+> يدعم `solid-intlayer` كلاً من Solid 1.9 و Solid 2 بنفس الحزمة ونفس الـ API. فهو يكتشف إصدار `solid-js` المثبت أثناء التشغيل، ويقوم إضافة Vite الخاصة بـ Solid بترجمة مكوناته باستخدام بيئة تشغيل Solid الخاصة بتطبيقك (عبر شرط التصدير `solid`). لا حاجة لأي إعداد.
 
 - **@astrojs/solid-js**
   إضافة Astro الرسمية التي تتيح استخدام جزر (islands) مكونات Solid.
@@ -677,6 +682,13 @@ bun run build # Or bun run dev
 
 <FAQ>
 
+<Question title="هل يدعم Intlayer الإصدار Solid 2؟">
+
+نعم. يعمل `solid-intlayer` مع Solid 1.9 و Solid 2 من نفس الحزمة وبنفس الـ API (`IntlayerProvider` و `useIntlayer` و `useLocale` وغيرها). فهو يكتشف إصدار `solid-js` المثبت أثناء التشغيل ويستخدم الأدوات الأساسية المناسبة، مثل `<Suspense>` في Solid 1 و `<Loading>` في Solid 2 للقواميس الديناميكية. إطار العمل الذي تستخدمه هو من يحدد إصدار Solid، و Intlayer يتبعه. يتوفر إعداد كامل لـ Solid 2 في [مثال Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [مثال Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="ما هي الحلول المختلفة المتاحة لتدويل موقع Astro مع جزر Solid؟">
 
 يتعامل خيار `i18n` المدمج في Astro مع البادئات وإعادة التوجيه ولكنه لا يدير المحتوى. يطرح إضافة الجزر تحديًا إضافيًا: الجزر لا تشغل Astro بل تشغل Solid.

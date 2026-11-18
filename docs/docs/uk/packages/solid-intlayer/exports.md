@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-11-18
 priority: 5
 title: Документація пакета solid-intlayer
 description: Спеціальна інтеграція Intlayer для Solid, що надає провайдери та хуки для Solid-застосунків.
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Опис підтримки Solid 1 і Solid 2"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Додано утиліту usePathname"
@@ -27,6 +30,8 @@ author: aymericzip
 # Пакет solid-intlayer
 
 Пакет `solid-intlayer` надає необхідні інструменти для інтеграції Intlayer у Solid-застосунки. Він включає провайдери та хуки для роботи з багатомовним контентом.
+
+Він підтримує Solid 1.9 і Solid 2 в одному пакеті: встановлена версія `solid-js` визначається під час виконання, тому налаштування не потрібне.
 
 ## Встановлення
 

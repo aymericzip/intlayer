@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-11-17
+updatedAt: 2026-11-18
 priority: 9
 title: "i18n في TanStack Start + Solid: دليل الترجمة الكامل"
 description: "إعداد Intlayer في TanStack Start مع Solid: معامل اللغة في المسارات، ومحتوى مترجم تفاعلي، وبيانات head مترجمة، وhreflang."
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "توثيق دعم Solid 1 و Solid 2"
   - version: 9.8.2
     date: 2026-11-17
     changes: "الحفاظ على الوجهات النسبية ودوال reducer الخاصة بـ params في LocalizedLink، وتجاهل النقرات مع مفاتيح التعديل في مبدّل اللغة"
@@ -186,6 +189,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   الحزمة التي تدمج Intlayer مع تطبيقات Solid. توفر مجمعات السياق (context providers) والخطافات (hooks) للتدويل في Solid.
+
+> يدعم `solid-intlayer` كلاً من Solid 1.9 و Solid 2 بنفس الحزمة ونفس الـ API. فهو يكتشف إصدار `solid-js` المثبت أثناء التشغيل، ويقوم إضافة Vite الخاصة بـ Solid بترجمة مكوناته باستخدام بيئة تشغيل Solid الخاصة بتطبيقك (عبر شرط التصدير `solid`). لا حاجة لأي إعداد.
 
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [أداة بناء Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، كذالك البرمجيات الوسيطة (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط (cookies)، والتعامل مع إعادة توجيه الروابط.
@@ -1262,6 +1267,13 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 <FAQ>
 
+<Question title="هل يدعم Intlayer الإصدار Solid 2؟">
+
+نعم. يعمل `solid-intlayer` مع Solid 1.9 و Solid 2 من نفس الحزمة وبنفس الـ API (`IntlayerProvider` و `useIntlayer` و `useLocale` وغيرها). فهو يكتشف إصدار `solid-js` المثبت أثناء التشغيل ويستخدم الأدوات الأساسية المناسبة، مثل `<Suspense>` في Solid 1 و `<Loading>` في Solid 2 للقواميس الديناميكية. إطار العمل الذي تستخدمه هو من يحدد إصدار Solid، و Intlayer يتبعه. يتوفر إعداد كامل لـ Solid 2 في [مثال Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [مثال Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="ما هي الحلول المختلفة المتاحة لتدويل تطبيقات TanStack Start و Solid؟">
 
 لا يحتوي TanStack Start على طبقة i18n خاصة به:

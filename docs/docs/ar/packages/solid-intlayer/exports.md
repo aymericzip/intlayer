@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-11-18
 priority: 5
 title: توثيق حزمة solid-intlayer
 description: تكامل مخصص لـ Solid مع Intlayer، يوفر providers و hooks لتطبيقات Solid.
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "توثيق دعم Solid 1 و Solid 2"
   - version: 10.0.0
     date: 2026-06-23
     changes: "إضافة أداة usePathname"
@@ -27,6 +30,8 @@ author: aymericzip
 # حزمة solid-intlayer
 
 توفر حزمة `solid-intlayer` الأدوات اللازمة لدمج Intlayer في تطبيقات Solid. تتضمن providers و hooks للتعامل مع المحتوى متعدد اللغات.
+
+يدعم Solid 1.9 و Solid 2 من نفس الحزمة: يتم اكتشاف إصدار `solid-js` المثبت أثناء التشغيل، لذا لا حاجة لأي إعداد.
 
 ## التثبيت
 
@@ -44,8 +49,8 @@ npm install solid-intlayer
 import "solid-intlayer";
 ```
 
-| المكوّن            | الوصف                                                | المستند المرتبط                                                                                                               |
-| ------------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| المكوّن             | الوصف                                               | المستند المرتبط                                                                                                               |
+| ------------------ | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `IntlayerProvider` | المزوّد الرئيسي الذي يلف تطبيقك ويوفر سياق Intlayer. | [IntlayerProvider](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/IntlayerProvider.md) |
 
 ### الخطافات
@@ -56,18 +61,18 @@ import "solid-intlayer";
 import "solid-intlayer";
 ```
 
-| هوك                    | الوصف                                                                                                                  | المستند المرتبط                                                                                                         |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | مبني على `useDictionary`، لكنه يدرج نسخة محسّنة من القاموس من التصريح المولد.                                          | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useIntlayer.md)     |
-| `useDictionary`        | يعالج الكائنات الشبيهة بالقواميس (مفتاح، محتوى). يعالج ترجمات `t()`، التعدادات، إلخ.                                   | -                                                                                                                       |
-| `useDictionaryAsync`   | مثل `useDictionary`، ولكن يتعامل مع القواميس غير المتزامنة.                                                            | -                                                                                                                       |
-| `useDictionaryDynamic` | مثل `useDictionary`، ولكن يتعامل مع القواميس الديناميكية.                                                              | -                                                                                                                       |
-| `useLocale`            | يعيد الـ locale الحالية ودالة لتعيينها.                                                                                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useLocale.md)         |
-| `usePathname`          | يُعيد مسار الرابط الحالي (pathname) كـ `Accessor<string>` مع إزالة جزء اللغة (locale). متفاعل مع `popstate`.           | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/usePathname.md)     |
+| هوك                    | الوصف                                                                                                               | المستند المرتبط                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | مبني على `useDictionary`، لكنه يدرج نسخة محسّنة من القاموس من التصريح المولد.                                        | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useIntlayer.md)     |
+| `useDictionary`        | يعالج الكائنات الشبيهة بالقواميس (مفتاح، محتوى). يعالج ترجمات `t()`، التعدادات، إلخ.                                | -                                                                                                                       |
+| `useDictionaryAsync`   | مثل `useDictionary`، ولكن يتعامل مع القواميس غير المتزامنة.                                                         | -                                                                                                                       |
+| `useDictionaryDynamic` | مثل `useDictionary`، ولكن يتعامل مع القواميس الديناميكية.                                                           | -                                                                                                                       |
+| `useLocale`            | يعيد الـ locale الحالية ودالة لتعيينها.                                                                             | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | يُعيد مسار الرابط الحالي (pathname) كـ `Accessor<string>` مع إزالة جزء اللغة (locale). متفاعل مع `popstate`.         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | هو hook على جانب العميل لإدارة إعادة كتابة عناوين URL. يقوم بتحديث الـ URL تلقائيًا إذا وُجدت قاعدة إعادة كتابة محلية. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useRewriteURL.md) |
-| `useIntl`              | يعيد كائن Intl للـ locale الحالية.                                                                                     | -                                                                                                                       |
-| `useLoadDynamic`       | هوك لتحميل القواميس الديناميكية.                                                                                       | -                                                                                                                       |
-| `t`                    | يختار المحتوى بناءً على اللغة الحالية.                                                                                 | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)                  |
+| `useIntl`              | يعيد كائن Intl للـ locale الحالية.                                                                                  | -                                                                                                                       |
+| `useLoadDynamic`       | هوك لتحميل القواميس الديناميكية.                                                                                    | -                                                                                                                       |
+| `t`                    | يختار المحتوى بناءً على اللغة الحالية.                                                                               | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)                  |
 
 ### المكونات
 

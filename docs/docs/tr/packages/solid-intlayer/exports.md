@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-11-18
 priority: 5
 title: solid-intlayer Paket Dokümantasyonu
 description: Solid uygulamaları için Intlayer'a özgü entegrasyon; Solid uygulamaları için provider'lar ve hook'lar sunar.
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 ve Solid 2 desteğini belgele"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathname yardımcı programını ekle"
@@ -27,6 +30,8 @@ author: aymericzip
 # solid-intlayer Paketi
 
 `solid-intlayer` paketi, Intlayer'ı Solid uygulamalarına entegre etmek için gerekli araçları sağlar. Çok dilli içeriği yönetmek için provider'lar ve hook'lar içerir.
+
+Aynı paketten Solid 1.9 ve Solid 2'yi destekler: kurulu `solid-js` sürümü çalışma zamanında algılanır, bu yüzden yapılandırma gerekmez.
 
 ## Kurulum
 

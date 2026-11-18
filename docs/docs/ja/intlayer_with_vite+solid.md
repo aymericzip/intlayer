@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Vite + Solid i18n - あなたのアプリを翻訳する完全ガイド"
 description: "Vite と Solid のアプリに Intlayer を導入：リアクティブな翻訳コンテンツ、言語切り替え、ローカライズされたルート、型付き辞書。"
@@ -17,6 +17,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 と Solid 2 のサポートを記載"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
@@ -173,6 +176,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   IntlayerをSolidアプリケーションと統合するパッケージです。Solidの国際化のためのコンテキストプロバイダーとフックを提供します。
+
+> `solid-intlayer` は、同じパッケージ・同じ API で Solid 1.9 と Solid 2 の両方をサポートします。インストールされている `solid-js` のバージョンを実行時に検出し、Solid の Vite プラグインがアプリ自身の Solid ランタイムでコンポーネントをコンパイルします（`solid` エクスポート条件を利用）。設定は不要です。
 
 - **vite-intlayer**
   Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先ロケール検出、クッキー管理、URLリダイレクト処理のためのミドルウェアを含みます。
@@ -431,6 +436,8 @@ const App: Component = () => (
 
 export default App;
 ```
+
+> **Solid 2 を使っていますか？** このガイドのコードは Solid 1.9 を前提としています。Solid 2 では、`render` を `solid-js/web` ではなく `@solidjs/web` からインポートし、`@solidjs/vite-plugin` と `@solidjs/router` 2.x を使用し、`tsconfig.json` に `"jsxImportSource": "@solidjs/web"` を設定してください。`solid-intlayer` のコードは変わりません。[Vite + Solid 2 のサンプル](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) を参照してください。
 
 </Step>
 <Step number={8} title="ロケール変更時にURLを変更する">
@@ -786,6 +793,13 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 
 <FAQ>
 
+<Question title="Intlayer は Solid 2 をサポートしていますか？">
+
+はい。`solid-intlayer` は同じパッケージ・同じ API（`IntlayerProvider`、`useIntlayer`、`useLocale` など）で Solid 1.9 と Solid 2 の両方に対応します。インストールされている `solid-js` のバージョンを実行時に検出し、対応するプリミティブを使用します。たとえば動的辞書では、Solid 1 では `<Suspense>`、Solid 2 では `<Loading>` を使います。使用する Solid のバージョンはフレームワークが決め、Intlayer はそれに従います。Solid 2 の完全なセットアップは [Vite + Solid のサンプル](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) にあります。
+
+- [Vite + Solid のサンプル](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Vite と Solid アプリを国際化するために利用可能なソリューションにはどのようなものがありますか？">
 
 Vite は i18n について特定の見解を持たないため、選択は Solid エコシステムから来ます：

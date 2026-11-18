@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-11-17
+updatedAt: 2026-11-18
 priority: 9
 title: "בינאום TanStack Start + Solid (i18n): מדריך תרגום מלא"
 description: "הגדירו את Intlayer ב-TanStack Start עם Solid: פרמטרי ניתוב של שפה (locale), תוכן מתורגם ריאקטיבי, מטא-נתונים מותאמים אישית ב-head ותגי hreflang."
@@ -23,6 +23,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "תיעוד התמיכה ב-Solid 1 וב-Solid 2"
   - version: 9.8.2
     date: 2026-11-17
     changes: "שמירה על יעדים יחסיים ועל פונקציות reducer של params ב-LocalizedLink, והתעלמות מלחיצות עם מקשי שינוי בבורר השפה"
@@ -190,6 +193,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   החבילה שמשלבת את Intlayer עם אפליקציית Solid. היא מספקת context providers ו-hooks עבור בינאום ב-Solid.
+
+> `solid-intlayer` תומך גם ב-Solid 1.9 וגם ב-Solid 2 עם אותה חבילה ואותו API. הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה, והתוסף של Solid ל-Vite מקמפל את הקומפוננטות שלו עם ה-runtime של Solid באפליקציה שלכם (דרך תנאי הייצוא `solid`). אין צורך בשום הגדרה.
 
 - **vite-intlayer**
   כוללת את תוסף Vite לשילוב Intlayer עם [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), וכן middleware לזיהוי השפה המועדפת על המשתמש, ניהול קובצי cookie וטיפול בהפניות URL.
@@ -1272,6 +1277,13 @@ Intlayer משתמש ב-module augmentation כדי להפיק תועלת מ-TypeS
 
 <FAQ>
 
+<Question title="האם Intlayer תומך ב-Solid 2?">
+
+כן. `solid-intlayer` עובד עם Solid 1.9 ועם Solid 2 מאותה חבילה, עם אותו API (`IntlayerProvider`, `useIntlayer`, `useLocale` וכו'). הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה ומשתמש ב-primitives המתאימים, למשל `<Suspense>` ב-Solid 1 ו-`<Loading>` ב-Solid 2 עבור מילונים דינמיים. ה-framework שלכם קובע באיזו גרסת Solid אתם משתמשים, ו-Intlayer מתאים את עצמו. הגדרה מלאה של Solid 2 זמינה ב[דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="מהם הפתרונות השונים הזמינים לבינאום אפליקציית TanStack Start ו-Solid?">
 
 TanStack Start אינה כוללת שכבת i18n מובנית, והאפשרויות באקו-סיסטם של Solid מצומצמות:

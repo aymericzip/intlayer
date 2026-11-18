@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-11-18
 priority: 5
 title: Pacchetto solid-intlayer
 description: Integrazione specifica per Solid di Intlayer, che fornisce provider e hook per applicazioni Solid.
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Documentare il supporto a Solid 1 e Solid 2"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Aggiungi l'utilità usePathname"
@@ -27,6 +30,8 @@ author: aymericzip
 # Pacchetto solid-intlayer
 
 Il pacchetto `solid-intlayer` fornisce gli strumenti necessari per integrare Intlayer nelle applicazioni Solid. Include provider e hook per la gestione dei contenuti multilingue.
+
+Supporta Solid 1.9 e Solid 2 dallo stesso package: la versione di `solid-js` installata viene rilevata a runtime, quindi non serve alcuna configurazione.
 
 ## Installazione
 

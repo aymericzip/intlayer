@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - Повний посібник з перекладу вашого застосунку"
 description: "Налаштування Intlayer у SolidStart: серверна маршрутизація за локалями, реактивний перекладений контент, hreflang і багатомовна карта сайту."
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Опис підтримки Solid 1 і Solid 2"
   - version: 9.1.3
     date: 2025-08-06
     changes: "Initial history"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   Пакет, який інтегрує Intlayer із застосунком Solid. Він надає провайдери контексту та хуки для інтернаціоналізації Solid.
+
+> `solid-intlayer` підтримує Solid 1.9 і Solid 2 в одному пакеті та з тим самим API. Він визначає встановлену версію `solid-js` під час виконання, а Vite-плагін Solid компілює його компоненти з runtime Solid вашого застосунку (через умову експорту `solid`). Нічого налаштовувати не потрібно.
 
 - **vite-intlayer**
 
@@ -1091,6 +1096,13 @@ node .output/server/index.mjs
 
 <FAQ>
 
+<Question title="Чи підтримує Intlayer Solid 2?">
+
+Так. `solid-intlayer` працює з Solid 1.9 і Solid 2 з одного пакета, з тим самим API (`IntlayerProvider`, `useIntlayer`, `useLocale` тощо). Він визначає встановлену версію `solid-js` під час виконання та використовує відповідні примітиви, наприклад `<Suspense>` у Solid 1 і `<Loading>` у Solid 2 для динамічних словників. Версію Solid визначає ваш фреймворк, а Intlayer підлаштовується під неї. Повне налаштування на Solid 2 доступне в [прикладі Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [приклад Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Які є різні рішення для інтернаціоналізації додатків Solid Start?">
 
 - **`@solid-primitives/i18n`**: простий словник на основі сигналів із обмеженою підтримкою SSR.

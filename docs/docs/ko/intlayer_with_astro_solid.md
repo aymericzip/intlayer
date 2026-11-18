@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - 앱을 번역하는 완전 가이드"
 description: "Solid 아일랜드를 사용하는 Astro에 Intlayer 설정: 번역된 컴포넌트, 현지화된 라우트와 hreflang, 컴포넌트별 타입 콘텐츠."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 및 Solid 2 지원 문서화"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Astro 페이지에서 astro-intlayer의 useIntlayer / useLocale 훅 사용"
@@ -182,6 +185,8 @@ bun x intlayer init
 
 - **solid-intlayer**
   Intlayer를 Solid 애플리케이션과 통합하는 패키지입니다. Solid의 국제화를 위한 `IntlayerProvider`, `useIntlayer` 및 `useLocale` 프리미티브를 제공합니다.
+
+> `solid-intlayer`는 동일한 패키지와 동일한 API로 Solid 1.9와 Solid 2를 모두 지원합니다. 설치된 `solid-js` 버전을 런타임에 감지하며, Solid의 Vite 플러그인이 앱의 Solid 런타임으로 컴포넌트를 컴파일합니다(`solid` export 조건 사용). 별도의 설정은 필요 없습니다.
 
 - **@astrojs/solid-js**
   Solid 컴포넌트 아일랜드를 사용할 수 있게 해주는 공식 Astro 통합 도구입니다(사용할 때 `client:only="solid-js"` 적용).
@@ -688,6 +693,13 @@ Intlayer 개발 환경을 개선하기 위해 **공식 Intlayer VS Code 확장 �
 
 <FAQ>
 
+<Question title="Intlayer는 Solid 2를 지원하나요?">
+
+네. `solid-intlayer`는 동일한 패키지와 동일한 API(`IntlayerProvider`, `useIntlayer`, `useLocale` 등)로 Solid 1.9와 Solid 2에서 동작합니다. 설치된 `solid-js` 버전을 런타임에 감지하고 그에 맞는 프리미티브를 사용합니다. 예를 들어 동적 사전에는 Solid 1에서 `<Suspense>`, Solid 2에서 `<Loading>`을 사용합니다. 어떤 Solid 버전을 쓸지는 프레임워크가 결정하며, Intlayer는 이를 따릅니다. 완전한 Solid 2 설정은 [Vite + Solid 예제](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)에서 확인할 수 있습니다.
+
+- [Vite + Solid 예제](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid 아일랜드가 포함된 Astro 사이트를 국제화하는 데 사용할 수 있는 다양한 솔루션은 무엇인가요?">
 
 Astro의 내장 `i18n` 옵션은 로케일 접두사와 리디렉션만 처리할 뿐 콘텐츠 자체는 관리하지 않으므로 메시지 레이어가 필요하며, 아일랜드 구조로 인해 두 번째 문제가 발생합니다: 아일랜드는 Astro가 아닌 Solid로 실행된다는 점입니다.

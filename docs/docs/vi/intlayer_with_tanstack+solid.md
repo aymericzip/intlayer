@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-11-17
+updatedAt: 2026-11-18
 priority: 9
 title: "i18n TanStack Start + Solid: hướng dẫn dịch đầy đủ"
 description: "Thiết lập Intlayer trong TanStack Start với Solid: tham số locale trong route, nội dung dịch có tính phản ứng, metadata head bản địa hóa và hreflang."
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Bổ sung tài liệu hỗ trợ Solid 1 và Solid 2"
   - version: 9.8.2
     date: 2026-11-17
     changes: "Giữ nguyên đích tương đối và reducer của params trong LocalizedLink, bỏ qua các cú nhấp có phím bổ trợ trong bộ chuyển ngôn ngữ"
@@ -186,6 +189,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   Gói tích hợp Intlayer vào ứng dụng Solid. Nó cung cấp các context provider và hook cho đa ngôn ngữ trong Solid.
+
+> `solid-intlayer` hỗ trợ cả Solid 1.9 và Solid 2 với cùng một package và cùng một API. Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime, và plugin Vite của Solid biên dịch các component của nó bằng chính runtime Solid của ứng dụng (thông qua điều kiện export `solid`). Không cần cấu hình gì.
 
 - **vite-intlayer**
   Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện ngôn ngữ ưa thích của người dùng, quản lý cookie và xử lý chuyển hướng URL.
@@ -1262,6 +1267,13 @@ Tiện ích mở rộng này cung cấp:
 
 <FAQ>
 
+<Question title="Intlayer có hỗ trợ Solid 2 không?">
+
+Có. `solid-intlayer` hoạt động với Solid 1.9 và Solid 2 từ cùng một package, với cùng một API (`IntlayerProvider`, `useIntlayer`, `useLocale`, v.v.). Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime và dùng các primitive tương ứng, ví dụ `<Suspense>` trên Solid 1 và `<Loading>` trên Solid 2 cho dictionary động. Framework của bạn quyết định phiên bản Solid bạn dùng, và Intlayer làm theo. Một thiết lập Solid 2 đầy đủ có trong [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng TanStack Start và Solid?">
 
 TanStack Start không có lớp i18n riêng:

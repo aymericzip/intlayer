@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - Guida completa per tradurre la tua applicazione"
 description: "Configura Intlayer in SolidStart: routing per locale renderizzato sul server, contenuti tradotti reattivi, hreflang e sitemap multilingue."
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Documentare il supporto a Solid 1 e Solid 2"
   - version: 9.1.3
     date: 2025-08-06
     changes: "Storia iniziale"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   Il pacchetto che integra Intlayer con l'applicazione Solid. Fornisce provider di contesto e hook per l'internazionalizzazione in Solid.
+
+> `solid-intlayer` supporta sia Solid 1.9 sia Solid 2 con lo stesso package e la stessa API. Rileva la versione di `solid-js` installata a runtime, e il plugin Vite di Solid compila i suoi componenti con il runtime Solid della tua applicazione (tramite la condizione di export `solid`). Non serve alcuna configurazione.
 
 - **vite-intlayer**
 
@@ -1091,6 +1096,13 @@ Per andare oltre, puoi implementare l'[editor visuale](https://github.com/aymeri
 
 <FAQ>
 
+<Question title="Intlayer supporta Solid 2?">
+
+Sì. `solid-intlayer` funziona con Solid 1.9 e Solid 2 dallo stesso package, con la stessa API (`IntlayerProvider`, `useIntlayer`, `useLocale`, ecc.). Rileva la versione di `solid-js` installata a runtime e usa le primitive corrispondenti, ad esempio `<Suspense>` su Solid 1 e `<Loading>` su Solid 2 per i dizionari dinamici. È il tuo framework a decidere quale versione di Solid usi, e Intlayer si adegua. Una configurazione completa con Solid 2 è disponibile nell'[esempio Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [esempio Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Quali sono le diverse soluzioni disponibili per internazionalizzare un'app Solid Start?">
 
 - **`@solid-primitives/i18n`**: la primitiva della community, un dizionario piatto che assembli, carichi e tipizzi tu stesso.

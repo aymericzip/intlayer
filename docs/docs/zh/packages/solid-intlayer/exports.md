@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 5
 title: solid-intlayer 包文档
 description: Intlayer 在 Solid 上的集成，提供用于 Solid 应用的 providers 和 hooks。
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "说明对 Solid 1 和 Solid 2 的支持"
   - version: 10.0.0
     date: 2026-06-23
     changes: "添加 usePathname 实用程序"
@@ -27,6 +30,8 @@ author: aymericzip
 # solid-intlayer 包
 
 `solid-intlayer` 包提供将 Intlayer 集成到 Solid 应用所需的工具。它包含用于处理多语言内容的 providers 和 hooks。
+
+它通过同一个包支持 Solid 1.9 和 Solid 2：已安装的 `solid-js` 版本会在运行时被检测，因此无需配置。
 
 ## 安装
 

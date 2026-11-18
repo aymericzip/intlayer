@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "SolidStart'ta Intlayer kurulumu: sunucuda render edilen locale yönlendirme, reaktif çevrilmiş içerik, hreflang ve çok dilli sitemap."
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 ve Solid 2 desteğini belgele"
   - version: 9.1.3
     date: 2025-08-06
     changes: "İlk geçmiş"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   Intlayer'ı Solid uygulamasıyla entegre eden paket. Solid uluslararasılaştırması için bağlam sağlayıcıları (context providers) ve hook'lar sunar.
+
+> `solid-intlayer`, aynı paket ve aynı API ile hem Solid 1.9'u hem Solid 2'yi destekler. Kurulu `solid-js` sürümünü çalışma zamanında algılar ve Solid'in Vite eklentisi bileşenlerini uygulamanızın kendi Solid runtime'ı ile derler (`solid` export koşulu aracılığıyla). Herhangi bir yapılandırma gerekmez.
 
 - **vite-intlayer**
 
@@ -1091,6 +1096,13 @@ Daha ileri gitmek için [görsel editör](https://github.com/aymericzip/intlayer
 
 <FAQ>
 
+<Question title="Intlayer Solid 2'yi destekliyor mu?">
+
+Evet. `solid-intlayer`, aynı paketten ve aynı API ile (`IntlayerProvider`, `useIntlayer`, `useLocale` vb.) Solid 1.9 ve Solid 2 ile çalışır. Kurulu `solid-js` sürümünü çalışma zamanında algılar ve uygun primitive'leri kullanır, örneğin dinamik sözlükler için Solid 1'de `<Suspense>`, Solid 2'de `<Loading>`. Hangi Solid sürümünü kullanacağınıza framework'ünüz karar verir, Intlayer da ona uyar. Eksiksiz bir Solid 2 kurulumu [Vite + Solid örneğinde](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) bulunur.
+
+- [Vite + Solid örneği](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid Start uygulamasını uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
 - **`@solid-primitives/i18n`**: sinyallere dayalı düz bir sözlük, SSR desteği sınırlı.

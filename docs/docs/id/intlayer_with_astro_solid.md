@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Siapkan Intlayer di Astro dengan island Solid: komponen terjemahan, rute terlokalisasi dan hreflang, dengan konten bertipe per komponen."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Dokumentasikan dukungan Solid 1 dan Solid 2"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Penggunaan hook useIntlayer / useLocale dari astro-intlayer di halaman Astro"
@@ -170,6 +173,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   Paket untuk mengintegrasikan Intlayer ke dalam aplikasi Solid. Paket ini menyediakan `IntlayerProvider` serta primitif `useIntlayer` dan `useLocale` untuk internasionalisasi di Solid.
+
+> `solid-intlayer` mendukung Solid 1.9 dan Solid 2 dengan package dan API yang sama. Package ini mendeteksi versi `solid-js` yang terpasang saat runtime, dan plugin Vite milik Solid mengompilasi komponennya dengan runtime Solid aplikasi Anda (melalui kondisi ekspor `solid`). Tidak ada yang perlu dikonfigurasi.
 
 - **@astrojs/solid-js**
   Integrasi resmi Astro yang memungkinkan penggunaan island komponen Solid.
@@ -673,6 +678,13 @@ Jika Anda ingin mempelajari lebih lanjut, Anda juga dapat menerapkan [Editor Vis
 
 <FAQ>
 
+<Question title="Apakah Intlayer mendukung Solid 2?">
+
+Ya. `solid-intlayer` bekerja dengan Solid 1.9 dan Solid 2 dari package yang sama, dengan API yang sama (`IntlayerProvider`, `useIntlayer`, `useLocale`, dll.). Package ini mendeteksi versi `solid-js` yang terpasang saat runtime dan memakai primitive yang sesuai, misalnya `<Suspense>` di Solid 1 dan `<Loading>` di Solid 2 untuk kamus dinamis. Framework Anda yang menentukan versi Solid yang dipakai, dan Intlayer mengikutinya. Setup Solid 2 lengkap tersedia di [contoh Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [contoh Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Apa saja solusi berbeda yang tersedia untuk menginternasionalkan situs Astro dengan pulau Solid?">
 
 Opsi bawaan `i18n` Astro menangani prefix dan redirect tetapi tidak mengelola konten. Menambahkan pulau menimbulkan pertanyaan tambahan: pulau tersebut tidak menjalankan Astro, melainkan Solid.

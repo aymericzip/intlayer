@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-11-18
 priority: 5
 title: Tài liệu gói solid-intlayer
 description: Tích hợp chuyên biệt cho Solid cho Intlayer, cung cấp các providers và hooks cho ứng dụng Solid.
@@ -15,6 +15,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Bổ sung tài liệu hỗ trợ Solid 1 và Solid 2"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Thêm tiện ích usePathname"
@@ -27,6 +30,8 @@ author: aymericzip
 # Gói solid-intlayer
 
 Gói `solid-intlayer` cung cấp các công cụ cần thiết để tích hợp Intlayer vào các ứng dụng Solid. Nó bao gồm các providers và hooks để xử lý nội dung đa ngôn ngữ.
+
+Package hỗ trợ Solid 1.9 và Solid 2 từ cùng một package: phiên bản `solid-js` đã cài đặt được phát hiện khi runtime, nên không cần cấu hình.
 
 ## Cài đặt
 

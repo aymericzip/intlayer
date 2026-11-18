@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Thiết lập Intlayer trong SolidStart: định tuyến locale render phía server, nội dung dịch có tính phản ứng, hreflang và sitemap đa ngôn ngữ."
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Bổ sung tài liệu hỗ trợ Solid 1 và Solid 2"
   - version: 9.1.3
     date: 2025-08-06
     changes: "Initial history"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   Gói tích hợp Intlayer với ứng dụng Solid. Nó cung cấp các context provider và hook cho quốc tế hóa trong Solid.
+
+> `solid-intlayer` hỗ trợ cả Solid 1.9 và Solid 2 với cùng một package và cùng một API. Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime, và plugin Vite của Solid biên dịch các component của nó bằng chính runtime Solid của ứng dụng (thông qua điều kiện export `solid`). Không cần cấu hình gì.
 
 - **vite-intlayer**
 
@@ -1091,6 +1096,13 @@ Tiện ích mở rộng này cung cấp:
 
 <FAQ>
 
+<Question title="Intlayer có hỗ trợ Solid 2 không?">
+
+Có. `solid-intlayer` hoạt động với Solid 1.9 và Solid 2 từ cùng một package, với cùng một API (`IntlayerProvider`, `useIntlayer`, `useLocale`, v.v.). Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime và dùng các primitive tương ứng, ví dụ `<Suspense>` trên Solid 1 và `<Loading>` trên Solid 2 cho dictionary động. Framework của bạn quyết định phiên bản Solid bạn dùng, và Intlayer làm theo. Một thiết lập Solid 2 đầy đủ có trong [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Solid Start?">
 
 - **`@solid-primitives/i18n`**: từ điển đơn giản dựa trên signal với hỗ trợ SSR hạn chế.

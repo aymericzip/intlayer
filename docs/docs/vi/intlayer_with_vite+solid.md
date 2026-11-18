@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Vite + Solid i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Thiết lập Intlayer trong ứng dụng Vite và Solid: nội dung dịch có tính phản ứng, bộ chuyển ngôn ngữ, route bản địa hóa và từ điển có kiểu."
@@ -17,6 +17,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Bổ sung tài liệu hỗ trợ Solid 1 và Solid 2"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
@@ -173,6 +176,8 @@ Gói cốt lõi cung cấp các công cụ quốc tế hóa cho quản lý cấu
 
 - **solid-intlayer**  
   Gói tích hợp Intlayer với ứng dụng Solid. Nó cung cấp các context provider và hook cho việc quốc tế hóa trong Solid.
+
+> `solid-intlayer` hỗ trợ cả Solid 1.9 và Solid 2 với cùng một package và cùng một API. Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime, và plugin Vite của Solid biên dịch các component của nó bằng chính runtime Solid của ứng dụng (thông qua điều kiện export `solid`). Không cần cấu hình gì.
 
 - **vite-intlayer**  
   Bao gồm plugin Vite để tích hợp Intlayer với [trình đóng gói Vite](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện locale ưu tiên của người dùng, quản lý cookie, và xử lý chuyển hướng URL.
@@ -430,6 +435,8 @@ const App: Component = () => (
 
 export default App;
 ```
+
+> **Đang dùng Solid 2?** Các đoạn code trong hướng dẫn này dùng Solid 1.9. Trên Solid 2, hãy import `render` từ `@solidjs/web` thay vì `solid-js/web`, dùng `@solidjs/vite-plugin` và `@solidjs/router` 2.x, và đặt `"jsxImportSource": "@solidjs/web"` trong `tsconfig.json`. Code `solid-intlayer` giữ nguyên. Xem [ví dụ Vite + Solid 2](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
 
 </Step>
 <Step number={8} title="Thay đổi URL khi ngôn ngữ thay đổi" isOptional={true}>
@@ -785,6 +792,13 @@ Tiện ích mở rộng này cung cấp:
 
 <FAQ>
 
+<Question title="Intlayer có hỗ trợ Solid 2 không?">
+
+Có. `solid-intlayer` hoạt động với Solid 1.9 và Solid 2 từ cùng một package, với cùng một API (`IntlayerProvider`, `useIntlayer`, `useLocale`, v.v.). Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime và dùng các primitive tương ứng, ví dụ `<Suspense>` trên Solid 1 và `<Loading>` trên Solid 2 cho dictionary động. Framework của bạn quyết định phiên bản Solid bạn dùng, và Intlayer làm theo. Một thiết lập Solid 2 đầy đủ có trong [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa ứng dụng Vite và Solid?">
 
 Vite không có định kiến nào về i18n, vì vậy các tùy chọn thuộc hệ sinh thái Solid:

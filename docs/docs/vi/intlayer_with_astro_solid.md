@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Thiết lập Intlayer trong Astro với island Solid: component đã dịch, route bản địa hóa và hreflang, nội dung có kiểu theo component."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Bổ sung tài liệu hỗ trợ Solid 1 và Solid 2"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Sử dụng các hook useIntlayer / useLocale của astro-intlayer trong trang Astro"
@@ -170,6 +173,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   Gói để tích hợp Intlayer vào các ứng dụng Solid. Nó cung cấp `IntlayerProvider` cũng như các primitives `useIntlayer` và `useLocale` cho đa ngôn ngữ trong Solid.
+
+> `solid-intlayer` hỗ trợ cả Solid 1.9 và Solid 2 với cùng một package và cùng một API. Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime, và plugin Vite của Solid biên dịch các component của nó bằng chính runtime Solid của ứng dụng (thông qua điều kiện export `solid`). Không cần cấu hình gì.
 
 - **@astrojs/solid-js**
   Tích hợp chính thức của Astro cho phép sử dụng các Solid component islands.
@@ -673,6 +678,13 @@ Nếu bạn muốn tìm hiểu thêm, bạn cũng có thể triển khai [Visual
 
 <FAQ>
 
+<Question title="Intlayer có hỗ trợ Solid 2 không?">
+
+Có. `solid-intlayer` hoạt động với Solid 1.9 và Solid 2 từ cùng một package, với cùng một API (`IntlayerProvider`, `useIntlayer`, `useLocale`, v.v.). Nó phát hiện phiên bản `solid-js` đã cài đặt khi runtime và dùng các primitive tương ứng, ví dụ `<Suspense>` trên Solid 1 và `<Loading>` trên Solid 2 cho dictionary động. Framework của bạn quyết định phiên bản Solid bạn dùng, và Intlayer làm theo. Một thiết lập Solid 2 đầy đủ có trong [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [ví dụ Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Những giải pháp khác nhau nào có sẵn để quốc tế hóa trang Astro có các đảo Solid?">
 
 Tùy chọn `i18n` tích hợp của Astro xử lý tiền tố và chuyển hướng nhưng không quản lý nội dung. Việc thêm đảo đặt ra một thách thức bổ sung: đảo không chạy Astro mà chạy Solid.

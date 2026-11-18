@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-11-03
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - מדריך מלא לתרגום האפליקציה שלך"
 description: "הגדרת Intlayer ב-SolidStart: ניתוב שפות ברינדור שרת, תוכן מתורגם ריאקטיבי, hreflang ומפת אתר רב-לשונית."
@@ -21,6 +21,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 applicationShowcase: https://intlayer-solid-start-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "תיעוד התמיכה ב-Solid 1 וב-Solid 2"
   - version: 9.1.3
     date: 2025-08-06
     changes: "היסטוריה ראשונית"
@@ -167,6 +170,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   החבילה המשלבת את Intlayer באפליקציית Solid. היא מספקת ספקי הקשר (context providers) והוקים עבור בינאום ב-Solid.
+
+> `solid-intlayer` תומך גם ב-Solid 1.9 וגם ב-Solid 2 עם אותה חבילה ואותו API. הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה, והתוסף של Solid ל-Vite מקמפל את הקומפוננטות שלו עם ה-runtime של Solid באפליקציה שלכם (דרך תנאי הייצוא `solid`). אין צורך בשום הגדרה.
 
 - **vite-intlayer**
 
@@ -1100,6 +1105,13 @@ node .output/server/index.mjs
 
 <FAQ>
 
+<Question title="האם Intlayer תומך ב-Solid 2?">
+
+כן. `solid-intlayer` עובד עם Solid 1.9 ועם Solid 2 מאותה חבילה, עם אותו API (`IntlayerProvider`, `useIntlayer`, `useLocale` וכו'). הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה ומשתמש ב-primitives המתאימים, למשל `<Suspense>` ב-Solid 1 ו-`<Loading>` ב-Solid 2 עבור מילונים דינמיים. ה-framework שלכם קובע באיזו גרסת Solid אתם משתמשים, ו-Intlayer מתאים את עצמו. הגדרה מלאה של Solid 2 זמינה ב[דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="מהם הפתרונות השונים הזמינים לבינאום אפליקציית Solid Start?">
 
 - **`@solid-primitives/i18n`**: הפרימיטיב הקהילתי, מילון שטוח שאתה מרכיב, טוען ומגדיר טיפוסים עבורו בעצמך.

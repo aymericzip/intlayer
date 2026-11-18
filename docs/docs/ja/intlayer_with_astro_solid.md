@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - あなたのアプリを翻訳する完全ガイド"
 description: "Solid アイランドを使う Astro に Intlayer を導入：翻訳済みコンポーネント、ローカライズされたルートと hreflang、コンポーネント単位の型付きコンテンツ。"
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 と Solid 2 のサポートを記載"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Astro ページでの astro-intlayer の useIntlayer / useLocale フックの使用"
@@ -170,6 +173,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   IntlayerをSolidアプリケーションと統合するパッケージ。Solidにおける国際化のための `IntlayerProvider`、および `useIntlayer` と `useLocale` プリミティブを提供します。
+
+> `solid-intlayer` は、同じパッケージ・同じ API で Solid 1.9 と Solid 2 の両方をサポートします。インストールされている `solid-js` のバージョンを実行時に検出し、Solid の Vite プラグインがアプリ自身の Solid ランタイムでコンポーネントをコンパイルします（`solid` エクスポート条件を利用）。設定は不要です。
 
 - **@astrojs/solid-js**
   Solidコンポーネントアイランドの使用を可能にする公式のAstro統合。
@@ -676,6 +681,13 @@ Intlayerを使用した開発体験を向上させるために、**公式のIntl
 
 <FAQ>
 
+<Question title="Intlayer は Solid 2 をサポートしていますか？">
+
+はい。`solid-intlayer` は同じパッケージ・同じ API（`IntlayerProvider`、`useIntlayer`、`useLocale` など）で Solid 1.9 と Solid 2 の両方に対応します。インストールされている `solid-js` のバージョンを実行時に検出し、対応するプリミティブを使用します。たとえば動的辞書では、Solid 1 では `<Suspense>`、Solid 2 では `<Loading>` を使います。使用する Solid のバージョンはフレームワークが決め、Intlayer はそれに従います。Solid 2 の完全なセットアップは [Vite + Solid のサンプル](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) にあります。
+
+- [Vite + Solid のサンプル](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid island を含む Astro サイトを国際化するには、どのようなソリューションがありますか？">
 
 Astroの組み込み`i18n`オプションはロケールプレフィックスとリダイレクトを処理しますが、コンテンツ自体は処理しません。そのため、メッセージレイヤーが依然として必要です。さらに、islandはSolidで動作し、Astroではないという別の問題があります。

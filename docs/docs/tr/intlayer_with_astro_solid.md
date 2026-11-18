@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Solid adaları kullanan Astro'da Intlayer kurulumu: çevrilmiş bileşenler, yerelleştirilmiş rotalar ve hreflang, bileşen başına tipli içerik."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 ve Solid 2 desteğini belgele"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Astro sayfasında astro-intlayer'ın useIntlayer / useLocale hook'larının kullanımı"
@@ -170,6 +173,8 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 - **solid-intlayer**
   Solid uygulamalarına Intlayer entegre etmek için paket. Solid'de uluslararasılaştırma için `IntlayerProvider`'ın yanı sıra `useIntlayer` ve `useLocale` temel öğelerini (primitives) sağlar.
+
+> `solid-intlayer`, aynı paket ve aynı API ile hem Solid 1.9'u hem Solid 2'yi destekler. Kurulu `solid-js` sürümünü çalışma zamanında algılar ve Solid'in Vite eklentisi bileşenlerini uygulamanızın kendi Solid runtime'ı ile derler (`solid` export koşulu aracılığıyla). Herhangi bir yapılandırma gerekmez.
 
 - **@astrojs/solid-js**
   Solid bileşen islands kullanımına olanak tanıyan resmi Astro entegrasyonu.
@@ -673,6 +678,13 @@ Daha fazlasını öğrenmek isterseniz, içeriğinizi dış kaynaklara aktarmak 
 
 <FAQ>
 
+<Question title="Intlayer Solid 2'yi destekliyor mu?">
+
+Evet. `solid-intlayer`, aynı paketten ve aynı API ile (`IntlayerProvider`, `useIntlayer`, `useLocale` vb.) Solid 1.9 ve Solid 2 ile çalışır. Kurulu `solid-js` sürümünü çalışma zamanında algılar ve uygun primitive'leri kullanır, örneğin dinamik sözlükler için Solid 1'de `<Suspense>`, Solid 2'de `<Loading>`. Hangi Solid sürümünü kullanacağınıza framework'ünüz karar verir, Intlayer da ona uyar. Eksiksiz bir Solid 2 kurulumu [Vite + Solid örneğinde](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) bulunur.
+
+- [Vite + Solid örneği](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid adaları içeren bir Astro sitesini uluslararasılaştırmak için hangi farklı çözümler mevcuttur?">
 
 Astro'nun yerleşik `i18n` seçeneği yerel ön eklerini ve yönlendirmeleri yönetir ancak içeriğin kendisini yönetmez. Bir ada eklemek ikinci bir sorunu beraberinde getirir: ada Astro değil, Solid çalıştırır.

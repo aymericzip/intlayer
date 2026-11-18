@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Vite + Solid i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Intlayer in einer Vite- und Solid-App einrichten: reaktive übersetzte Inhalte, Sprachumschalter, lokalisierte Routen und typisierte Wörterbücher."
@@ -17,6 +17,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Unterstützung für Solid 1 und Solid 2 dokumentieren"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
@@ -173,6 +176,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   Das Paket, das Intlayer in Solid-Anwendungen integriert. Es stellt Kontextanbieter und Hooks für die Internationalisierung in Solid bereit.
+
+> `solid-intlayer` unterstützt Solid 1.9 und Solid 2 mit demselben Package und derselben API. Es erkennt die installierte `solid-js`-Version zur Laufzeit, und das Vite-Plugin von Solid kompiliert seine Komponenten mit der Solid-Runtime deiner App (über die Export-Condition `solid`). Es ist keine Konfiguration nötig.
 
 - **vite-intlayer**
   Enthält das Vite-Plugin zur Integration von Intlayer mit dem [Vite-Bundler](https://vite.dev/guide/why.html#why-bundle-for-production) sowie Middleware zur Erkennung der bevorzugten Sprache des Benutzers, zur Verwaltung von Cookies und zur Handhabung von URL-Weiterleitungen.
@@ -430,6 +435,8 @@ const App: Component = () => (
 
 export default App;
 ```
+
+> **Du nutzt Solid 2?** Die Snippets in dieser Anleitung verwenden Solid 1.9. Unter Solid 2 importierst du `render` aus `@solidjs/web` statt aus `solid-js/web`, nutzt `@solidjs/vite-plugin` und `@solidjs/router` 2.x und setzt `"jsxImportSource": "@solidjs/web"` in deiner `tsconfig.json`. Der `solid-intlayer`-Code bleibt gleich. Siehe das [Vite + Solid 2 Beispiel](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
 
 </Step>
 <Step number={8} title="URL ändern, wenn sich die Sprache ändert" isOptional={true}>
@@ -785,6 +792,13 @@ Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericz
 
 <FAQ>
 
+<Question title="Unterstützt Intlayer Solid 2?">
+
+Ja. `solid-intlayer` funktioniert mit Solid 1.9 und Solid 2 aus demselben Package, mit derselben API (`IntlayerProvider`, `useIntlayer`, `useLocale` usw.). Es erkennt die installierte `solid-js`-Version zur Laufzeit und nutzt die passenden Primitives, zum Beispiel `<Suspense>` unter Solid 1 und `<Loading>` unter Solid 2 für dynamische Dictionaries. Dein Framework bestimmt, welche Solid-Version du nutzt, und Intlayer folgt ihr. Ein vollständiges Solid-2-Setup findest du im [Vite + Solid Beispiel](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [Vite + Solid Beispiel](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Welche verschiedenen Lösungen gibt es, um eine Vite-und-Solid-App zu internationalisieren?">
 
 Vite hat keine Meinung zu i18n, sodass die Wahl aus dem Solid-Ökosystem kommt:

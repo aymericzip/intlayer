@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-11-17
+updatedAt: 2026-11-18
 priority: 9
 title: "TanStack Start + Solid i18n：完整翻译指南"
 description: "在使用 Solid 的 TanStack Start 中配置 Intlayer：路由中的语言参数、响应式翻译内容、本地化 head 元数据和 hreflang。"
@@ -23,6 +23,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "说明对 Solid 1 和 Solid 2 的支持"
   - version: 9.8.2
     date: 2026-11-17
     changes: "在 LocalizedLink 中保留相对目标和 params reducer，并在语言切换器中忽略带修饰键的点击"
@@ -187,6 +190,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   将 Intlayer 与 Solid 应用程序集成的包。它为 Solid 国际化提供上下文 Provider和 hooks。
+
+> `solid-intlayer` 使用同一个包和同一套 API 同时支持 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本，而 Solid 的 Vite 插件会使用你应用自身的 Solid 运行时编译它的组件（通过 `solid` 导出条件）。无需任何配置。
 
 - **vite-intlayer**
   包含用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选语言环境、管理 cookies 和处理 URL 重定向的中间件。
@@ -1269,6 +1274,13 @@ Intlayer 使用模块扩展来获得 TypeScript 的好处并使你的代码库�
 
 <FAQ>
 
+<Question title="Intlayer 支持 Solid 2 吗？">
+
+支持。`solid-intlayer` 通过同一个包、同一套 API（`IntlayerProvider`、`useIntlayer`、`useLocale` 等）同时适用于 Solid 1.9 和 Solid 2。它会在运行时检测已安装的 `solid-js` 版本并使用对应的原语，例如动态字典在 Solid 1 中使用 `<Suspense>`，在 Solid 2 中使用 `<Loading>`。使用哪个 Solid 版本由你的框架决定，Intlayer 会随之适配。完整的 Solid 2 配置可参考 [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)。
+
+- [Vite + Solid 示例](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="国际化 TanStack Start + Solid 应用有哪些不同的解决方案？">
 
 TanStack Start 本身不包含 i18n 层，而在 Solid 生态中可用的选择相对有限：

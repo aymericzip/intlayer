@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 9
 title: "Astro + Solid i18n - Полное руководство по переводу вашего приложения"
 description: "Настройка Intlayer в Astro с островами Solid: переведённые компоненты, локализованные маршруты и hreflang, типизированный контент по компонентам."
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Описание поддержки Solid 1 и Solid 2"
   - version: 9.5.5
     date: 2026-09-19
     changes: "Использование хуков useIntlayer / useLocale из astro-intlayer на странице Astro"
@@ -182,6 +185,8 @@ bun x intlayer init
 
 - **solid-intlayer**
   Пакет, который интегрирует Intlayer с приложениями Solid. Он предоставляет `IntlayerProvider`, а также примитивы `useIntlayer` и `useLocale` для интернационализации в Solid.
+
+> `solid-intlayer` поддерживает Solid 1.9 и Solid 2 в одном пакете и с одним API. Он определяет установленную версию `solid-js` во время выполнения, а Vite-плагин Solid компилирует его компоненты с runtime Solid вашего приложения (через условие экспорта `solid`). Настраивать ничего не нужно.
 
 - **@astrojs/solid-js**
   Официальная интеграция Astro, которая позволяет использовать острова (islands) компонентов Solid.
@@ -684,6 +689,13 @@ Intlayer использует расширение модулей, чтобы в
 
 <FAQ>
 
+<Question title="Поддерживает ли Intlayer Solid 2?">
+
+Да. `solid-intlayer` работает с Solid 1.9 и Solid 2 из одного пакета, с тем же API (`IntlayerProvider`, `useIntlayer`, `useLocale` и т. д.). Он определяет установленную версию `solid-js` во время выполнения и использует соответствующие примитивы, например `<Suspense>` в Solid 1 и `<Loading>` в Solid 2 для динамических словарей. Версию Solid определяет ваш фреймворк, а Intlayer под неё подстраивается. Полная настройка на Solid 2 доступна в [примере Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [пример Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Какие существуют решения для интернационализации сайта Astro с островами Solid?">
 
 Встроенная опция `i18n` Astro обрабатывает префиксы локалей и редиректы, но не сам контент, поэтому вам всё ещё нужен слой сообщений, а остров добавляет вторую проблему: остров выполняет Solid, а не Astro.

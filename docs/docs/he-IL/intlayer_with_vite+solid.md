@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-11-03
+updatedAt: 2026-11-18
 priority: 9
 title: "Vite + Solid i18n - מדריך מלא לתרגום האפליקציה שלך"
 description: "הגדרת Intlayer באפליקציית Vite ו-Solid: תוכן מתורגם ריאקטיבי, בורר שפות, נתיבים מותאמים לשפה ומילונים מוקלדים."
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 applicationShowcase: https://intlayer-vite-solid.vercel.app
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "תיעוד התמיכה ב-Solid 1 וב-Solid 2"
   - version: 8.9.0
     date: 2026-05-04
     changes: "עדכון השימוש ב-API של useIntlayer ב-Solid לגישה ישירה למאפיינים"
@@ -174,6 +177,8 @@ bun add vite-intlayer --dev
 
 - **solid-intlayer**
   החבילה המשלבת את Intlayer באפליקציית Solid. היא מספקת ספקי הקשר (context providers) והוקים עבור בינאום ב-Solid.
+
+> `solid-intlayer` תומך גם ב-Solid 1.9 וגם ב-Solid 2 עם אותה חבילה ואותו API. הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה, והתוסף של Solid ל-Vite מקמפל את הקומפוננטות שלו עם ה-runtime של Solid באפליקציה שלכם (דרך תנאי הייצוא `solid`). אין צורך בשום הגדרה.
 
 - **vite-intlayer**
   כולל את תוסף ה-Vite לשילוב Intlayer עם [הבאנדלר Vite](https://vite.dev/guide/why.html#why-bundle-for-production), וכן תוכנת ביניים (middleware) לזיהוי השפה המועדפת של המשתמש, ניהול עוגיות וטיפול בהפניות URL.
@@ -518,6 +523,8 @@ const App: Component = () => (
 
 export default App;
 ```
+
+> **משתמשים ב-Solid 2?** קטעי הקוד במדריך זה משתמשים ב-Solid 1.9. ב-Solid 2, ייבאו את `render` מ-`@solidjs/web` במקום מ-`solid-js/web`, השתמשו ב-`@solidjs/vite-plugin` וב-`@solidjs/router` 2.x, והגדירו `"jsxImportSource": "@solidjs/web"` בקובץ `tsconfig.json`. הקוד של `solid-intlayer` נשאר זהה. ראו את [דוגמת Vite + Solid 2](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
 
 </Step>
 <Step number={8} title="שינוי כתובת ה-URL כאשר השפה משתנה" isOptional={true}>
@@ -877,6 +884,13 @@ console.log("SEO files generated successfully.");
 
 <FAQ>
 
+<Question title="האם Intlayer תומך ב-Solid 2?">
+
+כן. `solid-intlayer` עובד עם Solid 1.9 ועם Solid 2 מאותה חבילה, עם אותו API (`IntlayerProvider`, `useIntlayer`, `useLocale` וכו'). הוא מזהה את גרסת `solid-js` המותקנת בזמן ריצה ומשתמש ב-primitives המתאימים, למשל `<Suspense>` ב-Solid 1 ו-`<Loading>` ב-Solid 2 עבור מילונים דינמיים. ה-framework שלכם קובע באיזו גרסת Solid אתם משתמשים, ו-Intlayer מתאים את עצמו. הגדרה מלאה של Solid 2 זמינה ב[דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app).
+
+- [דוגמת Vite + Solid](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="מהם הפתרונות השונים הזמינים לבינאום אפליקציית Vite ו-Solid?">
 
 ל-Vite אין דעה לגבי i18n, ולכן הבחירה מגיעה מהאקוסיסטם של Solid:

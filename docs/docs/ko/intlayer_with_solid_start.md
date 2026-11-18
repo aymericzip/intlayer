@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - 앱 번역을 위한 완벽한 가이드"
 description: "SolidStart에 Intlayer 설정: 서버 렌더링 로케일 라우팅, 반응형 번역 콘텐츠, hreflang, 다국어 사이트맵."
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 및 Solid 2 지원 문서화"
   - version: 9.1.3
     date: 2025-08-06
     changes: "Initial history"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   Intlayer를 Solid 애플리케이션과 통합하는 패키지입니다. Solid 국제화를 위한 컨텍스트 제공자와 훅을 제공합니다.
+
+> `solid-intlayer`는 동일한 패키지와 동일한 API로 Solid 1.9와 Solid 2를 모두 지원합니다. 설치된 `solid-js` 버전을 런타임에 감지하며, Solid의 Vite 플러그인이 앱의 Solid 런타임으로 컴포넌트를 컴파일합니다(`solid` export 조건 사용). 별도의 설정은 필요 없습니다.
 
 - **vite-intlayer**
 
@@ -1091,6 +1096,13 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확�
 
 <FAQ>
 
+<Question title="Intlayer는 Solid 2를 지원하나요?">
+
+네. `solid-intlayer`는 동일한 패키지와 동일한 API(`IntlayerProvider`, `useIntlayer`, `useLocale` 등)로 Solid 1.9와 Solid 2에서 동작합니다. 설치된 `solid-js` 버전을 런타임에 감지하고 그에 맞는 프리미티브를 사용합니다. 예를 들어 동적 사전에는 Solid 1에서 `<Suspense>`, Solid 2에서 `<Loading>`을 사용합니다. 어떤 Solid 버전을 쓸지는 프레임워크가 결정하며, Intlayer는 이를 따릅니다. 완전한 Solid 2 설정은 [Vite + Solid 예제](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)에서 확인할 수 있습니다.
+
+- [Vite + Solid 예제](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid Start 앱을 국제화하는 데 사용할 수 있는 다양한 솔루션은 무엇인가요?">
 
 - **`@solid-primitives/i18n`**: 직접 조합하고 로드하며 타입을 지정해야 하는 커뮤니티 프리미티브 평면 사전입니다.

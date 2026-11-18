@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 9
 title: "Solid Start i18n - アプリを翻訳する完全ガイド"
 description: "SolidStart に Intlayer を導入：サーバーレンダリングされたロケールルーティング、リアクティブな翻訳コンテンツ、hreflang、多言語サイトマップ。"
@@ -20,6 +20,9 @@ slugs:
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
 history:
+  - version: 9.8.2
+    date: 2026-11-18
+    changes: "Solid 1 と Solid 2 のサポートを記載"
   - version: 9.1.3
     date: 2025-08-06
     changes: "Initial history"
@@ -166,6 +169,8 @@ bun add intlayer solid-intlayer vite-intlayer
 - **solid-intlayer**
 
   Intlayer を Solid アプリケーションに統合するパッケージです。Solid の国際化のためのコンテキストプロバイダーとフックを提供します。
+
+> `solid-intlayer` は、同じパッケージ・同じ API で Solid 1.9 と Solid 2 の両方をサポートします。インストールされている `solid-js` のバージョンを実行時に検出し、Solid の Vite プラグインがアプリ自身の Solid ランタイムでコンポーネントをコンパイルします（`solid` エクスポート条件を利用）。設定は不要です。
 
 - **vite-intlayer**
 
@@ -1091,6 +1096,13 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 
 <FAQ>
 
+<Question title="Intlayer は Solid 2 をサポートしていますか？">
+
+はい。`solid-intlayer` は同じパッケージ・同じ API（`IntlayerProvider`、`useIntlayer`、`useLocale` など）で Solid 1.9 と Solid 2 の両方に対応します。インストールされている `solid-js` のバージョンを実行時に検出し、対応するプリミティブを使用します。たとえば動的辞書では、Solid 1 では `<Suspense>`、Solid 2 では `<Loading>` を使います。使用する Solid のバージョンはフレームワークが決め、Intlayer はそれに従います。Solid 2 の完全なセットアップは [Vite + Solid のサンプル](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app) にあります。
+
+- [Vite + Solid のサンプル](https://github.com/aymericzip/intlayer/tree/main/examples/vite-solid-app)
+
+</Question>
 <Question title="Solid Start アプリを国際化するために利用可能なソリューションにはどのようなものがありますか？">
 
 - **`@solid-primitives/i18n`**: コミュニティプリミティブで、自分で組み立て、読み込み、型付けするフラット辞書です。
