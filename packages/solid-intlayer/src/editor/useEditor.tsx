@@ -1,8 +1,9 @@
 import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
-import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
+import { createSignal, onCleanup } from 'solid-js';
 import { useIntlayerContext } from '../client';
+import { createWatchEffect, onMounted } from '../solidCompat';
 
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.
@@ -15,7 +16,7 @@ export const useEditor = () => {
   const { locale, setLocale } = useIntlayerContext();
   const [manager, setManager] = createSignal<EditorStateManager | null>(null);
 
-  onMount(() => {
+  onMounted(() => {
     import('@intlayer/editor')
       .then(({ initEditorClient }) => {
         const managerInstance = initEditorClient();
@@ -25,25 +26,20 @@ export const useEditor = () => {
       .catch(() => {});
   });
 
-  createEffect(() => {
-    const managerInstance = manager();
-
+  createWatchEffect(manager, (managerInstance) => {
     if (!managerInstance) return;
 
-    const unsubscribeLocaleRequest =
-      managerInstance.onLocaleChangeRequested(setLocale);
-
-    onCleanup(unsubscribeLocaleRequest);
+    return managerInstance.onLocaleChangeRequested(setLocale);
   });
 
-  createEffect(() => {
-    const managerInstance = manager();
-    const currentLocale = locale();
-
-    if (managerInstance && currentLocale) {
-      managerInstance.currentLocale.set(currentLocale as Locale);
+  createWatchEffect(
+    () => ({ managerInstance: manager(), currentLocale: locale() }),
+    ({ managerInstance, currentLocale }) => {
+      if (managerInstance && currentLocale) {
+        managerInstance.currentLocale.set(currentLocale as Locale);
+      }
     }
-  });
+  );
 
   onCleanup(() => {
     import('@intlayer/editor')

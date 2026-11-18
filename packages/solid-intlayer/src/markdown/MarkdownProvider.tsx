@@ -7,6 +7,7 @@ import {
   type ValidComponent,
 } from 'solid-js';
 import type { HTMLComponents } from '../html/types';
+import { getContextProvider } from '../solidCompat';
 import { compileMarkdown, type ParsedMarkdown } from './compiler';
 
 export type MarkdownProviderOptions = {
@@ -33,7 +34,15 @@ type MarkdownProviderValue = {
   ) => JSXElement | Promise<JSXElement>;
 };
 
-export const MarkdownContext = createContext<MarkdownProviderValue>();
+/**
+ * `null` outside a provider. An explicit default keeps `useContext` from
+ * throwing on Solid 2, where default-less contexts require a provider.
+ */
+export const MarkdownContext = createContext<MarkdownProviderValue | null>(
+  null
+);
+
+const MarkdownContextProvider = getContextProvider(MarkdownContext);
 
 export type MarkdownProviderProps = ParentProps<{
   components?: HTMLComponents<'permissive', {}>;
@@ -81,14 +90,14 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
   };
 
   return (
-    <MarkdownContext.Provider
+    <MarkdownContextProvider
       value={{
         components: props.components,
         renderMarkdown: defaultRenderMarkdown,
       }}
     >
       {props.children}
-    </MarkdownContext.Provider>
+    </MarkdownContextProvider>
   );
 };
 

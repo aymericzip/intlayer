@@ -1,7 +1,8 @@
-import { createSignal, Suspense } from 'solid-js';
+import { createSignal } from 'solid-js';
 import { render } from 'solid-js/web';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createLoadableProxy } from './client/useLoadDynamic';
+import { LoadingBoundary } from './LoadingBoundary';
 
 /**
  * Reproduces how the markdown/HTML renderers used to be reached: as a component
@@ -26,7 +27,10 @@ describe('lazily loaded renderer components', () => {
 
     // Reads a signal during setup and writes it back, like a renderer touching
     // its rendering context. Left tracked by the caller, this alone loops.
-    const [renderTick, setRenderTick] = createSignal(0);
+    // `ownedWrite` lets Solid 2 accept the write during render (Solid 1 ignores it).
+    const [renderTick, setRenderTick] = createSignal(0, {
+      ownedWrite: true,
+    } as Parameters<typeof createSignal<number>>[1]);
 
     const MarkdownRendererStub = (props: { value: string }) => {
       renderCount += 1;
@@ -53,9 +57,9 @@ describe('lazily loaded renderer components', () => {
       const Renderer = proxy.MarkdownRenderer as typeof MarkdownRendererStub;
 
       return (
-        <Suspense>
+        <LoadingBoundary>
           <Renderer value="compiled" />
-        </Suspense>
+        </LoadingBoundary>
       );
     };
 

@@ -1,7 +1,8 @@
 import type { AnalyticsClient } from '@intlayer/analytics';
 import { isEnabled } from '@intlayer/analytics/isEnabled';
-import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
+import { createSignal, onCleanup } from 'solid-js';
 import { useIntlayerContext } from '../client';
+import { createWatchEffect, onMounted } from '../solidCompat';
 import { setExposureSink } from './exposureSink';
 
 /**
@@ -30,7 +31,7 @@ export const useAnalytics = () => {
   // the shared reference count once too many.
   let initialized = false;
 
-  onMount(() => {
+  onMounted(() => {
     import('@intlayer/analytics')
       .then(({ initAnalyticsClient, buildContentExposure }) => {
         if (cancelled) return;
@@ -57,23 +58,23 @@ export const useAnalytics = () => {
 
   // Locale switches are a real signal — record them as page views.
   let previousLocale: string | undefined;
-  createEffect(() => {
-    const clientInstance = client();
-    const currentLocale = locale?.();
+  createWatchEffect(
+    () => ({ clientInstance: client(), currentLocale: locale?.() }),
+    ({ clientInstance, currentLocale }) => {
+      if (!clientInstance || !currentLocale) return;
 
-    if (!clientInstance || !currentLocale) return;
+      if (previousLocale === undefined) {
+        // First run after init — the initial page view already covered it.
+        previousLocale = currentLocale;
+        return;
+      }
+      if (previousLocale === currentLocale) return;
 
-    if (previousLocale === undefined) {
-      // First run after init — the initial page view already covered it.
       previousLocale = currentLocale;
-      return;
+      clientInstance.setLocale(currentLocale);
+      clientInstance.trackPageView({ reason: 'locale_change' });
     }
-    if (previousLocale === currentLocale) return;
-
-    previousLocale = currentLocale;
-    clientInstance.setLocale(currentLocale);
-    clientInstance.trackPageView({ reason: 'locale_change' });
-  });
+  );
 
   onCleanup(() => {
     cancelled = true;

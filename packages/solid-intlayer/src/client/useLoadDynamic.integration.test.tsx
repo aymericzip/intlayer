@@ -1,7 +1,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { Suspense } from 'solid-js';
 import { render } from 'solid-js/web';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { LoadingBoundary } from '../LoadingBoundary';
 
 vi.mock('@intlayer/config/built', () => {
   const internationalization = { defaultLocale: 'en', locales: ['en', 'fr'] };
@@ -28,7 +28,7 @@ describe('useLoadDynamic integration', () => {
     document.body.innerHTML = '';
   });
 
-  it('uses real createResource with Suspense and forwards the resolved value', async () => {
+  it('uses the real async primitive with a loading boundary and forwards the resolved value', async () => {
     let resolveLoader:
       | ((value: { message: { value: string } }) => void)
       | undefined;
@@ -42,9 +42,9 @@ describe('useLoadDynamic integration', () => {
       const content = useLoadDynamic('integration.en', loader);
 
       return (
-        <Suspense fallback={<span id="fallback">Loading</span>}>
+        <LoadingBoundary fallback={<span id="fallback">Loading</span>}>
           <span id="message">{content.message.value}</span>
-        </Suspense>
+        </LoadingBoundary>
       );
     };
     const root = document.createElement('div');
@@ -91,9 +91,9 @@ describe('useLoadDynamic integration', () => {
     dispose = render(
       () => (
         <IntlayerProviderContent locale="en">
-          <Suspense fallback={<span id="fallback">Loading</span>}>
+          <LoadingBoundary fallback={<span id="fallback">Loading</span>}>
             <Message />
-          </Suspense>
+          </LoadingBoundary>
         </IntlayerProviderContent>
       ),
       root

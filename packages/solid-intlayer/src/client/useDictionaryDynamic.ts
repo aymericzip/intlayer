@@ -17,14 +17,10 @@ import type {
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
-import {
-  createMemo,
-  createRenderEffect,
-  createResource,
-  useContext,
-} from 'solid-js';
+import { createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
+import { createAsyncValue, trackAsyncValue } from '../solidCompat';
 import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
 import { seedDynamicValue, useLoadDynamic } from './useLoadDynamic';
@@ -139,7 +135,7 @@ export const useDictionaryDynamic = <
     // Collection: load only the targeted raw entries, then interpret each inside
     // the component owner scope so a real array is exposed (so `<For>` works) and
     // owner-scoped context (router, markdown, editor) stays available.
-    const [resolvedEntries] = createResource(
+    const resolvedEntries = createAsyncValue(
       // Tracks the variant as well as the locale, so an ambient variant change
       // reloads the targeted chunks.
       () => ({ locale: localeAccessor(), selector: selectorAccessor() }),
@@ -164,16 +160,22 @@ export const useDictionaryDynamic = <
       );
     });
 
-    // Read the resource in a render effect so Suspense triggers without aborting
-    // the component body before the proxy below is consumed.
-    createRenderEffect(() => {
-      resolvedEntries();
-    });
+    // Read the async value in a render effect so the loading boundary holds
+    // without aborting the component body before the proxy below is consumed.
+    trackAsyncValue(resolvedEntries);
 
+    // Array methods run against the real array and `in` checks answer for it:
+    // `slice`/`map` on the proxy would otherwise see the function target's
+    // (absent) indexes and yield holes — which is how Solid 2's `<For>` reads.
     return new Proxy(accessor, {
       get(target, prop) {
         const content = target();
-        return content?.[prop as keyof typeof content];
+        const value = content?.[prop as keyof typeof content];
+
+        return typeof value === 'function' ? value.bind(content) : value;
+      },
+      has(target, prop) {
+        return prop in target();
       },
       apply(target) {
         return target();
@@ -212,8 +214,9 @@ export const useDictionaryDynamic = <
   };
 
   // A build-tool plugin may have started this locale's chunk while the entry
-  // point evaluated, and it may already have landed. Seeding the resource cache with it makes the resource
-  // below resolve synchronously, so Suspense never sees a pending state.
+  // point evaluated, and it may already have landed. Seeding the cache with it
+  // makes the async value below resolve synchronously, so the loading boundary
+  // never sees a pending state.
   const preloadedDictionary = getPreloadedDictionary(
     dictionaryLoaders,
     localeAccessor()

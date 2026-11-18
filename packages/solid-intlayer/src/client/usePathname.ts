@@ -1,5 +1,6 @@
 import { getPathWithoutLocale } from '@intlayer/core/localization';
-import { type Accessor, createEffect, createSignal, onCleanup } from 'solid-js';
+import { type Accessor, createSignal } from 'solid-js';
+import { onMounted } from '../solidCompat';
 
 /**
  * Solid hook that returns an accessor containing the current pathname with
@@ -29,7 +30,7 @@ export const usePathname = (): Accessor<string> => {
     typeof window !== 'undefined' ? window.location.pathname : ''
   );
 
-  createEffect(() => {
+  onMounted(() => {
     if (typeof window === 'undefined') return;
 
     const handleLocationChange = (): void => {
@@ -37,9 +38,8 @@ export const usePathname = (): Accessor<string> => {
     };
 
     window.addEventListener('popstate', handleLocationChange);
-    onCleanup(() =>
-      window.removeEventListener('popstate', handleLocationChange)
-    );
+
+    return () => window.removeEventListener('popstate', handleLocationChange);
   });
 
   return () => getPathWithoutLocale(rawPathname());

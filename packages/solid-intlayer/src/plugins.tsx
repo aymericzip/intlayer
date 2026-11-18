@@ -31,16 +31,18 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { type Component, type JSX, lazy, Suspense } from 'solid-js';
+import type { Component, JSX } from 'solid-js';
 import { reportExposure } from './analytics/exposureSink';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
+import { LoadingBoundary } from './LoadingBoundary';
+import { lazyComponent } from './solidCompat';
 import { renderSolidElement } from './solidElement/renderSolidElement';
 
 const LazyContentSelector = (
   process.env.INTLAYER_EDITOR_ENABLED === 'false'
     ? null
-    : lazy(() =>
+    : lazyComponent(() =>
         import('./editor/ContentSelector').then((m) => ({
           default: m.ContentSelector,
         }))
@@ -105,9 +107,9 @@ export const intlayerNodePlugins: Plugins = {
       return renderIntlayerNode({
         value: rest.children,
         children: (
-          <Suspense fallback={rest.children}>
+          <LoadingBoundary fallback={rest.children}>
             <LazyContentSelector {...rest}>{rest.children}</LazyContentSelector>
-          </Suspense>
+          </LoadingBoundary>
         ),
       });
     }
@@ -162,7 +164,7 @@ export const solidNodePlugins: Plugins =
             children:
               process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
               editor.enabled ? (
-                <Suspense
+                <LoadingBoundary
                   fallback={
                     typeof Node !== 'undefined' && node instanceof Node
                       ? node
@@ -174,7 +176,7 @@ export const solidNodePlugins: Plugins =
                       ? node
                       : renderSolidElement(node)}
                   </LazyContentSelector>
-                </Suspense>
+                </LoadingBoundary>
               ) : typeof Node !== 'undefined' && node instanceof Node ? (
                 node
               ) : (
@@ -263,11 +265,9 @@ export const insertionPlugin: Plugins =
                 const transformedResult = deepTransformNode(n, {
                   ...subProps,
                   children: n,
-                  plugins: [
-                    ...(props.plugins ?? ([] as Plugins[])).filter(
-                      (plugin) => plugin.id !== 'intlayer-node-plugin'
-                    ),
-                  ],
+                  plugins: (props.plugins ?? ([] as Plugins[])).filter(
+                    (plugin) => plugin.id !== 'intlayer-node-plugin'
+                  ),
                 });
 
                 // Inject the values captured from the parent scope
@@ -318,13 +318,13 @@ export type MarkdownStringCond<T> = T extends string
  * fresh instance each pass. `lazy` keeps a single memoised instance and hands
  * pending state to Suspense.
  */
-const MarkdownSuspenseRenderer = lazy(() =>
+const MarkdownSuspenseRenderer = lazyComponent(() =>
   markdownRendererModulePromise!.then((modules) => ({
     default: modules.MarkdownRenderer as Component<Record<string, any>>,
   }))
 );
 
-const MarkdownMetadataSuspenseRenderer = lazy(() =>
+const MarkdownMetadataSuspenseRenderer = lazyComponent(() =>
   markdownRendererModulePromise!.then((modules) => ({
     default: modules.MarkdownMetadataRenderer as Component<Record<string, any>>,
   }))
@@ -359,7 +359,7 @@ export const markdownStringPlugin: Plugins =
                 children:
                   process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                   editor.enabled ? (
-                    <Suspense>
+                    <LoadingBoundary>
                       <LazyContentSelector {...rest}>
                         <MarkdownMetadataSuspenseRenderer
                           {...rest}
@@ -368,7 +368,7 @@ export const markdownStringPlugin: Plugins =
                           {node}
                         </MarkdownMetadataSuspenseRenderer>
                       </LazyContentSelector>
-                    </Suspense>
+                    </LoadingBoundary>
                   ) : (
                     <MarkdownMetadataSuspenseRenderer
                       {...rest}
@@ -394,7 +394,7 @@ export const markdownStringPlugin: Plugins =
               children:
                 process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled ? (
-                  <Suspense>
+                  <LoadingBoundary>
                     <LazyContentSelector {...rest}>
                       <MarkdownSuspenseRenderer
                         {...rest}
@@ -403,7 +403,7 @@ export const markdownStringPlugin: Plugins =
                         {node}
                       </MarkdownSuspenseRenderer>
                     </LazyContentSelector>
-                  </Suspense>
+                  </LoadingBoundary>
                 ) : (
                   <MarkdownSuspenseRenderer {...rest} components={components}>
                     {node}
@@ -477,7 +477,7 @@ export type HTMLPluginCond<T> = T extends {
     >
   : never;
 
-const HTMLSuspenseRenderer = lazy(() =>
+const HTMLSuspenseRenderer = lazyComponent(() =>
   htmlRendererModulePromise!.then((HTMLRenderer) => ({
     default: HTMLRenderer as Component<Record<string, any>>,
   }))
@@ -506,7 +506,7 @@ export const htmlPlugin: Plugins =
               children:
                 process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled ? (
-                  <Suspense>
+                  <LoadingBoundary>
                     <LazyContentSelector {...rest}>
                       <HTMLSuspenseRenderer
                         {...rest}
@@ -514,7 +514,7 @@ export const htmlPlugin: Plugins =
                         components={userComponents}
                       />
                     </LazyContentSelector>
-                  </Suspense>
+                  </LoadingBoundary>
                 ) : (
                   <HTMLSuspenseRenderer
                     {...rest}

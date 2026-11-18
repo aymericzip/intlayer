@@ -1,7 +1,8 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { For, Suspense } from 'solid-js';
+import { For } from 'solid-js';
 import { render } from 'solid-js/web';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { LoadingBoundary } from '../LoadingBoundary';
 
 vi.mock('@intlayer/config/built', () => ({
   internationalization: {
@@ -49,9 +50,9 @@ describe('useDictionaryDynamic integration (qualified)', () => {
       }) as any;
 
       return (
-        <Suspense fallback={<span id="fallback">Loading</span>}>
+        <LoadingBoundary fallback={<span id="fallback">Loading</span>}>
           <span id="headline">{hero.headline.value}</span>
-        </Suspense>
+        </LoadingBoundary>
       );
     };
 
@@ -88,11 +89,11 @@ describe('useDictionaryDynamic integration (qualified)', () => {
       const faqs = useDictionaryDynamic(loaderMap, 'faq', 'en') as any;
 
       return (
-        <Suspense fallback={<span id="fallback">Loading</span>}>
+        <LoadingBoundary fallback={<span id="fallback">Loading</span>}>
           <ul>
             <For each={faqs}>{(entry: any) => <li>{entry.q.value}</li>}</For>
           </ul>
-        </Suspense>
+        </LoadingBoundary>
       );
     };
 

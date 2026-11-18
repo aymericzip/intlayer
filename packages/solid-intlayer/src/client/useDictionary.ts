@@ -1,4 +1,9 @@
 import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
+import {
+  collectTransformCacheWrites,
+  deleteTransformCacheWrites,
+  type Plugins,
+} from '@intlayer/core/interpreter';
 import type {
   Dictionary,
   DictionarySelectorForGroup,
@@ -10,9 +15,9 @@ import type {
   ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { createMemo, useContext } from 'solid-js';
+import { createMemo, onCleanup, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
-import type { DeepTransformContent } from '../plugins';
+import { type DeepTransformContent, getPlugins } from '../plugins';
 import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 import { unwrapLoadable } from './useLoadDynamic';
 
@@ -41,14 +46,30 @@ export const useDictionary = <
   const context: Partial<IntlayerValue> =
     useContext(IntlayerClientContext) ?? {};
 
-  const accessor = createMemo(() => {
+  // Transformed content holds elements owned by the scope that built them. The
+  // transform cache is keyed by plugin set, so a set of this instance's own
+  // keeps it from handing those elements to another component — which, during
+  // a transition, can adopt them right before their owner is disposed.
+  const instancePlugins = new Map<Plugins[], Plugins[]>();
+  const getInstancePlugins = (locale?: LocalesValues): Plugins[] => {
+    const sharedPlugins = getPlugins(locale);
+    let ownPlugins = instancePlugins.get(sharedPlugins);
+
+    if (!ownPlugins) {
+      ownPlugins = [...sharedPlugins];
+      instancePlugins.set(sharedPlugins, ownPlugins);
+    }
+
+    return ownPlugins;
+  };
+
+  const interpret = () => {
     const currentLocale = context?.locale?.();
 
     // A dynamically loaded dictionary arrives as a per-component stand-in whose
     // content only appears once the chunk lands. Interpreting the settled
-    // object instead — the one every component resolves to — is what lets
-    // `getDictionary` memoize the transform across components and page
-    // switches. While pending, the stand-in is passed through unchanged so
+    // object instead keeps the transform stable — and cacheable — once it
+    // lands, rather than tied to a stand-in that changes. While pending, the stand-in is passed through unchanged so
     // reads stay safe, and this memo re-runs the moment it settles.
     const source = unwrapLoadable(dictionary) ?? dictionary;
 
@@ -63,13 +84,25 @@ export const useDictionary = <
           contextLocale: currentLocale,
           contextVariant: context?.variant?.(),
           dictionaryKey: dictionary.key,
-        }) as A
+        }) as A,
+        getInstancePlugins
       );
     }
 
     const localeTarget = (localeOrSelector ?? currentLocale) as A;
 
-    return getDictionary<T, A>(source, localeTarget);
+    return getDictionary<T, A>(source, localeTarget, getInstancePlugins);
+  };
+
+  const accessor = createMemo(() => {
+    const { result, writes } = collectTransformCacheWrites(interpret);
+
+    // The elements this run built belong to this memo and die with it: forget
+    // their cache entries then, so they never outlive their owner (and the
+    // per-instance entries never pile up).
+    if (writes.length > 0) onCleanup(() => deleteTransformCacheWrites(writes));
+
+    return result;
   });
 
   return new Proxy(accessor, {

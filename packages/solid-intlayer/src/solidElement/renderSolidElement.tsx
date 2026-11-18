@@ -1,5 +1,4 @@
 import type { JSX } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 
 // This function recursively creates Solid elements from a given JSON-like structure
 export const renderSolidElement = (element: JSX.Element) => {
@@ -36,10 +35,11 @@ export const renderSolidElement = (element: JSX.Element) => {
 
   const { type, props } = fixedElement;
 
-  // Create and return the Solid element using Dynamic component
-  return Dynamic({
-    component: type ?? 'span',
-    ...props,
-    children: props.children,
-  });
+  // `Dynamic` is a JSX built-in, auto-imported from the app's web runtime
+  return (
+    // oxlint-disable-next-line react/jsx-no-undef -- compiler built-in, auto-imported per Solid version
+    <Dynamic component={type ?? 'span'} {...props}>
+      {props.children}
+    </Dynamic>
+  );
 };

@@ -11,9 +11,12 @@ vi.hoisted(() => {
 
 const mockSolid = vi.hoisted(() => ({
   createMemo: vi.fn((fn: () => unknown) => fn),
-  createResource: vi.fn(() => [vi.fn()] as const),
-  createRenderEffect: vi.fn(),
   useContext: vi.fn(() => undefined),
+}));
+
+const mockCompat = vi.hoisted(() => ({
+  createAsyncValue: vi.fn(() => () => undefined),
+  trackAsyncValue: vi.fn(),
 }));
 
 const mockConfig = vi.hoisted(() => ({
@@ -21,13 +24,18 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
-vi.mock('solid-js', () => ({
+vi.mock('solid-js', async (importOriginal) => ({
+  // Compiled JSX in the module graph needs the rest of the real runtime.
+  ...(await importOriginal<typeof import('solid-js')>()),
   createMemo: mockSolid.createMemo,
-  createResource: mockSolid.createResource,
-  createRenderEffect: mockSolid.createRenderEffect,
   useContext: mockSolid.useContext,
   // plugins.tsx lazy-loads the editor ContentSelector at module scope.
   lazy: () => () => null,
+}));
+
+vi.mock('../solidCompat', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../solidCompat')>()),
+  ...mockCompat,
 }));
 
 vi.mock('../client/IntlayerProvider', () => ({
@@ -46,12 +54,13 @@ const dictionary = {
 } as const satisfies Dictionary;
 
 describe('server useDictionary', () => {
-  it('reserves a Solid resource slot and returns the static dictionary content', async () => {
+  it('reserves a Solid async slot and returns the static dictionary content', async () => {
     const { useDictionary } = await import('./useDictionary');
 
     const content = useDictionary(dictionary, 'en');
 
-    expect(mockSolid.createResource).toHaveBeenCalledWith(
+    expect(mockCompat.createAsyncValue).toHaveBeenCalledWith(
+      expect.any(Function),
       expect.any(Function),
       {
         initialValue: dictionary,
@@ -61,9 +70,9 @@ describe('server useDictionary', () => {
     expect(content.title.value).toBe('Title');
   });
 
-  it('consumes exactly as many resource slots as the dynamic client helper', async () => {
+  it('consumes exactly as many async slots as the dynamic client helper', async () => {
     // Solid hydration ids are positional: both helpers must consume the same
-    // number of resource slots per useIntlayer call site.
+    // number of async slots per useIntlayer call site.
     const { useDictionary } = await import('./useDictionary');
     const { useDictionaryDynamic } =
       await import('../client/useDictionaryDynamic');
@@ -71,15 +80,20 @@ describe('server useDictionary', () => {
       en: () => Promise.resolve(dictionary),
     } satisfies StrictModeLocaleMap<() => Promise<typeof dictionary>>;
 
-    mockSolid.createResource.mockClear();
+    mockCompat.createAsyncValue.mockClear();
+    mockCompat.trackAsyncValue.mockClear();
     useDictionary(dictionary, 'en');
-    const serverResourceCalls = mockSolid.createResource.mock.calls.length;
+    const serverAsyncCalls = mockCompat.createAsyncValue.mock.calls.length;
+    const serverTrackCalls = mockCompat.trackAsyncValue.mock.calls.length;
 
-    mockSolid.createResource.mockClear();
+    mockCompat.createAsyncValue.mockClear();
+    mockCompat.trackAsyncValue.mockClear();
     useDictionaryDynamic(dictionaryLoaders, 'landing', 'en');
-    const dynamicResourceCalls = mockSolid.createResource.mock.calls.length;
+    const dynamicAsyncCalls = mockCompat.createAsyncValue.mock.calls.length;
+    const dynamicTrackCalls = mockCompat.trackAsyncValue.mock.calls.length;
 
-    expect(serverResourceCalls).toBe(1);
-    expect(dynamicResourceCalls).toBe(serverResourceCalls);
+    expect(serverAsyncCalls).toBe(1);
+    expect(dynamicAsyncCalls).toBe(serverAsyncCalls);
+    expect(dynamicTrackCalls).toBe(serverTrackCalls);
   });
 });

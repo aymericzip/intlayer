@@ -1,5 +1,6 @@
-import { createRenderEffect, createResource, untrack } from 'solid-js';
+import { untrack } from 'solid-js';
 import { PROXY_RESERVED_KEYS } from '../proxyKeys';
+import { createAsyncValue, trackAsyncValue } from '../solidCompat';
 
 type DynamicSource = string | { cacheKey: string };
 type DynamicKey<T extends DynamicSource> = T | (() => T);
@@ -30,8 +31,9 @@ const NO_PENDING_PRIMITIVE_FALLBACK = Symbol('NO_PENDING_PRIMITIVE_FALLBACK');
 const LOADABLE_SETTLED_VALUE = Symbol('LOADABLE_SETTLED_VALUE');
 
 /**
- * Module-level cache to dedupe dynamic imports by key. Solid resources still own
- * suspense, SSR serialization, hydration, and refetching on source change.
+ * Module-level cache to dedupe dynamic imports by key. Solid async primitives
+ * still own suspense, SSR serialization, hydration, and refetching on source
+ * change.
  */
 const cache = new Map<string, CacheEntry<unknown>>();
 
@@ -85,8 +87,8 @@ export const loadDynamicValue = <T, Source extends DynamicSource>(
  * {@link loadDynamicValue} for this key returns it synchronously.
  *
  * Used for dictionaries a build-tool plugin awaited while their entry point
- * evaluated: `createResource` resolves without ever entering a pending state,
- * so Suspense is not triggered and the first render already has the content.
+ * evaluated: the async value resolves without ever entering a pending state,
+ * so the loading boundary is not triggered and the first render already has the content.
  *
  * An existing entry is never replaced — an in-flight load owns its key.
  */
@@ -119,9 +121,9 @@ const createPendingPrimitiveFallback = (property: string | symbol): unknown => {
 };
 
 /**
- * Creates a stable callable proxy that re-reads the Solid resource on each
+ * Creates a stable callable proxy that re-reads the Solid async value on each
  * property access. This keeps synchronous Intlayer access (`content.x.value`)
- * safe while Solid Suspense owns the actual pending state.
+ * safe while the Solid loading boundary owns the actual pending state.
  */
 export const createLoadableProxy = <T>(read: () => T | undefined): T => {
   const createProxyAtPath = (path: readonly PropertyKey[]): unknown => {
@@ -222,14 +224,12 @@ export const useLoadDynamic = <T, Source extends DynamicSource = string>(
   loader: DynamicLoader<T, Source>
 ): T => {
   const keyAccessor = () => (typeof key === 'function' ? key() : key);
-  const [resource] = createResource(keyAccessor, (resolvedSource) =>
+  const asyncValue = createAsyncValue(keyAccessor, (resolvedSource: Source) =>
     loadDynamicValue<T, Source>(resolvedSource, loader)
   );
 
-  // Trigger Suspense safely without aborting component body execution
-  createRenderEffect(() => {
-    resource();
-  });
+  // Hold the loading boundary without aborting component body execution
+  trackAsyncValue(asyncValue);
 
-  return createLoadableProxy(() => resource());
+  return createLoadableProxy(asyncValue);
 };

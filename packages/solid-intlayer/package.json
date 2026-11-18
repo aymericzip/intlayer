@@ -65,41 +65,41 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "solid": "./dist/esm/index.mjs",
+      "solid": "./dist/solid/index.js",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
     "./html": {
       "types": "./dist/types/html/index.d.ts",
-      "solid": "./dist/esm/html/index.mjs",
+      "solid": "./dist/solid/html/index.js",
       "require": "./dist/cjs/html/index.cjs",
       "import": "./dist/esm/html/index.mjs"
     },
     "./markdown": {
       "types": "./dist/types/markdown/index.d.ts",
-      "solid": "./dist/esm/markdown/index.mjs",
+      "solid": "./dist/solid/markdown/index.js",
       "require": "./dist/cjs/markdown/index.cjs",
       "import": "./dist/esm/markdown/index.mjs"
     },
     "./format": {
       "types": "./dist/types/format/index.d.ts",
-      "solid": "./dist/esm/format/index.mjs",
+      "solid": "./dist/solid/format/index.js",
       "require": "./dist/cjs/format/index.cjs",
       "import": "./dist/esm/format/index.mjs"
     },
     "./server": {
       "types": "./dist/types/server/index.d.ts",
-      "solid": "./dist/esm/server/index.mjs",
+      "solid": "./dist/solid/server/index.js",
       "require": "./dist/cjs/server/index.cjs",
       "import": "./dist/esm/server/index.mjs"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "bun --bun vite build",
-    "build:ci": "bun --bun vite build",
+    "build": "bun --bun vite build && bun --bun vite build --mode solid",
+    "build:ci": "bun --bun vite build && bun --bun vite build --mode solid",
     "clean": "bun --bun rimraf ./dist .turbo",
-    "dev": "bun --bun vite build --watch",
+    "dev": "bun --bun vite build --watch & bun --bun vite build --mode solid --watch",
     "format": "oxfmt --check .",
     "format:fix": "oxfmt .",
     "lint": "oxlint .",
@@ -131,6 +131,7 @@
     "@utils/tsdown-config": "workspace:*",
     "jsdom": "30.1.3",
     "rimraf": "6.1.4",
+    "solid-js": "1.9.15",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
     "vite": "8.3.8",
@@ -139,7 +140,13 @@
     "vitest": "5.1.0"
   },
   "peerDependencies": {
+    "@solidjs/web": ">=2.0.0",
     "solid-js": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@solidjs/web": {
+      "optional": true
+    }
   },
   "optionalDependencies": {
     "@intlayer/analytics": "workspace:*"

@@ -7,24 +7,25 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import {
   type Component,
-  createComputed,
   createContext,
   createMemo,
-  createSignal,
-  lazy,
-  on,
-  onMount,
   type ParentProps,
-  Suspense,
-  startTransition,
   untrack,
   useContext,
 } from 'solid-js';
+import { LoadingBoundary } from '../LoadingBoundary';
+import {
+  createWritableMemo,
+  getContextProvider,
+  lazyComponent,
+  onMounted,
+  runInTransition,
+} from '../solidCompat';
 import { getLocaleInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 const LazyEditorProvider =
   process.env.INTLAYER_EDITOR_ENABLED !== 'false'
-    ? lazy(() =>
+    ? lazyComponent(() =>
         import('../editor/EditorProvider').then((m) => ({
           default: m.EditorProvider,
         }))
@@ -33,7 +34,7 @@ const LazyEditorProvider =
 
 const LazyAnalyticsProvider =
   process.env.INTLAYER_ANALYTICS_ENABLED !== 'false'
-    ? lazy(() =>
+    ? lazyComponent(() =>
         import('../analytics/AnalyticsProvider').then((m) => ({
           default: m.AnalyticsProvider,
         }))
@@ -60,6 +61,8 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: () => getLocaleInStorage() ?? internationalization?.defaultLocale,
   setLocale: () => null,
 });
+
+const IntlayerClientContextProvider = getContextProvider(IntlayerClientContext);
 
 /**
  * Hook that provides the current locale
@@ -101,14 +104,21 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
     internationalization ?? {};
 
-  // Storage is only read when no locale is passed
-  const defaultLocale =
-    props.locale ??
-    getLocaleInStorage() ??
-    props.defaultLocale ??
-    defaultLocaleConfig;
+  // Storage is only read when no locale is passed. Read once on purpose.
+  const defaultLocale = untrack(
+    () =>
+      props.locale ??
+      getLocaleInStorage() ??
+      props.defaultLocale ??
+      defaultLocaleConfig
+  );
 
-  const [currentLocale, setCurrentLocale] = createSignal(defaultLocale);
+  // Follows the `locale` prop, and `setLocale` overrides it in between. It is
+  // recomputed in the same propagation as the render effects, so nothing
+  // renders against the previous locale first.
+  const [currentLocale, setCurrentLocale] = createWritableMemo<LocalesValues>(
+    (previousLocale) => props.locale || previousLocale || defaultLocale
+  );
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale().toString() === newLocale.toString()) return;
@@ -119,9 +129,9 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
     }
 
     // A transition keeps the current content on screen while dynamic
-    // dictionaries of the new locale load, rather than showing the Suspense
-    // fallback — the same way a router navigation does.
-    startTransition(() => setCurrentLocale(newLocale));
+    // dictionaries of the new locale load, rather than showing the loading
+    // boundary fallback — the same way a router navigation does.
+    runInTransition(() => setCurrentLocale(newLocale));
     setLocaleInStorage(newLocale, props.isCookieEnabled); // Optionally set cookie for persistence
   };
 
@@ -130,26 +140,12 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   // Use createMemo for derived reactive values
   const locale = createMemo(() => localeResolver(currentLocale()));
 
-  // Computed, not effect: it applies the prop in the same propagation as the
-  // render effects, so nothing renders against the previous locale first.
-  createComputed(
-    on(
-      () => props.locale,
-      (newPropLocale) => {
-        if (newPropLocale && newPropLocale !== untrack(currentLocale)) {
-          setCurrentLocale(newPropLocale);
-        }
-      },
-      { defer: true }
-    )
-  );
-
-  onMount(() => {
+  onMounted(() => {
     setIntlayerIdentifier();
   });
 
   return (
-    <IntlayerClientContext.Provider
+    <IntlayerClientContextProvider
       value={{
         locale,
         setLocale,
@@ -158,7 +154,7 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
       }}
     >
       {props.children}
-    </IntlayerClientContext.Provider>
+    </IntlayerClientContextProvider>
   );
 };
 
@@ -185,15 +181,15 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
 export const IntlayerProvider: Component<IntlayerProviderProps> = (props) => (
   <IntlayerProviderContent {...props}>
     {process.env.INTLAYER_EDITOR_ENABLED !== 'false' && LazyEditorProvider && (
-      <Suspense>
+      <LoadingBoundary>
         <LazyEditorProvider />
-      </Suspense>
+      </LoadingBoundary>
     )}
     {process.env.INTLAYER_ANALYTICS_ENABLED !== 'false' &&
       LazyAnalyticsProvider && (
-        <Suspense>
+        <LoadingBoundary>
           <LazyAnalyticsProvider />
-        </Suspense>
+        </LoadingBoundary>
       )}
     {props.children}
   </IntlayerProviderContent>

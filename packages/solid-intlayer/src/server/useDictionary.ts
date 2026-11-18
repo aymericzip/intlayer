@@ -7,8 +7,8 @@ import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { createResource } from 'solid-js';
 import { useDictionary as useDictionaryClient } from '../client/useDictionary';
+import { createAsyncValue, trackAsyncValue } from '../solidCompat';
 
 /**
  * Server-rendering counterpart of `useDictionaryDynamic`, emitted by the
@@ -19,13 +19,13 @@ import { useDictionary as useDictionaryClient } from '../client/useDictionary';
  * (`{ item }`, `{ variant }`, optionally with `locale`),
  * forwarded to the client `useDictionary`.
  *
- * The discarded `createResource` is load-bearing: Solid assigns hydration
- * ids from a positional counter shared by resources and element `data-hk`
- * keys, and the client bundle consumes one resource slot per call (see
- * `useLoadDynamic`) — without the matching slot here, every subsequent
+ * The discarded async value is load-bearing: Solid assigns hydration ids from
+ * a positional counter shared by async primitives and element `data-hk` keys,
+ * and the client bundle creates the same primitives per call (see
+ * `useLoadDynamic`) — without the matching slots here, every subsequent
  * hydration key shifts and event bindings are silently lost.
- * `ssrLoadFrom: 'initial'` keeps the dictionary out of the SSR serialization
- * payload, so it is not shipped twice in the HTML.
+ * `ssrLoadFrom: 'initial'` keeps the dictionary out of the Solid 1 SSR
+ * serialization payload, so it is not shipped twice in the HTML.
  */
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
@@ -35,10 +35,13 @@ export const useDictionary = <
   dictionary: T,
   localeOrSelector?: A
 ) => {
-  createResource(() => dictionary, {
-    initialValue: dictionary,
-    ssrLoadFrom: 'initial',
-  });
+  const serverValue = createAsyncValue(
+    () => dictionary,
+    (resolvedDictionary) => resolvedDictionary,
+    { initialValue: dictionary, ssrLoadFrom: 'initial' }
+  );
+
+  trackAsyncValue(serverValue);
 
   return useDictionaryClient(dictionary, localeOrSelector);
 };

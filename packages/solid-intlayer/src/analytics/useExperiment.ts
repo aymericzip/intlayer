@@ -1,5 +1,6 @@
 import { isEnabled } from '@intlayer/analytics/isEnabled';
-import { type Accessor, createSignal, onCleanup, onMount } from 'solid-js';
+import { type Accessor, createSignal, onCleanup } from 'solid-js';
+import { onMounted } from '../solidCompat';
 
 /**
  * The state of an A/B experiment for the current session.
@@ -49,7 +50,7 @@ export const useExperiment = (
   let cancelled = false;
   let initialized = false;
 
-  onMount(() => {
+  onMounted(() => {
     if (process.env.INTLAYER_ANALYTICS_ENABLED === 'false' || !isEnabled) {
       return;
     }

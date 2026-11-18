@@ -9,19 +9,22 @@ let resourceValue: unknown;
 let latestResourceSource: (() => unknown) | undefined;
 let latestResourceFetcher: ((source: unknown) => unknown) | undefined;
 
-vi.mock('solid-js', () => ({
-  createResource: <TValue, TSource>(
+vi.mock('../solidCompat', () => ({
+  createAsyncValue: <TSource, TValue>(
     source: ResourceSource<TSource>,
     fetcher: ResourceFetcher<TSource, TValue>
   ) => {
     latestResourceSource = typeof source === 'function' ? source : () => source;
     latestResourceFetcher = fetcher as (source: unknown) => unknown;
 
-    return [() => resourceValue as TValue | undefined] as const;
+    return () => resourceValue as TValue | undefined;
   },
-  // `useLoadDynamic` reads the resource in a render effect to trigger Suspense;
-  // the effect runner is a no-op here.
-  createRenderEffect: () => undefined,
+  // `useLoadDynamic` tracks the value to hold the loading boundary; the
+  // effect runner is a no-op here.
+  trackAsyncValue: () => undefined,
+}));
+
+vi.mock('solid-js', () => ({
   // No tracking scope exists in these unit tests, so `untrack` just invokes.
   untrack: <TResult>(fn: () => TResult): TResult => fn(),
 }));

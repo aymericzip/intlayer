@@ -6,13 +6,13 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type Component,
   createMemo,
-  createResource,
   type JSX,
-  Suspense,
   useContext,
   type ValidComponent,
 } from 'solid-js';
 import type { HTMLComponents } from '../html/types';
+import { LoadingBoundary } from '../LoadingBoundary';
+import { createAsyncValue } from '../solidCompat';
 import { compileMarkdown, type ParsedMarkdown } from './compiler';
 import { MarkdownContext, useMarkdown } from './MarkdownProvider';
 
@@ -62,7 +62,7 @@ export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {
   const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
 
-  const [rendered] = createResource(
+  const rendered = createAsyncValue(
     () =>
       [
         props.children,
@@ -88,7 +88,7 @@ export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {
       )
   );
 
-  return <Suspense>{rendered()}</Suspense>;
+  return <LoadingBoundary>{rendered()}</LoadingBoundary>;
 };
 
 export type MarkdownMetadataRendererProps = MarkdownRendererProps & {

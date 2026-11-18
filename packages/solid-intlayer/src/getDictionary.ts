@@ -1,4 +1,7 @@
-import { getDictionary as getDictionaryCore } from '@intlayer/core/interpreter';
+import {
+  getDictionary as getDictionaryCore,
+  type Plugins,
+} from '@intlayer/core/interpreter';
 import type {
   Dictionary,
   DictionarySelectorForGroup,
@@ -16,6 +19,9 @@ import { type DeepTransformContent, getPlugins } from './plugins';
  * Transforms a dictionary (or qualified dictionary group) and returns its
  * content for the given locale or selector (`{ item }`, `{ variant }`,
  * optionally combined with `locale`).
+ *
+ * `getPluginsForLocale` picks the plugin set; transforms are cached per plugin
+ * set, so a dedicated set keeps the result from being shared.
  */
 export const getDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
@@ -23,7 +29,8 @@ export const getDictionary = <
     DeclaredLocales,
 >(
   dictionary: T,
-  localeOrSelector?: A
+  localeOrSelector?: A,
+  getPluginsForLocale: (locale?: LocalesValues) => Plugins[] = getPlugins
 ): DeepTransformContent<
   ResolveQualifiedDictionaryContent<T, A>,
   ExtractSelectorLocale<A>
@@ -37,6 +44,6 @@ export const getDictionary = <
   return getDictionaryCore(
     dictionary,
     localeOrSelector,
-    getPlugins(locale)
+    getPluginsForLocale(locale)
   ) as any;
 };

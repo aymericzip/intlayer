@@ -1,5 +1,5 @@
 import type { HTMLTag, MarkdownRuntime } from '@intlayer/core/markdown';
-import { createComponent, Dynamic } from 'solid-js/web';
+import { createComponent } from 'solid-js';
 
 /**
  * Solid-specific runtime for the markdown processor.
@@ -8,22 +8,19 @@ import { createComponent, Dynamic } from 'solid-js/web';
 export const solidRuntime: MarkdownRuntime = {
   /**
    * Creates a Solid JSX Element.
-   * Uses Solid's Dynamic component for element creation.
+   * Uses Solid's `Dynamic` built-in, auto-imported by the JSX compiler.
    */
   createElement: (
     type: any,
     props: Record<string, any> | null,
     ...children: any[]
   ): any => {
-    return createComponent(Dynamic, {
-      get component() {
-        return type;
-      },
-      ...props,
-      get children() {
-        return children.length === 1 ? children[0] : children;
-      },
-    });
+    return (
+      // oxlint-disable-next-line react/jsx-no-undef -- compiler built-in, auto-imported per Solid version
+      <Dynamic component={type} {...(props ?? {})}>
+        {children.length === 1 ? children[0] : children}
+      </Dynamic>
+    );
   },
 
   /**

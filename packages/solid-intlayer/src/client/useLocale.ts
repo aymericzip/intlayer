@@ -3,7 +3,8 @@ import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { type Accessor, createEffect, on, useContext } from 'solid-js';
+import { type Accessor, useContext } from 'solid-js';
+import { createChangeEffect } from '../solidCompat';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
@@ -65,16 +66,13 @@ export const useLocale = ({
   };
 
   // Trigger onLocaleChange only when locale CHANGES (skip initial value)
-  createEffect(
-    on(
-      () => context?.locale?.(),
-      (currentLocale) => {
-        if (onLocaleChange && currentLocale !== undefined) {
-          onLocaleChange(currentLocale as DeclaredLocales);
-        }
-      },
-      { defer: true }
-    )
+  createChangeEffect(
+    () => context?.locale?.(),
+    (currentLocale) => {
+      if (onLocaleChange && currentLocale !== undefined) {
+        onLocaleChange(currentLocale as DeclaredLocales);
+      }
+    }
   );
 
   return {

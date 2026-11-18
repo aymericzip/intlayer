@@ -1,7 +1,7 @@
 import { routing } from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
-import { createEffect } from 'solid-js';
+import { createWatchEffect } from '../solidCompat';
 import { useLocale } from './useLocale';
 
 /**
@@ -12,10 +12,9 @@ export const useRewriteURL = (): void => {
   const { locale } = useLocale();
   const rewrite = routing?.rewrite;
 
-  createEffect(() => {
+  createWatchEffect(locale, (loc) => {
     if (typeof window === 'undefined' || !rewrite) return;
 
-    const loc = locale();
     const pathname = window.location.pathname;
     const targetPath = getRewritePath(pathname, loc as Locale, rewrite);
 

@@ -129,6 +129,54 @@ export const writeTransformCache = <Content>(
   if (entries.size >= MAX_ENTRIES_PER_DICTIONARY) entries.clear();
 
   entries.set(cacheKey, content);
+  activeWriteCollector?.push({ dictionary, cacheKey, content });
 
   return content;
+};
+
+/** One entry stored by {@link writeTransformCache}. */
+export type TransformCacheWrite = {
+  dictionary: object;
+  cacheKey: string;
+  content: unknown;
+};
+
+/** Receives the writes made while {@link collectTransformCacheWrites} runs. */
+let activeWriteCollector: TransformCacheWrite[] | null = null;
+
+/**
+ * Runs `run` and reports every transform-cache entry it wrote, nested
+ * dictionaries included.
+ *
+ * Frameworks whose transformed content holds owned, disposable elements
+ * (Solid) use it to forget those entries once the scope that built the
+ * elements is disposed — see {@link deleteTransformCacheWrites}.
+ */
+export const collectTransformCacheWrites = <Result>(
+  run: () => Result
+): { result: Result; writes: TransformCacheWrite[] } => {
+  const previousCollector = activeWriteCollector;
+  const writes: TransformCacheWrite[] = [];
+
+  activeWriteCollector = writes;
+
+  try {
+    return { result: run(), writes };
+  } finally {
+    activeWriteCollector = previousCollector;
+  }
+};
+
+/**
+ * Removes entries reported by {@link collectTransformCacheWrites}. An entry
+ * rewritten since then holds other content and is kept.
+ */
+export const deleteTransformCacheWrites = (
+  writes: readonly TransformCacheWrite[]
+): void => {
+  for (const { dictionary, cacheKey, content } of writes) {
+    const entries = transformCache.get(dictionary);
+
+    if (entries?.get(cacheKey) === content) entries.delete(cacheKey);
+  }
 };

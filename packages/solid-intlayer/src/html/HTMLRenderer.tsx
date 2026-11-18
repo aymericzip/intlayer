@@ -2,7 +2,6 @@ import { getHTML } from '@intlayer/core/interpreter';
 import { VOID_HTML_ELEMENTS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { Component, JSX, ValidComponent } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 import { useHTMLContext } from './HTMLProvider';
 import type { HTMLComponents } from './types';
 
@@ -31,6 +30,7 @@ export const renderHTML = (
       .map(([key, Component]) => [
         key,
         (props: any) => (
+          // oxlint-disable-next-line react/jsx-no-undef -- compiler built-in, auto-imported per Solid version
           <Dynamic component={Component as ValidComponent} {...props} />
         ),
       ])
@@ -47,10 +47,12 @@ export const renderHTML = (
         if (VOID_HTML_ELEMENTS.has(prop)) {
           // Void elements cannot have children — strip them to avoid render error
           return ({ children: _children, ...rest }: any) => (
+            // oxlint-disable-next-line react/jsx-no-undef -- compiler built-in, auto-imported per Solid version
             <Dynamic component={prop as ValidComponent} {...rest} />
           );
         }
         return (props: any) => (
+          // oxlint-disable-next-line react/jsx-no-undef -- compiler built-in, auto-imported per Solid version
           <Dynamic component={prop as ValidComponent} {...props} />
         );
       }
