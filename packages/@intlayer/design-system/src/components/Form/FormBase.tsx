@@ -63,19 +63,26 @@ const FormContext = createContext<AnyFormInstance | null>(null);
 export const useFormContext = (): AnyFormInstance | null =>
   useContext(FormContext);
 
+const subscribeToNothing = () => () => {};
+
 /**
- * Subscribes to a slice of the form state. The selector must return a stable
- * value (primitive or stored reference) to avoid re-rendering on every change.
+ * Subscribes to a slice of the form state, or returns `fallback` without a form.
+ * The selector must return a stable value (primitive or stored reference).
  */
 export const useFormSelector = <TValues, TSelected>(
-  form: FormInstance<TValues>,
-  selector: (state: FormState<TValues>) => TSelected
-): TSelected =>
-  useSyncExternalStore(
-    form.subscribe,
-    () => selector(form.getState()),
-    () => selector(form.getState())
+  form: FormInstance<TValues> | null,
+  selector: (state: FormState<TValues>) => TSelected,
+  fallback?: TSelected
+): TSelected => {
+  const getSnapshot = () =>
+    form ? selector(form.getState()) : (fallback as TSelected);
+
+  return useSyncExternalStore(
+    form?.subscribe ?? subscribeToNothing,
+    getSnapshot,
+    getSnapshot
   );
+};
 
 /**
  * Re-renders when the watched value changes. Without `name`, watches every value.
@@ -102,17 +109,38 @@ export const useWatch: {
 };
 
 /**
- * Creates a form bound to a zod schema.
+ * Submit status of `form`, or of the closest `<Form>` when omitted.
+ * Submit `FormButton`s already show it, so most forms never need this.
+ */
+export const useFormState = <TValues,>(form?: FormInstance<TValues>) => {
+  const contextForm = useFormContext();
+  const control: AnyFormInstance | null =
+    (form as AnyFormInstance | undefined) ?? contextForm;
+
+  return {
+    isSubmitting: useFormSelector(
+      control,
+      (state) => state.isSubmitting,
+      false
+    ),
+    isSubmitted: useFormSelector(control, (state) => state.isSubmitted, false),
+    isValid: useFormSelector(control, (state) => state.isValid, false),
+  };
+};
+
+/**
+ * Creates a form bound to a zod schema. The calling component does not
+ * re-render on form changes; read state with `useWatch` / `useFormState`.
  *
  * ```tsx
- * const { form, isSubmitting } = useForm(Schema, { defaultValues });
+ * const form = useForm(Schema, { defaultValues });
  * <Form form={form} onSubmitSuccess={save}>…</Form>
  * ```
  */
 export const useForm = <TSchema extends z.ZodMiniType>(
   schema: TSchema,
   options?: FormOptions<z.output<TSchema>>
-) => {
+): FormInstance<z.output<TSchema>> => {
   const [form] = useState(() =>
     createFormInstance<z.output<TSchema>>(
       schema as z.ZodMiniType<z.output<TSchema>>,
@@ -120,11 +148,7 @@ export const useForm = <TSchema extends z.ZodMiniType>(
     )
   );
 
-  const isSubmitting = useFormSelector(form, (state) => state.isSubmitting);
-  const isSubmitted = useFormSelector(form, (state) => state.isSubmitted);
-  const isValid = useFormSelector(form, (state) => state.isValid);
-
-  return { form, isSubmitting, isSubmitted, isValid };
+  return form;
 };
 
 type FormProps<TValues> = Omit<
@@ -133,9 +157,9 @@ type FormProps<TValues> = Omit<
 > &
   FormWebMCPProps & {
     form: FormInstance<TValues>;
-    onSubmit?: (data: TValues) => unknown;
+    /** Called with the parsed values once the schema validates. */
     onSubmitSuccess?: (data: TValues) => unknown;
-    /** Receives what `onSubmit` / `onSubmitSuccess` threw. */
+    /** Receives what `onSubmitSuccess` threw. */
     onSubmitError?: (error: Error) => unknown;
     autoComplete?: boolean;
   };
@@ -162,7 +186,7 @@ const focusNextFieldOnEnter = (event: KeyboardEvent<HTMLFormElement>) => {
  * Form bound to a {@link useForm} control.
  *
  * ```tsx
- * const { form } = useForm(Schema);
+ * const form = useForm(Schema);
  * <Form form={form} onSubmitSuccess={save} autoComplete>
  *   <FormInput name="name" label="Name" />
  *   <FormButton type="submit" label="Submit">Submit</FormButton>
@@ -171,7 +195,6 @@ const focusNextFieldOnEnter = (event: KeyboardEvent<HTMLFormElement>) => {
  */
 export const Form = <TValues,>({
   form,
-  onSubmit,
   onSubmitSuccess,
   onSubmitError,
   className,
@@ -183,7 +206,6 @@ export const Form = <TValues,>({
 }: FormProps<TValues>) => {
   const submit = form.handleSubmit(async (data) => {
     try {
-      await onSubmit?.(data);
       await onSubmitSuccess?.(data);
     } catch (error) {
       if (!onSubmitError) throw error;

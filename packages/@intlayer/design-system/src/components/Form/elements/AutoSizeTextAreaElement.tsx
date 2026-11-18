@@ -12,11 +12,4 @@ type AutoSizedTextAreaElementsProps = Omit<
 
 export const AutoSizedTextAreaElement: FC<AutoSizedTextAreaElementsProps> = (
   props
-) => (
-  <FormElement
-    Element={AutoSizedTextArea}
-    id={props.name}
-    data-testid={props.name}
-    {...props}
-  />
-);
+) => <FormElement Element={AutoSizedTextArea} {...props} />;

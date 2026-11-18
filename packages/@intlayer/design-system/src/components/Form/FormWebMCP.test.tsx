@@ -7,7 +7,7 @@ import { Form, FormInput, getFormWebMCPAttributes, useForm } from './index';
 const schema = z.object({ email: z.string() });
 
 const NewsletterForm: FC<{ autoSubmit?: boolean }> = ({ autoSubmit }) => {
-  const { form } = useForm(schema);
+  const form = useForm(schema);
 
   return (
     <Form

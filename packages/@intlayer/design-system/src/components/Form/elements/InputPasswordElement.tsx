@@ -15,17 +15,9 @@ type InputPasswordElementProps = Omit<
     'aria-label' | 'aria-labelledby'
   >;
 
-export const InputPasswordElement: FC<InputPasswordElementProps> = ({
-  autoComplete,
-  ...props
-}) => (
+export const InputPasswordElement: FC<InputPasswordElementProps> = (props) => (
   <FormElement
     Element={InputPassword}
-    id={props.name}
-    data-testid={props.name}
-    aria-labelledby={props.label ? `${props.name}-label` : undefined}
-    aria-label={props.label ? undefined : props.name}
-    autoComplete={autoComplete}
     minLength={6}
     maxLength={255}
     {...props}

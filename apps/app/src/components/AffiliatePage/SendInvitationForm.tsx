@@ -21,7 +21,7 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
 }) => {
   const content = useIntlayer('send-invitation-form');
   const schema = useSendInvitationFormSchema();
-  const { form, isSubmitting } = useForm(schema, {
+  const form = useForm(schema, {
     defaultValues: { commissionRate: 10 },
   });
   const { mutateAsync: sendInvitation, isPending } =
@@ -61,8 +61,8 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
       <FormButton
         type="submit"
         color="text"
-        isLoading={isSubmitting || isPending}
-        disabled={isSubmitting || isPending}
+        isLoading={isPending}
+        disabled={isPending}
         label={content.sendInvitationLabel.value}
         className="mt-2 w-full"
       >

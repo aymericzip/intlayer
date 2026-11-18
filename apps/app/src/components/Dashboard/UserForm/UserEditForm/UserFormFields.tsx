@@ -1,5 +1,5 @@
 import { Badge } from '@intlayer/design-system/badge';
-import { Form, FormInput, FormMultiSelect } from '@intlayer/design-system/form';
+import { FormInput, FormMultiSelect } from '@intlayer/design-system/form';
 import { MultiSelect } from '@intlayer/design-system/select';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

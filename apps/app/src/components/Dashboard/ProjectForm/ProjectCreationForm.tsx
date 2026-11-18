@@ -20,7 +20,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
   const ProjectSchema = useProjectSchema();
   const { mutate: addProject, isPending } = useAddProject();
   const { mutate: selectProject } = useSelectProject();
-  const { form, isSubmitting } = useForm(ProjectSchema);
+  const form = useForm(ProjectSchema);
   const { nameInput, createProjectButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = (data: ProjectFormData) =>
@@ -50,7 +50,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
         className="mt-4 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting || isPending}
+        isLoading={isPending}
         label={createProjectButton.ariaLabel.value}
       >
         {createProjectButton.text}

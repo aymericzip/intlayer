@@ -14,12 +14,5 @@ type TextAreaElementsProps = Omit<
   >;
 
 export const TextAreaElement: FC<TextAreaElementsProps> = (props) => (
-  <FormElement
-    Element={TextArea}
-    id={props.name}
-    aria-labelledby={props.label ? `${props.name}-label` : undefined}
-    aria-label={props.label ? undefined : props.name}
-    data-testid={props.name}
-    {...props}
-  />
+  <FormElement Element={TextArea} {...props} />
 );

@@ -1,10 +1,8 @@
 import { Button } from '@intlayer/design-system/button';
-import { useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useOrganizationSchema } from './useOrganizationFormSchema';
 
 type NoOrganizationViewProps = {
   onClickCreateOrganization: () => void;
@@ -13,8 +11,6 @@ type NoOrganizationViewProps = {
 export const NoOrganizationView: FC<NoOrganizationViewProps> = ({
   onClickCreateOrganization,
 }) => {
-  const OrganizationSchema = useOrganizationSchema();
-  const { isSubmitting } = useForm(OrganizationSchema);
   const {
     createOrganizationButton,
     createOrganizationTitle,
@@ -29,7 +25,6 @@ export const NoOrganizationView: FC<NoOrganizationViewProps> = ({
       </span>
       <Button
         color="text"
-        isLoading={isSubmitting}
         label={createOrganizationButton.ariaLabel.value}
         isFullWidth={false}
         variant="outline"

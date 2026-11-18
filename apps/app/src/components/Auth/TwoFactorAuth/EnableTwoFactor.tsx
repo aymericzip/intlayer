@@ -10,6 +10,7 @@ import {
   FormInputPassword,
   FormOTP,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
@@ -43,11 +44,12 @@ export const EnableTwoFactor: FC = () => {
   );
 
   const TwoFactorAuthSchema = useTwoFactorAuthSchema();
-  const { form, isSubmitting } = useForm(TwoFactorAuthSchema, {
+  const form = useForm(TwoFactorAuthSchema, {
     defaultValues: {
       password: '',
     },
   });
+  const { isSubmitting } = useFormState(form);
 
   const isModalOpen = modalType !== null;
 
@@ -157,8 +159,8 @@ export const EnableTwoFactor: FC = () => {
               <FormButton
                 type="submit"
                 color="text"
-                isLoading={isEnablingTwoFactor || isSubmitting}
-                disabled={isEnablingTwoFactor || isSubmitting}
+                isLoading={isEnablingTwoFactor}
+                disabled={isEnablingTwoFactor}
                 label={modal.confirmButton.value}
                 className="flex-1"
               >
@@ -214,7 +216,7 @@ const QRCodeVerification: FC<{
 }> = ({ data, onVerify, isVerifying }) => {
   const { qrCode } = useIntlayer('two-factor-auth');
   const TwoFactorAuthOTPSchema = useTwoFactorAuthOTPSchema();
-  const { form } = useForm(TwoFactorAuthOTPSchema);
+  const form = useForm(TwoFactorAuthOTPSchema);
 
   const handleSubmit = (data: TwoFactorAuthOTPSchema) => {
     onVerify(data.code);

@@ -4,6 +4,7 @@ import {
   FormButton,
   FormInput,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
@@ -27,9 +28,10 @@ export const RegisterStepForm: FC = () => {
 
   const defaultValues = { ...formData, email: user?.email ?? formData?.email };
 
-  const { form, isSubmitting } = useForm(RegisterSchema, {
+  const form = useForm(RegisterSchema, {
     defaultValues,
   });
+  const { isSubmitting } = useFormState(form);
   const navigate = useLocalizedNavigate();
 
   const onClickToSignIn = () =>

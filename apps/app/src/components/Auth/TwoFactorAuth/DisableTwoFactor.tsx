@@ -5,6 +5,7 @@ import {
   FormButton,
   FormInputPassword,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
@@ -23,7 +24,8 @@ export const DisableTwoFactor: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const TwoFactorAuthSchema = useTwoFactorAuthSchema();
-  const { form, isSubmitting } = useForm(TwoFactorAuthSchema);
+  const form = useForm(TwoFactorAuthSchema);
+  const { isSubmitting } = useFormState(form);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -105,8 +107,8 @@ export const DisableTwoFactor: FC = () => {
                 <FormButton
                   type="submit"
                   color="text"
-                  isLoading={isDisablingTwoFactor || isSubmitting}
-                  disabled={isDisablingTwoFactor || isSubmitting}
+                  isLoading={isDisablingTwoFactor}
+                  disabled={isDisablingTwoFactor}
                   label={modal.confirmButton.value}
                   className="flex-1"
                 >

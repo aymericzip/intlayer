@@ -3,6 +3,7 @@ import {
   FormAutoSizedTextArea,
   FormButton,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowUp, Eraser } from 'lucide-react';
@@ -40,7 +41,8 @@ export const FormSection: FC<FormSectionProps> = ({
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const schema = useFormSectionSchema();
-  const { form, isSubmitting } = useForm(schema);
+  const form = useForm(schema);
+  const { isSubmitting } = useFormState(form);
   const { sendQuestionButton, clearButton, textArea } =
     useIntlayer('chat-form-section');
   const historyIndexRef = useRef<number>(-1);
@@ -175,7 +177,7 @@ export const FormSection: FC<FormSectionProps> = ({
           label={sendQuestionButton.label.value}
           type="submit"
           color="text"
-          isLoading={isSubmitting || isLoading}
+          isLoading={isLoading}
           Icon={ArrowUp}
           size="icon-md"
         />

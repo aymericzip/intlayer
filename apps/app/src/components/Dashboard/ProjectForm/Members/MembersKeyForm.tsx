@@ -367,7 +367,7 @@ export const MembersForm: FC = () => {
   const { session } = useSession();
   const { organization, project } = session ?? {};
   const MembersFormSchema = useProjectMembersSchema();
-  const { form, isSubmitting } = useForm(MembersFormSchema, {
+  const form = useForm(MembersFormSchema, {
     defaultValues: {
       membersIds: project?.membersIds.map((el) => String(el)) ?? [],
       adminsIds: project?.adminsIds?.map((el) => String(el)) ?? [],
@@ -534,8 +534,7 @@ export const MembersForm: FC = () => {
               className="w-full"
               type="submit"
               color="text"
-              disabled={isSubmitting || isLoadingUsers}
-              isLoading={isSubmitting}
+              disabled={isLoadingUsers}
               label={addMembersButton.label.value}
               onClick={() => null}
             >

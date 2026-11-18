@@ -26,14 +26,11 @@ type DictionaryCreationFormProps = {
   onDictionaryCreated?: () => void;
 };
 
-/**
- * Inner component rendered inside Form's FormProvider context so useWatch works.
- */
+/** Rendered inside `<Form>` so `useWatch` reads its context. */
 const DictionaryCreationFormFields: FC<{
-  isSubmitting: boolean;
   isPending: boolean;
   projectsData: ReturnType<typeof useGetProjects>['data'];
-}> = ({ isSubmitting, isPending, projectsData }) => {
+}> = ({ isPending, projectsData }) => {
   const {
     keyInput,
     createDictionaryButton,
@@ -139,7 +136,7 @@ const DictionaryCreationFormFields: FC<{
         className="ms-auto mt-12"
         type="submit"
         color="text"
-        isLoading={isSubmitting || isPending}
+        isLoading={isPending}
         label={createDictionaryButton.ariaLabel.value}
         isFullWidth
       >
@@ -157,7 +154,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   const { mutate: addDictionary, isPending } = useAddDictionary();
   const { data: projectsData } = useGetProjects();
   const DictionarySchema = useDictionarySchema(String(project?.id));
-  const { form, isSubmitting } = useForm(DictionarySchema, {
+  const form = useForm(DictionarySchema, {
     defaultValues: {
       projectIds: [project?.id],
       qualifierType: 'none',
@@ -195,7 +192,6 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       form={form}
     >
       <DictionaryCreationFormFields
-        isSubmitting={isSubmitting}
         isPending={isPending}
         projectsData={projectsData}
       />

@@ -1,6 +1,9 @@
+import {
+  CommandPrimitiveEmpty,
+  CommandPrimitiveItem,
+} from '@components/Command/CommandPrimitive';
 import type { Editor, Range } from '@tiptap/core';
 import { useCurrentEditor } from '@tiptap/react';
-import { CommandEmpty, CommandItem } from 'cmdk';
 import type { ComponentPropsWithoutRef, FC, Ref } from 'react';
 import { useRange } from '../utils/atoms';
 
@@ -16,7 +19,7 @@ interface EditorCommandItemProps {
 
 export const EditorCommandItem: FC<
   EditorCommandItemProps &
-    ComponentPropsWithoutRef<typeof CommandItem> & {
+    ComponentPropsWithoutRef<typeof CommandPrimitiveItem> & {
       readonly ref?: Ref<HTMLDivElement>;
     }
 > = ({ children, onCommand, ref, ...rest }) => {
@@ -26,16 +29,16 @@ export const EditorCommandItem: FC<
   if (!editor || !range) return null;
 
   return (
-    <CommandItem
+    <CommandPrimitiveItem
       ref={ref}
       {...rest}
       onSelect={() => onCommand({ editor, range })}
     >
       {children}
-    </CommandItem>
+    </CommandPrimitiveItem>
   );
 };
 
-export const EditorCommandEmpty = CommandEmpty;
+export const EditorCommandEmpty = CommandPrimitiveEmpty;
 
 export default EditorCommandItem;

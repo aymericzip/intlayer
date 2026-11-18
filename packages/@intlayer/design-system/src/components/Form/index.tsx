@@ -1,4 +1,4 @@
-export { Button as FormButton } from '../Button';
+export { FormButton } from './FormButton';
 export { AutoSizedTextAreaElement as FormAutoSizedTextArea } from './elements/AutoSizeTextAreaElement';
 export { CheckboxElement as FormCheckbox } from './elements/CheckboxElement';
 export { EditableFieldInputElement as FormEditableFieldInput } from './elements/EditableFieldInputElement';
@@ -18,6 +18,7 @@ export {
   getFormWebMCPAttributes,
   useForm,
   useFormContext,
+  useFormState,
   useWatch,
 } from './FormBase';
 export { FormControl } from './FormControl';

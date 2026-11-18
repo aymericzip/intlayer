@@ -152,7 +152,7 @@ export const BuildSettings: FC = () => {
     autoCommitDictionaries: project?.webhooks?.autoCommitDictionaries ?? false,
   };
 
-  const { form } = useForm(buildSettingsSchema, {
+  const form = useForm(buildSettingsSchema, {
     defaultValues,
   });
 

@@ -8,6 +8,7 @@ import {
   FormEditableFieldInput,
   FormEditableFieldTextArea,
   useForm,
+  useFormState,
   useWatch,
 } from '@intlayer/design-system/form';
 import { PopoverStatic } from '@intlayer/design-system/popover';
@@ -33,9 +34,10 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { mutate: auditTag, isPending: isAuditing } = useAuditTag();
   const { mutate: updateTag, isPending: isUpdating } = useUpdateTag();
-  const { form, isSubmitting } = useForm(TagSchema, {
+  const form = useForm(TagSchema, {
     defaultValues: tag,
   });
+  const { isSubmitting } = useFormState(form);
   const {
     keyInput,
     nameInput,
@@ -151,7 +153,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({
                 type="submit"
                 color="text"
                 label={editButton.ariaLabel.value}
-                disabled={isSubmitting || isUpdating}
+                disabled={isUpdating}
                 isLoading={isUpdating}
                 Icon={Save}
               >

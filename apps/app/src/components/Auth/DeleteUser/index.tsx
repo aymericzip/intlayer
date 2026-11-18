@@ -5,6 +5,7 @@ import {
   FormButton,
   FormInput,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { Trash2, TriangleAlert } from 'lucide-react';
@@ -23,11 +24,12 @@ export const DeleteUser: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const DeleteUserSchema = useDeleteUserSchema(user?.email);
-  const { form, isSubmitting } = useForm(DeleteUserSchema, {
+  const form = useForm(DeleteUserSchema, {
     defaultValues: {
       email: '',
     },
   });
+  const { isSubmitting } = useFormState(form);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -125,8 +127,8 @@ export const DeleteUser: FC = () => {
                   type="submit"
                   color="error"
                   variant="outline"
-                  isLoading={isPending || isSubmitting}
-                  disabled={isPending || isSubmitting}
+                  isLoading={isPending}
+                  disabled={isPending}
                   label={modal.confirmButton.value}
                   className="flex-1"
                 >

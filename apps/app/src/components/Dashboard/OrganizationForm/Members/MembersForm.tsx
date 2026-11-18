@@ -31,15 +31,14 @@ export const MembersForm: FC = () => {
   const { organization } = session ?? {};
   const MembersFormSchema = useOrganizationMembersSchema();
   const NewMembersFormSchema = useOrganizationNewMembersSchema();
-  const { form, isSubmitting } = useForm(MembersFormSchema, {
+  const form = useForm(MembersFormSchema, {
     defaultValues: {
       membersIds: organization?.membersIds ?? [],
       adminsIds: organization?.adminsIds ?? [],
     },
   });
 
-  const { form: newUserForm, isSubmitting: IsSubmittingNewUser } =
-    useForm(NewMembersFormSchema);
+  const newUserForm = useForm(NewMembersFormSchema);
   const {
     title,
     description,
@@ -138,7 +137,6 @@ export const MembersForm: FC = () => {
               type="submit"
               color="text"
               size="icon-lg"
-              isLoading={IsSubmittingNewUser}
               label={newMemberSubmitButton.label.value}
               Icon={Plus}
             />
@@ -219,8 +217,7 @@ export const MembersForm: FC = () => {
               className="w-full"
               type="submit"
               color="text"
-              disabled={isLoadingUsers || isSubmitting}
-              isLoading={isSubmitting}
+              disabled={isLoadingUsers}
               label={addMembersButton.label.value}
               onClick={() => null}
             >

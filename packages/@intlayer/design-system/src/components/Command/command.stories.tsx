@@ -13,28 +13,25 @@ import {
   Smile,
   User,
 } from 'lucide-react';
-import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 import { Command, CommandRoot } from './index';
 
 /**
  * Command Component Stories
  *
- * The Command component is a composable command palette built on top of cmdk and Radix UI.
+ * The Command component is a composable command palette built on a lightweight local primitive.
  * It provides a searchable interface for executing commands and displaying structured data.
  *
  * ## Key Features
  * - **Searchable**: Built-in search functionality with fuzzy matching
  * - **Keyboard Navigation**: Full arrow key and enter support
  * - **Composable**: Multiple sub-components for flexible layouts
- * - **Dialog Mode**: Can be used as a modal dialog
  * - **Grouping**: Organize commands into logical groups
  * - **Accessibility**: ARIA compliant with screen reader support
  * - **Shortcuts**: Display keyboard shortcuts for commands
  *
  * ## Sub-components
  * - `Command` (Root): Container for the entire command palette
- * - `Command.Dialog`: Modal dialog wrapper
  * - `Command.Input`: Search input with icon
  * - `Command.List`: Scrollable list container
  * - `Command.Group`: Grouped section with optional heading
@@ -188,89 +185,6 @@ export const Default: Story = {
     // Test keyboard navigation
     await userEvent.keyboard('{ArrowDown}');
     await userEvent.keyboard('{Enter}');
-  },
-};
-
-/**
- * ### Dialog Mode
- *
- * Command palette displayed as a modal dialog, commonly triggered by
- * keyboard shortcuts like Cmd+K in applications.
- */
-export const DialogMode: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
-
-    return (
-      <div>
-        <button
-          onClick={() => setOpen(true)}
-          className="rounded border bg-blue-500 px-4 py-2 text-white"
-        >
-          Trigger Command Palette (Dialog)
-        </button>
-
-        <Command.Dialog open={open} onOpenChange={setOpen}>
-          <Command.Input placeholder="Type a command or search..." />
-          <Command.List>
-            <Command.Empty>No results found.</Command.Empty>
-
-            <Command.Group heading="Quick Actions">
-              <Command.Item>
-                <FileText className="me-2 h-4 w-4" />
-                <span>New Document</span>
-                <Command.Shortcut>⌘N</Command.Shortcut>
-              </Command.Item>
-              <Command.Item>
-                <Plus className="me-2 h-4 w-4" />
-                <span>Create Project</span>
-                <Command.Shortcut>⌘Shift+N</Command.Shortcut>
-              </Command.Item>
-            </Command.Group>
-
-            <Command.Separator />
-
-            <Command.Group heading="Navigation">
-              <Command.Item>
-                <Home className="me-2 h-4 w-4" />
-                <span>Go to Dashboard</span>
-                <Command.Shortcut>⌘D</Command.Shortcut>
-              </Command.Item>
-              <Command.Item>
-                <Mail className="me-2 h-4 w-4" />
-                <span>Open Inbox</span>
-                <Command.Shortcut>⌘I</Command.Shortcut>
-              </Command.Item>
-              <Command.Item>
-                <MessageSquare className="me-2 h-4 w-4" />
-                <span>Messages</span>
-                <Command.Shortcut>⌘M</Command.Shortcut>
-              </Command.Item>
-            </Command.Group>
-          </Command.List>
-        </Command.Dialog>
-      </div>
-    );
-  },
-  play: async ({ canvasElement }) => {
-    // Open the dialog
-
-    const canvas = within(canvasElement);
-    const triggerButton = canvas.getByText('Trigger Command Palette (Dialog)');
-    await userEvent.click(triggerButton);
-
-    await expect(triggerButton).toBeInTheDocument();
-
-    // Dialog should be open by default in this story
-    const searchInput = canvas.getByPlaceholderText(
-      'Type a command or search...'
-    );
-    await expect(searchInput).toBeInTheDocument();
-
-    // Test search within dialog
-    await userEvent.type(searchInput, 'new');
-    const newDocItem = canvas.getByText('New Document');
-    await expect(newDocItem).toBeVisible();
   },
 };
 

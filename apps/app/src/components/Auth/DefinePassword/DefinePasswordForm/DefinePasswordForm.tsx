@@ -3,6 +3,7 @@ import {
   FormButton,
   FormInputPassword,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -24,7 +25,8 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
     useIntlayer('define-password-schema');
   const DefinePasswordSchema = useDefinePasswordSchema();
 
-  const { form, isSubmitting, isValid } = useForm(DefinePasswordSchema);
+  const form = useForm(DefinePasswordSchema);
+  const { isValid } = useFormState(form);
 
   return (
     <Form
@@ -55,7 +57,6 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
         className="mt-4 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting}
         disabled={!isValid}
         label={definePasswordButton.ariaLabel.value}
       >

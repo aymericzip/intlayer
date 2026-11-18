@@ -4,6 +4,7 @@ import {
   FormInput,
   FormInputPassword,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import type { FC } from 'react';
@@ -28,7 +29,8 @@ export const DefinePasswordStepForm: FC = () => {
   const { mutate: register, isPending } = useRegister();
 
   const DefinePasswordSchema = useDefinePasswordSchema();
-  const { form, isSubmitting } = useForm(DefinePasswordSchema);
+  const form = useForm(DefinePasswordSchema);
+  const { isSubmitting } = useFormState(form);
 
   const onSubmitSuccess = async (data: DefinePassword) => {
     if (!registrationFormData) {

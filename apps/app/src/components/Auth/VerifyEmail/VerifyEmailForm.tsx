@@ -30,7 +30,7 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
     useIntlayer('verify-email-form');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { form } = useForm(VerifyEmailSchema, {});
+  const form = useForm(VerifyEmailSchema, {});
 
   const targetedUserId = userId ?? user?.id;
 

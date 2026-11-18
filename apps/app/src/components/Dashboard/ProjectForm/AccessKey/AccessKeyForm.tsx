@@ -254,7 +254,7 @@ export const AccessKeyForm: FC = () => {
     session?.permissions?.includes('project:write') ?? false;
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const AccessKeyFormSchema = getAccessKeySchema();
-  const { form, isSubmitting } = useForm(AccessKeyFormSchema);
+  const form = useForm(AccessKeyFormSchema);
   const {
     title,
     description,
@@ -291,7 +291,6 @@ export const AccessKeyForm: FC = () => {
       <Form
         className="w-full flex-1"
         onSubmitSuccess={() => Promise.resolve()}
-        onSubmitError={() => Promise.resolve()}
         form={form}
       >
         <div className="mb-2 flex items-center gap-2">
@@ -331,7 +330,6 @@ export const AccessKeyForm: FC = () => {
           className="w-full"
           type="submit"
           color="text"
-          isLoading={isSubmitting}
           label={createAccessKey.label.value}
           onClick={() => setIsCreationModalOpen(true)}
           disabled={!hasProjectWritePermission}

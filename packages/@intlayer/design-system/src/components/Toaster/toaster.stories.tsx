@@ -16,7 +16,7 @@ const meta: Meta<typeof Toaster> = {
       description: {
         component: `
 The Toaster component provides a comprehensive notification system with multiple variants, 
-actions, and automatic state management. It's built on Radix UI primitives with full 
+actions, and automatic state management. It's built on local primitives with full 
 accessibility support and smooth animations.
 
 ## Key Features
@@ -165,11 +165,7 @@ export const WithActions: Story = {
           description: 'Could not upload file. Connection timeout.',
           variant: 'error',
           action: (
-            <ToastAction
-              altText="Retry upload"
-              onClick={() => simulateUpload()}
-              color="white"
-            >
+            <ToastAction onClick={() => simulateUpload()} color="white">
               <RefreshCw className="me-2 h-4 w-4" />
               Retry
             </ToastAction>
@@ -194,7 +190,6 @@ export const WithActions: Story = {
         description: 'Your file will be permanently deleted in 5 seconds.',
         action: (
           <ToastAction
-            altText="Undo delete"
             onClick={() => {
               clearTimeout(undoTimer);
               setDeleteStatus('idle');
@@ -311,9 +306,7 @@ export const RealWorldScenarios: Story = {
           title: 'Profile Saved',
           description: 'Your changes have been saved successfully.',
           variant: 'success',
-          action: (
-            <ToastAction altText="View profile">View Profile</ToastAction>
-          ),
+          action: <ToastAction>View Profile</ToastAction>,
         });
       }, 2000);
     };
@@ -325,10 +318,7 @@ export const RealWorldScenarios: Story = {
           'Unable to connect to server. Check your internet connection.',
         variant: 'error',
         action: (
-          <ToastAction
-            altText="Retry connection"
-            onClick={() => simulateNetworkError()}
-          >
+          <ToastAction onClick={() => simulateNetworkError()}>
             <RefreshCw className="me-2 h-4 w-4" />
             Retry
           </ToastAction>

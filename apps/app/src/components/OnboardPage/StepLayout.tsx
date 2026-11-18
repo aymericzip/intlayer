@@ -1,5 +1,5 @@
 import type { ButtonProps } from '@intlayer/design-system/button';
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';

@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  createContext,
-  type ReactNode,
-  useContext,
-  useSyncExternalStore,
-} from 'react';
+import { createContext, type ReactNode, useContext } from 'react';
 import { useFormContext, useFormSelector } from './FormBase';
 import { FormItemContext } from './FormItem';
 import type { AnyFormInstance } from './formStore';
@@ -55,8 +50,6 @@ export const useField = (name: string): FieldBinding => {
   };
 };
 
-const subscribeToNothing = () => () => {};
-
 const FormFieldContext = createContext<string | undefined>(undefined);
 
 type FormFieldProps = {
@@ -81,15 +74,9 @@ export const FormField = (props: FormFieldProps) => (
 export const useFormField = () => {
   const name = useContext(FormFieldContext);
   const { id } = useContext(FormItemContext);
-  const form = useFormContext();
-  const getError = () =>
-    form && name !== undefined ? form.getState().errors[name] : undefined;
-
-  // Labels may render outside a field or a form: there is then no error to track.
-  const error = useSyncExternalStore(
-    form?.subscribe ?? subscribeToNothing,
-    getError,
-    getError
+  // Labels may render outside a field or a form: there is then no error.
+  const error = useFormSelector(useFormContext(), (state) =>
+    name === undefined ? undefined : state.errors[name]
   );
 
   return {

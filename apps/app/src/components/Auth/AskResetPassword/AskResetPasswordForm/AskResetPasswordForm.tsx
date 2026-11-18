@@ -3,6 +3,7 @@ import {
   FormButton,
   FormInput,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import {
   type FC,
@@ -40,10 +41,11 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
     resendInText,
     backToLoginButton,
   } = useIntlayer('ask-reset-password');
-  const { form, isSubmitting, isSubmitted, isValid } = useForm(
-    AskResetPasswordSchema,
-    { mode: 'onChange', defaultValues: { email } }
-  );
+  const form = useForm(AskResetPasswordSchema, {
+    mode: 'onChange',
+    defaultValues: { email },
+  });
+  const { isSubmitted, isValid } = useFormState(form);
 
   // Derive isFrozen from form state instead of using setState in effect
   const isFrozen = !isValid || isSubmitted;
@@ -101,7 +103,6 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
         className="mt-4 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting}
         disabled={!isValid || isFrozen}
         variant={isSubmitted ? 'outline' : 'default'}
         label={sendRecoveryEmailButton.ariaLabel.value}

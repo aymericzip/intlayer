@@ -30,7 +30,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
   });
   const { input, button } = useIntlayer('analyzer-form');
   const urlSchema = useAnalyzerUrlSchema();
-  const { form, isSubmitting } = useForm(urlSchema, {
+  const form = useForm(urlSchema, {
     defaultValues: { url: params.url },
   });
 
@@ -66,7 +66,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
             size="md"
             variant="fade"
             color="custom"
-            isLoading={isSubmitting || loading}
+            isLoading={loading}
             className="w-full rounded-xl px-5 py-2 font-medium"
           >
             {loading ? button.analyzing : button.analyze}

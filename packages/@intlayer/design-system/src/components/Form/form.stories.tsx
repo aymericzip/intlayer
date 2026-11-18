@@ -63,7 +63,7 @@ export const Default: Story = {
       theme: z.enum(['light', 'dark', 'system']),
     });
 
-    const { form } = useForm(Schema, {
+    const form = useForm(Schema, {
       mode: 'onChange',
       defaultValues: {
         name: '',

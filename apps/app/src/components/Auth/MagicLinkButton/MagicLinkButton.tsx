@@ -5,6 +5,7 @@ import {
   FormButton,
   FormInput,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
@@ -31,11 +32,12 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const MagicLinkSchema = useMagicLinkSchema();
-  const { form, isSubmitting } = useForm(MagicLinkSchema, {
+  const form = useForm(MagicLinkSchema, {
     defaultValues: {
       email: email ?? '',
     },
   });
+  const { isSubmitting } = useFormState(form);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -137,8 +139,8 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
                 type="submit"
                 color="text"
                 variant="default"
-                isLoading={isPending || isSubmitting}
-                disabled={isPending || isSubmitting}
+                isLoading={isPending}
+                disabled={isPending}
                 label={modal.sendButton.value}
                 className="flex-1"
               >

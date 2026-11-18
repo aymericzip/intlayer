@@ -92,7 +92,7 @@ const CommentForm: FC<CommentFormProps> = ({
   onCancel,
 }) => {
   const content = useIntlayer('blog-comment-section');
-  const { form, isSubmitting } = useForm(commentSchema);
+  const form = useForm(commentSchema);
 
   const handleSubmit = async (data: CommentFormData) => {
     await postComment(
@@ -151,7 +151,6 @@ const CommentForm: FC<CommentFormProps> = ({
             variant="default"
             color="text"
             size="md"
-            isLoading={isSubmitting}
             label={content.submitComment.value}
           >
             {content.submitComment}

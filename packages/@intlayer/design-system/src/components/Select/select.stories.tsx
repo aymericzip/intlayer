@@ -286,7 +286,7 @@ export const ValidationStates: Story = {
               >
                 <Select.Value placeholder="Select your country" />
               </Select.Trigger>
-              <Select.Content position="item-aligned">
+              <Select.Content>
                 <Select.Item value="us">🇺🇸 United States</Select.Item>
                 <Select.Item value="ca">🇨🇦 Canada</Select.Item>
                 <Select.Item value="uk">🇬🇧 United Kingdom</Select.Item>

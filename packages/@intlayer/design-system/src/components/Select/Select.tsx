@@ -1,177 +1,643 @@
 'use client';
 
-import * as SelectPrimitive from '@radix-ui/react-select';
+import { useControllableState } from '@hooks/useControllableState';
+import { usePresence } from '@hooks/usePresence';
 import { cn } from '@utils/cn';
+import { composeRefs } from '@utils/composeRefs';
+import { getTypeaheadMatch } from '@utils/getTypeaheadMatch';
+import { scheduleFrameTask } from '@utils/scheduleFrameTask';
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronsUpDown,
   ChevronUpIcon,
 } from 'lucide-react';
-import type { ComponentProps, FC } from 'react';
+import {
+  type ComponentProps,
+  type CSSProperties,
+  createContext,
+  type FC,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
+  type RefObject,
+  useContext,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
+import { createPortal } from 'react-dom';
+
+/** Max height of the open list, matching Tailwind `max-h-96`. */
+const MAX_CONTENT_HEIGHT = 384;
+
+/** Margin kept between the list and the viewport edges. */
+const VIEWPORT_PADDING = 8;
+
+/** Typed characters are grouped into one search for this long. */
+const TYPEAHEAD_RESET_DELAY = 1000;
+
+/** Scroll distance per tick while hovering a scroll button. */
+const SCROLL_BUTTON_STEP = 16;
+
+const SCROLL_BUTTON_INTERVAL = 50;
+
+const OPTION_SELECTOR = '[role="option"]:not([data-disabled])';
+
+type Direction = 'ltr' | 'rtl';
+
+type SelectItemRecord = {
+  label: ReactNode;
+  textValue: string;
+  disabled: boolean;
+};
 
 /**
- * Enum for Select content positioning strategies
- *
- * @enum SelectContentPosition
+ * Registry of item labels, read by `Select.Value` and the closed-trigger
+ * typeahead. An external store, so registering items re-renders only readers.
  */
-export type SelectContentPosition = 'popper' | 'item-aligned';
+const createSelectItemStore = () => {
+  const items = new Map<string, SelectItemRecord>();
+  const listeners = new Set<() => void>();
 
-const SelectRoot = SelectPrimitive.Root;
-const SelectGroup = SelectPrimitive.Group;
-const SelectValue = SelectPrimitive.Value;
+  const notify = () => {
+    for (const listener of listeners) listener();
+  };
+
+  return {
+    get: (value: string) => items.get(value),
+    entries: () => [...items.entries()],
+    set: (value: string, record: SelectItemRecord) => {
+      items.set(value, record);
+      notify();
+    },
+    delete: (value: string, record: SelectItemRecord) => {
+      if (items.get(value) !== record) return;
+      items.delete(value);
+      notify();
+    },
+    subscribe: (listener: () => void) => {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
+    },
+  };
+};
+
+type SelectItemStore = ReturnType<typeof createSelectItemStore>;
+
+type SelectContextValue = {
+  value: string | undefined;
+  setValue: (value: string) => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  disabled: boolean;
+  required: boolean;
+  dir?: Direction;
+  contentId: string;
+  triggerRef: RefObject<HTMLButtonElement | null>;
+  itemStore: SelectItemStore;
+};
+
+const SelectContext = createContext<SelectContextValue | null>(null);
+
+const useSelectContext = (): SelectContextValue => {
+  const context = useContext(SelectContext);
+
+  if (!context)
+    throw new Error('Select parts must be rendered inside <Select>');
+
+  return context;
+};
+
+/** Accumulates typed characters into a search that resets after a pause. */
+const useTypeaheadSearch = () => {
+  const searchRef = useRef('');
+  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => () => clearTimeout(resetTimeoutRef.current), []);
+
+  return {
+    hasSearch: () => searchRef.current.length > 0,
+    append: (character: string): string => {
+      searchRef.current += character;
+      clearTimeout(resetTimeoutRef.current);
+      resetTimeoutRef.current = setTimeout(() => {
+        searchRef.current = '';
+      }, TYPEAHEAD_RESET_DELAY);
+
+      return searchRef.current;
+    },
+  };
+};
+
+const isTypeaheadKey = (event: ReactKeyboardEvent): boolean =>
+  event.key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey;
+
+const isEmptyValue = (value: string | undefined): boolean =>
+  value === undefined || value === '';
+
+export type SelectRootProps<TValue extends string = string> = {
+  children?: ReactNode;
+  /** Controlled selected value. */
+  value?: TValue;
+  defaultValue?: TValue;
+  onValueChange?: (value: TValue) => void;
+  /** Controlled open state. */
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  disabled?: boolean;
+  /** Submits the value through a hidden input when set. */
+  name?: string;
+  /** Marks the trigger as required for assistive technologies. */
+  required?: boolean;
+  dir?: Direction;
+};
+
+const SelectRoot = <TValue extends string = string>({
+  children,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
+  open: openProp,
+  defaultOpen = false,
+  onOpenChange,
+  disabled = false,
+  name,
+  required = false,
+  dir,
+}: SelectRootProps<TValue>) => {
+  const [value, setValue] = useControllableState<string | undefined>({
+    value: valueProp,
+    defaultValue,
+    onChange: (nextValue) => {
+      // Item values are the `TValue` options the consumer rendered.
+      if (nextValue !== undefined) onValueChange?.(nextValue as TValue);
+    },
+  });
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [itemStore] = useState(createSelectItemStore);
+  const contentId = useId();
+
+  return (
+    <SelectContext.Provider
+      value={{
+        value,
+        setValue,
+        open,
+        setOpen: (nextOpen) => setOpen(nextOpen && !disabled),
+        disabled,
+        required,
+        dir,
+        contentId,
+        triggerRef,
+        itemStore,
+      }}
+    >
+      {children}
+      {name && <input type="hidden" name={name} value={value ?? ''} />}
+    </SelectContext.Provider>
+  );
+};
+
+/** Groups related items. */
+const SelectGroup: FC<ComponentProps<'div'>> = (props) => (
+  <div role="group" {...props} />
+);
+
+export type SelectValueProps = Omit<ComponentProps<'span'>, 'children'> & {
+  /** Shown while no value is selected. */
+  placeholder?: ReactNode;
+  /** Overrides the selected item's label. */
+  children?: ReactNode;
+};
+
+/** Displays the selected item's label, or the placeholder. */
+const SelectValue: FC<SelectValueProps> = ({
+  placeholder,
+  children,
+  style,
+  ...props
+}) => {
+  const { value, itemStore } = useSelectContext();
+  const label = useSyncExternalStore(
+    itemStore.subscribe,
+    () =>
+      isEmptyValue(value) ? undefined : itemStore.get(value as string)?.label,
+    () => undefined
+  );
+
+  return (
+    <span style={{ pointerEvents: 'none', ...style }} {...props}>
+      {children ?? (isEmptyValue(value) ? placeholder : label)}
+    </span>
+  );
+};
+
+export type SelectTriggerProps = ComponentProps<'button'> & {
+  /** Applies success/error border colors from native validity. */
+  validationStyleEnabled?: boolean;
+};
 
 /**
- * Select trigger button component that displays the current selection and opens the dropdown
- *
- * Features comprehensive styling with validation states, focus management, and accessibility support.
- * Uses design tokens for consistent theming across the application.
- *
- * @param validationStyleEnabled - Enables automatic success/error styling based on form validation state
- * @param className - Additional CSS classes for custom styling
- * @param children - Content to display inside the trigger (typically SelectValue)
+ * Button showing the current value; opens the list on click, Enter, Space or
+ * arrow keys, and selects matching items when typing while closed.
  *
  * @example
- * ```tsx
  * <Select.Trigger validationStyleEnabled>
  *   <Select.Value placeholder="Choose option..." />
  * </Select.Trigger>
- * ```
  */
-const SelectTrigger: FC<
-  ComponentProps<typeof SelectPrimitive.Trigger> & {
-    /**
-     * Enables success/error border styling based on HTML5 validation state
-     * @default false
-     * @example
-     * ```tsx
-     * <Select.Trigger validationStyleEnabled>
-     *   <Select.Value placeholder="Required field" />
-     * </Select.Trigger>
-     * ```
-     */
-    validationStyleEnabled?: boolean;
-  }
-> = ({ validationStyleEnabled = false, className, children, ...props }) => (
-  <SelectPrimitive.Trigger
-    suppressHydrationWarning
-    className={cn(
-      // Base layout and typography
-      'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',
-      'text-base shadow-none outline-none select-text md:text-sm',
+const SelectTrigger: FC<SelectTriggerProps> = ({
+  validationStyleEnabled = false,
+  className,
+  children,
+  ref,
+  onClick,
+  onKeyDown,
+  disabled: disabledProp,
+  ...props
+}) => {
+  const context = useSelectContext();
+  const typeahead = useTypeaheadSearch();
+  const isDisabled = context.disabled || disabledProp;
 
-      // Corner shape
-      'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+  const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    onKeyDown?.(event);
+    if (event.defaultPrevented || context.open) return;
 
-      // Spacing
-      'px-2 py-3 md:py-2',
+    if (
+      isTypeaheadKey(event) &&
+      !(event.key === ' ' && !typeahead.hasSearch())
+    ) {
+      const enabledItems = context.itemStore
+        .entries()
+        .filter(([, record]) => !record.disabled);
+      const matchIndex = getTypeaheadMatch(
+        enabledItems.map(([, record]) => record.textValue),
+        typeahead.append(event.key),
+        enabledItems.findIndex(([itemValue]) => itemValue === context.value)
+      );
 
-      // Background and text
-      'bg-neutral-50 dark:bg-neutral-950',
-      'text-foreground',
+      const matchedValue = enabledItems[matchIndex]?.[0];
+      if (matchedValue !== undefined) context.setValue(matchedValue);
+      return;
+    }
 
-      // Focus ring
-      'ring-0',
-      'focus-visible:outline-none',
-      'focus-visible:ring-3',
-      'focus-visible:ring-neutral-200',
-      'dark:focus-visible:ring-neutral-500',
+    if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+      event.preventDefault();
+      context.setOpen(true);
+    }
+  };
 
-      'focus-visible:ring-offset-white',
-      'dark:focus-visible:ring-offset-neutral-500',
+  return (
+    <button
+      ref={composeRefs(ref, context.triggerRef)}
+      type="button"
+      role="combobox"
+      aria-controls={context.contentId}
+      aria-expanded={context.open}
+      aria-autocomplete="none"
+      aria-required={context.required || undefined}
+      dir={context.dir}
+      disabled={isDisabled}
+      data-state={context.open ? 'open' : 'closed'}
+      data-placeholder={isEmptyValue(context.value) ? '' : undefined}
+      suppressHydrationWarning
+      className={cn(
+        // Base layout and typography
+        'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',
+        'text-base shadow-none outline-none select-text md:text-sm',
 
-      // Remove box-shadow
-      '[box-shadow:none] focus:[box-shadow:none]',
+        // Corner shape
+        'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
 
-      // States
-      'disabled:cursor-not-allowed disabled:opacity-50',
-      'aria-invalid:border-error',
-      '[&>span]:line-clamp-1',
+        // Spacing
+        'px-2 py-3 md:py-2',
 
-      // Validation styles
-      validationStyleEnabled && 'valid:border-success invalid:border-error',
+        // Background and text
+        'bg-neutral-50 dark:bg-neutral-950',
+        'text-foreground',
 
-      className
-    )}
-    {...props}
-  >
-    {children}
-    <SelectPrimitive.Icon asChild>
-      <ChevronsUpDown className="size-4 opacity-50" />
-    </SelectPrimitive.Icon>
-  </SelectPrimitive.Trigger>
-);
+        // Focus ring
+        'ring-0',
+        'focus-visible:outline-none',
+        'focus-visible:ring-3',
+        'focus-visible:ring-neutral-200',
+        'dark:focus-visible:ring-neutral-500',
 
-/**
- * Scroll up button for select content with long lists
- *
- * Automatically appears when content is scrollable upward, providing intuitive navigation
- * for users with large option lists.
- *
- * @param className - Additional CSS classes for custom styling
- */
-const SelectScrollUpButton: FC<
-  ComponentProps<typeof SelectPrimitive.ScrollUpButton>
-> = ({ className, ...props }) => (
-  <SelectPrimitive.ScrollUpButton
-    className={cn(
-      'flex cursor-default items-center justify-center py-1',
-      className
-    )}
-    {...props}
-  >
-    <ChevronUpIcon />
-  </SelectPrimitive.ScrollUpButton>
-);
+        'focus-visible:ring-offset-white',
+        'dark:focus-visible:ring-offset-neutral-500',
 
-/**
- * Scroll down button for select content with long lists
- *
- * Automatically appears when content is scrollable downward, providing clear visual
- * indication of additional options below the current view.
- *
- * @param className - Additional CSS classes for custom styling
- */
-const SelectScrollDownButton: FC<
-  ComponentProps<typeof SelectPrimitive.ScrollDownButton>
-> = ({ className, ...props }) => (
-  <SelectPrimitive.ScrollDownButton
-    className={cn(
-      'flex cursor-default items-center justify-center py-1',
-      className
-    )}
-    {...props}
-  >
-    <ChevronDownIcon />
-  </SelectPrimitive.ScrollDownButton>
-);
+        // Remove box-shadow
+        '[box-shadow:none] focus:[box-shadow:none]',
 
-/**
- * Select dropdown content container with positioning and animation
- *
- * Provides the dropdown interface containing all selectable options. Features smooth
- * animations, flexible positioning strategies, and responsive design for optimal UX.
- *
- * @param position - Positioning strategy for the dropdown content
- * @param className - Additional CSS classes for custom styling
- * @param children - Select items, labels, and separators
- *
- * @example
- * ```tsx
- * <Select.Content position="popper">
- *   <Select.Item value="option1">Option 1</Select.Item>
- *   <Select.Item value="option2">Option 2</Select.Item>
- * </Select.Content>
- * ```
- */
-export const SelectContent: FC<
-  ComponentProps<typeof SelectPrimitive.Content>
-> = ({ className, children, position = 'popper', ...props }) => (
-  <SelectPrimitive.Portal>
-    <SelectPrimitive.Content
+        // States
+        'disabled:cursor-not-allowed disabled:opacity-50',
+        'aria-invalid:border-error',
+        '[&>span]:line-clamp-1',
+
+        // Validation styles
+        validationStyleEnabled && 'valid:border-success invalid:border-error',
+
+        className
+      )}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented) context.setOpen(!context.open);
+      }}
+      onKeyDown={handleKeyDown}
+      {...props}
+    >
+      {children}
+      <ChevronsUpDown aria-hidden className="size-4 opacity-50" />
+    </button>
+  );
+};
+
+type ScrollButtonProps = {
+  direction: 'up' | 'down';
+  viewportRef: RefObject<HTMLDivElement | null>;
+};
+
+/** Scrolls the list while hovered; shown only when there is more to scroll. */
+const SelectScrollButton: FC<ScrollButtonProps> = ({
+  direction,
+  viewportRef,
+}) => {
+  const intervalRef = useRef<ReturnType<typeof setInterval>>(undefined);
+
+  const stopScrolling = () => clearInterval(intervalRef.current);
+
+  useEffect(() => stopScrolling, []);
+
+  const Icon = direction === 'up' ? ChevronUpIcon : ChevronDownIcon;
+
+  return (
+    <div
+      aria-hidden
+      className="flex shrink-0 cursor-default items-center justify-center py-1"
+      onPointerEnter={() => {
+        stopScrolling();
+        intervalRef.current = setInterval(() => {
+          viewportRef.current?.scrollBy({
+            top: direction === 'up' ? -SCROLL_BUTTON_STEP : SCROLL_BUTTON_STEP,
+          });
+        }, SCROLL_BUTTON_INTERVAL);
+      }}
+      onPointerLeave={stopScrolling}
+    >
+      <Icon />
+    </div>
+  );
+};
+
+type ContentPosition = {
+  side: 'top' | 'bottom';
+  style: CSSProperties & Record<`--${string}`, string>;
+};
+
+/** Places the list below the trigger, or above when there is more room there. */
+const computeContentPosition = (
+  trigger: HTMLElement,
+  content: HTMLElement,
+  viewport: HTMLElement
+): ContentPosition => {
+  const triggerRect = trigger.getBoundingClientRect();
+  const isRightToLeft = getComputedStyle(trigger).direction === 'rtl';
+
+  // Natural height: the viewport's full content plus the chrome around it.
+  const naturalHeight =
+    viewport.scrollHeight + (content.offsetHeight - viewport.clientHeight);
+  const spaceBelow = window.innerHeight - triggerRect.bottom - VIEWPORT_PADDING;
+  const spaceAbove = triggerRect.top - VIEWPORT_PADDING;
+  const side =
+    naturalHeight <= spaceBelow || spaceBelow >= spaceAbove ? 'bottom' : 'top';
+
+  return {
+    side,
+    style: {
+      '--select-trigger-width': `${triggerRect.width}px`,
+      ...(side === 'bottom'
+        ? { top: triggerRect.bottom }
+        : { bottom: window.innerHeight - triggerRect.top }),
+      ...(isRightToLeft
+        ? { right: window.innerWidth - triggerRect.right }
+        : { left: triggerRect.left }),
+      maxHeight: Math.min(
+        MAX_CONTENT_HEIGHT,
+        side === 'bottom' ? spaceBelow : spaceAbove
+      ),
+      maxWidth: isRightToLeft
+        ? triggerRect.right - VIEWPORT_PADDING
+        : window.innerWidth - triggerRect.left - VIEWPORT_PADDING,
+    },
+  };
+};
+
+const focusOption = (option: HTMLElement | undefined) => {
+  if (!option) return;
+
+  option.focus({ preventScroll: true });
+  option.scrollIntoView?.({ block: 'nearest' });
+};
+
+type SelectPopupProps = ComponentProps<'div'> & {
+  presenceRef: (element: HTMLDivElement | null) => void;
+};
+
+/** The open list: positioned, focus-managed and dismissable. */
+const SelectPopup: FC<SelectPopupProps> = ({
+  className,
+  children,
+  style,
+  presenceRef,
+  onKeyDown,
+  ...props
+}) => {
+  const context = useSelectContext();
+  const typeahead = useTypeaheadSearch();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState<ContentPosition | null>(null);
+  const [scrollState, setScrollState] = useState({
+    canScrollUp: false,
+    canScrollDown: false,
+  });
+
+  const getOptions = (): HTMLElement[] => [
+    ...(contentRef.current?.querySelectorAll<HTMLElement>(OPTION_SELECTOR) ??
+      []),
+  ];
+
+  const updateScrollState = () => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    const canScrollUp = viewport.scrollTop > 0;
+    const canScrollDown =
+      Math.ceil(viewport.scrollTop + viewport.clientHeight) <
+      viewport.scrollHeight;
+
+    setScrollState((previous) =>
+      previous.canScrollUp === canScrollUp &&
+      previous.canScrollDown === canScrollDown
+        ? previous
+        : { canScrollUp, canScrollDown }
+    );
+  };
+
+  const updatePosition = () => {
+    const trigger = context.triggerRef.current;
+    const content = contentRef.current;
+    const viewport = viewportRef.current;
+    if (!trigger || !content || !viewport) return;
+
+    setPosition(computeContentPosition(trigger, content, viewport));
+  };
+
+  // Measured before paint so the list never flashes at the wrong spot.
+  useLayoutEffect(updatePosition, []);
+
+  // Focus the selected option (or the first one) once placed.
+  useLayoutEffect(() => {
+    if (!position || !context.open) return;
+
+    const options = getOptions();
+    focusOption(
+      options.find((option) => option.dataset.state === 'checked') ?? options[0]
+    );
+    updateScrollState();
+  }, [position === null]);
+
+  // Hand focus back to the trigger when the list closes or unmounts.
+  const restoreTriggerFocus = () => {
+    const activeElement = document.activeElement;
+    const hasLostFocus =
+      !activeElement ||
+      activeElement === document.body ||
+      contentRef.current?.contains(activeElement);
+
+    if (hasLostFocus)
+      context.triggerRef.current?.focus({ preventScroll: true });
+  };
+
+  useEffect(() => {
+    if (!context.open) restoreTriggerFocus();
+  }, [context.open]);
+
+  useEffect(() => restoreTriggerFocus, []);
+
+  // Dismiss on outside press, resize or window blur; follow scrolling.
+  useEffect(() => {
+    if (!context.open) return;
+
+    let cancelScheduledUpdate: (() => void) | null = null;
+
+    const close = () => context.setOpen(false);
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      const isInside =
+        contentRef.current?.contains(target) ||
+        context.triggerRef.current?.contains(target);
+
+      if (!isInside) close();
+    };
+
+    const handleScroll = (event: Event) => {
+      if (event.target === viewportRef.current) return;
+
+      cancelScheduledUpdate ??= scheduleFrameTask(() => {
+        cancelScheduledUpdate = null;
+        updatePosition();
+      });
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown, true);
+    window.addEventListener('scroll', handleScroll, {
+      capture: true,
+      passive: true,
+    });
+    window.addEventListener('resize', close);
+    window.addEventListener('blur', close);
+
+    return () => {
+      cancelScheduledUpdate?.();
+      document.removeEventListener('pointerdown', handlePointerDown, true);
+      window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('resize', close);
+      window.removeEventListener('blur', close);
+    };
+  }, [context.open]);
+
+  const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(event);
+    if (event.defaultPrevented) return;
+
+    const options = getOptions();
+    const activeIndex = options.indexOf(document.activeElement as HTMLElement);
+    const isSpaceTypeahead = event.key === ' ' && typeahead.hasSearch();
+
+    if (isTypeaheadKey(event) && (event.key !== ' ' || isSpaceTypeahead)) {
+      const matchIndex = getTypeaheadMatch(
+        options.map((option) => option.textContent ?? ''),
+        typeahead.append(event.key),
+        activeIndex
+      );
+
+      if (matchIndex !== -1) focusOption(options[matchIndex]);
+      return;
+    }
+
+    const lastIndex = options.length - 1;
+    const targetIndexByKey: Record<string, number> = {
+      ArrowDown: Math.min(activeIndex + 1, lastIndex),
+      ArrowUp: activeIndex === -1 ? lastIndex : Math.max(activeIndex - 1, 0),
+      Home: 0,
+      End: lastIndex,
+      PageDown: lastIndex,
+      PageUp: 0,
+    };
+
+    const targetIndex = targetIndexByKey[event.key];
+
+    if (targetIndex !== undefined) {
+      event.preventDefault();
+      focusOption(options[targetIndex]);
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      options[activeIndex]?.click();
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      context.setOpen(false);
+    } else if (event.key === 'Tab') {
+      // Focus stays trapped in the list until it closes.
+      event.preventDefault();
+    }
+  };
+
+  return (
+    <div
+      ref={composeRefs(contentRef, presenceRef)}
+      id={context.contentId}
+      role="listbox"
+      tabIndex={-1}
+      dir={context.dir}
+      data-state={context.open ? 'open' : 'closed'}
+      data-side={position?.side}
       className={cn(
         // Base styles
-        'relative z-50 max-h-96 min-w-32 overflow-hidden',
+        'fixed z-50 flex min-w-32 flex-col overflow-hidden',
         'rounded-xl shadow-md',
 
         // Background and text
@@ -186,122 +652,189 @@ export const SelectContent: FC<
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
         'data-[side=bottom]:slide-in-from-top-2',
-        'data-[side=left]:slide-in-from-right-2',
-        'data-[side=right]:slide-in-from-left-2',
         'data-[side=top]:slide-in-from-bottom-2',
 
-        // Positioning adjustments
-        position === 'popper' &&
-          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
+        // Gap with the trigger
+        'data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1',
+
+        // Hidden until positioned
+        !position && 'invisible',
 
         className
       )}
-      position={position}
+      style={{ ...position?.style, ...style }}
+      onKeyDown={handleKeyDown}
       {...props}
     >
-      <SelectScrollUpButton />
-      <SelectPrimitive.Viewport
-        className={cn(
-          'p-1',
-          position === 'popper' &&
-            'h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width)'
-        )}
+      {scrollState.canScrollUp && (
+        <SelectScrollButton direction="up" viewportRef={viewportRef} />
+      )}
+      <div
+        ref={viewportRef}
+        className="min-h-0 w-full min-w-(--select-trigger-width) flex-1 [scrollbar-width:none] overflow-y-auto p-1 [&::-webkit-scrollbar]:hidden"
+        onScroll={updateScrollState}
       >
         {children}
-      </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
-    </SelectPrimitive.Content>
-  </SelectPrimitive.Portal>
-);
+      </div>
+      {scrollState.canScrollDown && (
+        <SelectScrollButton direction="down" viewportRef={viewportRef} />
+      )}
+    </div>
+  );
+};
+
+/** True for items rendered off-screen to register their labels while closed. */
+const SelectCollectionContext = createContext(false);
 
 /**
- * Label component for grouping select options
- *
- * Provides semantic grouping and visual organization of related options within
- * the select dropdown. Enhances accessibility and user experience.
- *
- * @param className - Additional CSS classes for custom styling
+ * The option list, portaled to `document.body` while open. While closed, its
+ * items still render into a detached fragment so `Select.Value` can show the
+ * selected label.
  *
  * @example
- * ```tsx
  * <Select.Content>
- *   <Select.Label>Fruits</Select.Label>
- *   <Select.Item value="apple">Apple</Select.Item>
- *   <Select.Item value="banana">Banana</Select.Item>
- *   <Select.Separator />
- *   <Select.Label>Vegetables</Select.Label>
- *   <Select.Item value="carrot">Carrot</Select.Item>
+ *   <Select.Item value="light">Light</Select.Item>
  * </Select.Content>
- * ```
  */
-export const SelectLabel: FC<ComponentProps<typeof SelectPrimitive.Label>> = ({
+export const SelectContent: FC<ComponentProps<'div'>> = ({
+  children,
+  ...props
+}) => {
+  const { open } = useSelectContext();
+  const { isMounted, ref: presenceRef } = usePresence<HTMLDivElement>(open);
+  const [collectionFragment, setCollectionFragment] =
+    useState<DocumentFragment | null>(null);
+
+  useLayoutEffect(() => {
+    setCollectionFragment(document.createDocumentFragment());
+  }, []);
+
+  if (isMounted) {
+    return createPortal(
+      <SelectPopup presenceRef={presenceRef} {...props}>
+        {children}
+      </SelectPopup>,
+      document.body
+    );
+  }
+
+  if (!collectionFragment) return null;
+
+  return createPortal(
+    <SelectCollectionContext.Provider value>
+      <div>{children}</div>
+    </SelectCollectionContext.Provider>,
+    collectionFragment
+  );
+};
+
+/** Non-interactive heading for a group of items. */
+export const SelectLabel: FC<ComponentProps<'div'>> = ({
   className,
   ...props
 }) => (
-  <SelectPrimitive.Label
+  <div
     className={cn('px-1 py-0.5 text-sm font-semibold', className)}
     {...props}
   />
 );
 
-/**
- * Individual selectable item within the dropdown
- *
- * Represents a single option that users can select. Features hover states,
- * selection indicators, and keyboard navigation support for accessible interaction.
- *
- * @param className - Additional CSS classes for custom styling
- * @param children - The display text/content for the option
- *
- * @example
- * ```tsx
- * <Select.Item value="dark-mode">
- *   🌙 Dark Mode
- * </Select.Item>
- * ```
- */
-const SelectItem: FC<ComponentProps<typeof SelectPrimitive.Item>> = ({
-  className,
-  children,
-  ...props
-}) => (
-  <SelectPrimitive.Item
-    className={cn(
-      'relative flex w-full cursor-pointer items-center rounded-lg py-1.5 ps-2 pe-8 text-sm outline-hidden select-none focus:bg-neutral/10 data-disabled:pointer-events-none data-disabled:opacity-50',
-      className
-    )}
-    {...props}
-  >
-    <span className="absolute inset-e-2 flex size-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <CheckIcon className="size-4" />
-      </SelectPrimitive.ItemIndicator>
-    </span>
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-  </SelectPrimitive.Item>
-);
+export type SelectItemProps = ComponentProps<'div'> & {
+  value: string;
+  disabled?: boolean;
+  /** Text used by typeahead; defaults to the rendered text. */
+  textValue?: string;
+};
 
 /**
- * Visual separator for grouping options in the dropdown
- *
- * Creates clear visual division between groups of related options,
- * improving readability and organization in complex select menus.
- *
- * @param className - Additional CSS classes for custom styling
+ * A selectable option. Focus follows the mouse, and the selected option shows
+ * a check mark.
  *
  * @example
- * ```tsx
- * <Select.Content>
- *   <Select.Item value="recent">Recent Files</Select.Item>
- *   <Select.Separator />
- *   <Select.Item value="all">All Files</Select.Item>
- * </Select.Content>
- * ```
+ * <Select.Item value="dark">🌙 Dark</Select.Item>
  */
-export const SelectSeparator: FC<
-  ComponentProps<typeof SelectPrimitive.Separator>
-> = ({ className, ...props }) => (
-  <SelectPrimitive.Separator
+const SelectItem: FC<SelectItemProps> = ({
+  value,
+  disabled = false,
+  textValue,
+  className,
+  children,
+  onClick,
+  onPointerMove,
+  onPointerLeave,
+  ...props
+}) => {
+  const context = useSelectContext();
+  const isInCollection = useContext(SelectCollectionContext);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const isSelected = context.value === value;
+
+  useLayoutEffect(() => {
+    const record: SelectItemRecord = {
+      label: children,
+      textValue: textValue ?? textRef.current?.textContent ?? '',
+      disabled,
+    };
+
+    context.itemStore.set(value, record);
+
+    return () => context.itemStore.delete(value, record);
+  }, [value, children, textValue, disabled]);
+
+  if (isInCollection) return <span ref={textRef}>{children}</span>;
+
+  return (
+    <div
+      role="option"
+      aria-selected={isSelected}
+      aria-disabled={disabled || undefined}
+      tabIndex={disabled ? undefined : -1}
+      data-state={isSelected ? 'checked' : 'unchecked'}
+      data-disabled={disabled ? '' : undefined}
+      className={cn(
+        'relative flex w-full cursor-pointer items-center rounded-lg py-1.5 ps-2 pe-8 text-sm outline-hidden select-none focus:bg-neutral/10 data-disabled:pointer-events-none data-disabled:opacity-50',
+        className
+      )}
+      onClick={(event) => {
+        onClick?.(event);
+        if (event.defaultPrevented || disabled) return;
+
+        context.setValue(value);
+        context.setOpen(false);
+      }}
+      onPointerMove={(event) => {
+        onPointerMove?.(event);
+        if (disabled || event.pointerType !== 'mouse') return;
+        if (document.activeElement !== event.currentTarget) {
+          event.currentTarget.focus({ preventScroll: true });
+        }
+      }}
+      onPointerLeave={(event) => {
+        onPointerLeave?.(event);
+        if (document.activeElement !== event.currentTarget) return;
+
+        // Keep keyboard handling alive on the list itself.
+        event.currentTarget
+          .closest<HTMLElement>('[role="listbox"]')
+          ?.focus({ preventScroll: true });
+      }}
+      {...props}
+    >
+      <span className="absolute inset-e-2 flex size-3.5 items-center justify-center">
+        {isSelected && <CheckIcon className="size-4" />}
+      </span>
+      <span ref={textRef}>{children}</span>
+    </div>
+  );
+};
+
+/** Thin divider between groups of items. */
+export const SelectSeparator: FC<ComponentProps<'div'>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    aria-hidden
     className={cn(
       '-mx-1 my-1 h-px',
       'bg-neutral-200 dark:bg-neutral-800',
@@ -311,125 +844,40 @@ export const SelectSeparator: FC<
   />
 );
 
-/**
- * Type definition for the compound Select component with all subcomponents
- */
 type SelectType = typeof SelectRoot & {
-  /** Group container for organizing related options */
   Group: typeof SelectGroup;
-  /** Value display component for the trigger */
   Value: typeof SelectValue;
-  /** Trigger button that opens the dropdown */
   Trigger: typeof SelectTrigger;
-  /** Scroll up button for long lists */
-  ScrollUpButton: typeof SelectScrollUpButton;
-  /** Scroll down button for long lists */
-  ScrollDownButton: typeof SelectScrollDownButton;
-  /** Dropdown content container */
   Content: typeof SelectContent;
-  /** Label component for option groups */
   Label: typeof SelectLabel;
-  /** Individual selectable item */
   Item: typeof SelectItem;
-  /** Visual separator between option groups */
   Separator: typeof SelectSeparator;
 };
 
 /**
- * Select - A comprehensive dropdown selection component
+ * Single-choice dropdown (compound component).
  *
- * A fully-featured select component built on Radix UI primitives with extensive customization,
- * accessibility features, and design system integration. Supports single selection with
- * keyboard navigation, validation states, and flexible content positioning.
- *
- * ## Key Features
- * - **Accessibility First**: Full keyboard navigation, screen reader support, and ARIA attributes
- * - **Flexible Positioning**: Multiple positioning strategies for optimal dropdown placement
- * - **Validation Integration**: Built-in support for form validation with visual feedback
- * - **Design System**: Consistent theming with design tokens and style variants
- * - **Responsive Design**: Works seamlessly across desktop and mobile devices
- * - **Rich Content**: Support for icons, separators, labels, and complex option layouts
- *
- * ## Use Cases
- * - Form field selections (theme, language, category)
- * - Settings and configuration options
- * - Filter and sort controls
- * - User preference selections
- * - Any single-choice dropdown interface
- *
- * ## Accessibility
- * - **Keyboard Navigation**: Arrow keys, Enter, Escape, and Home/End support
- * - **Screen Readers**: Proper ARIA labels and state announcements
- * - **Focus Management**: Intuitive focus flow and visual indicators
- * - **High Contrast**: Supports system high contrast modes
- *
- * ## Architecture
- * The Select component follows a compound component pattern with the following structure:
- * - `Select` (root): Manages state and provides context
- * - `Select.Trigger`: Button that displays current value and opens dropdown
- * - `Select.Value`: Displays the selected value with placeholder support
- * - `Select.Content`: Container for the dropdown options
- * - `Select.Item`: Individual selectable options
- * - `Select.Label`: Group labels for organizing options
- * - `Select.Separator`: Visual dividers between option groups
+ * Keyboard: Enter/Space/arrows open it; arrows, Home/End and typeahead move
+ * through options; Enter/Space selects; Escape closes.
  *
  * @example
- * Basic usage with simple options:
- * ```tsx
- * <Select defaultValue="system">
+ * <Select defaultValue="system" onValueChange={setTheme}>
  *   <Select.Trigger>
  *     <Select.Value placeholder="Choose theme..." />
  *   </Select.Trigger>
  *   <Select.Content>
+ *     <Select.Label>Theme</Select.Label>
  *     <Select.Item value="light">☀️ Light</Select.Item>
  *     <Select.Item value="dark">🌙 Dark</Select.Item>
+ *     <Select.Separator />
  *     <Select.Item value="system">⚙️ System</Select.Item>
  *   </Select.Content>
  * </Select>
- * ```
- *
- * @example
- * Advanced usage with groups and labels:
- * ```tsx
- * <Select>
- *   <Select.Trigger validationStyleEnabled>
- *     <Select.Value placeholder="Select category..." />
- *   </Select.Trigger>
- *   <Select.Content>
- *     <Select.Label>Web Technologies</Select.Label>
- *     <Select.Item value="react">React</Select.Item>
- *     <Select.Item value="vue">Vue</Select.Item>
- *     <Select.Separator />
- *     <Select.Label>Mobile</Select.Label>
- *     <Select.Item value="react-native">React Native</Select.Item>
- *     <Select.Item value="flutter">Flutter</Select.Item>
- *   </Select.Content>
- * </Select>
- * ```
- *
- * @example
- * Form integration with validation:
- * ```tsx
- * <form>
- *   <Select required name="country">
- *     <Select.Trigger validationStyleEnabled aria-invalid={hasError}>
- *       <Select.Value placeholder="Select country..." />
- *     </Select.Trigger>
- *     <Select.Content position="item-aligned">
- *       <Select.Item value="us">United States</Select.Item>
- *       <Select.Item value="ca">Canada</Select.Item>
- *       <Select.Item value="uk">United Kingdom</Select.Item>
- *     </Select.Content>
- *   </Select>
- * </form>
- * ```
  */
 export const Select = SelectRoot as SelectType;
 Select.Group = SelectGroup;
 Select.Value = SelectValue;
 Select.Trigger = SelectTrigger;
-Select.ScrollUpButton = SelectScrollUpButton;
-Select.ScrollDownButton = SelectScrollDownButton;
 Select.Content = SelectContent;
 Select.Label = SelectLabel;
 Select.Item = SelectItem;

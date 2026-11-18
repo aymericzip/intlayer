@@ -1,6 +1,6 @@
 'use client';
 
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from '@components/Slot';
 import type { ComponentProps, FC } from 'react';
 import { useFormField } from './FormField';
 

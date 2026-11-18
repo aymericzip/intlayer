@@ -131,7 +131,7 @@ export const ProductHunt: FC = () => {
         'hover:translate-x-0 hover:translate-y-0 hover:scale-100 rtl:hover:translate-x-0',
         isMiniaturizable &&
           '-translate-x-1/4 translate-y-1/4 scale-50 rtl:translate-x-1/4',
-        !isVisible && 'translate-x-[120%]! rtl:-translate-x-[120%]!',
+        !isVisible && 'translate-x-[120%]! rtl:translate-x-[-120%]!',
       ])}
       roundedSize="2xl"
     >

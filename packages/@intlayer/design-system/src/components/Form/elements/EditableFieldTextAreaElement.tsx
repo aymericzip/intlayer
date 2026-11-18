@@ -19,13 +19,4 @@ type EditableFieldTextAreaElementProps = Omit<
 
 export const EditableFieldTextAreaElement = (
   props: EditableFieldTextAreaElementProps
-) => (
-  <FormElement
-    id={props.name}
-    data-testid={props.name}
-    aria-labelledby={props.label ? `${props.name}-label` : undefined}
-    aria-label={props.label ? undefined : props.name}
-    Element={EditableFieldTextArea}
-    {...props}
-  />
-);
+) => <FormElement Element={EditableFieldTextArea} {...props} />;

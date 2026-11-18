@@ -25,7 +25,7 @@ export const TotpForm: FC = () => {
   const { revalidateSession } = useSession();
   const { mutate: verifyTotp } = useVerifyTotp();
 
-  const { form, isSubmitting } = useForm(totpSchema, {
+  const form = useForm(totpSchema, {
     defaultValues: {
       code: '',
     },
@@ -62,7 +62,6 @@ export const TotpForm: FC = () => {
         type="submit"
         color="text"
         label={verifyButton.value}
-        isLoading={isSubmitting}
         className="w-full"
       >
         {verifyButton}

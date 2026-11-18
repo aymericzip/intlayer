@@ -114,7 +114,7 @@ export const MailerSettings: FC = () => {
   const { mutate: updateMailerConfig, isPending } =
     useUpdateOrganizationMailerConfig();
 
-  const { form, isSubmitting } = useForm(MailerConfigSchema, {
+  const form = useForm(MailerConfigSchema, {
     defaultValues: {
       isActive: mailerConfig?.isActive ?? false,
       provider: mailerConfig?.provider ?? 'resend',
@@ -285,7 +285,7 @@ export const MailerSettings: FC = () => {
           type="submit"
           color="text"
           disabled={!isOrganizationAdmin}
-          isLoading={isSubmitting || isPending}
+          isLoading={isPending}
           label={saveButton.ariaLabel.value}
         >
           {saveButton.text}

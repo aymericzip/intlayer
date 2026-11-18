@@ -114,7 +114,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   ];
 
   const AccessKeyCreationSchema = useAccessKeyCreationSchema(permissions);
-  const { form, isSubmitting } = useForm(AccessKeyCreationSchema, {
+  const form = useForm(AccessKeyCreationSchema, {
     defaultValues: { grants: getDefaultGrants(permissions) },
   });
 
@@ -316,7 +316,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         type="submit"
         label={createAccessKeyButton.label.value}
         color="text"
-        isLoading={isSubmitting || isPending}
+        isLoading={isPending}
         className="w-full"
       >
         {createAccessKeyButton.text.value}

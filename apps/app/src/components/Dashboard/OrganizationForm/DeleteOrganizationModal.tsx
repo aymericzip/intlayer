@@ -1,5 +1,5 @@
 import { useDeleteOrganization, useSession } from '@intlayer/design-system/api';
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Organization_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';

@@ -57,7 +57,7 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
   const [expirationPreset, setExpirationPreset] =
     useState<ExpirationPreset>('none');
 
-  const { form, isSubmitting } = useForm(schema, {
+  const form = useForm(schema, {
     defaultValues: { discountType: 'percentage', discountValue: 10 },
   });
 
@@ -160,8 +160,8 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
       <FormButton
         type="submit"
         color="text"
-        isLoading={isSubmitting || isPending}
-        disabled={isSubmitting || isPending}
+        isLoading={isPending}
+        disabled={isPending}
         label={content.submitButton.value}
         className="mt-2 w-full"
       >

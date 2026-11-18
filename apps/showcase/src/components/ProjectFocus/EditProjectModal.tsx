@@ -29,7 +29,7 @@ export const EditProjectModal = ({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  const { form, isSubmitting } = useForm(schema, {
+  const form = useForm(schema, {
     defaultValues: {
       name: project.title,
       url: project.websiteUrl,
@@ -97,7 +97,7 @@ export const EditProjectModal = ({
           </div>
         ) : (
           <Form onSubmitSuccess={onSubmit} className="space-y-1" form={form}>
-            <ProjectFormFields form={form} />
+            <ProjectFormFields />
             {error && <p className="text-sm text-error">{error}</p>}
             <div className="flex gap-3 pt-4">
               <Button
@@ -114,7 +114,6 @@ export const EditProjectModal = ({
               <FormButton
                 type="submit"
                 color="text"
-                isLoading={isSubmitting}
                 label={content.saveChanges.value}
                 Icon={Check}
                 className="flex-1"

@@ -172,7 +172,7 @@ export const SSOSettings: FC = () => {
   const { data: ssoProvidersData, isLoading: isLoadingProviders } =
     useListSSOProviders();
 
-  const { form, isSubmitting } = useForm(SSOConfigSchema as any, {
+  const form = useForm(SSOConfigSchema, {
     defaultValues: defaultSSOValues,
   });
 
@@ -384,7 +384,7 @@ export const SSOSettings: FC = () => {
           type="submit"
           color="text"
           disabled={!isOrganizationAdmin || isLoadingProviders}
-          isLoading={isSubmitting || isPendingRegisterSSO}
+          isLoading={isPendingRegisterSSO}
           label={saveButton.ariaLabel.value}
         >
           {saveButton.text}

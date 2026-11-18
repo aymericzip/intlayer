@@ -32,7 +32,7 @@ export const AutoFillSettings: FC = () => {
     autoFill: project?.autoFill ?? false,
   };
 
-  const { form } = useForm(autoFillSchema, { defaultValues });
+  const form = useForm(autoFillSchema, { defaultValues });
 
   useEffect(() => {
     form.reset({ autoFill: project?.autoFill ?? false });

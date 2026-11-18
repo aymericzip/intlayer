@@ -1,15 +1,17 @@
-/* eslint-disable react/no-unknown-property */
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  type DialogProps,
-} from '@radix-ui/react-dialog';
 import { cn } from '@utils/cn';
-import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
 import type { ComponentProps, FC, HTMLAttributes } from 'react';
+import {
+  CommandPrimitive,
+  CommandPrimitiveEmpty,
+  CommandPrimitiveGroup,
+  CommandPrimitiveInput,
+  CommandPrimitiveItem,
+  CommandPrimitiveList,
+  CommandPrimitiveSeparator,
+} from './CommandPrimitive';
 
 export const CommandRoot: FC<ComponentProps<typeof CommandPrimitive>> = ({
   className,
@@ -17,26 +19,14 @@ export const CommandRoot: FC<ComponentProps<typeof CommandPrimitive>> = ({
 }) => (
   <CommandPrimitive
     className={cn(
-      'flex flex-col overflow-hidden rounded-md px-3 py-2',
+      'flex flex-col overflow-hidden rounded-md px-3 py-2 outline-hidden',
       className
     )}
     {...props}
   />
 );
 
-type CommandDialogProps = DialogProps;
-
-const CommandDialog: FC<CommandDialogProps> = ({ children, ...props }) => (
-  <Dialog {...props}>
-    <DialogContent className="overflow-hidden p-0">
-      <CommandRoot className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]_svg]:size-5">
-        {children}
-      </CommandRoot>
-    </DialogContent>
-  </Dialog>
-);
-
-const CommandInput: FC<ComponentProps<typeof CommandPrimitive.Input>> = ({
+const CommandInput: FC<ComponentProps<typeof CommandPrimitiveInput>> = ({
   className,
   ...props
 }) => (
@@ -49,37 +39,42 @@ const CommandInput: FC<ComponentProps<typeof CommandPrimitive.Input>> = ({
       'transition-shadow duration-100 focus-within:ring-3 hover:ring-3',
       className
     )}
-    cmdk-input-wrapper=""
   >
     <Search className="size-4 shrink-0 opacity-50" />
-    <CommandPrimitive.Input
+    <CommandPrimitiveInput
       className="flex-1 bg-transparent text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
       {...props}
     />
   </div>
 );
 
-const CommandList: FC<ComponentProps<typeof CommandPrimitive.List>> = ({
+const CommandList: FC<ComponentProps<typeof CommandPrimitiveList>> = ({
   className,
   ...props
 }) => (
-  <CommandPrimitive.List
+  <CommandPrimitiveList
     className={cn('max-h-75 overflow-x-hidden overflow-y-auto', className)}
     {...props}
   />
 );
 
-const CommandEmpty: FC<ComponentProps<typeof CommandPrimitive.Empty>> = (
-  props
-) => <CommandPrimitive.Empty className="py-6 text-center text-sm" {...props} />;
-
-const CommandGroup: FC<ComponentProps<typeof CommandPrimitive.Group>> = ({
+const CommandEmpty: FC<ComponentProps<typeof CommandPrimitiveEmpty>> = ({
   className,
   ...props
 }) => (
-  <CommandPrimitive.Group
+  <CommandPrimitiveEmpty
+    className={cn('py-6 text-center text-sm', className)}
+    {...props}
+  />
+);
+
+const CommandGroup: FC<ComponentProps<typeof CommandPrimitiveGroup>> = ({
+  className,
+  ...props
+}) => (
+  <CommandPrimitiveGroup
     className={cn(
-      'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
+      'overflow-hidden p-1 text-foreground [&_[data-command-group-heading]]:px-2 [&_[data-command-group-heading]]:py-1.5 [&_[data-command-group-heading]]:text-xs [&_[data-command-group-heading]]:font-medium [&_[data-command-group-heading]]:text-muted-foreground',
       className
     )}
     {...props}
@@ -87,19 +82,19 @@ const CommandGroup: FC<ComponentProps<typeof CommandPrimitive.Group>> = ({
 );
 
 const CommandSeparator: FC<
-  ComponentProps<typeof CommandPrimitive.Separator>
+  ComponentProps<typeof CommandPrimitiveSeparator>
 > = ({ className, ...props }) => (
-  <CommandPrimitive.Separator
+  <CommandPrimitiveSeparator
     className={cn('-mx-1 h-px bg-border', className)}
     {...props}
   />
 );
 
-const CommandItem: FC<ComponentProps<typeof CommandPrimitive.Item>> = ({
+const CommandItem: FC<ComponentProps<typeof CommandPrimitiveItem>> = ({
   className,
   ...props
 }) => (
-  <CommandPrimitive.Item
+  <CommandPrimitiveItem
     className={cn(
       'relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground',
       className
@@ -108,41 +103,34 @@ const CommandItem: FC<ComponentProps<typeof CommandPrimitive.Item>> = ({
   />
 );
 
-const CommandShortcut = ({
+const CommandShortcut: FC<HTMLAttributes<HTMLSpanElement>> = ({
   className,
   ...props
-}: HTMLAttributes<HTMLSpanElement>) => {
-  return (
-    <span
-      className={cn(
-        'ms-auto text-xs tracking-widest text-muted-foreground',
-        className
-      )}
-      {...props}
-    />
-  );
-};
+}) => (
+  <span
+    className={cn(
+      'ms-auto text-xs tracking-widest text-muted-foreground',
+      className
+    )}
+    {...props}
+  />
+);
 
 /**
- * Usage example:
- * ```jsx
- * <Command>
- *   <Command.Trigger>
- *     <Command.Input placeholder="Search..." />
- *   </Command.Trigger>
- *   <Command.Dialog>
- *     <Command.List>
- *       <Command.Item>Item 1</Command.Item>
- *       <Command.Item>Item 2</Command.Item>
- *       <Command.Item>Item 3</Command.Item>
- *     </Command.List>
- *   </Command.Dialog>
- * </Command>
- * ```
+ * Searchable command menu parts, rendered inside `CommandRoot`.
+ *
+ * @example
+ * <CommandRoot>
+ *   <Command.Input placeholder="Search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item onSelect={openCalendar}>Calendar</Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </CommandRoot>
  */
 export const Command = {
-  ...CommandRoot,
-  Dialog: CommandDialog,
   Input: CommandInput,
   List: CommandList,
   Empty: CommandEmpty,

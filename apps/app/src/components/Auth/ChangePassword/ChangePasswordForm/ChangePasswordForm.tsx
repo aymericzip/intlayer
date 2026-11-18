@@ -5,6 +5,7 @@ import {
   FormInput,
   FormInputPassword,
   useForm,
+  useFormState,
 } from '@intlayer/design-system/form';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -31,7 +32,8 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
   const { user } = useUser();
   const ChangePasswordSchema = useChangePasswordSchema();
 
-  const { form, isSubmitting, isValid } = useForm(ChangePasswordSchema);
+  const form = useForm(ChangePasswordSchema);
+  const { isValid } = useFormState(form);
 
   return (
     <Form
@@ -88,7 +90,6 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         className="w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting}
         disabled={!isValid}
         label={changePasswordButton.ariaLabel.value}
       >

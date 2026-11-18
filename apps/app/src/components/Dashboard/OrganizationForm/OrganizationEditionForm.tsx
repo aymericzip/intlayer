@@ -22,7 +22,7 @@ export const OrganizationEditionForm: FC = () => {
 
   const OrganizationSchema = useOrganizationSchema();
   const { mutate: updateOrganization, isPending } = useUpdateOrganization();
-  const { form, isSubmitting } = useForm(OrganizationSchema);
+  const form = useForm(OrganizationSchema);
   const { title, nameInput, editButton } = useIntlayer('organization-form');
 
   const onSubmitSuccess = (data: OrganizationFormData) => {
@@ -56,10 +56,8 @@ export const OrganizationEditionForm: FC = () => {
           className="mt-4 w-full"
           type="submit"
           color="text"
-          disabled={
-            !isOrganizationAdmin || isSubmitting || isPending || !organization
-          }
-          isLoading={isSubmitting || isPending}
+          disabled={!isOrganizationAdmin || isPending || !organization}
+          isLoading={isPending}
           label={editButton.ariaLabel.value}
         >
           {editButton.text}

@@ -1,5 +1,5 @@
 import { useIntlayerOAuth, useUser } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import { Form, useForm, useFormState } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { useSearch } from '@tanstack/react-router';
@@ -23,9 +23,10 @@ export const VerifyEmailStepForm: FC = () => {
   const { state: registrationState } = useStep(Steps.Password);
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
     useStep(Steps.VerifyEmail);
-  const { form, isSubmitting } = useForm(VerifyEmailSchema, {
+  const form = useForm(VerifyEmailSchema, {
     defaultValues: formData,
   });
+  const { isSubmitting } = useFormState(form);
 
   const targetedUserId = userId ?? registrationState?.user?.id ?? user?.id;
 

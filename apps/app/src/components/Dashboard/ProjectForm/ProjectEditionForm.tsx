@@ -19,7 +19,7 @@ export const ProjectEditionForm: FC = () => {
   const { project } = session ?? {};
   const ProjectSchema = useProjectSchema();
   const { mutate: updateProject, isPending } = useUpdateProject();
-  const { form, isSubmitting } = useForm(ProjectSchema);
+  const form = useForm(ProjectSchema);
   const { title, nameInput, editButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = (data: ProjectFormData) => {
@@ -57,7 +57,7 @@ export const ProjectEditionForm: FC = () => {
             className="mt-4 w-full"
             type="submit"
             color="text"
-            isLoading={isSubmitting || isPending}
+            isLoading={isPending}
             label={editButton.ariaLabel.value}
           >
             {editButton.text}

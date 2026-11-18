@@ -81,7 +81,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
     [projectConfig]
   );
 
-  const { form, isSubmitting } = useForm(configSchema, {
+  const form = useForm(configSchema, {
     defaultValues,
   });
 
@@ -311,7 +311,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
               label={saveButton.ariaLabel.value}
               color="text"
               type="submit"
-              isLoading={isSubmitting || isPending}
+              isLoading={isPending}
               Icon={Save}
             >
               {saveButton.text}

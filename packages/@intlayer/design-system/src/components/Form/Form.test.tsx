@@ -2,7 +2,15 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import type { FC } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { z } from 'zod/mini';
-import { Form, FormCheckbox, FormInput, useForm, useWatch } from './index';
+import {
+  Form,
+  FormButton,
+  FormCheckbox,
+  FormInput,
+  useForm,
+  useFormState,
+  useWatch,
+} from './index';
 
 const schema = z.object({
   email: z.email('Invalid email'),
@@ -12,9 +20,8 @@ const schema = z.object({
 const TestForm: FC<{ onSubmitSuccess: (data: unknown) => void }> = ({
   onSubmitSuccess,
 }) => {
-  const { form, isValid } = useForm(schema, {
-    defaultValues: { email: '' },
-  });
+  const form = useForm(schema, { defaultValues: { email: '' } });
+  const { isValid } = useFormState(form);
   const email = useWatch({ form, name: 'email' });
 
   return (
@@ -23,7 +30,9 @@ const TestForm: FC<{ onSubmitSuccess: (data: unknown) => void }> = ({
       <FormCheckbox name="acceptTerms" inputLabel="Accept" />
       <output data-testid="mirror">{email}</output>
       <output data-testid="valid">{String(isValid)}</output>
-      <button type="submit">Submit</button>
+      <FormButton type="submit" label="Submit">
+        Submit
+      </FormButton>
     </Form>
   );
 };
@@ -71,5 +80,28 @@ describe('Form', () => {
       email: 'me@intlayer.org',
       acceptTerms: true,
     });
+  });
+
+  it('shows the submit FormButton as loading while the submit resolves', async () => {
+    let resolveSubmit: () => void = () => {};
+    const onSubmitSuccess = () =>
+      new Promise<void>((resolve) => {
+        resolveSubmit = resolve;
+      });
+    const { container } = render(
+      <TestForm onSubmitSuccess={onSubmitSuccess} />
+    );
+    const submitButton = () =>
+      container.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+    fireEvent.change(container.querySelector('input[name="email"]')!, {
+      target: { value: 'me@intlayer.org' },
+    });
+    await submit();
+    expect(submitButton().getAttribute('aria-busy')).toBe('true');
+    expect(submitButton().disabled).toBe(true);
+
+    await act(async () => resolveSubmit());
+    expect(submitButton().getAttribute('aria-busy')).toBe('false');
   });
 });

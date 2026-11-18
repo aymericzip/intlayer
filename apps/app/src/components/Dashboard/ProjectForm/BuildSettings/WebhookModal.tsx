@@ -44,7 +44,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
     validationErrors.invalidUrl.value
   );
 
-  const { form, isSubmitting } = useForm(schema, {
+  const form = useForm(schema, {
     defaultValues: initialValues,
   });
 
@@ -127,12 +127,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
             >
               {modal.cancel.value}
             </Button>
-            <FormButton
-              type="submit"
-              color="text"
-              isLoading={isSubmitting}
-              label={modal.confirm.value}
-            >
+            <FormButton type="submit" color="text" label={modal.confirm.value}>
               {modal.confirm.value}
             </FormButton>
           </div>

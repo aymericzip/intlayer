@@ -23,7 +23,7 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
   isSubmitting,
 }) => {
   const AddPasskeySchema = useAddPasskeySchema();
-  const { form } = useForm(AddPasskeySchema, {
+  const form = useForm(AddPasskeySchema, {
     defaultValues: {
       name: '',
     },
@@ -83,7 +83,6 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
             <FormButton
               type="submit"
               color="text"
-              isLoading={isSubmitting}
               label={submitButton.ariaLabel.value}
             >
               {submitButton.text}

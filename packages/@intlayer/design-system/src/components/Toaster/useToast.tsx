@@ -28,7 +28,7 @@ const TOAST_REMOVE_DELAY = 15 * 60 * 1000; // 15 seconds
  *   variant: 'success',
  *   title: 'Success!',
  *   description: 'Your action completed successfully.',
- *   action: <ToastAction altText="View details">View</ToastAction>
+ *   action: <ToastAction>View</ToastAction>
  * };
  * ```
  */
@@ -250,7 +250,7 @@ type Toast = Omit<ToasterToast, 'id'>;
  *   title: 'Upload Failed',
  *   description: 'Could not upload file. Please try again.',
  *   variant: 'error',
- *   action: <ToastAction altText="Retry upload">Retry</ToastAction>
+ *   action: <ToastAction>Retry</ToastAction>
  * });
  *
  * // Update toast content dynamically
@@ -356,7 +356,7 @@ const toast = ({ ...props }: Toast) => {
  *         title: 'Submission Failed',
  *         description: 'Please check your connection and try again.',
  *         variant: 'error',
- *         action: <ToastAction altText="Retry">Retry</ToastAction>
+ *         action: <ToastAction>Retry</ToastAction>
  *       });
  *     }
  *   };

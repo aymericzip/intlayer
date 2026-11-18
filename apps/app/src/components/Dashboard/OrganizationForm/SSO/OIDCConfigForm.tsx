@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { Form, FormInput } from '@intlayer/design-system/form';
+import { FormInput } from '@intlayer/design-system/form';
 import { H4 } from '@intlayer/design-system/headers';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

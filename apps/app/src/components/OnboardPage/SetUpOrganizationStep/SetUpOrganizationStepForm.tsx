@@ -4,7 +4,7 @@ import {
   useSelectOrganization,
   useSession,
 } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import { Form, useForm, useFormState } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
@@ -40,7 +40,7 @@ export const SetupOrganizationStepForm: FC = () => {
     Steps.SetupOrganization
   );
 
-  const { form, isSubmitting } = useForm(SetUpOrganizationSchema, {
+  const form = useForm(SetUpOrganizationSchema, {
     defaultValues: {
       ...formData,
       organizationId: session?.organization?.id
@@ -48,6 +48,7 @@ export const SetupOrganizationStepForm: FC = () => {
         : formData?.organizationId,
     },
   });
+  const { isSubmitting } = useFormState(form);
 
   const { title } = useIntlayer('set-up-organization-step');
 

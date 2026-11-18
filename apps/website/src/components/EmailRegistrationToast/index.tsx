@@ -71,7 +71,7 @@ export const EmailRegistrationToast: FC = () => {
     'email-registration-toast'
   );
   const EmailSchema = useEmailSchema();
-  const { form } = useForm(EmailSchema, {
+  const form = useForm(EmailSchema, {
     mode: 'onSubmit',
     defaultValues: {
       email: user?.email ?? '',
@@ -182,7 +182,7 @@ export const EmailRegistrationToast: FC = () => {
     <Container
       className={cn([
         'group fixed inset-e-0 bottom-5 z-100 mx-8 translate-x-0 border-2 border-text px-8 py-6 transition-all duration-500',
-        !isVisible && 'translate-x-[120%] rtl:-translate-x-[120%]',
+        !isVisible && 'translate-x-[120%] rtl:translate-x-[-120%]',
       ])}
       roundedSize="2xl"
     >

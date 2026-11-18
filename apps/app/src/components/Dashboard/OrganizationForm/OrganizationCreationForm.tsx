@@ -28,7 +28,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
   const { mutate: addOrganization, isPending: isAddingOrganization } =
     useAddOrganization();
   const { mutate: selectOrganization } = useSelectOrganization();
-  const { form, isSubmitting } = useForm(organizationSchema);
+  const form = useForm(organizationSchema);
   const { nameInput, createOrganizationButton } =
     useIntlayer('organization-form');
 
@@ -58,7 +58,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
         className="mt-4 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting || isAddingOrganization}
+        isLoading={isAddingOrganization}
         label={createOrganizationButton.ariaLabel.value}
         Icon={Plus}
       >

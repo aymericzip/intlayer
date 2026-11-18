@@ -1,4 +1,4 @@
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';

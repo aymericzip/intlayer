@@ -1,5 +1,9 @@
+import {
+  CommandPrimitive,
+  CommandPrimitiveInput,
+  CommandPrimitiveList,
+} from '@components/Command/CommandPrimitive';
 import type { Range } from '@tiptap/core';
-import { Command } from 'cmdk';
 import type { ComponentPropsWithoutRef, FC, Ref } from 'react';
 import { createContext, useEffect } from 'react';
 import type tunnel from 'tunnel-rat';
@@ -59,7 +63,7 @@ export const EditorCommandOut: FC<EditorCommandOutProps> = ({
 };
 
 export const EditorCommand: FC<
-  ComponentPropsWithoutRef<typeof Command> & {
+  ComponentPropsWithoutRef<typeof CommandPrimitive> & {
     readonly ref?: Ref<HTMLDivElement>;
   }
 > = ({ children, className, ref, ...rest }) => {
@@ -69,7 +73,7 @@ export const EditorCommand: FC<
     <EditorCommandTunnelContext.Consumer>
       {(tunnelInstance) => (
         <tunnelInstance.In>
-          <Command
+          <CommandPrimitive
             ref={ref}
             onKeyDown={(e) => {
               e.stopPropagation();
@@ -78,16 +82,16 @@ export const EditorCommand: FC<
             className={className}
             {...rest}
           >
-            <Command.Input
+            <CommandPrimitiveInput
               value={query}
               onValueChange={queryStore.setValue}
               style={{ display: 'none' }}
             />
             {children}
-          </Command>
+          </CommandPrimitive>
         </tunnelInstance.In>
       )}
     </EditorCommandTunnelContext.Consumer>
   );
 };
-export const EditorCommandList = Command.List;
+export const EditorCommandList = CommandPrimitiveList;

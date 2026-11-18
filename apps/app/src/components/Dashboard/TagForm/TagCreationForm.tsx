@@ -16,7 +16,7 @@ type TagCreationFormProps = {
 export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
   const TagSchema = useTagSchema();
   const { mutate: addTag, isPending } = useAddTag();
-  const { form, isSubmitting } = useForm(TagSchema);
+  const form = useForm(TagSchema);
   const { nameInput, createTagButton } = useIntlayer('tag-form');
 
   const onSubmitSuccess: (data: TagFormData) => Promise<void> = async (data) =>
@@ -47,7 +47,7 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
         className="mt-4 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting || isPending}
+        isLoading={isPending}
         label={createTagButton.ariaLabel.value}
       >
         {createTagButton.text}

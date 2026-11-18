@@ -23,7 +23,7 @@ export const BackupCodeTab: FC = () => {
   const { codeLabel, codePlaceholder, verifyButton } =
     useIntlayer('backup-code-tab');
 
-  const { form, isSubmitting } = useForm(backupCodeSchema, {
+  const form = useForm(backupCodeSchema, {
     defaultValues: {
       code: '',
     },
@@ -54,12 +54,7 @@ export const BackupCodeTab: FC = () => {
         placeholder={codePlaceholder.value}
       />
 
-      <FormButton
-        type="submit"
-        label={verifyButton.value}
-        isLoading={isSubmitting}
-        className="w-full"
-      >
+      <FormButton type="submit" label={verifyButton.value} className="w-full">
         {verifyButton}
       </FormButton>
     </Form>

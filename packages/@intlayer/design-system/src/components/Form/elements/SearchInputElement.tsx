@@ -14,12 +14,5 @@ type SearchInputElementProps = Omit<
   >;
 
 export const SearchInputElement: FC<SearchInputElementProps> = (props) => (
-  <FormElement
-    id={props.name}
-    data-testid={props.name}
-    Element={SearchInput}
-    aria-labelledby={props.label ? `${props.name}-label` : undefined}
-    aria-label={props.label ? undefined : props.name}
-    {...props}
-  />
+  <FormElement Element={SearchInput} {...props} />
 );

@@ -19,7 +19,7 @@ import { useToast } from './useToast';
  *
  * ## Features
  * - **Global Toast Rendering**: Renders all toasts from the global state
- * - **Automatic Positioning**: Uses Radix UI positioning system
+ * - **Automatic Positioning**: Fixed viewport, bottom-end on desktop
  * - **Animation Integration**: Handles enter/exit animations for toasts
  * - **Accessibility**: Provides proper ARIA landmarks and focus management
  * - **Portal Rendering**: Renders toasts in a portal for z-index safety
@@ -42,7 +42,7 @@ import { useToast } from './useToast';
  * ## Styling Notes
  * - Toasts use fixed positioning to appear above all other content
  * - The viewport is styled for bottom-right positioning by default
- * - Animations are handled automatically through Radix UI primitives
+ * - Animations are driven by `data-state` and kept mounted until they finish
  * - Custom positioning can be achieved by styling the ToastViewport
  *
  * ## Performance
@@ -56,7 +56,7 @@ export const Toaster = () => {
   const { toasts } = useToast();
 
   return (
-    <ToastProvider.Provider>
+    <ToastProvider>
       {toasts.map(({ id, title, description, action, ...props }) => (
         <Toast key={id} {...props}>
           <div className="grid gap-1">
@@ -68,6 +68,6 @@ export const Toaster = () => {
         </Toast>
       ))}
       <ToastViewport />
-    </ToastProvider.Provider>
+    </ToastProvider>
   );
 };

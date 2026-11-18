@@ -1,5 +1,5 @@
 import { Checkbox } from '@components/Input';
-import type { ChangeEvent, ComponentProps, FC, ReactNode } from 'react';
+import type { ComponentProps, FC, ReactNode } from 'react';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type CheckboxElementProps = Omit<FormElementProps<typeof Checkbox>, 'Element'> &
@@ -11,44 +11,31 @@ type CheckboxElementProps = Omit<FormElementProps<typeof Checkbox>, 'Element'> &
 
 type CheckboxComponentProps = Omit<
   ComponentProps<typeof Checkbox>,
-  'label' | 'value' | 'onChange'
+  'label' | 'value'
 > & {
   name: string;
   inputLabel?: ComponentProps<typeof Checkbox>['label'];
-  // FormElement passes value/onChange, but checkbox needs checked
   value?: boolean;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-/**
- * Wrapper component that converts FormElement's value/onChange pattern
- * to checkbox's checked/onChange pattern
- */
+/** Maps the form's boolean `value` onto `checked`. */
 const CheckboxComponent: FC<CheckboxComponentProps> = ({
   inputLabel,
   value,
-  onChange,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   ...props
 }) => (
   <Checkbox
     {...props}
     label={inputLabel}
-    // Convert value (boolean) to checked prop
     checked={Boolean(value)}
-    // Pass through onChange - it receives the event with target.checked
-    onChange={onChange}
+    // The visible input label names the checkbox better than the field name
+    aria-label={inputLabel ? undefined : ariaLabel}
+    aria-labelledby={inputLabel ? undefined : ariaLabelledBy}
   />
 );
 
-export const CheckboxElement: FC<CheckboxElementProps> = ({
-  autoComplete,
-  ...props
-}) => (
-  <FormElement
-    Element={CheckboxComponent}
-    id={props.name}
-    data-testid={props.name}
-    autoComplete={autoComplete}
-    {...props}
-  />
+export const CheckboxElement: FC<CheckboxElementProps> = (props) => (
+  <FormElement Element={CheckboxComponent} {...props} />
 );

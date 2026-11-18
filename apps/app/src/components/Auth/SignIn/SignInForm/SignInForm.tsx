@@ -49,7 +49,7 @@ export const SignInForm: FC<SignInFormProps> = ({
 }) => {
   const SignInSchema = useSignInSchema();
 
-  const { form, isSubmitting } = useForm(SignInSchema, {
+  const form = useForm(SignInSchema, {
     defaultValues: {
       email: defaultEmail,
     },
@@ -124,7 +124,7 @@ export const SignInForm: FC<SignInFormProps> = ({
             className="w-full"
             type="submit"
             color="text"
-            isLoading={isSubmitting || isLoading}
+            isLoading={isLoading}
             label={loginButton.ariaLabel.value}
           >
             {loginButton.text}

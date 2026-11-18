@@ -11,7 +11,6 @@ export type FormElementProps<T extends ElementType> = {
   isRequired?: boolean;
   info?: string;
   showErrorMessage?: boolean;
-  focus?: boolean;
   layoutClassName?: string;
   toolParamDescription?: string;
 } & Omit<FormItemLayoutProps, 'children'>;
@@ -67,9 +66,12 @@ const FormFieldElement = <T extends ElementType>({
       className={layoutClassName}
     >
       <Element
-        data-testid="element"
         id={name}
         name={name}
+        data-testid={name}
+        // The label renders with the `${name}-label` id (see FormLabelLayout)
+        aria-labelledby={label ? `${name}-label` : undefined}
+        aria-label={label ? undefined : name}
         {...props}
         {...getWebMCPParamAttributes(toolParamDescription)}
         ref={mergeRefs(field.ref, ref)}

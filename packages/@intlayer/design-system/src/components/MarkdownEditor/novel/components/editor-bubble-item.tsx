@@ -1,4 +1,4 @@
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from '@components/Slot';
 import type { Editor } from '@tiptap/react';
 import { useCurrentEditor } from '@tiptap/react';
 import type { ComponentPropsWithoutRef, FC, ReactNode, Ref } from 'react';

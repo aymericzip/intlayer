@@ -11,12 +11,5 @@ type InputElementProps = Omit<FormElementProps<typeof Input>, 'Element'> &
   >;
 
 export const InputElement: FC<InputElementProps> = (props) => (
-  <FormElement
-    id={props.name}
-    data-testid={props.name}
-    Element={Input}
-    aria-labelledby={props.label ? `${props.name}-label` : undefined}
-    aria-label={props.label ? undefined : props.name}
-    {...props}
-  />
+  <FormElement Element={Input} {...props} />
 );

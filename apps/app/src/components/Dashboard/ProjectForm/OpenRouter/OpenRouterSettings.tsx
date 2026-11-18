@@ -105,7 +105,7 @@ export const OpenRouterSettings: FC = () => {
     baseURL: isOpenRouter ? (aiConfig?.baseURL ?? '') : '',
   };
 
-  const { form } = useForm(schema as any, { defaultValues });
+  const form = useForm(schema, { defaultValues });
 
   useEffect(() => {
     form.reset({

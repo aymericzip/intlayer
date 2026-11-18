@@ -1,4 +1,4 @@
-import { Form, FormInput, FormMultiSelect } from '@intlayer/design-system/form';
+import { FormInput, FormMultiSelect } from '@intlayer/design-system/form';
 import { MultiSelect } from '@intlayer/design-system/select';
 import { useIntlayer } from 'react-intlayer';
 

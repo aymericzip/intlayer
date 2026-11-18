@@ -22,6 +22,7 @@ import {
   FormMultiSelect,
   FormSelect,
   useForm,
+  useFormState,
   useWatch,
 } from '@components/Form';
 import { Checkbox, Input } from '@components/Input';
@@ -110,12 +111,13 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const DictionaryDetailsSchema = useDictionaryDetailsSchema(
     String(project?.id)
   );
-  const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
+  const form = useForm(DictionaryDetailsSchema, {
     defaultValues: {
       ...dictionary,
       location: toFormLocation(dictionary.location),
     },
   });
+  const { isSubmitting } = useFormState(form);
   const { editedContent, setEditedDictionary } = useEditedContent();
   const {
     titleInput,

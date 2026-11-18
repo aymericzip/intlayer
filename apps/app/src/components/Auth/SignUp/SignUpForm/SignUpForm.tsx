@@ -36,7 +36,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
     termsAndConditionsCheckbox,
   } = useIntlayer('sign-up-form');
   const SignUpSchema = useSignUpSchema();
-  const { form, isSubmitting } = useForm(SignUpSchema, {
+  const form = useForm(SignUpSchema, {
     defaultValues: {
       email: defaultEmail,
     },
@@ -90,7 +90,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         className="mt-4 w-full"
         type="submit"
         color="text"
-        isLoading={isSubmitting || isLoading}
+        isLoading={isLoading}
         label={signUpButton.ariaLabel.value}
       >
         {signUpButton.text}

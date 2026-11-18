@@ -40,7 +40,7 @@ const ProfileFormContent: FC = () => {
   const { session } = useSession();
   const { user } = session ?? {};
   const ProfileFormSchema = useProfileFormSchema();
-  const { form, isSubmitting } = useForm(ProfileFormSchema);
+  const form = useForm(ProfileFormSchema);
   const {
     title,
     nameInput,
@@ -205,7 +205,6 @@ const ProfileFormContent: FC = () => {
         {isEditProfileOpen && (
           <Form
             onSubmitSuccess={onSubmitSuccess}
-            onSubmitError={(data) => console.error(data)}
             className="mt-4 w-full"
             form={form}
           >
@@ -220,7 +219,7 @@ const ProfileFormContent: FC = () => {
               className="mt-6 w-full"
               type="submit"
               color="text"
-              isLoading={isSubmitting || isPending}
+              isLoading={isPending}
               label={editButton.ariaLabel.value}
             >
               {editButton.text}

@@ -33,7 +33,7 @@ export const SubmitProjectForm: FC = () => {
     cancelSubmit,
   } = useProjectSubmit();
 
-  const { form, isSubmitting } = useForm(schema, {
+  const form = useForm(schema, {
     // Search param presets (`?name=&url=`) win over the persisted draft
     defaultValues: { ...formValue, ...presetValues },
   });
@@ -126,10 +126,9 @@ export const SubmitProjectForm: FC = () => {
                   type="submit"
                   color="text"
                   isLoading={
-                    isSubmitting ||
-                    (!!submitStep &&
-                      submitStep !== 'SUCCESS' &&
-                      submitStep !== 'ERROR')
+                    !!submitStep &&
+                    submitStep !== 'SUCCESS' &&
+                    submitStep !== 'ERROR'
                   }
                   label={content.submitButton.label.value}
                   disabled={

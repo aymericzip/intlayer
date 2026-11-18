@@ -30,7 +30,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
     useUpdateOrganizationMembersById();
 
   const UserEditSchema = useUserEditSchema();
-  const { form, isSubmitting } = useForm(UserEditSchema);
+  const form = useForm(UserEditSchema);
 
   const {
     formLabels,
@@ -207,7 +207,6 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
                   className="mt-4 w-full"
                   label={formLabels.updateButton.value}
                   isLoading={
-                    isSubmitting ||
                     updateUserMutation.isPending ||
                     updateOrganizationMembersByIdMutation.isPending
                   }
