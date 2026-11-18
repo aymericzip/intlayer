@@ -364,15 +364,13 @@ export const Button: FC<ButtonProps> = ({
   const resolvedTextAlign = textAlign ?? (IconRight ? 'left' : 'center');
 
   /**
-   * Centered text-only buttons lay out as `[loader | text | empty]` on a
-   * `1fr auto 1fr` grid: the equal side tracks keep the text centered when the
-   * loader appears, the loader track never shrinks below the spinner (text
-   * truncates instead of overlapping it), and the empty end track collapses
-   * to 0 when space runs out, so no space is reserved on the right.
-   * The text track must keep an `auto` minimum (not `minmax(0,auto)`): under a
-   * min-content constraint it then resolves to the text width, otherwise the
-   * button's min-content width is 0 and it collapses inside shrinking flex rows
-   * (e.g. the navbar locale switcher), while a definite width still truncates.
+   * Centered text-only buttons lay out as `[loader | text | empty]` in a flex
+   * row: the two `flex-1 basis-0` side slots grow equally so the text stays
+   * centered when the loader appears, the loader slot never shrinks below the
+   * spinner, and the empty end slot collapses to 0 when space runs out.
+   * Flex (not grid) keeps the text's min-content width as the button's
+   * minimum, so it cannot collapse in a shrinking row (navbar locale switcher)
+   * while a constrained width still truncates the text.
    */
   const isCenteredTextOnly =
     resolvedTextAlign === 'center' &&
@@ -399,8 +397,8 @@ export const Button: FC<ButtonProps> = ({
         {...accessibilityProps}
         {...props}
       >
-        <span className="grid min-w-0 grow grid-cols-[1fr_auto_1fr] items-center">
-          <span className="flex justify-end">
+        <span className="flex min-w-0 grow items-center">
+          <span className="flex flex-1 basis-0 justify-end">
             <Loader
               className={buttonIconVariants({
                 size,
@@ -412,7 +410,7 @@ export const Button: FC<ButtonProps> = ({
             />
           </span>
           <span className="min-w-0 truncate whitespace-nowrap">{children}</span>
-          <span aria-hidden="true" />
+          <span className="flex-1 basis-0" aria-hidden="true" />
         </span>
       </button>
     );

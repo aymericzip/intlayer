@@ -24,7 +24,7 @@ describe('Button', () => {
     expect(labelResult).toBe(buttonLabel);
   });
 
-  test('keeps centered text in the middle grid track while loading', () => {
+  test('keeps centered text between equal side slots while loading', () => {
     const buttonContent = 'Save';
 
     render(
@@ -34,11 +34,14 @@ describe('Button', () => {
     );
 
     const textElement = screen.getByText(buttonContent);
-    const gridElement = textElement.parentElement;
+    const rowElement = textElement.parentElement;
     const loaderElement = screen.getByTestId('loader');
 
-    expect(gridElement?.className).toContain('grid-cols-[1fr_auto_1fr]');
-    expect(gridElement?.children).toHaveLength(3);
-    expect(gridElement?.firstElementChild?.contains(loaderElement)).toBe(true);
+    expect(rowElement?.children).toHaveLength(3);
+    expect(rowElement?.firstElementChild?.className).toContain(
+      'flex-1 basis-0'
+    );
+    expect(rowElement?.lastElementChild?.className).toContain('flex-1 basis-0');
+    expect(rowElement?.firstElementChild?.contains(loaderElement)).toBe(true);
   });
 });
