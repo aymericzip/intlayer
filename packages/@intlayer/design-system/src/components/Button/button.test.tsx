@@ -37,9 +37,7 @@ describe('Button', () => {
     const gridElement = textElement.parentElement;
     const loaderElement = screen.getByTestId('loader');
 
-    expect(gridElement?.className).toContain(
-      'grid-cols-[1fr_minmax(0,auto)_1fr]'
-    );
+    expect(gridElement?.className).toContain('grid-cols-[1fr_auto_1fr]');
     expect(gridElement?.children).toHaveLength(3);
     expect(gridElement?.firstElementChild?.contains(loaderElement)).toBe(true);
   });

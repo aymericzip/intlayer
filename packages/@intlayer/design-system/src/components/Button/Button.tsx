@@ -369,6 +369,10 @@ export const Button: FC<ButtonProps> = ({
    * loader appears, the loader track never shrinks below the spinner (text
    * truncates instead of overlapping it), and the empty end track collapses
    * to 0 when space runs out, so no space is reserved on the right.
+   * The text track must keep an `auto` minimum (not `minmax(0,auto)`): under a
+   * min-content constraint it then resolves to the text width, otherwise the
+   * button's min-content width is 0 and it collapses inside shrinking flex rows
+   * (e.g. the navbar locale switcher), while a definite width still truncates.
    */
   const isCenteredTextOnly =
     resolvedTextAlign === 'center' &&
@@ -395,7 +399,7 @@ export const Button: FC<ButtonProps> = ({
         {...accessibilityProps}
         {...props}
       >
-        <span className="grid min-w-0 grow grid-cols-[1fr_minmax(0,auto)_1fr] items-center">
+        <span className="grid min-w-0 grow grid-cols-[1fr_auto_1fr] items-center">
           <span className="flex justify-end">
             <Loader
               className={buttonIconVariants({
