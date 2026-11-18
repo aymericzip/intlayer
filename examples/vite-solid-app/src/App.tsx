@@ -1,5 +1,5 @@
 import viteLogo from '/vite.svg';
-import { A, Route, useLocation, useNavigate } from '@solidjs/router';
+import { createRouter, useLocation, useNavigate } from '@solidjs/router';
 import { getLocalizedUrl, localeMap } from 'intlayer';
 import { IntlayerProvider, useIntlayer, useLocale } from 'solid-intlayer';
 import {
@@ -52,9 +52,7 @@ const Layout: ParentComponent = (props) => {
   return (
     <>
       <nav>
-        <A href={getLocalizedUrl('/', locale())} end activeClass="active">
-          Home
-        </A>
+        <a href={getLocalizedUrl('/', locale())}>Home</a>
         <LocaleSwitcher />
       </nav>
       {props.children}
@@ -496,24 +494,21 @@ const Home = () => {
 
 // ─── App ─────────────────────────────────────────────────────────────────────
 
-export const App = () =>
-  localeMap(({ locale, urlPrefix }) => (
-    <Route
-      path={urlPrefix}
-      component={(props) => (
-        <IntlayerProvider locale={locale}>
-          <MarkdownProvider
-            renderMarkdown={async (md) => {
-              const { compileMarkdown } =
-                await import('solid-intlayer/markdown');
-              return compileMarkdown(md);
-            }}
-          >
-            <Layout>{props.children}</Layout>
-          </MarkdownProvider>
-        </IntlayerProvider>
-      )}
-    >
-      <Route path="/" component={Home} />
-    </Route>
-  ));
+export const Router = createRouter({
+  routes: localeMap(({ locale, urlPrefix }) => ({
+    path: urlPrefix || '/',
+    component: (props: { children?: JSX.Element }) => (
+      <IntlayerProvider locale={locale}>
+        <MarkdownProvider
+          renderMarkdown={async (md) => {
+            const { compileMarkdown } = await import('solid-intlayer/markdown');
+            return compileMarkdown(md);
+          }}
+        >
+          <Layout>{props.children}</Layout>
+        </MarkdownProvider>
+      </IntlayerProvider>
+    ),
+    children: [{ path: '/', component: Home }],
+  })),
+});

@@ -1,16 +1,8 @@
 /* @refresh reload */
-import { Router } from '@solidjs/router';
-import { render } from 'solid-js/web';
-import { App } from './App.tsx';
+import { render } from '@solidjs/web';
+import { Router } from './App.tsx';
 import './index.css';
 
 const root = document.getElementById('root');
 
-render(
-  () => (
-    <Router>
-      <App />
-    </Router>
-  ),
-  root!
-);
+render(() => <Router>{(props) => props.children}</Router>, root!);

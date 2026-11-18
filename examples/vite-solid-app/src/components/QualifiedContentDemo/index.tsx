@@ -1,5 +1,5 @@
 import { useIntlayer } from 'solid-intlayer';
-import { For, Suspense } from 'solid-js';
+import { For, Loading } from 'solid-js';
 
 const card = {
   padding: '20px',
@@ -144,11 +144,11 @@ export const QualifiedContentDemo = () => (
     <h2 style={heading}>
       Collections · Variants · Object Variants · Composite
     </h2>
-    <Suspense fallback={<p>Loading qualified content…</p>}>
+    <Loading fallback={<p>Loading qualified content…</p>}>
       <FaqCollection />
       <HeroVariants />
       <ProductRecords />
       <PricingComposite />
-    </Suspense>
+    </Loading>
   </div>
 );
