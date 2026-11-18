@@ -37,8 +37,12 @@ type SolidTwoRuntime = {
 /**
  * Whether the installed `solid-js` is a 2.x runtime. `createResource` was
  * removed in Solid 2, which makes it a reliable discriminant.
+ *
+ * A static member read on purpose: `'createResource' in Solid` makes bundlers
+ * materialize the whole namespace and keep every `solid-js` export (+2.4 KB
+ * gzip in a lean app).
  */
-export const isSolidTwo: boolean = !('createResource' in Solid);
+export const isSolidTwo: boolean = typeof Solid.createResource !== 'function';
 
 /**
  * Side effect split into a tracked `compute` and an untracked `effect`, the

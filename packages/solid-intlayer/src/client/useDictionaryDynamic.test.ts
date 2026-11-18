@@ -23,9 +23,16 @@ vi.mock('@intlayer/config/built', () => ({
   internationalization: mockConfig.internationalization,
 }));
 
-vi.mock('solid-js', () => ({
-  useContext: mockSolid.useContext,
-}));
+vi.mock('solid-js', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('solid-js')>();
+
+  return {
+    ...actual,
+    // Read by the compat layer's version check; absent (undefined) in Solid 2.
+    createResource: actual.createResource,
+    useContext: mockSolid.useContext,
+  };
+});
 
 vi.mock('./IntlayerProvider', () => ({
   IntlayerClientContext: {},

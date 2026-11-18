@@ -24,14 +24,20 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
-vi.mock('solid-js', async (importOriginal) => ({
-  // Compiled JSX in the module graph needs the rest of the real runtime.
-  ...(await importOriginal<typeof import('solid-js')>()),
-  createMemo: mockSolid.createMemo,
-  useContext: mockSolid.useContext,
-  // plugins.tsx lazy-loads the editor ContentSelector at module scope.
-  lazy: () => () => null,
-}));
+vi.mock('solid-js', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('solid-js')>();
+
+  return {
+    // Compiled JSX in the module graph needs the rest of the real runtime.
+    ...actual,
+    // Read by the compat layer's version check; absent (undefined) in Solid 2.
+    createResource: actual.createResource,
+    createMemo: mockSolid.createMemo,
+    useContext: mockSolid.useContext,
+    // plugins.tsx lazy-loads the editor ContentSelector at module scope.
+    lazy: () => () => null,
+  };
+});
 
 vi.mock('../solidCompat', async (importOriginal) => ({
   ...(await importOriginal<typeof import('../solidCompat')>()),
