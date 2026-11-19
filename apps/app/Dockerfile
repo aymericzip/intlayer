@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.28.0
 
-FROM oven/bun:1.4.4-alpine AS builder
+FROM oven/bun:1.4.5-alpine AS builder
 
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
@@ -61,7 +61,7 @@ ENV NODE_ENV=production
 RUN bun run build && bun scripts/generate-sw.ts
 
 # Runner — use oven/bun base image to avoid npm install overhead
-FROM oven/bun:1.4.4-alpine AS runner
+FROM oven/bun:1.4.5-alpine AS runner
 
 WORKDIR /app
 

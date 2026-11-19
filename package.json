@@ -87,7 +87,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "@vitejs/plugin-react": "6.3.0",
-    "bun": "1.4.4",
+    "bun": "1.4.5",
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",
     "husky": "9.1.7",
@@ -114,10 +114,10 @@
     "react-dom": "19.3.1"
   },
   "engines": {
-    "bun": ">=1.4.4",
+    "bun": ">=1.4.5",
     "node": ">=16.0.0"
   },
-  "packageManager": "bun@1.4.4",
+  "packageManager": "bun@1.4.5",
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"
   },

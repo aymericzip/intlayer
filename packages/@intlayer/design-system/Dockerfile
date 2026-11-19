@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.28.0
 
 # Builder stage
-FROM oven/bun:1.4.4-alpine AS builder
+FROM oven/bun:1.4.5-alpine AS builder
 
 # Put the repo in /workspace
 WORKDIR /workspace
@@ -62,7 +62,7 @@ ENV STORYBOOK_STATIC=true
 RUN bun x storybook build --disable-telemetry
 
 # Runner — static file serving with `serve`
-FROM oven/bun:1.4.4-alpine AS runner
+FROM oven/bun:1.4.5-alpine AS runner
 
 WORKDIR /www
 

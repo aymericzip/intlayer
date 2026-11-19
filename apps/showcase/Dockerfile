@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.28.0
 
 
-FROM oven/bun:1.4.4-alpine AS builder
+FROM oven/bun:1.4.5-alpine AS builder
 
 
 # Create app directory
@@ -61,7 +61,7 @@ RUN bun run build
 
 
 # Runner
-FROM oven/bun:1.4.4-alpine AS runner
+FROM oven/bun:1.4.5-alpine AS runner
 
 WORKDIR /app
 

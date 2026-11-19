@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.28.0
 
 # Base stage: system deps shared between builder and runner
-FROM oven/bun:1.4.4-alpine AS base
+FROM oven/bun:1.4.5-alpine AS base
 
 # System deps for headless Chromium (Puppeteer)
 RUN apk add --no-cache \
