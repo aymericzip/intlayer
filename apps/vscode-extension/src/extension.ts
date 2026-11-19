@@ -1,4 +1,10 @@
-import { commands, type ExtensionContext, languages, window } from 'vscode';
+import {
+  commands,
+  type ExtensionContext,
+  languages,
+  window,
+  workspace,
+} from 'vscode';
 import { startCmsSync } from './cms/cmsSync';
 import { buildCommand } from './commands/buildAllCommand';
 import { extractCommand } from './commands/extractCommand';
@@ -58,6 +64,7 @@ import { intlayerDefinitionProvider } from './providers/intlayerDefinitionProvid
 import { intlayerExtractInlayHintsProvider } from './providers/intlayerExtractInlayHints';
 import { intlayerHoverProvider } from './providers/intlayerHoverProvider';
 import { intlayerUnusedDecorationProvider } from './providers/intlayerUnusedDecoration';
+import { remoteDictionaryContentProvider } from './providers/remoteDictionaryContentProvider';
 import {
   invalidateConfigurationCaches,
   onDidChangeConfiguration,
@@ -70,6 +77,7 @@ import {
   getCachedConfig,
   isContentDeclarationFile,
 } from './utils/intlayerCache';
+import { REMOTE_DICTIONARY_SCHEME } from './utils/remoteDictionaryDocument';
 import { contentFileSaveWatcher } from './watchers/contentFileSaveWatcher';
 
 /** Delay before revealing the active content file in the dictionaries tree. */
@@ -112,6 +120,11 @@ const registerLanguageProviders = (context: ExtensionContext): void => {
     languages.registerHoverProvider(
       PROVIDER_DOCUMENT_SELECTOR,
       intlayerHoverProvider
+    ),
+    // Read-only previews of remote dictionaries, Go-to-Definition targets
+    workspace.registerTextDocumentContentProvider(
+      REMOTE_DICTIONARY_SCHEME,
+      remoteDictionaryContentProvider
     ),
     ...intlayerDecorationProvider(),
     ...intlayerUnusedDecorationProvider(),

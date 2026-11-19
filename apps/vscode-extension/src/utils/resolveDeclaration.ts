@@ -13,6 +13,10 @@ import {
   getCachedConfig,
   getCachedUnmergedDictionaries,
 } from './intlayerCache';
+import {
+  createRemoteDictionaryUri,
+  renderRemoteDictionaryDocument,
+} from './remoteDictionaryDocument';
 import { createOffsetToPosition } from './textPosition';
 
 /**
@@ -96,8 +100,76 @@ export const createDeclarationLinks = async (
 };
 
 /**
+ * Definition links to the read-only previews of the remote dictionaries
+ * (declared on the CMS only) among a resolved target, on the field itself.
+ *
+ * @param projectDir - Project root holding the intlayer configuration.
+ * @param resolved - Usage target matched against the built dictionaries.
+ * @param originSelectionRange - Span underlined in the origin document.
+ */
+const createRemoteDeclarationLinks = async (
+  projectDir: string,
+  resolved: ResolvedDictionaryTarget<Dictionary>,
+  originSelectionRange?: Range
+): Promise<DefinitionLink[]> => {
+  const remoteDictionary = resolved.dictionaries.find(
+    (dictionary) => dictionary.location === 'remote'
+  );
+
+  if (!remoteDictionary) return [];
+
+  const { editor } = await getCachedConfig(projectDir);
+  const text = renderRemoteDictionaryDocument(remoteDictionary, editor?.cmsURL);
+  const span = findFieldDeclaration(
+    text,
+    `${resolved.dictionaryKey}.content.json`,
+    resolved.dictionaryKey,
+    resolved.fieldPath
+  );
+  const offsetToPosition = createOffsetToPosition(text);
+  const start = offsetToPosition(span?.start ?? 0);
+  const end = offsetToPosition(span?.end ?? 0);
+  const targetRange = new Range(
+    start.line,
+    start.character,
+    end.line,
+    end.character
+  );
+
+  return [
+    {
+      originSelectionRange,
+      targetUri: createRemoteDictionaryUri(projectDir, resolved.dictionaryKey),
+      targetRange,
+      targetSelectionRange: targetRange,
+    },
+  ];
+};
+
+/**
+ * Definition links to the remote dictionaries matching a usage target only.
+ * The LSP server answers for local files but cannot see remote dictionaries.
+ *
+ * @param projectDir - Project root holding the intlayer configuration.
+ * @param target - Dictionary key + field path read from the source.
+ * @param originSelectionRange - Span underlined in the origin document.
+ */
+export const getRemoteDeclarationLinks = async (
+  projectDir: string,
+  target: UsageTarget,
+  originSelectionRange?: Range
+): Promise<DefinitionLink[]> => {
+  const resolved = await resolveProjectTarget(projectDir, target);
+
+  return resolved
+    ? createRemoteDeclarationLinks(projectDir, resolved, originSelectionRange)
+    : [];
+};
+
+/**
  * Definition links to every source file declaring a usage target (content
- * file, or one JSON catalog per locale), the default locale first.
+ * file, or one JSON catalog per locale), the default locale first, then the
+ * preview of its remote dictionary, if any.
  *
  * @param projectDir - Project root holding the intlayer configuration.
  * @param target - Dictionary key + field path read from the source.
@@ -122,11 +194,16 @@ export const getDeclarationLinks = async (
     .map((dictionary) => dictionary.filePath)
     .filter((filePath): filePath is string => Boolean(filePath));
 
-  return createDeclarationLinks(
-    projectDir,
-    resolved.dictionaryKey,
-    resolved.fieldPath,
-    sourcePaths,
-    originSelectionRange
-  );
+  const [localLinks, remoteLinks] = await Promise.all([
+    createDeclarationLinks(
+      projectDir,
+      resolved.dictionaryKey,
+      resolved.fieldPath,
+      sourcePaths,
+      originSelectionRange
+    ),
+    createRemoteDeclarationLinks(projectDir, resolved, originSelectionRange),
+  ]);
+
+  return [...localLinks, ...remoteLinks];
 };

@@ -1,6 +1,7 @@
 import { dirname, join } from 'node:path';
 import type { Dictionary } from '@intlayer/types';
 import { Hover, type HoverProvider, MarkdownString, Uri } from 'vscode';
+import { getCmsDictionaryUrl } from '../utils/cmsDictionaryUrl';
 import { findProjectRoot } from '../utils/findProjectRoot';
 import { getCachedConfig } from '../utils/intlayerCache';
 import { resolveIntlayerPath } from '../utils/intlayerPathResolver';
@@ -133,7 +134,11 @@ export const intlayerHoverProvider: HoverProvider = {
       section.isTrusted = true;
 
       if (dictionary.location === 'remote') {
-        const dashboardUrl = `${configuration.editor.cmsURL}/dictionary/${dictionaryKey}`;
+        const cmsURL = configuration.editor?.cmsURL;
+
+        if (!cmsURL) return;
+
+        const dashboardUrl = getCmsDictionaryUrl(cmsURL, dictionaryKey);
 
         section.appendMarkdown(
           `\n---\n### Remote Dictionary\n[Open Dashboard](${dashboardUrl})`

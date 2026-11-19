@@ -6,7 +6,10 @@ import { findProjectRoot } from '../utils/findProjectRoot';
 import { getKeyOriginRange } from '../utils/getKeyOriginRange';
 import { resolveIntlayerPath } from '../utils/intlayerPathResolver';
 import { stripAccessorSuffix } from '../utils/intlayerValueResolver';
-import { getDeclarationLinks } from '../utils/resolveDeclaration';
+import {
+  getDeclarationLinks,
+  getRemoteDeclarationLinks,
+} from '../utils/resolveDeclaration';
 
 /**
  * Go-to-Definition from a field usage (`content.title`, `t('home.title')`,
@@ -17,12 +20,6 @@ export const intlayerDefinitionProvider: DefinitionProvider = {
     const projectDir = findProjectRoot(dirname(document.uri.fsPath));
 
     if (!projectDir) return null;
-
-    // The LSP server resolves the same field usages from the same text.
-    // Answering here too would list the target twice.
-    if (await isDefinitionHandledByLSPServer(document, projectDir)) {
-      return null;
-    }
 
     const origin = await resolveIntlayerPath(document, position);
     const target = origin
@@ -35,11 +32,14 @@ export const intlayerDefinitionProvider: DefinitionProvider = {
 
     if (!target) return null;
 
-    const links = await getDeclarationLinks(
-      projectDir,
-      target,
-      getKeyOriginRange(document, position)
-    );
+    // The LSP server resolves the same field usages from the same text:
+    // answering here too would list them twice. It cannot see remote
+    // dictionaries, which have no file.
+    const links = await (
+      (await isDefinitionHandledByLSPServer(document, projectDir))
+        ? getRemoteDeclarationLinks
+        : getDeclarationLinks
+    )(projectDir, target, getKeyOriginRange(document, position));
 
     return links.length > 0 ? links : null;
   },

@@ -1,5 +1,6 @@
 import { isAbsolute, join } from 'node:path';
 import type { Dictionary } from '@intlayer/types';
+import { getCmsDictionaryUrl } from './cmsDictionaryUrl';
 
 /** A content declaration generated from a component by the compiler. */
 export type RelatedContentFile =
@@ -19,18 +20,6 @@ export type RelatedContentFile =
       /** CMS page editing the dictionary. */
       cmsDictionaryUrl: string;
     };
-
-/**
- * CMS page editing a dictionary (`https://app.intlayer.org/dictionary/hero`).
- *
- * @param cmsURL - `editor.cmsURL` of the configuration.
- * @param dictionaryKey - Key of the dictionary.
- */
-export const getCmsDictionaryUrl = (
-  cmsURL: string,
-  dictionaryKey: string
-): string =>
-  `${cmsURL.replace(/\/+$/, '')}/dictionary/${encodeURIComponent(dictionaryKey)}`;
 
 /**
  * Content declarations of the dictionaries the compiler extracted from a
