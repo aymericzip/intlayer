@@ -121,11 +121,6 @@
       "require": "./dist/cjs/extractorLoader.cjs",
       "import": "./dist/esm/extractorLoader.mjs"
     },
-    "./plugin": {
-      "types": "./dist/types/plugin/index.d.ts",
-      "require": "./dist/cjs/plugin/index.cjs",
-      "import": "./dist/esm/plugin/index.mjs"
-    },
     "./package.json": "./package.json"
   },
   "scripts": {

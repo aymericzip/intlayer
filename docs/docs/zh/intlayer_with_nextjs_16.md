@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n - 翻译你的应用的完整指南"
 description: "在 Next.js 16 App Router 中配置 Intlayer：通过代理实现语言路由、Server 与 Client Components、本地化元数据、站点地图和静态页面。"
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "添加自定义服务器设置"
   - version: 8.9.0
     date: 2026-05-04
     changes: "更新 Solid useIntlayer API 用法以直接访问属性"
@@ -1530,6 +1533,41 @@ Intlayer 支持 Next.js 12、13、14、15 和 16。本指南涵盖 Next.js 16。
 是的。Intlayer 基于 Apache 2.0 许可证开源，整个库、CLI、可视化编辑器和编译器均可免费使用，包括商业用途。托管版 CMS 是可选的付费服务，同时也完全支持 [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
 
 - [自托管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
+
+</Question>
+<Question title="如何在 Next.js 自定义服务器中使用 Intlayer？">
+
+使用[自定义服务器](https://nextjs.org/docs/app/guides/custom-server)时，`node server.js` 既不是 `next dev` 也不是 `next build`，并且 `next()` 不会解析作为 `conf` 传入的 Promise。请传入 `command` 选项，让 Intlayer 构建并监听你的字典，并在传给 Next.js 之前 `await` 配置：
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* 此处为配置选项 */};
+
+// `next build` 仍会使用
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

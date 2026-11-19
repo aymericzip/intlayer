@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n - 앱을 번역하는 완전 가이드"
 description: "Next.js 16 App Router에 Intlayer 설정: 프록시 기반 로케일 라우팅, Server 및 Client Components, 현지화된 메타데이터, 사이트맵, 정적 페이지."
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "커스텀 서버 설정 추가"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
@@ -1324,6 +1327,7 @@ Intlayer v9.5부터 `withIntlayer`가 content watcher를 자체적으로 시작�
 
  </Tab>
 </Tabs>
+
 ### TypeScript 구성
 
 Intlayer는 모듈 증강(module augmentation)을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
@@ -1532,6 +1536,41 @@ CI에서 `npx intlayer test`를 실행하세요. 선언된 로케일에 콘텐�
 네. Intlayer는 Apache 2.0 라이선스에 따른 오픈 소스이며, 라이브러리 전체, CLI, 비주얼 에디터 및 컴파일러는 상업적 사용을 포함하여 무료로 사용할 수 있습니다. 호스팅형 CMS는 선택적 유료 서비스이며 [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)도 가능합니다.
 
 - [자체 호스팅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
+
+</Question>
+<Question title="Next.js 커스텀 서버에서 Intlayer를 어떻게 사용하나요?">
+
+[커스텀 서버](https://nextjs.org/docs/app/guides/custom-server)에서는 `node server.js`가 `next dev`도 `next build`도 아니며, `next()`는 `conf`로 전달된 Promise를 해결하지 않습니다. Intlayer가 사전을 빌드하고 감시하도록 `command` 옵션을 전달하고, Next.js에 넘기기 전에 설정을 `await`하세요:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* 여기에 구성 옵션을 입력하세요 */};
+
+// `next build`에서 계속 사용됩니다
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

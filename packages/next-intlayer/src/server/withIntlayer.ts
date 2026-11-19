@@ -453,7 +453,30 @@ const getPruneConfig = ({
   };
 };
 
-const getCommandsEvent = () => {
+/** Next.js command the config is evaluated for. */
+export type NextCommand = 'dev' | 'build' | 'start';
+
+type CommandsEvent = {
+  isDevCommand: boolean;
+  isBuildCommand: boolean;
+  isStartCommand: boolean;
+};
+
+/**
+ * Detects the running Next.js command.
+ *
+ * An explicit `command` wins: a custom server (`node server.js`) has neither
+ * `next dev` in its argv nor a matching npm script, so detection would fail.
+ */
+export const getCommandsEvent = (command?: NextCommand): CommandsEvent => {
+  if (command) {
+    return {
+      isDevCommand: command === 'dev',
+      isBuildCommand: command === 'build',
+      isStartCommand: command === 'start',
+    };
+  }
+
   const lifecycleEvent = process.env['npm_lifecycle_event'];
   const lifecycleScript = process.env['npm_lifecycle_script'] ?? '';
 
@@ -481,8 +504,14 @@ const getCommandsEvent = () => {
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
-type WithIntlayerOptions = GetConfigurationOptions & {
+export type WithIntlayerOptions = GetConfigurationOptions & {
   enableTurbopack?: boolean;
+  /**
+   * Next.js command the config is built for. Detected from the CLI arguments
+   * and npm script by default; set it when running a custom server, e.g.
+   * `command: dev ? 'dev' : 'start'`.
+   */
+  command?: NextCommand;
   /**
    * Compat-adapter caller descriptors injected by a compat package's bundler
    * plugin (e.g. `@intlayer/next-intl/plugin`). They drive both the SWC
@@ -527,7 +556,9 @@ const resolveConfigOptions = (
   // Respect an explicit override from the caller (idempotent on re-entry).
   if (configOptions?.env) return configOptions;
 
-  const { isDevCommand, isBuildCommand, isStartCommand } = getCommandsEvent();
+  const { isDevCommand, isBuildCommand, isStartCommand } = getCommandsEvent(
+    configOptions?.command
+  );
 
   const env = isDevCommand
     ? 'development'
@@ -594,7 +625,9 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     );
   }
 
-  const { isBuildCommand, isDevCommand } = getCommandsEvent();
+  const { isBuildCommand, isDevCommand } = getCommandsEvent(
+    configOptions?.command
+  );
 
   const extractorLoader = getExtractorLoader(
     intlayerConfig,
@@ -887,7 +920,9 @@ export const withIntlayer = async <T extends NextConfig | Partial<NextConfig>>(
   nextConfig: T | Promise<T> = {} as T,
   configOptions?: WithIntlayerOptions
 ): Promise<NextConfig & T> => {
-  const { isBuildCommand, isDevCommand, isStartCommand } = getCommandsEvent();
+  const { isBuildCommand, isDevCommand, isStartCommand } = getCommandsEvent(
+    configOptions?.command
+  );
 
   process.env.INTLAYER_IS_DEV_COMMAND = isDevCommand ? 'true' : 'false';
 

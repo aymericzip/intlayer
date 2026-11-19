@@ -3,7 +3,6 @@ import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
-import { cookies, headers } from 'next/headers.js';
 
 // Helper function to extract locale from headers/cookies
 /**
@@ -26,6 +25,11 @@ import { cookies, headers } from 'next/headers.js';
  */
 export const getLocale = async (): Promise<Locale> => {
   const defaultLocale = internationalization?.defaultLocale ?? DEFAULT_LOCALE;
+
+  // Loaded lazily: `next/headers` creates Next.js request storages on load,
+  // which breaks a custom server that imports `withIntlayer` (same entry)
+  // before Next.js has set up `AsyncLocalStorage`.
+  const { cookies, headers } = await import('next/headers.js');
 
   // Try locale from header
   const headersList = await headers();

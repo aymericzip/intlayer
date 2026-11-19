@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n - Complete guide to translate your app"
 description: "Set up Intlayer in Next.js 16 App Router: locale routing with the proxy, Server and Client Components, localized metadata, sitemap and static pages."
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "Add custom server setup"
   - version: 9.4.0
     date: 2026-08-22
     changes: "Update to Next.js >= 9.4.0 architecture"
@@ -1539,6 +1542,41 @@ Run `npx intlayer test` in CI. It fails the build when a declared locale is miss
 Yes. Intlayer is open source under the Apache 2.0 license, and the whole library, CLI, visual editor and compiler are free to use, including commercially. The hosted CMS is an optional paid service, and it can also be [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md).
 
 - [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md)
+
+</Question>
+<Question title="How do I use Intlayer with a Next.js custom server?">
+
+With a [custom server](https://nextjs.org/docs/app/guides/custom-server), `node server.js` is neither `next dev` nor `next build`, and `next()` does not resolve a promise passed as `conf`. Pass the `command` option so Intlayer builds and watches your dictionaries, and `await` the config before giving it to Next.js:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* config options here */};
+
+// Still used by `next build`
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

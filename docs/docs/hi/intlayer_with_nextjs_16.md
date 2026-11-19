@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "Next.js 16 App Router में Intlayer सेट करें: proxy से लोकेल रूटिंग, Server और Client Components, स्थानीयकृत मेटाडेटा, साइटमैप और स्टैटिक पेज।"
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "कस्टम सर्वर सेटअप जोड़ा गया"
   - version: 8.9.0
     date: 2026-05-04
     changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
@@ -1037,9 +1040,7 @@ import { getLocalizedUrl } from "intlayer";
 
 const { setLocale } = useLocale();
 
-return (
-  <button onClick={() => setLocale(Locales.FRENCH)}>फ़्रेंच में बदलें</button>
-);
+return <button onClick={() => setLocale(Locales.FRENCH)}>फ़्रेंच में बदलें</button>;
 ```
 
 > दस्तावेज़ीकरण संदर्भ:
@@ -1534,6 +1535,41 @@ CI में `npx intlayer test` चलाएँ। जब किसी घो�
 हाँ। Intlayer, Apache 2.0 लाइसेंस के तहत ओपन सोर्स है, और पूरी library, CLI, visual editor और compiler उपयोग के लिए मुफ्त हैं, जिसमें व्यावसायिक उपयोग भी शामिल है। Hosted CMS एक वैकल्पिक सशुल्क सेवा है, और इसे [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) भी किया जा सकता है।
 
 - [self host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md)
+
+</Question>
+<Question title="Next.js कस्टम सर्वर के साथ Intlayer का उपयोग कैसे करें?">
+
+[कस्टम सर्वर](https://nextjs.org/docs/app/guides/custom-server) के साथ, `node server.js` न तो `next dev` है और न ही `next build`, और `next()` `conf` में दिए गए promise को resolve नहीं करता। `command` विकल्प पास करें ताकि Intlayer आपकी dictionaries को build और watch करे, और Next.js को देने से पहले config को `await` करें:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* यहाँ कॉन्फ़िग विकल्प */};
+
+// `next build` द्वारा अभी भी उपयोग किया जाता है
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

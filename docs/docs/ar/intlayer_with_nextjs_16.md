@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 10
 title: "تدويل Next.js 16 - الدليل الكامل لترجمة تطبيقك"
 description: "إعداد Intlayer في Next.js 16 App Router: توجيه اللغات عبر proxy، وServer وClient Components، وبيانات وصفية مترجمة، وخريطة موقع، وصفحات ثابتة."
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "إضافة إعداد الخادم المخصص"
   - version: 8.9.0
     date: 2026-05-04
     changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
@@ -1539,6 +1542,41 @@ bun run build # أو bun run dev
 نعم. Intlayer مفتوح المصدر بموجب ترخيص Apache 2.0، والمكتبة بأكملها و CLI والمحرر المرئي والمترجم (compiler) مجانية الاستخدام، بما في ذلك الاستخدام التجاري. الـ CMS المستضاف هو خدمة مدفوعة اختيارية، ويمكن أيضًا [استضافته ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md).
 
 - [استضافته ذاتيًا (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
+
+</Question>
+<Question title="كيف أستخدم Intlayer مع خادم Next.js مخصص؟">
+
+مع [خادم مخصص](https://nextjs.org/docs/app/guides/custom-server)، لا يُعد `node server.js` أمر `next dev` ولا `next build`، ولا تقوم `next()` بحل الوعد (promise) الممرَّر في `conf`. مرّر الخيار `command` لكي يقوم Intlayer ببناء قواميسك ومراقبتها، واستخدم `await` على التهيئة قبل تمريرها إلى Next.js:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* خيارات التهيئة هنا */};
+
+// لا يزال مستخدماً بواسطة `next build`
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

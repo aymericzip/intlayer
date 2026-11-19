@@ -22,4 +22,9 @@ export { useI18n } from './useI18n';
 export { useIntl } from './useIntl';
 export { useIntlayer } from './useIntlayer';
 export { type UseLocaleResult, useLocale } from './useLocale';
-export { withIntlayer, withIntlayerSync } from './withIntlayer';
+export {
+  type NextCommand,
+  type WithIntlayerOptions,
+  withIntlayer,
+  withIntlayerSync,
+} from './withIntlayer';

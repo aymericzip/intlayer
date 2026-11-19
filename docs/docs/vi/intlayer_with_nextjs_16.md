@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Thiết lập Intlayer trong Next.js 16 App Router: định tuyến locale qua proxy, Server và Client Components, metadata bản địa hóa, sitemap và trang tĩnh."
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "Thêm hướng dẫn cấu hình custom server"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
@@ -1535,6 +1538,41 @@ Chạy `npx intlayer test` trong CI. Lệnh này làm build thất bại khi m�
 Có. Intlayer là mã nguồn mở theo giấy phép Apache 2.0, và toàn bộ thư viện, CLI, trình chỉnh sửa trực quan và compiler đều miễn phí sử dụng, kể cả cho mục đích thương mại. CMS được lưu trữ là một dịch vụ trả phí tùy chọn, và cũng có thể được [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md).
 
 - [tự lưu trữ (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
+
+</Question>
+<Question title="Làm thế nào để dùng Intlayer với custom server của Next.js?">
+
+Với [custom server](https://nextjs.org/docs/app/guides/custom-server), `node server.js` không phải `next dev` cũng không phải `next build`, và `next()` không resolve promise được truyền vào `conf`. Hãy truyền tùy chọn `command` để Intlayer build và theo dõi các dictionary của bạn, và `await` cấu hình trước khi truyền cho Next.js:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* tùy chọn cấu hình tại đây */};
+
+// Vẫn được dùng bởi `next build`
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

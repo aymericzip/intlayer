@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-11-03
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n, מדריך מלא לתרגום האפליקציה שלכם"
 description: "הגדירו את Intlayer ב-Next.js 16 App Router: ניתוב שפות באמצעות proxy,‏ Server ו-Client Components, מטא-דאטה מקומית, sitemap ודפים סטטיים."
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "הוספת הגדרה עם שרת מותאם אישית"
   - version: 9.4.0
     date: 2026-08-22
     changes: "עדכון לארכיטקטורת Next.js >= 9.4.0"
@@ -1546,6 +1549,41 @@ Intlayer תומך ב-Next.js 12, 13, 14, 15 ו-16. מדריך זה עוסק ב-N
 כן. Intlayer הוא קוד פתוח תחת רישיון Apache 2.0, וכל הספרייה, ה-CLI, העורך הויזואלי והמהדר חינמיים לשימוש, כולל שימוש מסחרי. ה-CMS המאוחסן הוא שירות אופציונלי בתשלום, וניתן גם [לארח אותו עצמאית](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md).
 
 - [אירוח עצמי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/self_hosting.md)
+
+</Question>
+<Question title="איך משתמשים ב-Intlayer עם שרת מותאם אישית של Next.js?">
+
+עם [שרת מותאם אישית](https://nextjs.org/docs/app/guides/custom-server), `node server.js` אינו `next dev` וגם לא `next build`, ו-`next()` אינו פותר promise שמועבר ב-`conf`. העבירו את האפשרות `command` כדי ש-Intlayer יבנה ויעקוב אחרי המילונים שלכם, והמתינו לתצורה עם `await` לפני שתעבירו אותה ל-Next.js:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* אפשרויות תצורה כאן */};
+
+// עדיין בשימוש על ידי `next build`
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

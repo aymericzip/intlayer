@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-10-08
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Siapkan Intlayer di Next.js 16 App Router: routing locale dengan proxy, Server dan Client Components, metadata terlokalisasi, sitemap, dan halaman statis."
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "Tambahkan pengaturan custom server"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
@@ -1550,6 +1553,41 @@ Jalankan `npx intlayer test` di CI. Perintah ini menggagalkan build ketika sebua
 Ya. Intlayer adalah open source di bawah lisensi Apache 2.0, dan seluruh library, CLI, visual editor, dan compiler gratis digunakan, termasuk untuk keperluan komersial. CMS yang di-hosting adalah layanan berbayar opsional, dan juga dapat [di-self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
 
 - [di-self-host](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
+
+</Question>
+<Question title="Bagaimana cara menggunakan Intlayer dengan custom server Next.js?">
+
+Dengan [custom server](https://nextjs.org/docs/app/guides/custom-server), `node server.js` bukan `next dev` maupun `next build`, dan `next()` tidak me-resolve promise yang diberikan sebagai `conf`. Berikan opsi `command` agar Intlayer membangun dan memantau kamus Anda, lalu `await` konfigurasinya sebelum diberikan ke Next.js:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* opsi konfigurasi di sini */};
+
+// Masih digunakan oleh `next build`
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 

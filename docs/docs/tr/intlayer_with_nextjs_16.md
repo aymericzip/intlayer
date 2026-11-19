@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-27
+updatedAt: 2026-11-18
 priority: 10
 title: "Next.js 16 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Next.js 16 App Router'da Intlayer kurulumu: proxy ile locale yönlendirme, Server ve Client Components, yerelleştirilmiş metadata, sitemap ve statik sayfalar."
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 9.8.3
+    date: 2026-11-18
+    changes: "Özel sunucu kurulumu eklendi"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
@@ -1325,6 +1328,7 @@ Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek
 
  </Tab>
 </Tabs>
+
 ### TypeScript Yapılandırması
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
@@ -1533,6 +1537,41 @@ CI'da `npx intlayer test` komutunu çalıştırın. Bildirilen bir yerel ayarda 
 Evet. Intlayer, Apache 2.0 lisansı altında açık kaynaklıdır; kütüphanenin tamamı, CLI, görsel düzenleyici ve derleyici, ticari kullanım dahil ücretsiz olarak kullanılabilir. Barındırılan CMS isteğe bağlı ücretli bir hizmettir ve ayrıca [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md).
 
 - [kendi sunucunuzda barındırılabilir (self-host)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
+
+</Question>
+<Question title="Intlayer'ı bir Next.js özel sunucusuyla nasıl kullanırım?">
+
+[Özel sunucu](https://nextjs.org/docs/app/guides/custom-server) ile `node server.js` ne `next dev` ne de `next build` olur ve `next()`, `conf` olarak verilen bir promise'i çözmez. Intlayer'ın sözlüklerinizi derleyip izlemesi için `command` seçeneğini iletin ve yapılandırmayı Next.js'e vermeden önce `await` ile bekleyin:
+
+```typescript fileName="next.config.ts"
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+export const nextConfig: NextConfig = {/* buraya yapılandırma seçenekleri */};
+
+// `next build` tarafından hâlâ kullanılır
+export default withIntlayer(nextConfig);
+```
+
+```typescript fileName="server.ts"
+import { createServer } from "node:http";
+import next from "next";
+import { withIntlayer } from "next-intlayer/server";
+import { nextConfig } from "./next.config";
+
+const dev = process.env.NODE_ENV !== "production";
+
+const conf = await withIntlayer(nextConfig, {
+  command: dev ? "dev" : "start",
+});
+
+const app = next({ dev, conf, customServer: true });
+const handler = app.getRequestHandler();
+
+await app.prepare();
+
+createServer((request, response) => handler(request, response)).listen(3000);
+```
 
 </Question>
 
