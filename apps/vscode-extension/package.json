@@ -67,7 +67,9 @@
     "create-file-icon-light.svg",
     "create-file-icon-dark.svg",
     "extract-icon-light.svg",
-    "extract-icon-dark.svg"
+    "extract-icon-dark.svg",
+    "related-content-icon-light.svg",
+    "related-content-icon-dark.svg"
   ],
   "main": "./dist/extension.js",
   "scripts": {
@@ -170,6 +172,14 @@
         "icon": {
           "light": "extract-icon-light.svg",
           "dark": "extract-icon-dark.svg"
+        }
+      },
+      {
+        "command": "intlayer.openRelatedContent",
+        "title": "Intlayer: Open Related Content File",
+        "icon": {
+          "light": "related-content-icon-light.svg",
+          "dark": "related-content-icon-dark.svg"
         }
       },
       {
@@ -360,6 +370,11 @@
           "when": "(editorLangId == javascript || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == typescriptreact || editorLangId == vue || editorLangId == svelte || editorLangId == astro || editorLangId == html) && (resourceFilename =~ /\\.(js|jsx|mjs|cjs|ts|tsx|svelte|vue|astro|html)$/) && !(resourceFilename =~ /.*\\.content\\..*$/)",
           "command": "intlayer.extract",
           "group": "navigation@900"
+        },
+        {
+          "when": "resourcePath in intlayer.relatedContentResources",
+          "command": "intlayer.openRelatedContent",
+          "group": "navigation@899"
         }
       ],
       "view/title": [

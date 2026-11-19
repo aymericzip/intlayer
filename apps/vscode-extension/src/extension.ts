@@ -12,6 +12,7 @@ import { fillCommand, reviewCommand } from './commands/fillAllCommand';
 import { initMCP } from './commands/initMCP';
 import { initProject } from './commands/initProject';
 import { initSkills } from './commands/initSkills';
+import { registerOpenRelatedContent } from './commands/openRelatedContentCommand';
 import { pullCommand } from './commands/pullCommand';
 import { pushCommand } from './commands/pushCommand';
 import { selectEnvironment } from './commands/selectEnvironment';
@@ -276,6 +277,7 @@ export const activate = (context: ExtensionContext) => {
   registerCommands(context);
   registerDictionaryExplorer(context);
   registerEditorPanel(context);
+  registerOpenRelatedContent(context);
 
   context.subscriptions.push(contentFileSaveWatcher());
 
