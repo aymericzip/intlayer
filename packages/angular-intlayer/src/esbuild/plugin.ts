@@ -27,6 +27,7 @@ import { prepareIntlayer } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
 import { startContentWatcher } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import { bridgeTypesToAngularWatcher } from './angularWatcherTypesBridge';
 import { isInHiddenDirectory } from './hiddenDirectory';
 import { resolvePackageExport } from './resolvePackageExport';
 
@@ -153,10 +154,11 @@ export type IntlayerEsbuildPluginOptions = {
 /**
  * The dev server's file watcher skips dot-directories, so type declarations
  * generated there are never re-read: a key added to a dictionary stays unknown
- * to template type-checking until `ng serve` restarts. Nothing in the plugin
- * can reach that cache, so the fix is to generate the types elsewhere.
+ * to template type-checking until `ng serve` restarts. The plugin reports the
+ * rewritten declarations to the Angular watcher itself; when no Angular
+ * watcher is loaded to bridge, it warns to generate the types elsewhere.
  */
-const warnAboutHiddenTypesDirectory = (
+const handleHiddenTypesDirectory = (
   configuration: IntlayerConfig,
   appLogger: ReturnType<typeof getAppLogger>
 ) => {
@@ -167,6 +169,10 @@ const warnAboutHiddenTypesDirectory = (
   ].filter((directory) => isInHiddenDirectory(baseDir, directory));
 
   if (hiddenDirectories.length === 0) return;
+
+  if (bridgeTypesToAngularWatcher(hiddenDirectories, moduleAugmentationDir)) {
+    return;
+  }
 
   appLogger(
     [
@@ -217,6 +223,8 @@ export const intlayerEsbuildPlugin = (
   // Once any esbuild context (browser or server) detects a production build,
   // suppress the watcher for all contexts so `ng build` can exit cleanly.
   let isBuildMode = false;
+  // The dev server rebuild loop is bridged once, whatever the context count.
+  let hasHandledHiddenTypesDirectory = false;
 
   return {
     name: 'intlayer',
@@ -432,10 +440,6 @@ export const intlayerEsbuildPlugin = (
               resolveDir: config!.system.baseDir,
             })
           ).external;
-
-          if (externalizesPackages) {
-            warnAboutHiddenTypesDirectory(config!, appLogger);
-          }
         }
 
         // Determine whether the watcher should run:
@@ -446,6 +450,11 @@ export const intlayerEsbuildPlugin = (
 
         if (shouldWatch) {
           startContentWatcher(config!, { label: 'angular-intlayer' });
+
+          if (!hasHandledHiddenTypesDirectory) {
+            hasHandledHiddenTypesDirectory = true;
+            handleHiddenTypesDirectory(config!, appLogger);
+          }
         }
       });
     },
