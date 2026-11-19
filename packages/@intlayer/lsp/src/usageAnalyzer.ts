@@ -101,6 +101,16 @@ type ContentBinding = BindingScope & {
 };
 
 /**
+ * Class field holding dictionary content: `content = useIntlayer('app')`.
+ * Read as `this.content` in the class body, and as a bare `content` in the
+ * class decorators (Angular component templates).
+ */
+type ClassFieldBinding = ContentBinding & {
+  /** Spans of the class decorators, where the field is read bare. */
+  decoratorSpans: { start: number; end: number }[];
+};
+
+/**
  * Where a binding is visible. Two components in the same file routinely bind
  * the same variable name to different dictionaries:
  *
@@ -374,6 +384,7 @@ type AnalyzerState = {
   /** Bindings are keyed by variable name, then by declaration (see BindingScope). */
   translatorBindings: Map<string, TranslatorBinding[]>;
   contentBindings: Map<string, ContentBinding[]>;
+  classFieldBindings: Map<string, ClassFieldBinding[]>;
   activeDescriptors: CallerDescriptor[];
   importedLocalNames: Map<string, string>;
   parentMap: Map<OxcNode, OxcNode>;
@@ -591,6 +602,84 @@ const collectContentDestructure = (
   }
 };
 
+const CLASS_NODE_TYPES = new Set(['ClassDeclaration', 'ClassExpression']);
+
+/**
+ * Register a content class field: `content = useIntlayer('app')`. The field
+ * is visible across the whole class, decorators included.
+ */
+const collectClassFieldBinding = (
+  state: AnalyzerState,
+  propertyNode: OxcNode
+): void => {
+  const keyNode = propertyNode['key'] as OxcNode | undefined;
+  const initializer = unwrapAwait(propertyNode['value'] as OxcNode | undefined);
+
+  if (
+    propertyNode['computed'] === true ||
+    keyNode?.['type'] !== 'Identifier' ||
+    initializer?.['type'] !== 'CallExpression'
+  ) {
+    return;
+  }
+
+  const descriptor = matchDescriptorForCallee(
+    state,
+    initializer['callee'] as OxcNode | undefined,
+    (candidate) => candidate.translationFunction === 'content'
+  );
+
+  if (!descriptor) return;
+
+  const rawNamespace = readValueSources(
+    initializer,
+    descriptor.namespaceSources
+  );
+
+  if (!rawNamespace) return;
+
+  // PropertyDefinition → ClassBody → ClassDeclaration | ClassExpression
+  const classNode = state.parentMap.get(
+    state.parentMap.get(propertyNode) ?? propertyNode
+  );
+
+  if (!classNode || !CLASS_NODE_TYPES.has(classNode['type'] as string)) return;
+
+  const { dictionaryKey, prefixPath } = splitNestedNamespace(
+    descriptor,
+    rawNamespace
+  );
+  const keyPrefixValue = readValueSources(
+    initializer,
+    descriptor.keyPrefixSources
+  );
+  const decoratorSpans = (
+    (classNode['decorators'] as OxcNode[] | undefined) ?? []
+  ).map((decorator) => ({
+    start: nodeStart(decorator),
+    end: nodeEnd(decorator),
+  }));
+  const scopeStart = Math.min(
+    nodeStart(classNode),
+    ...decoratorSpans.map((span) => span.start)
+  );
+
+  addBinding(state.classFieldBindings, keyNode['name'] as string, {
+    dictionaryKey,
+    basePath: [
+      ...prefixPath,
+      ...(keyPrefixValue ? keyPrefixValue.split('.') : []),
+    ],
+    descriptor,
+    moduleSource: getModuleSource(state, descriptor),
+    decoratorSpans,
+    scopeStart,
+    scopeEnd: nodeEnd(classNode),
+    // Fields are visible before their declaration (methods, decorators).
+    declarationEnd: scopeStart,
+  });
+};
+
 /**
  * Register bindings created by `const … = caller(…)` declarations, and record
  * dictionary-level (`namespace`) usages for every matched caller call.
@@ -628,6 +717,11 @@ const collectBindings = (state: AnalyzerState, program: OxcNode): void => {
           });
         }
       }
+      return;
+    }
+
+    if (node['type'] === 'PropertyDefinition') {
+      collectClassFieldBinding(state, node);
       return;
     }
 
@@ -1289,30 +1383,170 @@ const isPropertyNamePosition = (
 };
 
 /**
+ * Record the member chain read from a content binding, climbing from
+ * `rootNode` (`content`, or `this.content` for class fields):
+ * `content.section.title`, `content().title`, `content['title']`.
+ */
+const pushMemberChainUsage = (
+  state: AnalyzerState,
+  binding: ContentBinding,
+  rootNode: OxcNode,
+  anchorNode: OxcNode
+): void => {
+  const { parentMap } = state;
+  const fieldPath = [...binding.basePath];
+  const fieldSpans: { start: number; end: number }[] = fieldPath.map(() => ({
+    start: nodeStart(anchorNode),
+    end: nodeEnd(anchorNode),
+  }));
+
+  let currentNode: OxcNode = rootNode;
+
+  while (true) {
+    const parent = parentMap.get(currentNode);
+
+    if (!parent) break;
+
+    const parentType = parent['type'] as string;
+    const isMemberAccess =
+      (parentType === 'MemberExpression' &&
+        parent['object'] === currentNode &&
+        parent['computed'] !== true) ||
+      (parentType === 'JSXMemberExpression' &&
+        parent['object'] === currentNode);
+
+    if (isMemberAccess) {
+      const propertyNode = parent['property'] as OxcNode;
+      const propertyName = propertyNode['name'] as string;
+
+      if (!ACCESSOR_PROPERTY_NAMES.has(propertyName)) {
+        fieldPath.push(propertyName);
+        fieldSpans.push({
+          start: nodeStart(propertyNode),
+          end: nodeEnd(propertyNode),
+        });
+      }
+      currentNode = parent;
+      continue;
+    }
+
+    // Computed string access: content['title']
+    if (
+      parentType === 'MemberExpression' &&
+      parent['object'] === currentNode &&
+      parent['computed'] === true
+    ) {
+      const propertyValue = getStaticStringValue(
+        parent['property'] as OxcNode | undefined
+      );
+
+      if (propertyValue === null) break;
+
+      fieldPath.push(propertyValue);
+      fieldSpans.push({
+        start: nodeStart(parent['property'] as OxcNode),
+        end: nodeEnd(parent['property'] as OxcNode),
+      });
+      currentNode = parent;
+      continue;
+    }
+
+    // Call of an accessor / chain terminator: content.title.use(), or a
+    // signal read: content().title
+    if (parentType === 'CallExpression' && parent['callee'] === currentNode) {
+      currentNode = parent;
+      continue;
+    }
+
+    break;
+  }
+
+  state.usages.push({
+    dictionaryKey: binding.dictionaryKey,
+    fieldPath,
+    fieldSpans,
+    start: nodeStart(anchorNode),
+    end: nodeEnd(currentNode),
+    kind: 'member',
+    callerName: binding.descriptor.callerName,
+    library: binding.descriptor.library,
+    moduleSource: binding.moduleSource,
+    // No explicit property segment: the usage only names the variable.
+    isBareReference: fieldPath.length === binding.basePath.length,
+  });
+};
+
+/**
+ * The class field a bare identifier reads at `offset`: only inside the class
+ * decorators, where Angular template expressions name fields without `this`.
+ */
+const resolveDecoratorFieldBinding = (
+  state: AnalyzerState,
+  variableName: string,
+  offset: number
+): ClassFieldBinding | undefined => {
+  const candidates = state.classFieldBindings
+    .get(variableName)
+    ?.filter((binding) =>
+      binding.decoratorSpans.some(
+        (span) => offset >= span.start && offset < span.end
+      )
+    );
+
+  if (!candidates?.length) return undefined;
+
+  return resolveBinding(
+    new Map([[variableName, candidates]]),
+    variableName,
+    offset
+  );
+};
+
+/**
  * Record member-access / bare-reference usages of content bindings:
  * `content.section.title`, `{title}` (destructured field reference),
- * Svelte's `$content.title`, Vue's `content.value.title`.
+ * Svelte's `$content.title`, Vue's `content.value.title`, and class fields:
+ * `this.content().title`.
  */
 const collectMemberUsages = (
   state: AnalyzerState,
   program: OxcNode,
   parentMap: Map<OxcNode, OxcNode>
 ): void => {
-  if (state.contentBindings.size === 0) return;
+  if (state.contentBindings.size === 0 && state.classFieldBindings.size === 0) {
+    return;
+  }
 
   walkAst(program, (node) => {
     const nodeType = node['type'] as string;
+
+    // Class field read: this.content
+    if (
+      nodeType === 'MemberExpression' &&
+      node['computed'] !== true &&
+      (node['object'] as OxcNode | undefined)?.['type'] === 'ThisExpression'
+    ) {
+      const propertyNode = node['property'] as OxcNode;
+      const binding = resolveBinding(
+        state.classFieldBindings,
+        propertyNode['name'] as string,
+        nodeStart(node)
+      );
+
+      if (!binding) return;
+
+      pushMemberChainUsage(state, binding, node, propertyNode);
+      return true;
+    }
 
     if (nodeType !== 'Identifier' && nodeType !== 'JSXIdentifier') return;
 
     const rawName = node['name'] as string;
     // Svelte store sugar: `$content` reads the `content` store.
     const variableName = rawName.startsWith('$') ? rawName.slice(1) : rawName;
-    const binding = resolveBinding(
-      state.contentBindings,
-      variableName,
-      nodeStart(node)
-    );
+    const binding =
+      resolveBinding(state.contentBindings, variableName, nodeStart(node)) ??
+      resolveDecoratorFieldBinding(state, rawName, nodeStart(node));
 
     if (!binding) return;
 
@@ -1326,86 +1560,7 @@ const collectMemberUsages = (
 
     if (isPropertyNamePosition(node, parentMap)) return;
 
-    // Climb the member chain upward, collecting property segments.
-    const fieldPath = [...binding.basePath];
-    const fieldSpans: { start: number; end: number }[] = fieldPath.map(() => ({
-      start: nodeStart(node),
-      end: nodeEnd(node),
-    }));
-
-    let currentNode: OxcNode = node;
-
-    while (true) {
-      const parent = parentMap.get(currentNode);
-
-      if (!parent) break;
-
-      const parentType = parent['type'] as string;
-      const isMemberAccess =
-        (parentType === 'MemberExpression' &&
-          parent['object'] === currentNode &&
-          parent['computed'] !== true) ||
-        (parentType === 'JSXMemberExpression' &&
-          parent['object'] === currentNode);
-
-      if (isMemberAccess) {
-        const propertyNode = parent['property'] as OxcNode;
-        const propertyName = propertyNode['name'] as string;
-
-        if (!ACCESSOR_PROPERTY_NAMES.has(propertyName)) {
-          fieldPath.push(propertyName);
-          fieldSpans.push({
-            start: nodeStart(propertyNode),
-            end: nodeEnd(propertyNode),
-          });
-        }
-        currentNode = parent;
-        continue;
-      }
-
-      // Computed string access: content['title']
-      if (
-        parentType === 'MemberExpression' &&
-        parent['object'] === currentNode &&
-        parent['computed'] === true
-      ) {
-        const propertyValue = getStaticStringValue(
-          parent['property'] as OxcNode | undefined
-        );
-
-        if (propertyValue === null) break;
-
-        fieldPath.push(propertyValue);
-        fieldSpans.push({
-          start: nodeStart(parent['property'] as OxcNode),
-          end: nodeEnd(parent['property'] as OxcNode),
-        });
-        currentNode = parent;
-        continue;
-      }
-
-      // Call of an accessor / chain terminator: content.title.use()
-      if (parentType === 'CallExpression' && parent['callee'] === currentNode) {
-        currentNode = parent;
-        continue;
-      }
-
-      break;
-    }
-
-    state.usages.push({
-      dictionaryKey: binding.dictionaryKey,
-      fieldPath,
-      fieldSpans,
-      start: nodeStart(node),
-      end: nodeEnd(currentNode),
-      kind: 'member',
-      callerName: binding.descriptor.callerName,
-      library: binding.descriptor.library,
-      moduleSource: binding.moduleSource,
-      // No explicit property segment: the usage only names the variable.
-      isBareReference: fieldPath.length === binding.basePath.length,
-    });
+    pushMemberChainUsage(state, binding, node, node);
     return true;
   });
 };
@@ -1437,6 +1592,7 @@ export const collectMessageUsages = (text: string): MessageUsage[] => {
     usages: [],
     translatorBindings: new Map(),
     contentBindings: new Map(),
+    classFieldBindings: new Map(),
     activeDescriptors: ANALYZED_CALLERS.filter((descriptor) =>
       isCallerActive(descriptor, fileImportSources)
     ),
@@ -1647,6 +1803,7 @@ export const collectCallerBindings = (
     usages: [],
     translatorBindings: new Map(),
     contentBindings: new Map(),
+    classFieldBindings: new Map(),
     activeDescriptors: ANALYZED_CALLERS.filter((descriptor) =>
       isCallerActive(descriptor, fileImportSources)
     ),
@@ -1658,16 +1815,18 @@ export const collectCallerBindings = (
   collectBindings(state, program);
 
   return [
-    ...[...state.contentBindings.entries()].flatMap(
-      ([variableName, bindings]) =>
-        bindings.map((binding): CallerVariableBinding => ({
-          variableName,
-          dictionaryKey: binding.dictionaryKey,
-          basePath: binding.basePath,
-          bindingKind: 'content',
-          callerName: binding.descriptor.callerName,
-          library: binding.descriptor.library,
-        }))
+    ...[
+      ...state.contentBindings.entries(),
+      ...state.classFieldBindings.entries(),
+    ].flatMap(([variableName, bindings]) =>
+      bindings.map((binding): CallerVariableBinding => ({
+        variableName,
+        dictionaryKey: binding.dictionaryKey,
+        basePath: binding.basePath,
+        bindingKind: 'content',
+        callerName: binding.descriptor.callerName,
+        library: binding.descriptor.library,
+      }))
     ),
     ...[...state.translatorBindings.entries()].flatMap(
       ([variableName, bindings]) =>

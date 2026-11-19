@@ -145,6 +145,67 @@ describe('base intlayer usages', () => {
 });
 
 // ---------------------------------------------------------------------------
+// Class fields (Angular components)
+// ---------------------------------------------------------------------------
+
+describe('class field usages', () => {
+  const fieldPathsOf = (text: string, dictionaryKey: string): string[] =>
+    collectMessageUsages(text)
+      .filter(
+        (usage) =>
+          usage.kind === 'member' && usage.dictionaryKey === dictionaryKey
+      )
+      .map((usage) => usage.fieldPath.join('.'));
+
+  it('resolves `this.field` signal reads in the class body', () => {
+    const text = [
+      `import { useIntlayer } from 'angular-intlayer';`,
+      `export class App {`,
+      `  getTitle() { return this.content().section.title; }`,
+      `  content = useIntlayer('app');`,
+      `}`,
+    ].join('\n');
+
+    expect(fieldPathsOf(text, 'app')).toEqual(['section.title']);
+  });
+
+  it('resolves bare field reads inside the class decorators', () => {
+    const text = [
+      `import { useIntlayer } from 'angular-intlayer';`,
+      `@Component({ template: [content().title, content().cars(1)] })`,
+      `export class App {`,
+      `  content = useIntlayer('app');`,
+      `}`,
+    ].join('\n');
+
+    expect(fieldPathsOf(text, 'app')).toEqual(['title', 'cars']);
+  });
+
+  it('ignores bare identifiers outside the decorators', () => {
+    const text = [
+      `import { useIntlayer } from 'angular-intlayer';`,
+      `export class App {`,
+      `  content = useIntlayer('app');`,
+      `  read() { return content().title; }`,
+      `}`,
+    ].join('\n');
+
+    expect(fieldPathsOf(text, 'app')).toEqual([]);
+  });
+
+  it('scopes fields of the same name to their own class', () => {
+    const text = [
+      `import { useIntlayer } from 'angular-intlayer';`,
+      `class First { content = useIntlayer('first'); a() { this.content().a; } }`,
+      `class Second { content = useIntlayer('second'); b() { this.content().b; } }`,
+    ].join('\n');
+
+    expect(fieldPathsOf(text, 'first')).toEqual(['a']);
+    expect(fieldPathsOf(text, 'second')).toEqual(['b']);
+  });
+});
+
+// ---------------------------------------------------------------------------
 // react-i18next / next-i18next
 // ---------------------------------------------------------------------------
 

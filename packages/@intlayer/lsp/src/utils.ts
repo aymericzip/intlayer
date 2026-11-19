@@ -53,6 +53,7 @@ export {
   getPropertyKeyName,
   getStaticStringValue,
   getStringArgAt,
+  isParsableExpression,
   isStringLiteralNode,
   nodeContainsOffset,
   nodeEnd,

@@ -18,6 +18,15 @@ export const parseText = (text: string): OxcNode | null => {
   }
 };
 
+/** Whether `expression` parses, without errors, as a standalone expression. */
+export const isParsableExpression = (expression: string): boolean => {
+  try {
+    return parseSync('expression.ts', `(${expression});`).errors.length === 0;
+  } catch {
+    return false;
+  }
+};
+
 /**
  * Depth-first walk of an Oxc AST. Visitor is called for every node that has
  * a `type` property; returning `true` prunes that subtree.

@@ -1,4 +1,4 @@
-import { extname, resolve } from 'node:path';
+import { dirname, extname, resolve } from 'node:path';
 import {
   collectCallerBindings,
   collectCompilerTextFields,
@@ -9,10 +9,8 @@ import {
 import type { Dictionary } from '@intlayer/types';
 import fg from 'fast-glob';
 import { Range, Uri, workspace } from 'vscode';
-import {
-  ANGULAR_INLINE_TEMPLATE_PATTERN,
-  extractScriptContent,
-} from './extractScript';
+import { inlineAngularTemplates } from './angularTemplate';
+import { extractScriptContent } from './extractScript';
 import {
   getCachedConfig,
   getCachedUnmergedDictionaries,
@@ -36,53 +34,29 @@ export interface UsageLocation {
 }
 
 /**
- * Extracts script content from a given file text, with special handling for Angular templates
- * when the file is a TypeScript component.
+ * Script content of a source file, Angular component templates (inline or
+ * `templateUrl`) rewritten into expressions the analyzer can trace.
  */
-const extractScriptContentWithAngularTemplate = (
+const extractScriptContentWithAngularTemplate = async (
   text: string,
-  extension: string
-): string => {
-  let processedText = extractScriptContent(text, extension);
+  fileUri: Uri
+): Promise<string> => {
+  const extension = extname(fileUri.fsPath).toLowerCase();
+  const scriptContent = extractScriptContent(text, extension);
 
-  if (extension === '.ts' && text.includes('@Component')) {
-    processedText = processedText.replace(
-      ANGULAR_INLINE_TEMPLATE_PATTERN,
-      (_match, _quote, content) => {
-        const expressions: string[] = [];
-        const sanitize = (e: string) => {
-          let s = e;
-          s = s.replace(/;/g, ',');
-          s = s.replace(/\s+as\s+/g, ',');
-          s = s.replace(/\b\w+\s+of\s+/g, '');
-          s = s.replace(/\btrack\s+/g, '');
-          s = s.replace(/\blet\s+/g, '');
-          return s.trim();
-        };
+  if (extension !== '.ts') return scriptContent;
 
-        for (const interpolationMatch of content.matchAll(/{{([\s\S]*?)}}/g)) {
-          expressions.push(sanitize(interpolationMatch[1]));
-        }
-        for (const bindingMatch of content.matchAll(
-          /(?:\[.*?\]|bind-.*?)\s*=\s*(["'])(.*?)\1/g
-        )) {
-          expressions.push(sanitize(bindingMatch[2]));
-        }
-        for (const structMatch of content.matchAll(
-          /\*\w+\s*=\s*(["'])(.*?)\1/g
-        )) {
-          expressions.push(sanitize(structMatch[2]));
-        }
-        for (const controlFlowMatch of content.matchAll(/@\w+\s*\((.*?)\)/g)) {
-          expressions.push(sanitize(controlFlowMatch[1]));
-        }
-
-        return `template: [${expressions.join(', ')}]`;
-      }
-    );
-  }
-
-  return processedText;
+  return inlineAngularTemplates(scriptContent, async (templateUrl) => {
+    try {
+      return new TextDecoder('utf-8').decode(
+        await workspace.fs.readFile(
+          Uri.file(resolve(dirname(fileUri.fsPath), templateUrl))
+        )
+      );
+    } catch {
+      return null;
+    }
+  });
 };
 
 /**
@@ -154,9 +128,9 @@ export const findUsagesOfDictionary = async (
       // Cheap pre-filter before parsing
       if (!text.includes(dictionaryKey)) return;
 
-      const scriptContent = extractScriptContentWithAngularTemplate(
+      const scriptContent = await extractScriptContentWithAngularTemplate(
         text,
-        extname(fileUri.fsPath).toLowerCase()
+        fileUri
       );
       const fileUsage = analyzeFileForUsages(scriptContent, dictionaryKey);
 
