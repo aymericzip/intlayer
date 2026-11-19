@@ -269,3 +269,90 @@ describe('pruning merge with kept fields', () => {
     expect(merged).toEqual({ kept: 'Kept', added: 'Added' });
   });
 });
+
+describe('detectExtractableContent on compiled jsx() calls', () => {
+  it('skips SVG geometry and keeps the accessible label', () => {
+    const compiledLogo = `import { jsx } from 'react/jsx-runtime';
+export const Logo = (props) => jsx('svg', {
+  viewBox: '0 0 2704 517',
+  'aria-label': 'Intlayer logo',
+  ...props,
+  children: jsx('path', { d: 'M5 46C5 21.1 25.1 1 50 1H295Z' }),
+});
+`;
+
+    const detected = detectExtractableContent(
+      compiledLogo,
+      '/project/src/Logo.mjs',
+      configuration
+    );
+
+    expect(detected.map((content) => content.text)).toEqual(['Intlayer logo']);
+  });
+
+  it('skips template literals in non-translatable JSX attributes', () => {
+    const chart = `const WIDTH = 600;
+const HEIGHT = 200;
+export const Chart = ({ count }) => (
+  <svg viewBox={\`0 0 \${WIDTH} \${HEIGHT}\`} aria-label={\`Chart of \${count} repositories\`} />
+);
+`;
+
+    const detected = detectExtractableContent(
+      chart,
+      '/project/src/Chart.tsx',
+      configuration
+    );
+
+    expect(detected.map((content) => content.text)).toEqual([
+      'Chart of {{count}} repositories',
+    ]);
+  });
+
+  it('skips the arguments of class-name builders such as cva', () => {
+    const button = `import { cva } from 'class-variance-authority';
+const buttonVariants = cva('relative inline-flex items-center', {
+  variants: {
+    size: { 'icon-sm': 'p-1.5', md: 'min-h-8 px-6 text-sm max-md:py-2' },
+    variant: {
+      outline: [
+        'Outlined Button Style',
+        \`rounded-2xl border-[1.3px] \${'border-current!'}\`,
+      ],
+    },
+  },
+});
+export const label = 'Click here to continue';
+`;
+
+    const detected = detectExtractableContent(
+      button,
+      '/project/src/Button.tsx',
+      configuration
+    );
+
+    expect(detected.map((content) => content.text)).toEqual([
+      'Click here to continue',
+    ]);
+  });
+
+  it('skips technical property values behind ternaries', () => {
+    const resizer = `import { jsx } from 'react/jsx-runtime';
+export const Resizer = ({ isResizing }) => jsx('div', {
+  style: { transition: isResizing ? 'none' : 'Width Animation Ease' },
+  title: isResizing ? 'Stop resizing' : 'Start resizing',
+});
+`;
+
+    const detected = detectExtractableContent(
+      resizer,
+      '/project/src/Resizer.mjs',
+      configuration
+    );
+
+    expect(detected.map((content) => content.text)).toEqual([
+      'Stop resizing',
+      'Start resizing',
+    ]);
+  });
+});

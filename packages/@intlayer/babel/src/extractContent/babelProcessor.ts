@@ -154,6 +154,21 @@ const TECHNICAL_KEYS = new Set<string>([
   'toolName',
   'toolDescription',
   'toolParamDescription',
+  // SVG props, reached through compiled `jsx('svg', { … })` calls
+  'viewBox',
+  'd',
+  'points',
+  'transform',
+  'xmlns',
+  'preserveAspectRatio',
+  // Inline style props
+  'transition',
+  'animation',
+  'clipPath',
+  'fontFamily',
+  'boxShadow',
+  'gridTemplateColumns',
+  'gridTemplateRows',
 ]);
 
 const NON_TRANSLATABLE_CALL_METHODS = new Set<string>([
@@ -186,6 +201,96 @@ const NON_TRANSLATABLE_CALL_METHODS = new Set<string>([
   'getPropertyValue',
   'setProperty',
 ]);
+
+/**
+ * Whether `path` is a braced JSX attribute value (`viewBox={`0 0 ${width}`}`,
+ * `title={"Hello"}`) of an attribute outside `ATTRIBUTES_TO_EXTRACT`, the
+ * allowlist the plain `title="Hello"` form follows.
+ */
+const isNonTranslatableJsxAttributeValue = (
+  path: NodePath<t.StringLiteral | t.TemplateLiteral>
+): boolean => {
+  const parent = path.parentPath;
+
+  if (!parent?.isJSXExpressionContainer()) return false;
+
+  const attributePath = parent.parentPath;
+
+  if (!attributePath?.isJSXAttribute()) return false;
+
+  const attributeName = attributePath.node.name.name;
+
+  return (
+    typeof attributeName !== 'string' ||
+    !ATTRIBUTES_TO_EXTRACT.includes(
+      attributeName as (typeof ATTRIBUTES_TO_EXTRACT)[number]
+    )
+  );
+};
+
+/**
+ * Whether `path` is the value of a `TECHNICAL_KEYS` property, looking through
+ * ternaries and logical operators (`transition: busy ? 'none' : 'width 1s'`).
+ */
+const isTechnicalPropertyValue = (path: NodePath): boolean => {
+  let valuePath: NodePath = path;
+
+  while (
+    valuePath.parentPath?.isConditionalExpression() ||
+    valuePath.parentPath?.isLogicalExpression()
+  ) {
+    if (
+      valuePath.parentPath.isConditionalExpression() &&
+      valuePath.parentPath.node.test === valuePath.node
+    )
+      return false;
+    valuePath = valuePath.parentPath;
+  }
+
+  const propertyPath = valuePath.parentPath;
+
+  return Boolean(
+    propertyPath?.isObjectProperty() &&
+    propertyPath.node.value === valuePath.node &&
+    t.isIdentifier(propertyPath.node.key) &&
+    TECHNICAL_KEYS.has(propertyPath.node.key.name)
+  );
+};
+
+/** Class-name builders whose string arguments are CSS classes, at any depth. */
+const CLASS_NAME_BUILDER_FUNCTIONS = new Set<string>([
+  'cva',
+  'cx',
+  'cn',
+  'clsx',
+  'classnames',
+  'classNames',
+  'twMerge',
+  'twJoin',
+  'tv',
+]);
+
+/**
+ * Whether `path` sits inside the arguments of a class-name builder call
+ * (`cva('flex', { variants: { size: { sm: 'px-3 text-xs' } } })`), stopping
+ * at the enclosing function.
+ */
+const isInsideClassNameBuilderCall = (path: NodePath): boolean =>
+  Boolean(
+    path
+      .findParent((ancestor) => {
+        if (ancestor.isFunction()) return true;
+        if (!ancestor.isCallExpression()) return false;
+
+        const { callee } = ancestor.node;
+
+        return (
+          t.isIdentifier(callee) &&
+          CLASS_NAME_BUILDER_FUNCTIONS.has(callee.name)
+        );
+      })
+      ?.isCallExpression()
+  );
 
 /**
  * When `path` is a string-literal argument of a member/optional-member call
@@ -662,22 +767,9 @@ export const extractBabelContentForComponents = (
 
       if (parent.isJSXAttribute()) return;
 
-      // A literal wrapped in braces (`title={"Hello"}`) follows the same
-      // attribute allowlist as the plain form handled by `JSXAttribute`.
-      if (parent.isJSXExpressionContainer()) {
-        const attributePath = parent.parentPath;
-        if (attributePath?.isJSXAttribute()) {
-          const attributeName = attributePath.node.name.name;
-          if (
-            typeof attributeName !== 'string' ||
-            !ATTRIBUTES_TO_EXTRACT.includes(
-              attributeName as (typeof ATTRIBUTES_TO_EXTRACT)[number]
-            )
-          ) {
-            return;
-          }
-        }
-      }
+      if (isNonTranslatableJsxAttributeValue(path)) return;
+
+      if (isInsideClassNameBuilderCall(path)) return;
 
       // Skip string literals used as comparison operands (e.g. `msg.step === 'ERROR'`).
       // These are code constants / enum values, not translatable display text.
@@ -709,13 +801,7 @@ export const extractBabelContentForComponents = (
 
       // Skip string values in known technical/non-translatable object properties (e.g. `icon: 'Globe'`).
       // String values in translatable object properties (e.g. `label: 'Language'`) are still extracted.
-      if (
-        parent.isObjectProperty() &&
-        t.isIdentifier(parent.node.key) &&
-        TECHNICAL_KEYS.has(parent.node.key.name)
-      ) {
-        return;
-      }
+      if (isTechnicalPropertyValue(path)) return;
 
       if (parent.isMemberExpression() && parent.node.property === path.node)
         return;
@@ -732,6 +818,10 @@ export const extractBabelContentForComponents = (
     TemplateLiteral(path) {
       if (handledNodes.has(path.node)) return;
       if (isIgnoredPath(path)) return;
+
+      if (isNonTranslatableJsxAttributeValue(path)) return;
+
+      if (isInsideClassNameBuilderCall(path)) return;
 
       const { quasis, expressions } = path.node;
 
