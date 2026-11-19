@@ -10,11 +10,15 @@ import {
 import { getFilterTranslationsOnlyDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
-import { formatLocale } from '@intlayer/engine/utils';
+import { formatLocale, type Recursive } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { listMissingTranslationsWithConfig } from '../test';
+import {
+  getStaleSourceContent,
+  type PreviousDictionaries,
+} from './sourceChanges';
 
 export type TranslationTask = {
   dictionaryKey: string;
@@ -23,6 +27,8 @@ export type TranslationTask = {
   targetLocales: Locale[];
   dictionaryPreset: string;
   dictionaryFilePath: string;
+  /** Per target locale, source values changed since the git ref. */
+  changedSourceContent: Partial<Record<Locale, Recursive>>;
 };
 
 export const listTranslationsTasks = (
@@ -30,7 +36,8 @@ export const listTranslationsTasks = (
   outputLocales: Locale[],
   mode: 'complete' | 'review',
   baseLocale: Locale,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  previousDictionaries: PreviousDictionaries = {}
 ): TranslationTask[] => {
   const appLogger = getAppLogger(configuration);
 
@@ -115,19 +122,48 @@ export const listTranslationsTasks = (
     }
 
     /**
-     * In 'complete' mode, filter only the missing locales to translate
+     * Source values edited since the git ref, with a translation that was not
+     * updated. Only the base locale is a source of truth: other per-locale
+     * files are fill outputs.
+     */
+    const changedSourceContent: Partial<Record<Locale, Recursive>> = {};
+
+    if (sourceLocale === baseLocale) {
+      for (const locale of outputLocales) {
+        if (locale === sourceLocale) continue;
+
+        const changedContent = getStaleSourceContent(
+          previousDictionaries[dictionaryLocalId],
+          targetUnmergedDictionary,
+          sourceLocale,
+          locale
+        );
+
+        if (changedContent !== undefined) {
+          changedSourceContent[locale] = changedContent;
+        }
+      }
+    }
+
+    /**
+     * In 'complete' mode, filter only the locales with missing translations
+     * or with source values changed since the git ref
      *
-     * Skip the dictionary if there are no missing locales to translate
+     * Skip the dictionary if there are no locales to translate
      */
     let outputLocalesList: Locale[] = outputLocales as Locale[];
 
     if (mode === 'complete') {
-      outputLocalesList =
-        missingTranslations
-          .find(
-            (missingTranslation) => missingTranslation.key === dictionaryKey
-          )
-          ?.locales.filter((locale) => outputLocales.includes(locale)) ?? [];
+      const missingLocales =
+        missingTranslations.find(
+          (missingTranslation) => missingTranslation.key === dictionaryKey
+        )?.locales ?? [];
+
+      outputLocalesList = outputLocales.filter(
+        (locale) =>
+          missingLocales.includes(locale) ||
+          Object.hasOwn(changedSourceContent, locale)
+      );
     }
 
     if (outputLocalesList.length === 0) {
@@ -147,6 +183,7 @@ export const listTranslationsTasks = (
       targetLocales: outputLocalesList,
       dictionaryPreset,
       dictionaryFilePath: targetUnmergedDictionary.filePath,
+      changedSourceContent,
     });
   }
 
