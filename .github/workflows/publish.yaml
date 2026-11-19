@@ -148,7 +148,7 @@ jobs:
         # new pass (already published packages are skipped), up to 6 passes,
         # then the job fails so the run can be re-run.
         run: |
-          MAX_PASSES=6
+          MAX_PASSES=11
           for PASS in $(seq 1 $MAX_PASSES); do
             echo "🚀 Publishing packages (pass $PASS/$MAX_PASSES)..."
             if bun run publish:ci; then
