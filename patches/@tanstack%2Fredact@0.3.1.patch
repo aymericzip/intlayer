@@ -27,7 +27,7 @@ index 1449439b96862749a1d5b3df098e21791274e5df..9e2ee8c11350b92c441ad5dfb83c2434
      }
      return;
 diff --git a/dist/dom/features/lazy/full.js b/dist/dom/features/lazy/full.js
-index d7c090b..e4ffdcd 100644
+index d7c090b10a48aaeb6336576325166bbc5d8871f6..e4ffdcd58a98ffaaa22f52524015af78b60bb487 100644
 --- a/dist/dom/features/lazy/full.js
 +++ b/dist/dom/features/lazy/full.js
 @@ -10,6 +10,9 @@ function renderLazy(fiber) {
@@ -41,9 +41,18 @@ index d7c090b..e4ffdcd 100644
          return;
        handleSuspended(fiber, thenable);
 diff --git a/dist/dom/reconcile.js b/dist/dom/reconcile.js
-index c91b3da..2c7e3fd 100644
+index c91b3da5752d5f8f5b482dcb2a040ac3af031381..c22949076fa38a1aabaa737b88583a85d7b83a00 100644
 --- a/dist/dom/reconcile.js
 +++ b/dist/dom/reconcile.js
+@@ -14,7 +14,7 @@ import { deferHydration } from "./features/hydration/index.js";
+ import { m as markTransitionUpdate, d as deferTransition, c as cancelTransitions, l as deferTransitionLayout, p as deferTransitionPassive } from "./features/view-transition/index.js";
+ import { clearAttributes, clearHostContainer, documentMetadataParent, documentSingleton, DOCUMENT_HEAD_TAGS } from "./document-metadata.js";
+ import { acquireResource } from "./resources.js";
+-import { a as transitionRender, p as hasTransition, t as flushTransitions, c as cancelPendingTransitions, s as scheduleTransitionRoot } from "./features/suspense-runtime/index.js";
++import { a as transitionRender, p as hasTransition, t as flushTransitions, c as cancelPendingTransitions, s as scheduleTransitionRoot, w as prewarmingTransition } from "./features/suspense-runtime/index.js";
+ import { commitFragmentRef, placeFragmentCommits, updateFragmentHost, refreshFragmentInstances } from "./features/fragment-refs/index.js";
+ import { isObject } from "../core/functions.js";
+ import { createFiber, REACT_ELEMENT_TYPE, REACT_LEGACY_ELEMENT_TYPE, REACT_FRAGMENT_TYPE } from "../core/index.js";
 @@ -920,7 +920,11 @@ function renderNode(fiber) {
        })(fiber);
      fiber.type = resolveRefreshType(fiber.type);
@@ -57,3 +66,83 @@ index c91b3da..2c7e3fd 100644
      fiber.g = false;
    fiber.r ||= currentRoot || findRoot2(fiber);
    if (fiber.r?.sp && fiber.p?.ld && fiber.m === null)
+@@ -1126,8 +1130,11 @@ function handleSuspended(fiber, thenable) {
+     defaultHandleSuspended(fiber, thenable);
+     return;
+   }
+-  if (transitionRender)
++  if (transitionRender) {
++    if (prewarmingTransition)
++      return;
+     throw thenable;
++  }
+   CAPABILITIES.h(fiber, thenable);
+ }
+ function scheduleUpdate(fiber) {
+diff --git a/dist/dom/transitions.js b/dist/dom/transitions.js
+index 520687f58d6608841b2a6c33cff1c29151594392..a4bd74ddc0b6bb4672f7490facc4c011608ff0bf 100644
+--- a/dist/dom/transitions.js
++++ b/dist/dom/transitions.js
+@@ -5,6 +5,7 @@ import { checkpointCommit, rewindCommit, queueCommitEffects } from "./commit.js"
+ import { ReactSharedInternals } from "../react/shared-internals.js";
+ import { transitionScope } from "../react/hooks.js";
+ let a = false;
++let w = false;
+ const p = (fiber) => !!fiber.r?.tr?.has(fiber);
+ function q(hook, fiber, action) {
+   const scope = ReactSharedInternals.T && ReactSharedInternals.B;
+@@ -64,6 +65,8 @@ function t(root, render) {
+       scope.n?.(scope);
+     if (pending.w !== error) {
+       pending.w = error;
++      if (!root.h)
++        prewarm(root, render, fibers, pending.u);
+       const retry = () => transitionScope(() => {
+         for (const fiber of pending)
+           scheduleUpdate(fiber);
+@@ -74,6 +77,17 @@ function t(root, render) {
+     a = false;
+   }
+ }
++function prewarm(root, render, fibers, update) {
++  const checkpoint = checkpointCommit(root.r);
++  w = true;
++  try {
++    render(root, fibers, update);
++  } catch {
++  } finally {
++    w = false;
++    rewindCommit(checkpoint);
++  }
++}
+ function complete(work) {
+   for (const scope of work) {
+     scope.v--;
+@@ -143,6 +157,7 @@ export {
+   r,
+   s,
+   t,
+-  v
++  v,
++  w
+ };
+ //# sourceMappingURL=transitions.js.map
+diff --git a/dist/dom/features/suspense-runtime/stub.js b/dist/dom/features/suspense-runtime/stub.js
+index 67521879f7a646839833d90f691b9eea842ea0d3..ef384eb20d0c204016a4c7ed1edfe3ce20b0cc80 100644
+--- a/dist/dom/features/suspense-runtime/stub.js
++++ b/dist/dom/features/suspense-runtime/stub.js
+@@ -1,4 +1,4 @@
+-const a = void 0, p = void 0, q = void 0, r = void 0, t = void 0, v = void 0, c = void 0, s = void 0;
++const a = void 0, p = void 0, q = void 0, r = void 0, t = void 0, v = void 0, c = void 0, s = void 0, w = void 0;
+ export {
+   a,
+   c,
+@@ -7,6 +7,7 @@ export {
+   r,
+   s,
+   t,
+-  v
++  v,
++  w
+ };
+ //# sourceMappingURL=stub.js.map

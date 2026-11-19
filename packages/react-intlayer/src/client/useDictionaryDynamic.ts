@@ -2,6 +2,7 @@
 
 import {
   getPreloadedDictionary,
+  getQualifiedDynamicChunks,
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
@@ -23,7 +24,30 @@ import { IntlayerClientContext } from './IntlayerProvider';
 // `useLoadDynamic` is a suspender cache, not a React hook — aliased to a
 // non-hook name so it can be invoked in loops / conditionally (e.g. when a
 // collection loads several chunks at once).
-import { useLoadDynamic as loadDynamicChunk } from './useLoadDynamic';
+import {
+  hasDynamicEntry,
+  useLoadDynamic as loadDynamicChunk,
+} from './useLoadDynamic';
+import {
+  createDynamicLocaleWarmer,
+  registerDynamicLocaleWarmer,
+  warmDynamicLocale,
+} from './warmDynamicLocale';
+
+/**
+ * Reads a chunk; on a cache miss, first starts every rendered dictionary's
+ * load for that locale so a locale switch costs one round trip, not one per
+ * dictionary.
+ */
+const readDynamicChunk = <T>(
+  cacheKey: string,
+  promise: Promise<T>,
+  locale: string
+): T => {
+  if (!hasDynamicEntry(cacheKey)) warmDynamicLocale(locale);
+
+  return loadDynamicChunk<T>(cacheKey, promise);
+};
 
 /**
  * Client-side hook that lazily loads a dictionary and returns its content.
@@ -74,15 +98,43 @@ export const useDictionaryDynamic = <
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     isQualifiedDynamicLoaderMap(dictionaryPromise)
   ) {
+    registerDynamicLocaleWarmer(
+      String(key),
+      createDynamicLocaleWarmer((locale) =>
+        getQualifiedDynamicChunks(
+          dictionaryPromise,
+          String(key),
+          locale,
+          selector
+        )
+      )
+    );
+
     return resolveQualifiedDynamicContent({
       loaderMap: dictionaryPromise,
       key: String(key),
       locale: localeTarget,
       selector,
-      loadChunk: (cacheKey, promise) => loadDynamicChunk(cacheKey, promise),
+      loadChunk: (cacheKey, promise) =>
+        readDynamicChunk(cacheKey, promise, String(localeTarget)),
       transform: (dictionary) => getDictionary(dictionary, localeTarget),
     });
   }
+
+  const plainLoaders = dictionaryPromise as StrictModeLocaleMap<
+    () => Promise<T>
+  >;
+  const getPlainLoader = (locale: string) =>
+    plainLoaders[locale as keyof typeof plainLoaders];
+
+  // Registered before the preloaded shortcut, so a switch warms it too.
+  registerDynamicLocaleWarmer(
+    String(key),
+    createDynamicLocaleWarmer((locale) => {
+      const loader = getPlainLoader(locale);
+      return loader ? [{ cacheKey: `${String(key)}.${locale}`, loader }] : [];
+    })
+  );
 
   // A build-tool plugin may have started this locale's chunk while the entry
   // point itself was evaluating, in which case the content is already here and
@@ -95,13 +147,10 @@ export const useDictionaryDynamic = <
     return getDictionary(preloadedDictionary as T, localeTarget);
   }
 
-  const plainLoaders = dictionaryPromise as StrictModeLocaleMap<
-    () => Promise<T>
-  >;
-
-  const dictionary = loadDynamicChunk<T>(
+  const dictionary = readDynamicChunk<T>(
     `${String(key)}.${localeTarget}`,
-    plainLoaders[localeTarget as keyof typeof plainLoaders]?.() as Promise<T>
+    getPlainLoader(String(localeTarget))?.() as Promise<T>,
+    String(localeTarget)
   );
 
   return getDictionary(dictionary, localeTarget);

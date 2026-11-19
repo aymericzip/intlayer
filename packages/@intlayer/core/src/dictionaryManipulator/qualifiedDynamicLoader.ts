@@ -60,7 +60,7 @@ export const isQualifiedDynamicLoaderMap = (
   QUALIFIER_DYNAMIC_TYPES_KEY in value;
 
 /** One targeted chunk: its stable cache key and lazy loader. */
-type CollectedChunk = {
+export type CollectedChunk = {
   cacheKey: string;
   loader: DynamicDictionaryLoader;
 };
@@ -145,6 +145,28 @@ const collectQualifiedChunks = (
 };
 
 /**
+ * Lists the chunks a selector targets in a qualified dynamic loader map,
+ * without loading them — lets a caller warm a suspender cache ahead of render.
+ *
+ * @returns The targeted chunks, empty when a required coordinate is absent.
+ */
+export const getQualifiedDynamicChunks = (
+  loaderMap: QualifiedDynamicLoaderMap,
+  key: string,
+  locale: string,
+  selector: DictionarySelector | undefined
+): CollectedChunk[] => {
+  const { missed, chunks } = collectQualifiedChunks(
+    loaderMap,
+    key,
+    locale,
+    selector
+  );
+
+  return missed ? [] : chunks;
+};
+
+/**
  * Resolves the content of a qualified dynamic loader map against a selector,
  * loading only the chunk(s) the selector actually targets.
  *
@@ -186,9 +208,14 @@ export const resolveQualifiedDynamicContent = <Content>(params: {
 
   if (missed) return itemAxisOpen ? [] : null;
 
-  // Start every loader before reading, so siblings load in parallel.
-  const dictionaries = chunks.map(({ cacheKey, loader }) =>
-    loadChunk(cacheKey, loader())
+  // Start every loader before reading, so siblings load in parallel: the first
+  // `loadChunk` that suspends throws, and would leave later loaders unstarted.
+  const startedChunks = chunks.map(({ cacheKey, loader }) => ({
+    cacheKey,
+    promise: loader(),
+  }));
+  const dictionaries = startedChunks.map(({ cacheKey, promise }) =>
+    loadChunk(cacheKey, promise)
   );
 
   if (itemAxisOpen) return dictionaries.map(transform);

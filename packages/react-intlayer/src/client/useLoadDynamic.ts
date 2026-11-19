@@ -35,6 +35,12 @@ const createSuspender = <T>(promise: Promise<T>): Suspender<T> => {
 
 const cache = new Map<string, Suspender<unknown>>();
 
+/**
+ * Whether {@link useLoadDynamic} already holds an entry for `key` (pending or
+ * settled). A missing entry means the next read will start a load and suspend.
+ */
+export const hasDynamicEntry = (key: string): boolean => cache.has(key);
+
 export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T => {
   if (!cache.has(key)) {
     cache.set(key, createSuspender(promise));
