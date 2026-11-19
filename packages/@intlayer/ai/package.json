@@ -73,14 +73,14 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "4.0.104",
-    "@ai-sdk/openai": "4.0.117",
+    "@ai-sdk/anthropic": "4.0.106",
+    "@ai-sdk/openai": "4.0.121",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "4.4.0",
-    "ai": "7.0.172",
+    "ai": "7.0.177",
     "zod": "4.6.7"
   },
   "devDependencies": {
@@ -91,7 +91,7 @@
     "rimraf": "6.1.4",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   },
   "peerDependencies": {
     "@ai-sdk/alibaba": "<=1.0.0",

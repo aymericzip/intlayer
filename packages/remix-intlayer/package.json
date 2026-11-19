@@ -111,11 +111,11 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "remix": "3.1.0",
+    "remix": "3.2.0",
     "rimraf": "6.1.4",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   },
   "peerDependencies": {
     "remix": ">=3.0.0"

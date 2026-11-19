@@ -481,8 +481,8 @@
     "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.7.25",
-    "@better-auth/sso": "1.7.25",
+    "@better-auth/passkey": "1.7.26",
+    "@better-auth/sso": "1.7.26",
     "@intlayer/api": "workspace:*",
     "@intlayer/backend-contract": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -514,7 +514,7 @@
     "@tiptap/starter-kit": "3.34.0",
     "@tiptap/suggestion": "3.34.0",
     "@types/hast": "3.0.5",
-    "better-auth": "1.7.25",
+    "better-auth": "1.7.26",
     "class-variance-authority": "0.7.1",
     "cnfast": "0.2.0",
     "defu": "6.1.7",
@@ -564,7 +564,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.8",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   },
   "peerDependencies": {
     "@monaco-editor/react": "4.7.0",
@@ -577,7 +577,7 @@
     "framer-motion": "14.14.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.74.0",
+    "lucide-react": "1.75.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "react-intlayer": "workspace:*",

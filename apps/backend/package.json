@@ -53,10 +53,10 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.1171.0",
-    "@better-auth/core": "1.7.25",
-    "@better-auth/passkey": "1.7.25",
-    "@better-auth/sso": "1.7.25",
+    "@aws-sdk/client-s3": "3.1172.0",
+    "@better-auth/core": "1.7.26",
+    "@better-auth/passkey": "1.7.26",
+    "@better-auth/sso": "1.7.26",
     "@fastify/compress": "9.3.0",
     "@fastify/cookie": "11.1.5",
     "@fastify/cors": "11.4.3",
@@ -73,7 +73,7 @@
     "@node-oauth/oauth2-server": "5.3.1",
     "@octokit/rest": "22.0.1",
     "@react-email/components": "1.0.12",
-    "better-auth": "1.7.25",
+    "better-auth": "1.7.26",
     "bullmq": "6.7.7",
     "cheerio": "1.2.0",
     "cross-env": "10.1.0",
@@ -88,11 +88,11 @@
     "mongoose": "9.12.2",
     "mppx": "0.20.1",
     "nodemailer": "10.6.0",
-    "openai": "7.59.0",
+    "openai": "7.60.0",
     "puppeteer": "25.18.1",
     "react": "19.3.1",
     "react-email": "6.11.16",
-    "resend": "6.38.1",
+    "resend": "6.39.0",
     "sharp": "0.35.5",
     "stripe": "23.1.0",
     "validator": "13.15.35",
@@ -115,6 +115,6 @@
     "rimraf": "6.1.4",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   }
 }

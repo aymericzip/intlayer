@@ -88,7 +88,7 @@
     "rimraf": "6.1.4",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.1.0",
+    "vitest": "5.1.1",
     "vue": "3.5.44",
     "vue-i18n": "11.4.17",
     "vue-router": "5.4.0"
