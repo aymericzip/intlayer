@@ -88,6 +88,7 @@
   "devDependencies": {
     "@types/node": "^26",
     "@types/react": "19.3.0",
+    "@utils/compat-api-parity": "workspace:*",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

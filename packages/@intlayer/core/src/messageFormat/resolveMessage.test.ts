@@ -5,6 +5,7 @@ import { icuToIntlayerFormatter } from './ICU';
 import {
   createMessageResolver,
   interpolateMessage,
+  type MessageArgumentFormatters,
   parseTaggedMessage,
   resolveMessage,
   resolveMessageNode,
@@ -357,5 +358,65 @@ describe('parseTaggedMessage', () => {
 
   it('should return a single text token for plain messages', () => {
     expect(parseTaggedMessage('plain text')).toEqual(['plain text']);
+  });
+});
+
+describe('custom argument formatters', () => {
+  const formatters: MessageArgumentFormatters = {
+    currency: (value, { locale, style }) =>
+      new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: style ?? 'USD',
+      }).format(Number(value)),
+    upper: (value) => String(value).toUpperCase(),
+  };
+
+  it('formats an unknown argument type with the matching formatter', () => {
+    expect(
+      interpolateMessage(
+        'Total: {price, currency, EUR}',
+        { price: 12 },
+        'en',
+        formatters
+      )
+    ).toBe('Total: €12.00');
+  });
+
+  it('passes no style when the argument has none', () => {
+    expect(
+      interpolateMessage('Hi {name, upper}', { name: 'ada' }, 'en', formatters)
+    ).toBe('Hi ADA');
+  });
+
+  it('never lets a custom formatter override a built-in type', () => {
+    expect(
+      interpolateMessage('{value, number}', { value: 1000 }, 'en', {
+        number: () => 'overridden',
+      })
+    ).toBe('1,000');
+  });
+
+  it('falls back to the raw value when no formatter matches', () => {
+    expect(
+      interpolateMessage('{name, unknown}', { name: 'ada' }, 'en', formatters)
+    ).toBe('ada');
+  });
+
+  it('reaches formatted arguments nested in converted ICU nodes', () => {
+    const node = icuToIntlayerFormatter(
+      '{count, plural, one {# item for {price, currency, EUR}} other {# items for {price, currency, EUR}}}'
+    );
+
+    expect(
+      resolveMessageNodeToString(node, { count: 2, price: 5 }, 'en', formatters)
+    ).toBe('2 items for €5.00');
+  });
+
+  it('is forwarded by createMessageResolver', () => {
+    const resolveIcu = createMessageResolver(icuToIntlayerFormatter);
+
+    expect(
+      resolveIcu('Hi {name, upper}', { name: 'ada' }, 'en', formatters)
+    ).toBe('Hi ADA');
   });
 });

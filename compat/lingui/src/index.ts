@@ -24,6 +24,14 @@ export type {
   Messages,
   Register,
 } from '@lingui/core';
+export type {
+  Formatter,
+  FormatterContext,
+  Formatters,
+  I18nProps,
+  Variables,
+  VariableValue,
+} from './I18nClass';
 
 export { formats } from './formats';
 /**

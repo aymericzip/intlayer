@@ -1,21 +1,14 @@
-import type { AllMessages, I18n, Locale, Locales } from '@lingui/core';
-import { I18nClass } from './I18nClass';
+import { internationalization } from '@intlayer/config/built';
+import type { I18n } from '@lingui/core';
+import { I18nClass, type I18nProps } from './I18nClass';
 import { createRegistryResolver } from './registryLookup';
-
-/** Mirrors the unexported `I18nProps` type from `@lingui/core`. */
-type I18nProps = {
-  locale?: Locale;
-  locales?: Locales;
-  messages?: AllMessages;
-  missing?: string | ((locale: string, id: string) => string);
-};
 
 /**
  * Drop-in for `@lingui/core`'s `setupI18n`.
  *
- * Creates a new intlayer-backed `I18n` instance. The `messages` and
- * `missing` properties from `params` are accepted for API compatibility
- * but are ignored — messages are served by intlayer's compiled dictionaries.
+ * Creates a new intlayer-backed `I18n` instance. `variables` and `formatters`
+ * behave as in lingui; `messages` is only a runtime fallback, since messages
+ * are served by intlayer's compiled dictionaries.
  *
  * @example
  * ```ts
@@ -25,7 +18,7 @@ type I18nProps = {
  * i18n.activate('fr');
  * ```
  */
-export const setupI18n = (params?: I18nProps): I18n =>
+export const setupI18n = (params?: Omit<I18nProps, 'registry'>): I18n =>
   new I18nClass({
     ...params,
     // Unoptimized entry point: resolution must reach the dictionary registry.
@@ -39,4 +32,6 @@ export const setupI18n = (params?: I18nProps): I18n =>
  * In React apps, prefer using `useLingui()` inside components so that
  * locale updates are handled reactively via `I18nProvider`.
  */
-export const i18n: I18n = setupI18n({ locale: 'en' });
+export const i18n: I18n = setupI18n({
+  locale: internationalization.defaultLocale,
+});

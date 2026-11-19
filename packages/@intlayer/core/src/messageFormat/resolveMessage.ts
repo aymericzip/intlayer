@@ -61,13 +61,57 @@ const resolveValuePath = (values: MessageValues, path: string): unknown => {
   return current;
 };
 
-/** Formats an ICU-style formatted argument (`{value, number, percent}`). */
+/** Context handed to a {@link MessageArgumentFormatter}. */
+export type MessageArgumentFormatterContext = {
+  /** Active locale. */
+  locale: LocalesValues;
+  /** Third segment of the argument (`EUR` in `{price, currency, EUR}`). */
+  style?: string;
+};
+
+/**
+ * Formats an argument whose type is not built in, e.g. `currency` in
+ * `{price, currency, EUR}`.
+ */
+export type MessageArgumentFormatter = (
+  value: unknown,
+  context: MessageArgumentFormatterContext
+) => unknown;
+
+/** Custom argument formatters, keyed by argument type. */
+export type MessageArgumentFormatters = Record<
+  string,
+  MessageArgumentFormatter
+>;
+
+/** Argument types handled natively; custom formatters cannot override them. */
+const BUILT_IN_ARGUMENT_TYPES = ['number', 'date', 'time'];
+
+/**
+ * Formats an ICU-style formatted argument (`{value, number, percent}`).
+ * Types that are not built in go to the matching custom formatter, if any.
+ */
 const formatArgument = (
   value: unknown,
   type: string,
   style: string | undefined,
-  locale: LocalesValues
+  locale: LocalesValues,
+  formatters?: MessageArgumentFormatters
 ): string => {
+  const customFormatter =
+    !BUILT_IN_ARGUMENT_TYPES.includes(type) &&
+    formatters &&
+    Object.hasOwn(formatters, type)
+      ? formatters[type]
+      : undefined;
+
+  if (customFormatter) {
+    const formatted = customFormatter(value, { locale, style });
+    return formatted === null || formatted === undefined
+      ? ''
+      : String(formatted);
+  }
+
   try {
     if (type === 'number') {
       const numberValue = Number(value);
@@ -122,7 +166,8 @@ const formatArgument = (
 export const interpolateMessage = (
   template: string,
   values: MessageValues = {},
-  locale: LocalesValues = 'en' as LocalesValues
+  locale: LocalesValues = 'en' as LocalesValues,
+  formatters?: MessageArgumentFormatters
 ): string =>
   template
     .replace(
@@ -131,7 +176,7 @@ export const interpolateMessage = (
         const value = resolveValuePath(values, path);
         if (value === undefined) return match;
         return type
-          ? formatArgument(value, type, style, locale)
+          ? formatArgument(value, type, style, locale, formatters)
           : String(value);
       }
     )
@@ -140,7 +185,7 @@ export const interpolateMessage = (
       (match, path: string, type: string, style: string | undefined) => {
         const value = resolveValuePath(values, path);
         if (value === undefined) return match;
-        return formatArgument(value, type, style, locale);
+        return formatArgument(value, type, style, locale, formatters);
       }
     )
     .replace(/\{\s*([\w.]+)\s*\}/g, (match, path: string) => {
@@ -165,12 +210,13 @@ const getSelectorValue = (
 export const resolveMessageNode = (
   node: unknown,
   values: MessageValues = {},
-  locale: LocalesValues = 'en' as LocalesValues
+  locale: LocalesValues = 'en' as LocalesValues,
+  formatters?: MessageArgumentFormatters
 ): unknown => {
   if (node === null || node === undefined) return node;
 
   if (typeof node === 'string') {
-    return interpolateMessage(node, values, locale);
+    return interpolateMessage(node, values, locale, formatters);
   }
 
   if (typeof node === 'number' || typeof node === 'boolean') {
@@ -184,7 +230,8 @@ export const resolveMessageNode = (
       return resolveMessageNode(
         (node as (arg: MessageValues) => unknown)(values),
         values,
-        locale
+        locale,
+        formatters
       );
     } catch {
       return undefined;
@@ -193,19 +240,31 @@ export const resolveMessageNode = (
 
   if (Array.isArray(node)) {
     return node
-      .map((item) => String(resolveMessageNode(item, values, locale) ?? ''))
+      .map((item) =>
+        String(resolveMessageNode(item, values, locale, formatters) ?? '')
+      )
       .join('');
   }
 
   const typedNode = node as Record<string, unknown> & { nodeType?: string };
 
   if (typedNode.nodeType === NodeTypes.INSERTION) {
-    return resolveMessageNode(typedNode[NodeTypes.INSERTION], values, locale);
+    return resolveMessageNode(
+      typedNode[NodeTypes.INSERTION],
+      values,
+      locale,
+      formatters
+    );
   }
 
   if (typedNode.nodeType === NodeTypes.HTML) {
     // Tags are kept intact — rich rendering is handled by the caller
-    return resolveMessageNode(typedNode[NodeTypes.HTML], values, locale);
+    return resolveMessageNode(
+      typedNode[NodeTypes.HTML],
+      values,
+      locale,
+      formatters
+    );
   }
 
   if (typedNode.nodeType === NodeTypes.PLURAL) {
@@ -222,7 +281,7 @@ export const resolveMessageNode = (
       count,
       locale
     );
-    return resolveMessageNode(selected, values, locale);
+    return resolveMessageNode(selected, values, locale, formatters);
   }
 
   if (typedNode.nodeType === NodeTypes.ENUMERATION) {
@@ -276,7 +335,7 @@ export const resolveMessageNode = (
       selected = options[String(selector)] ?? options.fallback ?? options.other;
     }
 
-    return resolveMessageNode(selected, values, locale);
+    return resolveMessageNode(selected, values, locale, formatters);
   }
 
   if (typedNode.nodeType === NodeTypes.SELECT) {
@@ -290,7 +349,7 @@ export const resolveMessageNode = (
     const selector = getSelectorValue(values, variableName);
     const selected = getSelect(selectState, String(selector ?? ''));
 
-    return resolveMessageNode(selected, values, locale);
+    return resolveMessageNode(selected, values, locale, formatters);
   }
 
   if (typedNode.nodeType === NodeTypes.GENDER) {
@@ -298,7 +357,7 @@ export const resolveMessageNode = (
     const genderValue = String(values.gender ?? '');
     const selected =
       genderState[genderValue] ?? genderState.fallback ?? genderState.other;
-    return resolveMessageNode(selected, values, locale);
+    return resolveMessageNode(selected, values, locale, formatters);
   }
 
   return node;
@@ -316,9 +375,10 @@ export const resolveMessageNode = (
 export const resolveMessageNodeToString = (
   node: unknown,
   values: MessageValues = {},
-  locale: LocalesValues = 'en' as LocalesValues
+  locale: LocalesValues = 'en' as LocalesValues,
+  formatters?: MessageArgumentFormatters
 ): string => {
-  const resolved = resolveMessageNode(node, values, locale);
+  const resolved = resolveMessageNode(node, values, locale, formatters);
 
   return typeof resolved === 'string' ? resolved : String(resolved ?? '');
 };
@@ -333,7 +393,8 @@ export type MessageFormatter = (message: string) => unknown;
 export type MessageResolver = (
   message: unknown,
   values?: MessageValues,
-  locale?: LocalesValues
+  locale?: LocalesValues,
+  formatters?: MessageArgumentFormatters
 ) => string;
 
 /**
@@ -351,11 +412,12 @@ export type MessageResolver = (
  */
 export const createMessageResolver =
   (formatter: MessageFormatter): MessageResolver =>
-  (message, values = {}, locale = 'en' as LocalesValues) =>
+  (message, values = {}, locale = 'en' as LocalesValues, formatters) =>
     resolveMessageNodeToString(
       typeof message === 'string' ? formatter(message) : message,
       values,
-      locale
+      locale,
+      formatters
     );
 
 const DIALECT_FORMATTERS: Record<MessageFormatDialect, MessageFormatter> = {

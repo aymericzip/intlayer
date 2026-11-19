@@ -10,5 +10,12 @@ export default defineConfig({
     passWithNoTests: true,
     include: ['src/**/*.test.{js,jsx,ts,tsx}'],
     exclude: ['**/node_modules/**', '**/dist/**'],
+    typecheck: {
+      // API parity with the upstream library — see @utils/compat-api-parity.
+      enabled: true,
+      include: ['src/**/*.test-d.ts'],
+      tsconfig: './tsconfig.json',
+      ignoreSourceErrors: true,
+    },
   },
 });

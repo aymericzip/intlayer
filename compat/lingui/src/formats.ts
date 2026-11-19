@@ -1,3 +1,5 @@
+import { internationalization } from '@intlayer/config/built';
+
 /**
  * Reimplementation of `@lingui/core`'s `formats` namespace.
  *
@@ -101,8 +103,8 @@ const plural = (
   );
 };
 
-/** Default locale used when none is configured. */
-const defaultLocale = 'en';
+/** Default locale from the intlayer configuration. */
+const { defaultLocale } = internationalization;
 
 export const formats = {
   date,

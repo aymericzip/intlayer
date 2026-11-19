@@ -1,6 +1,8 @@
+import { internationalization } from '@intlayer/config/built';
 import {
   createMessageResolver,
   icuToIntlayerFormatter,
+  type MessageArgumentFormatters,
   resolveMessageNodeToString,
 } from '@intlayer/core/messageFormat';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -14,6 +16,7 @@ import type {
   Messages,
 } from '@lingui/core';
 import { EventEmitter } from './eventEmitter';
+import type { DateTimeFormatValue, NumberFormatValue } from './formats';
 import {
   linguiMessageToIcu,
   navigateLinguiCatalog,
@@ -68,12 +71,84 @@ type LinguiEvents = {
   missing: (event: { locale: Locale; id: MessageId }) => void;
 };
 
+/** Mirrors `VariableValue` from `@lingui/core` (≥ 6.11). */
+export type VariableValue = string | number | Date;
+
+/** Mirrors `Variables` from `@lingui/core` (≥ 6.11). */
+export type Variables = Record<string, VariableValue | (() => VariableValue)>;
+
+/** Mirrors `FormatterContext` from `@lingui/core` (≥ 6.12). */
+export type FormatterContext = {
+  locale: Locale;
+  locales?: Locales;
+  param?: string;
+};
+
+/** Mirrors `Formatter` from `@lingui/core` (≥ 6.12). */
+export type Formatter = (value: unknown, context: FormatterContext) => unknown;
+
+/** Mirrors `Formatters` from `@lingui/core` (≥ 6.12). */
+export type Formatters = Record<string, Formatter>;
+
+/** ICU argument types lingui reserves for its built-in formatters. */
+const RESERVED_FORMATTER_NAMES = [
+  'plural',
+  'selectordinal',
+  'select',
+  'number',
+  'date',
+  'time',
+];
+
+/** Throws, like lingui, when a formatter would shadow a built-in ICU type. */
+const assertNoReservedFormatters = (formatters: Formatters): void => {
+  const reservedNames = Object.keys(formatters).filter((name) =>
+    RESERVED_FORMATTER_NAMES.includes(name)
+  );
+
+  if (reservedNames.length > 0) {
+    throw new Error(
+      `Lingui: Formatter names ${reservedNames
+        .map((name) => `"${name}"`)
+        .join(', ')} are reserved for built-in ICU formatters.`
+    );
+  }
+};
+
+/**
+ * Exposes the `variables` an interpolation does not provide, as lazy getters:
+ * a value given at the call site wins, and a function variable only runs when
+ * its message references it — the way lingui resolves them.
+ */
+const withVariables = (values: Values, variables: Variables): Values => {
+  const variableNames = Object.keys(variables).filter(
+    (name) => values[name] === undefined || values[name] === null
+  );
+  if (variableNames.length === 0) return values;
+
+  const merged: Values = { ...values };
+  for (const name of variableNames) {
+    Object.defineProperty(merged, name, {
+      enumerable: true,
+      get: () => {
+        const variable = variables[name];
+        return typeof variable === 'function' ? variable() : variable;
+      },
+    });
+  }
+  return merged;
+};
+
 /** Mirrors the unexported `I18nProps` type from `@lingui/core`. */
-type I18nProps = {
+export type I18nProps = {
   locale?: Locale;
   locales?: Locales;
   messages?: AllMessages;
   missing?: string | ((locale: string, id: string) => string);
+  /** Values every message can reference without passing them (≥ 6.11). */
+  variables?: Variables;
+  /** Formatters for custom ICU argument types (≥ 6.12). */
+  formatters?: Formatters;
   /**
    * How to reach the runtime dictionary registry. Supplied by the unoptimized
    * entry points (`useLingui`, `setupI18n`); omitted by the build-optimized
@@ -119,13 +194,107 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
    * build-optimized variants — see {@link I18nProps.registry}.
    */
   private _registry?: RegistryResolver;
+  private _variables: Variables = {};
+  private _formatters: Formatters = {};
 
-  constructor({ locale = 'en', locales, messages, registry }: I18nProps = {}) {
+  constructor({
+    locale = internationalization.defaultLocale,
+    locales,
+    messages,
+    variables,
+    formatters,
+    registry,
+  }: I18nProps = {}) {
     super();
-    this._locale = typeof locale === 'string' ? locale : 'en';
+    this._locale =
+      typeof locale === 'string' ? locale : internationalization.defaultLocale;
     this._locales = locales;
     this._registry = registry;
     if (messages) this.mergeAllCatalogs(messages);
+    if (variables) this._variables = { ...variables };
+    if (formatters) {
+      assertNoReservedFormatters(formatters);
+      this._formatters = { ...formatters };
+    }
+  }
+
+  /** Values every message can reference without passing them. */
+  get variables(): Variables {
+    return this._variables;
+  }
+
+  /** Sets one variable; `undefined` removes it. Emits `'change'`. */
+  setVariable(
+    name: string,
+    value?: VariableValue | (() => VariableValue)
+  ): this {
+    if (value === undefined) {
+      delete this._variables[name];
+    } else {
+      this._variables[name] = value;
+    }
+    this.emit('change');
+    return this;
+  }
+
+  /** Replaces every variable, or derives them from the previous ones. */
+  setVariables(variables: Variables | ((previous: Variables) => Variables)) {
+    this._variables = {
+      ...(typeof variables === 'function'
+        ? variables(this._variables)
+        : variables),
+    };
+    this.emit('change');
+    return this;
+  }
+
+  /** Formatters for custom ICU argument types (`{price, currency, EUR}`). */
+  get formatters(): Formatters {
+    return this._formatters;
+  }
+
+  /** Sets one formatter; `undefined` removes it. Emits `'change'`. */
+  setFormatter(name: string, formatter?: Formatter): this {
+    if (formatter === undefined) {
+      delete this._formatters[name];
+    } else {
+      assertNoReservedFormatters({ [name]: formatter });
+      this._formatters[name] = formatter;
+    }
+    this.emit('change');
+    return this;
+  }
+
+  /** Replaces every formatter, or derives them from the previous ones. */
+  setFormatters(
+    formatters: Formatters | ((previous: Formatters) => Formatters)
+  ): this {
+    const nextFormatters =
+      typeof formatters === 'function'
+        ? formatters(this._formatters)
+        : formatters;
+    assertNoReservedFormatters(nextFormatters);
+    this._formatters = { ...nextFormatters };
+    this.emit('change');
+    return this;
+  }
+
+  /** Adapts the lingui formatters to the core resolver's formatter shape. */
+  private getArgumentFormatters(): MessageArgumentFormatters | undefined {
+    const entries = Object.entries(this._formatters);
+    if (entries.length === 0) return undefined;
+
+    return Object.fromEntries(
+      entries.map(([name, formatter]) => [
+        name,
+        (value: unknown, { style }: { style?: string }) =>
+          formatter(value, {
+            locale: this._locale,
+            locales: this._locales,
+            param: style,
+          }),
+      ])
+    );
   }
 
   get locale(): string {
@@ -326,8 +495,9 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
         }
       : (values ?? {});
 
-    const messageValues = resolvedValues as Record<string, string | number>;
+    const messageValues = withVariables(resolvedValues, this._variables);
     const locale = this._locale as LocalesValues;
+    const formatters = this.getArgumentFormatters();
     const template = this.resolveTemplate(id) ?? {
       kind: 'icu',
       message: defaultMessage ?? id,
@@ -335,8 +505,18 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
 
     return (
       (template.kind === 'node'
-        ? resolveMessageNodeToString(template.node, messageValues, locale)
-        : resolveIcuMessage(template.message, messageValues, locale)) ?? id
+        ? resolveMessageNodeToString(
+            template.node,
+            messageValues,
+            locale,
+            formatters
+          )
+        : resolveIcuMessage(
+            template.message,
+            messageValues,
+            locale,
+            formatters
+          )) ?? id
     );
   }
 
@@ -353,21 +533,22 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
    * @deprecated Use `Intl.DateTimeFormat` directly.
    */
   date(
-    value?: string | Date | number,
+    value?: string | DateTimeFormatValue,
     format?: Intl.DateTimeFormatOptions
   ): string {
     if (value === undefined || value === null) return '';
-    const dateValue =
-      value instanceof Date
-        ? value
-        : new Date(typeof value === 'string' ? value : value);
-    return new Intl.DateTimeFormat(this._locale, format).format(dateValue);
+    return new Intl.DateTimeFormat(
+      this._locales ?? this._locale,
+      format
+    ).format(typeof value === 'string' ? new Date(value) : value);
   }
 
   /**
    * @deprecated Use `Intl.NumberFormat` directly.
    */
-  number(value: number | bigint, format?: Intl.NumberFormatOptions): string {
-    return new Intl.NumberFormat(this._locale, format).format(value);
+  number(value: NumberFormatValue, format?: Intl.NumberFormatOptions): string {
+    return new Intl.NumberFormat(this._locales ?? this._locale, format).format(
+      value
+    );
   }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "@utils/compat-api-parity",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Test helpers asserting that a compat adapter exposes the same API as the library it replaces",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {}
+}

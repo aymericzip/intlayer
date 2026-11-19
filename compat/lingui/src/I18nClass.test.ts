@@ -14,7 +14,7 @@ vi.mock('@intlayer/dictionaries-entry', () => ({
 import { getIntlayer } from '@intlayer/core/interpreter';
 import { icuToIntlayerFormatter } from '@intlayer/core/messageFormat';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import { I18nClass } from './I18nClass';
+import { I18nClass, type FormatterContext } from './I18nClass';
 import { createRegistryResolver } from './registryLookup';
 
 /**
@@ -420,5 +420,122 @@ describe('I18nClass', () => {
     const i18n = createI18n({ locale: 'en-US' });
     const result = i18n.number(1234567.89, { maximumFractionDigits: 2 });
     expect(result).toContain('1,234,567');
+  });
+});
+
+describe('I18nClass variables (lingui ≥ 6.11)', () => {
+  it('fills placeholders the call does not provide', () => {
+    const i18n = new I18nClass({
+      locale: 'en',
+      variables: { appName: 'Intlayer' },
+    }).bindDictionaries({ messages: { title: 'Welcome to {appName}' } });
+
+    expect(i18n._('title')).toBe('Welcome to Intlayer');
+  });
+
+  it('lets a value passed at the call site win over a variable', () => {
+    const i18n = new I18nClass({
+      locale: 'en',
+      variables: { appName: 'Intlayer' },
+    }).bindDictionaries({ messages: { title: 'Welcome to {appName}' } });
+
+    expect(i18n._('title', { appName: 'Lingui' })).toBe('Welcome to Lingui');
+  });
+
+  it('only evaluates a function variable when a message references it', () => {
+    const readUserName = vi.fn(() => 'Ada');
+    const i18n = new I18nClass({ locale: 'en' })
+      .setVariables({ userName: readUserName })
+      .bindDictionaries({
+        messages: { greeting: 'Hi {userName}', plain: 'Hello' },
+      });
+
+    expect(i18n._('plain')).toBe('Hello');
+    expect(readUserName).not.toHaveBeenCalled();
+    expect(i18n._('greeting')).toBe('Hi Ada');
+    expect(readUserName).toHaveBeenCalledTimes(1);
+  });
+
+  it('sets, derives and removes variables, emitting change each time', () => {
+    const i18n = new I18nClass({ locale: 'en' });
+    const onChange = vi.fn();
+    i18n.on('change', onChange);
+
+    i18n.setVariable('first', 'a').setVariables((previous) => ({
+      ...previous,
+      second: 2,
+    }));
+    expect(i18n.variables).toEqual({ first: 'a', second: 2 });
+
+    i18n.setVariable('first');
+    expect(i18n.variables).toEqual({ second: 2 });
+    expect(onChange).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('I18nClass formatters (lingui ≥ 6.12)', () => {
+  const currency = (value: unknown, { locale, param }: FormatterContext) =>
+    new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: param ?? 'USD',
+    }).format(Number(value));
+
+  it('formats custom argument types in dictionary content', () => {
+    const i18n = new I18nClass({
+      locale: 'en',
+      formatters: { currency },
+    }).bindDictionaries({
+      cart: asBuiltContent({ total: 'Total: {price, currency, EUR}' }),
+    });
+
+    expect(i18n._('cart.total', { price: 9 })).toBe('Total: €9.00');
+  });
+
+  it('formats custom argument types in runtime-loaded ICU catalogs', () => {
+    const i18n = createI18n({ locale: 'en' }).setFormatter(
+      'currency',
+      currency
+    );
+    i18n.load('en', {
+      total: '{count, plural, other {# for {price, currency}}}',
+    });
+
+    expect(i18n._('total', { count: 2, price: 3 })).toBe('2 for $3.00');
+  });
+
+  it('hands the formatter the active locale and locales', () => {
+    const formatter = vi.fn(() => 'formatted');
+    const i18n = new I18nClass({ locale: 'fr', locales: ['fr', 'en'] })
+      .setFormatters({ custom: formatter })
+      .bindDictionaries({ messages: { value: '{amount, custom, short}' } });
+
+    expect(i18n._('value', { amount: 1 })).toBe('formatted');
+    expect(formatter).toHaveBeenCalledWith(1, {
+      locale: 'fr',
+      locales: ['fr', 'en'],
+      param: 'short',
+    });
+  });
+
+  it('rejects formatters named after built-in ICU types', () => {
+    expect(() => new I18nClass({ formatters: { number: () => '' } })).toThrow(
+      '"number" are reserved'
+    );
+    expect(() =>
+      new I18nClass().setFormatters({ plural: () => '', ok: () => '' })
+    ).toThrow('"plural" are reserved');
+    expect(() => new I18nClass().setFormatter('date', () => '')).toThrow(
+      '"date" are reserved'
+    );
+  });
+
+  it('removes a formatter when set to undefined', () => {
+    const i18n = new I18nClass().setFormatter('upper', (value) =>
+      String(value).toUpperCase()
+    );
+    expect(Object.keys(i18n.formatters)).toEqual(['upper']);
+
+    i18n.setFormatter('upper');
+    expect(i18n.formatters).toEqual({});
   });
 });
