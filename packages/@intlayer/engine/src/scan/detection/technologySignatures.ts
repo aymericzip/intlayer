@@ -215,6 +215,28 @@ const frameworkSignatures: TechnologySignature[] = [
 ];
 
 /**
+ * Signals shared by every General Translation runtime (gt-next, gt-react…):
+ * the `generaltranslation.*` cookie names, the global cache and the GT CDN.
+ */
+const generalTranslationSignals: Pick<
+  TechnologySignature,
+  'resourceUrls' | 'bundle' | 'storageKeys'
+> = {
+  resourceUrls: [/\/\/(?:cdn|api)\d*\.gtx\.dev\//],
+  bundle: [
+    quoted(
+      String.raw`<Q>(?:x-generaltranslation-locale|generaltranslation\.(?:locale|region|referrer-locale|locale-routing-enabled|enable-i18n))<Q>`
+    ),
+    /\b__generaltranslation\b|\b(?:cdn|api)\d*\.gtx\.dev\b/,
+  ],
+  storageKeys: [
+    'generaltranslation.locale',
+    'generaltranslation.referrer-locale',
+    'generaltranslation.locale-routing-enabled',
+  ],
+};
+
+/**
  * Code-level i18n libraries. Bundle patterns target string literals kept by
  * minifiers in production builds (error codes, symbols, cookie names).
  */
@@ -300,10 +322,17 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     bundle: [/\[svelte-i18n\]/],
   },
   {
+    // The cookie / storage names are configurable and often tree-shaken: the
+    // v2+ runtime always sets `globalThis.__paraglide` and links its errors.
     id: 'paraglide',
     name: 'Paraglide JS',
     category: 'i18n-library',
-    bundle: [/PARAGLIDE_LOCALE/],
+    bundle: [
+      /\b__paraglide\b|paraglidejs\.com\/errors|PARAGLIDE_LOCALE/,
+      // Paraglide 1.x runtime.
+      /languageTag\(\) didn't return a valid language tag/,
+    ],
+    globals: ['__paraglide'],
     storageKeys: ['PARAGLIDE_LOCALE'],
   },
   {
@@ -343,16 +372,14 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'gt-next',
     name: 'gt-next (General Translation)',
     category: 'i18n-library',
-    bundle: [/\bgt-next\b/],
+    ...generalTranslationSignals,
     requires: ['nextjs'],
   },
   {
     id: 'gt-react',
     name: 'gt-react (General Translation)',
     category: 'i18n-library',
-    bundle: [
-      /__generaltranslation|generaltranslation\/react-core|\bgt-react\b/,
-    ],
+    ...generalTranslationSignals,
     hiddenBy: ['gt-next'],
   },
   {

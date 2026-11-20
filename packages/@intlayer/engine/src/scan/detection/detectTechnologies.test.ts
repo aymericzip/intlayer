@@ -100,6 +100,17 @@ describe('detectTechnologies', () => {
   it.each([
     ['next-translate', 'globalThis.__NEXT_TRANSLATE__'],
     ['gt-react', 't.__generaltranslation??={}'],
+    ['gt-react', 'const e=`generaltranslation.locale`'],
+    ['gt-react', 'cacheUrl:"https://cdn.gtx.dev"'],
+    ['paraglide', 'globalThis.__paraglide=globalThis.__paraglide??{}'],
+    [
+      'paraglide',
+      'throw Error(`No locale found. Read the docs https://paraglidejs.com/errors#no-locale-found`)',
+    ],
+    [
+      'paraglide',
+      "throw new Error(`languageTag() didn't return a valid language tag. Check your setLanguageTag call`)",
+    ],
     ['lingo-dev', 'typeof process<`u`&&{}.LINGO_DEBUG===`true`'],
     ['wuchale', 'return a==null?`i18n-404:tag`:a(t)'],
     // oxlint-disable-next-line no-template-curly-in-string -- minified bundle fixture
@@ -113,6 +124,29 @@ describe('detectTechnologies', () => {
     ],
   ])('detects %s from its production bundle', (id, script) => {
     expect(detectedIds({ scripts: [script] })).toContain(id);
+  });
+
+  it('reports General Translation as gt-next on Next.js sites', () => {
+    const ids = detectedIds({
+      html: '<script>self.__next_f.push([1,""])</script>',
+      storageKeys: ['generaltranslation.referrer-locale'],
+    });
+    expect(ids).toContain('gt-next');
+    expect(ids).not.toContain('gt-react');
+  });
+
+  it('detects Paraglide from its runtime global', () => {
+    expect(detectedIds({ globals: ['__paraglide'] })).toContain('paraglide');
+  });
+
+  it('ignores pages that only mention General Translation packages', () => {
+    expect(
+      detectedIds({
+        scripts: [
+          '"Compare gt-next, gt-react and https://generaltranslation.com"',
+        ],
+      })
+    ).toEqual([]);
   });
 
   it('only reports the Intlayer CMS when the editor is enabled', () => {
