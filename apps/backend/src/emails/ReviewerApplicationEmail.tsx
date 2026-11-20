@@ -252,3 +252,4 @@ export const ReviewerApplicationEmailPL = ReviewerApplicationEmailEN;
 export const ReviewerApplicationEmailID = ReviewerApplicationEmailEN;
 export const ReviewerApplicationEmailVI = ReviewerApplicationEmailEN;
 export const ReviewerApplicationEmailUK = ReviewerApplicationEmailEN;
+export const ReviewerApplicationEmailHE_IL = ReviewerApplicationEmailEN;

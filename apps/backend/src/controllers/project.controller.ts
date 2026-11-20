@@ -282,6 +282,7 @@ export const addProject = async (
         id: 'Proyek berhasil dibuat',
         vi: 'Dự án đã được tạo thành công',
         uk: 'Проєкт успішно створено',
+        'he-IL': 'הפרויקט נוצר בהצלחה',
       }),
       description: t({
         en: 'Your project has been created successfully',
@@ -302,6 +303,7 @@ export const addProject = async (
         id: 'Proyek Anda telah berhasil dibuat',
         vi: 'Dự án của bạn đã được tạo thành công',
         uk: 'Ваш проєкт успішно створено',
+        'he-IL': 'הפרויקט שלכם נוצר בהצלחה',
       }),
       data: formattedProject,
     });
@@ -447,6 +449,7 @@ export const updateProject = async (
         id: 'Proyek berhasil diperbarui',
         vi: 'Dự án đã được cập nhật thành công',
         uk: 'Проєкт успішно оновлено',
+        'he-IL': 'הפרויקט עודכן בהצלחה',
       }),
       description: t({
         en: 'Your project has been updated successfully',
@@ -467,6 +470,7 @@ export const updateProject = async (
         id: 'Proyek Anda telah berhasil diperbarui',
         vi: 'Dự án của bạn đã được cập nhật thành công',
         uk: 'Ваш проєкт успішно оновлено',
+        'he-IL': 'הפרויקט שלכם עודכן בהצלחה',
       }),
       data: formattedProject,
     });
@@ -610,6 +614,7 @@ export const updateProjectMembers = async (
         id: 'Anggota proyek berhasil diperbarui',
         vi: 'Thành viên dự án đã được cập nhật thành công',
         uk: 'Члени проєкту успішно оновлені',
+        'he-IL': 'חברי הפרויקט עודכנו בהצלחה',
       }),
       description: t({
         en: 'Your project members have been updated successfully',
@@ -630,6 +635,7 @@ export const updateProjectMembers = async (
         id: 'Anggota proyek Anda telah berhasil diperbarui',
         vi: 'Thành viên dự án của bạn đã được cập nhật thành công',
         uk: 'Члени вашого проєкту успішно оновлені',
+        'he-IL': 'חברי הפרויקט שלכם עודכנו בהצלחה',
       }),
       data: formattedProject,
     });
@@ -762,6 +768,7 @@ export const pushProjectConfiguration = async (
         id: 'Konfigurasi proyek berhasil diperbarui',
         vi: 'Cấu hình dự án đã được cập nhật thành công',
         uk: 'Конфігурацію проєкту успішно оновлено',
+        'he-IL': 'הגדרות הפרויקט עודכנו בהצלחה',
       }),
       description: t({
         en: 'Your project configuration has been updated successfully',
@@ -782,6 +789,7 @@ export const pushProjectConfiguration = async (
         id: 'Konfigurasi proyek Anda telah berhasil diperbarui',
         vi: 'Cấu hình dự án của bạn đã được cập nhật thành công',
         uk: 'Конфігурацію вашого проєкту успішно оновлено',
+        'he-IL': 'הגדרות הפרויקט שלכם עודכנו בהצלחה',
       }),
       data: mapProjectToAPI(projectObject) as ProjectConfiguration,
     });
@@ -881,6 +889,7 @@ export const triggerBuild = async (
         id: 'Pemicu build dimulai',
         vi: 'Đã bắt đầu trình kích hoạt bản dựng',
         uk: 'Запуск тригерів збірки ініційовано',
+        'he-IL': 'טריגרי הבנייה הופעלו',
       }),
       description: t({
         en: 'CI pipelines and webhooks have been triggered',
@@ -901,6 +910,7 @@ export const triggerBuild = async (
         id: 'Pipa CI dan webhook telah dipicu',
         vi: 'Đường ống CI và webhook đã được kích hoạt',
         uk: 'Конвеєри CI та вебхуки були запущені',
+        'he-IL': 'צינורות ה-CI וה-webhooks הופעלו',
       }),
       data: { results },
     });
@@ -994,6 +1004,7 @@ export const triggerWebhook = async (
         id: 'Webhook dipicu',
         vi: 'Webhook đã được kích hoạt',
         uk: 'Вебхук запущено',
+        'he-IL': 'ה-webhook הופעל',
       }),
       description: t({
         en: `Webhook "${result.target}" has been triggered`,
@@ -1014,6 +1025,7 @@ export const triggerWebhook = async (
         id: `Webhook "${result.target}" telah dipicu`,
         vi: `Webhook "${result.target}" đã được kích hoạt`,
         uk: `Вебхук "${result.target}" запущено`,
+        'he-IL': `ה-webhook "${result.target}" הופעל`,
       }),
       data: result,
     });
@@ -1124,6 +1136,7 @@ export const deleteProject = async (
         id: 'Proyek berhasil dihapus',
         vi: 'Dự án đã được xóa thành công',
         uk: 'Проєкт успішно видалено',
+        'he-IL': 'הפרויקט נמחק בהצלחה',
       }),
       description: t({
         en: 'Your project has been deleted successfully',
@@ -1144,6 +1157,7 @@ export const deleteProject = async (
         id: 'Proyek Anda telah berhasil dihapus',
         vi: 'Dự án của bạn đã được xóa thành công',
         uk: 'Ваш проєкт успішно видалено',
+        'he-IL': 'הפרויקט שלכם נמחק בהצלחה',
       }),
       data: mapProjectToAPI(deletedProject),
     });
@@ -1233,6 +1247,7 @@ export const deleteProjectByIdAdmin = async (
         id: 'Proyek dihapus',
         vi: 'Dự án đã bị xóa',
         uk: 'Проєкт видалено',
+        'he-IL': 'הפרויקט נמחק',
       }),
       data: formattedProject,
     });
@@ -1331,6 +1346,7 @@ export const selectProject = async (
         id: 'Proyek berhasil dipilih',
         vi: 'Dự án đã được chọn thành công',
         uk: 'Проєкт успішно вибрано',
+        'he-IL': 'הפרויקט נבחר בהצלחה',
       }),
       description: t({
         en: 'Your project has been selected successfully',
@@ -1351,6 +1367,7 @@ export const selectProject = async (
         id: 'Proyek Anda telah berhasil dipilih',
         vi: 'Dự án của bạn đã được chọn thành công',
         uk: 'Ваш проєкт успішно вибрано',
+        'he-IL': 'הפרויקט שלכם נבחר בהצלחה',
       }),
       data: mapProjectToAPI(project),
     });
@@ -1411,6 +1428,7 @@ export const unselectProject = async (
         id: 'Proyek berhasil batal dipilih',
         vi: 'Dự án đã được bỏ chọn thành công',
         uk: 'Вибір проєкту успішно скасовано',
+        'he-IL': 'בחירת הפרויקט בוטלה בהצלחה',
       }),
       description: t({
         en: 'Your project has been unselected successfully',
@@ -1431,6 +1449,7 @@ export const unselectProject = async (
         id: 'Proyek Anda telah berhasil batal dipilih',
         vi: 'Dự án của bạn đã được bỏ chọn thành công',
         uk: 'Вибір вашого проєкту успішно скасовано',
+        'he-IL': 'בחירת הפרויקט שלכם בוטלה בהצלחה',
       }),
       data: null,
     });
@@ -1557,6 +1576,7 @@ export const pushCIConfiguration = async (
         id: 'Konfigurasi CI berhasil diinstal',
         vi: 'Cài đặt cấu hình CI thành công',
         uk: 'Конфігурацію CI успішно встановлено',
+        'he-IL': 'הגדרות ה-CI הותקנו בהצלחה',
       }),
       description: t({
         en: 'The CI workflow file has been added to your repository',
@@ -1577,6 +1597,7 @@ export const pushCIConfiguration = async (
         id: 'File alur kerja CI telah ditambahkan ke repositori Anda',
         vi: 'Tệp quy trình làm việc CI đã được thêm vào kho lưu trữ của bạn',
         uk: 'Файл робочого процесу CI додано до вашого репозиторію',
+        'he-IL': 'קובץ ה-workflow של ה-CI נוסף למאגר שלכם',
       }),
       data: { success: true },
     });

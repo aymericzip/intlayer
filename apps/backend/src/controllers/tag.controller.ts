@@ -172,6 +172,7 @@ export const addTag = async (
         id: 'Tag berhasil dibuat',
         vi: 'Thẻ đã được tạo thành công',
         uk: 'Тег успішно створено',
+        'he-IL': 'התגית נוצרה בהצלחה',
       }),
       description: t({
         en: 'Your tag has been created successfully',
@@ -192,6 +193,7 @@ export const addTag = async (
         id: 'Tag Anda telah berhasil dibuat',
         vi: 'Thẻ của bạn đã được tạo thành công',
         uk: 'Ваш тег успішно створено',
+        'he-IL': 'התגית שלכם נוצרה בהצלחה',
       }),
       data: formattedTag,
     });
@@ -284,6 +286,7 @@ export const updateTag = async (
         id: 'Tag berhasil diperbarui',
         vi: 'Thẻ đã được cập nhật thành công',
         uk: 'Тег успішно оновлено',
+        'he-IL': 'התגית עודכנה בהצלחה',
       }),
       description: t({
         en: 'Your tag has been updated successfully',
@@ -304,6 +307,7 @@ export const updateTag = async (
         id: 'Tag Anda telah berhasil diperbarui',
         vi: 'Thẻ của bạn đã được cập nhật thành công',
         uk: 'Ваш тег успішно оновлено',
+        'he-IL': 'התגית שלכם עודכנה בהצלחה',
       }),
       data: formattedTag,
     });
@@ -399,6 +403,7 @@ export const deleteTag = async (
         id: 'Tag berhasil dihapus',
         vi: 'Thẻ đã được xóa thành công',
         uk: 'Тег успішно видалено',
+        'he-IL': 'התגית נמחקה בהצלחה',
       }),
       description: t({
         en: 'Your tag has been deleted successfully',
@@ -419,6 +424,7 @@ export const deleteTag = async (
         id: 'Tag Anda telah berhasil dihapus',
         vi: 'Thẻ của bạn đã được xóa thành công',
         uk: 'Ваш тег успішно видалено',
+        'he-IL': 'התגית שלכם נמחקה בהצלחה',
       }),
       data: formattedTag,
     });

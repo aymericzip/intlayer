@@ -92,3 +92,4 @@ export const AffiliateInvitationEmailPL = AffiliateInvitationEmail;
 export const AffiliateInvitationEmailID = AffiliateInvitationEmail;
 export const AffiliateInvitationEmailVI = AffiliateInvitationEmail;
 export const AffiliateInvitationEmailUK = AffiliateInvitationEmail;
+export const AffiliateInvitationEmailHE_IL = AffiliateInvitationEmail;

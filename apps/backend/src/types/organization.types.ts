@@ -112,6 +112,10 @@ export type Organization = OrganizationData & {
   plan?: Plan;
   /** Monthly AI token counter, reset lazily when a new month starts. */
   aiCreditUsage?: AICreditCounter;
+  /** When members were warned the organization is deleted for inactivity. */
+  inactivityWarningSentAt?: Date;
+  /** When the inactive organization gets deleted, unless someone signs in. */
+  inactivityDeletionScheduledAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 };

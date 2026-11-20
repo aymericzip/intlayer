@@ -25,6 +25,7 @@ export const affiliateErrors = {
       id: 'Afiliasi sudah ada',
       vi: 'Liên kết đã tồn tại',
       uk: 'Афілійований партнер вже існує',
+      'he-IL': 'השותף כבר קיים',
     },
     message: {
       en: 'This user is already registered as an affiliate.',
@@ -45,6 +46,7 @@ export const affiliateErrors = {
       id: 'Pengguna ini sudah terdaftar sebagai afiliasi.',
       vi: 'Người dùng này đã được đăng ký là đối tác liên kết.',
       uk: 'Цей користувач вже зареєстрований як партнер.',
+      'he-IL': 'משתמש זה כבר רשום כשותף.',
     },
     statusCode: HttpStatusCodes.CONFLICT_409,
   },
@@ -68,6 +70,7 @@ export const affiliateErrors = {
       id: 'Afiliasi tidak ditemukan',
       vi: 'Không tìm thấy đối tác liên kết',
       uk: 'Партнера не знайдено',
+      'he-IL': 'השותף לא נמצא',
     },
     message: {
       en: 'No affiliate account found for this user.',
@@ -88,6 +91,7 @@ export const affiliateErrors = {
       id: 'Tidak ada akun afiliasi ditemukan untuk pengguna ini.',
       vi: 'Không tìm thấy tài khoản liên kết cho người dùng này.',
       uk: 'Партнерський акаунт для цього користувача не знайдено.',
+      'he-IL': 'לא נמצא חשבון שותף עבור משתמש זה.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
@@ -111,6 +115,7 @@ export const affiliateErrors = {
       id: 'Undangan tidak ditemukan',
       vi: 'Không tìm thấy lời mời',
       uk: 'Запрошення не знайдено',
+      'he-IL': 'ההזמנה לא נמצאה',
     },
     message: {
       en: 'This invitation link is invalid or has expired.',
@@ -131,6 +136,7 @@ export const affiliateErrors = {
       id: 'Tautan undangan ini tidak valid atau telah kedaluwarsa.',
       vi: 'Liên kết mời này không hợp lệ hoặc đã hết hạn.',
       uk: 'Це посилання запрошення недійсне або закінчилося.',
+      'he-IL': 'קישור ההזמנה אינו תקף או שפג תוקפו.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
@@ -154,6 +160,7 @@ export const affiliateErrors = {
       id: 'Undangan sudah digunakan',
       vi: 'Lời mời đã được sử dụng',
       uk: 'Запрошення вже використано',
+      'he-IL': 'ההזמנה כבר נוצלה',
     },
     message: {
       en: 'This invitation has already been accepted or has expired.',
@@ -174,6 +181,7 @@ export const affiliateErrors = {
       id: 'Undangan ini sudah diterima atau kedaluwarsa.',
       vi: 'Lời mời này đã được chấp nhận hoặc đã hết hạn.',
       uk: 'Це запрошення вже прийнято або закінчилося.',
+      'he-IL': 'ההזמנה כבר התקבלה או שפג תוקפה.',
     },
     statusCode: HttpStatusCodes.CONFLICT_409,
   },
@@ -197,6 +205,7 @@ export const affiliateErrors = {
       id: 'Email undangan tidak cocok',
       vi: 'Email lời mời không khớp',
       uk: 'Електронна пошта запрошення не збігається',
+      'he-IL': 'כתובת הדוא״ל של ההזמנה אינה תואמת',
     },
     message: {
       en: 'This invitation was sent to a different email address. Sign in with the invited account to accept it.',
@@ -218,6 +227,8 @@ export const affiliateErrors = {
       id: 'Undangan ini dikirim ke alamat email yang berbeda. Masuk dengan akun yang diundang untuk menerimanya.',
       vi: 'Lời mời này đã được gửi đến một địa chỉ email khác. Đăng nhập bằng tài khoản được mời để chấp nhận.',
       uk: 'Це запрошення було надіслано на іншу електронну адресу. Увійдіть до запрошеного облікового запису, щоб прийняти його.',
+      'he-IL':
+        'ההזמנה נשלחה לכתובת דוא״ל אחרת. התחברו עם החשבון שהוזמן כדי לקבל אותה.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
@@ -241,6 +252,7 @@ export const affiliateErrors = {
       id: 'Pembuatan kode referral gagal',
       vi: 'Tạo mã giới thiệu thất bại',
       uk: 'Помилка генерації реферального коду',
+      'he-IL': 'יצירת קוד ההפניה נכשלה',
     },
     message: {
       en: 'Failed to generate a unique referral code. Please try again.',
@@ -261,6 +273,7 @@ export const affiliateErrors = {
       id: 'Gagal menghasilkan kode referral unik. Silakan coba lagi.',
       vi: 'Không thể tạo mã giới thiệu duy nhất. Vui lòng thử lại.',
       uk: 'Не вдалося згенерувати унікальний реферальний код. Будь ласка, спробуйте ще раз.',
+      'he-IL': 'יצירת קוד הפניה ייחודי נכשלה. נסו שוב.',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
@@ -284,6 +297,7 @@ export const affiliateErrors = {
       id: 'Kode promo tidak ditemukan',
       vi: 'Không tìm thấy mã khuyến mãi',
       uk: 'Промо-код не знайдено',
+      'he-IL': 'קוד הקופון לא נמצא',
     },
     message: {
       en: 'The requested promo code does not exist.',
@@ -304,6 +318,7 @@ export const affiliateErrors = {
       id: 'Kode promo yang diminta tidak ada.',
       vi: 'Mã khuyến mãi được yêu cầu không tồn tại.',
       uk: 'Запитаний промо-код не існує.',
+      'he-IL': 'קוד הקופון המבוקש אינו קיים.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },

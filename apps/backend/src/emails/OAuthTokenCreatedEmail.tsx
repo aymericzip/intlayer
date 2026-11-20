@@ -1500,6 +1500,85 @@ export const OAuthTokenCreatedEmailUK = ({
   );
 };
 
+export const OAuthTokenCreatedEmailHE_IL = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `מפתח גישה OAuth של צד שלישי נוסף לחשבון Intlayer שלכם`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              מפתח גישה OAuth של צד שלישי נוסף לחשבון שלכם
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              היי {username}!
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              מפתח גישה OAuth של צד שלישי (<strong>{applicationName}</strong>)
+              עם ההרשאות הבאות קיבל לאחרונה הרשאת גישה לחשבון שלכם:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                הצגת פרטי האפליקציה
+              </Button>
+            </Section>
+            <Text className="text-sm leading-6 text-black">
+              כדי לראות אירוע זה ואירועי אבטחה נוספים בחשבון שלכם, בקרו ב{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                יומן האבטחה שלכם
+              </Link>
+              .
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              אם נתקלתם בבעיה, פנו לתמיכה דרך{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                דף התמיכה שלנו
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
+              הודעה זו נועדה עבור <span className="text-black">{username}</span>
+              . אם לא ציפיתם להודעה זו, ניתן להתעלם ממנה. אם אתם חוששים לאבטחת
+              החשבון שלכם, השיבו להודעה זו כדי ליצור איתנו קשר.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const previewProps: OAuthTokenCreatedEmailProps = {
   username: 'aymericzip',
   applicationName: 'Postman',
@@ -1528,3 +1607,4 @@ OAuthTokenCreatedEmailPL.PreviewProps = previewProps;
 OAuthTokenCreatedEmailID.PreviewProps = previewProps;
 OAuthTokenCreatedEmailVI.PreviewProps = previewProps;
 OAuthTokenCreatedEmailUK.PreviewProps = previewProps;
+OAuthTokenCreatedEmailHE_IL.PreviewProps = previewProps;

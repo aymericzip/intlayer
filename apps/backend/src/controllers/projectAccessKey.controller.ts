@@ -1,5 +1,7 @@
 import type { RouteBody } from '@intlayer/backend-contract/defineRoute';
 import type { ProjectRoutes } from '@intlayer/backend-contract/project';
+import { logger } from '@logger';
+import { sendAccessKeyNotification } from '@services/accessKeyNotification.service';
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -89,6 +91,7 @@ export const addNewAccessKey = async (
         id: 'Kunci akses berhasil dibuat',
         vi: 'Khóa truy cập đã được tạo thành công',
         uk: 'Ключ доступу успішно створено',
+        'he-IL': 'מפתח הגישה נוצר בהצלחה',
       }),
       description: t({
         en: 'The access key has been created successfully',
@@ -109,6 +112,7 @@ export const addNewAccessKey = async (
         id: 'Kunci akses telah berhasil dibuat',
         vi: 'Khóa truy cập đã được tạo thành công',
         uk: 'Ключ доступу було успішно створено',
+        'he-IL': 'מפתח הגישה נוצר בהצלחה',
       }),
       data: newAccessKey,
     });
@@ -211,6 +215,7 @@ export const deleteAccessKey = async (
         id: 'Kunci akses berhasil dihapus',
         vi: 'Khóa truy cập đã được xóa thành công',
         uk: 'Ключ доступу успішно видалено',
+        'he-IL': 'מפתח הגישה נמחק בהצלחה',
       }),
       description: t({
         en: 'The access key has been deleted successfully',
@@ -231,9 +236,19 @@ export const deleteAccessKey = async (
         id: 'Kunci akses telah berhasil dihapus',
         vi: 'Khóa truy cập đã được xóa thành công',
         uk: 'Ключ доступу було успішно видалено',
+        'he-IL': 'מפתח הגישה נמחק בהצלחה',
       }),
       data: null,
     });
+
+    sendAccessKeyNotification({
+      kind: 'deleted',
+      accessKey: deletedAccessKey,
+      project,
+      eventDate: new Date(),
+    }).catch((error) =>
+      logger.error(`Failed to send access key deletion email: ${error}`)
+    );
 
     return reply.send(responseData);
   } catch (error) {
@@ -311,6 +326,7 @@ export const refreshAccessKey = async (
         id: 'Kunci akses berhasil diperbarui',
         vi: 'Khóa truy cập đã được làm mới thành công',
         uk: 'Ключ доступу успішно оновлено',
+        'he-IL': 'מפתח הגישה רוענן בהצלחה',
       }),
       description: t({
         en: 'The access key has been refreshed successfully',
@@ -331,6 +347,7 @@ export const refreshAccessKey = async (
         id: 'Kunci akses telah berhasil diperbarui',
         vi: 'Khóa truy cập đã được làm mới thành công',
         uk: 'Ключ доступу було успішно оновлено',
+        'he-IL': 'מפתח הגישה רוענן בהצלחה',
       }),
       data: newAccessKey,
     });

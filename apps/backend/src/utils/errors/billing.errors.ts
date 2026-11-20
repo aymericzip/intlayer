@@ -25,6 +25,7 @@ export const billingErrors = {
       id: 'Kredit AI habis',
       vi: 'Đã hết tín dụng AI',
       uk: 'Кредити ШІ вичерпано',
+      'he-IL': 'קרדיטי ה-AI נוצלו',
     },
     message: {
       en: 'Your organization has used all of its AI credits for this month. Upgrade your plan, wait for the monthly reset, or add your own AI provider API key in the project settings.',
@@ -46,6 +47,8 @@ export const billingErrors = {
       id: 'Organisasi Anda telah menggunakan semua kredit AI bulan ini. Tingkatkan paket, tunggu reset bulanan, atau tambahkan kunci API penyedia AI Anda sendiri di pengaturan proyek.',
       vi: 'Tổ chức của bạn đã dùng hết tín dụng AI của tháng này. Hãy nâng cấp gói, chờ đặt lại hằng tháng hoặc thêm khóa API nhà cung cấp AI của riêng bạn trong cài đặt dự án.',
       uk: 'Ваша організація використала всі кредити ШІ цього місяця. Оновіть тариф, дочекайтеся щомісячного скидання або додайте власний API-ключ постачальника ШІ в налаштуваннях проєкту.',
+      'he-IL':
+        'הארגון שלכם ניצל את כל קרדיטי ה-AI לחודש זה. שדרגו את התוכנית, המתינו לאיפוס החודשי, או הוסיפו מפתח API של ספק AI משלכם בהגדרות הפרויקט.',
     },
     statusCode: HttpStatusCodes.PAYMENT_REQUIRED_402,
   },
@@ -70,6 +73,7 @@ export const billingErrors = {
       id: 'Paket Tidak Ditemukan',
       vi: 'Không tìm thấy gói',
       uk: 'План не знайдено',
+      'he-IL': 'התוכנית לא נמצאה',
     },
     message: {
       en: 'Plan not found',
@@ -90,6 +94,7 @@ export const billingErrors = {
       id: 'Paket tidak ditemukan.',
       vi: 'Không tìm thấy gói.',
       uk: 'План не знайдено.',
+      'he-IL': 'התוכנית לא נמצאה',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
@@ -113,6 +118,7 @@ export const billingErrors = {
       id: 'Beberapa Paket Ditemukan',
       vi: 'Tìm thấy nhiều gói',
       uk: 'Знайдено кілька планів',
+      'he-IL': 'נמצאו מספר תוכניות',
     },
     message: {
       en: 'Multiple plans found for the provided information.',
@@ -133,6 +139,7 @@ export const billingErrors = {
       id: 'Beberapa paket ditemukan untuk informasi yang diberikan.',
       vi: 'Tìm thấy nhiều gói cho thông tin được cung cấp.',
       uk: 'Для наданої інформації знайдено кілька планів.',
+      'he-IL': 'נמצאו מספר תוכניות עבור המידע שסופק.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
@@ -156,6 +163,7 @@ export const billingErrors = {
       id: 'Batas Pengguna Paket Tercapai',
       vi: 'Đã đạt giới hạn người dùng của gói',
       uk: 'Досягнуто ліміту користувачів плану',
+      'he-IL': 'הגעתם למגבלת המשתמשים של התוכנית',
     },
     message: {
       en: 'The plan has reached its user limit. Please upgrade to add more users.',
@@ -177,6 +185,8 @@ export const billingErrors = {
       id: 'Paket telah mencapai batas pengguna. Harap tingkatkan untuk menambah lebih banyak pengguna.',
       vi: 'Gói đã đạt đến giới hạn người dùng. Vui lòng nâng cấp để thêm nhiều người dùng hơn.',
       uk: 'План досяг ліміту користувачів. Будь ласка, оновіть план, щоб додати більше користувачів.',
+      'he-IL':
+        'התוכנית הגיעה למגבלת המשתמשים שלה. שדרגו כדי להוסיף משתמשים נוספים.',
     },
     statusCode: HttpStatusCodes.UNAUTHORIZED_401,
   },
@@ -200,6 +210,7 @@ export const billingErrors = {
       id: 'Batas Proyek Paket Tercapai',
       vi: 'Đã đạt giới hạn dự án của gói',
       uk: 'Досягнуто ліміту проектів плану',
+      'he-IL': 'הגעתם למגבלת הפרויקטים של התוכנית',
     },
     message: {
       en: 'The plan has reached its project limit. Please upgrade to add more projects.',
@@ -221,6 +232,8 @@ export const billingErrors = {
       id: 'Paket telah mencapai batas proyek. Harap tingkatkan untuk menambah lebih banyak proyek.',
       vi: 'Gói đã đạt đến giới hạn dự án. Vui lòng nâng cấp để thêm nhiều dự án hơn.',
       uk: 'План досяг ліміту проектів. Будь ласка, оновіть план, щоб додати більше проектів.',
+      'he-IL':
+        'התוכנית הגיעה למגבלת הפרויקטים שלה. שדרגו כדי להוסיף פרויקטים נוספים.',
     },
     statusCode: HttpStatusCodes.UNAUTHORIZED_401,
   },
@@ -245,6 +258,7 @@ export const billingErrors = {
       id: 'Pembuatan Langganan Gagal',
       vi: 'Tạo gói đăng ký thất bại',
       uk: 'Помилка створення підписки',
+      'he-IL': 'יצירת המנוי נכשלה',
     },
     message: {
       en: 'Failed to create the specified subscription.',
@@ -265,6 +279,7 @@ export const billingErrors = {
       id: 'Gagal membuat langganan yang ditentukan.',
       vi: 'Không thể tạo gói đăng ký đã chỉ định.',
       uk: 'Не вдалося створити вказану підписку.',
+      'he-IL': 'יצירת המנוי שצוין נכשלה.',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
@@ -289,6 +304,7 @@ export const billingErrors = {
       id: 'URL Callback Tidak Valid',
       vi: 'URL gọi lại không hợp lệ',
       uk: 'Неприпустимий URL зворотного виклику',
+      'he-IL': 'כתובת ה-callback אינה תקפה',
     },
     message: {
       en: 'The callback URL is not valid.',
@@ -309,6 +325,7 @@ export const billingErrors = {
       id: 'URL callback tidak valid.',
       vi: 'URL gọi lại không hợp lệ.',
       uk: 'URL зворотного виклику неприпустимий.',
+      'he-IL': 'כתובת ה-callback אינה תקפה.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
@@ -332,6 +349,7 @@ export const billingErrors = {
       id: 'Tidak Ada Pelanggan Ditemukan',
       vi: 'Không tìm thấy khách hàng',
       uk: 'Клієнта не знайдено',
+      'he-IL': 'לא נמצא לקוח',
     },
     message: {
       en: 'No customer found for the provided subscription.',
@@ -352,6 +370,7 @@ export const billingErrors = {
       id: 'Tidak ada pelanggan ditemukan untuk langganan yang diberikan.',
       vi: 'Không tìm thấy khách hàng cho gói đăng ký được cung cấp.',
       uk: 'Для наданої підписки клієнта не знайдено.',
+      'he-IL': 'לא נמצא לקוח עבור המנוי שסופק.',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
@@ -375,6 +394,7 @@ export const billingErrors = {
       id: 'ID Langganan Tidak Disediakan',
       vi: 'Không có mã định danh đăng ký nào được cung cấp',
       uk: 'ID підписки не надано',
+      'he-IL': 'לא סופק מזהה מנוי',
     },
     message: {
       en: 'No subscription ID provided.',
@@ -395,6 +415,7 @@ export const billingErrors = {
       id: 'ID langganan tidak disediakan.',
       vi: 'Không có mã định danh đăng ký nào được cung cấp.',
       uk: 'ID підписки не було надано.',
+      'he-IL': 'לא סופק מזהה מנוי.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
@@ -418,6 +439,7 @@ export const billingErrors = {
       id: 'Tidak Dapat Membatalkan Langganan',
       vi: 'Không thể hủy gói đăng ký',
       uk: 'Не вдається скасувати підписку',
+      'he-IL': 'לא ניתן לבטל את המנוי',
     },
     message: {
       en: 'Cannot cancel subscription.',
@@ -438,6 +460,7 @@ export const billingErrors = {
       id: 'Tidak dapat membatalkan langganan.',
       vi: 'Không thể hủy gói đăng ký.',
       uk: 'Не вдається скасувати підписку.',
+      'he-IL': 'לא ניתן לבטל את המנוי.',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
@@ -461,6 +484,7 @@ export const billingErrors = {
       id: 'Sudah Berlangganan',
       vi: 'Đã đăng ký',
       uk: 'Вже підписаний',
+      'he-IL': 'כבר רשומים',
     },
     message: {
       en: 'You are already subscribed to this plan.',
@@ -481,6 +505,7 @@ export const billingErrors = {
       id: 'Anda sudah berlangganan paket ini.',
       vi: 'Bạn đã đăng ký gói này rồi.',
       uk: 'Ви вже підписані на цей план.',
+      'he-IL': 'אתם כבר מנויים לתוכנית זו.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
@@ -504,6 +529,7 @@ export const billingErrors = {
       id: 'Pembuatan Sesi Gagal',
       vi: 'Tạo phiên thất bại',
       uk: 'Помилка створення сесії',
+      'he-IL': 'יצירת ההפעלה נכשלה',
     },
     message: {
       en: 'Failed to create the specified session.',
@@ -524,6 +550,7 @@ export const billingErrors = {
       id: 'Gagal membuat sesi yang ditentukan.',
       vi: 'Không thể tạo phiên đã chỉ định.',
       uk: 'Не вдалося створити вказану сесію.',
+      'he-IL': 'יצירת ההפעלה שצוינה נכשלה.',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
@@ -547,6 +574,7 @@ export const billingErrors = {
       id: 'Pembuatan Setup Intent Gagal',
       vi: 'Tạo ý định thiết lập thất bại',
       uk: 'Помилка створення наміру налаштування',
+      'he-IL': 'יצירת ה-Setup Intent נכשלה',
     },
     message: {
       en: 'Failed to create the setup intent.',
@@ -567,6 +595,7 @@ export const billingErrors = {
       id: 'Gagal membuat setup intent.',
       vi: 'Không thể tạo ý định thiết lập.',
       uk: 'Не вдалося створити намір налаштування.',
+      'he-IL': 'יצירת ה-Setup Intent נכשלה.',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },

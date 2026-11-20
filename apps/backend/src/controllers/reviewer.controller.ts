@@ -178,6 +178,7 @@ export const getMarketplace = async (
         id: 'Profil diambil',
         vi: 'Đã lấy hồ sơ',
         uk: 'Профілі отримано',
+        'he-IL': 'פרופילי המתרגמים אוחזרו',
       }),
     })
   );
@@ -266,6 +267,7 @@ export const getReviewerById = async (
         id: 'Profil diambil',
         vi: 'Đã lấy hồ sơ',
         uk: 'Профіль отримано',
+        'he-IL': 'פרופיל המתרגם אוחזר',
       }),
     })
   );
@@ -341,6 +343,7 @@ export const registerAsReviewer = async (
         id: 'Terdaftar sebagai penerjemah',
         vi: 'Đã đăng ký là dịch giả',
         uk: 'Зареєстровано як перекладач',
+        'he-IL': 'נרשמתם כמתרגם',
       }),
     })
   );
@@ -419,6 +422,7 @@ export const updateReviewerProfile = async (
         id: 'Profil diperbarui',
         vi: 'Hồ sơ đã được cập nhật',
         uk: 'Профіль оновлено',
+        'he-IL': 'הפרופיל עודכן',
       }),
     })
   );
@@ -465,6 +469,7 @@ export const deleteMyReviewerProfile = async (
         id: 'Profil dihapus',
         vi: 'Hồ sơ đã được xóa',
         uk: 'Профіль видалено',
+        'he-IL': 'הפרופיל נמחק',
       }),
     })
   );
@@ -574,6 +579,7 @@ export const validateReviewerProfile = async (
           id: 'Profil penerjemah sudah aktif',
           vi: 'Hồ sơ dịch giả đã được kích hoạt',
           uk: 'Профіль перекладача вже активний',
+          'he-IL': 'פרופיל המתרגם כבר פעיל',
         }),
       })
     );
@@ -633,6 +639,7 @@ export const validateReviewerProfile = async (
         id: 'Profil penerjemah divalidasi',
         vi: 'Hồ sơ dịch giả đã được xác nhận',
         uk: 'Профіль перекладача підтверджено',
+        'he-IL': 'פרופיל המתרגם אומת',
       }),
     })
   );
@@ -689,6 +696,7 @@ const uploadReviewerPictureHandler =
             id: 'Tipe gambar tidak didukung. Diizinkan: JPEG, PNG, WebP, GIF.',
             vi: 'Loại ảnh không được hỗ trợ. Được phép: JPEG, PNG, WebP, GIF.',
             uk: 'Непідтримуваний тип зображення. Дозволено: JPEG, PNG, WebP, GIF.',
+            'he-IL': 'סוג התמונה אינו נתמך. מותר: JPEG, PNG, WebP, GIF.',
           }),
         })
       );
@@ -717,6 +725,7 @@ const uploadReviewerPictureHandler =
             id: 'File terlalu besar. Ukuran maksimum adalah 20 MB.',
             vi: 'Tệp quá lớn. Kích thước tối đa là 20 MB.',
             uk: 'Файл завеликий. Максимальний розмір: 20 МБ.',
+            'he-IL': 'הקובץ גדול מדי. הגודל המרבי הוא 20 MB.',
           }),
         })
       );
@@ -782,6 +791,7 @@ const uploadReviewerPictureHandler =
           id: 'Gambar diunggah',
           vi: 'Ảnh đã được tải lên',
           uk: 'Зображення завантажено',
+          'he-IL': 'התמונה הועלתה',
         }),
       })
     );
@@ -901,6 +911,7 @@ export const submitReview = async (
         id: 'Ulasan dikirim',
         vi: 'Đánh giá đã được gửi',
         uk: 'Відгук надіслано',
+        'he-IL': 'הביקורת נשלחה',
       }),
     })
   );
@@ -1065,6 +1076,7 @@ export const createMission = async (
         id: 'Misi dibuat',
         vi: 'Nhiệm vụ đã được tạo',
         uk: 'Завдання створено',
+        'he-IL': 'המשימה נוצרה',
       }),
     })
   );
@@ -1255,6 +1267,7 @@ export const updateMissionStatus = async (
         id: 'Status misi diperbarui',
         vi: 'Trạng thái nhiệm vụ đã được cập nhật',
         uk: 'Статус завдання оновлено',
+        'he-IL': 'סטטוס המשימה עודכן',
       }),
     })
   );

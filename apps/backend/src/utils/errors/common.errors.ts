@@ -25,6 +25,7 @@ export const commonErrors = {
       id: 'Konfigurasi AI diperlukan',
       vi: 'Cần cấu hình AI',
       uk: 'Потрібне налаштування ШІ',
+      'he-IL': 'נדרשת הגדרת AI',
     },
     message: {
       en: 'This self-hosted instance does not provide an AI key. Set an AI provider and API key in the project settings (or in your intlayer.config ai options) to use AI features.',
@@ -46,6 +47,8 @@ export const commonErrors = {
       id: 'Instans self-hosted ini tidak menyediakan kunci AI. Atur penyedia AI dan kunci API di pengaturan proyek (atau di opsi ai intlayer.config) untuk memakai fitur AI.',
       vi: 'Phiên bản tự lưu trữ này không cung cấp khóa AI. Hãy đặt nhà cung cấp AI và khóa API trong cài đặt dự án (hoặc trong tùy chọn ai của intlayer.config) để dùng tính năng AI.',
       uk: 'Цей self-hosted екземпляр не надає ключ ШІ. Укажіть постачальника ШІ та API-ключ у налаштуваннях проєкту (або в опціях ai вашого intlayer.config), щоб користуватися функціями ШІ.',
+      'he-IL':
+        'מופע מאוחסן-עצמית זה אינו מספק מפתח AI. הגדירו ספק AI ומפתח API בהגדרות הפרויקט (או באפשרויות ai של intlayer.config) כדי להשתמש ביכולות ה-AI.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
@@ -70,6 +73,7 @@ export const commonErrors = {
       id: 'Kueri Gagal',
       vi: 'Truy vấn thất bại',
       uk: 'Запит відхилено',
+      'he-IL': 'השאילתה נכשלה',
     },
     message: {
       en: 'Query failed',
@@ -90,6 +94,7 @@ export const commonErrors = {
       id: 'Kueri gagal.',
       vi: 'Truy vấn thất bại.',
       uk: 'Запит відхилено.',
+      'he-IL': 'השאילתה נכשלה',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
@@ -113,6 +118,7 @@ export const commonErrors = {
       id: 'Audit Gagal',
       vi: 'Kiểm toán thất bại',
       uk: 'Аудит не вдався',
+      'he-IL': 'הבדיקה נכשלה',
     },
     message: {
       en: 'Failed to audit the content declaration files.',
@@ -133,6 +139,7 @@ export const commonErrors = {
       id: 'Gagal mengaudit file deklarasi konten.',
       vi: 'Không thể kiểm toán các tệp khai báo nội dung.',
       uk: 'Не вдалося провести аудит файлів декларації контенту.',
+      'he-IL': 'בדיקת קובצי הצהרת התוכן נכשלה.',
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
@@ -157,6 +164,7 @@ export const commonErrors = {
       id: 'Akses Ditolak',
       vi: 'Truy cập bị từ chối',
       uk: 'Доступ заборонено',
+      'he-IL': 'הגישה נדחתה',
     },
     message: {
       en: 'Invalid Access keys. Access keys should be defined to use AI features. See https://intlayer.org/doc/concept/editor. Alternatively, you can add your own OpenAI API key in the settings.',
@@ -178,6 +186,8 @@ export const commonErrors = {
       id: 'Kunci Akses tidak valid. Kunci akses harus ditentukan untuk menggunakan fitur AI. Lihat https://intlayer.org/doc/concept/editor. Atau, Anda dapat menambahkan kunci API OpenAI Anda sendiri di pengaturan.',
       vi: 'Khóa truy cập không hợp lệ. Các khóa truy cập nên được xác định để sử dụng các tính năng AI. Xem https://intlayer.org/doc/concept/editor. Ngoài ra, bạn có thể thêm khóa API OpenAI của riêng mình trong cài đặt.',
       uk: 'Недійсні ключі доступу. Ключі доступу повинні бути визначені для використання функцій ШІ. Див. https://intlayer.org/doc/concept/editor. Крім того, ви можете додати власний ключ API OpenAI у налаштуваннях.',
+      'he-IL':
+        'מפתחות גישה לא תקפים. יש להגדיר מפתחות גישה כדי להשתמש ביכולות ה-AI. ראו https://intlayer.org/doc/concept/editor. לחלופין, ניתן להוסיף מפתח OpenAI API משלכם בהגדרות.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
@@ -201,6 +211,7 @@ export const commonErrors = {
       id: 'Batas Laju Dilampaui',
       vi: 'Đã vượt quá giới hạn tốc độ',
       uk: 'Перевищено ліміт запитів',
+      'he-IL': 'חריגה ממגבלת הבקשות',
     },
     message: {
       en: 'Rate limit exceeded. Please try again later.',
@@ -221,6 +232,7 @@ export const commonErrors = {
       id: 'Batas laju dilampaui. Harap coba lagi nanti.',
       vi: 'Đã vượt quá giới hạn tốc độ. Vui lòng thử lại sau.',
       uk: 'Перевищено ліміт запитів. Будь ласка, спробуйте пізніше.',
+      'he-IL': 'חריגה ממגבלת הבקשות. נסו שוב מאוחר יותר.',
     },
     statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
   },
@@ -244,6 +256,7 @@ export const commonErrors = {
       id: 'Batas Laju Dilampaui',
       vi: 'Đã vượt quá giới hạn tốc độ',
       uk: 'Перевищено ліміт запитів',
+      'he-IL': 'חריגה ממגבלת הבקשות',
     },
     message: {
       en: 'The number of requests is limited for unauthenticated users. Please try again later, or sign in at https://intlayer.org/login to increase your limit.',
@@ -265,6 +278,8 @@ export const commonErrors = {
       id: 'Jumlah permintaan dibatasi untuk pengguna yang tidak terautentikasi. Harap coba lagi nanti, atau masuk di https://intlayer.org/login untuk meningkatkan batas Anda.',
       vi: 'Số lượng yêu cầu bị giới hạn đối với người dùng chưa xác thực. Vui lòng thử lại sau hoặc đăng nhập tại https://intlayer.org/login để tăng giới hạn của bạn.',
       uk: 'Кількість запитів обмежена для неавторизованих користувачів. Будь ласка, спробуйте пізніше або увійдіть на https://intlayer.org/login, щоб збільшити свій ліміт.',
+      'he-IL':
+        'מספר הבקשות מוגבל עבור משתמשים לא מחוברים. נסו שוב מאוחר יותר, או התחברו בכתובת https://intlayer.org/login כדי להגדיל את המגבלה.',
     },
     statusCode: HttpStatusCodes.TOO_MANY_REQUESTS_429,
   },
@@ -288,6 +303,7 @@ export const commonErrors = {
       id: 'Isi Permintaan Tidak Valid',
       vi: 'Thân yêu cầu không hợp lệ',
       uk: 'Неприпустиме тіло запиту',
+      'he-IL': 'גוף בקשה לא תקף',
     },
     message: {
       en: 'The request body is invalid.',
@@ -308,6 +324,7 @@ export const commonErrors = {
       id: 'Isi permintaan tidak valid.',
       vi: 'Thân yêu cầu không hợp lệ.',
       uk: 'Тіло запиту неприпустиме.',
+      'he-IL': 'גוף הבקשה אינו תקף.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
@@ -331,6 +348,7 @@ export const commonErrors = {
       id: 'Asal tidak tepercaya',
       vi: 'Nguồn gốc không đáng tin cậy',
       uk: 'Ненадійне джерело',
+      'he-IL': 'מקור לא מהימן',
     },
     message: {
       en: 'Cookie-authenticated requests are not allowed from this origin. Use an Authorization Bearer token instead.',
@@ -352,6 +370,8 @@ export const commonErrors = {
       id: 'Permintaan terautentikasi cookie tidak diizinkan dari asal ini. Gunakan token Bearer sebagai gantinya.',
       vi: 'Không cho phép các yêu cầu xác thực bằng cookie từ nguồn gốc này. Vui lòng sử dụng mã thông báo Bearer.',
       uk: 'Запити з автентифікацією через cookie не дозволені з цього джерела. Використовуйте токен Bearer.',
+      'he-IL':
+        'בקשות המאומתות באמצעות עוגיות אינן מותרות ממקור זה. השתמשו במקום זאת באסימון Authorization Bearer.',
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
@@ -375,6 +395,7 @@ export const commonErrors = {
       id: 'Terjemahan langsung tidak tersedia',
       vi: 'Dịch trực tiếp không khả dụng',
       uk: 'Живий переклад недоступний',
+      'he-IL': 'תרגום חי אינו זמין',
     },
     message: {
       en: 'Live translation is disabled on this server because Redis is not configured (REDIS_URL).',
@@ -396,6 +417,8 @@ export const commonErrors = {
       id: 'Terjemahan langsung dinonaktifkan di server ini karena Redis tidak dikonfigurasi (REDIS_URL).',
       vi: 'Dịch trực tiếp bị tắt trên máy chủ này vì Redis chưa được cấu hình (REDIS_URL).',
       uk: 'Живий переклад вимкнено на цьому сервері, оскільки Redis не налаштовано (REDIS_URL).',
+      'he-IL':
+        'התרגום החי מושבת בשרת זה מכיוון ש-Redis אינו מוגדר (REDIS_URL).',
     },
     statusCode: HttpStatusCodes.SERVICE_UNAVAILABLE_503,
   },

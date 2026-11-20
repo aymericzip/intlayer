@@ -28,6 +28,8 @@ const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
     grantsEnforced: { type: Boolean, default: false },
     allowedEnvironmentIds: { type: Schema.Types.Mixed, default: null },
     allowedLocales: { type: [String], default: null },
+    expirationReminderSentAt: { type: Date },
+    expirationNoticeSentAt: { type: Date },
   },
   {
     timestamps: true,

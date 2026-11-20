@@ -97,6 +97,7 @@ export const subscribeToNewsletter = async (
         id: 'Berhasil berlangganan buletin',
         vi: 'Đăng ký nhận bản tin thành công',
         uk: 'Ви успішно підписалися на розсилку',
+        'he-IL': 'נרשמתם לניוזלטר בהצלחה',
       }),
       description: t({
         en: 'You have been successfully subscribed to our newsletter',
@@ -117,6 +118,7 @@ export const subscribeToNewsletter = async (
         id: 'Anda telah berhasil berlangganan buletin kami',
         vi: 'Bạn đã đăng ký nhận bản tin của chúng tôi thành công',
         uk: 'Ви успішно підписалися на нашу розсилку',
+        'he-IL': 'נרשמתם בהצלחה לניוזלטר שלנו',
       }),
       data: formattedUser,
     });
@@ -209,6 +211,7 @@ export const unsubscribeFromNewsletter = async (
         id: 'Berhasil membatalkan langganan buletin',
         vi: 'Hủy đăng ký nhận bản tin thành công',
         uk: 'Ви успішно відписалися від розсилки',
+        'he-IL': 'ההרשמה לניוזלטר בוטלה בהצלחה',
       }),
       description: t({
         en: 'You have been successfully unsubscribed from our newsletter',
@@ -229,6 +232,7 @@ export const unsubscribeFromNewsletter = async (
         id: 'Anda telah berhasil membatalkan langganan buletin kami',
         vi: 'Bạn đã hủy đăng ký nhận bản tin của chúng tôi thành công',
         uk: 'Ви успішно відписалися від нашої розсилки',
+        'he-IL': 'ההרשמה שלכם לניוזלטר שלנו בוטלה בהצלחה',
       }),
       data: formattedUser,
     });
@@ -300,6 +304,7 @@ export const getNewsletterStatus = async (
         id: 'Status langganan buletin diambil',
         vi: 'Đã truy xuất trạng thái đăng ký nhận bản tin',
         uk: 'Статус підписки на розсилку отримано',
+        'he-IL': 'סטטוס ההרשמה לניוזלטר אוחזר',
       }),
       data: formattedUser,
     });

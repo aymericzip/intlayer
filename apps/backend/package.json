@@ -38,6 +38,8 @@
     "prebuild": "bun scripts/generate-embeddings.ts",
     "build": "bun --bun tsdown --config tsdown.config.ts",
     "build:ci": "bun --bun tsdown --config tsdown.config.ts",
+    "job:notify-access-key-expirations": "bun src/jobs/notifyAccessKeyExpirations.ts",
+    "job:purge-inactive-organizations": "bun src/jobs/purgeInactiveOrganizations.ts",
     "clean": "bun --bun rimraf ./dist .turbo",
     "dev": "bun --watch ./src/index.ts",
     "email": "email dev --dir ./src/emails",

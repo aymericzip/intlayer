@@ -152,6 +152,10 @@ export type OAuth2AccessData = AccessKeyData & {
   clientSecret: string;
   accessToken: string[];
   userId: User['id'];
+  /** When the "expires in 3 days" email was sent; unset until then. */
+  expirationReminderSentAt?: Date;
+  /** When the "has expired" email was sent; unset until then. */
+  expirationNoticeSentAt?: Date;
 };
 
 export type OAuth2AccessContext = {

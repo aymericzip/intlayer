@@ -877,6 +877,53 @@ export const PasswordChangeConfirmationEmailUK = ({
   );
 };
 
+export const PasswordChangeConfirmationEmailHE_IL = ({
+  username,
+}: PasswordChangeConfirmationEmailProps) => {
+  const previewText = `הסיסמה שלכם ב-Intlayer שונתה`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              הסיסמה שלכם שונתה
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              הודעה זו מאשרת שהסיסמה של חשבון <strong>Intlayer</strong> שלכם
+              שונתה בהצלחה.
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              אם לא ביצעתם שינוי זה או שאתם חושדים שגורם לא מורשה ניגש לחשבון
+              שלכם, צרו איתנו קשר מיד על ידי מענה להודעה זו.
+            </Text>
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
+              אם יש לכם שאלות או שאתם זקוקים לעזרה נוספת, אל תהססו לפנות אלינו.
+              אנחנו כאן כדי לעזור!
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const PreviewProps: PasswordChangeConfirmationEmailProps = {
   username: 'alanturing',
 };
@@ -899,3 +946,4 @@ PasswordChangeConfirmationEmailPL.PreviewProps = PreviewProps;
 PasswordChangeConfirmationEmailID.PreviewProps = PreviewProps;
 PasswordChangeConfirmationEmailVI.PreviewProps = PreviewProps;
 PasswordChangeConfirmationEmailUK.PreviewProps = PreviewProps;
+PasswordChangeConfirmationEmailHE_IL.PreviewProps = PreviewProps;

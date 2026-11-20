@@ -108,3 +108,4 @@ export const AffiliateConversionEmailPL = AffiliateConversionEmail;
 export const AffiliateConversionEmailID = AffiliateConversionEmail;
 export const AffiliateConversionEmailVI = AffiliateConversionEmail;
 export const AffiliateConversionEmailUK = AffiliateConversionEmail;
+export const AffiliateConversionEmailHE_IL = AffiliateConversionEmail;

@@ -101,3 +101,4 @@ export const AffiliateActivatedEmailPL = AffiliateActivatedEmail;
 export const AffiliateActivatedEmailID = AffiliateActivatedEmail;
 export const AffiliateActivatedEmailVI = AffiliateActivatedEmail;
 export const AffiliateActivatedEmailUK = AffiliateActivatedEmail;
+export const AffiliateActivatedEmailHE_IL = AffiliateActivatedEmail;

@@ -1178,6 +1178,70 @@ export const SubscriptionPaymentCancellationUK = ({
   );
 };
 
+export const SubscriptionPaymentCancellationHE_IL = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `המנוי שלכם לתוכנית ${planName} בוטל`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              המנוי בוטל
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              מצטערים לראות אתכם עוזבים! המנוי שלכם לתוכנית{' '}
+              <strong>{planName}</strong> בוטל. הגישה שלכם תישאר פעילה עד{' '}
+              <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              ארגון: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={reactivateLink}
+              >
+                הפעלה מחדש של המנוי
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-8 text-center">
+                <Text className="text-xs leading-6 text-[#666666]">
+                  <Link href={billingLink} className="text-black underline">
+                    צפייה בחיובים
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const PreviewProps: SubscriptionPaymentCancellationProps = {
   username: 'John Doe',
   email: 'john.doe@example.com',
@@ -1205,3 +1269,4 @@ SubscriptionPaymentCancellationPL.PreviewProps = PreviewProps;
 SubscriptionPaymentCancellationID.PreviewProps = PreviewProps;
 SubscriptionPaymentCancellationVI.PreviewProps = PreviewProps;
 SubscriptionPaymentCancellationUK.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationHE_IL.PreviewProps = PreviewProps;

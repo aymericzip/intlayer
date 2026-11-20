@@ -61,6 +61,7 @@ export const submitBlogComment = async (
     const responseData = formatResponse<BlogCommentPublicAPI>({
       message: t({
         en: 'Comment submitted for review',
+        'en-GB': 'Comment submitted for review',
         fr: 'Commentaire soumis pour modération',
         es: 'Comentario enviado para revisión',
         de: 'Kommentar zur Überprüfung eingereicht',
@@ -77,6 +78,7 @@ export const submitBlogComment = async (
         id: 'Komentar dikirim untuk ditinjau',
         vi: 'Bình luận đã được gửi để xem xét',
         uk: 'Коментар надіслано на перевірку',
+        'he-IL': 'התגובה נשלחה לבדיקה',
       }),
       data: publicComment,
     });
@@ -198,6 +200,7 @@ export const updateBlogCommentStatus = async (
     const responseData = formatResponse<BlogCommentAPI>({
       message: t({
         en: `Comment ${status}`,
+        'en-GB': `Comment ${status}`,
         fr: `Commentaire ${status === 'approved' ? 'approuvé' : status === 'rejected' ? 'rejeté' : 'en attente'}`,
         es: `Comentario ${status === 'approved' ? 'aprobado' : status === 'rejected' ? 'rechazado' : 'pendiente'}`,
         de: `Kommentar ${status === 'approved' ? 'genehmigt' : status === 'rejected' ? 'abgelehnt' : 'ausstehend'}`,
@@ -214,6 +217,7 @@ export const updateBlogCommentStatus = async (
         id: `Komentar ${status === 'approved' ? 'disetujui' : status === 'rejected' ? 'ditolak' : 'tertunda'}`,
         vi: `Bình luận ${status === 'approved' ? 'đã được phê duyệt' : status === 'rejected' ? 'đã bị từ chối' : 'đang chờ xử lý'}`,
         uk: `Коментар ${status === 'approved' ? 'схвалено' : status === 'rejected' ? 'відхилено' : 'очікує'}`,
+        'he-IL': `סטטוס התגובה: ${status}`,
       }),
       data: (comment as unknown as { toJSON(): BlogCommentAPI }).toJSON(),
     });
@@ -245,6 +249,7 @@ export const deleteBlogComment = async (
     const responseData = formatResponse<null>({
       message: t({
         en: 'Comment deleted',
+        'en-GB': 'Comment deleted',
         fr: 'Commentaire supprimé',
         es: 'Comentario eliminado',
         de: 'Kommentar gelöscht',
@@ -261,6 +266,7 @@ export const deleteBlogComment = async (
         id: 'Komentar dihapus',
         vi: 'Bình luận đã bị xóa',
         uk: 'Коментар видалено',
+        'he-IL': 'התגובה נמחקה',
       }),
       data: null,
     });

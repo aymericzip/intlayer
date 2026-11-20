@@ -106,6 +106,7 @@ export const createUser = async (
         id: 'Pengguna dibuat',
         vi: 'Người dùng đã được tạo',
         uk: 'Користувача створено',
+        'he-IL': 'המשתמש נוצר',
       }),
       description: t({
         en: 'User created successfully',
@@ -126,6 +127,7 @@ export const createUser = async (
         id: 'Pengguna berhasil dibuat',
         vi: 'Người dùng đã được tạo thành công',
         uk: 'Користувача успішно створено',
+        'he-IL': 'המשתמש נוצר בהצלחה',
       }),
       data: formattedUser,
     });
@@ -401,6 +403,7 @@ export const updateUser = async (
         id: 'Pengguna diperbarui',
         vi: 'Người dùng đã được cập nhật',
         uk: 'Користувача оновлено',
+        'he-IL': 'המשתמש עודכן',
       }),
       description: t({
         en: 'User updated successfully',
@@ -421,6 +424,7 @@ export const updateUser = async (
         id: 'Pengguna berhasil diperbarui',
         vi: 'Người dùng đã được cập nhật thành công',
         uk: 'Користувача успішно оновлено',
+        'he-IL': 'המשתמש עודכן בהצלחה',
       }),
       data: formattedUser,
     });
@@ -489,6 +493,7 @@ export const deleteUser = async (
         id: 'Pengguna dihapus',
         vi: 'Người dùng đã bị xóa',
         uk: 'Користувача видалено',
+        'he-IL': 'המשתמש נמחק',
       }),
       description: t({
         en: 'User deleted successfully',
@@ -509,6 +514,7 @@ export const deleteUser = async (
         id: 'Pengguna berhasil dihapus',
         vi: 'Người dùng đã được xóa thành công',
         uk: 'Користувача успішно видалено',
+        'he-IL': 'המשתמש נמחק בהצלחה',
       }),
       data: formattedUser,
     });
@@ -571,6 +577,7 @@ export const uploadAvatar = async (
           id: 'Tipe gambar tidak didukung. Diizinkan: JPEG, PNG, WebP, GIF.',
           vi: 'Loại ảnh không được hỗ trợ. Được phép: JPEG, PNG, WebP, GIF.',
           uk: 'Непідтримуваний тип зображення. Дозволено: JPEG, PNG, WebP, GIF.',
+          'he-IL': 'סוג התמונה אינו נתמך. מותר: JPEG, PNG, WebP, GIF.',
         }),
         data: null,
       })
@@ -600,6 +607,7 @@ export const uploadAvatar = async (
           id: 'File terlalu besar. Ukuran maksimum adalah 20 MB.',
           vi: 'Tệp quá lớn. Kích thước tối đa là 20 MB.',
           uk: 'Файл завеликий. Максимальний розмір: 20 МБ.',
+          'he-IL': 'הקובץ גדול מדי. הגודל המרבי הוא 20 MB.',
         }),
         data: null,
       })
@@ -666,6 +674,7 @@ export const uploadAvatar = async (
         id: 'Avatar diunggah',
         vi: 'Ảnh đại diện đã được tải lên',
         uk: 'Аватар завантажено',
+        'he-IL': 'תמונת הפרופיל הועלתה',
       }),
       data: formattedUser,
     });

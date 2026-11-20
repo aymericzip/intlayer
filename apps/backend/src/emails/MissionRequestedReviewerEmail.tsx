@@ -246,3 +246,5 @@ export const MissionRequestedReviewerEmailPL = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailID = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailVI = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailUK = MissionRequestedReviewerEmailEN;
+export const MissionRequestedReviewerEmailHE_IL =
+  MissionRequestedReviewerEmailEN;

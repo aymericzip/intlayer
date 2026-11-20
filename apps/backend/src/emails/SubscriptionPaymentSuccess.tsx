@@ -1212,6 +1212,72 @@ export const SubscriptionPaymentSuccessUK = ({
   );
 };
 
+export const SubscriptionPaymentSuccessHE_IL = ({
+  username,
+  planName,
+  organizationName,
+  subscriptionStartDate,
+  manageSubscriptionLink,
+  billingLink,
+}: SubscriptionPaymentSuccessProps) => {
+  const previewText = `התשלום שלכם עבור המנוי לתוכנית ${planName} אושר`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              התשלום אושר
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              תודה על התשלום! המנוי שלכם לתוכנית <strong>{planName}</strong>{' '}
+              פעיל כעת.
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              תאריך התחלה: <strong>{subscriptionStartDate}</strong>
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              ארגון: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={manageSubscriptionLink}
+              >
+                ניהול המנוי
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-8 text-center">
+                <Text className="text-xs leading-6 text-[#666666]">
+                  <Link href={billingLink} className="text-black underline">
+                    צפייה בחיובים
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const PreviewProps: SubscriptionPaymentSuccessProps = {
   username: 'John Doe',
   email: 'john.doe@example.com',
@@ -1239,3 +1305,4 @@ SubscriptionPaymentSuccessPL.PreviewProps = PreviewProps;
 SubscriptionPaymentSuccessID.PreviewProps = PreviewProps;
 SubscriptionPaymentSuccessVI.PreviewProps = PreviewProps;
 SubscriptionPaymentSuccessUK.PreviewProps = PreviewProps;
+SubscriptionPaymentSuccessHE_IL.PreviewProps = PreviewProps;

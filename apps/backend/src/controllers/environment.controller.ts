@@ -128,6 +128,7 @@ export const addEnvironment = async (
           id: 'Lingkungan dibuat',
           vi: 'Môi trường đã được tạo',
           uk: 'Середовище створено',
+          'he-IL': 'הסביבה נוצרה',
         }),
         data: mapProjectToAPI(projectDoc).environments as EnvironmentAPI[],
       })
@@ -213,6 +214,7 @@ export const updateEnvironment = async (
           id: 'Lingkungan diperbarui',
           vi: 'Môi trường đã được cập nhật',
           uk: 'Середовище оновлено',
+          'he-IL': 'הסביבה עודכנה',
         }),
         data: mapProjectToAPI(projectDoc).environments as EnvironmentAPI[],
       })
@@ -310,6 +312,7 @@ export const deleteEnvironment = async (
           id: 'Lingkungan dihapus',
           vi: 'Môi trường đã bị xóa',
           uk: 'Середовище видалено',
+          'he-IL': 'הסביבה נמחקה',
         }),
         data: mapProjectToAPI(projectDoc).environments as EnvironmentAPI[],
       })
@@ -393,6 +396,7 @@ export const selectEnvironment = async (
           id: 'Lingkungan dipilih',
           vi: 'Môi trường đã được chọn',
           uk: 'Середовище вибрано',
+          'he-IL': 'הסביבה נבחרה',
         }),
         data: environmentAPI,
       })
@@ -466,6 +470,7 @@ export const resetToProductionEnvironment = async (
           id: 'Beralih ke production',
           vi: 'Đã chuyển sang production',
           uk: 'Перемкнуто на production',
+          'he-IL': 'עברתם לסביבת הייצור',
         }),
         data: environmentAPI,
       })
@@ -669,6 +674,7 @@ export const migrateEnvironment = async (
           id: 'Migrasi selesai',
           vi: 'Di chuyển hoàn tất',
           uk: 'Міграцію завершено',
+          'he-IL': 'ההעברה הושלמה',
         }),
         data: {
           migratedDictionaries,

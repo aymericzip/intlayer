@@ -383,6 +383,7 @@ export const cancelSubscription = async (
         id: 'Langganan berhasil dibatalkan',
         vi: 'Đăng ký đã được hủy thành công',
         uk: 'Передплату успішно скасовано',
+        'he-IL': 'המנוי בוטל בהצלחה',
       }),
       description: t({
         en: 'Your subscription has been cancelled successfully',
@@ -403,6 +404,7 @@ export const cancelSubscription = async (
         id: 'Langganan Anda telah berhasil dibatalkan',
         vi: 'Đăng ký của bạn đã được hủy thành công',
         uk: 'Вашу передплату успішно скасовано',
+        'he-IL': 'המנוי שלכם בוטל בהצלחה',
       }),
       data: plan!,
     });

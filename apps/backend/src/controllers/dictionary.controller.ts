@@ -569,6 +569,7 @@ export const addDictionary = async (
         id: 'Kamus berhasil dibuat',
         vi: 'Từ điển đã được tạo thành công',
         uk: 'Словник успішно створено',
+        'he-IL': 'המילון נוצר בהצלחה',
       }),
       description: t({
         en: 'Your dictionary has been created successfully',
@@ -589,6 +590,7 @@ export const addDictionary = async (
         id: 'Kamus Anda telah berhasil dibuat',
         vi: 'Từ điển của bạn đã được tạo thành công',
         uk: 'Ваш словник успішно створено',
+        'he-IL': 'המילון שלכם נוצר בהצלחה',
       }),
       data: apiResult,
     });
@@ -905,6 +907,7 @@ export const pushDictionaries = async (
         id: 'Kamus berhasil diperbarui',
         vi: 'Từ điển đã được cập nhật thành công',
         uk: 'Словники успішно оновлені',
+        'he-IL': 'המילונים עודכנו בהצלחה',
       }),
       description: t({
         en: 'Your dictionaries have been updated successfully',
@@ -925,6 +928,7 @@ export const pushDictionaries = async (
         id: 'Kamus Anda telah berhasil diperbarui',
         vi: 'Từ điển của bạn đã được cập nhật thành công',
         uk: 'Ваші словники успішно оновлені',
+        'he-IL': 'המילונים שלכם עודכנו בהצלחה',
       }),
       data: result,
     });
@@ -1147,6 +1151,7 @@ export const updateDictionary = async (
         id: 'Kamus berhasil diperbarui',
         vi: 'Từ điển đã được cập nhật thành công',
         uk: 'Словарь успішно оновлено',
+        'he-IL': 'המילון עודכן בהצלחה',
       }),
       description: t({
         en: 'Your dictionary has been updated successfully',
@@ -1167,6 +1172,7 @@ export const updateDictionary = async (
         id: 'Kamus Anda telah berhasil diperbarui',
         vi: 'Từ điển của bạn đã được cập nhật thành công',
         uk: 'Ваш словник успішно оновлено',
+        'he-IL': 'המילון שלכם עודכן בהצלחה',
       }),
       data: apiResult,
     });
@@ -1292,6 +1298,7 @@ export const deleteDictionary = async (
         id: 'Kamus berhasil dihapus',
         vi: 'Từ điển đã được xóa thành công',
         uk: 'Словарь успішно видалено',
+        'he-IL': 'המילון נמחק בהצלחה',
       }),
       description: t({
         en: 'Your dictionary has been deleted successfully',
@@ -1312,6 +1319,7 @@ export const deleteDictionary = async (
         id: 'Kamus Anda telah berhasil dihapus',
         vi: 'Từ điển của bạn đã được xóa thành công',
         uk: 'Ваш словник успішно видалено',
+        'he-IL': 'המילון שלכם נמחק בהצלחה',
       }),
       data: apiResult,
     });

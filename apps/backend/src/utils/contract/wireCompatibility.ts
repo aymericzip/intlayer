@@ -115,7 +115,10 @@ type DistributiveOmit<Value, Key extends PropertyKey> = Value extends unknown
   : never;
 
 /** Credentials stripped by `mapProjectToAPI` before sending. */
-type SentAccessKey = Omit<OAuth2AccessAPI, 'accessToken'>;
+type SentAccessKey = Omit<
+  OAuth2AccessAPI,
+  'accessToken' | 'expirationReminderSentAt' | 'expirationNoticeSentAt'
+>;
 type SentProject = Omit<ProjectAPI, 'oAuth2Access' | 'repository'> & {
   oAuth2Access: SentAccessKey[];
   repository?: DistributiveOmit<NonNullable<ProjectAPI['repository']>, 'token'>;

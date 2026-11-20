@@ -1209,6 +1209,70 @@ export const SubscriptionPaymentErrorUK = ({
   );
 };
 
+export const SubscriptionPaymentErrorHE_IL = ({
+  username,
+  planName,
+  organizationName,
+  errorDate,
+  retryPaymentLink,
+  billingLink,
+}: SubscriptionPaymentErrorProps) => {
+  const previewText = `אירעה בעיה בתשלום המנוי שלכם לתוכנית ${planName}`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              זוהתה בעיה בתשלום
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              נתקלנו בבעיה בעיבוד התשלום שלכם עבור תוכנית{' '}
+              <strong>{planName}</strong> בתאריך <strong>{errorDate}</strong>.
+              עדכנו את פרטי התשלום כדי להבטיח גישה רציפה למנוי שלכם.
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              ארגון: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={retryPaymentLink}
+              >
+                ניסיון תשלום חוזר
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-8 text-center">
+                <Text className="text-xs leading-6 text-[#666666]">
+                  <Link href={billingLink} className="text-black underline">
+                    צפייה בחיובים
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const PreviewProps: SubscriptionPaymentErrorProps = {
   username: 'John Doe',
   email: 'john.doe@example.com',
@@ -1236,3 +1300,4 @@ SubscriptionPaymentErrorPL.PreviewProps = PreviewProps;
 SubscriptionPaymentErrorID.PreviewProps = PreviewProps;
 SubscriptionPaymentErrorVI.PreviewProps = PreviewProps;
 SubscriptionPaymentErrorUK.PreviewProps = PreviewProps;
+SubscriptionPaymentErrorHE_IL.PreviewProps = PreviewProps;

@@ -1069,6 +1069,68 @@ export const WelcomeEmailUK = ({ username, loginLink }: WelcomeEmailProps) => {
   );
 };
 
+export const WelcomeEmailHE_IL = ({
+  username,
+  loginLink,
+}: WelcomeEmailProps) => {
+  const previewText = `ברוכים הבאים ל-Intlayer!`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              ברוכים הבאים ל-<strong>Intlayer</strong>
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              אנחנו שמחים שהצטרפתם! התחילו בהתחברות לחשבון{' '}
+              <strong>Intlayer</strong> שלכם.
+            </Text>
+
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={loginLink}
+              >
+                התחברות לחשבון
+              </Button>
+            </Section>
+            <Text className="text-sm leading-6 text-black">
+              או העתיקו והדביקו את כתובת ה-URL הזו בדפדפן:
+            </Text>
+            <Link
+              href={loginLink}
+              className="text-xs text-[#8a8a8a] no-underline"
+            >
+              {loginLink}
+            </Link>
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
+              אם יש לכם שאלות או שאתם זקוקים לעזרה בצעדים הראשונים, אל תהססו
+              להשיב להודעה זו. אנחנו כאן כדי לעזור!
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const PreviewProps: WelcomeEmailProps = {
   username: 'alanturing',
   loginLink: 'https://intlayer.org/login',
@@ -1092,3 +1154,4 @@ WelcomeEmailPL.PreviewProps = PreviewProps;
 WelcomeEmailID.PreviewProps = PreviewProps;
 WelcomeEmailVI.PreviewProps = PreviewProps;
 WelcomeEmailUK.PreviewProps = PreviewProps;
+WelcomeEmailHE_IL.PreviewProps = PreviewProps;

@@ -103,6 +103,7 @@ export const submitShowcaseProject = async (
         id: 'Proyek berhasil dikirim',
         vi: 'Dự án đã được gửi thành công',
         uk: 'Проєкт успішно надіслано',
+        'he-IL': 'הפרויקט נשלח בהצלחה',
       }),
       description: t({
         en: 'Your project has been added to the showcase. Use the Scan button to verify and enrich it.',
@@ -124,6 +125,8 @@ export const submitShowcaseProject = async (
         id: 'Proyek Anda telah ditambahkan ke showcase. Gunakan tombol Pindai untuk memverifikasi dan memperkayanya.',
         vi: 'Dự án của bạn đã được thêm vào showcase. Sử dụng nút Quét để xác minh và làm phong phú nó.',
         uk: 'Ваш проєкт додано до вітрини. Скористайтеся кнопкою Сканувати, щоб перевірити та доповнити його.',
+        'he-IL':
+          'הפרויקט שלכם נוסף לתצוגה. השתמשו בכפתור הסריקה כדי לאמת ולהעשיר אותו.',
       }),
       data: mapShowcaseProjectToAPI(newProject, userId),
     });
@@ -438,6 +441,7 @@ export const updateShowcaseProjectHandler = async (
           id: 'Proyek berhasil diperbarui',
           vi: 'Dự án đã được cập nhật thành công',
           uk: 'Проєкт успішно оновлено',
+          'he-IL': 'הפרויקט עודכן בהצלחה',
         }),
         data: mapShowcaseProjectToAPI(updated, userId),
       })

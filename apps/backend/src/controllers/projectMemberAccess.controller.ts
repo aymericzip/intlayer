@@ -123,6 +123,7 @@ export const updateMemberAccess = async (
         vi: 'Quyền truy cập thành viên đã được cập nhật thành công',
         ru: 'Доступ участника успешно обновлён',
         uk: 'Доступ учасника успішно оновлено',
+        'he-IL': 'הרשאות החבר עודכנו בהצלחה',
       }),
       data: accessEntry as unknown as ProjectMemberGranularAccessAPI,
     });

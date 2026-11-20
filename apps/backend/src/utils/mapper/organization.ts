@@ -62,10 +62,13 @@ export const mapOrganizationToAPI = <
     organization
   ) as Organization;
 
-  // `aiCreditUsage` is an internal counter, exposed through `GET /ai/credits`
+  // `aiCreditUsage` is an internal counter, exposed through `GET /ai/credits`;
+  // the inactivity fields are bookkeeping of the inactive organization job.
   const {
     mailerConfig,
     aiCreditUsage: _aiCreditUsage,
+    inactivityWarningSentAt: _inactivityWarningSentAt,
+    inactivityDeletionScheduledAt: _inactivityDeletionScheduledAt,
     ...rest
   } = organizationObject;
 

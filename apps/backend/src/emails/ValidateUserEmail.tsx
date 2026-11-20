@@ -1179,6 +1179,69 @@ export const ValidateUserEmailUK = ({
   );
 };
 
+export const ValidateUserEmailHE_IL = ({
+  username,
+  validationLink,
+}: ValidateUserEmailProps) => {
+  const previewText = `אימות כתובת הדוא״ל שלכם ב-Intlayer`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              אימות כתובת הדוא״ל שלכם ב-<strong>Intlayer</strong>
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              אנא אמתו את כתובת הדוא״ל שלכם כדי להשלים את ההרשמה ל-
+              <strong>Intlayer</strong>.
+            </Text>
+
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={validationLink}
+              >
+                אימות דוא״ל
+              </Button>
+            </Section>
+            <Text className="text-sm leading-6 text-black">
+              או העתיקו והדביקו את כתובת ה-URL הזו בדפדפן:
+            </Text>
+            <Link
+              href={validationLink}
+              className="text-xs text-[#8a8a8a] no-underline"
+            >
+              {validationLink}
+            </Link>
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
+              הודעה זו נועדה עבור <span className="text-black">{username}</span>
+              . אם לא ציפיתם להודעה זו, ניתן להתעלם ממנה. אם אתם חוששים לאבטחת
+              החשבון שלכם, השיבו להודעה זו כדי ליצור איתנו קשר.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const previewProps: ValidateUserEmailProps = {
   username: 'alanturing',
   validationLink: 'https://intlayer.org/validate/foo',
@@ -1202,3 +1265,4 @@ ValidateUserEmailPL.PreviewProps = previewProps;
 ValidateUserEmailID.PreviewProps = previewProps;
 ValidateUserEmailVI.PreviewProps = previewProps;
 ValidateUserEmailUK.PreviewProps = previewProps;
+ValidateUserEmailHE_IL.PreviewProps = previewProps;

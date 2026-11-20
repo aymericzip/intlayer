@@ -1,4 +1,9 @@
 import {
+  type AccessKeyNotificationKind,
+  createAccessKeyNotificationEmail,
+  getAccessKeyNotificationSubject,
+} from '@emails/AccessKeyNotificationEmail';
+import {
   AffiliateActivatedEmailAR,
   AffiliateActivatedEmailDE,
   AffiliateActivatedEmailEN,
@@ -15,6 +20,7 @@ import {
   AffiliateActivatedEmailRU,
   AffiliateActivatedEmailTR,
   AffiliateActivatedEmailUK,
+  AffiliateActivatedEmailHE_IL,
   AffiliateActivatedEmailVI,
   AffiliateActivatedEmailZH,
 } from '@emails/AffiliateActivatedEmail';
@@ -35,6 +41,7 @@ import {
   AffiliateConversionEmailRU,
   AffiliateConversionEmailTR,
   AffiliateConversionEmailUK,
+  AffiliateConversionEmailHE_IL,
   AffiliateConversionEmailVI,
   AffiliateConversionEmailZH,
 } from '@emails/AffiliateConversionEmail';
@@ -55,6 +62,7 @@ import {
   AffiliateInvitationEmailRU,
   AffiliateInvitationEmailTR,
   AffiliateInvitationEmailUK,
+  AffiliateInvitationEmailHE_IL,
   AffiliateInvitationEmailVI,
   AffiliateInvitationEmailZH,
 } from '@emails/AffiliateInvitationEmail';
@@ -75,6 +83,7 @@ import {
   AffiliateWelcomeEmailRU,
   AffiliateWelcomeEmailTR,
   AffiliateWelcomeEmailUK,
+  AffiliateWelcomeEmailHE_IL,
   AffiliateWelcomeEmailVI,
   AffiliateWelcomeEmailZH,
 } from '@emails/AffiliateWelcomeEmail';
@@ -95,6 +104,7 @@ import {
   InviteUserEmailRU,
   InviteUserEmailTR,
   InviteUserEmailUK,
+  InviteUserEmailHE_IL,
   InviteUserEmailVI,
   InviteUserEmailZH,
 } from '@emails/InviteUserEmail';
@@ -115,6 +125,7 @@ import {
   MagicLinkEmailRU,
   MagicLinkEmailTR,
   MagicLinkEmailUK,
+  MagicLinkEmailHE_IL,
   MagicLinkEmailVI,
   MagicLinkEmailZH,
 } from '@emails/MagicLinkEmail';
@@ -135,6 +146,7 @@ import {
   MissionRequestedClientEmailRU,
   MissionRequestedClientEmailTR,
   MissionRequestedClientEmailUK,
+  MissionRequestedClientEmailHE_IL,
   MissionRequestedClientEmailVI,
   MissionRequestedClientEmailZH,
 } from '@emails/MissionRequestedClientEmail';
@@ -155,6 +167,7 @@ import {
   MissionRequestedReviewerEmailRU,
   MissionRequestedReviewerEmailTR,
   MissionRequestedReviewerEmailUK,
+  MissionRequestedReviewerEmailHE_IL,
   MissionRequestedReviewerEmailVI,
   MissionRequestedReviewerEmailZH,
 } from '@emails/MissionRequestedReviewerEmail';
@@ -175,9 +188,14 @@ import {
   OAuthTokenCreatedEmailRU,
   OAuthTokenCreatedEmailTR,
   OAuthTokenCreatedEmailUK,
+  OAuthTokenCreatedEmailHE_IL,
   OAuthTokenCreatedEmailVI,
   OAuthTokenCreatedEmailZH,
 } from '@emails/OAuthTokenCreatedEmail';
+import {
+  createOrganizationInactivityEmail,
+  getOrganizationInactivitySubject,
+} from '@emails/OrganizationInactivityEmail';
 import {
   PasswordChangeConfirmationEmailAR,
   PasswordChangeConfirmationEmailDE,
@@ -195,6 +213,7 @@ import {
   PasswordChangeConfirmationEmailRU,
   PasswordChangeConfirmationEmailTR,
   PasswordChangeConfirmationEmailUK,
+  PasswordChangeConfirmationEmailHE_IL,
   PasswordChangeConfirmationEmailVI,
   PasswordChangeConfirmationEmailZH,
 } from '@emails/PasswordChangeConfirmation';
@@ -215,6 +234,7 @@ import {
   ResetPasswordEmailRU,
   ResetPasswordEmailTR,
   ResetPasswordEmailUK,
+  ResetPasswordEmailHE_IL,
   ResetPasswordEmailVI,
   ResetPasswordEmailZH,
 } from '@emails/ResetUserPassword';
@@ -235,6 +255,7 @@ import {
   ReviewerApplicationEmailRU,
   ReviewerApplicationEmailTR,
   ReviewerApplicationEmailUK,
+  ReviewerApplicationEmailHE_IL,
   ReviewerApplicationEmailVI,
   ReviewerApplicationEmailZH,
 } from '@emails/ReviewerApplicationEmail';
@@ -255,6 +276,7 @@ import {
   ReviewerApprovedEmailRU,
   ReviewerApprovedEmailTR,
   ReviewerApprovedEmailUK,
+  ReviewerApprovedEmailHE_IL,
   ReviewerApprovedEmailVI,
   ReviewerApprovedEmailZH,
 } from '@emails/ReviewerApprovedEmail';
@@ -276,6 +298,7 @@ import {
   SubscriptionPaymentCancellationRU,
   SubscriptionPaymentCancellationTR,
   SubscriptionPaymentCancellationUK,
+  SubscriptionPaymentCancellationHE_IL,
   SubscriptionPaymentCancellationVI,
   SubscriptionPaymentCancellationZH,
 } from '@emails/SubscriptionPaymentCancellation';
@@ -296,6 +319,7 @@ import {
   SubscriptionPaymentErrorRU,
   SubscriptionPaymentErrorTR,
   SubscriptionPaymentErrorUK,
+  SubscriptionPaymentErrorHE_IL,
   SubscriptionPaymentErrorVI,
   SubscriptionPaymentErrorZH,
 } from '@emails/SubscriptionPaymentError';
@@ -316,6 +340,7 @@ import {
   SubscriptionPaymentSuccessRU,
   SubscriptionPaymentSuccessTR,
   SubscriptionPaymentSuccessUK,
+  SubscriptionPaymentSuccessHE_IL,
   SubscriptionPaymentSuccessVI,
   SubscriptionPaymentSuccessZH,
 } from '@emails/SubscriptionPaymentSuccess';
@@ -336,6 +361,7 @@ import {
   ValidateUserEmailRU,
   ValidateUserEmailTR,
   ValidateUserEmailUK,
+  ValidateUserEmailHE_IL,
   ValidateUserEmailVI,
   ValidateUserEmailZH,
 } from '@emails/ValidateUserEmail';
@@ -356,6 +382,7 @@ import {
   WelcomeEmailRU,
   WelcomeEmailTR,
   WelcomeEmailUK,
+  WelcomeEmailHE_IL,
   WelcomeEmailVI,
   WelcomeEmailZH,
 } from '@emails/Welcome';
@@ -382,8 +409,27 @@ type EmailComponents = {
   };
 };
 
+/** Template and localized subject of an access key lifecycle email. */
+const getAccessKeyNotificationComponent = (
+  kind: AccessKeyNotificationKind,
+  locale?: Locale
+) => ({
+  template: createAccessKeyNotificationEmail(kind, locale),
+  subject: getAccessKeyNotificationSubject(kind, locale),
+});
+
 const getEmailComponents = (locale?: Locale) =>
   ({
+    accessKeyExpiringSoon: getAccessKeyNotificationComponent(
+      'expiringSoon',
+      locale
+    ),
+    accessKeyExpired: getAccessKeyNotificationComponent('expired', locale),
+    accessKeyDeleted: getAccessKeyNotificationComponent('deleted', locale),
+    organizationInactivity: {
+      template: createOrganizationInactivityEmail(locale),
+      subject: getOrganizationInactivitySubject(locale),
+    },
     affiliateInvitation: {
       template: t(
         {
@@ -405,6 +451,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: AffiliateInvitationEmailID,
           vi: AffiliateInvitationEmailVI,
           uk: AffiliateInvitationEmailUK,
+          'he-IL': AffiliateInvitationEmailHE_IL,
         },
         locale
       ),
@@ -431,6 +478,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: AffiliateWelcomeEmailID,
           vi: AffiliateWelcomeEmailVI,
           uk: AffiliateWelcomeEmailUK,
+          'he-IL': AffiliateWelcomeEmailHE_IL,
         },
         locale
       ),
@@ -458,6 +506,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: AffiliateConversionEmailID,
           vi: AffiliateConversionEmailVI,
           uk: AffiliateConversionEmailUK,
+          'he-IL': AffiliateConversionEmailHE_IL,
         },
         locale
       ),
@@ -484,6 +533,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: AffiliateActivatedEmailID,
           vi: AffiliateActivatedEmailVI,
           uk: AffiliateActivatedEmailUK,
+          'he-IL': AffiliateActivatedEmailHE_IL,
         },
         locale
       ),
@@ -510,6 +560,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: InviteUserEmailID,
           vi: InviteUserEmailVI,
           uk: InviteUserEmailUK,
+          'he-IL': InviteUserEmailHE_IL,
         },
         locale
       ),
@@ -533,6 +584,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Anda telah diundang untuk bergabung dengan Intlayer',
           vi: 'Bạn đã được mời tham gia Intlayer',
           uk: 'Вас запросили приєднатися до Intlayer',
+          'he-IL': 'הוזמנתם להצטרף ל-Intlayer',
         },
         locale
       ),
@@ -558,6 +610,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: ValidateUserEmailID,
           vi: ValidateUserEmailVI,
           uk: ValidateUserEmailUK,
+          'he-IL': ValidateUserEmailHE_IL,
         },
         locale
       ),
@@ -581,6 +634,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Validasi email Anda per Intlayer',
           vi: 'Xác thực email của bạn cho Intlayer',
           uk: 'Підтвердьте свою електронну пошту для Intlayer',
+          'he-IL': 'אימות כתובת הדוא״ל שלכם ב-Intlayer',
         },
         locale
       ),
@@ -606,6 +660,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: ResetPasswordEmailID,
           vi: ResetPasswordEmailVI,
           uk: ResetPasswordEmailUK,
+          'he-IL': ResetPasswordEmailHE_IL,
         },
         locale
       ),
@@ -629,6 +684,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Reset kata sandi Anda untuk Intlayer',
           vi: 'Đặt lại mật khẩu của bạn cho Intlayer',
           uk: 'Скидання пароля для Intlayer',
+          'he-IL': 'איפוס הסיסמה שלכם ב-Intlayer',
         },
         locale
       ),
@@ -654,6 +710,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: WelcomeEmailID,
           vi: WelcomeEmailVI,
           uk: WelcomeEmailUK,
+          'he-IL': WelcomeEmailHE_IL,
         },
         locale
       ),
@@ -677,6 +734,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Selamat datang di Intlayer!',
           vi: 'Chào mừng bạn đến với Intlayer!',
           uk: 'Ласкаво просимо до Intlayer!',
+          'he-IL': 'ברוכים הבאים ל-Intlayer!',
         },
         locale
       ),
@@ -702,6 +760,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: MagicLinkEmailID,
           vi: MagicLinkEmailVI,
           uk: MagicLinkEmailUK,
+          'he-IL': MagicLinkEmailHE_IL,
         },
         locale
       ),
@@ -725,6 +784,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Masuk ke Intlayer',
           vi: 'Đăng nhập vào Intlayer',
           uk: 'Увійти в Intlayer',
+          'he-IL': 'התחברות ל-Intlayer',
         },
         locale
       ),
@@ -750,6 +810,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: PasswordChangeConfirmationEmailID,
           vi: PasswordChangeConfirmationEmailVI,
           uk: PasswordChangeConfirmationEmailUK,
+          'he-IL': PasswordChangeConfirmationEmailHE_IL,
         },
         locale
       ),
@@ -773,6 +834,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Kata sandi Intlayer Anda telah diubah',
           vi: 'Mật khẩu Intlayer của bạn đã được thay đổi',
           uk: 'Ваш пароль Intlayer було змінено',
+          'he-IL': 'הסיסמה שלכם ב-Intlayer שונתה',
         },
         locale
       ),
@@ -798,6 +860,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: SubscriptionPaymentSuccessID,
           vi: SubscriptionPaymentSuccessVI,
           uk: SubscriptionPaymentSuccessUK,
+          'he-IL': SubscriptionPaymentSuccessHE_IL,
         },
         locale
       ),
@@ -821,6 +884,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Pembayaran Anda untuk langganan Intlayer telah dikonfirmasi',
           vi: 'Thanh toán cho gói thuê bao Intlayer của bạn đã được xác nhận',
           uk: 'Ваш платіж за підписку Intlayer підтверджено',
+          'he-IL': 'התשלום עבור המנוי שלכם ל-Intlayer אושר',
         },
         locale
       ),
@@ -846,6 +910,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: SubscriptionPaymentCancellationID,
           vi: SubscriptionPaymentCancellationVI,
           uk: SubscriptionPaymentCancellationUK,
+          'he-IL': SubscriptionPaymentCancellationHE_IL,
         },
         locale
       ),
@@ -869,6 +934,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Langganan Intlayer Anda telah dibatalkan',
           vi: 'Gói thuê bao Intlayer của bạn đã bị hủy',
           uk: 'Вашу підписку Intlayer скасовано',
+          'he-IL': 'המנוי שלכם ל-Intlayer בוטל',
         },
         locale
       ),
@@ -894,6 +960,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: SubscriptionPaymentErrorID,
           vi: SubscriptionPaymentErrorVI,
           uk: SubscriptionPaymentErrorUK,
+          'he-IL': SubscriptionPaymentErrorHE_IL,
         },
         locale
       ),
@@ -917,6 +984,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Terjadi masalah dengan pembayaran langganan Intlayer Anda',
           vi: 'Đã xảy ra vấn đề với việc thanh toán gói thuê bao Intlayer của bạn',
           uk: 'Виникла проблема з оплатою підписки Intlayer',
+          'he-IL': 'אירעה בעיה בתשלום המנוי שלכם ל-Intlayer',
         },
         locale
       ),
@@ -942,6 +1010,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: OAuthTokenCreatedEmailID,
           vi: OAuthTokenCreatedEmailVI,
           uk: OAuthTokenCreatedEmailUK,
+          'he-IL': OAuthTokenCreatedEmailHE_IL,
         },
         locale
       ),
@@ -966,6 +1035,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Aplikasi OAuth pihak ketiga telah ditambahkan ke akun Intlayer Anda',
           vi: 'Một ứng dụng OAuth của bên thứ ba đã được thêm vào tài khoản Intlayer của bạn',
           uk: 'До вашого облікового запису Intlayer додано сторонній додаток OAuth',
+          'he-IL': 'אפליקציית OAuth של צד שלישי נוספה לחשבון Intlayer שלכם',
         },
         locale
       ),
@@ -991,6 +1061,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: MissionRequestedClientEmailID,
           vi: MissionRequestedClientEmailVI,
           uk: MissionRequestedClientEmailUK,
+          'he-IL': MissionRequestedClientEmailHE_IL,
         },
         locale
       ),
@@ -1014,6 +1085,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Permintaan Anda telah dikirim — Intlayer',
           vi: 'Yêu cầu của bạn đã được gửi — Intlayer',
           uk: 'Ваш запит надіслано — Intlayer',
+          'he-IL': 'הבקשה שלכם נשלחה — Intlayer',
         },
         locale
       ),
@@ -1039,6 +1111,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: MissionRequestedReviewerEmailID,
           vi: MissionRequestedReviewerEmailVI,
           uk: MissionRequestedReviewerEmailUK,
+          'he-IL': MissionRequestedReviewerEmailHE_IL,
         },
         locale
       ),
@@ -1062,6 +1135,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Anda memiliki permintaan terjemahan baru — Intlayer',
           vi: 'Bạn có một yêu cầu dịch thuật mới — Intlayer',
           uk: 'У вас новий запит на переклад — Intlayer',
+          'he-IL': 'יש לכם בקשת תרגום חדשה — Intlayer',
         },
         locale
       ),
@@ -1087,6 +1161,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: ReviewerApplicationEmailID,
           vi: ReviewerApplicationEmailVI,
           uk: ReviewerApplicationEmailUK,
+          'he-IL': ReviewerApplicationEmailHE_IL,
         },
         locale
       ),
@@ -1113,6 +1188,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: ReviewerApprovedEmailID,
           vi: ReviewerApprovedEmailVI,
           uk: ReviewerApprovedEmailUK,
+          'he-IL': ReviewerApprovedEmailHE_IL,
         },
         locale
       ),
@@ -1136,6 +1212,7 @@ const getEmailComponents = (locale?: Locale) =>
           id: 'Profil penerjemah Intlayer Anda telah disetujui!',
           vi: 'Hồ sơ dịch giả Intlayer của bạn đã được phê duyệt!',
           uk: 'Ваш профіль перекладача на Intlayer схвалено!',
+          'he-IL': 'פרופיל המתרגם שלכם ב-Intlayer אושר!',
         },
         locale
       ),

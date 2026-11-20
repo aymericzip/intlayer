@@ -25,6 +25,7 @@ export const showcaseErrors = {
       id: 'Proyek Showcase Tidak Ditemukan',
       vi: 'Không tìm thấy dự án trưng bày',
       uk: 'Проект вітрини не знайдено',
+      'he-IL': 'פרויקט התצוגה לא נמצא',
     },
     message: {
       en: 'The showcase project was not found.',
@@ -45,6 +46,7 @@ export const showcaseErrors = {
       id: 'Proyek showcase tidak ditemukan.',
       vi: 'Dự án trưng bày không được tìm thấy.',
       uk: 'Проект вітрини не було знайдено.',
+      'he-IL': 'פרויקט התצוגה לא נמצא.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
@@ -68,6 +70,7 @@ export const showcaseErrors = {
       id: 'Proyek Showcase Sudah Ada',
       vi: 'Dự án trưng bày đã tồn tại',
       uk: 'Проект вітрини вже існує',
+      'he-IL': 'פרויקט התצוגה כבר קיים',
     },
     message: {
       en: 'A project with this URL has already been submitted.',
@@ -88,6 +91,7 @@ export const showcaseErrors = {
       id: 'Proyek dengan URL ini sudah dikirimkan.',
       vi: 'Một dự án với URL này đã được gửi.',
       uk: 'Проект із такою URL-адресою вже був надісланий.',
+      'he-IL': 'פרויקט עם כתובת URL זו כבר נשלח.',
     },
     statusCode: HttpStatusCodes.CONFLICT_409,
   },
@@ -111,6 +115,7 @@ export const showcaseErrors = {
       id: 'Bukan Aplikasi Intlayer',
       vi: 'Không phải là ứng dụng Intlayer',
       uk: 'Не є додатком Intlayer',
+      'he-IL': 'זו אינה אפליקציית Intlayer',
     },
     message: {
       en: 'The URL does not seem to contain a valid Intlayer application. Ensure Intlayer is installed and deployed.',
@@ -132,6 +137,8 @@ export const showcaseErrors = {
       id: 'URL tersebut sepertinya tidak berisi aplikasi Intlayer yang valid. Pastikan Intlayer sudah terinstal dan diterapkan.',
       vi: 'URL dường như không chứa ứng dụng Intlayer hợp lệ. Đảm bảo Intlayer đã được cài đặt và triển khai.',
       uk: 'Схоже, що URL-адреса не містить дійсного додатка Intlayer. Переконайтеся, що Intlayer встановлено та розгорнуто.',
+      'he-IL':
+        'נראה שכתובת ה-URL אינה מכילה אפליקציית Intlayer תקפה. ודאו ש-Intlayer מותקן ופרוס.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },

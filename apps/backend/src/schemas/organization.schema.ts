@@ -51,6 +51,8 @@ export const organizationSchema = new Schema<OrganizationSchema>(
       type: Boolean,
       default: false,
     },
+    inactivityWarningSentAt: { type: Date },
+    inactivityDeletionScheduledAt: { type: Date },
     domain: {
       type: String,
     },

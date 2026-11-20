@@ -191,6 +191,7 @@ export const addOrganization = async (
         id: 'Organisasi berhasil dibuat',
         vi: 'Tổ chức đã được tạo thành công',
         uk: 'Організацію успішно створено',
+        'he-IL': 'הארגון נוצר בהצלחה',
       }),
       description: t({
         en: 'Your organization has been created successfully',
@@ -211,6 +212,7 @@ export const addOrganization = async (
         id: 'Organisasi Anda telah berhasil dibuat',
         vi: 'Tổ chức của bạn đã được tạo thành công',
         uk: 'Вашу організацію успішно створено',
+        'he-IL': 'הארגון שלכם נוצר בהצלחה',
       }),
       data: mapOrganizationToAPI(newOrganization),
     });
@@ -287,6 +289,7 @@ export const updateOrganization = async (
         id: 'Organisasi berhasil diperbarui',
         vi: 'Tổ chức đã được cập nhật thành công',
         uk: 'Організацію успішно оновлено',
+        'he-IL': 'הארגון עודכן בהצלחה',
       }),
       description: t({
         en: 'Your organization has been updated successfully',
@@ -307,6 +310,7 @@ export const updateOrganization = async (
         id: 'Organisasi Anda telah berhasil diperbarui',
         vi: 'Tổ chức của bạn đã được cập nhật thành công',
         uk: 'Вашу організацію успішно оновлено',
+        'he-IL': 'הארגון שלכם עודכן בהצלחה',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
@@ -387,6 +391,7 @@ export const updateOrganizationMailerConfig = async (
         id: 'Konfigurasi mailer berhasil diperbarui',
         vi: 'Cấu hình trình gửi thư đã được cập nhật thành công',
         uk: 'Конфігурацію поштового сервісу успішно оновлено',
+        'he-IL': 'הגדרות שליחת הדוא״ל עודכנו בהצלחה',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
@@ -507,6 +512,7 @@ export const addOrganizationMember = async (
         id: 'Undangan terkirim',
         vi: 'Đã gửi lời mời',
         uk: 'Запрошення надіслано',
+        'he-IL': 'ההזמנה נשלחה',
       }),
       description: t({
         en: `An invitation email has been sent to ${userEmail}`,
@@ -527,6 +533,7 @@ export const addOrganizationMember = async (
         id: `Email undangan telah dikirim ke ${userEmail}`,
         vi: `Một email mời đã được gửi đến ${userEmail}`,
         uk: `Запрошення надіслано на адресу ${userEmail}`,
+        'he-IL': `הודעת הזמנה נשלחה אל ${userEmail}`,
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
@@ -632,6 +639,7 @@ export const updateOrganizationMembers = async (
         id: 'Organisasi berhasil diperbarui',
         vi: 'Tổ chức đã được cập nhật thành công',
         uk: 'Організацію успішно оновлено',
+        'he-IL': 'הארגון עודכן בהצלחה',
       }),
       description: t({
         en: 'Your organization has been updated successfully',
@@ -652,6 +660,7 @@ export const updateOrganizationMembers = async (
         id: 'Organisasi Anda telah berhasil diperbarui',
         vi: 'Tổ chức của bạn đã được cập nhật thành công',
         uk: 'Вашу організацію успішно оновлено',
+        'he-IL': 'הארגון שלכם עודכן בהצלחה',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
@@ -763,6 +772,7 @@ export const updateOrganizationMembersById = async (
         id: 'Anggota organisasi berhasil diperbarui',
         vi: 'Thành viên tổ chức đã được cập nhật thành công',
         uk: 'Члени організації успішно оновлені',
+        'he-IL': 'חברי הארגון עודכנו בהצלחה',
       }),
       description: t({
         en: 'Organization members have been updated successfully',
@@ -783,6 +793,7 @@ export const updateOrganizationMembersById = async (
         id: 'Anggota organisasi telah berhasil diperbarui',
         vi: 'Thành viên tổ chức đã được cập nhật thành công',
         uk: 'Члени організації успішно оновлені',
+        'he-IL': 'חברי הארגון עודכנו בהצלחה',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
@@ -900,6 +911,7 @@ export const deleteOrganization = async (
         id: 'Organisasi berhasil dihapus',
         vi: 'Tổ chức đã được xóa thành công',
         uk: 'Організацію успішно видалено',
+        'he-IL': 'הארגון נמחק בהצלחה',
       }),
       description: t({
         en: 'Your organization has been deleted successfully',
@@ -920,6 +932,7 @@ export const deleteOrganization = async (
         id: 'Organisasi Anda telah berhasil dihapus',
         vi: 'Tổ chức của bạn đã được xóa thành công',
         uk: 'Вашу організацію успішно видалено',
+        'he-IL': 'הארגון שלכם נמחק בהצלחה',
       }),
       data: mapOrganizationToAPI(deletedOrganization),
     });
@@ -1001,6 +1014,7 @@ export const deleteOrganizationByIdAdmin = async (
         id: 'Organisasi dihapus',
         vi: 'Tổ chức đã bị xóa',
         uk: 'Організацію видалено',
+        'he-IL': 'הארגון נמחק',
       }),
       data: formattedOrganization,
     });
@@ -1098,6 +1112,7 @@ export const selectOrganization = async (
         id: 'Organisasi berhasil diambil',
         vi: 'Tổ chức đã được truy xuất thành công',
         uk: 'Організацію успішно отримано',
+        'he-IL': 'הארגון אוחזר בהצלחה',
       }),
       description: t({
         en: 'Your organization has been retrieved successfully',
@@ -1118,6 +1133,7 @@ export const selectOrganization = async (
         id: 'Organisasi Anda telah berhasil diambil',
         vi: 'Tổ chức của bạn đã được truy xuất thành công',
         uk: 'Вашу організацію успішно отримано',
+        'he-IL': 'הארגון שלכם אוחזר בהצלחה',
       }),
       data: mapOrganizationToAPI(organization),
     });
@@ -1185,6 +1201,7 @@ export const unselectOrganization = async (
         id: 'Organisasi berhasil batal dipilih',
         vi: 'Tổ chức đã được bỏ chọn thành công',
         uk: 'Вибір організації успішно скасовано',
+        'he-IL': 'בחירת הארגון בוטלה בהצלחה',
       }),
       description: t({
         en: 'Your organization has been unselected successfully',
@@ -1205,6 +1222,7 @@ export const unselectOrganization = async (
         id: 'Organisasi Anda telah berhasil batal dipilih',
         vi: 'Tổ chức của bạn đã được bỏ chọn thành công',
         uk: 'Вибір вашої організації успішно скасовано',
+        'he-IL': 'בחירת הארגון שלכם בוטלה בהצלחה',
       }),
       data: null,
     });

@@ -227,6 +227,7 @@ export const uploadAsset = async (
         id: 'Aset berhasil diunggah',
         vi: 'Tải lên tài sản thành công',
         uk: 'Ресурс успішно завантажено',
+        'he-IL': 'הקובץ הועלה בהצלחה',
       }),
       data: assetJSON,
     });
@@ -330,6 +331,7 @@ export const deleteAsset = async (
         id: 'Aset dihapus',
         vi: 'Tài sản đã bị xóa',
         uk: 'Ресурс видалено',
+        'he-IL': 'הקובץ נמחק',
       }),
       data: null,
     });

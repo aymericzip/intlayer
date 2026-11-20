@@ -25,6 +25,7 @@ export const scanErrors = {
       id: 'URL tidak valid',
       vi: 'URL không hợp lệ',
       uk: 'Недійсна URL-адреса',
+      'he-IL': 'כתובת URL לא תקפה',
     },
     message: {
       en: 'Only public http(s) URLs can be scanned.',
@@ -45,6 +46,7 @@ export const scanErrors = {
       id: 'Hanya URL http(s) publik yang dapat dipindai.',
       vi: 'Chỉ có thể quét các URL http(s) công khai.',
       uk: 'Сканувати можна лише публічні http(s) URL-адреси.',
+      'he-IL': 'ניתן לסרוק רק כתובות http(s) ציבוריות.',
     },
     statusCode: HttpStatusCodes.BAD_REQUEST_400,
   },
@@ -68,6 +70,7 @@ export const scanErrors = {
       id: 'Host Tidak Ditemukan',
       vi: 'Không tìm thấy máy chủ',
       uk: 'Хост не знайдено',
+      'he-IL': 'המארח לא נמצא',
     },
     message: {
       en: 'This host has never been scanned.',
@@ -88,6 +91,7 @@ export const scanErrors = {
       id: 'Host ini belum pernah dipindai.',
       vi: 'Máy chủ này chưa từng được quét.',
       uk: 'Цей хост ще жодного разу не сканувався.',
+      'he-IL': 'מארח זה מעולם לא נסרק.',
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },

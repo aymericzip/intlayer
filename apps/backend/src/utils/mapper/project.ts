@@ -64,12 +64,17 @@ const sanitizeProjectConfiguration = (
 /**
  * Removes credentials that must never leave the server: the live bearer
  * tokens of each access key and the repo-scoped git provider token.
+ * Also drops the internal expiration email bookkeeping of each access key.
  * Services needing them re-read the project from the DB.
  */
 const removeProjectCredentials = (project: ProjectAPI) => ({
   ...project,
   oAuth2Access: (project.oAuth2Access ?? []).map((accessKey) =>
-    removeObjectKeys(accessKey, ['accessToken'])
+    removeObjectKeys(accessKey, [
+      'accessToken',
+      'expirationReminderSentAt',
+      'expirationNoticeSentAt',
+    ])
   ),
   repository:
     project.repository && removeObjectKeys(project.repository, ['token']),

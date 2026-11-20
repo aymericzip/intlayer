@@ -229,6 +229,7 @@ const startServer = async () => {
         id: 'Ok - locale: id',
         vi: 'Ok - locale: vi',
         uk: 'Ok - locale: uk',
+        'he-IL': 'Ok - locale: he-IL',
       })
     );
   });

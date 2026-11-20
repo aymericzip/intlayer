@@ -1189,6 +1189,70 @@ export const MagicLinkEmailUK = ({
   );
 };
 
+export const MagicLinkEmailHE_IL = ({
+  username,
+  magicLink,
+}: MagicLinkEmailProps) => {
+  const previewText = `התחברות ל-Intlayer`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              התחברות ל-<strong>Intlayer</strong>
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              לחצו על הכפתור למטה כדי להתחבר לחשבון <strong>Intlayer</strong>{' '}
+              שלכם. הקישור יפוג בעוד 10 דקות.
+            </Text>
+
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={magicLink}
+              >
+                התחברות
+              </Button>
+            </Section>
+            <Text className="text-sm leading-6 text-black">
+              או העתיקו והדביקו את כתובת ה-URL הזו בדפדפן:
+            </Text>
+            <Link
+              href={magicLink}
+              className="text-xs text-[#8a8a8a] no-underline"
+            >
+              {magicLink}
+            </Link>
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
+              קישור התחברות זה נועד עבור{' '}
+              <span className="text-black">{username}</span>. אם לא ביקשתם קישור
+              זה, ניתן להתעלם מהודעה זו בבטחה. אם אתם חוששים לאבטחת החשבון שלכם,
+              השיבו להודעה זו כדי ליצור איתנו קשר.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const PreviewProps: MagicLinkEmailProps = {
   username: 'alanturing',
   magicLink: 'https://intlayer.org/auth/magic-link/verify?token=foo',
@@ -1212,3 +1276,4 @@ MagicLinkEmailPL.PreviewProps = PreviewProps;
 MagicLinkEmailID.PreviewProps = PreviewProps;
 MagicLinkEmailVI.PreviewProps = PreviewProps;
 MagicLinkEmailUK.PreviewProps = PreviewProps;
+MagicLinkEmailHE_IL.PreviewProps = PreviewProps;

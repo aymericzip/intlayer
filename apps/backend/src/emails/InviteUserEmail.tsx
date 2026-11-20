@@ -1545,6 +1545,90 @@ export const InviteUserEmailUK = ({
   );
 };
 
+export const InviteUserEmailHE_IL = ({
+  username,
+  invitedByUsername,
+  invitedByEmail,
+  organizationName,
+  inviteLink,
+  inviteFromIp,
+  inviteFromLocation,
+}: InviteUserEmailProps) => {
+  const previewText = `הצטרפו אל ${invitedByUsername} ב-Intlayer`;
+
+  return (
+    <Html lang="he" dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-solid border-[#eaeaea] bg-white p-5">
+            <Section className="mt-8">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-7.5 p-0 text-center text-2xl font-normal text-black">
+              הצטרפו אל <strong>{organizationName}</strong> ב-
+              <strong>Intlayer</strong>
+            </Heading>
+            <Text className="text-sm leading-6 text-black">
+              שלום {username},
+            </Text>
+            <Text className="text-sm leading-6 text-black">
+              <strong>{invitedByUsername}</strong> (
+              <Link
+                href={`mailto:${invitedByEmail}`}
+                className="text-[#8a8a8a] no-underline"
+              >
+                {invitedByEmail}
+              </Link>
+              ) הזמין/ה אתכם להצטרף לצוות <strong>{organizationName}</strong> ב-
+              <strong>Intlayer</strong>.
+            </Text>
+
+            <Section className="my-8 text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center text-xs font-semibold text-white no-underline"
+                href={inviteLink}
+              >
+                הצטרפות לצוות
+              </Button>
+            </Section>
+            <Text className="text-sm leading-6 text-black">
+              או העתיקו והדביקו את כתובת ה-URL הזו בדפדפן:
+            </Text>
+            <Link
+              href={inviteLink}
+              className="text-xs text-[#8a8a8a] no-underline"
+            >
+              {inviteLink}
+            </Link>
+            <Hr className="mx-0 my-6.5 w-full border border-solid border-[#eaeaea]" />
+            <Text className="text-xs leading-6 text-[#666666]">
+              הזמנה זו נועדה עבור <span className="text-black">{username}</span>
+              . ההזמנה נשלחה מ-
+              <span className="text-black">{inviteFromIp}</span>{' '}
+              {inviteFromLocation && (
+                <>
+                  {' הממוקם ב-'}
+                  <span className="text-black">{inviteFromLocation}</span>
+                </>
+              )}
+              . אם לא ציפיתם להזמנה זו, ניתן להתעלם מהודעה זו. אם אתם חוששים
+              לאבטחת החשבון שלכם, השיבו להודעה זו כדי ליצור איתנו קשר.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const PreviewProps: InviteUserEmailProps = {
   username: 'alanturing',
   invitedByUsername: 'Alan',
@@ -1573,3 +1657,4 @@ InviteUserEmailPL.PreviewProps = PreviewProps;
 InviteUserEmailID.PreviewProps = PreviewProps;
 InviteUserEmailVI.PreviewProps = PreviewProps;
 InviteUserEmailUK.PreviewProps = PreviewProps;
+InviteUserEmailHE_IL.PreviewProps = PreviewProps;

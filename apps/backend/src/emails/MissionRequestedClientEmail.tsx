@@ -197,3 +197,4 @@ export const MissionRequestedClientEmailPL = MissionRequestedClientEmailEN;
 export const MissionRequestedClientEmailID = MissionRequestedClientEmailEN;
 export const MissionRequestedClientEmailVI = MissionRequestedClientEmailEN;
 export const MissionRequestedClientEmailUK = MissionRequestedClientEmailEN;
+export const MissionRequestedClientEmailHE_IL = MissionRequestedClientEmailEN;
