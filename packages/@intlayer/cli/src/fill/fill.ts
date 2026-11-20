@@ -31,6 +31,7 @@ import {
   getTargetUnmergedDictionaries,
 } from '../getTargetDictionary';
 import { setupAI } from '../utils/setupAI';
+import { getCompilerOutputFill } from './getCompilerOutputFill';
 import {
   listTranslationsTasks,
   type TranslationTask,
@@ -261,11 +262,21 @@ export const fill = async (options?: FillOptions): Promise<FillResult> => {
 
       const isPerLocale = typeof dictionaryOutput.locale === 'string';
 
+      // `dictionaryOutput` is always multilingual: read the source dictionary
+      // to route `fill: true` through `compiler.output` for compiler files
+      const sourceDictionary = targetUnmergedDictionaries.find(
+        (unmergedDictionary) =>
+          unmergedDictionary.localId === task.dictionaryLocalId
+      );
+      const configurationFill = configuration.dictionary?.fill ?? true;
+      const compilerOutputFill =
+        sourceDictionary && configurationFill === true
+          ? await getCompilerOutputFill(sourceDictionary, configuration)
+          : undefined;
+
       const effectiveFill = hasDictionaryLevelFill
         ? dictFill
-        : isPerLocale
-          ? (configuration.dictionary?.fill ?? true)
-          : false; // Multilingual dictionaries (no locale property) always write to same file unless explicitly set on the dictionary
+        : (compilerOutputFill ?? (isPerLocale ? configurationFill : false)); // Multilingual dictionaries (no locale property) always write to same file unless explicitly set on the dictionary
 
       const isFillOtherFile =
         typeof effectiveFill === 'string' ||

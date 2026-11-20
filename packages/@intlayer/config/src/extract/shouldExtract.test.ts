@@ -195,4 +195,17 @@ describe('shouldExtract', () => {
     expect(shouldExtract('Wait 5s before retrying')).toBe(true);
     expect(shouldExtract('Resizable component')).toBe(true);
   });
+
+  it('should return false for all-uppercase strings', () => {
+    expect(shouldExtract('MAJ BTC MTACP')).toBe(false);
+    expect(shouldExtract('USD')).toBe(false);
+    expect(shouldExtract('API_KEY')).toBe(false);
+    expect(shouldExtract('ÉTÉ 2024')).toBe(false);
+  });
+
+  it('should still extract mixed-case and caseless-script text', () => {
+    expect(shouldExtract('Buy BTC now')).toBe(true);
+    expect(shouldExtract('MAJ {{count}} items')).toBe(true);
+    expect(shouldExtract('こんにちは 世界 です')).toBe(true);
+  });
 });

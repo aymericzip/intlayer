@@ -48,6 +48,7 @@ const CSS_VALUE_TOKEN_REGEX =
  * - Emails
  * - One or two character strings
  * - Strings without letters and SVG path data (`viewBox`, `d`)
+ * - All-uppercase strings: acronyms, tickers, constants (`MAJ BTC MTACP`)
  * - Uncapitalized strings of 2 words or fewer (likely technical terms)
  * - Generated code (`import x from 'y';`, `{{name}} as {{alias}}`, comments)
  * - CSS rules, shorthand values and function values (`calc(…)`, `a { b: c; }`)
@@ -73,7 +74,16 @@ export const shouldExtract = (text: string): boolean => {
 
   // Ignore strings without any letter (`0 0 24 24`, `100%`, `12:30`)
   // (`{{placeholder}}` insertions do not count: `0 0 {{width}} {{height}}`)
-  if (!/\p{L}/u.test(trimmed.replace(/\{\{[^}]*\}\}/g, ''))) return false;
+  const withoutPlaceholders = trimmed.replace(/\{\{[^}]*\}\}/g, '');
+  if (!/\p{L}/u.test(withoutPlaceholders)) return false;
+
+  // Ignore all-uppercase strings: acronyms, tickers, constants (`MAJ BTC MTACP`)
+  // (scripts without case, like CJK, have no `\p{Lu}` and are unaffected)
+  if (
+    /\p{Lu}/u.test(withoutPlaceholders) &&
+    !/\p{Ll}/u.test(withoutPlaceholders)
+  )
+    return false;
 
   // Ignore SVG path data (`M5 46C5 21.1 25.1 1 50 1H295Z`)
   if (/^[Mm]\s*[\d.-]/.test(trimmed) && SVG_PATH_DATA_REGEX.test(trimmed))
@@ -95,7 +105,6 @@ export const shouldExtract = (text: string): boolean => {
   }
 
   // Ignore CSS (`[data-x]::selection { color: red; }`, `calc(100% + {{x}})`)
-  const withoutPlaceholders = trimmed.replace(/\{\{[^}]*\}\}/g, '');
   if (
     trimmed.includes('!important') ||
     CSS_FUNCTION_VALUE_REGEX.test(trimmed) ||

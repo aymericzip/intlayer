@@ -35,6 +35,7 @@ import {
   extractTranslatableContent,
   reinsertTranslatedContent,
 } from './extractTranslatableContent';
+import { getCompilerOutputFill } from './getCompilerOutputFill';
 import type { TranslationTask } from './listTranslationsTasks';
 
 type TranslateDictionaryResult = TranslationTask & {
@@ -483,11 +484,14 @@ export const translateDictionary = async (
       const effectiveFillForCheck =
         baseUnmergedDictionary.fill ?? configuration.dictionary?.fill;
 
+      // Compiler-emitted per-locale files are filled through `compiler.output`
+      // (see fill.ts), not into a `.filled.` sibling.
       if (
         baseUnmergedDictionary.locale &&
         (effectiveFillForCheck === true ||
           effectiveFillForCheck === undefined) &&
-        baseUnmergedDictionary.location === 'local'
+        baseUnmergedDictionary.location === 'local' &&
+        !(await getCompilerOutputFill(baseUnmergedDictionary, configuration))
       ) {
         const dictionaryFilePath = baseUnmergedDictionary
           .filePath!.split('.')

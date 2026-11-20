@@ -39,8 +39,6 @@ export const formatAutoFilledFilePath = async (
     ? base.slice(0, -extensionMatch.length)
     : base.split('.')[0];
 
-  console.log({ extensionMatch });
-
   if (!extensionMatch) {
     throw new Error(
       `No extension found for file ${colorizePath(dictionaryFilePath)}. Valid extensions are: ${colorize(

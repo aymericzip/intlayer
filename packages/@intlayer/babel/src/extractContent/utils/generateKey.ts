@@ -1,3 +1,22 @@
+/**
+ * Field names the runtime gives a meaning to: `nodeType` marks content nodes,
+ * `constructor`/`prototype` are skipped on merge, `then` makes the content a
+ * thenable, and `toString`/`valueOf`/`value` are intercepted by loading proxies.
+ */
+const RESERVED_CONTENT_KEYS: ReadonlySet<string> = new Set([
+  'nodeType',
+  'constructor',
+  'prototype',
+  'then',
+  'toString',
+  'valueOf',
+  'value',
+]);
+
+/**
+ * Generates a camelCase field key from a text, suffixing it with a number when
+ * it is already used or reserved (`nodeType` → `nodeType1`).
+ */
 export const generateKey = (
   text: string,
   existingKeys: Set<string>
@@ -36,10 +55,13 @@ export const generateKey = (
     key = `x${key}`;
   }
 
-  if (existingKeys.has(key)) {
-    let i = 1;
-    while (existingKeys.has(`${key}${i}`)) i++;
-    key = `${key}${i}`;
+  const isTaken = (candidate: string): boolean =>
+    existingKeys.has(candidate) || RESERVED_CONTENT_KEYS.has(candidate);
+
+  if (isTaken(key)) {
+    let suffix = 1;
+    while (isTaken(`${key}${suffix}`)) suffix++;
+    key = `${key}${suffix}`;
   }
   return key;
 };

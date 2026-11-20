@@ -34,4 +34,13 @@ describe('generateKey', () => {
   it('should default to "content" if key is empty', () => {
     expect(generateKey('!@#$', new Set())).toBe('content');
   });
+
+  it('should suffix keys the runtime reserves', () => {
+    expect(generateKey('Node type', new Set())).toBe('nodeType1');
+    expect(generateKey('Then', new Set())).toBe('then1');
+    expect(generateKey('Constructor', new Set(['constructor1']))).toBe(
+      'constructor2'
+    );
+    expect(generateKey('Value', new Set())).toBe('value1');
+  });
 });
