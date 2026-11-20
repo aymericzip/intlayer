@@ -18,6 +18,7 @@ import { SessionModel } from '@schemas/session.schema';
 import { TagModel } from '@schemas/tag.schema';
 import { UserModel } from '@schemas/user.schema';
 import { deleteAssetFromS3 } from '@services/blog/assetUpload.service';
+import { archiveOrganization } from '@services/organizationArchive.service';
 import { Types } from 'mongoose';
 import Stripe from 'stripe';
 import type { Organization } from '@/types/organization.types';
@@ -96,7 +97,9 @@ const deleteProjectDictionaries = async (
 };
 
 /**
- * Permanently deletes an organization and everything attached to it: projects
+ * Archives an organization to the private archive bucket (see
+ * `archiveOrganization`), then permanently deletes it and everything attached
+ * to it: projects
  * (with their environments, webhooks and access keys), dictionaries, tags,
  * discussions, assets (S3 files included), analytics, AI credit logs, CLI and
  * OAuth2 tokens. Cancels its Stripe subscription and clears the sessions and
@@ -106,11 +109,17 @@ const deleteProjectDictionaries = async (
  * reviewers.
  *
  * @param organization - The organization to delete.
+ * @returns The archive folder in the archive bucket.
+ * @throws GenericError `ORGANIZATION_ARCHIVE_FAILED` before deleting anything
+ *   when the archive cannot be written.
  */
 export const deleteOrganizationAndData = async (
   organization: Pick<Organization, 'id' | 'plan'>
-): Promise<void> => {
+): Promise<string> => {
   const organizationId = new Types.ObjectId(String(organization.id));
+
+  // Throws, and so aborts the deletion, when the archive cannot be written.
+  const archivePrefix = await archiveOrganization(organizationId);
 
   const projects = await ProjectModel.find(
     { organizationId },
@@ -169,6 +178,8 @@ export const deleteOrganizationAndData = async (
   );
 
   logger.info(
-    `Organization ${String(organizationId)} deleted with ${projectIds.length} project(s): ${projectIdStrings.join(', ')}`
+    `Organization ${String(organizationId)} deleted with ${projectIds.length} project(s): ${projectIdStrings.join(', ')}. Archive: ${archivePrefix}`
   );
+
+  return archivePrefix;
 };
