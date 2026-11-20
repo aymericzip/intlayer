@@ -2,6 +2,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import { PromoCodeModel } from '@schemas/promoCode.schema';
 import * as affiliateService from '@services/affiliate.service';
 import * as emailService from '@services/email.service';
+import { updatePlan } from '@services/organization.service';
 import * as promoCodeService from '@services/promoCode.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -63,8 +64,8 @@ export type GetCheckoutSessionBody = {
 };
 
 export type GetCheckoutSessionResult = ResponseData<{
-  subscription?: Stripe.Response<Stripe.Subscription>;
-  paymentIntent?: Stripe.Response<Stripe.PaymentIntent>;
+  subscription?: Stripe.Subscription;
+  paymentIntent?: Stripe.PaymentIntent;
   clientSecret: string;
 }>;
 
@@ -126,6 +127,15 @@ export const getSubscription = async (
         },
       });
       customerId = customer.id;
+
+      // Store it right away: until the webhook fires, every checkout reload
+      // would otherwise create another Stripe customer.
+      await updatePlan(
+        organization,
+        organization.plan
+          ? { customerId }
+          : { type: 'FREE', status: 'active', customerId }
+      );
     }
 
     const { couponId: promoCodeId, affiliateId: promoAffiliateId } = promoCode
@@ -165,18 +175,25 @@ export const getSubscription = async (
         }
       }
 
-      const paymentIntent = await stripe.paymentIntents.create({
-        customer: customerId,
-        amount,
-        currency: price.currency,
-        allowed_payment_method_types: ['card'],
-        metadata: {
-          organizationId: String(organization.id),
-          userId: String(user.id),
+      const paymentIntent =
+        (await subscriptionService.reusePendingLifetimePaymentIntent(
+          stripe,
+          customerId,
           priceId,
-          purchaseType: 'lifetime',
-        },
-      });
+          amount
+        )) ??
+        (await stripe.paymentIntents.create({
+          customer: customerId,
+          amount,
+          currency: price.currency,
+          allowed_payment_method_types: ['card'],
+          metadata: {
+            organizationId: String(organization.id),
+            userId: String(user.id),
+            priceId,
+            purchaseType: 'lifetime',
+          },
+        }));
 
       if (!paymentIntent?.client_secret) {
         return ErrorHandler.handleGenericErrorResponse(
@@ -210,17 +227,27 @@ export const getSubscription = async (
       ? [{ coupon: promoCodeId }]
       : [];
 
-    // If no subscription exists, create a new one
-    const subscription = await stripe.subscriptions.create({
-      customer: customerId, // Associate the subscription with the customer
-      items: [{ price: priceId }], // Set the price ID for the subscription
-      expand: ['latest_invoice.confirmation_secret'],
-      payment_settings: {
-        payment_method_types: ['card'], // Specify payment method types
-      },
-      payment_behavior: 'default_incomplete', // Create the subscription in an incomplete state until payment is confirmed
-      discounts,
-    });
+    // Reuse the pending checkout for this price/coupon, otherwise create one
+    const subscription =
+      (await subscriptionService.reusePendingSubscription(
+        stripe,
+        customerId,
+        priceId,
+        promoCodeId
+      )) ??
+      (await stripe.subscriptions.create({
+        customer: customerId,
+        items: [{ price: priceId }],
+        expand: ['latest_invoice.confirmation_secret'],
+        payment_settings: {
+          payment_method_types: ['card'],
+        },
+        // Stays incomplete until the first invoice is paid
+        payment_behavior: 'default_incomplete',
+        discounts,
+        // Lets `reusePendingSubscription` match a later checkout for the same offer
+        metadata: { priceId, couponId: promoCodeId ?? '' },
+      }));
 
     // Handle subscription creation failure
     if (!subscription) {
@@ -235,11 +262,8 @@ export const getSubscription = async (
       );
     }
 
-    const clientSecret = (
-      subscription.latest_invoice as Stripe.Invoice & {
-        confirmation_secret?: { client_secret: string };
-      }
-    )?.confirmation_secret?.client_secret;
+    const clientSecret =
+      subscriptionService.getSubscriptionClientSecret(subscription);
 
     // Handle subscription creation failure
     if (!clientSecret) {

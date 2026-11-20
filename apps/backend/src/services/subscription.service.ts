@@ -74,6 +74,124 @@ export const addOrUpdateSubscription = async (
   return updatedOrganization.plan ?? null;
 };
 
+/**
+ * Whether a Stripe subscription event may change the organization's plan.
+ * Only the current subscription, or one that just became paid, may: other
+ * events come from abandoned checkouts or replaced plans, and applying them
+ * would overwrite or downgrade a paid plan.
+ */
+export const isRelevantForPlan = (
+  plan: Pick<Plan, 'subscriptionId'> | undefined,
+  subscriptionId: string,
+  status: Plan['status']
+): boolean =>
+  status === 'active' ||
+  status === 'trialing' ||
+  plan?.subscriptionId === subscriptionId;
+
+/** Reads the client secret of a subscription's first invoice (needs `latest_invoice.confirmation_secret` expanded). */
+export const getSubscriptionClientSecret = (
+  subscription: Stripe.Subscription
+): string | undefined => {
+  const latestInvoice = subscription.latest_invoice;
+
+  if (!latestInvoice || typeof latestInvoice === 'string') return undefined;
+
+  return latestInvoice.confirmation_secret?.client_secret ?? undefined;
+};
+
+/**
+ * Returns the customer's pending (`incomplete`) subscription for the same
+ * price and coupon, so reopening the checkout reuses it instead of creating a
+ * new one. Every other pending subscription is canceled: left alone they pile
+ * up and expire as `incomplete_expired`.
+ */
+export const reusePendingSubscription = async (
+  stripe: Stripe,
+  customerId: string,
+  priceId: string,
+  couponId: string | null
+): Promise<Stripe.Subscription | null> => {
+  const pendingSubscriptions = await stripe.subscriptions.list({
+    customer: customerId,
+    status: 'incomplete',
+    expand: ['data.latest_invoice.confirmation_secret'],
+  });
+
+  let reusableSubscription: Stripe.Subscription | null = null;
+
+  for (const subscription of pendingSubscriptions.data) {
+    const isSameCheckout =
+      !reusableSubscription &&
+      subscription.metadata?.priceId === priceId &&
+      (subscription.metadata?.couponId ?? '') === (couponId ?? '') &&
+      Boolean(getSubscriptionClientSecret(subscription));
+
+    if (isSameCheckout) {
+      reusableSubscription = subscription;
+      continue;
+    }
+
+    try {
+      await stripe.subscriptions.cancel(subscription.id);
+    } catch (error) {
+      logger.warn(
+        `Could not cancel pending subscription ${subscription.id}: ${error}`
+      );
+    }
+  }
+
+  return reusableSubscription;
+};
+
+/**
+ * Lifetime counterpart of `reusePendingSubscription`: reuses the customer's
+ * unpaid lifetime PaymentIntent for the same price and amount, and cancels the
+ * other unpaid ones.
+ */
+export const reusePendingLifetimePaymentIntent = async (
+  stripe: Stripe,
+  customerId: string,
+  priceId: string,
+  amount: number
+): Promise<Stripe.PaymentIntent | null> => {
+  const paymentIntents = await stripe.paymentIntents.list({
+    customer: customerId,
+    limit: 100,
+  });
+
+  const pendingPaymentIntents = paymentIntents.data.filter(
+    (paymentIntent) =>
+      paymentIntent.metadata?.purchaseType === 'lifetime' &&
+      paymentIntent.status === 'requires_payment_method'
+  );
+
+  let reusablePaymentIntent: Stripe.PaymentIntent | null = null;
+
+  for (const paymentIntent of pendingPaymentIntents) {
+    const isSameCheckout =
+      !reusablePaymentIntent &&
+      paymentIntent.metadata?.priceId === priceId &&
+      paymentIntent.amount === amount &&
+      Boolean(paymentIntent.client_secret);
+
+    if (isSameCheckout) {
+      reusablePaymentIntent = paymentIntent;
+      continue;
+    }
+
+    try {
+      await stripe.paymentIntents.cancel(paymentIntent.id);
+    } catch (error) {
+      logger.warn(
+        `Could not cancel pending payment intent ${paymentIntent.id}: ${error}`
+      );
+    }
+  }
+
+  return reusablePaymentIntent;
+};
+
 export const cancelSubscription = async (
   subscriptionId: string | undefined, // Changed to optional
   organizationId: Organization['id'] | string

@@ -12,6 +12,7 @@ import {
   addOrUpdateSubscription,
   cancelSubscription,
   changeSubscriptionStatus,
+  isRelevantForPlan,
 } from '@services/subscription.service';
 import { getUserById } from '@services/user.service';
 import { GenericError } from '@utils/errors';
@@ -126,6 +127,13 @@ export const stripeWebhook = async (
     const status: Plan['status'] =
       statusOverride ?? (subscription.status as Plan['status']); // Use the provided status override or the subscription's status
 
+    if (!isRelevantForPlan(organization.plan, subscriptionId, status)) {
+      logger.info(
+        `Ignored ${status} subscription ${subscriptionId}: not the plan of organization ${organizationId}`
+      );
+      return;
+    }
+
     // Snapshot the previous plan state (organization is fetched before the
     // update) so notification emails are only sent when the status actually
     // transitions — customer.subscription.updated fires repeatedly.
@@ -223,8 +231,17 @@ export const stripeWebhook = async (
       throw new GenericError('ORGANIZATION_NOT_FOUND');
     }
 
+    // A failed checkout must neither touch the current plan nor cancel it
+    if (!isRelevantForPlan(organization.plan, subscriptionId, status)) {
+      logger.info(
+        `Ignored ${status} invoice of subscription ${subscriptionId}: not the plan of organization ${organizationId}`
+      );
+      return;
+    }
+
     // 2. Prevent duplicate subscriptions by canceling the OLD subscription, not the new one
     if (
+      status === 'active' &&
       organization.plan?.subscriptionId &&
       organization.plan.subscriptionId !== subscriptionId
     ) {
@@ -430,7 +447,17 @@ export const stripeWebhook = async (
           req.intlayer.locale = locale;
         }
 
-        // Handle subscription deletion by canceling it in the database
+        // Only downgrade when the deleted subscription is the current plan:
+        // abandoned checkouts and replaced plans are deleted too.
+        const organization = await getOrganizationById(organizationId);
+
+        if (organization?.plan?.subscriptionId !== subscription.id) {
+          logger.info(
+            `Ignored deletion of subscription ${subscription.id}: not the plan of organization ${organizationId}`
+          );
+          break;
+        }
+
         await cancelSubscription(subscription.id, organizationId);
         break;
       }
@@ -486,7 +513,6 @@ export const stripeWebhook = async (
           if (affiliate) {
             const user = await getUserById(String(affiliate.userId));
             if (user) {
-              process.env.APP_URL;
               const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
               const referralLink = `${appUrl}/pricing?ref=${affiliate.referralCode}`;
               await emailService.sendEmail({

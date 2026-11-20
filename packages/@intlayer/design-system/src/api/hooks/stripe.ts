@@ -38,11 +38,18 @@ export const useGetSubscription = (
 ) => {
   const stripeAPI = useStripeAPI();
 
+  // Each request starts a Stripe checkout: fetch once per mount, never retry
+  // in the background and never persist the client secret.
   return useAppQuery({
     queryKey: ['subscription', body],
     queryFn: ({ signal }) => stripeAPI.getSubscription(body, { signal }),
     requireUser: true,
     requireOrganization: true,
+    staleTime: Infinity,
+    gcTime: 0,
+    retry: false,
+    refetchOnMount: false,
+    meta: { persist: false },
     ...options,
   });
 };

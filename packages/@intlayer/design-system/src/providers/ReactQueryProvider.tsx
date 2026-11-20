@@ -16,7 +16,7 @@ import { useToast } from '../components/Toaster';
 
 const PERSIST_MAX_AGE = 1000 * 60 * 60 * 24; // 24h
 // Bump to invalidate every persisted cache after a breaking change in query shapes
-const PERSIST_BUSTER = 'v1';
+const PERSIST_BUSTER = 'v2';
 
 const isServer = typeof window === 'undefined';
 
@@ -99,6 +99,10 @@ const SHOW_ERROR_CODE = false;
 
 declare module '@tanstack/react-query' {
   interface Register {
+    queryMeta: {
+      /** `false` keeps the query out of the localStorage cache (e.g. payment secrets). */
+      persist?: boolean;
+    };
     mutationMeta: {
       onSuccess?: UseMutationOptions['onSuccess'];
       onError?: UseMutationOptions['onError'];
@@ -303,7 +307,8 @@ export const ReactQueryProvider: FC<
         maxAge: PERSIST_MAX_AGE,
         buster: PERSIST_BUSTER,
         dehydrateOptions: {
-          shouldDehydrateQuery: (query) => query.state.status === 'success',
+          shouldDehydrateQuery: (query) =>
+            query.state.status === 'success' && query.meta?.persist !== false,
         },
       }}
     >

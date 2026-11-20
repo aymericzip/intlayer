@@ -122,8 +122,10 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     pickANewProductButton,
     paymentDetails,
     morePaymentOptions,
+    error,
   } = useIntlayer('payment-step');
   const [isLoading, setIsLoading] = useState(false);
+  const [paymentErrorMessage, setPaymentErrorMessage] = useState<string>();
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
   const navigate = useLocalizedNavigate();
   const search = useSearch({ strict: false }) as any;
@@ -148,12 +150,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     }
 
     if (!stripe || !elements) {
-      return;
-    }
-
-    if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -165,27 +162,28 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     }
 
     setIsLoading(true);
+    setPaymentErrorMessage(undefined);
 
-    await stripe
-      .confirmPayment({
-        // `Elements` instance that was used to create the Payment Element
-        elements,
-        confirmParams: {
-          return_url: `${window.location.origin}${nextUrl}`,
-        },
-      })
-      .then((result) => {
-        if (result.error) {
-          console.error(result.error);
-        } else {
-          setState({
-            isPaymentSuccessful: true,
-          });
-          goNextStep();
-        }
-      });
+    // Card payments (3DS included) confirm in place; Stripe only redirects
+    // to `return_url` for payment methods that require it.
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}${nextUrl}`,
+      },
+      redirect: 'if_required',
+    });
 
     setIsLoading(false);
+
+    if (result.error) {
+      // Stripe localizes the message (declined card, failed 3DS, …)
+      setPaymentErrorMessage(result.error.message ?? error.value);
+      return;
+    }
+
+    setState({ isPaymentSuccessful: true });
+    goNextStep();
   };
 
   const isSubmitDisabled =
@@ -244,6 +242,11 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
         ) : (
           <div className="flex flex-col gap-3">
             <PaymentElement onReady={() => setIsPaymentElementReady(true)} />
+            {paymentErrorMessage && (
+              <span role="alert" className="text-sm text-error">
+                {paymentErrorMessage}
+              </span>
+            )}
             {invoice?.hosted_invoice_url && nextUrl && (
               <Link
                 label={morePaymentOptions}
@@ -291,9 +294,16 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
     ? String(search.ref).trim().toUpperCase()
     : undefined;
 
-  const { data: affiliatePromo } = useGetAffiliatePromoCode(referralCode, {
-    enabled: Boolean(referralCode && !promoCode),
-  });
+  const { data: affiliatePromo, isFetched: isAffiliatePromoFetched } =
+    useGetAffiliatePromoCode(referralCode, {
+      enabled: Boolean(referralCode && !promoCode),
+    });
+
+  // The affiliate promo code is pushed into the URL once fetched: wait for it,
+  // otherwise a checkout without the discount is started first.
+  const isWaitingForAffiliatePromo =
+    Boolean(referralCode && !promoCode) &&
+    (!isAffiliatePromoFetched || Boolean(affiliatePromo?.data));
 
   useEffect(() => {
     if (affiliatePromo?.data && !promoCode) {
@@ -308,11 +318,15 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 
   const priceId = retrievePriceId(plan, period);
 
-  const { data, isLoading } = useGetSubscription({
-    priceId: priceId!,
-    promoCode,
-    referralCode,
-  });
+  const { data, isLoading: isSubscriptionLoading } = useGetSubscription(
+    {
+      priceId: priceId!,
+      promoCode,
+      referralCode,
+    },
+    { enabled: Boolean(priceId) && !isWaitingForAffiliatePromo }
+  );
+  const isLoading = isSubscriptionLoading || isWaitingForAffiliatePromo;
 
   if (!priceId) {
     return <>{error}</>;
@@ -338,6 +352,8 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
         {!priceId && <span>{incorrectProductMessage}</span>}
         {clientSecret ? (
           <Elements
+            // `clientSecret` is immutable once mounted: remount on change
+            key={clientSecret}
             stripe={stripePromise}
             options={{
               clientSecret,
