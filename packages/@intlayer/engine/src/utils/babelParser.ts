@@ -9,16 +9,14 @@ import type {
  * Recast-compatible parsers, backed by `@intlayer/babel`.
  *
  * All Babel operations live in `@intlayer/babel`, so this package never depends
- * on `@babel/parser` directly. `@intlayer/babel/babelParser` is loaded lazily on
- * the first `parse` call: `recast.parse` invokes `parser.parse` synchronously,
- * so a `require` (rather than a dynamic `import`) is used to keep the API
- * synchronous while deferring the load — `@babel/parser` stays off the hot path
+ * on `@babel/parser` directly. `@intlayer/babel` is an optional peer
+ * dependency: it is loaded lazily, keeping `@babel/parser` off the hot path
  * until an AST transform actually runs.
  *
- * `@intlayer/babel` is an optional peer dependency of `@intlayer/engine`. The
- * flows that use these parsers (`intlayer init`, content-declaration writes) are
- * driven by `@intlayer/cli`, which ships `@intlayer/babel`, so it is present
- * whenever these parsers are needed.
+ * `recast.parse` calls `parser.parse` synchronously. Async callers run
+ * `loadBabelParser()` first: its literal `import()` lets bundlers (e.g. the VS
+ * Code extension) include the parser. Otherwise the first `parse` falls back
+ * to a synchronous `require`.
  */
 
 /** Works in both the ESM and CJS builds (see `@intlayer/config`'s helper). */
@@ -36,21 +34,35 @@ type BabelParserModule = {
 
 let cachedModule: BabelParserModule | undefined;
 
+const createLoadError = (error: unknown): Error =>
+  new Error(
+    `Failed to load "${BABEL_PARSER_MODULE}". Install "@intlayer/babel" to enable AST-based transforms.`,
+    { cause: error }
+  );
+
 /**
- * Lazily resolves `@intlayer/babel/babelParser`, caching the result.
+ * Loads `@intlayer/babel/babelParser` ahead of a synchronous `recast.parse`.
  *
  * @throws If `@intlayer/babel` is not installed.
  */
-const loadBabelParser = (): BabelParserModule => {
+export const loadBabelParser = async (): Promise<void> => {
+  if (cachedModule) return;
+
+  try {
+    cachedModule = await import('@intlayer/babel/babelParser');
+  } catch (error) {
+    throw createLoadError(error);
+  }
+};
+
+/** The loaded parser module, required synchronously if not loaded yet. */
+const getBabelParser = (): BabelParserModule => {
   if (cachedModule) return cachedModule;
 
   try {
     cachedModule = engineRequire(BABEL_PARSER_MODULE) as BabelParserModule;
   } catch (error) {
-    throw new Error(
-      `Failed to load "${BABEL_PARSER_MODULE}". Install "@intlayer/babel" to enable AST-based transforms.`,
-      { cause: error }
-    );
+    throw createLoadError(error);
   }
 
   return cachedModule;
@@ -60,10 +72,10 @@ export type { RecastParser };
 
 /** Drop-in replacement for `recast/parsers/typescript` (TS without JSX). */
 export const typescriptParser: RecastParser = {
-  parse: (source: string) => loadBabelParser().typescriptParser.parse(source),
+  parse: (source: string) => getBabelParser().typescriptParser.parse(source),
 };
 
 /** Drop-in replacement for `recast/parsers/babel-ts` (TS *and* JSX). */
 export const babelTsParser: RecastParser = {
-  parse: (source: string) => loadBabelParser().babelTsParser.parse(source),
+  parse: (source: string) => getBabelParser().babelTsParser.parse(source),
 };

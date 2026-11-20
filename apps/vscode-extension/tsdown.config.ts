@@ -57,7 +57,7 @@ async function copyPackageAssets(
  */
 const vsceTarget = process.env.VSCE_TARGET;
 
-function bindingMatchesTarget(binding: string): boolean {
+const bindingMatchesTarget = (binding: string): boolean => {
   if (!vsceTarget) return true;
 
   const [targetOs, targetArch] = vsceTarget.split('-');
@@ -76,7 +76,7 @@ function bindingMatchesTarget(binding: string): boolean {
   }
 
   return true;
-}
+};
 
 /**
  * Copy a package (plus the installed subset of its platform-specific
@@ -89,7 +89,7 @@ function bindingMatchesTarget(binding: string): boolean {
  * Placing them in dist/node_modules keeps `require("esbuild")` resolvable
  * from dist/extension.js at runtime.
  */
-async function copyRuntimeDependency(pkgName: string, destRoot: string) {
+const copyRuntimeDependency = async (pkgName: string, destRoot: string) => {
   const pkgJsonPath = require.resolve(`${pkgName}/package.json`);
   const pkgRoot = dirname(pkgJsonPath);
 
@@ -131,7 +131,7 @@ async function copyRuntimeDependency(pkgName: string, destRoot: string) {
         `Run \`bun install --os='*' --cpu='*'\` first.`
     );
   }
-}
+};
 
 const sharedDeps = {
   alwaysBundle: [/(.*)/],

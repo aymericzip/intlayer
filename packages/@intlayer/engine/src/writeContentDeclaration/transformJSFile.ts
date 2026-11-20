@@ -4,7 +4,7 @@ import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import * as recast from 'recast';
-import { babelTsParser } from '../utils/babelParser';
+import { babelTsParser, loadBabelParser } from '../utils/babelParser';
 
 const b = recast.types.builders;
 const n = recast.types.namedTypes;
@@ -790,6 +790,8 @@ export const transformJSFile = async (
   noMetadata?: boolean
 ): Promise<string> => {
   if (!dictionary || typeof dictionary !== 'object') return fileContent;
+
+  await loadBabelParser();
 
   let ast: any;
   try {
