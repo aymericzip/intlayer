@@ -10,6 +10,7 @@ import {
 } from './babelProcessor';
 import {
   type ExistingIntlayerInfo,
+  getParserPlugins,
   type PackageName,
   SERVER_CAPABLE_PACKAGES,
 } from './utils';
@@ -62,7 +63,7 @@ export const processTsxFile = (
 
   const ast = parse(fileCode, {
     sourceType: 'module',
-    plugins: ['jsx', 'typescript'],
+    plugins: getParserPlugins(filePath),
   });
 
   const hasUseClient = ast.program.directives.some(
@@ -194,6 +195,7 @@ export const processTsxFile = (
     type,
     variables,
     childrenToReplace,
+    insertionExpressions,
   } of replacements) {
     const existingInfo = getExistingInfoForPath(path);
     // When the existing call is destructured (e.g. `const { a } = getIntlayer(...)`),
@@ -256,9 +258,10 @@ export const processTsxFile = (
     ) {
       const objProps = variables
         .map((variableString) => {
-          const [key, variableValue] = variableString
-            .split(':')
-            .map((part) => part.trim());
+          // Split on the first `:` only: the value may be a ternary
+          const separatorIndex = variableString.indexOf(':');
+          const key = variableString.slice(0, separatorIndex).trim();
+          const variableValue = variableString.slice(separatorIndex + 1).trim();
           return `${key}: ${variableValue}`;
         })
         .join(', ');
@@ -272,6 +275,28 @@ export const processTsxFile = (
         lastChild.end == null
       )
         continue;
+      if (insertionExpressions && insertionExpressions.length > 0) {
+        // Rewrite the text around each expression and keep the expressions
+        // in place, so the edits nested in them still apply
+        let cursor = firstChild.start;
+
+        insertionExpressions.forEach(({ name, node }, index) => {
+          textEdits.push({
+            start: cursor,
+            end: node.start!,
+            replacement: `${index === 0 ? `{${contentAccessCode}({ ` : ', '}${name}: `,
+          });
+          cursor = node.end!;
+        });
+
+        textEdits.push({
+          start: cursor,
+          end: lastChild.end,
+          replacement: ' })}',
+        });
+        continue;
+      }
+
       const accessStr = `{${contentAccessCode}({ ${objProps} })}`;
       const start = firstChild.start;
       const end = lastChild.end;
@@ -282,9 +307,11 @@ export const processTsxFile = (
       if (variables && variables.length > 0) {
         const objProps = variables
           .map((variableString) => {
-            const [key, variableValue] = variableString
-              .split(':')
-              .map((part) => part.trim());
+            const separatorIndex = variableString.indexOf(':');
+            const key = variableString.slice(0, separatorIndex).trim();
+            const variableValue = variableString
+              .slice(separatorIndex + 1)
+              .trim();
             return `${key}: ${variableValue}`;
           })
           .join(', ');

@@ -114,7 +114,8 @@ export const resolveContentFilePaths = async (
     return {
       absolutePath: resolvedAbsolutePath,
       relativePath: relative(baseDir, resolvedAbsolutePath),
-      isPerLocale: false,
+      // An existing per-locale file must keep merging as per-locale
+      isPerLocale: typeof matchingExistingDict.locale === 'string',
     };
   }
 

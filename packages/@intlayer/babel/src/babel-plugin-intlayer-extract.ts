@@ -11,6 +11,7 @@ import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { extractContentSync } from './extractContent/extractContent';
 import type { PackageName } from './extractContent/utils/constants';
 import { detectPackageName } from './extractContent/utils/detectPackageName';
+import { getParserPlugins } from './extractContent/utils/getParserPlugins';
 import { getNormalizedFilesListSet } from './normalizedFilesList';
 
 export type ExtractResult = {
@@ -127,7 +128,7 @@ const extractBabelPlugin = (_babel: {
           try {
             const newAst = parse(modifiedCode, {
               sourceType: 'module',
-              plugins: ['jsx', 'typescript'],
+              plugins: getParserPlugins(filename),
             });
 
             programPath.node.body = newAst.program.body;

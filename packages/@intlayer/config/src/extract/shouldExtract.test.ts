@@ -208,4 +208,35 @@ describe('shouldExtract', () => {
     expect(shouldExtract('MAJ {{count}} items')).toBe(true);
     expect(shouldExtract('こんにちは 世界 です')).toBe(true);
   });
+
+  it('should return false for security policies', () => {
+    expect(
+      shouldExtract(
+        "default-src 'none'; img-src * data:; style-src 'unsafe-inline' *; font-src * data:"
+      )
+    ).toBe(false);
+    expect(shouldExtract("default-src 'self'")).toBe(false);
+    expect(shouldExtract('Images are blocked; load remote content')).toBe(true);
+  });
+
+  it('should return false for HTTP values and GraphQL documents', () => {
+    expect(shouldExtract('Bearer {{token}}')).toBe(false);
+    expect(
+      shouldExtract(
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+      )
+    ).toBe(false);
+    expect(
+      shouldExtract(
+        'query($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { {{connection}} } }'
+      )
+    ).toBe(false);
+    expect(
+      shouldExtract(
+        'starredRepositories( first: {{PAGE_SIZE}} ) { totalCount pageInfo { hasNextPage } }'
+      )
+    ).toBe(false);
+    expect(shouldExtract('Bearer tokens expire after one hour')).toBe(true);
+    expect(shouldExtract('Query the users of this project')).toBe(true);
+  });
 });

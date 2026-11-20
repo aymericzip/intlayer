@@ -81,7 +81,10 @@ const getComponentReadFields = async (
   try {
     const fileCode = await readFile(filePath, 'utf-8');
 
-    return getReadFieldsByDictionary(fileCode).get(dictionaryKey) ?? new Set();
+    return (
+      getReadFieldsByDictionary(fileCode, filePath).get(dictionaryKey) ??
+      new Set()
+    );
   } catch {
     return new Set();
   }

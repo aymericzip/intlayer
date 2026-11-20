@@ -249,6 +249,194 @@ export const InsertionTest = () => {
     );
   });
 
+  it('should insert call and conditional expressions as JSX variables', async () => {
+    const componentPath = join(tmpDir, 'ExpressionInsertion.tsx');
+    writeFileSync(
+      componentPath,
+      `
+const formatDate = (date: Date) => date.toISOString();
+export const ExpressionInsertion = ({ isLead, at }: { isLead: boolean; at: Date }) => (
+  <dd>
+    {isLead ? 'GitHub outreach' : 'Prospect'}, first contact {formatDate(at)}
+  </dd>
+);
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(Object.values(extracted)).toContain(
+      '{{value}}, first contact {{formatDate}}'
+    );
+    expect(Object.values(extracted)).not.toContain(', first contact');
+    expect(updatedCode).toMatch(
+      /value: isLead \? content\.\w+ : content\.\w+,\s*formatDate: formatDate\(at\)/
+    );
+  });
+
+  it('should keep texts apart when a JSX child expression renders markup', async () => {
+    const componentPath = join(tmpDir, 'MarkupInsertion.tsx');
+    writeFileSync(
+      componentPath,
+      `
+export const MarkupInsertion = ({ name }: { name?: string }) => (
+  <p>
+    Delete {name ? <b>{name}</b> : 'this item'} for good
+  </p>
+);
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    expect(Object.values(extracted).some((value) => value.includes('{{'))).toBe(
+      false
+    );
+  });
+
+  it('should not extract strings already written with {{placeholders}}', async () => {
+    const componentPath = join(tmpDir, 'templates.ts');
+    writeFileSync(
+      componentPath,
+      `
+export const TEMPLATES = [
+  { name: 'Blank template', markdown: 'Hi {{firstName}},\\n\\n' },
+  { name: 'Newsletter template', markdown: \`Hi {{firstName}},
+
+Here is what happened this month.\` },
+];
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    expect(Object.values(extracted)).toEqual(
+      expect.arrayContaining(['Blank template', 'Newsletter template'])
+    );
+    expect(Object.values(extracted).some((value) => value.includes('{{'))).toBe(
+      false
+    );
+  });
+
+  it('should parse generic arrow functions in .ts files', async () => {
+    const componentPath = join(tmpDir, 'generic.ts');
+    writeFileSync(
+      componentPath,
+      `
+const identity = <T>(value: unknown): T => value as T;
+export const MESSAGE = identity<string>('Your changes were saved');
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    expect(Object.values(extracted)).toContain('Your changes were saved');
+  });
+
+  it('should skip logging calls and HTTP header values', async () => {
+    const componentPath = join(tmpDir, 'jobs.ts');
+    writeFileSync(
+      componentPath,
+      `
+export const runJob = async (
+  token: string,
+  count: number,
+  log: (line: string) => void = console.log
+) => {
+  log(\`Imported \${count} new messages from the mailbox\`);
+  console.warn(\`Retrying the import of \${count} messages\`);
+  await fetch('https://example.com', {
+    headers: { authorization: \`Bearer \${token}\`, 'User-Agent': 'Mailer sync worker' },
+  });
+  return \`Imported \${count} messages\`;
+};
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    expect(Object.values(extracted)).toEqual(['Imported {{count}} messages']);
+  });
+
+  it('should join multi-line JSX text around expressions like React renders it', async () => {
+    const componentPath = join(tmpDir, 'MultilineInsertion.tsx');
+    writeFileSync(
+      componentPath,
+      `
+export const MultilineInsertion = ({ locale }: { locale?: string }) => (
+  <option value="">
+    From account (
+    {locale ?? 'default'})
+  </option>
+);
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    expect(Object.values(extracted)).toContain('From account ({{value}})');
+  });
+
+  it('should skip AI tool descriptions and schema descriptions', async () => {
+    const componentPath = join(tmpDir, 'tools.ts');
+    writeFileSync(
+      componentPath,
+      `
+import { z } from 'zod';
+export const listTemplates = {
+  description: 'List the email templates with their last update.',
+  inputSchema: z.object({ name: z.string().describe('Internal template name') }),
+  execute: async () => {
+    throw new Error('Template not found in the store');
+  },
+};
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    expect(Object.values(extracted)).toEqual([
+      'Template not found in the store',
+    ]);
+  });
+
   it('should extract JSX insertion when variable expression appears first', async () => {
     const componentPath = join(tmpDir, 'LeadingVarInsertionTest.tsx');
     const componentCode = `
@@ -473,8 +661,9 @@ export const useCustomHook = () => {
     expect(updatedCode).toMatch(
       /const content = useIntlayer\(['"]combined-template-test['"]\);/
     );
+    // JSX drops the line break: React renders `Static textHello …`
     expect(updatedCode).toContain(
-      'content.staticTextHelloNameYou({ name: name, count: count })'
+      'content.staticTexthelloNameYouHave({ name: name, count: count })'
     );
   });
 

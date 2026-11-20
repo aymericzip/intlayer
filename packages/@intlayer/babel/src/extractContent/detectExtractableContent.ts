@@ -9,6 +9,7 @@ import {
   getReplacementSpan,
 } from './babelProcessor';
 import { extractDictionaryKey } from './utils/extractDictionaryKey';
+import { getParserPlugins } from './utils/getParserPlugins';
 
 // CJS/ESM interop: @babel/traverse exports its function as `.default` in CJS bundles
 const traverse = (
@@ -116,7 +117,7 @@ export const detectExtractableContent = (
   try {
     ast = parse(fileCode, {
       sourceType: 'module',
-      plugins: ['jsx', 'typescript'],
+      plugins: getParserPlugins(filePath),
       errorRecovery: true,
     });
   } catch {

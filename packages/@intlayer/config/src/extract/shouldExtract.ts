@@ -29,6 +29,25 @@ const CSS_RULE_REGEX = /\S\s+\{[^{}]*\}\s*$/;
 const CSS_FUNCTION_VALUE_REGEX =
   /^-?[a-z][a-z-]*\([^()]*(\([^()]*\)[^()]*)*\)$/;
 
+/**
+ * A Content-Security-Policy / Permissions-Policy directive
+ * (`default-src 'none'`, `img-src * data:`, `frame-ancestors 'self'`).
+ */
+const POLICY_DIRECTIVE_REGEX = /^[a-z]+(?:-[a-z]+)+(?:\s+\S+)*$/;
+
+/** An HTTP authorization value (`Bearer {{token}}`, `Basic abc==`). */
+const AUTHORIZATION_VALUE_REGEX = /^(?:Bearer|Basic|Digest|Token)\s+\S+$/;
+
+/** A browser user-agent string (`Mozilla/5.0 (Macintosh; …)`). */
+const USER_AGENT_REGEX = /^Mozilla\/\d/;
+
+/**
+ * A GraphQL document or selection (`query($id: ID!) { … }`,
+ * `repository(owner: "x") { stargazerCount }`).
+ */
+const GRAPHQL_REGEX =
+  /^(?:query|mutation|subscription|fragment)\b[^{]*\{|[A-Za-z_]\w*\([^()]*\)\s*\{/;
+
 /** A number with a CSS unit (`200ms`, `1.5rem`, `-2px`, `50%`). */
 const CSS_LENGTH_TOKEN_REGEX =
   /^-?\d*\.?\d+(?:px|r?em|ms|s|%|v[hw]|dv[hw]|deg|fr|ch)$/;
@@ -52,6 +71,8 @@ const CSS_VALUE_TOKEN_REGEX =
  * - Uncapitalized strings of 2 words or fewer (likely technical terms)
  * - Generated code (`import x from 'y';`, `{{name}} as {{alias}}`, comments)
  * - CSS rules, shorthand values and function values (`calc(…)`, `a { b: c; }`)
+ * - Security policies (`default-src 'none'; img-src * data:`)
+ * - HTTP values and queries (`Bearer {{token}}`, user agents, GraphQL)
  * - Dynamic content patterns like Vue bindings (`v-`) or object patterns (`{`)
  */
 export const shouldExtract = (text: string): boolean => {
@@ -110,6 +131,27 @@ export const shouldExtract = (text: string): boolean => {
     CSS_FUNCTION_VALUE_REGEX.test(trimmed) ||
     (CSS_RULE_REGEX.test(withoutPlaceholders) &&
       /[:;]/.test(withoutPlaceholders))
+  )
+    return false;
+
+  // Ignore HTTP values and queries (`Bearer {{token}}`, user agents, GraphQL)
+  if (
+    AUTHORIZATION_VALUE_REGEX.test(trimmed) ||
+    USER_AGENT_REGEX.test(trimmed) ||
+    GRAPHQL_REGEX.test(trimmed)
+  )
+    return false;
+
+  // Ignore security policies (`default-src 'none'; img-src * data:`)
+  const policyDirectives = trimmed
+    .split(';')
+    .map((directive) => directive.trim())
+    .filter(Boolean);
+  if (
+    policyDirectives.some((directive) => /^[a-z-]+-src\b/.test(directive)) &&
+    policyDirectives.every((directive) =>
+      POLICY_DIRECTIVE_REGEX.test(directive)
+    )
   )
     return false;
 

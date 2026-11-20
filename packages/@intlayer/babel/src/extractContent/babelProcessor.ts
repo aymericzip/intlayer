@@ -28,6 +28,12 @@ export type BabelReplacement = {
   componentKey: string;
   childrenToReplace?: t.Node[];
   variables?: string[];
+  /**
+   * `jsx-insertion` only: the expression of each variable, in source order.
+   * They stay in place so the edits nested in them (an extracted string in a
+   * ternary) still apply.
+   */
+  insertionExpressions?: { name: string; node: t.Expression }[];
 };
 
 /** Offset range of the source, end exclusive. */
@@ -171,7 +177,38 @@ const TECHNICAL_KEYS = new Set<string>([
   'gridTemplateRows',
 ]);
 
+/** HTTP header names, compared lowercased (`authorization`, `'User-Agent'`). */
+const HTTP_HEADER_KEYS = new Set<string>([
+  'accept',
+  'accept-language',
+  'authorization',
+  'cache-control',
+  'content-type',
+  'cookie',
+  'user-agent',
+  'useragent',
+  'x-api-key',
+]);
+
+/**
+ * Functions and objects that only log (`log = console.log`, `logger.warn()`):
+ * their arguments are developer output, not display text.
+ */
+const LOGGING_NAMES = new Set<string>(['console', 'log', 'logger', 'debug']);
+
+/**
+ * Sibling keys marking an AI tool definition (`tool({ description,
+ * inputSchema, execute })`): its `description` is a prompt for the model.
+ */
+const AI_TOOL_DEFINITION_KEYS = new Set<string>([
+  'inputSchema',
+  'parameters',
+  'execute',
+]);
+
 const NON_TRANSLATABLE_CALL_METHODS = new Set<string>([
+  // Schema metadata read by models and validators (`z.string().describe()`)
+  'describe',
   'includes',
   'startsWith',
   'endsWith',
@@ -249,11 +286,38 @@ const isTechnicalPropertyValue = (path: NodePath): boolean => {
 
   const propertyPath = valuePath.parentPath;
 
-  return Boolean(
-    propertyPath?.isObjectProperty() &&
-    propertyPath.node.value === valuePath.node &&
-    t.isIdentifier(propertyPath.node.key) &&
-    TECHNICAL_KEYS.has(propertyPath.node.key.name)
+  if (
+    !propertyPath?.isObjectProperty() ||
+    propertyPath.node.value !== valuePath.node
+  )
+    return false;
+
+  const { key } = propertyPath.node;
+  const keyName = t.isIdentifier(key)
+    ? key.name
+    : t.isStringLiteral(key)
+      ? key.value
+      : undefined;
+
+  if (keyName === undefined) return false;
+
+  if (
+    TECHNICAL_KEYS.has(keyName) ||
+    HTTP_HEADER_KEYS.has(keyName.toLowerCase())
+  )
+    return true;
+
+  const objectNode = propertyPath.parentPath?.node;
+
+  return (
+    keyName === 'description' &&
+    t.isObjectExpression(objectNode) &&
+    objectNode.properties.some(
+      (property) =>
+        (t.isObjectProperty(property) || t.isObjectMethod(property)) &&
+        t.isIdentifier(property.key) &&
+        AI_TOOL_DEFINITION_KEYS.has(property.key.name)
+    )
   );
 };
 
@@ -293,35 +357,101 @@ const isInsideClassNameBuilderCall = (path: NodePath): boolean =>
   );
 
 /**
- * When `path` is a string-literal argument of a member/optional-member call
- * expression (e.g. `foo.includes('bar')` or `foo?.bar?.includes('baz')`),
- * returns the called method name and whether the call targets the `console`
- * object. Returns `undefined` when the parent is not such a call, or the string
- * is not one of its arguments.
+ * Whether `path` is an argument of a technical or logging call:
+ * `foo.includes('bar')`, `el.getAttribute('data-id')`, `console.log('…')`,
+ * `logger.warn(`…`)` or `log(`…`)` (a `log = console.log` alias).
  */
-const getEnclosingMethodCallInfo = (
-  path: NodePath<t.StringLiteral>
-): { methodName: string | undefined; isConsoleCall: boolean } | undefined => {
+const isNonTranslatableCallArgument = (
+  path: NodePath<t.StringLiteral | t.TemplateLiteral>
+): boolean => {
   const parent = path.parentPath;
-  if (!parent.isCallExpression() && !parent.isOptionalCallExpression()) {
-    return undefined;
+  if (!parent?.isCallExpression() && !parent?.isOptionalCallExpression()) {
+    return false;
   }
 
   const callNode = parent.node as t.CallExpression | t.OptionalCallExpression;
-  if (!callNode.arguments.includes(path.node)) return undefined;
+  if (!callNode.arguments.includes(path.node)) return false;
 
-  const callee = callNode.callee;
+  const { callee } = callNode;
+
+  if (t.isIdentifier(callee)) return LOGGING_NAMES.has(callee.name);
+
   if (!t.isMemberExpression(callee) && !t.isOptionalMemberExpression(callee)) {
-    return undefined;
+    return false;
   }
 
-  const methodName = t.isIdentifier(callee.property)
-    ? callee.property.name
-    : undefined;
-  const isConsoleCall =
-    t.isIdentifier(callee.object) && callee.object.name === 'console';
+  const isLoggingObject =
+    t.isIdentifier(callee.object) && LOGGING_NAMES.has(callee.object.name);
+  const isTechnicalMethod =
+    t.isIdentifier(callee.property) &&
+    NON_TRANSLATABLE_CALL_METHODS.has(callee.property.name);
 
-  return { methodName, isConsoleCall };
+  return isLoggingObject || isTechnicalMethod;
+};
+
+/**
+ * Source text already written with `{{placeholder}}` syntax belongs to another
+ * template engine (email or markdown templates filled at runtime). Extracting
+ * it would turn it into an Intlayer insertion and change what the code reads.
+ */
+const hasLiteralPlaceholder = (text: string): boolean =>
+  /\{\{[^{}]+\}\}/.test(text);
+
+/**
+ * JSX text as React renders it: each line trimmed, whitespace-only lines
+ * dropped, lines joined by a space (`\n  , first contact` → `, first contact`).
+ */
+const normalizeJsxText = (text: string): string => {
+  if (!text.includes('\n')) return text;
+
+  const lines = text.split(/\r\n|\n|\r/);
+
+  return lines
+    .map((line, index) => {
+      let normalizedLine = line;
+      if (index > 0) normalizedLine = normalizedLine.trimStart();
+      if (index < lines.length - 1) normalizedLine = normalizedLine.trimEnd();
+      return normalizedLine;
+    })
+    .filter((line) => line.length > 0)
+    .join(' ');
+};
+
+/**
+ * Whether an expression renders markup (`cond && <b>x</b>`): such values are
+ * not plain insertion strings in every framework.
+ */
+const containsJsx = (expression: t.Node): boolean => {
+  let hasJsx = false;
+  t.traverseFast(expression, (node) => {
+    if (t.isJSXElement(node) || t.isJSXFragment(node)) hasJsx = true;
+  });
+  return hasJsx;
+};
+
+/**
+ * Readable insertion variable name for an expression: `count` → `count`,
+ * `user.name` → `name`, `formatDate(at)` → `formatDate`, otherwise `value`.
+ */
+const getInsertionVariableName = (expression: t.Expression): string => {
+  if (t.isIdentifier(expression)) return expression.name;
+
+  if (
+    (t.isMemberExpression(expression) ||
+      t.isOptionalMemberExpression(expression)) &&
+    t.isIdentifier(expression.property)
+  )
+    return expression.property.name;
+
+  if (t.isCallExpression(expression) || t.isOptionalCallExpression(expression))
+    return t.isExpression(expression.callee)
+      ? getInsertionVariableName(expression.callee)
+      : 'value';
+
+  if (t.isTSNonNullExpression(expression) || t.isTSAsExpression(expression))
+    return getInsertionVariableName(expression.expression);
+
+  return 'value';
 };
 
 /**
@@ -349,66 +479,80 @@ export const handleJsxInsertionBabel = (
   let hasSignificantText = false;
   let hasVariables = false;
 
+  /** Insertion variable name per source expression, unique within the text. */
+  const variableNames = new Map<string, string>();
+  const insertionExpressions: { name: string; node: t.Expression }[] = [];
+  /** Nodes folded into the message, so no other replacement rewrites them. */
+  const foldedNodes: t.Node[] = [];
+
+  const pushVariable = (expression: t.Expression): void => {
+    const originalExpr = fileCode.substring(expression.start!, expression.end!);
+    let name = variableNames.get(originalExpr);
+
+    if (name) {
+      // A repeated expression is dropped from the code: keep its strings as is
+      t.traverseFast(expression, (node) => {
+        if (t.isStringLiteral(node) || t.isTemplateLiteral(node))
+          foldedNodes.push(node);
+      });
+    } else {
+      const baseName = getInsertionVariableName(expression);
+      const usedNames = new Set(variableNames.values());
+      name = baseName;
+      for (let index = 2; usedNames.has(name); index++) {
+        name = `${baseName}${index}`;
+      }
+      variableNames.set(originalExpr, name);
+      insertionExpressions.push({ name, node: expression });
+    }
+
+    parts.push({ type: 'var', value: name, originalExpr });
+    hasVariables = true;
+  };
+
   for (const child of children) {
     if (t.isJSXText(child)) {
-      const text = child.value;
+      const text = normalizeJsxText(child.value);
 
       if (text.trim().length > 0) hasSignificantText = true;
 
       parts.push({ type: 'text', value: text });
     } else if (t.isJSXExpressionContainer(child)) {
-      if (t.isJSXEmptyExpression(child.expression)) {
+      const expression = child.expression;
+
+      if (t.isJSXEmptyExpression(expression)) {
         parts.push({ type: 'text', value: '' });
-      } else {
-        const expr = child.expression;
-
-        if (t.isIdentifier(expr)) {
-          parts.push({
-            type: 'var',
-            value: expr.name,
-            originalExpr: expr.name,
-          });
-          hasVariables = true;
-        } else if (t.isMemberExpression(expr)) {
-          const code = fileCode.substring(expr.start!, expr.end!);
-
-          const varName = t.isIdentifier(expr.property)
-            ? expr.property.name
-            : 'var';
-
-          parts.push({ type: 'var', value: varName, originalExpr: code });
-
-          hasVariables = true;
-        } else if (t.isTemplateLiteral(expr)) {
-          for (let i = 0; i < expr.quasis.length; i++) {
-            parts.push({
-              type: 'text',
-              value: expr.quasis[i]?.value.raw ?? '',
-            });
-            if (i < expr.expressions.length) {
-              const subExpr = expr.expressions[i];
-              if (t.isIdentifier(subExpr)) {
-                parts.push({
-                  type: 'var',
-                  value: subExpr.name,
-                  originalExpr: subExpr.name,
-                });
-                hasVariables = true;
-              } else if (t.isMemberExpression(subExpr)) {
-                const code = fileCode.substring(subExpr.start!, subExpr.end!);
-                const varName = t.isIdentifier(subExpr.property)
-                  ? subExpr.property.name
-                  : 'var';
-                parts.push({ type: 'var', value: varName, originalExpr: code });
-                hasVariables = true;
-              } else {
-                return false;
-              }
-            }
-          }
-        } else {
+      } else if (t.isStringLiteral(expression)) {
+        // `{' '}` and `{'text'}` are text of the message
+        if (hasLiteralPlaceholder(expression.value)) return false;
+        if (expression.value.trim().length > 0) hasSignificantText = true;
+        parts.push({ type: 'text', value: expression.value });
+        foldedNodes.push(expression);
+      } else if (t.isTemplateLiteral(expression)) {
+        foldedNodes.push(expression);
+        if (
+          expression.quasis.some((quasi) =>
+            hasLiteralPlaceholder(quasi.value.raw)
+          )
+        )
           return false;
+        for (let index = 0; index < expression.quasis.length; index++) {
+          parts.push({
+            type: 'text',
+            value: expression.quasis[index]?.value.raw ?? '',
+          });
+          const subExpression = expression.expressions[index];
+          if (subExpression) {
+            if (!t.isExpression(subExpression) || containsJsx(subExpression))
+              return false;
+            pushVariable(subExpression);
+          }
         }
+      } else if (containsJsx(expression)) {
+        // Elements as values are framework-specific: keep the texts apart
+        return false;
+      } else {
+        pushVariable(expression);
       }
     } else {
       return false;
@@ -447,6 +591,7 @@ export const handleJsxInsertionBabel = (
         componentKey,
         childrenToReplace: children,
         variables: uniqueVars,
+        insertionExpressions,
       });
     } else {
       replacements.push({
@@ -458,9 +603,7 @@ export const handleJsxInsertionBabel = (
       });
     }
 
-    children.forEach((child) => {
-      handledNodes.add(child);
-    });
+    for (const node of [...children, ...foldedNodes]) handledNodes.add(node);
     return true;
   }
 
@@ -737,7 +880,11 @@ export const extractBabelContentForComponents = (
         return;
       const value = path.node.value;
 
-      if (t.isStringLiteral(value) && shouldExtract(value.value)) {
+      if (
+        t.isStringLiteral(value) &&
+        !hasLiteralPlaceholder(value.value) &&
+        shouldExtract(value.value)
+      ) {
         const componentKey = getComponentKeyForPath(path);
         const key = getOrGenerateKey(
           value.value.trim(),
@@ -754,7 +901,7 @@ export const extractBabelContentForComponents = (
 
       const text = path.node.value;
 
-      if (!shouldExtract(text)) return;
+      if (hasLiteralPlaceholder(text) || !shouldExtract(text)) return;
 
       const parent = path.parentPath;
 
@@ -784,18 +931,10 @@ export const extractBabelContentForComponents = (
       // Like comparisons, these are code constants, not display text.
       if (parent.isSwitchCase() && parent.node.test === path.node) return;
 
-      // Skip string literals passed to technical method calls, e.g.
-      // `message.includes('Loading chunk')`, `el.getAttribute('data-id')`, or
-      // `console.log('...')`. These are code operands, not display text.
-      const methodCallInfo = getEnclosingMethodCallInfo(path);
-      if (
-        methodCallInfo &&
-        (methodCallInfo.isConsoleCall ||
-          (methodCallInfo.methodName !== undefined &&
-            NON_TRANSLATABLE_CALL_METHODS.has(methodCallInfo.methodName)))
-      ) {
-        return;
-      }
+      // Skip string literals passed to technical or logging calls, e.g.
+      // `message.includes('Loading chunk')` or `console.log('...')`. These are
+      // code operands and developer output, not display text.
+      if (isNonTranslatableCallArgument(path)) return;
 
       if (parent.isObjectProperty() && parent.node.key === path.node) return;
 
@@ -823,7 +962,14 @@ export const extractBabelContentForComponents = (
 
       if (isInsideClassNameBuilderCall(path)) return;
 
+      if (isTechnicalPropertyValue(path)) return;
+
+      if (isNonTranslatableCallArgument(path)) return;
+
       const { quasis, expressions } = path.node;
+
+      if (quasis.some((quasi) => hasLiteralPlaceholder(quasi.value.raw)))
+        return;
 
       // Build the combined string with placeholders
       let combinedString = '';

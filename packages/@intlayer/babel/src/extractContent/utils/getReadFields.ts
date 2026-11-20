@@ -5,6 +5,7 @@ import {
   type ExistingIntlayerInfo,
   getExistingIntlayerInfo,
 } from './getExistingIntlayerInfo';
+import { getParserPlugins } from './getParserPlugins';
 
 // CJS/ESM interop: @babel/traverse exports its function as `.default` in CJS bundles
 const traverse = (
@@ -108,7 +109,8 @@ export const getReadFieldsOfComponent = (
  * file. Returns an empty map for a file that does not parse.
  */
 export const getReadFieldsByDictionary = (
-  fileCode: string
+  fileCode: string,
+  filePath?: string
 ): Map<string, ReadFields> => {
   const readFields = new Map<string, ReadFields>();
 
@@ -117,7 +119,7 @@ export const getReadFieldsByDictionary = (
   try {
     ast = parse(fileCode, {
       sourceType: 'module',
-      plugins: ['jsx', 'typescript'],
+      plugins: getParserPlugins(filePath),
       errorRecovery: true,
     });
   } catch {
