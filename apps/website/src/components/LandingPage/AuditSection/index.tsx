@@ -1,19 +1,18 @@
-import { getLocalizedUrl } from '@intlayer/core/localization';
 import { Website_Scanner_Path } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { AnalyzerForm } from '~/components/ScannerPage/Analyzer/Form/AnalyzerForm';
+import { useLocalizedNavigate } from '~/hooks/useLocalizedNavigate';
 
 export const AuditSection: FC = () => {
   const { title, description, goToScanner } = useIntlayer('audit-page');
-  const navigate = useNavigate();
-  const { locale } = useLocale();
+  const navigate = useLocalizedNavigate();
 
   const handleAnalyze = (url: string) => {
     navigate({
-      to: `${getLocalizedUrl(Website_Scanner_Path, locale)}?url=${encodeURIComponent(url)}&auto_start=true`,
+      to: Website_Scanner_Path,
+      search: { url, auto_start: true },
     });
   };
 

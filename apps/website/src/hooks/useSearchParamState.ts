@@ -33,13 +33,18 @@ const defaultForType = (type: ParamType): string | number | boolean => {
   }
 };
 
+/** Raw search value as parsed by TanStack Router (JSON-aware, so may be non-string). */
+type SearchValue = unknown;
+
 const parseValueFromUrl = (
-  rawValue: string | null,
+  searchValue: SearchValue,
   cfg: ParamConfig
 ): string | number | boolean => {
-  if (rawValue == null) {
+  if (searchValue === undefined || searchValue === null) {
     return cfg.fallbackValue ?? defaultForType(cfg.type);
   }
+
+  const rawValue = String(searchValue);
 
   switch (cfg.type) {
     case 'string':
@@ -60,42 +65,51 @@ const parseValueFromUrl = (
   }
 };
 
-const valueToUrlString = (
+/**
+ * Converts a state value into its search-param value, or `undefined` to drop the param.
+ * Typed values are kept as-is so TanStack serializes `true` as `true`, not `"true"`.
+ */
+const valueToSearchValue = (
   value: string | number | boolean | null,
   type: ParamType
-): string | null => {
-  if (value == null) return null;
+): string | number | boolean | undefined => {
+  if (value == null) return undefined;
   switch (type) {
     case 'string': {
-      const v = String(value);
-      return v.trim() === '' ? null : v;
+      const stringValue = String(value);
+      return stringValue.trim() === '' ? undefined : stringValue;
     }
     case 'number': {
-      const n = Number(value);
-      return Number.isNaN(n) ? null : String(n);
+      const numberValue = Number(value);
+      return Number.isNaN(numberValue) ? undefined : numberValue;
     }
     case 'boolean':
-      return value ? 'true' : 'false';
+      return Boolean(value);
     default:
       return String(value);
   }
 };
 
+type SearchUpdates<TConfig extends ConfigMap> = Partial<
+  Record<keyof TConfig, string | number | boolean | undefined>
+>;
+
 export const useSearchParamState = <TConfig extends ConfigMap>(
   config: TConfig
 ) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  // TanStack Router exposes the search as an already-parsed object
+  const search = useLocation({
+    select: (location) => location.search as Record<string, SearchValue>,
+  });
 
   const computeInitialState = useCallback((): StateFromConfig<TConfig> => {
     const nextState: Record<string, unknown> = {};
     for (const [key, cfg] of Object.entries(config)) {
-      nextState[key] = parseValueFromUrl(searchParams.get(key), cfg);
+      nextState[key] = parseValueFromUrl(search[key], cfg);
     }
     return nextState as StateFromConfig<TConfig>;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, location.search]);
+  }, [config, search]);
 
   const [state, setState] =
     useState<StateFromConfig<TConfig>>(computeInitialState);
@@ -115,16 +129,22 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
   }, [computeInitialState]);
 
   const updateUrl = useCallback(
-    (updates: Partial<Record<keyof TConfig, string | null>>) => {
-      const params = new URLSearchParams(location.search);
-      for (const [key, value] of Object.entries(updates)) {
-        if (value === null || typeof value !== 'string') params.delete(key);
-        else params.set(key, value);
-      }
-      const qs = params.toString();
-      navigate({ search: qs ? `?${qs}` : undefined } as any);
+    (updates: SearchUpdates<TConfig>) => {
+      // Must be an object: a string here gets spread into one param per character
+      navigate({
+        to: '.',
+        search: (previousSearch: Record<string, SearchValue>) => {
+          const mergedSearch = { ...previousSearch, ...updates };
+
+          return Object.fromEntries(
+            Object.entries(mergedSearch).filter(
+              ([, value]) => value !== undefined
+            )
+          );
+        },
+      } as Parameters<typeof navigate>[0]);
     },
-    [navigate, location.search]
+    [navigate]
   );
 
   const setParam = useCallback(
@@ -133,13 +153,11 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
       value: StateFromConfig<TConfig>[K] | null
     ) => {
       const cfg = config[String(key)];
-      const urlValue = valueToUrlString(
+      const searchValue = valueToSearchValue(
         value as unknown as string | number | boolean | null,
         cfg.type
       );
-      updateUrl({ [key]: urlValue } as Partial<
-        Record<keyof TConfig, string | null>
-      >);
+      updateUrl({ [key]: searchValue } as SearchUpdates<TConfig>);
       setState((prev) => ({
         ...prev,
         [key]: (value ??
@@ -152,7 +170,7 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
 
   const setParams = useCallback(
     (updates: Partial<StateFromConfig<TConfig>>) => {
-      const urlUpdates: Partial<Record<keyof TConfig, string | null>> = {};
+      const urlUpdates: SearchUpdates<TConfig> = {};
       const nextState: Partial<StateFromConfig<TConfig>> = {};
 
       for (const key of Object.keys(updates) as Array<keyof TConfig>) {
@@ -163,8 +181,7 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
           | boolean
           | null
           | undefined;
-        const urlValue = valueToUrlString(value ?? null, cfg.type);
-        urlUpdates[key] = urlValue;
+        urlUpdates[key] = valueToSearchValue(value ?? null, cfg.type);
         nextState[key] = (value ??
           cfg.fallbackValue ??
           defaultForType(cfg.type)) as StateFromConfig<TConfig>[typeof key];
