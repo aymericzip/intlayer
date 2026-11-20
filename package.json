@@ -87,7 +87,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "@vitejs/plugin-react": "6.3.0",
-    "bun": "1.4.4",
+    "bun": "1.4.5",
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",
     "husky": "9.1.7",

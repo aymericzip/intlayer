@@ -26,7 +26,7 @@ import { LocaleSwitcherComponent } from '../locale-switcher.component';
       <hr />
 
       <h2>Markdown</h2>
-      <!-- Markdown is returned as a string. You might want to use a markdown parser here -->
+      <!-- md() content is rendered to HTML by the angular-intlayer markdown compiler -->
       <div [innerHTML]="content().markdownContent"></div>
 
       <h2>Enumeration</h2>

@@ -597,7 +597,7 @@ describe('images', () => {
     renderFn(compileMarkdown('![\\-\\<stuff](https://somewhere)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
-      `"<img alt="-<stuff" src="https://somewhere">"`
+      `"<img alt="-&lt;stuff" src="https://somewhere">"`
     );
   });
 
@@ -3169,9 +3169,9 @@ describe('components', () => {
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `
-      "<tabs><tab label="Intlayer >=9.4" value=">=9.4">
+      "<tabs><tab label="Intlayer &gt;=9.4" value="&gt;=9.4">
       <p>recent</p>
-      </tab><tab label="Intlayer <9.4" value="<9.4">
+      </tab><tab label="Intlayer &lt;9.4" value="&lt;9.4">
       <p>legacy</p>
       </tab></tabs>"
     `
@@ -3182,7 +3182,7 @@ describe('components', () => {
     renderFn(compileMarkdown(`<span data-range='a>b'>hi</span>`));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
-      `"<span data-range="a>b">hi</span>"`
+      `"<span data-range="a&gt;b">hi</span>"`
     );
   });
 
