@@ -83,7 +83,7 @@
     "@intlayer/types": "workspace:*",
     "@vue/compiler-sfc": ">=3.0.0",
     "fast-glob": "3.3.3",
-    "magic-string": "1.4.5"
+    "magic-string": "1.4.4"
   },
   "devDependencies": {
     "@types/babel__core": "7.20.5",

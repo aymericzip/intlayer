@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.28.0
 
-FROM oven/bun:1.4.5-alpine AS builder
+FROM oven/bun:1.4.4-alpine AS builder
 
 WORKDIR /workspace
 
@@ -62,7 +62,7 @@ RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
 # Runner — use oven/bun base image to avoid npm install overhead
-FROM oven/bun:1.4.5-alpine AS runner
+FROM oven/bun:1.4.4-alpine AS runner
 
 ENV NODE_ENV=production
 

@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.28.0
 
 
-FROM oven/bun:1.4.5-alpine AS builder
+FROM oven/bun:1.4.4-alpine AS builder
 
 ARG INTLAYER_CLIENT_ID
 ARG VITE_DOMAIN
@@ -90,7 +90,7 @@ RUN --mount=type=secret,id=INTLAYER_CLIENT_SECRET,env=INTLAYER_CLIENT_SECRET \
 # ---------------------------------------------------------
 # Runner Stage
 # ---------------------------------------------------------
-FROM oven/bun:1.4.5-alpine AS runner
+FROM oven/bun:1.4.4-alpine AS runner
 
 WORKDIR /app
 

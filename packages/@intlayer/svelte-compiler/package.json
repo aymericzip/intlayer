@@ -81,7 +81,7 @@
     "@babel/core": "8.1.2",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "magic-string": "1.4.5"
+    "magic-string": "1.4.4"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",

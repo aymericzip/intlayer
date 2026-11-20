@@ -22,7 +22,7 @@
 # ---------------------------------------------------------------------------
 # backend-builder — mirrors apps/backend/Dockerfile build logic
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.5-alpine AS backend-builder
+FROM oven/bun:1.4.4-alpine AS backend-builder
 
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
@@ -97,7 +97,7 @@ RUN rm -rf node_modules \
 # ---------------------------------------------------------------------------
 # app-builder — mirrors apps/app/Dockerfile build logic
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.5-alpine AS app-builder
+FROM oven/bun:1.4.4-alpine AS app-builder
 
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
@@ -171,7 +171,7 @@ RUN bun run build && bun scripts/generate-sw.ts
 # ---------------------------------------------------------------------------
 # backend — standalone API image (target for docker-compose / orchestrators)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.5-alpine AS backend
+FROM oven/bun:1.4.4-alpine AS backend
 
 # System deps for headless Chromium (Puppeteer screenshots)
 RUN apk add --no-cache \
@@ -214,7 +214,7 @@ CMD ["bun", "dist/esm/index.mjs"]
 # ---------------------------------------------------------------------------
 # app — standalone dashboard image (target for docker-compose / orchestrators)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.4.5-alpine AS app
+FROM oven/bun:1.4.4-alpine AS app
 
 ENV NODE_ENV=production \
     PORT=3000 \
