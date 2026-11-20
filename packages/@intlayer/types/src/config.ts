@@ -874,6 +874,8 @@ export type CompilerConfig = {
   /**
    * Indicates if the compiler should be enabled.
    * If 'build-only', the compiler will be skipped during development mode to speed up start times.
+   *
+   * Default: false
    */
   enabled: boolean | 'build-only';
 
