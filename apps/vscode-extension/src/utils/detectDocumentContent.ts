@@ -35,3 +35,19 @@ export const detectDocumentContent = async (
 
   return detectExtractableContent(document.getText(), filePath, configuration);
 };
+
+/**
+ * Whether the compiler of the document's project is on (`compiler.enabled`
+ * `true` or `'build-only'`), i.e. whether it reads `intlayer-ignore` comments.
+ */
+export const isDocumentCompilerEnabled = async (
+  document: TextDocument
+): Promise<boolean> => {
+  const projectDir = findProjectRoot(dirname(document.uri.fsPath));
+
+  if (!projectDir) return false;
+
+  const configuration = await getCachedConfig(projectDir);
+
+  return Boolean(configuration.compiler?.enabled);
+};

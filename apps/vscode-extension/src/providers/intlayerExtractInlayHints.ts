@@ -20,7 +20,10 @@ import {
   onDidChangeConfiguration,
   onDidChangeDictionaries,
 } from '../utils/cacheInvalidation';
-import { detectDocumentContent } from '../utils/detectDocumentContent';
+import {
+  detectDocumentContent,
+  isDocumentCompilerEnabled,
+} from '../utils/detectDocumentContent';
 
 /** Setting turning the end-of-line extract / ignore hints on or off. */
 export const EXTRACT_HINTS_SETTING = 'intlayer.extractHints.enabled';
@@ -33,11 +36,15 @@ const truncate = (text: string): string =>
     ? `${text.slice(0, LABEL_TEXT_LENGTH)}…`
     : text;
 
-/** Hint label: `Extract · Ignore`, prefixed by the text when ambiguous. */
+/**
+ * Hint label: `Extract · Ignore`, prefixed by the text when ambiguous. The
+ * `Ignore` part only shows when the compiler is enabled.
+ */
 const createHintLabel = (
   document: TextDocument,
   content: ExtractableContent,
-  isLineShared: boolean
+  isLineShared: boolean,
+  isCompilerEnabled: boolean
 ): InlayHintLabelPart[] => {
   const reference: ExtractableContentReference = {
     uri: document.uri.toString(),
@@ -54,6 +61,10 @@ const createHintLabel = (
     command: EXTRACT_CONTENT_COMMAND,
     arguments: [reference],
   };
+
+  if (!isCompilerEnabled) {
+    return [new InlayHintLabelPart('⇢ '), extractPart];
+  }
 
   const ignorePart = new InlayHintLabelPart('Ignore');
   ignorePart.tooltip =
@@ -86,9 +97,13 @@ const createProvider = (
     }
 
     let detected: ExtractableContent[];
+    let isCompilerEnabled: boolean;
 
     try {
-      detected = await detectDocumentContent(document);
+      [detected, isCompilerEnabled] = await Promise.all([
+        detectDocumentContent(document),
+        isDocumentCompilerEnabled(document),
+      ]);
     } catch (error) {
       // Configuration being edited, unparsable file: no hints this time
       console.warn('Intlayer: extractable content detection failed', error);
@@ -113,7 +128,12 @@ const createProvider = (
       return lineContent.map((content) => {
         const hint = new InlayHint(
           lineEnd,
-          createHintLabel(document, content, lineContent.length > 1)
+          createHintLabel(
+            document,
+            content,
+            lineContent.length > 1,
+            isCompilerEnabled
+          )
         );
         hint.paddingLeft = true;
 
