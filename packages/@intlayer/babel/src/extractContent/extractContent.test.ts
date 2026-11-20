@@ -437,6 +437,29 @@ export const listTemplates = {
     ]);
   });
 
+  it('should skip inline styles', async () => {
+    const componentPath = join(tmpDir, 'highlight.ts');
+    writeFileSync(
+      componentPath,
+      `
+export const renderHTML = (attributes: { color?: string }) => ({
+  'data-color': attributes.color,
+  style: \`background-color: \${attributes.color}; color: inherit\`,
+  title: 'Highlighted text',
+});
+`
+    );
+
+    let extracted: Record<string, string> = {};
+    await extractContent(componentPath, 'react-intlayer', {
+      onExtract: ({ content }) => {
+        extracted = content;
+      },
+    });
+
+    expect(Object.values(extracted)).toEqual(['Highlighted text']);
+  });
+
   it('should extract JSX insertion when variable expression appears first', async () => {
     const componentPath = join(tmpDir, 'LeadingVarInsertionTest.tsx');
     const componentCode = `

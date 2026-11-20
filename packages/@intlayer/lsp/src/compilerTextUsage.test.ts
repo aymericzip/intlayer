@@ -110,6 +110,30 @@ describe('findCompilerTextSpans', () => {
     }
   });
 
+  it('matches interpolations separated from their text by a line wrap', () => {
+    const source = [
+      '<dd>',
+      "  {source === 'outreach' ? 'GitHub outreach' : 'Prospect'}",
+      '  , first contact {formatDate(acquisition.firstContactAt)}',
+      '</dd>',
+    ].join('\n');
+
+    const start = source.indexOf('{source');
+
+    expect(
+      findCompilerTextSpans(source, '{{value}}, first contact {{formatDate}}')
+    ).toEqual([{ start, end: source.indexOf('\n</dd>') }]);
+  });
+
+  it('matches interpolated expressions holding braces', () => {
+    expect(
+      findCompilerTextSpans(
+        '<p>Sent {format({ date })} ago</p>',
+        'Sent {{format}} ago'
+      )
+    ).toHaveLength(1);
+  });
+
   it('matches whole words only', () => {
     const source = 'const onSave = () => {}; <button>Save</button> Saved';
 

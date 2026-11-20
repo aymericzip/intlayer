@@ -115,6 +115,8 @@ const TECHNICAL_KEYS = new Set<string>([
   'icon',
   'className',
   'class',
+  'style',
+  'cssText',
   'id',
   'type',
   'variant',

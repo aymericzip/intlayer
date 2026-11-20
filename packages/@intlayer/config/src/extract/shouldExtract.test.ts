@@ -239,4 +239,14 @@ describe('shouldExtract', () => {
     expect(shouldExtract('Bearer tokens expire after one hour')).toBe(true);
     expect(shouldExtract('Query the users of this project')).toBe(true);
   });
+
+  it('should return false for inline CSS declarations', () => {
+    expect(shouldExtract('background-color: {{color}}; color: inherit')).toBe(
+      false
+    );
+    expect(shouldExtract('color: inherit;')).toBe(false);
+    expect(shouldExtract('--gap: {{gap}}; display: flex')).toBe(false);
+    expect(shouldExtract('Note: read this first')).toBe(true);
+    expect(shouldExtract('Status: sent; Replies: none yet')).toBe(true);
+  });
 });

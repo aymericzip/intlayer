@@ -30,9 +30,12 @@ export type CompilerTextMatch = OffsetSpan & { field: CompilerTextField };
 /** `{{name}}` placeholders the compiler emits for interpolated expressions. */
 const PLACEHOLDER_PATTERN = /\{\{[^{}]*\}\}/g;
 
-/** Source forms of an interpolation: `{name}`, `${name}`, `{{ name }}`. */
+/**
+ * Source forms of an interpolation: `{name}`, `${name}`, `{{ name }}`, and
+ * expressions holding one level of braces (`{format({ date })}`).
+ */
 const SOURCE_PLACEHOLDER_PATTERN =
-  '(?:\\$\\{[^{}]*\\}|\\{\\{[^{}]*\\}\\}|\\{[^{}]*\\})';
+  '(?:\\$\\{[^{}]*\\}|\\{\\{[^{}]*\\}\\}|\\{(?:[^{}]|\\{[^{}]*\\})*\\})';
 
 const WORD_CHARACTER = /[\p{L}\p{N}_]/u;
 
@@ -164,9 +167,26 @@ const toLiteralPattern = (literal: string): string =>
     )
     .join('');
 
-const REPEATED_SOURCE_WHITESPACE = new RegExp(
-  `(?:${escapeRegularExpression(SOURCE_WHITESPACE_PATTERN)}){2,}`,
+/**
+ * Whitespace around an interpolation, optional: JSX drops the line wraps
+ * between `{expression}` and its text, the compiler stores none.
+ */
+const OPTIONAL_SOURCE_WHITESPACE_PATTERN = `(?:${SOURCE_WHITESPACE_PATTERN})?`;
+
+/** An interpolation in the source, with its surrounding whitespace. */
+const SOURCE_INTERPOLATION_PATTERN = `${OPTIONAL_SOURCE_WHITESPACE_PATTERN}${SOURCE_PLACEHOLDER_PATTERN}${OPTIONAL_SOURCE_WHITESPACE_PATTERN}`;
+
+const REPEATED_OPTIONAL_SOURCE_WHITESPACE = new RegExp(
+  `(?:${escapeRegularExpression(OPTIONAL_SOURCE_WHITESPACE_PATTERN)}){2,}`,
   'g'
+);
+
+const LEADING_OPTIONAL_SOURCE_WHITESPACE = new RegExp(
+  `^${escapeRegularExpression(OPTIONAL_SOURCE_WHITESPACE_PATTERN)}`
+);
+
+const TRAILING_OPTIONAL_SOURCE_WHITESPACE = new RegExp(
+  `${escapeRegularExpression(OPTIONAL_SOURCE_WHITESPACE_PATTERN)}$`
 );
 
 /**
@@ -179,11 +199,25 @@ export const buildCompilerTextPattern = (text: string): RegExp | null => {
 
   if (!literals.some((literal) => literal.trim())) return null;
 
+  const lastLiteralIndex = literals.length - 1;
+
   const body = literals
+    // Whitespace touching a placeholder belongs to the interpolation pattern
+    .map((literal, index) => {
+      const startTrimmed = index > 0 ? literal.trimStart() : literal;
+
+      return index < lastLiteralIndex ? startTrimmed.trimEnd() : startTrimmed;
+    })
     .map(toLiteralPattern)
-    .join(SOURCE_PLACEHOLDER_PATTERN)
+    .join(SOURCE_INTERPOLATION_PATTERN)
     // `{{x}} {{y}}` leaves blank literals between placeholders
-    .replace(REPEATED_SOURCE_WHITESPACE, SOURCE_WHITESPACE_PATTERN);
+    .replace(
+      REPEATED_OPTIONAL_SOURCE_WHITESPACE,
+      OPTIONAL_SOURCE_WHITESPACE_PATTERN
+    )
+    // A text opening or closing on a placeholder spans no outer whitespace
+    .replace(LEADING_OPTIONAL_SOURCE_WHITESPACE, '')
+    .replace(TRAILING_OPTIONAL_SOURCE_WHITESPACE, '');
 
   // Whole words only: `Save` must not match inside `onSave` / `Saved`
   const startBoundary = WORD_CHARACTER.test(trimmedText.charAt(0))

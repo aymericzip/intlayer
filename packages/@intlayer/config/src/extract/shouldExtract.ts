@@ -48,6 +48,9 @@ const USER_AGENT_REGEX = /^Mozilla\/\d/;
 const GRAPHQL_REGEX =
   /^(?:query|mutation|subscription|fragment)\b[^{]*\{|[A-Za-z_]\w*\([^()]*\)\s*\{/;
 
+/** A CSS declaration (`background-color: red`, `--gap: {{x}}`). */
+const CSS_DECLARATION_REGEX = /^(-{0,2}[a-z]+(?:-[a-z]+)*)\s*:\s*([^:;]+)$/;
+
 /** A number with a CSS unit (`200ms`, `1.5rem`, `-2px`, `50%`). */
 const CSS_LENGTH_TOKEN_REGEX =
   /^-?\d*\.?\d+(?:px|r?em|ms|s|%|v[hw]|dv[hw]|deg|fr|ch)$/;
@@ -124,6 +127,24 @@ export const shouldExtract = (text: string): boolean => {
   ) {
     return false;
   }
+
+  // Ignore inline CSS (`background-color: {{color}}; color: inherit`): every
+  // declaration is `property: value`, with a kebab-case property or a
+  // single-token value, so `Note: read this first` stays text
+  const cssDeclarations = trimmed
+    .split(';')
+    .map((declaration) => declaration.trim())
+    .filter(Boolean)
+    .map((declaration) => CSS_DECLARATION_REGEX.exec(declaration));
+  if (
+    cssDeclarations.length > 0 &&
+    cssDeclarations.every(
+      (match) =>
+        match !== null &&
+        (match[1]!.includes('-') || !/\s/.test(match[2]!.trim()))
+    )
+  )
+    return false;
 
   // Ignore CSS (`[data-x]::selection { color: red; }`, `calc(100% + {{x}})`)
   if (
