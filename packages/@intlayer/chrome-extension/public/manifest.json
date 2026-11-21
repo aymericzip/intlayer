@@ -4,7 +4,7 @@
   "version": "9.8.3",
   "description": "Inspect the i18n setup of any website: framework, i18n library, locales, hreflang and SEO tags, plus a full Intlayer audit.",
   "action": {
-    "default_popup": "popup.html",
+    "default_title": "Open Intlayer i18n Scanner",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",
@@ -12,14 +12,34 @@
       "128": "icons/icon-128.png"
     }
   },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "sidebar_action": {
+    "default_panel": "popup.html",
+    "default_title": "Intlayer i18n Scanner",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "open_at_install": false
+  },
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"],
+    "type": "module"
+  },
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "sidePanel"],
   "host_permissions": ["https://back.intlayer.org/*"],
+  "optional_host_permissions": ["<all_urls>"],
   "browser_specific_settings": {
     "gecko": {
       "id": "i18n-scanner@intlayer.org",

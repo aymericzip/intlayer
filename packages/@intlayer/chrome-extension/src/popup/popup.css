@@ -2,6 +2,6 @@
 
 @layer base {
   body {
-    @apply m-0 w-[380px] bg-background text-[13px] text-text antialiased;
+    @apply m-0 min-w-[320px] bg-background text-[13px] text-text antialiased;
   }
 }

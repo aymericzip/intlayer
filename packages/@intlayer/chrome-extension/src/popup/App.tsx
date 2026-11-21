@@ -1,3 +1,4 @@
+import { Button } from '@intlayer/design-system/button';
 import {
   useRemoteMcpTools,
   useWebMCPTools,
@@ -47,15 +48,21 @@ const Section: FunctionComponent<{
   </section>
 );
 
-/** Popup root: local page detection + on-demand backend audit. */
+/** Side panel root: local page detection + on-demand backend audit. */
 export const App: FunctionComponent = () => {
-  const { tabId, tabUrl, detection, isLoading, error } =
+  const { tabId, tabUrl, detection, isLoading, error, requestAllSitesAccess } =
     useActiveTabDetection();
   const scan = useAuditScan();
   const sitemap = useSitemapPages(tabId, tabUrl);
   const { locale, availableLocales, setLocale } = useLocale();
-  const { title, analyzing, sectionTitles, errors, fullReport } =
-    useIntlayer('popup-app');
+  const {
+    title,
+    analyzing,
+    sectionTitles,
+    errors,
+    grantAllSitesAccess,
+    fullReport,
+  } = useIntlayer('popup-app');
 
   // Keeps `<html lang/dir>` in sync, so RTL locales flip the layout.
   useEffect(() => {
@@ -104,7 +111,7 @@ export const App: FunctionComponent = () => {
     : [];
 
   return (
-    <main className="flex max-h-140 flex-col gap-3 overflow-y-auto p-3.5">
+    <main className="flex min-h-screen flex-col gap-3 p-3.5">
       <header className="flex items-center gap-2.5">
         <Logo className="size-5 shrink-0" aria-hidden="true" />
         <div className="min-w-0 flex-1">
@@ -133,6 +140,15 @@ export const App: FunctionComponent = () => {
             <span className="block text-xs text-neutral">{error.detail}</span>
           )}
         </p>
+      )}
+      {error?.code === 'accessRequired' && (
+        <Button
+          label={grantAllSitesAccess.value}
+          isFullWidth
+          onClick={() => void requestAllSitesAccess()}
+        >
+          {grantAllSitesAccess}
+        </Button>
       )}
 
       {detection && (
@@ -168,7 +184,7 @@ export const App: FunctionComponent = () => {
         </>
       )}
 
-      <footer className="pb-0.5 text-center">
+      <footer className="mt-auto pb-0.5 text-center">
         <Link
           href={getScannerPageUrl(tabUrl)}
           label={fullReport.value}

@@ -22,10 +22,14 @@ i18n/SEO audit through the backend.
 
 ## How it works
 
-- The popup injects a fully self-contained detector function into the page's
+- Clicking the toolbar icon opens the scanner in the browser sidebar (Chrome
+  `side_panel`, Firefox `sidebar_action`). The sidebar stays open and follows
+  the active tab.
+- The sidebar injects a fully self-contained detector function into the page's
   MAIN world via `chrome.scripting.executeScript`, so page globals such as
-  `__NEXT_DATA__` or `window.i18next` are visible. Only `activeTab` +
-  `scripting` permissions are required — no broad host access.
+  `__NEXT_DATA__` or `window.i18next` are visible. `activeTab` covers the tab
+  the icon was clicked on; inspecting other tabs needs the optional
+  `<all_urls>` host permission, requested from the sidebar on demand.
 - The full audit calls `https://back.intlayer.org/api/scan?url=…`
   (`host_permissions` covers CORS).
 

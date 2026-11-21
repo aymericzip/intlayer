@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
 
 /**
- * Builds the extension popup (Preact) into `dist/`.
+ * Builds the extension side panel (Preact) and background worker into `dist/`.
  *
  * The `public/` directory (manifest.json + icons) is copied verbatim to the
  * `dist/` root, so `dist/` can be loaded directly as an unpacked extension.
@@ -18,6 +18,17 @@ export default defineConfig({
     rollupOptions: {
       input: {
         popup: resolve(import.meta.dirname, 'popup.html'),
+        background: resolve(
+          import.meta.dirname,
+          'src/background/background.ts'
+        ),
+      },
+      output: {
+        // The manifest references the background worker by a fixed name.
+        entryFileNames: (chunk) =>
+          chunk.name === 'background'
+            ? 'background.js'
+            : 'assets/[name]-[hash].js',
       },
     },
   },

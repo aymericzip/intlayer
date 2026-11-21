@@ -41,10 +41,15 @@ The build output is in `packages/@intlayer/chrome-extension/dist/`, and
 
 ## Notes
 
-- **No remote code.** Everything the popup runs is bundled into
-  `assets/popup-*.js`. `chrome.scripting.executeScript` only injects the
-  bundled `detectPage` function (`src/detector/detectPage.ts`) into the active
-  tab, and only after the user opens the popup (`activeTab`).
+- **No remote code.** Everything the sidebar runs is bundled into
+  `assets/popup-*.js`; `background.js` only opens the sidebar on toolbar click
+  (`src/background/background.ts`). `chrome.scripting.executeScript` only
+  injects the bundled `collectPageSignals` function
+  (`src/detector/collectPageSignals.ts`) into the active tab, while the sidebar
+  is open.
+- **Host access.** `activeTab` covers the tab the toolbar icon was clicked on.
+  `<all_urls>` is an _optional_ host permission, requested only when the user
+  clicks **Allow access to all sites**, so the sidebar can follow tab switches.
 - **Network.** There are two kinds of request, and both start when the user acts:
   - The **Run full audit** button sends the active tab URL to
     `https://back.intlayer.org/api/scan` (`src/scan/scanClient.ts`). This is
