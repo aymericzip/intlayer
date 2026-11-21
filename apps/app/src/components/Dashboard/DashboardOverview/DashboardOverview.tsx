@@ -22,6 +22,7 @@ import {
   KeyRound,
   Languages,
   MessageSquare,
+  Plus,
   ScanLine,
   Sparkles,
   Users,
@@ -71,7 +72,9 @@ type ConfigChipProps = {
   icon: ReactNode;
   label: ReactNode;
   value: ReactNode;
-  tone?: 'text' | 'neutral' | 'warning';
+  tone?: 'text' | 'neutral' | 'warning' | 'success';
+  to: string;
+  className?: string;
 };
 
 /** A compact team/configuration status chip. */
@@ -80,28 +83,107 @@ const ConfigChip: FC<ConfigChipProps> = ({
   label,
   value,
   tone = 'neutral',
+  to,
+  className,
 }) => (
   <Container
-    className="flex items-center gap-3 p-3"
-    roundedSize="2xl"
+    className={cn('bg-accent/50 p-2', className)}
+    roundedSize="xl"
     transparency="none"
     border
     borderColor={tone === 'text' ? 'text' : 'neutral'}
   >
-    <span
-      className={cn(
-        'flex size-8 shrink-0 items-center justify-center rounded-lg',
-        tone === 'text' && 'bg-text/10 text-text',
-        tone === 'warning' && 'bg-warning/10 text-warning',
-        tone === 'neutral' && 'bg-neutral/10 text-neutral'
-      )}
-    >
-      {icon}
-    </span>
-    <span className="flex min-w-0 flex-col">
-      <span className="truncate text-xs text-neutral">{label}</span>
-      <span className="truncate text-sm font-medium text-text">{value}</span>
-    </span>
+    <Link to={to} label="" className="flex flex-row items-center gap-3">
+      <span
+        className={cn(
+          'flex size-8 shrink-0 items-center justify-center rounded-lg',
+          tone === 'text' && 'text-text',
+          tone === 'warning' && 'text-warning',
+          tone === 'neutral' && 'text-neutral'
+        )}
+      >
+        {icon}
+      </span>
+      <span className="flex min-w-0 flex-row items-center">
+        <span className="truncate text-sm">{label}</span>
+        <div className="mx-2 size-1 rounded-full bg-muted-foreground"></div>
+        <span className="truncate text-sm font-medium text-muted-foreground">
+          {value}
+        </span>
+      </span>
+      <div className="flex-1" />
+      <div className="flex items-center">
+        <div
+          className={cn(
+            'mx-2.5 size-2 rounded-full bg-muted-foreground',
+            tone === 'warning' && 'bg-warning',
+            tone === 'success' && 'bg-success'
+          )}
+        ></div>
+        <span
+          className={cn(
+            'flex size-7 shrink-0 items-center justify-center rounded-lg border bg-accent',
+            tone === 'text' && 'text-text'
+          )}
+        >
+          <Plus className="size-4" />
+        </span>
+      </div>
+    </Link>
+  </Container>
+);
+
+const ConfigChipWide: FC<ConfigChipProps> = ({
+  icon,
+  label,
+  value,
+  tone = 'neutral',
+  to,
+  className,
+}) => (
+  <Container
+    className={cn('bg-accent/50 p-2', className)}
+    roundedSize="xl"
+    transparency="none"
+    border
+    borderColor={tone === 'text' ? 'text' : 'neutral'}
+  >
+    <Link to={to} label="" className="flex flex-col gap-2">
+      <div className="flex flex-row gap-3">
+        <span
+          className={cn(
+            'flex size-8 shrink-0 items-center justify-center rounded-lg',
+            tone === 'text' && 'text-text',
+            tone === 'warning' && 'text-warning',
+            tone === 'neutral' && 'text-neutral'
+          )}
+        >
+          {icon}
+        </span>
+        <span className="flex min-w-0 flex-row items-center">
+          <span className="truncate text-sm">{label}</span>
+        </span>
+        <div className="flex-1" />
+        <div className="flex items-center">
+          <div
+            className={cn(
+              'mx-2.5 size-2 rounded-full bg-muted-foreground',
+              tone === 'warning' && 'bg-warning',
+              tone === 'success' && 'bg-success'
+            )}
+          ></div>
+          <span
+            className={cn(
+              'flex size-7 shrink-0 items-center justify-center rounded-lg border bg-accent',
+              tone === 'text' && 'text-text'
+            )}
+          >
+            <Plus className="size-4" />
+          </span>
+        </div>
+      </div>
+      <span className="truncate pl-2 text-3xl font-medium">{value}</span>
+    </Link>
   </Container>
 );
 
@@ -465,37 +547,43 @@ export const DashboardOverview: FC = () => {
             {content.teamAndConfig}
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <ConfigChip
+            <ConfigChipWide
+              to={'/organization'}
               icon={<Users className="size-4" />}
               label={content.members}
               value={insights.memberCount}
             />
-            <ConfigChip
+            <ConfigChipWide
+              to={'/translate'}
               icon={<Languages className="size-4" />}
               label={content.environments}
               value={insights.environmentCount}
             />
             <ConfigChip
+              to={'/projects'}
               icon={<Sparkles className="size-4" />}
               label={content.autoFill}
               value={insights.autoFill ? content.enabled : content.disabled}
               tone={insights.autoFill ? 'text' : 'neutral'}
             />
             <ConfigChip
+              to={'/projects'}
               icon={<Sparkles className="size-4" />}
               label={content.aiAssistant}
               value={
                 insights.aiConfigured ? content.enabled : content.notConfigured
               }
-              tone={insights.aiConfigured ? 'text' : 'warning'}
+              tone={insights.aiConfigured ? 'success' : 'warning'}
             />
             <ConfigChip
+              to={'/projects'}
               icon={<GitBranch className="size-4" />}
               label={content.repository}
               value={insights.repositoryProvider ?? content.notConnected}
-              tone={insights.repositoryProvider ? 'text' : 'neutral'}
+              tone={insights.repositoryProvider ? 'success' : 'neutral'}
             />
             <ConfigChip
+              to={'/scanner'}
               icon={<ScanLine className="size-4" />}
               label={content.scanner}
               value={
@@ -503,7 +591,7 @@ export const DashboardOverview: FC = () => {
                   ? content.enabled
                   : content.notConfigured
               }
-              tone={insights.applicationURL ? 'text' : 'neutral'}
+              tone={insights.applicationURL ? 'success' : 'neutral'}
             />
           </div>
         </Container>
