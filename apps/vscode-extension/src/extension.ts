@@ -64,6 +64,7 @@ import { intlayerDefinitionProvider } from './providers/intlayerDefinitionProvid
 import { intlayerExtractInlayHintsProvider } from './providers/intlayerExtractInlayHints';
 import { intlayerHoverProvider } from './providers/intlayerHoverProvider';
 import { intlayerUnusedDecorationProvider } from './providers/intlayerUnusedDecoration';
+import { intlayerUpgradeInlayHintsProvider } from './providers/intlayerUpgradeInlayHints';
 import { remoteDictionaryContentProvider } from './providers/remoteDictionaryContentProvider';
 import {
   invalidateConfigurationCaches,
@@ -129,7 +130,9 @@ const registerLanguageProviders = (context: ExtensionContext): void => {
     ...intlayerDecorationProvider(),
     ...intlayerUnusedDecorationProvider(),
     // End-of-line `Extract · Ignore` hints on hardcoded component strings
-    ...intlayerExtractInlayHintsProvider()
+    ...intlayerExtractInlayHintsProvider(),
+    // End-of-line `upgrade → ^x.y.z` hints on outdated Intlayer dependencies
+    ...intlayerUpgradeInlayHintsProvider()
   );
 };
 
