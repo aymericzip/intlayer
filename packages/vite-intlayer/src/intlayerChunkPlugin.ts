@@ -225,6 +225,9 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
                   codeSplitting: {
                     groups: [
                       {
+                        // `name` is a function, so Rolldown needs a static
+                        // label for its bundler timing report.
+                        debugName: 'intlayer-dictionaries',
                         name: (moduleId: string, context: ChunkingContext) => {
                           const dictionary = parseDictionaryModule(moduleId);
                           if (!dictionary) return null;

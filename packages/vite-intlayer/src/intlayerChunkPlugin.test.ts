@@ -240,4 +240,30 @@ describe('intlayerChunk', () => {
 
     expect(applyOption({}, { command: 'serve' })).toBe(false);
   });
+
+  it('labels its function-named group for the Rolldown timing report', () => {
+    const plugin = intlayerChunk(createConfig(true));
+    const configHook = plugin.config as () => {
+      environments: {
+        client: {
+          build: {
+            rolldownOptions: {
+              output: {
+                codeSplitting: {
+                  groups: { debugName?: string; name: unknown }[];
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+
+    const [group] =
+      configHook().environments.client.build.rolldownOptions.output
+        .codeSplitting.groups;
+
+    expect(typeof group?.name).toBe('function');
+    expect(group?.debugName).toBe('intlayer-dictionaries');
+  });
 });
