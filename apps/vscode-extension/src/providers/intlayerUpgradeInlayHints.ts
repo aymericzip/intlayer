@@ -1,3 +1,4 @@
+import { dirname } from 'node:path';
 import {
   type CancellationToken,
   commands,
@@ -18,64 +19,78 @@ import {
   getLatestIntlayerVersions,
   type OutdatedIntlayerDependency,
 } from '../utils/intlayerDependencyUpgrades';
+import { runPackageInstallInTerminal } from '../utils/runIntlayerCli';
 
 /** Setting turning the `package.json` upgrade hints on or off. */
 export const UPGRADE_HINTS_SETTING = 'intlayer.upgradeHints.enabled';
 
-/** Command rewriting one dependency range to its `latest` version. */
+/**
+ * Command rewriting every outdated Intlayer dependency of a `package.json` to
+ * its `latest` version, so all Intlayer packages stay aligned.
+ */
 export const UPGRADE_DEPENDENCY_COMMAND = 'intlayer.upgradeDependency';
 
 /** Argument of {@link UPGRADE_DEPENDENCY_COMMAND}. */
 type UpgradeDependencyReference = {
   uri: string;
-  packageName: string;
-  currentRange: string;
-  nextRange: string;
-  rangeStartOffset: number;
 };
 
 /**
- * Rewrites a dependency range in its `package.json` (as an undoable editor
- * edit), unless the file changed since the hint was computed.
+ * Rewrites every outdated Intlayer dependency range of a `package.json` in a
+ * single editor edit, saves the file and runs the package manager install to
+ * update the lock file. Ranges are recomputed from the current text so edits
+ * made since the hint was rendered are respected.
  */
-const upgradeDependency = async ({
+const upgradeIntlayerDependencies = async ({
   uri,
-  currentRange,
-  nextRange,
-  rangeStartOffset,
 }: UpgradeDependencyReference): Promise<void> => {
   const document = await workspace.openTextDocument(Uri.parse(uri));
-  const range = new Range(
-    document.positionAt(rangeStartOffset),
-    document.positionAt(rangeStartOffset + currentRange.length)
+  const latestVersions = await getLatestIntlayerVersions(document.getText());
+  const outdatedDependencies = findOutdatedIntlayerDependencies(
+    document.getText(),
+    latestVersions
   );
 
-  if (document.getText(range) !== currentRange) return;
+  if (outdatedDependencies.length === 0) return;
 
   const edit = new WorkspaceEdit();
-  edit.replace(document.uri, range, nextRange);
 
-  await workspace.applyEdit(edit);
+  for (const dependency of outdatedDependencies) {
+    edit.replace(
+      document.uri,
+      new Range(
+        document.positionAt(dependency.rangeStartOffset),
+        document.positionAt(dependency.rangeEndOffset)
+      ),
+      dependency.nextRange
+    );
+  }
+
+  if (!(await workspace.applyEdit(edit))) return;
+
+  // The install reads the file from disk
+  if (!(await document.save())) return;
+
+  runPackageInstallInTerminal(dirname(document.uri.fsPath));
 };
 
 const createHint = (
   document: TextDocument,
-  dependency: OutdatedIntlayerDependency
+  dependency: OutdatedIntlayerDependency,
+  outdatedDependencyCount: number
 ): InlayHint => {
   const reference: UpgradeDependencyReference = {
     uri: document.uri.toString(),
-    packageName: dependency.packageName,
-    currentRange: dependency.currentRange,
-    nextRange: dependency.nextRange,
-    rangeStartOffset: dependency.rangeStartOffset,
   };
 
   const upgradePart = new InlayHintLabelPart(
-    `upgrade → ${dependency.nextRange}`
+    outdatedDependencyCount > 1
+      ? `upgrade all → ${dependency.nextRange}`
+      : `upgrade → ${dependency.nextRange}`
   );
-  upgradePart.tooltip = `Upgrade ${dependency.packageName} from ${dependency.currentRange} to ${dependency.nextRange} (latest). Run your package manager's install afterwards, or \`intlayer upgrade\` to upgrade every Intlayer package at once.`;
+  upgradePart.tooltip = `Upgrade every outdated Intlayer package of this package.json to its latest version (${dependency.packageName}: ${dependency.currentRange} → ${dependency.nextRange}), keeping them aligned, then run your package manager's install to update the lock file. Use \`intlayer upgrade\` to upgrade every package.json of the project.`;
   upgradePart.command = {
-    title: 'Upgrade',
+    title: 'Upgrade Intlayer packages',
     command: UPGRADE_DEPENDENCY_COMMAND,
     arguments: [reference],
   };
@@ -109,11 +124,18 @@ const createProvider = (
     if (token.isCancellationRequested) return [];
 
     // The text may have changed while the versions were fetched
-    return findOutdatedIntlayerDependencies(document.getText(), latestVersions)
+    const outdatedDependencies = findOutdatedIntlayerDependencies(
+      document.getText(),
+      latestVersions
+    );
+
+    return outdatedDependencies
       .filter((dependency) =>
         range.contains(document.positionAt(dependency.rangeStartOffset))
       )
-      .map((dependency) => createHint(document, dependency));
+      .map((dependency) =>
+        createHint(document, dependency, outdatedDependencies.length)
+      );
   },
 });
 
@@ -133,7 +155,10 @@ export const intlayerUpgradeInlayHintsProvider = (): Disposable[] => {
       ],
       createProvider(changeEmitter.event)
     ),
-    commands.registerCommand(UPGRADE_DEPENDENCY_COMMAND, upgradeDependency),
+    commands.registerCommand(
+      UPGRADE_DEPENDENCY_COMMAND,
+      upgradeIntlayerDependencies
+    ),
     workspace.onDidChangeConfiguration((event) => {
       if (event.affectsConfiguration(UPGRADE_HINTS_SETTING)) {
         changeEmitter.fire();

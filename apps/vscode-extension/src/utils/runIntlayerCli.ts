@@ -101,3 +101,22 @@ export const runIntlayerCliInTerminal = (
 
   return terminal;
 };
+
+/**
+ * Runs the package manager install in a new integrated terminal, from the
+ * workspace root holding the lock file, so edited `package.json` ranges are
+ * resolved and the lock file updated (as `intlayer upgrade` does).
+ */
+export const runPackageInstallInTerminal = (projectDir: string): Terminal => {
+  const installDir = findLockFileDir(projectDir) ?? projectDir;
+  const packageManager = detectPackageManager(installDir);
+  const terminal = window.createTerminal({
+    name: 'Intlayer install',
+    cwd: installDir,
+  });
+
+  terminal.show();
+  terminal.sendText(`${packageManager} install`);
+
+  return terminal;
+};
