@@ -1,6 +1,6 @@
 {
   "name": "htmx-app",
-  "version": "9.8.3",
+  "version": "9.8.4",
   "private": true,
   "type": "module",
   "scripts": {
