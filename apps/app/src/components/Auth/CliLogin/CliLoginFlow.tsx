@@ -21,11 +21,29 @@ import { AccessKeyCreationForm } from '#components/Dashboard/ProjectForm/AccessK
 import { ProjectList } from '#components/Dashboard/ProjectForm/ProjectList';
 import { SignInForm } from '../SignIn';
 import { CliAccountSelector } from './CliAccountSelector';
+import { CliProjectQuickCreate } from './CliProjectQuickCreate';
 
 type CliLoginFlowProps = {
   port?: string;
   state?: string;
   backendUrl?: string;
+  /** Project name suggested by the CLI for the folder it runs in */
+  projectName?: string;
+};
+
+/**
+ * Appends the flag asking the CLI to load its local configuration into the
+ * selected project, when that project has none yet (ex: just created).
+ */
+const withConfigurationPushFlag = (
+  searchParams: URLSearchParams,
+  shouldPushConfiguration: boolean
+): URLSearchParams => {
+  if (shouldPushConfiguration) {
+    searchParams.set('pushConfiguration', 'true');
+  }
+
+  return searchParams;
 };
 
 const AccessKeySelector: FC<{
@@ -160,7 +178,8 @@ const SessionAuthSelector: FC<{
   port: string;
   state?: string;
   backendUrl?: string;
-}> = ({ port, state, backendUrl }) => {
+  shouldPushConfiguration: boolean;
+}> = ({ port, state, backendUrl, shouldPushConfiguration }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -185,7 +204,16 @@ const SessionAuthSelector: FC<{
         return;
       }
 
-      window.location.href = `http://localhost:${port}/callback?sessionToken=${encodeURIComponent(token)}&expiresAt=${encodeURIComponent(new Date(expiresAt).toISOString())}&state=${state ?? ''}`;
+      const callbackSearchParams = withConfigurationPushFlag(
+        new URLSearchParams({
+          sessionToken: token,
+          expiresAt: new Date(expiresAt).toISOString(),
+          state: state ?? '',
+        }),
+        shouldPushConfiguration
+      );
+
+      window.location.href = `http://localhost:${port}/callback?${callbackSearchParams.toString()}`;
     } catch {
       setError(sessionAuthSelector.error.value);
     } finally {
@@ -237,6 +265,7 @@ const buildCallbackUrl = ({
   port,
   state,
   backendUrl,
+  projectName,
 }: CliLoginFlowProps): string | undefined => {
   if (typeof window === 'undefined') return undefined;
 
@@ -244,6 +273,7 @@ const buildCallbackUrl = ({
   if (port) searchParams.set('port', port);
   if (state) searchParams.set('state', state);
   if (backendUrl) searchParams.set('backendUrl', backendUrl);
+  if (projectName) searchParams.set('projectName', projectName);
 
   return `${window.location.pathname}?${searchParams.toString()}`;
 };
@@ -252,6 +282,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
   port,
   state,
   backendUrl,
+  projectName,
 }) => {
   const { session } = useSession();
   const { mutate: selectOrganization } = useSelectOrganization();
@@ -261,6 +292,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
     selectProject: selectProjectText,
     context,
     accountSelector,
+    quickCreateProject,
   } = useIntlayer('cli-login-flow');
 
   const userId = session?.user ? String(session.user.id) : undefined;
@@ -301,7 +333,16 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
     }
   }, [signInFromSessionId, sessionId, userId]);
 
-  const callbackUrl = buildCallbackUrl({ port, state, backendUrl });
+  const callbackUrl = buildCallbackUrl({
+    port,
+    state,
+    backendUrl,
+    projectName,
+  });
+
+  const projectConfiguration = session?.project?.configuration;
+  const shouldPushConfiguration =
+    !projectConfiguration || Object.keys(projectConfiguration).length === 0;
 
   const isLoading = session === undefined || hasLandedWithSession === null;
 
@@ -330,7 +371,16 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
 
     // Redirect the browser to the local CLI server to complete the login
     // This avoids CORS issues and ensures the CLI receives the credentials
-    window.location.href = `http://localhost:${port}/callback?clientId=${key.clientId}&clientSecret=${key.clientSecret}&state=${state}`;
+    const callbackSearchParams = withConfigurationPushFlag(
+      new URLSearchParams({
+        clientId: key.clientId,
+        clientSecret: key.clientSecret,
+        state: state ?? '',
+      }),
+      shouldPushConfiguration
+    );
+
+    window.location.href = `http://localhost:${port}/callback?${callbackSearchParams.toString()}`;
   };
 
   if (!port) {
@@ -408,6 +458,14 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
             {currentStep === 'project' && (
               <div className="flex flex-col gap-5">
                 <H2>{selectProjectText}</H2>
+                {projectName && (
+                  <>
+                    <CliProjectQuickCreate projectName={projectName} />
+                    <span className="text-sm text-neutral">
+                      {quickCreateProject.orPickExisting}
+                    </span>
+                  </>
+                )}
                 <ProjectList />
               </div>
             )}
@@ -418,6 +476,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
                     port={port}
                     state={state}
                     backendUrl={backendUrl}
+                    shouldPushConfiguration={shouldPushConfiguration}
                   />
                 </div>
                 <div className="flex w-full flex-row pt-4">

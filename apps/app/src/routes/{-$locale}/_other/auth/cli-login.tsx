@@ -12,12 +12,23 @@ export const Route = createFileRoute('/{-$locale}/_other/auth/cli-login')({
     state: typeof search.state === 'string' ? search.state : undefined,
     backendUrl:
       typeof search.backendUrl === 'string' ? search.backendUrl : undefined,
+    projectName:
+      typeof search.projectName === 'string' && search.projectName.trim()
+        ? search.projectName
+        : undefined,
   }),
   component: CliLoginPage,
 });
 
 function CliLoginPage() {
-  const { port, state, backendUrl } = Route.useSearch();
+  const { port, state, backendUrl, projectName } = Route.useSearch();
 
-  return <CliLoginFlow port={port} state={state} backendUrl={backendUrl} />;
+  return (
+    <CliLoginFlow
+      port={port}
+      state={state}
+      backendUrl={backendUrl}
+      projectName={projectName}
+    />
+  );
 }

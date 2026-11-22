@@ -1,5 +1,6 @@
 import http from 'node:http';
 import { URL } from 'node:url';
+import { getIntlayerAPIProxy } from '@intlayer/api';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
@@ -7,8 +8,12 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { logConfigDetails } from '@intlayer/engine/cli';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { detectGitRepository } from '../utils/detectGitRepository';
+import { getLocalProjectName } from '../utils/getLocalProjectName';
 import { openBrowser } from '../utils/openBrowser';
 import { writeCliSessionToken } from './sessionToken';
+import { getRepositorySearchParams } from './setupRepository';
 
 const buildSuccessHtml = (message: string): string => `
   <!DOCTYPE html>
@@ -89,6 +94,55 @@ type LoginOptions = {
   signal?: AbortSignal;
 };
 
+type LoginAuthentication =
+  | { sessionToken: string }
+  | { clientId: string; clientSecret: string };
+
+/**
+ * Loads the local configuration into the CMS project the browser just
+ * created, so it does not start empty. Failures only warn: the login itself
+ * succeeded and `intlayer push` can be run later.
+ */
+const pushLocalConfiguration = async (
+  configuration: IntlayerConfig,
+  authentication: LoginAuthentication,
+  logger: ReturnType<typeof getAppLogger>
+): Promise<void> => {
+  logger('Loading your local configuration into the new CMS project...');
+
+  try {
+    const intlayerAPI =
+      'sessionToken' in authentication
+        ? getIntlayerAPIProxy(
+            undefined,
+            configuration,
+            authentication.sessionToken
+          )
+        : getIntlayerAPIProxy(undefined, {
+            ...configuration,
+            editor: {
+              ...configuration.editor,
+              clientId: authentication.clientId,
+              clientSecret: authentication.clientSecret,
+            },
+          });
+
+    const result =
+      await intlayerAPI.project.pushProjectConfiguration(configuration);
+
+    if (!result.data) throw new Error('empty response');
+
+    logger('Local configuration loaded into the CMS project.');
+  } catch (error) {
+    logger(
+      `Could not load the local configuration (${
+        error instanceof Error ? error.message : String(error)
+      }). Run ${colorize('npx intlayer config push', ANSIColors.CYAN)} to retry.`,
+      { level: 'warn' }
+    );
+  }
+};
+
 export const login = async (options: LoginOptions = {}) => {
   const configuration = getConfiguration(options.configOptions);
   logConfigDetails(options?.configOptions);
@@ -141,6 +195,10 @@ export const login = async (options: LoginOptions = {}) => {
         const sessionExpiresAt = url.searchParams.get('expiresAt');
         const clientId = url.searchParams.get('clientId');
         const clientSecret = url.searchParams.get('clientSecret');
+        // Set by the browser when the selected project has no configuration
+        // yet (ex: it was just created during this login)
+        const shouldPushConfiguration =
+          url.searchParams.get('pushConfiguration') === 'true';
 
         if (sessionToken && sessionExpiresAt) {
           logger('');
@@ -161,6 +219,14 @@ export const login = async (options: LoginOptions = {}) => {
             sessionToken,
             new Date(sessionExpiresAt)
           );
+
+          if (shouldPushConfiguration) {
+            await pushLocalConfiguration(
+              configuration,
+              { sessionToken },
+              logger
+            );
+          }
 
           if (options.onCredentials) {
             logger(
@@ -243,6 +309,14 @@ export const login = async (options: LoginOptions = {}) => {
             );
           }
 
+          if (shouldPushConfiguration) {
+            await pushLocalConfiguration(
+              configuration,
+              { clientId, clientSecret },
+              logger
+            );
+          }
+
           completeLogin(
             res,
             'You have successfully logged in to Intlayer CLI. You can now close this tab and return to your terminal.'
@@ -281,7 +355,20 @@ export const login = async (options: LoginOptions = {}) => {
       const websiteUrl =
         cmsUrl ?? process.env.INTLAYER_SITE_URL ?? 'http://localhost:3000';
       const backendUrl = configuration.editor.backendURL ?? '';
-      const loginUrl = `${websiteUrl}/auth/cli-login?port=${port}&state=${state}&backendUrl=${encodeURIComponent(backendUrl)}`;
+      // Lets the page offer a one-click project for this local repository
+      const { baseDir } = configuration.system;
+      const detectedRepository = detectGitRepository(baseDir);
+      const searchParams = getRepositorySearchParams(detectedRepository);
+
+      searchParams.set('port', String(port));
+      searchParams.set('state', state);
+      searchParams.set('backendUrl', backendUrl);
+      searchParams.set(
+        'projectName',
+        getLocalProjectName(baseDir, detectedRepository?.repository)
+      );
+
+      const loginUrl = `${websiteUrl}/auth/cli-login?${searchParams.toString()}`;
 
       logger('Opening browser for login...');
       logger(`If browser does not open, visit: ${colorizePath(loginUrl)}`);

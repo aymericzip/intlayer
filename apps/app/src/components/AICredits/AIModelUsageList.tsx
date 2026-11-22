@@ -33,7 +33,7 @@ export const AIModelUsageList: FC<AIModelUsageListProps> = ({
   if (modelUsages.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <h4 className="text-sm font-medium text-text">{title}</h4>
       <ul className="flex flex-col gap-2">
         {modelUsages.map((modelUsage) => (
