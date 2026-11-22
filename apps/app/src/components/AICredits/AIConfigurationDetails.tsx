@@ -54,9 +54,9 @@ export const AIConfigurationDetails: FC = () => {
     : (aiConfiguration?.provider ?? intlayerDefault);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <h4 className="text-sm font-medium text-text">{title}</h4>
-      <dl className="flex flex-col gap-1">
+      <dl className="flex flex-col gap-2">
         <DetailRow label={provider} value={providerLabel} />
         <DetailRow
           label={model}

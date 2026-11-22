@@ -121,7 +121,7 @@ export const AICreditsQuotaDropdown: FC = () => {
           padding="lg"
           transparency="none"
           roundedSize="2xl"
-          className="w-80 max-w-[calc(100vw-2rem)] gap-4 border border-text/10"
+          className="w-80 max-w-[calc(100vw-2rem)] gap-8 border border-text/10"
         >
           <span className="flex items-center gap-2 font-semibold">
             <Sparkles className="size-4" />

@@ -24,8 +24,8 @@ export const AIUsageSection: FC<AIUsageSectionProps> = ({
   action,
   children,
 }) => (
-  <section className="flex flex-col gap-3">
-    <div className="flex items-center justify-between gap-3 border-b border-text/10 pb-1">
+  <section className="flex flex-col gap-5">
+    <div className="flex items-center justify-between gap-3 border-b border-text/10 pb-2">
       <h3 className="text-xs font-semibold tracking-wide text-neutral uppercase">
         {title}
       </h3>
@@ -143,7 +143,7 @@ export const PersonalAIUsageSection: FC<PersonalAIUsageSectionProps> = ({
 
       <div
         className={cn(
-          'flex flex-col gap-4 transition-opacity',
+          'flex flex-col gap-5 transition-opacity',
           !isOwnKeyActive && 'opacity-50'
         )}
       >

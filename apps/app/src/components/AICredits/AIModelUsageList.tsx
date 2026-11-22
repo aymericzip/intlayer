@@ -33,13 +33,13 @@ export const AIModelUsageList: FC<AIModelUsageListProps> = ({
   if (modelUsages.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <h4 className="text-sm font-medium text-text">{title}</h4>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-3">
         {modelUsages.map((modelUsage) => (
           <li
             key={`${modelUsage.provider}-${modelUsage.model}-${modelUsage.isOwnKey}`}
-            className="flex flex-col gap-0.5 text-xs"
+            className="flex flex-col gap-1 text-xs"
           >
             <div className="flex items-center justify-between gap-2">
               <span className="min-w-0 truncate font-mono text-text" dir="ltr">
