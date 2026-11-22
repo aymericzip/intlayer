@@ -3,6 +3,7 @@ import { SessionModel } from '@schemas/session.schema';
 import { sendEmail } from '@services/email.service';
 import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
+import { setActiveSessionContext } from '@services/session.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -151,7 +152,7 @@ export const addOrganization = async (
   request: FastifyRequest<{ Body: AddOrganizationBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user } = request.session || {};
+  const { user, session } = request.session || {};
   const organization = request.body;
 
   if (!organization) {
@@ -170,6 +171,17 @@ export const addOrganization = async (
       organization,
       user.id
     );
+
+    // A freshly created organization becomes the active one, saving the
+    // client a follow-up select round trip.
+    if (session?.id) {
+      await setActiveSessionContext({
+        sessionId: session.id,
+        userId: user.id,
+        organizationId: String(newOrganization.id),
+        projectId: null,
+      });
+    }
 
     const responseData = formatResponse<OrganizationAPI>({
       message: t({

@@ -12,6 +12,7 @@ import { BuildSettings } from './BuildSettings/BuildSettings';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
 import { EnvironmentsForm } from './Environments/EnvironmentsForm';
+import { GitImportPrompt } from './GitImportPrompt';
 import { MembersForm } from './Members/MembersKeyForm';
 import { OpenRouterSettings } from './OpenRouter';
 import { ProjectDetailsSkeleton } from './ProjectDetailsSkeleton';
@@ -151,6 +152,18 @@ export const ProjectFormContent: FC = () => {
             </div>
           )}
         </Container>
+
+        {isProjectAdmin && !project.repository && (
+          <Container
+            roundedSize="3xl"
+            padding="lg"
+            border
+            borderColor="neutral"
+            className="w-full"
+          >
+            <GitImportPrompt mode="connect" />
+          </Container>
+        )}
 
         <div className="relative grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
           <div className="top-20 mb-auto flex min-w-0 flex-col gap-4 md:sticky">

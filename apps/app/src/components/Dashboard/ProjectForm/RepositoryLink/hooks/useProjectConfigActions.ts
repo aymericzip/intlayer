@@ -1,5 +1,6 @@
 import type { RepositoryConnection } from '@intlayer/backend-contract/project';
 import {
+  useAddProject,
   usePushProjectConfiguration,
   useSession,
   useUpdateProject,
@@ -27,8 +28,13 @@ export const useProjectConfigActions = () => {
   const { toast } = useToast();
   const content = useIntlayer('repository-link');
 
-  const { mutate: updateProject, isPending: isUpdatingProjectRepository } =
-    useUpdateProject();
+  const {
+    mutate: updateProject,
+    mutateAsync: updateProjectAsync,
+    isPending: isUpdatingProjectRepository,
+  } = useUpdateProject();
+  const { mutateAsync: addProject, isPending: isAddingProject } =
+    useAddProject();
   const {
     mutateAsync: pushProjectConfiguration,
     isPending: isPushingConfiguration,
@@ -148,7 +154,7 @@ export const useProjectConfigActions = () => {
     configPreview: ConfigPreviewState,
     onSuccess?: () => void
   ) => {
-    if (!configPreview || !project?.id) return;
+    if (!configPreview) return;
 
     const { repo, configPath, content: fileContent } = configPreview;
 
@@ -177,7 +183,21 @@ export const useProjectConfigActions = () => {
 
     const parsedConfig = await parseConfig(fileContent);
 
-    await updateProject({ repository: repositoryData });
+    if (!project?.id) {
+      // Importing from the project creation step: one call creates the
+      // project (named after the repository) with its repository and
+      // configuration, and makes it the active project.
+      await addProject({
+        name: repo.name,
+        repository: repositoryData,
+        configuration: parsedConfig,
+      });
+
+      onSuccess?.();
+      return;
+    }
+
+    await updateProjectAsync({ repository: repositoryData });
 
     await pushProjectConfiguration(defu(parsedConfig, project.configuration));
 
@@ -197,6 +217,9 @@ export const useProjectConfigActions = () => {
     setViewOnlyConfigContent,
     isFetchingConfig,
     isPushingConfig:
-      isParsingConfig || isUpdatingProjectRepository || isPushingConfiguration,
+      isParsingConfig ||
+      isAddingProject ||
+      isUpdatingProjectRepository ||
+      isPushingConfiguration,
   };
 };

@@ -68,6 +68,13 @@ export const getAuthSingleton = (): Auth => {
   return _authSingleton;
 };
 
+/** True for the shared read-only demo account. */
+const isDemoUserEmail = (email: string | null | undefined): boolean => {
+  const demoUserEmail = process.env.DEMO_USER_EMAIL;
+
+  return Boolean(demoUserEmail) && email === demoUserEmail;
+};
+
 export const formatSession = (session: SessionContext): Session => {
   const roles = getSessionRoles(session);
   let permissions = computeEffectivePermission(roles);
@@ -88,6 +95,7 @@ export const formatSession = (session: SessionContext): Session => {
     roles,
     allowedEnvironmentIds: session.allowedEnvironmentIds ?? null,
     allowedLocales: session.allowedLocales ?? null,
+    isDemo: isDemoUserEmail(session.user?.email) ? true : undefined,
     ...(session.session?.id && {
       id: new Types.ObjectId(session.session.id),
     }),

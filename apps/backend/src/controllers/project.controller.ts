@@ -12,6 +12,7 @@ import {
   refreshProjectScreenshotIfChanged,
   regenerateProjectScreenshot as regenerateProjectScreenshotService,
 } from '@services/project/projectScreenshot.service';
+import { setActiveSessionContext } from '@services/session.service';
 import * as userService from '@services/user.service';
 import * as webhooksService from '@services/webhook.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -199,7 +200,7 @@ export const addProject = async (
   request: FastifyRequest<{ Body: AddProjectBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, user, roles } = request.session || {};
+  const { organization, user, roles, session } = request.session || {};
   const projectData = request.body;
 
   if (!user) {
@@ -252,18 +253,36 @@ export const addProject = async (
     }
   }
 
+  // Client fields first: ownership and organization are server-controlled
   const project: ProjectData = {
+    ...projectData,
     membersIds: [user.id],
     adminsIds: [user.id],
     creatorId: user.id,
     organizationId: organization.id,
-    ...projectData,
   };
 
   try {
     const newProject = await projectService.createProject(project);
 
     const formattedProject = mapProjectToAPI(newProject);
+
+    // A freshly created project becomes the active one (on its default
+    // environment), saving the client a follow-up select round trip.
+    if (session?.id) {
+      const defaultEnvironment =
+        formattedProject.environments?.find(
+          (environment) => environment.isDefault
+        ) ?? formattedProject.environments?.[0];
+
+      await setActiveSessionContext({
+        sessionId: session.id,
+        userId: user.id,
+        organizationId: String(organization.id),
+        projectId: formattedProject.id,
+        environmentId: defaultEnvironment?.id ?? null,
+      });
+    }
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -316,6 +335,23 @@ export const addProject = async (
     // Create mock data once it's done
     try {
       await createDemoDictionaries([formattedProject.id], user.id);
+    } catch {
+      // Skip if fail
+    }
+
+    // Project imported with its configuration: take the application
+    // screenshot after replying, so creation is not held by it.
+    try {
+      const imageUrl = await refreshProjectScreenshotIfChanged({
+        newApplicationUrl: newProject.configuration?.editor?.applicationURL,
+        projectId: formattedProject.id,
+      });
+
+      if (imageUrl) {
+        await projectService.updateProjectById(formattedProject.id, {
+          imageUrl,
+        });
+      }
     } catch {
       // Skip if fail
     }

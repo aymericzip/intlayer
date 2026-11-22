@@ -49,6 +49,8 @@ export type Session = {
   locale?: Locale;
   allowedEnvironmentIds?: (string | null)[] | null;
   allowedLocales?: Locale[] | null;
+  /** True for the shared read-only demo account. */
+  isDemo?: boolean;
 };
 
 export type SessionAPI = ObjectIdToString<Session>;

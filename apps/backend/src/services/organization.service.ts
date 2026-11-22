@@ -90,11 +90,12 @@ export const createOrganization = async (
   }
 
   try {
+    // Client fields first: ownership is server-controlled
     const result = await OrganizationModel.create({
+      ...organization,
       creatorId: userId,
       membersIds: [userId],
       adminsIds: [userId],
-      ...organization,
     });
 
     return result;

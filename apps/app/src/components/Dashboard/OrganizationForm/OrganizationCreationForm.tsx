@@ -1,8 +1,5 @@
 import type { OrganizationAPI } from '@intlayer/backend-contract/organization';
-import {
-  useAddOrganization,
-  useSelectOrganization,
-} from '@intlayer/design-system/api';
+import { useAddOrganization } from '@intlayer/design-system/api';
 import {
   Form,
   FormButton,
@@ -27,19 +24,16 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
   const organizationSchema = useOrganizationSchema();
   const { mutate: addOrganization, isPending: isAddingOrganization } =
     useAddOrganization();
-  const { mutate: selectOrganization } = useSelectOrganization();
   const form = useForm(organizationSchema);
   const { nameInput, createOrganizationButton } =
     useIntlayer('organization-form');
 
   const onSubmitSuccess = (data: OrganizationFormData) =>
     addOrganization(data, {
-      onSuccess: (result: any) => {
+      onSuccess: (result) => {
         if (!result.data) return;
 
-        const organizationId = String(result.data?.id);
-
-        selectOrganization(organizationId);
+        // The backend already made it the active organization.
         onOrganizationCreated?.(result.data);
       },
     });

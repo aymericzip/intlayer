@@ -2,7 +2,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Input } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import { Link, RotateCcw, Search } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ConfigPreviewModal } from '../RepositoryLink/ConfigPreviewModal';
 import { ConfigSelectionModal } from '../RepositoryLink/ConfigSelectionModal';
@@ -11,16 +11,26 @@ import { useProviderLink } from '../RepositoryLink/hooks/useProviderLink';
 import { PROVIDER_NAMES } from '../RepositoryLink/providers';
 import { ProviderSelector } from '../RepositoryLink/ProviderSelector';
 import { RepositoryList } from '../RepositoryLink/RepositoryList';
-import type { ConfigPreviewState, RepoData } from '../RepositoryLink/types';
+import type {
+  ConfigPreviewState,
+  RepoData,
+  RepositoryProvider,
+} from '../RepositoryLink/types';
 
 type ConfigImportFlowProps = {
   isOpen: boolean;
   onClose: () => void;
+  /**
+   * Provider picked before opening the flow. When its account is already
+   * linked, the flow skips straight to the repository list.
+   */
+  initialProvider?: RepositoryProvider | null;
 };
 
 export const ConfigImportFlow: FC<ConfigImportFlowProps> = ({
   isOpen,
   onClose,
+  initialProvider,
 }) => {
   const content = useIntlayer('repository-link');
 
@@ -50,6 +60,30 @@ export const ConfigImportFlow: FC<ConfigImportFlowProps> = ({
     viewOnlyConfigContent,
     isFetchingConfig,
   } = useProjectConfigActions();
+
+  // Applies the pre-picked provider once per opening
+  useEffect(() => {
+    if (isOpen && initialProvider) handleProviderSelect(initialProvider);
+  }, [isOpen, initialProvider]);
+
+  const hasSkippedToRepositoryList = useRef(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      hasSkippedToRepositoryList.current = false;
+      return;
+    }
+
+    if (
+      initialProvider &&
+      selectedProvider === initialProvider &&
+      isProviderLinked === true &&
+      !hasSkippedToRepositoryList.current
+    ) {
+      hasSkippedToRepositoryList.current = true;
+      setIsRepoListOpen(true);
+    }
+  }, [isOpen, initialProvider, selectedProvider, isProviderLinked]);
 
   const handleClose = () => {
     setIsRepoListOpen(false);

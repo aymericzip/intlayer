@@ -1,5 +1,5 @@
 import type { ProjectAPI } from '@intlayer/backend-contract/project';
-import { useAddProject, useSelectProject } from '@intlayer/design-system/api';
+import { useAddProject } from '@intlayer/design-system/api';
 import {
   Form,
   FormButton,
@@ -19,20 +19,14 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
 }) => {
   const ProjectSchema = useProjectSchema();
   const { mutate: addProject, isPending } = useAddProject();
-  const { mutate: selectProject } = useSelectProject();
   const form = useForm(ProjectSchema);
   const { nameInput, createProjectButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = (data: ProjectFormData) =>
     addProject(data, {
       onSuccess: (result) => {
-        const projectId = String(result.data?.id);
-
-        if (result.data) {
-          selectProject(projectId);
-
-          onProjectCreated?.(result.data);
-        }
+        // The backend already made it the active project.
+        if (result.data) onProjectCreated?.(result.data);
       },
     });
 

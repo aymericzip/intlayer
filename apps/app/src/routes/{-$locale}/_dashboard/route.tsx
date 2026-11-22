@@ -29,6 +29,7 @@ import {
   type SidebarNavigationItem,
 } from '#components/Dashboard/DashboardSidebar';
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
+import { DemoBanner } from '#components/Dashboard/DemoBanner';
 import { TranslationStatusBar } from '#components/TranslationStatusBar';
 import {
   DashboardRightPanelId,
@@ -305,6 +306,7 @@ function DashboardLayout() {
         style={{ fontSize: '75%' }}
       >
         <DashboardNavbar items={navigationItems} />
+        <DemoBanner />
         <div className="relative flex min-h-0 w-full flex-1">
           <DashboardSidebar
             items={navigationItems}

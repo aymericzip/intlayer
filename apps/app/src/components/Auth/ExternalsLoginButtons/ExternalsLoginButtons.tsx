@@ -4,6 +4,7 @@ import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { LINK_SCOPES } from '#components/Dashboard/ProjectForm/RepositoryLink/providers';
 import { AppleLogo } from '#components/logos/AppleLogo';
 import { useOAuthCallbackError } from '#hooks/useOAuthCallbackError.ts';
 import { LastUsedIndicator } from '../LastUsedIndicator';
@@ -22,6 +23,9 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
 
     await getAuthAPI().signInSocial({
       provider: 'github',
+      // Repository access up front: the account can import a project right
+      // after sign-in, without a second consent screen.
+      scopes: LINK_SCOPES.github,
       callbackURL: finalCallbackUrl,
       errorCallbackURL: origin,
     });
@@ -161,6 +165,9 @@ export const BitbucketLoginButton: FC<ExternalsLoginButtonsProps> = ({
 
     await getAuthAPI().signInSocial({
       provider: 'atlassian',
+      // Repository access up front: the account can import a project right
+      // after sign-in, without a second consent screen.
+      scopes: LINK_SCOPES.bitbucket,
       callbackURL: finalCallbackUrl,
       errorCallbackURL: origin,
     });
@@ -196,6 +203,9 @@ export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
 
     await getAuthAPI().signInSocial({
       provider: 'gitlab',
+      // Repository access up front: the account can import a project right
+      // after sign-in, without a second consent screen.
+      scopes: LINK_SCOPES.gitlab,
       callbackURL: finalCallbackUrl,
       errorCallbackURL: origin,
     });

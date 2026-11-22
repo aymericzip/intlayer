@@ -46,14 +46,29 @@ export const useGetProjectInsights = (options?: AppQueryOptions) => {
   });
 };
 
+/**
+ * Creates a project. The backend also makes it the active one, so the session
+ * cache is updated in place: no follow-up select is needed.
+ */
 export const useAddProject = () => {
   const projectAPI = useProjectAPI();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['projects'],
     mutationFn: (args: AddProjectBody) => projectAPI.addProject(args),
     meta: {
-      invalidateQueries: [['projects']],
+      invalidateQueries: [['projects'], ['session'], ['dictionaries']],
+    },
+    onSuccess: (data) => {
+      if (!data.data) return;
+
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
+
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        project: data.data,
+      });
     },
   });
 };

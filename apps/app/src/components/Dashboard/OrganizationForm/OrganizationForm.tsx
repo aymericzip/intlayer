@@ -2,10 +2,12 @@ import { useGetOrganizations, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Modal } from '@intlayer/design-system/modal';
+import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
 import { Trash, TriangleAlert } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AICredits } from '#components/AICredits/AICredits';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import { DeleteOrganizationModal } from './DeleteOrganizationModal';
 import { MailerSettings } from './Mailer';
@@ -23,6 +25,7 @@ const OrganizationFormContent: FC = () => {
   const { organization, roles } = session ?? {};
   const isOrganizationAdmin =
     roles?.includes('org_admin') || roles?.includes('admin');
+  const navigate = useLocalizedNavigate();
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
   const { data: organizations, isPending, isSuccess } = useGetOrganizations();
@@ -159,7 +162,11 @@ const OrganizationFormContent: FC = () => {
           borderColor="neutral"
         >
           <OrganizationCreationForm
-            onOrganizationCreated={() => setIsCreationModalOpen(false)}
+            onOrganizationCreated={() => {
+              setIsCreationModalOpen(false);
+              // First organization: continue straight to project creation.
+              navigate({ to: App_Dashboard_Projects_Path });
+            }}
           />
         </Modal>
 

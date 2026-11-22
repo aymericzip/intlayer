@@ -56,6 +56,8 @@ export const sessionSchema = z.looseObject({
   allowedEnvironmentIds: z.optional(allowedEnvironmentIdsSchema),
   /** null = unrestricted; [] = none; array = allowed locales. */
   allowedLocales: z.optional(z.nullable(z.array(typedStringSchema<Locale>()))),
+  /** True for the shared read-only demo account. */
+  isDemo: z.optional(z.boolean()),
 });
 
 export type Roles = z.output<typeof rolesSchema>;

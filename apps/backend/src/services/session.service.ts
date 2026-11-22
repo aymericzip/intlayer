@@ -147,3 +147,58 @@ export const clearZombieSessionContext = async ({
     projectCleared: organizationIsZombie || projectIsZombie,
   };
 };
+
+// ─── Active context ───────────────────────────────────────────────────────────
+
+type SetActiveSessionContextInput = {
+  sessionId: string;
+  userId: string | Types.ObjectId | null | undefined;
+  organizationId: string;
+  /** null clears the active project (and its environment). */
+  projectId: string | null;
+  environmentId?: string | null;
+};
+
+/**
+ * Makes an organization (and optionally a project) the active context of a
+ * session, and remembers it as the user's last-active context.
+ */
+export const setActiveSessionContext = async ({
+  sessionId,
+  userId,
+  organizationId,
+  projectId,
+  environmentId = null,
+}: SetActiveSessionContextInput): Promise<void> => {
+  const writes: Promise<unknown>[] = [
+    SessionModel.updateOne(
+      { _id: sessionId },
+      {
+        $set: {
+          activeOrganizationId: organizationId,
+          activeProjectId: projectId,
+          activeEnvironmentId: environmentId,
+        },
+      }
+    ),
+  ];
+
+  if (userId) {
+    const userObjectId =
+      typeof userId === 'string' ? new Types.ObjectId(userId) : userId;
+
+    writes.push(
+      UserModel.updateOne(
+        { _id: userObjectId },
+        {
+          $set: {
+            lastActiveOrganizationId: organizationId,
+            lastActiveProjectId: projectId,
+          },
+        }
+      )
+    );
+  }
+
+  await Promise.all(writes);
+};

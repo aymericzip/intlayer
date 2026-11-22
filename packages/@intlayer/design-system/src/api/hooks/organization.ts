@@ -26,15 +26,32 @@ export const useGetOrganizations = (filters?: GetOrganizationsParams) => {
   });
 };
 
+/**
+ * Creates an organization. The backend also makes it the active one, so the
+ * session cache is updated in place: no follow-up select is needed.
+ */
 export const useAddOrganization = () => {
   const organizationAPI = useOrganizationAPI();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['organizations'],
     mutationFn: (args: AddOrganizationBody) =>
       organizationAPI.addOrganization(args),
     meta: {
-      invalidateQueries: [['organizations']],
+      invalidateQueries: [['organizations'], ['session'], ['projects']],
+    },
+    onSuccess: (data) => {
+      if (!data.data) return;
+
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
+
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        organization: data.data,
+        project: null,
+        environment: null,
+      });
     },
   });
 };
