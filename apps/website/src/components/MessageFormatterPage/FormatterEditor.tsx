@@ -422,8 +422,9 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
                       roundedSize="md"
                       label={template.title}
                       onClick={() => handleSelectTemplate(template)}
+                      textAlign="left"
                       className={cn(
-                        'h-auto w-full cursor-pointer justify-start p-3 text-start transition-all duration-150 select-none [corner-shape:squircle]',
+                        'h-auto w-full cursor-pointer p-3 transition-all duration-150 select-none [corner-shape:squircle]',
                         '[&>span]:block [&>span]:w-full [&>span]:whitespace-normal',
                         isSelected
                           ? 'border border-border/90 bg-muted/50 shadow-sm ring-1 ring-border'

@@ -500,7 +500,8 @@ export const Browser = ({
                           variant="hoverable"
                           color="text"
                           size="sm"
-                          className="w-full text-start"
+                          textAlign="left"
+                          className="w-full"
                           label={url}
                           onClick={() => {
                             handleNavigateTo(url);

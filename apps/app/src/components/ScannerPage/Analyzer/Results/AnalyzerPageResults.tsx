@@ -129,7 +129,7 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
 
     return (
       <div className="flex flex-col gap-2 pt-2 text-start text-sm">
-        <div className="xs:grid-cols-2 mt-3 grid grid-cols-1 gap-x-4 gap-y-2 border-t border-dotted border-neutral pt-2 sm:grid-cols-3">
+        <div className="mt-3 grid grid-cols-[repeat(auto-fill,minmax(min(100%,15rem),1fr))] gap-x-4 gap-y-2 border-t border-dotted border-neutral pt-2">
           {fieldsList.map((item) => (
             <FieldItem
               key={item.key}

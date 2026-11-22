@@ -22,7 +22,8 @@ export const LibCard: FC<{
       size="sm"
       variant="hoverable"
       onClick={onToggle}
-      className="relative h-auto min-h-12 w-full min-w-max overflow-hidden py-2 text-start"
+      textAlign="left"
+      className="relative h-auto min-h-12 w-full min-w-max overflow-hidden py-2"
     >
       <div className="flex w-full flex-row items-center gap-2">
         <input

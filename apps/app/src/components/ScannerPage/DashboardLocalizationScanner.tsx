@@ -215,12 +215,14 @@ export const DashboardLocalizationScanner: FC = () => {
                     size="sm"
                     label={url}
                     onClick={() => handleSelectUrl(url)}
+                    textAlign="left"
                     className={cn(
-                      'w-full justify-start rounded text-start',
+                      'w-full rounded',
                       isActive && 'bg-card font-medium text-text'
                     )}
+                    isFullWidth
                   >
-                    <span className="block max-w-full truncate text-xs">
+                    <span className="block w-full max-w-full truncate text-xs">
                       {path}
                     </span>
                   </Button>
