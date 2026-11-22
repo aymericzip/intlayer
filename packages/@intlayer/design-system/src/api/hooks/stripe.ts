@@ -49,7 +49,6 @@ export const useGetSubscription = (
     gcTime: 0,
     retry: false,
     refetchOnMount: false,
-    meta: { persist: false },
     ...options,
   });
 };

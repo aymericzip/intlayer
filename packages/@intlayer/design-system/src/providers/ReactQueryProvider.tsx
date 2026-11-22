@@ -1,6 +1,3 @@
-'use client';
-
-import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import {
   type DefaultOptions,
   MutationCache,
@@ -10,15 +7,23 @@ import {
   timeoutManager,
   type UseMutationOptions,
 } from '@tanstack/react-query';
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
-import { type FC, type PropsWithChildren, useRef } from 'react';
+import {
+  type FC,
+  type PropsWithChildren,
+  type RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useToast } from '../components/Toaster';
 
-const PERSIST_MAX_AGE = 1000 * 60 * 60 * 24; // 24h
-// Bump to invalidate every persisted cache after a breaking change in query shapes
-const PERSIST_BUSTER = 'v3';
-
 const isServer = typeof window === 'undefined';
+
+/**
+ * localStorage key of the query cache the provider used to persist. It held
+ * session and user data, so it is removed from browsers that still have it.
+ */
+const LEGACY_PERSISTED_CACHE_KEY = 'intlayer-rq-cache';
 
 // During SSR/prerender, react-query schedules `setTimeout`/`setInterval`
 // timers for query garbage collection (`gcTime`) and background refetching
@@ -27,11 +32,11 @@ const isServer = typeof window === 'undefined';
 // those pending timers keep the event loop alive, so the prerender server
 // never closes and the build hangs after every page has been rendered.
 //
-// Setting `gcTime: Infinity` in the defaults below avoids the *default*
-// timer, but per-query overrides (e.g. `useSession` sets its own `gcTime`)
-// would reintroduce it. To make this robust regardless of per-query options,
-// override react-query's timeout provider on the server so every timer is
-// `unref`-ed — Node can then exit while they are still pending.
+// `gcTime: Infinity` on the server avoids the *default* timer, but per-query
+// overrides (e.g. `useSession` sets its own `gcTime`) would reintroduce it. To
+// make this robust regardless of per-query options, override react-query's
+// timeout provider on the server so every timer is `unref`-ed — Node can then
+// exit while they are still pending.
 if (isServer) {
   const unref = (timer: unknown): void => {
     if (
@@ -65,7 +70,8 @@ const defaultQueryOptions: DefaultOptions = {
     retry: 1,
     // Keep data fresh for 30 seconds to avoid unnecessary refetches during navigation
     staleTime: 30 * 1000,
-    gcTime: PERSIST_MAX_AGE,
+    // Server: no gc timer at all (see above). Client: react-query's default.
+    ...(isServer && { gcTime: Infinity }),
     // Only refetch on mount if data is stale (not every single mount)
     refetchOnMount: true,
     refetchOnWindowFocus: false,
@@ -76,33 +82,10 @@ const defaultQueryOptions: DefaultOptions = {
   },
 };
 
-const browserLocalStorage = {
-  getItem: (key: string) => Promise.resolve(window.localStorage.getItem(key)),
-  setItem: (key: string, value: string) =>
-    Promise.resolve(window.localStorage.setItem(key, value)),
-  removeItem: (key: string) =>
-    Promise.resolve(window.localStorage.removeItem(key)),
-};
-
-const noopStorage = {
-  getItem: () => Promise.resolve(null),
-  setItem: () => Promise.resolve(),
-  removeItem: () => Promise.resolve(),
-};
-
-const persister = createAsyncStoragePersister({
-  storage: typeof window !== 'undefined' ? browserLocalStorage : noopStorage,
-  key: 'intlayer-rq-cache',
-});
-
 const SHOW_ERROR_CODE = false;
 
 declare module '@tanstack/react-query' {
   interface Register {
-    queryMeta: {
-      /** `false` keeps the query out of the localStorage cache (e.g. payment secrets). */
-      persist?: boolean;
-    };
     mutationMeta: {
       onSuccess?: UseMutationOptions['onSuccess'];
       onError?: UseMutationOptions['onError'];
@@ -140,7 +123,9 @@ const useToastEvents = () => {
       try {
         if (typeof error === 'string') return JSON.parse(error);
         if (error instanceof Error) return JSON.parse(error.message);
-      } catch (_) {}
+      } catch {
+        // Not JSON: keep the raw error
+      }
       return error;
     })();
 
@@ -200,120 +185,84 @@ const useToastEvents = () => {
   };
 };
 
-export const getQueryClient = () =>
+/** Creates a query client with the shared defaults (e.g. for router context). */
+export const getQueryClient = (): QueryClient =>
   new QueryClient({ defaultOptions: defaultQueryOptions });
 
-interface ReactQueryProviderProps {
+type ToastHandlers = ReturnType<typeof useToastEvents>;
+
+/** Clients whose mutation cache already carries the provider handlers. */
+const wiredQueryClients = new WeakSet<QueryClient>();
+
+/**
+ * Chains the toast handlers and the meta-driven invalidation onto the client's
+ * mutation cache, once per client. Chained rather than replaced: the router
+ * SSR-query integration wraps `onError` to turn a `redirect()` thrown inside a
+ * mutation into a navigation.
+ */
+const wireMutationCache = (
+  queryClient: QueryClient,
+  handlersRef: RefObject<ToastHandlers>
+): QueryClient => {
+  if (wiredQueryClients.has(queryClient)) return queryClient;
+  wiredQueryClients.add(queryClient);
+
+  const cache = queryClient.getMutationCache();
+  const previousOnSuccess = cache.config.onSuccess;
+  const previousOnError = cache.config.onError;
+
+  cache.config.onSuccess = (...callbackArguments) => {
+    previousOnSuccess?.(...callbackArguments);
+    handlersRef.current.onSuccess?.(...callbackArguments);
+  };
+
+  cache.config.onError = (...callbackArguments) => {
+    previousOnError?.(...callbackArguments);
+    handlersRef.current.onError?.(...callbackArguments);
+  };
+
+  cache.config.onSettled = (_data, _error, _variables, _result, mutation) => {
+    mutation.meta?.invalidateQueries?.forEach((queryKey) => {
+      queryClient.invalidateQueries({ queryKey });
+    });
+    mutation.meta?.resetQueries?.forEach((queryKey) => {
+      queryClient.resetQueries({ queryKey });
+    });
+  };
+
+  return queryClient;
+};
+
+type ReactQueryProviderProps = {
+  /** Client shared with the router context; one is created when omitted. */
   client?: QueryClient;
-}
+};
 
 export const ReactQueryProvider: FC<
   PropsWithChildren<ReactQueryProviderProps>
 > = ({ children, client }) => {
-  const { onError, onSuccess } = useToastEvents();
-  // Keep handlers in a ref so the cache config (set once below) always calls
-  // the latest closures from useToastEvents without needing re-wiring.
-  const handlersRef = useRef({ onSuccess, onError });
-  handlersRef.current = { onSuccess, onError };
+  const toastHandlers = useToastEvents();
+  // The cache config is wired once, so it reads the latest closures from a ref
+  const handlersRef = useRef(toastHandlers);
 
-  const clientRef = useRef<QueryClient>(client ?? null);
+  useEffect(() => {
+    handlersRef.current = toastHandlers;
+  });
 
-  if (!clientRef.current) {
-    clientRef.current = new QueryClient({
-      defaultOptions: defaultQueryOptions,
-      mutationCache: new MutationCache(),
-    });
-  }
+  // oxlint-disable-next-line react/refs -- the ref is only read later, inside mutation callbacks
+  const [queryClient] = useState(() =>
+    wireMutationCache(client ?? getQueryClient(), handlersRef)
+  );
 
-  // Wire toast handlers + meta-driven invalidation onto whatever client we
-  // ended up with. Required even when the client is created externally (e.g.
-  // via getQueryClient() in TanStack Router context), since the externally
-  // created client ships with a bare MutationCache.
-  const wiredRef = useRef(false);
-
-  if (!wiredRef.current) {
-    wiredRef.current = true;
-    const cache = clientRef.current.getMutationCache();
-    // Chain rather than replace: an externally created client may already carry
-    // handlers, e.g. the router SSR-query integration wraps `onError` to turn a
-    // `redirect()` thrown inside a mutation into a navigation.
-    const previousOnSuccess = cache.config.onSuccess;
-    const previousOnError = cache.config.onError;
-    cache.config.onSuccess = (
-      data,
-      variables,
-      onMutateResult,
-      mutation,
-      context
-    ) => {
-      previousOnSuccess?.(data, variables, onMutateResult, mutation, context);
-      handlersRef.current.onSuccess?.(
-        data,
-        variables,
-        onMutateResult,
-        mutation,
-        context
-      );
-    };
-    cache.config.onError = (
-      error,
-      variables,
-      onMutateResult,
-      mutation,
-      context
-    ) => {
-      previousOnError?.(error, variables, onMutateResult, mutation, context);
-      handlersRef.current.onError?.(
-        error,
-        variables,
-        onMutateResult,
-        mutation,
-        context
-      );
-    };
-    cache.config.onSettled = (
-      _data,
-      _error,
-      _variables,
-      _onMutateResult,
-      mutation
-    ) => {
-      if (mutation.meta?.invalidateQueries) {
-        mutation.meta.invalidateQueries.forEach((queryKey) => {
-          clientRef.current?.invalidateQueries({ queryKey });
-        });
-      }
-
-      if (mutation.meta?.resetQueries) {
-        mutation.meta.resetQueries.forEach((queryKey) => {
-          clientRef.current?.resetQueries({ queryKey });
-        });
-      }
-    };
-  }
-
-  if (client || typeof window === 'undefined') {
-    return (
-      <QueryClientProvider client={clientRef.current}>
-        {children}
-      </QueryClientProvider>
-    );
-  }
+  useEffect(() => {
+    try {
+      window.localStorage.removeItem(LEGACY_PERSISTED_CACHE_KEY);
+    } catch {
+      // Storage blocked (private mode, disabled site data): nothing to clean
+    }
+  }, []);
 
   return (
-    <PersistQueryClientProvider
-      client={clientRef.current}
-      persistOptions={{
-        persister,
-        maxAge: PERSIST_MAX_AGE,
-        buster: PERSIST_BUSTER,
-        dehydrateOptions: {
-          shouldDehydrateQuery: (query) =>
-            query.state.status === 'success' && query.meta?.persist !== false,
-        },
-      }}
-    >
-      {children}
-    </PersistQueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };

@@ -191,6 +191,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const { locale = defaultLocale } = localeRoute.useParams();
+  const { queryClient } = Route.useRouteContext();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
@@ -200,7 +201,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex">
         <IntlayerProvider locale={locale}>
           <AnimatePresenceProvider>
-            <ReactQueryProvider>
+            <ReactQueryProvider client={queryClient}>
               <Toaster />
               <ChunkErrorListener />
               <ServiceWorkerSubscriber />

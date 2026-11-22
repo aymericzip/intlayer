@@ -39,10 +39,6 @@ export const useSession = (
       // Narrow to the public shape we want to expose
       return result.data as unknown as SessionAPI;
     },
-    // Never restore the session from the localStorage cache: a persisted
-    // signed-out `null` still inside `staleTime` would be served as fresh
-    // after a sign-in redirect, and no refetch would happen on mount.
-    meta: { persist: false },
     // Session data rarely changes during navigation, so keep it fresh for 5 minutes
     // This prevents unnecessary refetches when navigating between pages
     staleTime: 5 * 60 * 1000,

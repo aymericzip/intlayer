@@ -108,6 +108,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootDocument({ children }: { children: React.ReactNode }) {
   // Try to find locale in params of any active match
   const { locale = defaultLocale } = localeRoute.useParams();
+  const { queryClient } = Route.useRouteContext();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
@@ -127,7 +128,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <ThemeProvider>
             <IntlayerMarkdownProvider>
               <PostHogProvider>
-                <ReactQueryProvider>
+                <ReactQueryProvider client={queryClient}>
                   <BackgroundLayout>
                     <Header />
                     {children}
