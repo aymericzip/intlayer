@@ -119,16 +119,19 @@ export const SignInForm: FC<SignInFormProps> = ({
           inputLabel={rememberMeCheckbox.description}
         />
 
-        <FormButton
-          className="relative mt-4 w-full"
-          type="submit"
-          color="text"
-          isLoading={isLoading}
-          label={loginButton.ariaLabel.value}
-        >
-          {loginButton.text}
-          <LastUsedIndicator method="email" />
-        </FormButton>
+        <div className="mt-4">
+          <LastUsedIndicator method="email">
+            <FormButton
+              className="w-full"
+              type="submit"
+              color="text"
+              isLoading={isLoading}
+              label={loginButton.ariaLabel.value}
+            >
+              {loginButton.text}
+            </FormButton>
+          </LastUsedIndicator>
+        </div>
 
         <span className="m-auto mt-3 flex w-full items-center justify-center text-xs text-neutral">
           {signUpLink.message}
