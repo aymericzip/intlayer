@@ -1,5 +1,6 @@
 'use client';
 
+import { inputVariants } from '@components/Input/Input';
 import { useControllableState } from '@hooks/useControllableState';
 import { usePresence } from '@hooks/usePresence';
 import { cn } from '@utils/cn';
@@ -314,40 +315,14 @@ const SelectTrigger: FC<SelectTriggerProps> = ({
       data-placeholder={isEmptyValue(context.value) ? '' : undefined}
       suppressHydrationWarning
       className={cn(
-        // Base layout and typography
-        'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',
-        'text-base shadow-none outline-none select-text md:text-sm',
-
-        // Corner shape
-        'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
-
-        // Spacing
-        'px-2 py-3 md:py-2',
-
-        // Background and text
-        'bg-neutral-50 dark:bg-neutral-950',
-        'text-foreground',
-
-        // Focus ring
-        'ring-0',
-        'focus-visible:outline-none',
-        'focus-visible:ring-3',
-        'focus-visible:ring-neutral-200',
-        'dark:focus-visible:ring-neutral-500',
-
-        'focus-visible:ring-offset-white',
-        'dark:focus-visible:ring-offset-neutral-500',
-
-        // Remove box-shadow
-        '[box-shadow:none] focus:[box-shadow:none]',
-
-        // States
-        'disabled:cursor-not-allowed disabled:opacity-50',
-        'aria-invalid:border-error',
-        '[&>span]:line-clamp-1',
-
-        // Validation styles
-        validationStyleEnabled && 'valid:border-success invalid:border-error',
+        // Same field surface as Input
+        inputVariants({
+          validationStyleEnabled: validationStyleEnabled
+            ? 'enabled'
+            : 'disabled',
+        }),
+        'flex cursor-pointer items-center justify-between whitespace-nowrap',
+        'disabled:cursor-not-allowed [&>span]:line-clamp-1',
 
         className
       )}

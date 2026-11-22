@@ -1,7 +1,8 @@
 'use client';
 
+import { inputVariants } from '@components/Input/Input';
 import { cn } from '@utils/cn';
-import { Check, X as RemoveIcon } from 'lucide-react';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import {
   type ComponentProps,
   createContext,
@@ -398,7 +399,7 @@ const MultiSelectRoot: FC<MultiSelectProps> = ({
       <CommandRoot
         onKeyDown={handleKeyDown}
         className={cn(
-          'flex w-full flex-col gap-2 overflow-visible bg-transparent',
+          'flex w-full flex-col overflow-visible rounded-none bg-transparent p-0',
           disabled && 'cursor-not-allowed opacity-50',
           className
         )}
@@ -427,50 +428,16 @@ const MultiSelectTrigger: FC<
 }) => {
   const { value, onValueChange, activeIndex } = useMultiSelect();
 
-  const mousePreventDefault: MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-    },
-    []
-  );
-
   return (
     <div
       className={cn(
-        // Base layout
-        'flex w-full flex-col gap-3',
-        'cursor-pointer text-base shadow-none outline-none select-text md:text-sm',
-
-        // Corner shape
-        'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
-
-        // Spacing
-        'px-2 py-3 md:py-2',
-
-        // Background and text
-        'bg-neutral-50 dark:bg-neutral-950',
-        'text-foreground',
-
-        // Focus ring
-        'ring-0',
-        'focus-within:outline-none',
-        'focus-within:ring-3',
-        'focus-within:ring-neutral-200',
-        'dark:focus-within:ring-neutral-500',
-
-        'focus-within:ring-offset-white',
-        'dark:focus-within:ring-offset-neutral-500',
-
-        // Remove box-shadow
-        '[box-shadow:none]',
-
-        // States
-        'disabled:cursor-not-allowed disabled:opacity-50',
-        'aria-invalid:border-error',
-
-        // Validation styles
-        validationStyleEnabled && 'valid:border-success invalid:border-error',
+        // Same field surface as Input
+        inputVariants({
+          validationStyleEnabled: validationStyleEnabled
+            ? 'enabled'
+            : 'disabled',
+        }),
+        'flex cursor-pointer flex-col gap-2',
 
         className
       )}
@@ -481,27 +448,22 @@ const MultiSelectTrigger: FC<
           {value.map((item, index) => (
             <Badge
               key={item}
+              size="sm"
+              dismissible
+              onDismiss={() => onValueChange(item)}
               className={cn(
-                'flex items-center gap-1 rounded-xl px-1',
                 activeIndex === index && 'ring-2 ring-muted-foreground'
               )}
-              color="text"
             >
-              <span className="text-xs">{getBadgeValue(item)}</span>
-              <button
-                aria-label={`Remove ${item} option`}
-                aria-roledescription="button to remove option"
-                onMouseDown={mousePreventDefault}
-                onClick={() => onValueChange(item)}
-              >
-                <span className="sr-only">Remove {item} option</span>
-                <RemoveIcon className="size-4 cursor-pointer" />
-              </button>
+              {getBadgeValue(item)}
             </Badge>
           ))}
         </div>
       )}
-      {children}
+      <div className="flex w-full items-center gap-2">
+        {children}
+        <ChevronsUpDown aria-hidden className="size-4 shrink-0 opacity-50" />
+      </div>
     </div>
   );
 };
@@ -532,7 +494,9 @@ const MultiSelectInput: FC<ComponentProps<typeof Command.Input>> = ({
       onFocus={() => setOpen(true)}
       onClick={() => setActiveIndex(-1)}
       className={cn(
-        'ms-2 flex-1 cursor-pointer outline-hidden',
+        // Flatten the Command input: the trigger already draws the field
+        'flex-1 cursor-pointer rounded-none bg-transparent p-0',
+        'ring-0 focus-within:ring-0 hover:ring-0 dark:bg-transparent',
         className,
         activeIndex !== -1 && 'caret-transparent'
       )}
@@ -550,9 +514,10 @@ const MultiSelectContent: FC<HTMLAttributes<HTMLDivElement>> = ({
 const MultiSelectList: typeof Command.List = ({ className, children }) => (
   <Command.List
     className={cn(
-      // Base layout
-      'absolute top-0 z-10 flex w-full flex-col gap-2',
-      'rounded-xl p-2 shadow-md',
+      // Base layout (mirrors Select.Content)
+      'absolute top-1 z-10 flex w-full flex-col',
+      'rounded-xl p-1 shadow-md',
+      '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
 
       // Background and text
       'bg-white dark:bg-neutral-950',
@@ -569,7 +534,7 @@ const MultiSelectList: typeof Command.List = ({ className, children }) => (
   >
     {children}
     <Command.Empty>
-      <span className="text-muted-foreground">No results found</span>
+      <span className="text-sm text-muted-foreground">No results found</span>
     </Command.Empty>
   </Command.List>
 );
@@ -596,24 +561,21 @@ const MultiSelectItem: FC<
         setInputValue('');
       }}
       className={cn(
-        // Base layout
-        'flex cursor-pointer justify-between',
-        'rounded-lg px-2 py-1',
+        // Base layout (mirrors Select.Item)
+        'w-full cursor-pointer rounded-lg py-1.5 ps-2 pe-8 text-foreground',
 
-        // Hover and transitions
-        'transition-colors',
-        'hover:bg-neutral/10',
-
-        // States
-        isIncluded && 'opacity-50',
-        props.disabled && 'cursor-not-allowed opacity-50',
+        // Highlight
+        'transition-colors hover:bg-neutral/10',
+        'data-[selected=true]:bg-neutral/10 data-[selected=true]:text-foreground',
 
         className
       )}
       onMouseDown={mousePreventDefault}
     >
       {children}
-      {isIncluded && <Check className="size-4" />}
+      <span className="absolute inset-e-2 flex size-3.5 items-center justify-center">
+        {isIncluded && <Check className="size-4" />}
+      </span>
     </Command.Item>
   );
 };
