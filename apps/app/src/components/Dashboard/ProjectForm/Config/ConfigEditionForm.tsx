@@ -23,6 +23,7 @@ import { getLocaleName, type Locale } from 'intlayer';
 import { Save } from 'lucide-react';
 import { type FC, useEffect, useMemo } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import { formatMaskedAPIKey } from '#utils/formatMaskedAPIKey';
 import {
   type ConfigFormData,
   useConfigFormSchema,
@@ -136,6 +137,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
       className="w-2xl"
       isScrollable="y"
       border
+      roundedSize="2xl"
       borderColor="neutral"
     >
       <Form
@@ -278,8 +280,11 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
               <div>
                 <p>{aiSection.apiKeyInput.description}</p>
                 <p>{aiSection.apiKeyInput.currentKey}:</p>
-                <p className="my-2 flex overflow-x-scroll rounded-xl bg-text/10 p-2 pb-4 text-nowrap">
-                  {projectConfig?.ai?.apiKey}
+                <p
+                  className="my-2 w-fit max-w-full truncate rounded-xl bg-text/10 px-2 py-1 font-mono"
+                  dir="ltr"
+                >
+                  {formatMaskedAPIKey(projectConfig?.ai?.apiKey ?? '')}
                 </p>
               </div>
             }
