@@ -28,18 +28,16 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-1">
-      <Button
-        className={cn('w-full', className)}
-        label={externalsLoginButtons.github.label.value}
-        Icon={TechLogos.GITHUB}
-        onClick={loginWithGitHub}
-        color="text"
-      >
-        {externalsLoginButtons.github.label}
-      </Button>
+    <Button
+      className={cn('relative w-full', className)}
+      label={externalsLoginButtons.github.label.value}
+      Icon={TechLogos.GITHUB}
+      onClick={loginWithGitHub}
+      color="text"
+    >
+      {externalsLoginButtons.github.label}
       <LastUsedIndicator method="github" />
-    </div>
+    </Button>
   );
 };
 
@@ -63,21 +61,19 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-1">
-      <Button
-        className={cn(
-          'w-full bg-red-400 text-white ring-red-400/20 hover:bg-error',
-          className
-        )}
-        label={externalsLoginButtons.google.label.value}
-        Icon={TechLogos.GOOGLE}
-        onClick={loginWithGoogle}
-        color="custom"
-      >
-        {externalsLoginButtons.google.label}
-      </Button>
+    <Button
+      className={cn(
+        'relative w-full bg-red-400 text-white ring-red-400/20 hover:bg-error',
+        className
+      )}
+      label={externalsLoginButtons.google.label.value}
+      Icon={TechLogos.GOOGLE}
+      onClick={loginWithGoogle}
+      color="custom"
+    >
+      {externalsLoginButtons.google.label}
       <LastUsedIndicator method="google" />
-    </div>
+    </Button>
   );
 };
 

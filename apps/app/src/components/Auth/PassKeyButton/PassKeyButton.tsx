@@ -32,19 +32,17 @@ export const PasskeyButton: FC<PassKeyButtonProps> = ({ callbackUrl }) => {
   };
 
   return (
-    <div className="flex flex-col gap-1">
-      <Button
-        variant="outline"
-        color="text"
-        className="w-full"
-        Icon={Key}
-        label={ariaLabel.value}
-        onClick={handleSignIn}
-        isLoading={isPending}
-      >
-        {text}
-      </Button>
+    <Button
+      variant="outline"
+      color="text"
+      className="relative w-full"
+      Icon={Key}
+      label={ariaLabel.value}
+      onClick={handleSignIn}
+      isLoading={isPending}
+    >
+      {text}
       <LastUsedIndicator method="passkey" />
-    </div>
+    </Button>
   );
 };
