@@ -68,7 +68,7 @@ const QuotaRing: FC<QuotaRingProps> = ({ usageRatio }) => (
           ? 'stroke-error'
           : usageRatio >= WARNING_USAGE_RATIO
             ? 'stroke-warning'
-            : 'stroke-success'
+            : 'stroke-text'
       )}
     />
   </svg>
