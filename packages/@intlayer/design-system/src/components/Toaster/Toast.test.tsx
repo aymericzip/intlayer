@@ -16,12 +16,13 @@ type HarnessProps = {
 
 const Harness = ({ onOpenChange, duration }: HarnessProps) => (
   <ToastProvider duration={duration}>
-    <Toast onOpenChange={onOpenChange}>
-      <ToastTitle>Saved</ToastTitle>
-      <ToastAction>Undo</ToastAction>
-      <ToastClose />
-    </Toast>
-    <ToastViewport />
+    <ToastViewport>
+      <Toast onOpenChange={onOpenChange}>
+        <ToastTitle>Saved</ToastTitle>
+        <ToastAction>Undo</ToastAction>
+        <ToastClose />
+      </Toast>
+    </ToastViewport>
   </ToastProvider>
 );
 
