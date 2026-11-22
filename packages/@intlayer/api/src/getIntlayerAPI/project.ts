@@ -17,6 +17,7 @@ import type {
   projectContract,
   RefreshAccessKeyBody,
   RefreshAccessKeyResponse,
+  RegenerateProjectScreenshotResult,
   SelectProjectParam,
   SelectProjectResult,
   TriggerBuildResult,
@@ -60,6 +61,7 @@ const projectEndpoints = {
   refreshAccessKey: { method: 'PATCH', path: '/access_key' },
   deleteAccessKey: { method: 'DELETE', path: '/access_key' },
   triggerBuild: { method: 'POST', path: '/build' },
+  regenerateProjectScreenshot: { method: 'POST', path: '/screenshot' },
   triggerWebhook: { method: 'POST', path: '/webhook' },
   getCIConfiguration: { method: 'GET', path: '/ci' },
   pushCIConfiguration: { method: 'POST', path: '/ci' },
@@ -340,6 +342,27 @@ export const getProjectAPI = (
     );
 
   /**
+   * Captures the application URL of the selected project again.
+   * @param otherOptions - Fetcher options.
+   * @returns The updated project.
+   */
+  const regenerateProjectScreenshot = async (
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<RegenerateProjectScreenshotResult>(
+      buildRouteURL(
+        backendURL,
+        projectGroup,
+        projectEndpoints.regenerateProjectScreenshot
+      ),
+      authAPIOptions,
+      otherOptions,
+      {
+        method: projectEndpoints.regenerateProjectScreenshot.method,
+      }
+    );
+
+  /**
    * Triggers a single webhook by index.
    * @param webhookIndex - The index of the webhook to trigger.
    * @param otherOptions - Fetcher options.
@@ -434,6 +457,7 @@ export const getProjectAPI = (
     deleteAccessKey,
     refreshAccessKey,
     triggerBuild,
+    regenerateProjectScreenshot,
     triggerWebhook,
     getCIConfig,
     pushCIConfig,

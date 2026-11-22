@@ -50,9 +50,11 @@ export const deleteShowcaseScreenshot = async (
 ): Promise<void> => {
   // Extract everything after the S3_PUBLIC_URL prefix, or fall back to the last segment
   const publicUrl = process.env.S3_PUBLIC_URL ?? '';
-  const key = imageUrl.startsWith(publicUrl)
-    ? imageUrl.slice(publicUrl.length + 1)
-    : imageUrl.split('/').pop();
+  // Drop the cache-busting query string (`?v=…`) appended to project images
+  const imageUrlWithoutQuery = imageUrl.split('?')[0] ?? imageUrl;
+  const key = imageUrlWithoutQuery.startsWith(publicUrl)
+    ? imageUrlWithoutQuery.slice(publicUrl.length + 1)
+    : imageUrlWithoutQuery.split('/').pop();
 
   if (!key) return;
 

@@ -17,6 +17,7 @@ import { OpenRouterSettings } from './OpenRouter';
 import { ProjectDetailsSkeleton } from './ProjectDetailsSkeleton';
 import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
+import { ProjectScreenshot } from './ProjectScreenshot';
 import { RepositoryLink } from './RepositoryLink';
 
 export const ProjectFormContent: FC = () => {
@@ -107,22 +108,11 @@ export const ProjectFormContent: FC = () => {
     );
 
     const projectImage = project.imageUrl && (
-      <Container
-        className="aspect-video w-full max-w-70 shrink-0 overflow-hidden"
-        roundedSize="xl"
-        background="none"
-        border
-        borderColor="neutral"
-      >
-        <img
-          src={project.imageUrl}
-          alt={`${project.name} screenshot`}
-          width={1280}
-          height={720}
-          crossOrigin="anonymous"
-          className="aspect-video w-full object-cover"
-        />
-      </Container>
+      <ProjectScreenshot
+        imageUrl={project.imageUrl}
+        projectName={project.name}
+        canRegenerate={Boolean(isProjectAdmin)}
+      />
     );
 
     return (

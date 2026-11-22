@@ -405,6 +405,15 @@ export const projectContract = defineRouteGroup({
         },
       },
     }),
+    regenerateProjectScreenshot: defineRoute({
+      method: 'POST',
+      path: '/screenshot',
+      summary:
+        'Capture the application URL of the selected project again and store it as its image',
+      schemas: {
+        response: { 200: responseDataSchema(projectSchema) },
+      },
+    }),
     triggerWebhook: defineRoute({
       method: 'POST',
       path: '/webhook',
@@ -510,6 +519,7 @@ export type DeleteAccessKeyResponse = ResponseData<null>;
 export type TriggerBuildResult = ResponseData<{
   results: z.output<typeof ciTargetResultSchema>[];
 }>;
+export type RegenerateProjectScreenshotResult = ResponseData<ProjectAPI>;
 export type TriggerWebhookBody = RouteBody<ProjectRoutes['triggerWebhook']>;
 export type TriggerWebhookResult = ResponseData<
   z.output<typeof ciTargetResultSchema>

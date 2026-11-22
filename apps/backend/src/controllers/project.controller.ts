@@ -8,7 +8,10 @@ import {
   findDictionaries,
 } from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
-import { refreshProjectScreenshotIfChanged } from '@services/project/projectScreenshot.service';
+import {
+  refreshProjectScreenshotIfChanged,
+  regenerateProjectScreenshot as regenerateProjectScreenshotService,
+} from '@services/project/projectScreenshot.service';
 import * as userService from '@services/user.service';
 import * as webhooksService from '@services/webhook.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -792,6 +795,131 @@ export const pushProjectConfiguration = async (
         'he-IL': 'הגדרות הפרויקט שלכם עודכנו בהצלחה',
       }),
       data: mapProjectToAPI(projectObject) as ProjectConfiguration,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type RegenerateProjectScreenshotResult = ResponseData<ProjectAPI>;
+
+/**
+ * Captures the application URL of the selected project again, e.g. when the
+ * stored image is missing or outdated.
+ */
+export const regenerateProjectScreenshot = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project, organization, roles } = request.session || {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (!organization) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  if (String(project.organizationId) !== String(organization.id)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_IN_ORGANIZATION'
+    );
+  }
+
+  if (
+    !hasPermission(
+      roles || [],
+      'project:write'
+    )({
+      ...request.session,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const projectObject = await projectService.getProjectById(project.id);
+    const applicationUrl = projectObject.configuration?.editor?.applicationURL;
+
+    if (!applicationUrl) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROJECT_APPLICATION_URL_NOT_DEFINED'
+      );
+    }
+
+    const imageUrl = await regenerateProjectScreenshotService(
+      applicationUrl,
+      String(project.id)
+    );
+
+    if (!imageUrl) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROJECT_SCREENSHOT_FAILED'
+      );
+    }
+
+    const updatedProject = await projectService.updateProjectById(project.id, {
+      imageUrl,
+    });
+
+    const responseData = formatResponse<ProjectAPI>({
+      message: t({
+        en: 'Screenshot regenerated',
+        'en-GB': 'Screenshot regenerated',
+        fr: "Capture d'écran régénérée",
+        es: 'Captura de pantalla regenerada',
+        ru: 'Скриншот обновлён',
+        ja: 'スクリーンショットを再生成しました',
+        ko: '스크린샷이 다시 생성되었습니다',
+        zh: '截图已重新生成',
+        de: 'Screenshot neu erstellt',
+        ar: 'تمت إعادة إنشاء لقطة الشاشة',
+        it: 'Screenshot rigenerato',
+        pt: 'Captura de tela regenerada',
+        hi: 'स्क्रीनशॉट फिर से बनाया गया',
+        tr: 'Ekran görüntüsü yeniden oluşturuldu',
+        pl: 'Zrzut ekranu wygenerowany ponownie',
+        id: 'Tangkapan layar dibuat ulang',
+        vi: 'Đã tạo lại ảnh chụp màn hình',
+        uk: 'Знімок екрана створено повторно',
+        'he-IL': 'צילום המסך נוצר מחדש',
+      }),
+      description: t({
+        en: 'The project image has been captured again from your application URL',
+        'en-GB':
+          'The project image has been captured again from your application URL',
+        fr: "L'image du projet a été recapturée depuis l'URL de votre application",
+        es: 'La imagen del proyecto se ha capturado de nuevo desde la URL de su aplicación',
+        ru: 'Изображение проекта снова снято с URL вашего приложения',
+        ja: 'アプリケーションURLからプロジェクト画像を再取得しました',
+        ko: '애플리케이션 URL에서 프로젝트 이미지를 다시 캡처했습니다',
+        zh: '已从您的应用程序 URL 重新截取项目图片',
+        de: 'Das Projektbild wurde erneut von Ihrer Anwendungs-URL erfasst',
+        ar: 'تم التقاط صورة المشروع مجددًا من عنوان URL لتطبيقك',
+        it: "L'immagine del progetto è stata acquisita di nuovo dall'URL della tua applicazione",
+        pt: 'A imagem do projeto foi capturada novamente a partir da URL da sua aplicação',
+        hi: 'प्रोजेक्ट की छवि आपके एप्लिकेशन URL से फिर से कैप्चर की गई है',
+        tr: 'Proje görseli uygulama URL’nizden yeniden yakalandı',
+        pl: 'Obraz projektu został ponownie przechwycony z adresu URL aplikacji',
+        id: 'Gambar proyek telah ditangkap ulang dari URL aplikasi Anda',
+        vi: 'Hình ảnh dự án đã được chụp lại từ URL ứng dụng của bạn',
+        uk: 'Зображення проєкту знову знято з URL вашого застосунку',
+        'he-IL': 'תמונת הפרויקט צולמה מחדש מכתובת ה-URL של האפליקציה שלכם',
+      }),
+      data: mapProjectToAPI(updatedProject),
     });
 
     return reply.send(responseData);

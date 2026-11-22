@@ -239,6 +239,31 @@ export const useTriggerBuild = () => {
   });
 };
 
+/**
+ * Captures the application URL of the selected project again and patches the
+ * session project with the new image.
+ */
+export const useRegenerateProjectScreenshot = () => {
+  const projectAPI = useProjectAPI();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['projects', 'screenshot'],
+    mutationFn: () => projectAPI.regenerateProjectScreenshot(),
+    meta: {
+      invalidateQueries: [['projects']],
+    },
+    onSuccess: (data) => {
+      const session = queryClient.getQueryData<SessionAPI>(['session']);
+
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        project: data.data,
+      });
+    },
+  });
+};
+
 export const useTriggerWebhook = () => {
   const projectAPI = useProjectAPI();
 

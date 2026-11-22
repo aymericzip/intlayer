@@ -102,3 +102,24 @@ export const refreshProjectScreenshotIfChanged = async ({
 
   return imageUrl ?? existingImageUrl;
 };
+
+/**
+ * Captures the application URL again, whether or not it changed.
+ * The storage key is deterministic, so a version query is appended to bypass
+ * the cached (or missing) previous image. Returns null when the capture fails.
+ */
+export const regenerateProjectScreenshot = async (
+  applicationUrl: string,
+  projectId: string
+): Promise<string | null> => {
+  if (!isPublicUrl(applicationUrl)) return null;
+
+  const imageUrl = await takeAndUploadProjectScreenshot(
+    applicationUrl,
+    projectId
+  );
+
+  if (!imageUrl) return null;
+
+  return `${imageUrl}?v=${Date.now()}`;
+};
