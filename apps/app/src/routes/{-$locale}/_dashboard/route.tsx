@@ -19,7 +19,7 @@ import { WithResizer } from '@intlayer/design-system/with-resizer';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayerAsync, getPathWithoutLocale } from 'intlayer';
 import { X } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardFooter } from '#components/Dashboard/DashboardFooter';
@@ -88,7 +88,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 function DashboardLayout() {
   const { locale } = useLocale();
   const { session } = useSession();
-  const { sidebarKeys, pinnedKeys, pin, unpin, removeRecent, trackVisit } =
+  const { sidebarKeys, pinnedKeys, pin, unpin, removeRecent } =
     useDictionarySidebar();
   const {
     sidebarKeys: tagSidebarKeys,
@@ -111,26 +111,25 @@ function DashboardLayout() {
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
-  const dictionaryDetailMatch = pathWithoutLocale.match(
-    new RegExp(`^${App_Dashboard_Dictionaries_Path}/(.+)$`)
-  );
-  const currentDictionaryKey = dictionaryDetailMatch?.[1] ?? null;
-
   const tagDetailMatch = pathWithoutLocale.match(
     new RegExp(`^${App_Dashboard_Tags_Path}/(.+)$`)
   );
   const currentTagKey = tagDetailMatch?.[1] ?? null;
 
-  useEffect(() => {
-    if (currentDictionaryKey) {
-      trackVisit(currentDictionaryKey);
-    }
-  }, [currentDictionaryKey, trackVisit]);
+  // Tracked on navigation only: re-running when the project changes (new
+  // `trackVisitTag` scope) would leak the previous project's tag into it.
+  const lastTrackedTagKeyRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (currentTagKey) {
-      trackVisitTag(currentTagKey);
+    if (!currentTagKey) {
+      lastTrackedTagKeyRef.current = null;
+      return;
     }
+
+    if (lastTrackedTagKeyRef.current === currentTagKey) return;
+
+    lastTrackedTagKeyRef.current = currentTagKey;
+    trackVisitTag(currentTagKey);
   }, [currentTagKey, trackVisitTag]);
 
   const { navigation } = useIntlayer('dashboard-sidebar');

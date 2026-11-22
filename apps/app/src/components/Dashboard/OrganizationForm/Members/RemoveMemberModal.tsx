@@ -71,6 +71,7 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
       padding="md"
       border
       borderColor="neutral"
+      roundedSize="2xl"
     >
       <Loader isLoading={isLoadingUsers}>
         <form className="size-full p-3">

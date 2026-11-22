@@ -85,9 +85,12 @@ export const useGetDictionary = (
   options?: AppQueryOptions
 ) => {
   const dictionaryAPI = useDictionaryAPI();
+  const { projectId } = useAuthEnable({});
 
   return useAppQuery({
-    queryKey: ['dictionary', dictionaryKey],
+    // Scoped by project: switching project must never serve the dictionary
+    // cached for the previous one.
+    queryKey: ['dictionary', dictionaryKey, projectId],
     queryFn: ({ signal }) =>
       dictionaryAPI.getDictionary(dictionaryKey, version, {
         signal,

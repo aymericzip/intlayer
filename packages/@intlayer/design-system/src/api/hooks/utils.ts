@@ -52,6 +52,8 @@ export const useAuthEnable = ({
 
   return {
     enable: isEnabled,
+    /** Active project id, used to scope project-bound query keys. */
+    projectId: project?.id,
   };
 };
 

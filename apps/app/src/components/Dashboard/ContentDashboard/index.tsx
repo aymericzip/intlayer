@@ -11,8 +11,8 @@ import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes'
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { useQueryClient } from '@tanstack/react-query';
-import { Pin, PinOff } from 'lucide-react';
-import { type FC, Suspense, useMemo } from 'react';
+import { Lock, Pin, PinOff } from 'lucide-react';
+import { type FC, Suspense, useEffect, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useTheme } from '#/providers/ThemeProvider';
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
@@ -26,7 +26,11 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   dictionaryKey,
 }) => {
   const { resolvedTheme } = useTheme();
-  const { data: dictionaryResult, isPending } = useGetDictionary(dictionaryKey);
+  const {
+    data: dictionaryResult,
+    isPending,
+    isError,
+  } = useGetDictionary(dictionaryKey);
   const { data: siblingsResult } = useGetDictionaries(
     { keys: [dictionaryKey], pageSize: 200 },
     { enabled: Boolean(dictionaryKey) }
@@ -37,7 +41,8 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
     pinDictionary: pinDictionaryLabel,
     unpinDictionary: unpinDictionaryLabel,
   } = useIntlayer('dashboard-sidebar');
-  const { pin, unpin, isPinned } = useDictionarySidebar();
+  const { notAccessible } = useIntlayer('content-dashboard');
+  const { pin, unpin, isPinned, trackVisit } = useDictionarySidebar();
 
   const navigate = useLocalizedNavigate();
 
@@ -66,6 +71,15 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 
   // Item / variant selection is handled inside the editor
   const dictionary = remoteDictionary ?? localeDictionary;
+  const isAccessible = Boolean(dictionary);
+
+  // Only record dictionaries reachable from the active project, so a
+  // dictionary of another project never lands in this project's sidebar.
+  useEffect(() => {
+    if (isAccessible) {
+      trackVisit(dictionaryKey);
+    }
+  }, [dictionaryKey, isAccessible, trackVisit]);
 
   const handleSave = () => {
     queryClient.invalidateQueries({ queryKey: ['dictionary', dictionaryKey] });
@@ -75,8 +89,28 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 
   return (
     <Suspense fallback={<Loader />}>
-      <Loader isLoading={!dictionary && isPending}>
+      <Loader isLoading={!dictionary && isPending && !isError}>
         <div className="flex h-full min-h-0 w-full flex-1 flex-col">
+          {!dictionary && (isError || !isPending) && (
+            <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
+              <Lock className="size-8 text-neutral" aria-hidden />
+              <h1 className="text-xl font-bold">{notAccessible.title}</h1>
+              <p className="max-w-md text-neutral">
+                {notAccessible.description}
+              </p>
+              <Button
+                type="button"
+                variant="outline"
+                color="text"
+                label={notAccessible.backToDictionaries.value}
+                onClick={() =>
+                  navigate({ to: App_Dashboard_Dictionaries_Path })
+                }
+              >
+                {notAccessible.backToDictionaries}
+              </Button>
+            </div>
+          )}
           {dictionary && (
             <DictionaryFieldEditor
               dictionary={dictionary}
