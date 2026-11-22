@@ -9,15 +9,19 @@ export type PresenceState<TElement extends HTMLElement> = {
   ref: (element: TElement | null) => void;
 };
 
-const hasRunningAnimation = (element: HTMLElement): boolean => {
-  const { animationName, display } = getComputedStyle(element);
-
-  return display !== 'none' && !!animationName && animationName !== 'none';
-};
+/**
+ * Finite CSS transitions and animations running on the element itself.
+ * `getAnimations` flushes styles, so an exit transition just triggered by a
+ * `data-state` change is already listed. jsdom lacks it.
+ */
+const getExitAnimations = (element: HTMLElement): Animation[] =>
+  (element.getAnimations?.() ?? []).filter(
+    (animation) => animation.effect?.getComputedTiming().iterations !== Infinity
+  );
 
 /**
  * Keeps an element mounted after `isPresent` turns false, until its exit CSS
- * animation (e.g. `data-[state=closed]:animate-out`) has finished.
+ * transition or animation (e.g. `data-[state=closed]:opacity-0`) has finished.
  *
  * @example
  * const { isMounted, ref } = usePresence<HTMLDivElement>(open);
@@ -36,21 +40,19 @@ export const usePresence = <TElement extends HTMLElement>(
   useLayoutEffect(() => {
     if (isPresent || !isMounted) return;
 
-    if (!element || !hasRunningAnimation(element)) {
-      setIsMounted(false);
-      return;
-    }
+    const exitAnimations = element ? getExitAnimations(element) : [];
+    let isCancelled = false;
 
-    const handleAnimationEnd = (event: AnimationEvent) => {
-      if (event.target === element) setIsMounted(false);
-    };
-
-    element.addEventListener('animationend', handleAnimationEnd);
-    element.addEventListener('animationcancel', handleAnimationEnd);
+    // `finished` rejects when an animation is cancelled; unmount either way.
+    // Without animations it settles on the next microtask, still before paint.
+    void Promise.allSettled(
+      exitAnimations.map((animation) => animation.finished)
+    ).then(() => {
+      if (!isCancelled) setIsMounted(false);
+    });
 
     return () => {
-      element.removeEventListener('animationend', handleAnimationEnd);
-      element.removeEventListener('animationcancel', handleAnimationEnd);
+      isCancelled = true;
     };
   }, [isPresent, isMounted, element]);
 

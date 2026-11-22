@@ -2,18 +2,19 @@
 
 import { type ReactNode, useEffect, useState } from 'react';
 import type { ToastActionElement, ToastProps } from './Toast';
+import { VISIBLE_TOAST_COUNT } from './toastStack';
 
 /**
  * Maximum number of toasts that can be displayed simultaneously.
  * Prevents UI overflow and maintains clean notification experience.
  */
-const TOAST_LIMIT = 1;
+const TOAST_LIMIT = VISIBLE_TOAST_COUNT;
 
 /**
- * Delay before automatically removing dismissed toasts from memory.
- * Set to 15 minutes (900,000ms) to allow for potential undo actions.
+ * Delay before removing a dismissed toast from memory, once its exit
+ * transition is over.
  */
-const TOAST_REMOVE_DELAY = 15 * 60 * 1000; // 15 seconds
+const TOAST_REMOVE_DELAY = 1000;
 
 /**
  * Extended toast configuration with additional properties for the toast system.
@@ -114,7 +115,7 @@ const addToRemoveQueue = (toastId: string) => {
  * consistent behavior across all toast operations.
  *
  * ## State Management
- * - **ADD_TOAST**: Adds new toast and enforces limit by removing excess toasts
+ * - **ADD_TOAST**: Adds new toast and enforces limit by dismissing the oldest
  * - **UPDATE_TOAST**: Updates existing toast properties while preserving identity
  * - **DISMISS_TOAST**: Marks toasts as closed and schedules removal
  * - **REMOVE_TOAST**: Permanently removes toasts from state
@@ -144,11 +145,22 @@ const addToRemoveQueue = (toastId: string) => {
  */
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case ActionTypes.ADD_TOAST:
-      return {
-        ...state,
-        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
-      };
+    case ActionTypes.ADD_TOAST: {
+      let openToastCount = 0;
+
+      // Close the overflow instead of dropping it, so it animates out.
+      const toasts = [action.toast, ...state.toasts].map((toast) => {
+        if (toast.open === false) return toast;
+
+        openToastCount += 1;
+        if (openToastCount <= TOAST_LIMIT) return toast;
+
+        addToRemoveQueue(toast.id);
+        return { ...toast, open: false };
+      });
+
+      return { ...state, toasts };
+    }
 
     case ActionTypes.UPDATE_TOAST:
       return {

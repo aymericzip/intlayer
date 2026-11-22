@@ -1,5 +1,6 @@
 'use client';
 
+import { type CSSProperties, useState } from 'react';
 import {
   Toast,
   ToastClose,
@@ -8,6 +9,7 @@ import {
   ToastTitle,
   ToastViewport,
 } from './Toast';
+import { getToastStackLayout } from './toastStack';
 import { useToast } from './useToast';
 
 /**
@@ -19,7 +21,8 @@ import { useToast } from './useToast';
  *
  * ## Features
  * - **Global Toast Rendering**: Renders all toasts from the global state
- * - **Automatic Positioning**: Fixed viewport, bottom-end on desktop
+ * - **Automatic Positioning**: Fixed viewport, top on mobile, bottom-end from `sm`
+ * - **Stacking**: Older toasts collapse behind the newest, spread out on hover
  * - **Animation Integration**: Handles enter/exit animations for toasts
  * - **Accessibility**: Provides proper ARIA landmarks and focus management
  * - **Portal Rendering**: Renders toasts in a portal for z-index safety
@@ -42,7 +45,8 @@ import { useToast } from './useToast';
  * ## Styling Notes
  * - Toasts use fixed positioning to appear above all other content
  * - The viewport is styled for bottom-right positioning by default
- * - Animations are driven by `data-state` and kept mounted until they finish
+ * - Toasts slide in from the viewport edge and fade out, kept mounted until
+ *   their exit transition ends
  * - Custom positioning can be achieved by styling the ToastViewport
  *
  * ## Performance
@@ -54,12 +58,38 @@ import { useToast } from './useToast';
  */
 export const Toaster = () => {
   const { toasts } = useToast();
+  const [toastHeights, setToastHeights] = useState<Record<string, number>>({});
+
+  const setToastHeight = (toastId: string, height: number) =>
+    setToastHeights((previousHeights) =>
+      previousHeights[toastId] === height
+        ? previousHeights
+        : { ...previousHeights, [toastId]: height }
+    );
+
+  const { positions, collapsedHeight, expandedHeight } = getToastStackLayout(
+    toasts,
+    toastHeights
+  );
+
+  const viewportStyle: CSSProperties & Record<`--${string}`, string> = {
+    '--toast-collapsed-height': `${collapsedHeight}px`,
+    '--toast-expanded-height': `${expandedHeight}px`,
+  };
 
   return (
     <ToastProvider>
-      <ToastViewport>
+      <ToastViewport
+        className="h-(--toast-collapsed-height) transition-[height] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] data-expanded:h-(--toast-expanded-height) motion-reduce:transition-none"
+        style={viewportStyle}
+      >
         {toasts.map(({ id, title, description, action, ...props }) => (
-          <Toast key={id} {...props}>
+          <Toast
+            key={id}
+            {...props}
+            stack={positions[id]}
+            onHeightChange={(height) => setToastHeight(id, height)}
+          >
             <div className="grid gap-1">
               {title && <ToastTitle>{title}</ToastTitle>}
               {description && (

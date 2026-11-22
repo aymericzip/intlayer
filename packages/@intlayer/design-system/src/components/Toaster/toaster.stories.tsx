@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RefreshCw, Trash2, Upload, X } from 'lucide-react';
 import { useState } from 'react';
-import { userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '../Button';
 import { ToastAction } from './Toast';
 import { Toaster } from './Toaster';
@@ -24,8 +24,10 @@ accessibility support and smooth animations.
 - **Interactive Actions**: Buttons for user actions (retry, undo, view details)
 - **Auto-dismiss**: Configurable timeout with manual dismiss options
 - **Accessibility**: Full ARIA support and keyboard navigation
-- **Queue Management**: Handles multiple toasts with proper stacking
-- **Animations**: Smooth slide-in/out with hardware acceleration
+- **Stacking**: Up to 3 toasts; older ones collapse behind the newest and
+  spread out on hover. A 4th toast dismisses the oldest
+- **Animations**: Slide in from the anchored edge (top on mobile, bottom-end
+  from \`sm\`), fade out to the right; disabled with reduced motion
         `,
       },
     },
@@ -417,5 +419,136 @@ export const RealWorldScenarios: Story = {
     await userEvent.type(nameInput, 'John Doe');
     await userEvent.type(emailInput, 'john@example.com');
     await userEvent.click(saveButton);
+  },
+};
+
+/** Waits for a toast exit transition (400ms) to finish. */
+const waitForTransition = () =>
+  new Promise((resolve) => setTimeout(resolve, 600));
+
+/**
+ * Several toasts stack: the newest in front, older ones collapsed behind it.
+ * Hovering the stack spreads it out and pauses the timers. Resize the
+ * viewport below `sm` to see the stack anchored at the top.
+ */
+export const Stacking: Story = {
+  render: () => {
+    const { toast, dismiss } = useToast();
+    const [toastCount, setToastCount] = useState(0);
+
+    const showToast = (description: string) => {
+      const toastNumber = toastCount + 1;
+      setToastCount(toastNumber);
+      toast({
+        title: `Notification ${toastNumber}`,
+        description,
+        variant: toastNumber % 3 === 0 ? 'success' : 'default',
+      });
+    };
+
+    return (
+      <div className="mx-auto w-full max-w-2xl rounded-lg border bg-white p-6">
+        <h2 className="mb-6 text-xl font-semibold">Stacking</h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <Button
+            label="Show a short toast"
+            onClick={() => showToast('A short message.')}
+            variant="outline"
+          >
+            Short toast
+          </Button>
+          <Button
+            label="Show a long toast"
+            onClick={() =>
+              showToast(
+                'A longer message that wraps over several lines, to check that the collapsed toasts take the height of the front one and that the expanded stack spaces toasts by their own height.'
+              )
+            }
+            variant="outline"
+          >
+            Long toast
+          </Button>
+          <Button
+            label="Dismiss every toast"
+            onClick={() => dismiss()}
+            variant="outline"
+            className="border-red-300 text-red-700"
+          >
+            Dismiss all
+          </Button>
+        </div>
+        <p className="mt-4 text-sm text-gray-600">
+          Add a few toasts, then hover the stack to spread it out. Swipe a toast
+          to the right to dismiss it.
+        </p>
+      </div>
+    );
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const viewport = canvas.getByRole('list', { name: 'Notifications' });
+    const getOpenToasts = () =>
+      viewport.querySelectorAll<HTMLLIElement>('li[data-state="open"]');
+
+    await userEvent.click(canvas.getByText('Dismiss all'));
+    await waitForTransition();
+
+    await step('Stacks the newest toast in front', async () => {
+      await userEvent.click(canvas.getByText('Short toast'));
+      await userEvent.click(canvas.getByText('Long toast'));
+      await userEvent.click(canvas.getByText('Short toast'));
+
+      await waitFor(() => expect(getOpenToasts()).toHaveLength(3));
+
+      const frontToast = getOpenToasts().item(0);
+      const middleToast = getOpenToasts().item(1);
+      await expect(frontToast).not.toHaveAttribute('data-collapsed');
+      await expect(middleToast).toHaveAttribute('data-collapsed');
+      // Collapsed toasts borrow the front toast's height.
+      await waitFor(() =>
+        expect(middleToast.offsetHeight).toBe(frontToast.offsetHeight)
+      );
+    });
+
+    await step('Spreads out while hovered', async () => {
+      await userEvent.hover(viewport);
+
+      await waitFor(() => expect(viewport).toHaveAttribute('data-expanded'));
+      await expect(getOpenToasts().item(1)).not.toHaveAttribute(
+        'data-collapsed'
+      );
+
+      await userEvent.unhover(viewport);
+      await waitFor(() =>
+        expect(viewport).not.toHaveAttribute('data-expanded')
+      );
+    });
+
+    await step('Dismisses the oldest past three toasts', async () => {
+      await userEvent.click(canvas.getByText('Short toast'));
+
+      await waitFor(() => expect(getOpenToasts()).toHaveLength(3));
+      const openTitles = [...getOpenToasts()].map((toast) => toast.textContent);
+      await expect(openTitles.join()).not.toContain('Notification 1');
+    });
+
+    await step('Animates out when dismissed', async () => {
+      await userEvent.click(canvas.getByText('Dismiss all'));
+
+      await expect(getOpenToasts()).toHaveLength(0);
+      await waitFor(() =>
+        expect(viewport.querySelectorAll('li')).toHaveLength(0)
+      );
+    });
+
+    // Leave a stack on screen to inspect, added slowly enough to watch it enter.
+    await step('Leaves a stack to inspect', async () => {
+      for (const buttonText of ['Long toast', 'Short toast', 'Short toast']) {
+        await userEvent.click(canvas.getByText(buttonText));
+        await waitForTransition();
+      }
+
+      await expect(getOpenToasts()).toHaveLength(3);
+    });
   },
 };

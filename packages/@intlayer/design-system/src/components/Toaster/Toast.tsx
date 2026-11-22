@@ -1,5 +1,6 @@
 'use client';
 
+import { buttonVariants } from '@components/Button';
 import { useControllableState } from '@hooks/useControllableState';
 import { usePresence } from '@hooks/usePresence';
 import { cn } from '@utils/cn';
@@ -8,6 +9,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import {
   type ComponentProps,
+  type CSSProperties,
   createContext,
   type FC,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -16,9 +18,16 @@ import {
   type ReactNode,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
+import {
+  TOAST_STACK_PEEK,
+  TOAST_STACK_SCALE_STEP,
+  type ToastStackPosition,
+  VISIBLE_TOAST_COUNT,
+} from './toastStack';
 
 /** Default time, in ms, a toast stays open. */
 const DEFAULT_TOAST_DURATION = 5000;
@@ -34,6 +43,8 @@ type ToastProviderContextValue = {
   swipeThreshold: number;
   /** Timers are paused while the viewport is hovered/focused or the window blurred. */
   isPaused: boolean;
+  /** The stack spreads out while the viewport is hovered or focused. */
+  isExpanded: boolean;
   setIsViewportActive: (isActive: boolean) => void;
 };
 
@@ -41,6 +52,7 @@ const ToastProviderContext = createContext<ToastProviderContextValue>({
   duration: DEFAULT_TOAST_DURATION,
   swipeThreshold: DEFAULT_SWIPE_THRESHOLD,
   isPaused: false,
+  isExpanded: false,
   setIsViewportActive: () => {},
 });
 
@@ -85,6 +97,7 @@ export const ToastProvider: FC<ToastProviderProps> = ({
         duration,
         swipeThreshold,
         isPaused: isViewportActive || isWindowBlurred,
+        isExpanded: isViewportActive,
         setIsViewportActive,
       }}
     >
@@ -93,7 +106,11 @@ export const ToastProvider: FC<ToastProviderProps> = ({
   );
 };
 
-/** Fixed list the toasts render into; announces new toasts politely. */
+/**
+ * Fixed list the toasts render into; announces new toasts politely.
+ * Anchored to the top on mobile and the bottom-end corner from `sm`;
+ * `--toast-direction` tells stacked toasts which way to grow.
+ */
 export const ToastViewport: FC<ComponentProps<'ol'>> = ({
   className,
   onPointerEnter,
@@ -102,7 +119,7 @@ export const ToastViewport: FC<ComponentProps<'ol'>> = ({
   onBlur,
   ...props
 }) => {
-  const { setIsViewportActive } = useContext(ToastProviderContext);
+  const { isExpanded, setIsViewportActive } = useContext(ToastProviderContext);
   const isHoveredRef = useRef(false);
   const isFocusedRef = useRef(false);
 
@@ -115,8 +132,9 @@ export const ToastViewport: FC<ComponentProps<'ol'>> = ({
       aria-live="polite"
       aria-relevant="additions"
       tabIndex={-1}
+      data-expanded={isExpanded || undefined}
       className={cn(
-        'fixed top-0 z-100 flex max-h-screen w-full flex-col-reverse p-4 sm:inset-e-0 sm:top-auto sm:bottom-0 sm:flex-col md:max-w-105',
+        'fixed inset-x-4 top-4 z-100 [--toast-direction:1] sm:top-auto sm:bottom-4 sm:[--toast-direction:-1] md:inset-s-auto md:w-97',
         className
       )}
       onPointerEnter={(event) => {
@@ -154,7 +172,7 @@ export const ToastViewport: FC<ComponentProps<'ol'>> = ({
  * <Toast variant="error">Error message</Toast>
  */
 export const toastVariants = cva(
-  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out pointer-events-auto relative flex w-full touch-pan-y items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pe-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all [corner-shape:squircle] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--toast-swipe-end-x) data-[swipe=move]:translate-x-(--toast-swipe-move-x) data-[swipe=move]:transition-none supports-[corner-shape:squircle]:rounded-3xl',
+  'group pointer-events-auto relative flex w-full cursor-grab touch-pan-y items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pe-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-[transform,translate,scale,opacity,height] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] [corner-shape:squircle] *:transition-opacity hover:scale-102 data-collapsed:*:opacity-0 data-hidden:pointer-events-none data-hidden:opacity-0 data-[state=closed]:translate-x-full data-[state=closed]:opacity-0 data-[swipe=cancel]:translate-x-0 data-[swipe=move]:translate-x-(--toast-swipe-move-x) data-[swipe=move]:cursor-grabbing data-[swipe=move]:transition-none data-[swipe=move]:select-none supports-[corner-shape:squircle]:rounded-3xl motion-reduce:transition-none starting:translate-y-[calc(var(--toast-direction,1)*-100%)] starting:opacity-0',
   {
     variants: {
       variant: {
@@ -185,11 +203,17 @@ export type ToastRootProps = Omit<ComponentProps<'li'>, 'onOpenChange'> &
     onOpenChange?: (open: boolean) => void;
     /** Auto-dismiss delay in ms, overriding the provider. `Infinity` disables it. */
     duration?: number;
+    /** Position in a stack of toasts; without it the toast sits in the flow. */
+    stack?: ToastStackPosition;
+    /** Reports the toast's natural height, needed to lay out the stack. */
+    onHeightChange?: (height: number) => void;
   };
 
 /**
  * A notification that closes itself after `duration`, on Escape, or when
- * swiped to the right. Stays mounted until its exit animation ends.
+ * swiped to the right. Slides in from the viewport edge and stays mounted
+ * until its exit transition ends. With `stack`, older toasts collapse behind
+ * the newest one and spread out while the viewport is hovered.
  *
  * @example
  * <Toast variant="error" onOpenChange={setOpen}>
@@ -205,7 +229,10 @@ export const Toast: FC<ToastRootProps> = ({
   defaultOpen = true,
   onOpenChange,
   duration: durationProp,
+  stack,
+  onHeightChange,
   ref,
+  style,
   onKeyDown,
   onPointerDown,
   onPointerMove,
@@ -229,6 +256,34 @@ export const Toast: FC<ToastRootProps> = ({
   const hasSwipedRef = useRef(false);
 
   const close = () => setOpen(false);
+
+  const isCollapsedBehind = !!stack && !provider.isExpanded && stack.index > 0;
+
+  // Keep the latest callback without re-subscribing the observer.
+  const onHeightChangeRef = useRef(onHeightChange);
+  useLayoutEffect(() => {
+    onHeightChangeRef.current = onHeightChange;
+  });
+
+  const hasHeightListener = !!onHeightChange;
+
+  // Collapsed toasts borrow the front toast's height, so only measure the
+  // natural height while it is not overridden.
+  useLayoutEffect(() => {
+    const element = elementRef.current;
+    if (!element || !hasHeightListener || isCollapsedBehind) return;
+
+    const reportHeight = () =>
+      onHeightChangeRef.current?.(element.offsetHeight);
+    reportHeight();
+
+    if (typeof ResizeObserver === 'undefined') return;
+
+    const resizeObserver = new ResizeObserver(reportHeight);
+    resizeObserver.observe(element);
+
+    return () => resizeObserver.disconnect();
+  }, [hasHeightListener, isCollapsedBehind, isMounted]);
 
   // Auto-dismiss, resuming with the time left after each pause.
   useEffect(() => {
@@ -283,6 +338,8 @@ export const Toast: FC<ToastRootProps> = ({
       if (Math.abs(deltaX) < SWIPE_START_DISTANCE || !isHorizontal) return;
 
       gesture.isSwiping = true;
+      // A mouse drag that began beside the text may have started a selection.
+      window.getSelection()?.removeAllRanges();
       // jsdom and older WebViews lack pointer capture.
       event.currentTarget.setPointerCapture?.(event.pointerId);
     }
@@ -300,7 +357,8 @@ export const Toast: FC<ToastRootProps> = ({
     hasSwipedRef.current = true;
 
     if (gesture.deltaX >= provider.swipeThreshold) {
-      setSwipe('end', '--toast-swipe-end-x', gesture.deltaX);
+      // The closed state carries the toast off from where the swipe ended.
+      setSwipe('end');
       close();
     } else {
       setSwipe('cancel');
@@ -319,13 +377,40 @@ export const Toast: FC<ToastRootProps> = ({
     close();
   };
 
+  const getStackStyle = (position: ToastStackPosition): CSSProperties => {
+    const offset = provider.isExpanded
+      ? position.expandedOffset
+      : position.index * TOAST_STACK_PEEK;
+    const scale = provider.isExpanded
+      ? 1
+      : 1 - position.index * TOAST_STACK_SCALE_STEP;
+
+    return {
+      transform: `translateY(calc(var(--toast-direction, 1) * ${offset}px)) scale(${scale})`,
+      height: isCollapsedBehind ? position.frontHeight : undefined,
+      // A closing toast stays above the one taking its slot.
+      zIndex:
+        Math.max(0, 2 * (VISIBLE_TOAST_COUNT - position.index)) +
+        (open ? 0 : 1),
+    };
+  };
+
   return (
     <ToastContext.Provider value={{ close }}>
       <li
         ref={composeRefs(ref, elementRef, presenceRef)}
         aria-atomic
         data-state={open ? 'open' : 'closed'}
-        className={cn(toastVariants({ variant }), className)}
+        data-collapsed={isCollapsedBehind || undefined}
+        data-hidden={(stack && stack.index >= VISIBLE_TOAST_COUNT) || undefined}
+        className={cn(
+          toastVariants({ variant }),
+          // Pinned to the viewport edge; the far edge stays put when scaled.
+          stack &&
+            'absolute inset-x-0 top-0 origin-bottom sm:top-auto sm:bottom-0 sm:origin-top',
+          className
+        )}
+        style={stack ? { ...getStackStyle(stack), ...style } : style}
         onKeyDown={handleKeyDown}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -353,7 +438,8 @@ export const Toast: FC<ToastRootProps> = ({
 };
 
 /**
- * Action button of a toast (retry, undo, view…). Closes the toast on click
+ * Action button of a toast (retry, undo, view…), styled as an outline
+ * `Button`. Closes the toast on click
  * unless the handler calls `event.preventDefault()`.
  *
  * @example
@@ -370,7 +456,8 @@ export const ToastAction: FC<ComponentProps<'button'>> = ({
     <button
       type="button"
       className={cn(
-        'group-[.error]:hover:text-error-foreground inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors group-[.error]:border-card/40 hover:bg-text group-[.error]:hover:border-error/30 group-[.error]:hover:bg-error focus:ring-1 focus:ring-ring focus:outline-hidden group-[.error]:focus:ring-error disabled:pointer-events-none disabled:opacity-50',
+        buttonVariants({ variant: 'outline', size: 'sm' }),
+        'shrink-0',
         className
       )}
       onClick={(event) => {
@@ -395,7 +482,7 @@ export const ToastClose: FC<ComponentProps<'button'>> = ({
       type="button"
       aria-label="Close"
       className={cn(
-        'absolute inset-e-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity group-hover:opacity-100 group-[.error]:text-red-300 hover:text-foreground/80 group-[.error]:hover:text-red-50 focus:opacity-100 focus:ring-1 focus:outline-hidden group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600',
+        'absolute inset-e-1 top-1 cursor-pointer rounded-md p-1 text-foreground/50 opacity-0 transition-opacity group-hover:opacity-100 group-[.error]:text-red-300 hover:text-foreground/80 group-[.error]:hover:text-red-50 focus:opacity-100 focus:ring-1 focus:outline-hidden group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600',
         className
       )}
       onClick={(event) => {
@@ -409,16 +496,43 @@ export const ToastClose: FC<ComponentProps<'button'>> = ({
   );
 };
 
+/** Whether a point lies on a rendered glyph of the element's text. */
+const isPointOnText = (element: HTMLElement, x: number, y: number): boolean => {
+  const textWalker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+  const range = document.createRange();
+
+  for (let node = textWalker.nextNode(); node; node = textWalker.nextNode()) {
+    range.selectNodeContents(node);
+
+    // jsdom has no layout, so ranges there lack client rects.
+    for (const rect of range.getClientRects?.() ?? []) {
+      if (
+        x >= rect.left &&
+        x <= rect.right &&
+        y >= rect.top &&
+        y <= rect.bottom
+      )
+        return true;
+    }
+  }
+
+  return false;
+};
+
 /**
- * Stops a pointer down on text from starting a swipe, so the text stays
- * selectable while the rest of the toast remains swipeable.
+ * Stops a pointer down on the text itself from starting a swipe, so the text
+ * stays selectable. Blank space around it still drags the toast, with a
+ * mouse as with touch.
  */
 const preventSwipeOnText = (
   event: ReactPointerEvent<HTMLDivElement>,
   onPointerDown?: (event: ReactPointerEvent<HTMLDivElement>) => void
 ) => {
   onPointerDown?.(event);
-  event.stopPropagation();
+
+  if (isPointOnText(event.currentTarget, event.clientX, event.clientY)) {
+    event.stopPropagation();
+  }
 };
 
 /** Heading of a toast. */
@@ -429,7 +543,7 @@ export const ToastTitle: FC<ComponentProps<'div'>> = ({
 }) => (
   <div
     className={cn(
-      'cursor-text text-sm font-semibold wrap-break-word select-text [&+div]:text-xs',
+      'cursor-auto text-sm font-semibold wrap-break-word select-text [&+div]:text-xs',
       className
     )}
     onPointerDown={(event) => preventSwipeOnText(event, onPointerDown)}
@@ -445,7 +559,7 @@ export const ToastDescription: FC<ComponentProps<'div'>> = ({
 }) => (
   <div
     className={cn(
-      'max-h-60 cursor-text overflow-y-auto text-sm wrap-break-word opacity-90 select-text',
+      'max-h-60 cursor-auto overflow-y-auto text-sm wrap-break-word opacity-90 select-text',
       className
     )}
     onPointerDown={(event) => preventSwipeOnText(event, onPointerDown)}
