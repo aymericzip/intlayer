@@ -3,6 +3,7 @@ import {
   usePushProjectConfiguration,
   useSession,
 } from '@intlayer/design-system/api';
+import { Badge } from '@intlayer/design-system/badge';
 import {
   Form,
   FormAutoSizedTextArea,
@@ -277,16 +278,23 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             label={aiSection.apiKeyInput.label.value}
             placeholder={aiSection.apiKeyInput.placeholder.value}
             description={
-              <div>
-                <p>{aiSection.apiKeyInput.description}</p>
-                <p>{aiSection.apiKeyInput.currentKey}:</p>
-                <p
-                  className="my-2 w-fit max-w-full truncate rounded-xl bg-text/10 px-2 py-1 font-mono"
-                  dir="ltr"
-                >
-                  {formatMaskedAPIKey(projectConfig?.ai?.apiKey ?? '')}
-                </p>
-              </div>
+              <>
+                {aiSection.apiKeyInput.description}
+                {projectConfig?.ai?.apiKey && (
+                  <span className="mt-1 flex items-center gap-2">
+                    {aiSection.apiKeyInput.currentKey}:
+                    <Badge
+                      color="neutral"
+                      variant="outline"
+                      size="sm"
+                      className="max-w-full truncate font-mono"
+                      dir="ltr"
+                    >
+                      {formatMaskedAPIKey(projectConfig.ai.apiKey)}
+                    </Badge>
+                  </span>
+                )}
+              </>
             }
             disabled={!isProjectAdmin}
           />
