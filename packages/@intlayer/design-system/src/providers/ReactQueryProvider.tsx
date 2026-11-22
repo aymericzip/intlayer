@@ -16,7 +16,7 @@ import { useToast } from '../components/Toaster';
 
 const PERSIST_MAX_AGE = 1000 * 60 * 60 * 24; // 24h
 // Bump to invalidate every persisted cache after a breaking change in query shapes
-const PERSIST_BUSTER = 'v2';
+const PERSIST_BUSTER = 'v3';
 
 const isServer = typeof window === 'undefined';
 
@@ -230,6 +230,7 @@ export const ReactQueryProvider: FC<
   // via getQueryClient() in TanStack Router context), since the externally
   // created client ships with a bare MutationCache.
   const wiredRef = useRef(false);
+
   if (!wiredRef.current) {
     wiredRef.current = true;
     const cache = clientRef.current.getMutationCache();
