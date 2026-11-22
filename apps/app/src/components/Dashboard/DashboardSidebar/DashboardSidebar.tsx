@@ -636,7 +636,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
       aria-label={dashboardNavigation.value}
       className={cn(
         'sticky top-0 z-40 shrink-0 transition-all duration-300',
-        isCollapsed ? 'w-16' : 'w-54',
+        isCollapsed ? 'max-w-16' : 'max-w-72',
         className
       )}
     >
