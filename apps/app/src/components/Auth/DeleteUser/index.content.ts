@@ -5,10 +5,10 @@ const deleteUserContent = {
   fill: './{{fileName}}.content.json',
   content: {
     dangerZoneTitle: t({
-      en: 'Danger Zone',
+      en: 'Danger zone',
       ar: 'منطقة الخطر',
       de: 'Gefahrenzone',
-      'en-GB': 'Danger Zone',
+      'en-GB': 'Danger zone',
       es: 'Zona de peligro',
       fr: 'Zone dangereuse',
       'he-IL': 'אזור מסוכן',
@@ -48,10 +48,10 @@ const deleteUserContent = {
         zh: '单击以删除您的账户',
       }),
       text: t({
-        en: 'Delete Account',
+        en: 'Delete account',
         ar: 'حذف الحساب',
         de: 'Konto löschen',
-        'en-GB': 'Delete Account',
+        'en-GB': 'Delete account',
         es: 'Eliminar cuenta',
         fr: 'Supprimer le compte',
         'he-IL': 'מחיקת חשבון',
@@ -93,10 +93,10 @@ const deleteUserContent = {
         zh: '取消',
       }),
       confirmButton: t({
-        en: 'Delete Account',
+        en: 'Delete account',
         ar: 'حذف الحساب',
         de: 'Konto löschen',
-        'en-GB': 'Delete Account',
+        'en-GB': 'Delete account',
         es: 'Eliminar cuenta',
         fr: 'Supprimer le compte',
         'he-IL': 'מחיקת חשבון',
@@ -181,10 +181,10 @@ const deleteUserContent = {
         })
       ),
       title: t({
-        en: 'Delete Account',
+        en: 'Delete account',
         ar: 'حذف الحساب',
         de: 'Konto löschen',
-        'en-GB': 'Delete Account',
+        'en-GB': 'Delete account',
         es: 'Eliminar cuenta',
         fr: 'Supprimer le compte',
         'he-IL': 'מחיקת חשבון',

@@ -49,17 +49,17 @@ const UsageSummary: FC<UsageSummaryProps> = ({ days }) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {statistics.map((statistic) => (
         <Container
           key={statistic.label.value}
           roundedSize="2xl"
           border
           borderColor="neutral"
-          className="flex flex-col gap-1 p-4"
+          className="flex flex-col gap-2 p-5"
         >
-          <span className="text-xs text-neutral">{statistic.label}</span>
-          <span className="text-2xl font-semibold text-text tabular-nums">
+          <span className="text-sm text-neutral">{statistic.label}</span>
+          <span className="text-2xl leading-none font-medium text-text tabular-nums">
             {statistic.value}
           </span>
         </Container>
@@ -85,9 +85,9 @@ const DailyChart: FC<DailyChartProps> = ({ days }) => {
       roundedSize="2xl"
       border
       borderColor="neutral"
-      className="flex flex-col gap-3 p-4"
+      className="flex flex-col gap-4 p-5"
     >
-      <h2 className="text-base font-semibold text-text">{chartTitle}</h2>
+      <h2 className="text-base font-medium text-text">{chartTitle}</h2>
       <ul className="flex h-48 items-end gap-0.5">
         {days.map((day) => {
           const heightRatio =
@@ -115,7 +115,7 @@ const DailyChart: FC<DailyChartProps> = ({ days }) => {
           );
         })}
       </ul>
-      <div className="flex justify-between text-xs text-neutral">
+      <div className="flex justify-between text-xs text-neutral tabular-nums">
         <span>
           {formatDate(parseUTCDay(days[0].date), {
             dateStyle: 'medium',
@@ -157,9 +157,9 @@ const DailyTable: FC<DailyTableProps> = ({ days }) => {
       roundedSize="2xl"
       border
       borderColor="neutral"
-      className="flex flex-col gap-3 overflow-x-auto p-4"
+      className="flex flex-col gap-4 overflow-x-auto p-5"
     >
-      <h2 className="text-base font-semibold text-text">{tableTitle}</h2>
+      <h2 className="text-base font-medium text-text">{tableTitle}</h2>
       <table className="w-full border-collapse text-sm">
         <thead>
           <tr className="text-start text-xs text-neutral">
@@ -171,7 +171,7 @@ const DailyTable: FC<DailyTableProps> = ({ days }) => {
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-dashed divide-neutral/50">
+        <tbody className="divide-y divide-neutral/10">
           {daysWithUsage.map((day) => (
             <tr key={day.date}>
               <td className="py-2 text-nowrap text-text">
@@ -180,7 +180,7 @@ const DailyTable: FC<DailyTableProps> = ({ days }) => {
                   timeZone: 'UTC',
                 })}
               </td>
-              <td className="py-2 text-end font-semibold text-text tabular-nums">
+              <td className="py-2 text-end font-medium text-text tabular-nums">
                 {formatNumber(day.credits)}
               </td>
               <td className="py-2 text-end text-neutral tabular-nums">
@@ -229,46 +229,62 @@ export const AICreditUsage: FC = () => {
     90: ranges.last90Days,
   };
 
+  const rangeSelector = (
+    <SwitchSelector
+      choices={USAGE_RANGES.map((range) => ({
+        content: rangeContentByDays[range],
+        value: range,
+      }))}
+      value={usageRange}
+      onChange={(value) => setUsageRange(value as UsageRange)}
+      color="text"
+      size="sm"
+      className="w-full sm:w-auto"
+    />
+  );
+
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
-      <p className="text-sm text-neutral">{metadata.description}</p>
-
-      <Container
-        roundedSize="2xl"
-        border
-        borderColor="neutral"
-        padding="md"
-        className="mx-auto w-full max-w-xl"
-      >
-        <AICredits />
-      </Container>
-
-      <div className="flex flex-col gap-2">
-        <span className="text-xs font-medium text-text">{rangeLabel}</span>
-        <SwitchSelector
-          choices={USAGE_RANGES.map((range) => ({
-            content: rangeContentByDays[range],
-            value: range,
-          }))}
-          value={usageRange}
-          onChange={(value) => setUsageRange(value as UsageRange)}
-          color="text"
-          size="sm"
-          className="w-full max-w-md"
-        />
+    <div className="flex w-full flex-col gap-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <p className="text-sm text-neutral">{metadata.description}</p>
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-neutral">{rangeLabel}</span>
+          {rangeSelector}
+        </div>
       </div>
 
-      {isPending ? (
-        <Loader className="mx-auto size-6" />
-      ) : hasUsage ? (
-        <>
-          <UsageSummary days={days} />
-          <DailyChart days={days} />
-          <DailyTable days={days} />
-        </>
-      ) : (
-        <p className="py-12 text-center text-sm text-neutral">{noUsage}</p>
-      )}
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+        <Container
+          roundedSize="2xl"
+          border
+          borderColor="neutral"
+          className="p-5"
+        >
+          <AICredits isUsageDetailsLinkVisible={false} />
+        </Container>
+
+        <div className="flex flex-col gap-6">
+          {isPending ? (
+            <Loader className="mx-auto size-6" />
+          ) : hasUsage ? (
+            <>
+              <UsageSummary days={days} />
+              <DailyChart days={days} />
+            </>
+          ) : (
+            <Container
+              roundedSize="2xl"
+              border
+              borderColor="neutral"
+              className="flex min-h-64 items-center justify-center p-5"
+            >
+              <p className="text-sm text-neutral">{noUsage}</p>
+            </Container>
+          )}
+        </div>
+      </div>
+
+      {!isPending && hasUsage && <DailyTable days={days} />}
     </div>
   );
 };

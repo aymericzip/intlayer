@@ -44,7 +44,7 @@ export const AICreditGauge: FC<AICreditGaugeProps> = ({ balance }) => {
             total: formatNumber(balance.monthlyCredits),
           })}
         </span>
-        <span className="font-semibold text-text">
+        <span className="font-medium text-text tabular-nums">
           {remaining({ remaining: formatNumber(balance.remainingCredits) })}
         </span>
       </div>
@@ -57,12 +57,12 @@ export const AICreditGauge: FC<AICreditGaugeProps> = ({ balance }) => {
       >
         <div
           className={cn(
-            'h-full rounded-full transition-all duration-500 ease-out',
+            'h-full rounded-full',
             isExhausted
               ? 'bg-error'
               : usageRatio >= WARNING_USAGE_RATIO
                 ? 'bg-warning'
-                : 'bg-success'
+                : 'bg-text/70'
           )}
           style={{ width: `${Math.round(usageRatio * 100)}%` }}
         />

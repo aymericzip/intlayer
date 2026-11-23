@@ -13,9 +13,8 @@ import {
   FormInput,
   useForm,
 } from '@intlayer/design-system/form';
-import { H3 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
-import { Fingerprint, LockIcon, PenIcon, ShieldCheck } from 'lucide-react';
+import { LockIcon, PenIcon } from 'lucide-react';
 import {
   type ChangeEvent,
   type FC,
@@ -92,11 +91,10 @@ const ProfileFormContent: FC = () => {
   return (
     <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-8">
       <Container
-        roundedSize="3xl"
-        padding="lg"
+        roundedSize="2xl"
         border
         borderColor="neutral"
-        className="w-full flex-row items-center gap-10"
+        className="w-full flex-row flex-wrap items-center gap-6 p-5"
       >
         <input
           ref={avatarInputRef}
@@ -114,9 +112,9 @@ const ProfileFormContent: FC = () => {
           hoverable
           alt={changeAvatar.value}
         />
-        <div className="flex flex-col justify-between gap-2">
-          <span className="text-4xl text-text">{user?.name}</span>
-          <span className="text-lg text-neutral">{user?.email}</span>
+        <div className="flex flex-col gap-1">
+          <span className="text-2xl font-medium text-text">{user?.name}</span>
+          <span className="text-sm text-neutral">{user?.email}</span>
         </div>
         <div className="ms-auto mt-auto flex flex-row gap-2">
           {hasPasswordColumn ? (
@@ -143,36 +141,32 @@ const ProfileFormContent: FC = () => {
         </div>
       </Container>
 
-      <div className="justify-top grid w-full grid-cols-1 gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
-        <div className="flex size-full w-full flex-col gap-10 md:max-w-xl">
+      <div className="grid w-full grid-cols-1 items-start gap-6 md:grid-cols-2">
+        <div className="flex w-full flex-col gap-6">
           <ConnectedAccounts />
         </div>
 
-        <div className="flex w-full flex-col gap-10 md:max-w-xl">
+        <div className="flex w-full flex-col gap-6">
           <Container
-            roundedSize="3xl"
-            padding="md"
+            roundedSize="2xl"
             border
             borderColor="neutral"
-            className="relative w-full"
+            className="relative w-full p-5"
           >
-            <div className="mb-8 flex items-center gap-2">
-              <ShieldCheck className="size-5" />
-              <H3 className="mb-0">{twoFactorTitle}</H3>
-            </div>
+            <h2 className="mb-4 text-base font-medium text-text">
+              {twoFactorTitle}
+            </h2>
             <TwoFactorAuth />
           </Container>
           <Container
-            roundedSize="3xl"
-            padding="md"
+            roundedSize="2xl"
             border
             borderColor="neutral"
-            className="w-full"
+            className="w-full p-5"
           >
-            <div className="mb-8 flex items-center gap-2">
-              <Fingerprint className="size-5" />
-              <H3 className="mb-0">{passkeyTitle}</H3>
-            </div>
+            <h2 className="mb-4 text-base font-medium text-text">
+              {passkeyTitle}
+            </h2>
             <PasskeyManagement
               passkeys={passkeys}
               onPasskeyAdded={refetchPasskeys}
@@ -183,12 +177,11 @@ const ProfileFormContent: FC = () => {
       </div>
 
       <Container
-        roundedSize="3xl"
-        padding="lg"
+        roundedSize="2xl"
         border
         borderColor="error"
         transparency="lg"
-        className="w-full"
+        className="w-full p-5"
       >
         <DeleteUser />
       </Container>

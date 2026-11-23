@@ -25,10 +25,8 @@ export const AIUsageSection: FC<AIUsageSectionProps> = ({
   children,
 }) => (
   <section className="flex flex-col gap-5">
-    <div className="flex items-center justify-between gap-3 border-b border-text/10 pb-2">
-      <h3 className="text-xs font-semibold tracking-wide text-neutral uppercase">
-        {title}
-      </h3>
+    <div className="flex items-center justify-between gap-3 border-b border-neutral/10 pb-2">
+      <h3 className="text-sm font-medium text-neutral">{title}</h3>
       {action}
     </div>
     {children}

@@ -7,7 +7,7 @@ import { Button } from '@intlayer/design-system/button';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_AI_Usage_Path } from '@intlayer/design-system/routes';
-import { BarChart3, Sparkles } from 'lucide-react';
+import { BarChart3 } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useNumber } from 'react-intlayer/format';
@@ -56,7 +56,7 @@ const FeatureUsageList: FC<FeatureUsageListProps> = ({ balance }) => {
                       count: formatNumber(featureUsage.requestCount),
                     })}
                   </span>
-                  <span className="font-semibold text-text">
+                  <span className="font-medium text-text tabular-nums">
                     {formatNumber(featureUsage.credits)}
                   </span>
                 </span>
@@ -75,11 +75,18 @@ const FeatureUsageList: FC<FeatureUsageListProps> = ({ balance }) => {
   );
 };
 
+type AICreditsProps = {
+  /** Show the link to the AI usage page; off on that page itself. */
+  isUsageDetailsLinkVisible?: boolean;
+};
+
 /**
  * AI usage of the session organization: the plan credits (gauge, reset date,
  * per-feature breakdown) and the project's own AI key ("Personal usage").
  */
-export const AICredits: FC = () => {
+export const AICredits: FC<AICreditsProps> = ({
+  isUsageDetailsLinkVisible = true,
+}) => {
   const { title, ownKeyNote, usageDetailsButton } = useIntlayer(
     'organization-ai-credits'
   );
@@ -92,11 +99,8 @@ export const AICredits: FC = () => {
   const balance = aiCreditsResponse?.data;
 
   return (
-    <div className="flex w-full flex-col gap-8">
-      <div className="flex items-center gap-2">
-        <Sparkles className="size-5" />
-        <H3 className="mb-0">{title}</H3>
-      </div>
+    <div className="flex w-full flex-col gap-6">
+      <H3 className="mb-0">{title}</H3>
 
       {isPending && <Loader className="mx-auto size-5" />}
 
@@ -112,15 +116,17 @@ export const AICredits: FC = () => {
             {ownKeyNote({ tokens: formatNumber(balance.tokensPerCredit) })}
           </p>
 
-          <Button
-            label={usageDetailsButton.label.value}
-            color="text"
-            variant="outline"
-            Icon={BarChart3}
-            onClick={() => navigate({ to: App_Dashboard_AI_Usage_Path })}
-          >
-            {usageDetailsButton.text}
-          </Button>
+          {isUsageDetailsLinkVisible && (
+            <Button
+              label={usageDetailsButton.label.value}
+              color="text"
+              variant="outline"
+              Icon={BarChart3}
+              onClick={() => navigate({ to: App_Dashboard_AI_Usage_Path })}
+            >
+              {usageDetailsButton.text}
+            </Button>
+          )}
         </AIUsageSection>
       )}
 

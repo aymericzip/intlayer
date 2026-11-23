@@ -5,9 +5,8 @@ import {
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { H3 } from '@intlayer/design-system/headers';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
-import { CircleCheck, Link2 } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useOAuthCallbackError } from '#hooks/useOAuthCallbackError.ts';
@@ -82,20 +81,22 @@ export const ConnectedAccounts: FC = () => {
   };
 
   return (
-    <Container roundedSize="3xl" padding="md" className="w-full">
-      <div className="mb-8 flex items-center gap-2">
-        <Link2 className="size-5" />
-        <H3 className="mb-0">{connectedAccountsTitle}</H3>
-      </div>
-      <div className="flex flex-col gap-3">
+    <Container
+      roundedSize="2xl"
+      border
+      borderColor="neutral"
+      className="w-full p-5"
+    >
+      <h2 className="mb-2 text-base font-medium text-text">
+        {connectedAccountsTitle}
+      </h2>
+      <ul className="flex flex-col">
         {PROVIDERS.map((provider) => {
           const connected = isConnected(provider.id);
           return (
-            <Container
+            <li
               key={provider.id}
-              padding="md"
-              roundedSize="2xl"
-              className="flex flex-row items-center justify-between gap-4"
+              className="flex h-16 items-center justify-between gap-4 border-t border-neutral/10 first:border-t-0"
             >
               <div className="flex items-center gap-3">
                 <div className="relative shrink-0">
@@ -139,10 +140,10 @@ export const ConnectedAccounts: FC = () => {
                   {connectButton}
                 </Button>
               )}
-            </Container>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </Container>
   );
 };

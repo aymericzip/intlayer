@@ -4,10 +4,10 @@ const passkeyManagementContent = {
   key: 'passkey-management',
   content: {
     addPasskeyButton: t({
-      en: 'New Passkey',
+      en: 'New passkey',
       ar: 'مفتاح مرور جديد',
       de: 'Neuer Passkey',
-      'en-GB': 'New Passkey',
+      'en-GB': 'New passkey',
       es: 'Nuevo Passkey',
       fr: 'Nouveau Passkey',
       'he-IL': 'Passkey חדש',

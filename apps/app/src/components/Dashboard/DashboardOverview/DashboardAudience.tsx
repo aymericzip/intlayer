@@ -17,15 +17,7 @@ import {
 } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { getLocaleName } from 'intlayer';
-import {
-  CalendarDays,
-  ExternalLink,
-  Eye,
-  FileText,
-  Globe,
-  MapPin,
-  Users,
-} from 'lucide-react';
+import { ExternalLink, FileText, Globe, MapPin } from 'lucide-react';
 import {
   type FC,
   lazy,
@@ -99,36 +91,39 @@ const LIVE_REFRESH_INTERVAL_MS = 15_000;
 /** Which breakdown tab is active. */
 type BreakdownTab = 'locales' | 'location' | 'pages';
 
-/** Pulsing dot marking the realtime view. */
-const LiveDot: FC = () => (
+/**
+ * Dot marking the realtime view. Pulses only while it shows live data, so a
+ * view with nothing to report stays still.
+ */
+const LiveDot: FC<{ isPulsing?: boolean }> = ({ isPulsing = false }) => (
   <span className="relative flex size-2 shrink-0" aria-hidden>
-    <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75" />
+    {isPulsing && (
+      <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75" />
+    )}
     <span className="relative inline-flex size-2 rounded-full bg-success" />
   </span>
 );
 
 type StatTileProps = {
-  icon: ReactNode;
   label: ReactNode;
   value: ReactNode;
   hint?: ReactNode;
 };
 
 /** A single headline metric tile. */
-const StatTile: FC<StatTileProps> = ({ icon, label, value, hint }) => (
+const StatTile: FC<StatTileProps> = ({ label, value, hint }) => (
   <Container
-    className="flex flex-1 flex-col gap-2 p-4"
+    className="flex flex-1 flex-col gap-2 p-5"
     roundedSize="2xl"
     transparency="none"
     border
     borderColor="neutral"
   >
-    <span className="flex items-center gap-2 text-xs text-neutral">
-      {icon}
-      {label}
+    <span className="text-sm text-neutral">{label}</span>
+    <span className="text-2xl leading-none font-medium text-text tabular-nums">
+      {value}
     </span>
-    <span className="text-2xl font-semibold text-text">{value}</span>
-    {hint && <span className="text-xs text-neutral">{hint}</span>}
+    {hint && <span className="text-xs text-neutral tabular-nums">{hint}</span>}
   </Container>
 );
 
@@ -855,7 +850,7 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
       {/* Header + range selector */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col">
-          <h2 className="text-base font-semibold text-text">{content.title}</h2>
+          <h2 className="text-base font-medium text-text">{content.title}</h2>
           <span className="text-xs text-neutral">{content.subtitle}</span>
         </div>
         {/* Eight ranges overflow a narrow header — scroll rather than wrap. */}
@@ -875,7 +870,7 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
         <AudienceSkeleton />
       ) : !hasData ? (
         <Container
-          className="m-auto flex items-center justify-center p-10"
+          className="flex min-h-64 items-center justify-center p-5"
           roundedSize="2xl"
           transparency="none"
           border
@@ -896,7 +891,6 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
           {/* Stat tiles */}
           <div className="flex flex-wrap gap-4">
             <StatTile
-              icon={<Users className="size-4" />}
               label={content.statActiveUsers}
               value={audience.usersInRange.toLocaleString()}
               hint={
@@ -906,17 +900,14 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
               }
             />
             <StatTile
-              icon={<CalendarDays className="size-4" />}
               label={content.statToday}
               value={audience.usersToday.toLocaleString()}
             />
             <StatTile
-              icon={<Users className="size-4" />}
               label={content.statLast7Days}
               value={audience.usersLast7Days.toLocaleString()}
             />
             <StatTile
-              icon={<Eye className="size-4" />}
               label={content.statViews}
               value={audience.viewsInRange.toLocaleString()}
             />
@@ -934,8 +925,8 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
               border
               borderColor="neutral"
             >
-              <h3 className="flex items-center gap-2 text-sm font-semibold text-text">
-                {isLive && <LiveDot />}
+              <h3 className="flex items-center gap-2 text-sm font-medium text-text">
+                {isLive && <LiveDot isPulsing />}
                 {isLive ? content.liveEvolutionTitle : content.evolutionTitle}
               </h3>
               <EvolutionChart
@@ -1023,7 +1014,7 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
             border
             borderColor="neutral"
           >
-            <h3 className="text-sm font-semibold text-text">
+            <h3 className="text-sm font-medium text-text">
               {content.mapTitle}
             </h3>
             {/* Placeholder keeps the map's aspect ratio while its chunk loads. */}

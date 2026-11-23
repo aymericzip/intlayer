@@ -69,10 +69,10 @@ const profileFormContent = {
     }),
 
     connectedAccountsTitle: t({
-      en: 'Connected Accounts',
+      en: 'Connected accounts',
       ar: 'الحسابات المرتبطة',
       de: 'Verbundene Konten',
-      'en-GB': 'Connected Accounts',
+      'en-GB': 'Connected accounts',
       es: 'Cuentas conectadas',
       fr: 'Comptes connectés',
       'he-IL': 'חשבונות מקושרים',
@@ -434,10 +434,10 @@ const profileFormContent = {
     }),
 
     twoFactorTitle: t({
-      en: 'Two-Factor Authentication',
+      en: 'Two-factor authentication',
       ar: 'المصادقة الثنائية',
       de: 'Zwei-Faktor-Authentifizierung',
-      'en-GB': 'Two-Factor Authentication',
+      'en-GB': 'Two-factor authentication',
       es: 'Autenticación de dos factores',
       fr: 'Authentification à deux facteurs',
       'he-IL': 'אימות דו-שלבי',

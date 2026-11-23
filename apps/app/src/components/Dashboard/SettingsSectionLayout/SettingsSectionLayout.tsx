@@ -60,7 +60,8 @@ export const SettingsSectionLayout = <SectionId extends string>({
                 key={section.id}
                 className={cn(
                   'shrink-0',
-                  isDanger && 'md:mt-3 md:border-t md:border-neutral/20 md:pt-3'
+                  isDanger &&
+                    'md:mt-3 md:border-t md:border-dotted md:border-neutral/20 md:pt-3'
                 )}
               >
                 <button

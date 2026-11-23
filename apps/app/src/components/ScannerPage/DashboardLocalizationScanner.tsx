@@ -191,7 +191,7 @@ export const DashboardLocalizationScanner: FC = () => {
         </div>
 
         <ul
-          className="flex-1 divide-y divide-dotted divide-neutral/30 overflow-y-auto p-1"
+          className="flex flex-1 flex-col gap-0.5 overflow-y-auto p-1"
           aria-label={searchAriaLabel.value}
         >
           {isDiscovering ? (
@@ -208,7 +208,7 @@ export const DashboardLocalizationScanner: FC = () => {
               const isActive = selectedUrl === url;
 
               return (
-                <li key={url} className="py-0.5">
+                <li key={url}>
                   <Button
                     variant="hoverable"
                     color="text"
@@ -217,12 +217,18 @@ export const DashboardLocalizationScanner: FC = () => {
                     onClick={() => handleSelectUrl(url)}
                     textAlign="left"
                     className={cn(
-                      'w-full rounded',
-                      isActive && 'bg-card font-medium text-text'
+                      'group w-full rounded-lg',
+                      isActive && 'bg-card'
                     )}
                     isFullWidth
                   >
-                    <span className="block w-full max-w-full truncate text-xs">
+                    <span
+                      dir="ltr"
+                      className={cn(
+                        'block w-full max-w-full truncate text-start font-mono text-xs font-normal transition-colors group-hover:text-text',
+                        isActive ? 'text-text' : 'text-neutral'
+                      )}
+                    >
                       {path}
                     </span>
                   </Button>
