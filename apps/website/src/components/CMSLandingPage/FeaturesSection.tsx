@@ -8,53 +8,39 @@ import {
 } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { AnimatedDiv } from './AnimatedDiv';
+import {
+  FeatureList,
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { Reveal } from '~/components/ProductLanding/motion';
 
 const iconMap: Record<string, ReactNode> = {
-  'git-merge': <GitMerge className="size-6" />,
-  globe: <Globe className="size-6" />,
-  webhook: <Webhook className="size-6" />,
-  layout: <Layout className="size-6" />,
-  toggle: <ToggleLeft className="size-6" />,
-  users: <Users className="size-6" />,
+  'git-merge': <GitMerge />,
+  globe: <Globe />,
+  webhook: <Webhook />,
+  layout: <Layout />,
+  toggle: <ToggleLeft />,
+  users: <Users />,
 };
 
 export const FeaturesSection: FC = () => {
   const { featuresTitle, features } = useIntlayer('cms-landing-features');
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <h2 className="mb-16 text-center text-3xl font-bold text-foreground sm:text-4xl">
-          {featuresTitle}
-        </h2>
-
-        <div className="m-auto mt-3 flex w-full flex-wrap justify-evenly gap-x-6 gap-y-16 px-3 py-2">
-          {features.map((feature: (typeof features)[number]) => (
-            <AnimatedDiv
-              key={feature.id.value}
-              className="flex max-w-70 flex-col items-center gap-4 text-center"
-            >
-              <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
-                {iconMap[feature.icon.value]}
-              </span>
-              <div>
-                <h3 className="mb-2 flex items-center justify-center gap-2 text-lg font-semibold text-foreground">
-                  {feature.title}
-                  {feature.badge && (
-                    <span className="inline-flex items-center rounded-full bg-secondary/10 px-2 py-0.5 text-xs font-medium text-secondary">
-                      {feature.badge}
-                    </span>
-                  )}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {feature.description}
-                </p>
-              </div>
-            </AnimatedDiv>
-          ))}
-        </div>
-      </div>
-    </section>
+    <ProductSection>
+      <SectionHeading title={featuresTitle} />
+      <Reveal>
+        <FeatureList
+          items={features.map((feature) => ({
+            key: feature.id.value,
+            icon: iconMap[feature.icon.value],
+            title: feature.title,
+            description: feature.description,
+            badge: feature.badge,
+          }))}
+        />
+      </Reveal>
+    </ProductSection>
   );
 };

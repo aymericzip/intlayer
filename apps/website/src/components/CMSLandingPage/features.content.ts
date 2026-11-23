@@ -204,10 +204,10 @@ const featuresContent = {
       },
     ],
     featuresTitle: t({
-      en: 'Everything you need to manage content at scale',
+      en: 'Built around your repository',
       ar: 'كل ما تحتاجه لإدارة المحتوى على نطاق واسع',
       de: 'Alles, was Sie brauchen, um Content im großen Maßstab zu verwalten',
-      'en-GB': 'Everything you need to manage content at scale',
+      'en-GB': 'Built around your repository',
       es: 'Todo lo que necesitas para gestionar contenido a escala',
       fr: 'Tout ce dont vous avez besoin pour gérer le contenu à grande échelle',
       'he-IL': 'כל מה שצריך כדי לנהל תוכן בהיקף גדול',

@@ -1,60 +1,21 @@
-import { Container } from '@intlayer/design-system/container';
-import { Tag } from '@intlayer/design-system/tag';
-import { m, type Variants } from 'framer-motion';
+import { cn } from '@intlayer/design-system/utils';
 import { RefreshCw, Server, Zap } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
-
-// New, cleaner variants using Spring physics
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Faster stagger for a snappier feel
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const cardVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 30, // Start slightly lower
-    scale: 0.95, // Start slightly smaller
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: 'spring', // Spring makes it feel physical, not linear
-      stiffness: 100,
-      damping: 15,
-      mass: 1,
-    },
-  },
-};
-
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.21, 0.47, 0.32, 0.98], // Custom ease-out cubic
-    },
-  },
-};
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { Reveal } from '~/components/ProductLanding/motion';
 
 const iconMap: Record<string, ReactNode> = {
-  server: <Server className="size-6" />,
-  refresh: <RefreshCw className="size-6" />,
-  zap: <Zap className="size-6" />,
+  server: <Server />,
+  refresh: <RefreshCw />,
+  zap: <Zap />,
 };
 
-const MotionContainer = m.create(Container);
+/** The mode whose badge carries the accent: the one that skips rebuilds. */
+const HIGHLIGHTED_MODE = 'live-sync';
 
 export const ContentDeliverySection: FC = () => {
   const { deliveryTitle, deliveryDescription, deliveryModes } = useIntlayer(
@@ -62,67 +23,38 @@ export const ContentDeliverySection: FC = () => {
   );
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        {/* Header Section */}
-        <m.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }} // Triggers slightly before element hits center
-          variants={headerVariants}
-          className="mb-16 text-center"
-        >
-          <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl">
-            {deliveryTitle}
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            {deliveryDescription}
-          </p>
-        </m.div>
+    <ProductSection>
+      <SectionHeading title={deliveryTitle} description={deliveryDescription} />
 
-        {/* Card Grid */}
-        <m.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={containerVariants}
-          className="grid justify-center gap-6 lg:grid-cols-3"
-        >
+      <Reveal>
+        <ul className="grid grid-cols-1 divide-y divide-text/10 rounded-2xl border border-text/10 bg-card md:grid-cols-3 md:divide-x md:divide-y-0">
           {deliveryModes.map((mode) => (
-            <MotionContainer
-              key={mode.id.value}
-              variants={cardVariants}
-              roundedSize="3xl"
-              padding="lg"
-              background="with"
-              border={true}
-              className="relative max-w-xl"
-              color={mode.id.value === 'live-sync' ? 'text' : 'neutral'}
-            >
-              {mode.badge && (
-                <Tag
-                  color={mode.id.value === 'live-sync' ? 'text' : 'neutral'}
-                  className="absolute inset-e-4 top-4 rounded-full px-3 py-1 text-xs font-medium"
-                >
-                  {mode.badge}
-                </Tag>
-              )}
-
-              <div className="mb-5 flex size-12 items-center justify-center rounded-lg bg-neutral/10 text-foreground">
-                {iconMap[mode.icon.value] ?? <Zap className="size-6" />}
-              </div>
-
-              <h3 className="mb-3 text-xl font-semibold text-foreground">
+            <li key={mode.id.value} className="flex flex-col gap-4 p-6">
+              <span className="flex text-muted-foreground [&_svg]:size-[18px] [&_svg]:stroke-[1.5]">
+                {iconMap[mode.icon.value] ?? <Zap />}
+              </span>
+              <h3 className="text-lg font-medium text-foreground">
                 {mode.title}
               </h3>
-
-              <p className="leading-relaxed text-muted-foreground">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {mode.description}
               </p>
-            </MotionContainer>
+              {mode.badge && (
+                <span
+                  className={cn(
+                    'mt-auto font-mono text-xs',
+                    mode.id.value === HIGHLIGHTED_MODE
+                      ? 'text-lime-800 dark:text-lime-300'
+                      : 'text-muted-foreground'
+                  )}
+                >
+                  {mode.badge}
+                </span>
+              )}
+            </li>
           ))}
-        </m.div>
-      </div>
-    </section>
+        </ul>
+      </Reveal>
+    </ProductSection>
   );
 };

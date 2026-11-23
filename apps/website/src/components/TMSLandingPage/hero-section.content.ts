@@ -7,7 +7,7 @@ const heroSectionContent = {
     'Hero section content for the TMS landing page, including the tagline, headline, subheadline, description, primary and secondary CTAs, and screenshot alt text.',
   content: {
     heroDescription: t({
-      en: 'Manage translations directly in your code or via the visual editor. Leverage AI to translate instantly. collaborate with your team without seat limits.',
+      en: 'Manage translations in your code or in the visual editor, translate with AI, and work with your whole team without seat limits.',
       ar: 'إدارة الترجمات مباشرة في الكود أو عبر المحرر المرئي. استفد من الذكاء الاصطناعي للترجمة الفورية. تعاون مع فريقك دون حدود المقاعد.',
       de: 'Verwalten Sie Übersetzungen direkt in Ihrem Code oder über den visuellen Editor. Nutzen Sie KI für sofortige Übersetzungen. Arbeiten Sie ohne Platzbegrenzung im Team.',
       'en-GB':
@@ -29,12 +29,12 @@ const heroSectionContent = {
       vi: 'Quản lý bản dịch trực tiếp trong mã của bạn hoặc qua trình chỉnh sửa trực quan. Tận dụng AI để dịch ngay lập tức. Cộng tác với nhóm của bạn mà không giới hạn chỗ ngồi.',
       zh: '直接在代码中或通过可视化编辑器管理翻译。利用AI即时翻译。与团队协作，无席位限制。',
     }),
-    heroSubtitle: t({
-      en: 'The open-source & self-hosted alternative to Crowdin & Lokalise. Built for modern developer workflows.',
+    heroTitle: t({
+      en: 'The open-source, self-hosted alternative to Crowdin and Lokalise',
       ar: 'البديل مفتوح المصدر والقابل للاستضافة الذاتية لـ Crowdin و Lokalise. مبني لسير عمل المطورين الحديث.',
       de: 'Die Open-Source- und selbstgehostete Alternative zu Crowdin & Lokalise. Gebaut für moderne Entwickler-Workflows.',
       'en-GB':
-        'The open-source & self-hosted alternative to Crowdin & Lokalise. Built for modern developer workflows.',
+        'The open-source, self-hosted alternative to Crowdin and Lokalise',
       es: 'La alternativa de código abierto y auto-hospedada a Crowdin y Lokalise. Creado para flujos de trabajo modernos.',
       fr: "L'alternative open source & auto-hébergée à Crowdin & Lokalise. Conçu pour les workflows de développement modernes.",
       'he-IL':
@@ -53,27 +53,6 @@ const heroSectionContent = {
       zh: 'Crowdin和Lokalise的开源及自托管替代方案。专为现代开发者工作流程而构建。',
     }),
     heroTag: 'Intlayer TMS',
-    heroTitle: t({
-      en: 'Stop paying per word. Automate with AI.',
-      ar: 'توقف عن الدفع لكل كلمة. أتمتة باستخدام الذكاء الاصطناعي.',
-      de: 'Hören Sie auf, pro Wort zu zahlen. Automatisieren Sie mit KI.',
-      'en-GB': 'Stop paying per word. Automate with AI.',
-      es: 'Deja de pagar por palabra. Automatiza con IA.',
-      fr: "Arrêtez de payer au mot. Automatisez avec l'IA.",
-      'he-IL': 'הפסיקו לשלם לפי מילה. עברו לאוטומציה עם AI.',
-      hi: 'शब्द के अनुसार भुगतान करना बंद करें। AI के साथ स्वचालित करें।',
-      id: 'Berhenti membayar per kata. Otomatiskan dengan AI.',
-      it: "Smetti di pagare per parola. Automatizza con l'IA.",
-      ja: '単語ごとの支払いをやめましょう。AIで自動化します。',
-      ko: '단어당 비용 지불을 중단하세요. AI로 자동화하세요.',
-      pl: 'Przestań płacić za słowo. Automatyzuj za pomocą AI.',
-      pt: 'Pare de pagar por palavra. Automatize com IA.',
-      ru: 'Перестаньте платить за слово. Автоматизируйте с помощью ИИ.',
-      tr: 'Kelime başına ödeme yapmayı bırakın. AI ile otomatikleştirin.',
-      uk: 'Припиніть платити за слово. Автоматизуйте за допомогою ШІ.',
-      vi: 'Ngừng trả tiền theo từ. Tự động hóa bằng AI.',
-      zh: '停止按字付费。使用AI自动化。',
-    }),
     primaryCta: t({
       en: 'Start for free',
       ar: 'ابدأ مجاناً',

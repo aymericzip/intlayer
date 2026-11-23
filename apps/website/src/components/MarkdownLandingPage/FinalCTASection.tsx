@@ -1,16 +1,8 @@
 import { Website_Doc_Markdown_Path } from '@intlayer/design-system/routes';
-import { m } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
-
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.6, ease: 'easeOut' as const },
-};
+import { ProductFinalCTA } from '~/components/ProductLanding/ProductFinalCTA';
 
 export const FinalCTASection: FC = () => {
   const { finalCtaTitle, finalCtaDescription, finalCtaButton } = useIntlayer(
@@ -18,36 +10,20 @@ export const FinalCTASection: FC = () => {
   );
 
   return (
-    <section className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 bg-text" />
-
-      <div className="relative mx-auto max-w-4xl px-4 text-center md:px-8 lg:px-12">
-        <m.div {...fadeUp}>
-          <h2 className="mb-6 text-3xl font-bold text-text-opposite/80 sm:text-4xl md:text-5xl">
-            {finalCtaTitle}
-          </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-text-opposite/50">
-            {finalCtaDescription}
-          </p>
-
-          <div className="flex justify-center">
-            <Link
-              to={Website_Doc_Markdown_Path}
-              variant="button"
-              color="text"
-              label={finalCtaButton.value}
-              size="xl"
-              roundedSize="full"
-              className="flex flex-row items-center justify-center gap-2"
-            >
-              <span className="flex flex-row flex-nowrap items-center gap-2 text-sm text-foreground sm:text-lg">
-                {finalCtaButton}
-                <ArrowRight className="size-5 transition-transform" />
-              </span>
-            </Link>
-          </div>
-        </m.div>
-      </div>
-    </section>
+    <ProductFinalCTA
+      title={finalCtaTitle}
+      description={finalCtaDescription}
+      actions={
+        <Link
+          to={Website_Doc_Markdown_Path}
+          variant="button"
+          color="text"
+          size="lg"
+          label={finalCtaButton.value}
+        >
+          {finalCtaButton}
+        </Link>
+      }
+    />
   );
 };

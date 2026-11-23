@@ -1,13 +1,16 @@
-import { Container } from '@intlayer/design-system/container';
 import {
   PopoverStatic,
   type PopoverYAlign,
 } from '@intlayer/design-system/popover';
 import { cn } from '@intlayer/design-system/utils';
-import { m } from 'framer-motion';
 import { Check, Minus, X } from 'lucide-react';
 import type { FC } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { Reveal } from '~/components/ProductLanding/motion';
 
 /** How completely a library covers a capability. */
 type SupportLevel = 'supported' | 'partial' | 'notSupported';
@@ -77,15 +80,6 @@ const SUPPORT_ICONS: Record<SupportLevel, typeof Check> = {
   notSupported: X,
 };
 
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.6, ease: 'easeOut' as const },
-};
-
-const MotionContainer = m.create(Container);
-
 type SupportCellProps = {
   level: SupportLevel;
   label: string;
@@ -119,10 +113,10 @@ const SupportCell: FC<SupportCellProps> = ({
           'flex size-6 items-center justify-center rounded-full',
           level === 'supported' &&
             isHighlighted &&
-            'bg-text/60 text-text-opposite',
+            'bg-lime-500/15 text-lime-800 dark:bg-lime-300/15 dark:text-lime-300',
           level === 'supported' &&
             !isHighlighted &&
-            'bg-neutral/20 text-foreground',
+            'bg-text/10 text-foreground',
           level === 'partial' && 'border border-neutral/30 text-neutral',
           level === 'notSupported' && 'text-neutral/40'
         )}
@@ -171,128 +165,112 @@ export const ComparisonSection: FC = () => {
   };
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
-        <m.div {...fadeUp} className="mb-14 text-center">
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-            {comparisonTitle}
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-            {comparisonDescription}
-          </p>
-        </m.div>
+    <ProductSection>
+      <SectionHeading
+        title={comparisonTitle}
+        description={comparisonDescription}
+      />
 
-        <MotionContainer
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          roundedSize="3xl"
-          border={true}
-          background="with"
-          className="overflow-hidden p-0"
-        >
-          {/* The matrix is wider than a phone: it scrolls on its own axis
+      <Reveal className="overflow-hidden rounded-2xl border border-text/10 bg-card">
+        {/* The matrix is wider than a phone: it scrolls on its own axis
               rather than making the page scroll horizontally. */}
-          <div className="overflow-x-auto">
-            <div className="min-w-3xl">
-              {/* Header */}
-              <div
-                className={cn(
-                  GRID_TEMPLATE,
-                  'gap-2 bg-neutral/5 px-6 py-5 text-sm font-semibold text-muted-foreground'
-                )}
-              >
-                <div>{featureHeader}</div>
-                {LIBRARIES.map(({ name, isHighlighted }) => (
-                  <div
-                    key={name}
-                    className={cn(
-                      'text-center',
-                      isHighlighted
-                        ? 'font-bold text-foreground'
-                        : 'text-neutral'
-                    )}
-                  >
-                    {name}
-                  </div>
-                ))}
-              </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-3xl">
+            {/* Header */}
+            <div
+              className={cn(
+                GRID_TEMPLATE,
+                'gap-2 border-b border-text/10 px-6 py-4 text-sm text-muted-foreground'
+              )}
+            >
+              <div>{featureHeader}</div>
+              {LIBRARIES.map(({ name, isHighlighted }) => (
+                <div
+                  key={name}
+                  className={cn(
+                    'text-center',
+                    isHighlighted
+                      ? 'font-medium text-foreground'
+                      : 'font-mono text-xs'
+                  )}
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
 
-              {/* Rows */}
-              <div className="divide-y divide-neutral/10">
-                {rows.map(
-                  (
-                    row: { id: IntlayerNode; feature: IntlayerNode },
-                    rowIndex: number
-                  ) => {
-                    const support = SUPPORT_MATRIX[row.id.value];
+            {/* Rows */}
+            <div className="divide-y divide-text/10">
+              {rows.map(
+                (
+                  row: { id: IntlayerNode; feature: IntlayerNode },
+                  rowIndex: number
+                ) => {
+                  const support = SUPPORT_MATRIX[row.id.value];
 
-                    if (!support) return null;
+                  if (!support) return null;
 
-                    return (
-                      <div
-                        key={row.id.value}
-                        className={cn(
-                          GRID_TEMPLATE,
-                          'items-center gap-2 px-6 py-4 text-sm hover:bg-neutral/5'
-                        )}
-                      >
-                        <div className="pe-4 font-medium text-foreground">
-                          {row.feature}
-                        </div>
-                        {support.map((level, index) => (
-                          <SupportCell
-                            key={LIBRARIES[index]!.name}
-                            level={level}
-                            label={levelLabels[level]}
-                            libraryName={LIBRARIES[index]!.name}
-                            feature={row.feature}
-                            isHighlighted={LIBRARIES[index]!.isHighlighted}
-                            yAlign={
-                              rowIndex >= rows.length - POPOVER_FLIP_ROWS
-                                ? 'above'
-                                : 'below'
-                            }
-                          />
-                        ))}
+                  return (
+                    <div
+                      key={row.id.value}
+                      className={cn(
+                        GRID_TEMPLATE,
+                        'items-center gap-2 px-6 py-4 text-sm'
+                      )}
+                    >
+                      <div className="pe-4 font-medium text-foreground">
+                        {row.feature}
                       </div>
-                    );
-                  }
-                )}
-              </div>
+                      {support.map((level, index) => (
+                        <SupportCell
+                          key={LIBRARIES[index]!.name}
+                          level={level}
+                          label={levelLabels[level]}
+                          libraryName={LIBRARIES[index]!.name}
+                          feature={row.feature}
+                          isHighlighted={LIBRARIES[index]!.isHighlighted}
+                          yAlign={
+                            rowIndex >= rows.length - POPOVER_FLIP_ROWS
+                              ? 'above'
+                              : 'below'
+                          }
+                        />
+                      ))}
+                    </div>
+                  );
+                }
+              )}
             </div>
           </div>
+        </div>
 
-          {/* Legend */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-neutral/10 px-6 py-4 text-xs text-muted-foreground">
-            {(['supported', 'partial', 'notSupported'] as const).map(
-              (level) => {
-                const Icon = SUPPORT_ICONS[level];
+        {/* Legend */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-text/10 px-6 py-4 text-xs text-muted-foreground">
+          {(['supported', 'partial', 'notSupported'] as const).map((level) => {
+            const Icon = SUPPORT_ICONS[level];
 
-                return (
-                  <span key={level} className="flex items-center gap-2">
-                    <Icon className="size-3.5" strokeWidth={3} />
-                    {legend[level]}
-                  </span>
-                );
-              }
-            )}
-          </div>
-        </MotionContainer>
+            return (
+              <span key={level} className="flex items-center gap-2">
+                <Icon className="size-3.5" strokeWidth={3} />
+                {legend[level]}
+              </span>
+            );
+          })}
+        </div>
+      </Reveal>
 
-        <ul className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground">
-          {(['pluginChain', 'frameworks', 'frontmatter'] as const).map(
-            (noteKey) => (
-              <li
-                key={noteKey}
-                className="before:me-2 before:text-neutral/50 before:content-['—']"
-              >
-                {notes[noteKey]}
-              </li>
-            )
-          )}
-        </ul>
-      </div>
-    </section>
+      <ul className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground">
+        {(['pluginChain', 'frameworks', 'frontmatter'] as const).map(
+          (noteKey) => (
+            <li
+              key={noteKey}
+              className="before:me-2 before:text-neutral/50 before:content-['—']"
+            >
+              {notes[noteKey]}
+            </li>
+          )
+        )}
+      </ul>
+    </ProductSection>
   );
 };

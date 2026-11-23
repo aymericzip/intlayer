@@ -7,10 +7,10 @@ const finalCtaContent = {
     'Final call-to-action section content for the CMS landing page, including title, description and primary/secondary button labels.',
   content: {
     finalCtaDescription: t({
-      en: 'Start for free. Scale as you grow. No credit card required.',
+      en: 'Free to start, no credit card required.',
       ar: 'ابدأ مجاناً. قم بالتوسع مع نموك. لا حاجة لبطاقة ائتمان.',
       de: 'Kostenlos starten. Skalieren Sie mit Ihrem Wachstum. Keine Kreditkarte erforderlich.',
-      'en-GB': 'Start for free. Scale as you grow. No credit card required.',
+      'en-GB': 'Free to start, no credit card required.',
       es: 'Empieza gratis. Escala según crezcas. Sin tarjeta de crédito.',
       fr: 'Commencez gratuitement. Évoluez selon vos besoins. Aucune carte de crédit requise.',
       'he-IL': 'התחילו בחינם. גדלו לפי הצורך. לא נדרש כרטיס אשראי.',
@@ -70,10 +70,10 @@ const finalCtaContent = {
       zh: '查看价格',
     }),
     finalCtaTitle: t({
-      en: 'Ready to unify your content workflow?',
+      en: 'Edit your content without leaving your code',
       ar: 'هل أنت مستعد لتوحيد سير عمل المحتوى الخاص بك؟',
       de: 'Bereit, Ihren Content-Workflow zu vereinheitlichen?',
-      'en-GB': 'Ready to unify your content workflow?',
+      'en-GB': 'Edit your content without leaving your code',
       es: '¿Listo para unificar tu flujo de contenido?',
       fr: 'Prêt à unifier votre workflow de contenu ?',
       'he-IL': 'מוכנים לאחד את תהליך העבודה עם התוכן שלכם?',

@@ -211,10 +211,10 @@ const howItWorksSectionContent = {
       },
     ],
     title: t({
-      en: 'How it works under the hood',
+      en: 'How a translation run works',
       ar: 'كيف يعمل من الداخل',
       de: 'So funktioniert es unter der Haube',
-      'en-GB': 'How it works under the hood',
+      'en-GB': 'How a translation run works',
       es: 'Cómo funciona internamente',
       fr: 'Comment ça fonctionne sous le capot',
       'he-IL': 'איך זה עובד מאחורי הקלעים',

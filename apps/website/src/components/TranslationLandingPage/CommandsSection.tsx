@@ -1,33 +1,11 @@
-import { Container } from '@intlayer/design-system/container';
-import { CodeBlock } from '@intlayer/design-system/ide';
-import { m, type Variants } from 'framer-motion';
-import { Braces, FileText, Languages } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-
-type IconMap = {
-  [key: string]: FC<{ className?: string }>;
-};
-
-const iconMap: IconMap = {
-  'translate-json': Braces,
-  'translate-markdown': FileText,
-  'review-translations': Languages,
-};
-
-const sectionFade: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: 'easeOut' as const },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
+import { CodePanel } from '~/components/ProductLanding/CodePanel';
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { RevealGroup, RevealItem } from '~/components/ProductLanding/motion';
 
 export const CommandsSection: FC = () => {
   const { title, description, commands } = useIntlayer(
@@ -35,78 +13,32 @@ export const CommandsSection: FC = () => {
   );
 
   return (
-    <section id="commands" className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <m.div
-        variants={sectionFade}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-      >
-        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-          {title}
-        </h2>
-        <p className="mt-2 max-w-2xl text-base text-foreground/70">
-          {description}
-        </p>
-      </m.div>
+    <ProductSection id="commands">
+      <SectionHeading title={title} description={description} />
 
-      <m.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-3"
-      >
-        {commands.map((cmd) => {
-          const IconComponent = iconMap[cmd.id.value] || Braces;
-          return (
-            <m.div key={cmd.id.value} variants={sectionFade}>
-              <Container
-                roundedSize="3xl"
-                transparency="md"
-                padding="lg"
-                className="h-full"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <div className="rounded-2xl bg-card/40 p-2">
-                      <IconComponent className="size-5 text-foreground" />
-                    </div>
-                    <div>
-                      <div className="text-base font-semibold text-foreground">
-                        {cmd.title}
-                      </div>
-                      <div className="mt-1 text-sm text-foreground/70">
-                        {cmd.description}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <Container
-                    roundedSize="2xl"
-                    padding="md"
-                    className="text-foreground-dark relative overflow-hidden"
-                  >
-                    <div className="mb-2 flex items-center justify-between">
-                      <span className="text-foreground-dark/70 text-xs">
-                        {cmd.title}
-                      </span>
-                      <span className="text-foreground-dark/40 text-xs">
-                        CLI
-                      </span>
-                    </div>
-                    <CodeBlock lang="bash" className="text-sm">
-                      {cmd.code.value}
-                    </CodeBlock>
-                  </Container>
-                </div>
-              </Container>
-            </m.div>
-          );
-        })}
-      </m.div>
-    </section>
+      <RevealGroup className="divide-y divide-text/10 border-y border-text/10">
+        {commands.map((command) => (
+          <RevealItem
+            key={command.id.value}
+            className="grid grid-cols-1 gap-4 py-8 lg:grid-cols-12 lg:gap-12"
+          >
+            <div className="flex flex-col gap-2 lg:col-span-5">
+              <h3 className="text-lg font-medium text-foreground">
+                {command.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {command.description}
+              </p>
+            </div>
+            <CodePanel
+              label="CLI"
+              code={command.code.value}
+              lang="bash"
+              className="lg:col-span-7"
+            />
+          </RevealItem>
+        ))}
+      </RevealGroup>
+    </ProductSection>
   );
 };

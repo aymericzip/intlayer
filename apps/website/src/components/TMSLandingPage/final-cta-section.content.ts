@@ -7,10 +7,10 @@ const finalCtaSectionContent = {
     'Final call-to-action section for the TMS landing page. Contains the CTA title, supporting description and button label.',
   content: {
     finalCtaButton: t({
-      en: 'Get Started for Free',
+      en: 'Get started for free',
       ar: 'ابدأ مجاناً',
       de: 'Kostenlos starten',
-      'en-GB': 'Get Started for Free',
+      'en-GB': 'Get started for free',
       es: 'Empezar gratis',
       fr: 'Commencer gratuitement',
       'he-IL': 'התחילו בחינם',
@@ -28,11 +28,11 @@ const finalCtaSectionContent = {
       zh: '免费开始',
     }),
     finalCtaDescription: t({
-      en: 'Import your existing JSON files in minutes. Join the developers building the future of i18n.',
+      en: 'Import your locale files, keep them in Git, and translate them from the dashboard. Free to start.',
       ar: 'استورد ملفات JSON الموجودة في دقائق. انضم إلى المطورين الذين يبنون مستقبل i18n.',
       de: 'Importieren Sie bestehende JSON-Dateien in Minuten. Schließen Sie sich den Entwicklern an.',
       'en-GB':
-        'Import your existing JSON files in minutes. Join the developers building the future of i18n.',
+        'Import your locale files, keep them in Git, and translate them from the dashboard. Free to start.',
       es: 'Importa tus archivos JSON existentes en minutos. Únete a los desarrolladores construyendo el futuro de i18n.',
       fr: "Importez vos fichiers JSON existants en quelques minutes. Rejoignez les développeurs qui construisent le futur de l'i18n.",
       'he-IL':
@@ -51,10 +51,10 @@ const finalCtaSectionContent = {
       zh: '在几分钟内导入您现有的JSON文件。加入构建i18n未来的开发者行列。',
     }),
     finalCtaTitle: t({
-      en: 'Switch today. Keep your money.',
+      en: 'Bring your existing JSON files',
       ar: 'انتقل اليوم. احتفظ بأموالك.',
       de: 'Wechseln Sie heute. Sparen Sie Geld.',
-      'en-GB': 'Switch today. Keep your money.',
+      'en-GB': 'Bring your existing JSON files',
       es: 'Cambia hoy. Guarda tu dinero.',
       fr: "Changez aujourd'hui. Gardez votre argent.",
       'he-IL': 'עברו היום. שמרו על הכסף שלכם.',

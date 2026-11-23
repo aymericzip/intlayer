@@ -1,103 +1,46 @@
-import { Container } from '@intlayer/design-system/container';
-import { m, type Variants } from 'framer-motion';
 import {
-  CheckCircle2,
+  BookOpenCheck,
   Coins,
   FileCode,
   GitBranch,
   Layers,
-  Sparkles,
+  ListChecks,
 } from 'lucide-react';
-import type { FC } from 'react';
-import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import {
+  FeatureList,
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { Reveal } from '~/components/ProductLanding/motion';
 
-type IconMap = {
-  [key: string]: FC<{ className?: string }>;
-};
-
-const iconMap: IconMap = {
-  free: Coins,
-  'json-markdown': FileCode,
-  chunking: Layers,
-  'context-aware': Sparkles,
-  audits: CheckCircle2,
-  'git-integrated': GitBranch,
-};
-
-const sectionFade: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: 'easeOut' as const },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+const iconMap: Record<string, ReactNode> = {
+  free: <Coins />,
+  'json-markdown': <FileCode />,
+  chunking: <Layers />,
+  'context-aware': <BookOpenCheck />,
+  audits: <ListChecks />,
+  'git-integrated': <GitBranch />,
 };
 
 export const KeyPointsSection: FC = () => {
   const { title, description, keyPoints } = useIntlayer('key-points-section');
 
   return (
-    <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <m.div
-        variants={sectionFade}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-      >
-        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-          {title}
-        </h2>
-        <p className="mt-2 max-w-2xl text-base text-foreground/70">
-          {description}
-        </p>
-      </m.div>
-
-      <m.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mt-20 flex flex-wrap justify-evenly gap-8 md:grid-cols-2"
-      >
-        {keyPoints.map(
-          (feature: {
-            id: IntlayerNode;
-            title: IntlayerNode;
-            description: IntlayerNode;
-          }) => {
-            const IconComponent = iconMap[feature.id.value] || Coins;
-            return (
-              <m.div key={feature.id.value} variants={sectionFade}>
-                <Container
-                  roundedSize="3xl"
-                  transparency="md"
-                  padding="lg"
-                  className="h-full max-w-lg"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="rounded-2xl bg-card/40 p-2">
-                      <IconComponent className="size-5 text-foreground" />
-                    </div>
-                    <div>
-                      <div className="text-base font-semibold text-foreground">
-                        {feature.title}
-                      </div>
-                      <div className="mt-1 text-sm text-foreground/70">
-                        {feature.description}
-                      </div>
-                    </div>
-                  </div>
-                </Container>
-              </m.div>
-            );
-          }
-        )}
-      </m.div>
-    </section>
+    <ProductSection>
+      <SectionHeading title={title} description={description} />
+      <Reveal>
+        <FeatureList
+          className="lg:grid-cols-3"
+          items={keyPoints.map((keyPoint) => ({
+            key: keyPoint.id.value,
+            icon: iconMap[keyPoint.id.value] ?? <Coins />,
+            title: keyPoint.title,
+            description: keyPoint.description,
+          }))}
+        />
+      </Reveal>
+    </ProductSection>
   );
 };

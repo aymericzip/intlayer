@@ -263,10 +263,10 @@ const ctaSectionContent = {
       zh: '阅读文档',
     }),
     title: t({
-      en: 'Start translating your content for free.',
+      en: 'Start translating your content for free',
       ar: 'ابدأ ترجمة محتواك مجانًا.',
       de: 'Beginnen Sie kostenlos mit der Übersetzung Ihrer Inhalte.',
-      'en-GB': 'Start translating your content for free.',
+      'en-GB': 'Start translating your content for free',
       es: 'Comienza a traducir tu contenido gratis.',
       fr: 'Commencez à traduire votre contenu gratuitement.',
       'he-IL': 'התחילו לתרגם את התוכן שלכם בחינם.',

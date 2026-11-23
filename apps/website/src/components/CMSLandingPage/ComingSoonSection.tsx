@@ -1,13 +1,10 @@
-import { Building, Sparkles, Webhook } from 'lucide-react';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { AnimatedDiv } from './AnimatedDiv';
-
-const iconMap: Record<string, ReactNode> = {
-  sparkles: <Sparkles className="size-6" />,
-  building: <Building className="size-6" />,
-  webhook: <Webhook className="size-6" />,
-};
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { Reveal } from '~/components/ProductLanding/motion';
 
 export const ComingSoonSection: FC = () => {
   const { comingSoonTitle, comingSoonFeatures } = useIntlayer(
@@ -15,40 +12,30 @@ export const ComingSoonSection: FC = () => {
   );
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <h2 className="mb-16 text-center text-3xl font-bold text-foreground sm:text-4xl">
-          {comingSoonTitle}
-        </h2>
-
-        <div className="m-auto mt-3 flex w-full flex-wrap justify-evenly gap-x-6 gap-y-16 px-3 py-2">
-          {comingSoonFeatures.map(
-            (feature: (typeof comingSoonFeatures)[number]) => (
-              <AnimatedDiv
-                key={feature.id.value}
-                className="flex max-w-70 flex-col items-center gap-4 text-center"
-              >
-                <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
-                  {iconMap[feature.icon.value]}
+    <ProductSection>
+      <SectionHeading title={comingSoonTitle} />
+      <Reveal>
+        <ul className="divide-y divide-text/10 border-y border-text/10">
+          {comingSoonFeatures.map((feature) => (
+            <li
+              key={feature.id.value}
+              className="grid grid-cols-1 gap-2 py-6 md:grid-cols-12 md:gap-8"
+            >
+              <h3 className="text-base font-medium text-foreground md:col-span-4">
+                {feature.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-muted-foreground md:col-span-7">
+                {feature.description}
+              </p>
+              {feature.badge && (
+                <span className="font-mono text-xs text-muted-foreground md:col-span-1 md:text-end">
+                  {feature.badge}
                 </span>
-                <div>
-                  <h3 className="mb-2 flex items-center justify-center gap-2 text-lg font-semibold text-foreground">
-                    {feature.title}
-                    {feature.badge && (
-                      <span className="inline-flex items-center rounded-full bg-secondary/10 px-2 py-0.5 text-xs font-medium text-secondary">
-                        {feature.badge}
-                      </span>
-                    )}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </div>
-              </AnimatedDiv>
-            )
-          )}
-        </div>
-      </div>
-    </section>
+              )}
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+    </ProductSection>
   );
 };

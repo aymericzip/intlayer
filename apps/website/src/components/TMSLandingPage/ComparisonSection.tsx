@@ -1,80 +1,53 @@
-import { Container } from '@intlayer/design-system/container';
-import { m } from 'framer-motion';
 import { Check, Minus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { Reveal } from '~/components/ProductLanding/motion';
 
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.6, ease: 'easeOut' as const },
-};
-
-const MotionContainer = m.create(Container);
+/** Column template shared by the header and every row. */
+const ROW_GRID = 'grid grid-cols-3 gap-4 px-4 md:px-6';
 
 export const ComparisonSection: FC = () => {
   const { comparisonTitle, comparisonHeaders, comparisonRows } =
     useIntlayer('comparison-section');
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
-        <m.div {...fadeUp} className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-            {comparisonTitle}
-          </h2>
-        </m.div>
+    <ProductSection>
+      <SectionHeading title={comparisonTitle} />
 
-        <MotionContainer
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          roundedSize="3xl"
-          border={true}
-          background="with"
-          className="overflow-hidden p-0"
+      <Reveal className="overflow-hidden rounded-2xl border border-text/10 bg-card">
+        <div
+          className={`${ROW_GRID} border-b border-text/10 py-4 text-sm text-muted-foreground`}
         >
-          {/* Header */}
-          <div className="grid grid-cols-3 bg-neutral/5 p-6 font-semibold text-muted-foreground">
-            <div className="col-span-1">{comparisonHeaders.feature}</div>
-            <div className="col-span-1 font-bold text-foreground">
-              {comparisonHeaders.intlayer}
-            </div>
-            <div className="col-span-1 text-neutral/60">
-              {comparisonHeaders.others}
-            </div>
+          <div>{comparisonHeaders.feature}</div>
+          <div className="font-medium text-foreground">
+            {comparisonHeaders.intlayer}
           </div>
+          <div>{comparisonHeaders.others}</div>
+        </div>
 
-          {/* Rows */}
-          <div className="divide-y divide-neutral/10">
-            {comparisonRows.map((row, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-3 items-center p-6 text-sm hover:bg-neutral/5 sm:text-base"
-              >
-                <div className="col-span-1 font-medium text-foreground">
-                  {row.feature}
-                </div>
-
-                {/* Intlayer Column */}
-                <div className="col-span-1 flex items-center gap-2 font-semibold text-foreground">
-                  <span className="flex size-6 items-center justify-center rounded-full bg-text text-foreground">
-                    <Check className="size-3.5" strokeWidth={3} />
-                  </span>
-                  {row.intlayer}
-                </div>
-
-                {/* Others Column */}
-                <div className="col-span-1 flex items-center gap-2 text-muted-foreground">
-                  <Minus className="size-4 text-neutral/40" />
-                  {row.others}
-                </div>
+        <ul className="divide-y divide-text/10">
+          {comparisonRows.map((row) => (
+            <li
+              key={row.feature.value}
+              className={`${ROW_GRID} items-center py-4 text-sm md:text-base`}
+            >
+              <div className="text-muted-foreground">{row.feature}</div>
+              <div className="flex items-center gap-2 text-foreground">
+                <Check className="size-4 shrink-0 text-lime-800 dark:text-lime-300" />
+                {row.intlayer}
               </div>
-            ))}
-          </div>
-        </MotionContainer>
-      </div>
-    </section>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Minus className="size-4 shrink-0 text-text/30" />
+                {row.others}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+    </ProductSection>
   );
 };

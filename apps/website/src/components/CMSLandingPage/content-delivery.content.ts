@@ -31,10 +31,10 @@ const contentDeliveryContent = {
     deliveryModes: [
       {
         badge: t({
-          en: 'Maximum Speed',
+          en: 'Maximum speed',
           ar: 'السرعة القصوى',
           de: 'Maximale Geschwindigkeit',
-          'en-GB': 'Maximum Speed',
+          'en-GB': 'Maximum speed',
           es: 'Velocidad máxima',
           fr: 'Vitesse maximale',
           'he-IL': 'מהירות מרבית',
@@ -77,10 +77,10 @@ const contentDeliveryContent = {
         icon: 'archive',
         id: 'static',
         title: t({
-          en: 'Bundled (Static)',
+          en: 'Bundled (static)',
           ar: 'مجمعة (ثابت)',
           de: 'Gebündelt (Statisch)',
-          'en-GB': 'Bundled (Static)',
+          'en-GB': 'Bundled (static)',
           es: 'Empaquetado (Estático)',
           fr: 'Empaqueté (Statique)',
           'he-IL': 'מאוגד (סטטי)',
@@ -100,10 +100,10 @@ const contentDeliveryContent = {
       },
       {
         badge: t({
-          en: 'Optimized Bundle',
+          en: 'Smaller bundle',
           ar: 'حزمة محسنة',
           de: 'Optimiertes Bundle',
-          'en-GB': 'Optimized Bundle',
+          'en-GB': 'Smaller bundle',
           es: 'Bundle optimizado',
           fr: 'Bundle optimisé',
           'he-IL': 'Bundle ממוטב',
@@ -146,10 +146,10 @@ const contentDeliveryContent = {
         icon: 'code',
         id: 'dynamic',
         title: t({
-          en: 'Lazy Loaded (Dynamic)',
+          en: 'Lazy loaded (dynamic)',
           ar: 'تحميل كسول (ديناميكي)',
           de: 'Lazy Loaded (Dynamisch)',
-          'en-GB': 'Lazy Loaded (Dynamic)',
+          'en-GB': 'Lazy loaded (dynamic)',
           es: 'Carga Diferida (Dinámico)',
           fr: 'Chargement Différé (Dynamique)',
           'he-IL': 'טעינה עצלה (דינמי)',
@@ -169,10 +169,10 @@ const contentDeliveryContent = {
       },
       {
         badge: t({
-          en: 'No Rebuild',
+          en: 'No rebuild',
           ar: 'لا إعادة بناء',
           de: 'Kein Rebuild',
-          'en-GB': 'No Rebuild',
+          'en-GB': 'No rebuild',
           es: 'Sin reconstrucción',
           fr: 'Pas de reconstruction',
           'he-IL': 'ללא בנייה מחדש',
@@ -215,10 +215,10 @@ const contentDeliveryContent = {
         icon: 'server',
         id: 'live-sync',
         title: t({
-          en: 'Live Sync',
+          en: 'Live sync',
           ar: 'مزامنة مباشرة',
           de: 'Live-Sync',
-          'en-GB': 'Live Sync',
+          'en-GB': 'Live sync',
           es: 'Sincronización en Vivo',
           fr: 'Sync en Direct',
           'he-IL': 'סנכרון חי',

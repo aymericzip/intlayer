@@ -30,11 +30,11 @@ const comingSoonContent = {
           zh: '进行中',
         }),
         description: t({
-          en: 'Push content in one language, get AI-powered translations instantly, like Reddit does with posts.',
+          en: 'Push content in one language and get it translated automatically, like Reddit does with posts.',
           ar: 'ادفع المحتوى بلغة واحدة، واحصل على ترجمات مدعومة بالذكاء الاصطناعي على الفور، كما يفعل Reddit مع المنشورات.',
           de: 'Content in einer Sprache pushen, sofort KI-gestützte Übersetzungen erhalten, wie Reddit es mit Posts macht.',
           'en-GB':
-            'Push content in one language, get AI-powered translations instantly, like Reddit does with posts.',
+            'Push content in one language and get it translated automatically, like Reddit does with posts.',
           es: 'Sube contenido en un idioma, obtén traducciones con IA al instante, como Reddit hace con sus publicaciones.',
           fr: "Poussez du contenu dans une langue, obtenez des traductions alimentées par l'IA instantanément, comme Reddit le fait avec ses posts.",
           'he-IL':

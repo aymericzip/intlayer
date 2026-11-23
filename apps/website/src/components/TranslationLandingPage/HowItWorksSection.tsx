@@ -1,93 +1,36 @@
-import { Container } from '@intlayer/design-system/container';
-import { m, type Variants } from 'framer-motion';
-import { CheckCircle2, GitBranch, Layers, Sparkles } from 'lucide-react';
 import type { FC } from 'react';
-import { type IntlayerNode, useIntlayer } from 'react-intlayer';
-
-type IconMap = {
-  [key: string]: FC<{ className?: string }>;
-};
-
-const iconMap: IconMap = {
-  '1': CheckCircle2,
-  '2': Layers,
-  '3': Sparkles,
-  '4': GitBranch,
-};
-
-const sectionFade: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: 'easeOut' as const },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
+import { useIntlayer } from 'react-intlayer';
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { RevealGroup, RevealItem } from '~/components/ProductLanding/motion';
 
 export const HowItWorksSection: FC = () => {
   const { title, description, steps } = useIntlayer('how-it-works-section');
 
   return (
-    <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <m.div
-        variants={sectionFade}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-      >
-        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-          {title}
-        </h2>
-        <p className="mt-2 max-w-2xl text-base text-foreground/70">
-          {description}
-        </p>
-      </m.div>
+    <ProductSection>
+      <SectionHeading title={title} description={description} />
 
-      <m.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4"
-      >
-        {steps.map(
-          (s: {
-            step: IntlayerNode;
-            title: IntlayerNode;
-            description: IntlayerNode;
-          }) => {
-            const IconComponent = iconMap[s.step.value] || CheckCircle2;
-            return (
-              <m.div key={s.step.value} variants={sectionFade}>
-                <Container
-                  roundedSize="3xl"
-                  transparency="md"
-                  padding="lg"
-                  className="flex h-full flex-col items-center gap-3 text-center"
-                >
-                  <div className="flex w-full items-center justify-between">
-                    <span className="flex size-8 items-center justify-center rounded-full border-4 border-lime-300 text-lg text-lime-800 dark:border-lime-900 dark:text-lime-600">
-                      {s.step}
-                    </span>
-                    <IconComponent className="size-6 text-muted-foreground" />
-                  </div>
-                  <h3 className="text-sm font-semibold md:text-lg">
-                    {s.title}
-                  </h3>
-                  <p className="text-xs leading-5 text-muted-foreground">
-                    {s.description}
-                  </p>
-                </Container>
-              </m.div>
-            );
-          }
-        )}
-      </m.div>
-    </section>
+      <RevealGroup className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        {steps.map((step) => (
+          <RevealItem
+            key={step.step.value}
+            className="flex flex-col gap-3 border-t border-text/10 pt-6"
+          >
+            <span className="font-mono text-sm text-muted-foreground tabular-nums">
+              {step.step.value.padStart(2, '0')}
+            </span>
+            <h3 className="text-lg font-medium text-foreground">
+              {step.title}
+            </h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {step.description}
+            </p>
+          </RevealItem>
+        ))}
+      </RevealGroup>
+    </ProductSection>
   );
 };

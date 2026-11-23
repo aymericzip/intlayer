@@ -1,4 +1,5 @@
 import { type FC, lazy, Suspense } from 'react';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
 
 const HeroSection = lazy(() =>
   import('./HeroSection').then((module) => ({ default: module.HeroSection }))
@@ -49,9 +50,11 @@ const LanguageSection = lazy(() =>
 
 export const AiTranslationLandingCore: FC = () => {
   return (
-    <div>
-      {/* Hero Section with ambient effects */}
-      <HeroSection />
+    <div className="flex flex-col">
+      {/* Hero Section */}
+      <BackgroundLayout>
+        <HeroSection />
+      </BackgroundLayout>
 
       {/* Providers Carousel */}
       <Suspense>

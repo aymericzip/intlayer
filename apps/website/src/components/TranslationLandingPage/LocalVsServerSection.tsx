@@ -1,22 +1,43 @@
-import { Container } from '@intlayer/design-system/container';
-import { m, type Variants } from 'framer-motion';
-import { CheckCircle2, Laptop, Server } from 'lucide-react';
-import type { FC } from 'react';
+import { Check, Laptop, Server } from 'lucide-react';
+import type { FC, ReactNode } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { Reveal } from '~/components/ProductLanding/motion';
 
-const sectionFade: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: 'easeOut' as const },
-  },
+type ExecutionOptionProps = {
+  icon: ReactNode;
+  title: IntlayerNode;
+  description: IntlayerNode;
+  features: IntlayerNode[];
 };
 
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
+const ExecutionOption: FC<ExecutionOptionProps> = ({
+  icon,
+  title,
+  description,
+  features,
+}) => (
+  <div className="flex flex-col gap-4 p-6 md:p-8">
+    <span className="flex text-muted-foreground [&_svg]:size-[18px] [&_svg]:stroke-[1.5]">
+      {icon}
+    </span>
+    <h3 className="text-lg font-medium text-foreground">{title}</h3>
+    <p className="text-sm leading-relaxed text-muted-foreground">
+      {description}
+    </p>
+    <ul className="mt-2 flex flex-col gap-2 text-sm text-foreground">
+      {features.map((feature) => (
+        <li key={feature.value} className="flex items-center gap-2">
+          <Check className="size-4 shrink-0 text-muted-foreground" />
+          {feature}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 export const LocalVsServerSection: FC = () => {
   const { title, description, local, server } = useIntlayer(
@@ -24,90 +45,23 @@ export const LocalVsServerSection: FC = () => {
   );
 
   return (
-    <section className="mx-auto max-w-6xl px-8 py-20 md:py-28">
-      <m.div
-        variants={sectionFade}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-      >
-        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-          {title}
-        </h2>
-        <p className="mt-2 max-w-2xl text-base text-foreground/70">
-          {description}
-        </p>
-      </m.div>
+    <ProductSection>
+      <SectionHeading title={title} description={description} />
 
-      <m.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mt-20 grid grid-cols-1 justify-evenly gap-4 md:grid-cols-2"
-      >
-        <m.div variants={sectionFade}>
-          <Container
-            roundedSize="3xl"
-            transparency="md"
-            padding="lg"
-            className="h-full max-w-lg"
-          >
-            <div className="flex items-start gap-3">
-              <div className="rounded-2xl bg-text/15 p-2">
-                <Laptop className="size-5 text-foreground" />
-              </div>
-              <div>
-                <div className="text-base font-semibold text-foreground">
-                  {local.title}
-                </div>
-                <div className="mt-1 text-sm text-foreground/70">
-                  {local.description}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 grid gap-2 text-sm text-foreground/70">
-              {local.features.map((feature: IntlayerNode) => (
-                <div key={feature.value} className="flex items-center gap-2">
-                  <CheckCircle2 className="size-4 text-foreground" /> {feature}
-                </div>
-              ))}
-            </div>
-          </Container>
-        </m.div>
-
-        <m.div variants={sectionFade}>
-          <Container
-            roundedSize="3xl"
-            transparency="md"
-            padding="lg"
-            className="h-full"
-          >
-            <div className="flex items-start gap-3">
-              <div className="rounded-2xl bg-text/20 p-2">
-                <Server className="size-5 text-foreground" />
-              </div>
-              <div>
-                <div className="text-base font-semibold text-foreground">
-                  {server.title}
-                </div>
-                <div className="mt-1 text-sm text-foreground/70">
-                  {server.description}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 grid gap-2 text-sm text-foreground/70">
-              {server.features.map((feature: IntlayerNode) => (
-                <div key={feature.value} className="flex items-center gap-2">
-                  <CheckCircle2 className="size-4 text-foreground" /> {feature}
-                </div>
-              ))}
-            </div>
-          </Container>
-        </m.div>
-      </m.div>
-    </section>
+      <Reveal className="grid grid-cols-1 divide-y divide-text/10 rounded-2xl border border-text/10 bg-card md:grid-cols-2 md:divide-x md:divide-y-0">
+        <ExecutionOption
+          icon={<Laptop />}
+          title={local.title}
+          description={local.description}
+          features={local.features}
+        />
+        <ExecutionOption
+          icon={<Server />}
+          title={server.title}
+          description={server.description}
+          features={server.features}
+        />
+      </Reveal>
+    </ProductSection>
   );
 };

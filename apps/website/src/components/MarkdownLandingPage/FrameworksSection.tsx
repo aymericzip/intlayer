@@ -1,4 +1,3 @@
-import { Container } from '@intlayer/design-system/container';
 import {
   Website_Doc_Environment_Angular_Path,
   Website_Doc_Environment_NextJS_Path,
@@ -10,10 +9,14 @@ import {
   Website_Doc_Environment_ViteAndVue_Path,
 } from '@intlayer/design-system/routes';
 import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
-import { m, type Variants } from 'framer-motion';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { RevealGroup, RevealItem } from '~/components/ProductLanding/motion';
 
 /**
  * The frameworks a Markdown node renders natively into, with the output shape
@@ -76,76 +79,38 @@ const FRAMEWORKS: {
   },
 ];
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-};
-
-const MotionContainer = m.create(Container);
-
 export const FrameworksSection: FC = () => {
   const { title, description, outputLabel } = useIntlayer(
     'frameworks-section-markdown'
   );
 
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-6xl px-4 md:px-8 lg:px-12">
-        <m.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 text-center"
-        >
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-            {description}
-          </p>
-        </m.div>
+    <ProductSection>
+      <SectionHeading title={title} description={description} />
 
-        <m.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          variants={containerVariants}
-          className="grid grid-cols-2 gap-4 md:grid-cols-4"
-        >
-          {FRAMEWORKS.map(({ logo, name, output, route }) => (
+      <RevealGroup className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        {FRAMEWORKS.map(({ logo, name, output, route }) => (
+          <RevealItem key={name}>
             <Link
-              key={name}
               to={route}
               variant="invisible-link"
               color="text"
               label={name}
+              className="flex h-full items-center gap-4 rounded-xl border border-text/10 bg-card p-4 transition-colors duration-150 hover:bg-text/5"
             >
-              <MotionContainer
-                variants={cardVariants}
-                roundedSize="3xl"
-                padding="lg"
-                background="with"
-                border={true}
-                className="flex h-full flex-col items-center gap-3 text-center transition-colors hover:bg-neutral/5"
-              >
-                <TechLogo name={logo} className="size-10" />
-                <span className="text-sm font-semibold text-foreground">
+              <TechLogo name={logo} className="size-8 shrink-0" />
+              <span className="flex min-w-0 flex-col gap-1">
+                <span className="text-sm font-medium text-foreground">
                   {name}
                 </span>
-                <span className="text-xs text-muted-foreground">
+                <span className="truncate text-xs text-muted-foreground">
                   {outputLabel} <span className="font-mono">{output}</span>
                 </span>
-              </MotionContainer>
+              </span>
             </Link>
-          ))}
-        </m.div>
-      </div>
-    </section>
+          </RevealItem>
+        ))}
+      </RevealGroup>
+    </ProductSection>
   );
 };

@@ -1,4 +1,3 @@
-import { Container } from '@intlayer/design-system/container';
 import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import type { FC } from 'react';
 
@@ -10,67 +9,23 @@ const providers: Array<{ name: string; logoName: TechLogoName }> = [
   { name: 'DeepSeek', logoName: 'deepseek' },
 ];
 
-export const ProvidersCarousel: FC = () => {
-  return (
-    <div className="relative mt-8 flex w-full overflow-hidden mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-128px),transparent_100%)]">
-      {/* Fix: Removed 'gap-10' from the container.
-        Infinite loops work best when spacing is handled by the items' margins
-        to ensure the width calculation for the loop reset is precise.
-      */}
-      <div className="horizontal-loop-4 inline-flex shrink-0 will-change-transform">
-        {/* First set of provider cards */}
-        {providers.map((provider, index) => {
-          return (
-            <div
-              key={`${provider.name}-first-${index}`}
-              /* Fix: Increased mx-4 to mx-8 to replace the removed gap and ensure consistent spacing */
-              className="group z-10 mx-8 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
-            >
-              <Container
-                roundedSize="3xl"
-                className="flex flex-row items-center gap-4 px-5 py-4"
-              >
-                {provider.logoName && (
-                  <TechLogo
-                    name={provider.logoName}
-                    className="size-6 shrink-0 transition duration-300 [&_path]:fill-text/70! group-hover:[&_path]:fill-text!"
-                    aria-hidden="true"
-                  />
-                )}
-                <span className="text-base font-medium text-nowrap text-foreground/80 group-hover:text-foreground">
-                  {provider.name}
-                </span>
-              </Container>
-            </div>
-          );
-        })}
-        {/* Duplicate set for seamless loop */}
-        {providers.map((provider, index) => {
-          return (
-            <div
-              key={`${provider.name}-second-${index}`}
-              /* Fix: Increased mx-4 to mx-8 to match the first set */
-              className="group z-10 mx-8 inline-flex shrink-0 transition-transform duration-300 hover:scale-105"
-            >
-              <Container
-                roundedSize="3xl"
-                className="flex flex-row items-center gap-4 px-5 py-4"
-              >
-                {provider.logoName && (
-                  <TechLogo
-                    name={provider.logoName}
-                    className="size-6 shrink-0 transition duration-300 [&_path]:fill-text/70! group-hover:[&_path]:fill-text!"
-                    aria-hidden="true"
-                  />
-                )}
-                <span className="text-base font-medium text-nowrap text-foreground/80 group-hover:text-foreground">
-                  {provider.name}
-                </span>
-              </Container>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+/** Static row of the model providers the CLI can call. */
+export const ProvidersCarousel: FC = () => (
+  <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
+    <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-y border-text/10 py-6">
+      {providers.map(({ name, logoName }) => (
+        <li
+          key={name}
+          className="flex items-center gap-2 text-sm text-muted-foreground"
+        >
+          <TechLogo
+            name={logoName}
+            className="size-5 shrink-0 [&_path]:fill-current!"
+            aria-hidden="true"
+          />
+          {name}
+        </li>
+      ))}
+    </ul>
+  </div>
+);

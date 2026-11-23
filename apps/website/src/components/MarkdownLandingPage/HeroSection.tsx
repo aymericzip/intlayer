@@ -1,4 +1,3 @@
-import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_Markdown_Path } from '@intlayer/design-system/routes';
 import {
@@ -6,251 +5,155 @@ import {
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
-import { m, useReducedMotion, type Variants } from 'framer-motion';
-import { Blocks, Layers, PackageMinus, Server, Tags, Zap } from 'lucide-react';
-import type { FC, ReactNode } from 'react';
+import { useReducedMotion } from 'framer-motion';
+import { ArrowDown, Blocks, Layers, PackageMinus, Server } from 'lucide-react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import { WindowFrame } from '~/components/ProductLanding/layout';
+import { ProductHero } from '~/components/ProductLanding/ProductHero';
 import { useTabTimer } from './useTabTimer';
-
-const sectionFade: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: 'easeOut' as const },
-  },
-};
-
-export const Pill: FC<{ children: ReactNode; className?: string }> = ({
-  children,
-  className,
-}) => (
-  <span
-    className={cn(
-      'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-xs text-foreground backdrop-blur supports-[corner-shape:squircle]:rounded-full',
-      className
-    )}
-  >
-    {children}
-  </span>
-);
 
 export type TabKey = 'monolingual' | 'multilingual' | 'contentFile';
 
 const TABS: TabKey[] = ['monolingual', 'multilingual', 'contentFile'];
 
-export const HeroSection: FC = () => {
+/** Tabbed preview of the three ways to declare Markdown content. */
+const DeclarationPreview: FC = () => {
   const reduced = useReducedMotion();
-  const { pills, title, description, readTheDocs, seeBenchmark, card } =
-    useIntlayer('hero-section-markdown');
+  const { card } = useIntlayer('hero-section-markdown');
   const { selectedTab, setSelectedTab } = useTabTimer<TabKey>({
     tabs: TABS,
     initialTab: 'monolingual',
     intervalMs: 4000,
   });
 
-  const tabChoices: SwitchSelectorChoices<TabKey> = [
-    {
-      content: card.switchSelector.monolingual,
-      value: 'monolingual',
-    },
-    {
-      content: card.switchSelector.multilingual,
-      value: 'multilingual',
-    },
-    {
-      content: card.switchSelector.contentFile,
-      value: 'contentFile',
-    },
-  ];
+  const tabChoices: SwitchSelectorChoices<TabKey> = TABS.map((tabKey) => ({
+    content: card.switchSelector[tabKey],
+    value: tabKey,
+  }));
 
   return (
-    <>
-      {/* Background gradients */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <m.div
-          aria-hidden
-          className="absolute -top-24 left-1/2 h-129 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
-          animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, 1.03, 1] }}
-          transition={
-            reduced
-              ? undefined
-              : { duration: 8, repeat: Infinity, ease: 'easeInOut' }
-          }
+    <WindowFrame title={card[selectedTab].codeBlockTitle}>
+      <div className="flex flex-col gap-4 p-4">
+        <SwitchSelector
+          choices={tabChoices}
+          value={selectedTab}
+          onChange={setSelectedTab}
+          size="sm"
+          color="text"
+          itemClassName="text-nowrap text-xs m-auto"
         />
-        <m.div
-          aria-hidden
-          className="absolute -inset-e-30 -top-12 h-90 w-90 rounded-full bg-success/10 blur-3xl"
-          animate={reduced ? undefined : { x: [0, -22, 0], y: [0, 10, 0] }}
-          transition={
-            reduced
-              ? undefined
-              : { duration: 10, repeat: Infinity, ease: 'easeInOut' }
-          }
-        />
-      </div>
 
-      {/* Content */}
-      <section className="relative mx-auto flex min-h-[75vh] max-w-6xl flex-col justify-center gap-12 px-8 py-24">
-        <div className="flex flex-wrap gap-2">
-          <Pill>
-            <PackageMinus className="size-3 text-foreground" />
-            {pills.zeroDependency}
-          </Pill>
-          <Pill>
-            <Blocks className="size-3 text-foreground" />
-            {pills.mdx}
-          </Pill>
-          <Pill>
-            <Server className="size-3 text-foreground" />
-            {pills.ssr}
-          </Pill>
-          <Pill>
-            <Layers className="size-3 text-foreground" />
-            {pills.crossFramework}
-          </Pill>
-        </div>
-
-        <m.div
-          variants={sectionFade}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 items-start gap-x-8 gap-y-16 md:grid-cols-12"
-        >
-          <div className="md:col-span-6">
-            <h1 className="text-4xl leading-tight font-semibold text-balance text-foreground md:text-5xl">
-              {title}
-            </h1>
-
-            <p className="mt-4 max-w-xl text-base text-pretty text-foreground/70 md:text-lg">
-              {description}
-            </p>
-
-            <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                to={Website_Doc_Markdown_Path}
-                variant="button"
-                color="text"
-                className="w-full sm:w-auto"
-                label={readTheDocs.value}
-              >
-                {readTheDocs}
-              </Link>
-
-              <Link
-                to="#benchmark"
-                variant="button-outlined"
-                color="text"
-                className="w-full sm:w-auto"
-                label={seeBenchmark.value}
-              >
-                {seeBenchmark}
-              </Link>
-            </div>
-          </div>
-
-          <Container
-            roundedSize="3xl"
-            transparency="md"
-            padding="lg"
-            className="relative flex w-full items-center overflow-hidden md:col-span-6"
+        {/* Equal-height carousel track: panels share the tallest height */}
+        <div className="relative w-full min-w-0 overflow-x-clip [-webkit-clip-path:inset(0)] [clip-path:inset(0)]">
+          <div
+            className={cn(
+              'grid w-full min-w-0',
+              !reduced &&
+                'transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]'
+            )}
+            style={{
+              gridTemplateColumns: `repeat(${TABS.length}, 100%)`,
+              transform: `translateX(-${TABS.indexOf(selectedTab) * 100}%)`,
+            }}
           >
-            <SwitchSelector
-              choices={tabChoices}
-              value={selectedTab}
-              onChange={setSelectedTab}
-              size="sm"
-              color="text"
-              itemClassName="text-nowrap text-xs m-auto"
-            />
+            {TABS.map((tabKey) => {
+              const tabData = card[tabKey];
+              const isActive = tabKey === selectedTab;
 
-            {/* Equal-height panel carousel track: all panels share the height of the tallest panel */}
-            <div className="relative mt-4 w-full min-w-0 overflow-x-clip [-webkit-clip-path:inset(0)] [clip-path:inset(0)]">
-              <div
-                className={cn(
-                  'grid w-full min-w-0',
-                  reduced
-                    ? undefined
-                    : 'transition-transform duration-300 ease-in-out'
-                )}
-                style={{
-                  gridTemplateColumns: `repeat(${TABS.length}, 100%)`,
-                  transform: `translateX(-${TABS.indexOf(selectedTab) * 100}%)`,
-                }}
-              >
-                {TABS.map((tabKey) => {
-                  const tabData = card[tabKey] ?? card.multilingual;
-                  const lang =
-                    tabKey === 'contentFile' ? 'typescript' : 'markdown';
-                  const isActive = tabKey === selectedTab;
-
-                  return (
-                    <div
-                      key={tabKey}
-                      role="tabpanel"
-                      inert={!isActive}
-                      data-active={isActive}
-                      className={cn(
-                        'w-full min-w-0 opacity-100 transition-opacity duration-300 ease-in-out',
-                        !isActive && 'pointer-events-none opacity-0'
-                      )}
+              return (
+                <div
+                  key={tabKey}
+                  role="tabpanel"
+                  inert={!isActive}
+                  className={cn(
+                    'flex w-full min-w-0 flex-col gap-4 transition-opacity duration-300',
+                    !isActive && 'pointer-events-none opacity-0'
+                  )}
+                >
+                  <div className="overflow-x-auto rounded-xl border border-text/10 bg-background px-4 py-3">
+                    <CodeBlock
+                      lang={
+                        tabKey === 'contentFile' ? 'typescript' : 'markdown'
+                      }
+                      className="text-sm"
                     >
-                      <div className="flex flex-col gap-3">
-                        <Container
-                          roundedSize="2xl"
-                          padding="md"
-                          className="text-foreground-dark relative"
-                        >
-                          <span className="text-foreground-dark/70 font-mono text-xs">
-                            {tabData.codeBlockTitle}
-                          </span>
-                          <CodeBlock lang={lang} className="mt-2 text-sm">
-                            {tabData.code.value}
-                          </CodeBlock>
-                        </Container>
+                      {tabData.code.value}
+                    </CodeBlock>
+                  </div>
 
-                        <p className="text-xs leading-relaxed text-foreground/75">
-                          {tabData.description}
-                        </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {tabData.description}
+                  </p>
 
-                        <div className="rounded-xl border border-text/10 bg-card/40 p-2.5 backdrop-blur">
-                          <div className="mb-1 text-[11px] font-medium text-foreground/60">
-                            {tabData.fileStructureTitle}
-                          </div>
-                          <pre className="overflow-x-auto font-mono text-[11px] leading-relaxed text-foreground/80">
-                            {tabData.fileStructure.value ??
-                              tabData.fileStructure}
-                          </pre>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+                  <div className="flex flex-col gap-2 rounded-xl border border-text/10 px-4 py-3">
+                    <span className="text-xs text-muted-foreground">
+                      {tabData.fileStructureTitle}
+                    </span>
+                    <pre className="overflow-x-auto font-mono text-xs leading-relaxed text-foreground">
+                      {tabData.fileStructure.value}
+                    </pre>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </WindowFrame>
+  );
+};
 
-            <div className="mt-4 grid grid-cols-2 gap-3 text-xs text-foreground/70">
-              <div className="flex items-center gap-2">
-                <PackageMinus className="size-4 text-foreground" />
-                {card.features.zeroDependency}
-              </div>
-              <div className="flex items-center gap-2">
-                <Blocks className="size-4 text-foreground" />
-                {card.features.mdxComponents}
-              </div>
-              <div className="flex items-center gap-2">
-                <Tags className="size-4 text-foreground" />
-                {card.features.typedFrontmatter}
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="size-4 text-foreground" />
-                {card.features.treeShaken}
-              </div>
-            </div>
-          </Container>
-        </m.div>
-      </section>
-    </>
+export const HeroSection: FC = () => {
+  const { pills, title, description, readTheDocs, seeBenchmark } = useIntlayer(
+    'hero-section-markdown'
+  );
+
+  return (
+    <ProductHero
+      title={title}
+      description={description}
+      actions={
+        <>
+          <Link
+            to={Website_Doc_Markdown_Path}
+            variant="button"
+            color="text"
+            size="lg"
+            label={readTheDocs.value}
+          >
+            {readTheDocs}
+          </Link>
+          <Link
+            to="#benchmark"
+            variant="button-outlined"
+            color="text"
+            size="lg"
+            label={seeBenchmark.value}
+          >
+            <span className="flex items-center gap-2">
+              {seeBenchmark}
+              <ArrowDown className="size-4" />
+            </span>
+          </Link>
+        </>
+      }
+      meta={[
+        {
+          key: 'zero-dependency',
+          icon: <PackageMinus />,
+          label: pills.zeroDependency,
+        },
+        { key: 'mdx', icon: <Blocks />, label: pills.mdx },
+        { key: 'ssr', icon: <Server />, label: pills.ssr },
+        {
+          key: 'cross-framework',
+          icon: <Layers />,
+          label: pills.crossFramework,
+        },
+      ]}
+      visual={<DeclarationPreview />}
+    />
   );
 };

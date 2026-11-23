@@ -153,10 +153,10 @@ const painPointsSectionContent = {
       },
     ],
     painPointsTitle: t({
-      en: 'Tired of legacy translation platforms?',
+      en: 'Where file-based translation platforms break down',
       ar: 'هل سئمت من منصات الترجمة القديمة؟',
       de: 'Müde von alten Übersetzungsplattformen?',
-      'en-GB': 'Tired of legacy translation platforms?',
+      'en-GB': 'Where file-based translation platforms break down',
       es: '¿Cansado de las plataformas de traducción tradicionales?',
       fr: 'Fatigué des plateformes de traduction héritées ?',
       'he-IL': 'נמאס לכם מפלטפורמות תרגום מיושנות?',

@@ -7,11 +7,11 @@ const heroContent = {
     'Hero section content for the CMS landing page, including tag, title, subtitle, description and primary/secondary CTAs for local editing.',
   content: {
     heroDescription: t({
-      en: 'Bridge local content declarations with remote editing. Ship multilingual updates instantly. Let your whole team contribute, without breaking production.',
+      en: 'Your content stays declared in your code. Editors update it remotely in every locale, and the whole team contributes without touching production.',
       ar: 'اربط إعلانات المحتوى المحلية بالتحرير عن بُعد. انشر التحديثات متعددة اللغات على الفور. دع فريقك بالكامل يساهم دون كسر الإنتاج.',
       de: 'Verbinden Sie lokale Content-Deklarationen mit Remote-Bearbeitung. Veröffentlichen Sie mehrsprachige Updates sofort. Lassen Sie Ihr gesamtes Team beitragen, ohne die Produktion zu stören.',
       'en-GB':
-        'Bridge local content declarations with remote editing. Ship multilingual updates instantly. Let your whole team contribute, without breaking production.',
+        'Your content stays declared in your code. Editors update it remotely in every locale, and the whole team contributes without touching production.',
       es: 'Conecta las declaraciones de contenido locales con la edición remota. Publica actualizaciones multilingües al instante. Deja que todo tu equipo contribuya, sin romper producción.',
       fr: "Reliez les déclarations de contenu locales à l'édition distante. Publiez des mises à jour multilingues instantanément. Permettez à toute votre équipe de contribuer, sans casser la production.",
       'he-IL':
@@ -29,7 +29,7 @@ const heroContent = {
       vi: 'Kết nối các khai báo nội dung cục bộ với chỉnh sửa từ xa. Gửi cập nhật đa ngôn ngữ ngay lập tức. Để toàn bộ nhóm của bạn đóng góp mà không làm gián đoạn sản xuất.',
       zh: '将本地内容声明与远程编辑连接起来。即时发布多语言更新。让整个团队在不破坏生产的情况下做出贡献。',
     }),
-    heroSubtitle: t({
+    heroTitle: t({
       en: 'The headless CMS that lives inside your codebase',
       ar: 'CMS بدون رأس يعيش داخل قاعدة الكود الخاصة بك',
       de: 'Das Headless-CMS, das in Ihrer Codebasis lebt',
@@ -51,27 +51,6 @@ const heroContent = {
       zh: '存在于您代码库中的无头CMS',
     }),
     heroTag: 'Intlayer CMS',
-    heroTitle: t({
-      en: 'Your Code. Your Content. Unified.',
-      ar: 'كودك. محتواك. موحد.',
-      de: 'Ihr Code. Ihr Inhalt. Vereint.',
-      'en-GB': 'Your Code. Your Content. Unified.',
-      es: 'Tu Código. Tu Contenido. Unificado.',
-      fr: 'Votre Code. Votre Contenu. Unifié.',
-      'he-IL': 'הקוד שלכם. התוכן שלכם. מאוחדים.',
-      hi: 'आपका कोड। आपकी सामग्री। एकीकृत।',
-      id: 'Kode Anda. Konten Anda. Terpadu.',
-      it: 'Il tuo codice. Il tuo contenuto. Unificato.',
-      ja: 'あなたのコード。あなたのコンテンツ。統合。',
-      ko: '당신의 코드. 당신의 콘텐츠. 통합.',
-      pl: 'Twój kod. Twoja treść. Zunifikowane.',
-      pt: 'Seu código. Seu conteúdo. Unificado.',
-      ru: 'Ваш код. Ваш контент. Объединено.',
-      tr: 'Kodunuz. İçeriğiniz. Birleşik.',
-      uk: 'Ваш код. Ваш вміст. Єдине ціле.',
-      vi: 'Mã của bạn. Nội dung của bạn. Thống nhất.',
-      zh: '您的代码。您的内容。统一。',
-    }),
     primaryCta: t({
       en: 'Start editing now',
       ar: 'ابدأ التحرير الآن',

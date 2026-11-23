@@ -1,39 +1,9 @@
-import { Container } from '@intlayer/design-system/container';
-import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
-import { cn } from '@intlayer/design-system/utils';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
-
-type CodeBlockWrapperProps = {
-  title: ReactNode;
-  children: ReactNode;
-  className?: string;
-};
-
-const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
-  title,
-  children,
-  className,
-}) => {
-  return (
-    <Container
-      roundedSize="2xl"
-      padding="md"
-      border
-      borderColor="card"
-      background="none"
-      className={cn('relative overflow-hidden text-foreground', className)}
-    >
-      <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs text-foreground/70">{title}</span>
-        <span className="text-xs text-foreground/40">CLI</span>
-      </div>
-      {children}
-    </Container>
-  );
-};
+import { CodePanel } from '~/components/ProductLanding/CodePanel';
+import { ProductFinalCTA } from '~/components/ProductLanding/ProductFinalCTA';
 
 export const CTASection: FC = () => {
   const {
@@ -46,65 +16,35 @@ export const CTASection: FC = () => {
   } = useIntlayer('cta-section');
 
   return (
-    <section
+    <ProductFinalCTA
       id="get-started"
-      className="mx-auto max-w-5xl px-8 pt-10 pb-14 md:pt-14 md:pb-20"
-    >
-      <Container
-        roundedSize="4xl"
-        transparency="md"
-        padding="xl"
-        border
-        borderColor="card"
-        className="relative overflow-hidden"
-      >
-        <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
-          <div className="md:col-span-7">
-            <h3 className="text-2xl font-semibold text-foreground md:text-3xl">
-              {title}
-            </h3>
-            <p className="mt-2 max-w-2xl text-base text-foreground/70">
-              {description}
-            </p>
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="#commands"
-                variant="button-outlined"
-                color="text"
-                className="w-full sm:w-auto"
-                label={exploreCLICommands.value}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const el = document.getElementById('commands');
-                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-              >
-                {exploreCLICommands}
-              </Link>
-
-              <Link
-                to={Website_Doc_CLI_Fill_Path}
-                variant="button"
-                color="text"
-                className="w-full sm:w-auto"
-                label={readDocumentation.value}
-              >
-                {readDocumentation}
-              </Link>
-            </div>
-          </div>
-
-          <div className="md:col-span-5">
-            <CodeBlockWrapper title={quickStartTitle}>
-              <CodeBlock lang="bash" className="text-sm">
-                {code.value}
-              </CodeBlock>
-            </CodeBlockWrapper>
-          </div>
-        </div>
-
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_10%_0%,rgba(203,235,64,0.12),transparent_55%)]" />
-      </Container>
-    </section>
+      title={title}
+      description={description}
+      actions={
+        <>
+          <Link
+            to={Website_Doc_CLI_Fill_Path}
+            variant="button"
+            color="text"
+            size="lg"
+            label={readDocumentation.value}
+          >
+            {readDocumentation}
+          </Link>
+          <Link
+            to="#commands"
+            variant="button-outlined"
+            color="text"
+            size="lg"
+            label={exploreCLICommands.value}
+          >
+            {exploreCLICommands}
+          </Link>
+        </>
+      }
+      aside={
+        <CodePanel label={quickStartTitle} code={code.value} lang="bash" />
+      }
+    />
   );
 };

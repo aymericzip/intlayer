@@ -1,8 +1,12 @@
-import { Container } from '@intlayer/design-system/container';
 import { cn } from '@intlayer/design-system/utils';
 import { m } from 'framer-motion';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import {
+  ProductSection,
+  SectionHeading,
+} from '~/components/ProductLanding/layout';
+import { EASE_OUT, Reveal } from '~/components/ProductLanding/motion';
 
 /**
  * Relative parse + render throughput, expressed as a multiple of the slowest
@@ -16,103 +20,70 @@ const THROUGHPUT_BARS = [
   { label: 'markdown-to-jsx', value: '1×', ratio: 0.2, isHighlighted: false },
 ] as const;
 
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.6, ease: 'easeOut' as const },
-};
-
-const MotionContainer = m.create(Container);
-
 export const BenchmarkSection: FC = () => {
   const { title, description, barsCaption, stats } = useIntlayer(
     'benchmark-section-markdown'
   );
 
   return (
-    <section id="benchmark" className="scroll-mt-24 py-24">
-      <div className="mx-auto max-w-5xl px-4 md:px-8 lg:px-12">
-        <m.div {...fadeUp} className="mb-14 text-center">
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-            {description}
-          </p>
-        </m.div>
+    <ProductSection id="benchmark">
+      <SectionHeading title={title} description={description} />
 
-        <MotionContainer
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          roundedSize="3xl"
-          border={true}
-          background="with"
-          padding="lg"
-        >
-          <div className="flex flex-col gap-6">
-            {THROUGHPUT_BARS.map(({ label, value, ratio, isHighlighted }) => (
-              <div key={label} className="flex flex-col gap-2">
-                <div className="flex items-baseline justify-between text-sm">
-                  <span
-                    className={cn(
-                      'font-medium',
-                      isHighlighted ? 'text-foreground' : 'text-neutral'
-                    )}
-                  >
-                    {label}
-                  </span>
-                  <span
-                    className={cn(
-                      'font-semibold tabular-nums',
-                      isHighlighted ? 'text-foreground' : 'text-neutral'
-                    )}
-                  >
-                    {value}
-                  </span>
-                </div>
-                <div className="h-3 w-full overflow-hidden rounded-full bg-neutral/10">
-                  <m.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${ratio * 100}%` }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className={cn(
-                      'h-full rounded-full',
-                      isHighlighted ? 'bg-text' : 'bg-neutral/40'
-                    )}
-                  />
-                </div>
+      <Reveal className="rounded-2xl border border-text/10 bg-card">
+        <div className="flex flex-col gap-6 p-6 md:p-8">
+          {THROUGHPUT_BARS.map(({ label, value, ratio, isHighlighted }) => (
+            <div key={label} className="flex flex-col gap-2">
+              <div className="flex items-baseline justify-between font-mono text-sm">
+                <span
+                  className={
+                    isHighlighted ? 'text-foreground' : 'text-muted-foreground'
+                  }
+                >
+                  {label}
+                </span>
+                <span
+                  className={cn(
+                    'tabular-nums',
+                    isHighlighted ? 'text-foreground' : 'text-muted-foreground'
+                  )}
+                >
+                  {value}
+                </span>
               </div>
-            ))}
-          </div>
-
-          <p className="mt-6 text-xs text-muted-foreground">{barsCaption}</p>
-        </MotionContainer>
-
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {stats.map((stat) => (
-            <MotionContainer
-              key={stat.value.value}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              roundedSize="3xl"
-              border={true}
-              background="with"
-              padding="lg"
-            >
-              <div className="text-3xl font-bold text-foreground">
-                {stat.value}
+              <div className="h-2 w-full overflow-hidden rounded-sm bg-text/5">
+                <m.div
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: ratio }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.8, ease: EASE_OUT }}
+                  className={cn(
+                    'h-full w-full rounded-sm ltr:origin-left rtl:origin-right',
+                    isHighlighted
+                      ? 'bg-lime-500 dark:bg-lime-300'
+                      : 'bg-text/25'
+                  )}
+                />
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {stat.label}
-              </p>
-            </MotionContainer>
+            </div>
           ))}
+          <p className="font-mono text-xs text-muted-foreground">
+            {barsCaption}
+          </p>
         </div>
-      </div>
-    </section>
+
+        <dl className="grid grid-cols-1 divide-y divide-text/10 border-t border-text/10 md:grid-cols-3 md:divide-x md:divide-y-0">
+          {stats.map((stat) => (
+            <div key={stat.value.value} className="flex flex-col gap-2 p-6">
+              <dt className="order-2 text-sm leading-relaxed text-muted-foreground">
+                {stat.label}
+              </dt>
+              <dd className="order-1 text-3xl font-medium text-foreground tabular-nums">
+                {stat.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
+    </ProductSection>
   );
 };
