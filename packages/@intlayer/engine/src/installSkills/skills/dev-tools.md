@@ -24,11 +24,13 @@ npm install --save-dev eslint-plugin-intlayer
 
 Then spread `intlayer.configs.recommended` in your `eslint.config.mjs` (oxlint is also supported). `npx intlayer init eslint` installs the plugin and wires the oxlint config for you (for an ESLint flat config, it prints the snippet to add).
 
-| Config          | `no-raw-text` | `static-dictionary-key` | `no-dynamic-field-access` |
-| --------------- | ------------- | ----------------------- | ------------------------- |
-| `recommended`   | warn          | error                   | error                     |
-| `strict`        | error         | error                   | error                     |
-| `contract-only` | off           | error                   | error                     |
+| Config          | `no-raw-text` | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` |
+| --------------- | ------------- | ----------------------- | ------------------------- | ------------------- |
+| `recommended`   | warn          | error                   | error                     | warn                |
+| `strict`        | error         | error                   | error                     | error               |
+| `contract-only` | off           | error                   | error                     | off                 |
+
+`no-node-as-string` autofixes `` `${content.title}` `` / `alt={content.alt}` to `.value`: required once `editor.enabled` is `true`.
 
 ## Language Server (LSP)
 

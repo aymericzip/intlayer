@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint プラグイン | Intlayer 用 Lint ルール
 description: "eslint-plugin-intlayer で、ハードコードされた文字列、Intlayer コンパイラが最適化できない動的呼び出し、未使用のコンテンツを検出。ESLint と oxlint に対応。"
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "no-node-as-string ルールを追加"
   - version: 9.3.1
     date: 2026-08-12
     changes: "初期履歴"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. 辞書に登録されていない**ハードコードされたテキスト**。
 2. 型チェックを通過して実行できるものの、Intlayer コンパイラが最適化できない**動的な呼び出し**。
-3. **デッドコンテンツ**：プロジェクト内のどこからも読み取られていない辞書やフィールド（オプトイン）。
+3. **文字列として使われるコンテンツ**: `.value` がないと、ビジュアルエディターを有効にした時点で型が壊れます。
+4. **デッドコンテンツ**：プロジェクト内のどこからも読み取られていない辞書やフィールド（オプトイン）。
 
 不明な辞書キー、不明なフィールドパス、欠落しているロケールは既にコンパイルエラーとなるため、プラグインはそれらを重複して指摘しません。
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### プリセット設定
 
-| 設定            | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                    | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ 非JSXリテラル) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                     | error                   | error                     | off                      | off                 |
+| 設定            | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                    | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ 非JSXリテラル) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                     | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` では意図的に `no-raw-text` を `warn` に設定しています: 既存のコードベースに適用した際にすべての未翻訳文字列が一斉に検出され、初日からビルドが失敗するのを防ぐためです。
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+コンテンツを文字列として使う場合に `.value` を要求します。自動修正に対応しています。
+
+`editor.enabled: true` では、`useIntlayer` / `getIntlayer` が返す各フィールドは文字列ではなく描画可能なノード (`ReactNode`、`JSX.Element`、`VNode` など) になるため、以下の書き方は型チェックを通らなくなります。`.value` はどちらのモードでも文字列を保持します。
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ 報告される
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ 正常
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // ノードとして描画
+<Card title={content.title} />; // コンポーネントの props はノードを受け取れる
+html`<h1>${content.title}</h1>`; // タグ付きテンプレート (Lit) はノードを受け取る
+```
+
+JSX の子要素からは `.value` を取り除きます。`<h1>{content.title.value}</h1>` は `<h1>{content.title}</h1>` になり、ビジュアルエディターでテキストを選択できるようになります。React、Next.js、Preact、Solid、React Native が対象です。
+
+React、Next.js、Preact、Solid、React Native、Vue (script と `:attr` バインディング)、Svelte (script とマークアップ内の `$content`)、Angular (`content().title`)、Lit、vanilla、Astro に対応します。`intlayer` の `getIntlayer` とサーバーアダプターはプレーンな文字列を返すため、チェック対象外です。
 
 ### `enforce-adapter-import`
 

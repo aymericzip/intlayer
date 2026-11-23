@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt 插件 | 排序 Intlayer 翻译
-description: "使用 prettier-plugin-intlayer 排序 t() 的语言环境、plural() 的类别、enu() 的条件、select() 的分支以及内容声明中的键。支持 Prettier 和 oxfmt。"
+title: Prettier x Oxfmt 插件 | 排序 Intlayer 翻译并补充 .value
+description: "对内容声明中 t()、plural()、enu() 和 select() 的语言环境进行排序，并在内容被当作字符串使用的地方补充 .value，使类型在可视化编辑器下保持有效。支持 Prettier 和 oxfmt。"
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - 可视化编辑器
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "新增为作为字符串使用的内容补充 .value"
   - version: 9.7.1
     date: 2026-11-03
     changes: "初始历史"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt 插件
 
-每次 Prettier 格式化文件时，`prettier-plugin-intlayer` 都会将翻译键按固定顺序排列。代码变更（diff）保持精简，合并冲突显著减少，缺失的语言环境也一目了然。
+`prettier-plugin-intlayer` 在 Prettier 每次格式化文件时做两件事：
+
+1. **按固定顺序排序翻译。** diff 保持精简，合并冲突更少，缺失的语言环境一目了然。
+2. **在内容被当作字符串使用的地方补充 `.value`**，启用可视化编辑器后类型依然有效。
 
 ```ts
 // 之前
@@ -107,7 +115,7 @@ bun add --dev prettier prettier-plugin-intlayer
 }
 ```
 
-如果只想应用于内容声明文件，可以使用覆盖配置（override）：
+如果只想排序内容声明，请使用 override。此时 `.value` 补充不会作用于你的组件：
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 format 脚本会运行两个工具，各司其职：
 
-1. **Prettier** 使用插件对内容声明进行排序。glob 将其限制在 `*.content.*` 文件上。
+1. **Prettier** 运行插件。第一个 glob 排序内容声明，第二个 glob 在组件中补充 `.value`。如果只需要排序，请删除第二个 glob。
 2. **oxfmt** 格式化整个项目，包括内容声明。
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ format 脚本会运行两个工具，各司其职：
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ format 脚本会运行两个工具，各司其职：
 
 这种配置有一些限制：
 
-- **保存时格式化。** 使用 oxfmt 格式化的编辑器不会排序。请运行 `format` 脚本来排序。
+- **保存时格式化。** 使用 oxfmt 格式化的编辑器不会运行插件。请改为运行 `format` 脚本。
 - **check 模式。** 不要对 oxfmt 格式化过的文件使用 `prettier --check`：两者布局不同，它会报告每个文件。要在 CI 中检查顺序，请运行 `format` 脚本，并在有改动时让 job 失败：
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 排序会深入遍历每个辅助函数（`t`、`plural`、`enu`、`select`、`cond`、`gender`、`md`、`insert`、`nest`、`file`…）以处理其内部对象。每个辅助函数本身的键映射保留其内部顺序。传递给 `cond()` 和 `gender()` 的键永远不会被重新排序，因为它们的最后一个键是回退项。与 `content` 平级的字段（`key`、`title`、`locale`…）保持不变。
 
+## 作为字符串使用的内容
+
+启用[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)（`editor.enabled: true`）后，`useIntlayer` 或 `getIntlayer` 返回的字段是可渲染的节点，而不是字符串。将其传给原生元素的属性或在其上调用字符串方法将无法通过类型检查。模板字符串、字符串拼接和 `String()` 接受任意类型，保持不变。插件会补充 `.value`，无论编辑器是否启用，它都保存着字符串。
+
+```tsx
+// 之前
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// 之后
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+会被改写的写法:
+
+- 字符串方法: `content.name.toUpperCase()`
+- 原生元素的属性: `<img alt={content.alt} />`
+
+保持不变的写法（它们接收节点）:
+
+- JSX 子元素: `<h1>{content.title}</h1>`
+- 组件 props: `<Card title={content.title} />`
+- 标签模板: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+这作用于组件而非内容声明，因此插件必须在组件文件上运行。若某个变量名在文件其他位置被重新声明，则会跳过该变量。Vue 和 Svelte 模板不会被改写：请为它们使用同样支持自动修复的 [ESLint 规则 `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md)。
+
+同时会移除 JSX 子元素中的 `.value`：`<h1>{content.title.value}</h1>` 会变为 `<h1>{content.title}</h1>`，以便可视化编辑器选中该文本。适用于 React、Next.js、Preact、Solid 和 React Native。
+
+通过 `intlayerNodeValueAccess: false` 关闭。
+
 ## 配置选项
 
-| 选项                                    | 默认值   | 描述                                                                          |
-| --------------------------------------- | -------- | ----------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]` | 在 `t()` 中优先置顶的语言环境列表及其顺序。传入 `[]` 对所有语言环境进行排序。 |
-| `intlayerSortContentKeys`               | `false`  | 在 `*.content.*` 文件中，同时对字典内容键及嵌套对象进行排序。                 |
-| `intlayerCollapseIdenticalTranslations` | `true`   | 在 `*.content.*` 文件中，将所有语言都为同一字符串的 `t()` 替换为该字符串。    |
+| 选项                                    | 默认值   | 描述                                                                                             |
+| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------ |
+| `intlayerPinnedLocales`                 | `["en"]` | 在 `t()` 中优先置顶的语言环境列表及其顺序。传入 `[]` 对所有语言环境进行排序。                    |
+| `intlayerSortContentKeys`               | `false`  | 在 `*.content.*` 文件中，同时对字典内容键及嵌套对象进行排序。                                    |
+| `intlayerCollapseIdenticalTranslations` | `true`   | 在 `*.content.*` 文件中，将所有语言都为同一字符串的 `t()` 替换为该字符串。                       |
+| `intlayerNodeValueAccess`               | `true`   | 在内容被当作字符串使用的地方补充 `.value`（`alt={content.alt}`、`content.name.toUpperCase()`）。 |
 
 ## 保持原样的情形
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`、`babel-flow`、`babel-ts`、`typescript`、`flow`、`acorn`、`espree`、`meriyah`、`json`、`json5` 以及 `jsonc`。Vue、Svelte 和 Astro 文件的 `<script>` 块均使用这些解析器进行格式化。
 
-> **已知限制。** Prettier 每个解析器仅运行一个插件。如果其他插件也替换了 JavaScript/TypeScript 解析器（例如 `prettier-plugin-tailwindcss`），则仅列表中最后一个插件生效。建议使用 override 将 `prettier-plugin-intlayer` 限制在 `*.content.*` 文件中以避免冲突。 使用 oxfmt 时，Tailwind 类名由其内置的 `sortTailwindcss` 选项排序，因此不存在这个冲突。
+> **已知限制。** Prettier 每个解析器仅运行一个插件。如果其他插件也替换了 JavaScript/TypeScript 解析器（例如 `prettier-plugin-tailwindcss`），则仅列表中最后一个插件生效。建议使用 override 将 `prettier-plugin-intlayer` 限制在 `*.content.*` 文件中以避免冲突。 使用 oxfmt 时，Tailwind 类名由其内置的 `sortTailwindcss` 选项排序，因此不存在这个冲突。 这种情况下，组件中的 `.value` 请交给 [ESLint 规则 `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/eslint.md) 处理。

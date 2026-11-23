@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt Plugin | Intlayer-Übersetzungen sortieren
-description: "Sortieren Sie die Locales von t(), die Kategorien von plural(), die Bedingungen von enu(), die Fälle von select() und die Schlüssel Ihrer Inhaltsdeklarationen mit prettier-plugin-intlayer. Funktioniert mit Prettier und oxfmt."
+title: Prettier x Oxfmt Plugin | Intlayer-Übersetzungen sortieren und .value ergänzen
+description: "Sortiert die Locales von t(), plural(), enu() und select() in Ihren Content-Deklarationen und ergänzt .value, wo Inhalt als String verwendet wird, damit die Typen mit dem visuellen Editor gültig bleiben. Funktioniert mit Prettier und oxfmt."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - Visueller Editor
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: ".value-Umschreibung für als String verwendete Inhalte hinzugefügt"
   - version: 9.7.1
     date: 2026-11-03
     changes: "Initiale Historie"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt Plugin
 
-`prettier-plugin-intlayer` bringt die Schlüssel Ihrer Übersetzungen bei jeder Formatierung durch Prettier in eine feste Reihenfolge. Diffs bleiben übersichtlich, Merge-Konflikte werden seltener und fehlende Locales fallen sofort auf.
+`prettier-plugin-intlayer` erledigt bei jeder Formatierung durch Prettier zwei Dinge:
+
+1. **Sortiert Ihre Übersetzungen** in einer festen Reihenfolge. Diffs bleiben klein, Merge-Konflikte werden seltener und eine fehlende Locale fällt sofort auf.
+2. **Ergänzt `.value`**, wo Inhalt als String verwendet wird, damit Ihre Typen auch mit aktiviertem visuellen Editor gültig bleiben.
 
 ```ts
 // vorher
@@ -107,7 +115,7 @@ Fügen Sie das Plugin zu Ihrer Prettier-Konfiguration hinzu:
 }
 ```
 
-Um es nur auf Ihre Inhaltsdeklarationen anzuwenden, verwenden Sie ein Override:
+Um nur Ihre Content-Deklarationen zu sortieren, verwenden Sie ein Override. Die `.value`-Umschreibung läuft dann nicht mehr auf Ihren Komponenten:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ Um es nur auf Ihre Inhaltsdeklarationen anzuwenden, verwenden Sie ein Override:
 
 Das Format-Skript führt zwei Tools aus, jedes mit einer Aufgabe:
 
-1. **Prettier** sortiert Ihre Inhaltsdeklarationen mit dem Plugin. Der Glob beschränkt es auf `*.content.*`-Dateien.
+1. **Prettier** führt das Plugin aus. Der erste Glob sortiert Ihre Content-Deklarationen, der zweite ergänzt `.value` in Ihren Komponenten. Entfernen Sie den zweiten Glob, wenn Sie nur sortieren möchten.
 2. **oxfmt** formatiert das gesamte Projekt, Inhaltsdeklarationen eingeschlossen.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ Das Format-Skript führt zwei Tools aus, jedes mit einer Aufgabe:
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ Behalten Sie diese Reihenfolge bei. oxfmt ersetzt das von Prettier geschriebene 
 
 Dieses Setup hat einige Grenzen:
 
-- **Formatieren beim Speichern.** Ein Editor, der mit oxfmt formatiert, sortiert nicht. Führen Sie das `format`-Skript aus, um zu sortieren.
+- **Formatieren beim Speichern.** Ein Editor, der mit oxfmt formatiert, führt das Plugin nicht aus. Führen Sie stattdessen das Skript `format` aus.
 - **Check-Modus.** Verwenden Sie `prettier --check` nicht für Dateien, die oxfmt formatiert hat: Die Layouts unterscheiden sich, daher meldet es jede Datei. Um die Reihenfolge in der CI zu prüfen, führen Sie das `format`-Skript aus und lassen Sie den Job bei Änderungen fehlschlagen:
 
 ```bash
@@ -257,6 +265,40 @@ export default {
 
 Die Sortierung durchläuft alle Hilfsfunktionen (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…), um die darin enthaltenen Objekte zu erreichen. Die interne Schlüsselstruktur jedes Helpers behält ihre Ordnung bei. An `cond()` und `gender()` übergebene Schlüssel werden nie umgeordnet, da ihr letzter Schlüssel als Fallback dient. Felder neben `content` (`key`, `title`, `locale`…) bleiben unverändert.
 
+## Inhalte als String verwendet
+
+Mit aktiviertem [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) (`editor.enabled: true`) ist ein von `useIntlayer` oder `getIntlayer` zurückgegebenes Feld ein renderbarer Knoten und kein String. Ihn an ein Attribut eines nativen Elements zu übergeben oder eine String-Methode darauf aufzurufen, besteht den Type-Check nicht mehr. Template-Literale, Verkettung und `String()` akzeptieren jeden Typ und bleiben unverändert. Das Plugin ergänzt `.value`, das den String enthält, ob der Editor aktiviert ist oder nicht.
+
+```tsx
+// vorher
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// nachher
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+Umgeschrieben werden:
+
+- String-Methoden: `content.name.toUpperCase()`
+- Attribute nativer Elemente: `<img alt={content.alt} />`
+
+Unverändert bleiben, weil sie einen Knoten akzeptieren:
+
+- JSX-Children: `<h1>{content.title}</h1>`
+- Komponenten-Props: `<Card title={content.title} />`
+- Tagged Templates: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+Das betrifft Komponenten, nicht Content-Deklarationen, daher muss das Plugin auf Ihren Komponentendateien laufen. Eine Variable, deren Name an anderer Stelle der Datei erneut deklariert wird, wird übersprungen. Vue- und Svelte-Templates werden nicht umgeschrieben: Nutzen Sie dafür die [ESLint-Regel `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/eslint.md), die ebenfalls einen Autofix hat.
+
+Außerdem wird `.value` aus einem JSX-Child entfernt: `<h1>{content.title.value}</h1>` wird zu `<h1>{content.title}</h1>`, damit der visuelle Editor den Text auswählen kann. Gilt für React, Next.js, Preact, Solid und React Native.
+
+Deaktivieren mit `intlayerNodeValueAccess: false`.
+
 ## Optionen
 
 | Option                                  | Standard | Beschreibung                                                                                                                     |
@@ -264,6 +306,7 @@ Die Sortierung durchläuft alle Hilfsfunktionen (`t`, `plural`, `enu`, `select`,
 | `intlayerPinnedLocales`                 | `["en"]` | Locales, die in `t()` an erster Stelle gehalten werden, in dieser Reihenfolge. Übergeben Sie `[]`, um alle Locales zu sortieren. |
 | `intlayerSortContentKeys`               | `false`  | In `*.content.*`-Dateien auch die Inhaltsschlüssel des Wörterbuchs und verschachtelte Objekte sortieren.                         |
 | `intlayerCollapseIdenticalTranslations` | `true`   | Ersetzt in `*.content.*`-Dateien ein `t()`, dessen Locales alle denselben String enthalten, durch diesen String.                 |
+| `intlayerNodeValueAccess`               | `true`   | Ergänzt `.value`, wo Inhalt als String verwendet wird (`alt={content.alt}`, `content.name.toUpperCase()`).                       |
 
 ## Was unverändert bleibt
 
@@ -278,4 +321,4 @@ Kommentare wandern mit dem Schlüssel, zu dem sie gehören.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` und `jsonc`. Die `<script>`-Blöcke von Vue-, Svelte- und Astro-Dateien werden mit diesen Parsern formatiert.
 
-> **Bekannte Einschränkung.** Prettier führt pro Parser nur ein einziges Plugin aus. Wenn ein weiteres Plugin ebenfalls die JavaScript/TypeScript-Parser ersetzt (beispielsweise `prettier-plugin-tailwindcss`), wird nur das zuletzt aufgeführte auf diese Dateien angewendet. Beschränken Sie `prettier-plugin-intlayer` mit einem Override auf `*.content.*`-Dateien, um diesen Konflikt zu vermeiden. Mit oxfmt werden Tailwind-Klassen über die integrierte Option `sortTailwindcss` sortiert, dieser Konflikt tritt daher nicht auf.
+> **Bekannte Einschränkung.** Prettier führt pro Parser nur ein einziges Plugin aus. Wenn ein weiteres Plugin ebenfalls die JavaScript/TypeScript-Parser ersetzt (beispielsweise `prettier-plugin-tailwindcss`), wird nur das zuletzt aufgeführte auf diese Dateien angewendet. Beschränken Sie `prettier-plugin-intlayer` mit einem Override auf `*.content.*`-Dateien, um diesen Konflikt zu vermeiden. Mit oxfmt werden Tailwind-Klassen über die integrierte Option `sortTailwindcss` sortiert, dieser Konflikt tritt daher nicht auf. Nutzen Sie in diesem Fall die [ESLint-Regel `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/eslint.md) für `.value` in Komponenten.

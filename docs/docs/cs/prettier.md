@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt Plugin | Řazení překladů Intlayer
-description: "Řaďte locales v t(), kategorie plural(), podmínky enu(), případy select() a klíče svých deklarací obsahu pomocí prettier-plugin-intlayer. Funguje s Prettier i oxfmt."
+title: Plugin Prettier x Oxfmt | Řazení překladů Intlayer a oprava .value
+description: "Seřaďte locales v t(), plural(), enu() a select() ve svých deklaracích obsahu a doplňte .value tam, kde je obsah použit jako string, aby typy fungovaly s vizuálním editorem. Funguje s Prettier i oxfmt."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - Vizuální editor
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Přidán přepis na .value pro obsah použitý jako string"
   - version: 9.7.1
     date: 2026-11-03
     changes: "Výchozí historie"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt Plugin
 
-`prettier-plugin-intlayer` uspořádá klíče vašich překladů v pevném pořadí pokaždé, když Prettier formátuje soubor. Rozdíly (diffs) zůstávají malé, konflikty při slučování (merge conflicts) jsou méně časté a chybějící locale lze snadno odhalit.
+`prettier-plugin-intlayer` dělá při každém formátování Prettierem dvě věci:
+
+1. **Řadí vaše překlady** v pevném pořadí. Diffy zůstávají malé, konflikty při merge jsou vzácnější a chybějící locale snadno odhalíte.
+2. **Doplňuje `.value`** tam, kde je obsah použit jako string, aby typy platily i po zapnutí vizuálního editoru.
 
 ```ts
 // před
@@ -107,7 +115,7 @@ Přidejte plugin do své konfigurace Prettier:
 }
 ```
 
-Chcete-li jej použít pouze na deklarace obsahu, použijte override:
+Chcete-li řadit pouze deklarace obsahu, použijte override. Přepis `.value` pak na vaše komponenty nepůsobí:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ Chcete-li jej použít pouze na deklarace obsahu, použijte override:
 
 Formátovací skript spouští dva nástroje, každý s jedním úkolem:
 
-1. **Prettier** seřadí deklarace obsahu pomocí pluginu. Glob jej omezuje na soubory `*.content.*`.
+1. **Prettier** spouští plugin. První glob řadí deklarace obsahu, druhý doplňuje `.value` do komponent. Druhý glob vynechte, pokud chcete jen řadit.
 2. **oxfmt** naformátuje celý projekt včetně deklarací obsahu.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ Formátovací skript spouští dva nástroje, každý s jedním úkolem:
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ Dodržte toto pořadí. oxfmt nahradí formátování od Prettier svým vlastní
 
 Toto nastavení má několik omezení:
 
-- **Formátování při uložení.** Editor, který formátuje pomocí oxfmt, neřadí. Pro seřazení spusťte skript `format`.
+- **Formátování při uložení.** Editor formátující přes oxfmt plugin nespouští. Spusťte místo toho skript `format`.
 - **Režim check.** Nepoužívejte `prettier --check` na soubory naformátované pomocí oxfmt: formátování se liší, takže nahlásí každý soubor. Pro kontrolu pořadí v CI spusťte skript `format` a nechte job selhat, pokud vzniknou změny:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 Řazení prochází všemi pomocnými funkcemi (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…), aby dosáhlo k objektům uvnitř. Vnitřní mapa klíčů každého pomocníka zachovává své pořadí. Klíče předávané funkcím `cond()` a `gender()` se nikdy nepřeskupují, protože jejich poslední klíč funguje jako fallback. Pole na stejné úrovni jako `content` (`key`, `title`, `locale`…) zůstávají beze změny.
 
+## Obsah použitý jako string
+
+Se zapnutým [vizuálním editorem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) (`editor.enabled: true`) je pole vrácené z `useIntlayer` nebo `getIntlayer` vykreslitelný uzel, ne string. Předání do atributu nativního elementu nebo volání metody stringu na něm už neprojde type-checkem. Template literals, spojování řetězců a `String()` přijímají jakýkoli typ a zůstávají beze změny. Plugin doplní `.value`, které obsahuje string bez ohledu na to, zda je editor zapnutý.
+
+```tsx
+// před
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// po
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+Přepisuje se:
+
+- metody stringu: `content.name.toUpperCase()`
+- atributy nativních elementů: `<img alt={content.alt} />`
+
+Ponechává se beze změny, protože přijímají uzel:
+
+- potomci JSX: `<h1>{content.title}</h1>`
+- props komponent: `<Card title={content.title} />`
+- tagged templates: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+Týká se to komponent, ne deklarací obsahu, takže plugin musí běžet na souborech komponent. Proměnná, jejíž jméno je jinde v souboru deklarováno znovu, se přeskočí. Šablony Vue a Svelte se nepřepisují: použijte pro ně [pravidlo ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/eslint.md), které má také autofix.
+
+Také odstraňuje `.value` z potomka JSX: z `<h1>{content.title.value}</h1>` se stane `<h1>{content.title}</h1>`, aby vizuální editor mohl text vybrat. Platí pro React, Next.js, Preact, Solid a React Native.
+
+Vypnete pomocí `intlayerNodeValueAccess: false`.
+
 ## Možnosti
 
-| Možnost                                 | Výchozí  | Popis                                                                                                  |
-| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
-| `intlayerPinnedLocales`                 | `["en"]` | Locales zachované na začátku v `t()`, v tomto pořadí. Předejte `[]` pro seřazení všech locales.        |
-| `intlayerSortContentKeys`               | `false`  | V souborech `*.content.*` seřadí také klíče obsahu slovníku a vnořené objekty.                         |
-| `intlayerCollapseIdenticalTranslations` | `true`   | V souborech `*.content.*` nahradí `t()`, jehož všechny locale obsahují stejný řetězec, tímto řetězcem. |
+| Možnost                                 | Výchozí  | Popis                                                                                                     |
+| --------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | Locales zachované na začátku v `t()`, v tomto pořadí. Předejte `[]` pro seřazení všech locales.           |
+| `intlayerSortContentKeys`               | `false`  | V souborech `*.content.*` seřadí také klíče obsahu slovníku a vnořené objekty.                            |
+| `intlayerCollapseIdenticalTranslations` | `true`   | V souborech `*.content.*` nahradí `t()`, jehož všechny locale obsahují stejný řetězec, tímto řetězcem.    |
+| `intlayerNodeValueAccess`               | `true`   | Doplní `.value` tam, kde je obsah použit jako string (`alt={content.alt}`, `content.name.toUpperCase()`). |
 
 ## Co zůstává beze změny
 
@@ -278,4 +321,4 @@ Komentáře se přesouvají spolu s klíčem, ke kterému patří.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` a `jsonc`. Bloky `<script>` v souborech Vue, Svelte a Astro jsou formátovány pomocí těchto parserů.
 
-> **Známé omezení.** Prettier spouští pouze jeden plugin na parser. Pokud jiný plugin také nahrazuje parsery JavaScriptu/TypeScriptu (například `prettier-plugin-tailwindcss`), na tyto soubory se použije pouze poslední uvedený. Omezte rozsah `prettier-plugin-intlayer` na soubory `*.content.*` pomocí override, abyste se vyhnuli konfliktům. S oxfmt řadí třídy Tailwind jeho vestavěná volba `sortTailwindcss`, takže tento konflikt nenastává.
+> **Známé omezení.** Prettier spouští pouze jeden plugin na parser. Pokud jiný plugin také nahrazuje parsery JavaScriptu/TypeScriptu (například `prettier-plugin-tailwindcss`), na tyto soubory se použije pouze poslední uvedený. Omezte rozsah `prettier-plugin-intlayer` na soubory `*.content.*` pomocí override, abyste se vyhnuli konfliktům. S oxfmt řadí třídy Tailwind jeho vestavěná volba `sortTailwindcss`, takže tento konflikt nenastává. V takovém případě použijte pro `.value` v komponentách [pravidlo ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/eslint.md).

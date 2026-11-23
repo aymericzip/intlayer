@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FRAMEWORK_FIXTURES, lintAs } from './utils/_frameworkTester';
+import { FRAMEWORK_FIXTURES, fixAs, lintAs } from './utils/_frameworkTester';
 
 /**
  * Cross-framework matrix.
@@ -307,5 +307,111 @@ export const x = useTranslation;`,
         `${fixture.framework} should flag the original specifier`
       ).toEqual(['useAdapterImport']);
     }
+  });
+});
+
+describe('no-node-as-string across frameworks', () => {
+  it('fixes the Vue script and native attribute bindings of the template', () => {
+    const { output, remaining } = fixAs(
+      vue,
+      'no-node-as-string',
+      `<script setup lang="ts">
+import { useIntlayer } from 'vue-intlayer';
+const content = useIntlayer('home');
+const label = content.title.toUpperCase();
+</script>
+<template>
+  <img :alt="content.alt" :class="content.className" />
+  <MyCard :title="content.title" />
+  <p>{{ content.title }}</p>
+  <p>{{ \`\${content.subtitle}\` }}</p>
+</template>`
+    );
+
+    expect(remaining).toEqual([]);
+    expect(output).toContain('content.title.value.toUpperCase()');
+    expect(output).toContain(':alt="content.alt.value"');
+    expect(output).toContain(':class="content.className"');
+    expect(output).toContain(':title="content.title"');
+    expect(output).toContain('<p>{{ content.title }}</p>');
+    expect(output).toContain('{{ `${content.subtitle}` }}');
+  });
+
+  it('fixes Svelte store reads in the script and the markup', () => {
+    const { output, remaining } = fixAs(
+      svelte,
+      'no-node-as-string',
+      `<script lang="ts">
+  import { useIntlayer } from 'svelte-intlayer';
+  const content = useIntlayer('home');
+  const label = $content.title.toUpperCase();
+</script>
+
+<img alt={$content.alt} />
+<input placeholder="Hi {$content.name}" />
+<h1>{$content.title}</h1>
+<Card title={$content.title} />`
+    );
+
+    expect(remaining).toEqual([]);
+    expect(output).toContain('$content.title.value.toUpperCase()');
+    expect(output).toContain('alt={$content.alt.value}');
+    expect(output).toContain('placeholder="Hi {$content.name}"');
+    expect(output).toContain('<h1>{$content.title}</h1>');
+    expect(output).toContain('<Card title={$content.title} />');
+  });
+
+  it('fixes Astro frontmatter and markup', () => {
+    const { output, remaining } = fixAs(
+      astro,
+      'no-node-as-string',
+      `---
+import { useIntlayer } from 'astro-intlayer';
+const { title, alt } = useIntlayer('home');
+const pageTitle = title.trim();
+---
+<img alt={alt} />
+<h1>{title}</h1>`
+    );
+
+    expect(remaining).toEqual([]);
+    expect(output).toContain('title.value.trim()');
+    expect(output).toContain('<img alt={alt.value} />');
+    expect(output).toContain('<h1>{title}</h1>');
+  });
+
+  it.each([['solid-intlayer'], ['preact-intlayer'], ['react-native-intlayer']])(
+    'fixes a native attribute with %s',
+    (packageName) => {
+      const { output } = fixAs(
+        react,
+        'no-node-as-string',
+        `import { useIntlayer } from '${packageName}';
+export const C = () => {
+  const content = useIntlayer('home');
+  return <img alt={content.alt} />;
+};`
+      );
+
+      expect(output).toContain('alt={content.alt.value}');
+    }
+  );
+
+  it('fixes an Angular component reading the content signal', () => {
+    const { output } = fixAs(
+      angularComponent,
+      'no-node-as-string',
+      `import { useIntlayer } from 'angular-intlayer';
+export class AppComponent {
+  content = useIntlayer('home');
+  label = (): string => this.content().title.toUpperCase();
+  static build = () => {
+    const content = useIntlayer('home');
+    return content().title.toLowerCase();
+  };
+}`
+    );
+
+    expect(output).toContain('return content().title.value.toLowerCase();');
   });
 });

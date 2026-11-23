@@ -61,11 +61,11 @@ export default [
 
 ### Configs
 
-| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                       | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ non-JSX literals) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                        | error                   | error                     | off                      | off                 |
+| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                       | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ non-JSX literals) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                        | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` keeps `no-raw-text` at `warn` on purpose: pointing it at an
 existing codebase surfaces every untranslated string at once, which should not
@@ -282,6 +282,32 @@ t("hero.title");
 Bindings are resolved through ESLint's scope analysis, so two components in the
 same file that bind the same variable name to different dictionaries are tracked
 independently.
+
+### no-node-as-string
+
+Requires `.value` when content is used as a string. Autofixable.
+
+With `editor.enabled: true`, every field returned by `useIntlayer` / `getIntlayer` is a renderable node (`ReactNode`, `JSX.Element`, `VNode`…), not a string, so the forms below stop type-checking. `.value` is the string in both modes.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Reported
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Fine
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // rendered as a node
+<Card title={content.title} />; // component props may accept a node
+html`<h1>${content.title}</h1>`; // tagged templates (Lit) receive the node
+```
+
+It also removes `.value` from a JSX child: `<h1>{content.title.value}</h1>` becomes `<h1>{content.title}</h1>`, so the visual editor can select the text. This applies to React, Next.js, Preact, Solid and React Native.
+
+Covers React, Next.js, Preact, Solid, React Native, Vue (script and `:attr` bindings), Svelte (script and markup `$content` reads), Angular (`content().title`), Lit, vanilla and Astro. `getIntlayer` from `intlayer` and the server adapters return plain strings and are not checked.
 
 ### enforce-adapter-import
 

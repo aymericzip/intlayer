@@ -18,3 +18,19 @@ export {
   IGNORE_NEXT_LINE_DIRECTIVE,
 } from './ignoreDirectives';
 export { shouldExtract } from './shouldExtract';
+export {
+  findIntlayerNodeStringUsage,
+  findRedundantIntlayerNodeValue,
+  getIntlayerNodeBindingNames,
+  getIntlayerNodeGetterNames,
+  INTLAYER_JSX_NODE_PACKAGES,
+  INTLAYER_NODE_GETTERS,
+  INTLAYER_NODE_PACKAGES,
+  type IntlayerNodeAstNode,
+  type IntlayerNodeBindingNames,
+  type IntlayerNodeRedundantValue,
+  type IntlayerNodeStringContext,
+  type IntlayerNodeStringUsage,
+  isIntlayerJsxNodePackage,
+  isIntlayerNodePackage,
+} from './intlayerNodeStringUsage';

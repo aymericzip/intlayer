@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Plugin Prettier x Oxfmt | Sắp xếp các bản dịch Intlayer
-description: "Sắp xếp các locale của t(), các danh mục của plural(), các điều kiện của enu(), các trường hợp của select() và các khóa khai báo nội dung của bạn với prettier-plugin-intlayer. Hoạt động với Prettier và oxfmt."
+title: Plugin Prettier x Oxfmt | Sắp xếp bản dịch Intlayer và sửa .value
+description: "Sắp xếp các locale của t(), plural(), enu() và select() trong khai báo nội dung, và thêm .value ở nơi nội dung được dùng như chuỗi để kiểu luôn hợp lệ với trình chỉnh sửa trực quan. Hoạt động với Prettier và oxfmt."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - Trình chỉnh sửa trực quan
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Thêm việc viết lại .value cho nội dung được dùng như chuỗi"
   - version: 9.7.1
     date: 2026-11-03
     changes: "Khởi tạo lịch sử"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Plugin Prettier x Oxfmt
 
-`prettier-plugin-intlayer` sắp xếp các khóa dịch của bạn theo thứ tự cố định mỗi khi Prettier định dạng tệp. Các phần khác biệt (diff) luôn nhỏ gọn, xung đột hợp nhất (merge conflicts) ít xảy ra hơn và dễ dàng phát hiện locale bị thiếu.
+`prettier-plugin-intlayer` làm hai việc mỗi khi Prettier định dạng một tệp:
+
+1. **Sắp xếp bản dịch** theo thứ tự cố định. Diff luôn nhỏ, xung đột merge hiếm hơn và dễ phát hiện locale bị thiếu.
+2. **Thêm `.value`** ở nơi nội dung được dùng như chuỗi, để kiểu vẫn hợp lệ khi bật trình chỉnh sửa trực quan.
 
 ```ts
 // trước
@@ -107,7 +115,7 @@ Thêm plugin vào cấu hình Prettier của bạn:
 }
 ```
 
-Để chỉ áp dụng plugin cho các tệp khai báo nội dung, hãy sử dụng phần ghi đè (override):
+Để chỉ sắp xếp khai báo nội dung, hãy dùng override. Khi đó việc viết lại `.value` không còn áp dụng cho component của bạn:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ Thêm plugin vào cấu hình Prettier của bạn:
 
 Script format chạy hai công cụ, mỗi công cụ một nhiệm vụ:
 
-1. **Prettier** sắp xếp các khai báo nội dung của bạn bằng plugin. Glob giới hạn nó ở các tệp `*.content.*`.
+1. **Prettier** chạy plugin. Glob đầu tiên sắp xếp khai báo nội dung, glob thứ hai thêm `.value` trong component. Bỏ glob thứ hai nếu bạn chỉ muốn sắp xếp.
 2. **oxfmt** định dạng toàn bộ dự án, bao gồm cả các khai báo nội dung.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ Script format chạy hai công cụ, mỗi công cụ một nhiệm vụ:
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ Hãy giữ thứ tự này. oxfmt thay bố cục do Prettier viết bằng bố
 
 Cách thiết lập này có một vài giới hạn:
 
-- **Định dạng khi lưu.** Trình soạn thảo định dạng bằng oxfmt sẽ không sắp xếp. Hãy chạy script `format` để sắp xếp.
+- **Định dạng khi lưu.** Trình soạn thảo định dạng bằng oxfmt không chạy plugin. Hãy chạy script `format` thay thế.
 - **Chế độ check.** Không dùng `prettier --check` trên các tệp đã được oxfmt định dạng: bố cục khác nhau nên nó sẽ báo mọi tệp. Để kiểm tra thứ tự trong CI, hãy chạy script `format` và cho job thất bại nếu có thay đổi:
 
 ```bash
@@ -257,6 +265,40 @@ export default {
 
 Quá trình sắp xếp tiếp tục đi qua từng hàm trợ giúp (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…) để tiếp cận các đối tượng bên trong chúng. Cấu trúc ánh xạ khóa của từng helper giữ nguyên trật tự của chính nó. Các khóa truyền vào `cond()` và `gender()` không bao giờ bị sắp xếp lại vì khóa cuối cùng đóng vai trò là fallback. Các trường cùng cấp với `content` (`key`, `title`, `locale`…) được giữ nguyên trạng thái ban đầu.
 
+## Nội dung được dùng như chuỗi
+
+Khi bật [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) (`editor.enabled: true`), trường do `useIntlayer` hoặc `getIntlayer` trả về là một node có thể render, không phải chuỗi. Truyền nó vào thuộc tính của phần tử native hoặc gọi phương thức chuỗi trên nó sẽ không còn qua được kiểm tra kiểu. Template literal, nối chuỗi và `String()` chấp nhận mọi kiểu nên được giữ nguyên. Plugin thêm `.value`, chứa chuỗi dù trình chỉnh sửa có bật hay không.
+
+```tsx
+// trước
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// sau
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+Được viết lại:
+
+- phương thức chuỗi: `content.name.toUpperCase()`
+- thuộc tính của phần tử native: `<img alt={content.alt} />`
+
+Giữ nguyên, vì chúng nhận node:
+
+- children JSX: `<h1>{content.title}</h1>`
+- props của component: `<Card title={content.title} />`
+- tagged template: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+Điều này áp dụng cho component, không phải khai báo nội dung, nên plugin phải chạy trên các tệp component. Biến có tên được khai báo lại ở nơi khác trong tệp sẽ bị bỏ qua. Template Vue và Svelte không được viết lại: hãy dùng [quy tắc ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md) cho chúng, quy tắc này cũng có autofix.
+
+Đồng thời bỏ `.value` khỏi child JSX: `<h1>{content.title.value}</h1>` trở thành `<h1>{content.title}</h1>`, để trình chỉnh sửa trực quan có thể chọn văn bản. Áp dụng cho React, Next.js, Preact, Solid và React Native.
+
+Tắt bằng `intlayerNodeValueAccess: false`.
+
 ## Tùy chọn
 
 | Tùy chọn                                | Mặc định | Mô tả                                                                                                  |
@@ -264,6 +306,7 @@ Quá trình sắp xếp tiếp tục đi qua từng hàm trợ giúp (`t`, `plur
 | `intlayerPinnedLocales`                 | `["en"]` | Các locale được giữ ở đầu trong `t()`, theo thứ tự này. Truyền `[]` để sắp xếp tất cả các locale.      |
 | `intlayerSortContentKeys`               | `false`  | Trong các tệp `*.content.*`, sắp xếp thêm các khóa nội dung từ điển và các đối tượng lồng nhau.        |
 | `intlayerCollapseIdenticalTranslations` | `true`   | Trong các tệp `*.content.*`, thay một `t()` mà mọi locale đều chứa cùng một chuỗi bằng chính chuỗi đó. |
+| `intlayerNodeValueAccess`               | `true`   | Thêm `.value` ở nơi nội dung được dùng như chuỗi (`alt={content.alt}`, `content.name.toUpperCase()`).  |
 
 ## Những gì được giữ nguyên
 
@@ -278,4 +321,4 @@ Các nhận xét (comments) sẽ di chuyển cùng với khóa mà chúng thuộ
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` và `jsonc`. Các khối `<script>` trong tệp Vue, Svelte và Astro được định dạng bằng các parser này.
 
-> **Hạn chế đã biết.** Prettier chỉ chạy một plugin cho mỗi parser. Nếu một plugin khác cũng thay thế các parser JavaScript/TypeScript (chẳng hạn như `prettier-plugin-tailwindcss`), chỉ plugin cuối cùng được liệt kê mới áp dụng cho các tệp đó. Hãy giới hạn phạm vi của `prettier-plugin-intlayer` vào các tệp `*.content.*` bằng override để tránh xung đột. Với oxfmt, các lớp Tailwind được sắp xếp bởi tùy chọn tích hợp `sortTailwindcss`, vì vậy xung đột này không xảy ra.
+> **Hạn chế đã biết.** Prettier chỉ chạy một plugin cho mỗi parser. Nếu một plugin khác cũng thay thế các parser JavaScript/TypeScript (chẳng hạn như `prettier-plugin-tailwindcss`), chỉ plugin cuối cùng được liệt kê mới áp dụng cho các tệp đó. Hãy giới hạn phạm vi của `prettier-plugin-intlayer` vào các tệp `*.content.*` bằng override để tránh xung đột. Với oxfmt, các lớp Tailwind được sắp xếp bởi tùy chọn tích hợp `sortTailwindcss`, vì vậy xung đột này không xảy ra. Khi đó, hãy dùng [quy tắc ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/eslint.md) cho `.value` trong component.

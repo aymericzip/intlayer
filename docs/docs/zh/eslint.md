@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-10-08
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint 插件 | Intlayer 的 Lint 规则
 description: "使用 eslint-plugin-intlayer 发现硬编码文本、Intlayer 编译器无法优化的动态调用以及未使用的内容，支持 ESLint 和 oxlint。"
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "新增 no-node-as-string 规则"
   - version: 9.3.1
     date: 2026-08-12
     changes: "初始化历史"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **硬编码文本**：从未写入字典中的文本。
 2. **动态调用**：能够通过类型检查并正常运行，但 Intlayer 编译器无法进行优化的调用。
-3. **死内容（Dead content）**：项目中没有任何地方读取的字典和字段（需手动开启）。
+3. **作为字符串使用的内容**：缺少 `.value` 时，一旦启用可视化编辑器，类型就会出错。
+4. **死内容（Dead content）**：项目中没有任何地方读取的字典和字段（需手动开启）。
 
 未知的字典键、未知的字段路径和缺失的语言环境本身已是编译错误，因此插件不会重复报告它们。
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### 预设配置
 
-| 配置            | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                    | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ 非 JSX 字面量) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                     | error                   | error                     | off                      | off                 |
+| 配置            | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                    | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ 非 JSX 字面量) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                     | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` 特意将 `no-raw-text` 设为 `warn`：将其指向现有代码库会一次性暴露所有未翻译的字符串，这不应该在第一天就导致构建中断。
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+当内容被当作字符串使用时，要求使用 `.value`。支持自动修复。
+
+在 `editor.enabled: true` 下，`useIntlayer` / `getIntlayer` 返回的每个字段都是可渲染的节点（`ReactNode`、`JSX.Element`、`VNode`…），而不是字符串，因此下面的写法无法通过类型检查。`.value` 在两种模式下都是字符串。
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ 报告错误
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ 正常
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // 作为节点渲染
+<Card title={content.title} />; // 组件 props 可以接收节点
+html`<h1>${content.title}</h1>`; // 标签模板（Lit）接收节点
+```
+
+同时会移除 JSX 子元素中的 `.value`：`<h1>{content.title.value}</h1>` 会变为 `<h1>{content.title}</h1>`，以便可视化编辑器选中该文本。适用于 React、Next.js、Preact、Solid 和 React Native。
+
+支持 React、Next.js、Preact、Solid、React Native、Vue（script 与 `:attr` 绑定）、Svelte（script 与标记中的 `$content` 读取）、Angular（`content().title`）、Lit、vanilla 和 Astro。`intlayer` 的 `getIntlayer` 和服务端适配器返回普通字符串，不做检查。
 
 ### `enforce-adapter-import`
 

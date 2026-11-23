@@ -2821,6 +2821,7 @@
       "name": "prettier-plugin-intlayer",
       "version": "9.8.4",
       "devDependencies": {
+        "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@types/node": "^26",
         "@utils/ts-config": "workspace:*",

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: Plugin ESLint | Quy tắc Lint cho Intlayer
 description: "Phát hiện văn bản cố định, lệnh gọi động mà trình biên dịch Intlayer không tối ưu được và nội dung không dùng bằng eslint-plugin-intlayer, cho ESLint và oxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Thêm quy tắc no-node-as-string"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Lịch sử khởi tạo"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **Văn bản hardcode** chưa từng được đưa vào từ điển.
 2. **Các lệnh gọi động** vượt qua kiểm tra kiểu và thực thi được, nhưng trình biên dịch Intlayer không thể tối ưu hóa.
-3. **Nội dung thừa (Dead content)**: các từ điển và trường không có bất kỳ phần nào trong dự án đọc (tùy chọn kích hoạt).
+3. **Nội dung được dùng như chuỗi** mà không có `.value`, làm hỏng kiểu khi bật trình chỉnh sửa trực quan.
+4. **Nội dung thừa (Dead content)**: các từ điển và trường không có bất kỳ phần nào trong dự án đọc (tùy chọn kích hoạt).
 
 Các khóa từ điển không xác định, đường dẫn trường không xác định và ngôn ngữ còn thiếu vốn đã là các lỗi biên dịch, vì vậy plugin sẽ không lặp lại chúng.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ Hai lưu ý: hỗ trợ plugin JS của oxlint vẫn đang ở giai đoạn alph
 
 ### Cấu hình (Configs)
 
-| Cấu hình        | `no-raw-text`             | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                      | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ chuỗi ngoài JSX) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                       | error                   | error                     | off                      | off                 |
+| Cấu hình        | `no-raw-text`             | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                      | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ chuỗi ngoài JSX) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                       | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` cố ý giữ `no-raw-text` ở mức `warn`: việc áp dụng quy tắc này vào một codebase hiện có sẽ hiển thị tất cả các chuỗi chưa được dịch cùng một lúc, điều này không nên làm gián đoạn bản build của bạn ngay từ ngày đầu tiên.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+Yêu cầu `.value` khi nội dung được dùng như chuỗi. Có thể tự động sửa.
+
+Với `editor.enabled: true`, mỗi trường do `useIntlayer` / `getIntlayer` trả về là một node có thể render (`ReactNode`, `JSX.Element`, `VNode`…), không phải chuỗi, nên các dạng bên dưới không còn qua được kiểm tra kiểu. `.value` chứa chuỗi ở cả hai chế độ.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Bị báo cáo
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Hợp lệ
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // render như một node
+<Card title={content.title} />; // props của component có thể nhận node
+html`<h1>${content.title}</h1>`; // tagged template (Lit) nhận node
+```
+
+Đồng thời bỏ `.value` khỏi child JSX: `<h1>{content.title.value}</h1>` trở thành `<h1>{content.title}</h1>`, để trình chỉnh sửa trực quan có thể chọn văn bản. Áp dụng cho React, Next.js, Preact, Solid và React Native.
+
+Hỗ trợ React, Next.js, Preact, Solid, React Native, Vue (script và binding `:attr`), Svelte (script và các lần đọc `$content` trong markup), Angular (`content().title`), Lit, vanilla và Astro. `getIntlayer` từ `intlayer` và các adapter phía server trả về chuỗi thường nên không được kiểm tra.
 
 ### `enforce-adapter-import`
 

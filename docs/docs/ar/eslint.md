@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: إضافة ESLint | قواعد الفحص (Lint) لـ Intlayer
 description: "اكتشف النصوص الثابتة، والاستدعاءات الديناميكية التي لا يستطيع مترجم Intlayer تحسينها، والمحتوى غير المستخدم باستخدام eslint-plugin-intlayer لـ ESLint وoxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "إضافة القاعدة no-node-as-string"
   - version: 9.3.1
     date: 2026-08-12
     changes: "السجل الأولي"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **النصوص المكتوبة يدويًا (Hardcoded text)** التي لم يتم نقلها إلى القاموس مطلقًا.
 2. **الاستدعاءات الديناميكية** التي تجتاز فحص الأنواع وتعمل، لكن مترجم Intlayer لا يمكنه تحسينها.
-3. **المحتوى غير المستخدم (Dead content)**: القواميس والحقول التي لا يقرأها أي شيء في المشروع (اختياري بالطلب).
+3. **المحتوى المستخدم كنص** بدون `.value`، ما يكسر الأنواع بمجرد تفعيل المحرر المرئي.
+4. **المحتوى غير المستخدم (Dead content)**: القواميس والحقول التي لا يقرأها أي شيء في المشروع (اختياري بالطلب).
 
 المفاتيح غير المعروفة ومسارات الحقول غير المعروفة واللغات المفقودة هي بالفعل أخطاء تجميع، لذا لا تعيد الإضافة تكرارها.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### الإعدادات المسبقة (Configs)
 
-| الإعداد         | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                    | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ نصوص خارج JSX) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                     | error                   | error                     | off                      | off                 |
+| الإعداد          | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                    | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ نصوص خارج JSX) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                     | error                   | error                     | off                 | off                      | off                 |
 
 يحتفظ `recommended` بـ `no-raw-text` عند مستوى `warn` عمدًا: توجيهه إلى قاعدة تعليمات برمجية حالية يُظهر جميع النصوص غير المترجمة دفعة واحدة، وهو ما لا ينبغي أن يعطل عملية البناء من اليوم الأول.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+تشترط `.value` عند استخدام المحتوى كنص. قابلة للإصلاح التلقائي.
+
+مع `editor.enabled: true`، يكون كل حقل يُرجعه `useIntlayer` / `getIntlayer` عقدة قابلة للعرض (`ReactNode`، `JSX.Element`، `VNode`…) وليس نصًا، لذا لا تجتاز الصيغ أدناه فحص الأنواع. تحتوي `.value` على النص في الوضعين.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ تم الإبلاغ عنه
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ سليم
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // تُعرض كعقدة
+<Card title={content.title} />; // يمكن لخصائص المكوّن قبول عقدة
+html`<h1>${content.title}</h1>`; // القوالب الموسومة (Lit) تستقبل العقدة
+```
+
+كما تزيل `.value` من عنصر JSX ابن: يصبح `<h1>{content.title.value}</h1>` هو `<h1>{content.title}</h1>`، ليتمكن المحرر المرئي من تحديد النص. ينطبق ذلك على React وNext.js وPreact وSolid وReact Native.
+
+تغطي React وNext.js وPreact وSolid وReact Native وVue (السكربت وروابط `:attr`) وSvelte (السكربت وقراءات `$content` في الترميز) وAngular (`content().title`) وLit وvanilla وAstro. تُرجع `getIntlayer` من `intlayer` ومحوّلات الخادم نصوصًا عادية، فلا يتم فحصها.
 
 ### `enforce-adapter-import`
 

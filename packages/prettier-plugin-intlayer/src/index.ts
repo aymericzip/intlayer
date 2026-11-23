@@ -5,6 +5,7 @@ import { parsers as flowParsers } from 'prettier/plugins/flow';
 import { parsers as meriyahParsers } from 'prettier/plugins/meriyah';
 import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 import { collapseIdenticalTranslationsInAst } from './collapseTranslations';
+import { addIntlayerNodeValueAccessInAst } from './nodeValueAccess';
 import { isContentFile, sortContentKeysInAst } from './sortContentKeys';
 import { sortContentNodesInAst } from './sortContentNodes';
 
@@ -17,6 +18,7 @@ export {
   orderSelectCases,
   PLURAL_CATEGORY_ORDER,
 } from './keyOrderings';
+export { addIntlayerNodeValueAccessInAst } from './nodeValueAccess';
 export { isContentFile, sortContentKeysInAst } from './sortContentKeys';
 export { sortContentNodesInAst } from './sortContentNodes';
 
@@ -27,6 +29,7 @@ type IntlayerPluginOptions = ParserOptions & {
   intlayerPinnedLocales?: string[];
   intlayerSortContentKeys?: boolean;
   intlayerCollapseIdenticalTranslations?: boolean;
+  intlayerNodeValueAccess?: boolean;
 };
 
 const readPinnedLocales = (options: ParserOptions): readonly string[] =>
@@ -52,6 +55,10 @@ const withSortedTranslations = <AstType>(
 
     sortContentNodesInAst(ast, readPinnedLocales(options));
 
+    if (pluginOptions.intlayerNodeValueAccess !== false) {
+      addIntlayerNodeValueAccessInAst(ast);
+    }
+
     if (pluginOptions.intlayerSortContentKeys && isContentDeclaration) {
       sortContentKeysInAst(ast);
     }
@@ -67,7 +74,7 @@ const wrapParsers = (
   Object.fromEntries(
     parserNames.map((parserName) => [
       parserName,
-      withSortedTranslations(sourceParsers[parserName]),
+      withSortedTranslations(sourceParsers[parserName]!),
     ])
   );
 
@@ -101,6 +108,13 @@ export const options: SupportOptions = {
     default: true,
     description:
       "In .content files, replace a t() whose locales all hold the same string by that string: t({ en: 'Next.js', fr: 'Next.js' }) becomes 'Next.js'.",
+  },
+  intlayerNodeValueAccess: {
+    type: 'boolean',
+    category: 'Intlayer',
+    default: true,
+    description:
+      'Append .value where an Intlayer node must be a string (native element attribute, string method): `alt={content.alt}` becomes `alt={content.alt.value}`. Required for the types to hold once editor.enabled is true. Also removes .value from a JSX child (<h1>{content.title.value}</h1> becomes <h1>{content.title}</h1>) so the visual editor can select it.',
   },
   intlayerSortContentKeys: {
     type: 'boolean',

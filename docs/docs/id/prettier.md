@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Plugin Prettier x Oxfmt | Urutkan terjemahan Intlayer
-description: "Urutkan locale dari t(), kategori dari plural(), kondisi dari enu(), case dari select(), dan kunci deklarasi konten Anda dengan prettier-plugin-intlayer. Bekerja dengan Prettier dan oxfmt."
+title: Plugin Prettier x Oxfmt | Urutkan terjemahan Intlayer dan perbaiki .value
+description: "Urutkan locale pada t(), plural(), enu(), dan select() di deklarasi konten Anda, dan tambahkan .value di tempat konten dipakai sebagai string agar tipe tetap valid dengan editor visual. Berfungsi dengan Prettier dan oxfmt."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - Editor visual
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Menambahkan penulisan ulang .value untuk konten yang dipakai sebagai string"
   - version: 9.7.1
     date: 2026-11-03
     changes: "Riwayat awal"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Plugin Prettier x Oxfmt
 
-`prettier-plugin-intlayer` menyusun kunci terjemahan Anda dalam urutan tetap setiap kali Prettier memformat file. Diff tetap kecil, konflik penggabungan (merge conflicts) berkurang, dan locale yang hilang mudah ditemukan.
+`prettier-plugin-intlayer` melakukan dua hal setiap kali Prettier memformat file:
+
+1. **Mengurutkan terjemahan Anda** dalam urutan tetap. Diff tetap kecil, konflik merge lebih jarang, dan locale yang hilang mudah terlihat.
+2. **Menambahkan `.value`** di tempat konten dipakai sebagai string, agar tipe Anda tetap valid saat editor visual diaktifkan.
 
 ```ts
 // sebelum
@@ -107,7 +115,7 @@ Tambahkan plugin ke konfigurasi Prettier Anda:
 }
 ```
 
-Untuk menerapkannya hanya pada file deklarasi konten, gunakan override:
+Untuk hanya mengurutkan deklarasi konten, gunakan override. Penulisan ulang `.value` kemudian tidak lagi berjalan pada komponen Anda:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ Untuk menerapkannya hanya pada file deklarasi konten, gunakan override:
 
 Skrip format menjalankan dua alat, masing-masing dengan satu tugas:
 
-1. **Prettier** mengurutkan deklarasi konten Anda dengan plugin. Glob membatasinya pada file `*.content.*`.
+1. **Prettier** menjalankan plugin. Glob pertama mengurutkan deklarasi konten, glob kedua menambahkan `.value` di komponen. Hapus glob kedua jika Anda hanya ingin mengurutkan.
 2. **oxfmt** memformat seluruh proyek, termasuk deklarasi konten.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ Skrip format menjalankan dua alat, masing-masing dengan satu tugas:
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ Pertahankan urutan ini. oxfmt mengganti tata letak yang ditulis Prettier dengan 
 
 Pengaturan ini memiliki beberapa batasan:
 
-- **Format saat menyimpan.** Editor yang memformat dengan oxfmt tidak mengurutkan. Jalankan skrip `format` untuk mengurutkan.
+- **Format saat menyimpan.** Editor yang memformat dengan oxfmt tidak menjalankan plugin. Jalankan skrip `format` sebagai gantinya.
 - **Mode check.** Jangan gunakan `prettier --check` pada file yang diformat oleh oxfmt: tata letaknya berbeda, sehingga setiap file dilaporkan. Untuk memeriksa urutan di CI, jalankan skrip `format` dan gagalkan job jika ada perubahan:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 Pengurutan berlanjut melalui setiap fungsi pembantu (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…) untuk mencapai objek di dalamnya. Struktur kunci internal masing-masing helper mempertahankan urutannya sendiri. Kunci yang diberikan ke `cond()` dan `gender()` tidak pernah diubah urutannya karena kunci terakhir berfungsi sebagai fallback. Bidang yang berada di samping `content` (`key`, `title`, `locale`…) tetap seperti semula.
 
+## Konten yang dipakai sebagai string
+
+Dengan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) aktif (`editor.enabled: true`), field yang dikembalikan `useIntlayer` atau `getIntlayer` adalah node yang dapat dirender, bukan string. Meneruskannya ke atribut elemen native atau memanggil method string padanya tidak lagi lolos type-check. Template literal, penggabungan string, dan `String()` menerima tipe apa pun sehingga dibiarkan. Plugin menambahkan `.value`, yang berisi string baik editor aktif maupun tidak.
+
+```tsx
+// sebelum
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// sesudah
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+Ditulis ulang:
+
+- method string: `content.name.toUpperCase()`
+- atribut elemen native: `<img alt={content.alt} />`
+
+Dibiarkan, karena menerima node:
+
+- children JSX: `<h1>{content.title}</h1>`
+- props komponen: `<Card title={content.title} />`
+- tagged template: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+Ini berlaku untuk komponen, bukan deklarasi konten, sehingga plugin harus berjalan pada file komponen Anda. Variabel yang namanya dideklarasikan lagi di tempat lain dalam file akan dilewati. Template Vue dan Svelte tidak ditulis ulang: gunakan [aturan ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md) untuknya, yang juga memiliki autofix.
+
+Juga menghapus `.value` dari child JSX: `<h1>{content.title.value}</h1>` menjadi `<h1>{content.title}</h1>`, sehingga editor visual dapat memilih teksnya. Berlaku untuk React, Next.js, Preact, Solid, dan React Native.
+
+Nonaktifkan dengan `intlayerNodeValueAccess: false`.
+
 ## Opsi
 
-| Opsi                                    | Default  | Deskripsi                                                                                                    |
-| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
-| `intlayerPinnedLocales`                 | `["en"]` | Locale yang dipertahankan pertama di `t()`, dalam urutan ini. Berikan `[]` untuk mengurutkan semua locale.   |
-| `intlayerSortContentKeys`               | `false`  | Dalam file `*.content.*`, urutkan juga kunci konten kamus dan objek bertingkat.                              |
-| `intlayerCollapseIdenticalTranslations` | `true`   | Di file `*.content.*`, mengganti `t()` yang semua locale-nya berisi string yang sama dengan string tersebut. |
+| Opsi                                    | Default  | Deskripsi                                                                                                         |
+| --------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | Locale yang dipertahankan pertama di `t()`, dalam urutan ini. Berikan `[]` untuk mengurutkan semua locale.        |
+| `intlayerSortContentKeys`               | `false`  | Dalam file `*.content.*`, urutkan juga kunci konten kamus dan objek bertingkat.                                   |
+| `intlayerCollapseIdenticalTranslations` | `true`   | Di file `*.content.*`, mengganti `t()` yang semua locale-nya berisi string yang sama dengan string tersebut.      |
+| `intlayerNodeValueAccess`               | `true`   | Menambahkan `.value` di tempat konten dipakai sebagai string (`alt={content.alt}`, `content.name.toUpperCase()`). |
 
 ## Apa yang dibiarkan tidak berubah
 
@@ -278,4 +321,4 @@ Komentar berpindah bersama kunci tempat mereka berada.
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5`, dan `jsonc`. Blok `<script>` pada file Vue, Svelte, dan Astro diformat dengan parser ini.
 
-> **Batasan umum.** Prettier hanya menjalankan satu plugin per parser. Jika plugin lain juga menggantikan parser JavaScript/TypeScript (misalnya `prettier-plugin-tailwindcss`), hanya plugin terakhir yang tercantum yang akan diterapkan pada file tersebut. Batasi cakupan `prettier-plugin-intlayer` ke file `*.content.*` dengan override untuk menghindari konflik. Dengan oxfmt, kelas Tailwind diurutkan oleh opsi bawaan `sortTailwindcss`, sehingga konflik ini tidak terjadi.
+> **Batasan umum.** Prettier hanya menjalankan satu plugin per parser. Jika plugin lain juga menggantikan parser JavaScript/TypeScript (misalnya `prettier-plugin-tailwindcss`), hanya plugin terakhir yang tercantum yang akan diterapkan pada file tersebut. Batasi cakupan `prettier-plugin-intlayer` ke file `*.content.*` dengan override untuk menghindari konflik. Dengan oxfmt, kelas Tailwind diurutkan oleh opsi bawaan `sortTailwindcss`, sehingga konflik ini tidak terjadi. Dalam kasus itu, andalkan [aturan ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/eslint.md) untuk `.value` di komponen.

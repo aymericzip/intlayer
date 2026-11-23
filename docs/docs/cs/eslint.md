@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-13
+updatedAt: 2026-11-22
 priority: 6
 title: Plugin ESLint | Pravidla lintování pro Intlayer
 description: Odhalujte natvrdo zapsané řetězce, dynamická volání, která kompilátor Intlayer nedokáže optimalizovat, a nepoužitý obsah slovníků pomocí eslint-plugin-intlayer. Funguje s ESLint a oxlint v Reactu, Vue, Svelte, Angularu a Astru.
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Přidáno pravidlo no-node-as-string"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Počáteční historie"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **Natvrdo zapsaný text (hardcoded text)**, který nebyl vložen do slovníku.
 2. **Dynamická volání**, která projdou typovou kontrolou a fungují, ale kompilátor Intlayer je nedokáže optimalizovat.
-3. **Mrtvý obsah (Dead content)**: slovníky a pole, které v projektu nic nečte (volitelné / opt-in).
+3. **Obsah použitý jako string** bez `.value`, což rozbije typy po zapnutí vizuálního editoru.
+4. **Mrtvý obsah (Dead content)**: slovníky a pole, které v projektu nic nečte (volitelné / opt-in).
 
 Neznámé klíče slovníků, neznámé cesty polí a chybějící lokality jsou již chybami kompilace, takže je plugin neopakuje.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ Pravidlo `no-unused-content` je výše záměrně vynecháno: vyžaduje pracovn�
 
 ### Konfigurace (Configs)
 
-| Konfigurace     | `no-raw-text`               | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | --------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                        | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ literály mimo JSX) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                         | error                   | error                     | off                      | off                 |
+| Konfigurace     | `no-raw-text`               | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | --------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                        | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ literály mimo JSX) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                         | error                   | error                     | off                 | off                      | off                 |
 
 Předvolba `recommended` záměrně ponechává `no-raw-text` na úrovni `warn`: její spuštění nad existující kódovou bází zobrazí všechny nepřeložené řetězce najednou, což by nemělo rozbít váš build hned první den.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+Vyžaduje `.value`, když je obsah použit jako string. Automaticky opravitelné.
+
+S `editor.enabled: true` je každé pole vrácené z `useIntlayer` / `getIntlayer` vykreslitelný uzel (`ReactNode`, `JSX.Element`, `VNode`…), ne string, takže níže uvedené zápisy přestanou projít type-checkem. `.value` obsahuje string v obou režimech.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Nahlášeno
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ V pořádku
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // vykresleno jako uzel
+<Card title={content.title} />; // props komponenty mohou přijmout uzel
+html`<h1>${content.title}</h1>`; // tagged templates (Lit) dostanou uzel
+```
+
+Také odstraňuje `.value` z potomka JSX: z `<h1>{content.title.value}</h1>` se stane `<h1>{content.title}</h1>`, aby vizuální editor mohl text vybrat. Platí pro React, Next.js, Preact, Solid a React Native.
+
+Pokrývá React, Next.js, Preact, Solid, React Native, Vue (script a bindingy `:attr`), Svelte (script a čtení `$content` v markupu), Angular (`content().title`), Lit, vanilla a Astro. `getIntlayer` z `intlayer` a serverové adaptéry vracejí prosté stringy a nekontrolují se.
 
 ### `enforce-adapter-import`
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Плагін Prettier x Oxfmt | Сортування перекладів Intlayer
-description: "Сортуйте локалі в t(), категорії plural(), умови enu(), варіанти select() та ключі оголошень контенту за допомогою prettier-plugin-intlayer. Працює з Prettier та oxfmt."
+title: Плагін Prettier x Oxfmt | Сортування перекладів Intlayer і виправлення .value
+description: "Сортуйте локалі в t(), plural(), enu() і select() в оголошеннях контенту та додавайте .value там, де контент використовується як рядок, щоб типи лишалися коректними з візуальним редактором. Працює з Prettier і oxfmt."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - Візуальний редактор
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Додано підстановку .value для контенту, використаного як рядок"
   - version: 9.7.1
     date: 2026-11-03
     changes: "Початкова історія"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Плагін Prettier x Oxfmt
 
-`prettier-plugin-intlayer` упорядковує ключі ваших перекладів у фіксованому порядку щоразу, коли Prettier форматує файл. Дифи залишаються невеликими, конфлікти злиття трапляються рідше, а відсутню локаль легко помітити.
+`prettier-plugin-intlayer` робить дві речі щоразу, коли Prettier форматує файл:
+
+1. **Сортує переклади** у фіксованому порядку. Диффи лишаються малими, конфлікти злиття трапляються рідше, а відсутню локаль легко помітити.
+2. **Додає `.value`** там, де контент використовується як рядок, щоб типи лишалися коректними після ввімкнення візуального редактора.
 
 ```ts
 // до
@@ -107,7 +115,7 @@ bun add --dev prettier prettier-plugin-intlayer
 }
 ```
 
-Щоб застосовувати його лише до оголошень контенту, скористайтеся секцією override:
+Щоб сортувати лише оголошення контенту, використовуйте override. Підстановка `.value` тоді не застосовується до ваших компонентів:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 Скрипт форматування запускає два інструменти, кожен зі своїм завданням:
 
-1. **Prettier** сортує оголошення контенту за допомогою плагіна. Glob обмежує його файлами `*.content.*`.
+1. **Prettier** запускає плагін. Перший glob сортує оголошення контенту, другий додає `.value` у компоненти. Приберіть другий glob, якщо потрібне лише сортування.
 2. **oxfmt** форматує весь проєкт, включно з оголошеннями контенту.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ bun add --dev prettier prettier-plugin-intlayer
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 Це налаштування має кілька обмежень:
 
-- **Форматування під час збереження.** Редактор, який форматує через oxfmt, не сортує. Запустіть скрипт `format`, щоб відсортувати.
+- **Форматування під час збереження.** Редактор, що форматує через oxfmt, не запускає плагін. Запускайте натомість скрипт `format`.
 - **Режим check.** Не використовуйте `prettier --check` для файлів, відформатованих oxfmt: форматування відрізняється, тому він повідомить про кожен файл. Щоб перевірити порядок у CI, запустіть скрипт `format` і завершуйте job з помилкою, якщо є зміни:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 Сортування проходить крізь кожну допоміжну функцію (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…), щоб дістатися до об'єктів усередині них. Внутрішня карта ключів кожного хелпера зберігає свій власний порядок. Ключі, передані в `cond()` та `gender()`, ніколи не перевпорядковуються, оскільки їхній останній ключ є резервним варіантом. Поля поруч із `content` (`key`, `title`, `locale`…) залишаються без змін.
 
+## Контент, використаний як рядок
+
+Коли [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) увімкнено (`editor.enabled: true`), поле, яке повертає `useIntlayer` або `getIntlayer`, є вузлом для рендерингу, а не рядком. Передавання його в атрибут нативного елемента або виклик на ньому методу рядка більше не проходить перевірку типів. Template literals, конкатенація та `String()` приймають будь-який тип і лишаються без змін. Плагін додає `.value`, що містить рядок незалежно від того, чи ввімкнено редактор.
+
+```tsx
+// до
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// після
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+Переписуються:
+
+- методи рядка: `content.name.toUpperCase()`
+- атрибути нативних елементів: `<img alt={content.alt} />`
+
+Лишаються без змін, бо приймають вузол:
+
+- дочірні елементи JSX: `<h1>{content.title}</h1>`
+- props компонентів: `<Card title={content.title} />`
+- tagged templates: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+Це стосується компонентів, а не оголошень контенту, тож плагін має запускатися на файлах компонентів. Змінна, ім'я якої повторно оголошено деінде у файлі, пропускається. Шаблони Vue та Svelte не переписуються: використовуйте для них [правило ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md), яке також має autofix.
+
+Також прибирає `.value` з дочірнього елемента JSX: `<h1>{content.title.value}</h1>` стає `<h1>{content.title}</h1>`, щоб візуальний редактор міг виділити текст. Стосується React, Next.js, Preact, Solid і React Native.
+
+Вимикається через `intlayerNodeValueAccess: false`.
+
 ## Опції
 
-| Опція                                   | За замовчуванням | Опис                                                                                               |
-| --------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]`         | Локалі, які залишаються першими в `t()`, у зазначеному порядку. Передайте `[]`, щоб сортувати всі. |
-| `intlayerSortContentKeys`               | `false`          | У файлах `*.content.*` додатково сортує ключі контенту словника та вкладені об'єкти.               |
-| `intlayerCollapseIdenticalTranslations` | `true`           | У файлах `*.content.*` замінює `t()`, у якого всі локалі містять однаковий рядок, цим рядком.      |
+| Опція                                   | За замовчуванням | Опис                                                                                                          |
+| --------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`         | Локалі, які залишаються першими в `t()`, у зазначеному порядку. Передайте `[]`, щоб сортувати всі.            |
+| `intlayerSortContentKeys`               | `false`          | У файлах `*.content.*` додатково сортує ключі контенту словника та вкладені об'єкти.                          |
+| `intlayerCollapseIdenticalTranslations` | `true`           | У файлах `*.content.*` замінює `t()`, у якого всі локалі містять однаковий рядок, цим рядком.                 |
+| `intlayerNodeValueAccess`               | `true`           | Додає `.value` там, де контент використовується як рядок (`alt={content.alt}`, `content.name.toUpperCase()`). |
 
 ## Що залишається без змін
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` та `jsonc`. Блоки `<script>` у файлах Vue, Svelte та Astro форматуються за допомогою цих парсерів.
 
-> **Відоме обмеження.** Prettier запускає лише один плагін на парсер. Якщо інший плагін також замінює парсери JavaScript/TypeScript (наприклад `prettier-plugin-tailwindcss`), до цих файлів застосовуватиметься лише останній зі списку. Обмежте сферу застосування `prettier-plugin-intlayer` файлами `*.content.*` за допомогою override, щоб уникнути конфлікту. В oxfmt класи Tailwind сортуються вбудованою опцією `sortTailwindcss`, тому цей конфлікт не виникає.
+> **Відоме обмеження.** Prettier запускає лише один плагін на парсер. Якщо інший плагін також замінює парсери JavaScript/TypeScript (наприклад `prettier-plugin-tailwindcss`), до цих файлів застосовуватиметься лише останній зі списку. Обмежте сферу застосування `prettier-plugin-intlayer` файлами `*.content.*` за допомогою override, щоб уникнути конфлікту. В oxfmt класи Tailwind сортуються вбудованою опцією `sortTailwindcss`, тому цей конфлікт не виникає. У такому разі використовуйте [правило ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/eslint.md) для `.value` у компонентах.

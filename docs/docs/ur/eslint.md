@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-13
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint پلگ ان | Intlayer کے لیے لنٹ قواعد
 description: eslint-plugin-intlayer کے ذریعے ہارڈ کوڈ شدہ سٹرنگز، ایسی ڈائنامک کالز جنہیں Intlayer کمپائلر بہتر نہیں بنا سکتا، اور غیر استعمال شدہ ڈکشنری مواد کو پکڑیں۔ React، Vue، Svelte، Angular اور Astro میں ESLint اور oxlint کے ساتھ کام کرتا ہے۔
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "no-node-as-string رول شامل کیا گیا"
   - version: 9.3.1
     date: 2026-08-12
     changes: "ابتدائی تاریخ"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **ہارڈ کوڈ شدہ متن (Hardcoded text)** جو کبھی ڈکشنری میں شامل نہیں ہوا۔
 2. **ڈائنامک کالز (Dynamic calls)** جو ٹائپ چیک پاس کرتی ہیں اور چلتی ہیں، لیکن Intlayer کمپائلر انہیں آپٹمائز نہیں کر سکتا۔
-3. **غیر فعال مواد (Dead content)**: ڈکشنریز اور فیلڈز جنہیں پروجیکٹ میں کہیں بھی نہیں پڑھا جاتا (آپٹ ان)۔
+3. **سٹرنگ کے طور پر استعمال ہونے والا مواد** بغیر `.value` کے، جو ویژول ایڈیٹر فعال ہوتے ہی ٹائپس توڑ دیتا ہے۔
+4. **غیر فعال مواد (Dead content)**: ڈکشنریز اور فیلڈز جنہیں پروجیکٹ میں کہیں بھی نہیں پڑھا جاتا (آپٹ ان)۔
 
 نامعلوم ڈکشنری کیز، نامعلوم فیلڈ پاتھز اور غائب لوکیلز پہلے ہی کمپائل نقائص ہیں، اس لیے پلگ ان ان کو دوبارہ رپورٹ نہیں کرتا۔
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### کنفیگریشنز (Configs)
 
-| کنفیگ           | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                    | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ نان JSX لٹرلز) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                     | error                   | error                     | off                      | off                 |
+| کنفیگ           | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                    | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ نان JSX لٹرلز) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                     | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` جان بوجھ کر `no-raw-text` کو `warn` پر رکھتا ہے: اسے کسی موجودہ کوڈ بیس پر لاگو کرنے سے تمام غیر ترجمہ شدہ سٹرنگز ایک ساتھ سامنے آ جاتی ہیں، جس سے پہلے ہی دن آپ کا بلڈ فیل نہیں ہونا چاہیے۔
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+مواد کو سٹرنگ کے طور پر استعمال کرنے پر `.value` لازمی کرتا ہے۔ خودکار طور پر درست کیا جا سکتا ہے۔
+
+`editor.enabled: true` کے ساتھ `useIntlayer` / `getIntlayer` سے واپس آنے والا ہر فیلڈ سٹرنگ نہیں بلکہ رینڈر ہونے والا نوڈ (`ReactNode`، `JSX.Element`، `VNode`…) ہوتا ہے، اس لیے نیچے دی گئی صورتیں ٹائپ چیک پاس نہیں کرتیں۔ `.value` دونوں موڈز میں سٹرنگ رکھتا ہے۔
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ رپورٹ کیا گیا
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ درست
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // نوڈ کے طور پر رینڈر ہوتا ہے
+<Card title={content.title} />; // کمپوننٹ props نوڈ قبول کر سکتے ہیں
+html`<h1>${content.title}</h1>`; // tagged templates (Lit) نوڈ وصول کرتے ہیں
+```
+
+یہ JSX child سے `.value` بھی ہٹاتا ہے: `<h1>{content.title.value}</h1>` بن جاتا ہے `<h1>{content.title}</h1>`، تاکہ ویژول ایڈیٹر متن منتخب کر سکے۔ یہ React، Next.js، Preact، Solid اور React Native پر لاگو ہوتا ہے۔
+
+React، Next.js، Preact، Solid، React Native، Vue (script اور `:attr` bindings)، Svelte (script اور markup میں `$content` ریڈز)، Angular (`content().title`)، Lit، vanilla اور Astro کا احاطہ کرتا ہے۔ `intlayer` کا `getIntlayer` اور سرور ایڈاپٹرز سادہ سٹرنگ واپس کرتے ہیں، اس لیے ان کی جانچ نہیں ہوتی۔
 
 ### `enforce-adapter-import`
 

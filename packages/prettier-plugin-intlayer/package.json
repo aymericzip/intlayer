@@ -2,7 +2,7 @@
   "name": "prettier-plugin-intlayer",
   "version": "9.8.4",
   "private": false,
-  "description": "Prettier plugin for Intlayer. Sorts t() locales alphabetically (pinned locales first), plural() categories in CLDR order and enu() conditions by threshold.",
+  "description": "Prettier plugin for Intlayer. Sorts t() locales (pinned locales first), plural() categories in CLDR order and enu() conditions by threshold, and adds .value where content is used as a string.",
   "keywords": [
     "format",
     "i18n",
@@ -76,6 +76,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "devDependencies": {
+    "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@types/node": "^26",
     "@utils/ts-config": "workspace:*",

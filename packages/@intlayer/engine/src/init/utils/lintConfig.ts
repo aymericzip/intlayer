@@ -19,6 +19,7 @@ const getRecommendedRules = (): Record<string, string> => ({
   'intlayer/no-raw-text': 'warn',
   'intlayer/static-dictionary-key': 'error',
   'intlayer/no-dynamic-field-access': 'error',
+  'intlayer/no-node-as-string': 'warn',
 });
 
 /** The `.oxlintrc.json` fields init reads and writes. */

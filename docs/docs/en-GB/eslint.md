@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint Plugin | Lint rules for Intlayer
 description: "Catch hardcoded strings, dynamic calls the Intlayer compiler cannot optimise and unused content with eslint-plugin-intlayer, for ESLint and oxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Add no-node-as-string rule"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Init history"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **Hardcoded text** that never made it into a dictionary.
 2. **Dynamic calls** that type-check and run, but that the Intlayer compiler cannot optimize.
-3. **Dead content**: dictionaries and fields nothing in the project reads (opt-in).
+3. **Content used as a string** without `.value`, which breaks the types once the visual editor is enabled.
+4. **Dead content**: dictionaries and fields nothing in the project reads (opt-in).
 
 Unknown dictionary keys, unknown field paths and missing locales are already compile errors, so the plugin does not repeat them.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ Two caveats: oxlint's JS plugin support is still alpha, and oxlint does not supp
 
 ### Configs
 
-| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                       | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ non-JSX literals) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                        | error                   | error                     | off                      | off                 |
+| Config          | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                       | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ non-JSX literals) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                        | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` keeps `no-raw-text` at `warn` on purpose: pointing it at an existing codebase surfaces every untranslated string at once, which should not break your build on day one.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+Requires `.value` when content is used as a string. Autofixable.
+
+With `editor.enabled: true`, every field returned by `useIntlayer` / `getIntlayer` is a renderable node (`ReactNode`, `JSX.Element`, `VNode`…), not a string, so the forms below stop type-checking. `.value` is the string in both modes.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Reported
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Fine
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // rendered as a node
+<Card title={content.title} />; // component props may accept a node
+html`<h1>${content.title}</h1>`; // tagged templates (Lit) receive the node
+```
+
+It also removes `.value` from a JSX child: `<h1>{content.title.value}</h1>` becomes `<h1>{content.title}</h1>`, so the visual editor can select the text. This applies to React, Next.js, Preact, Solid and React Native.
+
+Covers React, Next.js, Preact, Solid, React Native, Vue (script and `:attr` bindings), Svelte (script and markup `$content` reads), Angular (`content().title`), Lit, vanilla and Astro. `getIntlayer` from `intlayer` and the server adapters return plain strings and are not checked.
 
 ### `enforce-adapter-import`
 

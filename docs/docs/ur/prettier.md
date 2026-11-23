@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt پلگ ان | Intlayer کے ترجمات ترتیب دیں
-description: "prettier-plugin-intlayer کے ذریعے t() کے لوکیلز، plural() کے زمروں، enu() کی شرائط، select() کے کیسز اور اپنے مواد کے اعلانات کی چابیاں ترتیب دیں۔ Prettier اور oxfmt دونوں کے ساتھ کام کرتا ہے۔"
+title: Prettier x Oxfmt پلگ اِن | Intlayer تراجم ترتیب دیں اور .value درست کریں
+description: "اپنے مواد کے اعلانات میں t()، plural()، enu() اور select() کے locales ترتیب دیں، اور جہاں مواد سٹرنگ کے طور پر استعمال ہو وہاں .value شامل کریں تاکہ ویژول ایڈیٹر کے ساتھ ٹائپس درست رہیں۔ Prettier اور oxfmt کے ساتھ کام کرتا ہے۔"
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - ویژول ایڈیٹر
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "سٹرنگ کے طور پر استعمال ہونے والے مواد کے لیے .value شامل کرنا متعارف کرایا گیا"
   - version: 9.7.1
     date: 2026-11-03
     changes: "ابتدائی تاریخ"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt پلگ ان
 
-`prettier-plugin-intlayer` ہر بار جب Prettier کسی فائل کو فارمیٹ کرتا ہے تو آپ کے ترجمات کی کیز (keys) کو ایک مقررہ ترتیب میں رکھتا ہے۔ ڈفس (diffs) مختصر رہتے ہیں، ضم کرنے کے تنازعات (merge conflicts) کم ہوتے ہیں اور لاپتہ لوکیل کو تلاش کرنا آسان ہو جاتا ہے۔
+جب بھی Prettier کوئی فائل فارمیٹ کرتا ہے، `prettier-plugin-intlayer` دو کام کرتا ہے:
+
+1. **آپ کے تراجم کو** ایک مقررہ ترتیب میں رکھتا ہے۔ Diffs چھوٹے رہتے ہیں، merge conflicts کم ہوتے ہیں اور غائب locale آسانی سے نظر آتا ہے۔
+2. **جہاں مواد سٹرنگ کے طور پر استعمال ہو وہاں `.value` شامل کرتا ہے**، تاکہ ویژول ایڈیٹر فعال ہونے پر بھی آپ کے ٹائپس درست رہیں۔
 
 ```ts
 // پہلے
@@ -107,7 +115,7 @@ bun add --dev prettier prettier-plugin-intlayer
 }
 ```
 
-اسے صرف اپنے مواد کے اعلانات پر لاگو کرنے کے لیے override کا استعمال کریں:
+صرف مواد کے اعلانات ترتیب دینے کے لیے override استعمال کریں۔ تب `.value` شامل کرنا آپ کے کمپوننٹس پر لاگو نہیں ہوگا:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 فارمیٹ اسکرپٹ دو ٹولز چلاتا ہے، ہر ایک کا ایک ہی کام ہے:
 
-1. **Prettier** پلگ ان کے ذریعے آپ کے مواد کے اعلانات کو ترتیب دیتا ہے۔ glob اسے `*.content.*` فائلوں تک محدود رکھتا ہے۔
+1. **Prettier** پلگ اِن چلاتا ہے۔ پہلا glob مواد کے اعلانات ترتیب دیتا ہے، دوسرا کمپوننٹس میں `.value` شامل کرتا ہے۔ اگر صرف ترتیب چاہیے تو دوسرا glob ہٹا دیں۔
 2. **oxfmt** مواد کے اعلانات سمیت پورے پروجیکٹ کو فارمیٹ کرتا ہے۔
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ bun add --dev prettier prettier-plugin-intlayer
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 اس سیٹ اپ کی کچھ حدود ہیں:
 
-- **محفوظ کرتے وقت فارمیٹ۔** جو ایڈیٹر oxfmt سے فارمیٹ کرتا ہے وہ ترتیب نہیں دیتا۔ ترتیب دینے کے لیے `format` اسکرپٹ چلائیں۔
+- **محفوظ کرنے پر فارمیٹ۔** oxfmt سے فارمیٹ کرنے والا ایڈیٹر پلگ اِن نہیں چلاتا۔ اس کی بجائے `format` اسکرپٹ چلائیں۔
 - **Check موڈ۔** oxfmt سے فارمیٹ شدہ فائلوں پر `prettier --check` استعمال نہ کریں: لے آؤٹ مختلف ہوتے ہیں، اس لیے یہ ہر فائل کی اطلاع دیتا ہے۔ CI میں ترتیب چیک کرنے کے لیے `format` اسکرپٹ چلائیں اور تبدیلیاں ہونے پر job کو ناکام کریں:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 ترتیب ہر ہیلپر فنکشن (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…) کے ذریعے ان کے اندر موجود آبجیکٹس تک پہنچنے کے لیے جاری رہتی ہے۔ ہر ہیلپر کا اپنا کی میپ اپنی ترتیب برقرار رکھتا ہے۔ `cond()` اور `gender()` کو دی گئی کیز کو کبھی دوبارہ ترتیب نہیں دیا جاتا کیونکہ ان کی آخری کی فال بیک کے طور پر کام کرتی ہے۔ `content` کے متوازی فیلڈز (`key`, `title`, `locale`…) اپنی حالت پر برقرار رہتے ہیں۔
 
+## سٹرنگ کے طور پر استعمال ہونے والا مواد
+
+[ویژول ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) فعال ہونے پر (`editor.enabled: true`)، `useIntlayer` یا `getIntlayer` سے واپس آنے والا فیلڈ سٹرنگ نہیں بلکہ رینڈر ہونے والا نوڈ ہوتا ہے۔ اسے کسی نیٹو عنصر کے attribute میں دینا یا اس پر سٹرنگ میتھڈ کال کرنا اب ٹائپ چیک پاس نہیں کرتا۔ Template literals، سٹرنگ جوڑنا اور `String()` کوئی بھی ٹائپ قبول کرتے ہیں، اس لیے یہ جوں کے توں رہتے ہیں۔ پلگ اِن `.value` شامل کرتا ہے، جو ایڈیٹر فعال ہو یا نہ ہو، سٹرنگ رکھتا ہے۔
+
+```tsx
+// پہلے
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// بعد میں
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+دوبارہ لکھے جاتے ہیں:
+
+- سٹرنگ میتھڈز: `content.name.toUpperCase()`
+- نیٹو عناصر کے attributes: `<img alt={content.alt} />`
+
+بغیر تبدیلی کے چھوڑے جاتے ہیں، کیونکہ یہ نوڈ قبول کرتے ہیں:
+
+- JSX children: `<h1>{content.title}</h1>`
+- کمپوننٹ props: `<Card title={content.title} />`
+- tagged templates: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+یہ مواد کے اعلانات پر نہیں بلکہ کمپوننٹس پر لاگو ہوتا ہے، اس لیے پلگ اِن کو آپ کی کمپوننٹ فائلوں پر چلنا چاہیے۔ جس ویری ایبل کا نام فائل میں کہیں اور دوبارہ اعلان کیا گیا ہو اسے چھوڑ دیا جاتا ہے۔ Vue اور Svelte ٹیمپلیٹس دوبارہ نہیں لکھے جاتے: ان کے لیے [ESLint رول `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/eslint.md) استعمال کریں، جس میں autofix بھی ہے۔
+
+یہ JSX child سے `.value` بھی ہٹاتا ہے: `<h1>{content.title.value}</h1>` بن جاتا ہے `<h1>{content.title}</h1>`، تاکہ ویژول ایڈیٹر متن منتخب کر سکے۔ یہ React، Next.js، Preact، Solid اور React Native پر لاگو ہوتا ہے۔
+
+`intlayerNodeValueAccess: false` سے بند کریں۔
+
 ## اختیارات
 
-| آپشن                                    | ڈیفالٹ   | تفصیل                                                                                                   |
-| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]` | وہ لوکیلز جو `t()` میں سب سے پہلے رکھے جاتے ہیں، اسی ترتیب میں۔ تمام لوکیلز ترتیب دینے کے لیے `[]` دیں۔ |
-| `intlayerSortContentKeys`               | `false`  | `*.content.*` فائلوں میں ڈکشنری کے مواد کی کیز اور اندرونی آبجیکٹس کو بھی ترتیب دیں۔                    |
-| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` فائلوں میں، جس `t()` کی تمام locales میں ایک ہی string ہو، اسے اسی string سے بدلتا ہے۔    |
+| آپشن                                    | ڈیفالٹ   | تفصیل                                                                                                                |
+| --------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | وہ لوکیلز جو `t()` میں سب سے پہلے رکھے جاتے ہیں، اسی ترتیب میں۔ تمام لوکیلز ترتیب دینے کے لیے `[]` دیں۔              |
+| `intlayerSortContentKeys`               | `false`  | `*.content.*` فائلوں میں ڈکشنری کے مواد کی کیز اور اندرونی آبجیکٹس کو بھی ترتیب دیں۔                                 |
+| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` فائلوں میں، جس `t()` کی تمام locales میں ایک ہی string ہو، اسے اسی string سے بدلتا ہے۔                 |
+| `intlayerNodeValueAccess`               | `true`   | جہاں مواد سٹرنگ کے طور پر استعمال ہو وہاں `.value` شامل کرتا ہے (`alt={content.alt}`، `content.name.toUpperCase()`)۔ |
 
 ## کیا بغیر تبدیلی کے رہتا ہے
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` اور `jsonc`۔ Vue، Svelte اور Astro فائلوں کے `<script>` بلاکس ان پارسرز کے ساتھ فارمیٹ کیے جاتے ہیں۔
 
-> **معلوم حد بندی۔** Prettier فی پارسر صرف ایک پلگ ان چلاتا ہے۔ اگر کوئی دوسرا پلگ ان بھی JavaScript/TypeScript پارسرز کی جگہ لیتا ہے (مثال کے طور پر `prettier-plugin-tailwindcss`) تو ان فائلوں پر صرف آخری درج کردہ لاگو ہوتا ہے۔ تنازعہ سے بچنے کے لیے override کے ساتھ `prettier-plugin-intlayer` کو `*.content.*` فائلوں تک محدود کریں۔ oxfmt میں Tailwind کلاسز اس کے بلٹ ان `sortTailwindcss` آپشن سے ترتیب دی جاتی ہیں، اس لیے یہ ٹکراؤ پیش نہیں آتا۔
+> **معلوم حد بندی۔** Prettier فی پارسر صرف ایک پلگ ان چلاتا ہے۔ اگر کوئی دوسرا پلگ ان بھی JavaScript/TypeScript پارسرز کی جگہ لیتا ہے (مثال کے طور پر `prettier-plugin-tailwindcss`) تو ان فائلوں پر صرف آخری درج کردہ لاگو ہوتا ہے۔ تنازعہ سے بچنے کے لیے override کے ساتھ `prettier-plugin-intlayer` کو `*.content.*` فائلوں تک محدود کریں۔ oxfmt میں Tailwind کلاسز اس کے بلٹ ان `sortTailwindcss` آپشن سے ترتیب دی جاتی ہیں، اس لیے یہ ٹکراؤ پیش نہیں آتا۔ اس صورت میں، کمپوننٹس میں `.value` کے لیے [ESLint رول `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/eslint.md) پر انحصار کریں۔

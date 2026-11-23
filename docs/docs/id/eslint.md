@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: Plugin ESLint | Aturan Lint untuk Intlayer
 description: "Temukan teks hardcoded, panggilan dinamis yang tidak bisa dioptimalkan compiler Intlayer, dan konten tak terpakai dengan eslint-plugin-intlayer, untuk ESLint dan oxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Menambahkan aturan no-node-as-string"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Riwayat awal"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **Teks hardcoded** yang tidak pernah dimasukkan ke dalam kamus.
 2. **Panggilan dinamis** yang lolos pemeriksaan tipe dan berjalan, namun tidak dapat dioptimalkan oleh compiler Intlayer.
-3. **Konten mati (Dead content)**: kamus dan field yang tidak dibaca oleh apa pun di dalam proyek (opsional/opt-in).
+3. **Konten yang dipakai sebagai string** tanpa `.value`, yang merusak tipe begitu editor visual diaktifkan.
+4. **Konten mati (Dead content)**: kamus dan field yang tidak dibaca oleh apa pun di dalam proyek (opsional/opt-in).
 
 Kunci kamus yang tidak diketahui, path field yang tidak diketahui, dan locale yang hilang sudah merupakan kesalahan kompilasi, sehingga plugin tidak mengulanginya.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ Dua catatan: dukungan plugin JS di oxlint masih berstatus alfa, dan oxlint tidak
 
 ### Konfigurasi
 
-| Konfigurasi     | `no-raw-text`             | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                      | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ literal non-JSX) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                       | error                   | error                     | off                      | off                 |
+| Konfigurasi     | `no-raw-text`             | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                      | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ literal non-JSX) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                       | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` sengaja menetapkan `no-raw-text` pada `warn`: menerapkannya pada codebase yang ada akan menampilkan semua string yang belum diterjemahkan sekaligus, yang seharusnya tidak merusak proses build Anda pada hari pertama.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+Mewajibkan `.value` saat konten dipakai sebagai string. Dapat diperbaiki otomatis.
+
+Dengan `editor.enabled: true`, setiap field yang dikembalikan `useIntlayer` / `getIntlayer` adalah node yang dapat dirender (`ReactNode`, `JSX.Element`, `VNode`…), bukan string, sehingga bentuk di bawah tidak lolos type-check. `.value` berisi string di kedua mode.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Dilaporkan
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Benar
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // dirender sebagai node
+<Card title={content.title} />; // props komponen dapat menerima node
+html`<h1>${content.title}</h1>`; // tagged template (Lit) menerima node
+```
+
+Juga menghapus `.value` dari child JSX: `<h1>{content.title.value}</h1>` menjadi `<h1>{content.title}</h1>`, sehingga editor visual dapat memilih teksnya. Berlaku untuk React, Next.js, Preact, Solid, dan React Native.
+
+Mencakup React, Next.js, Preact, Solid, React Native, Vue (script dan binding `:attr`), Svelte (script dan pembacaan `$content` di markup), Angular (`content().title`), Lit, vanilla, dan Astro. `getIntlayer` dari `intlayer` dan adapter server mengembalikan string biasa sehingga tidak diperiksa.
 
 ### `enforce-adapter-import`
 

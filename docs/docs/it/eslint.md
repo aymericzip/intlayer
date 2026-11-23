@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: Plugin ESLint | Regole di lint per Intlayer
 description: "Individua testi fissi, chiamate dinamiche che il compilatore di Intlayer non può ottimizzare e contenuti inutilizzati con eslint-plugin-intlayer, per ESLint e oxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Aggiunta la regola no-node-as-string"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Cronologia iniziale"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **Testo hardcoded** che non è mai stato inserito in un dizionario.
 2. **Chiamate dinamiche** che superano il controllo dei tipi e vengono eseguite, ma che il compilatore Intlayer non può ottimizzare.
-3. **Contenuto inutilizzato (dead content)**: dizionari e campi che nessun elemento nel progetto legge (attivazione opzionale).
+3. **Contenuto usato come stringa** senza `.value`, che rompe i tipi quando l'editor visuale è attivo.
+4. **Contenuto inutilizzato (dead content)**: dizionari e campi che nessun elemento nel progetto legge (attivazione opzionale).
 
 Le chiavi di dizionario sconosciute, i percorsi di campo sconosciuti e le impostazioni internazionali mancanti sono già errori di compilazione, quindi il plugin non li ripete.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ Due precisazioni: il supporto ai plugin JS in oxlint è ancora in versione alfa 
 
 ### Configurazioni
 
-| Configurazione  | `no-raw-text`                     | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | --------------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                              | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ letterali esterni a JSX) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                               | error                   | error                     | off                      | off                 |
+| Configurazione  | `no-raw-text`                     | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | --------------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                              | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ letterali esterni a JSX) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                               | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` mantiene deliberatamente `no-raw-text` su `warn`: applicarla a una base di codice esistente fa emergere tutte le stringhe non tradotte contemporaneamente, il che non dovrebbe interrompere la build dal primo giorno.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+Richiede `.value` quando il contenuto è usato come stringa. Correggibile automaticamente.
+
+Con `editor.enabled: true`, ogni campo restituito da `useIntlayer` / `getIntlayer` è un nodo renderizzabile (`ReactNode`, `JSX.Element`, `VNode`…), non una stringa, quindi le forme seguenti non superano più il type-check. `.value` contiene la stringa in entrambe le modalità.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Segnalato
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Corretto
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // renderizzato come nodo
+<Card title={content.title} />; // le props dei componenti possono accettare un nodo
+html`<h1>${content.title}</h1>`; // i tagged template (Lit) ricevono il nodo
+```
+
+Rimuove anche `.value` da un figlio JSX: `<h1>{content.title.value}</h1>` diventa `<h1>{content.title}</h1>`, così l'editor visuale può selezionare il testo. Si applica a React, Next.js, Preact, Solid e React Native.
+
+Copre React, Next.js, Preact, Solid, React Native, Vue (script e binding `:attr`), Svelte (script e letture `$content` nel markup), Angular (`content().title`), Lit, vanilla e Astro. `getIntlayer` di `intlayer` e gli adattatori server restituiscono stringhe semplici e non sono controllati.
 
 ### `enforce-adapter-import`
 

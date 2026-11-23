@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint Eklentisi | Intlayer için Lint Kuralları
 description: "eslint-plugin-intlayer ile sabit metinleri, Intlayer derleyicisinin optimize edemediği dinamik çağrıları ve kullanılmayan içeriği yakalayın; ESLint ve oxlint için."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "no-node-as-string kuralı eklendi"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Başlangıç geçmişi"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. Bir sözlüğe hiç eklenmemiş **sabit kodlanmış metinler (hardcoded text)**.
 2. Tip kontrolünden geçen ve çalışan ancak Intlayer derleyicisinin optimize edemediği **dinamik çağrılar**.
-3. **Ölü içerik (Dead content)**: projedeki hiçbir yerin okumadığı sözlükler ve alanlar (isteğe bağlı).
+3. **String olarak kullanılan içerik**: `.value` olmadan, görsel editör etkinleştirildiğinde tipleri bozar.
+4. **Ölü içerik (Dead content)**: projedeki hiçbir yerin okumadığı sözlükler ve alanlar (isteğe bağlı).
 
 Bilinmeyen sözlük anahtarları, bilinmeyen alan yolları ve eksik yerel ayarlar zaten derleme hataları olduğundan, eklenti bunları tekrar bildirmez.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### Yapılandırmalar (Configs)
 
-| Yapılandırma    | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                       | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ JSX dışı dizeler) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                        | error                   | error                     | off                      | off                 |
+| Yapılandırma    | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                       | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ JSX dışı dizeler) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                        | error                   | error                     | off                 | off                      | off                 |
 
 `recommended`, `no-raw-text` kuralını kasıtlı olarak `warn` seviyesinde tutar: bunu mevcut bir kod tabanına yöneltmek tüm çevrilmemiş dizeleri aynı anda ortaya çıkarır ve bu durum derlemenizi ilk günden bozmamalıdır.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+İçerik string olarak kullanıldığında `.value` gerektirir. Otomatik düzeltilebilir.
+
+`editor.enabled: true` ile `useIntlayer` / `getIntlayer` tarafından döndürülen her alan string değil, render edilebilir bir node'dur (`ReactNode`, `JSX.Element`, `VNode`…); bu yüzden aşağıdaki kullanımlar tip kontrolünden geçmez. `.value` her iki modda da string'i içerir.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Bildirildi
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Sorunsuz
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // node olarak render edilir
+<Card title={content.title} />; // bileşen prop'ları node kabul edebilir
+html`<h1>${content.title}</h1>`; // tagged template'ler (Lit) node'u alır
+```
+
+Ayrıca bir JSX child'ından `.value` kaldırılır: `<h1>{content.title.value}</h1>`, `<h1>{content.title}</h1>` olur; böylece görsel editör metni seçebilir. React, Next.js, Preact, Solid ve React Native için geçerlidir.
+
+React, Next.js, Preact, Solid, React Native, Vue (script ve `:attr` binding'leri), Svelte (script ve markup'taki `$content` okumaları), Angular (`content().title`), Lit, vanilla ve Astro desteklenir. `intlayer` paketinin `getIntlayer` fonksiyonu ve sunucu adaptörleri düz string döndürür, kontrol edilmez.
 
 ### `enforce-adapter-import`
 

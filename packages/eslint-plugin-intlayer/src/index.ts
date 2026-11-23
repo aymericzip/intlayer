@@ -6,6 +6,7 @@ import {
 } from './preset';
 import { enforceAdapterImport } from './rules/enforceAdapterImport';
 import { noDynamicFieldAccess } from './rules/noDynamicFieldAccess';
+import { noNodeAsString } from './rules/noNodeAsString';
 import { noRawText } from './rules/noRawText';
 import { noUnusedContent } from './rules/noUnusedContent';
 import { staticDictionaryKey } from './rules/staticDictionaryKey';
@@ -20,6 +21,9 @@ import { getReactVersion } from './utils/reactVersion';
  * - **Compiler contract** (`static-dictionary-key`, `no-dynamic-field-access`)
  *   — call shapes that type-check and run, but that the Babel/SWC passes cannot
  *   analyse, so they silently lose the optimize pass or read a purged field.
+ * - **Editor-safe types** (`no-node-as-string`) — an Intlayer node read as a
+ *   string, which stops type-checking once `editor.enabled` is `true`.
+ *   Autofixed by appending `.value`.
  * - **Dead content** (`no-unused-content`) — dictionaries and fields nothing
  *   reads. Off in every preset: it is the only rule that scans the whole
  *   project from disk, so enabling it is a cost the user should opt into.
@@ -34,6 +38,7 @@ export const rules = {
   'static-dictionary-key': staticDictionaryKey,
   'no-dynamic-field-access': noDynamicFieldAccess,
   'enforce-adapter-import': enforceAdapterImport,
+  'no-node-as-string': noNodeAsString,
   'no-unused-content': noUnusedContent,
 } satisfies ESLint.Plugin['rules'];
 
@@ -115,6 +120,7 @@ export const configs: Record<IntlayerConfigName, Linter.Config[]> = {
     'static-dictionary-key': 'error',
     'no-dynamic-field-access': 'error',
     'enforce-adapter-import': 'error',
+    'no-node-as-string': 'error',
   }),
   'contract-only': createConfig('contract-only', {
     'static-dictionary-key': 'error',

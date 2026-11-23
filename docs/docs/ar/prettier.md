@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: ملحق Prettier x Oxfmt | ترتيب ترجمات Intlayer
-description: "رتب اللغات في t()، وفئات plural()، وشروط enu()، وحالات select() ومفاتيح إعلانات المحتوى لديك باستخدام prettier-plugin-intlayer. يعمل مع Prettier وoxfmt."
+title: إضافة Prettier x Oxfmt | ترتيب ترجمات Intlayer وإصلاح .value
+description: "رتّب لغات t() وplural() وenu() وselect() في تعريفات المحتوى، وأضف .value حيث يُستخدم المحتوى كنص لتبقى الأنواع صالحة مع المحرر المرئي. تعمل مع Prettier وoxfmt."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - المحرر المرئي
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "إضافة إعادة كتابة .value للمحتوى المستخدم كنص"
   - version: 9.7.1
     date: 2026-11-03
     changes: "السجل الأولي"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # ملحق Prettier x Oxfmt
 
-يقوم `prettier-plugin-intlayer` بوضع مفاتيح ترجماتك بترتيب ثابت في كل مرة يقوم فيها Prettier بتنسيق ملف. تظل الفروقات (diffs) صغيرة، وتصبح تعارضات الدمج أقل تكرارًا، ويسهل اكتشاف أي لغة مفقودة.
+تقوم `prettier-plugin-intlayer` بأمرين في كل مرة ينسّق فيها Prettier ملفًا:
+
+1. **ترتّب ترجماتك** بترتيب ثابت. تبقى الفروقات صغيرة، وتقل تعارضات الدمج، ويسهل اكتشاف لغة مفقودة.
+2. **تضيف `.value`** حيث يُستخدم المحتوى كنص، لتبقى أنواعك صالحة بعد تفعيل المحرر المرئي.
 
 ```ts
 // قبل
@@ -107,7 +115,7 @@ bun add --dev prettier prettier-plugin-intlayer
 }
 ```
 
-لتطبيقه فقط على ملفات تعريف المحتوى الخاصة بك، استخدم التجاوز (override):
+لترتيب تعريفات المحتوى فقط، استخدم override. عندها لا تُطبَّق إعادة كتابة `.value` على مكوّناتك:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 يشغّل سكربت التنسيق أداتين، لكل منهما مهمة واحدة:
 
-1. **Prettier** يرتّب إعلانات المحتوى باستخدام الملحق. يقتصر عمله على ملفات `*.content.*` بفضل الـ glob.
+1. يشغّل **Prettier** الإضافة. يرتّب الـ glob الأول تعريفات المحتوى، ويضيف الثاني `.value` في مكوّناتك. احذف الـ glob الثاني إذا كنت تريد الترتيب فقط.
 2. **oxfmt** ينسّق المشروع بالكامل، بما في ذلك إعلانات المحتوى.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ bun add --dev prettier prettier-plugin-intlayer
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 لهذا الإعداد بعض القيود:
 
-- **التنسيق عند الحفظ.** المحرر الذي ينسّق باستخدام oxfmt لا يرتّب. شغّل سكربت `format` للترتيب.
+- **التنسيق عند الحفظ.** المحرر الذي ينسّق باستخدام oxfmt لا يشغّل الإضافة. شغّل سكربت `format` بدلًا من ذلك.
 - **وضع check.** لا تستخدم `prettier --check` على الملفات التي نسّقها oxfmt: التنسيقات مختلفة، لذا سيُبلغ عن كل ملف. للتحقق من الترتيب في CI، شغّل سكربت `format` واجعل الـ job يفشل عند وجود تغييرات:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 يستمر الترتيب عبر كل دالة مساعدة (`t`، `plural`، `enu`، `select`، `cond`، `gender`، `md`، `insert`، `nest`، `file`…) للوصول إلى الكائنات داخلها. يحتفظ مخطط المفاتيح الخاص بكل مساعد بترتيبه. لا يُعاد ترتيب المفاتيح الممررة إلى `cond()` و `gender()` أبدًا لأن آخر مفتاح يعمل كقيمة احتياطية. تظل الحقول المجاورة لـ `content` (`key`، `title`، `locale`…) كما هي.
 
+## المحتوى المستخدم كنص
+
+عند تفعيل [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) (`editor.enabled: true`)، يكون الحقل الذي يُرجعه `useIntlayer` أو `getIntlayer` عقدة قابلة للعرض وليس نصًا. تمريره إلى سمة عنصر أصلي أو استدعاء دالة نصية عليه لم يعد يجتاز فحص الأنواع. القوالب النصية والدمج و`String()` تقبل أي نوع فتبقى كما هي. تضيف الإضافة `.value` التي تحتوي على النص سواء كان المحرر مفعّلًا أم لا.
+
+```tsx
+// قبل
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// بعد
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+ما يُعاد كتابته:
+
+- دوال النص: `content.name.toUpperCase()`
+- سمات العناصر الأصلية: `<img alt={content.alt} />`
+
+ما يُترك دون تغيير لأنه يقبل عقدة:
+
+- أبناء JSX: `<h1>{content.title}</h1>`
+- خصائص المكوّنات: `<Card title={content.title} />`
+- القوالب الموسومة: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+ينطبق هذا على المكوّنات لا على تعريفات المحتوى، لذا يجب تشغيل الإضافة على ملفات مكوّناتك. يتم تخطي أي متغير يُعاد تعريف اسمه في مكان آخر من الملف. لا تُعاد كتابة قوالب Vue وSvelte: استخدم لها [قاعدة ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md)، وهي تدعم الإصلاح التلقائي أيضًا.
+
+كما تزيل `.value` من عنصر JSX ابن: يصبح `<h1>{content.title.value}</h1>` هو `<h1>{content.title}</h1>`، ليتمكن المحرر المرئي من تحديد النص. ينطبق ذلك على React وNext.js وPreact وSolid وReact Native.
+
+عطّلها باستخدام `intlayerNodeValueAccess: false`.
+
 ## الخيارات
 
-| الخيار                                  | القيمة الافتراضية | الوصف                                                                               |
-| --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]`         | اللغات المحفوظة أولاً في `t()`، بهذا الترتيب. مرر `[]` لترتيب كل اللغات أبجديًا.       |
-| `intlayerSortContentKeys`               | `false`          | في ملفات `*.content.*`، يتم أيضًا فرز مفاتيح محتوى القاموس والكائنات المتداخلة.      |
-| `intlayerCollapseIdenticalTranslations` | `true`           | في ملفات `*.content.*`، يستبدل `t()` الذي تحتوي جميع لغاته على النص نفسه بهذا النص. |
+| الخيار                                  | القيمة الافتراضية | الوصف                                                                                     |
+| --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`         | اللغات المحفوظة أولاً في `t()`، بهذا الترتيب. مرر `[]` لترتيب كل اللغات أبجديًا.             |
+| `intlayerSortContentKeys`               | `false`          | في ملفات `*.content.*`، يتم أيضًا فرز مفاتيح محتوى القاموس والكائنات المتداخلة.            |
+| `intlayerCollapseIdenticalTranslations` | `true`           | في ملفات `*.content.*`، يستبدل `t()` الذي تحتوي جميع لغاته على النص نفسه بهذا النص.       |
+| `intlayerNodeValueAccess`               | `true`           | تضيف `.value` حيث يُستخدم المحتوى كنص (`alt={content.alt}`، `content.name.toUpperCase()`). |
 
 ## ما يترك دون تغيير
 
@@ -278,4 +321,4 @@ export default {
 
 `babel` و `babel-flow` و `babel-ts` و `typescript` و `flow` و `acorn` و `espree` و `meriyah` و `json` و `json5` و `jsonc`. يتم أيضًا تنسيق كتل `<script>` في ملفات Vue و Svelte و Astro باستخدام هذه المحللات.
 
-> **قيد معروف.** يشغل Prettier ملحقًا واحدًا فقط لكل محلل. إذا استبدل ملحق آخر محللات JavaScript/TypeScript أيضًا (على سبيل المثال `prettier-plugin-tailwindcss`)، فسيتم تطبيق آخر ملحق مدرج فقط على تلك الملفات. حدد نطاق `prettier-plugin-intlayer` لملفات `*.content.*` باستخدام override لتجنب التعارض. مع oxfmt، تُرتَّب أصناف Tailwind عبر خياره المدمج `sortTailwindcss`، لذا لا ينطبق هذا التعارض.
+> **قيد معروف.** يشغل Prettier ملحقًا واحدًا فقط لكل محلل. إذا استبدل ملحق آخر محللات JavaScript/TypeScript أيضًا (على سبيل المثال `prettier-plugin-tailwindcss`)، فسيتم تطبيق آخر ملحق مدرج فقط على تلك الملفات. حدد نطاق `prettier-plugin-intlayer` لملفات `*.content.*` باستخدام override لتجنب التعارض. مع oxfmt، تُرتَّب أصناف Tailwind عبر خياره المدمج `sortTailwindcss`، لذا لا ينطبق هذا التعارض. في هذه الحالة، اعتمد على [قاعدة ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/eslint.md) لإضافة `.value` في المكوّنات.

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt プラグイン | Intlayerの翻訳をソート
-description: "prettier-plugin-intlayer を使用して、t() のロケール、plural() のカテゴリ、enu() の条件、select() のケース、およびコンテンツ宣言のキーを並べ替えます。Prettier と oxfmt に対応しています。"
+title: Prettier x Oxfmt プラグイン | Intlayer の翻訳を並べ替え、.value を補完
+description: "コンテンツ宣言内の t()、plural()、enu()、select() のロケールを並べ替え、コンテンツが文字列として使われる箇所に .value を追加して、ビジュアルエディターでも型を維持します。Prettier と oxfmt に対応。"
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - ビジュアルエディター
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "文字列として使われるコンテンツへの .value 付与を追加"
   - version: 9.7.1
     date: 2026-11-03
     changes: "初期履歴"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt プラグイン
 
-`prettier-plugin-intlayer` は、Prettier がファイルをフォーマットするたびに、翻訳キーを固定の順序に並べ替えます。差分（diff）を小さく保ち、マージコンフリクトを減らし、欠落しているロケールを簡単に見つけられるようにします。
+`prettier-plugin-intlayer` は、Prettier がファイルを整形するたびに次の 2 つを行います。
+
+1. **翻訳を一定の順序に並べ替えます。** 差分が小さく保たれ、マージ競合が減り、欠けているロケールにすぐ気づけます。
+2. **コンテンツが文字列として使われる箇所に `.value` を追加します。** ビジュアルエディターを有効にしても型が維持されます。
 
 ```ts
 // 前
@@ -107,7 +115,7 @@ Prettier の設定ファイルにプラグインを追加します:
 }
 ```
 
-コンテンツ宣言ファイルのみに適用する場合は、override を使用します:
+コンテンツ宣言だけを並べ替えるには override を使います。この場合、`.value` の付与はコンポーネントに適用されません。
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ Prettier の設定ファイルにプラグインを追加します:
 
 format スクリプトは 2 つのツールを実行し、それぞれが 1 つの役割を担います。
 
-1. **Prettier** はプラグインでコンテンツ宣言をソートします。glob により対象は `*.content.*` ファイルに限定されます。
+1. **Prettier** がプラグインを実行します。1 つ目の glob はコンテンツ宣言を並べ替え、2 つ目の glob はコンポーネントに `.value` を追加します。並べ替えだけが必要な場合は 2 つ目の glob を削除してください。
 2. **oxfmt** はコンテンツ宣言を含むプロジェクト全体をフォーマットします。
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ format スクリプトは 2 つのツールを実行し、それぞれが 1 つ�
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ format スクリプトは 2 つのツールを実行し、それぞれが 1 つ�
 
 この構成にはいくつかの制限があります。
 
-- **保存時のフォーマット。** oxfmt でフォーマットするエディタではソートされません。ソートするには `format` スクリプトを実行してください。
+- **保存時の整形。** oxfmt で整形するエディターはプラグインを実行しません。代わりに `format` スクリプトを実行してください。
 - **check モード。** oxfmt でフォーマットしたファイルに `prettier --check` を使わないでください。レイアウトが異なるため、すべてのファイルが報告されます。CI で順序を確認するには、`format` スクリプトを実行し、変更があれば job を失敗させます。
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 ソートは各ヘルパー（`t`、`plural`、`enu`、`select`、`cond`、`gender`、`md`、`insert`、`nest`、`file`…）を通じて内部のオブジェクトに再帰的に適用されます。各ヘルパー自体のキー構成は独自の順序を維持します。`cond()` や `gender()` に渡されたキーは、最後のキーがフォールバックとなるため順序変更されません。`content` と同じ階層にあるフィールド（`key`、`title`、`locale`…）はそのまま維持されます。
 
+## 文字列として使われるコンテンツ
+
+[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を有効にすると (`editor.enabled: true`)、`useIntlayer` や `getIntlayer` が返すフィールドは文字列ではなく描画可能なノードになります。ネイティブ要素の属性に渡したり、文字列メソッドを呼び出したりすると型チェックを通りません。テンプレートリテラル、文字列連結、`String()` はどの型も受け付けるため、そのまま残ります。プラグインは、エディターの有効・無効にかかわらず文字列を保持する `.value` を追加します。
+
+```tsx
+// 前
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// 後
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+書き換え対象:
+
+- 文字列メソッド: `content.name.toUpperCase()`
+- ネイティブ要素の属性: `<img alt={content.alt} />`
+
+ノードを受け取れるため変更しないもの:
+
+- JSX の子要素: `<h1>{content.title}</h1>`
+- コンポーネントの props: `<Card title={content.title} />`
+- タグ付きテンプレート: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+これはコンテンツ宣言ではなくコンポーネントが対象のため、プラグインをコンポーネントファイルに対して実行する必要があります。ファイル内の別の場所で同じ名前が再宣言されている変数はスキップされます。Vue と Svelte のテンプレートは書き換えられません。これらには自動修正にも対応した [ESLint ルール `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md) を使ってください。
+
+JSX の子要素からは `.value` を取り除きます。`<h1>{content.title.value}</h1>` は `<h1>{content.title}</h1>` になり、ビジュアルエディターでテキストを選択できるようになります。React、Next.js、Preact、Solid、React Native が対象です。
+
+`intlayerNodeValueAccess: false` で無効にできます。
+
 ## オプション
 
-| オプション                              | デフォルト | 説明                                                                                               |
-| --------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]`   | `t()` 内で先頭に保持されるロケールとその順序。すべてのロケールをソートするには `[]` を指定します。 |
-| `intlayerSortContentKeys`               | `false`    | `*.content.*` ファイルにおいて、辞書のコンテンツキーおよびネストされたオブジェクトもソートします。 |
-| `intlayerCollapseIdenticalTranslations` | `true`     | `*.content.*` ファイルで、すべてのロケールが同じ文字列を持つ `t()` をその文字列に置き換えます。    |
+| オプション                              | デフォルト | 説明                                                                                                               |
+| --------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| `intlayerPinnedLocales`                 | `["en"]`   | `t()` 内で先頭に保持されるロケールとその順序。すべてのロケールをソートするには `[]` を指定します。                 |
+| `intlayerSortContentKeys`               | `false`    | `*.content.*` ファイルにおいて、辞書のコンテンツキーおよびネストされたオブジェクトもソートします。                 |
+| `intlayerCollapseIdenticalTranslations` | `true`     | `*.content.*` ファイルで、すべてのロケールが同じ文字列を持つ `t()` をその文字列に置き換えます。                    |
+| `intlayerNodeValueAccess`               | `true`     | コンテンツが文字列として使われる箇所に `.value` を追加します (`alt={content.alt}`、`content.name.toUpperCase()`)。 |
 
 ## 変更されないもの
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`、`babel-flow`、`babel-ts`、`typescript`、`flow`、`acorn`、`espree`、`meriyah`、`json`、`json5`、`jsonc`。Vue、Svelte、Astro ファイルの `<script>` ブロックもこれらのパーサーでフォーマットされます。
 
-> **既知の制限事項。** Prettier はパーサーごとに 1 つのプラグインのみを実行します。別のプラグインも JavaScript/TypeScript パーサーを置き換えている場合（例: `prettier-plugin-tailwindcss`）、最後に指定されたプラグインのみが適用されます。競合を回避するには、override を使用して `prettier-plugin-intlayer` の対象を `*.content.*` ファイルに限定してください。 oxfmt では Tailwind クラスは組み込みの `sortTailwindcss` オプションで並べ替えられるため、この競合は発生しません。
+> **既知の制限事項。** Prettier はパーサーごとに 1 つのプラグインのみを実行します。別のプラグインも JavaScript/TypeScript パーサーを置き換えている場合（例: `prettier-plugin-tailwindcss`）、最後に指定されたプラグインのみが適用されます。競合を回避するには、override を使用して `prettier-plugin-intlayer` の対象を `*.content.*` ファイルに限定してください。 oxfmt では Tailwind クラスは組み込みの `sortTailwindcss` オプションで並べ替えられるため、この競合は発生しません。 その場合、コンポーネントの `.value` には [ESLint ルール `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/eslint.md) を利用してください。

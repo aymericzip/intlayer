@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint 플러그인 | Intlayer 린트 규칙
 description: "eslint-plugin-intlayer로 하드코딩된 문자열, Intlayer 컴파일러가 최적화할 수 없는 동적 호출, 사용되지 않는 콘텐츠를 찾습니다. ESLint와 oxlint 지원."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "no-node-as-string 규칙 추가"
   - version: 9.3.1
     date: 2026-08-12
     changes: "초기 히스토리"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. 사전에 등록되지 않은 **하드코딩된 텍스트**.
 2. 타입 검사를 통과하고 실행되지만 Intlayer 컴파일러가 최적화할 수 없는 **동적 호출**.
-3. **미사용 콘텐츠(Dead content)**: 프로젝트 내에서 아무 곳에서도 읽지 않는 사전 및 필드(선택 사항).
+3. **문자열로 사용된 콘텐츠**: `.value`가 없으면 비주얼 에디터를 활성화하는 순간 타입이 깨집니다.
+4. **미사용 콘텐츠(Dead content)**: 프로젝트 내에서 아무 곳에서도 읽지 않는 사전 및 필드(선택 사항).
 
 알 수 없는 사전 키, 알 수 없는 필드 경로 및 누락된 로케일은 이미 컴파일 에러로 처리되므로 플러그인은 이를 중복 보고하지 않습니다.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### 설정 (Configs)
 
-| 설정            | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                    | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ 비 JSX 리터럴) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                     | error                   | error                     | off                      | off                 |
+| 설정            | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                    | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ 비 JSX 리터럴) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                     | error                   | error                     | off                 | off                      | off                 |
 
 `recommended`는 의도적으로 `no-raw-text`를 `warn`으로 유지합니다. 기존 코드베이스에 적용했을 때 번역되지 않은 모든 문자열이 한 번에 보고되어 첫날부터 빌드가 중단되는 것을 방지하기 위함입니다.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+콘텐츠를 문자열로 사용할 때 `.value`를 요구합니다. 자동 수정을 지원합니다.
+
+`editor.enabled: true`에서는 `useIntlayer` / `getIntlayer`가 반환하는 모든 필드가 문자열이 아니라 렌더링 가능한 노드(`ReactNode`, `JSX.Element`, `VNode` 등)이므로 아래 형태는 타입 검사를 통과하지 못합니다. `.value`는 두 모드 모두에서 문자열을 담고 있습니다.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ 보고됨
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ 정상
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // 노드로 렌더링됨
+<Card title={content.title} />; // 컴포넌트 props는 노드를 받을 수 있음
+html`<h1>${content.title}</h1>`; // 태그드 템플릿(Lit)은 노드를 받음
+```
+
+JSX 자식에서는 `.value`를 제거합니다. `<h1>{content.title.value}</h1>`는 `<h1>{content.title}</h1>`가 되어 비주얼 에디터에서 텍스트를 선택할 수 있습니다. React, Next.js, Preact, Solid, React Native에 적용됩니다.
+
+React, Next.js, Preact, Solid, React Native, Vue(script와 `:attr` 바인딩), Svelte(script와 마크업의 `$content` 읽기), Angular(`content().title`), Lit, vanilla, Astro를 지원합니다. `intlayer`의 `getIntlayer`와 서버 어댑터는 일반 문자열을 반환하므로 검사하지 않습니다.
 
 ### `enforce-adapter-import`
 

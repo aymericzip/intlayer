@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
 title: "תוסף ESLint | כללי Lint עבור Intlayer"
 description: "תפוס מחרוזות מקודדות (hardcoded), קריאות דינמיות שהמהדר של Intlayer אינו יכול לבצע להן אופטימיזציה ותוכן שאינו בשימוש באמצעות eslint-plugin-intlayer, עבור ESLint ו-oxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "נוסף הכלל no-node-as-string"
   - version: 9.3.1
     date: 2026-08-12
     changes: "אתחול היסטוריה"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **טקסט מקודד (Hardcoded text)** שלעולם לא נכנס למילון.
 2. **קריאות דינמיות** שעוברות בדיקת טיפוסים ורצות בהצלחה, אך מהדר ה-Intlayer אינו יכול לבצע להן אופטימיזציה.
-3. **תוכן מת (Dead content)**: מילונים ושדות שאף רכיב בפרויקט אינו קורא (בהפעלה יזומה).
+3. **תוכן שמשמש כמחרוזת** בלי `.value`, מה ששובר את הטיפוסים ברגע שהעורך הוויזואלי מופעל.
+4. **תוכן מת (Dead content)**: מילונים ושדות שאף רכיב בפרויקט אינו קורא (בהפעלה יזומה).
 
 מפתחות מילון לא ידועים, נתיבי שדות לא ידועים ושפות חסרות כבר מוגדרים כשגיאות הידור, ולכן התוסף אינו חוזר עליהם.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### תצורות (Configs)
 
-| תצורה           | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                       | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ non-JSX literals) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                        | error                   | error                     | off                      | off                 |
+| תצורה           | `no-raw-text`              | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | -------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                       | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ non-JSX literals) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                        | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` שומר על `no-raw-text` ברמת `warn` בכוונה: הפעלתו על בסיס קוד קיים מציפה את כל המחרוזות הלא מתורגמות בבת אחת, מה שלא אמור לשבור את תהליך הבנייה שלך ביום הראשון.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+דורש `.value` כאשר תוכן משמש כמחרוזת. ניתן לתיקון אוטומטי.
+
+עם `editor.enabled: true`, כל שדה שמוחזר מ-`useIntlayer` / `getIntlayer` הוא node שניתן לרנדר (`ReactNode`, `JSX.Element`, `VNode`…) ולא מחרוזת, ולכן הצורות שלהלן כבר לא עוברות בדיקת טיפוסים. `.value` מכיל את המחרוזת בשני המצבים.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ מדווח
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ תקין
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // מרונדר כ-node
+<Card title={content.title} />; // props של קומפוננטה יכולים לקבל node
+html`<h1>${content.title}</h1>`; // tagged templates (Lit) מקבלים את ה-node
+```
+
+בנוסף, מוסר `.value` מילד JSX: `<h1>{content.title.value}</h1>` הופך ל-`<h1>{content.title}</h1>`, כדי שהעורך הוויזואלי יוכל לבחור את הטקסט. חל על React, Next.js, Preact, Solid ו-React Native.
+
+מכסה את React, Next.js, Preact, Solid, React Native, Vue (סקריפט ו-bindings של `:attr`), Svelte (סקריפט וקריאות `$content` ב-markup), Angular (`content().title`), Lit, vanilla ו-Astro. `getIntlayer` מ-`intlayer` ומתאמי השרת מחזירים מחרוזות רגילות ואינם נבדקים.
 
 ### `enforce-adapter-import`
 

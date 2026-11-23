@@ -29,7 +29,9 @@ export const GENERATED_OUTPUT_GLOBS = ['**/.intlayer/**'];
  *
  * `no-raw-text` stays a warning on purpose — pointed at an existing codebase it
  * surfaces every untranslated string at once, which should not break a build on
- * day one. `enforce-adapter-import` is deliberately absent: importing from the
+ * day one. `no-node-as-string` is a warning too: the code it flags compiles
+ * until the editor is enabled, and `--fix` resolves every report.
+ * `enforce-adapter-import` is deliberately absent: importing from the
  * original package is valid once the bundler alias is configured, so it is
  * opt-in through the `strict` preset. `no-unused-content` is absent from every
  * preset — it scans the project from disk, which no preset should impose.
@@ -40,6 +42,7 @@ export const RECOMMENDED_RULES: Partial<
   'no-raw-text': 'warn',
   'static-dictionary-key': 'error',
   'no-dynamic-field-access': 'error',
+  'no-node-as-string': 'warn',
 };
 
 /**

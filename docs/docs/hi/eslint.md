@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint प्लगइन | Intlayer के लिए लिंट नियम
 description: "eslint-plugin-intlayer से हार्डकोडेड टेक्स्ट, ऐसे डायनेमिक कॉल जिन्हें Intlayer कंपाइलर ऑप्टिमाइज़ नहीं कर सकता, और अप्रयुक्त कंटेंट पकड़ें, ESLint और oxlint के लिए।"
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "no-node-as-string नियम जोड़ा गया"
   - version: 9.3.1
     date: 2026-08-12
     changes: "प्रारंभिक इतिहास"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **हार्डकोडेड टेक्स्ट** जो कभी डिक्शनरी में नहीं गया।
 2. **डायनामिक कॉल्स** जो टाइप-चेक पास करते हैं और रन होते हैं, लेकिन Intlayer कंपाइलर उन्हें ऑप्टिमाइज़ नहीं कर सकता।
-3. **अप्रयुक्त सामग्री (Dead content)**: डिक्शनरी और फ़ील्ड्स जिन्हें प्रोजेक्ट में कहीं भी नहीं पढ़ा जाता (वैकल्पिक/ऑप्ट-इन)।
+3. **स्ट्रिंग के रूप में इस्तेमाल किया गया कंटेंट** बिना `.value` के, जो विज़ुअल एडिटर चालू होते ही टाइप्स तोड़ देता है।
+4. **अप्रयुक्त सामग्री (Dead content)**: डिक्शनरी और फ़ील्ड्स जिन्हें प्रोजेक्ट में कहीं भी नहीं पढ़ा जाता (वैकल्पिक/ऑप्ट-इन)।
 
 अज्ञात डिक्शनरी कीज, अज्ञात फ़ील्ड पाथ और अनुपलब्ध लोकेल्स पहले से ही कंपाइल एरर हैं, इसलिए प्लगइन उन्हें दोबारा रिपोर्ट नहीं करता है।
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### कॉन्फ़िग्स
 
-| कॉन्फ़िग        | `no-raw-text`             | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                      | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ गैर-JSX लिटरल्स) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                       | error                   | error                     | off                      | off                 |
+| कॉन्फ़िग          | `no-raw-text`           | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ----------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                    | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ गैर-JSX लिटरल्स) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                     | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` जानबूझकर `no-raw-text` को `warn` पर रखता है: इसे किसी मौजूदा कोडबेस पर लागू करने से सभी अनुवादित न किए गए स्ट्रिंग्स एक साथ सामने आ जाते हैं, जिससे पहले दिन ही आपका बिल्ड टूटना नहीं चाहिए।
 
@@ -216,6 +221,32 @@ content.items[0];
 t("hero.title");
 ```
 
+### `no-node-as-string`
+
+कंटेंट को स्ट्रिंग की तरह इस्तेमाल करने पर `.value` ज़रूरी करता है। अपने-आप ठीक किया जा सकता है।
+
+`editor.enabled: true` के साथ, `useIntlayer` / `getIntlayer` से लौटाया गया हर फ़ील्ड स्ट्रिंग नहीं बल्कि रेंडर होने वाला नोड (`ReactNode`, `JSX.Element`, `VNode`…) होता है, इसलिए नीचे के रूप टाइप-चेक पास नहीं करते। `.value` दोनों मोड में स्ट्रिंग रखता है।
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ रिपोर्ट किया गया
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ सही
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // नोड के रूप में रेंडर होता है
+<Card title={content.title} />; // कंपोनेंट props नोड ले सकते हैं
+html`<h1>${content.title}</h1>`; // tagged templates (Lit) नोड पाते हैं
+```
+
+यह JSX child से `.value` भी हटाता है: `<h1>{content.title.value}</h1>` बन जाता है `<h1>{content.title}</h1>`, ताकि विज़ुअल एडिटर टेक्स्ट चुन सके। यह React, Next.js, Preact, Solid और React Native पर लागू होता है।
+
+React, Next.js, Preact, Solid, React Native, Vue (script और `:attr` bindings), Svelte (script और markup में `$content` रीड), Angular (`content().title`), Lit, vanilla और Astro को कवर करता है। `intlayer` का `getIntlayer` और सर्वर एडेप्टर सामान्य स्ट्रिंग लौटाते हैं, इसलिए उनकी जाँच नहीं होती।
+
 ### `enforce-adapter-import`
 
 मूल पैकेज के बजाय `@intlayer/*` संगतता एडॉप्टर को प्राथमिकता देता है। मूल पैकेज केवल तभी Intlayer पर रीज़ॉल्व होता है जब बंडलर उपनाम कॉन्फ़िगर किया गया हो; एडॉप्टर हमेशा करता है। `--fix` के साथ ऑटोफ़िक्सेबल।
@@ -291,14 +322,14 @@ export default {
 
 प्रत्येक नियम सभी Intlayer एकीकरणों में काम करता है, जिसमें Vue, Svelte और Angular टेम्प्लेट्स शामिल हैं। आपको केवल ESLint को यह बताना होगा कि प्रत्येक फ़ाइल प्रकार को कौन सा पार्सर पढ़ता है।
 
-| फ्रेमवर्क                 | फ़ाइलें           | पार्सर                            |
+| फ्रेमवर्क                    | फ़ाइलें              | पार्सर                             |
 | ------------------------- | ----------------- | --------------------------------- |
 | React, Preact, Solid, Lit | `.jsx` `.tsx`     | `typescript-eslint`               |
 | Next.js                   | `.jsx` `.tsx`     | `typescript-eslint`               |
 | Vue, Nuxt                 | `.vue`            | `vue-eslint-parser`               |
 | Svelte, SvelteKit         | `.svelte`         | `svelte-eslint-parser`            |
 | Angular                   | `.ts`             | `typescript-eslint`               |
-| Angular टेम्प्लेट्स       | `.component.html` | `@angular-eslint/template-parser` |
+| Angular टेम्प्लेट्स            | `.component.html` | `@angular-eslint/template-parser` |
 | Astro                     | `.astro`          | `astro-eslint-parser`             |
 
 ```javascript fileName="eslint.config.mjs"

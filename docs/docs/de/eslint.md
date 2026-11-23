@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: ESLint Plugin | Linting-Regeln für Intlayer
 description: "Finden Sie fest codierte Texte, dynamische Aufrufe, die der Intlayer-Compiler nicht optimieren kann, und ungenutzte Inhalte mit eslint-plugin-intlayer, für ESLint und oxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Regel no-node-as-string hinzugefügt"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Initialer Verlauf"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **Hartcodierter Text**, der nie in einem Wörterbuch deklariert wurde.
 2. **Dynamische Aufrufe**, die die Typüberprüfung bestehen und ausgeführt werden, die der Intlayer-Compiler jedoch nicht optimieren kann.
-3. **Toter Inhalt**: Wörterbücher und Felder, die an keiner Stelle im Projekt gelesen werden (Opt-in).
+3. **Inhalte als String verwendet** ohne `.value`, was die Typen bricht, sobald der visuelle Editor aktiviert ist.
+4. **Toter Inhalt**: Wörterbücher und Felder, die an keiner Stelle im Projekt gelesen werden (Opt-in).
 
 Unbekannte Wörterbuchschlüssel, unbekannte Feldpfade und fehlende Locales sind bereits Kompilierungsfehler, weshalb das Plugin diese nicht wiederholt.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ Zwei Hinweise: Die JS-Plugin-Unterstützung von oxlint befindet sich noch im Alp
 
 ### Konfigurationen
 
-| Konfiguration   | `no-raw-text`                     | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | --------------------------------- | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                              | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ Nicht-JSX-Zeichenfolgen) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                               | error                   | error                     | off                      | off                 |
+| Konfiguration   | `no-raw-text`                     | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | --------------------------------- | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                              | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ Nicht-JSX-Zeichenfolgen) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                               | error                   | error                     | off                 | off                      | off                 |
 
 `recommended` belässt `no-raw-text` absichtlich bei `warn`: Bei Anwendung auf eine bestehende Codebasis werden alle unübersetzten Zeichenfolgen auf einmal gemeldet, was Ihren Build nicht von Tag eins an blockieren sollte.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+Verlangt `.value`, wenn Inhalt als String verwendet wird. Automatisch behebbar.
+
+Mit `editor.enabled: true` ist jedes von `useIntlayer` / `getIntlayer` zurückgegebene Feld ein renderbarer Knoten (`ReactNode`, `JSX.Element`, `VNode`…) und kein String, daher bestehen die folgenden Formen den Type-Check nicht mehr. `.value` enthält in beiden Modi den String.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Gemeldet
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Gültig
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // als Knoten gerendert
+<Card title={content.title} />; // Komponenten-Props können einen Knoten annehmen
+html`<h1>${content.title}</h1>`; // Tagged Templates (Lit) erhalten den Knoten
+```
+
+Außerdem wird `.value` aus einem JSX-Child entfernt: `<h1>{content.title.value}</h1>` wird zu `<h1>{content.title}</h1>`, damit der visuelle Editor den Text auswählen kann. Gilt für React, Next.js, Preact, Solid und React Native.
+
+Abgedeckt sind React, Next.js, Preact, Solid, React Native, Vue (Script und `:attr`-Bindings), Svelte (Script und `$content`-Zugriffe im Markup), Angular (`content().title`), Lit, Vanilla und Astro. `getIntlayer` aus `intlayer` und die Server-Adapter liefern einfache Strings und werden nicht geprüft.
 
 ### `enforce-adapter-import`
 

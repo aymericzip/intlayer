@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt 플러그인 | Intlayer 번역 정렬
-description: "prettier-plugin-intlayer를 사용하여 t()의 로케일, plural()의 카테고리, enu()의 조건, select()의 케이스 및 콘텐츠 선언의 키를 정렬하세요. Prettier와 oxfmt에서 모두 동작합니다."
+title: Prettier x Oxfmt 플러그인 | Intlayer 번역 정렬 및 .value 보정
+description: "콘텐츠 선언에서 t(), plural(), enu(), select()의 로케일을 정렬하고, 콘텐츠가 문자열로 사용되는 곳에 .value를 추가해 비주얼 에디터에서도 타입을 유지합니다. Prettier와 oxfmt에서 동작합니다."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - 비주얼 에디터
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "문자열로 사용된 콘텐츠에 .value 추가 기능 도입"
   - version: 9.7.1
     date: 2026-11-03
     changes: "초기 이력"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt 플러그인
 
-`prettier-plugin-intlayer`는 Prettier가 파일을 포맷할 때마다 번역 키를 고정된 순서로 정렬합니다. diff를 작게 유지하고, 병합 충돌을 줄이며, 누락된 로케일을 쉽게 발견할 수 있습니다.
+`prettier-plugin-intlayer`는 Prettier가 파일을 포맷할 때마다 두 가지를 수행합니다.
+
+1. **번역을 고정된 순서로 정렬합니다.** diff가 작게 유지되고 병합 충돌이 줄어들며 누락된 로케일을 쉽게 찾을 수 있습니다.
+2. **콘텐츠가 문자열로 사용되는 곳에 `.value`를 추가합니다.** 비주얼 에디터를 활성화해도 타입이 유지됩니다.
 
 ```ts
 // 전
@@ -107,7 +115,7 @@ Prettier 설정 파일에 플러그인을 추가합니다:
 }
 ```
 
-콘텐츠 선언 파일에만 적용하려면 override를 사용하세요:
+콘텐츠 선언만 정렬하려면 override를 사용하세요. 이 경우 `.value` 추가는 컴포넌트에 적용되지 않습니다.
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ Prettier 설정 파일에 플러그인을 추가합니다:
 
 format 스크립트는 각각 하나의 역할을 가진 두 도구를 실행합니다.
 
-1. **Prettier**는 플러그인으로 콘텐츠 선언을 정렬합니다. glob이 대상을 `*.content.*` 파일로 제한합니다.
+1. **Prettier**가 플러그인을 실행합니다. 첫 번째 glob은 콘텐츠 선언을 정렬하고, 두 번째 glob은 컴포넌트에 `.value`를 추가합니다. 정렬만 원한다면 두 번째 glob을 제거하세요.
 2. **oxfmt**는 콘텐츠 선언을 포함한 프로젝트 전체를 포맷합니다.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ format 스크립트는 각각 하나의 역할을 가진 두 도구를 실행합
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ format 스크립트는 각각 하나의 역할을 가진 두 도구를 실행합
 
 이 구성에는 몇 가지 제한이 있습니다.
 
-- **저장 시 포맷.** oxfmt로 포맷하는 에디터는 정렬하지 않습니다. 정렬하려면 `format` 스크립트를 실행하세요.
+- **저장 시 포맷.** oxfmt로 포맷하는 에디터는 플러그인을 실행하지 않습니다. 대신 `format` 스크립트를 실행하세요.
 - **check 모드.** oxfmt로 포맷된 파일에는 `prettier --check`를 사용하지 마세요. 레이아웃이 달라 모든 파일을 보고합니다. CI에서 순서를 확인하려면 `format` 스크립트를 실행하고 변경 사항이 있으면 job을 실패시키세요.
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 정렬은 각 헬퍼 함수(`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…)를 거쳐 내부 객체까지 적용됩니다. 각 헬퍼 자체의 키 구조는 고유한 순서를 유지합니다. `cond()` 및 `gender()`에 전달된 키는 마지막 키가 fallback 역할을 하므로 순서가 재정렬되지 않습니다. `content`와 같은 수준의 필드(`key`, `title`, `locale`…)는 원래 상태를 유지합니다.
 
+## 문자열로 사용된 콘텐츠
+
+[비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 활성화하면(`editor.enabled: true`) `useIntlayer`나 `getIntlayer`가 반환하는 필드는 문자열이 아니라 렌더링 가능한 노드가 됩니다. 네이티브 요소의 속성에 전달하거나 문자열 메서드를 호출하면 타입 검사를 통과하지 못합니다. 템플릿 리터럴, 문자열 연결, `String()`은 모든 타입을 허용하므로 그대로 유지됩니다. 플러그인은 에디터 활성화 여부와 관계없이 문자열을 담는 `.value`를 추가합니다.
+
+```tsx
+// 전
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// 후
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+변경 대상:
+
+- 문자열 메서드: `content.name.toUpperCase()`
+- 네이티브 요소의 속성: `<img alt={content.alt} />`
+
+노드를 받을 수 있어 그대로 두는 것:
+
+- JSX 자식: `<h1>{content.title}</h1>`
+- 컴포넌트 props: `<Card title={content.title} />`
+- 태그드 템플릿: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+이는 콘텐츠 선언이 아니라 컴포넌트에 적용되므로 플러그인이 컴포넌트 파일에서 실행되어야 합니다. 파일의 다른 곳에서 같은 이름이 다시 선언된 변수는 건너뜁니다. Vue와 Svelte 템플릿은 변경되지 않습니다. 자동 수정도 지원하는 [ESLint 규칙 `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)을 사용하세요.
+
+JSX 자식에서는 `.value`를 제거합니다. `<h1>{content.title.value}</h1>`는 `<h1>{content.title}</h1>`가 되어 비주얼 에디터에서 텍스트를 선택할 수 있습니다. React, Next.js, Preact, Solid, React Native에 적용됩니다.
+
+`intlayerNodeValueAccess: false`로 비활성화할 수 있습니다.
+
 ## 옵션
 
-| 옵션                                    | 기본값   | 설명                                                                                      |
-| --------------------------------------- | -------- | ----------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]` | `t()`에서 우선적으로 앞에 유지할 로케일 목록. 모든 로케일을 정렬하려면 `[]`를 전달하세요. |
-| `intlayerSortContentKeys`               | `false`  | `*.content.*` 파일에서 딕셔너리의 콘텐츠 키 및 중첩된 객체도 정렬합니다.                  |
-| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` 파일에서 모든 로케일이 같은 문자열을 가진 `t()`를 그 문자열로 바꿉니다.     |
+| 옵션                                    | 기본값   | 설명                                                                                                      |
+| --------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | `t()`에서 우선적으로 앞에 유지할 로케일 목록. 모든 로케일을 정렬하려면 `[]`를 전달하세요.                 |
+| `intlayerSortContentKeys`               | `false`  | `*.content.*` 파일에서 딕셔너리의 콘텐츠 키 및 중첩된 객체도 정렬합니다.                                  |
+| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` 파일에서 모든 로케일이 같은 문자열을 가진 `t()`를 그 문자열로 바꿉니다.                     |
+| `intlayerNodeValueAccess`               | `true`   | 콘텐츠가 문자열로 사용되는 곳에 `.value`를 추가합니다(`alt={content.alt}`, `content.name.toUpperCase()`). |
 
 ## 변경되지 않는 대상
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5`, `jsonc`. Vue, Svelte, Astro 파일의 `<script>` 블록도 이 파서들을 통해 포맷됩니다.
 
-> **알려진 제한 사항.** Prettier는 파서당 단 하나의 플러그인만 실행합니다. 다른 플러그인도 JavaScript/TypeScript 파서를 대체하는 경우(예: `prettier-plugin-tailwindcss`), 마지막에 나열된 플러그인만 해당 파일에 적용됩니다. 충돌을 피하려면 override를 사용하여 `prettier-plugin-intlayer`의 범위를 `*.content.*` 파일로 한정하세요. oxfmt에서는 Tailwind 클래스가 내장 `sortTailwindcss` 옵션으로 정렬되므로 이 충돌이 발생하지 않습니다.
+> **알려진 제한 사항.** Prettier는 파서당 단 하나의 플러그인만 실행합니다. 다른 플러그인도 JavaScript/TypeScript 파서를 대체하는 경우(예: `prettier-plugin-tailwindcss`), 마지막에 나열된 플러그인만 해당 파일에 적용됩니다. 충돌을 피하려면 override를 사용하여 `prettier-plugin-intlayer`의 범위를 `*.content.*` 파일로 한정하세요. oxfmt에서는 Tailwind 클래스가 내장 `sortTailwindcss` 옵션으로 정렬되므로 이 충돌이 발생하지 않습니다. 이 경우 컴포넌트의 `.value`는 [ESLint 규칙 `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/eslint.md)에 맡기세요.

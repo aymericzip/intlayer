@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-22
 priority: 6
 title: Плагин ESLint | Правила линтинга для Intlayer
 description: "Находите жёстко заданные строки, динамические вызовы, которые компилятор Intlayer не может оптимизировать, и неиспользуемый контент с eslint-plugin-intlayer для ESLint и oxlint."
@@ -23,6 +23,9 @@ slugs:
   - doc
   - eslint
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "Добавлено правило no-node-as-string"
   - version: 9.3.1
     date: 2026-08-12
     changes: "Начальная история"
@@ -35,7 +38,8 @@ author: aymericzip
 
 1. **Жестко закодированный текст**, который так и не был вынесен в словарь.
 2. **Динамические вызовы**, которые проходят проверку типов и выполняются, но не могут быть оптимизированы компилятором Intlayer.
-3. **Мертвый контент**: словари и поля, которые нигде в проекте не считываются (по желанию).
+3. **Контент, используемый как строка** без `.value`, что ломает типы после включения визуального редактора.
+4. **Мертвый контент**: словари и поля, которые нигде в проекте не считываются (по желанию).
 
 Неизвестные ключи словарей, неизвестные пути к полям и отсутствующие локали уже приводят к ошибкам компиляции, поэтому плагин не дублирует их проверку.
 
@@ -101,7 +105,8 @@ export default [
     "intlayer/no-raw-text": "warn",
     "intlayer/static-dictionary-key": "error",
     "intlayer/no-dynamic-field-access": "error",
-    "intlayer/enforce-adapter-import": "warn"
+    "intlayer/enforce-adapter-import": "warn",
+    "intlayer/no-node-as-string": "warn"
   }
 }
 ```
@@ -115,11 +120,11 @@ export default [
 
 ### Пресеты конфигураций
 
-| Конфигурация    | `no-raw-text`                        | `static-dictionary-key` | `no-dynamic-field-access` | `enforce-adapter-import` | `no-unused-content` |
-| --------------- | ------------------------------------ | ----------------------- | ------------------------- | ------------------------ | ------------------- |
-| `recommended`   | warn                                 | error                   | error                     | off                      | off                 |
-| `strict`        | error (+ строковые литералы вне JSX) | error                   | error                     | error                    | off                 |
-| `contract-only` | off                                  | error                   | error                     | off                      | off                 |
+| Конфигурация    | `no-raw-text`                        | `static-dictionary-key` | `no-dynamic-field-access` | `no-node-as-string` | `enforce-adapter-import` | `no-unused-content` |
+| --------------- | ------------------------------------ | ----------------------- | ------------------------- | ------------------- | ------------------------ | ------------------- |
+| `recommended`   | warn                                 | error                   | error                     | warn                | off                      | off                 |
+| `strict`        | error (+ строковые литералы вне JSX) | error                   | error                     | error               | error                    | off                 |
+| `contract-only` | off                                  | error                   | error                     | off                 | off                      | off                 |
 
 Пресет `recommended` намеренно оставляет `no-raw-text` со статусом `warn`: применение правила к существующей кодовой базе покажет сразу все непереведенные строки, что не должно ломать сборку с первого же дня.
 
@@ -215,6 +220,32 @@ content["title"];
 content.items[0];
 t("hero.title");
 ```
+
+### `no-node-as-string`
+
+Требует `.value`, когда контент используется как строка. Исправляется автоматически.
+
+При `editor.enabled: true` каждое поле, возвращаемое `useIntlayer` / `getIntlayer`, является отображаемым узлом (`ReactNode`, `JSX.Element`, `VNode`…), а не строкой, поэтому формы ниже перестают проходить проверку типов. `.value` содержит строку в обоих режимах.
+
+```tsx
+const content = useIntlayer("home");
+
+// ✗ Ошибка
+content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>; // React, Preact, Solid
+
+// ✓ Корректно
+content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>; // отображается как узел
+<Card title={content.title} />; // props компонента могут принимать узел
+html`<h1>${content.title}</h1>`; // tagged templates (Lit) получают узел
+```
+
+Также удаляет `.value` у дочернего элемента JSX: `<h1>{content.title.value}</h1>` становится `<h1>{content.title}</h1>`, чтобы визуальный редактор мог выделить текст. Относится к React, Next.js, Preact, Solid и React Native.
+
+Охватывает React, Next.js, Preact, Solid, React Native, Vue (script и привязки `:attr`), Svelte (script и чтения `$content` в разметке), Angular (`content().title`), Lit, vanilla и Astro. `getIntlayer` из `intlayer` и серверные адаптеры возвращают обычные строки и не проверяются.
 
 ### `enforce-adapter-import`
 

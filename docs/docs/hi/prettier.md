@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt प्लगइन | Intlayer अनुवाद क्रमबद्ध करें
-description: "prettier-plugin-intlayer के साथ t() के लोकेल, plural() की श्रेणियां, enu() की शर्तें, select() के केस और अपनी सामग्री घोषणाओं की कुंजियों को क्रमबद्ध करें। Prettier और oxfmt दोनों के साथ काम करता है।"
+title: Prettier x Oxfmt प्लगइन | Intlayer अनुवाद सॉर्ट करें और .value ठीक करें
+description: "अपने कंटेंट डिक्लेरेशन में t(), plural(), enu() और select() के locales सॉर्ट करें, और जहाँ कंटेंट स्ट्रिंग की तरह इस्तेमाल होता है वहाँ .value जोड़ें ताकि विज़ुअल एडिटर के साथ टाइप्स सही रहें। Prettier और oxfmt के साथ काम करता है।"
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - विज़ुअल एडिटर
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "स्ट्रिंग के रूप में इस्तेमाल हुए कंटेंट के लिए .value जोड़ना शामिल किया गया"
   - version: 9.7.1
     date: 2026-11-03
     changes: "प्रारंभिक इतिहास"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt प्लगइन
 
-`prettier-plugin-intlayer` हर बार जब Prettier किसी फ़ाइल को फ़ॉर्मेट करता है, तो आपके अनुवादों की कुंजियों को एक निश्चित क्रम में रखता है। इससे diffs छोटे रहते हैं, मर्ज विरोध (merge conflicts) दुर्लभ हो जाते हैं और किसी छूटे हुए लोकेल को पहचानना आसान हो जाता है।
+Prettier जब भी कोई फ़ाइल फ़ॉर्मेट करता है, `prettier-plugin-intlayer` दो काम करता है:
+
+1. **आपके अनुवादों को** एक तय क्रम में सॉर्ट करता है। Diff छोटे रहते हैं, merge conflicts कम होते हैं और गायब locale आसानी से दिखता है।
+2. **जहाँ कंटेंट स्ट्रिंग की तरह इस्तेमाल होता है वहाँ `.value` जोड़ता है**, ताकि विज़ुअल एडिटर चालू होने पर भी आपके टाइप्स सही रहें।
 
 ```ts
 // पहले
@@ -107,7 +115,7 @@ bun add --dev prettier prettier-plugin-intlayer
 }
 ```
 
-इसे केवल अपनी सामग्री घोषणाओं पर लागू करने के लिए, override का उपयोग करें:
+सिर्फ़ कंटेंट डिक्लेरेशन सॉर्ट करने के लिए override इस्तेमाल करें। तब `.value` जोड़ना आपके कंपोनेंट्स पर लागू नहीं होगा:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 फ़ॉर्मैट स्क्रिप्ट दो टूल चलाती है, हर एक का एक ही काम है:
 
-1. **Prettier** प्लगइन की मदद से आपकी सामग्री घोषणाओं को सॉर्ट करता है। glob इसे `*.content.*` फ़ाइलों तक सीमित रखता है।
+1. **Prettier** प्लगइन चलाता है। पहला glob आपके कंटेंट डिक्लेरेशन सॉर्ट करता है, दूसरा आपके कंपोनेंट्स में `.value` जोड़ता है। अगर सिर्फ़ सॉर्टिंग चाहिए तो दूसरा glob हटा दें।
 2. **oxfmt** सामग्री घोषणाओं सहित पूरे प्रोजेक्ट को फ़ॉर्मैट करता है।
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ bun add --dev prettier prettier-plugin-intlayer
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 इस सेटअप की कुछ सीमाएँ हैं:
 
-- **सेव पर फ़ॉर्मैट।** oxfmt से फ़ॉर्मैट करने वाला एडिटर सॉर्ट नहीं करता। सॉर्ट करने के लिए `format` स्क्रिप्ट चलाएँ।
+- **सेव पर फ़ॉर्मेट।** oxfmt से फ़ॉर्मेट करने वाला एडिटर प्लगइन नहीं चलाता। इसकी जगह `format` स्क्रिप्ट चलाएँ।
 - **Check मोड।** oxfmt द्वारा फ़ॉर्मैट की गई फ़ाइलों पर `prettier --check` का उपयोग न करें: लेआउट अलग होते हैं, इसलिए यह हर फ़ाइल रिपोर्ट करता है। CI में क्रम जाँचने के लिए `format` स्क्रिप्ट चलाएँ और बदलाव होने पर job को फ़ेल करें:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 क्रमबद्धता प्रत्येक हेल्पर (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…) के माध्यम से उनके अंदर की वस्तुओं तक पहुँचती है। प्रत्येक हेल्पर का अपना कुंजी मानचित्र अपना क्रम बनाए रखता है। `cond()` और `gender()` को दी गई कुंजियों को कभी भी पुन: व्यवस्थित नहीं किया जाता है, क्योंकि उनकी अंतिम कुंजी फ़ॉलबैक होती है। `content` के साथ वाले फ़ील्ड (`key`, `title`, `locale`…) जैसे हैं वैसे ही रहते हैं।
 
+## स्ट्रिंग के रूप में इस्तेमाल किया गया कंटेंट
+
+[विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) चालू होने पर (`editor.enabled: true`), `useIntlayer` या `getIntlayer` से लौटाया गया फ़ील्ड स्ट्रिंग नहीं बल्कि रेंडर होने वाला नोड होता है। इसे किसी नेटिव एलिमेंट के attribute में देना या उस पर स्ट्रिंग मेथड बुलाना टाइप-चेक पास नहीं करता। Template literals, स्ट्रिंग जोड़ना और `String()` किसी भी टाइप को स्वीकार करते हैं, इसलिए वे वैसे ही रहते हैं। प्लगइन `.value` जोड़ता है, जिसमें एडिटर चालू हो या न हो, स्ट्रिंग रहती है।
+
+```tsx
+// पहले
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// बाद में
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+दोबारा लिखे जाते हैं:
+
+- स्ट्रिंग मेथड: `content.name.toUpperCase()`
+- नेटिव एलिमेंट्स के attributes: `<img alt={content.alt} />`
+
+बिना बदलाव छोड़े जाते हैं, क्योंकि वे नोड स्वीकार करते हैं:
+
+- JSX children: `<h1>{content.title}</h1>`
+- कंपोनेंट props: `<Card title={content.title} />`
+- tagged templates: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+यह कंटेंट डिक्लेरेशन पर नहीं बल्कि कंपोनेंट्स पर लागू होता है, इसलिए प्लगइन को आपकी कंपोनेंट फ़ाइलों पर चलना चाहिए। जिस वेरिएबल का नाम फ़ाइल में कहीं और दोबारा घोषित है, उसे छोड़ दिया जाता है। Vue और Svelte templates दोबारा नहीं लिखे जाते: उनके लिए [ESLint नियम `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md) इस्तेमाल करें, जिसमें autofix भी है।
+
+यह JSX child से `.value` भी हटाता है: `<h1>{content.title.value}</h1>` बन जाता है `<h1>{content.title}</h1>`, ताकि विज़ुअल एडिटर टेक्स्ट चुन सके। यह React, Next.js, Preact, Solid और React Native पर लागू होता है।
+
+`intlayerNodeValueAccess: false` से बंद करें।
+
 ## विकल्प
 
-| विकल्प                                   | डिफ़ॉल्ट   | विवरण                                                                                       |
-| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]` | `t()` में सबसे पहले रखे जाने वाले लोकेल्स, इसी क्रम में। सभी लोकेल्स को क्रमबद्ध करने के लिए `[]` पास करें।     |
-| `intlayerSortContentKeys`               | `false`  | `*.content.*` फ़ाइलों में, डिक्शनरी सामग्री कुंजियों और नेस्टेड ऑब्जेक्ट्स को भी क्रमबद्ध करें।                 |
-| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` फ़ाइलों में, जिस `t()` की सभी locales में एक ही string हो, उसे उसी string से बदलता है। |
+| विकल्प                                   | डिफ़ॉल्ट   | विवरण                                                                                                        |
+| --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| `intlayerPinnedLocales`                 | `["en"]` | `t()` में सबसे पहले रखे जाने वाले लोकेल्स, इसी क्रम में। सभी लोकेल्स को क्रमबद्ध करने के लिए `[]` पास करें।                      |
+| `intlayerSortContentKeys`               | `false`  | `*.content.*` फ़ाइलों में, डिक्शनरी सामग्री कुंजियों और नेस्टेड ऑब्जेक्ट्स को भी क्रमबद्ध करें।                                  |
+| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` फ़ाइलों में, जिस `t()` की सभी locales में एक ही string हो, उसे उसी string से बदलता है।                  |
+| `intlayerNodeValueAccess`               | `true`   | जहाँ कंटेंट स्ट्रिंग की तरह इस्तेमाल होता है वहाँ `.value` जोड़ता है (`alt={content.alt}`, `content.name.toUpperCase()`)। |
 
 ## क्या अछूता रहता है
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` और `jsonc`। Vue, Svelte और Astro फ़ाइलों के `<script>` ब्लॉक इन पार्सर के साथ स्वरूपित किए जाते हैं।
 
-> **ज्ञात सीमा।** Prettier प्रति पार्सर केवल एक प्लगइन चलाता है। यदि कोई अन्य प्लगइन जावास्क्रिप्ट/टाइपस्क्रिप्ट पार्सर को भी बदल देता है (उदाहरण के लिए `prettier-plugin-tailwindcss`), तो उन फ़ाइलों पर केवल अंतिम सूचीबद्ध प्लगइन ही लागू होता है। विरोध से बचने के लिए override के साथ `prettier-plugin-intlayer` को `*.content.*` फ़ाइलों तक सीमित करें। oxfmt में Tailwind क्लासेज़ उसके बिल्ट-इन `sortTailwindcss` विकल्प से क्रमबद्ध होती हैं, इसलिए यह टकराव लागू नहीं होता।
+> **ज्ञात सीमा।** Prettier प्रति पार्सर केवल एक प्लगइन चलाता है। यदि कोई अन्य प्लगइन जावास्क्रिप्ट/टाइपस्क्रिप्ट पार्सर को भी बदल देता है (उदाहरण के लिए `prettier-plugin-tailwindcss`), तो उन फ़ाइलों पर केवल अंतिम सूचीबद्ध प्लगइन ही लागू होता है। विरोध से बचने के लिए override के साथ `prettier-plugin-intlayer` को `*.content.*` फ़ाइलों तक सीमित करें। oxfmt में Tailwind क्लासेज़ उसके बिल्ट-इन `sortTailwindcss` विकल्प से क्रमबद्ध होती हैं, इसलिए यह टकराव लागू नहीं होता। ऐसे में, कंपोनेंट्स में `.value` के लिए [ESLint नियम `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/eslint.md) पर भरोसा करें।

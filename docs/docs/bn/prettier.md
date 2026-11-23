@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: Prettier x Oxfmt প্লাগইন | Intlayer অনুবাদ সাজান
-description: "prettier-plugin-intlayer দিয়ে t() এর লোক্যাল, plural() এর বিভাগ, enu() এর শর্ত, select() এর কেস এবং আপনার কন্টেন্ট ঘোষণার কীগুলি সাজান। Prettier এবং oxfmt দুটির সাথেই কাজ করে।"
+title: Prettier x Oxfmt প্লাগইন | Intlayer অনুবাদ সাজান এবং .value ঠিক করুন
+description: "আপনার কনটেন্ট ডিক্লারেশনে t(), plural(), enu() ও select()-এর locale সাজান, এবং যেখানে কনটেন্ট স্ট্রিং হিসেবে ব্যবহৃত হয় সেখানে .value যোগ করুন যাতে ভিজ্যুয়াল এডিটরের সাথে টাইপ ঠিক থাকে। Prettier ও oxfmt-এর সাথে কাজ করে।"
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - ভিজ্যুয়াল এডিটর
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "স্ট্রিং হিসেবে ব্যবহৃত কনটেন্টে .value যোগ করার সুবিধা যুক্ত হয়েছে"
   - version: 9.7.1
     date: 2026-11-03
     changes: "প্রাথমিক ইতিহাস"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # Prettier x Oxfmt প্লাগইন
 
-`prettier-plugin-intlayer` প্রতিবার যখন Prettier একটি ফাইল ফর্ম্যাট করে তখন আপনার অনুবাদের কীগুলি একটি নির্দিষ্ট ক্রমে সাজিয়ে দেয়। ডিফস (diffs) ছোট থাকে, মার্জ দ্বন্দ্ব কম হয় এবং অনুপস্থিত লোক্যাল সহজেই চিহ্নিত করা যায়।
+Prettier প্রতিবার কোনো ফাইল ফরম্যাট করলে `prettier-plugin-intlayer` দুটি কাজ করে:
+
+1. **আপনার অনুবাদগুলো** একটি নির্দিষ্ট ক্রমে সাজায়। Diff ছোট থাকে, merge conflict কম হয় এবং অনুপস্থিত locale সহজে চোখে পড়ে।
+2. **যেখানে কনটেন্ট স্ট্রিং হিসেবে ব্যবহৃত হয় সেখানে `.value` যোগ করে**, যাতে ভিজ্যুয়াল এডিটর চালু হলেও আপনার টাইপ ঠিক থাকে।
 
 ```ts
 // আগে
@@ -107,7 +115,7 @@ Prettier ৩ বা তার পরবর্তী সংস্করণ প্
 }
 ```
 
-এটি শুধুমাত্র আপনার কন্টেন্ট ঘোষণাগুলিতে প্রয়োগ করতে, একটি override ব্যবহার করুন:
+শুধু কনটেন্ট ডিক্লারেশন সাজাতে একটি override ব্যবহার করুন। তখন `.value` যোগ করা আপনার কম্পোনেন্টে প্রয়োগ হবে না:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ Prettier ৩ বা তার পরবর্তী সংস্করণ প্
 
 ফরম্যাট স্ক্রিপ্ট দুটি টুল চালায়, প্রত্যেকটির একটি করে কাজ:
 
-1. **Prettier** প্লাগইন দিয়ে আপনার কন্টেন্ট ঘোষণাগুলি সাজায়। glob এটিকে `*.content.*` ফাইলে সীমাবদ্ধ রাখে।
+1. **Prettier** প্লাগইন চালায়। প্রথম glob কনটেন্ট ডিক্লারেশন সাজায়, দ্বিতীয়টি কম্পোনেন্টে `.value` যোগ করে। শুধু সাজাতে চাইলে দ্বিতীয় glob বাদ দিন।
 2. **oxfmt** কন্টেন্ট ঘোষণাসহ পুরো প্রজেক্ট ফরম্যাট করে।
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ Prettier ৩ বা তার পরবর্তী সংস্করণ প্
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ Prettier ৩ বা তার পরবর্তী সংস্করণ প্
 
 এই সেটআপের কিছু সীমাবদ্ধতা আছে:
 
-- **সেভ করার সময় ফরম্যাট।** যে এডিটর oxfmt দিয়ে ফরম্যাট করে সেটি সাজায় না। সাজাতে `format` স্ক্রিপ্ট চালান।
+- **সেভ করার সময় ফরম্যাট।** oxfmt দিয়ে ফরম্যাট করা এডিটর প্লাগইন চালায় না। এর বদলে `format` স্ক্রিপ্ট চালান।
 - **Check মোড।** oxfmt দিয়ে ফরম্যাট করা ফাইলে `prettier --check` ব্যবহার করবেন না: লেআউট আলাদা হওয়ায় এটি প্রতিটি ফাইল রিপোর্ট করে। CI-তে ক্রম যাচাই করতে `format` স্ক্রিপ্ট চালান এবং পরিবর্তন থাকলে job ব্যর্থ করুন:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 ভেতরের অবজেক্টগুলিতে পৌঁছানোর জন্য প্রতিটি হেল্পার (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…) দিয়ে সর্টিং চলতে থাকে। প্রতিটি হেল্পারের নিজস্ব কী ম্যাপ তার নিজস্ব ক্রম বজায় রাখে। `cond()` এবং `gender()`-এ পাস করা কীগুলি কখনই পুনর্বিন্যাস করা হয় না কারণ তাদের শেষ কীটি ফলব্যাক হিসাবে কাজ করে। `content`-এর পাশের ক্ষেত্রগুলি (`key`, `title`, `locale`…) অপরিবর্তিত থাকে।
 
+## স্ট্রিং হিসেবে ব্যবহৃত কনটেন্ট
+
+[ভিজ্যুয়াল এডিটর](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) চালু থাকলে (`editor.enabled: true`), `useIntlayer` বা `getIntlayer` থেকে ফেরত আসা ফিল্ড স্ট্রিং নয়, রেন্ডারযোগ্য নোড। এটিকে নেটিভ এলিমেন্টের attribute-এ দিলে বা এর ওপর স্ট্রিং মেথড কল করলে আর টাইপ-চেক পাস হয় না। Template literals, স্ট্রিং জোড়া এবং `String()` যেকোনো টাইপ গ্রহণ করে, তাই এগুলো অপরিবর্তিত থাকে। প্লাগইনটি `.value` যোগ করে, যা এডিটর চালু থাকুক বা না থাকুক স্ট্রিংটি ধরে রাখে।
+
+```tsx
+// আগে
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// পরে
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+যা পুনর্লিখিত হয়:
+
+- স্ট্রিং মেথড: `content.name.toUpperCase()`
+- নেটিভ এলিমেন্টের attributes: `<img alt={content.alt} />`
+
+যা অপরিবর্তিত থাকে, কারণ এগুলো নোড গ্রহণ করে:
+
+- JSX children: `<h1>{content.title}</h1>`
+- কম্পোনেন্ট props: `<Card title={content.title} />`
+- tagged templates: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+এটি কনটেন্ট ডিক্লারেশনে নয়, কম্পোনেন্টে প্রযোজ্য, তাই প্লাগইনটি আপনার কম্পোনেন্ট ফাইলে চালাতে হবে। যে ভেরিয়েবলের নাম ফাইলের অন্য কোথাও আবার ঘোষণা করা হয়েছে সেটি বাদ দেওয়া হয়। Vue ও Svelte টেমপ্লেট পুনর্লিখিত হয় না: সেগুলোর জন্য [ESLint নিয়ম `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/eslint.md) ব্যবহার করুন, এতেও autofix আছে।
+
+এটি JSX child থেকে `.value`-ও সরিয়ে দেয়: `<h1>{content.title.value}</h1>` হয়ে যায় `<h1>{content.title}</h1>`, যাতে ভিজ্যুয়াল এডিটর টেক্সটটি নির্বাচন করতে পারে। এটি React, Next.js, Preact, Solid ও React Native-এ প্রযোজ্য।
+
+`intlayerNodeValueAccess: false` দিয়ে বন্ধ করুন।
+
 ## অপশন
 
-| অপশন                                    | ডিফল্ট    | বর্ণনা                                                                                            |
-| --------------------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]` | `t()`-এ প্রথমে রাখা লোক্যালগুলি, এই ক্রমে। সব লোক্যাল সাজাতে `[]` পাস করুন।                                  |
-| `intlayerSortContentKeys`               | `false`  | `*.content.*` ফাইলগুলিতে, অভিধানের কন্টেন্ট কী এবং নেস্টেড অবজেক্টগুলিও সাজান।                            |
-| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` ফাইলে, যে `t()`-এর সব locale-এ একই string থাকে, সেটিকে ওই string দিয়ে প্রতিস্থাপন করে। |
+| অপশন                                    | ডিফল্ট    | বর্ণনা                                                                                                           |
+| --------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | `t()`-এ প্রথমে রাখা লোক্যালগুলি, এই ক্রমে। সব লোক্যাল সাজাতে `[]` পাস করুন।                                                 |
+| `intlayerSortContentKeys`               | `false`  | `*.content.*` ফাইলগুলিতে, অভিধানের কন্টেন্ট কী এবং নেস্টেড অবজেক্টগুলিও সাজান।                                           |
+| `intlayerCollapseIdenticalTranslations` | `true`   | `*.content.*` ফাইলে, যে `t()`-এর সব locale-এ একই string থাকে, সেটিকে ওই string দিয়ে প্রতিস্থাপন করে।                |
+| `intlayerNodeValueAccess`               | `true`   | যেখানে কনটেন্ট স্ট্রিং হিসেবে ব্যবহৃত হয় সেখানে `.value` যোগ করে (`alt={content.alt}`, `content.name.toUpperCase()`)। |
 
 ## যা অপরিবর্তিত রাখা হয়
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` এবং `jsonc`। Vue, Svelte এবং Astro ফাইলের `<script>` ব্লকগুলি এই পার্সারগুলির সাথে ফর্ম্যাট করা হয়।
 
-> **জানা সীমাবদ্ধতা।** Prettier প্রতিটি পার্সারে কেবল একটি প্লাগইন চালায়। যদি অন্য কোনো প্লাগইন জাভাস্ক্রিপ্ট/টাইপস্ক্রিপ্ট পার্সারকেও প্রতিস্থাপন করে (উদাহরণস্বরূপ `prettier-plugin-tailwindcss`), তবে কেবল তালিকায় থাকা শেষ প্লাগইনটি সেই ফাইলগুলিতে প্রয়োগ হবে। দ্বন্দ্ব এড়াতে একটি override সহ `prettier-plugin-intlayer` কে `*.content.*` ফাইলে সীমাবদ্ধ করুন। oxfmt-এ Tailwind ক্লাসগুলি তার বিল্ট-ইন `sortTailwindcss` অপশন দিয়ে সাজানো হয়, তাই এই দ্বন্দ্ব ঘটে না।
+> **জানা সীমাবদ্ধতা।** Prettier প্রতিটি পার্সারে কেবল একটি প্লাগইন চালায়। যদি অন্য কোনো প্লাগইন জাভাস্ক্রিপ্ট/টাইপস্ক্রিপ্ট পার্সারকেও প্রতিস্থাপন করে (উদাহরণস্বরূপ `prettier-plugin-tailwindcss`), তবে কেবল তালিকায় থাকা শেষ প্লাগইনটি সেই ফাইলগুলিতে প্রয়োগ হবে। দ্বন্দ্ব এড়াতে একটি override সহ `prettier-plugin-intlayer` কে `*.content.*` ফাইলে সীমাবদ্ধ করুন। oxfmt-এ Tailwind ক্লাসগুলি তার বিল্ট-ইন `sortTailwindcss` অপশন দিয়ে সাজানো হয়, তাই এই দ্বন্দ্ব ঘটে না। সেক্ষেত্রে কম্পোনেন্টে `.value`-এর জন্য [ESLint নিয়ম `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/eslint.md)-এর ওপর নির্ভর করুন।

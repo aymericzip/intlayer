@@ -131,3 +131,46 @@ export const lintAs = (
     message: message.message,
   }));
 };
+
+/**
+ * Lint a snippet with one of this plugin's rules and apply its autofixes.
+ *
+ * @param fixture - The framework to lint as.
+ * @param ruleName - Rule to enable.
+ * @param code - Source to fix.
+ * @returns The fixed source and the problems left after fixing.
+ */
+export const fixAs = (
+  fixture: FrameworkFixture,
+  ruleName: keyof typeof rules,
+  code: string
+): { output: string; remaining: LintResult[] } => {
+  const linter = new Linter();
+
+  const report = linter.verifyAndFix(
+    code,
+    [
+      {
+        files: [fixture.glob],
+        plugins: { intlayer: { rules } },
+        languageOptions: {
+          parser: fixture.parser as never,
+          ecmaVersion: 2022,
+          sourceType: 'module',
+          parserOptions: { ecmaFeatures: { jsx: true } },
+        },
+        rules: { [`intlayer/${ruleName}`]: 'error' },
+      },
+    ],
+    fixture.filename
+  );
+
+  return {
+    output: report.output,
+    remaining: report.messages.map((message) => ({
+      ruleId: message.ruleId,
+      messageId: message.messageId,
+      message: message.message,
+    })),
+  };
+};

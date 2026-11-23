@@ -31,11 +31,20 @@ Or let `intlayer init prettier` install and configure it.
 }
 ```
 
-| Option                                  | Default  | Description                                                                        |
-| --------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]` | Locales kept first in `t()`, in this order. `[]` sorts them all.                   |
-| `intlayerSortContentKeys`               | `false`  | In `*.content.*` files, also sort the dictionary content keys and nested objects.  |
-| `intlayerCollapseIdenticalTranslations` | `true`   | In `*.content.*` files, `t({ en: 'Next.js', fr: 'Next.js' })` becomes `'Next.js'`. |
+| Option                                  | Default  | Description                                                                                                                 |
+| --------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]` | Locales kept first in `t()`, in this order. `[]` sorts them all.                                                            |
+| `intlayerSortContentKeys`               | `false`  | In `*.content.*` files, also sort the dictionary content keys and nested objects.                                           |
+| `intlayerCollapseIdenticalTranslations` | `true`   | In `*.content.*` files, `t({ en: 'Next.js', fr: 'Next.js' })` becomes `'Next.js'`.                                          |
+| `intlayerNodeValueAccess`               | `true`   | `alt={content.alt}` becomes `alt={content.alt.value}`, `<h1>{content.title.value}</h1>` becomes `<h1>{content.title}</h1>`. |
+
+With `editor.enabled: true`, an Intlayer node is a renderable node rather than a
+string; `intlayerNodeValueAccess` appends `.value` wherever a string is
+required (native element attribute, string method) so the types keep holding.
+Template literals, concatenation and `String()` accept any type and are left
+alone. It also turns `<h1>{content.title.value}</h1>`
+into `<h1>{content.title}</h1>` (React, Next.js, Preact, Solid, React Native),
+so the visual editor can select the text.
 
 Objects holding a spread, a computed key, a method or a duplicated key are
 left untouched. Comments move with their key.

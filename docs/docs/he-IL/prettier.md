@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-11-03
-updatedAt: 2026-11-03
+updatedAt: 2026-11-22
 priority: 6
-title: תוסף Prettier ו-Oxfmt | מיון תרגומי Intlayer
-description: "מיין את הלוקאלים של t(), הקטגוריות של plural(), התנאים של enu(), המקרים של select() והמפתחות של הצהרות התוכן שלך בעזרת prettier-plugin-intlayer. עובד עם Prettier ועם oxfmt."
+title: תוסף Prettier x Oxfmt | מיון תרגומי Intlayer ותיקון .value
+description: "מיינו את ה-locales של t(), plural(), enu() ו-select() בהצהרות התוכן, והוסיפו .value היכן שתוכן משמש כמחרוזת כדי שהטיפוסים יישארו תקינים עם העורך הוויזואלי. עובד עם Prettier ו-oxfmt."
 keywords:
   - Intlayer
   - Prettier
@@ -16,10 +16,15 @@ keywords:
   - plural
   - enumeration
   - select
+  - עורך ויזואלי
+  - IntlayerNode
 slugs:
   - doc
   - prettier
 history:
+  - version: 9.8.5
+    date: 2026-11-22
+    changes: "נוספה הוספת .value לתוכן שמשמש כמחרוזת"
   - version: 9.7.1
     date: 2026-11-03
     changes: "היסטוריה ראשונית"
@@ -31,7 +36,10 @@ author: aymericzip
 
 # תוסף Prettier ו-Oxfmt
 
-`prettier-plugin-intlayer` מסדר את מפתחות התרגומים שלך בסדר קבוע בכל פעם ש-Prettier מעצב קובץ. ה-diffs נשארים קטנים, התנגשויות מיזוג (merge conflicts) הופכות לנדירות יותר וקל לזהות לוקאל חסר.
+`prettier-plugin-intlayer` עושה שני דברים בכל פעם ש-Prettier מעצב קובץ:
+
+1. **ממיין את התרגומים** בסדר קבוע. ה-diffs נשארים קטנים, קונפליקטים במיזוג נדירים יותר ו-locale חסר בולט מיד.
+2. **מוסיף `.value`** היכן שתוכן משמש כמחרוזת, כדי שהטיפוסים יישארו תקינים אחרי הפעלת העורך הוויזואלי.
 
 ```ts
 // לפני
@@ -107,7 +115,7 @@ bun add --dev prettier prettier-plugin-intlayer
 }
 ```
 
-כדי להחיל אותו על קובצי הצהרות התוכן בלבד, השתמש ב-override:
+כדי למיין רק את הצהרות התוכן, השתמשו ב-override. הוספת `.value` לא תפעל אז על הקומפוננטות שלכם:
 
 ```json fileName=".prettierrc.json"
 {
@@ -128,7 +136,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 סקריפט העיצוב מריץ שני כלים, לכל אחד תפקיד אחד:
 
-1. **Prettier** ממיין את הצהרות התוכן שלכם בעזרת התוסף. ה-glob מגביל אותו לקבצי `*.content.*`.
+1. **Prettier** מריץ את התוסף. ה-glob הראשון ממיין את הצהרות התוכן, השני מוסיף `.value` בקומפוננטות. הסירו את ה-glob השני אם אתם רוצים רק מיון.
 2. **oxfmt** מעצב את כל הפרויקט, כולל הצהרות התוכן.
 
 ```json fileName=".prettierrc.json"
@@ -140,7 +148,7 @@ bun add --dev prettier prettier-plugin-intlayer
 ```json fileName="package.json"
 {
   "scripts": {
-    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" && oxfmt"
+    "format": "prettier --write \"**/*.content.{ts,tsx,js,jsx,mjs,cjs,json}\" \"src/**/*.{ts,tsx,js,jsx}\" && oxfmt"
   }
 }
 ```
@@ -149,7 +157,7 @@ bun add --dev prettier prettier-plugin-intlayer
 
 להגדרה הזו יש כמה מגבלות:
 
-- **עיצוב בשמירה.** עורך שמעצב עם oxfmt לא ממיין. הריצו את הסקריפט `format` כדי למיין.
+- **עיצוב בשמירה.** עורך שמעצב עם oxfmt לא מריץ את התוסף. הריצו במקום זאת את הסקריפט `format`.
 - **מצב check.** אל תשתמשו ב-`prettier --check` על קבצים ש-oxfmt עיצב: העיצובים שונים, ולכן הוא ידווח על כל קובץ. כדי לבדוק את הסדר ב-CI, הריצו את הסקריפט `format` והכשילו את ה-job אם יש שינויים:
 
 ```bash
@@ -257,13 +265,48 @@ export default {
 
 המיון ממשיך דרך כל פונקציית עזר (`t`, `plural`, `enu`, `select`, `cond`, `gender`, `md`, `insert`, `nest`, `file`…) כדי להגיע לאובייקטים שבתוכם. מיפוי המפתחות הפנימי של כל פונקציית עזר שומר על הסדר שלו. מפתחות המועברים אל `cond()` ו-`gender()` לעולם אינם ממוינים מחדש, מכיוון שהמפתח האחרון שלהם משמש כ-fallback. השדות שלצד `content` (`key`, `title`, `locale`…) נשארים ללא שינוי.
 
+## תוכן שמשמש כמחרוזת
+
+כאשר [העורך הוויזואלי](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/intlayer_visual_editor.md) מופעל (`editor.enabled: true`), שדה שמוחזר מ-`useIntlayer` או `getIntlayer` הוא node שניתן לרנדר ולא מחרוזת. העברה שלו למאפיין של אלמנט נייטיב או קריאה למתודת מחרוזת עליו כבר לא עוברות בדיקת טיפוסים. Template literals, שרשור ו-`String()` מקבלים כל טיפוס ונשארים כמו שהם. התוסף מוסיף `.value`, שמכיל את המחרוזת בין אם העורך מופעל ובין אם לא.
+
+```tsx
+// לפני
+const content = useIntlayer("home");
+const upper = content.name.toUpperCase();
+<img alt={content.alt} />;
+<h1>{content.title.value}</h1>;
+
+// אחרי
+const upper = content.name.value.toUpperCase();
+<img alt={content.alt.value} />;
+<h1>{content.title}</h1>;
+```
+
+נכתבים מחדש:
+
+- מתודות של מחרוזת: `content.name.toUpperCase()`
+- מאפיינים של אלמנטים נייטיב: `<img alt={content.alt} />`
+
+נשארים ללא שינוי, כי הם מקבלים node:
+
+- ילדי JSX: `<h1>{content.title}</h1>`
+- props של קומפוננטות: `<Card title={content.title} />`
+- tagged templates: `` html`<h1>${content.title}</h1>` `` (Lit)
+
+זה חל על קומפוננטות ולא על הצהרות תוכן, לכן התוסף צריך לרוץ על קבצי הקומפוננטות. משתנה ששמו מוצהר שוב במקום אחר בקובץ מדולג. תבניות Vue ו-Svelte לא נכתבות מחדש: השתמשו עבורן ב[כלל ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/eslint.md), שגם לו יש autofix.
+
+בנוסף, מוסר `.value` מילד JSX: `<h1>{content.title.value}</h1>` הופך ל-`<h1>{content.title}</h1>`, כדי שהעורך הוויזואלי יוכל לבחור את הטקסט. חל על React, Next.js, Preact, Solid ו-React Native.
+
+השביתו עם `intlayerNodeValueAccess: false`.
+
 ## אפשרויות
 
-| אפשרות                                  | ברירת מחדל | תיאור                                                                                  |
-| --------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| `intlayerPinnedLocales`                 | `["en"]`   | לוקאלים הנשמרים ראשונים ב-`t()`, בסדר זה. העבר `[]` כדי למיין את כל הלוקאלים אלפביתית. |
-| `intlayerSortContentKeys`               | `false`    | בקובצי `*.content.*`, מיין גם את מפתחות התוכן של המילון ואובייקטים מקוננים.            |
-| `intlayerCollapseIdenticalTranslations` | `true`     | בקבצי `*.content.*`, מחליף `t()` שבו כל השפות מכילות את אותה מחרוזת במחרוזת הזו.       |
+| אפשרות                                  | ברירת מחדל | תיאור                                                                                       |
+| --------------------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
+| `intlayerPinnedLocales`                 | `["en"]`   | לוקאלים הנשמרים ראשונים ב-`t()`, בסדר זה. העבר `[]` כדי למיין את כל הלוקאלים אלפביתית.      |
+| `intlayerSortContentKeys`               | `false`    | בקובצי `*.content.*`, מיין גם את מפתחות התוכן של המילון ואובייקטים מקוננים.                 |
+| `intlayerCollapseIdenticalTranslations` | `true`     | בקבצי `*.content.*`, מחליף `t()` שבו כל השפות מכילות את אותה מחרוזת במחרוזת הזו.            |
+| `intlayerNodeValueAccess`               | `true`     | מוסיף `.value` היכן שתוכן משמש כמחרוזת (`alt={content.alt}`, `content.name.toUpperCase()`). |
 
 ## מה נשאר ללא שינוי
 
@@ -278,4 +321,4 @@ export default {
 
 `babel`, `babel-flow`, `babel-ts`, `typescript`, `flow`, `acorn`, `espree`, `meriyah`, `json`, `json5` ו-`jsonc`. בלוקי ה-`<script>` של קובצי Vue, Svelte ו-Astro מעוצבים באמצעות מנתחים אלו.
 
-> **מגבלה ידועה.** Prettier מפעיל תוסף יחיד לכל parser. אם תוסף אחר מחליף גם הוא את מנתחי ה-JavaScript/TypeScript (לדוגמה `prettier-plugin-tailwindcss`), רק התוסף האחרון ברשימה יוחל על קבצים אלו. הגדר את טווח `prettier-plugin-intlayer` לקובצי `*.content.*` באמצעות override כדי למנוע התנגשות. עם oxfmt, מחלקות Tailwind ממוינות באמצעות האפשרות המובנית `sortTailwindcss`, כך שההתנגשות הזו אינה רלוונטית.
+> **מגבלה ידועה.** Prettier מפעיל תוסף יחיד לכל parser. אם תוסף אחר מחליף גם הוא את מנתחי ה-JavaScript/TypeScript (לדוגמה `prettier-plugin-tailwindcss`), רק התוסף האחרון ברשימה יוחל על קבצים אלו. הגדר את טווח `prettier-plugin-intlayer` לקובצי `*.content.*` באמצעות override כדי למנוע התנגשות. עם oxfmt, מחלקות Tailwind ממוינות באמצעות האפשרות המובנית `sortTailwindcss`, כך שההתנגשות הזו אינה רלוונטית. במקרה כזה, הסתמכו על [כלל ESLint `no-node-as-string`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/eslint.md) עבור `.value` בקומפוננטות.
