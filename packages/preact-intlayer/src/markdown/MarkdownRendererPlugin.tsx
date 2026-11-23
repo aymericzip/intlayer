@@ -7,6 +7,7 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { ComponentChildren, FunctionComponent } from 'preact';
 import { useLocale } from '../client/useLocale';
+import { useEditedContentSource } from '../editor/useEditedContentSource';
 import type { HTMLComponents } from '../html/types';
 import {
   type MarkdownProviderOptions,
@@ -25,8 +26,11 @@ type MarkdownRendererPluginProps = {
 export const MarkdownRendererPlugin: FunctionComponent<
   MarkdownRendererPluginProps
 > = (props): ComponentChildren => {
-  const { children, options, components } = props;
+  const { dictionaryKey, keyPath, options, components } = props;
   const context = useMarkdownContext();
+  // Live preview of the source edited in the visual editor
+  const editedSource = useEditedContentSource(dictionaryKey, keyPath);
+  const children = editedSource ?? props.children;
   const renderMarkdown = context?.renderMarkdown ?? ((md) => md);
 
   return renderMarkdown(children, options, {

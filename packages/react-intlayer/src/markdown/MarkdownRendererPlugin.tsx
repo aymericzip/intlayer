@@ -3,6 +3,7 @@
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { FC, ReactNode } from 'react';
+import { useEditedContentSource } from '../editor/useEditedContentSource';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
 import {
   type MarkdownProviderOptions,
@@ -22,8 +23,11 @@ type MarkdownRendererPluginProps = {
 export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
   props
 ): ReactNode => {
-  const { children, options, components } = props;
+  const { dictionaryKey, keyPath, options, components } = props;
   const context = useMarkdownContext();
+  // Live preview of the source edited in the visual editor
+  const editedSource = useEditedContentSource(dictionaryKey, keyPath);
+  const children = editedSource ?? props.children;
 
   if (context) {
     return context.renderMarkdown(children, options, {

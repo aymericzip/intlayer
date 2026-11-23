@@ -10,6 +10,7 @@ import {
   useContext,
   type ValidComponent,
 } from 'solid-js';
+import { createEditedContentSource } from '../editor/createEditedContentSource';
 import type { HTMLComponents } from '../html/types';
 import { LoadingBoundary } from '../LoadingBoundary';
 import { createAsyncValue } from '../solidCompat';
@@ -61,11 +62,16 @@ export type MarkdownRendererProps = RenderMarkdownOptions & {
 export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {
   const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
+  // Live preview of the source edited in the visual editor
+  const editedSource = createEditedContentSource(
+    () => props.dictionaryKey,
+    () => props.keyPath
+  );
 
   const rendered = createAsyncValue(
     () =>
       [
-        props.children,
+        editedSource() ?? props.children,
         props.forceBlock,
         props.preserveFrontmatter,
         props.tagfilter,

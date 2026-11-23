@@ -41,6 +41,7 @@ import {
   type VNodeChild,
 } from 'vue';
 import { reportExposure } from './analytics/exposureSink';
+import { EditedContentSource } from './editor/EditedContentSource';
 import { renderHTML } from './html/HTMLRenderer';
 import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
@@ -293,8 +294,8 @@ export const insertionPlugin: Plugins =
                 ...subProps,
                 children: node,
                 plugins: (props.plugins ?? ([] as Plugins[])).filter(
-                    (plugin) => plugin.id !== 'intlayer-node-plugin'
-                  ),
+                  (plugin) => plugin.id !== 'intlayer-node-plugin'
+                ),
               });
 
               return (values: {
@@ -384,10 +385,11 @@ export const markdownStringPlugin: Plugins =
                 const { renderMarkdown, components: contextComponents } =
                   useMarkdown();
 
-                const content = renderMarkdown(node, undefined, {
-                  ...(contextComponents ?? {}),
-                  ...(components ?? {}),
-                });
+                const renderContent = (source: string) =>
+                  renderMarkdown(source, undefined, {
+                    ...(contextComponents ?? {}),
+                    ...(components ?? {}),
+                  }) as VNodeChild;
 
                 if (
                   process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
@@ -400,12 +402,27 @@ export const markdownStringPlugin: Plugins =
                       keyPath: rest.keyPath,
                     },
                     {
-                      default: () => content as VNodeChild,
+                      // Live preview of the source edited in the visual editor
+                      default: () =>
+                        h(
+                          EditedContentSource,
+                          {
+                            dictionaryKey: rest.dictionaryKey,
+                            keyPath: rest.keyPath,
+                          },
+                          {
+                            default: ({
+                              editedSource,
+                            }: {
+                              editedSource?: string;
+                            }) => renderContent(editedSource ?? node),
+                          }
+                        ),
                     }
                   );
                 }
 
-                return content as VNodeChild;
+                return renderContent(node);
               },
               additionalProps: {
                 metadata: metadataNodes,
@@ -499,7 +516,27 @@ export const htmlPlugin: Plugins =
                           ...userComponents,
                         },
                         {
-                          default: () => element,
+                          // Live preview of the source edited in the visual editor
+                          default: () =>
+                            h(
+                              EditedContentSource,
+                              {
+                                dictionaryKey: props.dictionaryKey,
+                                keyPath: props.keyPath,
+                              },
+                              {
+                                default: ({
+                                  editedSource,
+                                }: {
+                                  editedSource?: string;
+                                }) =>
+                                  editedSource === undefined
+                                    ? element
+                                    : renderHTML(editedSource, {
+                                        components: userComponents,
+                                      }),
+                              }
+                            ),
                         }
                       )
                   : element,
