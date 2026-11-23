@@ -6,6 +6,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { GitBranch } from 'lucide-react';
 import type { FC } from 'react';
+import { ScreenshotLink } from './ProjectScreenshot';
 
 export interface ProjectCardProps {
   project: ProjectAPI;
@@ -48,14 +49,16 @@ export const ProjectCard: FC<ProjectCardProps> = ({
           roundedSize="xl"
           background="none"
         >
-          <img
-            src={project.imageUrl}
-            alt={`${project.name} screenshot`}
-            width={1280}
-            height={720}
-            crossOrigin="anonymous"
-            className="aspect-video w-full object-cover"
-          />
+          <ScreenshotLink href={project.configuration?.editor?.applicationURL}>
+            <img
+              src={project.imageUrl}
+              alt={`${project.name} screenshot`}
+              width={1280}
+              height={720}
+              crossOrigin="anonymous"
+              className="aspect-video w-full object-cover"
+            />
+          </ScreenshotLink>
         </Container>
       )}
       <h3 className="text-xl font-bold">{project.name}</h3>

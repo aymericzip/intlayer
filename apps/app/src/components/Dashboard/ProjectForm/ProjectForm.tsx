@@ -136,6 +136,7 @@ export const ProjectFormContent: FC = () => {
         imageUrl={project.imageUrl}
         projectName={project.name}
         canRegenerate={Boolean(isProjectAdmin)}
+        applicationURL={project.configuration?.editor?.applicationURL}
       />
     );
 
