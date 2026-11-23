@@ -118,12 +118,91 @@ describe('detectTechnologies', () => {
     // oxlint-disable-next-line no-template-curly-in-string -- minified bundle fixture
     ['fluent', 'e.reportError(ReferenceError(`Unknown term: ${i}`))'],
     [
-      'solid-primitives-i18n',
+      'angular-localize',
       // oxlint-disable-next-line no-template-curly-in-string -- minified bundle fixture
-      'e=e.replace(RegExp(`{{\\\\s*${n}\\\\s*}}`,`g`),r)',
+      'throw Error(`Unterminated $localize metadata block in "${e}".`)',
     ],
+    ['transloco', 'params:["translocoParams","params"]'],
+    ['transloco', 'ɵɵdefinePipe({name:"transloco",type:t,pure:!1})'],
+    ['angular-l10n', 'complete:()=>{this.releaseTranslation(t),r()}'],
+    ['angular-l10n', 'inputs:{l10nTranslate:"l10nTranslate"}'],
+    [
+      'typesafe-i18n',
+      'Object.assign(Object.defineProperty(()=>"","name",{writable:!0}),e)',
+    ],
+    ['sveltekit-i18n', 'pi=({logger:e=console,prefix:r="[i18n]: "})=>{}'],
+    ['i18next-vue', 'e.config.globalProperties.$i18next=c'],
+    ['nuxt-i18n', 'console.warn("[nuxt-i18n] Could not find domain name")'],
   ])('detects %s from its production bundle', (id, script) => {
     expect(detectedIds({ scripts: [script] })).toContain(id);
+  });
+
+  it('detects Angular and its version from a client-rendered bundle', () => {
+    const technologies = detectTechnologies({
+      html: '<app-root></app-root>',
+      scripts: ['let o=e?[`ng-version`,`22.1.7`]:Ov(t.selectors[0])'],
+    });
+    expect(technologies.find(({ id }) => id === 'angular')?.version).toBe(
+      '22.1.7'
+    );
+  });
+
+  it('only reports @solid-primitives/i18n on Solid apps', () => {
+    const translator =
+      'switch(typeof u){case"function":return u(...i);case"string":return t(u,i[0]);default:return u}';
+    expect(detectedIds({ scripts: [translator] })).not.toContain(
+      'solid-primitives-i18n'
+    );
+    expect(
+      detectedIds({ scripts: [translator, 'w.done=_$HY.done=!0'] })
+    ).toContain('solid-primitives-i18n');
+  });
+
+  it('ignores the `{{ key }}` RegExp shared by Intlayer and other libraries', () => {
+    const ids = detectedIds({
+      html: '<app-root ng-version="20.3.34"></app-root>',
+      scripts: [
+        // oxlint-disable-next-line no-template-curly-in-string -- minified bundle fixture
+        'l=l.replace(new RegExp(`{{\\\\s*${d}\\\\s*}}`,`g`),String(f));const a="INTLAYER_NODE_TYPE_"',
+      ],
+    });
+    expect(ids).toEqual(['angular', 'intlayer']);
+  });
+
+  it.each([
+    ['solid', 'var ee="_$DX_DELEGATE";'],
+    ['solid', 'const t="_$SOLID_EVENT_OWNER";'],
+    ['remix-3', 'e.getAttribute("data-rmx-target")'],
+  ])('detects the %s framework from its production bundle', (id, script) => {
+    expect(detectedIds({ scripts: [script] })).toContain(id);
+  });
+
+  it.each([
+    ['astro', [], ['https://example.com/_astro/index.B1x2.js']],
+    [
+      'solid-start',
+      ['w.done=_$HY.done=!0'],
+      ['https://example.com/_build/assets/client-Ab12.js'],
+    ],
+    [
+      'analog',
+      [
+        'let o=e?["ng-version","21.0.0"]:x',
+        'new P("@analogjs/router Base URL")',
+      ],
+      [],
+    ],
+  ])('detects the %s meta-framework', (id, scripts, resourceUrls) => {
+    const ids = detectedIds({ scripts, resourceUrls });
+    expect(ids).toContain(id);
+    // The underlying framework is hidden by its meta-framework.
+    expect(ids).not.toContain(id === 'analog' ? 'angular' : 'solid');
+  });
+
+  it('detects Remix 3 from its server-rendered frame markers', () => {
+    expect(
+      detectedIds({ html: '<!-- rmx:h:abc --><div data-rmx-target="x">' })
+    ).toEqual(['remix-3']);
   });
 
   it('reports General Translation as gt-next on Next.js sites', () => {

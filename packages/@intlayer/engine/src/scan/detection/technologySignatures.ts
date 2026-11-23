@@ -92,6 +92,14 @@ const frameworkSignatures: TechnologySignature[] = [
     globals: ['__remixContext'],
   },
   {
+    // `remix/component` SSR: frame / hydration comments and `data-rmx-*` attrs.
+    id: 'remix-3',
+    name: 'Remix 3',
+    category: 'framework',
+    html: [/<!--\s*rmx:[hf]:|\bdata-rmx-(?:document|target|src)\b/],
+    bundle: [quoted('<Q>data-rmx-(?:document|target|src)<Q>')],
+  },
+  {
     id: 'react-router',
     name: 'React Router',
     category: 'framework',
@@ -120,6 +128,7 @@ const frameworkSignatures: TechnologySignature[] = [
       /<meta[^>]+name=["']generator["'][^>]+content=["']Astro v?([\d.]+)/i,
       /<astro-(?:island|slot)\b/,
     ],
+    resourceUrls: [/\/_astro\//],
   },
   {
     id: 'sveltekit',
@@ -139,7 +148,25 @@ const frameworkSignatures: TechnologySignature[] = [
     id: 'angular',
     name: 'Angular',
     category: 'framework',
-    html: [/ng-version=["']([\d.]+)/],
+    html: [
+      /ng-version=["']([\d.]+)/,
+      /\bng-server-context=|\b_ng(?:host|content)-[\w-]+=/,
+    ],
+    // Client-rendered apps only set `ng-version` at runtime, from the bundle:
+    // `["ng-version","22.1.7"]` (v17+) or `["ng-version",VERSION.full]`.
+    bundle: [
+      quoted(
+        String.raw`\[<Q>ng-version<Q>,\s*(?:<Q>(\d+\.\d+\.\d+[\w.-]*)<Q>|[\w$]+\.full)`
+      ),
+    ],
+    hiddenBy: ['analog'],
+  },
+  {
+    id: 'analog',
+    name: 'Analog',
+    category: 'framework',
+    bundle: [/@analogjs\/router |\/_analog\/pages|X-Analog-Component/],
+    requires: ['angular'],
   },
   {
     id: 'vue',
@@ -155,8 +182,19 @@ const frameworkSignatures: TechnologySignature[] = [
     name: 'SolidJS',
     category: 'framework',
     html: [/_\$HY\b/],
-    bundle: [/\b_\$HY\.done\b/],
+    // `_$HY.done` / `_$DX_DELEGATE` (Solid 1), `_$SOLID_EVENT_OWNER` (Solid 2).
+    bundle: [/\b_\$HY\.done\b|\b_\$DX_DELEGATE\b|\b_\$SOLID_EVENT_OWNER\b/],
     globals: ['_$HY'],
+    hiddenBy: ['solid-start'],
+  },
+  {
+    // Vinxi / SolidStart asset directory; older TanStack Start used it too.
+    id: 'solid-start',
+    name: 'SolidStart',
+    category: 'framework',
+    resourceUrls: [/\/_build\/assets\//],
+    requires: ['solid'],
+    hiddenBy: ['tanstack-start'],
   },
   {
     id: 'qwik',
@@ -286,7 +324,13 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     globals: ['i18next'],
     storageKeys: ['i18nextLng', 'i18next'],
     versionGlobal: 'i18next.version',
-    hiddenBy: ['next-i18next', 'react-i18next'],
+    hiddenBy: ['next-i18next', 'react-i18next', 'i18next-vue'],
+  },
+  {
+    id: 'i18next-vue',
+    name: 'i18next-vue',
+    category: 'i18n-library',
+    bundle: [/i18next-vue: |\.globalProperties\.\$i18next\s*=/],
   },
   {
     id: 'react-intl',
@@ -298,7 +342,8 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'nuxt-i18n',
     name: '@nuxtjs/i18n',
     category: 'i18n-library',
-    bundle: [/__NUXT_I18N_|nuxt-i18n-slp/],
+    html: [/\bdata-nuxt-i18n-slp=/],
+    bundle: [/__NUXT_I18N_|nuxt-i18n-slp|\[nuxt-i18n\] /],
     storageKeys: ['i18n_redirected'],
   },
   {
@@ -320,6 +365,27 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     name: 'svelte-i18n',
     category: 'i18n-library',
     bundle: [/\[svelte-i18n\]/],
+  },
+  {
+    // `@sveltekit-i18n/base` logger prefix and missing-key warning.
+    id: 'sveltekit-i18n',
+    name: 'sveltekit-i18n',
+    category: 'i18n-library',
+    bundle: [
+      quoted(String.raw`prefix:\s*\w+\s*=\s*<Q>\[i18n\]: <Q>`),
+      /No translation provided for '[^']{0,40}' key in /,
+    ],
+  },
+  {
+    // Proxy-based translator: `Object.defineProperty(()=>"","name",{writable:!0})`.
+    id: 'typesafe-i18n',
+    name: 'typesafe-i18n',
+    category: 'i18n-library',
+    bundle: [
+      quoted(
+        String.raw`defineProperty\(\(\)\s*=>\s*<Q><Q>,\s*<Q>name<Q>,\s*\{\s*writable:\s*(?:!0|true)\s*\}\)`
+      ),
+    ],
   },
   {
     // The cookie / storage names are configurable and often tree-shaken: the
@@ -345,13 +411,35 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'transloco',
     name: 'Transloco',
     category: 'i18n-library',
-    bundle: [/\bTRANSLOCO_[A-Z_]+/],
+    // Injection-token names are stripped in production (`ngDevMode`), the
+    // directive inputs and pipe name are kept by the Angular compiler.
+    bundle: [
+      /\bTRANSLOCO_[A-Z_]+/,
+      quoted(
+        '<Q>transloco(?:Params|Scope|Read|Prefix|Lang|LoadingTpl)<Q>|name:\\s*<Q>transloco<Q>'
+      ),
+    ],
   },
   {
     id: 'angular-localize',
     name: 'Angular @angular/localize',
     category: 'i18n-library',
+    // `@angular/localize/init` polyfill, kept even when translations are inlined.
+    bundle: [
+      /Unterminated \$localize metadata block|globalThis\.\$localize\s*=/,
+    ],
     globals: ['$localize'],
+  },
+  {
+    id: 'angular-l10n',
+    name: 'angular-l10n',
+    category: 'i18n-library',
+    bundle: [
+      /\breleaseTranslation\(/,
+      quoted(
+        '<Q>l10n(?:Translate|Plural|Date|Number|TimeAgo|DisplayNames)(?:Async)?<Q>'
+      ),
+    ],
   },
   {
     id: 'next-translate',
@@ -365,7 +453,8 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     id: 'next-international',
     name: 'next-international',
     category: 'i18n-library',
-    bundle: [/\bI18nProviderClient\b/],
+    // `createI18nClient()` returns `{ useI18n, useScopedI18n, I18nProviderClient… }`.
+    bundle: [/\bI18nProviderClient\b|\buseScopedI18n:/],
     requires: ['nextjs'],
   },
   {
@@ -409,10 +498,17 @@ const i18nLibrarySignatures: TechnologySignature[] = [
     hiddenBy: ['fluent-vue'],
   },
   {
+    // `translator()` body. Its `{{ key }}` RegExp is a common idiom (Intlayer's
+    // `insert()` has the same one), so it is not used as a signal.
     id: 'solid-primitives-i18n',
     name: '@solid-primitives/i18n',
     category: 'i18n-library',
-    bundle: [quoted(String.raw`RegExp\(<Q>\{\{\\\\s\*\$\{\w+\}\\\\s\*\}\}<Q>`)],
+    bundle: [
+      quoted(
+        String.raw`case\s*<Q>function<Q>:\s*return \w+\(\.\.\.\w+\);?\s*case\s*<Q>string<Q>:\s*return \w+\(\w+,\s*\w+\[0\]\)`
+      ),
+    ],
+    requires: ['solid'],
   },
   {
     id: 'next-locale',
