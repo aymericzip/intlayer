@@ -28,6 +28,7 @@ import { type FC, type ReactNode, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { getIsEditableSection } from '../getIsEditableSection';
 import { useFieldReorder } from '../useFieldReorder';
+import { getArrayItemLabel } from './getArrayItemLabel';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -218,6 +219,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             ];
 
             const isEditableSubSection = getIsEditableSection(subSection);
+            const itemLabel =
+              getArrayItemLabel(subSection, currentLocale) ?? `Item ${index}`;
 
             if (isEditableSubSection) {
               return (
@@ -234,7 +237,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                     IconRight={ChevronRight}
                     isActive={getIsSelected(childKeyPath)}
                   >
-                    Item {index}
+                    {itemLabel}
                   </Button>
                 </ReorderableItem>
               );
@@ -247,7 +250,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               >
                 <GatedAccordion
                   label={`${goToField.label.value} ${index}`}
-                  header={`Item ${index}`}
+                  header={itemLabel}
                   isActive={getIsSelected(childKeyPath)}
                   onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 >

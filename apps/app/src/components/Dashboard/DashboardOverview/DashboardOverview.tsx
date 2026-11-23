@@ -144,9 +144,6 @@ export const DashboardOverview: FC = () => {
 
   return (
     <div className="flex flex-col gap-6 p-6">
-      {/* Audience analytics — who is actually seeing the content */}
-      <DashboardAudience hideWhenEmpty />
-
       {/* Headline metrics */}
       <div className="flex flex-wrap gap-4">
         <StatCard
@@ -508,6 +505,9 @@ export const DashboardOverview: FC = () => {
           </div>
         </Container>
       </div>
+
+      {/* Audience analytics, after the localization health the page is for */}
+      <DashboardAudience hideWhenEmpty />
     </div>
   );
 };

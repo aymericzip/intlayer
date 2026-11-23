@@ -30,6 +30,7 @@ import {
 } from '#components/Dashboard/DashboardSidebar';
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
 import { DemoBanner } from '#components/Dashboard/DemoBanner';
+import { NavigationProgressBar } from '#components/Dashboard/NavigationProgressBar';
 import { TranslationStatusBar } from '#components/TranslationStatusBar';
 import {
   DashboardRightPanelId,
@@ -304,8 +305,9 @@ function DashboardLayout() {
         className="flex h-screen max-h-screen flex-col bg-card md:overflow-hidden"
         style={{ fontSize: '75%' }}
       >
-        <DashboardNavbar items={navigationItems} />
+        <NavigationProgressBar />
         <DemoBanner />
+        <DashboardNavbar items={navigationItems} />
         <div className="relative flex min-h-0 w-full flex-1">
           <DashboardSidebar
             items={navigationItems}

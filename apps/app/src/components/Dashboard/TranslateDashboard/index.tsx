@@ -1,3 +1,4 @@
+import { camelCaseToSentence } from '@intlayer/config/client';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import {
   getContentNodeByKeyPath,
@@ -56,11 +57,50 @@ import {
   type FlattenedDictionaryNode,
   flattenDictionary,
 } from './flattenDictionary';
+import { getParentPathStartIndices } from './getParentPathStartIndices';
 import { SaveAllButton } from './SaveAllButton';
 import { TranslateSkeleton } from './TranslateSkeleton';
 
+type TranslateRowLabelProps = {
+  dictionaryKey: string;
+  keyPath: KeyPath[];
+  isParentPathStart: boolean;
+};
+
+/**
+ * Row heading: the parent path breadcrumb on the first row of a group only,
+ * then the field name, so siblings do not repeat the same long path.
+ */
+const TranslateRowLabel: FC<TranslateRowLabelProps> = ({
+  dictionaryKey,
+  keyPath,
+  isParentPathStart,
+}) => {
+  const parentKeyPath = keyPath.slice(0, -1);
+  const fieldKey = keyPath[keyPath.length - 1]?.key;
+
+  return (
+    <div className="flex shrink-0 flex-col gap-1 pt-2">
+      {isParentPathStart && parentKeyPath.length > 0 && (
+        <KeyPathBreadcrumb
+          showDictionaryKey={false}
+          dictionaryKey={dictionaryKey}
+          keyPath={parentKeyPath}
+          color="neutral"
+        />
+      )}
+      {typeof fieldKey !== 'undefined' && (
+        <span className="font-medium text-text">
+          {camelCaseToSentence(String(fieldKey))}
+        </span>
+      )}
+    </div>
+  );
+};
+
 const TranslateRow: FC<{
   nodes: FlattenedDictionaryNode[];
+  isParentPathStart: boolean;
   selectedLocales: LocalesValues[];
   selectedKeyPath: KeyPath[];
   onFocusField: (
@@ -68,7 +108,13 @@ const TranslateRow: FC<{
     dictionaryLocalId: string | undefined,
     keyPath: KeyPath[]
   ) => void;
-}> = ({ nodes, selectedLocales, selectedKeyPath, onFocusField }) => {
+}> = ({
+  nodes,
+  isParentPathStart,
+  selectedLocales,
+  selectedKeyPath,
+  onFocusField,
+}) => {
   const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
   const defaultLocale =
@@ -86,7 +132,7 @@ const TranslateRow: FC<{
 
   if (nodeType === NodeTypes.TRANSLATION) {
     return (
-      <div className="px-4 py-2">
+      <div className={cn('px-4', isParentPathStart ? 'pt-4 pb-1' : 'py-1')}>
         <Container
           background="none"
           roundedSize="2xl"
@@ -96,14 +142,11 @@ const TranslateRow: FC<{
             isSameKeyPath(keyPath, selectedKeyPath) && 'border-text/80'
           )}
         >
-          <div className="shrink-0 pt-2">
-            <KeyPathBreadcrumb
-              showDictionaryKey={false}
-              dictionaryKey={dictionary.key}
-              keyPath={keyPath}
-              color="neutral"
-            />
-          </div>
+          <TranslateRowLabel
+            dictionaryKey={dictionary.key}
+            keyPath={keyPath}
+            isParentPathStart={isParentPathStart}
+          />
           <div
             style={{
               display: 'inline-grid',
@@ -207,7 +250,7 @@ const TranslateRow: FC<{
   }
 
   return (
-    <div className="px-4 py-2">
+    <div className={cn('px-4', isParentPathStart ? 'pt-4 pb-1' : 'py-1')}>
       <Container
         background="none"
         roundedSize="2xl"
@@ -217,14 +260,11 @@ const TranslateRow: FC<{
           isSameKeyPath(keyPath, selectedKeyPath) && 'border-text/80'
         )}
       >
-        <div className="shrink-0 pt-2">
-          <KeyPathBreadcrumb
-            showDictionaryKey={false}
-            dictionaryKey={dictionary.key}
-            keyPath={keyPath}
-            color="neutral"
-          />
-        </div>
+        <TranslateRowLabel
+          dictionaryKey={dictionary.key}
+          keyPath={keyPath}
+          isParentPathStart={isParentPathStart}
+        />
         <div className="flex w-full flex-1 flex-col gap-2">
           {nodes.map((node, index) => {
             const { dictionary, content: originalContent } = node;
@@ -521,6 +561,12 @@ const TranslateDashboardList: FC = () => {
     }
   }, [mergedNodes, currentTopIndex]);
 
+  /** Indices of the rows opening a parent group, which show the full path */
+  const parentPathStartIndices = useMemo(
+    () => getParentPathStartIndices(mergedNodes),
+    [mergedNodes]
+  );
+
   /** Indices of the first row of each dictionary, used to draw separators */
   const groupStartIndices = useMemo(() => {
     const starts = new Set<number>();
@@ -710,6 +756,7 @@ const TranslateDashboardList: FC = () => {
                 )}
                 <TranslateRow
                   nodes={mergedNodes[index]}
+                  isParentPathStart={parentPathStartIndices.has(index)}
                   selectedLocales={selectedLocales}
                   selectedKeyPath={focusedContent?.keyPath ?? []}
                   onFocusField={(dictionaryKey, dictionaryLocalId, keyPath) =>

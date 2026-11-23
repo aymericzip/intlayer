@@ -19,26 +19,27 @@ export const DemoBanner: FC = () => {
   if (!session?.isDemo) return null;
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 border-b border-neutral/40 bg-text/5 px-4 py-2 text-sm">
-      <span className="flex items-center gap-2 text-neutral">
+    <div className="flex w-full shrink-0 items-center justify-end gap-20 border-b border-text/80! bg-card px-4 py-3 text-sm">
+      <span className="flex min-w-0 items-center gap-2 text-text/80">
         <Eye className="size-4 shrink-0" aria-hidden />
-        {message}
+        <span className="truncate">{message}</span>
       </span>
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-2">
         <Link
           to={App_Auth_SignUp_Path}
           color="text"
           variant="button"
+          size="sm"
           label={createProject.label.value}
-          className="px-3 py-1 text-xs"
         >
           {createProject.text}
         </Link>
         <Link
           to={App_Auth_SignIn_Path}
           color="text"
+          variant="button-outlined"
+          size="sm"
           label={signIn.label.value}
-          className="text-xs"
         >
           {signIn.text}
         </Link>
