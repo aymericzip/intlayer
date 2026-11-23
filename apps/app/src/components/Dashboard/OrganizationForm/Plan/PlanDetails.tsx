@@ -149,16 +149,20 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
           </Button>
         )}
         {!getIsFreePlan(plan) && plan?.status === 'active' && (
-          <Button
-            label={cancelButton.label.value}
-            color="error"
-            variant="outline"
-            Icon={CircleX}
-            onClick={() => setIsCancellationModalOpen(true)}
-            disabled={!isOrganizationAdmin}
-          >
-            {cancelButton.text}
-          </Button>
+          // Kept away from the main actions: cancelling is rare and destructive.
+          <div className="mt-4 flex justify-end border-t border-neutral/20 pt-3">
+            <Button
+              label={cancelButton.label.value}
+              color="error"
+              variant="hoverable"
+              size="sm"
+              Icon={CircleX}
+              onClick={() => setIsCancellationModalOpen(true)}
+              disabled={!isOrganizationAdmin}
+            >
+              {cancelButton.text}
+            </Button>
+          </div>
         )}
       </div>
       {plan?.customerId && (

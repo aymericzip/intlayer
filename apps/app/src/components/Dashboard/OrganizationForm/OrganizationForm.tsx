@@ -1,14 +1,26 @@
 import { useGetOrganizations, useSession } from '@intlayer/design-system/api';
-import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
-import { Trash, TriangleAlert } from 'lucide-react';
+import {
+  CreditCard,
+  Mail,
+  Settings,
+  ShieldCheck,
+  TriangleAlert,
+  Users,
+} from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AICredits } from '#components/AICredits/AICredits';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { IS_SELF_HOSTED } from '#utils/selfHosted';
+import {
+  DangerZoneCard,
+  type SettingsSection,
+  SettingsCard,
+  SettingsSectionLayout,
+} from '../SettingsSectionLayout';
 import { DeleteOrganizationModal } from './DeleteOrganizationModal';
 import { MailerSettings } from './Mailer';
 import { MembersForm } from './Members/MembersForm';
@@ -19,6 +31,14 @@ import { OrganizationList } from './OrganizationList';
 import { OrganizationSkeleton } from './OrganizationSkeleton';
 import { PlanDetails } from './Plan/PlanDetails';
 import { SSOSettings } from './SSO';
+
+type OrganizationSettingsSectionId =
+  | 'general'
+  | 'members'
+  | 'plan'
+  | 'security'
+  | 'email'
+  | 'danger-zone';
 
 const OrganizationFormContent: FC = () => {
   const { session } = useSession();
@@ -31,111 +51,96 @@ const OrganizationFormContent: FC = () => {
   const { data: organizations, isPending, isSuccess } = useGetOrganizations();
   const { dangerZoneTitle, dangerZoneDescription, deleteOrganizationButton } =
     useIntlayer('organization-form');
+  const { sections: sectionLabels } = useIntlayer('settings-section-layout');
 
   if (organization) {
-    return (
-      <div className="flex max-w-6xl flex-col items-center justify-center gap-8">
-        <div className="relative grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
-          <div className="top-20 mb-auto flex min-w-0 flex-col gap-4 md:sticky">
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <OrganizationEditionForm />
-            </Container>
+    const sections: SettingsSection<OrganizationSettingsSectionId>[] = [
+      {
+        id: 'general',
+        label: sectionLabels.general.value,
+        icon: Settings,
+        content: (
+          <SettingsCard>
+            <OrganizationEditionForm />
+          </SettingsCard>
+        ),
+      },
+      {
+        id: 'members',
+        label: sectionLabels.members.value,
+        icon: Users,
+        content: (
+          <SettingsCard>
+            <MembersForm />
+          </SettingsCard>
+        ),
+      },
+      {
+        id: 'plan',
+        label: sectionLabels.plan.value,
+        icon: CreditCard,
+        content: (
+          <>
             {!IS_SELF_HOSTED && (
-              <Container
-                roundedSize="3xl"
-                padding="md"
-                border
-                borderColor="neutral"
-                className="flex size-full justify-center"
-              >
+              <SettingsCard>
                 <PlanDetails />
-              </Container>
+              </SettingsCard>
             )}
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
+            <SettingsCard>
               <AICredits />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <SSOSettings />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <MailerSettings />
-            </Container>
-          </div>
-          <div className="top-20 mb-auto flex min-w-0 flex-col gap-4 md:sticky">
-            <Container
-              padding="md"
-              roundedSize="3xl"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <MembersForm />
-            </Container>
-          </div>
-        </div>
-        {isOrganizationAdmin && (
-          <Container
-            roundedSize="3xl"
-            border
-            borderColor="error"
-            padding="lg"
-            transparency="lg"
-            className="z-10 w-full"
+            </SettingsCard>
+          </>
+        ),
+      },
+      {
+        id: 'security',
+        label: sectionLabels.security.value,
+        icon: ShieldCheck,
+        content: (
+          <SettingsCard>
+            <SSOSettings />
+          </SettingsCard>
+        ),
+      },
+      {
+        id: 'email',
+        label: sectionLabels.email.value,
+        icon: Mail,
+        content: (
+          <SettingsCard>
+            <MailerSettings />
+          </SettingsCard>
+        ),
+      },
+    ];
+
+    if (isOrganizationAdmin) {
+      sections.push({
+        id: 'danger-zone',
+        label: sectionLabels.dangerZone.value,
+        icon: TriangleAlert,
+        tone: 'danger',
+        content: (
+          <DangerZoneCard
+            title={dangerZoneTitle}
+            description={dangerZoneDescription}
+            buttonLabel={deleteOrganizationButton.ariaLabel.value}
+            buttonText={deleteOrganizationButton.text}
+            onDelete={() => setIsDeletionModalOpen(true)}
           >
             <DeleteOrganizationModal
               isOpen={isDeletionModalOpen}
               onClose={() => setIsDeletionModalOpen(false)}
               onDelete={() => setIsDeletionModalOpen(false)}
             />
-            <div className="flex items-start gap-6 px-4">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-error/10">
-                <TriangleAlert className="size-5 text-error" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-base font-medium text-error">
-                  {dangerZoneTitle}
-                </h3>
-                <p className="mt-1 text-sm text-neutral">
-                  {dangerZoneDescription}
-                </p>
-                <Button
-                  color="error"
-                  label={deleteOrganizationButton.ariaLabel.value}
-                  variant="outline"
-                  onClick={() => setIsDeletionModalOpen(true)}
-                  Icon={Trash}
-                  className="mt-4"
-                >
-                  {deleteOrganizationButton.text}
-                </Button>
-              </div>
-            </div>
-          </Container>
-        )}
+          </DangerZoneCard>
+        ),
+      });
+    }
+
+    return (
+      <div className="flex w-full flex-1 flex-col gap-8 self-start">
+        <SettingsSectionLayout sections={sections} />
       </div>
     );
   }

@@ -1,11 +1,24 @@
 import type { GetUsersResult } from '@intlayer/backend-contract/user';
 import { useGetUsers, useSession } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
-import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { GitBranch, Trash, TriangleAlert } from 'lucide-react';
+import {
+  GitBranch,
+  KeyRound,
+  Settings,
+  SlidersHorizontal,
+  Sparkles,
+  TriangleAlert,
+  Users,
+} from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import {
+  DangerZoneCard,
+  type SettingsSection,
+  SettingsCard,
+  SettingsSectionLayout,
+} from '../SettingsSectionLayout';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
 import { AutoFillSettings } from './AutoFillSettings/AutoFillSettings';
 import { BuildSettings } from './BuildSettings/BuildSettings';
@@ -20,6 +33,15 @@ import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
 import { ProjectScreenshot } from './ProjectScreenshot';
 import { RepositoryLink } from './RepositoryLink';
+
+type ProjectSettingsSectionId =
+  | 'general'
+  | 'members'
+  | 'access-keys'
+  | 'configuration'
+  | 'ai'
+  | 'repository'
+  | 'danger-zone';
 
 export const ProjectFormContent: FC = () => {
   const { session } = useSession();
@@ -39,6 +61,7 @@ export const ProjectFormContent: FC = () => {
     dangerZoneDescription,
     deleteProjectButton,
   } = useIntlayer('project-form');
+  const { sections: sectionLabels } = useIntlayer('settings-section-layout');
 
   const { data: usersData, isPending: isLoadingUsers } = useGetUsers(
     {
@@ -116,8 +139,115 @@ export const ProjectFormContent: FC = () => {
       />
     );
 
+    const sections: SettingsSection<ProjectSettingsSectionId>[] = [
+      {
+        id: 'general',
+        label: sectionLabels.general.value,
+        icon: Settings,
+        content: (
+          <SettingsCard>
+            <ProjectEditionForm />
+          </SettingsCard>
+        ),
+      },
+      {
+        id: 'members',
+        label: sectionLabels.members.value,
+        icon: Users,
+        content: (
+          <SettingsCard>
+            <MembersForm />
+          </SettingsCard>
+        ),
+      },
+      {
+        id: 'access-keys',
+        label: sectionLabels.accessKeys.value,
+        icon: KeyRound,
+        content: (
+          <SettingsCard>
+            <AccessKeyForm />
+          </SettingsCard>
+        ),
+      },
+      {
+        id: 'configuration',
+        label: sectionLabels.configuration.value,
+        icon: SlidersHorizontal,
+        content: (
+          <>
+            <SettingsCard>
+              <ConfigDetails projectConfig={project.configuration} />
+            </SettingsCard>
+            <SettingsCard>
+              <EnvironmentsForm />
+            </SettingsCard>
+          </>
+        ),
+      },
+      {
+        id: 'ai',
+        label: sectionLabels.ai.value,
+        icon: Sparkles,
+        content: (
+          <>
+            <SettingsCard>
+              <OpenRouterSettings />
+            </SettingsCard>
+            <SettingsCard>
+              <AutoFillSettings />
+            </SettingsCard>
+          </>
+        ),
+      },
+      {
+        id: 'repository',
+        label: sectionLabels.repository.value,
+        icon: GitBranch,
+        content: (
+          <>
+            {isProjectAdmin && !project.repository && (
+              <SettingsCard>
+                <GitImportPrompt mode="connect" />
+              </SettingsCard>
+            )}
+            <SettingsCard>
+              <RepositoryLink />
+            </SettingsCard>
+            <SettingsCard>
+              <BuildSettings />
+            </SettingsCard>
+          </>
+        ),
+      },
+    ];
+
+    if (isProjectAdmin) {
+      sections.push({
+        id: 'danger-zone',
+        label: sectionLabels.dangerZone.value,
+        icon: TriangleAlert,
+        tone: 'danger',
+        content: (
+          <DangerZoneCard
+            title={dangerZoneTitle}
+            description={dangerZoneDescription}
+            buttonLabel={deleteProjectButton.ariaLabel.value}
+            buttonText={deleteProjectButton.text}
+            onDelete={() => setIsDeletionModalOpen(true)}
+          >
+            <DeleteProjectModal
+              isOpen={isDeletionModalOpen}
+              onClose={() => setIsDeletionModalOpen(false)}
+              onDelete={() => setIsDeletionModalOpen(false)}
+            />
+          </DangerZoneCard>
+        ),
+      });
+    }
+
     return (
-      <div className="m-auto flex max-w-6xl flex-col items-center justify-center gap-8">
+      <div className="flex w-full flex-1 flex-col gap-8 self-start">
         {!isProjectAdmin && isProjectMember && (
           <Container
             roundedSize="xl"
@@ -153,144 +283,7 @@ export const ProjectFormContent: FC = () => {
           )}
         </Container>
 
-        {isProjectAdmin && !project.repository && (
-          <Container
-            roundedSize="3xl"
-            padding="lg"
-            border
-            borderColor="neutral"
-            className="w-full"
-          >
-            <GitImportPrompt mode="connect" />
-          </Container>
-        )}
-
-        <div className="relative grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
-          <div className="top-20 mb-auto flex min-w-0 flex-col gap-4 md:sticky">
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="z-20 flex size-full justify-center"
-            >
-              <ProjectEditionForm />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="z-10 flex size-full justify-center"
-            >
-              <MembersForm />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <AccessKeyForm />
-            </Container>
-          </div>
-          <div className="top-20 mb-auto flex min-w-0 flex-col gap-4 md:sticky">
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="z-20 flex size-full justify-center"
-            >
-              <ConfigDetails projectConfig={project.configuration} />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <OpenRouterSettings />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="z-20 flex size-full justify-center"
-            >
-              <EnvironmentsForm />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="z-10 flex size-full justify-center"
-            >
-              <RepositoryLink />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <BuildSettings />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <AutoFillSettings />
-            </Container>
-          </div>
-        </div>
-        {isProjectAdmin && (
-          <Container
-            roundedSize="3xl"
-            padding="lg"
-            border
-            borderColor="error"
-            className="w-full"
-            transparency="lg"
-          >
-            <DeleteProjectModal
-              isOpen={isDeletionModalOpen}
-              onClose={() => setIsDeletionModalOpen(false)}
-              onDelete={() => setIsDeletionModalOpen(false)}
-            />
-            <div className="flex items-start gap-6 px-4">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-error/10">
-                <TriangleAlert className="size-5 text-error" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-base font-medium text-error">
-                  {dangerZoneTitle}
-                </h3>
-                <p className="mt-1 text-sm text-neutral">
-                  {dangerZoneDescription}
-                </p>
-                <Button
-                  color="error"
-                  label={deleteProjectButton.ariaLabel.value}
-                  variant="outline"
-                  onClick={() => setIsDeletionModalOpen(true)}
-                  Icon={Trash}
-                  className="mt-4"
-                >
-                  {deleteProjectButton.text}
-                </Button>
-              </div>
-            </div>
-          </Container>
-        )}
+        <SettingsSectionLayout sections={sections} />
       </div>
     );
   }
