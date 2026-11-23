@@ -146,3 +146,20 @@ index 67521879f7a646839833d90f691b9eea842ea0d3..ef384eb20d0c204016a4c7ed1edfe3ce
 +  w
  };
  //# sourceMappingURL=stub.js.map
+diff --git a/dist/dom/features/suspense-hydration/full.js b/dist/dom/features/suspense-hydration/full.js
+index 8343e11a051e4cd1f550a412a37d6b0df32b82b5..4660d700ccc6308625cf12ca604d978f383ec607 100644
+--- a/dist/dom/features/suspense-hydration/full.js
++++ b/dist/dom/features/suspense-hydration/full.js
+@@ -114,7 +114,11 @@ function hydrateSuspenseBoundary(fiber, props, boundary, reveal) {
+         });
+         throw e;
+       } else
+-        recoverBoundaryHydration(fiber, props.children, parent, startMark, endMark);
++        // Patched (intlayer): client-render the mismatched boundary through
++        // renderSuspense, like a "$!" boundary. A plain reconcile has no
++        // suspend handler, so a child suspending there escaped hydration as a
++        // RenderSuspenseCapture and left the boundary empty.
++        recoverBoundaryHydration(fiber, props.children, parent, startMark, endMark, true);
+     } finally {
+       clearHydrationCursor(fiber);
+     }
