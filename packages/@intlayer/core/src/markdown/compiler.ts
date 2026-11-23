@@ -722,18 +722,34 @@ const createRules = (
       _render(node, output, state = {}) {
         const props: Record<string, any> = { key: state.key };
 
-        if (node.alert) {
-          props.className = `markdown-alert-${slug(node.alert.toLowerCase())}`;
-          node.children.unshift({
+        if (!node.alert) {
+          return createElement(
+            'blockquote',
+            props,
+            output(node.children, state)
+          );
+        }
+
+        props.className = `markdown-alert-${slug(node.alert.toLowerCase())}`;
+
+        // Build a new array: mutating `node.children` would prepend one more
+        // header on every render of a cached AST.
+        const childrenWithHeader = [
+          {
             attrs: {},
             children: [{ type: RuleType.text, text: node.alert }],
             noInnerParse: true,
             type: RuleType.htmlBlock,
             tag: 'header',
-          } as any);
-        }
+          } as any,
+          ...node.children,
+        ];
 
-        return createElement('blockquote', props, output(node.children, state));
+        return createElement(
+          'blockquote',
+          props,
+          output(childrenWithHeader, state)
+        );
       },
     },
     [RuleType.breakLine]: {

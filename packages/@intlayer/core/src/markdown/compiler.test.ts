@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { parseMarkdown, renderMarkdownAst } from './compiler';
 import { compile, type MarkdownContext, type MarkdownRuntime } from './index';
 
 // Simple mock runtime that returns objects for elements
@@ -314,5 +315,21 @@ describe('Markdown Core Compiler', () => {
     compile(markdown, ctx);
 
     expect(performance.now() - start).toBeLessThan(500);
+  });
+});
+
+describe('Markdown alert blockquote', () => {
+  it('should render the alert header once when a parsed AST is rendered repeatedly', () => {
+    const parsedMarkdown = parseMarkdown(
+      '> [!WARNING]\n> Keep secrets server side.',
+      ctx
+    );
+
+    renderMarkdownAst(parsedMarkdown, ctx);
+    renderMarkdownAst(parsedMarkdown, ctx);
+    const output = String(renderMarkdownAst(parsedMarkdown, ctx));
+
+    expect(output.match(/<header[ >]/g)).toHaveLength(1);
+    expect(output).toContain('className="markdown-alert-warning"');
   });
 });
