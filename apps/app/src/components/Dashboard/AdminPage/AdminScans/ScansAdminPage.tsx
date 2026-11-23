@@ -135,7 +135,7 @@ export const ScansAdminPageContent: FC = () => {
         ) : (
           <ul className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-3">
             {technologyUsage.map((technology) => (
-              <li key={technology.id}>
+              <li key={technology.id} className="min-w-0">
                 <Button
                   label={technology.name}
                   variant="outline"
