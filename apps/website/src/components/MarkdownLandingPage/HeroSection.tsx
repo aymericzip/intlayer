@@ -9,8 +9,8 @@ import { useReducedMotion } from 'framer-motion';
 import { ArrowDown, Blocks, Layers, PackageMinus, Server } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
 import { WindowFrame } from '~/components/ProductLanding/layout';
+import { ProductAction } from '~/components/ProductLanding/ProductAction';
 import { ProductHero } from '~/components/ProductLanding/ProductHero';
 import { useTabTimer } from './useTabTimer';
 
@@ -116,27 +116,19 @@ export const HeroSection: FC = () => {
       description={description}
       actions={
         <>
-          <Link
+          <ProductAction
+            isPrimary
             to={Website_Doc_Markdown_Path}
-            variant="button"
-            color="text"
-            size="lg"
             label={readTheDocs.value}
           >
             {readTheDocs}
-          </Link>
-          <Link
-            to="#benchmark"
-            variant="button-outlined"
-            color="text"
-            size="lg"
-            label={seeBenchmark.value}
-          >
+          </ProductAction>
+          <ProductAction to="#benchmark" label={seeBenchmark.value}>
             <span className="flex items-center gap-2">
               {seeBenchmark}
               <ArrowDown className="size-4" />
             </span>
-          </Link>
+          </ProductAction>
         </>
       }
       meta={[

@@ -59,7 +59,7 @@ export const BenchmarkSection: FC = () => {
                   className={cn(
                     'h-full w-full rounded-sm ltr:origin-left rtl:origin-right',
                     isHighlighted
-                      ? 'bg-lime-500 dark:bg-lime-300'
+                      ? 'bg-lime-600 dark:bg-lime-300'
                       : 'bg-text/25'
                   )}
                 />

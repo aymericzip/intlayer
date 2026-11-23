@@ -2,9 +2,9 @@ import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { ArrowDown, FileJson, FileText, HandCoins, Server } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
 import { CodePanel } from '~/components/ProductLanding/CodePanel';
 import { LocaleKey, WindowFrame } from '~/components/ProductLanding/layout';
+import { ProductAction } from '~/components/ProductLanding/ProductAction';
 import { ProductHero } from '~/components/ProductLanding/ProductHero';
 
 /**
@@ -56,22 +56,28 @@ const FillPreview: FC = () => {
         </>
       }
     >
-      <div className="flex flex-col gap-3 p-3">
-        <CodePanel label="Terminal" code={card.code.value} lang="bash" />
-        <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2">
-          <CodePanel
-            label={SOURCE_FILE.path}
-            code={SOURCE_FILE.code}
-            lang="json"
-            aside={<LocaleKey locale={SOURCE_FILE.locale} />}
-          />
-          <CodePanel
-            label={FILLED_FILE.path}
-            code={FILLED_FILE.code}
-            lang="json"
-            aside={<LocaleKey locale={FILLED_FILE.locale} isActive />}
-          />
-        </div>
+      <CodePanel
+        isFlat
+        label="Terminal"
+        code={card.code.value}
+        lang="bash"
+        className="border-b border-text/10"
+      />
+      <div className="grid grid-cols-1 divide-y divide-text/10 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+        <CodePanel
+          isFlat
+          label={SOURCE_FILE.path}
+          code={SOURCE_FILE.code}
+          lang="json"
+          aside={<LocaleKey locale={SOURCE_FILE.locale} />}
+        />
+        <CodePanel
+          isFlat
+          label={FILLED_FILE.path}
+          code={FILLED_FILE.code}
+          lang="json"
+          aside={<LocaleKey locale={FILLED_FILE.locale} isActive />}
+        />
       </div>
     </WindowFrame>
   );
@@ -87,27 +93,19 @@ export const HeroSection: FC = () => {
       description={description}
       actions={
         <>
-          <Link
+          <ProductAction
+            isPrimary
             to={Website_Doc_CLI_Fill_Path}
-            variant="button"
-            color="text"
-            size="lg"
             label={getStartedForFree.value}
           >
             {getStartedForFree}
-          </Link>
-          <Link
-            to="#commands"
-            variant="button-outlined"
-            color="text"
-            size="lg"
-            label={seeCLICommands.value}
-          >
+          </ProductAction>
+          <ProductAction to="#commands" label={seeCLICommands.value}>
             <span className="flex items-center gap-2">
               {seeCLICommands}
               <ArrowDown className="size-4" />
             </span>
-          </Link>
+          </ProductAction>
         </>
       }
       meta={[

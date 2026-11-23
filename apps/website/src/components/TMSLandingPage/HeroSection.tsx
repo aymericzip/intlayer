@@ -4,8 +4,8 @@ import {
 } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
 import { WindowFrame } from '~/components/ProductLanding/layout';
+import { ProductAction } from '~/components/ProductLanding/ProductAction';
 import { ProductHero } from '~/components/ProductLanding/ProductHero';
 import TMSScreenshot from './TMS_screenshot.png';
 
@@ -26,24 +26,16 @@ export const HeroSection: FC = () => {
       description={heroDescription}
       actions={
         <>
-          <Link
+          <ProductAction
+            isPrimary
             to={App_Dashboard_Projects}
-            variant="button"
-            color="text"
-            size="lg"
             label={primaryCta.value}
           >
             {primaryCta}
-          </Link>
-          <Link
-            to={App_Pricing}
-            variant="button-outlined"
-            color="text"
-            size="lg"
-            label={secondaryCta.value}
-          >
+          </ProductAction>
+          <ProductAction to={App_Pricing} label={secondaryCta.value}>
             {secondaryCta}
-          </Link>
+          </ProductAction>
         </>
       }
       visual={

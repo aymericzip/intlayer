@@ -1,5 +1,4 @@
 import { type FC, lazy, Suspense } from 'react';
-import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { HeroSection } from './HeroSection';
 
 const BenchmarkSection = lazy(() =>
@@ -49,9 +48,7 @@ const ContributorSection = lazy(() =>
 export const MarkdownLandingPage: FC = () => (
   <div className="flex flex-col">
     {/* Hero */}
-    <BackgroundLayout>
-      <HeroSection />
-    </BackgroundLayout>
+    <HeroSection />
 
     {/* Performance numbers */}
     <Suspense>

@@ -1,8 +1,8 @@
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
 import { CodePanel } from '~/components/ProductLanding/CodePanel';
+import { ProductAction } from '~/components/ProductLanding/ProductAction';
 import { ProductFinalCTA } from '~/components/ProductLanding/ProductFinalCTA';
 
 export const CTASection: FC = () => {
@@ -22,24 +22,16 @@ export const CTASection: FC = () => {
       description={description}
       actions={
         <>
-          <Link
+          <ProductAction
+            isPrimary
             to={Website_Doc_CLI_Fill_Path}
-            variant="button"
-            color="text"
-            size="lg"
             label={readDocumentation.value}
           >
             {readDocumentation}
-          </Link>
-          <Link
-            to="#commands"
-            variant="button-outlined"
-            color="text"
-            size="lg"
-            label={exploreCLICommands.value}
-          >
+          </ProductAction>
+          <ProductAction to="#commands" label={exploreCLICommands.value}>
             {exploreCLICommands}
-          </Link>
+          </ProductAction>
         </>
       }
       aside={

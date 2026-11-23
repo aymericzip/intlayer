@@ -119,7 +119,7 @@ export const Route = createFileRoute('/{-$locale}/translate')({
 
 function TranslatePage() {
   return (
-    <PageLayout>
+    <PageLayout mainClassName="relative mx-auto max-w-[1300px] border-neutral xl:border-x">
       <AiTranslationLandingCore />
     </PageLayout>
   );

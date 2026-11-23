@@ -1780,6 +1780,12 @@ const docDataContent: Dictionary = {
           frameworks: ['nextjs', 'react'],
         },
 
+        vinext: {
+          title: 'vinext',
+          default: getDocMetadata('./docs/en/intlayer_with_vinext.md'),
+          frameworks: ['nextjs', 'react', 'vite'],
+        },
+
         'tanstack-start': {
           title: 'Tanstack Start',
           default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),

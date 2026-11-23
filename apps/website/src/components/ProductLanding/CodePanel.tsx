@@ -9,6 +9,8 @@ type CodePanelProps = {
   lang: CodeBlockProps['lang'];
   /** Right side of the label row, for locale keys. */
   aside?: ReactNode;
+  /** Drops the border and radius, for panels nested in a window. */
+  isFlat?: boolean;
   className?: string;
 };
 
@@ -18,11 +20,13 @@ export const CodePanel: FC<CodePanelProps> = ({
   code,
   lang,
   aside,
+  isFlat = false,
   className,
 }) => (
   <div
     className={cn(
-      'flex min-w-0 flex-col overflow-hidden rounded-xl border border-text/10 bg-background',
+      'flex min-w-0 flex-col overflow-hidden bg-background',
+      !isFlat && 'rounded-xl border border-text/10',
       className
     )}
   >

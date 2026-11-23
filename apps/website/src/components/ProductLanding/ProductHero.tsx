@@ -1,4 +1,5 @@
 import type { FC, ReactNode } from 'react';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
 
 export type HeroMetaItem = {
   key: string;
@@ -31,7 +32,9 @@ export const ProductHero: FC<ProductHeroProps> = ({
   meta,
   visual,
 }) => (
-  <section className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-4 pt-12 pb-20 md:px-8 lg:min-h-[calc(100dvh-60px)] lg:grid-cols-12 lg:gap-16 lg:py-16">
+  <section className="relative isolate grid w-full grid-cols-1 items-center gap-12 overflow-hidden border-b border-neutral px-4 pt-12 pb-16 sm:px-6 md:px-12 lg:grid-cols-12 lg:gap-16 lg:py-24">
+    {/* Grid stays behind the hero only */}
+    <BackgroundLayout />
     <div className="product-hero-enter flex flex-col items-start gap-6 lg:col-span-5">
       {eyebrow && (
         <span className="font-mono text-sm text-muted-foreground">
@@ -44,7 +47,7 @@ export const ProductHero: FC<ProductHeroProps> = ({
       <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
         {description}
       </p>
-      <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+      <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
         {actions}
       </div>
       {meta && (

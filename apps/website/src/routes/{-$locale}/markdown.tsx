@@ -136,7 +136,7 @@ function MarkdownPage() {
   const loaderData = Route.useLoaderData();
 
   return (
-    <PageLayout>
+    <PageLayout mainClassName="relative mx-auto max-w-[1300px] border-neutral xl:border-x">
       {loaderData.mode === 'preview' ? (
         <MarkdownPreview result={loaderData.result} />
       ) : (

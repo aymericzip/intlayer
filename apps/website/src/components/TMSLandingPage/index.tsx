@@ -1,5 +1,4 @@
 import { type FC, lazy, Suspense } from 'react';
-import { BackgroundLayout } from '~/components/BackgroundLayout';
 
 const HeroSection = lazy(() =>
   import('./HeroSection').then((module) => ({ default: module.HeroSection }))
@@ -39,9 +38,7 @@ export const TMSLandingPage: FC = () => {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <BackgroundLayout>
-        <HeroSection />
-      </BackgroundLayout>
+      <HeroSection />
 
       {/* Pain Points Section */}
       <Suspense>

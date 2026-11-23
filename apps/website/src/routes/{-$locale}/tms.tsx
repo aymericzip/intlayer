@@ -95,7 +95,7 @@ export const Route = createFileRoute('/{-$locale}/tms')({
 
 function TMSPage() {
   return (
-    <PageLayout>
+    <PageLayout mainClassName="relative mx-auto max-w-[1300px] border-neutral xl:border-x">
       <TMSLandingPage />
     </PageLayout>
   );

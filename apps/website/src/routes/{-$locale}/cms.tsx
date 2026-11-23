@@ -99,7 +99,7 @@ export const Route = createFileRoute('/{-$locale}/cms')({
 
 function CMSPage() {
   return (
-    <PageLayout>
+    <PageLayout mainClassName="relative mx-auto max-w-[1300px] border-neutral xl:border-x">
       <CMSLandingPage />
     </PageLayout>
   );

@@ -11,8 +11,8 @@ const providers: Array<{ name: string; logoName: TechLogoName }> = [
 
 /** Static row of the model providers the CLI can call. */
 export const ProvidersCarousel: FC = () => (
-  <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
-    <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-y border-text/10 py-6">
+  <div className="w-full border-b border-neutral px-4 sm:px-6 md:px-12">
+    <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 py-6">
       {providers.map(({ name, logoName }) => (
         <li
           key={name}

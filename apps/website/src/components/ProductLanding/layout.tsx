@@ -7,7 +7,7 @@ type ProductSectionProps = PropsWithChildren<{
   className?: string;
 }>;
 
-/** Page section with the shared width, gutters and vertical rhythm. */
+/** Page section closed by a hairline, filling the bordered page frame. */
 export const ProductSection: FC<ProductSectionProps> = ({
   id,
   className,
@@ -16,7 +16,7 @@ export const ProductSection: FC<ProductSectionProps> = ({
   <section
     id={id}
     className={cn(
-      'mx-auto w-full max-w-6xl scroll-mt-24 px-4 py-20 md:px-8 md:py-24',
+      'w-full scroll-mt-24 border-b border-neutral px-4 py-16 sm:px-6 md:px-12 md:py-20',
       className
     )}
   >
@@ -30,18 +30,23 @@ type SectionHeadingProps = {
   className?: string;
 };
 
-/** Start-aligned section title with an optional lead paragraph. */
+/** Section title with its lead paragraph beside it on wide screens. */
 export const SectionHeading: FC<SectionHeadingProps> = ({
   title,
   description,
   className,
 }) => (
-  <Reveal className={cn('mb-12 flex max-w-2xl flex-col gap-4', className)}>
-    <h2 className="text-3xl leading-tight font-medium text-foreground md:text-4xl">
+  <Reveal
+    className={cn(
+      'mb-12 grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-end lg:gap-12',
+      className
+    )}
+  >
+    <h2 className="text-3xl leading-tight font-medium text-balance text-foreground md:text-4xl lg:col-span-6">
       {title}
     </h2>
     {description && (
-      <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+      <p className="max-w-xl text-base leading-relaxed text-muted-foreground lg:col-span-6">
         {description}
       </p>
     )}

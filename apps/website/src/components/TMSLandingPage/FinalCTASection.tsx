@@ -1,7 +1,7 @@
 import { App_Dashboard_Projects } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
+import { ProductAction } from '~/components/ProductLanding/ProductAction';
 import { ProductFinalCTA } from '~/components/ProductLanding/ProductFinalCTA';
 
 export const FinalCTASection: FC = () => {
@@ -13,15 +13,13 @@ export const FinalCTASection: FC = () => {
       title={finalCtaTitle}
       description={finalCtaDescription}
       actions={
-        <Link
+        <ProductAction
+          isPrimary
           to={App_Dashboard_Projects}
-          variant="button"
-          color="text"
-          size="lg"
           label={finalCtaButton.value}
         >
           {finalCtaButton}
-        </Link>
+        </ProductAction>
       }
     />
   );

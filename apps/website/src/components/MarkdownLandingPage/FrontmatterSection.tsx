@@ -2,7 +2,6 @@ import { Website_Doc_HTML_Path } from '@intlayer/design-system/routes';
 import { ArrowRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
 import { CodePanel } from '~/components/ProductLanding/CodePanel';
 import {
   ProductSection,
@@ -13,6 +12,7 @@ import {
   RevealGroup,
   RevealItem,
 } from '~/components/ProductLanding/motion';
+import { ProductAction } from '~/components/ProductLanding/ProductAction';
 
 export const FrontmatterSection: FC = () => {
   const {
@@ -55,10 +55,8 @@ export const FrontmatterSection: FC = () => {
             {html.description}
           </p>
         </div>
-        <Link
+        <ProductAction
           to={Website_Doc_HTML_Path}
-          variant="button-outlined"
-          color="text"
           label={html.cta.value}
           className="shrink-0"
         >
@@ -66,7 +64,7 @@ export const FrontmatterSection: FC = () => {
             {html.cta}
             <ArrowRight className="size-4" />
           </span>
-        </Link>
+        </ProductAction>
       </Reveal>
     </ProductSection>
   );
