@@ -144,7 +144,7 @@ export const ScansAdminPageContent: FC = () => {
                   isFullWidth
                   textAlign="left"
                   isActive={technology.id === technologyId}
-                  className="flex-col items-start gap-0.5 py-3 aria-[current=page]:bg-current/15"
+                  className="py-3 aria-[current=page]:bg-current/15"
                   onClick={() =>
                     setParams({
                       technologyId:
@@ -153,9 +153,16 @@ export const ScansAdminPageContent: FC = () => {
                     })
                   }
                 >
-                  <span className="font-semibold">{technology.name}</span>
-                  <span className="text-xs opacity-70">
-                    {hostCount({ count: technology.hostCount })}
+                  <span className="flex min-w-0 flex-col items-start gap-0.5">
+                    <span
+                      className="w-full truncate font-semibold"
+                      title={technology.name}
+                    >
+                      {technology.name}
+                    </span>
+                    <span className="text-xs opacity-70">
+                      {hostCount({ count: technology.hostCount })}
+                    </span>
                   </span>
                 </Button>
               </li>

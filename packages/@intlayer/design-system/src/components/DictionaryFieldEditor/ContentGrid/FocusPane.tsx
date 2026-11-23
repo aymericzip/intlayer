@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@components/Button';
+import { LocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
 import { cn } from '@utils/cn';
 import { ArrowLeft, Sparkles, X } from 'lucide-react';
 import type { FC } from 'react';
@@ -70,6 +71,17 @@ export const FocusPane: FC<FocusPaneProps> = ({
           {row.id}
         </span>
         <TypeBadge row={row} />
+        {isNarrow && row.isLocalized && (
+          // The grid toolbar is hidden while the pane is open on narrow layouts
+          <div className="ms-auto shrink-0">
+            <LocaleSwitcherContent
+              size="sm"
+              variant="outline"
+              color="neutral"
+              roundedSize="2xl"
+            />
+          </div>
+        )}
         {!isNarrow && (
           <Button
             label={content.close.value}
