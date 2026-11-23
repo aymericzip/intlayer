@@ -281,6 +281,7 @@ import {
   ReviewerApprovedEmailZH,
 } from '@emails/ReviewerApprovedEmail';
 import { ReviewerContactEmailEN } from '@emails/ReviewerContactEmail';
+import { ShowcaseProjectSubmittedEmailEN } from '@emails/ShowcaseProjectSubmittedEmail';
 import {
   SubscriptionPaymentCancellationAR,
   SubscriptionPaymentCancellationDE,
@@ -1220,6 +1221,10 @@ const getEmailComponents = (locale?: Locale) =>
     reviewerContactInquiry: {
       template: ReviewerContactEmailEN,
       subject: 'New message from a client — Intlayer',
+    },
+    showcaseProjectSubmitted: {
+      template: ShowcaseProjectSubmittedEmailEN,
+      subject: 'New showcase project submitted — Intlayer',
     },
   }) satisfies EmailComponents;
 

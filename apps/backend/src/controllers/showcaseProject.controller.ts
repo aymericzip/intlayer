@@ -1,6 +1,7 @@
 import type { RouteBodyInput } from '@intlayer/backend-contract/defineRoute';
 import type { ShowcaseProjectRoutes } from '@intlayer/backend-contract/showcaseProject';
 import { logger } from '@logger';
+import { sendEmail } from '@services/email.service';
 import * as showcaseProjectService from '@services/showcase/showcaseProject.service';
 import { scanShowcaseProject as scanShowcaseProjectViaService } from '@services/showcase/showcaseScan.service';
 import {
@@ -83,6 +84,24 @@ export const submitShowcaseProject = async (
       status: 'pending_scan',
     });
 
+    const projectData = mapShowcaseProjectToAPI(newProject, userId);
+    const submitter = request.session?.user;
+
+    // Notify the Intlayer team without delaying the response
+    void sendEmail({
+      type: 'showcaseProjectSubmitted',
+      to: 'admin@intlayer.org',
+      projectName: validatedData.name,
+      websiteUrl: validatedData.url,
+      githubUrl: validatedData.githubUrl,
+      useCases: validatedData.useCases ?? [],
+      submitterName: submitter?.name ?? submitter?.email ?? userId,
+      submitterEmail: submitter?.email ?? '',
+      projectLink: `${process.env.SHOWCASE_URL}/project/${projectData.id}`,
+    }).catch((error) =>
+      logger.error('Failed to send showcase project submission email', error)
+    );
+
     const responseData = formatResponse<ShowcaseProjectAPI>({
       message: t({
         en: 'Project submitted successfully',
@@ -128,7 +147,7 @@ export const submitShowcaseProject = async (
         'he-IL':
           'הפרויקט שלכם נוסף לתצוגה. השתמשו בכפתור הסריקה כדי לאמת ולהעשיר אותו.',
       }),
-      data: mapShowcaseProjectToAPI(newProject, userId),
+      data: projectData,
     });
 
     return reply.send(responseData);
