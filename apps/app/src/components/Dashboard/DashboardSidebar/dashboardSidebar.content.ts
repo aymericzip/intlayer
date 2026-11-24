@@ -939,6 +939,28 @@ const dashboardSidebarContent = {
       zh: '固定到侧边栏',
     }),
 
+    moreActions: t({
+      en: 'More actions',
+      ar: 'المزيد من الإجراءات',
+      de: 'Weitere Aktionen',
+      'en-GB': 'More actions',
+      es: 'Más acciones',
+      fr: "Plus d'actions",
+      'he-IL': 'פעולות נוספות',
+      hi: 'और कार्रवाइयाँ',
+      id: 'Tindakan lainnya',
+      it: 'Altre azioni',
+      ja: 'その他の操作',
+      ko: '더 많은 작업',
+      pl: 'Więcej akcji',
+      pt: 'Mais ações',
+      ru: 'Другие действия',
+      tr: 'Daha fazla işlem',
+      uk: 'Більше дій',
+      vi: 'Thêm hành động',
+      zh: '更多操作',
+    }),
+
     renamePinnedItem: t({
       en: 'Rename',
       ar: 'إعادة التسمية',

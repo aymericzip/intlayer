@@ -22,7 +22,7 @@ export type UseEditorPagesSidebarReturn = {
   /** Reorder a pinned entry next to another one. */
   movePinned: (
     entry: string,
-    targetEntry: string,
+    targetEntry: string | null,
     placement: DropPlacement
   ) => void;
   isPinned: (path: string) => boolean;

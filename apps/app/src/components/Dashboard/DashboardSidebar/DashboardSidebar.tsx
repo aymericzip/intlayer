@@ -48,6 +48,7 @@ import {
   PenTool,
   Pin,
   PinOff,
+  Ellipsis,
   Pencil,
   ScanLine,
   Shield,
@@ -57,7 +58,14 @@ import {
   User,
   X,
 } from 'lucide-react';
-import { type DragEvent, type FC, forwardRef, useRef, useState } from 'react';
+import {
+  type DragEvent,
+  type FC,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { IS_SELF_HOSTED } from '#utils/selfHosted';
@@ -337,6 +345,7 @@ type SidebarTabItemProps = {
   unpinDictionaryLabel: string;
   removeFromSidebarLabel: string;
   renameLabel: string;
+  moreActionsLabel: string;
   onRenameItem?: (itemKey: string, label: string) => void;
   shouldReduceMotion?: boolean;
   isDraggable: boolean;
@@ -371,6 +380,7 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       unpinDictionaryLabel,
       removeFromSidebarLabel,
       renameLabel,
+      moreActionsLabel,
       onRenameItem,
       shouldReduceMotion,
       isDraggable,
@@ -411,10 +421,48 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       : FallbackIcon;
     const isChild = item.level > 0;
     const [isRenaming, setIsRenaming] = useState(false);
+    const renameInputRef = useRef<HTMLInputElement>(null);
+    const isRenameCancelledRef = useRef(false);
+
+    useEffect(() => {
+      if (isRenaming) renameInputRef.current?.focus();
+    }, [isRenaming]);
+
+    /** Closes the CSS-driven dropdown by dropping focus from its panel. */
+    const closeMenu = () => {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    };
 
     const isPinnableItem = isDictionaryItem || isTagItem || isEditorPageItem;
     const isItemPinned =
       isDictItemPinned || isTagItemPinned || isEditorPageItemPinned;
+
+    const pinItem = () => {
+      if (isDictionaryItem && dictKey) onPinDictionary?.(dictKey);
+      else if (isTagItem && tagKey) onPinTag?.(tagKey);
+      else if (isEditorPageItem && editorPagePath) {
+        onPinEditorPage?.(editorPagePath);
+      }
+    };
+
+    const unpinItem = () => {
+      if (isDictionaryItem && dictKey) onUnpinDictionary?.(dictKey);
+      else if (isTagItem && tagKey) onUnpinTag?.(tagKey);
+      else if (isEditorPageItem && editorPagePath) {
+        onUnpinEditorPage?.(editorPagePath);
+      }
+    };
+
+    const removeItem = () => {
+      unpinItem();
+      if (isDictionaryItem && dictKey) onRemoveDictionary?.(dictKey);
+      else if (isTagItem && tagKey) onRemoveTag?.(tagKey);
+      else if (isEditorPageItem && editorPagePath) {
+        onRemoveEditorPage?.(editorPagePath);
+      }
+    };
 
     // Find index in flatNavItems to determine parent level-1 item and whether we need a straight line at inset-s-4
     const currentIndex = flatNavItems.findIndex((x) => x.key === item.key);
@@ -471,6 +519,7 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
             !isCollapsed && isPinnableItem && 'pe-16'
           )}
           isActive={activeKey === item.key}
+          draggable={false}
         >
           {!isCollapsed && isChild && (
             <SidebarTreeConnector
@@ -514,18 +563,23 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
 
         {isRenaming && (
           <input
-            // oxlint-disable-next-line jsx-a11y/no-autofocus -- focus follows the rename action the user just triggered
-            autoFocus
+            ref={renameInputRef}
             aria-label={renameLabel}
             defaultValue={item.title}
             onFocus={(event) => event.currentTarget.select()}
             onBlur={(event) => {
-              onRenameItem?.(item.key, event.currentTarget.value);
+              if (!isRenameCancelledRef.current) {
+                onRenameItem?.(item.key, event.currentTarget.value);
+              }
+              isRenameCancelledRef.current = false;
               setIsRenaming(false);
             }}
             onKeyDown={(event) => {
               if (event.key === 'Enter') event.currentTarget.blur();
-              if (event.key === 'Escape') setIsRenaming(false);
+              if (event.key === 'Escape') {
+                isRenameCancelledRef.current = true;
+                event.currentTarget.blur();
+              }
             }}
             className={cn(
               'absolute inset-y-1 inset-e-2 z-20 rounded-md border border-text/30 bg-background px-2 text-text outline-none focus:border-text',
@@ -536,137 +590,86 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
           />
         )}
 
-        {/* Action buttons wrapper — shown on hover */}
+        {/* Actions menu — shown on hover */}
         {!isCollapsed && isPinnableItem && (
-          <div className="absolute inset-e-2 top-1/2 z-10 flex -translate-y-1/2 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
-            {isItemPinned ? (
-              <>
-                <PopoverStatic identifier={`rename-${item.key}`}>
+          <div className="absolute inset-e-2 top-1/2 z-10 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+            <DropDown identifier={`item-actions-${item.key}`}>
+              <DropDown.Trigger
+                identifier={`item-actions-${item.key}`}
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
+                label={moreActionsLabel}
+                aria-label={moreActionsLabel}
+                title={moreActionsLabel}
+                Icon={Ellipsis}
+              />
+              <DropDown.Panel
+                identifier={`item-actions-${item.key}`}
+                isFocusable
+                align="end"
+              >
+                <Container
+                  className="min-w-40 gap-1 border border-neutral/10"
+                  transparency="xs"
+                  padding="sm"
+                  roundedSize="2xl"
+                >
+                  {isItemPinned && (
+                    <Button
+                      type="button"
+                      variant="hoverable"
+                      color="text"
+                      size="sm"
+                      className="w-full justify-start"
+                      label={renameLabel}
+                      Icon={Pencil}
+                      onClick={() => {
+                        closeMenu();
+                        setIsRenaming(true);
+                      }}
+                    >
+                      {renameLabel}
+                    </Button>
+                  )}
                   <Button
                     type="button"
                     variant="hoverable"
                     color="text"
-                    size="icon-sm"
-                    label={renameLabel}
-                    aria-label={renameLabel}
-                    title={renameLabel}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setIsRenaming(true);
+                    size="sm"
+                    className="w-full justify-start"
+                    label={
+                      isItemPinned ? unpinDictionaryLabel : pinDictionaryLabel
+                    }
+                    Icon={isItemPinned ? PinOff : Pin}
+                    onClick={() => {
+                      closeMenu();
+                      if (isItemPinned) unpinItem();
+                      else pinItem();
                     }}
-                    Icon={Pencil}
-                  />
-                  <PopoverStatic.Detail
-                    identifier={`rename-${item.key}`}
-                    xAlign="end"
                   >
-                    <Container padding="sm" roundedSize="xl">
-                      <span className="text-nowrap">{renameLabel}</span>
-                    </Container>
-                  </PopoverStatic.Detail>
-                </PopoverStatic>
-                <PopoverStatic identifier={`unpin-${item.key}`}>
-                  <Button
-                    type="button"
-                    variant="hoverable"
-                    color="text"
-                    size="icon-sm"
-                    label={String(unpinDictionaryLabel)}
-                    aria-label={String(unpinDictionaryLabel)}
-                    title={String(unpinDictionaryLabel)}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      if (isDictionaryItem && dictKey) {
-                        onUnpinDictionary?.(dictKey);
-                      } else if (isTagItem && tagKey) {
-                        onUnpinTag?.(tagKey);
-                      } else if (isEditorPageItem && editorPagePath) {
-                        onUnpinEditorPage?.(editorPagePath);
-                      }
-                    }}
-                    Icon={PinOff}
-                  />
-                  <PopoverStatic.Detail
-                    identifier={`unpin-${item.key}`}
-                    xAlign="end"
-                  >
-                    <Container padding="sm" roundedSize="xl">
-                      <span className="text-nowrap">
-                        {unpinDictionaryLabel}
-                      </span>
-                    </Container>
-                  </PopoverStatic.Detail>
-                </PopoverStatic>
-              </>
-            ) : (
-              <>
-                <PopoverStatic identifier={`remove-${item.key}`}>
-                  <Button
-                    type="button"
-                    variant="hoverable"
-                    color="text"
-                    size="icon-sm"
-                    label={removeFromSidebarLabel}
-                    aria-label={removeFromSidebarLabel}
-                    title={removeFromSidebarLabel}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      if (isDictionaryItem && dictKey) {
-                        onUnpinDictionary?.(dictKey);
-                        onRemoveDictionary?.(dictKey);
-                      } else if (isTagItem && tagKey) {
-                        onUnpinTag?.(tagKey);
-                        onRemoveTag?.(tagKey);
-                      } else if (isEditorPageItem && editorPagePath) {
-                        onUnpinEditorPage?.(editorPagePath);
-                        onRemoveEditorPage?.(editorPagePath);
-                      }
-                    }}
-                    Icon={X}
-                  />
-                  <PopoverStatic.Detail
-                    identifier={`remove-${item.key}`}
-                    xAlign="end"
-                  >
-                    <Container padding="sm" roundedSize="xl">
-                      <span className="text-nowrap">
-                        {removeFromSidebarLabel}
-                      </span>
-                    </Container>
-                  </PopoverStatic.Detail>
-                </PopoverStatic>
-                <PopoverStatic identifier={`pin-${item.key}`}>
-                  <Button
-                    type="button"
-                    variant="hoverable"
-                    color="text"
-                    size="icon-sm"
-                    label={pinDictionaryLabel}
-                    aria-label={pinDictionaryLabel}
-                    title={pinDictionaryLabel}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      if (isDictionaryItem && dictKey) {
-                        onPinDictionary?.(dictKey);
-                      } else if (isTagItem && tagKey) {
-                        onPinTag?.(tagKey);
-                      } else if (isEditorPageItem && editorPagePath) {
-                        onPinEditorPage?.(editorPagePath);
-                      }
-                    }}
-                    Icon={Pin}
-                  />
-                  <PopoverStatic.Detail
-                    identifier={`pin-${item.key}`}
-                    xAlign="end"
-                  >
-                    <Container padding="sm" roundedSize="xl">
-                      <span className="text-nowrap">{pinDictionaryLabel}</span>
-                    </Container>
-                  </PopoverStatic.Detail>
-                </PopoverStatic>
-              </>
-            )}
+                    {isItemPinned ? unpinDictionaryLabel : pinDictionaryLabel}
+                  </Button>
+                  {!isItemPinned && (
+                    <Button
+                      type="button"
+                      variant="hoverable"
+                      color="text"
+                      size="sm"
+                      className="w-full justify-start"
+                      label={removeFromSidebarLabel}
+                      Icon={X}
+                      onClick={() => {
+                        closeMenu();
+                        removeItem();
+                      }}
+                    >
+                      {removeFromSidebarLabel}
+                    </Button>
+                  )}
+                </Container>
+              </DropDown.Panel>
+            </DropDown>
           </div>
         )}
       </div>
@@ -704,6 +707,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
     unpinDictionary: unpinDictionaryLabel,
     removeFromSidebar: removeFromSidebarLabel,
     renamePinnedItem: renameLabel,
+    moreActions: moreActionsLabel,
   } = useIntlayer('dashboard-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const draggedKeyRef = useRef<string | null>(null);
@@ -869,6 +873,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                 unpinDictionaryLabel={String(unpinDictionaryLabel)}
                 removeFromSidebarLabel={String(removeFromSidebarLabel)}
                 renameLabel={String(renameLabel)}
+                moreActionsLabel={String(moreActionsLabel)}
                 onRenameItem={onRenameItem}
                 isDraggable={isDraggableItem(item, pinnedItemKeys)}
                 dropPlacement={

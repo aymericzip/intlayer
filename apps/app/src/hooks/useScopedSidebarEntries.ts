@@ -56,7 +56,7 @@ export type UseScopedSidebarEntriesReturn = {
   /** Reorder a pinned entry next to another one. */
   movePinned: (
     entry: string,
-    targetEntry: string,
+    targetEntry: string | null,
     placement: DropPlacement
   ) => void;
   isPinned: (entry: string) => boolean;
@@ -241,17 +241,23 @@ export const useScopedSidebarEntries = ({
   );
 
   const movePinned = useCallback(
-    (entry: string, targetEntry: string, placement: DropPlacement): void => {
+    (
+      entry: string,
+      targetEntry: string | null,
+      placement: DropPlacement
+    ): void => {
       if (!scopeId) return;
 
       setPersistedPinned((previous) =>
         setScopedEntries(previous, scopeId, (entries) =>
-          moveKey(
-            entries.includes(entry) ? entries : [...entries, entry],
-            entry,
-            targetEntry,
-            placement
-          )
+          targetEntry === null
+            ? [entry, ...entries.filter((item) => item !== entry)]
+            : moveKey(
+                entries.includes(entry) ? entries : [...entries, entry],
+                entry,
+                targetEntry,
+                placement
+              )
         )
       );
     },

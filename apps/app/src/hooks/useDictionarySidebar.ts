@@ -22,7 +22,7 @@ export type UseDictionarySidebarReturn = {
   /** Reorder a pinned entry next to another one. */
   movePinned: (
     entry: string,
-    targetEntry: string,
+    targetEntry: string | null,
     placement: DropPlacement
   ) => void;
   isPinned: (dictionaryKey: string) => boolean;

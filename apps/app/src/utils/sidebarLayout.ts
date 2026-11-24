@@ -23,9 +23,17 @@ export type SidebarMoveResult = {
   rootOrder?: string[];
   /** Reordering of the pinned entries of one kind, when it changed. */
   pinnedMove?: PinnedEntryReference & {
-    targetEntry: string;
+    /** Entry to land next to; `null` moves the entry to the start. */
+    targetEntry: string | null;
     placement: DropPlacement;
   };
+};
+
+/** Key of the section listing each kind of pinned entry. */
+const SECTION_KEY_BY_KIND: Record<PinnedEntryKind, string> = {
+  dictionary: 'dictionaries',
+  tag: 'tags',
+  'editor-page': 'editor',
 };
 
 const PINNED_ENTRY_PREFIXES: [PinnedEntryKind, string][] = [
@@ -193,6 +201,16 @@ export const resolveSidebarMove = ({
 
   const draggedEntry = parsePinnedItemKey(draggedKey);
   const targetEntry = parsePinnedItemKey(targetKey);
+
+  // Dropping on the section row itself puts the entry back at its start.
+  if (draggedEntry && targetKey === SECTION_KEY_BY_KIND[draggedEntry.kind]) {
+    return {
+      ...(isDraggedRoot && {
+        rootOrder: rootKeys.filter((key) => key !== draggedKey),
+      }),
+      pinnedMove: { ...draggedEntry, targetEntry: null, placement: 'before' },
+    };
+  }
 
   if (!draggedEntry || !targetEntry || draggedEntry.kind !== targetEntry.kind) {
     return null;
