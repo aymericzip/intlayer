@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-10-08
+updatedAt: 2026-11-23
 priority: 7
 title: "从 React Intl 迁移到 Intlayer"
 description: "了解如何使用兼容适配器将您的 React 应用程序从 react-intl 迁移到 Intlayer。"
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - react-intl
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -58,3 +61,5 @@ bundler 插件将 `react-intl` 别名为 `@intlayer/react-intl`。Intlayer 插�
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
 - [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
+如需分步配置，请阅读 [react-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-intl_to_intlayer.md)。

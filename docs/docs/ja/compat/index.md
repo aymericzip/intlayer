@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "既存の i18n ライブラリ向け Intlayer 互換アダプター"
 description: "既存の i18n ソリューションを、compat アダプターを使用して、ゼロの摩擦で Intlayer に移行してください。"
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -50,3 +53,5 @@ compat アダプターを使用する場合、アプリケーションのイン�
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+
+ステップごとのガイドは [移行の概要](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration.md) に一覧があります。

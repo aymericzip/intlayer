@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Migrar do Lingui para Intlayer"
 description: "Aprenda como migrar sua aplicação do Lingui para Intlayer usando o adaptador de compatibilidade."
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -47,3 +50,5 @@ Nos bastidores:
 > Para entender de onde vêm essas bibliotecas, leia a história do i18n em JavaScript.
 
 - [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
+
+Para uma configuração passo a passo, leia o [guia de migração do Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_lingui_to_intlayer.md).

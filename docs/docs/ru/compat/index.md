@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Адаптеры совместимости Intlayer для i18n-библиотек"
 description: "Переведите ваше существующее решение i18n на Intlayer без трения, используя адаптеры совместимости."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Инициализация истории"
@@ -50,3 +53,5 @@ author: aymericzip
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/lingui.md)
+
+Пошаговые руководства перечислены в [обзоре миграции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration.md).

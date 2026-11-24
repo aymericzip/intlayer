@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Migrar de Svelte I18n para Intlayer"
 description: "Aprenda como migrar sua aplicação Svelte de svelte-i18n para Intlayer usando o adaptador de compatibilidade."
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - svelte-i18n
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Inicializar histórico"
@@ -50,3 +53,5 @@ Nos bastidores:
 > Para entender de onde vêm essas bibliotecas, leia a história do i18n em JavaScript.
 
 - [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
+
+Para uma configuração passo a passo, leia o [guia de migração do svelte-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_svelte-i18n_to_intlayer.md).

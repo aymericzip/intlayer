@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-11-03
+updatedAt: 2026-11-23
 priority: 7
 title: "מתאמי תאימות של Intlayer עבור ספריות i18n קיימות"
 description: "הגרו את פתרון ה-i18n הקיים שלכם ל-Intlayer ללא חיכוך באמצעות מתאמי תאימות (compat adapters)."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "אתחול היסטוריה"
@@ -50,3 +53,5 @@ author: aymericzip
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/compat/lingui.md)
+
+המדריכים שלב אחר שלב מופיעים ב[סקירת המעבר](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration.md).

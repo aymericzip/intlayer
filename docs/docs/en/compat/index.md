@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Intlayer Compat Adapters for Existing i18n Libraries"
 description: "Migrate your existing i18n solution to Intlayer with zero friction using compat adapters."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -38,7 +41,7 @@ For example, a developer replaces `import { useTranslation } from 'react-i18next
 
 ## Available Compat Adapters
 
-Choose your existing library below to see how to migrate seamlessly:
+Choose your existing library below to see how to migrate seamlessly. Step-by-step guides are listed in the [migration overview](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration.md).
 
 - [Vue I18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md)
 - [React Intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-intl.md)

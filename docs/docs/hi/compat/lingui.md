@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Lingui से Intlayer में माइग्रेट करें"
 description: "Lingui से Intlayer में अपने एप्लिकेशन को माइग्रेट करना सीखें compat adapter का उपयोग करके।"
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -47,3 +50,5 @@ Lingui macros (जैसे `` t`Hello ${name}` `` और `<Trans>`) का उ�
 > ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
 
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
+चरण-दर-चरण सेटअप के लिए [Lingui माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_lingui_to_intlayer.md) पढ़ें।

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Adapter tương thích Intlayer cho các thư viện i18n"
 description: "Di chuyển giải pháp i18n hiện có của bạn sang Intlayer một cách dễ dàng bằng các bộ điều hợp tương thích."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Khởi tạo lịch sử"
@@ -50,3 +53,5 @@ Chọn thư viện hiện có của bạn bên dưới để xem cách di chuy�
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+
+Các hướng dẫn từng bước được liệt kê trong [tổng quan về di chuyển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration.md).

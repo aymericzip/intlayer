@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "NGX-Translateからのへの移行"
 description: "compat adapterを使用してあなたのAngularアプリケーションをngx-translateからIntlayerに移行する方法を学びます。"
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - ngx-translate
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -48,3 +51,5 @@ npx intlayer init --interactive
 > これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
 
 - [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
+ステップごとのセットアップは [ngx-translate 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_ngx-translate_to_intlayer.md) を参照してください。

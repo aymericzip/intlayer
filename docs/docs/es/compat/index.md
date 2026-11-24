@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Adaptadores de compatibilidad de Intlayer para bibliotecas i18n"
 description: "Migra tu solución i18n existente a Intlayer sin fricciones usando adaptadores de compatibilidad."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Inicializar historial"
@@ -50,3 +53,5 @@ Elige tu biblioteca existente a continuación para ver cómo migrar sin problema
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/lingui.md)
+
+Las guías paso a paso están listadas en la [visión general de la migración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration.md).

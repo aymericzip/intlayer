@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Linguiからintlayerへの移行"
 description: "compat adapterを使用してLinguiアプリケーションからIntlayerへ移行する方法を学びます。"
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -47,3 +50,5 @@ Linguiは、マクロ（`` t`Hello ${name}` ``および`<Trans>`など）を使�
 > これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
 
 - [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
+ステップごとのセットアップは [Lingui 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_lingui_to_intlayer.md) を参照してください。

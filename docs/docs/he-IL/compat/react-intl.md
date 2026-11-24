@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-11-03
+updatedAt: 2026-11-23
 priority: 7
 title: "הגירה מ-React Intl ל-Intlayer"
 description: "למדו כיצד להגר את אפליקציית ה-React שלכם מ-react-intl ל-Intlayer באמצעות מתאם התאימות (compat adapter)."
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - react-intl
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "אתחול היסטוריה"
@@ -58,3 +61,5 @@ export default defineConfig({
 > כדי להבין מהיכן הגיעו הספריות הללו, קראו את ההיסטוריה של JavaScript i18n.
 
 - [ההיסטוריה של JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/he/history_of_i18n.md)
+
+להגדרה שלב אחר שלב, קראו את [מדריך המעבר מ-react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_react-intl_to_intlayer.md).

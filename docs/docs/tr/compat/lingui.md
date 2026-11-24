@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Lingui'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak uygulamanızı Lingui'den Intlayer'a nasıl geçireceğinizi öğrenin."
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -47,3 +50,5 @@ Arka Planda:
 > Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
 
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
+Adım adım kurulum için [Lingui geçiş rehberini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_lingui_to_intlayer.md) okuyun.

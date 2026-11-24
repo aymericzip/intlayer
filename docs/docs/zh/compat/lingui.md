@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-10-08
+updatedAt: 2026-11-23
 priority: 7
 title: "从 Lingui 迁移到 Intlayer"
 description: "了解如何使用兼容适配器将您的应用程序从 Lingui 迁移到 Intlayer。"
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -47,3 +50,5 @@ Lingui 利用宏（如 `` t`Hello ${name}` `` 和 `<Trans>`），这些宏被编
 > 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
 
 - [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
+如需分步配置，请阅读 [Lingui 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_lingui_to_intlayer.md)。

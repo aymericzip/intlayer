@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Міграція з Lingui на Intlayer"
 description: "Дізнайтеся, як мігрувати вашу програму з Lingui на Intlayer, використовуючи адаптер сумісності."
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -47,3 +50,5 @@ Lingui використовує макроси (такі як `` t`Hello ${name}
 > Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
 
 - [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
+
+Покрокове налаштування описано в [посібнику з міграції з Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_lingui_to_intlayer.md).

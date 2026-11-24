@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Di Chuyển Từ Svelte I18n Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng Svelte của bạn từ svelte-i18n sang Intlayer bằng bộ điều hợp tương thích."
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - svelte-i18n
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Khởi tạo lịch sử"
@@ -50,3 +53,5 @@ Bên dưới:
 > Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
 
 - [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
+Để thiết lập từng bước, hãy đọc [hướng dẫn di chuyển từ svelte-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_svelte-i18n_to_intlayer.md).

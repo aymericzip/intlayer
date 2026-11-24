@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "기존 i18n 라이브러리를 위한 Intlayer 호환 어댑터"
 description: "compat adapter를 사용하여 기존 i18n 솔루션을 Intlayer로 마이그레이션하세요."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -50,3 +53,5 @@ compat adapter를 사용할 때, 애플리케이션의 import를 다시 작성�
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+
+단계별 가이드는 [마이그레이션 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration.md)에 정리되어 있습니다.

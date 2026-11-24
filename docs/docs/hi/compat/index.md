@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "i18n लाइब्रेरी के लिए Intlayer कम्पैट एडैप्टर"
 description: "अपने मौजूदा i18n समाधान को Intlayer में compat adapters का उपयोग करके बिना किसी घर्षण के माइग्रेट करें।"
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -50,3 +53,5 @@ author: aymericzip
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+
+चरण-दर-चरण गाइड [माइग्रेशन ओवरव्यू](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration.md) में सूचीबद्ध हैं।

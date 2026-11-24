@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "i18n kütüphaneleri için Intlayer uyumluluk adaptörleri"
 description: "Mevcut i18n çözümünüzü sıfır zorlukla Intlayer'a geçirin uyumluluk adaptörleri kullanarak."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -50,3 +53,5 @@ Mevcut kütüphanenizi seçin ve sorunsuzca nasıl geçiş yapacağınızı öğ
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+
+Adım adım rehberler [geçiş genel bakışında](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration.md) listelenmiştir.

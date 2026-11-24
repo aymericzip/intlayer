@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Migrare da NGX-Translate a Intlayer"
 description: "Scopri come migrare la tua applicazione Angular da ngx-translate a Intlayer utilizzando l'adattatore di compatibilità."
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - ngx-translate
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -48,3 +51,5 @@ Sotto il cofano:
 > Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
 
 - [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
+
+Per una configurazione passo passo, leggi la [guida alla migrazione da ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_ngx-translate_to_intlayer.md).

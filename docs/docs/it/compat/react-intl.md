@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Migrare da React Intl a Intlayer"
 description: "Scopri come migrare la tua applicazione React da react-intl a Intlayer utilizzando l'adapter di compatibilità."
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - react-intl
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -58,3 +61,5 @@ Sotto il cofano:
 > Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
 
 - [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
+
+Per una configurazione passo passo, leggi la [guida alla migrazione da react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_react-intl_to_intlayer.md).

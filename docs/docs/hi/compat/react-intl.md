@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "React Intl से Intlayer में माइग्रेट करें"
 description: "सीखें कि कैसे compat adapter का उपयोग करके अपने React एप्लिकेशन को react-intl से Intlayer में माइग्रेट करें।"
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - react-intl
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -58,3 +61,5 @@ bundler plugin `react-intl` को `@intlayer/react-intl` में alias कर
 > ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
 
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
+चरण-दर-चरण सेटअप के लिए [react-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-intl_to_intlayer.md) पढ़ें।

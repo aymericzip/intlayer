@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-10-08
+updatedAt: 2026-11-23
 priority: 7
 title: "适用于现有 i18n 库的 Intlayer 兼容适配器"
 description: "使用兼容适配器将您现有的 i18n 解决方案零摩擦迁移到 Intlayer。"
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -50,3 +53,5 @@ author: aymericzip
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+
+分步指南列在 [迁移概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration.md) 中。

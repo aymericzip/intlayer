@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Adaptor kompatibilitas Intlayer untuk library i18n"
 description: "Migrasikan solusi i18n Anda yang sudah ada ke Intlayer tanpa hambatan menggunakan adapter kompatibilitas."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Inisialisasi riwayat"
@@ -50,3 +53,5 @@ Pilih library Anda yang sudah ada di bawah ini untuk melihat cara migrasi secara
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+
+Panduan langkah demi langkah tercantum di [ikhtisar migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration.md).

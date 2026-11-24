@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-11-03
+updatedAt: 2026-11-23
 priority: 7
 title: "הגירה מ-Lingui ל-Intlayer"
 description: "למדו כיצד להגר את האפליקציה שלכם מ-Lingui ל-Intlayer באמצעות מתאם התאימות (compat adapter)."
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "אתחול היסטוריה"
@@ -47,3 +50,5 @@ Lingui משתמשת במאקרואים (כגון `` t`Hello ${name}` `` ו-`<Tra
 > כדי להבין מהיכן הגיעו הספריות הללו, קראו את ההיסטוריה של JavaScript i18n.
 
 - [ההיסטוריה של JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/he/history_of_i18n.md)
+
+להגדרה שלב אחר שלב, קראו את [מדריך המעבר מ-Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_lingui_to_intlayer.md).

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: الترحيل من React Intl إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق React الخاص بك من react-intl إلى Intlayer باستخدام محول التوافق.
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - react-intl
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "بدء السجل"
@@ -58,3 +61,5 @@ export default defineConfig({
 > لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
 
 - [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
+للإعداد خطوة بخطوة، اقرأ [دليل الترحيل من react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-intl_to_intlayer.md).

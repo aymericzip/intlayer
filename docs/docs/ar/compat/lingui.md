@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: الترحيل من Lingui إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيقك من Lingui إلى Intlayer باستخدام محول التوافق.
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "بدء السجل"
@@ -47,3 +50,5 @@ npx intlayer init --interactive
 > لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
 
 - [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
+للإعداد خطوة بخطوة، اقرأ [دليل الترحيل من Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_lingui_to_intlayer.md).

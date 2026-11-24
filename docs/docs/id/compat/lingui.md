@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Migrasi dari Lingui ke Intlayer"
 description: "Pelajari cara migrasi aplikasi Anda dari Lingui ke Intlayer menggunakan adapter kompatibilitas."
@@ -14,6 +14,9 @@ slugs:
   - compatibility
   - lingui
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Inisialisasi riwayat"
@@ -47,3 +50,5 @@ Di balik layar:
 > Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
 
 - [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
+Untuk penyiapan langkah demi langkah, baca [panduan migrasi Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_lingui_to_intlayer.md).

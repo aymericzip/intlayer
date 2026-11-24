@@ -1645,6 +1645,7 @@ const docDataContent: Dictionary = {
             id: 'Migrasi',
             vi: 'Di chuyển',
           }),
+          default: getDocMetadata('./docs/en/migration.md'),
           subSections: {
             i18next: {
               title: 'i18next',
@@ -1687,6 +1688,34 @@ const docDataContent: Dictionary = {
                 './docs/en/migration_from_nuxtjs_i18n_to_intlayer.md'
               ),
               frameworks: ['nuxt', 'vue'],
+            },
+            'react-intl': {
+              title: 'react-intl',
+              default: getDocMetadata(
+                './docs/en/migration_from_react-intl_to_intlayer.md'
+              ),
+              frameworks: ['react'],
+            },
+            lingui: {
+              title: 'Lingui',
+              default: getDocMetadata(
+                './docs/en/migration_from_lingui_to_intlayer.md'
+              ),
+              frameworks: ['react'],
+            },
+            'svelte-i18n': {
+              title: 'svelte-i18n',
+              default: getDocMetadata(
+                './docs/en/migration_from_svelte-i18n_to_intlayer.md'
+              ),
+              frameworks: ['svelte'],
+            },
+            'ngx-translate': {
+              title: 'ngx-translate',
+              default: getDocMetadata(
+                './docs/en/migration_from_ngx-translate_to_intlayer.md'
+              ),
+              frameworks: ['angular'],
             },
           },
         },

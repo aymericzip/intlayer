@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-23
 priority: 7
 title: "Adattatori di compatibilità Intlayer per librerie i18n"
 description: "Migra la tua soluzione i18n esistente a Intlayer senza attriti utilizzando compat adapters."
@@ -14,6 +14,9 @@ slugs:
   - doc
   - compatibility
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration overview"
   - version: 9.0.0
     date: 2026-06-13
     changes: "Init history"
@@ -50,3 +53,5 @@ Scegli la tua libreria esistente di seguito per vedere come eseguire la migrazio
 - [Next i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/next-i18next.md)
 - [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/i18next.md)
 - [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/lingui.md)
+
+Le guide passo passo sono elencate nella [panoramica della migrazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration.md).

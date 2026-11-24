@@ -283,7 +283,7 @@ import { intlayer } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     vinext(),
-    intlayer({ proxy: { ignore: () => true } }),
+    intlayer({ proxy: { ignore: () => false } }),
     cloudflare({
       viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
     }),

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-11-03
+updatedAt: 2026-11-23
 priority: 7
 title: "הגירה מ-NGX-Translate ל-Intlayer"
 description: "למדו כיצד להגר את אפליקציית ה-Angular שלכם מ-ngx-translate ל-Intlayer באמצעות מתאם התאימות (compat adapter)."
@@ -15,6 +15,9 @@ slugs:
   - compatibility
   - ngx-translate
 history:
+  - version: 9.8.5
+    date: 2026-11-23
+    changes: "Link the migration guide"
   - version: 9.0.0
     date: 2026-06-13
     changes: "אתחול היסטוריה"
@@ -48,3 +51,5 @@ npx intlayer init --interactive
 > כדי להבין מהיכן הגיעו הספריות הללו, קראו את ההיסטוריה של JavaScript i18n.
 
 - [ההיסטוריה של JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/he/history_of_i18n.md)
+
+להגדרה שלב אחר שלב, קראו את [מדריך המעבר מ-ngx-translate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/migration_from_ngx-translate_to_intlayer.md).
