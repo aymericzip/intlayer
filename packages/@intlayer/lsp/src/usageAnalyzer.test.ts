@@ -129,6 +129,22 @@ describe('base intlayer usages', () => {
     ]);
   });
 
+  it('ignores lowercase JSX tag names matching a destructured field', () => {
+    const text = [
+      `const App = () => {`,
+      `  const { footer } = useIntlayer('app');`,
+      `  return <footer className="x">{footer}</footer>;`,
+      `};`,
+    ].join('\n');
+
+    const usages = collectMessageUsages(text).filter(
+      (usage) => usage.kind === 'member'
+    );
+
+    expect(usages).toHaveLength(1);
+    expect(usages[0].start).toBe(text.indexOf('{footer}') + 1);
+  });
+
   it('resolves Svelte store references ($content)', () => {
     const text = [
       `const content = useIntlayer('home');`,

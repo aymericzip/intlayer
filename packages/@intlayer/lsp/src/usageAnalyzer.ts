@@ -1503,6 +1503,18 @@ const resolveDecoratorFieldBinding = (
 };
 
 /**
+ * Whether a JSX identifier names a lowercase (intrinsic) element such as
+ * `<footer>` / `</footer>` — an HTML tag, never a reference to a variable.
+ */
+const isIntrinsicJsxTagName = (
+  node: OxcNode,
+  parentType: string | undefined
+): boolean =>
+  node['type'] === 'JSXIdentifier' &&
+  (parentType === 'JSXOpeningElement' || parentType === 'JSXClosingElement') &&
+  /^[a-z]/.test(node['name'] as string);
+
+/**
  * Record member-access / bare-reference usages of content bindings:
  * `content.section.title`, `{title}` (destructured field reference),
  * Svelte's `$content.title`, Vue's `content.value.title`, and class fields:
@@ -1555,6 +1567,8 @@ const collectMemberUsages = (
     const parentType = parentMap.get(node)?.['type'] as string | undefined;
 
     if (parentType?.startsWith('TS') || parentType === 'JSXAttribute') return;
+
+    if (isIntrinsicJsxTagName(node, parentType)) return;
 
     if (isDeclarationPosition(node, parentMap)) return;
 
