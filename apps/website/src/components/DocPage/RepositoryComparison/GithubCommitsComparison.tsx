@@ -1,9 +1,12 @@
 import { buildDatasetJsonLd } from '@intlayer/design-system/structured-data';
-import { useQuery } from '@tanstack/react-query';
-import type { FC } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { type FC, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { JsonLd } from '~/components/JsonLd';
-import { loadCommitCounts } from '~/serverFunctions/repositoryStats';
+import {
+  loadCommitCounts,
+  type RepositoryCommitCount,
+} from '~/serverFunctions/repositoryStats';
 import { ComparisonBarChart } from './ComparisonBarChart';
 
 export type GithubCommitsComparisonProps = {
@@ -11,9 +14,15 @@ export type GithubCommitsComparisonProps = {
   repositories: string[];
 };
 
-/** Compares the commit count of several GitHub repositories. */
-export const GithubCommitsComparison: FC<GithubCommitsComparisonProps> = ({
+type GithubCommitsChartProps = GithubCommitsComparisonProps & {
+  /** Counts per repository, undefined while they load. */
+  commitCounts?: RepositoryCommitCount[];
+};
+
+/** The chart and its dataset, pending until `commitCounts` is given. */
+const GithubCommitsChart: FC<GithubCommitsChartProps> = ({
   repositories,
+  commitCounts,
 }) => {
   const {
     commits,
@@ -22,12 +31,6 @@ export const GithubCommitsComparison: FC<GithubCommitsComparisonProps> = ({
     commitsDatasetName,
     commitsDatasetDescription,
   } = useIntlayer('repository-comparison');
-  const { data: commitCounts, isPending } = useQuery({
-    queryKey: ['github-commit-counts', repositories],
-    queryFn: () => loadCommitCounts({ data: { repositories } }),
-    staleTime: Number.POSITIVE_INFINITY,
-    retry: false,
-  });
 
   const items = repositories.map((repository) => ({
     label: repository,
@@ -57,7 +60,7 @@ export const GithubCommitsComparison: FC<GithubCommitsComparisonProps> = ({
       />
       <ComparisonBarChart
         items={items}
-        isPending={isPending}
+        isPending={commitCounts === undefined}
         unit={commits}
         unavailableLabel={unavailable}
         footer={commitsSource}
@@ -65,3 +68,36 @@ export const GithubCommitsComparison: FC<GithubCommitsComparisonProps> = ({
     </>
   );
 };
+
+/**
+ * Suspends on the counts, so the prerender runs `loadCommitCounts` and bakes
+ * its payload for the browser to read back.
+ */
+const GithubCommitsResolved: FC<GithubCommitsComparisonProps> = ({
+  repositories,
+}) => {
+  const { data: commitCounts } = useSuspenseQuery({
+    queryKey: ['github-commit-counts', repositories],
+    // No count beats an error boundary: the chart then shows them unavailable
+    queryFn: (): Promise<RepositoryCommitCount[]> =>
+      loadCommitCounts({ data: { repositories } }).catch(() => []),
+    staleTime: Number.POSITIVE_INFINITY,
+    retry: false,
+  });
+
+  return (
+    <GithubCommitsChart
+      repositories={repositories}
+      commitCounts={commitCounts}
+    />
+  );
+};
+
+/** Compares the commit count of several GitHub repositories. */
+export const GithubCommitsComparison: FC<GithubCommitsComparisonProps> = (
+  props
+) => (
+  <Suspense fallback={<GithubCommitsChart {...props} />}>
+    <GithubCommitsResolved {...props} />
+  </Suspense>
+);

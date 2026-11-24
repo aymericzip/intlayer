@@ -41,7 +41,7 @@ const DAY_IN_MS = 24 * 60 * 60 * 1000;
 const toNpmDate = (date: Date): string => date.toISOString().slice(0, 10);
 
 /** `start:end` range covering `period`, ending yesterday (npm's last full day). */
-export const getNpmDateRange = (period: NpmDownloadPeriod): string => {
+const getNpmDateRange = (period: NpmDownloadPeriod): string => {
   const endDate = new Date(Date.now() - DAY_IN_MS);
   const startDate = new Date(
     endDate.getTime() - (NPM_DOWNLOAD_PERIOD_DAYS[period] - 1) * DAY_IN_MS
@@ -61,6 +61,12 @@ export type PackageDownloadCount = {
   packageName: string;
   /** Downloads over the requested period, `null` when npm could not answer. */
   downloadCount: number | null;
+};
+
+export type PeriodDownloadCounts = {
+  /** `start:end` the counts cover, as sent to npm. */
+  dateRange: string;
+  downloadCounts: PackageDownloadCount[];
 };
 
 type MemoizedValue<Value> = {
@@ -185,9 +191,8 @@ const fetchDownloadCountCached = createDailyMemo(fetchDownloadCount);
 /**
  * Commit count of each GitHub repository, for the doc comparison charts.
  *
- * Request-time on purpose (no `staticFunctionMiddleware`): baking the counts
- * into the build would freeze them between deployments and make the prerender
- * depend on the GitHub quota.
+ * Baked at prerender (`staticFunctionMiddleware`): the chart suspends during
+ * SSR, so the build runs this once per page and the browser reads the payload.
  */
 export const loadCommitCounts = createServerFn({ method: 'GET' })
   .middleware([staticFunctionMiddleware])
@@ -205,28 +210,57 @@ export const loadCommitCounts = createServerFn({ method: 'GET' })
     )
   );
 
+/** Downloads of every package over `period`, for the range they were counted. */
+const getDownloadCountsOfPeriod = async (
+  packageNames: string[],
+  period: NpmDownloadPeriod
+): Promise<PeriodDownloadCounts> => {
+  const dateRange = getNpmDateRange(period);
+
+  return {
+    dateRange,
+    downloadCounts: await Promise.all(
+      packageNames.map(async (packageName) => ({
+        packageName,
+        downloadCount: await fetchDownloadCountCached(
+          `${dateRange}/${packageName}`
+        ),
+      }))
+    ),
+  };
+};
+
 /**
- * npm downloads of each package over `period`, for the doc comparison charts.
- * Request-time for the same reason as {@link loadCommitCounts}.
+ * npm downloads of each package over every selectable period, for the doc
+ * comparison charts.
+ *
+ * All periods travel in one payload so that switching period never leaves the
+ * prerendered data: the build bakes it like {@link loadCommitCounts}.
  */
 export const loadDownloadCounts = createServerFn({ method: 'GET' })
   .middleware([staticFunctionMiddleware])
-  .validator((data: { packageNames: string[]; period: NpmDownloadPeriod }) => ({
+  .validator((data: { packageNames: string[] }) => ({
     packageNames: data.packageNames.filter((packageName) =>
       NPM_PACKAGE_PATTERN.test(packageName)
     ),
-    period: Object.hasOwn(NPM_DOWNLOAD_PERIOD_DAYS, data.period)
-      ? data.period
-      : ('last-6-months' satisfies NpmDownloadPeriod),
   }))
   .handler(
-    ({ data: { packageNames, period } }): Promise<PackageDownloadCount[]> =>
-      Promise.all(
-        packageNames.map(async (packageName) => ({
-          packageName,
-          downloadCount: await fetchDownloadCountCached(
-            `${getNpmDateRange(period)}/${packageName}`
-          ),
-        }))
-      )
+    async ({
+      data: { packageNames },
+    }): Promise<Record<NpmDownloadPeriod, PeriodDownloadCounts>> => {
+      const periodDownloadCounts = await Promise.all(
+        NPM_DOWNLOAD_PERIODS.map(
+          async (period) =>
+            [
+              period,
+              await getDownloadCountsOfPeriod(packageNames, period),
+            ] as const
+        )
+      );
+
+      return Object.fromEntries(periodDownloadCounts) as Record<
+        NpmDownloadPeriod,
+        PeriodDownloadCounts
+      >;
+    }
   );
