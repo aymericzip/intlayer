@@ -1,6 +1,6 @@
 {
   "name": "elysia-app",
-  "version": "9.8.4",
+  "version": "9.8.5",
   "private": true,
   "type": "module",
   "scripts": {
