@@ -45,6 +45,16 @@ const REMOVED_BLOG_SLUGS = new Set([
  * Key: former locale-agnostic path — Value: current locale-agnostic path.
  */
 const MOVED_PATHS = new Map<string, string>([
+  ['/frequent-questions/bun-set-up', '/frequent-questions'],
+  ['/frequent-questions/esbuild-error', '/frequent-questions'],
+  [
+    '/frequent-questions/vite-env-only-node-fs-false-positive',
+    '/frequent-questions',
+  ],
+  [
+    '/frequent-questions/intlayer-command-undefined',
+    '/frequent-questions/unknown-command',
+  ],
   [
     '/doc/environment/vite-and-react/tanstack-start',
     '/doc/environment/tanstack-start',
