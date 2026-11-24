@@ -1,9 +1,13 @@
 import { buildCreativeWorkJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 import { defaultLocale, getPrefix } from 'intlayer';
+import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
+import { DocPageNavigation } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { getAdjacentFaqEntries } from '~/components/FaqPage/faqData';
+import { FaqPageLayout } from '~/components/FaqPage/FaqPageLayout';
 import type { FileRouteTypes } from '~/routeTree.gen';
-import { loadFaqPage } from '~/serverFunctions/faq';
+import { loadFaqIndex, loadFaqPage } from '~/serverFunctions/faq';
 import { getCanonicalSlugs } from '~/utils/canonicalSlugs';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import {
@@ -18,13 +22,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     const slugsStr = (params as any)['*'] || '';
     const slugs = getCanonicalSlugs('frequent-questions', slugsStr, locale);
 
-    const [result, siteStructuredData, creativeWorkContent] = await Promise.all(
-      [
+    const [result, frequentQuestions, siteStructuredData, creativeWorkContent] =
+      await Promise.all([
         loadFaqPage({ data: { locale, slugs } }),
+        loadFaqIndex({ data: { locale } }),
         getSiteStructuredData({ data: locale }),
         getCreativeWorkStructuredData({ data: locale }),
-      ]
-    );
+      ]);
 
     const { exactMatch, faqsData, content } = result;
 
@@ -43,6 +47,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     }
 
     return {
+      frequentQuestions,
       siteStructuredData,
       creativeWorkContent,
       blogParsed: content!.blogParsed,
@@ -133,13 +138,32 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
 });
 
 function FrequentQuestionPage() {
-  const { blogParsed, codeStyleSheet } = Route.useLoaderData();
+  const {
+    blogParsed,
+    codeStyleSheet,
+    frequentQuestionData,
+    frequentQuestions,
+  } = Route.useLoaderData();
+  const { prevDoc, nextDoc } = getAdjacentFaqEntries(
+    frequentQuestions,
+    frequentQuestionData.docKey
+  );
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <FaqPageLayout
+      faqRecord={frequentQuestions}
+      activeSlugs={frequentQuestionData.slugs}
+      activeTitle={frequentQuestionData.title}
+      locale={Route.useLoaderData().locale}
+    >
+      <DocHeader
+        {...frequentQuestionData}
+        history={frequentQuestionData.history ?? []}
+      />
       <DocumentationRender codeStyleSheet={codeStyleSheet}>
         {blogParsed}
       </DocumentationRender>
-    </div>
+      <DocPageNavigation prevDoc={prevDoc} nextDoc={nextDoc} />
+    </FaqPageLayout>
   );
 }
