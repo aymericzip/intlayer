@@ -40,22 +40,24 @@ export const writeJSFile = async (
     appLogger('File does not exist, creating it', {
       isVerbose: true,
     });
+    // Only the dictionary's own metadata: the config-level defaults
+    // (`fill`, `importMode`…) apply on their own and must not be duplicated.
     const template = await getContentDeclarationFileTemplate(
       mergedDictionary.key,
       format,
       // Filter out undefined values
       Object.fromEntries(
         Object.entries({
-          id: noMetadata ? undefined : mergedDictionary.id,
-          locale: noMetadata ? undefined : mergedDictionary.locale,
-          filled: noMetadata ? undefined : mergedDictionary.filled,
-          fill: noMetadata ? undefined : mergedDictionary.fill,
-          description: noMetadata ? undefined : mergedDictionary.description,
-          title: noMetadata ? undefined : mergedDictionary.title,
-          tags: noMetadata ? undefined : mergedDictionary.tags,
-          version: noMetadata ? undefined : mergedDictionary.version,
-          priority: noMetadata ? undefined : mergedDictionary.priority,
-          importMode: noMetadata ? undefined : mergedDictionary.importMode,
+          id: noMetadata ? undefined : dictionary.id,
+          locale: noMetadata ? undefined : dictionary.locale,
+          filled: noMetadata ? undefined : dictionary.filled,
+          fill: noMetadata ? undefined : dictionary.fill,
+          description: noMetadata ? undefined : dictionary.description,
+          title: noMetadata ? undefined : dictionary.title,
+          tags: noMetadata ? undefined : dictionary.tags,
+          version: noMetadata ? undefined : dictionary.version,
+          priority: noMetadata ? undefined : dictionary.priority,
+          importMode: noMetadata ? undefined : dictionary.importMode,
         }).filter(([, value]) => value !== undefined)
       ),
       noMetadata

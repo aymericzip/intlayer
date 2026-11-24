@@ -267,10 +267,10 @@ export const writeContentHelper = async (
   const keptFields = readFields === 'all' ? new Set<string>() : readFields;
 
   const relativeContentFilePath = relative(baseDir, absolutePath);
-  // A partial extraction into a hand-written dictionary keeps it unowned:
-  // only compiler-generated dictionaries carry `componentFilePath`.
+  // Only compiler-owned dictionaries carry `componentFilePath`: a partial
+  // (manual) extraction never creates the link, it only keeps an existing one.
   const ownership =
-    prune || !existingDictionary || existingDictionary.componentFilePath
+    prune || existingDictionary?.componentFilePath
       ? { componentFilePath: getComponentFilePath(filePath, configuration) }
       : {};
 
