@@ -267,7 +267,8 @@ export const useDictionaryDashboard = (
           (!kind || getMatchesListKind(dictionary as Dictionary, kind)) &&
           getMatchesFilterTypes(
             dictionary as Dictionary,
-            params.type ? params.type.split(',') : []
+            // The plain list has no Type filter: ignore a stale `type` param
+            params.type && kind !== 'dictionary' ? params.type.split(',') : []
           )
       ),
       totalItems: (data?.total_items ?? 0) + filteredLocaleOnlyDicts.length,

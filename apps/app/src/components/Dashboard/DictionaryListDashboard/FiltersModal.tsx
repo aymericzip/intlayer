@@ -8,6 +8,7 @@ import { useIntlayer } from 'react-intlayer';
 import { Skeleton } from '#components/Skeleton';
 import {
   DICTIONARY_FILTER_TYPES,
+  type DictionaryListKind,
   type DictionaryFilterType,
 } from './dictionaryFilterType';
 
@@ -23,6 +24,8 @@ type FiltersModalProps = {
   setParam: (key: any, value: any) => void;
   setParams: (updates: any) => void;
   fixedTag?: string;
+  /** Plain dictionary list: collections and variants are hidden, so no Type filter. */
+  kind?: DictionaryListKind;
 };
 
 const QUALIFIER_TYPE_KEYS = DICTIONARY_FILTER_TYPES;
@@ -35,6 +38,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
   setParam,
   setParams,
   fixedTag,
+  kind,
 }) => {
   const { locationOptions, tableHeaders, filterLabels, qualifierTypes } =
     useIntlayer('dictionary-list');
@@ -229,31 +233,35 @@ export const FiltersModal: FC<FiltersModalProps> = ({
           </div>
         )}
 
-        <div className="flex flex-col gap-4">
-          <div className="text-sm font-medium">{tableHeaders.type}</div>
-          <Container
-            background="none"
-            border
-            borderColor="card"
-            roundedSize="xl"
-            padding="md"
-            className="flex flex-col gap-4"
-          >
-            {QUALIFIER_TYPE_KEYS.map((typeKey) => (
-              <Checkbox
-                key={typeKey}
-                id={`filter-type-${typeKey}`}
-                name={`filter-type-${typeKey}`}
-                size="sm"
-                color="text"
-                checked={activeTypes.includes(typeKey)}
-                onChange={() => handleTypeToggle(typeKey)}
-                label={qualifierTypes[typeKey]}
-                labelClassName="font-normal px-2 py-1"
-              />
-            ))}
-          </Container>
-        </div>
+        {kind !== 'dictionary' && (
+          <div className="flex flex-col gap-4">
+            <div className="text-sm font-medium">{tableHeaders.type}</div>
+            <Container
+              background="none"
+              border
+              borderColor="card"
+              roundedSize="xl"
+              padding="md"
+              className="flex flex-col gap-4"
+            >
+              {QUALIFIER_TYPE_KEYS.filter(
+                (typeKey) => !kind || typeKey !== 'standard'
+              ).map((typeKey) => (
+                <Checkbox
+                  key={typeKey}
+                  id={`filter-type-${typeKey}`}
+                  name={`filter-type-${typeKey}`}
+                  size="sm"
+                  color="text"
+                  checked={activeTypes.includes(typeKey)}
+                  onChange={() => handleTypeToggle(typeKey)}
+                  label={qualifierTypes[typeKey]}
+                  labelClassName="font-normal px-2 py-1"
+                />
+              ))}
+            </Container>
+          </div>
+        )}
 
         <div className="mt-4 flex justify-end gap-4">
           <Button

@@ -107,6 +107,7 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
           setParam={setParam}
           setParams={setParams}
           fixedTag={dashboard.fixedTag}
+          kind={dashboard.kind}
         />
       </Suspense>
 
