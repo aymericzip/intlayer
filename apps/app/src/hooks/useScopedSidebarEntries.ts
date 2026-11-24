@@ -1,6 +1,7 @@
 import { useSession } from '@intlayer/design-system/api';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useCallback, useEffect, useMemo } from 'react';
+import { type DropPlacement, moveKey } from '#utils/sidebarLayout';
 
 /** Number of recently visited entries kept per session scope. */
 const MAX_RECENT = 5;
@@ -52,6 +53,12 @@ export type UseScopedSidebarEntriesReturn = {
   /** Remove a previously pinned entry from the current scope. */
   unpin: (entry: string) => void;
   removeRecent: (entry: string) => void;
+  /** Reorder a pinned entry next to another one. */
+  movePinned: (
+    entry: string,
+    targetEntry: string,
+    placement: DropPlacement
+  ) => void;
   isPinned: (entry: string) => boolean;
 };
 
@@ -233,6 +240,24 @@ export const useScopedSidebarEntries = ({
     [scopeId, setPersistedRecent]
   );
 
+  const movePinned = useCallback(
+    (entry: string, targetEntry: string, placement: DropPlacement): void => {
+      if (!scopeId) return;
+
+      setPersistedPinned((previous) =>
+        setScopedEntries(previous, scopeId, (entries) =>
+          moveKey(
+            entries.includes(entry) ? entries : [...entries, entry],
+            entry,
+            targetEntry,
+            placement
+          )
+        )
+      );
+    },
+    [scopeId, setPersistedPinned]
+  );
+
   const isPinned = useCallback(
     (entry: string): boolean => pinnedEntries.includes(entry),
     [pinnedEntries]
@@ -254,6 +279,7 @@ export const useScopedSidebarEntries = ({
     pin,
     unpin,
     removeRecent,
+    movePinned,
     isPinned,
   };
 };

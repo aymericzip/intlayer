@@ -56,6 +56,8 @@ export const App_NotFound_Path = '/404' as const;
 export const App_Dashboard_Editor_Path = '/editor' as const;
 export const App_Dashboard_Translate_Path = '/translate' as const;
 export const App_Dashboard_Dictionaries_Path = '/dictionary' as const;
+export const App_Dashboard_Collections_Path = '/collection' as const;
+export const App_Dashboard_Variants_Path = '/variants' as const;
 export const App_Dashboard_Projects_Path = '/projects' as const;
 export const App_Dashboard_Tags_Path = '/tags' as const;
 export const App_Dashboard_Organization_Path = '/organization' as const;
@@ -133,6 +135,10 @@ export const App_Dashboard_Translate =
   `${App_Origin}${App_Dashboard_Translate_Path}` as const;
 export const App_Dashboard_Dictionaries =
   `${App_Origin}${App_Dashboard_Dictionaries_Path}` as const;
+export const App_Dashboard_Collections =
+  `${App_Origin}${App_Dashboard_Collections_Path}` as const;
+export const App_Dashboard_Variants =
+  `${App_Origin}${App_Dashboard_Variants_Path}` as const;
 export const App_Dashboard_Projects =
   `${App_Origin}${App_Dashboard_Projects_Path}` as const;
 export const App_Dashboard_Tags =

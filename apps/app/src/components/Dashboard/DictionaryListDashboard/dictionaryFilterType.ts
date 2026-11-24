@@ -48,3 +48,34 @@ export const getMatchesFilterTypes = (
   getDictionaryFilterTypes(dictionary).some((filterType) =>
     activeTypes.includes(filterType)
   );
+
+/** Dictionary list scopes: the plain list, collections (`item`) and variants. */
+export type DictionaryListKind = 'dictionary' | 'collection' | 'variant';
+
+/**
+ * True when the dictionary belongs in the given list. A dictionary that is
+ * both a collection and a variant is listed in both, and hidden from the
+ * plain dictionary list.
+ */
+export const getMatchesListKind = (
+  dictionary: Pick<Dictionary, 'item' | 'variant'>,
+  kind: DictionaryListKind
+): boolean => {
+  const filterTypes = getDictionaryFilterTypes(dictionary);
+
+  switch (kind) {
+    case 'collection':
+      return filterTypes.includes('collection');
+    case 'variant':
+      return filterTypes.includes('variant') || filterTypes.includes('meta');
+    default:
+      return filterTypes.includes('standard');
+  }
+};
+
+/** Detail route prefix opened from each list. */
+export const DICTIONARY_KIND_DETAIL_PATH = {
+  dictionary: '/dictionary',
+  collection: '/collection',
+  variant: '/variants',
+} as const satisfies Record<DictionaryListKind, string>;

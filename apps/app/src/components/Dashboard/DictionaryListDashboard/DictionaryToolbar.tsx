@@ -4,13 +4,14 @@ import { Container } from '@intlayer/design-system/container';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { Blend, Columns, Filter, Plus, Trash2 } from 'lucide-react';
+import { Blend, Columns, Filter, Plus, Settings, Trash2 } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
   DashboardRightPanelId,
   useDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
+import { useDynamicDictionarySections } from '#hooks/useDynamicDictionarySections';
 import type { DataTableInstance } from '#utils/reactTable';
 import { PushUnmergedDictionariesButton } from './PushUnmergedDictionariesButton';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
@@ -27,6 +28,8 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
   const content = useIntlayer('dictionary-list');
   const { params, setParam, state } = dashboard;
   const { session } = useSession();
+  const { settings: sectionSettings, setSetting } =
+    useDynamicDictionarySections();
   const hasDictionaryWritePermission =
     (session?.permissions?.includes('dictionary:admin') ||
       session?.permissions?.includes('dictionary:write')) ??
@@ -87,6 +90,41 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             </span>
           )}
 
+          <PopoverStatic identifier="dictionary-sections">
+            <Button
+              variant="hoverable"
+              color="text"
+              size="icon-lg"
+              Icon={Settings}
+              label={content.dynamicSections.button.value}
+            />
+            <PopoverStatic.Detail identifier="dictionary-sections">
+              <Container className="flex flex-col gap-2 p-3" roundedSize="xl">
+                <p className="mb-2 font-bold">
+                  {content.dynamicSections.button}
+                </p>
+                {(['collections', 'variants', 'tags'] as const).map(
+                  (section) => (
+                    <div key={section} className="flex items-center gap-2 p-2">
+                      <Checkbox
+                        id={`section-${section}`}
+                        name={`section-${section}`}
+                        color="text"
+                        checked={sectionSettings[section]}
+                        onChange={(event) =>
+                          setSetting(section, event.target.checked)
+                        }
+                        size="sm"
+                      />
+                      <label htmlFor={`section-${section}`}>
+                        {content.dynamicSections[section]}
+                      </label>
+                    </div>
+                  )
+                )}
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
           <PopoverStatic identifier="dictionary-columns">
             <Button
               variant="hoverable"

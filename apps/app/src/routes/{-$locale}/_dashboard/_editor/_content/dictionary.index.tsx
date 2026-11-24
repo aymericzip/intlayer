@@ -63,5 +63,5 @@ export const Route = createFileRoute(
 });
 
 function DictionaryPage() {
-  return <DictionaryListDashboard />;
+  return <DictionaryListDashboard kind="dictionary" />;
 }

@@ -20,6 +20,10 @@ import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { type DataTableColumnDef, useDataTable } from '#utils/reactTable';
+import {
+  DICTIONARY_KIND_DETAIL_PATH,
+  type DictionaryListKind,
+} from './dictionaryFilterType';
 import { DictionaryListSkeleton } from './DictionaryListSkeleton';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
@@ -30,16 +34,18 @@ import { useDictionaryDashboard } from './useDictionaryDashboard';
 
 type DictionaryListDashboardContentProps = {
   tagKey?: string;
+  kind?: DictionaryListKind;
 };
 
 export const DictionaryListDashboardContent: FC<
   DictionaryListDashboardContentProps
-> = ({ tagKey }) => {
-  const dashboard = useDictionaryDashboard({ fixedTag: tagKey });
+> = ({ tagKey, kind }) => {
+  const dashboard = useDictionaryDashboard({ fixedTag: tagKey, kind });
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const formatDate = useDate();
   const content = useIntlayer('dictionary-list');
   const navigate = useLocalizedNavigate();
+  const detailPath = DICTIONARY_KIND_DETAIL_PATH[kind ?? 'dictionary'];
   const { session } = useSession();
 
   const hasDictionaryWritePermission =
@@ -399,7 +405,7 @@ export const DictionaryListDashboardContent: FC<
                 });
 
                 navigate({
-                  to: `/dictionary/$dictionaryKey`,
+                  to: `${detailPath}/$dictionaryKey`,
                   params: {
                     dictionaryKey: row.original.key,
                   },
@@ -450,7 +456,7 @@ export const DictionaryListDashboardContent: FC<
             keyPath: [],
           });
           navigate({
-            to: `/dictionary/$dictionaryKey`,
+            to: `${detailPath}/$dictionaryKey`,
             params: { dictionaryKey: row.original.key },
           });
         }}
@@ -483,12 +489,14 @@ export const DictionaryListDashboardContent: FC<
 
 type DictionaryListDashboardProps = {
   tagKey?: string;
+  kind?: DictionaryListKind;
 };
 
 export const DictionaryListDashboard: FC<DictionaryListDashboardProps> = ({
   tagKey,
+  kind,
 }) => (
   <Suspense fallback={<DictionaryListSkeleton />}>
-    <DictionaryListDashboardContent tagKey={tagKey} />
+    <DictionaryListDashboardContent tagKey={tagKey} kind={kind} />
   </Suspense>
 );

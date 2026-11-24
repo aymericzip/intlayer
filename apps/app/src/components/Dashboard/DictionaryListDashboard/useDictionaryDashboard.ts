@@ -18,7 +18,11 @@ import {
 } from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
-import { getMatchesFilterTypes } from './dictionaryFilterType';
+import {
+  type DictionaryListKind,
+  getMatchesFilterTypes,
+  getMatchesListKind,
+} from './dictionaryFilterType';
 
 const searchParams = {
   page: { type: 'number', fallbackValue: 1 },
@@ -33,12 +37,15 @@ const searchParams = {
 
 type UseDictionaryDashboardOptions = {
   fixedTag?: string;
+  /** Restrict the list to plain dictionaries, collections or variants. */
+  kind?: DictionaryListKind;
 };
 
 export const useDictionaryDashboard = (
   options?: UseDictionaryDashboardOptions
 ) => {
   const fixedTag = options?.fixedTag;
+  const kind = options?.kind;
 
   // Search & Pagination Params
   const { params, setParam, setParams } = useSearchParamState(searchParams);
@@ -66,8 +73,11 @@ export const useDictionaryDashboard = (
     if (activeVisualEditorKeys) {
       list = list.filter((d) => activeVisualEditorKeys.includes(d.key));
     }
+    if (kind) {
+      list = list.filter((d) => getMatchesListKind(d, kind));
+    }
     return list;
-  }, [localeOnlyDicts, activeVisualEditorKeys, fixedTag]);
+  }, [localeOnlyDicts, activeVisualEditorKeys, fixedTag, kind]);
 
   // Modals & Selection State
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -224,6 +234,7 @@ export const useDictionaryDashboard = (
 
   return {
     fixedTag,
+    kind,
     params,
     setParam,
     setParams,
@@ -251,11 +262,13 @@ export const useDictionaryDashboard = (
       dictionaries: (params.page === 1
         ? [...filteredLocaleOnlyDicts, ...(data?.data ?? [])]
         : (data?.data ?? [])
-      ).filter((dictionary) =>
-        getMatchesFilterTypes(
-          dictionary as Dictionary,
-          params.type ? params.type.split(',') : []
-        )
+      ).filter(
+        (dictionary) =>
+          (!kind || getMatchesListKind(dictionary as Dictionary, kind)) &&
+          getMatchesFilterTypes(
+            dictionary as Dictionary,
+            params.type ? params.type.split(',') : []
+          )
       ),
       totalItems: (data?.total_items ?? 0) + filteredLocaleOnlyDicts.length,
       totalPages: data?.total_pages ?? 1,

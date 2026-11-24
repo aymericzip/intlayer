@@ -1,4 +1,5 @@
 import { useScopedSidebarEntries } from '#hooks/useScopedSidebarEntries';
+import type { DropPlacement } from '#utils/sidebarLayout';
 
 const PINNED_STORAGE_KEY = 'intlayer:pinned-tags';
 const RECENT_STORAGE_KEY = 'intlayer:recent-tags';
@@ -18,6 +19,12 @@ export type UseTagSidebarReturn = {
   /** Remove a previously pinned tag key. */
   unpin: (tagKey: string) => void;
   removeRecent: (tagKey: string) => void;
+  /** Reorder a pinned entry next to another one. */
+  movePinned: (
+    entry: string,
+    targetEntry: string,
+    placement: DropPlacement
+  ) => void;
   isPinned: (tagKey: string) => boolean;
 };
 
@@ -40,6 +47,7 @@ export const useTagSidebar = (): UseTagSidebarReturn => {
     pin,
     unpin,
     removeRecent,
+    movePinned,
     isPinned,
   } = useScopedSidebarEntries({
     pinnedStorageKey: PINNED_STORAGE_KEY,
@@ -54,6 +62,7 @@ export const useTagSidebar = (): UseTagSidebarReturn => {
     pin,
     unpin,
     removeRecent,
+    movePinned,
     isPinned,
   };
 };

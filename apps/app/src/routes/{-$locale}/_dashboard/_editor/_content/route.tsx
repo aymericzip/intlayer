@@ -1,12 +1,14 @@
 import { Button } from '@intlayer/design-system/button';
 import {
   App_Dashboard,
+  App_Dashboard_Collections_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor,
   App_Dashboard_Editor_Path,
   App_Dashboard_Projects_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
+  App_Dashboard_Variants_Path,
   Website_Domain,
 } from '@intlayer/design-system/routes';
 import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
@@ -18,7 +20,7 @@ import {
   getLocalizedUrl,
   getPathWithoutLocale,
 } from 'intlayer';
-import { Book, Globe, PenTool, Tag } from 'lucide-react';
+import { Book, Globe, Layers, PenTool, Shapes, Tag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
@@ -27,6 +29,7 @@ import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLa
 import { Editor } from '#components/Dashboard/Editor';
 import { DictionaryLoaderDashboard } from '#components/Dashboard/Editor/DictionaryLoaderDashboard';
 import { DictionaryLoaderRoute } from '#components/Dashboard/Editor/DictionaryLoaderRoute';
+import { useDynamicDictionarySections } from '#hooks/useDynamicDictionarySections';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { validateAuth } from '#utils/auth';
 
@@ -96,6 +99,8 @@ function EditorLayout() {
   const navigate = useLocalizedNavigate();
   const { pathname } = useLocation();
   const { locale } = Route.useParams();
+  const { showCollections, showVariants, showTags } =
+    useDynamicDictionarySections();
 
   const isEditorActive = getPathWithoutLocale(pathname).startsWith(
     App_Dashboard_Editor_Path
@@ -127,11 +132,33 @@ function EditorLayout() {
       value: App_Dashboard_Dictionaries_Path,
       icon: Book,
     },
-    {
-      label: tabLabels.tags,
-      value: App_Dashboard_Tags_Path,
-      icon: Tag,
-    },
+    ...(showCollections
+      ? [
+          {
+            label: tabLabels.collections,
+            value: App_Dashboard_Collections_Path,
+            icon: Layers,
+          },
+        ]
+      : []),
+    ...(showVariants
+      ? [
+          {
+            label: tabLabels.variants,
+            value: App_Dashboard_Variants_Path,
+            icon: Shapes,
+          },
+        ]
+      : []),
+    ...(showTags
+      ? [
+          {
+            label: tabLabels.tags,
+            value: App_Dashboard_Tags_Path,
+            icon: Tag,
+          },
+        ]
+      : []),
   ];
 
   const currentTabValue =

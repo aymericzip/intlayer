@@ -7,7 +7,11 @@ import { Container } from '@intlayer/design-system/container';
 import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
 import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
+import {
+  App_Dashboard_Collections_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Variants_Path,
+} from '@intlayer/design-system/routes';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { useQueryClient } from '@tanstack/react-query';
@@ -18,13 +22,26 @@ import { useTheme } from '#/providers/ThemeProvider';
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
+type ContentDashboardKind = 'dictionary' | 'collection' | 'variant';
+
+/** List route each kind returns to. */
+const KIND_LIST_PATH = {
+  dictionary: App_Dashboard_Dictionaries_Path,
+  collection: App_Dashboard_Collections_Path,
+  variant: App_Dashboard_Variants_Path,
+} as const satisfies Record<ContentDashboardKind, string>;
+
 type ContentDashboardContentProps = {
   dictionaryKey: string;
+  /** Which section the editor was opened from. Defaults to `dictionary`. */
+  kind?: ContentDashboardKind;
 };
 
 export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   dictionaryKey,
+  kind = 'dictionary',
 }) => {
+  const listPath = KIND_LIST_PATH[kind];
   const { resolvedTheme } = useTheme();
   const {
     data: dictionaryResult,
@@ -43,6 +60,8 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   } = useIntlayer('dashboard-sidebar');
   const { notAccessible } = useIntlayer('content-dashboard');
   const { pin, unpin, isPinned, trackVisit } = useDictionarySidebar();
+  // Only plain dictionaries feed the dictionary sidebar entries
+  const isPlainDictionary = kind === 'dictionary';
 
   const navigate = useLocalizedNavigate();
 
@@ -76,10 +95,10 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   // Only record dictionaries reachable from the active project, so a
   // dictionary of another project never lands in this project's sidebar.
   useEffect(() => {
-    if (isAccessible) {
+    if (isAccessible && isPlainDictionary) {
       trackVisit(dictionaryKey);
     }
-  }, [dictionaryKey, isAccessible, trackVisit]);
+  }, [dictionaryKey, isAccessible, isPlainDictionary, trackVisit]);
 
   const handleSave = () => {
     queryClient.invalidateQueries({ queryKey: ['dictionary', dictionaryKey] });
@@ -103,9 +122,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
                 variant="outline"
                 color="text"
                 label={notAccessible.backToDictionaries.value}
-                onClick={() =>
-                  navigate({ to: App_Dashboard_Dictionaries_Path })
-                }
+                onClick={() => navigate({ to: listPath })}
               >
                 {notAccessible.backToDictionaries}
               </Button>
@@ -115,9 +132,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
             <DictionaryFieldEditor
               dictionary={dictionary}
               siblings={siblings}
-              onClickDictionaryList={() =>
-                navigate({ to: App_Dashboard_Dictionaries_Path })
-              }
+              onClickDictionaryList={() => navigate({ to: listPath })}
               onOpenDictionary={(relatedDictionary) =>
                 navigate({
                   to: '/dictionary/$dictionaryKey',
@@ -130,47 +145,49 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
               isDarkMode={resolvedTheme === 'dark'}
               mode={['remote']}
               onDelete={() => {
-                navigate({ to: App_Dashboard_Dictionaries_Path });
+                navigate({ to: listPath });
               }}
               onSave={handleSave}
               rightContent={
-                <PopoverStatic identifier={`pin-${dictionaryKey}`}>
-                  <Button
-                    type="button"
-                    variant="hoverable"
-                    color="text"
-                    size="icon-md"
-                    Icon={pinned ? PinOff : Pin}
-                    onClick={() => {
-                      if (pinned) {
-                        unpin(dictionaryKey);
-                      } else {
-                        pin(dictionaryKey);
-                      }
-                    }}
-                    label={String(
-                      pinned ? unpinDictionaryLabel : pinDictionaryLabel
-                    )}
-                    aria-label={String(
-                      pinned ? unpinDictionaryLabel : pinDictionaryLabel
-                    )}
-                    title={String(
-                      pinned ? unpinDictionaryLabel : pinDictionaryLabel
-                    )}
-                  />
-                  <PopoverStatic.Detail
-                    identifier={`pin-${dictionaryKey}`}
-                    xAlign="end"
-                  >
-                    <Container padding="sm" roundedSize="xl">
-                      <span className="text-nowrap">
-                        {String(
-                          pinned ? unpinDictionaryLabel : pinDictionaryLabel
-                        )}
-                      </span>
-                    </Container>
-                  </PopoverStatic.Detail>
-                </PopoverStatic>
+                isPlainDictionary ? (
+                  <PopoverStatic identifier={`pin-${dictionaryKey}`}>
+                    <Button
+                      type="button"
+                      variant="hoverable"
+                      color="text"
+                      size="icon-md"
+                      Icon={pinned ? PinOff : Pin}
+                      onClick={() => {
+                        if (pinned) {
+                          unpin(dictionaryKey);
+                        } else {
+                          pin(dictionaryKey);
+                        }
+                      }}
+                      label={String(
+                        pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                      )}
+                      aria-label={String(
+                        pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                      )}
+                      title={String(
+                        pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                      )}
+                    />
+                    <PopoverStatic.Detail
+                      identifier={`pin-${dictionaryKey}`}
+                      xAlign="end"
+                    >
+                      <Container padding="sm" roundedSize="xl">
+                        <span className="text-nowrap">
+                          {String(
+                            pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                          )}
+                        </span>
+                      </Container>
+                    </PopoverStatic.Detail>
+                  </PopoverStatic>
+                ) : undefined
               }
             />
           )}

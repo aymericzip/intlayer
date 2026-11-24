@@ -12,6 +12,7 @@ import {
   App_Admin_Users_Path,
   App_Dashboard_Analytics_Path,
   App_Dashboard_Assets_Path,
+  App_Dashboard_Collections_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_IDE_Path,
@@ -19,6 +20,7 @@ import {
   App_Dashboard_Scanner_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
+  App_Dashboard_Variants_Path,
   App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
@@ -46,17 +48,25 @@ import {
   PenTool,
   Pin,
   PinOff,
+  Pencil,
   ScanLine,
   Shield,
+  Shapes,
   SquareCode,
   Tags,
   User,
   X,
 } from 'lucide-react';
-import { type FC, forwardRef, useState } from 'react';
+import { type DragEvent, type FC, forwardRef, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { IS_SELF_HOSTED } from '#utils/selfHosted';
+import {
+  type DropPlacement,
+  isDraggableItem,
+  resolveSidebarMove,
+  type SidebarMoveResult,
+} from '#utils/sidebarLayout';
 import { DashboardSidebarProfile } from './DashboardSidebarProfile';
 import { ReviewerMarketplaceBanner } from './ReviewerMarketplaceBanner';
 
@@ -67,6 +77,8 @@ export const iconMap: Record<string, LucideIcon> = {
   Book,
   FileText,
   Tags,
+  Layers,
+  Shapes,
   FolderKanban,
   Building2,
   HandCoins,
@@ -90,6 +102,8 @@ export const shouldHaveProjectRoutes = [
   App_Dashboard_Editor_Path,
   App_Dashboard_Translate_Path,
   App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Collections_Path,
+  App_Dashboard_Variants_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_IDE_Path,
   App_Dashboard_Scanner_Path,
@@ -142,6 +156,15 @@ export type DashboardSidebarProps = {
   pinnedDictionaryKeys?: string[];
   pinnedTagKeys?: string[];
   pinnedEditorPageKeys?: string[];
+  /**
+   * Item keys (`dictionary-…`, `tag-…`, `editor-page-…`) of every pinned
+   * entry. Pinned entries and top-level items can be dragged to reorder.
+   */
+  pinnedItemKeys?: ReadonlySet<string>;
+  /** Called with the persisted changes implied by a drag-and-drop. */
+  onMoveResult?: (result: SidebarMoveResult) => void;
+  /** Called with a pinned item's new title; blank restores the original. */
+  onRenameItem?: (itemKey: string, label: string) => void;
 };
 
 export const getCleanPath = (path: string): string => {
@@ -164,6 +187,9 @@ export const getCleanPath = (path: string): string => {
   // Return the path as is for other cases
   return cleanPath;
 };
+
+/** Stable default so the prop never changes identity between renders. */
+const EMPTY_PINNED_ITEM_KEYS: ReadonlySet<string> = new Set();
 
 export type FlatSidebarItem = SidebarNavigationItem & {
   level: number;
@@ -310,7 +336,16 @@ type SidebarTabItemProps = {
   pinDictionaryLabel: string;
   unpinDictionaryLabel: string;
   removeFromSidebarLabel: string;
+  renameLabel: string;
+  onRenameItem?: (itemKey: string, label: string) => void;
   shouldReduceMotion?: boolean;
+  isDraggable: boolean;
+  /** Placement indicator shown while a valid drop hovers this row. */
+  dropPlacement: DropPlacement | null;
+  onItemDragStart: (itemKey: string) => void;
+  onItemDragOver: (event: DragEvent<HTMLElement>, itemKey: string) => void;
+  onItemDrop: (event: DragEvent<HTMLElement>, itemKey: string) => void;
+  onItemDragEnd: () => void;
 };
 
 const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
@@ -335,7 +370,15 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       pinDictionaryLabel,
       unpinDictionaryLabel,
       removeFromSidebarLabel,
+      renameLabel,
+      onRenameItem,
       shouldReduceMotion,
+      isDraggable,
+      dropPlacement,
+      onItemDragStart,
+      onItemDragOver,
+      onItemDrop,
+      onItemDragEnd,
       ...props
     },
     ref
@@ -367,6 +410,7 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       ? (iconMap[item.icon] ?? null)
       : FallbackIcon;
     const isChild = item.level > 0;
+    const [isRenaming, setIsRenaming] = useState(false);
 
     const isPinnableItem = isDictionaryItem || isTagItem || isEditorPageItem;
     const isItemPinned =
@@ -383,7 +427,29 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
     }
 
     return (
-      <div ref={ref} className="group relative w-full" {...props}>
+      <div
+        ref={ref}
+        className="group relative w-full"
+        {...props}
+        draggable={isDraggable && !isCollapsed && !isRenaming}
+        onDragStart={(event) => {
+          event.dataTransfer.effectAllowed = 'move';
+          event.dataTransfer.setData('text/plain', item.key);
+          onItemDragStart(item.key);
+        }}
+        onDragOver={(event) => onItemDragOver(event, item.key)}
+        onDrop={(event) => onItemDrop(event, item.key)}
+        onDragEnd={onItemDragEnd}
+      >
+        {dropPlacement && (
+          <span
+            aria-hidden="true"
+            className={cn(
+              'pointer-events-none absolute inset-x-2 z-20 h-0.5 rounded-full bg-text',
+              dropPlacement === 'before' ? '-top-1' : '-bottom-1'
+            )}
+          />
+        )}
         <Link
           to={item.href ?? '#'}
           label={item.label}
@@ -446,40 +512,92 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
           </AnimatePresence>
         </Link>
 
+        {isRenaming && (
+          <input
+            // oxlint-disable-next-line jsx-a11y/no-autofocus -- focus follows the rename action the user just triggered
+            autoFocus
+            aria-label={renameLabel}
+            defaultValue={item.title}
+            onFocus={(event) => event.currentTarget.select()}
+            onBlur={(event) => {
+              onRenameItem?.(item.key, event.currentTarget.value);
+              setIsRenaming(false);
+            }}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') event.currentTarget.blur();
+              if (event.key === 'Escape') setIsRenaming(false);
+            }}
+            className={cn(
+              'absolute inset-y-1 inset-e-2 z-20 rounded-md border border-text/30 bg-background px-2 text-text outline-none focus:border-text',
+              item.level === 0 && 'inset-s-11',
+              item.level === 1 && 'inset-s-16',
+              item.level >= 2 && 'inset-s-20'
+            )}
+          />
+        )}
+
         {/* Action buttons wrapper — shown on hover */}
         {!isCollapsed && isPinnableItem && (
           <div className="absolute inset-e-2 top-1/2 z-10 flex -translate-y-1/2 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
             {isItemPinned ? (
-              <PopoverStatic identifier={`unpin-${item.key}`}>
-                <Button
-                  type="button"
-                  variant="hoverable"
-                  color="text"
-                  size="icon-sm"
-                  label={String(unpinDictionaryLabel)}
-                  aria-label={String(unpinDictionaryLabel)}
-                  title={String(unpinDictionaryLabel)}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    if (isDictionaryItem && dictKey) {
-                      onUnpinDictionary?.(dictKey);
-                    } else if (isTagItem && tagKey) {
-                      onUnpinTag?.(tagKey);
-                    } else if (isEditorPageItem && editorPagePath) {
-                      onUnpinEditorPage?.(editorPagePath);
-                    }
-                  }}
-                  Icon={PinOff}
-                />
-                <PopoverStatic.Detail
-                  identifier={`unpin-${item.key}`}
-                  xAlign="end"
-                >
-                  <Container padding="sm" roundedSize="xl">
-                    <span className="text-nowrap">{unpinDictionaryLabel}</span>
-                  </Container>
-                </PopoverStatic.Detail>
-              </PopoverStatic>
+              <>
+                <PopoverStatic identifier={`rename-${item.key}`}>
+                  <Button
+                    type="button"
+                    variant="hoverable"
+                    color="text"
+                    size="icon-sm"
+                    label={renameLabel}
+                    aria-label={renameLabel}
+                    title={renameLabel}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setIsRenaming(true);
+                    }}
+                    Icon={Pencil}
+                  />
+                  <PopoverStatic.Detail
+                    identifier={`rename-${item.key}`}
+                    xAlign="end"
+                  >
+                    <Container padding="sm" roundedSize="xl">
+                      <span className="text-nowrap">{renameLabel}</span>
+                    </Container>
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
+                <PopoverStatic identifier={`unpin-${item.key}`}>
+                  <Button
+                    type="button"
+                    variant="hoverable"
+                    color="text"
+                    size="icon-sm"
+                    label={String(unpinDictionaryLabel)}
+                    aria-label={String(unpinDictionaryLabel)}
+                    title={String(unpinDictionaryLabel)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      if (isDictionaryItem && dictKey) {
+                        onUnpinDictionary?.(dictKey);
+                      } else if (isTagItem && tagKey) {
+                        onUnpinTag?.(tagKey);
+                      } else if (isEditorPageItem && editorPagePath) {
+                        onUnpinEditorPage?.(editorPagePath);
+                      }
+                    }}
+                    Icon={PinOff}
+                  />
+                  <PopoverStatic.Detail
+                    identifier={`unpin-${item.key}`}
+                    xAlign="end"
+                  >
+                    <Container padding="sm" roundedSize="xl">
+                      <span className="text-nowrap">
+                        {unpinDictionaryLabel}
+                      </span>
+                    </Container>
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
+              </>
             ) : (
               <>
                 <PopoverStatic identifier={`remove-${item.key}`}>
@@ -571,6 +689,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   pinnedDictionaryKeys = [],
   pinnedTagKeys = [],
   pinnedEditorPageKeys = [],
+  pinnedItemKeys = EMPTY_PINNED_ITEM_KEYS,
+  onMoveResult,
+  onRenameItem,
 }) => {
   const {
     collapseButton,
@@ -582,8 +703,14 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
     pinDictionary: pinDictionaryLabel,
     unpinDictionary: unpinDictionaryLabel,
     removeFromSidebar: removeFromSidebarLabel,
+    renamePinnedItem: renameLabel,
   } = useIntlayer('dashboard-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const draggedKeyRef = useRef<string | null>(null);
+  const [dropIndicator, setDropIndicator] = useState<{
+    key: string;
+    placement: DropPlacement;
+  } | null>(null);
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
   const { session } = useSession();
@@ -626,6 +753,72 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
       }
     }
   }
+
+  const getDropPlacement = (
+    event: DragEvent<HTMLElement>,
+    targetKey: string
+  ): DropPlacement | null => {
+    const draggedKey = draggedKeyRef.current;
+    if (!draggedKey) return null;
+
+    const { top, height } = event.currentTarget.getBoundingClientRect();
+    const placement: DropPlacement =
+      event.clientY < top + height / 2 ? 'before' : 'after';
+
+    return resolveSidebarMove({
+      arrangedItems: items,
+      pinnedItemKeys,
+      draggedKey,
+      targetKey,
+      placement,
+    })
+      ? placement
+      : null;
+  };
+
+  const resetDrag = () => {
+    draggedKeyRef.current = null;
+    setDropIndicator(null);
+  };
+
+  const handleItemDragOver = (
+    event: DragEvent<HTMLElement>,
+    targetKey: string
+  ) => {
+    const placement = getDropPlacement(event, targetKey);
+
+    if (!placement) {
+      setDropIndicator(null);
+      return;
+    }
+
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    setDropIndicator((previous) =>
+      previous?.key === targetKey && previous.placement === placement
+        ? previous
+        : { key: targetKey, placement }
+    );
+  };
+
+  const handleItemDrop = (event: DragEvent<HTMLElement>, targetKey: string) => {
+    const draggedKey = draggedKeyRef.current;
+    const placement = getDropPlacement(event, targetKey);
+    resetDrag();
+
+    if (!draggedKey || !placement) return;
+    event.preventDefault();
+
+    const result = resolveSidebarMove({
+      arrangedItems: items,
+      pinnedItemKeys,
+      draggedKey,
+      targetKey,
+      placement,
+    });
+
+    if (result) onMoveResult?.(result);
+  };
 
   if (isMobile) {
     return null;
@@ -675,6 +868,20 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                 pinDictionaryLabel={String(pinDictionaryLabel)}
                 unpinDictionaryLabel={String(unpinDictionaryLabel)}
                 removeFromSidebarLabel={String(removeFromSidebarLabel)}
+                renameLabel={String(renameLabel)}
+                onRenameItem={onRenameItem}
+                isDraggable={isDraggableItem(item, pinnedItemKeys)}
+                dropPlacement={
+                  dropIndicator?.key === item.key
+                    ? dropIndicator.placement
+                    : null
+                }
+                onItemDragStart={(itemKey) => {
+                  draggedKeyRef.current = itemKey;
+                }}
+                onItemDragOver={handleItemDragOver}
+                onItemDrop={handleItemDrop}
+                onItemDragEnd={resetDrag}
               />
             ))}
             hoverable

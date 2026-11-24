@@ -5,8 +5,10 @@ import { Logo } from '@intlayer/design-system/logo';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Burger } from '@intlayer/design-system/navbar';
 import {
+  App_Dashboard_Collections_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Translate_Path,
+  App_Dashboard_Variants_Path,
   App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
@@ -88,7 +90,11 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
 
   const isEditorDrawerVisible =
     getPathWithoutLocale(pathname).startsWith(App_Dashboard_Translate_Path) ||
-    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Dictionaries_Path);
+    getPathWithoutLocale(pathname).startsWith(
+      App_Dashboard_Dictionaries_Path
+    ) ||
+    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Collections_Path) ||
+    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Variants_Path);
 
   return (
     <Container

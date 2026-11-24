@@ -1,4 +1,5 @@
 import { useScopedSidebarEntries } from '#hooks/useScopedSidebarEntries';
+import type { DropPlacement } from '#utils/sidebarLayout';
 
 const PINNED_STORAGE_KEY = 'intlayer:pinned-dictionaries';
 const RECENT_STORAGE_KEY = 'intlayer:recent-dictionaries';
@@ -18,6 +19,12 @@ export type UseDictionarySidebarReturn = {
   /** Remove a previously pinned dictionary key. */
   unpin: (dictionaryKey: string) => void;
   removeRecent: (dictionaryKey: string) => void;
+  /** Reorder a pinned entry next to another one. */
+  movePinned: (
+    entry: string,
+    targetEntry: string,
+    placement: DropPlacement
+  ) => void;
   isPinned: (dictionaryKey: string) => boolean;
 };
 
@@ -40,6 +47,7 @@ export const useDictionarySidebar = (): UseDictionarySidebarReturn => {
     pin,
     unpin,
     removeRecent,
+    movePinned,
     isPinned,
   } = useScopedSidebarEntries({
     pinnedStorageKey: PINNED_STORAGE_KEY,
@@ -54,6 +62,7 @@ export const useDictionarySidebar = (): UseDictionarySidebarReturn => {
     pin,
     unpin,
     removeRecent,
+    movePinned,
     isPinned,
   };
 };

@@ -4,6 +4,7 @@ import {
   App_Admin_Users_Path,
   App_Dashboard_Analytics_Path,
   App_Dashboard_Assets_Path,
+  App_Dashboard_Collections_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_IDE_Path,
@@ -12,6 +13,7 @@ import {
   App_Dashboard_Scanner_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
+  App_Dashboard_Variants_Path,
   App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
@@ -19,7 +21,7 @@ import { WithResizer } from '@intlayer/design-system/with-resizer';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayerAsync, getPathWithoutLocale } from 'intlayer';
 import { X } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardFooter } from '#components/Dashboard/DashboardFooter';
@@ -38,9 +40,18 @@ import {
   useDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
 import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
+import { useDynamicDictionarySections } from '#hooks/useDynamicDictionarySections';
 import { useEditorPagesSidebar } from '#hooks/useEditorPagesSidebar';
+import { useSidebarItemLabels } from '#hooks/useSidebarItemLabels';
+import { useSidebarRootOrder } from '#hooks/useSidebarRootOrder';
 import { useTagSidebar } from '#hooks/useTagSidebar';
 import { getOgImageUrl } from '#utils/ogImage';
+import {
+  applyItemLabels,
+  arrangeSidebarItems,
+  getPinnedItemKey,
+  type SidebarMoveResult,
+} from '#utils/sidebarLayout';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
   pendingComponent: DashboardSkeleton,
@@ -89,13 +100,22 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 function DashboardLayout() {
   const { locale } = useLocale();
   const { session } = useSession();
-  const { sidebarKeys, pinnedKeys, pin, unpin, removeRecent } =
-    useDictionarySidebar();
+  const {
+    sidebarKeys,
+    pinnedKeys,
+    pin,
+    unpin,
+    removeRecent,
+    movePinned: moveDictionary,
+  } = useDictionarySidebar();
+  const { rootOrder, setRootOrder } = useSidebarRootOrder();
+  const { labels: itemLabels, renameItem } = useSidebarItemLabels();
   const {
     sidebarKeys: tagSidebarKeys,
     pinnedKeys: pinnedTagKeys,
     pin: pinTag,
     unpin: unpinTag,
+    movePinned: moveTag,
     removeRecent: removeRecentTag,
     trackVisit: trackVisitTag,
   } = useTagSidebar();
@@ -104,6 +124,7 @@ function DashboardLayout() {
     pinnedPaths: pinnedEditorPageKeys,
     pin: pinEditorPage,
     unpin: unpinEditorPage,
+    movePinned: moveEditorPage,
     removeRecent: removeRecentEditorPage,
   } = useEditorPagesSidebar();
   const { activePanel, close: closeRightPanel } = useDashboardRightPanel();
@@ -133,6 +154,8 @@ function DashboardLayout() {
     trackVisitTag(currentTagKey);
   }, [currentTagKey, trackVisitTag]);
 
+  const { showCollections, showVariants, showTags } =
+    useDynamicDictionarySections();
   const { navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
 
@@ -214,23 +237,51 @@ function DashboardLayout() {
                 }))
               : undefined,
         },
-        {
-          key: 'tags',
-          href: App_Dashboard_Tags_Path,
-          icon: 'Tags',
-          label: navigation.tags.label.value,
-          title: navigation.tags.title.value,
-          description: navigation.tags.description.value,
-          items:
-            tagSidebarKeys.length > 0
-              ? tagSidebarKeys.map((tagKey) => ({
-                  key: `tag-${tagKey}`,
-                  href: `${App_Dashboard_Tags_Path}/${tagKey}`,
-                  label: tagKey,
-                  title: tagKey,
-                }))
-              : undefined,
-        },
+        ...(showCollections
+          ? [
+              {
+                key: 'collections',
+                href: App_Dashboard_Collections_Path,
+                icon: 'Layers',
+                label: navigation.collections.label.value,
+                title: navigation.collections.title.value,
+                description: navigation.collections.description.value,
+              },
+            ]
+          : []),
+        ...(showVariants
+          ? [
+              {
+                key: 'variants',
+                href: App_Dashboard_Variants_Path,
+                icon: 'Shapes',
+                label: navigation.variants.label.value,
+                title: navigation.variants.title.value,
+                description: navigation.variants.description.value,
+              },
+            ]
+          : []),
+        ...(showTags
+          ? [
+              {
+                key: 'tags',
+                href: App_Dashboard_Tags_Path,
+                icon: 'Tags',
+                label: navigation.tags.label.value,
+                title: navigation.tags.title.value,
+                description: navigation.tags.description.value,
+                items:
+                  tagSidebarKeys.length > 0
+                    ? tagSidebarKeys.map((tagKey) => ({
+                        key: `tag-${tagKey}`,
+                        href: `${App_Dashboard_Tags_Path}/${tagKey}`,
+                        label: tagKey,
+                        title: tagKey,
+                      }))
+                    : undefined,
+              },
+            ]
+          : []),
         {
           key: 'assets',
           href: App_Dashboard_Assets_Path,
@@ -293,6 +344,41 @@ function DashboardLayout() {
     },
   ];
 
+  const pinnedItemKeys = useMemo(
+    () =>
+      new Set([
+        ...pinnedKeys.map((key) => getPinnedItemKey('dictionary', key)),
+        ...pinnedTagKeys.map((key) => getPinnedItemKey('tag', key)),
+        ...pinnedEditorPageKeys.map((key) =>
+          getPinnedItemKey('editor-page', key)
+        ),
+      ]),
+    [pinnedKeys, pinnedTagKeys, pinnedEditorPageKeys]
+  );
+
+  const sidebarItems = applyItemLabels(
+    arrangeSidebarItems(navigationItems, rootOrder, pinnedItemKeys),
+    itemLabels,
+    pinnedItemKeys
+  );
+
+  const handleSidebarMoveResult = ({
+    rootOrder: nextRootOrder,
+    pinnedMove,
+  }: SidebarMoveResult) => {
+    if (nextRootOrder) setRootOrder(nextRootOrder);
+    if (!pinnedMove) return;
+
+    const { kind, entry, targetEntry, placement } = pinnedMove;
+    const movePinned = {
+      dictionary: moveDictionary,
+      tag: moveTag,
+      'editor-page': moveEditorPage,
+    }[kind];
+
+    movePinned(entry, targetEntry, placement);
+  };
+
   const formattedFooterLinks = footerLinks.map((el) => ({
     href: el.href.value,
     label: el.label.value,
@@ -310,7 +396,10 @@ function DashboardLayout() {
         <DashboardNavbar items={navigationItems} />
         <div className="relative flex min-h-0 w-full flex-1">
           <DashboardSidebar
-            items={navigationItems}
+            items={sidebarItems}
+            pinnedItemKeys={pinnedItemKeys}
+            onMoveResult={handleSidebarMoveResult}
+            onRenameItem={renameItem}
             onPinDictionary={pin}
             onUnpinDictionary={unpin}
             onRemoveDictionary={removeRecent}

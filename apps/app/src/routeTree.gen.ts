@@ -66,10 +66,14 @@ import { Route as Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImpo
 import { Route as Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id'
+import { Route as Char123LocaleChar125DashboardEditorContentCollectionIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/collection.index'
+import { Route as Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/collection.$dictionaryKey'
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index'
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey'
 import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.index'
 import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.$tagKey'
+import { Route as Char123LocaleChar125DashboardEditorContentVariantsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/variants.index'
+import { Route as Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/variants.$dictionaryKey'
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/_authentication/password/ask-reset'
 import { Route as Char123LocaleChar125OtherAuthAuthenticationPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/_authentication/password/reset'
@@ -418,6 +422,21 @@ const Char123LocaleChar125DashboardAdminAdminUsersIdRoute =
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
   } as any)
+const Char123LocaleChar125DashboardEditorContentCollectionIndexRoute =
+  Char123LocaleChar125DashboardEditorContentCollectionIndexRouteImport.update({
+    id: '/collection/',
+    path: '/collection/',
+    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute =
+  Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRouteImport.update(
+    {
+      id: '/collection/$dictionaryKey',
+      path: '/collection/$dictionaryKey',
+      getParentRoute: () =>
+        Char123LocaleChar125DashboardEditorContentRouteRoute,
+    } as any,
+  )
 const Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute =
   Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport.update({
     id: '/dictionary/',
@@ -445,6 +464,21 @@ const Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute =
     path: '/tags/$tagKey',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
   } as any)
+const Char123LocaleChar125DashboardEditorContentVariantsIndexRoute =
+  Char123LocaleChar125DashboardEditorContentVariantsIndexRouteImport.update({
+    id: '/variants/',
+    path: '/variants/',
+    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute =
+  Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRouteImport.update(
+    {
+      id: '/variants/$dictionaryKey',
+      path: '/variants/$dictionaryKey',
+      getParentRoute: () =>
+        Char123LocaleChar125DashboardEditorContentRouteRoute,
+    } as any,
+  )
 const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
   Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport.update({
     id: '/password/change',
@@ -514,8 +548,10 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
   '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
+  '/{-$locale}/collection/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
+  '/{-$locale}/variants/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
@@ -525,8 +561,10 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
   '/{-$locale}/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
   '/{-$locale}/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
+  '/{-$locale}/collection/': typeof Char123LocaleChar125DashboardEditorContentCollectionIndexRoute
   '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
   '/{-$locale}/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  '/{-$locale}/variants/': typeof Char123LocaleChar125DashboardEditorContentVariantsIndexRoute
 }
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125DashboardIndexRoute
@@ -568,8 +606,10 @@ export interface FileRoutesByTo {
   '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
   '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
+  '/{-$locale}/collection/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
+  '/{-$locale}/variants/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
@@ -579,8 +619,10 @@ export interface FileRoutesByTo {
   '/{-$locale}/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
   '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
+  '/{-$locale}/collection': typeof Char123LocaleChar125DashboardEditorContentCollectionIndexRoute
   '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
   '/{-$locale}/tags': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  '/{-$locale}/variants': typeof Char123LocaleChar125DashboardEditorContentVariantsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -635,8 +677,10 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
   '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
   '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
+  '/{-$locale}/_dashboard/_editor/_content/collection/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
+  '/{-$locale}/_dashboard/_editor/_content/variants/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute
   '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
   '/{-$locale}/_other/auth/_authentication/password/ask-reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordAskResetRoute
   '/{-$locale}/_other/auth/_authentication/password/reset': typeof Char123LocaleChar125OtherAuthAuthenticationPasswordResetRoute
@@ -646,8 +690,10 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
+  '/{-$locale}/_dashboard/_editor/_content/collection/': typeof Char123LocaleChar125DashboardEditorContentCollectionIndexRoute
   '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
   '/{-$locale}/_dashboard/_editor/_content/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  '/{-$locale}/_dashboard/_editor/_content/variants/': typeof Char123LocaleChar125DashboardEditorContentVariantsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -698,8 +744,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/promo-code/$id'
     | '/{-$locale}/admin/reviewers/$reviewerId'
     | '/{-$locale}/admin/users/$id'
+    | '/{-$locale}/collection/$dictionaryKey'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
+    | '/{-$locale}/variants/$dictionaryKey'
     | '/{-$locale}/auth/password/change'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
@@ -709,8 +757,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/promo-code/'
     | '/{-$locale}/admin/reviewers/'
     | '/{-$locale}/admin/users/'
+    | '/{-$locale}/collection/'
     | '/{-$locale}/dictionary/'
     | '/{-$locale}/tags/'
+    | '/{-$locale}/variants/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/{-$locale}'
@@ -752,8 +802,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/promo-code/$id'
     | '/{-$locale}/admin/reviewers/$reviewerId'
     | '/{-$locale}/admin/users/$id'
+    | '/{-$locale}/collection/$dictionaryKey'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
+    | '/{-$locale}/variants/$dictionaryKey'
     | '/{-$locale}/auth/password/change'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
@@ -763,8 +815,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/promo-code'
     | '/{-$locale}/admin/reviewers'
     | '/{-$locale}/admin/users'
+    | '/{-$locale}/collection'
     | '/{-$locale}/dictionary'
     | '/{-$locale}/tags'
+    | '/{-$locale}/variants'
   id:
     | '__root__'
     | '/{-$locale}'
@@ -818,8 +872,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
     | '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
     | '/{-$locale}/_dashboard/_admin/admin/users/$id'
+    | '/{-$locale}/_dashboard/_editor/_content/collection/$dictionaryKey'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
     | '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
+    | '/{-$locale}/_dashboard/_editor/_content/variants/$dictionaryKey'
     | '/{-$locale}/_other/auth/_authenticated/password/change'
     | '/{-$locale}/_other/auth/_authentication/password/ask-reset'
     | '/{-$locale}/_other/auth/_authentication/password/reset'
@@ -829,8 +885,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/promo-code/'
     | '/{-$locale}/_dashboard/_admin/admin/reviewers/'
     | '/{-$locale}/_dashboard/_admin/admin/users/'
+    | '/{-$locale}/_dashboard/_editor/_content/collection/'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/'
     | '/{-$locale}/_dashboard/_editor/_content/tags/'
+    | '/{-$locale}/_dashboard/_editor/_content/variants/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1243,6 +1301,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute
     }
+    '/{-$locale}/_dashboard/_editor/_content/collection/': {
+      id: '/{-$locale}/_dashboard/_editor/_content/collection/'
+      path: '/collection'
+      fullPath: '/{-$locale}/collection/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentCollectionIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
+    '/{-$locale}/_dashboard/_editor/_content/collection/$dictionaryKey': {
+      id: '/{-$locale}/_dashboard/_editor/_content/collection/$dictionaryKey'
+      path: '/collection/$dictionaryKey'
+      fullPath: '/{-$locale}/collection/$dictionaryKey'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/_content/dictionary/': {
       id: '/{-$locale}/_dashboard/_editor/_content/dictionary/'
       path: '/dictionary'
@@ -1269,6 +1341,20 @@ declare module '@tanstack/react-router' {
       path: '/tags/$tagKey'
       fullPath: '/{-$locale}/tags/$tagKey'
       preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
+    '/{-$locale}/_dashboard/_editor/_content/variants/': {
+      id: '/{-$locale}/_dashboard/_editor/_content/variants/'
+      path: '/variants'
+      fullPath: '/{-$locale}/variants/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentVariantsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
+    '/{-$locale}/_dashboard/_editor/_content/variants/$dictionaryKey': {
+      id: '/{-$locale}/_dashboard/_editor/_content/variants/$dictionaryKey'
+      path: '/variants/$dictionaryKey'
+      fullPath: '/{-$locale}/variants/$dictionaryKey'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
     '/{-$locale}/_other/auth/_authenticated/password/change': {
@@ -1442,10 +1528,14 @@ const Char123LocaleChar125DashboardAdminRouteRouteWithChildren =
 interface Char123LocaleChar125DashboardEditorContentRouteRouteChildren {
   Char123LocaleChar125DashboardEditorContentEditorRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRoute
   Char123LocaleChar125DashboardEditorContentTranslateRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
+  Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute: typeof Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute
   Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
+  Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute: typeof Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute
+  Char123LocaleChar125DashboardEditorContentCollectionIndexRoute: typeof Char123LocaleChar125DashboardEditorContentCollectionIndexRoute
   Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
   Char123LocaleChar125DashboardEditorContentTagsIndexRoute: typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  Char123LocaleChar125DashboardEditorContentVariantsIndexRoute: typeof Char123LocaleChar125DashboardEditorContentVariantsIndexRoute
 }
 
 const Char123LocaleChar125DashboardEditorContentRouteRouteChildren: Char123LocaleChar125DashboardEditorContentRouteRouteChildren =
@@ -1454,14 +1544,22 @@ const Char123LocaleChar125DashboardEditorContentRouteRouteChildren: Char123Local
       Char123LocaleChar125DashboardEditorContentEditorRoute,
     Char123LocaleChar125DashboardEditorContentTranslateRoute:
       Char123LocaleChar125DashboardEditorContentTranslateRoute,
+    Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute:
+      Char123LocaleChar125DashboardEditorContentCollectionDictionaryKeyRoute,
     Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute:
       Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute,
     Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute:
       Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute,
+    Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute:
+      Char123LocaleChar125DashboardEditorContentVariantsDictionaryKeyRoute,
+    Char123LocaleChar125DashboardEditorContentCollectionIndexRoute:
+      Char123LocaleChar125DashboardEditorContentCollectionIndexRoute,
     Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute:
       Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute,
     Char123LocaleChar125DashboardEditorContentTagsIndexRoute:
       Char123LocaleChar125DashboardEditorContentTagsIndexRoute,
+    Char123LocaleChar125DashboardEditorContentVariantsIndexRoute:
+      Char123LocaleChar125DashboardEditorContentVariantsIndexRoute,
   }
 
 const Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren =
