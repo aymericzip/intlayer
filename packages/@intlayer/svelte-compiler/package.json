@@ -78,10 +78,10 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@babel/core": "8.1.2",
+    "@babel/core": "8.1.3",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "magic-string": "1.4.4"
+    "magic-string": "1.4.5"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",
