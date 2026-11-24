@@ -28,6 +28,9 @@ export const parseAiProvider = (value: string): string =>
 /** Value of the model picker entry that opens a free-text input. */
 const CUSTOM_MODEL_VALUE = '__custom__';
 
+/** Value of the provider picker entry that leaves the AI step. */
+const SKIP_PROVIDER_VALUE = '__skip__';
+
 /** Number of models shown before the list is cut, the rest stays typeable. */
 const MAXIMUM_LISTED_MODELS = 40;
 
@@ -76,16 +79,28 @@ export const initAI = async (
     options.provider ??
     (await p.select<string>({
       message: 'Which AI provider do you want to use?',
-      options: AI_PROVIDER_SETUPS.map((setup) => ({
-        value: setup.provider,
-        label: setup.label,
-        hint: setup.apiKeyEnvironmentVariable,
-      })),
+      options: [
+        ...AI_PROVIDER_SETUPS.map((setup) => ({
+          value: setup.provider,
+          label: setup.label,
+          hint: setup.apiKeyEnvironmentVariable,
+        })),
+        {
+          value: SKIP_PROVIDER_VALUE,
+          label: 'Skip for now',
+          hint: 'set it up later with `intlayer init ai`',
+        },
+      ],
       initialValue: AI_PROVIDER_SETUPS[0]?.provider,
     }));
 
   if (p.isCancel(provider)) {
     p.cancel('Operation cancelled.');
+    return;
+  }
+
+  if (provider === SKIP_PROVIDER_VALUE) {
+    p.outro('AI translation skipped');
     return;
   }
 

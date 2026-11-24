@@ -166,6 +166,16 @@ export const initCms = async (projectRoot?: string): Promise<void> => {
   const root = resolveProjectRoot(projectRoot);
   const p = await loadPrompts();
 
+  const shouldLogin = await p.confirm({
+    message: 'Open your browser to log in to the Intlayer CMS?',
+    initialValue: true,
+  });
+
+  if (p.isCancel(shouldLogin) || !shouldLogin) {
+    p.log.info('CMS skipped, run `intlayer init cms` to set it up later.');
+    return;
+  }
+
   p.log.info('Opening your browser to log in to the Intlayer CMS...');
   // `exitAfter: false` keeps the process alive so the flow can finish; the
   // credentials are persisted to `.env` and the editor enabled in the config.
