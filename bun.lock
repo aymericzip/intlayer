@@ -1899,11 +1899,9 @@
         "zod": "4.6.7",
       },
       "peerDependencies": {
-        "react": ">=16.0.0",
         "zod": ">=4.0.0",
       },
       "optionalPeers": [
-        "react",
         "zod",
       ],
     },
