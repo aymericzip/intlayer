@@ -62,19 +62,24 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
       }
 
       if (customConfiguration) {
-        void validateConfiguration(customConfiguration).then((issues) => {
-          if (issues.length === 0) return;
+        validateConfiguration(customConfiguration)
+          .then((issues) => {
+            if (issues.length === 0) return;
 
-          const errorMessages = issues
-            .map(({ path, message }) => {
-              const colorizedPath = colorizePath(` - ${path}:`);
-              const colorizedMessage = colorize(message, ANSIColors.GREY_DARK);
-              return `${colorizedPath} ${colorizedMessage}`;
-            })
-            .join('\n');
+            const errorMessages = issues
+              .map(({ path, message }) => {
+                const colorizedPath = colorizePath(` - ${path}:`);
+                const colorizedMessage = colorize(
+                  message,
+                  ANSIColors.GREY_DARK
+                );
+                return `${colorizedPath} ${colorizedMessage}`;
+              })
+              .join('\n');
 
-          appLogger(`${x} Invalid configuration:\n${errorMessages}`);
-        });
+            appLogger(`${x} Invalid configuration:\n${errorMessages}`);
+          })
+          .catch(() => undefined);
 
         if (customConfiguration.build?.importMode) {
           appLogger(

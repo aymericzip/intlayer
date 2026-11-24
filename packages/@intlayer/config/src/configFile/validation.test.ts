@@ -59,6 +59,22 @@ describe('Configuration Validation', () => {
     );
   });
 
+  it('should not reject when a custom error logger throws', async () => {
+    const throwingLogger = vi.fn(() => {
+      throw new Error('logger failure');
+    });
+
+    buildConfigurationFields(
+      { editor: { port: 'not-a-number' } } as any,
+      undefined,
+      { error: throwingLogger } as any
+    );
+
+    // An unhandled rejection would fail the vitest run.
+    await vi.waitFor(() => expect(throwingLogger).toHaveBeenCalled());
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  });
+
   it('should report no issue for valid configuration', async () => {
     const issues = await validateConfiguration({
       internationalization: {

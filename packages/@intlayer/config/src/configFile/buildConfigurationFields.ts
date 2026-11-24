@@ -791,12 +791,15 @@ export const buildConfigurationFields = (
     const logError = bindLogFunction(logFunctions, 'error') ?? console.error;
 
     // Non-blocking: the schema (and zod) is only loaded when a configuration
-    // is provided, and issues are logged once it resolves.
-    void validateConfiguration(customConfiguration).then((issues) => {
-      for (const issue of issues) {
-        logError(`${issue.path}: ${issue.message}`);
-      }
-    });
+    // is provided, and issues are logged once it resolves. A throwing custom
+    // logger must not surface as an unhandled rejection.
+    validateConfiguration(customConfiguration)
+      .then((issues) => {
+        for (const issue of issues) {
+          logError(`${issue.path}: ${issue.message}`);
+        }
+      })
+      .catch(() => undefined);
   }
 
   // build browser-safe config (shared defaults, no Node.js deps)

@@ -84,6 +84,9 @@
       "bundle": [
         "./dist/types/bundle/index.d.ts"
       ],
+      "configurationSchema": [
+        "./dist/types/configFile/configurationSchema.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]
@@ -169,6 +172,11 @@
       "require": "./dist/cjs/bundle/index.cjs",
       "import": "./dist/esm/bundle/index.mjs"
     },
+    "./configurationSchema": {
+      "types": "./dist/types/configFile/configurationSchema.d.ts",
+      "require": "./dist/cjs/configFile/configurationSchema.cjs",
+      "import": "./dist/esm/configFile/configurationSchema.mjs"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -194,7 +202,8 @@
     "defu": "6.1.7",
     "dotenv": "18.0.10",
     "esbuild": "0.28.2",
-    "json5": "2.2.3"
+    "json5": "2.2.3",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@types/node": "^26",
@@ -204,16 +213,7 @@
     "rimraf": "6.1.4",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.1.1",
-    "zod": "4.6.7"
-  },
-  "peerDependencies": {
-    "zod": ">=4.0.0"
-  },
-  "peerDependenciesMeta": {
-    "zod": {
-      "optional": true
-    }
+    "vitest": "5.1.1"
   },
   "engines": {
     "node": ">=14.18"
