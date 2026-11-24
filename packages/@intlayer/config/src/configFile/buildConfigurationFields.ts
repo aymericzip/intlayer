@@ -63,10 +63,7 @@ import {
   buildInternationalizationFields,
   buildLogFields,
 } from './buildBrowserConfiguration';
-import {
-  intlayerConfigSchema,
-  intlayerConfigSchemaParseContext,
-} from './configurationSchema';
+import { validateConfiguration } from './validateConfiguration';
 
 export {
   type BrowserIntlayerConfig,
@@ -791,18 +788,15 @@ export const buildConfigurationFields = (
   logFunctions?: LogFunctions
 ): IntlayerConfig => {
   if (customConfiguration) {
-    const result = intlayerConfigSchema.safeParse(
-      customConfiguration,
-      intlayerConfigSchemaParseContext
-    );
+    const logError = bindLogFunction(logFunctions, 'error') ?? console.error;
 
-    if (!result.success) {
-      const logError = bindLogFunction(logFunctions, 'error') ?? console.error;
-
-      for (const issue of result.error.issues) {
-        logError(`${issue.path.join('.')}: ${issue.message}`);
+    // Non-blocking: the schema (and zod) is only loaded when a configuration
+    // is provided, and issues are logged once it resolves.
+    void validateConfiguration(customConfiguration).then((issues) => {
+      for (const issue of issues) {
+        logError(`${issue.path}: ${issue.message}`);
       }
-    }
+    });
   }
 
   // build browser-safe config (shared defaults, no Node.js deps)

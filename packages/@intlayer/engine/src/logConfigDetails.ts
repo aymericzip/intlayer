@@ -10,8 +10,7 @@ import {
 import {
   type GetConfigurationOptions,
   getConfigurationAndFilePath,
-  intlayerConfigSchema,
-  intlayerConfigSchemaParseContext,
+  validateConfiguration,
 } from '@intlayer/config/node';
 import { formatPath, runOnce } from './utils';
 
@@ -63,23 +62,19 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
       }
 
       if (customConfiguration) {
-        const validation = intlayerConfigSchema.safeParse(
-          customConfiguration,
-          intlayerConfigSchemaParseContext
-        );
+        void validateConfiguration(customConfiguration).then((issues) => {
+          if (issues.length === 0) return;
 
-        if (!validation.success) {
-          const errorMessages = validation.error.issues
-            .map((error) => {
-              const path = colorizePath(` - ${error.path.join('.')}:`);
-              const message = colorize(error.message, ANSIColors.GREY_DARK);
-              return `${path} ${message}`;
+          const errorMessages = issues
+            .map(({ path, message }) => {
+              const colorizedPath = colorizePath(` - ${path}:`);
+              const colorizedMessage = colorize(message, ANSIColors.GREY_DARK);
+              return `${colorizedPath} ${colorizedMessage}`;
             })
             .join('\n');
-          const errorMessage = `${x} Invalid configuration:\n${errorMessages}`;
 
-          appLogger(errorMessage);
-        }
+          appLogger(`${x} Invalid configuration:\n${errorMessages}`);
+        });
 
         if (customConfiguration.build?.importMode) {
           appLogger(

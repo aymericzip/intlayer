@@ -3,3 +3,4 @@ export * from './configFile/configurationSchema';
 export * from './configFile/editorServerOverride';
 export * from './configFile/getConfiguration';
 export * from './configFile/searchConfigurationFile';
+export * from './configFile/validateConfiguration';
