@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { initMCP } from './initMCP';
 import { initSkills, parsePlatform, parseSkills } from './initSkills';
+import { SKIP_VALUE } from './utils/skipStep';
 
 const installSkillsMock = vi.hoisted(() => vi.fn(async () => 'installed'));
 const installMCPMock = vi.hoisted(() => vi.fn(async () => 'configured'));
@@ -20,7 +21,7 @@ vi.mock('@intlayer/engine/cli', async (importOriginal) => ({
 vi.mock('./loadPrompts', () => ({
   loadPrompts: async () => ({
     intro: vi.fn(),
-    outro: vi.fn(),
+    outro: outroMock,
     note: vi.fn(),
     cancel: vi.fn(),
     multiselect: multiselectMock,
@@ -31,8 +32,11 @@ vi.mock('./loadPrompts', () => ({
   }),
 }));
 
+const isInteractiveTerminalMock = vi.hoisted(() => vi.fn(() => false));
+const outroMock = vi.hoisted(() => vi.fn());
+
 vi.mock('./utils/isInteractiveTerminal', () => ({
-  isInteractiveTerminal: () => false,
+  isInteractiveTerminal: isInteractiveTerminalMock,
 }));
 
 /** Environment variables the platform detection reads. */
@@ -133,6 +137,45 @@ describe('init skills and MCP without a terminal', () => {
     await initMCP(projectRoot, { platform: 'Cursor', transport: 'sse' });
 
     expect(installMCPMock).toHaveBeenCalledWith(projectRoot, 'Cursor', 'sse');
+  });
+});
+
+describe('init skills and MCP in a terminal', () => {
+  let projectRoot: string;
+
+  beforeEach(() => {
+    projectRoot = mkdtempSync(join(tmpdir(), 'intlayer-init-skills-'));
+    writeFileSync(join(projectRoot, 'package.json'), JSON.stringify({}));
+    isInteractiveTerminalMock.mockReturnValue(true);
+  });
+
+  afterEach(() => {
+    rmSync(projectRoot, { recursive: true, force: true });
+    isInteractiveTerminalMock.mockReturnValue(false);
+    vi.clearAllMocks();
+  });
+
+  it('skips the skills step when no skill is picked', async () => {
+    multiselectMock.mockResolvedValueOnce([]);
+
+    const platform = await initSkills(projectRoot);
+
+    expect(platform).toBeUndefined();
+    expect(installSkillsMock).not.toHaveBeenCalled();
+    expect(outroMock).toHaveBeenCalledWith(
+      'Skills skipped. Run `intlayer init skills` to set it up later.'
+    );
+  });
+
+  it('skips the MCP step from the transport picker', async () => {
+    selectMock.mockResolvedValueOnce(SKIP_VALUE);
+
+    await initMCP(projectRoot, { platform: 'Cursor' });
+
+    expect(installMCPMock).not.toHaveBeenCalled();
+    expect(outroMock).toHaveBeenCalledWith(
+      'MCP server skipped. Run `intlayer init mcp` to set it up later.'
+    );
   });
 });
 

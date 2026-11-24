@@ -28,6 +28,12 @@ import { loadPrompts } from './loadPrompts';
 import { detectGitRepository } from './utils/detectGitRepository';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { parseChoice } from './utils/parseChoice';
+import {
+  getSkipOption,
+  getSkippedMessage,
+  isSkipAnswer,
+  type SkipValue,
+} from './utils/skipStep';
 
 export const findProjectRoot = (startDir: string) => {
   let currentDir = startDir;
@@ -159,6 +165,33 @@ export const initSteps = async (
 };
 
 /**
+ * Asks before a browser step, which waits for the page to call back and
+ * cannot be left once started. Without a terminal it always proceeds.
+ *
+ * @returns Whether to open the browser.
+ */
+const confirmBrowserStep = async (
+  stepLabel: string,
+  actionLabel: string,
+  command: string
+): Promise<boolean> => {
+  if (!isInteractiveTerminal()) return true;
+
+  const p = await loadPrompts();
+  const answer = await p.select<'open' | SkipValue>({
+    message: `${stepLabel}: open your browser?`,
+    options: [{ value: 'open', label: actionLabel }, getSkipOption(command)],
+  });
+
+  if (isSkipAnswer(answer)) {
+    p.log.info(getSkippedMessage(stepLabel, command));
+    return false;
+  }
+
+  return true;
+};
+
+/**
  * Logs in to the Intlayer CMS through the browser, then stores the access-key
  * credentials in `.env` and enables the editor in the config file.
  */
@@ -166,15 +199,13 @@ export const initCms = async (projectRoot?: string): Promise<void> => {
   const root = resolveProjectRoot(projectRoot);
   const p = await loadPrompts();
 
-  const shouldLogin = await p.confirm({
-    message: 'Open your browser to log in to the Intlayer CMS?',
-    initialValue: true,
-  });
+  const shouldOpenBrowser = await confirmBrowserStep(
+    'CMS',
+    'Log in to the Intlayer CMS',
+    INIT_STEP_COMMANDS.cms
+  );
 
-  if (p.isCancel(shouldLogin) || !shouldLogin) {
-    p.log.info('CMS skipped, run `intlayer init cms` to set it up later.');
-    return;
-  }
+  if (!shouldOpenBrowser) return;
 
   p.log.info('Opening your browser to log in to the Intlayer CMS...');
   // `exitAfter: false` keeps the process alive so the flow can finish; the
@@ -192,6 +223,15 @@ export const initCms = async (projectRoot?: string): Promise<void> => {
 export const initRepository = async (projectRoot?: string): Promise<void> => {
   const root = resolveProjectRoot(projectRoot);
   const p = await loadPrompts();
+
+  const shouldOpenBrowser = await confirmBrowserStep(
+    'Repository',
+    'Connect the git repository to the CMS project',
+    INIT_STEP_COMMANDS.repository
+  );
+
+  if (!shouldOpenBrowser) return;
+
   const detectedRepository = detectGitRepository(root);
 
   p.log.info(

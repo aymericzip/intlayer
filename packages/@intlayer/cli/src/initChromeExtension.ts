@@ -2,6 +2,7 @@ import { loadPrompts } from './loadPrompts';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { openBrowser } from './utils/openBrowser';
 import { parseChoice } from './utils/parseChoice';
+import { getSkippedMessage } from './utils/skipStep';
 
 export const CHROME_EXTENSION_URL =
   'https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc';
@@ -69,12 +70,15 @@ export const initChromeExtension = async (
   const selectedUrls = options.browsers
     ? options.browsers.map((browser) => EXTENSION_URL_BY_BROWSER[browser])
     : await p.multiselect({
-        message: 'Select browser extension(s) to install:',
+        message: 'Select browser extension(s) to install (none to skip):',
         options: BROWSER_EXTENSION_OPTIONS,
         required: false,
       });
 
-  if (p.isCancel(selectedUrls)) {
+  if (p.isCancel(selectedUrls) || selectedUrls.length === 0) {
+    p.log.info(
+      getSkippedMessage('Browser extension', 'intlayer init extension')
+    );
     return;
   }
 

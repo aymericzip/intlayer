@@ -69,20 +69,26 @@ describe('initChromeExtension', () => {
     expect(openBrowserMock).toHaveBeenCalledWith(MOZILLA_EXTENSION_URL);
   });
 
-  it('does nothing when cancelled', async () => {
+  it('skips the step when cancelled', async () => {
     multiselectMock.mockResolvedValueOnce(null);
 
     await initChromeExtension();
 
     expect(openBrowserMock).not.toHaveBeenCalled();
+    expect(logInfoMock).toHaveBeenCalledWith(
+      expect.stringContaining('Browser extension skipped')
+    );
   });
 
-  it('does nothing when empty selection', async () => {
+  it('skips the step when nothing is selected', async () => {
     multiselectMock.mockResolvedValueOnce([]);
 
     await initChromeExtension();
 
     expect(openBrowserMock).not.toHaveBeenCalled();
+    expect(logInfoMock).toHaveBeenCalledWith(
+      expect.stringContaining('Browser extension skipped')
+    );
   });
 
   it('opens the given browsers without prompting', async () => {

@@ -9,6 +9,15 @@ import { promptPlatform, resolvePlatformWithoutPrompt } from './initSkills';
 import { loadPrompts } from './loadPrompts';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { parseChoice } from './utils/parseChoice';
+import {
+  getSkipOption,
+  getSkippedMessage,
+  isSkipAnswer,
+  type SkipValue,
+} from './utils/skipStep';
+
+/** Command that runs the MCP step on its own, suggested when it is skipped. */
+const INIT_MCP_COMMAND = 'intlayer init mcp';
 
 /** Options of {@link initMCP}; anything omitted is prompted for. */
 export type InitMCPOptions = {
@@ -38,23 +47,30 @@ export const initMCP = async (
 
   p.intro('Initializing Intlayer MCP Server');
 
+  const skipStep = (): void =>
+    p.outro(getSkippedMessage('MCP server', INIT_MCP_COMMAND));
+
   const platform = isInteractive
-    ? (options.platform ?? (await promptPlatform(root)))
+    ? (options.platform ?? (await promptPlatform(root, INIT_MCP_COMMAND)))
     : await resolvePlatformWithoutPrompt(
         root,
         options.platform,
-        'intlayer init mcp'
+        INIT_MCP_COMMAND
       );
 
   if (!platform) {
-    p.cancel('Operation cancelled. No platform selected.');
+    if (isInteractive) {
+      skipStep();
+    } else {
+      p.cancel('Operation cancelled. No platform selected.');
+    }
     return;
   }
 
   const transport =
     options.transport ??
     (isInteractive
-      ? await p.select<MCPTransport>({
+      ? await p.select<MCPTransport | SkipValue>({
           message: 'Which transport method do you want to use?',
           options: [
             {
@@ -67,12 +83,13 @@ export const initMCP = async (
               label: 'Remote server (SSE)',
               hint: 'Hosted by Intlayer. Documentation only.',
             },
+            getSkipOption(INIT_MCP_COMMAND),
           ],
         })
       : 'stdio');
 
-  if (p.isCancel(transport)) {
-    p.cancel('Operation cancelled.');
+  if (isSkipAnswer(transport)) {
+    skipStep();
     return;
   }
 

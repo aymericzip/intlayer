@@ -4,11 +4,40 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { loadPrompts } from './loadPrompts';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
+import {
+  getSkipOption,
+  getSkippedMessage,
+  isSkipAnswer,
+  type SkipValue,
+} from './utils/skipStep';
 
 /** Setup modes understood by the hosted installer. */
 export const INFRA_MODES = ['desktop', 'docker', 'compose'] as const;
 
 export type InfraMode = (typeof INFRA_MODES)[number];
+
+/** Command that runs the infra step on its own, suggested when it is skipped. */
+const INIT_INFRA_COMMAND = 'intlayer init infra';
+
+/** Picker entries of the setup modes, as described by the hosted installer. */
+const INFRA_MODE_OPTIONS: { value: InfraMode; label: string; hint: string }[] =
+  [
+    {
+      value: 'desktop',
+      label: 'Desktop app',
+      hint: 'native app connected to the Intlayer Cloud, nothing to host',
+    },
+    {
+      value: 'docker',
+      label: 'All-in-one Docker',
+      hint: 'dashboard, API and datastores in one container',
+    },
+    {
+      value: 'compose',
+      label: 'Docker Compose',
+      hint: 'one container per service, scalable self-hosting',
+    },
+  ];
 
 /**
  * The hosted installers are the single source of truth for the infrastructure
@@ -19,7 +48,7 @@ export const INSTALL_SCRIPT_URL = 'https://intlayer.org/install.sh';
 export const INSTALL_SCRIPT_URL_WINDOWS = 'https://intlayer.org/install.ps1';
 
 export type InitInfraOptions = {
-  /** Skip the interactive menu and run this mode directly. */
+  /** Run this mode directly instead of asking for it. */
   mode?: InfraMode;
   /** Installer URL override (forks, staging). Defaults to the platform's script. */
   scriptUrl?: string;
@@ -111,6 +140,20 @@ export const initInfra = async (
     return;
   }
 
+  // Asked here rather than by the installer's own menu, which offers no way
+  // out besides Ctrl+C (that would end the whole `intlayer init` run).
+  const mode: InfraMode | SkipValue | symbol =
+    options.mode ??
+    (await p.select<InfraMode | SkipValue>({
+      message: 'How do you want to run Intlayer?',
+      options: [...INFRA_MODE_OPTIONS, getSkipOption(INIT_INFRA_COMMAND)],
+    }));
+
+  if (isSkipAnswer(mode)) {
+    p.log.info(getSkippedMessage('Infrastructure', INIT_INFRA_COMMAND));
+    return;
+  }
+
   const runner = getInstallerRunner();
   const scriptUrl = options.scriptUrl ?? runner.url;
 
@@ -148,7 +191,7 @@ export const initInfra = async (
   try {
     await writeFile(scriptPath, script, { mode: 0o700 });
 
-    const [command, args] = runner.command(scriptPath, options.mode);
+    const [command, args] = runner.command(scriptPath, mode);
     const exitCode = await runInstaller(command, args);
 
     if (exitCode !== 0) {

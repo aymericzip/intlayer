@@ -11,12 +11,14 @@ import {
   INIT_STEP_COMMANDS,
   INIT_STEP_GROUPS,
   init,
+  initCms,
   isEslintInstalled,
   isPrettierInstalled,
   LOCALE_ROUTING_CHOICES,
   OPT_IN_INIT_STEPS,
   parseLocaleRoutingChoice,
 } from './init';
+import { SKIP_VALUE } from './utils/skipStep';
 
 const initIntlayerMock = vi.hoisted(() =>
   vi.fn(async () => ({ guideUrl: '' }))
@@ -29,8 +31,17 @@ vi.mock('@intlayer/engine/cli', async (importOriginal) => ({
   initIntlayer: initIntlayerMock,
 }));
 
+const loginMock = vi.hoisted(() => vi.fn(async () => {}));
+const selectMock = vi.hoisted(() => vi.fn());
+const logInfoMock = vi.hoisted(() => vi.fn());
+
+vi.mock('./auth/login', () => ({ login: loginMock }));
+
 vi.mock('./loadPrompts', () => ({
-  loadPrompts: async () => ({ log: { error: logErrorMock } }),
+  loadPrompts: async () => ({
+    select: selectMock,
+    log: { error: logErrorMock, info: logInfoMock },
+  }),
 }));
 
 vi.mock('./utils/isInteractiveTerminal', () => ({
@@ -262,6 +273,31 @@ describe('init', () => {
     expect(process.exitCode).toBe(1);
     expect(logErrorMock).toHaveBeenCalledWith(
       expect.stringContaining(INIT_STEP_COMMANDS.skills)
+    );
+  });
+});
+
+describe('initCms', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('logs in without asking when there is no terminal', async () => {
+    await initCms(process.cwd());
+
+    expect(selectMock).not.toHaveBeenCalled();
+    expect(loginMock).toHaveBeenCalledOnce();
+  });
+
+  it('skips the browser login when asked to', async () => {
+    isInteractiveTerminalMock.mockReturnValueOnce(true);
+    selectMock.mockResolvedValueOnce(SKIP_VALUE);
+
+    await initCms(process.cwd());
+
+    expect(loginMock).not.toHaveBeenCalled();
+    expect(logInfoMock).toHaveBeenCalledWith(
+      'CMS skipped. Run `intlayer init cms` to set it up later.'
     );
   });
 });

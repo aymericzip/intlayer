@@ -11,6 +11,12 @@ import { resolveProjectRoot } from './init';
 import { loadPrompts } from './loadPrompts';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { parseChoice } from './utils/parseChoice';
+import {
+  getSkipOption,
+  getSkippedMessage,
+  isSkipAnswer,
+  SKIP_KEY_HINT,
+} from './utils/skipStep';
 
 /** Options of {@link initAI}; anything omitted is prompted for. */
 export type InitAIOptions = {
@@ -28,8 +34,8 @@ export const parseAiProvider = (value: string): string =>
 /** Value of the model picker entry that opens a free-text input. */
 const CUSTOM_MODEL_VALUE = '__custom__';
 
-/** Value of the provider picker entry that leaves the AI step. */
-const SKIP_PROVIDER_VALUE = '__skip__';
+/** Command that runs the AI step on its own, suggested when it is skipped. */
+const INIT_AI_COMMAND = 'intlayer init ai';
 
 /** Number of models shown before the list is cut, the rest stays typeable. */
 const MAXIMUM_LISTED_MODELS = 40;
@@ -85,43 +91,37 @@ export const initAI = async (
           label: setup.label,
           hint: setup.apiKeyEnvironmentVariable,
         })),
-        {
-          value: SKIP_PROVIDER_VALUE,
-          label: 'Skip for now',
-          hint: 'set it up later with `intlayer init ai`',
-        },
+        getSkipOption(INIT_AI_COMMAND),
       ],
       initialValue: AI_PROVIDER_SETUPS[0]?.provider,
     }));
 
-  if (p.isCancel(provider)) {
-    p.cancel('Operation cancelled.');
-    return;
-  }
+  const skipStep = (): void =>
+    p.outro(getSkippedMessage('AI translation', INIT_AI_COMMAND));
 
-  if (provider === SKIP_PROVIDER_VALUE) {
-    p.outro('AI translation skipped');
+  if (isSkipAnswer(provider)) {
+    skipStep();
     return;
   }
 
   const setup = getAiProviderSetup(provider);
 
-  await installAiProviderPackages(root, provider, options.intlayerVersion);
-
   const apiKey = options.apiKey ?? (await promptApiKey(setup));
 
-  if (typeof apiKey === 'symbol') {
-    p.cancel('Operation cancelled.');
+  if (isSkipAnswer(apiKey)) {
+    skipStep();
     return;
   }
 
   const model = options.model ?? (await promptModel(setup, provider, apiKey));
 
-  if (typeof model === 'symbol') {
-    p.cancel('Operation cancelled.');
+  if (isSkipAnswer(model)) {
+    skipStep();
     return;
   }
 
+  // Installed once every answer is in, so skipping leaves the project as is
+  await installAiProviderPackages(root, provider, options.intlayerVersion);
   await setupAiProvider(root, {
     provider,
     model: model || undefined,
@@ -132,8 +132,9 @@ export const initAI = async (
 };
 
 /**
- * Asks for the API key (masked); an empty answer skips it. Providers without a
- * key (local runtimes, cloud credentials) resolve to an empty string.
+ * Asks for the API key (masked); an empty answer leaves it out of `.env`, Esc
+ * skips the step. Providers without a key (local runtimes, cloud credentials)
+ * resolve to an empty string.
  */
 const promptApiKey = async (
   setup?: AiProviderSetup
@@ -147,7 +148,7 @@ const promptApiKey = async (
   }
 
   return p.password({
-    message: `Paste your ${setup.label} API key (saved as ${setup.apiKeyEnvironmentVariable} in .env — leave empty to skip):`,
+    message: `Paste your ${setup.label} API key (saved as ${setup.apiKeyEnvironmentVariable} in .env — leave empty to add it later, ${SKIP_KEY_HINT}):`,
     mask: '*',
     validate: (value) =>
       value &&
@@ -160,7 +161,7 @@ const promptApiKey = async (
 
 /**
  * Lists the models available to the key (or the suggested ones when the list
- * cannot be fetched) with a free-text fallback.
+ * cannot be fetched) with a free-text fallback and a skip entry.
  */
 const promptModel = async (
   setup: AiProviderSetup | undefined,
@@ -192,8 +193,7 @@ const promptModel = async (
 
   if (models.length === 0) {
     return p.text({
-      message:
-        'Which model do you want to use? (leave empty for the provider default)',
+      message: `Which model do you want to use? (leave empty for the provider default, ${SKIP_KEY_HINT})`,
     });
   }
 
@@ -202,6 +202,7 @@ const promptModel = async (
     options: [
       ...models.map((model) => ({ value: model, label: model })),
       { value: CUSTOM_MODEL_VALUE, label: 'Other…', hint: 'type a model id' },
+      getSkipOption(INIT_AI_COMMAND),
     ],
     initialValue: models[0],
   });
@@ -210,5 +211,5 @@ const promptModel = async (
     return selectedModel;
   }
 
-  return p.text({ message: 'Model id:' });
+  return p.text({ message: `Model id (${SKIP_KEY_HINT}):` });
 };

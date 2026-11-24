@@ -14,6 +14,15 @@ import { getProjectDependencies, resolveProjectRoot } from './init';
 import { loadPrompts } from './loadPrompts';
 import { isInteractiveTerminal } from './utils/isInteractiveTerminal';
 import { parseChoice } from './utils/parseChoice';
+import {
+  getSkipOption,
+  getSkippedMessage,
+  SKIP_VALUE,
+  type SkipValue,
+} from './utils/skipStep';
+
+/** Command that runs the skills step on its own, suggested when it is skipped. */
+const INIT_SKILLS_COMMAND = 'intlayer init skills';
 
 export const PLATFORM_OPTIONS: Array<{
   value: Platform;
@@ -27,15 +36,19 @@ export const PLATFORM_OPTIONS: Array<{
 
 /**
  * Asks which AI platform the user is using, preselecting the detected one.
- * Resolves to `undefined` when the prompt is cancelled.
+ * Resolves to `undefined` when the step is skipped or the prompt cancelled.
+ *
+ * @param skipCommand - Command suggested by the "Skip for now" entry.
  */
 export const promptPlatform = async (
-  projectRoot: string
+  projectRoot: string,
+  skipCommand: string
 ): Promise<Platform | undefined> => {
   const detectedPlatform = detectPlatform(projectRoot);
+  const skipOption = getSkipOption(skipCommand);
 
   try {
-    const response = await enquirer.prompt<{ platform: Platform }>({
+    const response = await enquirer.prompt<{ platform: Platform | SkipValue }>({
       type: 'autocomplete',
       name: 'platform',
       message: 'Which platform are you using? (Type to search)',
@@ -43,14 +56,21 @@ export const promptPlatform = async (
       initial: detectedPlatform
         ? PLATFORMS.indexOf(detectedPlatform)
         : undefined,
-      choices: PLATFORM_OPTIONS.map((option) => ({
-        name: option.value,
-        message: option.label,
-        hint: option.hint,
-      })),
+      choices: [
+        ...PLATFORM_OPTIONS.map((option) => ({
+          name: option.value,
+          message: option.label,
+          hint: option.hint,
+        })),
+        {
+          name: skipOption.value,
+          message: skipOption.label,
+          hint: `(${skipOption.hint})`,
+        },
+      ],
     });
 
-    return response.platform;
+    return response.platform === SKIP_VALUE ? undefined : response.platform;
   } catch {
     return undefined;
   }
@@ -122,7 +142,8 @@ export const initSkills = async (
     options.skills ??
     (isInteractive
       ? await p.multiselect({
-          message: 'Select the documentation skills to provide to your AI:',
+          message:
+            'Select the documentation skills to provide to your AI (none to skip):',
           initialValues: initialSkills,
           options: SKILLS.map((skill) => ({
             value: skill,
@@ -134,20 +155,28 @@ export const initSkills = async (
       : initialSkills);
 
   if (p.isCancel(selectedSkills) || selectedSkills.length === 0) {
-    p.cancel('Operation cancelled. No skills selected.');
+    if (isInteractive) {
+      p.outro(getSkippedMessage('Skills', INIT_SKILLS_COMMAND));
+    } else {
+      p.cancel('Operation cancelled. No skills selected.');
+    }
     return;
   }
 
   const platform = isInteractive
-    ? (options.platform ?? (await promptPlatform(root)))
+    ? (options.platform ?? (await promptPlatform(root, INIT_SKILLS_COMMAND)))
     : await resolvePlatformWithoutPrompt(
         root,
         options.platform,
-        'intlayer init skills'
+        INIT_SKILLS_COMMAND
       );
 
   if (!platform) {
-    p.cancel('Operation cancelled. No platform selected.');
+    if (isInteractive) {
+      p.outro(getSkippedMessage('Skills', INIT_SKILLS_COMMAND));
+    } else {
+      p.cancel('Operation cancelled. No platform selected.');
+    }
     return;
   }
 
