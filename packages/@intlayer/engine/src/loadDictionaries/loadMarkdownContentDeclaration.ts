@@ -16,6 +16,8 @@ type MarkdownFrontmatter = {
   location?: string;
   priority?: number;
   version?: string;
+  item?: number;
+  variant?: Dictionary['variant'];
   [key: string]: any;
 };
 
@@ -53,6 +55,8 @@ export const loadMarkdownContentDeclaration = async (
       location,
       priority,
       version,
+      item,
+      variant,
     } = frontmatter;
 
     const locale = frontmatterLocale ?? fileNameDeclaration.locale;
@@ -68,6 +72,8 @@ export const loadMarkdownContentDeclaration = async (
       ...(location !== undefined && { location }),
       ...(priority !== undefined && { priority }),
       ...(version !== undefined && { version }),
+      ...(item !== undefined && { item }),
+      ...(variant !== undefined && { variant }),
       content: {
         nodeType: MARKDOWN,
         [MARKDOWN]: fileContent,
