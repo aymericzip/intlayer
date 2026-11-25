@@ -1,6 +1,7 @@
 import { getPathWithoutLocale } from '@intlayer/core/localization';
 import {
   External_AI_Landing_Page,
+  Website_Analytics_Path,
   Website_CMS_Path,
   Website_Home_Path,
   Website_Markdown_Path,
@@ -24,6 +25,7 @@ const products = [
   { contentKey: 'i18nLib', route: Website_Home_Path },
   { contentKey: 'cli', route: Website_Translate_Path },
   { contentKey: 'markdown', route: Website_Markdown_Path },
+  { contentKey: 'analytics', route: Website_Analytics_Path },
 ] as const;
 
 /** Drops the trailing slash so `/cms/` and `/cms` compare equal. */

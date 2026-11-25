@@ -6,6 +6,16 @@ import type {
 import { getCachedIntl } from '@intlayer/core/utils';
 import { useGetLiveVisitorFlow } from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
+import { WorldMap, type WorldMapRow } from '@intlayer/design-system/world-map';
+import {
+  countryToFlag,
+  getCountryName,
+  UNKNOWN_COUNTRY_CODE,
+} from '@intlayer/design-system/world-map';
+import {
+  groupVisitorsByPlace,
+  type LiveMapPlace,
+} from '@intlayer/design-system/world-map';
 import { ArrowLeft, FileText, X } from 'lucide-react';
 import { type FC, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -14,13 +24,6 @@ import {
   getVisitorsActiveAt,
   type LiveVisitorSelection,
 } from './liveVisitorSelection';
-import { WorldMap, type WorldMapRow } from './WorldMap';
-import {
-  countryToFlag,
-  getCountryName,
-  UNKNOWN_COUNTRY_CODE,
-} from './worldMap.utils';
-import { groupVisitorsByPlace, type LiveMapPlace } from './worldMapProjection';
 
 /** How often an open visitor journey is refreshed — matches the live report. */
 const JOURNEY_REFRESH_INTERVAL_MS = 15_000;

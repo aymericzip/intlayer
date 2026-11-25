@@ -219,6 +219,7 @@ export const Website_CMS_Path = '/cms' as const;
 export const Website_TMS_Path = '/tms' as const;
 export const Website_Translate_Path = '/translate' as const;
 export const Website_Markdown_Path = '/markdown' as const;
+export const Website_Analytics_Path = '/analytics' as const;
 export const Website_Demo_Path = '/demo' as const;
 export const Website_Playground_Path = '/playground' as const;
 export const Website_NotFound_Path = '/404' as const;
@@ -344,6 +345,8 @@ export const Website_Translate =
   `${Website_Origin}${Website_Translate_Path}` as const;
 export const Website_Markdown =
   `${Website_Origin}${Website_Markdown_Path}` as const;
+export const Website_Analytics =
+  `${Website_Origin}${Website_Analytics_Path}` as const;
 export const Website_Demo = `${Website_Origin}${Website_Demo_Path}` as const;
 export const Website_Playground =
   `${Website_Origin}${Website_Playground_Path}` as const;

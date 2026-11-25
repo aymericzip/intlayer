@@ -3,6 +3,7 @@ import { type Dictionary, t } from 'intlayer';
 const landingListContent = {
   key: 'landing-list',
   content: {
+    analytics: 'Analytics',
     abTest: t({
       en: 'A/B test',
       ar: 'اختبار A/B',

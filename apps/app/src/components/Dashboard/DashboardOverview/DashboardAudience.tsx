@@ -9,13 +9,20 @@ import {
   useGetPageMetadata,
   useSession,
 } from '@intlayer/design-system/api';
+import { BreakdownList } from '@intlayer/design-system/breakdown-list';
 import { Container } from '@intlayer/design-system/container';
-import { ExpandCollapse } from '@intlayer/design-system/expand-collapse';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
+import {
+  countryToFlag,
+  getCountryName,
+  UNKNOWN_COUNTRY_CODE,
+  WORLD_MAP_HEIGHT,
+  WORLD_MAP_WIDTH,
+} from '@intlayer/design-system/world-map';
 import { getLocaleName } from 'intlayer';
 import { ExternalLink, FileText, Globe, MapPin } from 'lucide-react';
 import {
@@ -40,17 +47,10 @@ import {
   type LiveVisitorSelection,
   selectLiveMinute,
 } from './WorldMap/liveVisitorSelection';
-import {
-  countryToFlag,
-  getCountryName,
-  UNKNOWN_COUNTRY_CODE,
-  WORLD_MAP_HEIGHT,
-  WORLD_MAP_WIDTH,
-} from './WorldMap/worldMap.utils';
 
 /** The map ships ~70 KB of country outlines, so it loads in its own chunk. */
 const WorldMap = lazy(() =>
-  import('./WorldMap/WorldMap').then((module) => ({
+  import('@intlayer/design-system/world-map').then((module) => ({
     default: module.WorldMap,
   }))
 );
@@ -517,96 +517,6 @@ const AudienceSkeleton: FC = () => (
   </div>
 );
 
-/** Collapsed height (px) of a breakdown list before the "show all" toggle appears. */
-const BREAKDOWN_COLLAPSED_HEIGHT = 400;
-
-type BreakdownListProps = {
-  rows: { label: ReactNode; users: number; views: number }[];
-  usersLabel: string;
-  viewsLabel: string;
-  metric: 'users' | 'views';
-  /** Shown instead of the list when it has no row. */
-  emptyLabel: ReactNode;
-};
-
-/**
- * Formats the counters shown next to a breakdown row. A dimension the
- * breakdown cannot carry is left out rather than printed as a zero — pages are
- * counted in views only, countries in visitors only.
- */
-const formatRowCounters = (
-  row: { users: number; views: number },
-  usersLabel: string,
-  viewsLabel: string,
-  metric: 'users' | 'views'
-): string[] =>
-  (
-    [
-      ['users', row.users, usersLabel],
-      ['views', row.views, viewsLabel],
-    ] as const
-  )
-    .filter(([dimension, value]) => value > 0 || dimension === metric)
-    .map(([, value, label]) => `${value.toLocaleString()} ${label}`);
-
-/**
- * Ranked horizontal-bar list for a breakdown tab. Long lists (countries can run
- * to dozens of rows) collapse behind a "show all" toggle.
- */
-const BreakdownList: FC<BreakdownListProps> = ({
-  rows,
-  usersLabel,
-  viewsLabel,
-  metric,
-  emptyLabel,
-}) => {
-  if (rows.length === 0) {
-    return (
-      <p className="flex flex-1 items-center justify-center py-10 text-center text-sm text-neutral">
-        {emptyLabel}
-      </p>
-    );
-  }
-
-  const max = Math.max(1, ...rows.map((row) => row[metric]));
-
-  return (
-    <ExpandCollapse minHeight={BREAKDOWN_COLLAPSED_HEIGHT}>
-      <ul className="flex flex-col gap-3 pb-6">
-        {rows.map((row, index) => {
-          const value = row[metric];
-          const ratio = value / max;
-
-          return (
-            <li
-              // oxlint-disable-next-line react/no-array-index-key -- rows are stable per fetch and labels can repeat
-              key={index}
-              className="flex flex-col gap-1"
-            >
-              <div className="flex items-start justify-between gap-2 text-sm">
-                <div className="flex min-w-0 flex-1 items-start gap-2 text-text">
-                  {row.label}
-                </div>
-                <span className="shrink-0 text-xs text-neutral">
-                  {formatRowCounters(row, usersLabel, viewsLabel, metric).join(
-                    ' · '
-                  )}
-                </span>
-              </div>
-              <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
-                <div
-                  className="h-full min-w-1 rounded-full bg-text/60 transition-all duration-500 ease-out"
-                  style={{ width: `${Math.round(ratio * 100)}%` }}
-                />
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </ExpandCollapse>
-  );
-};
-
 type PageBreakdownRowProps = {
   pageUrl: string;
   applicationURL?: string | null;
@@ -977,6 +887,7 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
 
               {tab === 'locales' && (
                 <BreakdownList
+                  locale={locale}
                   rows={localeRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
@@ -986,6 +897,7 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
               )}
               {tab === 'location' && (
                 <BreakdownList
+                  locale={locale}
                   rows={countryRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}
@@ -995,6 +907,7 @@ export const DashboardAudience: FC<DashboardAudienceProps> = ({
               )}
               {tab === 'pages' && (
                 <BreakdownList
+                  locale={locale}
                   rows={pageRows}
                   usersLabel={content.usersLabel.value}
                   viewsLabel={content.viewsLabel.value}

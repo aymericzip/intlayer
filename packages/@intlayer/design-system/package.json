@@ -450,6 +450,21 @@
       "types": "./dist/types/components/WithResizer/index.d.ts",
       "import": "./dist/esm/components/WithResizer/index.mjs",
       "default": "./dist/esm/components/WithResizer/index.mjs"
+    },
+    "./world-map": {
+      "types": "./dist/types/components/WorldMap/index.d.ts",
+      "import": "./dist/esm/components/WorldMap/index.mjs",
+      "default": "./dist/esm/components/WorldMap/index.mjs"
+    },
+    "./page-flow": {
+      "types": "./dist/types/components/PageFlow/index.d.ts",
+      "import": "./dist/esm/components/PageFlow/index.mjs",
+      "default": "./dist/esm/components/PageFlow/index.mjs"
+    },
+    "./breakdown-list": {
+      "types": "./dist/types/components/BreakdownList/index.d.ts",
+      "import": "./dist/esm/components/BreakdownList/index.mjs",
+      "default": "./dist/esm/components/BreakdownList/index.mjs"
     }
   },
   "scripts": {

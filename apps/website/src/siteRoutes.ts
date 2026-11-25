@@ -1,4 +1,5 @@
 import {
+  Website_Analytics_Path,
   Website_Blog_Path,
   Website_CMS_Path,
   Website_Contributors_Path,
@@ -127,6 +128,7 @@ export const staticSitemapEntries: Omit<SitemapUrlEntry, 'lastmod'>[] = [
   { path: Website_TMS_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Translate_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Markdown_Path, changefreq: 'monthly', priority: 0.8 },
+  { path: Website_Analytics_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Demo_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Playground_Path, changefreq: 'monthly', priority: 0.8 },
   { path: Website_Scanner_Path, changefreq: 'monthly', priority: 0.8 },
@@ -157,6 +159,7 @@ export const staticPrerenderPaths: string[] = [
   Website_CMS_Path,
   Website_TMS_Path,
   Website_Markdown_Path,
+  Website_Analytics_Path,
   Website_Demo_Path,
   Website_Playground_Path,
   Website_Scanner_Path,
