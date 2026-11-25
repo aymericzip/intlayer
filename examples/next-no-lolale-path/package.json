@@ -25,7 +25,7 @@
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.3.5",
     "@types/node": "^26",
-    "@types/react": "19.3.0",
+    "@types/react": "19.3.1",
     "@types/react-dom": "19.3.0",
     "eslint-config-next": "16.3.0",
     "intlayer-editor": "workspace:*",
