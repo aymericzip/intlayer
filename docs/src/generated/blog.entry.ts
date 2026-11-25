@@ -962,6 +962,84 @@ export const blogEntry = {
     uk: readLocale('nextjs-multilingual-seo-comparison.md', 'uk'),
     'he-IL': readLocale('nextjs-multilingual-seo-comparison.md', 'he-IL'),
   } as unknown as Record<LocalesValues, Promise<string>>,
+  './blog/en/ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md': {
+    en: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'en'
+    ),
+    es: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'es'
+    ),
+    ru: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'ru'
+    ),
+    ja: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'ja'
+    ),
+    fr: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'fr'
+    ),
+    ko: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'ko'
+    ),
+    zh: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'zh'
+    ),
+    de: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'de'
+    ),
+    ar: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'ar'
+    ),
+    it: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'it'
+    ),
+    'en-GB': readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'en-GB'
+    ),
+    pt: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'pt'
+    ),
+    hi: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'hi'
+    ),
+    tr: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'tr'
+    ),
+    pl: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'pl'
+    ),
+    id: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'id'
+    ),
+    vi: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'vi'
+    ),
+    uk: readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'uk'
+    ),
+    'he-IL': readLocale(
+      'ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md',
+      'he-IL'
+    ),
+  } as unknown as Record<LocalesValues, Promise<string>>,
   './blog/en/per-component_vs_centralized_i18n.md': {
     en: readLocale('per-component_vs_centralized_i18n.md', 'en'),
     es: readLocale('per-component_vs_centralized_i18n.md', 'es'),

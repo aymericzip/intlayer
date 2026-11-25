@@ -405,6 +405,13 @@ const blogDataContent: Dictionary = {
           ),
           frameworks: ['vue'],
         },
+        'ngx-translate-vs-angular-i18n-vs-transloco-vs-intlayer': {
+          title: 'ngx-translate vs Angular i18n vs Transloco vs Intlayer',
+          default: getBlogMetadata(
+            './blog/en/ngx-translate_vs_angular-i18n_vs_transloco_vs_intlayer.md'
+          ),
+          frameworks: ['angular'],
+        },
         'is-next-intl-outdated': {
           title: t({
             en: 'Is next-intl outdated?',
