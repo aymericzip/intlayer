@@ -16,7 +16,7 @@
   "dependencies": {
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "next": "16.3.6",
+    "next": "16.4.6",
     "next-intlayer": "workspace:*",
     "react": "19.3.1",
     "react-dom": "19.3.1"
@@ -25,9 +25,9 @@
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.3.5",
     "@types/node": "^26",
-    "@types/react": "19.3.1",
+    "@types/react": "19.3.3",
     "@types/react-dom": "19.3.0",
-    "eslint-config-next": "16.3.0",
+    "eslint-config-next": "16.4.6",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.3.5",
     "typescript": "7.0.2"

@@ -46,9 +46,9 @@
     "framer-motion": "14.14.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.79.0",
+    "lucide-react": "1.80.0",
     "nitro": "latest",
-    "posthog-js": "^1.447.5",
+    "posthog-js": "^1.455.2",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-intlayer": "workspace:*",
@@ -62,7 +62,7 @@
     "@testing-library/dom": "10.4.2",
     "@testing-library/react": "16.3.3",
     "@types/node": "^26",
-    "@types/react": "19.3.1",
+    "@types/react": "19.3.3",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.3.0",
     "jsdom": "31.0.1",
@@ -71,6 +71,6 @@
     "vite": "8.3.8",
     "vite-intlayer": "workspace:*",
     "vite-plugin-wasm": "3.6.0",
-    "vitest": "5.1.1"
+    "vitest": "5.1.2"
   }
 }

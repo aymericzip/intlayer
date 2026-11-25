@@ -8,6 +8,7 @@ import type {
   InterpolatableTranslation,
   InterpolatableTranslationObject,
   InterpolateFunction,
+  InterpolationContext,
   InterpolationParameters,
   MissingTranslationHandlerParams,
   StrictTranslation,
@@ -128,7 +129,8 @@ export class TranslateNoOpLoader extends TranslateLoader {
 export abstract class TranslateParser {
   abstract interpolate(
     expression: InterpolatableTranslation,
-    params?: InterpolationParameters
+    params?: InterpolationParameters,
+    context?: InterpolationContext
   ): string | undefined;
 }
 
@@ -138,33 +140,62 @@ export class TranslateDefaultParser extends TranslateParser {
 
   interpolate(
     expression: InterpolatableTranslation,
-    params?: InterpolationParameters
+    params?: InterpolationParameters,
+    context?: InterpolationContext
   ): string | undefined {
     if (isString(expression)) {
-      return this.interpolateString(expression, params);
+      return this.interpolateString(expression, params, context);
     }
     if (isFunction(expression)) {
-      return (expression as InterpolateFunction)(params);
+      return this.interpolateFunction(
+        expression as InterpolateFunction,
+        params,
+        context
+      );
     }
     return undefined;
   }
 
+  protected interpolateFunction(
+    interpolate: InterpolateFunction,
+    params?: InterpolationParameters,
+    context?: InterpolationContext
+  ): string {
+    return interpolate(params, context);
+  }
+
   protected interpolateString(
     expression: string,
-    params?: InterpolationParameters
+    params?: InterpolationParameters,
+    context?: InterpolationContext
   ): string {
     if (!params) return expression;
 
     return expression.replace(
       this.templateMatcher,
       (substring, key: string) => {
-        const replacement = this.formatValue(getValue(params, key));
+        const replacement = this.getInterpolationReplacement(
+          params,
+          key,
+          context
+        );
         return replacement ?? substring;
       }
     );
   }
 
-  protected formatValue(value: unknown): string | undefined {
+  protected getInterpolationReplacement(
+    params: InterpolationParameters,
+    key: string,
+    context?: InterpolationContext
+  ): string | undefined {
+    return this.formatValue(getValue(params, key), context);
+  }
+
+  protected formatValue(
+    value: unknown,
+    _context?: InterpolationContext
+  ): string | undefined {
     if (isString(value)) return value;
     if (typeof value === 'number' || typeof value === 'boolean') {
       return value.toString();

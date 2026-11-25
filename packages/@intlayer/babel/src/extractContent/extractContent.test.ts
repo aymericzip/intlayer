@@ -65,6 +65,8 @@ const writeFormatterConfig = (directory: string): void => {
     join(directory, '.prettierrc.json'),
     JSON.stringify({ singleQuote: true, trailingComma: 'es5' })
   );
+  // Template formatting requires optional plugins and is outside this suite.
+  writeFileSync(join(directory, '.prettierignore'), '*.astro\n*.svelte\n');
 };
 
 describe('extractIntlayer', () => {

@@ -16,7 +16,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.18.4",
+    "react-router-dom": "7.18.7",
     "zod": "4.6.7"
   },
   "devDependencies": {
@@ -24,7 +24,7 @@
     "@intlayer/sync-json-plugin": "workspace:*",
     "@intlayer/sync-po-plugin": "workspace:*",
     "@tailwindcss/vite": "4.3.5",
-    "@types/react": "19.3.1",
+    "@types/react": "19.3.3",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.3.0",
     "autoprefixer": "10.7.0",

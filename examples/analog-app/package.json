@@ -14,7 +14,7 @@
     "watch": "bun --bun vite build --watch"
   },
   "dependencies": {
-    "@analogjs/router": "2.9.7",
+    "@analogjs/router": "3.0.0",
     "@angular/animations": "22.3.0",
     "@angular/common": "22.3.0",
     "@angular/compiler": "22.3.0",
@@ -25,7 +25,7 @@
     "@angular/router": "22.3.0",
     "@tailwindcss/vite": "4.3.5",
     "angular-intlayer": "workspace:*",
-    "h3": "1.15.0",
+    "h3": "1.15.11",
     "intlayer": "workspace:*",
     "postcss": "8.5.33",
     "rxjs": "~7.8.2",
@@ -44,7 +44,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.8",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.1.1"
+    "vitest": "5.1.2"
   },
   "engines": {
     "node": ">=20.19.1"

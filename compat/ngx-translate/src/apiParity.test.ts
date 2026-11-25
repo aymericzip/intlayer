@@ -11,7 +11,10 @@ import { describe, expect, it } from 'vitest';
 import * as compat from './index';
 
 /** `@ngx-translate/core` exports the compat does not match yet, and why. */
-const KNOWN_GAPS: KnownGaps = {};
+const KNOWN_GAPS: KnownGaps = {
+  TranslateSlotDirective: 'Rich translation slots are not implemented yet.',
+  TranslateSlotsComponent: 'Rich translation slots are not implemented yet.',
+};
 
 /**
  * Class members are compared at the type level only: Angular classes keep

@@ -37,6 +37,7 @@ export type {
   InterpolatableTranslation,
   InterpolatableTranslationObject,
   InterpolateFunction,
+  InterpolationContext,
   InterpolationParameters,
   LangChangeEvent,
   Language,

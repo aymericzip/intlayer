@@ -3,7 +3,13 @@ import type { Provider } from '@angular/core';
 export type Language = string;
 
 /** A compiled translation: a string, or a function of the parameters. */
-export type InterpolateFunction = (params?: InterpolationParameters) => string;
+export type InterpolateFunction = (
+  params?: InterpolationParameters,
+  context?: InterpolationContext
+) => string;
+
+/** Translation key and the language supplying an interpolated value. */
+export type InterpolationContext = { key?: string; lang?: string };
 
 export type InterpolationParameters = Record<string, unknown>;
 

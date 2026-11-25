@@ -54,6 +54,7 @@ const {
   provideTranslateLoader,
   provideTranslateService,
   TranslateLoader,
+  TranslateDefaultParser,
   TranslatePipe,
   TranslateService,
   translate,
@@ -72,6 +73,37 @@ describe('ngx-translate compat adapter', () => {
     (intlayerLocale.current as ReturnType<typeof signal<string>>).set('en');
     injector = createInjector({ fallbackLang: 'en' });
     service = injector.get(TranslateService);
+  });
+
+  it('passes interpolation context through custom parser hooks', () => {
+    class ContextParser extends TranslateDefaultParser {
+      protected formatValue(
+        value: unknown,
+        context?: { lang?: string }
+      ): string {
+        return `${context?.lang}:${String(value)}`;
+      }
+    }
+    const parser = new ContextParser();
+    const context = { key: 'greeting', lang: 'fr' };
+    expect(
+      parser.interpolate('Hello {{ name }}', { name: 'Ada' }, context)
+    ).toBe('Hello fr:Ada');
+    expect(
+      parser.interpolate(
+        (_params, receivedContext) => receivedContext?.key ?? '',
+        {},
+        context
+      )
+    ).toBe('greeting');
+  });
+
+  it('reports the key and supplying language for compiled fallback translations', () => {
+    service.setCompiledTranslation('en', {
+      contextual: (_params, context) => `${context?.key}:${context?.lang}`,
+    });
+    service.use('fr');
+    expect(service.instant('contextual')).toBe('contextual:en');
   });
 
   it('resolves keys through the intlayer dictionaries', () => {

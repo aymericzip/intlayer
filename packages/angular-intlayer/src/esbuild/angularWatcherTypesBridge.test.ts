@@ -334,4 +334,22 @@ describe('bridgeTypesToAngularWatcher', () => {
 
     expect(watcherModule.createWatcher).toBe(wrappedCreateWatcher);
   });
+
+  it('reports declarations rewritten before the watcher subscribes', async () => {
+    const watcherModule = loadFakeAngularBuild();
+    const typesDirectory = createTemporaryDirectory();
+    const typeFilePath = normalize(join(typesDirectory, 'app.ts'));
+    writeFileSync(typeFilePath, 'export default { title: "Hello" };');
+    bridgeTypesToAngularWatcher([typesDirectory], typesDirectory);
+
+    // No filesystem watcher exists during this rewrite.
+    writeFileSync(typeFilePath, 'export default { title: "Updated" };');
+    const watcher = watcherModule.createWatcher();
+    try {
+      const changedFiles = (await watcher.next()).value;
+      expect([...changedFiles.modified]).toContain(typeFilePath);
+    } finally {
+      await watcher.close();
+    }
+  });
 });

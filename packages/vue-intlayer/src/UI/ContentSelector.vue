@@ -22,7 +22,7 @@ const isSelecting = computed(() => props.isSelecting ?? isSelectingState.value);
 const isStringSlot = computed(() => {
   // If there's only one default slot child and it's a string
   const slot = useSlots().default?.();
-  return slot?.length === 1 && typeof slot[0].children === 'string';
+  return slot?.length === 1 && typeof slot[0]?.children === 'string';
 });
 
 const handleOnLongPress = () => {

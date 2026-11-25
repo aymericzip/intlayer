@@ -1,6 +1,6 @@
 import { internationalization } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
-import type { CustomInspectorNode } from '@vue/devtools-api';
+import type { CustomInspectorNode } from '@vue/devtools-kit';
 
 export const LOCALES_GROUP_NODE_ID = 'intlayer-locales';
 export const LOCALE_NODE_ID_PREFIX = 'locale:';

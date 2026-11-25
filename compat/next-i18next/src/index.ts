@@ -15,4 +15,6 @@ export {
 } from '@intlayer/react-i18next';
 
 export { appWithTranslation } from './appWithTranslation';
+export { getInternalPath } from './getInternalPath';
+export { getLocalizedPath } from './getLocalizedPath';
 export { serverSideTranslations } from './serverSideTranslations';

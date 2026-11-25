@@ -109,14 +109,15 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@vue/devtools-api": "^6.6.4"
+    "@vue/devtools-api": "^8.2.1",
+    "@vue/devtools-kit": "^8.2.1"
   },
   "devDependencies": {
     "@types/node": "^26",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "@vitejs/plugin-vue": "6.0.8",
+    "@vitejs/plugin-vue": "6.0.11",
     "ajv": "8.20.0",
     "fast-glob": "3.3.3",
     "rimraf": "6.1.4",
@@ -124,8 +125,8 @@
     "typescript": "6.0.3",
     "vite": "8.3.8",
     "vite-plugin-dts": "5.1.2",
-    "vitest": "5.1.1",
-    "vue-tsc": "3.3.9"
+    "vitest": "5.1.2",
+    "vue-tsc": "3.3.14"
   },
   "peerDependencies": {
     "intlayer": "workspace:*",

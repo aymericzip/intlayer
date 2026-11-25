@@ -516,6 +516,7 @@ Behaviorals Settings
 - [Nesting](https://intlayer.org/doc/concept/content/nesting.md)
 - [File](https://intlayer.org/doc/concept/content/file.md)
 - [Function Fetching](https://intlayer.org/doc/concept/content/function-fetching.md)
+- [Schema](https://intlayer.org/doc/concept/content/schema.md)
 
 ### Packages
 

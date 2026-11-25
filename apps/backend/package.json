@@ -55,7 +55,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.1177.0",
+    "@aws-sdk/client-s3": "3.1178.0",
     "@better-auth/core": "1.7.28",
     "@better-auth/passkey": "1.7.28",
     "@better-auth/sso": "1.7.28",
@@ -88,13 +88,13 @@
     "mmdb-lib": "3.0.5",
     "mongodb": "7.9.1",
     "mongoose": "9.13.1",
-    "mppx": "0.21.4",
+    "mppx": "0.22.1",
     "nodemailer": "10.6.1",
     "openai": "7.64.0",
-    "puppeteer": "25.18.1",
+    "puppeteer": "25.19.0",
     "react": "19.3.1",
     "react-email": "6.11.16",
-    "resend": "6.39.0",
+    "resend": "6.40.0",
     "sharp": "0.35.5",
     "stripe": "23.2.0",
     "validator": "13.15.35",
@@ -108,7 +108,7 @@
     "@types/node": "^26",
     "@types/nodemailer": "8.0.2",
     "@types/oauth2-server": "3.0.18",
-    "@types/react": "19.3.1",
+    "@types/react": "19.3.3",
     "@types/validator": "13.15.10",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -117,6 +117,6 @@
     "rimraf": "6.1.4",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.1.1"
+    "vitest": "5.1.2"
   }
 }

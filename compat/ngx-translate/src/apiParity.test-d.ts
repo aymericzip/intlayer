@@ -8,6 +8,10 @@ import type * as compat from './index';
 
 /** `@ngx-translate/core` exports typed differently from upstream, and why. */
 type TypeGaps =
+  /** Rich translation slots are not implemented yet. */
+  | 'TranslateSlotDirective'
+  /** Rich translation slots are not implemented yet. */
+  | 'TranslateSlotsComponent'
   /** Reimplemented with its own types; signature not aligned with upstream yet. */
   | 'DefaultMissingTranslationHandler'
   /** Reimplemented with its own types; signature not aligned with upstream yet. */

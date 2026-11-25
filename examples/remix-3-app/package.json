@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "remix": "^3.0.0-rc.2",
+    "remix": "^3.3.0",
     "remix-intlayer": "workspace:*"
   },
   "devDependencies": {

@@ -262,6 +262,10 @@ const createTypesChangeSource = (
     if (listeners.size === 0) startWatching();
     listeners.add(listener);
 
+    // Include writes between the initial snapshot and watcher subscription,
+    // including events missed while the native watcher starts.
+    scheduleEmit();
+
     return () => {
       listeners.delete(listener);
 

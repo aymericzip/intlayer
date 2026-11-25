@@ -122,6 +122,8 @@
   },
   "devDependencies": {
     "@solidjs/testing-library": "0.8.10",
+    "@solidjs/vite-plugin": "3.0.1",
+    "@solidjs/web": "2.0.4",
     "@testing-library/jest-dom": "8.0.0",
     "@testing-library/user-event": "14.6.13",
     "@types/node": "^26",
@@ -131,13 +133,13 @@
     "@utils/tsdown-config": "workspace:*",
     "jsdom": "31.0.1",
     "rimraf": "6.1.4",
-    "solid-js": "2.0.3",
+    "solid-js": "2.0.4",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
     "vite": "8.3.8",
     "vite-plugin-dts": "5.1.2",
     "vite-plugin-solid": "2.11.17",
-    "vitest": "5.1.1"
+    "vitest": "5.1.2"
   },
   "peerDependencies": {
     "@solidjs/web": ">=2.0.0",

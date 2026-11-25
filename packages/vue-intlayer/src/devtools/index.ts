@@ -2,11 +2,8 @@ import { internationalization } from '@intlayer/config/built';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import {
-  type PluginDescriptor,
-  type SetupFunction,
-  setupDevtoolsPlugin,
-} from '@vue/devtools-api';
+import { setupDevtoolsPlugin } from '@vue/devtools-api';
+import type { PluginDescriptor, PluginSetupFunction } from '@vue/devtools-kit';
 import { type App, watch } from 'vue';
 import { createIntlayerClient } from '../client/installIntlayer';
 import { setLocaleInStorage } from '../client/useLocaleStorage';
@@ -46,7 +43,7 @@ const { defaultLocale, locales: availableLocales } = internationalization ?? {};
  */
 const registerDevtoolsPlugin: (
   pluginDescriptor: PluginDescriptor,
-  setupFunction: SetupFunction
+  setupFunction: PluginSetupFunction
 ) => void = setupDevtoolsPlugin;
 
 /**

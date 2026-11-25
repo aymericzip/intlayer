@@ -271,18 +271,19 @@ export class TranslateService extends ITranslateService {
     translation: InterpolatableTranslation,
     params: InterpolationParameters,
     lang: Language,
-    isDictionaryContent: boolean
+    isDictionaryContent: boolean,
+    key: string
   ): Translation {
     if (Array.isArray(translation)) {
       return translation.map((item) =>
-        this.interpolate(item, params, lang, isDictionaryContent)
+        this.interpolate(item, params, lang, isDictionaryContent, key)
       );
     }
     if (isDict(translation)) {
       return Object.fromEntries(
         Object.entries(translation).map(([key, value]) => [
           key,
-          this.interpolate(value, params, lang, isDictionaryContent),
+          this.interpolate(value, params, lang, isDictionaryContent, key),
         ])
       );
     }
@@ -293,7 +294,7 @@ export class TranslateService extends ITranslateService {
         lang as LocalesValues
       );
     }
-    return this.parser.interpolate(translation, params) ?? '';
+    return this.parser.interpolate(translation, params, { key, lang }) ?? '';
   }
 
   /** Interpolated translation of `key` in `lang`, or `undefined`. */
@@ -308,7 +309,8 @@ export class TranslateService extends ITranslateService {
         runtimeTranslation as InterpolatableTranslation,
         params,
         lang,
-        false
+        false,
+        key
       );
     }
 
@@ -318,7 +320,8 @@ export class TranslateService extends ITranslateService {
         dictionaryContent as InterpolatableTranslation,
         params,
         lang,
-        true
+        true,
+        key
       );
     }
 
