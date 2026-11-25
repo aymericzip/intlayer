@@ -168,11 +168,15 @@ const generateTypeIndexContent = (
   let fileContent = 'import "intlayer";\n';
 
   // Build dictionary refs
-  const dictionariesRef = typeFiles.map((dictionaryPath) => ({
-    relativePath: `./${normalizePath(relative(moduleAugmentationDir, dictionaryPath))}`,
-    id: basename(dictionaryPath, extname(dictionaryPath)),
-    hash: `_${getPathHash(dictionaryPath)}`,
-  }));
+  const dictionariesRef = typeFiles.map((dictionaryPath) => {
+    const relativePath = `./${normalizePath(relative(moduleAugmentationDir, dictionaryPath))}`;
+
+    return {
+      relativePath,
+      id: basename(dictionaryPath, extname(dictionaryPath)),
+      hash: `_${getPathHash(relativePath)}`,
+    };
+  });
 
   // Import all dictionaries
   for (const dictionary of dictionariesRef) {

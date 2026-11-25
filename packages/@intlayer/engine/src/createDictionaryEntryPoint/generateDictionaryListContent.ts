@@ -17,11 +17,15 @@ export const generateDictionaryListContent = (
 
   let content = '';
 
-  const dictionariesRef = dictionaries.map((dictionaryPath) => ({
-    relativePath: normalizePath(relative(mainDir, dictionaryPath)),
-    id: basename(dictionaryPath, extname(dictionaryPath)), // Get the base name as the dictionary id
-    hash: `_${getPathHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
-  }));
+  const dictionariesRef = dictionaries.map((dictionaryPath) => {
+    const relativePath = normalizePath(relative(mainDir, dictionaryPath));
+
+    return {
+      relativePath,
+      id: basename(dictionaryPath, extname(dictionaryPath)), // Get the base name as the dictionary id
+      hash: `_${getPathHash(relativePath)}`,
+    };
+  });
 
   dictionariesRef.forEach((dictionary) => {
     if (format === 'esm')
