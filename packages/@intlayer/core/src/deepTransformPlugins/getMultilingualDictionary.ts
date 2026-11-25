@@ -105,5 +105,8 @@ export const getMultilingualDictionary = (
   return {
     ...rest,
     content: transformedContent,
+    ...(dictionary.metadata !== undefined && {
+      metadata: t({ [locale]: dictionary.metadata } as Record<string, unknown>),
+    }),
   } as Dictionary;
 };

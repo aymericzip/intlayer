@@ -1,5 +1,6 @@
 'use client';
 
+import { loadDynamicDictionary } from '@intlayer/core/dictionaryManipulator';
 import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
@@ -7,12 +8,12 @@ import type {
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
+import { getDictionary } from '../getDictionary';
 import { IntlayerClientContext } from './IntlayerProvider';
-import { useDictionary } from './useDictionary';
 
 /**
- * On the server side, Hook that transform a dictionary and return the content
+ * Hook that loads the locale chunk of a dictionary and returns its content.
  *
  * If the locale is not provided, it will use the locale from the client context
  */
@@ -23,20 +24,14 @@ export const useDictionaryAsync = async <
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: L
 ): Promise<T> => {
+  // Read before the first `await`: a hook only runs synchronously in render
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
+  const localeTarget = locale ?? currentLocale ?? resolveInterpreterLocale();
 
-  const localeTarget = useMemo(
-    () => locale ?? currentLocale ?? resolveInterpreterLocale(),
-    [currentLocale, locale]
-  );
+  const dictionary = (await loadDynamicDictionary(
+    dictionaryPromise,
+    localeTarget
+  )) as T;
 
-  const dictionary = await useMemo(
-    async () =>
-      (await dictionaryPromise[
-        localeTarget as keyof typeof dictionaryPromise
-      ]?.()) as T,
-    [dictionaryPromise, localeTarget]
-  );
-
-  return useDictionary<T, L>(dictionary, localeTarget as L) as any;
+  return getDictionary<T, L>(dictionary, localeTarget as L) as any;
 };

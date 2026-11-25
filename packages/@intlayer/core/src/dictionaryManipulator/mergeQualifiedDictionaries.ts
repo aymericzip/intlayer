@@ -110,6 +110,7 @@ export const mergeQualifiedDictionaries = (
   // object variant the variant segment is the canonical serialization of the
   // object, so it fully identifies the entry — no side-map is needed.
   const content: Record<string, unknown> = {};
+  const metadata: Record<string, unknown> = {};
 
   let importMode: Dictionary['importMode'];
 
@@ -151,6 +152,10 @@ export const mergeQualifiedDictionaries = (
 
     content[compositeId] = mergedEntry.content;
 
+    if (mergedEntry.metadata !== undefined) {
+      metadata[compositeId] = mergedEntry.metadata;
+    }
+
     const [firstQualified] = qualifiedDictionaries;
 
     importMode ??= firstQualified?.importMode;
@@ -168,6 +173,7 @@ export const mergeQualifiedDictionaries = (
     key: dictionaries[0]!.key,
     qualifierTypes: groupQualifierTypes,
     content,
+    ...(Object.keys(metadata).length > 0 && { metadata }),
     ...(importMode !== undefined && { importMode }),
     localIds,
   };

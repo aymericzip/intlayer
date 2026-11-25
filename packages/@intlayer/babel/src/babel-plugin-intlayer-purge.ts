@@ -192,6 +192,48 @@ type PruneResult = {
   wasRecognised: boolean;
 };
 
+/** Whether a compiled JSON is a qualified group (content keyed by entry id). */
+const isQualifiedGroupJson = (dictionary: Record<string, unknown>): boolean =>
+  Array.isArray(dictionary.qualifierTypes) && isPlainRecord(dictionary.content);
+
+/**
+ * Prunes every entry of a qualified group with `pruneEntry`, keeping the
+ * composite ids (and the group's `qualifierTypes` / `metadata`) intact.
+ */
+const pruneQualifiedGroupContent = (
+  dictionary: CompiledDictionaryJson,
+  usedFieldNames: Set<string>,
+  pruneEntry: (
+    entry: CompiledDictionaryJson,
+    usedFieldNames: Set<string>
+  ) => PruneResult
+): PruneResult => {
+  const prunedEntries: Record<string, unknown> = {};
+
+  for (const [entryId, entryContent] of Object.entries(
+    dictionary.content as Record<string, unknown>
+  )) {
+    const { prunedDictionary, wasRecognised } = pruneEntry(
+      {
+        key: dictionary.key,
+        content: entryContent as CompiledDictionaryJson['content'],
+      },
+      usedFieldNames
+    );
+
+    if (!wasRecognised) {
+      return { prunedDictionary: dictionary, wasRecognised: false };
+    }
+
+    prunedEntries[entryId] = prunedDictionary.content;
+  }
+
+  return {
+    prunedDictionary: { ...dictionary, content: prunedEntries },
+    wasRecognised: true,
+  };
+};
+
 /** Returns a copy of `record` keeping only the keys listed in `usedFieldNames`. */
 const filterRecordByUsedFields = (
   record: Record<string, unknown>,
@@ -334,15 +376,42 @@ const renameContentRecursively = (
  * only the keys inside `content` while leaving top-level metadata untouched.
  */
 const applyFieldRenameToDict = (
-  dict: Record<string, unknown>,
+  dictionary: Record<string, unknown>,
   renameMap: NestedRenameMap
 ): Record<string, unknown> => {
-  const content = dict.content;
+  const content = dictionary.content;
   if (!content || typeof content !== 'object' || Array.isArray(content))
-    return dict;
+    return dictionary;
+
+  // A qualified group keys its content (and metadata) by composite id: rename
+  // inside each entry, never the ids themselves.
+  if (isQualifiedGroupJson(dictionary)) {
+    const renameEntries = (entries: unknown): unknown =>
+      isPlainRecord(entries)
+        ? Object.fromEntries(
+            Object.entries(entries).map(([entryId, entryNode]) => [
+              entryId,
+              renameContentRecursively(entryNode, renameMap),
+            ])
+          )
+        : entries;
+
+    return {
+      ...dictionary,
+      content: renameEntries(content),
+      ...(dictionary.metadata !== undefined && {
+        metadata: renameEntries(dictionary.metadata),
+      }),
+    };
+  }
+
+  // Metadata is read through the same (renamed) call sites as the content.
   return {
-    ...dict,
+    ...dictionary,
     content: renameContentRecursively(content, renameMap),
+    ...(dictionary.metadata !== undefined && {
+      metadata: renameContentRecursively(dictionary.metadata, renameMap),
+    }),
   };
 };
 
@@ -536,9 +605,7 @@ const buildRenameMapsSynchronously = (
  * Names of the top-level content fields of a compiled dictionary, whatever
  * shape its `content` uses.  Used to report which fields the purge removed.
  */
-const readContentFieldNames = (
-  content: CompiledDictionaryJson['content']
-): string[] => {
+const readContentFieldNames = (content: unknown): string[] => {
   // Shape A – fields live inside each locale object.
   if (isTranslationNode(content)) {
     const firstLocaleValue = Object.values(content.translation)[0];
@@ -622,11 +689,19 @@ const processDictionaryFile = (
         dictionaryKind === 'static'
           ? pruneStaticDictionaryContent
           : pruneDynamicDictionaryContent;
-      const originalFieldNames = readContentFieldNames(parsedDict.content);
-      const { prunedDictionary, wasRecognised } = pruneDictionaryContent(
-        parsedDict,
-        fieldUsage
+      const isQualifiedGroup = isQualifiedGroupJson(parsedDict);
+      const originalFieldNames = readContentFieldNames(
+        isQualifiedGroup
+          ? Object.values(parsedDict.content)[0]
+          : parsedDict.content
       );
+      const { prunedDictionary, wasRecognised } = isQualifiedGroup
+        ? pruneQualifiedGroupContent(
+            parsedDict,
+            fieldUsage,
+            pruneStaticDictionaryContent
+          )
+        : pruneDictionaryContent(parsedDict, fieldUsage);
       if (!wasRecognised) {
         pruneContext.dictionariesWithEdgeCases.add(dictionaryKey);
         logger(
@@ -704,14 +779,20 @@ const processDictionaryFile = (
 
   if (!modified) return;
 
+  // Minified output ships only what the runtime reads: the group dimensions of
+  // a qualified dictionary and the metadata (`{ metadataOnly: true }`) stay.
   const outputDict = shouldMinify
-    ? dictionaryKind === 'static'
-      ? { key: parsedDict.key, content: parsedDict.content }
-      : {
-          key: parsedDict.key,
-          content: parsedDict.content,
-          locale: parsedDict.locale,
-        }
+    ? {
+        key: parsedDict.key,
+        ...(parsedDict.qualifierTypes !== undefined && {
+          qualifierTypes: parsedDict.qualifierTypes,
+        }),
+        content: parsedDict.content,
+        ...(parsedDict.metadata !== undefined && {
+          metadata: parsedDict.metadata,
+        }),
+        ...(dictionaryKind === 'dynamic' && { locale: parsedDict.locale }),
+      }
     : parsedDict;
 
   try {

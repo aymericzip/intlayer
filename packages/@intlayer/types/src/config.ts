@@ -776,6 +776,8 @@ export type BuildConfig = {
    * Note:
    * - Only applies to dictionaries using `importMode: 'dynamic'`.
    * - Only applies to the client build, and only when bundling (not in dev).
+   * - Collections and variants are not grouped: each entry (and a
+   *   collection's metadata index) keeps its own chunk, loaded on demand.
    * - Disable it to let the bundler chunk dictionaries on its own.
    */
   chunkGrouping: boolean;

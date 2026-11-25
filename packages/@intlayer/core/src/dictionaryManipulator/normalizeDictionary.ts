@@ -21,6 +21,10 @@ export const normalizeDictionary = (
       content: t({
         [dictionary.locale]: dictionary.content,
       }),
+      // Merged with the other locales' metadata, like the content
+      ...(dictionary.metadata !== undefined && {
+        metadata: t({ [dictionary.locale]: dictionary.metadata }),
+      }),
     };
   }
 

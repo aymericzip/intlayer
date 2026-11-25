@@ -227,6 +227,9 @@ const splitMarkdown = (markdown: string): SplitMarkdown => {
  * Renders a `.content.md` file. When the current file is provided, its
  * frontmatter fields are kept and only overridden by the dictionary ones; the
  * original frontmatter text is reused verbatim when nothing changed.
+ *
+ * The dictionary `metadata` is written as top-level frontmatter fields, the
+ * way it is read.
  */
 export const renderMarkdownContentDeclaration = (
   dictionary: Dictionary,
@@ -240,10 +243,14 @@ export const renderMarkdownContentDeclaration = (
   // content.markdown stores the full file (frontmatter + body)
   const { body } = splitMarkdown(markdownRaw);
 
-  const dictionaryFields = omitFields(
-    dictionary as Record<string, unknown>,
-    EXCLUDED_FRONTMATTER_KEYS
-  );
+  const { metadata, ...dictionaryWithoutMetadata } = dictionary;
+  const dictionaryFields: Record<string, unknown> = {
+    ...omitFields(
+      dictionaryWithoutMetadata as Record<string, unknown>,
+      EXCLUDED_FRONTMATTER_KEYS
+    ),
+    ...metadata,
+  };
 
   const existingFrontmatter =
     existingFileContent === undefined

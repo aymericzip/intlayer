@@ -51,6 +51,27 @@ const getMatchingProperty = (node: any, key: string) => {
 };
 
 /**
+ * Removes the properties of an object literal that `record` no longer holds:
+ * the editor writes the whole `metadata`, so a deleted field leaves the file.
+ */
+const removeMissingProperties = (
+  node: any,
+  record: Record<string, unknown>
+): void => {
+  if (!n.ObjectExpression.check(node)) return;
+
+  node.properties = node.properties.filter((prop: any) => {
+    if (!n.Property.check(prop) && !n.ObjectProperty.check(prop)) return true;
+
+    const propName = n.Identifier.check(prop.key)
+      ? prop.key.name
+      : String((prop.key as { value?: unknown }).value);
+
+    return Object.hasOwn(record, propName);
+  });
+};
+
+/**
  * Recursively builds a clean recast AST node from a plain JS value.
  * Because these nodes lack `loc` tracking, recast is forced to pretty-print them.
  */
@@ -210,6 +231,13 @@ export const transformJSONFile = (
     objectLiteral,
     noMetadata ? (dictionary.content as Record<string, any>) : dictionary
   );
+
+  if (!noMetadata && dictionary.metadata !== undefined) {
+    removeMissingProperties(
+      getMatchingProperty(objectLiteral, 'metadata')?.value,
+      dictionary.metadata
+    );
+  }
 
   // Print the full AST to utilize the global token stream for inline comments
   const printedCode = recast.print(ast, {

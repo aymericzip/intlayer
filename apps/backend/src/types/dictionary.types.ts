@@ -22,8 +22,8 @@ export type DictionaryQualifiers = {
    * a structured object (CMS records, user-specific copy…).
    */
   variant?: DictionaryVariantValue | DictionaryVariantValue[];
-  /** Ordered collection item index. */
-  item?: number;
+  /** Collection item id: a position or a string id (a database record id…). */
+  item?: DictionaryCore['item'];
   /** Locale of a per-locale (monolingual) dictionary. */
   locale?: DictionaryCore['locale'];
 };
@@ -69,6 +69,7 @@ export type DictionaryCreationData = DictionaryQualifiers & {
   priority?: number;
   importMode?: 'static' | 'dynamic' | 'fetch';
   tags?: string[];
+  metadata?: DictionaryCore['metadata'];
   environmentId?: string;
 };
 
@@ -92,6 +93,8 @@ export type DictionaryData = DictionaryQualifiers &
     priority?: number;
     importMode?: 'static' | 'dynamic' | 'fetch';
     tags?: string[];
+    /** Plain data describing the content, read with `metadataOnly`. */
+    metadata?: DictionaryCore['metadata'];
     /** If set, this dictionary belongs to a specific project environment. Null means shared (visible in all envs). */
     environmentId?: Types.ObjectId | string | null;
   };

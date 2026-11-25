@@ -6,7 +6,7 @@ import {
   buildUseIntlayerSnippet,
   findSiblingForSelection,
   getContentSummary,
-  getItemNumbers,
+  getItemIds,
   getShapeDrift,
   getVariantDimensions,
   getVariantIdentities,
@@ -61,7 +61,7 @@ describe('sibling selection', () => {
   ];
 
   it('lists items and variant identities', () => {
-    expect(getItemNumbers(siblings)).toEqual([1, 2]);
+    expect(getItemIds(siblings)).toEqual([1, 2]);
 
     const identities = getVariantIdentities(siblings);
     expect(identities.map((variant) => variant.identity)).toEqual([
@@ -94,6 +94,40 @@ describe('sibling selection', () => {
     expect(buildUseIntlayerSnippet('faq', null, pro)).toBe(
       "useIntlayer('faq', { variant: { plan: 'pro' } })"
     );
+  });
+});
+
+describe('string item ids', () => {
+  const siblings = [
+    makeDictionary({ item: '65f1c0b7' }, { title: 'b' }),
+    makeDictionary({ item: 2 }, { title: 'two' }),
+    makeDictionary({ item: '65f1c0a2' }, { title: 'a' }),
+    makeDictionary({}, { shared: 'base' }),
+  ];
+
+  it('lists numeric positions first, then string ids by character code', () => {
+    expect(getItemIds(siblings)).toEqual([2, '65f1c0a2', '65f1c0b7']);
+  });
+
+  it('finds the sibling of a string id', () => {
+    expect(
+      findSiblingForSelection(siblings, { item: '65f1c0a2', variant: null })
+    ).toBe(siblings[2]);
+  });
+
+  it('quotes a string id in the useIntlayer call', () => {
+    expect(buildUseIntlayerSnippet('blog', '65f1c0a2', undefined)).toBe(
+      "useIntlayer('blog', { item: '65f1c0a2' })"
+    );
+  });
+
+  it('reports shape drift keyed by the string id', () => {
+    expect(
+      getShapeDrift([
+        makeDictionary({ item: 'post-a' }, { title: 'a', tags: 'x' }),
+        makeDictionary({ item: 'post-b' }, { title: 'b' }),
+      ])
+    ).toEqual({ 'post-b': ['tags'] });
   });
 });
 

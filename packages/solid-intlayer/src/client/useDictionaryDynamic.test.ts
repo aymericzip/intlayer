@@ -155,7 +155,7 @@ describe('useDictionaryDynamic', () => {
     expect(mockHooks.useDictionary).toHaveBeenCalledWith(dictionary, 'en');
   });
 
-  it('rejects with context when a locale loader is missing', async () => {
+  it('serves a locale without a chunk from the default locale, like static mode', async () => {
     const dictionaryLoaders = {
       en: vi.fn(() => Promise.resolve(dictionary)),
     } satisfies StrictModeLocaleMap<() => Promise<typeof dictionary>>;
@@ -169,8 +169,22 @@ describe('useDictionaryDynamic', () => {
 
     await expect(
       loadDictionary?.({ cacheKey: 'dictionary.fr', locale: 'fr' })
+    ).resolves.toBe(dictionary);
+  });
+
+  it('rejects with context when the map holds no chunk at all', async () => {
+    const { useDictionaryDynamic } = await import('./useDictionaryDynamic');
+
+    useDictionaryDynamic({}, 'dictionary');
+
+    const loadDictionary = mockHooks.useLoadDynamic.mock.calls[0]?.[1] as
+      | ((source: { cacheKey: string; locale: string }) => Promise<Dictionary>)
+      | undefined;
+
+    await expect(
+      loadDictionary?.({ cacheKey: 'dictionary.fr', locale: 'fr' })
     ).rejects.toThrow(
-      'No dynamic dictionary loader found for key "dictionary" and locale "fr".'
+      'No dynamic dictionary chunk found for key "dictionary" and locale "fr".'
     );
   });
 

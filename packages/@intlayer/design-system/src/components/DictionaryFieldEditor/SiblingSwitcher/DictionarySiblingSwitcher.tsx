@@ -8,7 +8,11 @@ import { Checkbox } from '@components/Input/Checkbox';
 import { SearchInput } from '@components/Input/SearchInput';
 import { Tag } from '@components/Tag';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionaryItemId,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
 import { cn } from '@utils/cn';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useMemo, useState } from 'react';
@@ -19,7 +23,7 @@ import {
   type ContentSummary,
   getBaseSibling,
   getContentSummary,
-  getItemNumbers,
+  getItemIds,
   getShapeDrift,
   getVariantIdentities,
   type SiblingSelection,
@@ -34,7 +38,7 @@ export type DictionarySiblingSwitcherProps = {
   dictionaryKey: string;
   /** Every dictionary sharing the key (base, items, variants). */
   siblings: Dictionary[];
-  selectedItem: number | null;
+  selectedItem: DictionaryItemId | null;
   selectedVariant: string | null;
   onSelect: (selection: SiblingSelection) => void;
   /** Single context dropdown, for the visual editor side panel. */
@@ -43,7 +47,7 @@ export type DictionarySiblingSwitcherProps = {
 };
 
 type ItemEntry = {
-  item: number;
+  item: DictionaryItemId;
   summary: ContentSummary;
   completeness: number;
   missingKeys: string[];
@@ -105,14 +109,14 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
     configuration?.internationalization?.defaultLocale ?? locales[0] ?? 'en'
   );
 
-  const itemNumbers = useMemo(() => getItemNumbers(siblings), [siblings]);
+  const itemIds = useMemo(() => getItemIds(siblings), [siblings]);
   const variants = useMemo(() => getVariantIdentities(siblings), [siblings]);
   const baseSibling = useMemo(() => getBaseSibling(siblings), [siblings]);
   const shapeDrift = useMemo(() => getShapeDrift(siblings), [siblings]);
 
   const itemEntries = useMemo<ItemEntry[]>(
     () =>
-      itemNumbers.map((item) => {
+      itemIds.map((item) => {
         const itemSiblings = siblings.filter(
           (sibling) => sibling.item === item
         );
@@ -141,7 +145,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
         };
       }),
     [
-      itemNumbers,
+      itemIds,
       siblings,
       selectedVariant,
       locales,
@@ -151,7 +155,7 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
     ]
   );
 
-  if (itemNumbers.length === 0 && variants.length === 0) return null;
+  if (itemIds.length === 0 && variants.length === 0) return null;
 
   const selectedVariantIdentity = variants.find(
     (variant) => variant.identity === selectedVariant
@@ -169,11 +173,11 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
         entry.completeness < 1 ||
         entry.missingKeys.length > 0) &&
       (normalizedQuery === '' ||
-        String(entry.item).includes(normalizedQuery) ||
+        String(entry.item).toLowerCase().includes(normalizedQuery) ||
         entry.summary.preview.toLowerCase().includes(normalizedQuery))
   );
 
-  const selectItem = (item: number | null) =>
+  const selectItem = (item: DictionaryItemId | null) =>
     onSelect({ item, variant: selectedVariant });
   const selectVariant = (variant: string | null) =>
     onSelect({ item: selectedItem, variant });
@@ -238,8 +242,12 @@ export const DictionarySiblingSwitcher: FC<DictionarySiblingSwitcherProps> = ({
           isActive ? 'bg-text/10' : 'hover:bg-text/5'
         )}
       >
-        <span className="w-8 shrink-0 font-mono text-xs text-neutral" dir="ltr">
-          #{entry.item}
+        <span
+          className="max-w-28 min-w-8 shrink-0 truncate font-mono text-xs text-neutral"
+          dir="ltr"
+          title={String(entry.item)}
+        >
+          {typeof entry.item === 'number' ? `#${entry.item}` : entry.item}
         </span>
         <span
           className={cn(

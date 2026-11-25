@@ -3,6 +3,7 @@ import type {
   ResolveQualifiedDictionaryContent,
 } from '@intlayer/types/dictionary';
 import { describe, expectTypeOf, it } from 'vitest';
+import type { DeepTransformContent } from '../interpreter/getContent/plugins';
 
 /**
  * Compile-time counterpart of `qualifiedDictionary.test.ts`. The runtime
@@ -145,6 +146,31 @@ describe('ResolveQualifiedDictionaryContent', () => {
       expectTypeOf<
         ResolveQualifiedDictionaryContent<BannerGroup, { variant: 'unknown' }>
       >().toEqualTypeOf<{ title: 'D1' }[]>();
+    });
+  });
+
+  describe('metadataOnly', () => {
+    type BlogGroup = {
+      key: 'blog';
+      qualifierTypes: readonly ['item'];
+      content: { '1': { body: 'B1' }; '2': { body: 'B2' } };
+      metadata: { '1': { title: 'T1' }; '2': { title: 'T2'; tags: ['a'] } };
+    };
+
+    it('should return the metadata as declared, never interpreted', () => {
+      expectTypeOf<
+        DeepTransformContent<
+          ResolveQualifiedDictionaryContent<BlogGroup, { metadataOnly: true }>
+        >
+      >().toEqualTypeOf<({ title: 'T1' } | { title: 'T2'; tags: ['a'] })[]>();
+      expectTypeOf<
+        DeepTransformContent<
+          ResolveQualifiedDictionaryContent<
+            BlogGroup,
+            { item: 1; metadataOnly: true }
+          >
+        >
+      >().toEqualTypeOf<{ title: 'T1' }>();
     });
   });
 });

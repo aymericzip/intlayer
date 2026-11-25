@@ -1,64 +1,31 @@
-import { getPreloadedDictionary } from '@intlayer/core/dictionaryManipulator';
-import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type { DynamicLoaderMap } from '@intlayer/core/dictionaryManipulator';
+import type {
+  Dictionary,
+  DictionarySelector,
+} from '@intlayer/types/dictionary';
 import type {
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
-import {
-  computed,
-  inject,
-  type MaybeRefOrGetter,
-  ref,
-  toValue,
-  watch,
-} from 'vue';
-import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
-import { useDictionary } from './useDictionary';
+import type { MaybeRefOrGetter } from 'vue';
+import type { useDictionary } from './useDictionary';
+import { useDynamicContent } from './useDictionaryDynamic';
 
 /**
- * On the server side, Hook that transform a dictionary and return the content
+ * Loads the chunk of a per-locale loader map and returns its reactive content,
+ * through the same implementation as `useDictionaryDynamic`.
  *
- * If the locale is not provided, it will use the locale from the client context
+ * If the locale is not provided, it will use the locale from the client context.
+ * A selector can pin the locale or request `{ metadataOnly: true }`.
  */
-export const useDictionaryAsync = async <const T extends Dictionary>(
+export const useDictionaryAsync = <const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
-  locale?: MaybeRefOrGetter<LocalesValues>
-) => {
-  const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
-
-  const localeTarget = computed(
-    () =>
-      toValue(locale) ?? intlayer?.locale?.value ?? resolveInterpreterLocale()
+  localeOrSelector?: MaybeRefOrGetter<
+    LocalesValues | DictionarySelector | null | undefined
+  >
+): Promise<ReturnType<typeof useDictionary<T, any>>> =>
+  useDynamicContent(
+    dictionaryPromise as DynamicLoaderMap,
+    '',
+    localeOrSelector
   );
-
-  // A build-tool plugin may have started this locale's chunk while the entry
-  // point evaluated, and it may already have landed. Taking it directly leaves this function with no await
-  // point at all, so an async `setup()` resolves in the same tick and
-  // `<Suspense>` never falls back.
-  const preloadedDictionary = getPreloadedDictionary(
-    dictionaryPromise,
-    localeTarget.value
-  );
-
-  const dictionary = ref<T>(
-    (preloadedDictionary as T) ??
-      ((await dictionaryPromise[
-        localeTarget.value as keyof typeof dictionaryPromise
-      ]?.()) as T)
-  );
-
-  watch(
-    () => localeTarget.value,
-    async (locale) => {
-      const newDictionary =
-        await dictionaryPromise[locale as keyof typeof dictionaryPromise]?.();
-
-      if (newDictionary) {
-        dictionary.value = newDictionary as T;
-      }
-    }
-  );
-
-  return useDictionary(dictionary, localeTarget as any);
-};

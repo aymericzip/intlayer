@@ -168,6 +168,23 @@ describe('renderMarkdownContentDeclaration', () => {
     expect(result).toContain('title: About');
   });
 
+  it('writes the metadata as top-level frontmatter fields', () => {
+    const result = renderMarkdownContentDeclaration(
+      markdownDictionary('Body', {
+        locale: 'fr',
+        item: 1,
+        title: 'Mon meta titre',
+        metadata: { title: 'Mon titre modifié', slug: 'bonjour' },
+      }),
+      '---\nkey: about\nlocale: fr\nitem: 1\ntitle: Mon meta titre\n---\n\nBody'
+    );
+
+    expect(result).toContain('title: Mon titre modifié');
+    expect(result).toContain('slug: bonjour');
+    expect(result).toContain('item: 1');
+    expect(result).not.toContain('metadata');
+  });
+
   it('strips the frontmatter stored in the markdown content', () => {
     const result = renderMarkdownContentDeclaration(
       markdownDictionary('---\nkey: about\n---\n\nBody'),

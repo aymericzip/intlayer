@@ -166,6 +166,27 @@ const getMatchingProperty = (node: any, key: string) => {
 };
 
 /**
+ * Removes the properties of an object literal that `record` no longer holds:
+ * the editor writes the whole `metadata`, so a deleted field leaves the file.
+ */
+const removeMissingProperties = (
+  node: any,
+  record: Record<string, unknown>
+): void => {
+  if (!n.ObjectExpression.check(node)) return;
+
+  node.properties = node.properties.filter((prop: any) => {
+    if (!n.Property.check(prop) && !n.ObjectProperty.check(prop)) return true;
+
+    const propName = n.Identifier.check(prop.key)
+      ? prop.key.name
+      : String((prop.key as { value?: unknown }).value);
+
+    return Object.hasOwn(record, propName);
+  });
+};
+
+/**
  * Synchronizes numeric suffixes across locales.
  * E.g. "Hello 1" -> "Hello 3" updates "Bonjour 1" to "Bonjour 3".
  */
@@ -958,6 +979,19 @@ export const transformJSFile = async (
           requiredImports
         );
       }
+    }
+
+    if (dictionary.metadata !== undefined) {
+      updateObjectLiteral(
+        rootObject,
+        { metadata: dictionary.metadata },
+        undefined,
+        requiredImports
+      );
+      removeMissingProperties(
+        getMatchingProperty(rootObject, 'metadata')?.value,
+        dictionary.metadata
+      );
     }
   }
 

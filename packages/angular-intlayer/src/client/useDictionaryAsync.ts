@@ -1,6 +1,7 @@
 'use client';
 
 import { computed, inject } from '@angular/core';
+import { loadDynamicDictionary } from '@intlayer/core/dictionaryManipulator';
 import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
@@ -25,7 +26,10 @@ export const useDictionaryAsync = async <const T extends Dictionary>(
     () => locale ?? intlayer?.locale() ?? resolveInterpreterLocale()
   );
 
-  const dictionary = await (dictionaryPromise as any)[localeTarget()]?.();
+  const dictionary = (await loadDynamicDictionary(
+    dictionaryPromise,
+    localeTarget()
+  )) as T;
 
   return useDictionary(dictionary, localeTarget() as any);
 };

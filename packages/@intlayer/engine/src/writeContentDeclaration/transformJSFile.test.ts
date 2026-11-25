@@ -1093,6 +1093,43 @@ export default {
     expect(result).not.toContain('nodeType');
   });
 
+  it('writes the edited metadata, dropping the removed fields', async () => {
+    const source = `export default {
+  key: 'blog',
+  item: 1,
+  metadata: { title: 'Old', slug: 'old', tags: ['a'] },
+  content: { body: 'Hello' },
+};`;
+
+    const result = await transformJSFile(source, {
+      key: 'blog',
+      item: 1,
+      metadata: { title: 'New', tags: ['a', 'b'] },
+      content: { body: 'Hello' },
+    } as unknown as Dictionary);
+
+    expect(result).toContain('title: "New"');
+    expect(result).toMatch(
+      /tags: \[\s*'a',\s*"b"\s*\]|tags: \[\s*"a",\s*"b"\s*\]/
+    );
+    expect(result).not.toContain('slug');
+  });
+
+  it('adds the metadata to a declaration that has none', async () => {
+    const source = `export default {
+  key: 'blog',
+  content: { body: 'Hello' },
+};`;
+
+    const result = await transformJSFile(source, {
+      key: 'blog',
+      metadata: { title: 'My post' },
+      content: { body: 'Hello' },
+    } as unknown as Dictionary);
+
+    expect(result).toMatch(/metadata: \{\s*title: "My post"/);
+  });
+
   it('preserves the custom components passed to md()', async () => {
     const source = `import { md } from "intlayer";
 export default {

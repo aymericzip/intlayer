@@ -1,9 +1,11 @@
 import type {
   Dictionary,
+  DictionaryItemId,
   DictionaryQualifierType,
 } from '@intlayer/types/dictionary';
 import {
   COMPOSITE_ID_SEPARATOR,
+  serializeItem,
   serializeVariant,
 } from './qualifiedDictionary';
 
@@ -36,6 +38,15 @@ export const getVariantIds = (
 };
 
 /**
+ * Whether an `item` field declares the collection dimension: a number, or a
+ * non-empty string id. An empty string (a blank form field) declares nothing.
+ */
+export const isDeclaredItem = (
+  item: Dictionary['item']
+): item is DictionaryItemId =>
+  typeof item === 'number' || (typeof item === 'string' && item !== '');
+
+/**
  * Returns the qualifier dimensions declared on a dictionary, in canonical
  * order (`variant → item`). Empty when the dictionary is unqualified
  * (plain dictionary or shared base content of a qualified group).
@@ -48,7 +59,7 @@ export const getDictionaryQualifierTypes = (
   if (getVariantIds(dictionary.variant) !== undefined) {
     declaredQualifiers.push('variant');
   }
-  if (typeof dictionary.item === 'number') declaredQualifiers.push('item');
+  if (isDeclaredItem(dictionary.item)) declaredQualifiers.push('item');
 
   return declaredQualifiers;
 };
@@ -59,7 +70,7 @@ export const getDictionaryQualifierTypes = (
  *
  * - 'variant' → the serialized variant id(s); an array variant yields one id
  *   per element (declaration-side fan-out)
- * - 'item' → the item index as a single-element list
+ * - 'item' → the serialized item id as a single-element list
  */
 export const getDictionaryQualifierIds = (
   dictionary: Dictionary,
@@ -68,7 +79,9 @@ export const getDictionaryQualifierIds = (
   if (qualifierType === 'variant') {
     return getVariantIds(dictionary.variant);
   }
-  return dictionary.item === undefined ? undefined : [String(dictionary.item)];
+  return isDeclaredItem(dictionary.item)
+    ? [serializeItem(dictionary.item)]
+    : undefined;
 };
 
 /**

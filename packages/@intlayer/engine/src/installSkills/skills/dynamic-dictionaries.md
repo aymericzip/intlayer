@@ -19,7 +19,7 @@ Several content files can share the same dictionary `key`. A **top-level metadat
 
 | Feature     | Metadata field                      | Selector in `useIntlayer`                   |
 | ----------- | ----------------------------------- | ------------------------------------------- |
-| Collections | `item: N`                           | `{ item: N }`                               |
+| Collections | `item: N` or `item: "id"`           | `{ item: N }` or `{ item: "id" }`           |
 | Variants    | `variant: "name"` or `variant: {…}` | `{ variant: "name" }` or `{ variant: {…} }` |
 
 Both compose with `locale` and with `importMode`. When a key declares both, they resolve in the order `variant → item`.
@@ -29,7 +29,7 @@ Both compose with `locale` and with `importMode`. When a key declares both, they
 
 ## Collections
 
-Each file is one item; `item` is its 1-based position. Intlayer merges them into an ordered array at build time.
+Each file is one item; `item` is its 1-based position, or a string id (a database record id). Intlayer merges them into an ordered array at build time: positions by value first, then string ids by character code. `"2"` and `2` are the same item.
 
 ```ts fileName="faq.1.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -50,6 +50,7 @@ export default dictionary;
 const items = useIntlayer("faq"); // { question; answer }[]
 const second = useIntlayer("faq", { item: 2 }); // { question; answer }
 const secondFr = useIntlayer("faq", { item: 2, locale: "fr" });
+const post = useIntlayer("blog", { item: "65f1c0a2b3c4d5e6f7a8b9c0" }); // null when unknown
 ```
 
 ## Variants

@@ -10,6 +10,7 @@ import type {
 import { createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
+import { createContentProxy } from './contentProxy';
 import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 
 /**
@@ -76,15 +77,7 @@ export const useIntlayer = <
     return getIntlayer<T, A>(key, localeTarget);
   });
 
-  return new Proxy(accessor, {
-    get(target, prop) {
-      const content = target();
-      return content?.[prop as keyof typeof content];
-    },
-    apply(target, thisArg, args) {
-      return Reflect.apply(target, thisArg, args);
-    },
-  }) as DeepTransformContent<
+  return createContentProxy(accessor) as DeepTransformContent<
     DictionaryRegistryResult<T, A>,
     ExtractSelectorLocale<A>
   >;

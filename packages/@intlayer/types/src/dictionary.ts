@@ -50,9 +50,8 @@ type ReplaceContentValue<
 > = NodeType extends object
   ? IsArray<NodeType> extends true
     ? ReplaceContentValueArray<NodeType, FetchableNode>
-    :
-        | ContentNode<NodeType, FetchableNode>
-        | ReplaceContentValueObject<NodeType, FetchableNode>
+    : | ContentNode<NodeType, FetchableNode>
+      | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
 /**
@@ -132,6 +131,16 @@ export type DictionaryKey = string;
  * with `item` as the innermost / collection axis.
  */
 export type DictionaryQualifierType = 'variant' | 'item';
+
+/**
+ * Identifier of a collection item: a position (`2`) or a string id (a database
+ * record id, a slug…).
+ *
+ * A string made of a number's exact digits addresses the same item as that
+ * number (`'2'` ≡ `2`). Listing a collection orders numeric ids by value
+ * first, then string ids by character code.
+ */
+export type DictionaryItemId = number | string;
 
 /**
  * A single variant value declared on a dictionary:
@@ -223,6 +232,12 @@ export type QualifiedDictionaryGroup = {
    * per-entry `Dictionary` wrapper — coordinates live in the key, not the value.
    */
   content: Record<string, unknown>;
+  /**
+   * Maps each composite id to the `metadata` of its entry (same keys as
+   * `content`, entries without metadata omitted). Read with
+   * `{ metadataOnly: true }`.
+   */
+  metadata?: Record<string, unknown>;
   /** Import mode shared by the group (collected from its qualified entries). */
   importMode?: ImportMode;
   localIds?: LocalDictionaryId[];
@@ -232,12 +247,15 @@ export type QualifiedDictionaryGroup = {
  * Selector accepted as second argument of `useIntlayer` / `getIntlayer` (and
  * forwarded by the build-time transform to `useDictionary` / `getDictionary`).
  *
- * - `{ item: 2 }` selects a collection item (1-based index)
+ * - `{ item: 2 }` / `{ item: '65f1c0a2' }` selects a collection item by
+ *   position or string id
  * - `{ variant: 'black-friday' }` selects a named variant
  * - `{ variant: ['black-friday', 'promo'] }` selects the first of an ordered
  *   preference chain that the key actually declares
  * - `{ variant: { id: 'prod_abc', userId: '123' } }` selects a structured
  *   variant; the object must equal the variant declared on the dictionary
+ * - `{ metadataOnly: true }` returns the `metadata` of the targeted entries
+ *   instead of their content (composes with `item` / `variant`)
  * - `locale` composes with any of the above and overrides the context locale
  */
 export type DictionarySelector = {
@@ -247,9 +265,52 @@ export type DictionarySelector = {
    * value, whose type is a plain `string`.
    */
   locale?: LocalesValues;
-  item?: number;
+  item?: DictionaryItemId;
   variant?: DictionaryVariantChain;
+  /**
+   * Returns the dictionary `metadata` instead of its `content`. On a dynamic
+   * collection, listing every item this way loads one small metadata index
+   * per locale and never the items themselves.
+   */
+  metadataOnly?: boolean;
 };
+
+/**
+ * Plain data describing a dictionary (strings, numbers, booleans, arrays…),
+ * read with `{ metadataOnly: true }`.
+ */
+export type DictionaryMetadata = Record<string, unknown>;
+
+declare const uninterpretedContent: unique symbol;
+
+/**
+ * Wraps a read result the interpreter returns as declared (the metadata of a
+ * `{ metadataOnly: true }` read): `DeepTransformContent` unwraps it untouched.
+ */
+export type UninterpretedContent<T> = {
+  readonly [uninterpretedContent]: T;
+};
+
+/**
+ * Rewrites a dictionary (or qualified group) so its `metadata` stands in for
+ * its `content`, letting the content resolution types select the metadata of
+ * a `{ metadataOnly: true }` read.
+ */
+type MetadataAsContent<T> = T extends {
+  qualifierTypes: infer QualifierTypes;
+}
+  ? {
+      qualifierTypes: QualifierTypes;
+      content: T extends { metadata: infer Metadata } ? Metadata : {};
+    }
+  : { content: T extends { metadata: infer Metadata } ? Metadata : {} };
+
+/** Whether a selector argument requests `{ metadataOnly: true }`. */
+type IsMetadataOnlySelector<Selector> = Selector extends {
+  metadataOnly: true;
+}
+  ? true
+  : false;
 
 type QualifiedEntryContent<Entry> = Entry extends { content: infer Content }
   ? Content
@@ -445,11 +506,18 @@ type IsItemAxisOpen<
  * - a variant the group does not declare → the `default` entry's content, when
  *   the group declares one (sparse-override fallback)
  * - plain dictionary → its `content` (selector ignored)
+ * - `{ metadataOnly: true }` → the same resolution, applied to `metadata`
+ *   and returned as declared
  */
-export type ResolveQualifiedDictionaryContent<
-  T,
-  Selector = undefined,
-> = T extends {
+export type ResolveQualifiedDictionaryContent<T, Selector = undefined> =
+  IsMetadataOnlySelector<Selector> extends true
+    ? UninterpretedContent<
+        ResolveSelectedContent<MetadataAsContent<T>, Selector>
+      >
+    : ResolveSelectedContent<T, Selector>;
+
+/** Content resolution of {@link ResolveQualifiedDictionaryContent}. */
+type ResolveSelectedContent<T, Selector> = T extends {
   qualifierTypes: infer QualifierTypes extends
     readonly DictionaryQualifierType[];
   content: infer ContentMap extends Record<string, any>;
@@ -589,9 +657,11 @@ export type DictionarySelectorForGroup<T, KnownVariants = DeclaredVariants> = [
   GroupEntryUnion<T>,
 ] extends [never]
   ? DictionarySelector
-  : { locale?: LocalesValues } & ([EntryVariant<GroupEntryUnion<T>>] extends [
-      never,
-    ]
+  : {
+      locale?: LocalesValues;
+      /** Returns the entries' `metadata` instead of their content. */
+      metadataOnly?: boolean;
+    } & ([EntryVariant<GroupEntryUnion<T>>] extends [never]
       ? unknown
       : {
           /**
@@ -811,8 +881,8 @@ type DictionaryBase = {
   tags?: string[];
 
   /**
-   * Collection item index (1-based) of this dictionary inside the collection
-   * identified by `key`.
+   * Identifier of this dictionary inside the collection identified by `key`:
+   * a position (1-based index) or a string id (a database record id…).
    *
    * Sibling dictionaries sharing the same key but different `item` values form
    * an ordered collection:
@@ -820,15 +890,17 @@ type DictionaryBase = {
    * ```ts
    * // faq.1.content.ts → { key: 'faq', item: 1, content: { ... } }
    * // faq.2.content.ts → { key: 'faq', item: 2, content: { ... } }
+   * // post.content.ts  → { key: 'blog', item: '65f1c0a2', content: { ... } }
    *
    * const allFaqs = useIntlayer('faq');          // → every item, ordered
    * const faq2 = useIntlayer('faq', { item: 2 }); // → single item
+   * const post = useIntlayer('blog', { item: '65f1c0a2' });
    * ```
    *
    * A sibling dictionary without any qualifier acts as shared base content
    * merged into every item as fallback.
    */
-  item?: number;
+  item?: DictionaryItemId;
 
   /**
    * Variant of this dictionary inside the variant set identified by `key`.
@@ -873,6 +945,22 @@ type DictionaryBase = {
    * content merged into every variant as fallback.
    */
   variant?: DictionaryVariantValue | DictionaryVariantValue[];
+
+  /**
+   * Plain data describing this dictionary (title, slug, date, tags…), read
+   * with `{ metadataOnly: true }` without loading the content. Returned as
+   * declared, never interpreted. A per-locale dictionary (`locale` field, or a
+   * `.content.md` file whose frontmatter fills it) holds that locale's values.
+   *
+   * ```ts
+   * // article1.en.content.md → frontmatter `{ key: 'blog', locale: 'en', item: 1, title: 'Hello' }`
+   * // article1.fr.content.md → frontmatter `{ key: 'blog', locale: 'fr', item: 1, title: 'Bonjour' }`
+   *
+   * const posts = useIntlayer('blog', { metadataOnly: true });   // → every item's metadata
+   * const meta = useIntlayer('blog', { item: 1, metadataOnly: true }); // → item 1 metadata
+   * ```
+   */
+  metadata?: DictionaryMetadata;
 
   /**
    * Transform the dictionary in a per-locale dictionary.
@@ -1018,9 +1106,8 @@ type DictionaryWithSchema<
       schema: K;
       content: ContentType extends undefined
         ? ReplaceContentValue<Schema<K>, FetchableNode> | Schema<K>
-        :
-            | ReplaceContentValue<ContentType & Schema<K>, FetchableNode>
-            | (ContentType & Schema<K>);
+        : | ReplaceContentValue<ContentType & Schema<K>, FetchableNode>
+          | (ContentType & Schema<K>);
     }
   : never;
 

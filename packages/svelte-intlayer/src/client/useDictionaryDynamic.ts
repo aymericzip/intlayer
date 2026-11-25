@@ -1,14 +1,10 @@
 import {
-  getPreloadedDictionary,
-  isQualifiedDynamicLoaderMap,
+  createDynamicContentStore,
+  type DynamicLoaderMap,
+  loadingContentPlaceholder,
   type QualifiedDynamicLoaderMap,
-  resolveProviderVariant,
-  resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import type {
-  Dictionary,
-  DictionarySelector,
-} from '@intlayer/types/dictionary';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -22,22 +18,10 @@ import type { DeepTransformContent } from '../plugins';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
 
-// Proxy that returns itself for any property access to handle nested paths during loading
-const recursiveProxy: any = new Proxy(() => {}, {
-  get: (_target, prop) => {
-    if (prop === Symbol.toPrimitive) {
-      return () => undefined;
-    }
-    if (prop === 'toString') {
-      return () => '';
-    }
-    if (prop === 'then') {
-      return undefined;
-    }
-    return recursiveProxy;
-  },
-  apply: () => recursiveProxy,
-});
+/** Content cache shared by every dynamic read of the page. */
+const dynamicContentStore = createDynamicContentStore<unknown>(
+  (dictionary, argument) => getDictionary(dictionary, argument)
+);
 
 const loadingProxy = (): any =>
   new Proxy(
@@ -46,9 +30,8 @@ const loadingProxy = (): any =>
       get: (_target, prop) => {
         if (prop === 'isLoading') return true;
         if (prop === 'error') return null;
-        // For any other property, return the recursive proxy
-        // to allow nested access without errors
-        return recursiveProxy;
+        // Any other access is safe while loading and renders ''
+        return loadingContentPlaceholder;
       },
     }
   );
@@ -93,117 +76,53 @@ export function useDictionaryDynamic<
   }
 > {
   const context = getIntlayerContext();
-
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
-  const callSelector = isSelector
-    ? (localeOrSelector as DictionarySelector)
-    : undefined;
-
-  // Layers the provider's ambient variant under the call-site selector, so only
-  // the targeted chunk is loaded. A call-site variant always wins.
-  const variant =
-    callSelector?.variant ?? resolveProviderVariant(context?.variant, key);
-
-  const selector =
-    variant !== undefined
-      ? ({ ...callSelector, variant } as DictionarySelector)
-      : callSelector;
-
-  const explicitLocale = isSelector
-    ? (localeOrSelector as DictionarySelector).locale
-    : (localeOrSelector as LocalesValues | undefined);
-
-  const localeStore = derived(
-    intlayerStore,
-    ($store) => explicitLocale ?? context?.locale ?? $store.locale
+  const readContent = dynamicContentStore.createReader(
+    dictionaryPromise as DynamicLoaderMap,
+    String(key)
   );
 
-  // Once content has resolved, a locale switch keeps it on screen (flagged as
-  // loading) until the new chunk lands. Falling back to `loadingProxy()` would
-  // blank every text node for a frame before rendering the target locale.
+  const contextLocaleStore = derived(
+    intlayerStore,
+    ($store) => context?.locale ?? $store.locale
+  );
+
   let resolvedContent: unknown;
 
   return derived(
-    localeStore,
-    ($locale, set) => {
+    contextLocaleStore,
+    ($contextLocale, set) => {
       const publish = (content: unknown) => {
         resolvedContent = content;
         set(withState(content));
       };
 
-      // A build-tool plugin may have resolved this locale's dictionary while
-      // the entry point evaluated. Publishing it synchronously lets the store
-      // open on real content — otherwise every dynamic dictionary starts on
-      // `loadingProxy()` and flips a microtask later, one placeholder frame
-      // each, even when nothing has to be fetched.
-      const preloadedDictionary = getPreloadedDictionary(
-        dictionaryPromise,
-        $locale
+      // Resolved per locale, so a locale pinned at the call site stays pinned
+      // while an unpinned one follows the store.
+      const settled = readContent(
+        {
+          localeOrSelector,
+          contextLocale: $contextLocale,
+          contextVariant: context?.variant,
+        },
+        publish,
+        (error) => {
+          console.error(error);
+          set({ isLoading: false, error: error as Error } as any);
+        }
       );
 
-      if (preloadedDictionary) {
-        publish(getDictionary(preloadedDictionary, $locale as DeclaredLocales));
+      if (settled) {
+        publish(settled.content);
         return;
       }
 
+      // Keeps the previous locale's content on screen while the next loads
       set(
         resolvedContent === undefined
           ? loadingProxy()
           : withState(resolvedContent, true)
       );
-
-      let isCancelled = false;
-
-      const load = async () => {
-        try {
-          let resolved: unknown;
-
-          if (
-            process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-            isQualifiedDynamicLoaderMap(dictionaryPromise)
-          ) {
-            resolved = await resolveQualifiedDynamicContentAsync({
-              loaderMap: dictionaryPromise,
-              key: String(key),
-              locale: $locale,
-              selector,
-              transform: (dictionary) =>
-                getDictionary(dictionary, $locale as DeclaredLocales),
-            });
-          } else {
-            const loader = (
-              dictionaryPromise as Record<string, () => Promise<T>>
-            )[$locale];
-
-            if (!loader) return;
-
-            const dict = await loader();
-            resolved = getDictionary(dict, $locale);
-          }
-
-          if (isCancelled) return;
-
-          publish(resolved);
-        } catch (error) {
-          if (isCancelled) return;
-          console.error(error);
-          set({
-            isLoading: false,
-            error: error as Error,
-          } as any);
-        }
-      };
-
-      load();
-
-      return () => {
-        isCancelled = true;
-      };
     },
-    // Initial value
     loadingProxy()
   );
 }

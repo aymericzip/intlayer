@@ -50,6 +50,51 @@ const isTranslationNode = (value: unknown): value is TranslationNode =>
 const isPlainRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
 
+/** Whether a compiled JSON is a qualified group (content keyed by entry id). */
+const isQualifiedGroupJson = (dictionary: CompiledDictionaryJson): boolean =>
+  Array.isArray(dictionary.qualifierTypes) && isPlainRecord(dictionary.content);
+
+/**
+ * Prunes every entry of a qualified group with `pruneEntry`, keeping the
+ * composite ids (and the group's `qualifierTypes` / `metadata`) intact.
+ */
+const pruneQualifiedGroupContent = (
+  dictionary: CompiledDictionaryJson,
+  usedFieldNames: Set<string>,
+  pruneEntry: (
+    entry: CompiledDictionaryJson,
+    usedFieldNames: Set<string>
+  ) => PruneResult
+): PruneResult => {
+  const prunedEntries: Record<string, unknown> = {};
+
+  for (const [entryId, entryContent] of Object.entries(
+    dictionary.content as Record<string, unknown>
+  )) {
+    const { prunedDictionary, wasRecognised } = pruneEntry(
+      {
+        key: dictionary.key,
+        content: entryContent as CompiledDictionaryJson['content'],
+      },
+      usedFieldNames
+    );
+
+    if (!wasRecognised) {
+      return { prunedDictionary: dictionary, wasRecognised: false };
+    }
+
+    prunedEntries[entryId] = prunedDictionary.content;
+  }
+
+  return {
+    prunedDictionary: {
+      ...dictionary,
+      content: prunedEntries as CompiledDictionaryJson['content'],
+    },
+    wasRecognised: true,
+  };
+};
+
 // Pruning logic
 
 /**
@@ -335,9 +380,21 @@ export const intlayerPrune = (
       // Prune
       const isDynamicOrFetch = isDynamicOrFetchDictionaryFile(absoluteFilePath);
 
-      const { prunedDictionary, wasRecognised } = isDynamicOrFetch
-        ? pruneDynamicDictionaryContent(parsedDictionary, fieldUsage)
-        : pruneStaticDictionaryContent(parsedDictionary, fieldUsage);
+      const pruneDictionaryContent = isDynamicOrFetch
+        ? pruneDynamicDictionaryContent
+        : pruneStaticDictionaryContent;
+
+      // A qualified group (collection / variant, or a metadata index) keys its
+      // content by composite id: each entry is pruned on its own.
+      const { prunedDictionary, wasRecognised } = isQualifiedGroupJson(
+        parsedDictionary
+      )
+        ? pruneQualifiedGroupContent(
+            parsedDictionary,
+            fieldUsage,
+            pruneStaticDictionaryContent
+          )
+        : pruneDictionaryContent(parsedDictionary, fieldUsage);
 
       if (!wasRecognised) {
         pruneContext.dictionariesWithEdgeCases.add(dictionaryKey);
@@ -355,7 +412,11 @@ export const intlayerPrune = (
       }
 
       // Log pruned fields
-      const originalContent = parsedDictionary.content;
+      // A qualified group's entries share one shape: read the field names of the
+      // first entry rather than its composite ids.
+      const originalContent = isQualifiedGroupJson(parsedDictionary)
+        ? Object.values(parsedDictionary.content as Record<string, unknown>)[0]
+        : parsedDictionary.content;
       let originalFieldNames: string[];
 
       if (isTranslationNode(originalContent)) {

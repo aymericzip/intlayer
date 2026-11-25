@@ -1,5 +1,4 @@
 import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
-import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -11,7 +10,7 @@ import type {
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { getIntlayerClient } from './installIntlayer';
-import type { WithOnChange } from './useDictionary';
+import { attachOnChange, type WithOnChange } from './useDictionary';
 
 /**
  * Get the translated content for the given key and optionally subscribe to
@@ -51,40 +50,22 @@ export const useIntlayer = <
 > => {
   const client = getIntlayerClient();
 
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
-  const explicitLocale = isSelector
-    ? (localeOrSelector as DictionarySelector).locale
-    : (localeOrSelector as LocalesValues | undefined);
-
-  // Layers the client's ambient variant under the call-site argument. Resolved
-  // per read so a `setVariant` between reads is picked up.
-  const read = (locale: LocalesValues | undefined) =>
+  // Layers the client's locale and ambient variant under the call-site
+  // argument. Resolved per read so a `setLocale` / `setVariant` is picked up.
+  const read = (contextLocale: LocalesValues) =>
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
       ? getIntlayer(
           key,
           resolveDictionaryArgument({
             localeOrSelector,
-            contextLocale: locale,
+            contextLocale,
             contextVariant: client.variant,
             dictionaryKey: key as string,
           }) as A
         )
-      : getIntlayer(key, locale as A);
+      : getIntlayer(key, (localeOrSelector ?? contextLocale) as A);
 
-  const content = read(explicitLocale ?? client.locale) as WithOnChange<any>;
-
-  // A selector can resolve to null/array; only objects carry `.onChange`.
-  if (content != null && typeof content === 'object') {
-    content.onChange = (callback) => {
-      client.subscribe((newLocale) => {
-        callback(read(explicitLocale ?? newLocale));
-      });
-      return content;
-    };
-  }
-
-  return content;
+  return attachOnChange(read(client.locale), (locale, callback) =>
+    callback(read(locale))
+  );
 };

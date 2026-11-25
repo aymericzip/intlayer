@@ -1,14 +1,17 @@
 import {
+  type DictionaryRead,
+  type DynamicChunkTransform,
+  type DynamicLoaderMap,
   getDictionarySelectorCacheKey,
+  getDynamicChunkArgument,
   getPreloadedDictionary,
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   QUALIFIER_DYNAMIC_TYPES_KEY,
   type QualifiedDynamicLoaderMap,
-  resolveDictionaryArgument,
-  resolveQualifiedDynamicContentAsync,
+  resolveDictionaryRead,
+  resolveDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -21,23 +24,34 @@ import { createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { createAsyncValue, trackAsyncValue } from '../solidCompat';
+import { createContentProxy } from './contentProxy';
 import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
 import { seedDynamicValue, useLoadDynamic } from './useLoadDynamic';
 
-type DynamicDictionarySource = {
+type DynamicDictionarySource = DictionaryRead & {
   cacheKey: string;
-  locale: LocalesValues;
 };
+
+/**
+ * Loaded chunks stay raw (serializable for hydration) and are interpreted
+ * inside the component owner. A collection's metadata is plain data, resolved
+ * right away — its index holds no dictionary to interpret anyway.
+ */
+const keepRawChunk: DynamicChunkTransform<Dictionary> = (dictionary) =>
+  dictionary;
+const readChunkMetadata: DynamicChunkTransform<Dictionary> = (
+  dictionary,
+  argument
+) => getDictionary(dictionary, argument) as Dictionary;
 
 /**
  * On the client side, Hook that lazily loads a dictionary and returns its
  * reactive content.
  *
- * The dictionary entry is either a plain dynamic loader map
- * (`locale → loader`) or a qualified one (collection / variant,
- * possibly combined). For a qualified map, only the chunk(s) the selector
- * targets are loaded; the resolution mirrors static mode.
+ * The locale, selector and chunk selection are resolved by the shared
+ * `resolveDictionaryRead` / `resolveDynamicContentAsync`; this hook only adds
+ * Solid's resources and owner-scoped interpretation.
  *
  * If the locale is not provided (directly or through the selector), it will
  * use the locale from the client context.
@@ -56,182 +70,138 @@ export const useDictionaryDynamic = <
   // Reads outside a provider fall back to an empty context.
   const context: Partial<IntlayerValue> =
     useContext(IntlayerClientContext) ?? {};
-  const { locale: currentLocale } = context;
   const dictionaryKey = String(key);
+  const loaderMap = dictionaryPromise as DynamicLoaderMap;
 
-  if (
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    isQualifiedDynamicLoaderMap(dictionaryPromise)
-  ) {
-    const { locale: selectorLocale, selector: callSelector } =
-      parseDictionarySelector<LocalesValues>(localeOrSelector);
-
-    // Layers the provider's ambient variant under the call-site argument. Kept
-    // as an accessor — not resolved once — so a variant or locale change
-    // re-runs the sources and resources below.
-    const selectorAccessor = () =>
-      parseDictionarySelector<LocalesValues>(
-        resolveDictionaryArgument({
-          localeOrSelector,
-          contextLocale: currentLocale?.(),
-          contextVariant: context.variant?.(),
-          dictionaryKey,
-        })
-      ).selector;
-
-    const qualifierTypes = dictionaryPromise[QUALIFIER_DYNAMIC_TYPES_KEY];
-
-    // The `item` axis is the only one that can expand into several entries; when
-    // it is declared but not selected, the result is a collection (array). Only
-    // the call site can pin an item, so this stays a one-off check.
-    const isCollection =
-      qualifierTypes.includes('item') && callSelector?.item === undefined;
-
-    const localeAccessor = () =>
-      selectorLocale ?? currentLocale?.() ?? resolveInterpreterLocale();
-
-    if (!isCollection) {
-      // Single entry (variant / selected item). Reuse the plain
-      // dynamic path so pending-safety, owner-scoped interpretation and every
-      // node type (markdown / html / nested) behave exactly like a normal
-      // dictionary.
-      const dictionarySourceAccessor = (): DynamicDictionarySource => {
-        const localeTarget = localeAccessor();
-
-        return {
-          cacheKey: `${dictionaryKey}.${localeTarget}.${getDictionarySelectorCacheKey(
-            selectorAccessor()
-          )}`,
-          locale: localeTarget,
+  const { locale: callLocale, selector: callSelector } =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? parseDictionarySelector<LocalesValues>(localeOrSelector)
+      : {
+          locale: localeOrSelector as LocalesValues | undefined,
+          selector: undefined,
         };
-      };
 
-      const loadEntry = ({ locale: localeTarget }: DynamicDictionarySource) =>
-        resolveQualifiedDynamicContentAsync<Dictionary>({
-          loaderMap: dictionaryPromise,
-          key: dictionaryKey,
-          locale: localeTarget,
-          selector: selectorAccessor(),
-          transform: (dictionary) => dictionary,
-        }).then(
-          (resolved) =>
-            (Array.isArray(resolved) ? resolved[0] : resolved) as Dictionary
-        );
+  // Kept as an accessor — not resolved once — so a locale or variant change
+  // re-runs the sources and resources below.
+  const readAccessor = (): DictionaryRead =>
+    resolveDictionaryRead({
+      localeOrSelector,
+      contextLocale: context.locale?.(),
+      contextVariant: context.variant?.(),
+      dictionaryKey,
+    });
 
-      const dictionary = useLoadDynamic<Dictionary, DynamicDictionarySource>(
-        dictionarySourceAccessor,
-        loadEntry
-      );
+  // Identifies the raw chunk a single-entry read loads: `metadataOnly` only
+  // changes how it is interpreted, so it is left out of the cache key.
+  const sourceAccessor = (): DynamicDictionarySource => {
+    const read = readAccessor();
+    const chunkSelectorId =
+      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+        ? getDictionarySelectorCacheKey({
+            ...read.selector,
+            metadataOnly: undefined,
+          })
+        : '';
 
-      // Pass the explicit selector locale (or `undefined` to follow the client
-      // context), mirroring the plain path so interpretation and the loaded
-      // chunk stay on the same locale.
-      return useDictionary(
-        dictionary,
-        selectorLocale as DeclaredLocales
-      ) as DeepTransformContent<T['content']>;
-    }
+    return {
+      ...read,
+      cacheKey: chunkSelectorId
+        ? `${dictionaryKey}.${read.locale}.${chunkSelectorId}`
+        : `${dictionaryKey}.${read.locale}`,
+    };
+  };
 
-    // Collection: load only the targeted raw entries, then interpret each inside
-    // the component owner scope so a real array is exposed (so `<For>` works) and
-    // owner-scoped context (router, markdown, editor) stays available.
-    const resolvedEntries = createAsyncValue(
-      // Tracks the variant as well as the locale, so an ambient variant change
-      // reloads the targeted chunks.
-      () => ({ locale: localeAccessor(), selector: selectorAccessor() }),
-      ({ locale: localeTarget, selector }) =>
-        resolveQualifiedDynamicContentAsync<Dictionary>({
-          loaderMap: dictionaryPromise,
-          key: dictionaryKey,
-          locale: localeTarget,
-          selector,
-          transform: (dictionary) => dictionary,
-        })
+  const loadContent = (
+    read: DictionaryRead,
+    transform: DynamicChunkTransform<Dictionary>
+  ) =>
+    resolveDynamicContentAsync<Dictionary>({
+      loaderMap,
+      key: dictionaryKey,
+      ...read,
+      transform,
+    });
+
+  // What `useDictionary` interprets a loaded chunk with: the call-site locale
+  // (or `undefined` to follow the client context, like static dictionaries),
+  // plus `metadataOnly`.
+  const chunkArgument = getDynamicChunkArgument(callLocale, callSelector);
+
+  // The `item` axis is the only one that can expand into several entries; when
+  // it is declared but not selected, the result is a collection (array). Only
+  // the call site can pin an item, so this stays a one-off check.
+  const isCollection =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
+    isQualifiedDynamicLoaderMap(loaderMap) &&
+    loaderMap[QUALIFIER_DYNAMIC_TYPES_KEY].includes('item') &&
+    callSelector?.item === undefined;
+
+  if (isCollection) {
+    // Collection: load only the targeted entries, then interpret each inside
+    // the component owner scope so a real array is exposed (so `<For>` works)
+    // and owner-scoped context (router, markdown, editor) stays available.
+    // Tracks the variant as well as the locale, so an ambient variant change
+    // reloads the targeted chunks.
+    const resolvedEntries = createAsyncValue(readAccessor, (read) =>
+      loadContent(
+        read,
+        callSelector?.metadataOnly ? readChunkMetadata : keepRawChunk
+      )
     );
 
     const accessor = createMemo(() => {
       const resolved = resolvedEntries();
-      const localeTarget = localeAccessor();
 
       if (!Array.isArray(resolved)) return [];
 
-      return resolved.map((dictionary) =>
-        getDictionary(dictionary, localeTarget)
-      );
+      // Already final: plain records, never interpreted
+      if (callSelector?.metadataOnly) return resolved;
+
+      const { locale } = readAccessor();
+
+      return resolved.map((dictionary) => getDictionary(dictionary, locale));
     });
 
     // Read the async value in a render effect so the loading boundary holds
     // without aborting the component body before the proxy below is consumed.
     trackAsyncValue(resolvedEntries);
 
-    // Array methods run against the real array and `in` checks answer for it:
-    // `slice`/`map` on the proxy would otherwise see the function target's
-    // (absent) indexes and yield holes — which is how Solid 2's `<For>` reads.
-    return new Proxy(accessor, {
-      get(target, prop) {
-        const content = target();
-        const value = content?.[prop as keyof typeof content];
-
-        return typeof value === 'function' ? value.bind(content) : value;
-      },
-      has(target, prop) {
-        return prop in target();
-      },
-      apply(target) {
-        return target();
-      },
-    }) as DeepTransformContent<T['content']>;
+    return createContentProxy(accessor) as DeepTransformContent<T['content']>;
   }
-
-  const dictionaryLoaders = dictionaryPromise as Partial<
-    Record<LocalesValues, () => Promise<T>>
-  >;
-  const locale = localeOrSelector as LocalesValues | undefined;
-  const localeAccessor = () =>
-    locale ?? currentLocale?.() ?? resolveInterpreterLocale();
-  const dictionarySourceAccessor = (): DynamicDictionarySource => {
-    const localeTarget = localeAccessor();
-
-    return {
-      cacheKey: `${dictionaryKey}.${localeTarget}`,
-      locale: localeTarget,
-    };
-  };
-  const loadDictionary = ({
-    locale: localeTarget,
-  }: DynamicDictionarySource) => {
-    const dictionaryLoader = dictionaryLoaders[localeTarget];
-
-    if (!dictionaryLoader) {
-      return Promise.reject(
-        new Error(
-          `No dynamic dictionary loader found for key "${dictionaryKey}" and locale "${localeTarget}".`
-        )
-      );
-    }
-
-    return dictionaryLoader();
-  };
 
   // A build-tool plugin may have started this locale's chunk while the entry
   // point evaluated, and it may already have landed. Seeding the cache with it
   // makes the async value below resolve synchronously, so the loading boundary
   // never sees a pending state.
+  const initialSource = sourceAccessor();
   const preloadedDictionary = getPreloadedDictionary(
-    dictionaryLoaders,
-    localeAccessor()
+    loaderMap,
+    initialSource.locale
   );
 
   if (preloadedDictionary) {
-    seedDynamicValue(dictionarySourceAccessor(), preloadedDictionary);
+    seedDynamicValue(initialSource, preloadedDictionary);
   }
 
-  const dictionary = useLoadDynamic<T, DynamicDictionarySource>(
-    dictionarySourceAccessor,
-    loadDictionary
+  // Single entry (plain dictionary, variant, selected item): load its chunk,
+  // then interpret it like a static dictionary so pending-safety, owner-scoped
+  // interpretation and every node type (markdown / html / nested) match.
+  const dictionary = useLoadDynamic<Dictionary, DynamicDictionarySource>(
+    sourceAccessor,
+    (source) =>
+      loadContent(source, keepRawChunk).then((resolved) => {
+        if (resolved === null) {
+          throw new Error(
+            `No dynamic dictionary chunk found for key "${dictionaryKey}" and locale "${source.locale}".`
+          );
+        }
+
+        return resolved as Dictionary;
+      })
   );
 
-  // Keep locale resolution inside useDictionary so the interpreted content
-  // follows the same reactive context as static Solid dictionaries.
-  return useDictionary(dictionary, locale);
+  return useDictionary(
+    dictionary,
+    chunkArgument as LocalesValues
+  ) as DeepTransformContent<T['content']>;
 };

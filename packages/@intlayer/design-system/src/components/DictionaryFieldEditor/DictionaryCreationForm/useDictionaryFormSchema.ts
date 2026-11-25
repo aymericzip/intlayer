@@ -36,7 +36,8 @@ export const useDictionarySchema = (projectId: string) => {
       [projectId]
     ),
     qualifierType: z._default(z.enum(QUALIFIER_TYPES), 'none'),
-    item: z.optional(z.coerce.number().check(z.int(), z.positive())),
+    /** A position (`1`) or a string id; parsed with `parseItemId` on submit. */
+    item: z.optional(z.string()),
     variant: z.optional(z.string()),
   });
 };

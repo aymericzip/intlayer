@@ -73,13 +73,14 @@ export const dictionarySchema = new Schema<DictionarySchema>(
     // Qualifier coordinates of collections / variants. Sibling dictionaries
     // sharing a `key` are distinguished by these; persisting them lets the build
     // re-merge remote dictionaries into a qualified group. `variant` is a named
-    // string or a structured object, hence `Mixed`.
+    // string or a structured object, and `item` a position or a string id,
+    // hence `Mixed`.
     variant: {
       type: Schema.Types.Mixed,
       default: undefined,
     },
     item: {
-      type: Number,
+      type: Schema.Types.Mixed,
       default: undefined,
     },
     // Per-locale (monolingual) dictionaries: siblings sharing a `key`, one
@@ -91,6 +92,12 @@ export const dictionarySchema = new Schema<DictionarySchema>(
     importMode: {
       type: String,
       enum: ['static', 'dynamic', 'fetch'],
+      default: undefined,
+    },
+    // Plain data describing the content (a post title, slug…), read with the
+    // `metadataOnly` selector. Free-form, hence `Mixed`.
+    metadata: {
+      type: Schema.Types.Mixed,
       default: undefined,
     },
     content: {

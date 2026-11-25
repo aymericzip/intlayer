@@ -1,4 +1,5 @@
 import type { Locale } from '@intlayer/types/allLocales';
+import type { UninterpretedContent } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -310,8 +311,8 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
                 ...subProps,
                 children: node,
                 plugins: branchPlugins.filter(
-                    (plugin) => plugin.id !== 'intlayer-node-plugin'
-                  ),
+                  (plugin) => plugin.id !== 'intlayer-node-plugin'
+                ),
               });
 
               return (values: { [k: string]: string | number }) => {
@@ -478,8 +479,8 @@ export const insertionPlugin: Plugins =
                 ...subProps,
                 children: node,
                 plugins: (props.plugins ?? ([] as Plugins[])).filter(
-                    (plugin) => plugin.id !== 'intlayer-node-plugin'
-                  ),
+                  (plugin) => plugin.id !== 'intlayer-node-plugin'
+                ),
               });
 
               return (values: {
@@ -876,8 +877,15 @@ export type DeepTransformContent<
 > =
   IsAny<T> extends true
     ? T
-    : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L> extends never // Check if there is a plugin for T:
-      ? // No plugin was found, so try to transform T recursively:
-        Traverse<T, S, L>
-      : // A plugin was found – use the plugin's transformation.
-        CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L>;
+    : [T] extends [UninterpretedContent<infer Declared>] // Metadata: returned as declared
+      ? Declared
+      : CheckApplyPlugin<
+            T,
+            keyof IInterpreterPlugin<T, S, L>,
+            S,
+            L
+          > extends never // Check if there is a plugin for T:
+        ? // No plugin was found, so try to transform T recursively:
+          Traverse<T, S, L>
+        : // A plugin was found – use the plugin's transformation.
+          CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L>;

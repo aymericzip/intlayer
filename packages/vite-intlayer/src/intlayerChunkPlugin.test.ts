@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   type ChunkingContext,
   createDictionaryModuleParser,
+  createQualifiedChunkDetector,
   intlayerChunk,
   type ModuleGraphNode,
   resolveBoundaries,
@@ -88,6 +89,37 @@ describe('createDictionaryModuleParser', () => {
     expect(
       parseDictionaryModule('/app/src/components/Hero/hero.json')
     ).toBeNull();
+  });
+});
+
+describe('createQualifiedChunkDetector', () => {
+  const DYNAMIC_DICTIONARIES_DIR = '/app/.intlayer/dynamic_dictionary';
+  /** `blog` is a collection (entry subdirectories), `home` a plain key. */
+  const isQualifiedChunk = createQualifiedChunkDetector(
+    DYNAMIC_DICTIONARIES_DIR,
+    (keyDirectory) => keyDirectory.endsWith('/json/blog')
+  );
+
+  it('flags an entry chunk nested by dimension', () => {
+    expect(
+      isQualifiedChunk(`${DYNAMIC_DICTIONARIES_DIR}/json/blog/42/fr.json`)
+    ).toBe(true);
+  });
+
+  it('flags the metadata index of a collection', () => {
+    expect(
+      isQualifiedChunk(`${DYNAMIC_DICTIONARIES_DIR}/json/blog/fr.json`)
+    ).toBe(true);
+  });
+
+  it('leaves a plain dictionary chunk groupable', () => {
+    expect(
+      isQualifiedChunk(`${DYNAMIC_DICTIONARIES_DIR}/json/home/fr.json`)
+    ).toBe(false);
+  });
+
+  it('ignores modules outside the dictionaries layout', () => {
+    expect(isQualifiedChunk('/app/src/json/blog/42/fr.json')).toBe(false);
   });
 });
 

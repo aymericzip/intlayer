@@ -29,6 +29,7 @@ import { Checkbox, Input } from '@components/Input';
 import { Loader } from '@components/Loader';
 import { PopoverStatic } from '@components/Popover';
 import { MultiSelect, Select } from '@components/Select';
+import { parseItemId } from '@intlayer/core/dictionaryManipulator';
 import {
   useDictionariesRecord,
   useEditedContent,
@@ -42,7 +43,10 @@ import {
   formatDictionaryVariant,
   parseDictionaryVariant,
 } from '../dictionaryVariant';
-import { isSameDictionary } from '../SiblingSwitcher/siblingSelection';
+import {
+  compareOptionalItemIds,
+  isSameDictionary,
+} from '../SiblingSwitcher/siblingSelection';
 import { LinkedDictionariesTable } from './LinkedDictionariesTable';
 import { type LinkedTag, LinkedTagsTable } from './LinkedTagsTable';
 import { StructuredVariantFieldsEditor } from './StructuredVariantFieldsEditor';
@@ -165,7 +169,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           formatDictionaryVariant(firstDictionary.variant).localeCompare(
             formatDictionaryVariant(secondDictionary.variant)
           ) ||
-          (firstDictionary.item ?? -1) - (secondDictionary.item ?? -1) ||
+          compareOptionalItemIds(firstDictionary.item, secondDictionary.item) ||
           String(firstDictionary.locale ?? '').localeCompare(
             String(secondDictionary.locale ?? '')
           )
@@ -240,7 +244,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     () =>
       siblings
         .filter((d) => d.item !== undefined)
-        .sort((a, b) => (a.item ?? 0) - (b.item ?? 0)),
+        .sort((a, b) => compareOptionalItemIds(a.item, b.item)),
     [siblings]
   );
 
@@ -251,8 +255,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
   const allItemDicts = useMemo<Dictionary[]>(() => {
     if (dictionary.item !== undefined) {
-      const combined = [dictionary, ...itemSiblings].sort(
-        (a, b) => (a.item ?? 0) - (b.item ?? 0)
+      const combined = [dictionary, ...itemSiblings].sort((a, b) =>
+        compareOptionalItemIds(a.item, b.item)
       );
       return combined;
     }
@@ -266,7 +270,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       location: toFormLocation(dictionary.location),
     });
     setSelectedTypes(deriveQualifierTypes(dictionary));
-    setItemValue(dictionary.item ?? 1);
+    setItemValue(String(dictionary.item ?? 1));
     setVariantValue(formatDictionaryVariant(dictionary.variant));
     setVariantJsonError(false);
     setShowSiblingPicker(false);
@@ -321,7 +325,10 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const [selectedTypes, setSelectedTypes] = useState<QualifierType[]>(() =>
     deriveQualifierTypes(dictionary)
   );
-  const [itemValue, setItemValue] = useState<number>(dictionary.item ?? 1);
+  /** Raw text of the item id field (a position or a string id). */
+  const [itemValue, setItemValue] = useState<string>(
+    String(dictionary.item ?? 1)
+  );
   const [variantValue, setVariantValue] = useState<string>(
     formatDictionaryVariant(dictionary.variant)
   );
@@ -354,11 +361,14 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
     for (const qualifier of added) {
       if (qualifier === 'collection') {
+        // Next position after the numeric items (string ids have no order
+        // to continue)
+        const numericItems = allItemDicts
+          .map((d) => d.item)
+          .filter((item): item is number => typeof item === 'number');
         const nextItem =
-          allItemDicts.length > 0
-            ? Math.max(...allItemDicts.map((d) => d.item ?? 0)) + 1
-            : 1;
-        setItemValue(nextItem);
+          numericItems.length > 0 ? Math.max(...numericItems) + 1 : 1;
+        setItemValue(String(nextItem));
         base = { ...base, item: nextItem };
       } else if (qualifier === 'variant') {
         const newVariant = variantValue || 'default';
@@ -731,20 +741,20 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 </label>
                 <Input
                   id="qualifier-item-value"
-                  type="number"
-                  min={1}
                   value={itemValue}
                   placeholder={typeSwitch.itemValuePlaceholder.value}
                   onChange={(e) => {
-                    const value = parseInt(e.target.value, 10);
-                    if (!Number.isNaN(value) && value >= 1) {
-                      setItemValue(value);
-                      setEditedDictionary({
-                        ...dictionary,
-                        ...(updatedDictionary ?? {}),
-                        item: value,
-                      });
-                    }
+                    const rawItem = e.target.value;
+                    setItemValue(rawItem);
+
+                    const trimmedItem = rawItem.trim();
+                    if (trimmedItem === '') return;
+
+                    setEditedDictionary({
+                      ...dictionary,
+                      ...(updatedDictionary ?? {}),
+                      item: parseItemId(trimmedItem),
+                    });
                   }}
                 />
               </div>

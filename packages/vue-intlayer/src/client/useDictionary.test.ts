@@ -72,6 +72,13 @@ describe('useDictionary', () => {
     expect(toRaw(content)).toBe(content);
   });
 
+  it('lists only the items of an array field, never its length', () => {
+    const content = getContent();
+
+    // `v-for` over the proxy iterates `Object.keys`
+    expect(Object.keys(content.items)).toEqual(['0', '1']);
+  });
+
   it('stays awaitable (no thenable trap)', async () => {
     const content = getContent();
 

@@ -25,6 +25,25 @@ describe('transformJSONFile', () => {
     expect(result).toContain('"newKey": "newValue"');
   });
 
+  it('writes the edited metadata, dropping the removed fields', () => {
+    const initial = `
+{
+  "key": "blog",
+  "metadata": { "title": "Old", "slug": "old" },
+  "content": { "body": "Hello" }
+}`;
+
+    const result = transformJSONFile(initial, {
+      key: 'blog',
+      metadata: { title: 'New', date: '2026-11-24' },
+      content: { body: 'Hello' },
+    } as unknown as Dictionary);
+
+    expect(result).toContain('"title": "New"');
+    expect(result).toContain('"date": "2026-11-24"');
+    expect(result).not.toContain('slug');
+  });
+
   it('preserves comments in JSONC (Update existing key)', () => {
     const initial = `
 {

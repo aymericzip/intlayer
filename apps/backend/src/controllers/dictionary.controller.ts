@@ -527,6 +527,7 @@ export const addDictionary = async (
     title: dictionaryData.title,
     description: dictionaryData.description,
     ...extractQualifiers(dictionaryData),
+    metadata: dictionaryData.metadata,
     content: new Map([
       [
         'v1',
@@ -735,6 +736,7 @@ export const pushDictionaries = async (
         description: dictionaryDataEl.description,
         tags: dictionaryDataEl.tags ?? [],
         ...extractQualifiers(dictionaryDataEl),
+        metadata: dictionaryDataEl.metadata,
         ...extractSource(dictionaryDataEl),
         projectIds: [String(project.id)],
         creatorId: user.id,
@@ -822,7 +824,8 @@ export const pushDictionaries = async (
         isSameTitle &&
         isSameDescription &&
         isSameTags &&
-        isSameSource;
+        isSameSource &&
+        isDeepStrictEqual(remoteDictionary.metadata, dictionaryDataEl.metadata);
 
       if (isSameContent && isSameMetadata) {
         upToDateDictionariesResult.push({

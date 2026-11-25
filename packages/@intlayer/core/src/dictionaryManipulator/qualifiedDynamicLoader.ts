@@ -1,22 +1,33 @@
-import { QUALIFIER_DYNAMIC_TYPES_KEY } from '@intlayer/config/defaultValues';
+import {
+  QUALIFIER_DYNAMIC_METADATA_KEY,
+  QUALIFIER_DYNAMIC_TYPES_KEY,
+} from '@intlayer/config/defaultValues';
 import type {
   Dictionary,
+  DictionaryMetadata,
   DictionaryQualifierType,
   DictionarySelector,
 } from '@intlayer/types/dictionary';
 import {
   COMPOSITE_ID_SEPARATOR,
+  compareItemSegments,
+  matchQualifiedEntryIds,
   resolveEffectiveVariantId,
+  serializeItem,
   serializeVariantChain,
 } from './qualifiedDictionary';
 
 /**
- * Marker property carrying the ordered qualifier dimensions on a dynamic loader
- * map. Defined in `@intlayer/config` so the code generator and the build
- * plugins can read it without pulling the runtime in, and re-exported here
- * where its consumers live.
+ * Marker properties of a qualified dynamic loader map: the ordered qualifier
+ * dimensions, and the per-locale metadata index loaders. Defined in
+ * `@intlayer/config` so the code generator and the build plugins can read them
+ * without pulling the runtime in, and re-exported here where their consumers
+ * live.
  */
-export { QUALIFIER_DYNAMIC_TYPES_KEY };
+export { QUALIFIER_DYNAMIC_METADATA_KEY, QUALIFIER_DYNAMIC_TYPES_KEY };
+
+/** Cache-key suffix of a metadata index chunk (never a valid composite id). */
+const METADATA_INDEX_CACHE_SEGMENT = '#metadata';
 
 /**
  * A lazily-imported per-locale dictionary chunk loader.
@@ -45,7 +56,13 @@ export type QualifiedDynamicLoaderTree = {
  */
 export type QualifiedDynamicLoaderMap = {
   [QUALIFIER_DYNAMIC_TYPES_KEY]: DictionaryQualifierType[];
-  [locale: string]: QualifiedDynamicLoaderTree | DictionaryQualifierType[];
+  /** Per-locale loaders of the metadata index (absent in older builds). */
+  [QUALIFIER_DYNAMIC_METADATA_KEY]?: Record<string, DynamicDictionaryLoader>;
+  [locale: string]:
+    | QualifiedDynamicLoaderTree
+    | DictionaryQualifierType[]
+    | Record<string, DynamicDictionaryLoader>
+    | undefined;
 };
 
 /**
@@ -63,23 +80,34 @@ export const isQualifiedDynamicLoaderMap = (
 export type CollectedChunk = {
   cacheKey: string;
   loader: DynamicDictionaryLoader;
+  /** The chunk, already loaded by the entry point's preload. */
+  preloaded?: Dictionary;
 };
 
-type CollectedChunks = {
+/** The chunks a dynamic read targets. */
+export type CollectedChunks = {
   /** True when the `item` axis is open (collection result → array). */
   itemAxisOpen: boolean;
   /** True when a required coordinate is absent (result → [] or null). */
   missed: boolean;
   /** The chunks the selector targets (in collection order for the item axis). */
   chunks: CollectedChunk[];
+  /** True when the single chunk is the metadata index, not entry chunks. */
+  readsMetadataIndex?: boolean;
 };
 
 /**
  * Walks the loader tree following the selector and collects the chunk loaders
- * it targets — shared by the sync ({@link resolveQualifiedDynamicContent}) and
- * async ({@link resolveQualifiedDynamicContentAsync}) resolvers.
+ * it targets.
+ *
+ * Walks one dimension at a time (canonical order `variant → item`): `variant`
+ * descends by the serialized id, falling back to `default` when the selected
+ * variant has no chunk of its own, and `item` either narrows to the selected
+ * index or — when no item is given — expands into every sibling chunk (the
+ * collection axis). Semantics mirror `resolveQualifiedDictionary` so dynamic
+ * and static modes behave alike.
  */
-const collectQualifiedChunks = (
+export const collectQualifiedChunks = (
   loaderMap: QualifiedDynamicLoaderMap,
   key: string,
   locale: string,
@@ -92,6 +120,28 @@ const collectQualifiedChunks = (
 
   const itemAxisOpen =
     qualifierTypes.includes('item') && selector?.item === undefined;
+
+  // Listing a collection's metadata reads the per-locale index instead of
+  // every entry chunk. A pinned entry keeps loading its own chunk, which
+  // carries its metadata and is usually loaded for its content anyway.
+  const metadataIndexLoader =
+    selector?.metadataOnly && itemAxisOpen
+      ? loaderMap[QUALIFIER_DYNAMIC_METADATA_KEY]?.[locale]
+      : undefined;
+
+  if (metadataIndexLoader) {
+    return {
+      itemAxisOpen,
+      missed: false,
+      readsMetadataIndex: true,
+      chunks: [
+        {
+          cacheKey: `${key}.${locale}.${METADATA_INDEX_CACHE_SEGMENT}`,
+          loader: metadataIndexLoader,
+        },
+      ],
+    };
+  }
 
   if (!localeTree) return { itemAxisOpen, missed: true, chunks: [] };
 
@@ -115,23 +165,22 @@ const collectQualifiedChunks = (
 
     if (dimension === 'item' && selector?.item === undefined) {
       // Open collection axis: fan out into every sibling chunk, ordered.
-      for (const segment of Object.keys(tree).sort(
-        (left, right) => Number(left) - Number(right)
-      )) {
+      for (const segment of Object.keys(tree).sort(compareItemSegments)) {
         walk(tree[segment]!, rest, [...segments, segment]);
       }
       return true;
     }
 
-    // A variant with no chunk of its own falls back to the `default` chunk, so
-    // only the entries that actually differ need to be emitted.
+    // A pinned item descends by its serialized id. A variant with no chunk of
+    // its own falls back to the `default` chunk, so only the entries that
+    // actually differ need to be emitted.
     const segment =
-      dimension === 'variant'
-        ? resolveEffectiveVariantId(
+      dimension === 'item' && selector?.item !== undefined
+        ? serializeItem(selector.item)
+        : resolveEffectiveVariantId(
             serializeVariantChain(selector?.variant),
             (variantId) => tree[variantId] !== undefined
-          )
-        : String(selector?.item);
+          );
 
     const child = tree[segment];
     if (!child) return false;
@@ -145,118 +194,26 @@ const collectQualifiedChunks = (
 };
 
 /**
- * Lists the chunks a selector targets in a qualified dynamic loader map,
- * without loading them — lets a caller warm a suspender cache ahead of render.
+ * Reads the metadata a selector targets out of a loaded metadata index, with
+ * the same entry matching as static mode.
  *
- * @returns The targeted chunks, empty when a required coordinate is absent.
+ * @param metadataIndex - The loaded index chunk (`metadata` maps composite ids).
+ * @param qualifierTypes - The key's dimensions, in canonical order.
+ * @param selector - The selector splitting the dimensions.
  */
-export const getQualifiedDynamicChunks = (
-  loaderMap: QualifiedDynamicLoaderMap,
-  key: string,
-  locale: string,
+export const readMetadataIndex = (
+  metadataIndex: Dictionary | undefined,
+  qualifierTypes: DictionaryQualifierType[],
   selector: DictionarySelector | undefined
-): CollectedChunk[] => {
-  const { missed, chunks } = collectQualifiedChunks(
-    loaderMap,
-    key,
-    locale,
+): DictionaryMetadata[] => {
+  const indexMetadata = (metadataIndex?.metadata ?? {}) as Record<
+    string,
+    DictionaryMetadata
+  >;
+
+  return matchQualifiedEntryIds(
+    Object.keys(indexMetadata),
+    qualifierTypes,
     selector
-  );
-
-  return missed ? [] : chunks;
-};
-
-/**
- * Resolves the content of a qualified dynamic loader map against a selector,
- * loading only the chunk(s) the selector actually targets.
- *
- * Walks the nested loader tree one dimension at a time (canonical order
- * `variant → item`): `variant` descends by the serialized id, falling back to
- * `default` when the selected variant has no chunk of its own, and `item`
- * either narrows to the selected index or — when no item is given — expands
- * into every sibling chunk (the collection axis). Semantics mirror
- * `resolveQualifiedDictionary` so dynamic and static modes behave alike.
- *
- * The Suspense mechanism is injected through `loadChunk` so the same logic
- * serves both the client (suspender cache) and the server (`react.use`). Every
- * targeted loader is started before the first chunk is read, so sibling chunks
- * load in parallel rather than waterfalling.
- *
- * @param loaderMap - The qualified dynamic loader map (entry point default export).
- * @param key - The dictionary key (used to build stable chunk cache keys).
- * @param locale - The resolved locale to load chunks for.
- * @param selector - The selector splitting the qualifier dimensions.
- * @param loadChunk - Reads a started chunk promise, suspending until it resolves.
- * @param transform - Turns a resolved chunk dictionary into final content.
- */
-export const resolveQualifiedDynamicContent = <Content>(params: {
-  loaderMap: QualifiedDynamicLoaderMap;
-  key: string;
-  locale: string;
-  selector: DictionarySelector | undefined;
-  loadChunk: (cacheKey: string, promise: Promise<Dictionary>) => Dictionary;
-  transform: (dictionary: Dictionary) => Content;
-}): Content | Content[] | null => {
-  const { loaderMap, key, locale, selector, loadChunk, transform } = params;
-
-  const { itemAxisOpen, missed, chunks } = collectQualifiedChunks(
-    loaderMap,
-    key,
-    locale,
-    selector
-  );
-
-  if (missed) return itemAxisOpen ? [] : null;
-
-  // Start every loader before reading, so siblings load in parallel: the first
-  // `loadChunk` that suspends throws, and would leave later loaders unstarted.
-  const startedChunks = chunks.map(({ cacheKey, loader }) => ({
-    cacheKey,
-    promise: loader(),
-  }));
-  const dictionaries = startedChunks.map(({ cacheKey, promise }) =>
-    loadChunk(cacheKey, promise)
-  );
-
-  if (itemAxisOpen) return dictionaries.map(transform);
-
-  const [dictionary] = dictionaries;
-  return dictionary ? transform(dictionary) : null;
-};
-
-/**
- * Async counterpart of {@link resolveQualifiedDynamicContent} for frameworks
- * that load dictionaries with `await` instead of Suspense (Vue, Svelte, Lit,
- * vanilla). Awaits every targeted chunk in parallel, then resolves identically.
- *
- * @param loaderMap - The qualified dynamic loader map.
- * @param key - The dictionary key (used to build stable chunk cache keys).
- * @param locale - The resolved locale to load chunks for.
- * @param selector - The selector splitting the qualifier dimensions.
- * @param transform - Turns a resolved chunk dictionary into final content.
- */
-export const resolveQualifiedDynamicContentAsync = async <Content>(params: {
-  loaderMap: QualifiedDynamicLoaderMap;
-  key: string;
-  locale: string;
-  selector: DictionarySelector | undefined;
-  transform: (dictionary: Dictionary) => Content;
-}): Promise<Content | Content[] | null> => {
-  const { loaderMap, key, locale, selector, transform } = params;
-
-  const { itemAxisOpen, missed, chunks } = collectQualifiedChunks(
-    loaderMap,
-    key,
-    locale,
-    selector
-  );
-
-  if (missed) return itemAxisOpen ? [] : null;
-
-  const dictionaries = await Promise.all(chunks.map(({ loader }) => loader()));
-
-  if (itemAxisOpen) return dictionaries.map(transform);
-
-  const [dictionary] = dictionaries;
-  return dictionary ? transform(dictionary) : null;
+  ).matchedIds.map((compositeId) => indexMetadata[compositeId]!);
 };

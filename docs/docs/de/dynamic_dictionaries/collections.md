@@ -1,12 +1,13 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-09-27
+updatedAt: 2026-11-24
 priority: 8
-title: "Collections: geordnete Listen lokalisierter Einträge"
-description: Verwenden Sie das Metadatenfeld item in Intlayer-Inhaltsdateien, um geordnete Sammlungen lokalisierter Elemente zu erstellen, die zur Laufzeit über einen Index ausgewählt werden können.
+title: "Collections: lokalisierte Listen nach Position oder ID"
+description: "Erstellen Sie lokalisierte Listen in Intlayer mit einer Inhaltsdatei pro Eintrag: FAQs, Blogartikel oder Datenbankeinträge, ausgewählt nach Position oder ID, mit Metadaten für Listenseiten."
 keywords:
   - Sammlungen
   - Inhaltsliste
+  - Datenbank-ID
   - Dynamischer Inhalt
   - Intlayer
   - Internationalisierung
@@ -15,19 +16,26 @@ slugs:
   - concept
   - collections
 history:
+  - version: 9.9.0
+    date: 2026-11-24
+    changes: "Eintrags-`metadata`, Selektor `metadataOnly` und String-IDs für Einträge hinzugefügt"
   - version: 9.0.0
     date: 2026-06-12
     changes: "Veröffentlichung der Funktion für Sammlungswörterbücher"
 author: aymericzip
 ---
 
-# Sammlungen
+# Collections: lokalisierte Listen von Einträgen
 
-Eine **Sammlung** (Collection) ist ein Satz von Inhaltsdateien, die denselben Wörterbuchschlüssel (`key`) teilen, aber jeweils einen anderen `item`-Index deklarieren. Intlayer führt diese zur Build-Zeit zu einer einzigen geordneten Liste zusammen.
+Eine **Collection** ist ein Satz von Inhaltsdateien, die sich einen Wörterbuch-`key` teilen und jeweils ein anderes `item` deklarieren. Intlayer führt sie zur Build-Zeit zu einer Liste zusammen, die Sie vollständig oder Eintrag für Eintrag lesen. Ein Eintrag wird über eine Position (`1`, `2`…) oder eine String-ID identifiziert, etwa die ID eines Datenbankeintrags.
 
-## Deklarieren von Sammlungselementen
+## Inhaltsverzeichnis
 
-Jede Datei repräsentiert ein Element. Das Feld `item` bestimmt seine Position in der Liste (1-basiert).
+<TOC />
+
+## Einträge deklarieren
+
+Jede Datei ist ein Eintrag:
 
 ```ts fileName="faq.1.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -59,9 +67,54 @@ const dictionary = {
 export default dictionary;
 ```
 
-## Nutzen einer Sammlung
+### Einträge mit String-ID
 
-### Alle Elemente
+Stammen die Einträge aus einer Datenbank oder einem CMS, verwenden Sie die ID des Datensatzes als `item`:
+
+```ts fileName="src/products/desk-lamp.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "products",
+  item: "6620d4e8a1b2c3d4e5f60718",
+  content: {
+    name: t({ en: "Desk lamp", fr: "Lampe de bureau" }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+- **Reihenfolge**: Die vollständige Liste gibt zuerst numerische Einträge nach Wert zurück, dann String-IDs nach Zeichencode. MongoDB-ObjectIds und UUIDv7 erscheinen daher in Erstellungsreihenfolge.
+- **Zahlen als Text**: `item: "2"` und `item: 2` sind derselbe Eintrag. `"007"` bleibt eine String-ID.
+- **Markdown-Frontmatter**: Setzen Sie IDs in Anführungszeichen, die YAML als Zahlen liest. Ohne Anführungszeichen wird `0012` zu `12` und `123e4567` zu `Infinity`.
+- **Groß- und Kleinschreibung**: Vermeiden Sie mit `importMode: "dynamic"` IDs, die sich nur in der Schreibweise unterscheiden (`abc` und `ABC`). Sie kollidieren auf den Dateisystemen von macOS und Windows.
+
+### Gemeinsamer Inhalt für alle Einträge
+
+Eine Datei mit demselben `key` und ohne `item` enthält Inhalt, den alle Einträge teilen. Jeder Eintrag wird damit ergänzt und behält seinen eigenen Wert, wenn beide dasselbe Feld deklarieren:
+
+```ts fileName="faq.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "faq",
+  content: {
+    contactLabel: t({
+      en: "Still stuck? Contact us",
+      fr: "Toujours bloqué ? Contactez-nous",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+Jeder Eintrag von `useIntlayer("faq")` hat nun `question`, `answer` und `contactLabel`.
+
+## Eine Collection lesen
+
+### Alle Einträge
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -226,22 +279,112 @@ export default dictionary;
   </Tab>
 </Tabs>
 
-### Einzelnes Element nach Index
+### Ein Eintrag
 
 ```tsx
+// Nach Position
 const faq2 = useIntlayer("faq", { item: 2 });
 // → { question: string; answer: string }
+
+// Nach ID
+const lamp = useIntlayer("products", { item: "6620d4e8a1b2c3d4e5f60718" });
+// → { name: string }
+
+// Mit expliziter Locale
+const faq2Fr = useIntlayer("faq", { item: 2, locale: "fr" });
 ```
 
-### Einzelnes Element mit explizitem Locale
+Ein `item`, das keine Datei deklariert, gibt `null` zurück, sodass eine Detailseite ihren Nicht-gefunden-Zustand anzeigen kann.
+
+## Eintrags-Metadaten
+
+Jeder Eintrag kann `metadata` deklarieren: einfache Daten (Titel, Datum, Tags…), getrennt vom Inhalt gespeichert und so zurückgegeben, wie sie deklariert sind. Eine Listenseite liest die Metadaten aller Einträge, ohne die Einträge zu laden, und hält so einen Blog mit 1.000 Artikeln schnell.
+
+In einer `.content.md`-Datei wird das Frontmatter zu den Metadaten, mit Ausnahme der Wörterbucheinstellungen (`key`, `locale`, `item`, `variant`, `importMode`, `fill`, `location`, `priority`, `version`). Deklarieren Sie eine Datei pro Locale, um sie zu übersetzen:
+
+```md fileName="src/blog/first-post.en.content.md"
+---
+key: blog
+locale: en
+item: 65f1c0a2b3c4d5e6f7a8b9c0
+id: 65f1c0a2b3c4d5e6f7a8b9c0
+title: First post
+---
+
+# First post
+```
+
+`item` ist nicht Teil der Metadaten, daher wiederholt `id` den Wert, um jeden Listeneintrag mit seiner Seite zu verlinken.
+
+In einer `.content.ts`-Datei setzen Sie das Feld `metadata`, zum Beispiel `metadata: { id: "65f1c0a2b3c4d5e6f7a8b9c0", date: "2026-11-24" }`. Bei einer mehrsprachigen Deklaration gilt es für alle Locales.
+
+Im visuellen Editor und im CMS bearbeitet der Tab **Metadata** eines Wörterbuchs diese Felder und speichert sie in der Deklarationsdatei.
+
+### Listen- und Detailseiten
+
+`metadataOnly: true` liest die Metadaten, `item` liest den Inhalt eines Eintrags:
+
+```tsx fileName="BlogList.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const BlogList = () => {
+  const posts = useIntlayer("blog", { metadataOnly: true });
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>
+          <a href={`/blog/${post.id}`}>{post.title}</a>
+        </li>
+      ))}
+    </ul>
+  );
+};
+```
+
+```tsx fileName="BlogPost.tsx"
+import { useIntlayer } from "react-intlayer";
+
+export const BlogPost = ({ postId }: { postId: string }) => {
+  const post = useIntlayer("blog", { item: postId });
+
+  if (!post) return <p>Post not found</p>;
+
+  return <article>{post}</article>;
+};
+```
+
+Kombinieren Sie beides, um die Metadaten eines einzelnen Eintrags zu lesen, zum Beispiel im `<head>` der Seite: `useIntlayer("blog", { item: postId, metadataOnly: true })`.
+
+## Einträge bei Bedarf laden
+
+Mit `importMode: "dynamic"` in den Eintragsdateien wird jeder Eintrag pro Locale als eigener Chunk ausgeliefert:
+
+- `{ item }` lädt nur diesen Eintrag.
+- Die vollständige Liste lädt alle Einträge parallel.
+- `{ metadataOnly: true }` auf der vollständigen Liste lädt einen einzigen Metadaten-Index, nie die Einträge.
+
+Statischer und dynamischer Modus liefern dieselben Werte. `importMode: "fetch"` unterstützt Collections noch nicht: Sie fallen mit einer Build-Warnung auf statische Imports zurück. Die Import-Modi finden Sie unter [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md).
+
+## Kombination mit Varianten
+
+Einträge können zusätzlich eine `variant` deklarieren (siehe [Varianten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md)). Jede Eintragsdatei des Keys deklariert dann sowohl `item` als auch `variant`:
 
 ```tsx
-const faq2De = useIntlayer("faq", { item: 2, locale: "de" });
+// Für "promo" deklarierte Einträge, jeweils ergänzt um ihre "default"-Version
+const promoItems = useIntlayer("banner", { variant: "promo" });
+
+// Ein Eintrag der Variante "promo"
+const promoItem = useIntlayer("banner", { variant: "promo", item: 2 });
 ```
+
+Ein Eintrag ohne `promo`-Deklaration fehlt in der `promo`-Liste.
 
 ## Typische Anwendungsfälle
 
 - FAQ-Listen
-- Tarife / Preisstufen
-- Karussell- / Slider-Folien
+- Preisstufen
+- Karussell- und Slider-Folien
 - Schritt-für-Schritt-Anleitungen
+- Blogartikel
+- Datensätze aus einer Datenbank oder einem CMS, nach ID

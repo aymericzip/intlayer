@@ -26,6 +26,14 @@ export const DYNAMIC_DICTIONARIES_JSON_SUBDIR = 'json';
 export const QUALIFIER_DYNAMIC_TYPES_KEY = '__intlayerQualifierTypes';
 
 /**
+ * Marker property carrying the per-locale metadata index loaders on a qualified
+ * dynamic loader map (`locale → () => import('json/<key>/<locale>.json')`).
+ * The index holds the `metadata` of every entry without their content, so a
+ * `{ metadataOnly: true }` read of a collection never downloads the entries.
+ */
+export const QUALIFIER_DYNAMIC_METADATA_KEY = '__intlayerMetadata';
+
+/**
  * Marker property carrying the dictionary a generated dynamic entry point
  * already resolved for the browsing locale, before any component rendered.
  *

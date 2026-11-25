@@ -1,53 +1,20 @@
-type Status = 'pending' | 'success' | 'error';
+import { createChunkSuspenseCache } from '@intlayer/core/dictionaryManipulator';
 
-type Suspender<T> = {
-  /**
-   * Settles once the entry has left `pending`, never rejecting. Awaiting it
-   * guarantees a subsequent {@link Suspender.read} returns without suspending.
-   */
-  settled: Promise<void>;
-  read: () => T;
-};
-
-const createSuspender = <T>(promise: Promise<T>): Suspender<T> => {
-  let status: Status = 'pending';
-  let result: T;
-  const suspender = promise.then(
-    (r) => {
-      status = 'success';
-      result = r;
-    },
-    (e) => {
-      status = 'error';
-      result = e as any;
-    }
-  );
-
-  return {
-    settled: suspender,
-    read() {
-      if (status === 'pending') throw suspender;
-      if (status === 'error') throw result;
-      return result!;
-    },
-  };
-};
-
-const cache = new Map<string, Suspender<unknown>>();
+/** Chunk cache read by every dynamic dictionary of the page. */
+const chunkCache = createChunkSuspenseCache();
 
 /**
  * Whether {@link useLoadDynamic} already holds an entry for `key` (pending or
  * settled). A missing entry means the next read will start a load and suspend.
  */
-export const hasDynamicEntry = (key: string): boolean => cache.has(key);
+export const hasDynamicEntry = (key: string): boolean => chunkCache.has(key);
 
-export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T => {
-  if (!cache.has(key)) {
-    cache.set(key, createSuspender(promise));
-  }
-
-  return (cache.get(key)! as Suspender<T>).read() as T;
-};
+/**
+ * Reads a chunk the Suspense way: throws while `promise` is pending, then
+ * returns its value. Only the first `promise` given for a `key` is used.
+ */
+export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T =>
+  chunkCache.read(key, promise);
 
 /**
  * Fills the same cache {@link useLoadDynamic} reads, ahead of render.
@@ -57,11 +24,10 @@ export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T => {
  * before the render — in a router loader, or during app startup — makes that
  * read synchronous, so no boundary ever falls back.
  *
- * Handing over an already-resolved promise is not enough on its own:
- * {@link createSuspender} only leaves `pending` inside a `.then` callback, so
- * the first read would still suspend for one microtask. Awaiting the returned
- * promise resolves that race, because the callback registered by
- * `createSuspender` runs before this one.
+ * Handing over an already-resolved promise is not enough on its own: an entry
+ * only leaves `pending` inside a `.then` callback, so the first read would
+ * still suspend for one microtask. Awaiting the returned promise resolves that
+ * race, because the entry's callback runs before the caller's.
  *
  * @param key - Cache key, identical to the one the later read uses.
  * @param loader - Invoked only when the key is not cached yet, so preloading a
@@ -71,10 +37,4 @@ export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T => {
 export const preloadDynamic = <T>(
   key: string,
   loader: () => Promise<T>
-): Promise<void> => {
-  if (!cache.has(key)) {
-    cache.set(key, createSuspender(loader()) as Suspender<unknown>);
-  }
-
-  return cache.get(key)!.settled;
-};
+): Promise<void> => chunkCache.preload(key, loader);

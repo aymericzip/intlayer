@@ -1,8 +1,4 @@
-import {
-  parseDictionarySelector,
-  resolveDictionaryArgument,
-} from '@intlayer/core/dictionaryManipulator';
-import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   DictionarySelector,
@@ -19,13 +15,12 @@ import {
   type ComputedRef,
   computed,
   defineComponent,
-  getCurrentInstance,
   h,
+  hasInjectionContext,
   inject,
-  isRef,
   type MaybeRefOrGetter,
   markRaw,
-  ref,
+  type Ref,
   shallowRef,
   toValue,
   watch,
@@ -126,76 +121,38 @@ export const createIntlayerLeafProxy = (leafRef: ComputedRef<any>) => {
   return new Proxy({}, handler);
 };
 
-export const useDictionary = <
-  const T extends Dictionary | QualifiedDictionaryGroup,
-  const A extends LocalesValues | DictionarySelectorForGroup<T> =
-    DeclaredLocales,
->(
-  dictionary: MaybeRefOrGetter<T>,
-  localeOrSelector?: MaybeRefOrGetter<A | null | undefined>
-) => {
-  const intlayer = getCurrentInstance()
-    ? inject<IntlayerProvider>(INTLAYER_SYMBOL)
+/**
+ * The provider installed by `installIntlayer`, when called where `inject` works
+ * (a component setup, or `app.runWithContext`).
+ */
+export const injectIntlayerProvider = (): IntlayerProvider | undefined =>
+  hasInjectionContext()
+    ? inject<IntlayerProvider | undefined>(INTLAYER_SYMBOL, undefined)
     : undefined;
 
-  // normalize provider locale
-  const providerLocale = isRef(intlayer?.locale)
-    ? intlayer.locale
-    : ref(intlayer?.locale ?? resolveInterpreterLocale());
+/**
+ * Creates the deep, read-only proxy every Vue read returns over its content:
+ * fields are ref-like (templates unwrap them), IntlayerNode leaves expose
+ * `.value`, and a locale switch only replaces `source`. One proxy per path, so
+ * repeated accesses share their computed refs.
+ *
+ * @param source - The single reactive source of the whole content tree.
+ */
+export const createContentProxy = (source: Ref<unknown>): any => {
+  const proxyCache = new Map<string, any>();
 
-  // split the (possibly reactive) second argument into selector + locale,
-  // layering the provider's ambient variant under it
-  const resolvedArg = computed<{
-    selector?: DictionarySelector;
-    locale?: LocalesValues;
-  }>(() => {
-    const value =
-      localeOrSelector !== undefined ? toValue(localeOrSelector) : undefined;
+  const makeProxy = (path: (string | number)[]): any => {
+    const pathKey = path.join('\u0000');
+    const cachedProxy = proxyCache.get(pathKey);
 
-    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
-      const argument = resolveDictionaryArgument({
-        localeOrSelector: value as A | undefined,
-        contextLocale: providerLocale.value,
-        contextVariant: intlayer?.variant?.value,
-        dictionaryKey: (toValue(dictionary) as T).key,
-      });
+    if (cachedProxy) return cachedProxy;
 
-      return parseDictionarySelector<LocalesValues>(argument);
-    }
+    const leafRef: ComputedRef<any> = computed(() =>
+      atPath(source.value, path)
+    );
 
-    return { selector: undefined, locale: value as LocalesValues | undefined };
-  });
-
-  // which locale to use (reactive)
-  const localeTarget = computed<LocalesValues>(
-    () => (resolvedArg.value.locale ?? providerLocale.value)!
-  );
-
-  // single reactive source for the entire content tree
-  const source = shallowRef<any>({});
-
-  watch(
-    [
-      () => toValue(dictionary) as T,
-      () => localeTarget.value,
-      () => resolvedArg.value.selector,
-    ],
-    ([newDictionary, loc, selector]) => {
-      source.value = selector
-        ? getDictionary(newDictionary, { ...selector, locale: loc } as A)
-        : getDictionary(newDictionary, loc as A);
-    },
-    { immediate: true, flush: 'sync' }
-  );
-
-  // create a deep, read-only reactive proxy
-  const makeProxy = (path: (string | number)[]) => {
     const handler: ProxyHandler<any> = {
       get(_t, prop: any, _r) {
-        const leafRef: ComputedRef<any> = computed(() =>
-          atPath(source.value, path)
-        );
-
         // Internal Vue / TS properties (`__v_raw`, `__v_isReactive`, well-known
         // symbols, …) are never content fields. Diving into them would hand
         // back a fresh proxy, which Vue reads as "yes, I am reactive / here is
@@ -276,6 +233,7 @@ export const useDictionary = <
             if (subProp === 'value') {
               return target.value ?? '';
             }
+            if (subProp === '__v_isRef') return true;
             return Reflect.get(target, subProp, receiver);
           },
         });
@@ -283,19 +241,108 @@ export const useDictionary = <
 
       // Make Object.keys(), for...in, v-for on object keys work
       ownKeys() {
-        const v = atPath(source.value, path);
-        return isObjectLike(v) ? Reflect.ownKeys(v) : [];
+        const value = atPath(source.value, path);
+        return isObjectLike(value) ? Reflect.ownKeys(value) : [];
       },
-      getOwnPropertyDescriptor() {
-        return { enumerable: true, configurable: true };
+      // Mirrors the content's enumerability, so a collection's `length` is
+      // never listed as an item
+      getOwnPropertyDescriptor(_t, prop) {
+        const value = atPath(source.value, path);
+        const descriptor = isObjectLike(value)
+          ? Reflect.getOwnPropertyDescriptor(value, prop)
+          : undefined;
+
+        return descriptor
+          ? { enumerable: descriptor.enumerable, configurable: true }
+          : undefined;
       },
     };
 
-    return new Proxy({}, handler);
+    const proxy = new Proxy({}, handler);
+    proxyCache.set(pathKey, proxy);
+
+    return proxy;
   };
 
-  return makeProxy([]) as unknown as DeepTransformContent<
+  return makeProxy([]);
+};
+
+/**
+ * Runs a read whenever its source, the call argument, the provider locale or
+ * the provider variant changes, and returns the content proxy over it — the
+ * one implementation behind `useDictionary` and `useIntlayer`.
+ */
+export const useResolvedContent = <Source>(params: {
+  getSource: () => Source;
+  getDictionaryKey: (source: Source) => string;
+  readContent: (
+    source: Source,
+    argument: LocalesValues | DictionarySelector | undefined
+  ) => unknown;
+  localeOrSelector?: MaybeRefOrGetter<
+    LocalesValues | DictionarySelector | null | undefined
+  >;
+}): any => {
+  const intlayer = injectIntlayerProvider();
+
+  // single reactive source for the entire content tree
+  const source = shallowRef<unknown>({});
+
+  watch(
+    () => {
+      const currentSource = params.getSource();
+      const callArgument = toValue(params.localeOrSelector) ?? undefined;
+      const contextLocale = toValue(intlayer?.locale);
+
+      // Layers the provider's locale and ambient variant under the call-site
+      // argument. Selectors disabled project-wide (build-time flag) ⇒ the
+      // argument can only be a locale.
+      const argument =
+        process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+          ? resolveDictionaryArgument({
+              localeOrSelector: callArgument,
+              contextLocale,
+              contextVariant: toValue(intlayer?.variant),
+              dictionaryKey: params.getDictionaryKey(currentSource),
+            })
+          : ((callArgument as LocalesValues | undefined) ?? contextLocale);
+
+      return [currentSource, argument] as const;
+    },
+    ([currentSource, argument]) => {
+      source.value = params.readContent(currentSource, argument);
+    },
+    { immediate: true, flush: 'sync' }
+  );
+
+  return createContentProxy(source);
+};
+
+/**
+ * Vue composable that transforms a dictionary (or qualified dictionary group)
+ * and returns its reactive content.
+ *
+ * If the locale is not provided (directly or through the selector), it will
+ * use the provider locale. The same applies to the variant, which falls back
+ * to the provider's ambient `variant`.
+ */
+export const useDictionary = <
+  const T extends Dictionary | QualifiedDictionaryGroup,
+  const A extends LocalesValues | DictionarySelectorForGroup<T> =
+    DeclaredLocales,
+>(
+  dictionary: MaybeRefOrGetter<T>,
+  localeOrSelector?: MaybeRefOrGetter<A | null | undefined>
+) =>
+  useResolvedContent({
+    getSource: () => toValue(dictionary),
+    getDictionaryKey: (currentDictionary) => currentDictionary.key,
+    readContent: (currentDictionary, argument) =>
+      getDictionary(currentDictionary, argument as A),
+    localeOrSelector: localeOrSelector as MaybeRefOrGetter<
+      LocalesValues | DictionarySelector | null | undefined
+    >,
+  }) as DeepTransformContent<
     ResolveQualifiedDictionaryContent<T, A>,
     ExtractSelectorLocale<A>
   >;
-};

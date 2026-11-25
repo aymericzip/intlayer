@@ -1,7 +1,11 @@
-import { getNodeType } from '@intlayer/core/dictionaryManipulator';
+import {
+  compareItemIds,
+  getNodeType,
+} from '@intlayer/core/dictionaryManipulator';
 import type {
   ContentNode,
   Dictionary,
+  DictionaryItemId,
   DictionaryVariantValue,
 } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
@@ -16,7 +20,7 @@ export const DEFAULT_VARIANT_NAME = 'default';
 
 /** Selected sibling coordinates; `null` means "not narrowed on this axis". */
 export type SiblingSelection = {
-  item: number | null;
+  item: DictionaryItemId | null;
   variant: string | null;
 };
 
@@ -34,15 +38,30 @@ export type VariantIdentity = {
   isDefault: boolean;
 };
 
-/** Collection item numbers declared by a set of siblings, ascending. */
-export const getItemNumbers = (siblings: Dictionary[]): number[] =>
+/**
+ * Collection order of two optional item ids, dictionaries without an item
+ * first — the sort used wherever siblings are listed.
+ */
+export const compareOptionalItemIds = (
+  firstItem: Dictionary['item'],
+  secondItem: Dictionary['item']
+): number => {
+  if (firstItem === undefined || secondItem === undefined) {
+    return Number(firstItem !== undefined) - Number(secondItem !== undefined);
+  }
+
+  return compareItemIds(firstItem, secondItem);
+};
+
+/** Collection item ids declared by a set of siblings, in collection order. */
+export const getItemIds = (siblings: Dictionary[]): DictionaryItemId[] =>
   [
     ...new Set(
       siblings
         .map((sibling) => sibling.item)
-        .filter((item): item is number => item !== undefined)
+        .filter((item): item is DictionaryItemId => item !== undefined)
     ),
-  ].sort((first, second) => first - second);
+  ].sort(compareItemIds);
 
 /** Variants declared by a set of siblings, in declaration order. */
 export const getVariantIdentities = (
@@ -239,8 +258,8 @@ const getTopLevelKeys = (content: ContentNode): string[] => {
  */
 export const getShapeDrift = (
   siblings: Dictionary[]
-): Record<number, string[]> => {
-  const keysByItem = new Map<number, Set<string>>();
+): Record<string, string[]> => {
+  const keysByItem = new Map<DictionaryItemId, Set<string>>();
 
   for (const sibling of siblings) {
     if (sibling.item === undefined) continue;
@@ -255,7 +274,7 @@ export const getShapeDrift = (
     for (const key of itemKeys) allKeys.add(key);
   }
 
-  const drift: Record<number, string[]> = {};
+  const drift: Record<string, string[]> = {};
   for (const [item, itemKeys] of keysByItem) {
     const missingKeys = [...allKeys].filter((key) => !itemKeys.has(key));
     if (missingKeys.length > 0) drift[item] = missingKeys;
@@ -329,14 +348,16 @@ const formatVariantArgument = (value: DictionaryVariantValue): string =>
 /** `useIntlayer` call resolving the given selection, as shown to developers. */
 export const buildUseIntlayerSnippet = (
   dictionaryKey: string,
-  item: number | null,
+  item: DictionaryItemId | null,
   variant: VariantIdentity | undefined
 ): string => {
   const selectorParts = [
     ...(variant
       ? [`variant: ${formatVariantArgument(variant.primaryValue)}`]
       : []),
-    ...(item !== null ? [`item: ${item}`] : []),
+    ...(item !== null
+      ? [`item: ${typeof item === 'string' ? `'${item}'` : item}`]
+      : []),
   ];
 
   return selectorParts.length === 0

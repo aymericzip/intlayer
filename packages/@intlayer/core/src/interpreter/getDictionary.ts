@@ -1,3 +1,4 @@
+import { internationalization } from '@intlayer/config/built';
 import type {
   Dictionary,
   DictionarySelector,
@@ -9,6 +10,7 @@ import type {
   ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
+import { getLocalizedMetadata } from '../dictionaryManipulator/getLocalizedMetadata';
 import {
   getDictionarySelectorCacheKey,
   parseDictionarySelector,
@@ -89,6 +91,19 @@ export const getDictionary = <
       : (dictionary as Dictionary);
 
   const transformDictionary = (resolvedDictionary: Dictionary) => {
+    // Metadata is plain data: read for the locale, never interpreted. Inline
+    // flag check, so bundlers drop it when no dictionary declares metadata.
+    if (
+      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
+      selector?.metadataOnly
+    ) {
+      return getLocalizedMetadata(
+        resolvedDictionary.metadata,
+        locale,
+        internationalization.defaultLocale
+      );
+    }
+
     const props: NodeProps = {
       dictionaryKey: resolvedDictionary.key,
       dictionaryPath: resolvedDictionary.filePath,

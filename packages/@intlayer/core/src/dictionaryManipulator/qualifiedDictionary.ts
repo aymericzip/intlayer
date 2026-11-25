@@ -1,5 +1,6 @@
 import type {
   Dictionary,
+  DictionaryItemId,
   DictionaryQualifierType,
   DictionarySelector,
   DictionaryVariantChain,
@@ -91,6 +92,72 @@ export const serializeVariant = (
     .join('&');
 };
 
+/** Reverses `encodeSegmentText`: decodes the `%XXXX` runs and the `%` stand-in. */
+const decodeSegmentText = (segment: string): string =>
+  segment === '%'
+    ? ''
+    : segment.replace(/%([0-9A-F]{4})/g, (_match, charCode: string) =>
+        String.fromCharCode(Number.parseInt(charCode, 16))
+      );
+
+/**
+ * Normalizes a raw item id: a string holding a number's exact canonical form
+ * becomes that number (`'2'` → `2`), anything else stays a string id
+ * (`'007'`, `'65f1c0a2'`, `'Infinity'`).
+ *
+ * @param rawItem - The item id as text (a composite id segment, a form input…).
+ */
+export const parseItemId = (rawItem: string): DictionaryItemId => {
+  const numericItem = Number(rawItem);
+
+  return rawItem !== '' &&
+    Number.isFinite(numericItem) &&
+    String(numericItem) === rawItem
+    ? numericItem
+    : rawItem;
+};
+
+/**
+ * Canonical serialization of an item id — the item segment of a composite id,
+ * the chunk directory name in dynamic mode, and the runtime matching key.
+ *
+ * A number and its digits serialize identically (`2` and `'2'` → `'2'`).
+ * Characters unsafe in file paths or generated code are percent-encoded like
+ * variant names, so database ids (hex, UUID, nanoid…) are kept verbatim.
+ */
+export const serializeItem = (item: DictionaryItemId): string =>
+  encodeSegmentText(String(item), SEGMENT_UNSAFE_CHARS);
+
+/** Decodes the item segment of a composite id back into its item id. */
+export const parseItemSegment = (segment: string): DictionaryItemId =>
+  parseItemId(decodeSegmentText(segment));
+
+/**
+ * Collection order of two item ids: numeric ids by value first, then string
+ * ids by UTF-16 code unit (locale-independent, so every build agrees).
+ */
+export const compareItemIds = (
+  leftItem: DictionaryItemId,
+  rightItem: DictionaryItemId
+): number => {
+  if (typeof leftItem === 'number' && typeof rightItem === 'number') {
+    return leftItem - rightItem;
+  }
+
+  if (typeof leftItem === 'number') return -1;
+  if (typeof rightItem === 'number') return 1;
+  if (leftItem === rightItem) return 0;
+
+  return leftItem < rightItem ? -1 : 1;
+};
+
+/** Collection order of two serialized item segments (see {@link compareItemIds}). */
+export const compareItemSegments = (
+  leftSegment: string,
+  rightSegment: string
+): number =>
+  compareItemIds(parseItemSegment(leftSegment), parseItemSegment(rightSegment));
+
 /**
  * Serializes the variant coordinate of a selector into the ordered list of
  * candidate ids to try, so a single value and a preference chain share one code
@@ -166,7 +233,8 @@ const compositeIdMatchesSelector = (
 
     // qualifierType === 'item'
     return (
-      selector?.item === undefined || segments[index] === String(selector.item)
+      selector?.item === undefined ||
+      segments[index] === serializeItem(selector.item)
     );
   });
 };
@@ -194,7 +262,8 @@ export const isQualifiedDictionaryGroup = (
  * `{ key, content, variant?, item? }` shape, even though the stored format no
  * longer duplicates those fields per entry. The `variant` coordinate stays in
  * its serialized (encoded) form, e.g. `'id=abc&userId=123'` — matching happens
- * on the composite id segments, never on this reconstructed field.
+ * on the composite id segments, never on this reconstructed field. The `item`
+ * coordinate is decoded back to its id (`2`, `'65f1c0a2'`).
  */
 export const reconstructQualifiedEntry = (
   group: QualifiedDictionaryGroup,
@@ -207,11 +276,17 @@ export const reconstructQualifiedEntry = (
     content: group.content[compositeId],
   } as Dictionary;
 
+  const entryMetadata = group.metadata?.[compositeId];
+
+  if (entryMetadata !== undefined) {
+    entry.metadata = entryMetadata as Dictionary['metadata'];
+  }
+
   group.qualifierTypes.forEach((qualifierType, index) => {
     if (qualifierType === 'variant') {
       entry.variant = segments[index];
     } else if (qualifierType === 'item') {
-      entry.item = Number(segments[index]);
+      entry.item = parseItemSegment(segments[index] ?? '');
     }
   });
 
@@ -223,7 +298,8 @@ export const reconstructQualifiedEntry = (
  * across every declared dimension.
  *
  * - Plain dictionary → returned as-is (selector ignored)
- * - `item` declared but not selected → every matching entry ordered by index
+ * - `item` declared but not selected → every matching entry, in collection
+ *   order (see `compareItemIds`)
  * - `item` selected → the matching entry or null
  * - `variant` defaults to the `default` entry when not selected, and falls back
  *   to it when the selected variant declares no entry of its own; an object
@@ -241,13 +317,48 @@ export const resolveQualifiedDictionary = (
     return dictionaryOrGroup;
   }
 
-  const { qualifierTypes, content } = dictionaryOrGroup;
+  const { itemAxisOpen, matchedIds } = matchQualifiedEntryIds(
+    Object.keys(dictionaryOrGroup.content),
+    dictionaryOrGroup.qualifierTypes,
+    selector
+  );
 
+  const matchedEntries = matchedIds.map((compositeId) =>
+    reconstructQualifiedEntry(dictionaryOrGroup, compositeId)
+  );
+
+  if (itemAxisOpen) return matchedEntries;
+
+  return matchedEntries[0] ?? null;
+};
+
+/** Ids a selector targets among a qualified key's entries. */
+export type MatchedQualifiedEntryIds = {
+  /** True when the `item` axis is open (collection result → array). */
+  itemAxisOpen: boolean;
+  /** Matching composite ids, in collection order when the axis is open. */
+  matchedIds: string[];
+};
+
+/**
+ * Selects the composite ids a selector targets across every declared
+ * dimension — the matching shared by the static resolver and the dynamic
+ * metadata index, so both modes resolve the same entries.
+ *
+ * @param compositeIds - Every composite id the key declares.
+ * @param qualifierTypes - The key's dimensions, in canonical order.
+ * @param selector - The selector splitting the dimensions.
+ */
+export const matchQualifiedEntryIds = (
+  compositeIds: string[],
+  qualifierTypes: DictionaryQualifierType[],
+  selector?: DictionarySelector
+): MatchedQualifiedEntryIds => {
   const itemAxisOpen =
     qualifierTypes.includes('item') && selector?.item === undefined;
 
-  const compositeIds = Object.keys(content);
   const variantIndex = qualifierTypes.indexOf('variant');
+  const itemIndex = qualifierTypes.indexOf('item');
 
   const effectiveVariantId =
     variantIndex === -1
@@ -262,26 +373,25 @@ export const resolveQualifiedDictionary = (
             )
         );
 
-  const matchedEntries = compositeIds
-    .filter((compositeId) =>
-      compositeIdMatchesSelector(
-        compositeId,
-        qualifierTypes,
-        selector,
-        effectiveVariantId
-      )
+  const matchedIds = compositeIds.filter((compositeId) =>
+    compositeIdMatchesSelector(
+      compositeId,
+      qualifierTypes,
+      selector,
+      effectiveVariantId
     )
-    .map((compositeId) =>
-      reconstructQualifiedEntry(dictionaryOrGroup, compositeId)
-    );
+  );
 
   if (itemAxisOpen) {
-    return matchedEntries.sort(
-      (left, right) => (left.item ?? 0) - (right.item ?? 0)
+    const getItemSegment = (compositeId: string): string =>
+      compositeId.split(COMPOSITE_ID_SEPARATOR)[itemIndex] ?? '';
+
+    matchedIds.sort((left, right) =>
+      compareItemSegments(getItemSegment(left), getItemSegment(right))
     );
   }
 
-  return matchedEntries[0] ?? null;
+  return { itemAxisOpen, matchedIds };
 };
 
 /**
@@ -384,8 +494,9 @@ export const resolveDictionaryArgument = (params: {
 };
 
 /**
- * Builds a stable string identity of a selector (excluding `locale`), suitable
- * for cache keys and memoization dependencies.
+ * Builds a stable string identity of a selector (excluding `locale`, and the
+ * dimensions left `undefined`), suitable for cache keys and memoization
+ * dependencies.
  */
 export const getDictionarySelectorCacheKey = (
   selector?: DictionarySelector
@@ -393,7 +504,11 @@ export const getDictionarySelectorCacheKey = (
   if (!selector) return '';
 
   return Object.keys(selector)
-    .filter((selectorKey) => selectorKey !== 'locale')
+    .filter(
+      (selectorKey) =>
+        selectorKey !== 'locale' &&
+        selector[selectorKey as keyof DictionarySelector] !== undefined
+    )
     .sort()
     .map((selectorKey) => {
       const value = selector[selectorKey as keyof DictionarySelector];

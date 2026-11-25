@@ -1,15 +1,12 @@
 'use client';
 
-import { computed, inject, signal } from '@angular/core';
+import { computed, inject, type Signal, signal } from '@angular/core';
 import {
-  getPreloadedDictionary,
-  isQualifiedDynamicLoaderMap,
-  parseDictionarySelector,
+  createDynamicContentStore,
+  type DynamicLoaderMap,
+  loadingContentPlaceholder,
   type QualifiedDynamicLoaderMap,
-  resolveDictionaryArgument,
-  resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -19,17 +16,22 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
+import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
-import { useDictionary } from './useDictionary';
-import { useLoadDynamic } from './useLoadDynamic';
+
+/** Content cache shared by every dynamic read of the app. */
+const dynamicContentStore = createDynamicContentStore<unknown>(
+  (dictionary, argument) => getDictionary(dictionary, argument)
+);
 
 /**
  * Lazily loads a dictionary (plain or qualified) and returns its reactive
  * content.
  *
- * For a qualified loader map (collection / variant, possibly
- * combined), only the chunk(s) the selector targets are loaded. For a plain
- * loader map, the locale chunk is loaded.
+ * The locale, selector, chunk selection and transform are resolved by the
+ * shared dynamic content store, so only the chunk(s) the read targets are
+ * loaded. The content follows the provider locale and
+ * variant, keeping the previous content on screen while the next one loads.
  *
  * If the locale is not provided (directly or through the selector), it will use
  * the locale from the client context.
@@ -44,64 +46,33 @@ export const useDictionaryDynamic = <
     | QualifiedDynamicLoaderMap,
   key: K,
   localeOrSelector?: A
-) => {
+): Signal<DeepTransformContent<T['content']>> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
-
-  if (
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    isQualifiedDynamicLoaderMap(dictionaryPromise)
-  ) {
-    // Layers the provider's ambient variant under the call-site argument
-    // before the chunk walk, so only the targeted chunk is loaded.
-    const { locale: selectorLocale, selector } =
-      parseDictionarySelector<LocalesValues>(
-        resolveDictionaryArgument({
-          localeOrSelector,
-          contextLocale: intlayer?.locale(),
-          contextVariant: intlayer?.variant?.(),
-          dictionaryKey: String(key),
-        })
-      );
-
-    const localeTarget = selectorLocale ?? resolveInterpreterLocale();
-
-    const container = signal<unknown>(undefined);
-
-    resolveQualifiedDynamicContentAsync({
-      loaderMap: dictionaryPromise,
-      key: String(key),
-      locale: localeTarget,
-      selector,
-      transform: (dictionary) => getDictionary(dictionary, localeTarget),
-    }).then((resolved) => container.set(resolved));
-
-    return computed(() => container() as any);
-  }
-
-  const locale =
-    typeof localeOrSelector === 'string'
-      ? (localeOrSelector as LocalesValues)
-      : undefined;
-
-  const localeTarget = computed(
-    () => locale ?? intlayer?.locale() ?? resolveInterpreterLocale()
+  const readContent = dynamicContentStore.createReader(
+    dictionaryPromise as DynamicLoaderMap,
+    String(key)
   );
 
-  // A build-tool plugin may have started this locale's chunk while the entry
-  // point evaluated, and it may already have landed. Using it directly skips `useLoadDynamic`, whose signal
-  // starts empty and only fills in on the promise callback — one frame of blank
-  // content per dictionary, even when nothing has to be fetched.
-  const preloadedDictionary = getPreloadedDictionary(
-    dictionaryPromise,
-    localeTarget()
-  );
+  /** Bumped when a load lands, so the content reads the store again. */
+  const settledLoadCount = signal(0);
+  let latestContent: unknown = loadingContentPlaceholder;
 
-  const dictionary =
-    (preloadedDictionary as T | undefined) ??
-    (useLoadDynamic<T>(
-      `${String(key)}.${localeTarget()}`,
-      (dictionaryPromise as any)[localeTarget()]?.()
-    ) as T);
+  return computed(() => {
+    settledLoadCount();
 
-  return useDictionary(dictionary, localeTarget() as any);
+    // Re-read whenever the provider locale or variant changes. Settles outside
+    // the computation, where writing a signal is allowed.
+    const settled = readContent(
+      {
+        localeOrSelector,
+        contextLocale: intlayer?.locale(),
+        contextVariant: intlayer?.variant?.(),
+      },
+      () => settledLoadCount.update((count) => count + 1)
+    );
+
+    if (settled) latestContent = settled.content;
+
+    return latestContent as DeepTransformContent<T['content']>;
+  });
 };

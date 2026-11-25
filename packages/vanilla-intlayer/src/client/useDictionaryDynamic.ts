@@ -1,13 +1,9 @@
 import {
-  getDictionarySelectorCacheKey,
-  getPreloadedDictionary,
-  isQualifiedDynamicLoaderMap,
-  parseDictionarySelector,
+  createDynamicContentStore,
+  type DynamicLoaderMap,
+  loadingContentPlaceholder,
   type QualifiedDynamicLoaderMap,
-  resolveDictionaryArgument,
-  resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -19,55 +15,21 @@ import type {
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { getIntlayerClient } from './installIntlayer';
-import type { WithOnChange } from './useDictionary';
+import { attachOnChange, type WithOnChange } from './useDictionary';
 
-/** Simple in-memory cache shared across all calls in the same page. */
-const cache = new Map<string, Dictionary>();
-
-/** Tracks in-flight loads to avoid duplicate fetches. */
-const inflight = new Map<string, Promise<void>>();
-
-/** Resolved-content cache for qualified (collection/variant/meta) keys. */
-const qualifiedCache = new Map<string, unknown>();
-const qualifiedInflight = new Map<string, Promise<void>>();
-
-const loadDictionary = <T extends Dictionary>(
-  cacheKey: string,
-  loader: () => Promise<T>
-): Promise<void> => {
-  if (cache.has(cacheKey)) return Promise.resolve();
-  if (inflight.has(cacheKey)) return inflight.get(cacheKey)!;
-
-  const promise = loader().then((dictionary) => {
-    cache.set(cacheKey, dictionary);
-    inflight.delete(cacheKey);
-  });
-
-  inflight.set(cacheKey, promise);
-  return promise;
-};
-
-/** Placeholder proxy — safe for any property access while loading. */
-const recursiveProxy: any = new Proxy(() => {}, {
-  get: (_t, prop) => {
-    if (prop === Symbol.toPrimitive) return () => '';
-    if (prop === 'toString') return () => '';
-    if (prop === 'valueOf') return () => '';
-    if (prop === 'then') return undefined; // not a Promise
-    if (prop === 'onChange') return (_cb: any) => recursiveProxy;
-    return recursiveProxy;
-  },
-  apply: () => recursiveProxy,
-});
+/** Content cache shared by every dynamic read of the page. */
+const dynamicContentStore = createDynamicContentStore<unknown>(
+  (dictionary, argument) => getDictionary(dictionary, argument)
+);
 
 /**
  * Dynamically load and transform a dictionary (plain or qualified).
  *
- * For a qualified loader map (collection / variant, possibly
- * combined), only the chunk(s) the selector targets are loaded. For a plain
- * loader map, the locale chunk is loaded. The first call returns a placeholder
- * and triggers a background load; the client then notifies subscribers so the
- * render runs again with real content.
+ * The locale, selector, chunk selection and transform are resolved by the
+ * shared dynamic content store, so only the chunk(s) the read targets are
+ * loaded. The first call returns a placeholder and starts
+ * a background load; the client then notifies subscribers so the render runs
+ * again with real content.
  *
  * @param dictionaryLoaders - Locale-keyed loader map, or a qualified loader map.
  * @param key               - Dictionary key (used for cache namespacing).
@@ -85,146 +47,26 @@ export const useDictionaryDynamic = <
   localeOrSelector?: A
 ): WithOnChange<DeepTransformContent<T['content']>> => {
   const client = getIntlayerClient();
+  const readContent = dynamicContentStore.createReader(
+    dictionaryLoaders as DynamicLoaderMap,
+    String(key)
+  );
 
-  // --- Qualified loader map (collection / variant) ---
-  if (
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    isQualifiedDynamicLoaderMap(dictionaryLoaders)
-  ) {
-    const loaderMap = dictionaryLoaders;
-    // Layers the client's ambient variant under the call-site argument before
-    // the chunk walk, so only the targeted chunk is loaded.
-    const { locale: selectorLocale, selector } =
-      parseDictionarySelector<LocalesValues>(
-        resolveDictionaryArgument({
-          localeOrSelector,
-          contextLocale: client.locale,
-          contextVariant: client.variant,
-          dictionaryKey: String(key),
-        })
-      );
-    const selectorId = getDictionarySelectorCacheKey(selector);
+  // Resolved per locale, so a locale pinned at the call site stays pinned
+  // while an unpinned one follows `setLocale`.
+  const getContext = (contextLocale: LocalesValues) => ({
+    localeOrSelector,
+    contextLocale,
+    contextVariant: client.variant,
+  });
 
-    const buildKey = (locale: string) =>
-      `${String(key)}.${locale}.${selectorId}`;
-    const resolveContent = (locale: LocalesValues) =>
-      resolveQualifiedDynamicContentAsync({
-        loaderMap,
-        key: String(key),
-        locale,
-        selector,
-        transform: (dictionary) =>
-          getDictionary(dictionary, locale as DeclaredLocales),
-      });
+  const settled = readContent(getContext(client.locale), () => client.notify());
 
-    const currentLocale = (selectorLocale ??
-      client.locale ??
-      resolveInterpreterLocale()) as LocalesValues;
-    const cacheKey = buildKey(currentLocale);
+  if (!settled) return loadingContentPlaceholder;
 
-    const attachOnChange = (content: any) => {
-      if (content != null && typeof content === 'object') {
-        content.onChange = (callback: (c: any) => void) => {
-          client.subscribe((newLocale) => {
-            const locale = (selectorLocale ?? newLocale) as LocalesValues;
-            const newKey = buildKey(locale);
+  return attachOnChange(settled.content, (locale, callback) => {
+    const nextSettled = readContent(getContext(locale), callback);
 
-            if (qualifiedCache.has(newKey)) {
-              callback(qualifiedCache.get(newKey));
-              return;
-            }
-
-            resolveContent(locale).then((resolved) => {
-              qualifiedCache.set(newKey, resolved);
-              callback(resolved);
-            });
-          });
-          return content;
-        };
-      }
-      return content;
-    };
-
-    if (qualifiedCache.has(cacheKey)) {
-      return attachOnChange(qualifiedCache.get(cacheKey)) as any;
-    }
-
-    if (!qualifiedInflight.has(cacheKey)) {
-      const promise = resolveContent(currentLocale).then((resolved) => {
-        qualifiedCache.set(cacheKey, resolved);
-        qualifiedInflight.delete(cacheKey);
-        client.notify();
-      });
-      qualifiedInflight.set(cacheKey, promise);
-    }
-
-    return recursiveProxy;
-  }
-
-  // --- Plain locale-keyed loader map ---
-  const locale =
-    typeof localeOrSelector === 'string'
-      ? (localeOrSelector as LocalesValues)
-      : undefined;
-  const currentLocale = (locale ??
-    client.locale ??
-    resolveInterpreterLocale()) as A;
-
-  const cacheKey = `${String(key)}.${currentLocale}`;
-  const loader = (dictionaryLoaders as Record<string, () => Promise<T>>)[
-    currentLocale as string
-  ];
-
-  // A build-tool plugin may have started this locale's chunk while the entry
-  // point evaluated, and it may already have landed. Seeding the cache with it turns the first call into a
-  // cache hit, so the branch below returns real content instead of the
-  // placeholder proxy — no extra code path needed.
-  if (!cache.has(cacheKey)) {
-    const preloadedDictionary = getPreloadedDictionary(
-      dictionaryLoaders,
-      currentLocale as LocalesValues
-    );
-
-    if (preloadedDictionary) cache.set(cacheKey, preloadedDictionary);
-  }
-
-  // --- Cache hit: return real content synchronously ---
-  const cached = cache.get(cacheKey);
-  if (cached) {
-    const content = getDictionary(cached, currentLocale) as WithOnChange<
-      DeepTransformContent<T['content']>
-    >;
-
-    content.onChange = (callback) => {
-      // Re-fire whenever content reloads (locale change → new cache entry).
-      client.subscribe((newLocale) => {
-        const newKey = `${String(key)}.${newLocale}`;
-        const newLoader = (
-          dictionaryLoaders as Record<string, () => Promise<T>>
-        )[newLocale];
-
-        if (!newLoader) return;
-
-        loadDictionary(newKey, newLoader).then(() => {
-          const dict = cache.get(newKey);
-          if (dict) {
-            callback(getDictionary(dict, newLocale as A) as any);
-          }
-        });
-      });
-
-      return content;
-    };
-
-    return content;
-  }
-
-  // --- Cache miss: kick off background load, then notify to re-render ---
-  if (loader) {
-    loadDictionary(cacheKey, loader).then(() => {
-      client.notify();
-    });
-  }
-
-  return recursiveProxy;
+    if (nextSettled) callback(nextSettled.content);
+  }) as WithOnChange<DeepTransformContent<T['content']>>;
 };

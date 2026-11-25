@@ -18,6 +18,7 @@ import type {
 import { createMemo, onCleanup, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import { type DeepTransformContent, getPlugins } from '../plugins';
+import { createContentProxy } from './contentProxy';
 import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 import { unwrapLoadable } from './useLoadDynamic';
 
@@ -105,15 +106,7 @@ export const useDictionary = <
     return result;
   });
 
-  return new Proxy(accessor, {
-    get(target, prop) {
-      const content = target();
-      return content?.[prop as keyof typeof content];
-    },
-    apply(target, thisArg, args) {
-      return Reflect.apply(target, thisArg, args);
-    },
-  }) as DeepTransformContent<
+  return createContentProxy(accessor) as DeepTransformContent<
     ResolveQualifiedDictionaryContent<T, A>,
     ExtractSelectorLocale<A>
   >;

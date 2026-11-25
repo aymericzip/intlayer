@@ -7,7 +7,7 @@ type DictionaryOrGroup = Dictionary | QualifiedDictionaryGroup;
 
 /**
  * Detects whether any built dictionary declares qualifier dimensions
- * (collections or variants).
+ * (collections or variants) or `metadata`.
  *
  * The merge step emits a {@link QualifiedDictionaryGroup} — carrying a
  * non-empty `qualifierTypes` array — for every key whose declarations use a
@@ -29,6 +29,9 @@ export const getHasDictionarySelector = (
 
   return dictionariesArray.some((dictionary) => {
     const { qualifierTypes } = dictionary as QualifiedDictionaryGroup;
+
+    // A dictionary declaring `metadata` can be read with `{ metadataOnly }`.
+    if (dictionary.metadata !== undefined) return true;
 
     return Array.isArray(qualifierTypes) && qualifierTypes.length > 0;
   });

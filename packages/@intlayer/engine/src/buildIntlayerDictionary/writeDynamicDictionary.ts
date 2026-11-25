@@ -9,6 +9,8 @@ import { colorizePath } from '@intlayer/config/logger';
 import { assertPathWithin, parallelize } from '@intlayer/config/utils';
 import {
   COMPOSITE_ID_SEPARATOR,
+  getLocalizedMetadata,
+  QUALIFIER_DYNAMIC_METADATA_KEY,
   QUALIFIER_DYNAMIC_TYPES_KEY,
   reconstructQualifiedEntry,
 } from '@intlayer/core/dictionaryManipulator';
@@ -17,6 +19,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
   Dictionary,
+  DictionaryMetadata,
   DictionaryQualifierType,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
@@ -232,7 +235,8 @@ export const generateQualifiedDictionaryEntryPoint = (
   qualifierTypes: DictionaryQualifierType[],
   entries: QualifiedEntrySegments[],
   locales: string[],
-  format: 'cjs' | 'esm' = 'esm'
+  format: 'cjs' | 'esm' = 'esm',
+  hasMetadataIndex = false
 ): string => {
   const sortedLocales = [...locales].sort((a, b) =>
     String(a).localeCompare(String(b))
@@ -245,7 +249,24 @@ export const generateQualifiedDictionaryEntryPoint = (
     })
     .join(',\n');
 
-  const marker = `  '${QUALIFIER_DYNAMIC_TYPES_KEY}': ${JSON.stringify(qualifierTypes)}`;
+  const typesMarker = `  '${QUALIFIER_DYNAMIC_TYPES_KEY}': ${JSON.stringify(qualifierTypes)}`;
+
+  // The metadata index sits where a plain key keeps its chunk
+  // (`json/<key>/<locale>.json`): a qualified key never writes one there.
+  const metadataIndexLoaders = sortedLocales
+    .map(
+      (locale) =>
+        `    '${escapeJsLiteral(locale)}': () => ${buildPerLocaleLoader(
+          escapeJsLiteral(key),
+          escapeJsLiteral(locale),
+          format
+        )}`
+    )
+    .join(',\n');
+
+  const marker = hasMetadataIndex
+    ? `${typesMarker},\n  '${QUALIFIER_DYNAMIC_METADATA_KEY}': {\n${metadataIndexLoaders}\n  }`
+    : typesMarker;
 
   if (format === 'esm') {
     return (
@@ -352,6 +373,45 @@ export const writeDynamicDictionary = async (
   return resultDictionariesPaths;
 };
 
+/**
+ * Builds the per-locale metadata index of a qualified group: every entry's
+ * metadata localized for `locale`, keyed by composite id. Entries without
+ * metadata map to `{}`, so listing the index yields one value per entry,
+ * exactly like listing the entries.
+ *
+ * Shaped as a qualified group with an empty `content`, so the build
+ * optimization handles it like any other dictionary chunk.
+ *
+ * @param group - The merged qualified group.
+ * @param entryIds - Every composite id of the group.
+ * @param locale - Locale to localize the metadata for.
+ * @param defaultLocale - Fallback locale for untranslated metadata.
+ */
+export const buildMetadataIndex = (
+  group: QualifiedDictionaryGroup,
+  entryIds: string[],
+  locale: Locale,
+  defaultLocale: Locale
+): QualifiedDictionaryGroup & { locale: Locale } => {
+  const metadata: Record<string, DictionaryMetadata> = {};
+
+  for (const entryId of entryIds) {
+    metadata[entryId] = getLocalizedMetadata(
+      group.metadata?.[entryId],
+      locale,
+      defaultLocale
+    );
+  }
+
+  return {
+    key: group.key,
+    locale,
+    qualifierTypes: group.qualifierTypes,
+    content: {},
+    metadata,
+  };
+};
+
 export type QualifiedMergedDictionaryResult = {
   dictionaryPath: string;
   dictionary: QualifiedDictionaryGroup;
@@ -404,7 +464,11 @@ export const writeDynamicQualifiedDictionaries = async (
 
       for (const entryId of entryIds) {
         const treeSegments = entryId.split(COMPOSITE_ID_SEPARATOR);
-        const contentIdentity = JSON.stringify(group.content[entryId]);
+        // An entry chunk carries its metadata, so both must match to share it.
+        const contentIdentity = JSON.stringify([
+          group.content[entryId],
+          group.metadata?.[entryId],
+        ]);
         const canonicalSegments =
           canonicalSegmentsByContent.get(contentIdentity);
 
@@ -450,6 +514,26 @@ export const writeDynamicQualifiedDictionaries = async (
         });
       });
 
+      // A collection lists its items' metadata from one per-locale index, so
+      // `{ metadataOnly: true }` never downloads the items themselves.
+      const hasMetadataIndex = group.qualifierTypes.includes('item');
+
+      if (hasMetadataIndex) {
+        await parallelize(locales, async (locale) => {
+          const indexFilePath = resolve(keyDir, `${locale}.json`);
+
+          await writeJsonIfChanged(
+            indexFilePath,
+            buildMetadataIndex(group, entryIds, locale, defaultLocale)
+          ).catch((err) => {
+            console.error(
+              `Error creating metadata index ${key}/${locale}.json:`,
+              err
+            );
+          });
+        });
+      }
+
       await parallelize(formats, async (format) => {
         const extension = format === 'cjs' ? 'cjs' : 'mjs';
         const content = generateQualifiedDictionaryEntryPoint(
@@ -457,7 +541,8 @@ export const writeDynamicQualifiedDictionaries = async (
           group.qualifierTypes,
           entries,
           locales,
-          format
+          format,
+          hasMetadataIndex
         );
 
         const dynEntryPath = resolve(

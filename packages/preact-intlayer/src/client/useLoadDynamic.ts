@@ -1,34 +1,11 @@
-type Status = 'pending' | 'success' | 'error';
+import { createChunkSuspenseCache } from '@intlayer/core/dictionaryManipulator';
 
-const createSuspender = <T>(promise: Promise<T>) => {
-  let status: Status = 'pending';
-  let result: T;
-  const suspender = promise.then(
-    (r) => {
-      status = 'success';
-      result = r;
-    },
-    (e) => {
-      status = 'error';
-      result = e as any;
-    }
-  );
+/** Chunk cache read by every dynamic dictionary of the page. */
+const chunkCache = createChunkSuspenseCache();
 
-  return {
-    read() {
-      if (status === 'pending') throw suspender;
-      if (status === 'error') throw result;
-      return result!;
-    },
-  };
-};
-
-const cache = new Map<string, ReturnType<typeof createSuspender>>();
-
-export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T => {
-  if (!cache.has(key)) {
-    cache.set(key, createSuspender(promise));
-  }
-
-  return (cache.get(key)! as ReturnType<typeof createSuspender>).read() as T;
-};
+/**
+ * Reads a chunk the Suspense way: throws while `promise` is pending, then
+ * returns its value. Only the first `promise` given for a `key` is used.
+ */
+export const useLoadDynamic = <T>(key: string, promise: Promise<T>): T =>
+  chunkCache.read(key, promise);

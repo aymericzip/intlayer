@@ -93,6 +93,10 @@ const applyFieldRenameToDict = (
   };
 };
 
+/** Whether a value is a plain (non-array) object record. */
+const isPlainRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
 /**
  * Discriminates a compiled qualified dictionary group (collections, variants)
  * from a plain dictionary. Mirrors `isQualifiedDictionaryGroup` from
@@ -288,11 +292,23 @@ export const intlayerMinify = (
           minifiedContent[entryId] = minifyGroupEntryNode(node, fieldRenameMap);
         }
 
+        // Entry metadata is read through the same (renamed) call sites as the
+        // content, so it is renamed with the same map.
+        const groupMetadata = isPlainRecord(parsedDict.metadata)
+          ? Object.fromEntries(
+              Object.entries(parsedDict.metadata).map(([entryId, node]) => [
+                entryId,
+                minifyGroupEntryNode(node, fieldRenameMap),
+              ])
+            )
+          : undefined;
+
         return {
           code: JSON.stringify({
             key: parsedDict.key,
             qualifierTypes: parsedDict.qualifierTypes,
             content: minifiedContent,
+            ...(groupMetadata && { metadata: groupMetadata }),
           }),
           map: null,
         };
@@ -306,10 +322,19 @@ export const intlayerMinify = (
       // Strip top-level metadata – ship only key + content. The variant
       // identity of a qualified chunk is encoded in its composite id (the chunk
       // path), so no extra per-chunk side-data is needed for selector matching.
+      const metadata =
+        parsedDict.metadata === undefined
+          ? undefined
+          : fieldRenameMap && fieldRenameMap.size > 0
+            ? renameContentRecursively(parsedDict.metadata, fieldRenameMap)
+            : parsedDict.metadata;
+
       return {
         code: JSON.stringify({
           key: parsedDict.key,
           content: parsedDict.content,
+          // Kept for `{ metadataOnly: true }` reads.
+          ...(metadata !== undefined && { metadata }),
         }),
         map: null,
       };

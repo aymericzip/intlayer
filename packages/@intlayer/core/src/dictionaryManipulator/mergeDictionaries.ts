@@ -182,6 +182,7 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
   }
 
   let mergedContent: Dictionary['content'] = dictionaries[0].content;
+  let mergedMetadata: Dictionary['metadata'] = dictionaries[0].metadata;
 
   for (let i = 1; i < dictionaries.length; i++) {
     const dict = dictionaries[i];
@@ -204,11 +205,23 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
       mergedContent,
       currentDictionary.content
     ) as ContentNode;
+
+    if (currentDictionary.metadata !== undefined) {
+      mergedMetadata = (
+        mergedMetadata === undefined
+          ? currentDictionary.metadata
+          : customMerge(
+              mergedMetadata as unknown as ContentNode,
+              currentDictionary.metadata as unknown as ContentNode
+            )
+      ) as Dictionary['metadata'];
+    }
   }
 
   const mergedDictionary: Dictionary = {
     key: dictionaries[0].key,
     content: mergedContent,
+    ...(mergedMetadata !== undefined && { metadata: mergedMetadata }),
     localIds,
   };
 

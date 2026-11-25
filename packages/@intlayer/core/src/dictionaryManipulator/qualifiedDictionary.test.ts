@@ -4,6 +4,10 @@ import type {
 } from '@intlayer/types/dictionary';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
+import {
+  resolveDynamicContent,
+  resolveDynamicContentAsync,
+} from './dynamicDictionary';
 import { mergeQualifiedDictionaries } from './mergeQualifiedDictionaries';
 import {
   getDictionarySelectorCacheKey,
@@ -25,8 +29,6 @@ import {
   isQualifiedDynamicLoaderMap,
   QUALIFIER_DYNAMIC_TYPES_KEY,
   type QualifiedDynamicLoaderMap,
-  resolveQualifiedDynamicContent,
-  resolveQualifiedDynamicContentAsync,
 } from './qualifiedDynamicLoader';
 
 describe('getDictionaryQualifierTypes', () => {
@@ -1043,7 +1045,7 @@ describe('isQualifiedDynamicLoaderMap', () => {
   });
 });
 
-describe('resolveQualifiedDynamicContent', () => {
+describe('resolveDynamicContent', () => {
   // Reconstructs a dictionary from the chunk cache key's trailing segments
   // (`key.locale.<seg>/<seg>`) — the real client/server inject a Suspense
   // reader; here we resolve inline to test the chunk-selection logic.
@@ -1089,7 +1091,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
   it('should load every collection chunk ordered by index when no item is selected', () => {
     const { loaderMap } = makeItemMap();
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'faq',
       locale: 'en',
@@ -1111,7 +1113,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
   it('should load only the targeted collection chunk', () => {
     const { loaderMap, loaded } = makeItemMap();
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'faq',
       locale: 'en',
@@ -1130,7 +1132,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
   it('should return null for a missing collection chunk', () => {
     const { loaderMap } = makeItemMap();
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'faq',
       locale: 'en',
@@ -1161,7 +1163,7 @@ describe('resolveQualifiedDynamicContent', () => {
       },
     };
 
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'hero',
       locale: 'en',
@@ -1197,7 +1199,7 @@ describe('resolveQualifiedDynamicContent', () => {
       },
     };
 
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'lesson',
       locale: 'en',
@@ -1237,7 +1239,7 @@ describe('resolveQualifiedDynamicContent', () => {
       },
     };
 
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'lesson',
       locale: 'en',
@@ -1269,7 +1271,7 @@ describe('resolveQualifiedDynamicContent', () => {
       },
     };
 
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'product',
       locale: 'en',
@@ -1292,7 +1294,7 @@ describe('resolveQualifiedDynamicContent', () => {
       en: { 'id=abc&userId=123': () => Promise.resolve(chunk) },
     };
 
-    const matched = resolveQualifiedDynamicContent<Dictionary>({
+    const matched = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'product',
       locale: 'en',
@@ -1303,7 +1305,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
     expect((matched as Dictionary).content).toEqual({ name: 'ABC' });
 
-    const mismatched = resolveQualifiedDynamicContent<Dictionary>({
+    const mismatched = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'product',
       locale: 'en',
@@ -1317,7 +1319,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
   it('should return an empty array for a missing locale on a collection', () => {
     const { loaderMap } = makeItemMap();
-    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+    const resolved = resolveDynamicContent<Dictionary>({
       loaderMap,
       key: 'faq',
       locale: 'de',
@@ -1370,7 +1372,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
     it('should fan out into every item of the selected variant', () => {
       const { loaderMap, loaded } = makeBannerMap();
-      const resolved = resolveQualifiedDynamicContent<Dictionary>({
+      const resolved = resolveDynamicContent<Dictionary>({
         loaderMap,
         key: 'banner',
         locale: 'en',
@@ -1389,7 +1391,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
     it('should narrow to a single chunk when both dimensions are selected', () => {
       const { loaderMap, loaded } = makeBannerMap();
-      const resolved = resolveQualifiedDynamicContent<Dictionary>({
+      const resolved = resolveDynamicContent<Dictionary>({
         loaderMap,
         key: 'banner',
         locale: 'en',
@@ -1404,7 +1406,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
     it('should default the variant and fan out items when nothing is selected', () => {
       const { loaderMap } = makeBannerMap();
-      const resolved = resolveQualifiedDynamicContent<Dictionary>({
+      const resolved = resolveDynamicContent<Dictionary>({
         loaderMap,
         key: 'banner',
         locale: 'en',
@@ -1420,7 +1422,7 @@ describe('resolveQualifiedDynamicContent', () => {
 
     it('should return null when the composite coordinates do not exist', () => {
       const { loaderMap } = makeBannerMap();
-      const resolved = resolveQualifiedDynamicContent<Dictionary>({
+      const resolved = resolveDynamicContent<Dictionary>({
         loaderMap,
         key: 'banner',
         locale: 'en',
@@ -1434,7 +1436,7 @@ describe('resolveQualifiedDynamicContent', () => {
   });
 });
 
-describe('resolveQualifiedDynamicContentAsync', () => {
+describe('resolveDynamicContentAsync', () => {
   const makeBannerMap = (): QualifiedDynamicLoaderMap => {
     const makeLoader =
       (variant: string, item: string) => (): Promise<Dictionary> =>
@@ -1455,7 +1457,7 @@ describe('resolveQualifiedDynamicContentAsync', () => {
   };
 
   it('should await every item of the selected variant', async () => {
-    const resolved = await resolveQualifiedDynamicContentAsync<Dictionary>({
+    const resolved = await resolveDynamicContentAsync<Dictionary>({
       loaderMap: makeBannerMap(),
       key: 'banner',
       locale: 'en',
@@ -1470,7 +1472,7 @@ describe('resolveQualifiedDynamicContentAsync', () => {
   });
 
   it('should await a single chunk when both dimensions are selected', async () => {
-    const resolved = await resolveQualifiedDynamicContentAsync<Dictionary>({
+    const resolved = await resolveDynamicContentAsync<Dictionary>({
       loaderMap: makeBannerMap(),
       key: 'banner',
       locale: 'en',
@@ -1482,7 +1484,7 @@ describe('resolveQualifiedDynamicContentAsync', () => {
   });
 
   it('should return null when coordinates are missing and [] for an open item axis on a missing locale', async () => {
-    const missing = await resolveQualifiedDynamicContentAsync<Dictionary>({
+    const missing = await resolveDynamicContentAsync<Dictionary>({
       loaderMap: makeBannerMap(),
       key: 'banner',
       locale: 'en',
@@ -1491,15 +1493,13 @@ describe('resolveQualifiedDynamicContentAsync', () => {
     });
     expect(missing).toBeNull();
 
-    const missingLocale = await resolveQualifiedDynamicContentAsync<Dictionary>(
-      {
-        loaderMap: makeBannerMap(),
-        key: 'banner',
-        locale: 'de',
-        selector: { variant: 'promo' },
-        transform: (dictionary) => dictionary,
-      }
-    );
+    const missingLocale = await resolveDynamicContentAsync<Dictionary>({
+      loaderMap: makeBannerMap(),
+      key: 'banner',
+      locale: 'de',
+      selector: { variant: 'promo' },
+      transform: (dictionary) => dictionary,
+    });
     expect(missingLocale).toEqual([]);
   });
 });

@@ -3,6 +3,7 @@ import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
+import { getLocalizedMetadata } from '../dictionaryManipulator/getLocalizedMetadata';
 import {
   type DeepTransformContent,
   type NodeProps,
@@ -59,4 +60,7 @@ export const getPerLocaleDictionary = <
     },
     fallback
   ),
+  ...(dictionary.metadata !== undefined && {
+    metadata: getLocalizedMetadata(dictionary.metadata, locale, fallback),
+  }),
 });

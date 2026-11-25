@@ -1,3 +1,4 @@
+import { loadDynamicDictionary } from '@intlayer/core/dictionaryManipulator';
 import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
@@ -28,7 +29,10 @@ export const useDictionaryAsync = async <
     fallbackLocale ??
     resolveInterpreterLocale();
 
-  const dictionary = await (dictionaryPromise as any)[localeTarget]?.();
+  const dictionary = (await loadDynamicDictionary(
+    dictionaryPromise,
+    localeTarget
+  )) as T;
 
   return useDictionary<T, L>(dictionary, localeTarget as L);
 };

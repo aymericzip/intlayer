@@ -1,5 +1,9 @@
+import { t } from '@intlayer/core/transpiler';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { QualifiedDictionaryGroup } from '@intlayer/types/dictionary';
 import { describe, expect, it } from 'vitest';
 import {
+  buildMetadataIndex,
   generateDictionaryEntryPoint,
   generateQualifiedDictionaryEntryPoint,
   type QualifiedEntrySegments,
@@ -140,5 +144,61 @@ describe('generateQualifiedDictionaryEntryPoint', () => {
       "'default': () => Promise.resolve(require('./json/hero/default/en.json'))"
     );
     expect(content).toContain('module.exports = {');
+  });
+});
+
+describe('metadata index', () => {
+  it('should expose one index loader per locale next to the entry loaders', () => {
+    const content = generateQualifiedDictionaryEntryPoint(
+      'blog',
+      ['item'],
+      [ownChunk(['1']), ownChunk(['2'])],
+      ['fr', 'en'],
+      'esm',
+      true
+    );
+
+    expect(content).toContain("'__intlayerMetadata': {");
+    // The index sits where a plain key keeps its chunk.
+    expect(content).toContain(
+      "'en': () => import('./json/blog/en.json').then(m => m.default)"
+    );
+    expect(content).toContain(
+      "'1': () => import('./json/blog/1/en.json').then(m => m.default)"
+    );
+    expect(
+      () => new Function(content.replace(/export default.*/, ''))
+    ).not.toThrow();
+  });
+
+  it('should not emit index loaders when the key has no item axis', () => {
+    const content = generateQualifiedDictionaryEntryPoint(
+      'hero',
+      ['variant'],
+      [ownChunk(['default'])],
+      ['en'],
+      'esm'
+    );
+
+    expect(content).not.toContain('__intlayerMetadata');
+  });
+
+  it('should localize every entry metadata, with {} for undeclared ones', () => {
+    const group: QualifiedDictionaryGroup = {
+      key: 'blog',
+      qualifierTypes: ['item'],
+      content: { '1': {}, '2': {} },
+      metadata: { '1': t({ en: { title: 'Hello' }, fr: { title: 'Salut' } }) },
+    };
+
+    expect(
+      buildMetadataIndex(group, ['1', '2'], 'fr' as Locale, 'en' as Locale)
+    ).toEqual({
+      key: 'blog',
+      locale: 'fr',
+      qualifierTypes: ['item'],
+      content: {},
+      metadata: { '1': { title: 'Salut' }, '2': {} },
+    });
   });
 });

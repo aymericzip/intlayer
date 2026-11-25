@@ -1,11 +1,9 @@
 import {
-  isQualifiedDynamicLoaderMap,
-  parseDictionarySelector,
+  type DynamicLoaderMap,
   type QualifiedDynamicLoaderMap,
-  resolveDictionaryArgument,
-  resolveQualifiedDynamicContent,
+  resolveDictionaryRead,
+  resolveDynamicContent,
 } from '@intlayer/core/dictionaryManipulator';
-import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type {
   Dictionary,
   DictionarySelector,
@@ -30,10 +28,9 @@ import { useLoadDynamic as loadDynamicChunk } from './useLoadDynamic';
 /**
  * Server-side hook that lazily loads a dictionary and returns its content.
  *
- * The dictionary entry is either a plain dynamic loader map
- * (`locale → loader`) or a qualified one (`locale → qualifierId → loader`,
- * tagged with the qualifier dimension). For qualified maps, only the chunk(s)
- * the selector targets are loaded; the resolution mirrors static mode.
+ * The locale, selector, chunk selection and transform are resolved by the
+ * shared `resolveDictionaryRead` / `resolveDynamicContent`, so this hook only
+ * contributes the request context and `react.use`.
  *
  * If the locale is not provided (directly or through the selector), the server
  * context locale is used.
@@ -49,55 +46,24 @@ export const useDictionaryDynamic = <
   localeOrSelector?: A,
   fallbackLocale?: DeclaredLocales
 ) => {
-  const contextLocale = getServerContext<LocalesValues>(IntlayerServerContext);
+  const dictionaryKey = String(key);
 
-  const { locale: selectorLocale, selector } =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
-      ? parseDictionarySelector<LocalesValues>(
-          // Layers the request's ambient variant under the call-site argument
-          // before the chunk walk, so only the targeted chunk is loaded.
-          resolveDictionaryArgument({
-            localeOrSelector,
-            contextLocale,
-            contextVariant: getServerContext<ProviderVariant>(
-              IntlayerServerVariantContext
-            ),
-            dictionaryKey: String(key),
-          })
-        )
-      : {
-          locale: localeOrSelector as LocalesValues | undefined,
-          selector: undefined,
-        };
+  const { locale, selector } = resolveDictionaryRead({
+    localeOrSelector,
+    contextLocale:
+      getServerContext<LocalesValues>(IntlayerServerContext) ?? fallbackLocale,
+    contextVariant: getServerContext<ProviderVariant>(
+      IntlayerServerVariantContext
+    ),
+    dictionaryKey,
+  });
 
-  const localeTarget =
-    selectorLocale ??
-    contextLocale ??
-    fallbackLocale ??
-    resolveInterpreterLocale();
-
-  if (
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    isQualifiedDynamicLoaderMap(dictionaryPromise)
-  ) {
-    return resolveQualifiedDynamicContent({
-      loaderMap: dictionaryPromise,
-      key: String(key),
-      locale: localeTarget,
-      selector,
-      loadChunk: (cacheKey, promise) => loadDynamicChunk(cacheKey, promise),
-      transform: (dictionary) => getDictionary(dictionary, localeTarget),
-    });
-  }
-
-  const plainLoaders = dictionaryPromise as StrictModeLocaleMap<
-    () => Promise<T>
-  >;
-
-  const dictionary = loadDynamicChunk<T>(
-    `${String(key)}.${localeTarget}`,
-    plainLoaders[localeTarget as keyof typeof plainLoaders]?.() as Promise<T>
-  );
-
-  return getDictionary(dictionary, localeTarget);
+  return resolveDynamicContent({
+    loaderMap: dictionaryPromise as DynamicLoaderMap,
+    key: dictionaryKey,
+    locale,
+    selector,
+    loadChunk: (cacheKey, promise) => loadDynamicChunk(cacheKey, promise),
+    transform: (dictionary, argument) => getDictionary(dictionary, argument),
+  });
 };

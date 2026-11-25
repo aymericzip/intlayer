@@ -7,9 +7,10 @@ import { usePersistedStore } from '@hooks/usePersistedStore';
 import {
   useConfiguration,
   useDictionariesRecordActions,
+  useEditedContent,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { cn } from '@utils/cn';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, type ReactNode, useEffect, useMemo, useState } from 'react';
@@ -26,6 +27,7 @@ import { getIsMarkdownDocument } from './ContentGrid/flattenContentRows';
 import { MarkdownDocument } from './ContentGrid/MarkdownDocument';
 import { useIsNarrowContainer } from './ContentGrid/useIsNarrowContainer';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
+import { DictionaryMetadataForm } from './DictionaryMetadata/DictionaryMetadataForm';
 import { JSONEditor } from './JSONEditor';
 import { NodeEditor } from './NodeEditor';
 import { SaveForm } from './SaveForm/SaveForm';
@@ -48,7 +50,7 @@ export type DictionaryEditorView =
   | 'structure'
   | 'json';
 
-export type DictionaryEditorTab = 'content' | 'details';
+export type DictionaryEditorTab = 'content' | 'metadata' | 'details';
 
 export const TAB_STORAGE_KEY = 'intlayer:dictionary-editor:tab';
 export const VIEW_STORAGE_KEY = 'intlayer:dictionary-editor:view';
@@ -60,10 +62,22 @@ const STORABLE_VIEWS: DictionaryEditorView[] = [
   'json',
 ];
 
-/** Prompts before unload while the dictionary has unsaved changes. */
-const UnsavedChangesGuard: FC = () => {
+/**
+ * Prompts before unload while the dictionary has unsaved changes, in its
+ * content or in its metadata.
+ */
+const UnsavedChangesGuard: FC<{ dictionary: Dictionary }> = ({
+  dictionary,
+}) => {
   const { changeSet } = useContentGrid();
-  useUnsavedChangesGuard(changeSet.length > 0);
+  const { editedContent } = useEditedContent();
+  const editedMetadata =
+    editedContent?.[dictionary.localId as LocalDictionaryId]?.metadata;
+  const hasMetadataChanges =
+    editedMetadata !== undefined &&
+    JSON.stringify(editedMetadata) !== JSON.stringify(dictionary.metadata);
+
+  useUnsavedChangesGuard(changeSet.length > 0 || hasMetadataChanges);
 
   return null;
 };
@@ -116,6 +130,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const {
     returnToDictionaryList,
     contentTab,
+    metadataTab,
     detailsTab,
     viewSwitcherLabel,
     documentView,
@@ -133,8 +148,13 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     TAB_STORAGE_KEY,
     'content'
   );
-  const activeTab: DictionaryEditorTab =
-    tabProp ?? (isRemote && storedTab === 'details' ? 'details' : 'content');
+  /** The stored tab, unless it is the CMS-only details tab in local mode. */
+  const getStoredTab = (): DictionaryEditorTab => {
+    if (storedTab === 'metadata') return 'metadata';
+    if (isRemote && storedTab === 'details') return 'details';
+    return 'content';
+  };
+  const activeTab: DictionaryEditorTab = tabProp ?? getStoredTab();
 
   const selectTab = (tab: DictionaryEditorTab) => {
     onTabChange?.(tab);
@@ -251,7 +271,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         dictionary={activeDictionary}
         lockedLocales={lockedLocales}
       >
-        <UnsavedChangesGuard />
+        <UnsavedChangesGuard dictionary={activeDictionary} />
         <div
           ref={containerRef}
           className="relative flex h-full min-h-0 w-full flex-1 flex-col md:overflow-hidden"
@@ -282,34 +302,45 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           <div className="mb-22 flex min-h-0 flex-1 flex-col overflow-hidden">
             {/* Tab headers */}
             <div className="sticky top-0 z-10 flex shrink-0 flex-wrap items-center gap-x-16 gap-y-3 rounded-xl bg-background/20 p-3 pb-4">
-              {isRemote && (
-                <TabSelector
-                  selectedChoice={activeTab}
-                  tabs={[
-                    <button
-                      key="content"
-                      className={tabClassName}
-                      data-active={activeTab === 'content'}
-                      onClick={() => selectTab('content')}
-                      type="button"
-                    >
-                      {contentTab}
-                    </button>,
-                    <button
-                      key="details"
-                      className={tabClassName}
-                      data-active={activeTab === 'details'}
-                      onClick={() => selectTab('details')}
-                      type="button"
-                    >
-                      {detailsTab}
-                    </button>,
-                  ]}
-                  hoverable
-                  color="text"
-                  className="w-auto"
-                />
-              )}
+              <TabSelector
+                selectedChoice={activeTab}
+                tabs={[
+                  <button
+                    key="content"
+                    className={tabClassName}
+                    data-active={activeTab === 'content'}
+                    onClick={() => selectTab('content')}
+                    type="button"
+                  >
+                    {contentTab}
+                  </button>,
+                  <button
+                    key="metadata"
+                    className={tabClassName}
+                    data-active={activeTab === 'metadata'}
+                    onClick={() => selectTab('metadata')}
+                    type="button"
+                  >
+                    {metadataTab}
+                  </button>,
+                  ...(isRemote
+                    ? [
+                        <button
+                          key="details"
+                          className={tabClassName}
+                          data-active={activeTab === 'details'}
+                          onClick={() => selectTab('details')}
+                          type="button"
+                        >
+                          {detailsTab}
+                        </button>,
+                      ]
+                    : []),
+                ]}
+                hoverable
+                color="text"
+                className="w-auto"
+              />
 
               {activeTab === 'content' && (
                 <div
@@ -358,6 +389,12 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                     'h-full min-h-0 flex-1'
                 )}
               >
+                {activeTab === 'metadata' && (
+                  <DictionaryMetadataForm
+                    key={activeDictionary.localId}
+                    dictionary={activeDictionary}
+                  />
+                )}
                 {isRemote && activeTab === 'details' && (
                   <DictionaryDetailsForm
                     dictionary={activeDictionary}

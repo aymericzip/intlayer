@@ -1,3 +1,4 @@
+import { readdirSync } from 'node:fs';
 import { DYNAMIC_DICTIONARIES_JSON_SUBDIR } from '@intlayer/config/defaultValues';
 import { colorizeNumber, getAppLogger } from '@intlayer/config/logger';
 import { normalizePath } from '@intlayer/config/utils';
@@ -65,6 +66,58 @@ export const createDictionaryModuleParser = (
       key: segments[0]!,
       locale: fileName.slice(0, -'.json'.length),
     };
+  };
+};
+
+/** Whether a directory holds at least one subdirectory (`false` if absent). */
+const hasSubdirectory = (directory: string): boolean => {
+  try {
+    return readdirSync(directory, { withFileTypes: true }).some((entry) =>
+      entry.isDirectory()
+    );
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * Builds the predicate recognising a chunk of a qualified dictionary
+ * (collection / variant): an entry chunk nested by dimension
+ * (`json/<key>/<…segments>/<locale>.json`), or the metadata index a collection
+ * writes where a plain key keeps its chunk (`json/<key>/<locale>.json`).
+ *
+ * Those chunks must stay apart: a qualified key is read one entry at a time, so
+ * grouping its entries by boundary would make every page download all of them.
+ *
+ * @param dynamicDictionariesDir - Absolute, POSIX-normalized dictionaries root.
+ * @param hasNestedEntries - Whether a key directory holds entry subdirectories.
+ * @returns Predicate answering `true` for any chunk of a qualified key.
+ */
+export const createQualifiedChunkDetector = (
+  dynamicDictionariesDir: string,
+  hasNestedEntries: (keyDirectory: string) => boolean = hasSubdirectory
+): ((moduleId: string) => boolean) => {
+  const prefix = `${dynamicDictionariesDir}/${DYNAMIC_DICTIONARIES_JSON_SUBDIR}/`;
+  const qualifiedByKey = new Map<string, boolean>();
+
+  return (moduleId) => {
+    const posixId = normalizePath(moduleId.split('?', 1)[0] ?? moduleId);
+    if (!posixId.startsWith(prefix)) return false;
+
+    const segments = posixId.slice(prefix.length).split('/');
+    if (segments.length < 2) return false;
+
+    // Qualifier segments between the key and the locale file.
+    if (segments.length > 2) return true;
+
+    const key = segments[0]!;
+    const cachedQualified = qualifiedByKey.get(key);
+    if (cachedQualified !== undefined) return cachedQualified;
+
+    const isQualified = hasNestedEntries(`${prefix}${key}`);
+    qualifiedByKey.set(key, isQualified);
+
+    return isQualified;
   };
 };
 
@@ -165,6 +218,10 @@ export const resolveBoundaries = (
  * preload (`intlayerPreload`) costs one request per boundary rather than one
  * per dictionary, without any page loading content belonging to another.
  *
+ * Collections and variants are left out: their entries (and a collection's
+ * metadata index) keep one chunk each, since a page reads only the entries its
+ * selector targets.
+ *
  * @param intlayerConfig - Resolved Intlayer configuration.
  */
 export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
@@ -191,8 +248,11 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
     return groupName;
   };
 
-  const isDictionaryModule = (moduleId: string): boolean =>
-    parseDictionaryModule(moduleId) !== null;
+  const isQualifiedChunk = createQualifiedChunkDetector(dynamicDictionariesDir);
+
+  /** Plain dictionary chunks only: qualified ones keep their own chunk. */
+  const isGroupableDictionaryModule = (moduleId: string): boolean =>
+    parseDictionaryModule(moduleId) !== null && !isQualifiedChunk(moduleId);
 
   return {
     name: 'vite-intlayer-chunk-plugin',
@@ -230,7 +290,9 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
                         debugName: 'intlayer-dictionaries',
                         name: (moduleId: string, context: ChunkingContext) => {
                           const dictionary = parseDictionaryModule(moduleId);
-                          if (!dictionary) return null;
+                          if (!dictionary || isQualifiedChunk(moduleId)) {
+                            return null;
+                          }
 
                           const boundaries = resolveBoundaries(
                             moduleId,
@@ -249,7 +311,7 @@ export const intlayerChunk = (intlayerConfig: IntlayerConfig): Plugin => {
 
                           return assign(groupName, dictionary.key);
                         },
-                        test: isDictionaryModule,
+                        test: isGroupableDictionaryModule,
                         // Dictionaries are small individually; the point is to
                         // group them, so the surrounding build's size floor must
                         // not dissolve these chunks back into their parents.

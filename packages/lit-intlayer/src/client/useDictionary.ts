@@ -1,8 +1,6 @@
 import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
-import { resolveInterpreterLocale } from '@intlayer/core/interpreter';
 import type {
   Dictionary,
-  DictionarySelector,
   DictionarySelectorForGroup,
   QualifiedDictionaryGroup,
   ResolveQualifiedDictionaryContent,
@@ -12,11 +10,9 @@ import type {
   ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import type { ReactiveControllerHost } from 'lit';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { getIntlayerClient } from './installIntlayer';
-import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
+import { createContentProxy, type IntlayerLitProxy } from './IntlayerBinding';
 
 /**
  * Returns the content for a raw dictionary (or qualified dictionary group),
@@ -42,70 +38,19 @@ export const useDictionary = <
     ResolveQualifiedDictionaryContent<T, A>,
     ExtractSelectorLocale<A>
   >
-> => {
-  const client = getIntlayerClient();
-
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
-  const explicitLocale = isSelector
-    ? (localeOrSelector as DictionarySelector).locale
-    : (localeOrSelector as LocalesValues | undefined);
-
-  // Layers the client's ambient variant under the call-site argument. Resolved
-  // per compute so a `setVariant` between renders is picked up.
-  const compute = (currentLocale: LocalesValues): unknown =>
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
-      ? getDictionary(
-          dictionary,
-          resolveDictionaryArgument({
-            localeOrSelector,
-            contextLocale: currentLocale,
-            contextVariant: client.variant,
-            dictionaryKey: dictionary.key,
-          }) as A
-        )
-      : getDictionary(dictionary, currentLocale as A);
-
-  const getActiveLocale = (): LocalesValues =>
-    (explicitLocale ??
-      client.locale ??
-      resolveInterpreterLocale()) as LocalesValues;
-
-  let currentContent: unknown = compute(getActiveLocale());
-
-  // Keep currentContent fresh so the proxy always returns the active locale.
-  // requestUpdate() is handled by IntlayerBinding (ReactiveController).
-  client.subscribe((newLocale) => {
-    currentContent = compute((explicitLocale ?? newLocale) as LocalesValues);
-  });
-
-  let observeFn: (host: ReactiveControllerHost) => any;
-
-  const proxy = new Proxy({} as any, {
-    get(_target, prop) {
-      if (prop === 'observe') return observeFn;
-      if (prop === Symbol.toPrimitive)
-        return () => (currentContent as any)?.[Symbol.toPrimitive]?.() ?? '';
-      if (prop === 'toString')
-        return () => String((currentContent as any)?.toString?.() ?? '');
-      if (prop === 'then') return undefined;
-      // A selector can resolve to null (variant/meta miss).
-      if (currentContent == null) return undefined;
-      return (currentContent as Record<string | symbol, unknown>)[prop];
-    },
-  }) as IntlayerLitProxy<
-    DeepTransformContent<
-      ResolveQualifiedDictionaryContent<T, A>,
-      ExtractSelectorLocale<A>
-    >
-  >;
-
-  observeFn = (host) => {
-    new IntlayerBinding(host);
-    return proxy;
-  };
-
-  return proxy;
-};
+> =>
+  // Layers the client's locale and ambient variant under the call-site argument
+  createContentProxy(({ contextLocale, contextVariant }) => ({
+    content:
+      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+        ? getDictionary(
+            dictionary,
+            resolveDictionaryArgument({
+              localeOrSelector,
+              contextLocale,
+              contextVariant,
+              dictionaryKey: dictionary.key,
+            }) as A
+          )
+        : getDictionary(dictionary, (localeOrSelector ?? contextLocale) as A),
+  }));

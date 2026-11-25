@@ -1,3 +1,8 @@
+import { loadingContentPlaceholder } from '@intlayer/core/dictionaryManipulator';
+import type {
+  LocalesValues,
+  ProviderVariant,
+} from '@intlayer/types/module_augmentation';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { getIntlayerClient } from './installIntlayer';
 
@@ -63,3 +68,109 @@ export class IntlayerBinding implements ReactiveController {
     this.onDisconnect?.();
   }
 }
+
+/** The client context a content proxy reads for. */
+export type ContentReadContext = {
+  contextLocale: LocalesValues;
+  contextVariant: ProviderVariant | undefined;
+};
+
+/**
+ * Reads the content of a context: `{ content }` when available right away,
+ * else `undefined`, calling `onLoad` once the content lands.
+ */
+export type ContentReader = (
+  context: ContentReadContext,
+  onLoad: (content: unknown) => void
+) => { content: unknown } | undefined;
+
+/**
+ * Wraps content read for the client's locale and variant (read again whenever
+ * either changes) in an {@link IntlayerLitProxy}. Chain `.observe(this)` so
+ * the host re-renders on locale changes and once loading content lands; while
+ * the first content loads, every access renders `''`. Shared by `useDictionary`,
+ * `useIntlayer` and `useDictionaryDynamic`.
+ */
+export const createContentProxy = <Content>(
+  readContent: ContentReader
+): IntlayerLitProxy<Content> => {
+  const client = getIntlayerClient();
+  const hosts = new Set<ReactiveControllerHost>();
+
+  let current: { content: unknown } | undefined;
+  let readLocale: LocalesValues | undefined;
+  let readVariant: ProviderVariant | undefined;
+  let hasRead = false;
+
+  const getContent = (): { content: unknown } | undefined => {
+    if (
+      !hasRead ||
+      readLocale !== client.locale ||
+      readVariant !== client.variant
+    ) {
+      hasRead = true;
+      readLocale = client.locale;
+      readVariant = client.variant;
+
+      // A pending read keeps the previous content on screen until it lands
+      const settled = readContent(
+        { contextLocale: client.locale, contextVariant: client.variant },
+        (content) => {
+          current = { content };
+          for (const host of hosts) host.requestUpdate();
+        }
+      );
+
+      if (settled) current = settled;
+    }
+
+    return current;
+  };
+
+  getContent();
+
+  const proxy: IntlayerLitProxy<Content> = new Proxy({} as any, {
+    get(_target, property) {
+      if (property === 'observe') {
+        return (host: ReactiveControllerHost) => {
+          hosts.add(host);
+          new IntlayerBinding(
+            host,
+            // Content that landed before the host connected
+            () => {
+              if (current) host.requestUpdate();
+            },
+            () => hosts.delete(host)
+          );
+
+          return proxy;
+        };
+      }
+
+      // Lit detects directives / template results via `_$`-prefixed keys
+      if (
+        property === 'then' ||
+        (typeof property === 'string' && property.startsWith('_$'))
+      ) {
+        return undefined;
+      }
+
+      const loaded = getContent();
+
+      if (!loaded) return loadingContentPlaceholder[property];
+
+      const content = loaded.content as any;
+
+      if (property === Symbol.toPrimitive) {
+        return () => content?.[Symbol.toPrimitive]?.() ?? '';
+      }
+      if (property === 'toString') {
+        return () => String(content?.toString?.() ?? '');
+      }
+
+      return content?.[property];
+    },
+  });
+
+  return proxy;
+};

@@ -8,18 +8,15 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import {
-  findPlainDynamicLoader,
-  type PlainDynamicLoaderMap,
-} from '../dictionaryManipulator/plainDynamicLoader';
+  type DynamicLoaderMap,
+  resolveDynamicContentAsync,
+} from '../dictionaryManipulator/dynamicDictionary';
+import type { PlainDynamicLoaderMap } from '../dictionaryManipulator/plainDynamicLoader';
 import {
   getDictionarySelectorCacheKey,
   parseDictionarySelector,
 } from '../dictionaryManipulator/qualifiedDictionary';
-import {
-  isQualifiedDynamicLoaderMap,
-  type QualifiedDynamicLoaderMap,
-  resolveQualifiedDynamicContentAsync,
-} from '../dictionaryManipulator/qualifiedDynamicLoader';
+import type { QualifiedDynamicLoaderMap } from '../dictionaryManipulator/qualifiedDynamicLoader';
 import { getPluginsCacheKey } from './dictionaryTransformCache';
 import type {
   DeepTransformContent,
@@ -36,25 +33,6 @@ import { resolveInterpreterLocaleAsync } from './resolveInterpreterLocale';
  * chunk await one single load.
  */
 const contentPromiseCache = new Map<string, Promise<unknown>>();
-
-/**
- * Awaits the chunk a plain loader map holds for `locale` — walking the same
- * fallback chain as static mode — and transforms it.
- *
- * Returns `null` when the map emitted no chunk for the locale nor for any of
- * its fallbacks, mirroring how a missing qualified coordinate resolves.
- */
-const loadPlainChunk = async <T extends Dictionary, Content>(
-  dictionaryLoaders: PlainDynamicLoaderMap<T>,
-  locale: LocalesValues,
-  transform: (dictionary: Dictionary) => Content
-): Promise<Content | null> => {
-  const resolved = findPlainDynamicLoader<T>(dictionaryLoaders, locale);
-
-  if (!resolved) return null;
-
-  return transform(await resolved.loader());
-};
 
 /**
  * Loads a single locale chunk of a dictionary and returns its transformed
@@ -109,31 +87,23 @@ export const getDictionaryAsync = async <
 
   const localeTarget = locale ?? (await resolveInterpreterLocaleAsync());
 
-  const cacheKey = `${key}_${localeTarget}_${getDictionarySelectorCacheKey(
-    selector
-  )}_${getPluginsCacheKey(plugins)}`;
+  const selectorCacheKey =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? getDictionarySelectorCacheKey(selector)
+      : '';
+  const cacheKey = `${key}_${localeTarget}_${selectorCacheKey}_${getPluginsCacheKey(plugins)}`;
 
   const cachedContent = contentPromiseCache.get(cacheKey);
   if (cachedContent) return cachedContent as Promise<any>;
 
-  const transform = (dictionary: Dictionary) =>
-    getDictionary(dictionary, localeTarget, plugins);
-
-  const contentPromise =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    isQualifiedDynamicLoaderMap(dictionaryLoaders)
-      ? resolveQualifiedDynamicContentAsync({
-          loaderMap: dictionaryLoaders,
-          key,
-          locale: localeTarget,
-          selector,
-          transform,
-        })
-      : loadPlainChunk(
-          dictionaryLoaders as PlainDynamicLoaderMap<T>,
-          localeTarget,
-          transform
-        );
+  const contentPromise = resolveDynamicContentAsync({
+    loaderMap: dictionaryLoaders as DynamicLoaderMap,
+    key,
+    locale: localeTarget,
+    selector,
+    transform: (dictionary, argument) =>
+      getDictionary(dictionary, argument, plugins),
+  });
 
   contentPromiseCache.set(cacheKey, contentPromise);
 

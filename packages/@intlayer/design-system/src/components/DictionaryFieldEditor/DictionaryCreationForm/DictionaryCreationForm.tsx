@@ -12,6 +12,7 @@ import {
   useWatch,
 } from '@components/Form';
 import { MultiSelect, Select } from '@components/Select';
+import { parseItemId } from '@intlayer/core/dictionaryManipulator';
 import { AnimatePresence, m } from 'framer-motion';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -104,11 +105,9 @@ const DictionaryCreationFormFields: FC<{
           >
             <FormInput
               name="item"
-              type="number"
               label={itemInput.label.value}
               placeholder={itemInput.placeholder.value}
               description={itemInput.description.value}
-              min={1}
             />
           </m.div>
         )}
@@ -163,8 +162,9 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
 
   const onSubmitSuccess = (data: DictionaryFormData) => {
     const qualifiers: Record<string, unknown> = {};
-    if (data.qualifierType === 'item' && data.item !== undefined) {
-      qualifiers.item = data.item;
+    const itemId = data.item?.trim();
+    if (data.qualifierType === 'item' && itemId) {
+      qualifiers.item = parseItemId(itemId);
     } else if (data.qualifierType === 'variant' && data.variant) {
       qualifiers.variant = data.variant;
     }
