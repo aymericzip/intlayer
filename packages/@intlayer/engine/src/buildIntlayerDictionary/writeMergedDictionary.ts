@@ -12,6 +12,7 @@ import type {
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
+import { warnConflictingDictionaries } from './warnConflictingDictionaries';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
 
 export type MergedDictionaryResult = {
@@ -75,6 +76,8 @@ export const writeMergedDictionaries = async (
         dictionariesEntry.dictionaries,
         configuration
       );
+
+      warnConflictingDictionaries(normalizedDictionaries);
 
       const mergedDictionary = mergeQualifiedDictionaries(
         normalizedDictionaries
