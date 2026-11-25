@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-10-04
+updatedAt: 2026-11-25
 priority: 8
 title: "Content Declaration Files (.content.ts)"
 description: "Declare your multilingual content in .content files next to your components: supported formats, file extensions and how Intlayer discovers them."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Link the schema validation guide"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Add select content type"
@@ -416,7 +419,7 @@ Transforms the dictionary into a per-locale dictionary where each field declared
 
 #### `schema` (SchemaKeys)
 
-The schema of the dictionary content. If set, the content will be validated against this schema. This allows you to enforce a specific structure for your dictionary content using custom validation schemas defined in your Intlayer configuration.
+The name of a schema declared in the `schemas` field of your Intlayer configuration. If set, the content is validated against this schema for every locale at build time, and typed from it in your editor. See [Validate dictionaries with schemas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/schema.md).
 
 **Example:**
 

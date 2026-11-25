@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "Pliki deklaracji treści (.content.ts)"
 description: "Deklaruj wielojęzyczne treści w plikach .content obok komponentów: obsługiwane formaty, rozszerzenia plików i sposób, w jaki Intlayer je wykrywa."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Link do przewodnika po walidacji schematem"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Wprowadzono treść opartą na wyborze (select)"
@@ -413,7 +416,7 @@ Przekształca słownik w słownik per-lokalizacyjny, gdzie każde pole zadeklaro
 
 #### `schema` (SchemaKeys)
 
-Schemat zawartości słownika. Jeśli ustawiony, zawartość zostanie zwalidowana względem tego schematu. Pozwala to na narzucenie określonej struktury dla zawartości słownika przy użyciu niestandardowych schematów walidacji zdefiniowanych w konfiguracji Intlayer.
+Nazwa schematu zadeklarowanego w polu `schemas` konfiguracji Intlayer. Jeśli jest ustawiona, zawartość jest walidowana tym schematem dla każdej lokalizacji podczas builda i typowana na jego podstawie w edytorze. Zobacz [Walidacja słowników za pomocą schematów](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/schema.md).
 
 **Przykład:**
 

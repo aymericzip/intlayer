@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-10-08
+updatedAt: 2026-11-25
 priority: 8
 title: "内容声明文件（.content.ts）"
 description: "在组件旁的 .content 文件中声明多语言内容：支持的格式、文件扩展名，以及 Intlayer 如何发现它们。"
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "添加 schema 校验指南链接"
   - version: 9.1.0
     date: 2026-07-30
     changes: "引入基于选择的内容"
@@ -411,7 +414,7 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
 
 #### `schema` (SchemaKeys)
 
-字典内容的架构。如果设置，内容将根据此架构进行验证。这允许您通过在 Intlayer 配置中定义的自定义验证架构来强制执行字典内容的特定结构。
+在 Intlayer 配置的 `schemas` 字段中声明的 schema 名称。设置后，构建时会针对每个 locale 使用该 schema 校验内容，并在编辑器中根据它为内容提供类型。参见[使用 Schema 校验字典](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/schema.md)。
 
 **示例：**
 

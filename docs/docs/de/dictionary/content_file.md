@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "Inhaltsdeklarationsdateien (.content.ts)"
 description: "Deklarieren Sie mehrsprachige Inhalte in .content-Dateien neben Ihren Komponenten: unterstützte Formate, Dateiendungen und wie Intlayer sie findet."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Link zum Leitfaden für die Schema-Validierung"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Auswahlbasierten Inhalt eingeführt"
@@ -414,7 +417,7 @@ Wandelt das Wörterbuch in ein pro-Locale-Wörterbuch um, bei dem jedes im Inhal
 
 #### `schema` (SchemaKeys)
 
-Das Schema des Wörterbuchinhalts. Wenn gesetzt, wird der Inhalt gegen dieses Schema validiert. Dies ermöglicht es Ihnen, eine spezifische Struktur für Ihren Wörterbuchinhalt durchzusetzen, indem Sie benutzerdefinierte Validierungsschemas verwenden, die in Ihrer Intlayer-Konfiguration definiert sind.
+Der Name eines Schemas, das im Feld `schemas` deiner Intlayer-Konfiguration deklariert ist. Wenn gesetzt, wird der Inhalt beim Build für jede Locale gegen dieses Schema validiert und in deinem Editor danach typisiert. Siehe [Wörterbücher mit Schemas validieren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/schema.md).
 
 **Beispiel:**
 

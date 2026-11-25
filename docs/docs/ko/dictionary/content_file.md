@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "콘텐츠 선언 파일 (.content.ts)"
 description: "컴포넌트 옆의 .content 파일에 다국어 콘텐츠를 선언하세요: 지원 형식, 파일 확장자, Intlayer가 파일을 찾는 방식."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "스키마 검증 가이드 링크 추가"
   - version: 9.1.0
     date: 2026-07-30
     changes: "선택 기반 콘텐츠 도입"
@@ -411,7 +414,7 @@ content: { /* ... */ }
 
 #### `schema` (SchemaKeys)
 
-사전 콘텐츠의 스키마입니다. 설정된 경우 콘텐츠가 이 스키마에 대해 검증됩니다. 이를 통해 Intlayer 구성에서 정의한 사용자 지정 검증 스키마를 사용하여 사전 콘텐츠에 특정 구조를 강제할 수 있습니다.
+Intlayer 설정의 `schemas` 필드에 선언한 스키마의 이름입니다. 설정하면 빌드 시 모든 로케일에 대해 콘텐츠가 이 스키마로 검증되고, 에디터에서는 이 스키마로부터 타입이 지정됩니다. 자세한 내용은 [스키마로 딕셔너리 검증하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/schema.md)를 참고하세요.
 
 **예시:**
 

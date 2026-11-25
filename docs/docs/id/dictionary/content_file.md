@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "File deklarasi konten (.content.ts)"
 description: "Deklarasikan konten multibahasa dalam file .content di samping komponen: format yang didukung, ekstensi file, dan cara Intlayer menemukannya."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Tautan ke panduan validasi skema"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Memperkenalkan konten berbasis pilihan"
@@ -413,7 +416,7 @@ Mengubah kamus menjadi kamus per-locale di mana setiap field yang dideklarasikan
 
 #### `schema` (SchemaKeys)
 
-Skema konten kamus. Jika diatur, konten akan divalidasi terhadap skema ini. Ini memungkinkan Anda untuk memaksakan struktur tertentu untuk konten kamus Anda menggunakan skema validasi khusus yang ditentukan dalam konfigurasi Intlayer Anda.
+Nama skema yang dideklarasikan di field `schemas` pada konfigurasi Intlayer Anda. Jika diatur, konten divalidasi terhadap skema ini untuk setiap locale saat build, dan diberi tipe berdasarkan skema tersebut di editor Anda. Lihat [Validasi Kamus dengan Skema](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/schema.md).
 
 **Contoh:**
 

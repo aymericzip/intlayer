@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "Fichiers de déclaration de contenu (.content.ts)"
 description: "Déclarez votre contenu multilingue dans des fichiers .content à côté de vos composants : formats supportés, extensions et découverte par Intlayer."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Lien vers le guide de validation par schéma"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Ajouter le type de contenu select"
@@ -410,7 +413,7 @@ Transforme le dictionnaire en un dictionnaire par locale où chaque champ décla
 
 #### `schema` (SchemaKeys)
 
-Le schéma du contenu du dictionnaire. S'il est défini, le contenu sera validé par rapport à ce schéma. Cela vous permet d'imposer une structure spécifique pour le contenu de votre dictionnaire en utilisant des schémas de validation personnalisés définis dans votre configuration Intlayer.
+Le nom d'un schéma déclaré dans le champ `schemas` de votre configuration Intlayer. S'il est défini, le contenu est validé par ce schéma pour chaque locale au build, et typé à partir de celui-ci dans votre éditeur. Voir [Valider les dictionnaires avec des schémas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/schema.md).
 
 **Exemple :**
 

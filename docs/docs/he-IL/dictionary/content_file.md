@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-11-03
+updatedAt: 2026-11-25
 priority: 8
 title: "קובצי הגדרת תוכן (.content.ts)"
 description: "הגדר את התוכן הרב-לשוני שלך בקובצי .content לצד הרכיבים שלך: פורמטים נתמכים, סיומות קבצים וכיצד Intlayer מגלה אותם."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "הוספת קישור למדריך אימות הסכמות"
   - version: 9.1.0
     date: 2026-07-30
     changes: "הוספת סוג תוכן select"
@@ -418,7 +421,7 @@ Intlayer תומך במגוון סוגי תוכן באמצעות צמתים בע�
 
 #### `schema` (SchemaKeys)
 
-הסכמה של תוכן המילון. אם מוגדר, התוכן יאומת מול סכמה זו. מאפשר לך לאכוף מבנה ספציפי עבור תוכן המילון שלך באמצעות סכמות אימות מותאמות אישית המוגדרות בקונפיגורציית Intlayer.
+שם של סכמה שהוגדרה בשדה `schemas` בקונפיגורציית Intlayer שלכם. אם מוגדר, התוכן מאומת מול הסכמה הזו עבור כל locale בזמן ה-build, ומוקלד לפיה בעורך שלכם. ראו [אימות מילונים באמצעות סכמות](https://github.com/aymericzip/intlayer/blob/main/docs/docs/he-IL/dictionary/schema.md).
 
 **דוגמה:**
 

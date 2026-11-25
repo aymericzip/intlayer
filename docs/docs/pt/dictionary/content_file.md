@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "Arquivos de declaração de conteúdo (.content.ts)"
 description: "Declare seu conteúdo multilíngue em arquivos .content ao lado dos componentes: formatos suportados, extensões e como o Intlayer os encontra."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Link para o guia de validação por schema"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Introduzido o conteúdo baseado em seleção"
@@ -411,7 +414,7 @@ Transforma o dicionário em um dicionário por localidade onde cada campo declar
 
 #### `schema` (SchemaKeys)
 
-O esquema do conteúdo do dicionário. Se definido, o conteúdo será validado contra este esquema. Isso permite que você imponha uma estrutura específica para o conteúdo do seu dicionário usando esquemas de validação personalizados definidos na sua configuração do Intlayer.
+O nome de um schema declarado no campo `schemas` da sua configuração do Intlayer. Se definido, o conteúdo é validado com esse schema para cada locale no build, e tipado a partir dele no seu editor. Veja [Validar dicionários com schemas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/schema.md).
 
 **Exemplo:**
 

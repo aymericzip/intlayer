@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "Intlayer Configuration (intlayer.config.ts)"
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
@@ -15,6 +15,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Document the `schemas` field in English and link the schema validation guide"
   - version: 9.3.3
     date: 2026-08-22
     changes: "Enable analytics by default, active as soon as `@intlayer/analytics` is installed"
@@ -1101,9 +1104,11 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
 
 ### Custom Schemas
 
-| Field     | Description                                                                       | Type                        |
-| --------- | --------------------------------------------------------------------------------- | --------------------------- |
-| `schemas` | Permet de définir des schémas Zod pour valider la structure de vos dictionnaires. | `Record<string, ZodSchema>` |
+| Field     | Description                                                                                                    | Type                        |
+| --------- | -------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `schemas` | Named Zod schemas. Attach one to a dictionary with its `schema` field to validate the content of every locale. | `Record<string, ZodSchema>` |
+
+See [Validate dictionaries with schemas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/schema.md).
 
 ### Plugins
 

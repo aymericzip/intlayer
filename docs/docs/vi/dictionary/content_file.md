@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "File khai báo nội dung (.content.ts)"
 description: "Khai báo nội dung đa ngôn ngữ trong file .content cạnh component: định dạng hỗ trợ, phần mở rộng file và cách Intlayer tìm chúng."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Thêm liên kết đến hướng dẫn xác thực bằng schema"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Giới thiệu nội dung dựa trên lựa chọn"
@@ -416,7 +419,7 @@ Chuyển đổi từ điển thành từ điển theo từng locale, trong đó 
 
 #### `schema` (SchemaKeys)
 
-Lược đồ nội dung của từ điển. Nếu được đặt, nội dung sẽ được xác thực theo lược đồ này. Điều này cho phép bạn áp đặt một cấu trúc cụ thể cho nội dung từ điển của mình bằng cách sử dụng các lược đồ xác thực tùy chỉnh được xác định trong cấu hình Intlayer của bạn.
+Tên của một schema được khai báo trong trường `schemas` của cấu hình Intlayer. Nếu được đặt, nội dung sẽ được xác thực theo schema này cho mọi locale khi build, và được định kiểu theo schema đó trong editor của bạn. Xem [Xác thực từ điển bằng schema](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/schema.md).
 
 **Ví dụ:**
 

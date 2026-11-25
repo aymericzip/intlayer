@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "コンテンツ宣言ファイル（.content.ts）"
 description: "コンポーネントの隣の .content ファイルで多言語コンテンツを宣言：対応フォーマット、拡張子、Intlayer による検出方法。"
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "スキーマ検証ガイドへのリンクを追加"
   - version: 9.1.0
     date: 2026-07-30
     changes: "選択ベースのコンテンツを導入"
@@ -411,7 +414,7 @@ Intlayerの辞書は`Dictionary`型で定義され、その動作を制御する
 
 #### `schema` (SchemaKeys)
 
-辞書コンテンツのスキーマ。設定されている場合、コンテンツはこのスキーマに対して検証されます。これにより、Intlayer設定で定義されたカスタム検証スキーマを使用して、辞書コンテンツに特定の構造を強制できます。
+Intlayer 設定の `schemas` フィールドで宣言したスキーマの名前です。設定すると、ビルド時にすべてのロケールでコンテンツがこのスキーマに対して検証され、エディタではこのスキーマから型が付けられます。詳しくは[スキーマで辞書を検証する](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/schema.md)を参照してください。
 
 **例:**
 

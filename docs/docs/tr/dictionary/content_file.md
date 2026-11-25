@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-27
+updatedAt: 2026-11-25
 priority: 8
 title: "İçerik bildirim dosyaları (.content.ts)"
 description: "Çok dilli içeriği bileşenlerinizin yanındaki .content dosyalarında tanımlayın: desteklenen formatlar, dosya uzantıları ve Intlayer'ın bunları nasıl bulduğu."
@@ -13,6 +13,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.9.0
+    date: 2026-11-25
+    changes: "Şema doğrulama rehberine bağlantı eklendi"
   - version: 9.1.0
     date: 2026-07-30
     changes: "Seçime dayalı (select) içerik eklendi"
@@ -410,7 +413,7 @@ Sözlüğü, içerikte bildirilen her alanın otomatik olarak bir çeviri düğ�
 
 #### `schema` (SchemaKeys)
 
-Sözlük içeriğinin şeması. Ayarlanırsa, içerik bu şemaya karşı doğrulanacaktır. Bu, Intlayer yapılandırmanızda tanımlanan özel doğrulama şemalarını kullanarak sözlük içeriğiniz için belirli bir yapı zorlamanıza olanak tanır.
+Intlayer yapılandırmanızın `schemas` alanında tanımlanan bir şemanın adı. Ayarlanırsa içerik, build sırasında her locale için bu şemaya göre doğrulanır ve editörünüzde bu şemadan tiplenir. Bkz. [Sözlükleri Şemalarla Doğrulama](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/schema.md).
 
 **Örnek:**
 
