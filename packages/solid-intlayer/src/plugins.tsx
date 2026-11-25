@@ -31,13 +31,14 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import type { Component, JSX } from 'solid-js';
+import type { Component } from 'solid-js';
 import { reportExposure } from './analytics/exposureSink';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { LoadingBoundary } from './LoadingBoundary';
 import { lazyComponent } from './solidCompat';
 import { renderSolidElement } from './solidElement/renderSolidElement';
+import type { SolidElement } from './solidTypes';
 
 const LazyContentSelector = (
   process.env.INTLAYER_EDITOR_ENABLED === 'false'
@@ -129,7 +130,7 @@ export type SolidNodeCond<T> = T extends {
   props: any;
   key?: any;
 }
-  ? JSX.Element
+  ? SolidElement
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
@@ -195,12 +196,12 @@ export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   [NodeTypes.INSERTION]: infer I;
   fields: readonly (infer F)[];
 }
-  ? <V extends { [K in Extract<F, string>]: string | number | JSX.Element }>(
+  ? <V extends { [K in Extract<F, string>]: string | number | SolidElement }>(
       values: V
     ) => I extends string
       ? V[keyof V] extends string | number
         ? IntlayerNode<string>
-        : IntlayerNode<JSX.Element>
+        : IntlayerNode<SolidElement>
       : DeepTransformContent<I, L>
   : never;
 
@@ -209,8 +210,8 @@ export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
  */
 const splitAndJoinInsertion = (
   template: string,
-  values: Record<string, string | number | JSX.Element>
-): JSX.Element => {
+  values: Record<string, string | number | SolidElement>
+): SolidElement => {
   const result = splitInsertionTemplate(template, values);
 
   // No JSX elements - use original logic
@@ -220,7 +221,7 @@ const splitAndJoinInsertion = (
   }
 
   // Return as JSX array
-  return result.parts as any[] as JSX.Element;
+  return result.parts as any[] as SolidElement;
 };
 
 /** Insertion plugin for Solid. Handles component/element insertion. */
@@ -242,7 +243,7 @@ export const insertionPlugin: Plugins =
           const children = node[NodeTypes.INSERTION];
 
           // Return the (values) => wrapper at the Insertion level
-          return (values: Record<string, string | number | JSX.Element>) => {
+          return (values: Record<string, string | number | SolidElement>) => {
             /** Insertion string plugin. Replaces strings by injecting the values. */
             const insertionStringPlugin: Plugins = {
               id: 'insertion-string-plugin',
@@ -305,7 +306,7 @@ export type MarkdownStringCond<T> = T extends string
       string,
       {
         metadata: DeepTransformContent<string>;
-        use: (components?: HTMLComponents<'permissive', {}>) => JSX.Element;
+        use: (components?: HTMLComponents<'permissive', {}>) => SolidElement;
       }
     >
   : never;
@@ -428,7 +429,7 @@ export type MarkdownCond<T> = T extends {
   ? IntlayerNode<
       M,
       {
-        use: (components?: HTMLComponents<'permissive', U>) => JSX.Element;
+        use: (components?: HTMLComponents<'permissive', U>) => SolidElement;
         metadata: DeepTransformContent<U>;
       }
     >
@@ -483,7 +484,7 @@ const HTMLSuspenseRenderer = lazyComponent(() =>
   }))
 );
 
-/** HTML plugin. Replaces node with a function that takes components => JSX.Element. */
+/** HTML plugin. Replaces node with a function that takes components => SolidElement. */
 export const htmlPlugin: Plugins =
   process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin

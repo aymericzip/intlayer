@@ -1,13 +1,13 @@
 import {
   type Component,
   createContext,
-  type JSXElement,
   type ParentProps,
   useContext,
   type ValidComponent,
 } from 'solid-js';
 import type { HTMLComponents } from '../html/types';
 import { getContextProvider } from '../solidCompat';
+import type { SolidElement } from '../solidTypes';
 import { compileMarkdown, type ParsedMarkdown } from './compiler';
 
 export type MarkdownProviderOptions = {
@@ -31,7 +31,7 @@ type MarkdownProviderValue = {
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: ValidComponent
-  ) => JSXElement | Promise<JSXElement>;
+  ) => SolidElement | Promise<SolidElement>;
 };
 
 /**
@@ -55,7 +55,7 @@ export type MarkdownProviderProps = ParentProps<{
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: ValidComponent
-  ) => JSXElement | Promise<JSXElement>;
+  ) => SolidElement | Promise<SolidElement>;
 }>;
 
 export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
@@ -64,14 +64,14 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
     wrapperOverride?: ValidComponent
-  ): Promise<JSXElement> => {
+  ): Promise<SolidElement> => {
     if (props.renderMarkdown) {
       return props.renderMarkdown(
         content,
         options,
         componentsOverride,
         wrapperOverride
-      ) as Promise<JSXElement>;
+      ) as Promise<SolidElement>;
     }
 
     const mergedOptions: RenderMarkdownOptions = {

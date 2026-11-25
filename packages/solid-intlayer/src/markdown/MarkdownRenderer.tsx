@@ -6,7 +6,6 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type Component,
   createMemo,
-  type JSX,
   useContext,
   type ValidComponent,
 } from 'solid-js';
@@ -14,6 +13,7 @@ import { createEditedContentSource } from '../editor/createEditedContentSource';
 import type { HTMLComponents } from '../html/types';
 import { LoadingBoundary } from '../LoadingBoundary';
 import { createAsyncValue } from '../solidCompat';
+import type { SolidElement } from '../solidTypes';
 import { compileMarkdown, type ParsedMarkdown } from './compiler';
 import { MarkdownContext, useMarkdown } from './MarkdownProvider';
 
@@ -28,14 +28,14 @@ export type RenderMarkdownOptions = {
 export const renderMarkdown = (
   content: string | ParsedMarkdown,
   options: RenderMarkdownOptions = {}
-): Promise<JSX.Element> => {
+): Promise<SolidElement> => {
   return compileMarkdown(content, options as any);
 };
 
 export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
   const context = useContext(MarkdownContext);
 
-  return (content: string | ParsedMarkdown): Promise<JSX.Element> => {
+  return (content: string | ParsedMarkdown): Promise<SolidElement> => {
     if (context) {
       return context.renderMarkdown(
         content,
@@ -46,7 +46,7 @@ export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
         },
         options.components,
         options.wrapper
-      ) as Promise<JSX.Element>;
+      ) as Promise<SolidElement>;
     }
     return renderMarkdown(content, options);
   };
@@ -59,7 +59,9 @@ export type MarkdownRendererProps = RenderMarkdownOptions & {
   children: string | ParsedMarkdown;
 };
 
-export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {
+export const MarkdownRenderer = (
+  props: MarkdownRendererProps
+): SolidElement => {
   const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
   // Live preview of the source edited in the visual editor
@@ -112,5 +114,5 @@ export const MarkdownMetadataRenderer: Component<
     getContentNodeByKeyPath(metadata() as ContentNode, props.metadataKeyPath)
   );
 
-  return metadataEl() as JSX.Element;
+  return metadataEl() as SolidElement;
 };

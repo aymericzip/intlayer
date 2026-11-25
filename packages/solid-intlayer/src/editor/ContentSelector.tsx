@@ -1,22 +1,11 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isEnabled } from '@intlayer/editor/isEnabled';
-import type { Component, JSX } from 'solid-js';
-
-// JSX declaration for the Lit web components
-declare module 'solid-js' {
-  namespace JSX {
-    interface IntrinsicElements {
-      'intlayer-content-selector-wrapper': JSX.HTMLAttributes<HTMLElement> & {
-        'key-path'?: string;
-        'dictionary-key'?: string;
-      };
-    }
-  }
-}
+import type { Component } from 'solid-js';
+import type { IntrinsicElementProps, SolidElement } from '../solidTypes';
 
 export type ContentSelectorWrapperProps = NodeProps &
-  Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> & {
-    children?: JSX.Element;
+  Omit<IntrinsicElementProps<'div'>, 'children'> & {
+    children?: SolidElement;
   };
 
 export const ContentSelector: Component<ContentSelectorWrapperProps> = (

@@ -6,7 +6,7 @@ import {
   setLocaleInStorageClient as setLocaleInStorageCore,
 } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { createMemo } from 'solid-js';
+import { type Accessor, createMemo } from 'solid-js';
 
 /**
  * Reads the locale persisted in the browser storage (cookie, localStorage…).
@@ -54,7 +54,9 @@ export const setLocaleCookie = setLocaleInStorage;
 /**
  * Hook that provides the locale storage and a function to set it
  */
-export const useLocaleStorage = (isCookieEnabled?: boolean) =>
+export const useLocaleStorage = (
+  isCookieEnabled?: boolean
+): Accessor<ReturnType<typeof LocaleStorageClient>> =>
   createMemo(() =>
     LocaleStorageClient({
       ...localeStorageOptions,

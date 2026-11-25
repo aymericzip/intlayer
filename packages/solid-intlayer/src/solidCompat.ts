@@ -18,6 +18,7 @@
  */
 import * as Solid from 'solid-js';
 import type { Accessor, Component, Context } from 'solid-js';
+import type { SolidElement } from './solidTypes';
 
 /** Cleanup returned by an effect callback. */
 type EffectCleanup = void | (() => void);
@@ -240,12 +241,18 @@ export const lazyComponent = <T extends Component<any>>(
   load: () => Promise<{ default: T }>
 ): T & { preload: () => Promise<{ default: T }> } => Solid.lazy(load);
 
+/** Provider component of a context, in a shape valid for both majors. */
+export type ContextProvider<T> = Component<{
+  value: T;
+  children?: SolidElement;
+}>;
+
 /**
  * Provider component of a context: `Context.Provider` in Solid 1, the context
  * object itself in Solid 2.
  */
 export const getContextProvider = <T>(
   context: Context<T>
-): Context<T>['Provider'] =>
-  (context as Partial<Context<T>>).Provider ??
-  (context as unknown as Context<T>['Provider']);
+): ContextProvider<T> =>
+  ((context as Partial<Context<T>>).Provider ??
+    context) as unknown as ContextProvider<T>;

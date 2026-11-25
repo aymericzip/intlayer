@@ -1,9 +1,10 @@
-import type { Component, JSX } from 'solid-js';
+import type { Component } from 'solid-js';
 import { isSolidTwo } from './solidCompat';
+import type { SolidElement } from './solidTypes';
 
 export type LoadingBoundaryProps = {
-  fallback?: JSX.Element;
-  children: JSX.Element;
+  fallback?: SolidElement;
+  children: SolidElement;
 };
 
 /**

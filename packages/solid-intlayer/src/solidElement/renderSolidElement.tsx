@@ -1,7 +1,7 @@
-import type { JSX } from 'solid-js';
+import type { SolidElement } from '../solidTypes';
 
 // This function recursively creates Solid elements from a given JSON-like structure
-export const renderSolidElement = (element: JSX.Element) => {
+export const renderSolidElement = (element: SolidElement) => {
   if (typeof element === 'string') {
     // If it's a string, simply return it (used for text content)
     return element;
@@ -9,7 +9,7 @@ export const renderSolidElement = (element: JSX.Element) => {
 
   const convertChildrenAsArray = (element: any): any => {
     if (element?.props && typeof element.props.children === 'object') {
-      const childrenResult: JSX.Element[] = [];
+      const childrenResult: SolidElement[] = [];
       const { children } = element.props;
 
       // Create the children elements recursively, if any

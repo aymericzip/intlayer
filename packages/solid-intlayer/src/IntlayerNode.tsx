@@ -1,7 +1,8 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
-import type { JSX, ParentProps } from 'solid-js';
+import type { ParentProps } from 'solid-js';
+import type { SolidElement } from './solidTypes';
 
 /**
  * Content node returned by `useIntlayer`.
@@ -16,16 +17,16 @@ export type IntlayerNode<
   AdditionalProps = unknown,
 > = ResolvedEditor<
   T & { value: T } & AdditionalProps,
-  JSX.Element & { value: T } & AdditionalProps
+  SolidElement & { value: T } & AdditionalProps
 >;
 
 type RenderIntlayerNodeProps<T> = ParentProps<{
   value: T;
-  children: JSX.Element;
+  children: SolidElement;
   additionalProps?: Record<string, unknown>;
 }>;
 
-type IntlayerNodeTarget<T> = JSX.Element[] & {
+type IntlayerNodeTarget<T> = SolidElement[] & {
   value: T;
   [key: string]: unknown;
 };

@@ -1,5 +1,6 @@
 import viteLogo from '/vite.svg';
 import { createRouter, useLocation, useNavigate } from '@solidjs/router';
+import type { JSX } from '@solidjs/web';
 import { getLocalizedUrl, localeMap } from 'intlayer';
 import { IntlayerProvider, useIntlayer, useLocale } from 'solid-intlayer';
 import {
@@ -12,10 +13,10 @@ import {
   useRelativeTime,
   useUnit,
 } from 'solid-intlayer/format';
-import { MarkdownProvider } from 'solid-intlayer/markdown';
 import './App.css';
 
-import { createSignal, For, type JSX, type ParentComponent } from 'solid-js';
+import { MarkdownProvider } from 'solid-intlayer/markdown';
+import { createSignal, For, type ParentComponent } from 'solid-js';
 import solidLogo from './assets/solid.svg';
 import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 

@@ -1,7 +1,8 @@
 import { getHTML } from '@intlayer/core/interpreter';
 import { VOID_HTML_ELEMENTS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import type { Component, JSX, ValidComponent } from 'solid-js';
+import type { Component, ValidComponent } from 'solid-js';
+import type { SolidElement } from '../solidTypes';
 import { useHTMLContext } from './HTMLProvider';
 import type { HTMLComponents } from './types';
 
@@ -22,7 +23,7 @@ export type RenderHTMLProps = {
 export const renderHTML = (
   content: string,
   { components = {} }: RenderHTMLProps = {}
-): JSX.Element => {
+): SolidElement => {
   // Wrap explicit user components to ensure they are rendered via Solid's Dynamic
   const userComponents = Object.fromEntries(
     Object.entries(components)
@@ -69,7 +70,9 @@ export const renderHTML = (
  * This hook considers the configuration from the `HTMLProvider` context if available,
  * falling back to the provided components.
  */
-export const useHTMLRenderer = ({ components }: RenderHTMLProps = {}) => {
+export const useHTMLRenderer = ({ components }: RenderHTMLProps = {}): ((
+  content: string
+) => SolidElement) => {
   const context = useHTMLContext();
 
   return (content: string) => {

@@ -1,5 +1,5 @@
 import type { HTMLTagsType } from '@intlayer/core/transpiler';
-import type { JSX } from 'solid-js';
+import type { IntrinsicElementProps, SolidElement } from '../solidTypes';
 
 /**
  * Helper to extract specific props from the configuration value.
@@ -11,14 +11,15 @@ type PropsFromConfig<Value> = Value extends true
     : {};
 
 /**
- * Common props for all elements
+ * Common props for all elements: `HTMLAttributes<HTMLElement>`, which Solid 1
+ * gives `<section>`.
  */
-type ElementProps = JSX.HTMLAttributes<HTMLElement>;
+type ElementProps = IntrinsicElementProps<'section'>;
 
 /**
  * Solid Component type
  */
-type SolidComponentType<P = {}> = (props: P) => JSX.Element;
+type SolidComponentType<P = {}> = (props: P) => SolidElement;
 
 /**
  * Helper: Defines the mapping for the explicitly listed keys in T.

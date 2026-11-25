@@ -1,6 +1,6 @@
 import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { createMemo, useContext } from 'solid-js';
+import { type Accessor, createMemo, useContext } from 'solid-js';
 import { IntlayerClientContext } from '../client/IntlayerProvider';
 
 /**
@@ -21,7 +21,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * }).format(123.45);
  * ```
  */
-export const useIntl = (locale?: LocalesValues) => {
+export const useIntl = (locale?: LocalesValues): Accessor<WrappedIntl> => {
   const context = useContext(IntlayerClientContext);
 
   return createMemo<WrappedIntl>(() => {

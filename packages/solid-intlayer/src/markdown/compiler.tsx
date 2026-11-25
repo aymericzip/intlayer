@@ -3,7 +3,7 @@ import type {
   MarkdownContext,
   ParsedMarkdown,
 } from '@intlayer/core/markdown';
-import type { JSX } from 'solid-js';
+import type { SolidElement } from '../solidTypes';
 import { solidRuntime } from './runtime';
 
 /**
@@ -75,10 +75,10 @@ export const parseMarkdown = async (
 export const compileMarkdown = async (
   input: string | ParsedMarkdown = '',
   options: CompileOptions = {}
-): Promise<JSX.Element> => {
+): Promise<SolidElement> => {
   if (typeof input === 'string') {
     const { compileWithOptions } = await import('@intlayer/core/markdown');
-    return compileWithOptions(input, solidRuntime, options) as JSX.Element;
+    return compileWithOptions(input, solidRuntime, options) as SolidElement;
   }
 
   const { renderMarkdownAst } = await import('@intlayer/core/markdown');
@@ -99,5 +99,5 @@ export const compileMarkdown = async (
     slugify,
   };
 
-  return renderMarkdownAst(input, ctx, compilerOptions) as JSX.Element;
+  return renderMarkdownAst(input, ctx, compilerOptions) as SolidElement;
 };
