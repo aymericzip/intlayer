@@ -43,14 +43,23 @@ export const renderIntlayerNode = <
   children,
   value,
   additionalProps,
-}: RenderIntlayerNodeProps<T>): IntlayerNode<T> =>
-  // Fields first, prototype last: set the other way round, each field would
-  // first look for a setter along the prototype chain, through its Proxy
-  Object.setPrototypeOf(
-    {
-      ...(isValidElement(children) ? children : <>{children}</>),
-      value,
-      ...additionalProps,
-    },
-    getIntlayerNodePrototype(value)
+}: RenderIntlayerNodeProps<T>): IntlayerNode<T> => {
+  const element = isValidElement(children) ? children : <>{children}</>;
+
+  // Copy all own descriptors (not just enumerable via spread) so React 19
+  // non-enumerable dev properties (_debugStack, _debugTask, _debugInfo, ref)
+  // are preserved. Fields first, prototype last: set the other way round, each
+  // field would first look for a setter along the prototype chain, through its Proxy.
+  const node: Record<string, any> = Object.defineProperties(
+    {},
+    Object.getOwnPropertyDescriptors(element)
   );
+
+  node.value = value;
+
+  if (additionalProps) {
+    Object.assign(node, additionalProps);
+  }
+
+  return Object.setPrototypeOf(node, getIntlayerNodePrototype(value));
+};

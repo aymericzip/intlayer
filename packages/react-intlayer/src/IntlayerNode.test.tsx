@@ -96,6 +96,17 @@ describe('renderIntlayerNode', () => {
     });
     expect(node['data-custom']).toBe('bar');
   });
+
+  it('preserves non-enumerable React 19 dev properties on ReactElement children', () => {
+    const el = createElement('span', {}, 'test') as any;
+    const node = renderIntlayerNode({ children: el, value: 'test' }) as any;
+
+    expect(node._debugInfo).toBe(el._debugInfo);
+    expect(node._debugStack).toBe(el._debugStack);
+    expect(node._debugTask).toBe(el._debugTask);
+    expect(node.ref).toBe(el.ref);
+    expect(Object.keys(node)).not.toContain('_debugStack');
+  });
 });
 
 describe('renderIntlayerNode – value behaviour', () => {
