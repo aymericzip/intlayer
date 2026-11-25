@@ -149,7 +149,7 @@ export default aboutMetadataContent;
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-不正な辞書は、コンテンツが修正されるまでビルドから除外されます。他の辞書には影響しません。
+`intlayer build` を一度だけ実行すると、スキーマ名が未登録の場合や検証に失敗した場合にビルドが失敗します。監視モードでは、内容が修正されるまで無効な辞書はビルドから除外されます。
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ export default productCardContent;
 
 <Question title="スキーマエラーでビルドは止まりますか？">
 
-いいえ。Intlayer は各エラーをログに出力し、不正な辞書をビルドから除外して、他の辞書のビルドを続けます。dev モードでは、コンテンツを修正して保存すると、watcher が辞書を検証して再ビルドします。
+`intlayer build` を一度だけ実行すると、辞書がスキーマに一致しない場合にビルドが失敗します。監視モードでは、Intlayer はエラーを記録し、辞書を修正して保存するまでビルドから除外します。
 
 </Question>
 <Question title="複数の辞書で同じスキーマを共有できますか？">
@@ -212,7 +212,7 @@ export default productCardContent;
 </Question>
 <Question title="スキーマ名が存在しない場合はどうなりますか？">
 
-少なくとも 1 つのスキーマが宣言されていれば、`schema` フィールドは宣言済みの名前しか受け付けないため、TypeScript がエラーを報告します。JSON のコンテンツファイルでは、未知の名前は無視され、辞書は検証されません。
+少なくとも 1 つのスキーマが宣言されていれば、`schema` フィールドは宣言済みの名前しか受け付けないため、TypeScript がエラーを報告します。JSON ファイルで未登録のスキーマ名を指定すると、Intlayer はビルド時にエラーを報告し、その辞書を除外します。
 
 </Question>
 <Question title="すべてのロケールが検証されますか？それともデフォルトのみですか？">

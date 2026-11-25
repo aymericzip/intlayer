@@ -149,7 +149,7 @@ La validation s'exécute à chaque build des dictionnaires : avec `npx intlayer 
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-Un dictionnaire invalide est exclu du build tant que son contenu n'est pas corrigé. Les autres dictionnaires ne sont pas impactés.
+Une exécution ponctuelle de `intlayer build` échoue si le schéma est inconnu ou si la validation échoue. En mode watch, Intlayer exclut le dictionnaire invalide jusqu’à ce que son contenu soit corrigé.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ Les entrées de `schemas` ne sont pas liées à Zod. Tout objet exposant une mé
 
 <Question title="Une erreur de schéma bloque-t-elle mon build ?">
 
-Non. Intlayer affiche chaque erreur, exclut le dictionnaire invalide du build et continue de builder les autres. En mode dev, corrigez le contenu et enregistrez : le watcher valide et rebuild le dictionnaire.
+Une exécution ponctuelle de `intlayer build` échoue si le dictionnaire ne respecte pas son schéma. En mode watch, Intlayer signale les erreurs et exclut le dictionnaire invalide jusqu’à ce que vous le corrigiez et l’enregistriez.
 
 </Question>
 <Question title="Plusieurs dictionnaires peuvent-ils partager le même schéma ?">
@@ -212,7 +212,7 @@ Oui. Un schéma est référencé par son nom, donc autant de dictionnaires que n
 </Question>
 <Question title="Que se passe-t-il si le nom du schéma n'existe pas ?">
 
-TypeScript le signale dès qu'au moins un schéma est déclaré, car le champ `schema` n'accepte que les noms déclarés. Dans un fichier de contenu JSON, un nom inconnu est ignoré et le dictionnaire n'est pas validé.
+TypeScript le signale dès qu'au moins un schéma est déclaré, car le champ `schema` n'accepte que les noms déclarés. Pour un fichier JSON, Intlayer signale le nom de schéma inconnu lors du build et rejette le dictionnaire.
 
 </Question>
 <Question title="Toutes les locales sont-elles validées, ou seulement celle par défaut ?">

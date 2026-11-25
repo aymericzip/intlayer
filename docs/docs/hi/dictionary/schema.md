@@ -149,7 +149,7 @@ export default aboutMetadataContent;
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-अमान्य डिक्शनरी को तब तक build से बाहर रखा जाता है जब तक उसका कंटेंट ठीक नहीं हो जाता। बाकी डिक्शनरी पर कोई असर नहीं पड़ता।
+एक बार चलाया गया `intlayer build` तब विफल होता है जब schema का नाम अज्ञात हो या सत्यापन विफल हो जाए। watch मोड में, Intlayer अमान्य डिक्शनरी को तब तक बिल्ड से बाहर रखता है जब तक उसकी सामग्री ठीक नहीं हो जाती।
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ export default productCardContent;
 
 <Question title="क्या schema error मेरा build रोक देता है?">
 
-नहीं। Intlayer हर समस्या लॉग करता है, अमान्य डिक्शनरी को build से बाहर रखता है, और बाकी को build करता रहता है। Dev मोड में, कंटेंट ठीक करें और सेव करें: watcher डिक्शनरी को वैलिडेट करके दोबारा build करता है।
+एक बार चलाया गया `intlayer build` तब विफल होता है जब डिक्शनरी अपने schema के अनुरूप नहीं होती। watch मोड में, Intlayer त्रुटियाँ दर्ज करता है और डिक्शनरी को तब तक बाहर रखता है जब तक आप उसे ठीक करके सहेज नहीं लेते।
 
 </Question>
 <Question title="क्या कई डिक्शनरी एक ही schema साझा कर सकती हैं?">
@@ -212,7 +212,7 @@ export default productCardContent;
 </Question>
 <Question title="अगर schema का नाम मौजूद न हो तो क्या होता है?">
 
-जैसे ही कम से कम एक schema घोषित होता है, TypeScript इसे रिपोर्ट करता है, क्योंकि `schema` फ़ील्ड केवल घोषित नाम स्वीकार करता है। JSON कंटेंट फ़ाइल में, अज्ञात नाम को अनदेखा किया जाता है और डिक्शनरी वैलिडेट नहीं होती।
+जैसे ही कम से कम एक schema घोषित होता है, TypeScript इसे रिपोर्ट करता है, क्योंकि `schema` फ़ील्ड केवल घोषित नाम स्वीकार करता है। JSON फ़ाइल में अज्ञात schema नाम मिलने पर Intlayer बिल्ड के दौरान त्रुटि की सूचना देता है और डिक्शनरी को अस्वीकार कर देता है।
 
 </Question>
 <Question title="क्या हर locale वैलिडेट होता है, या सिर्फ़ डिफ़ॉल्ट वाला?">

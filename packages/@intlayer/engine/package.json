@@ -167,8 +167,7 @@
     "defu": "6.1.7",
     "fast-glob": "3.3.3",
     "recast": "0.24.3",
-    "simple-git": "4.1.0",
-    "zod-to-ts": "2.1.0"
+    "simple-git": "4.1.0"
   },
   "devDependencies": {
     "@types/node": "^26",

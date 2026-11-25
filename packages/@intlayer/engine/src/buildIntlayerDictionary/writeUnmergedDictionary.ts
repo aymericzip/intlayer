@@ -56,7 +56,8 @@ export type UnmergedDictionaryOutput = Record<
 export const writeUnmergedDictionaries = async (
   dictionaries: Dictionary[],
   configuration: IntlayerConfig,
-  env: 'prod' | 'dev'
+  env: 'prod' | 'dev',
+  failOnSchemaError = env === 'prod'
 ): Promise<UnmergedDictionaryOutput> => {
   const { unmergedDictionariesDir } = configuration.system;
 
@@ -66,7 +67,7 @@ export const writeUnmergedDictionaries = async (
   const filteredDictionaries = filterInvalidDictionaries(
     dictionaries,
     configuration,
-    { checkSchema: true }
+    { checkSchema: true, throwOnSchemaError: failOnSchemaError }
   );
 
   //  Group dictionaries by key and write to unmergedDictionariesDir

@@ -11,7 +11,10 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { formatLocale, formatPath } from './utils/formatter';
 
-type IsInvalidDictionaryOptions = { checkSchema: boolean };
+type IsInvalidDictionaryOptions = {
+  checkSchema: boolean;
+  throwOnSchemaError?: boolean;
+};
 
 export const isInvalidDictionary = (
   dictionary: Dictionary | undefined,
@@ -73,17 +76,25 @@ export const isInvalidDictionary = (
         dictionary.content !== null &&
         typeof (dictionary.content as any).then === 'function');
 
+    const schema =
+      typeof dictionary.schema === 'string'
+        ? configuration?.schemas?.[dictionary.schema]
+        : undefined;
+
+    if (!schema || typeof schema.safeParse !== 'function') {
+      const message = `Dictionary ${dictionary.key} references unknown or invalid schema ${String(dictionary.schema)}`;
+      appLogger(message, { level: 'error' });
+      if (options.throwOnSchemaError) throw new Error(message);
+      return false;
+    }
+
     if (!isAsync) {
       const locales = configuration?.internationalization?.locales ?? [];
       const isStrict =
         configuration?.internationalization.strictMode === 'strict';
 
-      const schema =
-        typeof dictionary.schema === 'string'
-          ? configuration?.schemas?.[dictionary.schema]
-          : undefined;
-
       if (schema && typeof schema.safeParse === 'function') {
+        let invalid = false;
         for (const locale of locales) {
           const resolvedContent = getContent(
             dictionary.content,
@@ -113,8 +124,16 @@ export const isInvalidDictionary = (
               );
             });
 
-            return false;
+            invalid = true;
           }
+        }
+        if (invalid) {
+          if (options.throwOnSchemaError) {
+            throw new Error(
+              `Schema validation failed for dictionary ${dictionary.key}`
+            );
+          }
+          return false;
         }
       }
     }

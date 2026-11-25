@@ -149,7 +149,7 @@ La validación se ejecuta cada vez que Intlayer construye los diccionarios: con 
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-Un diccionario inválido queda fuera del build hasta que se corrija su contenido. Los demás diccionarios no se ven afectados.
+Una ejecución puntual de `intlayer build` falla si el esquema es desconocido o si la validación falla. En modo watch, Intlayer excluye el diccionario inválido hasta que se corrija su contenido.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ Las entradas de `schemas` no están ligadas a Zod. Funciona cualquier objeto que
 
 <Question title="¿Un error de esquema detiene mi build?">
 
-No. Intlayer muestra cada error, deja el diccionario inválido fuera del build y sigue construyendo los demás. En modo dev, corrige el contenido y guarda: el watcher valida y reconstruye el diccionario.
+Una ejecución puntual de `intlayer build` falla si el diccionario no cumple su esquema. En modo watch, Intlayer registra los errores y excluye el diccionario inválido hasta que lo corrijas y lo guardes.
 
 </Question>
 <Question title="¿Pueden varios diccionarios compartir el mismo esquema?">
@@ -212,7 +212,7 @@ Sí. Un esquema se referencia por su nombre, así que cualquier número de dicci
 </Question>
 <Question title="¿Qué pasa si el nombre del esquema no existe?">
 
-TypeScript lo señala en cuanto se declara al menos un esquema, porque el campo `schema` solo acepta los nombres declarados. En un archivo de contenido JSON, un nombre desconocido se ignora y el diccionario no se valida.
+TypeScript lo señala en cuanto se declara al menos un esquema, porque el campo `schema` solo acepta los nombres declarados. En un archivo JSON, Intlayer informa del nombre de esquema desconocido durante la compilación y rechaza el diccionario.
 
 </Question>
 <Question title="¿Se validan todos los locales o solo el predeterminado?">

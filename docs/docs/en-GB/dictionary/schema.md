@@ -149,7 +149,7 @@ Validation runs every time Intlayer builds the dictionaries: with `npx intlayer 
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-An invalid dictionary is left out of the build until its content is fixed. The other dictionaries are not affected.
+A one-off `intlayer build` fails when a schema is unknown or validation fails. In watch mode, an invalid dictionary is left out until its content is fixed.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ The `schemas` entries are not tied to Zod. Any object exposing a Zod compatible 
 
 <Question title="Does a schema error stop my build?">
 
-No. Intlayer logs every issue, leaves the invalid dictionary out of the build, and keeps building the others. In dev mode, fix the content and save: the watcher validates and rebuilds the dictionary.
+A one-off `intlayer build` fails when a dictionary does not match its schema. In watch mode, Intlayer logs the issues and excludes the invalid dictionary until you fix and save it.
 
 </Question>
 <Question title="Can several dictionaries share the same schema?">
@@ -212,7 +212,7 @@ Yes. A schema is referenced by name, so any number of dictionaries can point to 
 </Question>
 <Question title="What happens if the schema name does not exist?">
 
-TypeScript reports it as soon as at least one schema is declared, because the `schema` field only accepts the declared names. In a JSON content file, an unknown name is ignored and the dictionary is not validated.
+TypeScript reports it as soon as at least one schema is declared, because the `schema` field only accepts the declared names. For JSON content, Intlayer reports an unknown schema name during the build and rejects the dictionary.
 
 </Question>
 <Question title="Is every locale validated, or only the default one?">

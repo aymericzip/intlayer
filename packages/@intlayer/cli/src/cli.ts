@@ -684,7 +684,7 @@ export const setAPI = (): Command => {
   applyConfigOptions(dictionariesBuildCmd);
   dictionariesBuildCmd.action(async (options) => {
     const { build } = await import('./build');
-    build({
+    await build({
       ...options,
       configOptions: extractConfigOptions(options),
     });
@@ -699,7 +699,7 @@ export const setAPI = (): Command => {
   applyConfigOptions(rootBuildCmd);
   rootBuildCmd.action(async (options) => {
     const { build } = await import('./build');
-    build({
+    await build({
       ...options,
       configOptions: extractConfigOptions(options),
     });

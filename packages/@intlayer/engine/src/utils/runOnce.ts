@@ -385,8 +385,9 @@ export const runOnce = async (
     // Mark the run as finished, re-creating the sentinel if the callback
     // deleted it (e.g. by cleaning the output directory).
     await writeOwnedSentinel(sentinelFilePath, currentTimestamp, 'done');
-  } catch {
+  } catch (error) {
     await removeSentinel(sentinelFilePath); // Remove sentinel file if an error occurs
+    throw error;
   } finally {
     ownedSentinelFilePaths.delete(sentinelFilePath);
   }

@@ -149,7 +149,7 @@ Doğrulama, Intlayer sözlükleri her build ettiğinde çalışır: `npx intlaye
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-Geçersiz bir sözlük, içeriği düzeltilene kadar build dışında bırakılır. Diğer sözlükler etkilenmez.
+`intlayer build` bir kez çalıştırıldığında, şema bilinmiyorsa veya doğrulama başarısız olursa derleme başarısız olur. İzleme modunda Intlayer, içeriği düzeltilene kadar geçersiz sözlüğü derlemeye dahil etmez.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ export default productCardContent;
 
 <Question title="Bir şema hatası build'imi durdurur mu?">
 
-Hayır. Intlayer her hatayı loglar, geçersiz sözlüğü build dışında bırakır ve diğerlerini build etmeye devam eder. Dev modunda içeriği düzeltip kaydedin: watcher sözlüğü doğrular ve yeniden build eder.
+`intlayer build` bir kez çalıştırıldığında, sözlük şemasına uymuyorsa derleme başarısız olur. İzleme modunda Intlayer hataları kaydeder ve siz sözlüğü düzeltip kaydedene kadar onu derlemeye dahil etmez.
 
 </Question>
 <Question title="Birden fazla sözlük aynı şemayı paylaşabilir mi?">
@@ -212,7 +212,7 @@ Evet. Şemaya ismiyle referans verilir, bu yüzden istediğiniz sayıda sözlük
 </Question>
 <Question title="Şema ismi mevcut değilse ne olur?">
 
-En az bir şema tanımlandığı anda TypeScript bunu hata olarak bildirir, çünkü `schema` alanı yalnızca tanımlı isimleri kabul eder. Bir JSON içerik dosyasında bilinmeyen isim yok sayılır ve sözlük doğrulanmaz.
+En az bir şema tanımlandığı anda TypeScript bunu hata olarak bildirir, çünkü `schema` alanı yalnızca tanımlı isimleri kabul eder. JSON dosyalarında Intlayer, bilinmeyen şema adını derleme sırasında bildirir ve sözlüğü reddeder.
 
 </Question>
 <Question title="Her locale mi doğrulanır, yoksa sadece varsayılan olan mı?">

@@ -149,7 +149,7 @@ Việc xác thực chạy mỗi khi Intlayer build các từ điển: bằng `np
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-Từ điển không hợp lệ sẽ bị loại khỏi build cho đến khi nội dung của nó được sửa. Các từ điển khác không bị ảnh hưởng.
+Một lần chạy riêng lẻ của lệnh `intlayer build` sẽ thất bại nếu tên schema không tồn tại hoặc nội dung không hợp lệ. Ở chế độ theo dõi, Intlayer bỏ qua từ điển không hợp lệ cho đến khi nội dung được sửa.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ Các mục trong `schemas` không bị ràng buộc với Zod. Bất kỳ object
 
 <Question title="Lỗi schema có làm dừng build của tôi không?">
 
-Không. Intlayer ghi log từng lỗi, loại từ điển không hợp lệ khỏi build và tiếp tục build các từ điển khác. Ở chế độ dev, hãy sửa nội dung và lưu lại: watcher sẽ xác thực và build lại từ điển.
+Một lần chạy riêng lẻ của lệnh `intlayer build` sẽ thất bại nếu từ điển không khớp với schema của nó. Ở chế độ theo dõi, Intlayer ghi lại lỗi và bỏ qua từ điển không hợp lệ cho đến khi bạn sửa và lưu nó.
 
 </Question>
 <Question title="Nhiều từ điển có thể dùng chung một schema không?">
@@ -212,7 +212,7 @@ Có. Schema được tham chiếu theo tên, nên bao nhiêu từ điển cũng 
 </Question>
 <Question title="Điều gì xảy ra nếu tên schema không tồn tại?">
 
-TypeScript báo lỗi ngay khi có ít nhất một schema được khai báo, vì trường `schema` chỉ chấp nhận các tên đã khai báo. Trong file nội dung JSON, tên không tồn tại sẽ bị bỏ qua và từ điển không được xác thực.
+TypeScript báo lỗi ngay khi có ít nhất một schema được khai báo, vì trường `schema` chỉ chấp nhận các tên đã khai báo. Với tệp JSON, Intlayer báo tên schema không tồn tại trong quá trình build và từ chối từ điển.
 
 </Question>
 <Question title="Mọi locale đều được xác thực, hay chỉ locale mặc định?">

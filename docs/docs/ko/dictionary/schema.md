@@ -149,7 +149,7 @@ export default aboutMetadataContent;
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-유효하지 않은 딕셔너리는 콘텐츠가 수정될 때까지 빌드에서 제외됩니다. 다른 딕셔너리는 영향을 받지 않습니다.
+`intlayer build`를 한 번만 실행하면 스키마 이름이 등록되어 있지 않거나 검증에 실패할 때 빌드가 실패합니다. 감시 모드에서는 내용을 수정할 때까지 유효하지 않은 딕셔너리를 빌드에서 제외합니다.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ export default productCardContent;
 
 <Question title="스키마 오류가 빌드를 중단시키나요?">
 
-아니요. Intlayer는 각 오류를 로그로 출력하고, 유효하지 않은 딕셔너리를 빌드에서 제외한 뒤 나머지 딕셔너리를 계속 빌드합니다. dev 모드에서는 콘텐츠를 수정하고 저장하면 watcher가 딕셔너리를 검증하고 다시 빌드합니다.
+`intlayer build`를 한 번만 실행하면 딕셔너리가 스키마와 일치하지 않을 때 빌드가 실패합니다. 감시 모드에서는 Intlayer가 오류를 기록하고 수정한 딕셔너리를 저장할 때까지 빌드에서 제외합니다.
 
 </Question>
 <Question title="여러 딕셔너리가 같은 스키마를 공유할 수 있나요?">
@@ -212,7 +212,7 @@ export default productCardContent;
 </Question>
 <Question title="스키마 이름이 존재하지 않으면 어떻게 되나요?">
 
-스키마가 하나라도 선언되어 있으면 `schema` 필드는 선언된 이름만 허용하므로 TypeScript가 오류를 보고합니다. JSON 콘텐츠 파일에서는 알 수 없는 이름이 무시되고 딕셔너리는 검증되지 않습니다.
+스키마가 하나라도 선언되어 있으면 `schema` 필드는 선언된 이름만 허용하므로 TypeScript가 오류를 보고합니다. JSON 파일에 등록되지 않은 스키마 이름을 지정하면 Intlayer는 빌드 중에 오류를 보고하고 해당 딕셔너리를 제외합니다.
 
 </Question>
 <Question title="모든 로케일이 검증되나요, 아니면 기본 로케일만 검증되나요?">

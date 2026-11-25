@@ -149,7 +149,7 @@ export default aboutMetadataContent;
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-מילון לא תקין מוחרג מה-build עד שהתוכן שלו מתוקן. שאר המילונים אינם מושפעים.
+הרצה חד־פעמית של `intlayer build` נכשלת אם שם הסכמה אינו מוכר או אם האימות נכשל. במצב מעקב, Intlayer משמיט את המילון שאינו תקין עד לתיקון התוכן שלו.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ export default productCardContent;
 
 <Question title="האם שגיאת סכמה עוצרת את ה-build שלי?">
 
-לא. Intlayer רושם ללוג כל שגיאה, מחריג את המילון הלא תקין מה-build וממשיך לבנות את השאר. במצב dev, תקנו את התוכן ושמרו: ה-watcher יאמת ויבנה מחדש את המילון.
+הרצה חד־פעמית של `intlayer build` נכשלת אם מילון אינו תואם לסכמה שלו. במצב מעקב, Intlayer מתעד את השגיאות ומשמיט את המילון עד לתיקונו ולשמירתו.
 
 </Question>
 <Question title="האם כמה מילונים יכולים לחלוק את אותה סכמה?">
@@ -212,7 +212,7 @@ export default productCardContent;
 </Question>
 <Question title="מה קורה אם שם הסכמה לא קיים?">
 
-TypeScript מדווח על כך ברגע שהוגדרה לפחות סכמה אחת, כי השדה `schema` מקבל רק את השמות שהוגדרו. בקובץ תוכן JSON, שם לא מוכר מתעלמים ממנו והמילון אינו מאומת.
+TypeScript מדווח על כך ברגע שהוגדרה לפחות סכמה אחת, כי השדה `schema` מקבל רק את השמות שהוגדרו. בקובצי JSON,‏ Intlayer מדווח על שם סכמה לא מוכר בזמן הבנייה ודוחה את המילון.
 
 </Question>
 <Question title="האם כל locale מאומת, או רק ברירת המחדל?">

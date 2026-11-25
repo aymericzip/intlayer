@@ -23,6 +23,7 @@ type PrepareIntlayerOptions = {
   env?: 'prod' | 'dev';
   format?: ('cjs' | 'esm')[];
   forceRun?: boolean;
+  failOnSchemaError?: boolean;
   cacheTimeoutMs?: number;
   onIsCached?: () => void | Promise<void>;
 };
@@ -179,7 +180,12 @@ export const prepareIntlayer = async (
           ...dictionaries.pluginDictionaries,
         ],
         configuration,
-        { formats: format, importOtherDictionaries: false, env }
+        {
+          formats: format,
+          importOtherDictionaries: false,
+          env,
+          failOnSchemaError: options?.failOnSchemaError,
+        }
       );
 
       // Write remote dictionaries

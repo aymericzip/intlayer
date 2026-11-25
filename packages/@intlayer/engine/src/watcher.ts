@@ -435,7 +435,10 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
     options?.configuration ?? getConfiguration(options?.configOptions);
 
   if (!skipPrepare) {
-    await prepareIntlayer(configuration, { forceRun: true });
+    await prepareIntlayer(configuration, {
+      forceRun: true,
+      failOnSchemaError: !options?.persistent,
+    });
   }
 
   // Only enter watch mode when the caller explicitly opts in via `persistent`.

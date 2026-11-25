@@ -149,7 +149,7 @@ Validasi berjalan setiap kali Intlayer membangun kamus: dengan `npx intlayer bui
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-Kamus yang tidak valid dikeluarkan dari build sampai kontennya diperbaiki. Kamus lainnya tidak terpengaruh.
+Perintah `intlayer build` yang dijalankan sekali akan gagal jika skema tidak dikenal atau validasi gagal. Dalam mode watch, Intlayer mengecualikan kamus yang tidak valid hingga isinya diperbaiki.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ Entri `schemas` tidak terikat pada Zod. Objek apa pun yang menyediakan method `s
 
 <Question title="Apakah error skema menghentikan build saya?">
 
-Tidak. Intlayer mencatat setiap masalah, mengeluarkan kamus yang tidak valid dari build, dan tetap membangun kamus lainnya. Di mode dev, perbaiki konten lalu simpan: watcher akan memvalidasi dan membangun ulang kamus tersebut.
+Perintah `intlayer build` yang dijalankan sekali akan gagal jika kamus tidak sesuai dengan skemanya. Dalam mode watch, Intlayer mencatat kesalahan dan mengecualikan kamus tersebut hingga Anda memperbaiki dan menyimpannya.
 
 </Question>
 <Question title="Bisakah beberapa kamus berbagi skema yang sama?">
@@ -212,7 +212,7 @@ Bisa. Skema dirujuk berdasarkan nama, sehingga sejumlah kamus berapa pun dapat m
 </Question>
 <Question title="Apa yang terjadi jika nama skema tidak ada?">
 
-TypeScript langsung melaporkannya begitu setidaknya satu skema dideklarasikan, karena field `schema` hanya menerima nama yang dideklarasikan. Di file konten JSON, nama yang tidak dikenal diabaikan dan kamus tidak divalidasi.
+TypeScript langsung melaporkannya begitu setidaknya satu skema dideklarasikan, karena field `schema` hanya menerima nama yang dideklarasikan. Untuk file JSON, Intlayer melaporkan nama skema yang tidak dikenal saat build dan menolak kamus tersebut.
 
 </Question>
 <Question title="Apakah setiap locale divalidasi, atau hanya locale default?">

@@ -25,6 +25,7 @@ export type BuildDictionariesOptions = Partial<{
   formats: typeof OUTPUT_FORMAT;
   importOtherDictionaries: boolean;
   env: 'prod' | 'dev';
+  failOnSchemaError?: boolean;
 }>;
 
 const defaultOptions = {
@@ -80,7 +81,8 @@ export const buildDictionary = async (
   const unmergedDictionaries = await writeUnmergedDictionaries(
     unmergedDictionariesToUpdate,
     configuration,
-    env
+    env,
+    options?.failOnSchemaError
   );
 
   const mergedDictionaries = await writeMergedDictionaries(

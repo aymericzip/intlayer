@@ -149,7 +149,7 @@ Walidacja uruchamia się przy każdym budowaniu słowników: przez `npx intlayer
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-Niepoprawny słownik jest pomijany w buildzie, dopóki jego zawartość nie zostanie poprawiona. Pozostałe słowniki nie są tym objęte.
+Jednorazowe wywołanie `intlayer build` kończy się błędem, jeśli schemat jest nieznany lub walidacja się nie powiedzie. W trybie obserwacji Intlayer pomija nieprawidłowy słownik do czasu poprawienia jego zawartości.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ Wpisy `schemas` nie są związane z Zod. Działa każdy obiekt udostępniający 
 
 <Question title="Czy błąd schematu zatrzymuje mój build?">
 
-Nie. Intlayer wypisuje każdy błąd, pomija niepoprawny słownik w buildzie i buduje pozostałe. W trybie dev popraw zawartość i zapisz plik: watcher zwaliduje i przebuduje słownik.
+Jednorazowe wywołanie `intlayer build` kończy się błędem, jeśli słownik nie jest zgodny ze swoim schematem. W trybie obserwacji Intlayer rejestruje błędy i pomija nieprawidłowy słownik, dopóki go nie poprawisz i nie zapiszesz.
 
 </Question>
 <Question title="Czy kilka słowników może współdzielić ten sam schemat?">
@@ -212,7 +212,7 @@ Tak. Schemat jest wskazywany po nazwie, więc może się do niego odwoływać do
 </Question>
 <Question title="Co się stanie, jeśli nazwa schematu nie istnieje?">
 
-TypeScript zgłosi błąd, gdy tylko zadeklarowany jest co najmniej jeden schemat, bo pole `schema` przyjmuje tylko zadeklarowane nazwy. W pliku zawartości JSON nieznana nazwa jest ignorowana, a słownik nie jest walidowany.
+TypeScript zgłosi błąd, gdy tylko zadeklarowany jest co najmniej jeden schemat, bo pole `schema` przyjmuje tylko zadeklarowane nazwy. W przypadku pliku JSON Intlayer zgłasza nieznaną nazwę schematu podczas budowania i odrzuca słownik.
 
 </Question>
 <Question title="Czy walidowana jest każda lokalizacja, czy tylko domyślna?">

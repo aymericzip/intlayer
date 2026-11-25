@@ -80,7 +80,7 @@ export const formatDomains = (domains: RoutingConfig['domains']): string => {
   return `; domains: { ${formattedDomains} }`;
 };
 
-const zodToTsString = (schema: any): string => {
+export const zodToTsString = (schema: any): string => {
   if (!schema) return 'any';
 
   // Support both real Zod objects (_def) and serialized versions (def or nested)
@@ -107,14 +107,17 @@ const zodToTsString = (schema: any): string => {
       return 'undefined';
     case 'ZodArray':
     case 'array':
-      return `${zodToTsString(def.type ?? def.element)}[]`;
+      return `Array<${zodToTsString(def.element ?? def.type)}>`;
     case 'ZodObject':
     case 'object': {
       const shape = typeof def.shape === 'function' ? def.shape() : def.shape;
       if (!shape) return 'Record<string, any>';
 
       const entries = Object.entries(shape)
-        .map(([k, v]) => `      "${k}": ${zodToTsString(v)};`)
+        .map(
+          ([k, v]: [string, any]) =>
+            `      ${JSON.stringify(k)}${['optional', 'ZodOptional', 'default', 'ZodDefault'].includes(v?._def?.type ?? v?._def?.typeName) ? '?' : ''}: ${zodToTsString(v)};`
+        )
         .join('\n');
       return `{\n${entries}\n    }`;
     }
@@ -129,35 +132,44 @@ const zodToTsString = (schema: any): string => {
       const options = def.options ?? [];
       return options.map(zodToTsString).join(' | ');
     }
+    case 'ZodDefault':
+    case 'default':
+    case 'ZodCatch':
+    case 'catch':
+    case 'ZodReadonly':
+    case 'readonly':
+      return zodToTsString(def.innerType);
+    case 'ZodRecord':
+    case 'record':
+      return `Record<${zodToTsString(def.keyType)}, ${zodToTsString(def.valueType)}>`;
+    case 'ZodTuple':
+    case 'tuple':
+      return `[${(def.items ?? []).map(zodToTsString).join(', ')}${def.rest ? `, ...${zodToTsString(def.rest)}[]` : ''}]`;
     case 'ZodIntersection':
     case 'intersection':
       return `${zodToTsString(def.left)} & ${zodToTsString(def.right)}`;
     case 'ZodEnum':
     case 'enum': {
-      const values = def.values ?? [];
-      return values.map((v: string) => `"${v}"`).join(' | ');
+      const values = def.values ?? Object.values(def.entries ?? {});
+      return (
+        values.map((value: unknown) => JSON.stringify(value)).join(' | ') ||
+        'never'
+      );
     }
     case 'ZodLiteral':
     case 'literal': {
-      const value = def.value;
-      return typeof value === 'string' ? `"${value}"` : String(value);
+      const values = def.values ?? [def.value];
+      return values.map((value: unknown) => JSON.stringify(value)).join(' | ');
     }
     default:
       return 'any';
   }
 };
 
-type ZodToTsFns = {
-  zodToTs: (schema: any, opts?: any) => { node: any };
-  printNode: (node: any) => string;
-  createAuxiliaryTypeStore: () => any;
-};
-
 /** Generate the content of the module augmentation file */
 const generateTypeIndexContent = (
   typeFiles: string[],
-  configuration: IntlayerConfig,
-  zodToTsFns: ZodToTsFns | null
+  configuration: IntlayerConfig
 ): string => {
   const { internationalization, system, editor, routing } = configuration;
   const { moduleAugmentationDir } = system;
@@ -203,31 +215,9 @@ const generateTypeIndexContent = (
   // Build schema registry
   const schemas = configuration.schemas ?? {};
   const formattedSchemas = Object.entries(schemas)
-    .map(([key, schema]) => {
-      let typeStr = 'any';
-
-      if (schema) {
-        try {
-          if (zodToTsFns) {
-            const { node } = zodToTsFns.zodToTs(schema, {
-              auxiliaryTypeStore: zodToTsFns.createAuxiliaryTypeStore(),
-            });
-            // 133 is the kind for AnyKeyword in TypeScript
-            if ((node as any).kind !== 133) {
-              typeStr = zodToTsFns.printNode(node);
-            } else {
-              typeStr = zodToTsString(schema);
-            }
-          } else {
-            typeStr = zodToTsString(schema);
-          }
-        } catch (_e) {
-          // Fallback to custom string generator
-          typeStr = zodToTsString(schema);
-        }
-      }
-      return `    "${key}": ${typeStr};`;
-    })
+    .map(
+      ([key, schema]) => `    ${JSON.stringify(key)}: ${zodToTsString(schema)};`
+    )
     .join('\n');
 
   // Choose strict mode registry key
@@ -278,29 +268,9 @@ export const createModuleAugmentation = async (
     { ignore: ['**/*.d.ts'] }
   );
 
-  let zodToTsFns: ZodToTsFns | null = null;
-
-  const hasSchemas = Object.keys(configuration.schemas ?? {}).length > 0;
-
-  // zod-to-ts drags in the whole `typescript` package (~300ms import), so
-  // only load it when there are schemas to convert.
-  if (hasSchemas) {
-    try {
-      const mod = await import('zod-to-ts');
-      zodToTsFns = {
-        zodToTs: mod.zodToTs,
-        printNode: mod.printNode,
-        createAuxiliaryTypeStore: mod.createAuxiliaryTypeStore,
-      };
-    } catch {
-      // typescript peer dep not installed (plain JS project), use fallback
-    }
-  }
-
   const tsContent = generateTypeIndexContent(
     dictionariesTypesDefinitions,
-    configuration,
-    zodToTsFns
+    configuration
   );
 
   const tsFilePath = join(moduleAugmentationDir, 'intlayer.d.ts');

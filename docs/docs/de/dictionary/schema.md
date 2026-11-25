@@ -149,7 +149,7 @@ Die Validierung läuft bei jedem Build der Wörterbücher: mit `npx intlayer bui
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-Ein ungültiges Wörterbuch wird vom Build ausgeschlossen, bis sein Inhalt korrigiert ist. Die anderen Wörterbücher sind nicht betroffen.
+Ein einmaliger Aufruf von `intlayer build` schlägt fehl, wenn das Schema unbekannt ist oder die Validierung fehlschlägt. Im Watch-Modus schließt Intlayer das ungültige Wörterbuch aus, bis sein Inhalt korrigiert ist.
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ Die Einträge von `schemas` sind nicht an Zod gebunden. Jedes Objekt mit einer Z
 
 <Question title="Stoppt ein Schema-Fehler meinen Build?">
 
-Nein. Intlayer gibt jeden Fehler aus, schließt das ungültige Wörterbuch vom Build aus und baut die anderen weiter. Im Dev-Modus korrigierst du den Inhalt und speicherst: Der Watcher validiert und baut das Wörterbuch neu.
+Ein einmaliger Aufruf von `intlayer build` schlägt fehl, wenn ein Wörterbuch seinem Schema nicht entspricht. Im Watch-Modus protokolliert Intlayer die Fehler und schließt das ungültige Wörterbuch aus, bis du es korrigierst und speicherst.
 
 </Question>
 <Question title="Können mehrere Wörterbücher dasselbe Schema teilen?">
@@ -212,7 +212,7 @@ Ja. Ein Schema wird über seinen Namen referenziert, beliebig viele Wörterbüch
 </Question>
 <Question title="Was passiert, wenn der Schema-Name nicht existiert?">
 
-TypeScript meldet es, sobald mindestens ein Schema deklariert ist, da das Feld `schema` nur die deklarierten Namen akzeptiert. In einer JSON-Inhaltsdatei wird ein unbekannter Name ignoriert und das Wörterbuch nicht validiert.
+TypeScript meldet es, sobald mindestens ein Schema deklariert ist, da das Feld `schema` nur die deklarierten Namen akzeptiert. Bei JSON-Dateien meldet Intlayer den unbekannten Schemanamen beim Build und weist das Wörterbuch zurück.
 
 </Question>
 <Question title="Wird jede Locale validiert oder nur die Standard-Locale?">

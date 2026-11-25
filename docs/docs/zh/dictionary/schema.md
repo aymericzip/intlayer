@@ -149,7 +149,7 @@ export default aboutMetadataContent;
 [intlayer] ✗ Error: about-metadata - French (fr) - title: Too big: expected string to have <=60 characters
 ```
 
-无效的字典会被排除在构建之外，直到其内容被修复。其他字典不受影响。
+单次运行 `intlayer build` 时，遇到未声明的 schema 名称或校验失败都会导致构建失败。在监听模式下，Intlayer 会排除无效的字典，直到其内容得到修正。
 
 </Step>
 </Steps>
@@ -202,7 +202,7 @@ export default productCardContent;
 
 <Question title="schema 错误会中断我的构建吗？">
 
-不会。Intlayer 会输出每个问题，将无效字典排除在构建之外，并继续构建其他字典。在 dev 模式下，修复内容并保存即可：watcher 会重新校验并构建该字典。
+单次运行 `intlayer build` 时，如果字典不符合其 schema，构建就会失败。在监听模式下，Intlayer 会记录错误并排除无效的字典，直到你修正并保存它。
 
 </Question>
 <Question title="多个字典可以共享同一个 schema 吗？">
@@ -212,7 +212,7 @@ export default productCardContent;
 </Question>
 <Question title="如果 schema 名称不存在会怎样？">
 
-只要声明了至少一个 schema，TypeScript 就会报错，因为 `schema` 字段只接受已声明的名称。在 JSON 内容文件中，未知名称会被忽略，字典也不会被校验。
+只要声明了至少一个 schema，TypeScript 就会报错，因为 `schema` 字段只接受已声明的名称。如果 JSON 文件引用了未声明的 schema 名称，Intlayer 会在构建时报错并拒绝该字典。
 
 </Question>
 <Question title="会校验所有 locale，还是只校验默认 locale？">
