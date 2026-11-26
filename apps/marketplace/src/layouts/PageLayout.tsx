@@ -29,7 +29,7 @@ export const PageLayout: FC<PageLayoutProps> = ({
   bodyProps,
   ...props
 }) => (
-  <IntlayerProvider locale={locale}>
+  <IntlayerProvider defaultLocale={locale}>
     <RootHTMLLayout
       locale={locale}
       className={className}

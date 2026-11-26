@@ -54,7 +54,7 @@ export const LocaleNavigationSwitcher: FC<LocaleNavigationSwitcherProps> = ({
   } = useIntlayer('locale-navigation-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { locale, availableLocales } = useLocale();
+  const { locale, availableLocales, setLocale } = useLocale();
   const identifier = useId();
   const getLocaleOptionId = (locale: string) => `${identifier}-${locale}`;
 
@@ -167,7 +167,7 @@ export const LocaleNavigationSwitcher: FC<LocaleNavigationSwitcherProps> = ({
                         if (isModifiedClick(event)) return;
 
                         // The committed route supplies the locale to IntlayerProvider.
-                        setLocaleInStorage(localeItem);
+                        setLocale(localeItem);
                       }}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">

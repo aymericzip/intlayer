@@ -123,7 +123,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background leading-8 text-text transition md:flex">
-        <IntlayerProvider locale={locale}>
+        <IntlayerProvider defaultLocale={locale}>
           <Toaster />
           <ThemeProvider>
             <IntlayerMarkdownProvider>

@@ -199,7 +199,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex">
-        <IntlayerProvider locale={locale}>
+        <IntlayerProvider defaultLocale={locale}>
           <AnimatePresenceProvider>
             <ReactQueryProvider client={queryClient}>
               <Toaster />
