@@ -100,22 +100,15 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 function DashboardLayout() {
   const { locale } = useLocale();
   const { session } = useSession();
-  const {
-    sidebarKeys,
-    pinnedKeys,
-    pin,
-    unpin,
-    removeRecent,
-    movePinned: moveDictionary,
-  } = useDictionarySidebar();
-  const { rootOrder, setRootOrder } = useSidebarRootOrder();
+  const { sidebarKeys, pinnedKeys, pin, unpin, removeRecent } =
+    useDictionarySidebar();
+  const { orders, saveMove } = useSidebarRootOrder();
   const { labels: itemLabels, renameItem } = useSidebarItemLabels();
   const {
     sidebarKeys: tagSidebarKeys,
     pinnedKeys: pinnedTagKeys,
     pin: pinTag,
     unpin: unpinTag,
-    movePinned: moveTag,
     removeRecent: removeRecentTag,
     trackVisit: trackVisitTag,
   } = useTagSidebar();
@@ -124,7 +117,6 @@ function DashboardLayout() {
     pinnedPaths: pinnedEditorPageKeys,
     pin: pinEditorPage,
     unpin: unpinEditorPage,
-    movePinned: moveEditorPage,
     removeRecent: removeRecentEditorPage,
   } = useEditorPagesSidebar();
   const { activePanel, close: closeRightPanel } = useDashboardRightPanel();
@@ -202,15 +194,12 @@ function DashboardLayout() {
           label: navigation.editor.label.value,
           title: navigation.editor.title.value,
           description: navigation.editor.description.value,
-          items:
-            editorPageSidebarKeys.length > 0
-              ? editorPageSidebarKeys.map((path) => ({
-                  key: `editor-page-${path}`,
-                  href: `${App_Dashboard_Editor_Path}?path=${encodeURIComponent(path)}`,
-                  label: path,
-                  title: path,
-                }))
-              : undefined,
+          items: editorPageSidebarKeys.map((path) => ({
+            key: `editor-page-${path}`,
+            href: `${App_Dashboard_Editor_Path}?path=${encodeURIComponent(path)}`,
+            label: path,
+            title: path,
+          })),
         },
         {
           key: 'translate',
@@ -227,15 +216,12 @@ function DashboardLayout() {
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
           description: navigation.dictionaries.description.value,
-          items:
-            sidebarKeys.length > 0
-              ? sidebarKeys.map((dictionaryKey) => ({
-                  key: `dictionary-${dictionaryKey}`,
-                  href: `${App_Dashboard_Dictionaries_Path}/${dictionaryKey}`,
-                  label: dictionaryKey,
-                  title: dictionaryKey,
-                }))
-              : undefined,
+          items: sidebarKeys.map((dictionaryKey) => ({
+            key: `dictionary-${dictionaryKey}`,
+            href: `${App_Dashboard_Dictionaries_Path}/${dictionaryKey}`,
+            label: dictionaryKey,
+            title: dictionaryKey,
+          })),
         },
         ...(showCollections
           ? [
@@ -270,15 +256,12 @@ function DashboardLayout() {
                 label: navigation.tags.label.value,
                 title: navigation.tags.title.value,
                 description: navigation.tags.description.value,
-                items:
-                  tagSidebarKeys.length > 0
-                    ? tagSidebarKeys.map((tagKey) => ({
-                        key: `tag-${tagKey}`,
-                        href: `${App_Dashboard_Tags_Path}/${tagKey}`,
-                        label: tagKey,
-                        title: tagKey,
-                      }))
-                    : undefined,
+                items: tagSidebarKeys.map((tagKey) => ({
+                  key: `tag-${tagKey}`,
+                  href: `${App_Dashboard_Tags_Path}/${tagKey}`,
+                  label: tagKey,
+                  title: tagKey,
+                })),
               },
             ]
           : []),
@@ -357,26 +340,21 @@ function DashboardLayout() {
   );
 
   const sidebarItems = applyItemLabels(
-    arrangeSidebarItems(navigationItems, rootOrder, pinnedItemKeys),
+    arrangeSidebarItems(navigationItems, orders, pinnedItemKeys),
     itemLabels,
     pinnedItemKeys
   );
 
-  const handleSidebarMoveResult = ({
-    rootOrder: nextRootOrder,
-    pinnedMove,
-  }: SidebarMoveResult) => {
-    if (nextRootOrder) setRootOrder(nextRootOrder);
-    if (!pinnedMove) return;
-
-    const { kind, entry, targetEntry, placement } = pinnedMove;
-    const movePinned = {
-      dictionary: moveDictionary,
-      tag: moveTag,
-      'editor-page': moveEditorPage,
-    }[kind];
-
-    movePinned(entry, targetEntry, placement);
+  const handleSidebarMoveResult = (move: SidebarMoveResult) => {
+    if (move.pin) {
+      const pinEntry = {
+        dictionary: pin,
+        tag: pinTag,
+        'editor-page': pinEditorPage,
+      }[move.pin.kind];
+      pinEntry(move.pin.entry);
+    }
+    saveMove(move);
   };
 
   const formattedFooterLinks = footerLinks.map((el) => ({

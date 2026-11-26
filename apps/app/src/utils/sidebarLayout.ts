@@ -14,26 +14,18 @@ export type PinnedEntryReference = {
 export type SidebarMove = {
   draggedKey: string;
   targetKey: string;
-  placement: DropPlacement;
+  placement: DropPlacement | 'inside';
 };
 
-/** Outcome of a drop, to apply to the persisted sidebar state. */
+/** Each list contains the preferred order of one parent's children. */
+export type SidebarOrders = Record<string, string[]>;
+export const SIDEBAR_ROOT = '';
+
 export type SidebarMoveResult = {
-  /** New persisted top-level order, when it changed. */
-  rootOrder?: string[];
-  /** Reordering of the pinned entries of one kind, when it changed. */
-  pinnedMove?: PinnedEntryReference & {
-    /** Entry to land next to; `null` moves the entry to the start. */
-    targetEntry: string | null;
-    placement: DropPlacement;
-  };
-};
-
-/** Key of the section listing each kind of pinned entry. */
-const SECTION_KEY_BY_KIND: Record<PinnedEntryKind, string> = {
-  dictionary: 'dictionaries',
-  tag: 'tags',
-  'editor-page': 'editor',
+  draggedKey: string;
+  parentKey: string;
+  order: string[];
+  pin: PinnedEntryReference | null;
 };
 
 const PINNED_ENTRY_PREFIXES: [PinnedEntryKind, string][] = [
@@ -81,95 +73,104 @@ export const moveKey = (
   ];
 };
 
-type DetachResult = {
-  items: SidebarNavigationItem[];
-  detached: SidebarNavigationItem[];
+/** Inserts missing keys next to their default predecessors. */
+const mergeSidebarOrder = (
+  preferred: string[],
+  available: string[]
+): string[] => {
+  const order = preferred.filter((key) => available.includes(key));
+  available.forEach((key, index) => {
+    if (!order.includes(key))
+      order.splice(order.indexOf(available[index - 1]) + 1, 0, key);
+  });
+  return order;
 };
 
-/** Removes the items whose key is in `keys` from a tree, at any depth. */
-const detachItems = (
-  items: SidebarNavigationItem[],
-  keys: Set<string>
-): DetachResult => {
-  const detached: SidebarNavigationItem[] = [];
-
-  const walk = (nodes: SidebarNavigationItem[]): SidebarNavigationItem[] =>
-    nodes
-      .filter((node) => {
-        if (!keys.has(node.key)) return true;
-        detached.push(node);
-        return false;
-      })
-      .map((node) => {
-        if (!node.items) return node;
-        const childItems = walk(node.items);
-        return {
-          ...node,
-          items: childItems.length > 0 ? childItems : undefined,
-        };
-      });
-
-  return { items: walk(items), detached };
-};
-
-/**
- * Applies the persisted top-level order to the navigation tree.
- *
- * Pinned entries listed in `rootOrder` leave their section and become
- * top-level items. Top-level items missing from `rootOrder` stay right after
- * their default predecessor.
- */
+/** Applies saved sibling orders to the currently available navigation tree. */
 export const arrangeSidebarItems = (
   items: SidebarNavigationItem[],
-  rootOrder: string[],
+  orders: SidebarOrders,
   pinnedItemKeys: ReadonlySet<string>
 ): SidebarNavigationItem[] => {
-  if (rootOrder.length === 0) return items;
+  if (!Object.keys(orders).length) return items;
 
-  const rootKeys = new Set(items.map((item) => item.key));
-  const promotedKeys = new Set(
-    rootOrder.filter((key) => pinnedItemKeys.has(key) && !rootKeys.has(key))
-  );
-  const { items: remainingItems, detached } = detachItems(items, promotedKeys);
-  const itemsByKey = new Map(
-    [...remainingItems, ...detached].map((item) => [item.key, item])
-  );
+  const itemsByKey = new Map<string, SidebarNavigationItem>();
+  const parents = new Map<string, string>();
+  const collect = (nodes: SidebarNavigationItem[], parentKey: string) => {
+    for (const node of nodes) {
+      itemsByKey.set(node.key, node);
+      parents.set(node.key, parentKey);
+      if (node.items) collect(node.items, node.key);
+    }
+  };
+  collect(items, SIDEBAR_ROOT);
 
-  const arranged = rootOrder
-    .map((key) => itemsByKey.get(key))
-    .filter((item): item is SidebarNavigationItem => item !== undefined);
-  const arrangedKeys = new Set(arranged.map((item) => item.key));
+  for (const [parentKey, keys] of Object.entries(orders)) {
+    if (parentKey !== SIDEBAR_ROOT && !itemsByKey.has(parentKey)) continue;
+    for (const key of keys) {
+      if (
+        parents.has(key) &&
+        (!parsePinnedItemKey(key) || pinnedItemKeys.has(key))
+      ) {
+        parents.set(key, parentKey);
+      }
+    }
+  }
 
-  remainingItems.forEach((item, index) => {
-    if (arrangedKeys.has(item.key)) return;
+  const childrenByParent = new Map<string, string[]>();
+  for (const [key, parent] of parents) {
+    // A disappearing or unpinned ancestor can invalidate a previously valid move.
+    const ancestors = new Set([key]);
+    let ancestor = parent;
+    while (ancestor && !ancestors.has(ancestor)) {
+      ancestors.add(ancestor);
+      ancestor = parents.get(ancestor) ?? SIDEBAR_ROOT;
+    }
+    if (ancestor) parents.set(key, SIDEBAR_ROOT);
+    const parentKey = parents.get(key)!;
+    const siblings = childrenByParent.get(parentKey) ?? [];
+    siblings.push(key);
+    childrenByParent.set(parentKey, siblings);
+  }
 
-    const previousKey = remainingItems[index - 1]?.key;
-    const previousIndex = arranged.findIndex(
-      (arrangedItem) => arrangedItem.key === previousKey
-    );
-    arranged.splice(previousIndex + 1, 0, item);
-    arrangedKeys.add(item.key);
-  });
+  const build = (parentKey: string): SidebarNavigationItem[] =>
+    mergeSidebarOrder(
+      orders[parentKey] ?? [],
+      childrenByParent.get(parentKey) ?? []
+    ).map((key) => {
+      const item = itemsByKey.get(key)!;
+      const children = build(key);
+      return {
+        ...item,
+        items: children.length || item.items ? children : undefined,
+      };
+    });
 
-  return arranged;
+  return build(SIDEBAR_ROOT);
 };
 
-/** Whether `draggedKey` can be picked up: a top-level item or a pinned entry. */
-export const isDraggableItem = (
-  item: Pick<SidebarNavigationItem, 'key'> & { level: number },
-  pinnedItemKeys: ReadonlySet<string>
-): boolean => item.level === 0 || pinnedItemKeys.has(item.key);
+/** Finds an item's siblings, including when the item belongs to a nested section. */
+const findSidebarRow = (
+  items: SidebarNavigationItem[],
+  key: string,
+  parentKey = SIDEBAR_ROOT
+):
+  | {
+      item: SidebarNavigationItem;
+      siblings: SidebarNavigationItem[];
+      parentKey: string;
+    }
+  | undefined => {
+  for (const item of items) {
+    if (item.key === key) return { item, siblings: items, parentKey };
+    if (item.items) {
+      const found = findSidebarRow(item.items, key, item.key);
+      if (found) return found;
+    }
+  }
+};
 
-/**
- * Resolves a drop into the persisted changes it implies.
- *
- * - Onto a top-level row: the dragged item takes that position at the top
- *   level (a pinned entry leaves its section).
- * - Onto a row of a section: only a pinned entry of the same kind can land
- *   there; it is reordered and returns to its section.
- *
- * @returns `null` when the drop is not allowed.
- */
+/** Moves the whole subtree beside the target, rejecting drops into its descendants. */
 export const resolveSidebarMove = ({
   arrangedItems,
   pinnedItemKeys,
@@ -180,52 +181,55 @@ export const resolveSidebarMove = ({
   arrangedItems: SidebarNavigationItem[];
   pinnedItemKeys: ReadonlySet<string>;
 }): SidebarMoveResult | null => {
-  if (draggedKey === targetKey) return null;
+  const source = findSidebarRow(arrangedItems, draggedKey);
+  const target = findSidebarRow(arrangedItems, targetKey);
+  if (
+    !source ||
+    !target ||
+    draggedKey === targetKey ||
+    findSidebarRow(source.item.items ?? [], targetKey)
+  )
+    return null;
 
-  const rootKeys = arrangedItems.map((item) => item.key);
-  const isDraggedRoot = rootKeys.includes(draggedKey);
-  const isTargetRoot = rootKeys.includes(targetKey);
-
-  if (!isDraggedRoot && !pinnedItemKeys.has(draggedKey)) return null;
-
-  if (isTargetRoot) {
-    return {
-      rootOrder: moveKey(
-        isDraggedRoot ? rootKeys : [...rootKeys, draggedKey],
+  const inside = placement === 'inside';
+  if (inside && !target.item.items) return null;
+  const order = inside
+    ? [
+        draggedKey,
+        ...(target.item.items ?? [])
+          .map((item) => item.key)
+          .filter((key) => key !== draggedKey),
+      ]
+    : moveKey(
+        target.siblings.map((item) => item.key),
         draggedKey,
         targetKey,
         placement
-      ),
-    };
-  }
-
-  const draggedEntry = parsePinnedItemKey(draggedKey);
-  const targetEntry = parsePinnedItemKey(targetKey);
-
-  // Dropping on the section row itself puts the entry back at its start.
-  if (draggedEntry && targetKey === SECTION_KEY_BY_KIND[draggedEntry.kind]) {
-    return {
-      ...(isDraggedRoot && {
-        rootOrder: rootKeys.filter((key) => key !== draggedKey),
-      }),
-      pinnedMove: { ...draggedEntry, targetEntry: null, placement: 'before' },
-    };
-  }
-
-  if (!draggedEntry || !targetEntry || draggedEntry.kind !== targetEntry.kind) {
-    return null;
-  }
-
+      );
   return {
-    ...(isDraggedRoot && {
-      rootOrder: rootKeys.filter((key) => key !== draggedKey),
-    }),
-    pinnedMove: {
-      ...draggedEntry,
-      targetEntry: targetEntry.entry,
-      placement,
-    },
+    draggedKey,
+    parentKey: inside ? targetKey : target.parentKey,
+    order,
+    pin: pinnedItemKeys.has(draggedKey) ? null : parsePinnedItemKey(draggedKey),
   };
+};
+
+/** Records a move while keeping unrelated sections and temporarily hidden entries. */
+export const updateSidebarOrders = (
+  orders: SidebarOrders,
+  move: SidebarMoveResult
+): SidebarOrders => {
+  const next = Object.fromEntries(
+    Object.entries(orders).map(([parent, keys]) => [
+      parent,
+      keys.filter((key) => key !== move.draggedKey),
+    ])
+  );
+  const previous = next[move.parentKey] ?? [];
+  next[move.parentKey] = mergeSidebarOrder(move.order, [
+    ...new Set([...previous, ...move.order]),
+  ]);
+  return next;
 };
 
 /** Custom sidebar titles of pinned entries, by item key. */

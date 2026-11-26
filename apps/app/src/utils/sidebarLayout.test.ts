@@ -3,6 +3,7 @@ import type { SidebarNavigationItem } from '#components/Dashboard/DashboardSideb
 import {
   applyItemLabels,
   arrangeSidebarItems,
+  updateSidebarOrders,
   moveKey,
   resolveSidebarMove,
 } from './sidebarLayout';
@@ -40,94 +41,109 @@ describe('moveKey', () => {
   });
 });
 
-describe('arrangeSidebarItems', () => {
-  it('keeps the default order without a persisted order', () => {
-    expect(arrangeSidebarItems(items, [], pinnedItemKeys)).toBe(items);
+describe('sidebar layout', () => {
+  it('keeps the default layout without saved orders', () => {
+    expect(arrangeSidebarItems(items, {}, pinnedItemKeys)).toBe(items);
   });
 
-  it('places projects below organization', () => {
-    const arranged = arrangeSidebarItems(
-      items,
-      ['overview', 'dictionaries', 'organization', 'projects'],
-      pinnedItemKeys
+  it('restores legacy root orders and respects subsequent unpinning', () => {
+    const orders = {
+      '': [
+        'dictionary-a',
+        'overview',
+        'dictionaries',
+        'organization',
+        'projects',
+      ],
+    };
+    expect(getKeys(arrangeSidebarItems(items, orders, pinnedItemKeys))).toEqual(
+      orders['']
     );
+    expect(getKeys(arrangeSidebarItems(items, orders, new Set()))).toEqual(
+      orders[''].slice(1)
+    );
+  });
 
-    expect(getKeys(arranged)).toEqual([
-      'overview',
-      'dictionaries',
-      'organization',
-      'projects',
+  it.each(['dictionary-a', 'tag-a', 'editor-page-/home', 'translate'])(
+    'moves %s from a nested section to the root',
+    (key) => {
+      const tree = [
+        createItem('section', [createItem(key)]),
+        createItem('overview'),
+      ];
+      const move = resolveSidebarMove({
+        arrangedItems: tree,
+        pinnedItemKeys: new Set(),
+        draggedKey: key,
+        targetKey: 'overview',
+        placement: 'after',
+      })!;
+      expect(Boolean(move.pin)).toBe(key !== 'translate');
+      expect(
+        arrangeSidebarItems(tree, updateSidebarOrders({}, move), new Set([key]))
+      ).toEqual([
+        createItem('section', []),
+        createItem('overview'),
+        createItem(key),
+      ]);
+    }
+  );
+
+  it('moves a whole section between parents, then reorders a sibling beside it', () => {
+    const section = createItem('section', [createItem('child')]);
+    const tree = [
+      section,
+      createItem('group', [createItem('sibling')]),
+      createItem('overview'),
+    ];
+    const base = { pinnedItemKeys: new Set<string>() };
+    const first = resolveSidebarMove({
+      ...base,
+      arrangedItems: tree,
+      draggedKey: 'section',
+      targetKey: 'sibling',
+      placement: 'after',
+    })!;
+    const orders = updateSidebarOrders({}, first);
+    const second = resolveSidebarMove({
+      ...base,
+      arrangedItems: arrangeSidebarItems(tree, orders, base.pinnedItemKeys),
+      draggedKey: 'overview',
+      targetKey: 'section',
+      placement: 'before',
+    })!;
+    expect(
+      arrangeSidebarItems(
+        tree,
+        updateSidebarOrders(orders, second),
+        base.pinnedItemKeys
+      )
+    ).toEqual([
+      createItem('group', [
+        createItem('sibling'),
+        createItem('overview'),
+        section,
+      ]),
     ]);
   });
 
-  it('moves a pinned entry to the top level and empties its section', () => {
-    const arranged = arrangeSidebarItems(
-      items,
-      ['dictionary-a', 'overview', 'dictionaries', 'projects', 'organization'],
-      pinnedItemKeys
-    );
-
-    expect(getKeys(arranged)[0]).toBe('dictionary-a');
-    expect(arranged.find(({ key }) => key === 'dictionaries')?.items).toBe(
-      undefined
-    );
-  });
-
-  it('ignores a promoted entry that is no longer pinned', () => {
-    const arranged = arrangeSidebarItems(
-      items,
-      ['dictionary-a', 'overview'],
-      new Set()
-    );
-
-    expect(getKeys(arranged)).not.toContain('dictionary-a');
-  });
-});
-
-describe('resolveSidebarMove', () => {
-  const base = { arrangedItems: items, pinnedItemKeys };
-
-  it('reorders top-level items', () => {
+  it('accepts a drop inside an empty section and rejects cycles', () => {
+    const tree = [
+      createItem('empty', []),
+      createItem('section', [createItem('child')]),
+    ];
+    const base = { arrangedItems: tree, pinnedItemKeys, draggedKey: 'section' };
     expect(
-      resolveSidebarMove({
-        ...base,
-        draggedKey: 'projects',
-        targetKey: 'organization',
-        placement: 'after',
-      })
-    ).toEqual({
-      rootOrder: ['overview', 'dictionaries', 'organization', 'projects'],
-    });
-  });
-
-  it('promotes a pinned entry dropped on a top-level row', () => {
-    expect(
-      resolveSidebarMove({
-        ...base,
-        draggedKey: 'dictionary-a',
-        targetKey: 'overview',
-        placement: 'before',
-      })?.rootOrder?.[0]
-    ).toBe('dictionary-a');
-  });
-
-  it('rejects a non-pinned child and cross-kind drops', () => {
-    expect(
-      resolveSidebarMove({
-        ...base,
-        draggedKey: 'dictionary-unpinned',
-        targetKey: 'overview',
-        placement: 'before',
-      })
+      resolveSidebarMove({ ...base, targetKey: 'child', placement: 'before' })
     ).toBeNull();
+    const move = resolveSidebarMove({
+      ...base,
+      targetKey: 'empty',
+      placement: 'inside',
+    })!;
     expect(
-      resolveSidebarMove({
-        ...base,
-        draggedKey: 'projects',
-        targetKey: 'dictionary-a',
-        placement: 'before',
-      })
-    ).toBeNull();
+      arrangeSidebarItems(tree, updateSidebarOrders({}, move), pinnedItemKeys)
+    ).toEqual([createItem('empty', [tree[1]])]);
   });
 });
 

@@ -27,7 +27,13 @@ import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
-import { AnimatePresence, m } from 'framer-motion';
+import {
+  AnimatePresence,
+  domMax,
+  LazyMotion,
+  m,
+  useReducedMotion,
+} from 'framer-motion';
 import { getPathWithoutLocale } from 'intlayer';
 import {
   ArrowLeftToLine,
@@ -48,7 +54,7 @@ import {
   PenTool,
   Pin,
   PinOff,
-  Ellipsis,
+  EllipsisVertical,
   Pencil,
   ScanLine,
   Shield,
@@ -70,8 +76,7 @@ import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import {
-  type DropPlacement,
-  isDraggableItem,
+  type SidebarMove,
   resolveSidebarMove,
   type SidebarMoveResult,
 } from '#utils/sidebarLayout';
@@ -166,7 +171,7 @@ export type DashboardSidebarProps = {
   pinnedEditorPageKeys?: string[];
   /**
    * Item keys (`dictionary-…`, `tag-…`, `editor-page-…`) of every pinned
-   * entry. Pinned entries and top-level items can be dragged to reorder.
+   * entry. Moving a recent entry pins it in its new position.
    */
   pinnedItemKeys?: ReadonlySet<string>;
   /** Called with the persisted changes implied by a drag-and-drop. */
@@ -202,6 +207,7 @@ const EMPTY_PINNED_ITEM_KEYS: ReadonlySet<string> = new Set();
 export type FlatSidebarItem = SidebarNavigationItem & {
   level: number;
   isLastChild?: boolean;
+  continuationLevels: number[];
 };
 
 export const filterItems = (
@@ -247,7 +253,8 @@ export const filterItems = (
 
 export const flattenItems = (
   nodes: SidebarNavigationItem[],
-  level = 0
+  level = 0,
+  continuationLevels: number[] = []
 ): FlatSidebarItem[] => {
   const result: FlatSidebarItem[] = [];
 
@@ -255,10 +262,18 @@ export const flattenItems = (
     const item = nodes[i];
     const isLastChild = i === nodes.length - 1;
 
-    result.push({ ...item, level, isLastChild });
+    result.push({ ...item, level, isLastChild, continuationLevels });
 
     if (item.items) {
-      result.push(...flattenItems(item.items, level + 1));
+      result.push(
+        ...flattenItems(
+          item.items,
+          level + 1,
+          level > 0 && !isLastChild
+            ? [...continuationLevels, level]
+            : continuationLevels
+        )
+      );
     }
   }
 
@@ -277,8 +292,7 @@ const TREE_FULL_EXTENT = 999;
 type SidebarTreeConnectorProps = {
   level: number;
   isLastChild: boolean;
-  /** Draw the level 1 trunk through the row (level 2+ under a non-last parent) */
-  hasParentContinuation: boolean;
+  continuationLevels: number[];
 };
 
 /**
@@ -293,9 +307,9 @@ type SidebarTreeConnectorProps = {
 const SidebarTreeConnector: FC<SidebarTreeConnectorProps> = ({
   level,
   isLastChild,
-  hasParentContinuation,
+  continuationLevels,
 }) => {
-  const branchX = (level >= 2 ? TREE_NESTED_BRANCH_OFFSET : 0) + 0.5;
+  const branchX = (level - 1) * TREE_NESTED_BRANCH_OFFSET + 0.5;
   const elbowPath = [
     `M${branchX} ${-TREE_FULL_EXTENT}`,
     `V${-TREE_ELBOW_RADIUS}`,
@@ -306,15 +320,19 @@ const SidebarTreeConnector: FC<SidebarTreeConnectorProps> = ({
   return (
     <svg
       aria-hidden="true"
-      className="pointer-events-none absolute inset-s-4 -top-0.5 h-[calc(100%+4px)] w-10 text-neutral opacity-70 rtl:-scale-x-100"
+      className="pointer-events-none absolute inset-s-4 -top-0.5 h-[calc(100%+4px)] text-neutral opacity-70 rtl:-scale-x-100"
       fill="none"
       stroke="currentColor"
+      width={branchX + TREE_BRANCH_LENGTH + 1}
       strokeWidth={1}
     >
       <g style={{ transformBox: 'view-box', transform: 'translateY(50%)' }}>
-        {hasParentContinuation && (
-          <path d={`M0.5 ${-TREE_FULL_EXTENT} V${TREE_FULL_EXTENT}`} />
-        )}
+        {continuationLevels.map((depth) => (
+          <path
+            key={depth}
+            d={`M${(depth - 1) * TREE_NESTED_BRANCH_OFFSET + 0.5} ${-TREE_FULL_EXTENT} V${TREE_FULL_EXTENT}`}
+          />
+        ))}
         <path d={elbowPath} />
         {!isLastChild && (
           <path d={`M${branchX} ${-TREE_ELBOW_RADIUS} V${TREE_FULL_EXTENT}`} />
@@ -331,7 +349,6 @@ type SidebarTabItemProps = {
   pinnedDictionaryKeys: string[];
   pinnedTagKeys: string[];
   pinnedEditorPageKeys: string[];
-  flatNavItems: FlatSidebarItem[];
   onPinDictionary?: (dictionaryKey: string) => void;
   onUnpinDictionary?: (dictionaryKey: string) => void;
   onRemoveDictionary?: (dictionaryKey: string) => void;
@@ -348,13 +365,15 @@ type SidebarTabItemProps = {
   moreActionsLabel: string;
   onRenameItem?: (itemKey: string, label: string) => void;
   shouldReduceMotion?: boolean;
-  isDraggable: boolean;
+  isDragging: boolean;
+  gapSide?: 'above' | 'below';
   /** Placement indicator shown while a valid drop hovers this row. */
-  dropPlacement: DropPlacement | null;
+  dropPlacement: SidebarMove['placement'] | null;
   onItemDragStart: (itemKey: string) => void;
   onItemDragOver: (event: DragEvent<HTMLElement>, itemKey: string) => void;
   onItemDrop: (event: DragEvent<HTMLElement>, itemKey: string) => void;
   onItemDragEnd: () => void;
+  onItemDragLeave: () => void;
 };
 
 const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
@@ -366,7 +385,6 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       pinnedDictionaryKeys,
       pinnedTagKeys,
       pinnedEditorPageKeys,
-      flatNavItems,
       onPinDictionary,
       onUnpinDictionary,
       onRemoveDictionary,
@@ -383,12 +401,14 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       moreActionsLabel,
       onRenameItem,
       shouldReduceMotion,
-      isDraggable,
+      isDragging,
+      gapSide,
       dropPlacement,
       onItemDragStart,
       onItemDragOver,
       onItemDrop,
       onItemDragEnd,
+      onItemDragLeave,
       ...props
     },
     ref
@@ -464,22 +484,15 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
       }
     };
 
-    // Find index in flatNavItems to determine parent level-1 item and whether we need a straight line at inset-s-4
-    const currentIndex = flatNavItems.findIndex((x) => x.key === item.key);
-    let parentLevel1: FlatSidebarItem | null = null;
-    for (let i = currentIndex - 1; i >= 0; i--) {
-      if (flatNavItems[i].level === 1) {
-        parentLevel1 = flatNavItems[i];
-        break;
-      }
-    }
-
     return (
       <div
         ref={ref}
-        className="group relative w-full"
+        className={cn(
+          'group/sidebar-item relative w-full motion-safe:transition-opacity',
+          isDragging && 'opacity-40'
+        )}
         {...props}
-        draggable={isDraggable && !isCollapsed && !isRenaming}
+        draggable={!isRenaming}
         onDragStart={(event) => {
           event.dataTransfer.effectAllowed = 'move';
           event.dataTransfer.setData('text/plain', item.key);
@@ -488,190 +501,226 @@ const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
         onDragOver={(event) => onItemDragOver(event, item.key)}
         onDrop={(event) => onItemDrop(event, item.key)}
         onDragEnd={onItemDragEnd}
+        onDragLeave={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+            onItemDragLeave();
+        }}
       >
-        {dropPlacement && (
-          <span
-            aria-hidden="true"
-            className={cn(
-              'pointer-events-none absolute inset-x-2 z-20 h-0.5 rounded-full bg-text',
-              dropPlacement === 'before' ? '-top-1' : '-bottom-1'
-            )}
-          />
-        )}
-        <Link
-          to={item.href ?? '#'}
-          label={item.label}
-          title={
-            item.description
-              ? `${item.title}\n\n${item.description}`
-              : item.title
-          }
-          color="text"
-          variant="invisible-link"
-          preload="viewport"
+        <span
+          aria-hidden="true"
           className={cn(
-            'relative flex w-full items-center justify-center rounded-lg px-2 py-2 text-text/80 aria-[current]:bg-current/0',
-            !isCollapsed && 'justify-start gap-3 px-4',
-            // Indentation by level
-            !isCollapsed && item.level === 1 && 'ps-10',
-            !isCollapsed && item.level >= 2 && 'ps-16',
-            // Leave room for pin/unpin/remove buttons
-            !isCollapsed && isPinnableItem && 'pe-16'
+            'pointer-events-none absolute inset-x-2 z-20 h-0.5 rounded-full bg-text motion-safe:transition-[scale,opacity] motion-safe:duration-150',
+            dropPlacement && dropPlacement !== 'inside'
+              ? 'scale-x-100 opacity-100'
+              : 'scale-x-90 opacity-0',
+            dropPlacement === 'before' ? '-top-1' : '-bottom-1'
           )}
-          isActive={activeKey === item.key}
-          draggable={false}
+        />
+        <m.div
+          className={cn(
+            'relative w-full motion-safe:transition-[translate] motion-safe:duration-150',
+            gapSide === 'above' && '-translate-y-1',
+            gapSide === 'below' && 'translate-y-1'
+          )}
+          layout={shouldReduceMotion ? false : 'position'}
+          transition={{
+            layout: { type: 'spring', stiffness: 480, damping: 40 },
+          }}
         >
-          {!isCollapsed && isChild && (
-            <SidebarTreeConnector
-              level={item.level}
-              isLastChild={Boolean(item.isLastChild)}
-              hasParentContinuation={
-                item.level >= 2 &&
-                parentLevel1 !== null &&
-                !parentLevel1.isLastChild
-              }
+          <Link
+            to={item.href ?? '#'}
+            label={item.label}
+            title={
+              Array.from(item.title).length < 17
+                ? undefined
+                : item.description
+                  ? `${item.title}\n\n${item.description}`
+                  : item.title
+            }
+            color="text"
+            variant="invisible-link"
+            preload="viewport"
+            className={cn(
+              'relative flex w-full items-center justify-center rounded-lg px-2 py-2 text-text/80 aria-[current]:bg-current/0',
+              dropPlacement === 'inside' &&
+                'bg-text/10 ring-1 ring-text/30 ring-inset',
+              !isCollapsed && 'justify-start gap-3 px-4'
+            )}
+            style={
+              !isCollapsed && isChild
+                ? {
+                    paddingInlineStart:
+                      16 + item.level * TREE_NESTED_BRANCH_OFFSET,
+                  }
+                : undefined
+            }
+            isActive={activeKey === item.key}
+            draggable={false}
+          >
+            {!isCollapsed && isChild && (
+              <SidebarTreeConnector
+                level={item.level}
+                isLastChild={Boolean(item.isLastChild)}
+                continuationLevels={item.continuationLevels}
+              />
+            )}
+
+            <div className="relative flex items-center justify-center">
+              {IconComponent && <IconComponent className="size-4 shrink-0" />}
+              {isCollapsed && isItemPinned && (
+                <Pin className="absolute -top-2 -right-2 size-3 text-text/60" />
+              )}
+            </div>
+
+            <AnimatePresence initial={false}>
+              {!isCollapsed && (
+                <m.span
+                  initial={
+                    shouldReduceMotion ? false : { opacity: 0, width: 0 }
+                  }
+                  animate={
+                    shouldReduceMotion ? false : { opacity: 1, width: 'auto' }
+                  }
+                  exit={
+                    shouldReduceMotion ? undefined : { opacity: 0, width: 0 }
+                  }
+                  transition={
+                    shouldReduceMotion
+                      ? undefined
+                      : { duration: 0.2, ease: 'easeInOut' }
+                  }
+                  className="min-w-0 grow overflow-hidden"
+                >
+                  <span
+                    className={cn(
+                      'block max-w-full truncate',
+                      isPinnableItem &&
+                        'group-focus-within/sidebar-item:max-w-[calc(100%-2rem)] group-hover/sidebar-item:max-w-[calc(100%-2rem)] motion-safe:transition-[max-width] motion-safe:duration-150'
+                    )}
+                  >
+                    {item.title}
+                  </span>
+                </m.span>
+              )}
+            </AnimatePresence>
+          </Link>
+
+          {isRenaming && (
+            <input
+              ref={renameInputRef}
+              aria-label={renameLabel}
+              defaultValue={item.title}
+              onFocus={(event) => event.currentTarget.select()}
+              onBlur={(event) => {
+                if (!isRenameCancelledRef.current) {
+                  onRenameItem?.(item.key, event.currentTarget.value);
+                }
+                isRenameCancelledRef.current = false;
+                setIsRenaming(false);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') event.currentTarget.blur();
+                if (event.key === 'Escape') {
+                  isRenameCancelledRef.current = true;
+                  event.currentTarget.blur();
+                }
+              }}
+              className={cn(
+                'absolute inset-y-1 inset-e-2 z-20 rounded-md border border-text/30 bg-background px-2 text-text outline-none focus:border-text',
+                item.level === 0 && 'inset-s-11',
+                item.level === 1 && 'inset-s-16',
+                item.level >= 2 && 'inset-s-20'
+              )}
             />
           )}
 
-          <div className="relative flex items-center justify-center">
-            {IconComponent && <IconComponent className="size-4 shrink-0" />}
-            {isCollapsed && isItemPinned && (
-              <Pin className="absolute -top-2 -right-2 size-3 text-text/60" />
-            )}
-          </div>
-
-          <AnimatePresence initial={false}>
-            {!isCollapsed && (
-              <m.span
-                initial={shouldReduceMotion ? false : { opacity: 0, width: 0 }}
-                animate={
-                  shouldReduceMotion ? false : { opacity: 1, width: 'auto' }
-                }
-                exit={shouldReduceMotion ? undefined : { opacity: 0, width: 0 }}
-                transition={
-                  shouldReduceMotion
-                    ? undefined
-                    : { duration: 0.2, ease: 'easeInOut' }
-                }
-                className="truncate overflow-hidden whitespace-nowrap"
-              >
-                {item.title}
-              </m.span>
-            )}
-          </AnimatePresence>
-        </Link>
-
-        {isRenaming && (
-          <input
-            ref={renameInputRef}
-            aria-label={renameLabel}
-            defaultValue={item.title}
-            onFocus={(event) => event.currentTarget.select()}
-            onBlur={(event) => {
-              if (!isRenameCancelledRef.current) {
-                onRenameItem?.(item.key, event.currentTarget.value);
-              }
-              isRenameCancelledRef.current = false;
-              setIsRenaming(false);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') event.currentTarget.blur();
-              if (event.key === 'Escape') {
-                isRenameCancelledRef.current = true;
-                event.currentTarget.blur();
-              }
-            }}
-            className={cn(
-              'absolute inset-y-1 inset-e-2 z-20 rounded-md border border-text/30 bg-background px-2 text-text outline-none focus:border-text',
-              item.level === 0 && 'inset-s-11',
-              item.level === 1 && 'inset-s-16',
-              item.level >= 2 && 'inset-s-20'
-            )}
-          />
-        )}
-
-        {/* Actions menu — shown on hover */}
-        {!isCollapsed && isPinnableItem && (
-          <div className="absolute inset-e-2 top-1/2 z-10 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
-            <DropDown identifier={`item-actions-${item.key}`}>
-              <DropDown.Trigger
-                identifier={`item-actions-${item.key}`}
-                variant="hoverable"
-                color="text"
-                size="icon-sm"
-                label={moreActionsLabel}
-                aria-label={moreActionsLabel}
-                title={moreActionsLabel}
-                Icon={Ellipsis}
-              />
-              <DropDown.Panel
-                identifier={`item-actions-${item.key}`}
-                isFocusable
-                align="end"
-              >
-                <Container
-                  className="min-w-40 gap-1 border border-neutral/10"
-                  transparency="xs"
-                  padding="sm"
-                  roundedSize="2xl"
+          {/* Actions menu — shown on hover */}
+          {!isCollapsed && isPinnableItem && (
+            <div className="pointer-events-none absolute inset-e-2 top-1/2 z-10 -translate-y-1/2 scale-90 opacity-0 group-focus-within/sidebar-item:pointer-events-auto group-focus-within/sidebar-item:scale-100 group-focus-within/sidebar-item:opacity-100 group-hover/sidebar-item:pointer-events-auto group-hover/sidebar-item:scale-100 group-hover/sidebar-item:opacity-100 motion-safe:transition-[opacity,scale] motion-safe:duration-150">
+              <DropDown identifier={`item-actions-${item.key}`}>
+                <DropDown.Trigger
+                  identifier={`item-actions-${item.key}`}
+                  variant="hoverable"
+                  color="text"
+                  size="icon-sm"
+                  label={moreActionsLabel}
+                  aria-label={moreActionsLabel}
+                  title={
+                    Array.from(moreActionsLabel).length >= 17
+                      ? moreActionsLabel
+                      : undefined
+                  }
+                  Icon={EllipsisVertical}
+                />
+                <DropDown.Panel
+                  identifier={`item-actions-${item.key}`}
+                  isFocusable
+                  align="end"
                 >
-                  {isItemPinned && (
-                    <Button
-                      type="button"
-                      variant="hoverable"
-                      color="text"
-                      size="sm"
-                      className="w-full justify-start"
-                      label={renameLabel}
-                      Icon={Pencil}
-                      onClick={() => {
-                        closeMenu();
-                        setIsRenaming(true);
-                      }}
-                    >
-                      {renameLabel}
-                    </Button>
-                  )}
-                  <Button
-                    type="button"
-                    variant="hoverable"
-                    color="text"
-                    size="sm"
-                    className="w-full justify-start"
-                    label={
-                      isItemPinned ? unpinDictionaryLabel : pinDictionaryLabel
-                    }
-                    Icon={isItemPinned ? PinOff : Pin}
-                    onClick={() => {
-                      closeMenu();
-                      if (isItemPinned) unpinItem();
-                      else pinItem();
-                    }}
+                  <Container
+                    className="min-w-40 gap-1 border border-neutral/10"
+                    transparency="xs"
+                    padding="sm"
+                    roundedSize="2xl"
                   >
-                    {isItemPinned ? unpinDictionaryLabel : pinDictionaryLabel}
-                  </Button>
-                  {!isItemPinned && (
+                    {isItemPinned && (
+                      <Button
+                        type="button"
+                        variant="hoverable"
+                        color="text"
+                        size="sm"
+                        className="w-full justify-start"
+                        label={renameLabel}
+                        Icon={Pencil}
+                        onClick={() => {
+                          closeMenu();
+                          setIsRenaming(true);
+                        }}
+                      >
+                        {renameLabel}
+                      </Button>
+                    )}
                     <Button
                       type="button"
                       variant="hoverable"
                       color="text"
                       size="sm"
                       className="w-full justify-start"
-                      label={removeFromSidebarLabel}
-                      Icon={X}
+                      label={
+                        isItemPinned ? unpinDictionaryLabel : pinDictionaryLabel
+                      }
+                      Icon={isItemPinned ? PinOff : Pin}
                       onClick={() => {
                         closeMenu();
-                        removeItem();
+                        if (isItemPinned) unpinItem();
+                        else pinItem();
                       }}
                     >
-                      {removeFromSidebarLabel}
+                      {isItemPinned ? unpinDictionaryLabel : pinDictionaryLabel}
                     </Button>
-                  )}
-                </Container>
-              </DropDown.Panel>
-            </DropDown>
-          </div>
-        )}
+                    {!isItemPinned && (
+                      <Button
+                        type="button"
+                        variant="hoverable"
+                        color="text"
+                        size="sm"
+                        className="w-full justify-start"
+                        label={removeFromSidebarLabel}
+                        Icon={X}
+                        onClick={() => {
+                          closeMenu();
+                          removeItem();
+                        }}
+                      >
+                        {removeFromSidebarLabel}
+                      </Button>
+                    )}
+                  </Container>
+                </DropDown.Panel>
+              </DropDown>
+            </div>
+          )}
+        </m.div>
       </div>
     );
   }
@@ -709,11 +758,12 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
     renamePinnedItem: renameLabel,
     moreActions: moreActionsLabel,
   } = useIntlayer('dashboard-sidebar');
+  const shouldReduceMotion = Boolean(useReducedMotion());
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const draggedKeyRef = useRef<string | null>(null);
+  const [draggedKey, setDraggedKey] = useState<string | null>(null);
   const [dropIndicator, setDropIndicator] = useState<{
     key: string;
-    placement: DropPlacement;
+    placement: SidebarMove['placement'];
   } | null>(null);
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
@@ -761,13 +811,20 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   const getDropPlacement = (
     event: DragEvent<HTMLElement>,
     targetKey: string
-  ): DropPlacement | null => {
-    const draggedKey = draggedKeyRef.current;
+  ): SidebarMove['placement'] | null => {
     if (!draggedKey) return null;
 
     const { top, height } = event.currentTarget.getBoundingClientRect();
-    const placement: DropPlacement =
-      event.clientY < top + height / 2 ? 'before' : 'after';
+    const fraction = (event.clientY - top) / height;
+    const acceptsChildren = flatNavItems.find(
+      (item) => item.key === targetKey
+    )?.items;
+    const placement =
+      acceptsChildren && fraction >= 0.3 && fraction <= 0.7
+        ? 'inside'
+        : fraction < 0.5
+          ? 'before'
+          : 'after';
 
     return resolveSidebarMove({
       arrangedItems: items,
@@ -781,7 +838,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   };
 
   const resetDrag = () => {
-    draggedKeyRef.current = null;
+    setDraggedKey(null);
     setDropIndicator(null);
   };
 
@@ -806,7 +863,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   };
 
   const handleItemDrop = (event: DragEvent<HTMLElement>, targetKey: string) => {
-    const draggedKey = draggedKeyRef.current;
     const placement = getDropPlacement(event, targetKey);
     resetDrag();
 
@@ -823,6 +879,20 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 
     if (result) onMoveResult?.(result);
   };
+
+  // An insertion after a section belongs below its last visible descendant.
+  let indicatorIndex = flatNavItems.findIndex(
+    (item) => item.key === dropIndicator?.key
+  );
+  if (indicatorIndex >= 0 && dropIndicator?.placement === 'after') {
+    const level = flatNavItems[indicatorIndex].level;
+    while (flatNavItems[indicatorIndex + 1]?.level > level) indicatorIndex++;
+  }
+
+  const gapIndex =
+    indicatorIndex < 0 || dropIndicator?.placement === 'inside'
+      ? -1
+      : indicatorIndex + (dropIndicator?.placement === 'after' ? 1 : 0);
 
   if (isMobile) {
     return null;
@@ -847,53 +917,61 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
           aria-label={sidebarNavigation.value}
           className="mt-20 flex-1 overflow-y-auto"
         >
-          <TabSelector
-            selectedChoice={activeKey}
-            key={flatNavItems.length}
-            tabs={flatNavItems.map((item) => (
-              <SidebarTabItem
-                key={item.key}
-                item={item}
-                activeKey={activeKey}
-                isCollapsed={isCollapsed}
-                pinnedDictionaryKeys={pinnedDictionaryKeys}
-                pinnedTagKeys={pinnedTagKeys}
-                pinnedEditorPageKeys={pinnedEditorPageKeys}
-                flatNavItems={flatNavItems}
-                onPinDictionary={onPinDictionary}
-                onUnpinDictionary={onUnpinDictionary}
-                onRemoveDictionary={onRemoveDictionary}
-                onPinTag={onPinTag}
-                onUnpinTag={onUnpinTag}
-                onRemoveTag={onRemoveTag}
-                onPinEditorPage={onPinEditorPage}
-                onUnpinEditorPage={onUnpinEditorPage}
-                onRemoveEditorPage={onRemoveEditorPage}
-                pinDictionaryLabel={String(pinDictionaryLabel)}
-                unpinDictionaryLabel={String(unpinDictionaryLabel)}
-                removeFromSidebarLabel={String(removeFromSidebarLabel)}
-                renameLabel={String(renameLabel)}
-                moreActionsLabel={String(moreActionsLabel)}
-                onRenameItem={onRenameItem}
-                isDraggable={isDraggableItem(item, pinnedItemKeys)}
-                dropPlacement={
-                  dropIndicator?.key === item.key
-                    ? dropIndicator.placement
-                    : null
-                }
-                onItemDragStart={(itemKey) => {
-                  draggedKeyRef.current = itemKey;
-                }}
-                onItemDragOver={handleItemDragOver}
-                onItemDrop={handleItemDrop}
-                onItemDragEnd={resetDrag}
-              />
-            ))}
-            hoverable
-            color="text"
-            orientation="vertical"
-            className="flex-col gap-1"
-          />
+          <LazyMotion features={domMax}>
+            <TabSelector
+              selectedChoice={activeKey}
+              key={flatNavItems.length}
+              tabs={flatNavItems.map((item, index) => (
+                <SidebarTabItem
+                  key={item.key}
+                  item={item}
+                  activeKey={activeKey}
+                  isCollapsed={isCollapsed}
+                  pinnedDictionaryKeys={pinnedDictionaryKeys}
+                  pinnedTagKeys={pinnedTagKeys}
+                  pinnedEditorPageKeys={pinnedEditorPageKeys}
+                  onPinDictionary={onPinDictionary}
+                  onUnpinDictionary={onUnpinDictionary}
+                  onRemoveDictionary={onRemoveDictionary}
+                  onPinTag={onPinTag}
+                  onUnpinTag={onUnpinTag}
+                  onRemoveTag={onRemoveTag}
+                  onPinEditorPage={onPinEditorPage}
+                  onUnpinEditorPage={onUnpinEditorPage}
+                  onRemoveEditorPage={onRemoveEditorPage}
+                  pinDictionaryLabel={String(pinDictionaryLabel)}
+                  unpinDictionaryLabel={String(unpinDictionaryLabel)}
+                  removeFromSidebarLabel={String(removeFromSidebarLabel)}
+                  renameLabel={String(renameLabel)}
+                  moreActionsLabel={String(moreActionsLabel)}
+                  onRenameItem={onRenameItem}
+                  shouldReduceMotion={shouldReduceMotion}
+                  dropPlacement={
+                    dropIndicator && index === indicatorIndex
+                      ? dropIndicator.placement
+                      : null
+                  }
+                  isDragging={draggedKey === item.key}
+                  gapSide={
+                    index === gapIndex
+                      ? 'below'
+                      : index + 1 === gapIndex
+                        ? 'above'
+                        : undefined
+                  }
+                  onItemDragStart={setDraggedKey}
+                  onItemDragOver={handleItemDragOver}
+                  onItemDrop={handleItemDrop}
+                  onItemDragEnd={resetDrag}
+                  onItemDragLeave={() => setDropIndicator(null)}
+                />
+              ))}
+              hoverable
+              color="text"
+              orientation="vertical"
+              className="flex-col gap-1"
+            />
+          </LazyMotion>
         </nav>
 
         {!isCollapsed && !IS_SELF_HOSTED && import.meta.env.DEV && (
