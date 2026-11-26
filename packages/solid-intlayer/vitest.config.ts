@@ -2,8 +2,8 @@ import solidPlugin from '@solidjs/vite-plugin';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  // hot: false — solid-refresh's component wrapper breaks partial 'solid-js' mocks
-  plugins: [solidPlugin({ hot: false })],
+  // Refresh wrappers interfere with partial 'solid-js' mocks.
+  plugins: [solidPlugin({ refresh: false })],
   resolve: {
     dedupe: ['solid-js', '@solidjs/web'],
     // The testing library still imports the Solid 1 web entry point.
