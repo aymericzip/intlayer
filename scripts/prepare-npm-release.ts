@@ -80,7 +80,7 @@ if (import.meta.main) {
       directory: { type: 'string', default: '.npm-release' },
     },
   });
-  const packages = getPublishedPackages();
+  const packages = getPublishedPackages(process.env.RELEASE_TURBO_PATH);
   const { version } = readWorkspacePackage();
   validateReleaseVersions(packages, version);
   console.log(`✅ ${packages.length} packages at version ${version}`);

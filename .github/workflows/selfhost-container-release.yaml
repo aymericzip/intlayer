@@ -15,51 +15,21 @@ name: 🐳 Self-host Container
 # localhost defaults (see docker/selfhost/Dockerfile), so the published images
 # are reached on http://localhost:3000. See docs/docs/en/self_hosting.md.
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'package.json'
-  workflow_dispatch:
+  workflow_call:
     inputs:
+      version:
+        type: string
+        required: true
       tag:
-        description: 'Image tag to publish (in addition to "latest")'
-        required: false
-        default: ''
+        type: string
       platforms:
-        description: 'Target platforms (comma-separated)'
-        required: false
-        # amd64 covers Intel Macs, Windows (Docker Desktop/WSL2) and most Linux;
-        # arm64 covers Apple Silicon Macs and Windows-on-ARM.
-        default: 'linux/amd64,linux/arm64'
+        type: string
+        default: linux/amd64,linux/arm64
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+concurrency: selfhost-${{ github.ref }}
 
 jobs:
-  check-version:
-    runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.check.outputs.changed }}
-      version: ${{ steps.check.outputs.version }}
-    steps:
-      - name: ⬇️ Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: 🔎 Check version change
-        id: check
-        run: bash .github/scripts/check-version-change.sh
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          REF_TYPE: ${{ github.ref_type }}
-          BEFORE_SHA: ${{ github.event.before }}
-
   build:
-    # Prevents the workflow from running on forks and only runs when version changed
-    needs: check-version
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
-
     name: 🐳 Build ${{ matrix.image }} ${{ matrix.platform }}
     # One job per image and platform, each on a runner of that architecture.
     # Building arm64 through QEMU on an amd64 runner emulates the whole toolchain
@@ -93,7 +63,7 @@ jobs:
       - name: 🔎 Check platform is requested
         id: requested
         env:
-          PLATFORMS: ${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}
+          PLATFORMS: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
           PLATFORM: ${{ matrix.platform }}
         run: |
           if [[ ",${PLATFORMS// /}," == *",${PLATFORM},"* ]]; then
@@ -184,8 +154,7 @@ jobs:
 
   merge:
     name: 🐳 Publish ${{ matrix.image }} manifest
-    needs: [check-version, build]
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+    needs: build
     strategy:
       fail-fast: false
       matrix:
@@ -240,9 +209,9 @@ jobs:
           images: ${{ steps.registries.outputs.images }}
           tags: |
             type=raw,value=latest
-            type=raw,value=${{ github.event.inputs.tag }},enable=${{ github.event.inputs.tag != '' }}
-            type=raw,value=${{ needs.check-version.outputs.version }},enable=${{ github.event.inputs.tag == '' && needs.check-version.outputs.version != '' }}
-            type=raw,value=v${{ needs.check-version.outputs.version }},enable=${{ github.event.inputs.tag == '' && needs.check-version.outputs.version != '' }}
+            type=raw,value=${{ inputs.tag }},enable=${{ inputs.tag != '' }}
+            type=raw,value=${{ inputs.version }},enable=${{ inputs.tag == '' && inputs.version != '' }}
+            type=raw,value=v${{ inputs.version }},enable=${{ inputs.tag == '' && inputs.version != '' }}
             type=sha,format=short
 
       # Every per-platform digest was pushed to every registry, so the manifest

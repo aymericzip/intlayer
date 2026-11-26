@@ -17,23 +17,14 @@
 name: 🧩 Publish VS Code Extension
 
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'package.json'
-  workflow_dispatch:
+  workflow_call:
     inputs:
       dry-run:
-        description: 'Only build the VSIX packages, do not publish'
         type: boolean
-        default: false
       pre-release:
-        description: 'Publish as a pre-release'
         type: boolean
-        default: false
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+concurrency: vscode-${{ github.ref }}
 
 permissions:
   contents: read
@@ -50,28 +41,14 @@ jobs:
     steps:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: 🔎 Check version change
-        id: check
-        run: bash .github/scripts/check-version-change.sh
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          REF_TYPE: ${{ github.ref_type }}
-          BEFORE_SHA: ${{ github.event.before }}
-
       - name: 🏷️ Resolve extension version
         id: stable
-        env:
-          CHANGED: ${{ steps.check.outputs.changed }}
-          ROOT_VERSION: ${{ steps.check.outputs.version }}
         run: |
           version=$(jq -r .version "$EXTENSION_DIRECTORY/package.json")
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-          if [ "$version" != "$ROOT_VERSION" ]; then
-            echo "::warning::Extension version ($version) differs from the root version ($ROOT_VERSION)"
+          if [ "$version" != "$(jq -r .version package.json)" ]; then
+            echo "::warning::Extension version ($version) differs from the root version"
           fi
 
           case "$version" in
@@ -80,7 +57,7 @@ jobs:
               echo "changed=false" >> "$GITHUB_OUTPUT"
               ;;
             *)
-              echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+              echo "changed=true" >> "$GITHUB_OUTPUT"
               ;;
           esac
 
@@ -93,11 +70,6 @@ jobs:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
 
-      - name: 🥡 Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.4.5
-
       - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
@@ -105,12 +77,11 @@ jobs:
 
       # Native bindings for every platform, not just the runner's, so each
       # target below can ship the ones matching its VSCE_TARGET.
-      - name: 🧩 Install dependencies
-        run: bun install --frozen-lockfile --os='*' --cpu='*'
-
-      # The extension bundles the @intlayer/* workspace packages from their dist
-      - name: 🏗️ Build workspace dependencies
-        run: bun x turbo run build:ci --filter=intlayer-vs-code-extension^...
+      - uses: ./.github/actions/install-workspaces
+        with:
+          workspace: intlayer-vs-code-extension
+          all-platforms: 'true'
+      - uses: ./.github/actions/restore-workspaces
 
       # `vsce package` runs the `vscode:prepublish` script (tsdown compile),
       # which copies only the VSCE_TARGET native bindings into dist/.
@@ -143,7 +114,7 @@ jobs:
           name: intlayer-vscode-extension
           path: ${{ env.EXTENSION_DIRECTORY }}/vsix/*.vsix
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 1
 
   publish:
     name: 🚀 Publish

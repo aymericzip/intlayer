@@ -22,38 +22,56 @@
 #     Workflow filename:    publish.yaml
 #     Environment:          crates-io
 
-name: 📦 Publish to npm
+name: 📦 Build, test and release
 
 on:
   push:
-    branches:
-      - 'main'
+    branches: [main]
+    tags: ['v*']
     paths:
-      - 'package.json'
+      - package.json
+      - 'apps/website/**'
   workflow_dispatch:
     inputs:
+      target:
+        description: Release target
+        type: choice
+        options: [npm, china, tauri, vscode, selfhost]
+        default: npm
       dry-run:
-        description: 'Build and pack everything without publishing'
+        description: Dry run for npm, crates.io or VS Code
         type: boolean
         default: false
+      pre-release:
+        description: Publish a VS Code pre-release
+        type: boolean
+        default: false
+      tag:
+        description: Additional self-host image tag
+        type: string
+      platforms:
+        description: Self-host image platforms
+        type: string
+        default: linux/amd64,linux/arm64
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+concurrency: release-${{ github.ref }}-${{ inputs.target || 'npm' }}
 
 permissions:
   contents: read
-  id-token: write # required for npm trusted publishing (OIDC)
 
 jobs:
-  check-version:
+  targets:
+    if: github.repository_owner == 'aymericzip'
     runs-on: ubuntu-latest
     outputs:
-      changed: ${{ steps.check.outputs.changed }}
-      npm-needed: ${{ steps.registry.outputs.needed }}
+      version: ${{ steps.check.outputs.version }}
+      version-release: ${{ steps.check.outputs.changed == 'true' && github.event_name == 'push' && github.ref_type == 'branch' }}
+      china: ${{ steps.website.outputs.changed == 'true' || inputs.target == 'china' }}
     steps:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: 🔎 Check version change
         id: check
@@ -63,24 +81,50 @@ jobs:
           REF_TYPE: ${{ github.ref_type }}
           BEFORE_SHA: ${{ github.event.before }}
 
+      - name: Check website changes in the push
+        id: website
+        if: github.event_name == 'push' && github.ref_type == 'branch'
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          if [[ "$BEFORE_SHA" =~ ^0+$ ]]; then BEFORE_SHA=$(git hash-object -t tree /dev/null); fi
+          changed_files=$(git diff --name-only "$BEFORE_SHA" HEAD -- apps/website)
+          if [[ -n "$changed_files" ]]; then
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+
+  validate:
+    needs: targets
+    if: needs.targets.outputs.version-release == 'true' || needs.targets.outputs.china == 'true' || github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/build_and_test.yaml
+    with:
+      build-context: ${{ needs.targets.outputs.version-release == 'true' && 'release' || inputs.target == 'selfhost' && 'none' || inputs.target || github.ref_type == 'tag' && 'tauri' || 'china' }}
+
+  check-npm:
+    needs: targets
+    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'npm'
+    runs-on: ubuntu-latest
+    outputs:
+      needed: ${{ steps.registry.outputs.needed }}
+    steps:
+      - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-        if: ${{ github.repository_owner == 'aymericzip' && steps.check.outputs.changed == 'true' && !inputs.dry-run }}
+        if: ${{ !inputs.dry-run }}
         with:
           bun-version: 1.4.5
 
       - name: Check whether npm already serves this release
         id: registry
-        if: ${{ github.repository_owner == 'aymericzip' && steps.check.outputs.changed == 'true' && !inputs.dry-run }}
+        if: ${{ !inputs.dry-run }}
         run: |
           # Resolve the same Turbo release set without installing the monorepo.
           npm install --prefix "$RUNNER_TEMP/release-tools" --no-audit --no-fund "turbo@$(jq -er '.devDependencies.turbo' package.json)"
           RELEASE_TURBO_PATH="$RUNNER_TEMP/release-tools/node_modules/.bin/turbo" bun scripts/check-npm-release.ts
 
   build-packages:
-    needs: check-version
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && (inputs.dry-run || needs.check-version.outputs.npm-needed == 'true') }}
-
-    name: 🏗️ Build and pack npm packages
+    needs: [validate, check-npm]
+    if: inputs.dry-run || needs.check-npm.outputs.needed == 'true'
+    name: 📦 Pack tested npm packages
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: '--max_old_space_size=8192'
@@ -108,24 +152,15 @@ jobs:
         with:
           workspaces: packages/@intlayer/swc
 
-      - name: 🔆 Cache bun modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-store-
+      - uses: ./.github/actions/restore-workspaces
 
-      - name: 🧩 Install Dependencies
-        run: bun install --frozen-lockfile
-
-      - name: 🔎 Validate uniform package versions
-        run: bun scripts/prepare-npm-release.ts --check
-
-      # Everything is built (and prepublished) up front: a failure stops the
-      # release before anything reaches the registry.
-      - name: 🏗️ Build and pack packages
-        run: bun run publish:ci:build
+      - name: Prepare release files and pack with Bun
+        run: |
+          npm install --prefix "$RUNNER_TEMP/release-tools" --no-audit --no-fund "turbo@$(jq -er '.devDependencies.turbo' package.json)"
+          export RELEASE_TURBO_PATH="$RUNNER_TEMP/release-tools/node_modules/.bin/turbo"
+          bun scripts/prepare-npm-release.ts --check
+          "$RELEASE_TURBO_PATH" run prepublish '--filter=./packages/**' '--filter=./docs' '--filter=./plugins/**' '--filter=./compat/**' --force
+          bun scripts/prepare-npm-release.ts
 
       - name: ⬆️ Save release archives
         uses: actions/upload-artifact@v4
@@ -133,12 +168,15 @@ jobs:
           name: npm-release-${{ github.run_id }}
           path: .npm-release/
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
           compression-level: 0
           include-hidden-files: true
           overwrite: true
 
   publish:
+    permissions:
+      contents: read
+      id-token: write
     needs: build-packages
     if: ${{ !cancelled() && needs.build-packages.result == 'success' }}
     name: 📦 Publish to staging
@@ -176,6 +214,9 @@ jobs:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
 
   promote:
+    permissions:
+      contents: read
+      id-token: write
     needs: publish
     if: ${{ !cancelled() && needs.publish.result == 'success' }}
     name: 🏷️ Promote complete npm release
@@ -214,8 +255,11 @@ jobs:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
 
   publish-crate:
-    needs: check-version
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+    permissions:
+      contents: read
+      id-token: write
+    needs: [targets, validate]
+    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'npm'
 
     name: 🦀 Publish to crates.io
     runs-on: ubuntu-latest
@@ -230,8 +274,7 @@ jobs:
       - name: 🥡 Setup bun
         uses: oven-sh/setup-bun@v2
         with:
-          version: 1.4.5
-          run_install: false
+          bun-version: 1.4.5
 
       - name: 🦀 Setup rust
         uses: dtolnay/rust-toolchain@1.89.0
@@ -274,3 +317,58 @@ jobs:
         env:
           CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
         run: cargo publish --allow-dirty ${{ inputs.dry-run && '--dry-run' || '' }}
+
+  china:
+    needs: [targets, validate]
+    if: needs.targets.outputs.china == 'true'
+    uses: ./.github/workflows/deploy-website-china.yaml
+    secrets: inherit
+
+  tauri:
+    needs: [targets, validate]
+    if: needs.targets.outputs.version-release == 'true' || (github.event_name == 'push' && github.ref_type == 'tag') || inputs.target == 'tauri'
+    permissions:
+      contents: write
+    uses: ./.github/workflows/tauri-app-release.yaml
+    secrets: inherit
+
+  vscode:
+    needs: [targets, validate]
+    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'vscode'
+    permissions:
+      contents: write
+    uses: ./.github/workflows/publish-vscode-extension.yaml
+    with:
+      dry-run: ${{ inputs.dry-run || false }}
+      pre-release: ${{ inputs.pre-release || false }}
+    secrets: inherit
+
+  selfhost:
+    needs: [targets, validate]
+    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'selfhost'
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/selfhost-container-release.yaml
+    with:
+      version: ${{ needs.targets.outputs.version }}
+      tag: ${{ inputs.tag || '' }}
+      platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
+    secrets: inherit
+
+  cleanup-context:
+    needs:
+      [
+        validate,
+        check-npm,
+        build-packages,
+        publish,
+        promote,
+        china,
+        tauri,
+        vscode,
+      ]
+    if: ${{ !cancelled() && needs.validate.result == 'success' && !contains(needs.*.result, 'failure') }}
+    permissions:
+      actions: write
+    uses: ./.github/workflows/cleanup-build-context.yaml

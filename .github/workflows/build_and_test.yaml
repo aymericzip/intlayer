@@ -2,75 +2,50 @@ name: 🔨 Build & Test
 
 on:
   pull_request:
-    branches:
-      - 'main'
+    branches: [main]
+  workflow_call:
+    inputs:
+      build-context:
+        description: Package outputs required by downstream jobs
+        type: string
+        default: none
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+permissions:
+  contents: read
 
 jobs:
   build:
-    # github.actor!= 'github-actions' -> Ignore the pull request which comes from user depbot.
-    # github.repository_owner == 'aymericzip' -> Prevents the workflow from running on forks
-    if: ${{ github.repository_owner == 'aymericzip' && github.actor != 'github-actions' }}
-
+    if: ${{ github.repository_owner == 'aymericzip' && (github.event_name != 'pull_request' || github.actor != 'github-actions') }}
     name: 🔨 Build & Test
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [lts/*]
-        bun-version: [1.4.5]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout
-        id: checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          token: ${{ env.GITHUB_TOKEN }}
           fetch-depth: 0
-
-      - name: 🥡 Setup bun
-        id: setup-bun
-        uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v4
         with:
-          version: ${{ matrix.bun-version }}
-          run_install: false
-
-      - name: 🟢 Setup node
-        id: setup-node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: 🔆 Cache bun modules
-        uses: actions/cache@v4
-        id: bun-cache
-        with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-store-
-
-      - name: 🧩 Install Dependencies
-        id: install-dependencies
-        run: bun install
-
+          node-version: lts/*
+      - uses: ./.github/actions/install-workspaces
       - name: 📝 Run linter
-        env:
-          NODE_OPTIONS: '--max_old_space_size=4096'
         run: bun run lint-staged
-
-      - name: 🏗️ Build
-        id: build-the-mono-repo
-        run: |
-          bun build:ci
-
+      - name: 🏗️ Build workspaces
+        run: bun run build:ci
       - name: 🧪 Test packages
         run: bun run test
-
       - name: 🧪 Test npm release workflow
         run: |
           bun run tsc -p scripts/tsconfig.json
           bun test scripts/npm-release.test.ts
+      - name: Archive tested package outputs
+        if: inputs.build-context && inputs.build-context != 'none'
+        env:
+          BUILD_CONTEXT: ${{ inputs.build-context }}
+        run: bash .github/scripts/archive-workspaces.sh
+      - uses: actions/upload-artifact@v4
+        if: inputs.build-context && inputs.build-context != 'none'
+        with:
+          name: workspace-build
+          path: ${{ runner.temp }}/packages.tar.gz
+          compression-level: 0
+          retention-days: 1
+          overwrite: true

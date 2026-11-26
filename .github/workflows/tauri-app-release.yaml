@@ -1,42 +1,13 @@
 name: 💻 Tauri Release
 
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'package.json'
-    tags:
-      - 'v*'
-  workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: write
 
 jobs:
-  check-version:
-    runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.check.outputs.changed }}
-      version: ${{ steps.check.outputs.version }}
-    steps:
-      - name: ⬇️ Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: 🔎 Check version change
-        id: check
-        run: bash .github/scripts/check-version-change.sh
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          REF_TYPE: ${{ github.ref_type }}
-          BEFORE_SHA: ${{ github.event.before }}
-
   build-and-publish:
-    needs: check-version
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
-
     strategy:
       # Let the other platforms finish (and publish) when one of them fails.
       fail-fast: false
@@ -64,9 +35,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Bun
-        uses: oven-sh/setup-bun@v1
-
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
@@ -85,11 +53,10 @@ jobs:
             patchelf \
             libvips-dev
 
-      - name: Install dependencies
-        run: bun install
-
-      - name: Build packages
-        run: bun run build:ci
+      - uses: ./.github/actions/install-workspaces
+        with:
+          workspace: app
+      - uses: ./.github/actions/restore-workspaces
 
       - name: Get app version
         id: get_version
@@ -97,10 +64,6 @@ jobs:
         run: |
           VERSION=$(bun -e "console.log(JSON.parse(require('fs').readFileSync('apps/app/package.json', 'utf-8')).version)")
           echo "version=v$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Build Vite app
-        working-directory: apps/app
-        run: bun --bun vite build --config tauri.vite.config.ts
 
       # Windows: decode the base64 .pfx from the secret and import it into the
       # current-user certificate store so signtool can find it by thumbprint.

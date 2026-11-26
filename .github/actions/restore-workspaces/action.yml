@@ -1,0 +1,11 @@
+name: Restore tested workspace outputs
+description: Extract the package build from this workflow run
+runs:
+  using: composite
+  steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: workspace-build
+        path: .workspace-build
+    - shell: bash
+      run: tar -xzf .workspace-build/packages.tar.gz

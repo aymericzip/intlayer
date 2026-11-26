@@ -1,0 +1,28 @@
+name: Install workspace dependencies
+description: Set up pinned Bun and reuse its platform-specific package store
+inputs:
+  workspace:
+    description: Workspace to install alongside the root tooling
+    default: ''
+  all-platforms:
+    description: Install native bindings for all VSIX targets
+    default: 'false'
+runs:
+  using: composite
+  steps:
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: 1.4.5
+    - uses: actions/cache@v4
+      with:
+        path: ~/.bun/install/cache
+        key: ${{ runner.os }}-${{ runner.arch }}-bun-1.4.5-${{ inputs.all-platforms }}-${{ hashFiles('bun.lock') }}
+    - shell: bash
+      env:
+        WORKSPACE: ${{ inputs.workspace }}
+        ALL_PLATFORMS: ${{ inputs.all-platforms }}
+      run: |
+        flags=()
+        if [[ -n "$WORKSPACE" ]]; then flags+=(--filter=intlayer-monorepo "--filter=$WORKSPACE"); fi
+        if [[ "$ALL_PLATFORMS" == true ]]; then flags+=(--os='*' --cpu='*'); fi
+        bun install --frozen-lockfile "${flags[@]}"

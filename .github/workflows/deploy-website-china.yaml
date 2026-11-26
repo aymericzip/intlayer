@@ -1,18 +1,7 @@
 name: 🇨🇳 Deploy Chinese Website (Alibaba Cloud VPS)
 
 on:
-  workflow_dispatch:
-    inputs:
-      force_clean:
-        description: 'Force remove old .output before untarring'
-        type: boolean
-        default: true
-        required: false
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'apps/website/**'
+  workflow_call:
 
 concurrency:
   group: deploy-website-china
@@ -25,30 +14,13 @@ jobs:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🥡 Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          version: 1.4.5
-          run_install: false
-
-      - name: 🟢 Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-
-      - name: 🔆 Cache Bun Modules
-        uses: actions/cache@v4
+      - uses: ./.github/actions/install-workspaces
         with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-store-
-
-      - name: 🧩 Install Monorepo Dependencies
-        run: bun install
-
-      - name: 🏗️ Build Workspace Dependencies
-        run: bun x turbo run build:ci --filter=website-tanstack^... --filter=./docs
+          workspace: website-tanstack
+      - uses: ./.github/actions/restore-workspaces
 
       - name: 📝 Configure Production Environment for China
         run: |
@@ -85,13 +57,6 @@ jobs:
 
           echo "Archive generated successfully:"
           ls -lh output.tar.gz
-
-      - name: 💾 Save Archive to GitHub Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: website-output-china
-          path: output.tar.gz
-          retention-days: 7
 
       - name: 📤 Copy Archive to VPS via SCP
         uses: appleboy/scp-action@v0.1.7
