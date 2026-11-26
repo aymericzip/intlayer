@@ -56,15 +56,23 @@ export const getDistTagFromVersion = (version: string) => {
  * Resolves exactly the public workspaces targeted by the root publish:ci script.
  * @returns {(PackageVersion & { directory: string; scripts?: Record<string, string> })[]}
  */
-export const getPublishedPackages = (): WorkspacePackage[] => {
+export const getPublishedPackages = (
+  turboPath?: string
+): WorkspacePackage[] => {
   const publishScript = readWorkspacePackage().scripts?.['publish:ci:compile'];
   if (!publishScript) throw new Error('Missing root publish:ci:compile script');
   const filters = [...publishScript.matchAll(/'(--filter=[^']+)'/g)].map(
     ([, filter]) => filter!
   );
   const result = spawnSync(
-    'bun',
-    ['turbo', 'run', 'publish:ci', ...filters, '--dry-run=json'],
+    turboPath ?? 'bun',
+    [
+      ...(turboPath ? [] : ['turbo']),
+      'run',
+      'publish:ci',
+      ...filters,
+      '--dry-run=json',
+    ],
     {
       cwd: rootDirectory,
       encoding: 'utf8',

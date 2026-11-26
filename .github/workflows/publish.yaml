@@ -12,12 +12,6 @@
 #     Allowed actions:      npm publish AND npm dist-tag
 #                           (dist-tag access is disabled by default)
 #
-# The release gate is the `release` GitHub environment (required reviewers):
-# the `approve` job waits on it right after the version check, before any
-# build starts. A manual run started by aymericzip skips it. The `npm` and
-# `crates-io` environments only scope the OIDC trust, so they must not require
-# reviewers, or the run would pause a second time.
-#
 # The `intlayer-swc-plugin` crate is published to crates.io the same way
 # (trusted publishing through OIDC, no `CARGO_REGISTRY_TOKEN` secret).
 #
@@ -54,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.check.outputs.changed }}
-      version: ${{ steps.check.outputs.version }}
+      npm-needed: ${{ steps.registry.outputs.needed }}
     steps:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
@@ -69,24 +63,22 @@ jobs:
           REF_TYPE: ${{ github.ref_type }}
           BEFORE_SHA: ${{ github.event.before }}
 
-  approve:
-    # Release gate, asked once at the start of the run. A manual run started
-    # by the maintainer is already an explicit decision, so it is skipped.
-    needs: check-version
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && !(github.event_name == 'workflow_dispatch' && github.triggering_actor == 'aymericzip') }}
+      - uses: oven-sh/setup-bun@v2
+        if: ${{ github.repository_owner == 'aymericzip' && steps.check.outputs.changed == 'true' && !inputs.dry-run }}
+        with:
+          bun-version: 1.4.5
 
-    name: ✅ Approve release
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - name: ✅ Approved
-        run: echo "Release ${{ needs.check-version.outputs.version }} approved"
+      - name: Check whether npm already serves this release
+        id: registry
+        if: ${{ github.repository_owner == 'aymericzip' && steps.check.outputs.changed == 'true' && !inputs.dry-run }}
+        run: |
+          # Resolve the same Turbo release set without installing the monorepo.
+          npm install --prefix "$RUNNER_TEMP/release-tools" --no-audit --no-fund "turbo@$(jq -er '.devDependencies.turbo' package.json)"
+          RELEASE_TURBO_PATH="$RUNNER_TEMP/release-tools/node_modules/.bin/turbo" bun scripts/check-npm-release.ts
 
   build-packages:
-    # Prevents the workflow from running on forks, only runs when version
-    # changed, and waits for the release gate (or its skip)
-    needs: [check-version, approve]
-    if: ${{ !cancelled() && github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && contains(fromJSON('["success", "skipped"]'), needs.approve.result) }}
+    needs: check-version
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && (inputs.dry-run || needs.check-version.outputs.npm-needed == 'true') }}
 
     name: 🏗️ Build and pack npm packages
     runs-on: ubuntu-latest
@@ -222,8 +214,8 @@ jobs:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
 
   publish-crate:
-    needs: [check-version, approve]
-    if: ${{ !cancelled() && github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && contains(fromJSON('["success", "skipped"]'), needs.approve.result) }}
+    needs: check-version
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
 
     name: 🦀 Publish to crates.io
     runs-on: ubuntu-latest
