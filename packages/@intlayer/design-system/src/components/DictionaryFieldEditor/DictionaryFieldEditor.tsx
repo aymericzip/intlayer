@@ -290,7 +290,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           )}
 
           <DictionarySiblingSwitcher
-            className="mx-3 mb-3 shrink-0"
+            className="mx-9 mb-3 shrink-0"
             dictionaryKey={dictionary.key}
             siblings={siblings}
             selectedItem={activeSelection.item}
