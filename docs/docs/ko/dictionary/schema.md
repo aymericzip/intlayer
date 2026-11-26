@@ -35,6 +35,24 @@ author: aymericzip
 
 스키마는 여러 딕셔너리가 같은 구조를 공유해야 할 때(SEO 메타데이터, 상품 카드, CMS 형태의 항목 등)나, 각 번역의 최대 길이처럼 TypeScript로는 표현할 수 없는 제약을 콘텐츠에 적용해야 할 때 유용합니다.
 
+<AccordionGroup>
+<Accordion header="Markdown 프런트매터">
+
+Markdown을 렌더링하기 전에 `title`, `description`, `date`, `tags`와 같은 frontmatter 필드를 검증합니다. 필수 필드와 예상 타입은 사전 빌드 중 확인되며, 잘못된 메타데이터는 로케일과 필드 경로와 함께 보고됩니다.
+
+</Accordion>
+<Accordion header="페이지 SEO 메타데이터">
+
+페이지 제목과 설명, canonical URL, 소셜 이미지, 색인 지시문에 쓰이는 메타데이터를 검증합니다. 스키마에서 제목을 1~60자로 제한하고 설명을 160자로 제한하며 URL의 유효성도 확인할 수 있습니다. 로케일의 잘못된 콘텐츠는 페이지 렌더링 오류를 일으키기 전에 거부됩니다.
+
+</Accordion>
+<Accordion header="공유 구조화 콘텐츠">
+
+제품 항목, 탐색 메뉴, 이메일 템플릿처럼 같은 콘텐츠 구조를 공유하는 사전에 동일한 스키마를 연결합니다. 필드가 없거나 값의 타입이 잘못되면 빌드 중 해당 사전이 유효하지 않은 것으로 처리되어 일관되지 않은 콘텐츠가 앱에 들어가는 것을 막습니다.
+
+</Accordion>
+</AccordionGroup>
+
 <Steps>
 <Step number={1} title="설정에서 스키마 선언하기">
 
@@ -153,24 +171,6 @@ export default aboutMetadataContent;
 
 </Step>
 </Steps>
-
-<AccordionGroup>
-<Accordion header="Markdown 프런트매터">
-
-Markdown을 렌더링하기 전에 `title`, `description`, `date`, `tags`와 같은 frontmatter 필드를 검증합니다. 필수 필드와 예상 타입은 사전 빌드 중 확인되며, 잘못된 메타데이터는 로케일과 필드 경로와 함께 보고됩니다.
-
-</Accordion>
-<Accordion header="페이지 SEO 메타데이터">
-
-페이지 제목과 설명, canonical URL, 소셜 이미지, 색인 지시문에 쓰이는 메타데이터를 검증합니다. 스키마에서 제목을 1~60자로 제한하고 설명을 160자로 제한하며 URL의 유효성도 확인할 수 있습니다. 로케일의 잘못된 콘텐츠는 페이지 렌더링 오류를 일으키기 전에 거부됩니다.
-
-</Accordion>
-<Accordion header="공유 구조화 콘텐츠">
-
-제품 항목, 탐색 메뉴, 이메일 템플릿처럼 같은 콘텐츠 구조를 공유하는 사전에 동일한 스키마를 연결합니다. 필드가 없거나 값의 타입이 잘못되면 빌드 중 해당 사전이 유효하지 않은 것으로 처리되어 일관되지 않은 콘텐츠가 앱에 들어가는 것을 막습니다.
-
-</Accordion>
-</AccordionGroup>
 
 ## 스키마로 콘텐츠 타입 지정하기
 

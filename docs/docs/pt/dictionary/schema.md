@@ -35,6 +35,24 @@ O Intlayer então:
 
 Os schemas são úteis quando vários dicionários precisam compartilhar a mesma estrutura (metadados de SEO, cards de produto, entradas no estilo CMS), ou quando o conteúdo precisa respeitar restrições que o TypeScript não consegue expressar, como um tamanho máximo para cada tradução.
 
+<AccordionGroup>
+<Accordion header="Metadados Markdown">
+
+Valide os campos do frontmatter, como `title`, `description`, `date` e `tags`, antes de renderizar o Markdown. Os campos obrigatórios e os tipos esperados são verificados durante a compilação dos dicionários. Metadados incorretos são relatados com o idioma e o caminho do campo.
+
+</Accordion>
+<Accordion header="Metadados SEO da página">
+
+Valide os metadados usados para apresentar títulos e descrições de páginas, URLs canônicas, imagens sociais e diretivas de indexação. Um esquema pode exigir títulos de 1 a 60 caracteres, limitar descrições a 160 caracteres e verificar URLs. Conteúdo inválido em um idioma é rejeitado antes de causar um erro na apresentação da página.
+
+</Accordion>
+<Accordion header="Conteúdo estruturado compartilhado">
+
+Associe o mesmo esquema a dicionários que compartilham uma estrutura, como produtos, itens de navegação ou modelos de e-mail. Um campo ausente ou um valor do tipo errado invalida o dicionário durante a compilação e ajuda a impedir que conteúdo inconsistente chegue à aplicação.
+
+</Accordion>
+</AccordionGroup>
+
 <Steps>
 <Step number={1} title="Declarar os schemas na configuração">
 
@@ -153,24 +171,6 @@ Uma execução avulsa de `intlayer build` falha se o esquema for desconhecido ou
 
 </Step>
 </Steps>
-
-<AccordionGroup>
-<Accordion header="Metadados Markdown">
-
-Valide os campos do frontmatter, como `title`, `description`, `date` e `tags`, antes de renderizar o Markdown. Os campos obrigatórios e os tipos esperados são verificados durante a compilação dos dicionários. Metadados incorretos são relatados com o idioma e o caminho do campo.
-
-</Accordion>
-<Accordion header="Metadados SEO da página">
-
-Valide os metadados usados para apresentar títulos e descrições de páginas, URLs canônicas, imagens sociais e diretivas de indexação. Um esquema pode exigir títulos de 1 a 60 caracteres, limitar descrições a 160 caracteres e verificar URLs. Conteúdo inválido em um idioma é rejeitado antes de causar um erro na apresentação da página.
-
-</Accordion>
-<Accordion header="Conteúdo estruturado compartilhado">
-
-Associe o mesmo esquema a dicionários que compartilham uma estrutura, como produtos, itens de navegação ou modelos de e-mail. Um campo ausente ou um valor do tipo errado invalida o dicionário durante a compilação e ajuda a impedir que conteúdo inconsistente chegue à aplicação.
-
-</Accordion>
-</AccordionGroup>
 
 ## Tipar o conteúdo a partir do schema
 

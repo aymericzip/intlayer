@@ -35,6 +35,24 @@ Intlayer quindi:
 
 Gli schemi sono utili quando più dizionari devono condividere la stessa struttura (metadati SEO, schede prodotto, voci in stile CMS), o quando il contenuto deve rispettare vincoli che TypeScript non può esprimere, come una lunghezza massima per ogni traduzione.
 
+<AccordionGroup>
+<Accordion header="Metadati Markdown">
+
+Convalida i campi del frontmatter, come `title`, `description`, `date` e `tags`, prima di visualizzare Markdown. I campi obbligatori e i tipi previsti vengono controllati durante la compilazione dei dizionari. I metadati non validi vengono segnalati con la lingua e il percorso del campo.
+
+</Accordion>
+<Accordion header="Metadati SEO della pagina">
+
+Convalida i metadati usati per mostrare titoli e descrizioni delle pagine, URL canonici, immagini social e direttive di indicizzazione. Uno schema può richiedere un titolo da 1 a 60 caratteri, limitare le descrizioni a 160 caratteri e verificare gli URL. I contenuti non validi per una lingua vengono rifiutati prima di causare errori nella visualizzazione della pagina.
+
+</Accordion>
+<Accordion header="Contenuti strutturati condivisi">
+
+Associa lo stesso schema ai dizionari che condividono una struttura, come prodotti, voci di navigazione o modelli email. Un campo mancante o un valore del tipo errato rende il dizionario non valido durante la compilazione e aiuta a evitare che contenuti incoerenti raggiungano l’applicazione.
+
+</Accordion>
+</AccordionGroup>
+
 <Steps>
 <Step number={1} title="Dichiarare gli schemi nella configurazione">
 
@@ -153,24 +171,6 @@ Una singola esecuzione di `intlayer build` fallisce se lo schema è sconosciuto 
 
 </Step>
 </Steps>
-
-<AccordionGroup>
-<Accordion header="Metadati Markdown">
-
-Convalida i campi del frontmatter, come `title`, `description`, `date` e `tags`, prima di visualizzare Markdown. I campi obbligatori e i tipi previsti vengono controllati durante la compilazione dei dizionari. I metadati non validi vengono segnalati con la lingua e il percorso del campo.
-
-</Accordion>
-<Accordion header="Metadati SEO della pagina">
-
-Convalida i metadati usati per mostrare titoli e descrizioni delle pagine, URL canonici, immagini social e direttive di indicizzazione. Uno schema può richiedere un titolo da 1 a 60 caratteri, limitare le descrizioni a 160 caratteri e verificare gli URL. I contenuti non validi per una lingua vengono rifiutati prima di causare errori nella visualizzazione della pagina.
-
-</Accordion>
-<Accordion header="Contenuti strutturati condivisi">
-
-Associa lo stesso schema ai dizionari che condividono una struttura, come prodotti, voci di navigazione o modelli email. Un campo mancante o un valore del tipo errato rende il dizionario non valido durante la compilazione e aiuta a evitare che contenuti incoerenti raggiungano l’applicazione.
-
-</Accordion>
-</AccordionGroup>
 
 ## Tipizzare il contenuto a partire dallo schema
 
