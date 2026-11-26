@@ -154,6 +154,24 @@ export default aboutMetadataContent;
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Markdown 前置元数据">
+
+在渲染 Markdown 前，验证 frontmatter 中的 `title`、`description`、`date` 和 `tags` 等字段。构建词典时会检查必填字段及其预期类型，并报告错误元数据对应的语言和字段路径。
+
+</Accordion>
+<Accordion header="页面 SEO 元数据">
+
+验证用于生成页面标题、描述、规范 URL、社交图片和索引指令的元数据。Schema 可以要求标题长度为 1 到 60 个字符，将描述限制为 160 个字符，并检查 URL 是否有效。某个语言的无效内容会在导致页面渲染错误前被拒绝。
+
+</Accordion>
+<Accordion header="共享结构化内容">
+
+为具有相同内容约定的词典使用同一个 Schema，例如产品条目、导航项或邮件模板。缺少字段或字段值类型错误会使该词典在构建时校验失败，避免不一致的内容进入应用。
+
+</Accordion>
+</AccordionGroup>
+
 ## 根据 schema 为内容提供类型
 
 `Dictionary` 的泛型参数决定了 TypeScript 检查字典的严格程度：

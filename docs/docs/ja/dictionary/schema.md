@@ -154,6 +154,24 @@ export default aboutMetadataContent;
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Markdown のフロントマター">
+
+Markdown を表示する前に、`title`、`description`、`date`、`tags` などの frontmatter フィールドを検証します。必須項目と想定される型は辞書のビルド時に確認され、不正なメタデータはロケールとフィールドのパスとともに報告されます。
+
+</Accordion>
+<Accordion header="SEO メタデータ">
+
+ページタイトルや説明、canonical URL、ソーシャル画像、インデックス指定に使うメタデータを検証します。スキーマでタイトルを1〜60文字に制限し、説明を160文字以内にし、URLの形式も確認できます。ロケールのコンテンツに問題があれば、ページ表示時のエラーになる前に検出されます。
+
+</Accordion>
+<Accordion header="共通の構造化コンテンツ">
+
+商品、ナビゲーション項目、メールテンプレートなど、同じ構造を持つ辞書に同じスキーマを適用します。フィールドの欠落や型の誤りがある辞書はビルド時に無効となり、整合性のないコンテンツがアプリに入るのを防ぎます。
+
+</Accordion>
+</AccordionGroup>
+
 ## スキーマからコンテンツに型を付ける
 
 `Dictionary` のジェネリクスパラメータによって、TypeScript が辞書をどれだけ厳密にチェックするかが決まります。

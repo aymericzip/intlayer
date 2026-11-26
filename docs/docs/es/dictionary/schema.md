@@ -154,6 +154,24 @@ Una ejecución puntual de `intlayer build` falla si el esquema es desconocido o 
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Frontmatter de Markdown">
+
+Valida los campos del frontmatter, como `title`, `description`, `date` y `tags`, antes de renderizar Markdown. Durante la compilación de los diccionarios se comprueban los campos obligatorios y sus tipos. Los metadatos incorrectos se notifican con su idioma y la ruta del campo.
+
+</Accordion>
+<Accordion header="Metadatos SEO de página">
+
+Valida los metadatos que generan los títulos y descripciones de página, las URL canónicas, las imágenes para redes sociales y las directivas de indexación. Un esquema puede exigir títulos de entre 1 y 60 caracteres, limitar las descripciones a 160 caracteres y comprobar que las URL sean válidas. El contenido no válido de un idioma se rechaza antes de provocar errores al mostrar la página.
+
+</Accordion>
+<Accordion header="Contenido estructurado compartido">
+
+Asocia un mismo esquema a diccionarios con una estructura compartida, como productos, elementos de navegación o plantillas de correo electrónico. Si falta un campo o tiene un tipo incorrecto, el diccionario no supera la validación durante la compilación, lo que ayuda a evitar que llegue contenido incoherente a la aplicación.
+
+</Accordion>
+</AccordionGroup>
+
 ## Tipar el contenido a partir del esquema
 
 Los parámetros genéricos de `Dictionary` controlan el nivel de comprobación de TypeScript sobre un diccionario:

@@ -154,6 +154,24 @@ Một lần chạy riêng lẻ của lệnh `intlayer build` sẽ thất bại n
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Metadata Markdown">
+
+Kiểm tra các trường frontmatter như `title`, `description`, `date` và `tags` trước khi hiển thị Markdown. Các trường bắt buộc và kiểu dữ liệu dự kiến được kiểm tra khi xây dựng từ điển. Metadata sai được báo kèm locale và đường dẫn trường.
+
+</Accordion>
+<Accordion header="Metadata SEO của trang">
+
+Kiểm tra metadata dùng để hiển thị tiêu đề, mô tả trang, URL chuẩn, ảnh mạng xã hội và chỉ thị lập chỉ mục. Schema có thể yêu cầu tiêu đề dài từ 1 đến 60 ký tự, giới hạn mô tả ở 160 ký tự và xác thực URL. Nội dung locale không hợp lệ sẽ bị loại trước khi gây lỗi hiển thị trang.
+
+</Accordion>
+<Accordion header="Nội dung có cấu trúc dùng chung">
+
+Gắn cùng một schema cho các từ điển có cấu trúc nội dung chung, chẳng hạn sản phẩm, mục điều hướng hoặc mẫu email. Trường bị thiếu hoặc giá trị sai kiểu sẽ khiến từ điển không hợp lệ khi build, giúp ngăn nội dung thiếu nhất quán đi vào ứng dụng.
+
+</Accordion>
+</AccordionGroup>
+
 ## Định kiểu nội dung từ schema
 
 Các tham số generic của `Dictionary` quyết định mức độ nghiêm ngặt khi TypeScript kiểm tra một từ điển:

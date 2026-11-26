@@ -154,6 +154,24 @@ Doğrulama, Intlayer sözlükleri her build ettiğinde çalışır: `npx intlaye
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Markdown üst bilgileri">
+
+Markdown işlenmeden önce `title`, `description`, `date` ve `tags` gibi frontmatter alanlarını doğrulayın. Zorunlu alanlar ve beklenen türler sözlük derlenirken denetlenir; hatalı meta veriler locale ve alan yolu belirtilerek raporlanır.
+
+</Accordion>
+<Accordion header="Sayfa SEO meta verileri">
+
+Sayfa başlıklarını ve açıklamalarını, standart URL’leri, sosyal medya görsellerini ve dizine ekleme yönergelerini oluşturan meta verileri doğrulayın. Şema başlığı 1–60 karakterle sınırlayabilir, açıklamaları 160 karakterde tutabilir ve URL’leri denetleyebilir. Geçersiz locale içeriği sayfa görüntüleme hatasına yol açmadan reddedilir.
+
+</Accordion>
+<Accordion header="Paylaşılan yapılandırılmış içerik">
+
+Ürün kayıtları, gezinme öğeleri veya e-posta şablonları gibi aynı içerik yapısını paylaşan sözlüklere tek bir şema ekleyin. Eksik bir alan veya yanlış türde değer, derleme sırasında sözlüğü geçersiz kılar ve tutarsız içeriğin uygulamaya ulaşmasını önlemeye yardımcı olur.
+
+</Accordion>
+</AccordionGroup>
+
 ## İçeriği şemadan tipleme
 
 `Dictionary` tipinin generic parametreleri, TypeScript'in bir sözlüğü ne kadar sıkı kontrol edeceğini belirler:

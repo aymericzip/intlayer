@@ -154,6 +154,24 @@ Jednorazowe wywołanie `intlayer build` kończy się błędem, jeśli schemat je
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Metadane Markdown">
+
+Weryfikuj pola frontmatter, takie jak `title`, `description`, `date` i `tags`, przed renderowaniem Markdown. Wymagane pola i oczekiwane typy są sprawdzane podczas budowania słowników. Błędne metadane są zgłaszane wraz z lokalizacją i ścieżką pola.
+
+</Accordion>
+<Accordion header="Metadane SEO strony">
+
+Weryfikuj metadane używane do wyświetlania tytułów i opisów stron, kanonicznych adresów URL, obrazów społecznościowych i dyrektyw indeksowania. Schemat może wymagać tytułu o długości od 1 do 60 znaków, ograniczyć opis do 160 znaków i sprawdzać poprawność adresów URL. Nieprawidłowa treść lokalizacji zostanie odrzucona, zanim spowoduje błąd wyświetlania strony.
+
+</Accordion>
+<Accordion header="Współdzielona treść strukturalna">
+
+Przypisz ten sam schemat słownikom o wspólnej strukturze, takim jak produkty, elementy nawigacji czy szablony e-maili. Brak pola lub wartość niewłaściwego typu unieważnia słownik podczas budowania, pomagając zatrzymać niespójną treść przed dotarciem do aplikacji.
+
+</Accordion>
+</AccordionGroup>
+
 ## Typowanie zawartości na podstawie schematu
 
 Parametry generyczne `Dictionary` decydują, jak ściśle TypeScript sprawdza słownik:

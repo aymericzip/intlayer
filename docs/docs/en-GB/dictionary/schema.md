@@ -154,6 +154,24 @@ A one-off `intlayer build` fails when a schema is unknown or validation fails. I
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Markdown front matter">
+
+Validate frontmatter fields such as `title`, `description`, `date`, and `tags` before rendering Markdown. Required fields and expected types are checked during dictionary building, so malformed metadata is reported with its locale and field path.
+
+</Accordion>
+<Accordion header="Page SEO metadata">
+
+Validate metadata used to render page titles, descriptions, canonical URLs, social images, and indexing directives. A schema can require a title between 1 and 60 characters, limit descriptions to 160 characters, and check that URLs are valid. Invalid locale content is rejected before it can cause a page rendering error.
+
+</Accordion>
+<Accordion header="Shared structured content">
+
+Attach one schema to dictionaries that share a content contract, such as product entries, navigation items, or email templates. A missing field or a value with the wrong type invalidates that dictionary during the build, helping keep inconsistent content out of the application.
+
+</Accordion>
+</AccordionGroup>
+
 ## Type the content from the schema
 
 The generic parameters of `Dictionary` control how strictly TypeScript checks a dictionary:

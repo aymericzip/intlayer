@@ -154,6 +154,24 @@ Une exécution ponctuelle de `intlayer build` échoue si le schéma est inconnu 
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Métadonnées Markdown">
+
+Validez les champs du frontmatter, comme `title`, `description`, `date` et `tags`, avant le rendu du Markdown. Les champs requis et leurs types attendus sont vérifiés lors de la compilation des dictionnaires. Les métadonnées incorrectes sont signalées avec leur locale et le chemin du champ.
+
+</Accordion>
+<Accordion header="Métadonnées SEO de page">
+
+Validez les métadonnées utilisées pour afficher les titres et descriptions de page, les URL canoniques, les images pour les réseaux sociaux et les directives d’indexation. Un schéma peut exiger un titre de 1 à 60 caractères, limiter les descriptions à 160 caractères et vérifier les URL. Le contenu invalide d’une locale est rejeté avant de provoquer une erreur d’affichage de la page.
+
+</Accordion>
+<Accordion header="Contenu structuré partagé">
+
+Associez un même schéma aux dictionnaires qui partagent une structure de contenu, comme les produits, les éléments de navigation ou les modèles d’e-mail. Un champ manquant ou une valeur du mauvais type invalide le dictionnaire lors du build et aide à empêcher les incohérences d’atteindre l’application.
+
+</Accordion>
+</AccordionGroup>
+
 ## Typer le contenu à partir du schéma
 
 Les paramètres génériques de `Dictionary` déterminent la rigueur du contrôle TypeScript sur un dictionnaire :

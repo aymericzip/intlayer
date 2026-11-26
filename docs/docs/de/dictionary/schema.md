@@ -154,6 +154,24 @@ Ein einmaliger Aufruf von `intlayer build` schlägt fehl, wenn das Schema unbeka
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Markdown-Frontmatter">
+
+Prüfe Frontmatter-Felder wie `title`, `description`, `date` und `tags`, bevor Markdown gerendert wird. Pflichtfelder und erwartete Typen werden beim Erstellen der Dictionaries geprüft. Fehlerhafte Metadaten werden mit Locale und Feldpfad gemeldet.
+
+</Accordion>
+<Accordion header="SEO-Metadaten der Seite">
+
+Prüfe Metadaten für Seitentitel und -beschreibungen, kanonische URLs, Social-Media-Bilder und Indexierungsanweisungen. Ein Schema kann einen Titel mit 1 bis 60 Zeichen verlangen, Beschreibungen auf 160 Zeichen begrenzen und URLs auf Gültigkeit prüfen. Ungültige Locale-Inhalte werden abgelehnt, bevor sie einen Fehler beim Rendern der Seite verursachen.
+
+</Accordion>
+<Accordion header="Gemeinsam genutzte strukturierte Inhalte">
+
+Verwende dasselbe Schema für Dictionaries mit einer gemeinsamen Inhaltsstruktur, etwa Produkte, Navigationselemente oder E-Mail-Vorlagen. Ein fehlendes Feld oder ein Wert mit falschem Typ macht das Dictionary beim Build ungültig und hilft, inkonsistente Inhalte von der Anwendung fernzuhalten.
+
+</Accordion>
+</AccordionGroup>
+
 ## Den Inhalt aus dem Schema typisieren
 
 Die generischen Parameter von `Dictionary` steuern, wie streng TypeScript ein Wörterbuch prüft:

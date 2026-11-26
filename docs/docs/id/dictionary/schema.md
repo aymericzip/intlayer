@@ -154,6 +154,24 @@ Perintah `intlayer build` yang dijalankan sekali akan gagal jika skema tidak dik
 </Step>
 </Steps>
 
+<AccordionGroup>
+<Accordion header="Metadata Markdown">
+
+Validasi kolom frontmatter seperti `title`, `description`, `date`, dan `tags` sebelum Markdown ditampilkan. Kolom wajib dan tipe yang diharapkan diperiksa saat kamus dibuat. Metadata yang tidak valid dilaporkan bersama locale dan jalur kolomnya.
+
+</Accordion>
+<Accordion header="Metadata SEO halaman">
+
+Validasi metadata untuk menampilkan judul dan deskripsi halaman, URL kanonis, gambar sosial, serta arahan pengindeksan. Skema dapat mewajibkan judul sepanjang 1 hingga 60 karakter, membatasi deskripsi hingga 160 karakter, dan memeriksa URL. Konten locale yang tidak valid ditolak sebelum menyebabkan kesalahan saat halaman ditampilkan.
+
+</Accordion>
+<Accordion header="Konten terstruktur bersama">
+
+Terapkan satu skema pada kamus yang memiliki struktur konten sama, seperti produk, item navigasi, atau templat email. Kolom yang hilang atau nilai dengan tipe yang salah membuat kamus tidak valid saat proses build, sehingga konten yang tidak konsisten tidak masuk ke aplikasi.
+
+</Accordion>
+</AccordionGroup>
+
 ## Memberi tipe pada konten dari skema
 
 Parameter generik `Dictionary` menentukan seberapa ketat TypeScript memeriksa sebuah kamus:
