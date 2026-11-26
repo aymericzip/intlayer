@@ -10,7 +10,7 @@ import { isModifiedClick } from '@intlayer/design-system/link';
 import { useLocation } from '@tanstack/react-router';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useRef } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { useLocaleSearch } from './useLocaleSearch';
 
@@ -38,7 +38,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   let localeName = defaultLocaleName.value as string;
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { locale, availableLocales, setLocale } = useLocale();
+  const { locale, availableLocales } = useLocale();
   const { pathname } = useLocation();
 
   // The current path in whatever locale's rewrite alias it is viewed under
@@ -156,7 +156,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                         // Modified clicks open a new tab: keep this tab's locale
                         if (isModifiedClick(event)) return;
 
-                        setLocale(localeItem);
+                        // The committed route supplies the locale to IntlayerProvider.
+                        setLocaleInStorage(localeItem);
                       }}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
