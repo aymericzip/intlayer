@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * This script watches for changes in JavaScript, TypeScript, and related files
@@ -20,11 +20,14 @@ import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import process from 'node:process';
-import minimist from 'minimist';
-import { packageBuildOrder } from './package-build-order.mjs';
+import { parseArgs } from 'node:util';
+import type { AsyncSubscription } from '@parcel/watcher';
+import { packageBuildOrder } from './package-build-order.ts';
 
-const args = minimist(process.argv.slice(2));
-const chosenCommand = args.command ?? 'build';
+const { values: options } = parseArgs({
+  options: { command: { type: 'string', default: 'build' } },
+});
+const chosenCommand = options.command ?? 'build';
 
 // Absolute monorepo root — needed to resolve relative packageBuildOrder entries
 // so that startsWith comparisons work against absolute event.path values from
@@ -37,8 +40,8 @@ const absPkgPaths = packageBuildOrder.map((pkg) =>
 );
 
 // Queue system for handling multiple changes
-let buildTimeout = null;
-const pendingChanges = new Set();
+let buildTimeout: ReturnType<typeof setTimeout> | null = null;
+const pendingChanges = new Set<string>();
 const DEBOUNCE_DELAY = 1000; // 1 second delay
 
 /**
@@ -46,28 +49,28 @@ const DEBOUNCE_DELAY = 1000; // 1 second delay
  * @param {string} filePath - The file path to normalize.
  * @returns {string} The normalized file path.
  */
-const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
+const normalizePath = (filePath: string) => filePath.replace(/\\/g, '/');
 
 /**
  * Runs the chosen command in each relevant package, based on the changed file paths.
  *
  * @param {Set<string>} paths - The set of changed file paths (absolute)
  */
-const runBuild = (paths) => {
+const runBuild = (paths: Set<string>) => {
   try {
     console.info(
       `\nDetected changes in ${paths.size} files. Running "${chosenCommand}"...\n`
     );
 
     // Get unique packages that need to be rebuilt using pre-resolved absolute paths.
-    const packagesToRebuild = new Set();
+    const packagesToRebuild = new Set<string>();
     for (const path of paths) {
       const normalizedPath = normalizePath(path);
       for (let i = 0; i < absPkgPaths.length; i++) {
-        const absPath = absPkgPaths[i];
+        const absPath = absPkgPaths[i]!;
         const pkgPath = absPath.endsWith('/') ? absPath : `${absPath}/`;
         if (normalizedPath.startsWith(pkgPath)) {
-          packagesToRebuild.add(packageBuildOrder[i]);
+          packagesToRebuild.add(packageBuildOrder[i]!);
         }
       }
     }
@@ -96,7 +99,7 @@ const runBuild = (paths) => {
  * Queues a file change for processing
  * @param {string} path - The path of the changed file
  */
-const queueChange = (path) => {
+const queueChange = (path: string) => {
   pendingChanges.add(path);
 
   if (buildTimeout) {
@@ -123,8 +126,8 @@ const IGNORED_GLOBS = [
 
 const FILE_EXT_RE = /\.(js|cjs|mjs|ts|jsx|tsx|vue|json|svelte)$/;
 
-let subscriptions = [];
-let restartTimeout = null;
+let subscriptions: AsyncSubscription[] = [];
+let restartTimeout: ReturnType<typeof setTimeout> | null = null;
 
 /**
  * Schedules a watcher restart after FSEvents drops events.
@@ -147,7 +150,7 @@ const scheduleRestart = () => {
  * @returns {string[]} Existing workspace root directories (relative to CWD)
  */
 const getWatchRoots = () => {
-  const roots = new Set();
+  const roots = new Set<string>();
   for (const pkg of packageBuildOrder) {
     const segment = normalizePath(pkg).split('/')[0];
     if (segment) roots.add(segment);

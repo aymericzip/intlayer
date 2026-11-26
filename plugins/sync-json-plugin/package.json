@@ -65,7 +65,7 @@
     "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
-    "publish:ci": "bun ../../scripts/publish-package.mjs",
+    "publish:ci": "bun ../../scripts/publish-package.ts",
     "publish:latest": "bun publish --access public --tag latest || true",
     "test": "bun --bun vitest run",
     "test:watch": "bun --bun vitest",

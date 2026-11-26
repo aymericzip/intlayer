@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * For all Markdown under docs/docs with applicationTemplate + applicationShowcase:
  * - Tabs containing the matching ide.intlayer.org embed get a Demo tab when missing.
@@ -12,7 +12,11 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_ROOT = path.join(__dirname, '..', 'docs', 'docs');
 
-const LABELS = {
+type TabLabels = { video: string; code: string; demo: string };
+type FileResult =
+  | { changed: false; reason: string }
+  | { changed: true; body: string };
+const LABELS: Record<string, TabLabels> = {
   en: { video: 'Video', code: 'Code', demo: 'Demo' },
   'en-GB': { video: 'Video', code: 'Code', demo: 'Demo' },
   fr: { video: 'Vidéo', code: 'Code', demo: 'Démo' },
@@ -37,46 +41,46 @@ const LABELS = {
   ur: { video: 'ویڈیو', code: 'کوڈ', demo: 'ڈیمو' },
 };
 
-function labelsFor(locale) {
-  return LABELS[locale] || LABELS.en;
-}
+const labelsFor = (locale: string): TabLabels => {
+  return LABELS[locale] ?? LABELS.en!;
+};
 
-function parseGithubRepo(url) {
+const parseGithubRepo = (url: string) => {
   const m = String(url)
     .trim()
     .match(/github\.com\/([^/\s]+)\/([^/\s#?]+)/);
   if (!m) return null;
-  const repo = m[2].replace(/\.git$/i, '');
-  return { owner: m[1], repo };
-}
+  const repo = m[2]!.replace(/\.git$/i, '');
+  return { owner: m[1]!, repo };
+};
 
-function youtubeId(url) {
+const youtubeId = (url: string): string | null => {
   if (!url) return null;
   const u = String(url).trim();
   let m = u.match(/[?&]v=([^&]+)/);
-  if (m) return m[1];
+  if (m) return m[1]!;
   m = u.match(/youtu\.be\/([^?]+)/);
-  return m ? m[1] : null;
-}
+  return m ? m[1]! : null;
+};
 
-function parseFrontmatterKeys(fm) {
-  const keys = {};
+const parseFrontmatterKeys = (fm: string): Record<string, string> => {
+  const keys: Record<string, string> = {};
   for (const line of fm.split('\n')) {
     const m = line.match(/^([a-zA-Z0-9_]+):\s*(.*)$/);
-    if (m) keys[m[1]] = m[2].trim();
+    if (m) keys[m[1]!] = m[2]!.trim();
   }
   return keys;
-}
+};
 
-function escapeRegex(s) {
+const escapeRegex = (s: string) => {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
+};
 
-function ideSrcFromRepo(owner, repo) {
+const ideSrcFromRepo = (owner: string, repo: string) => {
   return `https://ide.intlayer.org/${owner}/${repo}?embed=1&ctl=1&file=intlayer.config.ts`;
-}
+};
 
-function findTabsBlockForRepo(body, owner, repo) {
+const findTabsBlockForRepo = (body: string, owner: string, repo: string) => {
   const needle = `ide.intlayer.org/${owner}/${repo}`;
   let pos = 0;
   while (pos < body.length) {
@@ -90,16 +94,23 @@ function findTabsBlockForRepo(body, owner, repo) {
     pos = tabsStart + 5;
   }
   return null;
-}
+};
 
-function buildTabsBlock({
+const buildTabsBlock = ({
   labels,
   videoId,
   ideSrc,
   showcaseUrl,
   codeIframeTitle,
   demoIframeTitle,
-}) {
+}: {
+  labels: TabLabels;
+  videoId: string | null;
+  ideSrc: string;
+  showcaseUrl: string;
+  codeIframeTitle: string;
+  demoIframeTitle: string;
+}) => {
   const iframeClass =
     'className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"';
   const demoIframe = `<iframe
@@ -147,16 +158,21 @@ ${codeIframe}
     ${demoIframe}
   </Tab>
 </Tabs>`;
-}
+};
 
-function blockHasDemoWithShowcase(block, showcaseUrl) {
+const blockHasDemoWithShowcase = (block: string, showcaseUrl: string) => {
   if (!block.includes('value="demo"')) return false;
-  const norm = (u) => u.replace(/\/$/, '');
+  const norm = (u: string) => u.replace(/\/$/, '');
   const n = norm(showcaseUrl);
   return block.includes(`src="${n}"`) || block.includes(`src="${showcaseUrl}"`);
-}
+};
 
-function insertDemoTabIntoTabsBlock(block, labels, showcaseUrl, demoTitle) {
+const insertDemoTabIntoTabsBlock = (
+  block: string,
+  labels: TabLabels,
+  showcaseUrl: string,
+  demoTitle: string
+) => {
   if (blockHasDemoWithShowcase(block, showcaseUrl)) return block;
   const iframeClass =
     'className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"';
@@ -171,40 +187,36 @@ function insertDemoTabIntoTabsBlock(block, labels, showcaseUrl, demoTitle) {
     />
   </Tab>`;
   return block.replace(/(\n)<\/Tabs>/, `${demoTab}$1</Tabs>`);
-}
-
-function extractCodeIframeTitleFromTabsBlock(block) {
-  const m = block.match(
-    /<iframe[\s\S]*?title="([^"]*)"[\s\S]*?ide\.intlayer\.org/s
-  );
-  if (m) return m[1];
-  return 'Demo CodeSandbox — Intlayer';
-}
+};
 
 /** Remove IDE iframes for ideSrc that start before beforeIndex (exclusive). */
-function removeIdeIframesBeforeIndex(body, ideSrc, beforeIndex) {
+const removeIdeIframesBeforeIndex = (
+  body: string,
+  ideSrc: string,
+  beforeIndex: number
+) => {
   const re = new RegExp(
     `<iframe[\\s\\n]+src="${escapeRegex(ideSrc)}"[\\s\\S]*?/>\\n*`,
     'g'
   );
-  return body.replace(re, (match, offset) =>
+  return body.replace(re, (match: string, offset: number) =>
     beforeIndex < 0 || offset < beforeIndex ? '' : match
   );
-}
+};
 
 /** Remove every standalone iframe pointing at ideSrc. */
-function removeAllIdeIframes(body, ideSrc) {
+const removeAllIdeIframes = (body: string, ideSrc: string) => {
   const re = new RegExp(
     `<iframe[\\s\\n]+src="${escapeRegex(ideSrc)}"[\\s\\S]*?/>\\n*`,
     'g'
   );
   return body.replace(re, '');
-}
+};
 
-function insertTabsAfterFirstHeading(body, tabsBlock) {
+const insertTabsAfterFirstHeading = (body: string, tabsBlock: string) => {
   const lines = body.split('\n');
   let i = 0;
-  while (i < lines.length && !lines[i].startsWith('# ')) i++;
+  while (i < lines.length && !lines[i]!.startsWith('# ')) i++;
   if (i >= lines.length) return body;
   i++;
   const insertAt = i;
@@ -212,14 +224,14 @@ function insertTabsAfterFirstHeading(body, tabsBlock) {
   const suffix = lines.slice(insertAt).join('\n');
   const gap = suffix.startsWith('\n') || suffix === '' ? '' : '\n';
   return `${prefix}\n\n${tabsBlock}\n${gap}${suffix}`;
-}
+};
 
-function processFile(filePath, locale) {
+const processFile = (filePath: string, locale: string): FileResult => {
   const raw = fs.readFileSync(filePath, 'utf8');
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!fmMatch) return { changed: false, reason: 'no-frontmatter' };
-  const fm = fmMatch[1];
-  const body = fmMatch[2];
+  const fm = fmMatch[1]!;
+  const body = fmMatch[2]!;
   const keys = parseFrontmatterKeys(fm);
   const template = keys.applicationTemplate;
   const showcase = keys.applicationShowcase;
@@ -246,7 +258,6 @@ function processFile(filePath, locale) {
   if (tabsInfo) {
     let newBody = body;
     if (!blockHasDemoWithShowcase(tabsInfo.block, showcase)) {
-      const codeTitle = extractCodeIframeTitleFromTabsBlock(tabsInfo.block);
       const newBlock = insertDemoTabIntoTabsBlock(
         tabsInfo.block,
         labels,
@@ -282,7 +293,7 @@ function processFile(filePath, locale) {
         ''
       )
     );
-    const codeTitle = m ? m[1] : 'Demo CodeSandbox — Intlayer';
+    const codeTitle = m ? m[1]! : 'Demo CodeSandbox — Intlayer';
     const tabs = buildTabsBlock({
       labels,
       videoId,
@@ -317,16 +328,16 @@ function processFile(filePath, locale) {
   }
 
   return { changed: false, reason: 'noop' };
-}
+};
 
-function walk(dir, acc = []) {
+const walk = (dir: string, acc: string[] = []): string[] => {
   for (const name of fs.readdirSync(dir)) {
     const p = path.join(dir, name);
     if (fs.statSync(p).isDirectory()) walk(p, acc);
     else if (name.endsWith('.md')) acc.push(p);
   }
   return acc;
-}
+};
 
 let updated = 0;
 let skipped = 0;

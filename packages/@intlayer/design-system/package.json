@@ -484,7 +484,7 @@
     "preview": "bun --bun vite preview",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
-    "publish:ci": "bun ../../../scripts/publish-package.mjs",
+    "publish:ci": "bun ../../../scripts/publish-package.ts",
     "publish:latest": "bun publish --access public --tag latest || true",
     "start": "bun storybook -p 6006 --no-open --host 0.0.0.0",
     "start:serve": "bun x serve ./storybook-static -l 6006",

@@ -1,9 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * Publishes the package of the current working directory to npm through
  * **trusted publishing** (OIDC). Invoked by every workspace's `publish:ci`
- * script (through turbo) from the GitHub Actions `publish.yaml` workflow.
+ * script (through turbo). The GitHub Actions release workflow instead uses
+ * prepared archives through `publish-npm-release.ts` to avoid rebuilding.
  *
  * The dist-tag is derived from the version unless `--tag` is given:
  * `9.0.0` → `latest`, `9.0.0-canary.0` → `canary`, `9.0.0-rc.1` → `rc`.
@@ -19,15 +20,20 @@
  * Republishing an already published version is tolerated so that a partially
  * failed release can simply be re-run.
  *
- * Usage: bun scripts/publish-package.mjs [--tag <dist-tag>] [--dry-run]
+ * Usage: bun scripts/publish-package.ts [--tag <dist-tag>] [--dry-run]
  * (`PUBLISH_DRY_RUN=true` also enables the dry run, for CI inputs.)
  */
 
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
+import {
+  readWorkspacePackage,
+  getRegistryUrl,
+  getDistTagFromVersion,
+} from './npm-release-utils.ts';
+import { readReleaseManifest, rootDirectory } from './npm-release-utils.ts';
 
 const { values: options } = parseArgs({
   options: {
@@ -37,29 +43,10 @@ const { values: options } = parseArgs({
 });
 
 const packageDirectory = process.cwd();
-const packageJson = JSON.parse(
-  readFileSync(join(packageDirectory, 'package.json'), 'utf8')
-);
+const packageJson = readWorkspacePackage(packageDirectory);
 const packageLabel = `${packageJson.name}@${packageJson.version}`;
 
 const isDryRun = options['dry-run'] || process.env.PUBLISH_DRY_RUN === 'true';
-
-/**
- * Picks the npm dist-tag matching a semver version: the first prerelease
- * identifier when there is one (`canary`, `beta`, `rc`...), `next` when the
- * prerelease is purely numeric, `latest` for a stable version.
- * @param {string} version
- * @returns {string}
- */
-const getDistTagFromVersion = (version) => {
-  const prerelease = /^\d+\.\d+\.\d+-([^.+]+)/.exec(version)?.[1];
-
-  if (!prerelease) {
-    return 'latest';
-  }
-
-  return /^\d+$/.test(prerelease) ? 'next' : prerelease;
-};
 
 const distTag = options.tag ?? getDistTagFromVersion(packageJson.version);
 
@@ -89,11 +76,9 @@ const fatalPatterns = [
  * @param {string} version
  * @returns {Promise<boolean>}
  */
-const isAlreadyPublished = async (name, version) => {
+const isAlreadyPublished = async (name: string, version: string) => {
   try {
-    const registry = (
-      process.env.npm_config_registry || 'https://registry.npmjs.org'
-    ).replace(/\/$/, '');
+    const registry = getRegistryUrl();
     const encodedName = name.startsWith('@')
       ? `@${encodeURIComponent(name.slice(1))}`
       : encodeURIComponent(name);
@@ -118,7 +103,11 @@ const isAlreadyPublished = async (name, version) => {
  * @param {{ silent?: boolean }} [runOptions]
  * @returns {{ status: number | null; stdout: string; output: string }}
  */
-const run = (command, commandArguments, { silent = false } = {}) => {
+const run = (
+  command: string,
+  commandArguments: string[],
+  { silent = false }: { silent?: boolean } = {}
+) => {
   const result = spawnSync(command, commandArguments, {
     cwd: packageDirectory,
     encoding: 'utf8',
@@ -144,7 +133,7 @@ const run = (command, commandArguments, { silent = false } = {}) => {
  * written to the debug log, so surface its OIDC lines.
  * @param {string} output
  */
-const printOidcDiagnostics = (output) => {
+const printOidcDiagnostics = (output: string) => {
   const logPath = /complete log of this run can be found in:\s*(\S+)/.exec(
     output
   )?.[1];
@@ -169,7 +158,13 @@ const printOidcDiagnostics = (output) => {
  * @param {{ status: number | null; output: string }} result
  * @returns {number}
  */
-const toExitCode = ({ status, output }) => {
+const toExitCode = ({
+  status,
+  output,
+}: {
+  status: number | null;
+  output: string;
+}) => {
   if (status === 0) {
     return 0;
   }
@@ -217,47 +212,22 @@ if (
   process.exit(1);
 }
 
-// `bun pm pack` never runs `prepublishOnly` (the swc wasm build relies on
-// it), so run it explicitly and ignore lifecycle scripts afterwards.
-if (packageJson.scripts?.prepublishOnly) {
-  const prepublishResult = run('bun', ['run', 'prepublishOnly']);
-
-  if (prepublishResult.status !== 0) {
-    console.error(`❌ prepublishOnly failed for ${packageLabel}`);
-    process.exit(prepublishResult.status ?? 1);
-  }
-}
-
-const tarballDirectory = mkdtempSync(join(tmpdir(), 'intlayer-publish-'));
-
-/**
- * Packs the package with bun (resolving `workspace:*`), then publishes the
- * tarball with npm so the OIDC exchange happens.
- * @returns {Promise<number>} exit code
- */
+/** Publishes only the archive produced by the release build. */
 const publish = async () => {
-  const packResult = run('bun', [
-    'pm',
-    'pack',
-    '--quiet',
-    '--ignore-scripts',
-    '--destination',
-    tarballDirectory,
-  ]);
-
-  if (packResult.status !== 0) {
-    console.error(`❌ Failed to pack ${packageLabel}`);
-    return packResult.status ?? 1;
+  const directory = join(rootDirectory, '.npm-release');
+  if (!existsSync(join(directory, 'manifest.json'))) {
+    throw new Error(
+      'Missing release manifest. Run bun run publish:ci:build first.'
+    );
   }
-
-  // `--quiet` prints the absolute tarball path alone on stdout.
-  const tarballPath = packResult.stdout.trim();
-
-  if (!existsSync(tarballPath)) {
-    console.error(`❌ Tarball not found for ${packageLabel}: ${tarballPath}`);
-    return 1;
+  const archive = readReleaseManifest(directory).packages.find(
+    ({ name, version }) =>
+      name === packageJson.name && version === packageJson.version
+  );
+  if (!archive || !existsSync(join(directory, archive.tarball))) {
+    throw new Error(`Missing prepared archive for ${packageLabel}`);
   }
-
+  const tarballPath = join(directory, archive.tarball);
   const publishArguments = [
     'publish',
     tarballPath,
@@ -343,8 +313,4 @@ const publish = async () => {
   return 1;
 };
 
-try {
-  process.exitCode = await publish();
-} finally {
-  rmSync(tarballDirectory, { recursive: true, force: true });
-}
+process.exitCode = await publish();

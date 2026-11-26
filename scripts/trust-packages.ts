@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * Registers the GitHub Actions `publish.yaml` workflow as a **trusted
  * publisher** (OIDC) of every public workspace package on npm, so
- * `scripts/publish-package.mjs` can publish without any npm token.
+ * `scripts/publish-package.ts` can publish without any npm token.
  *
  * Mirrors the manual one-time setup documented at the top of
  * `.github/workflows/publish.yaml`, running for each package:
@@ -15,7 +15,7 @@
  * can be re-run whenever a package is added. npm asks for web authentication
  * (2FA) when needed; follow the link it prints.
  *
- * Usage: bun scripts/trust-packages.mjs [--filter <substring>] [--dry-run]
+ * Usage: bun scripts/trust-packages.ts [--filter <substring>] [--dry-run]
  *        [--repo <owner/repo>] [--file <workflow>] [--env <environment>]
  */
 
@@ -23,9 +23,9 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import fg from 'fast-glob';
+import { rootDirectory, readWorkspacePackage } from './npm-release-utils.ts';
 
 const { values: options } = parseArgs({
   options: {
@@ -36,8 +36,6 @@ const { values: options } = parseArgs({
     'dry-run': { type: 'boolean', default: false },
   },
 });
-
-const rootDirectory = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 /**
  * Workspaces covered by the root `publish:ci` script. Keep in sync with the
@@ -64,11 +62,12 @@ const listPublishedPackages = () => {
 
   return manifestPaths
     .map((manifestPath) => {
-      const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-
+      const manifest = readWorkspacePackage(
+        relative(rootDirectory, dirname(manifestPath))
+      );
       return {
         name: manifest.name,
-        directory: relative(rootDirectory, dirname(manifestPath)),
+        directory: manifest.directory,
         isPublished:
           manifest.private !== true &&
           typeof manifest.scripts?.['publish:ci'] === 'string',
@@ -85,7 +84,7 @@ const listPublishedPackages = () => {
  * @param {string[]} args
  * @returns {number | null}
  */
-const runNpm = (args) =>
+const runNpm = (args: string[]) =>
   spawnSync('npm', args, { cwd: rootDirectory, stdio: 'inherit' }).status;
 
 /**
@@ -98,17 +97,21 @@ const runNpm = (args) =>
  * @param {string[]} args
  * @returns {{ status: number | null; output: string }}
  */
-const runNpmCapturingOutput = (args) => {
+const runNpmCapturingOutput = (args: string[]) => {
   const transcriptPath = join(tmpdir(), `npm-trust-${process.pid}.log`);
   const npmCommand = ['npm', ...args];
-  const [command, commandArgs, stdout] =
+  const [command, commandArguments, stdout]: [
+    string,
+    string[],
+    'inherit' | 'pipe',
+  ] =
     process.platform === 'darwin'
       ? ['script', ['-q', transcriptPath, ...npmCommand], 'inherit']
       : process.platform === 'linux'
         ? ['script', ['-qec', npmCommand.join(' '), transcriptPath], 'inherit']
         : ['npm', args, 'pipe'];
 
-  const result = spawnSync(command, commandArgs, {
+  const result = spawnSync(command, commandArguments, {
     cwd: rootDirectory,
     stdio: ['inherit', stdout, 'inherit'],
     encoding: 'utf8',
@@ -127,7 +130,7 @@ const runNpmCapturingOutput = (args) => {
  * @param {string} packageName
  * @returns {boolean}
  */
-const isAlreadyTrusted = (packageName) => {
+const isAlreadyTrusted = (packageName: string) => {
   const { status, output } = runNpmCapturingOutput([
     'trust',
     'list',
@@ -145,7 +148,7 @@ const isAlreadyTrusted = (packageName) => {
  * Creates the GitHub Actions trust configuration of a package.
  * @param {string} packageName
  */
-const trustPackage = (packageName) => {
+const trustPackage = (packageName: string) => {
   const args = [
     'trust',
     'github',
@@ -178,7 +181,11 @@ console.log(
 );
 
 /** @type {{ trusted: string[]; skipped: string[]; failed: string[] }} */
-const report = { trusted: [], skipped: [], failed: [] };
+const report: Record<'trusted' | 'skipped' | 'failed', string[]> = {
+  trusted: [],
+  skipped: [],
+  failed: [],
+};
 
 for (const { name, directory } of packages) {
   console.log(`→ ${name} (${directory})`);

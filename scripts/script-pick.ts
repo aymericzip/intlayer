@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * This script allows the user to run a specified npm command (default is 'dev')
@@ -16,20 +16,22 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { parseArgs } from 'node:util';
 import Enquirer from 'enquirer';
 import fg from 'fast-glob';
-import minimist from 'minimist';
 
-const args = minimist(process.argv.slice(2));
+const { values: options } = parseArgs({
+  options: { command: { type: 'string', default: 'dev' } },
+});
 // Defaults to 'dev' if not provided
-const chosenCommand = args.command ?? 'dev';
+const chosenCommand = options.command ?? 'dev';
 
 /**
  * Normalizes a file path to use forward slashes, which is consistent across platforms.
  * @param {string} filePath - The file path to normalize.
  * @returns {string} The normalized file path.
  */
-const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
+const normalizePath = (filePath: string) => filePath.replace(/\\/g, '/');
 
 /**
  * Fetches packages from a given glob pattern.
@@ -39,9 +41,11 @@ const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
  * @param {string} index - Index value used to prefix each package (e.g., 'app', 'package', 'example').
  * @returns {Array<Object>} Array of { name, value } objects for each package.
  */
-const getPackages = (pattern, index) => {
+const getPackages = (pattern: string, index: string) => {
   return fg.sync(pattern, { ignore: ['**/node_modules/**'] }).map((pkgPath) => {
-    const packageJson = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    const packageJson = JSON.parse(fs.readFileSync(pkgPath, 'utf-8')) as {
+      name: string;
+    };
     const packageRelativePath = path.relative(
       process.cwd(),
       path.dirname(pkgPath)
@@ -65,16 +69,36 @@ const examples = getPackages('./examples/**/package.json', 'example');
  * @param {Array<Object>} choices - Array of possible choices for the user to select.
  * @returns {Promise<Object>} Promise that resolves with the selected items.
  */
-const askCheckboxPlus = (message, choices) => {
-  return Enquirer.prompt({
+type PackageChoice = { name: string; value: string; choices?: PackageChoice[] };
+type PackageSelection = { selected: Record<string, string> };
+const askCheckboxPlus = async (
+  message: string,
+  choices: PackageChoice[]
+): Promise<PackageSelection> => {
+  const packageValues = new Map<string, string>();
+  const collectChoices = (items: PackageChoice[]) => {
+    for (const choice of items) {
+      packageValues.set(choice.name, choice.value);
+      if (choice.choices) collectChoices(choice.choices);
+    }
+  };
+  collectChoices(choices);
+  const answers = await Enquirer.prompt<{ selected: string[] }>({
     type: 'multiselect',
     name: 'selected',
     message: message,
     choices: choices,
-    result(names) {
-      return this.map(names);
-    },
   });
+  return {
+    selected: Object.fromEntries(
+      answers.selected.map((name) => {
+        const value = packageValues.get(name);
+        if (value === undefined)
+          throw new Error(`Unknown package choice: ${name}`);
+        return [name, value];
+      })
+    ),
+  };
 };
 
 /**

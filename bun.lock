@@ -9,6 +9,7 @@
         "@commitlint/config-conventional": "21.2.4",
         "@commitlint/types": "21.2.3",
         "@parcel/watcher": "2.6.0",
+        "@types/bun": "1.4.5",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
         "@utils/tsdown-config": "workspace:*",

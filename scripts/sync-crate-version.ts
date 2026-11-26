@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * Copies the `@intlayer/swc` package.json version into the crate manifest
@@ -9,7 +9,7 @@
  * the `publish.yaml` workflow right before `cargo publish`. It can also be run
  * locally after a bump to keep the committed manifest in sync.
  *
- * Usage: bun scripts/sync-crate-version.mjs [--check]
+ * Usage: bun scripts/sync-crate-version.ts [--check]
  * `--check` exits with 1 instead of writing when the manifest is out of date.
  */
 
@@ -17,6 +17,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
+import { readWorkspacePackage } from './npm-release-utils.ts';
 
 const { values: options } = parseArgs({
   options: { check: { type: 'boolean', default: false } },
@@ -31,9 +32,7 @@ const crateDirectory = join(
 );
 const crateName = 'intlayer-swc-plugin';
 
-const { version } = JSON.parse(
-  readFileSync(join(crateDirectory, 'package.json'), 'utf8')
-);
+const { version } = readWorkspacePackage(crateDirectory);
 
 /**
  * Rewrites the `version = "…"` line of the crate's own section in a cargo
@@ -42,7 +41,7 @@ const { version } = JSON.parse(
  * @param {RegExp} sectionPattern matches the section header up to its version line
  * @returns {boolean} whether the file was out of date
  */
-const syncFile = (fileName, sectionPattern) => {
+const syncFile = (fileName: string, sectionPattern: RegExp) => {
   const filePath = join(crateDirectory, fileName);
   const content = readFileSync(filePath, 'utf8');
 
@@ -78,7 +77,7 @@ if (outdatedFiles === 0) {
   console.log(`✅ ${crateName} is already at ${version}`);
 } else if (options.check) {
   console.error(
-    `❌ ${crateName} manifest is out of date, run: bun scripts/sync-crate-version.mjs`
+    `❌ ${crateName} manifest is out of date, run: bun scripts/sync-crate-version.ts`
   );
   process.exit(1);
 } else {

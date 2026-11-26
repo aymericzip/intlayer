@@ -133,7 +133,7 @@ bun run dev # or bun run dev:turbo, etc.
 
 ## Includes a new package
 
-> If you're working on a new package, ensure this package is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+> If you're working on a new package, ensure this package is listed in the `packageBuildOrder` array in `scripts/package-build-order.ts`.
 
 ## Codebase conventions
 
@@ -199,7 +199,7 @@ Note: the versioning and the publication are automatically managed by the CI/CD.
 
 ### Includes a new package
 
-If you're working on a new package, ensure this package is listed in the `packageBuildOrder` array in `scripts/package-build-order.mjs`.
+If you're working on a new package, ensure this package is listed in the `packageBuildOrder` array in `scripts/package-build-order.ts`.
 
 ## Adding and translating documentation
 

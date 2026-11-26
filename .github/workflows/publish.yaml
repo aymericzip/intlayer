@@ -9,6 +9,8 @@
 #     Repository:           intlayer
 #     Workflow filename:    publish.yaml   (must match this file name exactly)
 #     Environment name:     npm
+#     Allowed actions:      npm publish AND npm dist-tag
+#                           (dist-tag access is disabled by default)
 #
 # The release gate is the `release` GitHub environment (required reviewers):
 # the `approve` job waits on it right after the version check, before any
@@ -80,15 +82,14 @@ jobs:
       - name: ✅ Approved
         run: echo "Release ${{ needs.check-version.outputs.version }} approved"
 
-  publish:
+  build-packages:
     # Prevents the workflow from running on forks, only runs when version
     # changed, and waits for the release gate (or its skip)
     needs: [check-version, approve]
     if: ${{ !cancelled() && github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && contains(fromJSON('["success", "skipped"]'), needs.approve.result) }}
 
-    name: 📦 Publish
+    name: 🏗️ Build and pack npm packages
     runs-on: ubuntu-latest
-    environment: npm
     env:
       NODE_OPTIONS: '--max_old_space_size=8192'
     steps:
@@ -98,18 +99,12 @@ jobs:
       - name: 🥡 Setup bun
         uses: oven-sh/setup-bun@v2
         with:
-          version: 1.4.5
-          run_install: false
+          bun-version: 1.4.5
 
       - name: 🟢 Setup node
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
-
-      # Trusted publishing needs npm >= 11.5.1
-      - name: ⬆️ Update npm
-        run: npm install -g npm@latest && npm --version
 
       - name: 🦀 Setup rust (swc plugin)
         uses: dtolnay/rust-toolchain@1.89.0
@@ -132,44 +127,99 @@ jobs:
       - name: 🧩 Install Dependencies
         run: bun install --frozen-lockfile
 
+      - name: 🔎 Validate uniform package versions
+        run: bun scripts/prepare-npm-release.ts --check
+
       # Everything is built (and prepublished) up front: a failure stops the
       # release before anything reaches the registry.
-      - name: 🏗️ Build packages
+      - name: 🏗️ Build and pack packages
         run: bun run publish:ci:build
 
-      # The dist-tag comes from the version: 9.0.0 → latest, 9.0.0-canary.0 → canary
-      - name: 🚀 Publish packages
+      - name: ⬆️ Save release archives
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-release-${{ github.run_id }}
+          path: .npm-release/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+          include-hidden-files: true
+          overwrite: true
+
+  publish:
+    needs: build-packages
+    if: ${{ !cancelled() && needs.build-packages.result == 'success' }}
+    name: 📦 Publish to staging
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.5
+
+      - name: 🟢 Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: ⬆️ Update npm
+        run: npm install -g npm@latest && npm --version
+
+      - name: ⬇️ Restore release archives
+        uses: actions/download-artifact@v4
+        with:
+          name: npm-release-${{ github.run_id }}
+          path: .npm-release/
+
+      # Twenty attempts, 30s apart. Only missing packages are retried; no build,
+      # install or pack happens here, including when re-running failed jobs.
+      - name: 🚀 Publish and verify metadata and tarballs
+        run: bun run publish:ci:stage
         env:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
-        # Packages are already built, so every package is published in
-        # parallel (`publish:ci` has no task dependency). `--continue`
-        # keeps publishing the other packages when one fails. After each pass
-        # the registry is checked for every package: missing ones trigger a
-        # new pass (already published packages are skipped), up to 6 passes,
-        # then the job fails so the run can be re-run.
-        run: |
-          MAX_PASSES=11
-          for PASS in $(seq 1 $MAX_PASSES); do
-            echo "🚀 Publishing packages (pass $PASS/$MAX_PASSES)..."
-            if bun run publish:ci; then
-              PUBLISH_OK=true
-            else
-              PUBLISH_OK=false
-              echo "⚠️ Some packages failed to publish in pass $PASS"
-            fi
 
-            # A dry run publishes nothing, so the registry cannot be checked.
-            if [ "$PUBLISH_DRY_RUN" = "true" ]; then
-              [ "$PUBLISH_OK" = "true" ] && exit 0
-            else
-              echo "🔎 Checking the registry..."
-              if bun scripts/verify-published-packages.mjs; then
-                exit 0
-              fi
-            fi
-          done
-          echo "❌ Some packages are still not published after $MAX_PASSES passes."
-          exit 1
+  promote:
+    needs: publish
+    if: ${{ !cancelled() && needs.publish.result == 'success' }}
+    name: 🏷️ Promote complete npm release
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.5
+
+      - name: 🟢 Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      # OIDC dist-tag operations need npm >= 11.21.0 (or >= 12.2.0 on v12).
+      - name: ⬆️ Update npm
+        run: npm install -g npm@latest && npm --version
+
+      - name: ⬇️ Restore release archives
+        uses: actions/download-artifact@v4
+        with:
+          name: npm-release-${{ github.run_id }}
+          path: .npm-release/
+
+      # Rechecks the entire release before changing any tag. Stable versions
+      # go to latest; prereleases keep their canary/beta/rc/etc. channel.
+      - name: 🏷️ Promote dist-tags
+        run: bun run publish:ci:promote
+        env:
+          PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
 
   publish-crate:
     needs: [check-version, approve]
@@ -202,7 +252,7 @@ jobs:
       # The version bump only touches package.json files: align the crate
       # manifest with the npm version being released.
       - name: 🔁 Sync crate version
-        run: bun ../../../scripts/sync-crate-version.mjs
+        run: bun ../../../scripts/sync-crate-version.ts
 
       # Republishing an existing version is an error for cargo, so skip it to
       # let a partially failed release be re-run, like the npm job does.

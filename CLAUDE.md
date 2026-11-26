@@ -90,7 +90,7 @@ Format: `<type>(<scope>): <subject>` — enforced by commitlint + husky.
 - **oxfmt** — format (`.oxfmtrc.json`): 2-space indent, `printWidth: 80`, single quotes; sorts imports, Tailwind classes and `package.json`.
 - **tsdown** — build tool per package (`tsdown.config.ts`).
 - **Turborepo** — build graph; `^build` = build deps first.
-- New packages → add to `scripts/package-build-order.mjs`.
+- New packages → add to `scripts/package-build-order.ts`.
 
 ## Coding Rules (for final code)
 

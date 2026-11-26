@@ -69,3 +69,8 @@ jobs:
 
       - name: 🧪 Test packages
         run: bun run test
+
+      - name: 🧪 Test npm release workflow
+        run: |
+          bun run tsc -p scripts/tsconfig.json
+          bun test scripts/npm-release.test.ts
