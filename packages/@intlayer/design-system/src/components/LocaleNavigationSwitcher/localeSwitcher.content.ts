@@ -1,7 +1,7 @@
 import { type Dictionary, insert, t } from 'intlayer';
 
 const localeSwitcherContent = {
-  key: 'locale-switcher',
+  key: 'locale-navigation-switcher',
   content: {
     defaultLocaleName: t({
       en: 'Select a language',
@@ -20,7 +20,7 @@ const localeSwitcherContent = {
       pt: 'Selecione um idioma',
       ru: 'Выберите язык',
       tr: 'Bir dil seçin',
-      uk: 'Виберіть мову',
+      uk: 'Оберіть мову',
       vi: 'Chọn ngôn ngữ',
       zh: '选择语言',
     }),
@@ -105,7 +105,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisar um idioma',
         ru: 'Поиск языка',
         tr: 'Dil ara',
-        uk: 'Знайти локаль',
+        uk: 'Шукати мову',
         vi: 'Tìm một ngôn ngữ',
         zh: '搜索语言',
       }),
@@ -126,7 +126,7 @@ const localeSwitcherContent = {
         pt: 'Pesquisar idioma',
         ru: 'Поиск языка',
         tr: 'Dil ara',
-        uk: 'Пошук локалі',
+        uk: 'Пошук мови',
         vi: 'Tìm ngôn ngữ',
         zh: '搜索语言',
       }),

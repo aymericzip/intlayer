@@ -34,7 +34,9 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
 
         {isMobile && (
           <div className="ms-auto flex flex-row items-center justify-start gap-x-2">
-            <LocaleSwitcher />
+            <LocaleSwitcher
+              panelProps={{ yAlign: 'above', className: 'z-100' }}
+            />
             <SwitchThemeSwitcher />
           </div>
         )}
@@ -57,7 +59,9 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
       </div>
       {!isMobile && (
         <div className="flex min-w-fit flex-1 flex-row items-center justify-end gap-x-2">
-          <LocaleSwitcher />
+          <LocaleSwitcher
+            panelProps={{ yAlign: 'above', className: 'z-100' }}
+          />
           <SwitchThemeSwitcher />
         </div>
       )}

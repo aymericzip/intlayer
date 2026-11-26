@@ -1,193 +1,20 @@
 import {
-  getHTMLTextDir,
-  getLocaleName,
-  getPathWithoutLocale,
-} from '@intlayer/core/localization';
-import { Container } from '@intlayer/design-system/container';
-import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
-import { Input } from '@intlayer/design-system/input';
-import { isModifiedClick } from '@intlayer/design-system/link';
+  LocaleNavigationSwitcher,
+  type LocaleNavigationSwitcherProps,
+} from '@intlayer/design-system/locale-navigation-switcher';
 import { useLocation } from '@tanstack/react-router';
-import { MoveVertical } from 'lucide-react';
-import { type FC, useRef } from 'react';
-import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
+import type { FC } from 'react';
 import { Link } from '~/components/Link/Link';
-import { useLocaleSearch } from './useLocaleSearch';
 
-export type LocaleSwitcherProps = {
-  fullLocaleName?: boolean;
-  panelProps?: Omit<PanelProps, 'identifier'>;
-};
+export type LocaleSwitcherProps = Omit<
+  LocaleNavigationSwitcherProps,
+  'Link' | 'pathname'
+>;
 
-const DROPDOWN_IDENTIFIER = 'locale-switcher';
-
-/** Ties `aria-activedescendant` on the search input to the highlighted row. */
-const getLocaleOptionId = (locale: string) => `locale-switcher-${locale}`;
-
-export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
-  fullLocaleName = false,
-  panelProps,
-}) => {
-  const {
-    switchTo,
-    searchInput,
-    localeSwitcherLabel,
-    languageListLabel,
-    defaultLocaleName,
-  } = useIntlayer('locale-switcher');
-  let localeName = defaultLocaleName.value as string;
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const { locale, availableLocales } = useLocale();
-  const { pathname } = useLocation();
-
-  // The current path in whatever locale's rewrite alias it is viewed under
-  // (`/doc/リリース/v8`). Each `Link` re-localizes it for its target locale —
-  // `getLocalizedUrl` resolves the alias to its canonical path first.
-  const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
-  const {
-    searchResults,
-    handleSearch,
-    highlightedIndex,
-    highlightedLocale,
-    setItemElement,
-    handleKeyDown,
-  } = useLocaleSearch(availableLocales, locale);
-
-  if (locale) {
-    localeName = fullLocaleName ? getLocaleName(locale) : locale.toUpperCase();
-  }
-
-  const handleFocusInput = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
+export const LocaleSwitcher: FC<LocaleSwitcherProps> = (props) => {
+  const pathname = useLocation({ select: (location) => location.pathname });
 
   return (
-    <div className="flex rounded-lg text-foreground transition-colors">
-      <DropDown identifier={DROPDOWN_IDENTIFIER}>
-        <DropDown.Trigger
-          identifier={DROPDOWN_IDENTIFIER}
-          aria-label={localeSwitcherLabel.value}
-          size="sm"
-          className="p-0!"
-          variant="outline"
-          color="text"
-          roundedSize="5xl"
-          onClick={handleFocusInput}
-        >
-          <div className="flex w-full items-center justify-between">
-            <div
-              className="px-2 text-base text-nowrap"
-              suppressHydrationWarning
-            >
-              {localeName}
-            </div>
-            <MoveVertical className="w-5 self-center" />
-          </div>
-        </DropDown.Trigger>
-
-        <DropDown.Panel
-          identifier={DROPDOWN_IDENTIFIER}
-          isOverable
-          isFocusable
-          align="end"
-          {...panelProps}
-        >
-          <Container
-            className="max-h-[80vh] min-w-42"
-            border
-            borderColor="neutral"
-            separator="y"
-            roundedSize="xl"
-            transparency="xs"
-          >
-            <div className="p-3">
-              <Input
-                type="search"
-                aria-label={searchInput.ariaLabel.value}
-                placeholder={searchInput.placeholder.value}
-                onChange={(e) => handleSearch(e.target.value)}
-                onKeyDown={handleKeyDown}
-                aria-activedescendant={
-                  highlightedLocale
-                    ? getLocaleOptionId(highlightedLocale)
-                    : undefined
-                }
-                ref={inputRef}
-              />
-            </div>
-            <ul
-              className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1"
-              aria-label={languageListLabel.value}
-            >
-              {searchResults.map(
-                (
-                  { locale: localeItem, currentLocaleName, ownLocaleName },
-                  index
-                ) => (
-                  <li
-                    className="py-1 pe-3"
-                    key={localeItem}
-                    ref={(element) => setItemElement(index, element)}
-                  >
-                    <Link
-                      id={getLocaleOptionId(localeItem)}
-                      label={
-                        switchTo({ locale: getLocaleName(localeItem, locale) })
-                          .value
-                      }
-                      to={pathWithoutLocale}
-                      locale={localeItem}
-                      isActive={locale === localeItem} // Add aria-current="page" for accessibility
-                      variant="hoverable"
-                      color="text"
-                      // Mirrors the `hoverable` hover background so keyboard
-                      // and pointer selection look the same
-                      className={
-                        index === highlightedIndex
-                          ? 'bg-current/10!'
-                          : undefined
-                      }
-                      preload="viewport"
-                      replace // Will ensure that the "go back" browser button will redirect to the previous page
-                      onClick={(event) => {
-                        // Modified clicks open a new tab: keep this tab's locale
-                        if (isModifiedClick(event)) return;
-
-                        // The committed route supplies the locale to IntlayerProvider.
-                        setLocaleInStorage(localeItem);
-                      }}
-                    >
-                      <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
-                        <div className="flex flex-col text-nowrap">
-                          <span
-                            dir={getHTMLTextDir(localeItem)}
-                            lang={localeItem}
-                            suppressHydrationWarning
-                          >
-                            {ownLocaleName}
-                          </span>
-                          <span
-                            className="text-xs text-muted-foreground"
-                            suppressHydrationWarning
-                          >
-                            {currentLocaleName}
-                          </span>
-                        </div>
-                        <span className="text-sm text-nowrap text-muted-foreground">
-                          {localeItem.toUpperCase()}
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
-                )
-              )}
-            </ul>
-          </Container>
-        </DropDown.Panel>
-      </DropDown>
-    </div>
+    <LocaleNavigationSwitcher {...props} Link={Link} pathname={pathname} />
   );
 };

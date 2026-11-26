@@ -1,13 +1,13 @@
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
+import { useLocaleSearch } from '@intlayer/design-system/hooks';
 import { Input } from '@intlayer/design-system/input';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { useLocaleSearch } from '../LocaleSwitcher/useLocaleSearch';
 
 type LocalePickerProps = {
   value: string;

@@ -1,4 +1,3 @@
-import { useListKeyboardNavigation } from '@intlayer/design-system/hooks';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import {
   defaultLocale,
@@ -7,6 +6,7 @@ import {
   locales,
 } from 'intlayer';
 import { useCallback, useMemo, useState } from 'react';
+import { useListKeyboardNavigation } from './useListKeyboardNavigation';
 
 type MultilingualAvailableLocales = {
   locale: LocalesValues;
@@ -35,16 +35,7 @@ export const useLocaleSearch = (
     [locale, availableLocales]
   );
 
-  const [searchResults, setSearchResults] = useState<
-    MultilingualAvailableLocales[]
-  >(multilingualAvailableLocales);
-
-  // Arrow keys move the highlight while the search input keeps the focus, so
-  // the user can keep typing, and Enter follows the highlighted locale link.
-  const { highlightedIndex, resetHighlight, setItemElement, handleKeyDown } =
-    useListKeyboardNavigation<HTMLLIElement>({
-      itemCount: searchResults.length,
-    });
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Create a new Fuse instance with the options and documentation data
   const fuse = useMemo(() => {
@@ -61,23 +52,27 @@ export const useLocaleSearch = (
     return new Fuse(multilingualAvailableLocales, fuseOptions);
   }, [multilingualAvailableLocales]);
 
-  const handleSearch = useCallback(
-    (searchQuery: string) => {
-      // The previous highlight points at a row the new results may not hold,
-      // so typing always starts the keyboard selection over.
-      resetHighlight();
+  const searchResults = useMemo(
+    () =>
+      searchQuery
+        ? fuse.search(searchQuery).map((result) => result.item)
+        : multilingualAvailableLocales,
+    [fuse, multilingualAvailableLocales, searchQuery]
+  );
 
-      if (searchQuery) {
-        // Perform search on every input change
-        const searchResults = fuse
-          .search(searchQuery)
-          .map((result) => result.item);
-        setSearchResults(searchResults);
-      } else {
-        setSearchResults(multilingualAvailableLocales);
-      }
+  // Arrow keys move the highlight while the search input keeps the focus, so
+  // the user can keep typing, and Enter follows the highlighted locale link.
+  const { highlightedIndex, resetHighlight, setItemElement, handleKeyDown } =
+    useListKeyboardNavigation<HTMLLIElement>({
+      itemCount: searchResults.length,
+    });
+
+  const handleSearch = useCallback(
+    (query: string) => {
+      resetHighlight();
+      setSearchQuery(query);
     },
-    [fuse, multilingualAvailableLocales, resetHighlight]
+    [resetHighlight]
   );
 
   return {

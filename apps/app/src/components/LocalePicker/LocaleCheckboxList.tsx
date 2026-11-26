@@ -1,9 +1,9 @@
 import { getHTMLTextDir } from '@intlayer/core/localization';
+import { useLocaleSearch } from '@intlayer/design-system/hooks';
 import { Checkbox, Input } from '@intlayer/design-system/input';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { type FC, useMemo, useState } from 'react';
 import { useLocale } from 'react-intlayer';
-import { useLocaleSearch } from '../LocaleSwitcher/useLocaleSearch';
 
 type LocaleCheckboxListProps = {
   locales: string[];

@@ -9,6 +9,7 @@ export * from './useIsMounted';
 export * from './useItemSelector';
 export * from './useKeyboardDetector';
 export * from './useListKeyboardNavigation';
+export * from './useLocaleSearch';
 export * from './usePersistedStore';
 export * from './useRemoteMcpTools';
 export * from './useScreenWidth';

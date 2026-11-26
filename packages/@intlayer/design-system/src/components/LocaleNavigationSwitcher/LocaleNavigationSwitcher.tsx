@@ -1,26 +1,47 @@
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
-import { Container } from '@intlayer/design-system/container';
-import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
-import { Input } from '@intlayer/design-system/input';
-import { isModifiedClick } from '@intlayer/design-system/link';
-import { useLocation } from '@tanstack/react-router';
-import { MoveVertical } from 'lucide-react';
-import { type FC, useRef } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
-import { Link } from '#components/Link/Link';
-import { useLocaleSearch } from './useLocaleSearch';
+'use client';
 
-export type LocaleSwitcherProps = {
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getPathWithoutLocale,
+} from '@intlayer/core/localization';
+import { MoveVertical } from 'lucide-react';
+import { type ComponentType, type FC, useId, useRef } from 'react';
+import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
+import { useLocaleSearch } from '../../hooks/useLocaleSearch';
+import { Container } from '../Container';
+import { DropDown, type PanelProps } from '../DropDown';
+import { Input } from '../Input';
+import { isModifiedClick, type LinkProps } from '../Link';
+
+type LocaleLinkProps = Pick<
+  LinkProps,
+  | 'children'
+  | 'id'
+  | 'label'
+  | 'locale'
+  | 'isActive'
+  | 'variant'
+  | 'color'
+  | 'className'
+  | 'onClick'
+> & {
+  to: string;
+  replace: boolean;
+  preload: 'viewport';
+};
+
+export type LocaleNavigationSwitcherProps = {
+  Link: ComponentType<LocaleLinkProps>;
+  pathname: string;
   fullLocaleName?: boolean;
   panelProps?: Omit<PanelProps, 'identifier'>;
 };
 
-const DROPDOWN_IDENTIFIER = 'locale-switcher';
-
-/** Ties `aria-activedescendant` on the search input to the highlighted row. */
-const getLocaleOptionId = (locale: string) => `locale-switcher-${locale}`;
-
-export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
+/** Switches the current route's locale using the application's localized links. */
+export const LocaleNavigationSwitcher: FC<LocaleNavigationSwitcherProps> = ({
+  Link,
+  pathname,
   fullLocaleName = false,
   panelProps,
 }) => {
@@ -30,12 +51,17 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
     localeSwitcherLabel,
     languageListLabel,
     defaultLocaleName,
-  } = useIntlayer('locale-switcher');
-  let localeName = defaultLocaleName.value as string;
+  } = useIntlayer('locale-navigation-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { locale, availableLocales, setLocale } = useLocale();
-  const { pathname: pathWithoutLocale } = useLocation();
+  const { locale, availableLocales } = useLocale();
+  const identifier = useId();
+  const getLocaleOptionId = (locale: string) => `${identifier}-${locale}`;
+
+  // The current path in whatever locale's rewrite alias it is viewed under
+  // (`/doc/リリース/v8`). Each `Link` re-localizes it for its target locale —
+  // `getLocalizedUrl` resolves the alias to its canonical path first.
+  const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
   const {
     searchResults,
     handleSearch,
@@ -45,52 +71,49 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
     handleKeyDown,
   } = useLocaleSearch(availableLocales, locale);
 
-  if (locale) {
-    localeName = fullLocaleName ? getLocaleName(locale) : locale.toUpperCase();
-  }
-
-  const handleFocusInput = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
+  const localeName = locale
+    ? fullLocaleName
+      ? getLocaleName(locale)
+      : locale.toUpperCase()
+    : defaultLocaleName.value;
 
   return (
-    <div className="flex rounded-xl text-text transition-colors">
-      <DropDown identifier={DROPDOWN_IDENTIFIER}>
+    <div className="flex rounded-lg text-foreground transition-colors">
+      <DropDown identifier={identifier}>
         <DropDown.Trigger
-          identifier={DROPDOWN_IDENTIFIER}
-          aria-label={localeSwitcherLabel.value}
-          size="md"
+          identifier={identifier}
+          label={localeSwitcherLabel.value}
+          size="sm"
           className="p-0!"
           variant="outline"
           color="text"
           roundedSize="5xl"
-          onClick={handleFocusInput}
+          onClick={() => inputRef.current?.focus()}
         >
-          <div className="flex h-10 w-full items-center justify-between">
+          <div className="flex w-full items-center justify-between">
             <div
               className="px-2 text-base text-nowrap"
               suppressHydrationWarning
             >
               {localeName}
             </div>
-            <MoveVertical className="self-center" size={16} />
+            <MoveVertical className="w-5 self-center" />
           </div>
         </DropDown.Trigger>
 
         <DropDown.Panel
-          identifier={DROPDOWN_IDENTIFIER}
+          identifier={identifier}
           isOverable
           isFocusable
           align="end"
-          className="z-100"
           {...panelProps}
         >
           <Container
-            className="max-h-[80vh] min-w-28 border border-text/5"
+            className="max-h-[80vh] min-w-42"
+            border
+            borderColor="neutral"
             separator="y"
-            roundedSize="2xl"
+            roundedSize="xl"
             transparency="xs"
           >
             <div className="p-3">
@@ -124,13 +147,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   >
                     <Link
                       id={getLocaleOptionId(localeItem)}
-                      label={
-                        switchTo({ locale: getLocaleName(localeItem, locale) })
-                          .value
-                      }
+                      label={switchTo({ locale: currentLocaleName }).value}
                       to={pathWithoutLocale}
                       locale={localeItem}
-                      isActive={locale === localeItem} // Add aria-current="page" for accessibility
+                      isActive={locale === localeItem}
                       variant="hoverable"
                       color="text"
                       // Mirrors the `hoverable` hover background so keyboard
@@ -140,12 +160,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                           ? 'bg-current/10!'
                           : undefined
                       }
-                      replace // Will ensure that the "go back" browser button will redirect to the previous page
+                      preload="viewport"
+                      replace
                       onClick={(event) => {
                         // Modified clicks open a new tab: keep this tab's locale
                         if (isModifiedClick(event)) return;
 
-                        setLocale(localeItem);
+                        // The committed route supplies the locale to IntlayerProvider.
+                        setLocaleInStorage(localeItem);
                       }}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
@@ -158,13 +180,13 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                             {ownLocaleName}
                           </span>
                           <span
-                            className="text-xs text-neutral"
+                            className="text-xs text-muted-foreground"
                             suppressHydrationWarning
                           >
                             {currentLocaleName}
                           </span>
                         </div>
-                        <span className="text-sm text-nowrap text-neutral">
+                        <span className="text-sm text-nowrap text-muted-foreground">
                           {localeItem.toUpperCase()}
                         </span>
                       </div>

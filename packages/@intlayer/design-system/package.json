@@ -306,6 +306,11 @@
       "import": "./dist/esm/components/Loader/index.mjs",
       "default": "./dist/esm/components/Loader/index.mjs"
     },
+    "./locale-navigation-switcher": {
+      "types": "./dist/types/components/LocaleNavigationSwitcher/index.d.ts",
+      "import": "./dist/esm/components/LocaleNavigationSwitcher/index.mjs",
+      "default": "./dist/esm/components/LocaleNavigationSwitcher/index.mjs"
+    },
     "./locale-switcher-content-drop-down": {
       "types": "./dist/types/components/LocaleSwitcherContentDropDown/index.d.ts",
       "import": "./dist/esm/components/LocaleSwitcherContentDropDown/index.mjs",

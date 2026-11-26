@@ -36,6 +36,7 @@ export * from './LanguageBackground';
 export * from './Link';
 export * from './Loader';
 export * from './LocaleSwitcherContentDropDown';
+export * from './LocaleNavigationSwitcher';
 export * from './LocaleSwitcherDropDown';
 export * from './Logo';
 export * from './MarkDownRender';
