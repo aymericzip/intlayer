@@ -575,7 +575,7 @@
     "storybook": "10.6.9",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vite": "8.3.8",
+    "vite": "8.4.0",
     "vite-intlayer": "workspace:*",
     "vitest": "5.1.2"
   },
@@ -589,7 +589,7 @@
     "framer-motion": "14.14.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.80.0",
+    "lucide-react": "1.81.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "react-intlayer": "workspace:*",
