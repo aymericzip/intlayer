@@ -1,5 +1,108 @@
+diff --git a/dist/dom/features/context/full.js b/dist/dom/features/context/full.js
+index 460c2eb4f284717dc75cde98787a28360294d31c..fd855a9883c0969354099f4fbf1b76fb818549d4 100644
+--- a/dist/dom/features/context/full.js
++++ b/dist/dom/features/context/full.js
+@@ -56,15 +56,42 @@ function hasContextChanged(fiber, includeFallback = true) {
+   }
+   return includeFallback && fiber.t === 11 && !!fiber.b?.f && hasContextChanged(fiber.b.f);
+ }
++// Patched (intlayer): whether a subtree holds its own queued update. Retained
++// primaries of a suspended boundary (`su`) are left to that boundary.
++function hasPendingWork(fiber) {
++  if (fiber.su)
++    return false;
++  if (fiber.g)
++    return true;
++  for (let child = fiber.c; child; child = child.s) {
++    if (hasPendingWork(child))
++      return true;
++  }
++  return false;
++}
+ function renderContextConsumers(fiber) {
+-  if (!changingProviders)
+-    return;
+   let child = fiber.c;
+   while (child) {
+-    if (child.g || (child.t === 11 ? hasContextChanged(child) : ownContextChanged(child))) {
+-      renderNode(child);
+-    } else {
+-      renderContextConsumers(child);
++    if (changingProviders) {
++      if (child.g || (child.t === 11 ? hasContextChanged(child) : ownContextChanged(child))) {
++        renderNode(child);
++      } else {
++        renderContextConsumers(child);
++      }
++    } else if (!child.su) {
++      // Patched (intlayer): a memo bailout must still reach descendants with
++      // their own queued update. After a suspended attempt rewinds, a store
++      // update can live only in a descendant's flag (its queue entry was
++      // redirected to the boundary), so returning here dropped it: the
++      // boundary resolved with the old content and nothing re-rendered it.
++      // A Suspense child renders itself so suspensions keep their handler.
++      if (child.g)
++        renderNode(child);
++      else if (child.t === 11) {
++        if (hasPendingWork(child))
++          renderNode(child);
++      } else
++        renderContextConsumers(child);
+     }
+     child = child.s;
+   }
+diff --git a/dist/dom/features/lazy/full.js b/dist/dom/features/lazy/full.js
+index d7c090b10a48aaeb6336576325166bbc5d8871f6..e4ffdcd58a98ffaaa22f52524015af78b60bb487 100644
+--- a/dist/dom/features/lazy/full.js
++++ b/dist/dom/features/lazy/full.js
+@@ -10,6 +10,9 @@ function renderLazy(fiber) {
+       resolved = resolveRefreshType(resolved);
+   } catch (thenable) {
+     if (isThenable(thenable)) {
++      // Patched (intlayer): renderNode keeps the update flag on lazy fibers
++      // for the resolved type; nothing consumes it while suspended.
++      fiber.g = false;
+       if (deferHydration(fiber, thenable))
+         return;
+       handleSuspended(fiber, thenable);
+diff --git a/dist/dom/features/suspense-hydration/full.js b/dist/dom/features/suspense-hydration/full.js
+index 8343e11a051e4cd1f550a412a37d6b0df32b82b5..4660d700ccc6308625cf12ca604d978f383ec607 100644
+--- a/dist/dom/features/suspense-hydration/full.js
++++ b/dist/dom/features/suspense-hydration/full.js
+@@ -114,7 +114,11 @@ function hydrateSuspenseBoundary(fiber, props, boundary, reveal) {
+         });
+         throw e;
+       } else
+-        recoverBoundaryHydration(fiber, props.children, parent, startMark, endMark);
++        // Patched (intlayer): client-render the mismatched boundary through
++        // renderSuspense, like a "$!" boundary. A plain reconcile has no
++        // suspend handler, so a child suspending there escaped hydration as a
++        // RenderSuspenseCapture and left the boundary empty.
++        recoverBoundaryHydration(fiber, props.children, parent, startMark, endMark, true);
+     } finally {
+       clearHydrationCursor(fiber);
+     }
+diff --git a/dist/dom/features/suspense-runtime/stub.js b/dist/dom/features/suspense-runtime/stub.js
+index 67521879f7a646839833d90f691b9eea842ea0d3..ef384eb20d0c204016a4c7ed1edfe3ce20b0cc80 100644
+--- a/dist/dom/features/suspense-runtime/stub.js
++++ b/dist/dom/features/suspense-runtime/stub.js
+@@ -1,4 +1,4 @@
+-const a = void 0, p = void 0, q = void 0, r = void 0, t = void 0, v = void 0, c = void 0, s = void 0;
++const a = void 0, p = void 0, q = void 0, r = void 0, t = void 0, v = void 0, c = void 0, s = void 0, w = void 0;
+ export {
+   a,
+   c,
+@@ -7,6 +7,7 @@ export {
+   r,
+   s,
+   t,
+-  v
++  v,
++  w
+ };
+ //# sourceMappingURL=stub.js.map
 diff --git a/dist/dom/features/suspense/full.js b/dist/dom/features/suspense/full.js
-index 1449439b96862749a1d5b3df098e21791274e5df..9e2ee8c11350b92c441ad5dfb83c2434cc17daa9 100644
+index 1449439b96862749a1d5b3df098e21791274e5df..196e9c9c1f65fbd1654f46a422afe36806b1f308 100644
 --- a/dist/dom/features/suspense/full.js
 +++ b/dist/dom/features/suspense/full.js
 @@ -122,6 +122,15 @@ function renderSuspense(fiber) {
@@ -26,20 +129,19 @@ index 1449439b96862749a1d5b3df098e21791274e5df..9e2ee8c11350b92c441ad5dfb83c2434
        root.h = wasHydrating;
      }
      return;
-diff --git a/dist/dom/features/lazy/full.js b/dist/dom/features/lazy/full.js
-index d7c090b10a48aaeb6336576325166bbc5d8871f6..e4ffdcd58a98ffaaa22f52524015af78b60bb487 100644
---- a/dist/dom/features/lazy/full.js
-+++ b/dist/dom/features/lazy/full.js
-@@ -10,6 +10,9 @@ function renderLazy(fiber) {
-       resolved = resolveRefreshType(resolved);
-   } catch (thenable) {
-     if (isThenable(thenable)) {
-+      // Patched (intlayer): renderNode keeps the update flag on lazy fibers
-+      // for the resolved type; nothing consumes it while suspended.
-+      fiber.g = false;
-       if (deferHydration(fiber, thenable))
-         return;
-       handleSuspended(fiber, thenable);
+@@ -147,6 +157,12 @@ function renderSuspense(fiber) {
+   const hadCommittedPrimary = fiber.m && fiber.c;
+   state.u = false;
+   const checkpoint = checkpointCommit(fiber);
++  // Patched (intlayer): a retried hidden primary belongs to this attempt, so
++  // its queued work must be reachable again; the checkpoint restores these
++  // update targets if it suspends again.
++  if (state.d)
++    for (let child = fiber.c; child; child = child.s)
++      setUpdateBoundary(child, fiber.su);
+   const prevHandler = suspendHandler;
+   fiber.cx?.clear();
+   let pendingThenable;
 diff --git a/dist/dom/reconcile.js b/dist/dom/reconcile.js
 index c91b3da5752d5f8f5b482dcb2a040ac3af031381..c22949076fa38a1aabaa737b88583a85d7b83a00 100644
 --- a/dist/dom/reconcile.js
@@ -127,39 +229,3 @@ index 520687f58d6608841b2a6c33cff1c29151594392..a4bd74ddc0b6bb4672f7490facc4c011
 +  w
  };
  //# sourceMappingURL=transitions.js.map
-diff --git a/dist/dom/features/suspense-runtime/stub.js b/dist/dom/features/suspense-runtime/stub.js
-index 67521879f7a646839833d90f691b9eea842ea0d3..ef384eb20d0c204016a4c7ed1edfe3ce20b0cc80 100644
---- a/dist/dom/features/suspense-runtime/stub.js
-+++ b/dist/dom/features/suspense-runtime/stub.js
-@@ -1,4 +1,4 @@
--const a = void 0, p = void 0, q = void 0, r = void 0, t = void 0, v = void 0, c = void 0, s = void 0;
-+const a = void 0, p = void 0, q = void 0, r = void 0, t = void 0, v = void 0, c = void 0, s = void 0, w = void 0;
- export {
-   a,
-   c,
-@@ -7,6 +7,7 @@ export {
-   r,
-   s,
-   t,
--  v
-+  v,
-+  w
- };
- //# sourceMappingURL=stub.js.map
-diff --git a/dist/dom/features/suspense-hydration/full.js b/dist/dom/features/suspense-hydration/full.js
-index 8343e11a051e4cd1f550a412a37d6b0df32b82b5..4660d700ccc6308625cf12ca604d978f383ec607 100644
---- a/dist/dom/features/suspense-hydration/full.js
-+++ b/dist/dom/features/suspense-hydration/full.js
-@@ -114,7 +114,11 @@ function hydrateSuspenseBoundary(fiber, props, boundary, reveal) {
-         });
-         throw e;
-       } else
--        recoverBoundaryHydration(fiber, props.children, parent, startMark, endMark);
-+        // Patched (intlayer): client-render the mismatched boundary through
-+        // renderSuspense, like a "$!" boundary. A plain reconcile has no
-+        // suspend handler, so a child suspending there escaped hydration as a
-+        // RenderSuspenseCapture and left the boundary empty.
-+        recoverBoundaryHydration(fiber, props.children, parent, startMark, endMark, true);
-     } finally {
-       clearHydrationCursor(fiber);
-     }
