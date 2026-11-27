@@ -1,6 +1,6 @@
 {
   "name": "website-tanstack",
-  "version": "9.9.1",
+  "version": "9.9.2",
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [
@@ -72,12 +72,12 @@
     "framer-motion": "14.14.0",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.81.0",
+    "lucide-react": "1.82.0",
     "nitro": "latest",
     "node-html-markdown": "2.0.0",
     "node-html-parser": "9.0.7",
     "oxc-transform-react": "0.158.0",
-    "posthog-js": "^1.455.2",
+    "posthog-js": "^1.455.4",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-intlayer": "workspace:*",

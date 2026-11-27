@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/chrome-extension",
-  "version": "9.9.1",
+  "version": "9.9.2",
   "private": true,
   "description": "Chrome extension that inspects the i18n implementation of the current website (framework, i18n library, locales, SEO tags) and runs a full Intlayer scan through the backend.",
   "keywords": [
@@ -54,7 +54,7 @@
     "@intlayer/engine": "workspace:*",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.81.0",
+    "lucide-react": "1.82.0",
     "preact": "11.2.0",
     "preact-intlayer": "workspace:*"
   },
@@ -62,7 +62,7 @@
     "@preact/preset-vite": "2.10.6",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/vite": "4.3.5",
-    "@types/chrome": "0.3.8",
+    "@types/chrome": "0.3.9",
     "rimraf": "6.1.4",
     "tailwindcss": "4.3.5",
     "typescript": "7.0.2",
