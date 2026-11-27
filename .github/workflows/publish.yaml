@@ -81,6 +81,16 @@ jobs:
           REF_TYPE: ${{ github.ref_type }}
           BEFORE_SHA: ${{ github.event.before }}
 
+      - name: 🥡 Setup bun for release validation
+        if: steps.check.outputs.changed == 'true' || github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.5
+
+      - name: 🔎 Check release version alignment
+        if: steps.check.outputs.changed == 'true' || github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+        run: bun scripts/check-version-alignment.ts
+
       - name: Check website changes in the push
         id: website
         if: github.event_name == 'push' && github.ref_type == 'branch'

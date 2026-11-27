@@ -48,7 +48,8 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
           if [ "$version" != "$(jq -r .version package.json)" ]; then
-            echo "::warning::Extension version ($version) differs from the root version"
+            echo "::error::Extension version ($version) differs from the root version"
+            exit 1
           fi
 
           case "$version" in

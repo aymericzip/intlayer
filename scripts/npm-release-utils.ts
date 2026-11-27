@@ -8,6 +8,10 @@ export type WorkspacePackage = PackageVersion & {
   directory: string;
   private?: boolean;
   scripts?: Record<string, string>;
+  workspaces?: string[];
+  dependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  optionalDependencies?: Record<string, string>;
 };
 export type ReleaseManifest = { version: string; packages: ReleasePackage[] };
 export type RegistryOptions = {
