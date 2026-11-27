@@ -30,6 +30,13 @@ export {
   resolveComponentFilePath,
   toComponentFilePath,
 } from './compilerTextUsage';
+export {
+  collectNestedDictionaryKeys,
+  collectSourceDictionaryKeys,
+  type DictionaryKeyOccurrence,
+  findDictionaryKeyDeclaration,
+  findDictionaryKeyOccurrenceAtOffset,
+} from './dictionaryKeyOccurrences';
 export { findFieldDeclaration, type OffsetSpan } from './findFieldDeclaration';
 export {
   escapeRegularExpression,

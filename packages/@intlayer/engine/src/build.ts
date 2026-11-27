@@ -3,6 +3,7 @@ export * from './cleanOutputDir';
 export * from './createDictionaryEntryPoint/index';
 export * from './createType/index';
 export * from './formatDictionary';
+export { handleContentDeclarationFilesChange } from './handleContentDeclarationFileChange';
 export * from './loadDictionaries/index';
 export * from './prepareIntlayer';
 export * from './prepareIntlayerServer';

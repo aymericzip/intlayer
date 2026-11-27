@@ -21,6 +21,11 @@ import { initSkills } from './commands/initSkills';
 import { registerOpenRelatedContent } from './commands/openRelatedContentCommand';
 import { pullCommand } from './commands/pullCommand';
 import { pushCommand } from './commands/pushCommand';
+import {
+  RENAME_DICTIONARY_KEY_COMMAND,
+  renameDictionaryKeyCommand,
+  watchDictionaryKeyContext,
+} from './commands/renameDictionaryKeyCommand';
 import { selectEnvironment } from './commands/selectEnvironment';
 import {
   initESLintCommand,
@@ -57,6 +62,7 @@ import { startLSPClient } from './lsp/client';
 import { promptCompatSetup } from './prompts/compatSetupPrompt';
 import { promptIntlayerUpgrade } from './prompts/upgradePrompt';
 import { dictionaryKeyDefinitionProvider } from './providers/dictionaryKeyDefinitionProvider';
+import { dictionaryKeyRenameHoverProvider } from './providers/dictionaryKeyRenameHoverProvider';
 import { intlayerContentDefinitionProvider } from './providers/intlayerContentDefinitionProvider';
 import { intlayerContentRedirectionProvider } from './providers/intlayerContentRedirectionProvider';
 import { intlayerDecorationProvider } from './providers/intlayerDecoration';
@@ -122,6 +128,11 @@ const registerLanguageProviders = (context: ExtensionContext): void => {
       PROVIDER_DOCUMENT_SELECTOR,
       intlayerHoverProvider
     ),
+    // `Rename key` link on dictionary keys
+    languages.registerHoverProvider(
+      PROVIDER_DOCUMENT_SELECTOR,
+      dictionaryKeyRenameHoverProvider
+    ),
     // Read-only previews of remote dictionaries, Go-to-Definition targets
     workspace.registerTextDocumentContentProvider(
       REMOTE_DICTIONARY_SCHEME,
@@ -183,7 +194,13 @@ const registerCommands = (context: ExtensionContext): void => {
     commands.registerCommand('intlayer.extract', extractCommand),
     commands.registerCommand('intlayer.initSkills', initSkills),
     commands.registerCommand('intlayer.initMCP', initMCP),
-    commands.registerCommand('intlayer.initProject', () => initProject())
+    commands.registerCommand('intlayer.initProject', () => initProject()),
+    commands.registerCommand(
+      RENAME_DICTIONARY_KEY_COMMAND,
+      renameDictionaryKeyCommand
+    ),
+    // Scopes the Ctrl+R / F2 rename keybindings to dictionary keys
+    ...watchDictionaryKeyContext()
   );
 };
 

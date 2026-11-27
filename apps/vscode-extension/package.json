@@ -135,7 +135,23 @@
     "@oxc-parser/binding-win32-x64-msvc": "0.159.0"
   },
   "contributes": {
+    "keybindings": [
+      {
+        "command": "intlayer.renameDictionaryKey",
+        "key": "ctrl+r",
+        "when": "editorTextFocus && !editorReadonly && intlayer.onDictionaryKey"
+      },
+      {
+        "command": "intlayer.renameDictionaryKey",
+        "key": "f2",
+        "when": "editorTextFocus && !editorReadonly && intlayer.onDictionaryKey"
+      }
+    ],
     "commands": [
+      {
+        "command": "intlayer.renameDictionaryKey",
+        "title": "Intlayer: Rename Dictionary Key"
+      },
       {
         "command": "extension.buildActiveDictionary",
         "title": "Intlayer: Build Current Dictionary",
@@ -345,6 +361,19 @@
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "intlayer.renameDictionaryKey",
+          "when": "intlayer.onDictionaryKey"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "intlayer.renameDictionaryKey",
+          "when": "intlayer.onDictionaryKey && !editorReadonly",
+          "group": "1_modification@1"
+        }
+      ],
       "editor/title": [
         {
           "when": "resourcePath in intlayer.editorPanelResources",

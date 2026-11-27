@@ -8,6 +8,7 @@ export * from './getContentExtension';
 export * from './getFormatFromExtension';
 export * from './getPathHash';
 export * from './isDirectoryExcluded';
+export * from './isValidDictionaryKey';
 export * from './mergeChunks';
 export * from './parallelizeGlobal';
 export * from './parseContentDeclarationFileName';

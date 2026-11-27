@@ -10,6 +10,7 @@ import { getBasePlugins, getContent } from '@intlayer/core/interpreter';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { formatLocale, formatPath } from './utils/formatter';
+import { isValidDictionaryKey } from './utils/isValidDictionaryKey';
 
 type IsInvalidDictionaryOptions = {
   checkSchema: boolean;
@@ -40,16 +41,9 @@ export const isInvalidDictionary = (
     return false;
   }
 
-  // Reject keys that contain path-unsafe characters.
-  // A key is used as a filename component ({key}.json), so slashes, backslashes,
-  // null bytes, or pure dot-segments can escape the output directory or break
-  // dictionary resolution.
-  // Allows alphanumeric characters, dashes, and underscores.
-  // Allows dots, but not as the first or last character, and no consecutive dots.
-  // Allows chinese or russian characters e.g. 你好
-  const isInsecureKey = !/^[\p{L}\p{N}]+([._-][\p{L}\p{N}]+)*$/u.test(
-    dictionary.key
-  );
+  // A key is used as a filename component ({key}.json): path-unsafe
+  // characters could escape the output directory or break resolution.
+  const isInsecureKey = !isValidDictionaryKey(dictionary.key);
 
   if (isInsecureKey) {
     appLogger(

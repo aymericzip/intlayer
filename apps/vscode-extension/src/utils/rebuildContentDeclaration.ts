@@ -6,6 +6,7 @@ import {
 import {
   buildDictionary,
   createTypes,
+  handleContentDeclarationFilesChange,
   loadLocalDictionaries,
 } from '@intlayer/engine/build';
 import type { IntlayerConfig } from '@intlayer/types';
@@ -43,4 +44,22 @@ export const rebuildContentDeclaration = async (
   await createTypes(mergedDictionaries, configuration);
 
   return true;
+};
+
+/**
+ * Rebuild a batch of edited content declaration files as the engine's watcher
+ * does: their dictionaries, types and entry points once for the whole batch,
+ * and the built output of every key they no longer declare removed — so a
+ * renamed key leaves no stale dictionary behind.
+ */
+export const rebuildContentDeclarations = async (
+  filePaths: string[],
+  configuration: IntlayerConfig
+): Promise<void> => {
+  for (const filePath of filePaths) clearModuleCache(filePath);
+
+  clearAllCache();
+  clearDiskCacheMemory();
+
+  await handleContentDeclarationFilesChange(filePaths, configuration);
 };

@@ -11,6 +11,7 @@ import { type DefinitionLink, Range, Uri } from 'vscode';
 import { dedupeDefinitionLinks } from './dedupeDefinitionLinks';
 import {
   getCachedConfig,
+  getCachedDictionary,
   getCachedUnmergedDictionaries,
 } from './intlayerCache';
 import {
@@ -18,6 +19,38 @@ import {
   renderRemoteDictionaryDocument,
 } from './remoteDictionaryDocument';
 import { createOffsetToPosition } from './textPosition';
+
+/** Separator of the `localIds` entries of merged dictionaries. */
+const LOCAL_ID_SEPARATOR = '::local::';
+
+/**
+ * Source files of a dictionary read from its merged build, whose `localIds`
+ * encode them as `key::local::filePath`. Used before the first dev build,
+ * which is what writes the unmerged dictionaries.
+ *
+ * @returns Paths relative to the project root.
+ */
+export const getMergedDictionarySourcePaths = async (
+  projectDir: string,
+  dictionaryKey: string
+): Promise<string[]> => {
+  const { system } = await getCachedConfig(projectDir);
+  const mergedDictionary = await getCachedDictionary(
+    join(system.dictionariesDir, `${dictionaryKey}.json`)
+  );
+  const entries = [mergedDictionary ?? []].flat() as {
+    localIds?: string[];
+    filePath?: string;
+  }[];
+
+  return entries.flatMap(
+    (entry) =>
+      entry.localIds
+        ?.map((localId) => localId.split(LOCAL_ID_SEPARATOR)[1])
+        .filter((filePath): filePath is string => Boolean(filePath)) ??
+      (entry.filePath ? [entry.filePath] : [])
+  );
+};
 
 /**
  * Match a usage against the project's built (unmerged) dictionaries, with the

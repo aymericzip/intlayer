@@ -12,6 +12,26 @@ import { rebuildContentDeclaration } from '../utils/rebuildContentDeclaration';
 /** Debounces bursts of saves on the same file (e.g. format on save). */
 const REBUILD_DELAY_MS = 300;
 
+/** Files saved by a flow that rebuilds them itself, as one batch. */
+const selfRebuiltFilePaths = new Set<string>();
+
+/**
+ * Run `saveAndRebuild` — which saves `filePaths` then rebuilds them itself —
+ * without the save watcher rebuilding each file a second time.
+ */
+export const withoutSaveRebuild = async <Result>(
+  filePaths: string[],
+  saveAndRebuild: () => Promise<Result>
+): Promise<Result> => {
+  for (const filePath of filePaths) selfRebuiltFilePaths.add(filePath);
+
+  try {
+    return await saveAndRebuild();
+  } finally {
+    for (const filePath of filePaths) selfRebuiltFilePaths.delete(filePath);
+  }
+};
+
 /**
  * Watches content declaration file saves and rebuilds the dictionary when no
  * other Intlayer watcher owns the project.
@@ -26,6 +46,9 @@ export const contentFileSaveWatcher = (): Disposable => {
 
   const subscription = workspace.onDidSaveTextDocument(async (document) => {
     const filePath = document.uri.fsPath;
+
+    if (selfRebuiltFilePaths.has(filePath)) return;
+
     const projectDir = findProjectRoot(filePath);
 
     if (!projectDir) return;
@@ -38,6 +61,8 @@ export const contentFileSaveWatcher = (): Disposable => {
 
     const timer = setTimeout(async () => {
       pendingTimers.delete(filePath);
+
+      if (selfRebuiltFilePaths.has(filePath)) return;
 
       try {
         // Checked at rebuild time rather than on save: a watcher may have

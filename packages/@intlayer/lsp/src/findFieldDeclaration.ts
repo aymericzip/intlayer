@@ -11,8 +11,12 @@ import {
 /** Offsets of a declaration inside a file's text. */
 export type OffsetSpan = { start: number; end: number };
 
-const JSON_EXTENSIONS = new Set(['.json', '.jsonc', '.json5']);
-const SCRIPT_EXTENSIONS = new Set([
+export const JSON_EXTENSIONS: ReadonlySet<string> = new Set([
+  '.json',
+  '.jsonc',
+  '.json5',
+]);
+export const SCRIPT_EXTENSIONS: ReadonlySet<string> = new Set([
   '.ts',
   '.tsx',
   '.js',
@@ -123,7 +127,7 @@ const findDeepestProperty = (
 };
 
 /** The root object literal of a JSON document. */
-const getJsonRootObject = (
+export const getJsonRootObject = (
   text: string
 ): { rootObject: OxcNode; offsetShift: number } | null => {
   // Parsed as a parenthesised expression so a bare `{…}` is not read as a
@@ -138,8 +142,9 @@ const getJsonRootObject = (
 };
 
 /** The object literal a content declaration file exports. */
-const getContentFileRootObject = (text: string): OxcNode | null => {
-  const program = parseText(text);
+export const getContentFileRootObject = (
+  program: OxcNode | null
+): OxcNode | null => {
   const body = (program?.['body'] as OxcNode[] | undefined) ?? [];
 
   const exportDefault = body.find(
@@ -148,6 +153,20 @@ const getContentFileRootObject = (text: string): OxcNode | null => {
   let declaration = unwrapExpression(
     exportDefault?.['declaration'] as OxcNode | undefined
   );
+
+  if (!declaration) {
+    for (const statement of body) {
+      const expression = statement['expression'] as OxcNode | undefined;
+      const left = expression?.['left'] as OxcNode | undefined;
+      if (
+        expression?.['type'] === 'AssignmentExpression' &&
+        (left?.['object'] as OxcNode)?.['name'] === 'module' &&
+        (left?.['property'] as OxcNode)?.['name'] === 'exports'
+      ) {
+        declaration = unwrapExpression(expression['right'] as OxcNode);
+      }
+    }
+  }
 
   // `const content = { … } satisfies Dictionary; export default content;`
   if (declaration?.['type'] === 'Identifier') {
@@ -279,7 +298,7 @@ export const findFieldDeclaration = (
   }
 
   if (SCRIPT_EXTENSIONS.has(extension)) {
-    const rootObject = getContentFileRootObject(text);
+    const rootObject = getContentFileRootObject(parseText(text));
 
     if (rootObject) {
       const match = findDeepestProperty(

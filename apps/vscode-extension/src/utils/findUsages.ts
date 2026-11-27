@@ -64,7 +64,9 @@ const extractScriptContentWithAngularTemplate = async (
  * compiler transform patterns, across the base and code directories, content
  * declaration files excluded.
  */
-const listProjectSourceFiles = async (projectDir: string): Promise<Uri[]> => {
+export const listProjectSourceFiles = async (
+  projectDir: string
+): Promise<Uri[]> => {
   const { build, compiler, content, system } =
     await getCachedConfig(projectDir);
 
