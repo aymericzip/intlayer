@@ -109,23 +109,23 @@ export const buildDictionary = async (
     {};
   const keysToBuildFetch = new Set<string>();
 
-  // Per-locale chunks are emitted for every dictionary, whatever its import
-  // mode: `getIntlayerAsync` is rewritten to them in every mode, and `nest()`
-  // targets of a lazily loaded dictionary resolve through them. A chunk no
-  // call site imports never reaches a bundle.
+  // Static dictionaries get no per-locale chunks: every read of them —
+  // `getIntlayerAsync` included — goes through the merged JSON.
   for (const [key, mergedResult] of Object.entries(mergedDictionaries)) {
     const dictionary = mergedResult.dictionary;
-    const mode = dictionary.importMode ?? importMode;
 
     if (isQualifiedDictionaryGroup(dictionary)) {
-      // Collections / variants resolve their qualifier at runtime from a
-      // selector: one chunk per (locale, qualifierId).
-      qualifiedDictionariesToBuildDynamic[key] = {
-        dictionaryPath: mergedResult.dictionaryPath,
-        dictionary,
-      };
+      // Collections / variants resolve their qualifier at
+      // runtime from a selector. Static mode keeps every entry in one JSON;
+      // dynamic mode splits them into one chunk per (locale, qualifierId).
+      const entryMode = dictionary.importMode ?? importMode;
 
-      if (mode === 'fetch') {
+      if (entryMode === 'dynamic') {
+        qualifiedDictionariesToBuildDynamic[key] = {
+          dictionaryPath: mergedResult.dictionaryPath,
+          dictionary,
+        };
+      } else if (entryMode === 'fetch') {
         const appLogger = getAppLogger(configuration);
         appLogger(
           `Dictionary ${colorizeKey(key)} uses 'fetch' import mode with (${dictionary.qualifierTypes.join(', ')}) entries — fetch mode is not qualifier-aware yet, falling back to static import.`,
@@ -136,13 +136,39 @@ export const buildDictionary = async (
       continue;
     }
 
-    dictionariesToBuildDynamic[key] = {
-      dictionaryPath: mergedResult.dictionaryPath,
-      dictionary,
-    };
+    const mode = dictionary.importMode ?? importMode;
+
+    if (mode === 'dynamic' || mode === 'fetch') {
+      dictionariesToBuildDynamic[key] = {
+        dictionaryPath: mergedResult.dictionaryPath,
+        dictionary,
+      };
+    }
 
     if (mode === 'fetch') {
       keysToBuildFetch.add(key);
+    }
+  }
+
+  // A lazily loaded dictionary resolves its `nest()` references from chunks
+  // loaded by the same loader, so its nest targets need dynamic artifacts of
+  // their own — whatever import mode they declare for their own call sites.
+  for (const consumerKey of Object.keys(dictionariesToBuildDynamic)) {
+    for (const nestedKey of nestedDictionaryGraph.get(consumerKey) ?? []) {
+      if (dictionariesToBuildDynamic[nestedKey]) continue;
+
+      const nestedResult = mergedDictionaries[nestedKey];
+      if (
+        !nestedResult ||
+        isQualifiedDictionaryGroup(nestedResult.dictionary)
+      ) {
+        continue;
+      }
+
+      dictionariesToBuildDynamic[nestedKey] = {
+        dictionaryPath: nestedResult.dictionaryPath,
+        dictionary: nestedResult.dictionary,
+      };
     }
   }
 

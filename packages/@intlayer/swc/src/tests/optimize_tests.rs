@@ -406,9 +406,9 @@ fn whole_directive_prologue_stays_first() {
 }
 
 #[test]
-fn get_intlayer_async_reads_the_per_locale_loader_in_static_mode() {
-    // Loading a single locale is what the async getter exists for, so it reads
-    // a dynamic loader even though the file is in static mode.
+fn get_intlayer_async_passes_the_bundled_dictionary_in_static_mode() {
+    // Static dictionaries have no per-locale chunks: the bundled dictionary is
+    // passed to `getDictionaryAsync`, which resolves it without loading.
     test_transform(
         Syntax::default(),
         None,
@@ -421,9 +421,9 @@ fn get_intlayer_async_reads_the_per_locale_loader_in_static_mode() {
         export const load = async (locale) => await getIntlayerAsync("about", locale);
         "#,
         r#"
-        import _5sczV2UpZbQ_dyn from "../.intlayer/dynamic_dictionaries/about.mjs";
+        import _5sczV2UpZbQ from "../.intlayer/dictionaries/about.json" with { type: "json" };
         import { getDictionaryAsync as getIntlayerAsync } from "intlayer";
-        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ_dyn, "about", locale);
+        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ, "about", locale);
         "#,
     );
 }
@@ -493,10 +493,10 @@ fn get_intlayer_async_leaves_a_sibling_get_intlayer_call_static() {
         "#,
         r#"
         import _FsHhNfuhm85 from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };
-        import _5sczV2UpZbQ_dyn from "../.intlayer/dynamic_dictionaries/about.mjs";
+        import _5sczV2UpZbQ from "../.intlayer/dictionaries/about.json" with { type: "json" };
         import { getDictionary as getIntlayer, getDictionaryAsync as getIntlayerAsync } from "intlayer";
         const c = getIntlayer(_FsHhNfuhm85);
-        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ_dyn, "about", locale);
+        export const load = async (locale) => await getIntlayerAsync(_5sczV2UpZbQ, "about", locale);
         "#,
     );
 }

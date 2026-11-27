@@ -482,7 +482,7 @@ describe('babel-plugin-intlayer-optimize', () => {
   });
 
   describe('getIntlayerAsync', () => {
-    it('should read the per-locale loader in static mode', () => {
+    it('should pass the bundled dictionary in static mode', () => {
       const code = `
         import { getIntlayerAsync } from "intlayer";
         const t = await getIntlayerAsync("app", locale);
@@ -492,17 +492,49 @@ describe('babel-plugin-intlayer-optimize', () => {
         { importMode: 'static' },
         '/app/src/page.tsx'
       );
-      expect(output).not.toContain(
-        'import _dicHash2 from "../.intlayer/dictionaries/app.json" with { type: "json" };'
-      );
+      expect(output).not.toContain('dynamic_dictionaries');
       expect(output).toContain(
-        'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
+        'import _dicHash2 from "../.intlayer/dictionaries/app.json" with { type: "json" };'
       );
       expect(output).toContain(
         'import { getDictionaryAsync as getIntlayerAsync } from "intlayer";'
       );
       expect(output).toContain(
+        'await getIntlayerAsync(_dicHash2, "app", locale)'
+      );
+    });
+
+    it('should read the per-locale loader of a dynamic dictionary in static mode', () => {
+      const code = `
+        import { getIntlayerAsync } from "intlayer";
+        const t = await getIntlayerAsync("app", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static', dictionaryModeMap: { app: 'dynamic' } },
+        '/app/src/page.tsx'
+      );
+      expect(output).toContain(
+        'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
+      );
+      expect(output).toContain(
         'await getIntlayerAsync(_dicHash2_dyn, "app", locale)'
+      );
+    });
+
+    it('should pass the bundled dictionary of a static dictionary in dynamic mode', () => {
+      const code = `
+        import { getIntlayerAsync } from "intlayer";
+        const t = await getIntlayerAsync("app", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'dynamic', dictionaryModeMap: { app: 'static' } },
+        '/app/src/page.tsx'
+      );
+      expect(output).not.toContain('dynamic_dictionaries');
+      expect(output).toContain(
+        'await getIntlayerAsync(_dicHash2, "app", locale)'
       );
     });
 
@@ -560,11 +592,11 @@ describe('babel-plugin-intlayer-optimize', () => {
         'import _dicHash from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };'
       );
       expect(output).toContain(
-        'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
+        'import _dicHash2 from "../.intlayer/dictionaries/app.json" with { type: "json" };'
       );
       expect(output).toContain('const a = getIntlayer(_dicHash);');
       expect(output).toContain(
-        'await getIntlayerAsync(_dicHash2_dyn, "app", locale)'
+        'await getIntlayerAsync(_dicHash2, "app", locale)'
       );
     });
 

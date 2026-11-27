@@ -68,6 +68,30 @@ describe('getDictionaryAsync', () => {
     expect(loadEnglish).toHaveBeenCalledTimes(1);
   });
 
+  it('resolves a bundled dictionary (static import mode) without loading', async () => {
+    const bundledDictionary = {
+      key: 'static-greeting',
+      content: {
+        title: {
+          nodeType: 'translation',
+          translation: { en: 'Hello', fr: 'Bonjour' },
+        },
+      },
+    } as unknown as Dictionary;
+
+    // The build plugins pass the bundled dictionary in place of a loader map.
+    const asLoaderMap = bundledDictionary as unknown as Parameters<
+      typeof getDictionaryAsync
+    >[0];
+
+    await expect(
+      getDictionaryAsync(asLoaderMap, 'static-greeting', 'fr')
+    ).resolves.toEqual({ title: 'Bonjour' });
+    await expect(
+      getDictionaryAsync(asLoaderMap, 'static-greeting')
+    ).resolves.toEqual({ title: 'Hello' });
+  });
+
   it('returns null when the loader map holds no usable chunk', async () => {
     const content = await getDictionaryAsync({}, 'empty', 'fr');
 

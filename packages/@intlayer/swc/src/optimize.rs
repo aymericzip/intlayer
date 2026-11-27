@@ -113,15 +113,12 @@ impl<'a> TransformVisitor<'a> {
         let uses_dynamic_helpers =
             caller_package.is_some_and(|package| self.package_uses_dynamic_helpers(package));
 
-        let import_kind = if caller_name == GET_INTLAYER_ASYNC {
-            // Loading a single locale is the whole point of the async getter,
-            // so it reads a per-locale loader whatever the file's import mode
-            // is — the fetch loader when the dictionary is remote, the dynamic
-            // one otherwise.
-            match dictionary_override {
-                Some(ImportKind::Fetch) => ImportKind::Fetch,
-                _ => ImportKind::Dynamic,
-            }
+        let is_get_intlayer_async = caller_name == GET_INTLAYER_ASYNC;
+
+        let import_kind = if is_get_intlayer_async {
+            // Follows the dictionary's import mode: static dictionaries have no
+            // per-locale chunks, so the bundled one is passed instead.
+            dictionary_override.unwrap_or(self.import_mode)
         } else if caller_name != "useIntlayer" {
             ImportKind::Static
         } else if uses_dynamic_helpers {
@@ -138,8 +135,9 @@ impl<'a> TransformVisitor<'a> {
             .injected_imports
             .ident_for(&dictionary_key, import_kind);
 
-        if import_kind.is_dynamic_helper() {
-            // Dynamic helper: first argument is the loader, second the key.
+        if import_kind.is_dynamic_helper() || is_get_intlayer_async {
+            // Dynamic helper, and `getDictionaryAsync` in every mode: first
+            // argument is the loader (or the bundled dictionary), second the key.
             call.args.insert(0, make_ident_arg(ident));
         } else {
             // Static helper (useDictionary / getDictionary): replace the key

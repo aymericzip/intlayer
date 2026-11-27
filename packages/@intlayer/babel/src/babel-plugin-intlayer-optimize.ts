@@ -65,8 +65,8 @@ const DYNAMIC_PACKAGE_SET: ReadonlySet<string> = new Set(PACKAGE_LIST_DYNAMIC);
 
 const STATIC_IMPORT_FUNCTION = {
   getIntlayer: 'getDictionary',
-  // `getIntlayerAsync` always reads a per-locale chunk, in every import mode,
-  // so its helper is the same on both sides of the static/dynamic split.
+  // `getDictionaryAsync` takes a loader map or the bundled dictionary, so its
+  // helper is the same on both sides of the static/dynamic split.
   getIntlayerAsync: 'getDictionaryAsync',
   useIntlayer: 'useDictionary',
 } as const;
@@ -434,16 +434,25 @@ const buildDictionaryImportDeclarations = (
  * const content = await getIntlayerAsync('app', locale);
  * ```
  *
- * `getIntlayerAsync` is the exception to the mode table below: it always
- * resolves to the per-locale loader (`getDictionaryAsync`), in every import
- * mode, since loading a single locale is what it exists for.
+ * `getIntlayerAsync` always resolves to `getDictionaryAsync`, keeping the key
+ * as second argument. Its first argument follows the dictionary's import mode:
+ * the per-locale loader in dynamic / fetch mode, the bundled dictionary in
+ * static mode — which has no per-locale chunks, and resolves without loading.
  *
- * **Output (any mode):**
+ * **Output (dynamic mode):**
  * ```ts
  * import _dicHash_dyn from '../../.intlayer/dynamic_dictionaries/app.mjs';
  * import { getDictionaryAsync as getIntlayerAsync } from 'intlayer';
  *
  * const content = await getIntlayerAsync(_dicHash_dyn, 'app', locale);
+ * ```
+ *
+ * **Output (static mode):**
+ * ```ts
+ * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
+ * import { getDictionaryAsync as getIntlayerAsync } from 'intlayer';
+ *
+ * const content = await getIntlayerAsync(_dicHash, 'app', locale);
  * ```
  *
  * ## Transformation Modes
@@ -892,12 +901,9 @@ const optimizeBabelPlugin = (babel: {
             let perCallMode: ImportMode = 'static';
 
             if (isGetIntlayerAsync) {
-              // Loading a single locale is the whole point of the async
-              // getter, so it reads a per-locale loader whatever the file's
-              // import mode is — the fetch loader when the dictionary is
-              // remote, the dynamic one otherwise.
-              perCallMode =
-                dictionaryOverrideMode === 'fetch' ? 'fetch' : 'dynamic';
+              // Follows the dictionary's import mode: static dictionaries have
+              // no per-locale chunks, so the bundled one is passed instead.
+              perCallMode = dictionaryOverrideMode ?? importMode ?? 'static';
             } else if (isUseIntlayer && helperPlan === 'dynamic') {
               if (dictionaryOverrideMode) {
                 perCallMode = dictionaryOverrideMode;
@@ -917,13 +923,14 @@ const optimizeBabelPlugin = (babel: {
 
             const ident = imports.identFor(key, perCallMode);
 
-            if (perCallMode === 'static') {
+            if (perCallMode === 'static' && !isGetIntlayerAsync) {
               // Static helper (useDictionary / getDictionary): replace the key
               // argument with the imported dictionary object.
               callNode.arguments[0] = t.identifier(ident.name);
             } else {
-              // Dynamic / fetch helper: first argument is the loader, the key
-              // stays as the second one.
+              // Dynamic / fetch helper, and `getDictionaryAsync` in every mode:
+              // first argument is the loader (or the bundled dictionary), the
+              // key stays as the second one.
               callNode.arguments = [
                 t.identifier(ident.name),
                 ...callNode.arguments,

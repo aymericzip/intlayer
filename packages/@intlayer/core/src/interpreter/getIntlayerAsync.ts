@@ -24,7 +24,9 @@ import { resolveInterpreterLocaleAsync } from './resolveInterpreterLocale';
  * every locale, the build plugins (`@intlayer/babel`, `@intlayer/swc`) rewrite
  * this call into `getDictionaryAsync(loaderMap, key, locale)`, pointing it at
  * the per-locale chunks in `.intlayer/dynamic_dictionaries/`, so the bundle
- * only ever carries the locale actually requested.
+ * only ever carries the locale actually requested. A dictionary in `static`
+ * import mode has no such chunks: the call reads the bundled dictionary, like
+ * `getIntlayer`, and resolves without loading anything.
  *
  * Without those plugins — an unoptimized build — the call resolves through the
  * synchronous dictionary registry instead: the same content, without the

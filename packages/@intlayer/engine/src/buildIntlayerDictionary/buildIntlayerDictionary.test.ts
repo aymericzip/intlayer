@@ -9,8 +9,12 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { buildDictionary } from './buildIntlayerDictionary';
 
-const buildDeclaration = (key: string): Dictionary => ({
+const buildDeclaration = (
+  key: string,
+  importMode?: Dictionary['importMode']
+): Dictionary => ({
   key,
+  ...(importMode && { importMode }),
   localId: `${key}::local::src/${key}.content.ts`,
   location: 'local',
   filePath: `src/${key}.content.ts`,
@@ -38,9 +42,25 @@ describe('buildDictionary', () => {
     await rm(baseDir, { recursive: true, force: true });
   });
 
-  it('emits the per-locale loader read by getIntlayerAsync in static mode', async () => {
-    const { dynamicDictionaries } = await buildDictionary(
+  it('emits no per-locale chunks for a static dictionary', async () => {
+    const { dynamicDictionaries, fetchDictionaries } = await buildDictionary(
       [buildDeclaration('home-metadata')],
+      configuration,
+      { formats: ['esm'], importOtherDictionaries: false }
+    );
+
+    expect(dynamicDictionaries).toBeNull();
+    expect(fetchDictionaries).toBeNull();
+    expect(
+      existsSync(
+        join(configuration.system.dynamicDictionariesDir, 'home-metadata.mjs')
+      )
+    ).toBe(false);
+  });
+
+  it('emits per-locale chunks for a dictionary declaring the dynamic mode', async () => {
+    const { dynamicDictionaries } = await buildDictionary(
+      [buildDeclaration('home-metadata', 'dynamic')],
       configuration,
       { formats: ['esm'], importOtherDictionaries: false }
     );
@@ -54,15 +74,5 @@ describe('buildDictionary', () => {
     expect(
       existsSync(join(dynamicDictionariesDir, 'json/home-metadata/fr.json'))
     ).toBe(true);
-  });
-
-  it('writes no fetch loader for a static dictionary', async () => {
-    const { fetchDictionaries } = await buildDictionary(
-      [buildDeclaration('home-metadata')],
-      configuration,
-      { formats: ['esm'], importOtherDictionaries: false }
-    );
-
-    expect(fetchDictionaries).toBeNull();
   });
 });

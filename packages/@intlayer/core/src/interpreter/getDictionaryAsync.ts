@@ -35,6 +35,14 @@ import { resolveInterpreterLocaleAsync } from './resolveInterpreterLocale';
 const contentPromiseCache = new Map<string, Promise<unknown>>();
 
 /**
+ * Whether the build plugins passed the bundled dictionary itself (static import
+ * mode) instead of a loader map. A loader map only holds locales and markers,
+ * never `content`.
+ */
+const isBundledDictionary = (value: unknown): value is Dictionary =>
+  typeof value === 'object' && value !== null && 'content' in value;
+
+/**
  * Loads a single locale chunk of a dictionary and returns its transformed
  * content.
  *
@@ -49,9 +57,12 @@ const contentPromiseCache = new Map<string, Promise<unknown>>();
  *
  * Build plugins rewrite every `getIntlayerAsync('key', locale)` call into a
  * `getDictionaryAsync(loaderMap, 'key', locale)` one, so applications call
- * {@link getIntlayerAsync} and never this function directly.
+ * {@link getIntlayerAsync} and never this function directly. For a dictionary
+ * in `static` import mode, they pass the bundled dictionary instead of a loader
+ * map: it already holds every locale, so it is resolved without loading.
  *
- * @param dictionaryLoaders - Plain or qualified per-locale loader map.
+ * @param dictionaryLoaders - Plain or qualified per-locale loader map, or the
+ *                            bundled dictionary in static import mode.
  * @param key - Dictionary key, used to namespace the chunk cache.
  * @param localeOrSelector - The locale, or a selector object (`{ item }`,
  *                           `{ variant }`, optionally with `locale`).
@@ -86,6 +97,20 @@ export const getDictionaryAsync = async <
   }
 
   const localeTarget = locale ?? (await resolveInterpreterLocaleAsync());
+
+  if (isBundledDictionary(dictionaryLoaders)) {
+    return getDictionary(
+      dictionaryLoaders,
+      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' && selector
+        ? { ...selector, locale: localeTarget }
+        : localeTarget,
+      plugins
+    ) as DeepTransformContent<
+      T['content'],
+      IInterpreterPluginState,
+      ExtractSelectorLocale<A>
+    >;
+  }
 
   const selectorCacheKey =
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
