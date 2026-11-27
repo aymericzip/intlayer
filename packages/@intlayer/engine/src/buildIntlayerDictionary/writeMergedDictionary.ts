@@ -77,7 +77,7 @@ export const writeMergedDictionaries = async (
         configuration
       );
 
-      warnConflictingDictionaries(normalizedDictionaries);
+      warnConflictingDictionaries(normalizedDictionaries, configuration);
 
       const mergedDictionary = mergeQualifiedDictionaries(
         normalizedDictionaries

@@ -29,9 +29,10 @@ const buildDictionary = (
     ...extra,
   }) as unknown as Dictionary;
 
-const translation = (en: string) => ({
+const translation = (translations: Record<string, unknown> | string) => ({
   nodeType: 'translation',
-  translation: { en },
+  translation:
+    typeof translations === 'string' ? { en: translations } : translations,
 });
 
 describe('writeMergedDictionaries', () => {
@@ -98,6 +99,33 @@ describe('writeMergedDictionaries', () => {
     expect(loggedMessages[0]).toContain('priority');
   });
 
+  it('lists every locale of a conflicting field in a single warning', async () => {
+    await merge([
+      buildDictionary('src/a/home.content.ts', {
+        title: translation({ en: 'Hello', fr: 'Bonjour' }),
+        subtitle: translation({ en: 'Same', fr: 'Pareil' }),
+      }),
+      buildDictionary('src/b/home.content.ts', {
+        title: translation({ en: 'Hi', fr: 'Salut' }),
+        subtitle: translation({ en: 'Same', fr: 'Pareil' }),
+      }),
+    ]);
+
+    expect(loggedMessages).toHaveLength(1);
+    expect(loggedMessages[0]).toContain('title (en, fr)');
+    expect(loggedMessages[0]).not.toContain('subtitle');
+  });
+
+  it('warns when arrays of plain values differ', async () => {
+    await merge([
+      buildDictionary('src/a/home.content.ts', { tags: ['a', 'b'] }),
+      buildDictionary('src/b/home.content.ts', { tags: ['a', 'b', 'c'] }),
+    ]);
+
+    expect(loggedMessages).toHaveLength(1);
+    expect(loggedMessages[0]).toContain('tags (en, fr)');
+  });
+
   it('does not warn when the priority decides which value is kept', async () => {
     const merged = await merge([
       buildDictionary('src/a/home.content.ts', { title: translation('A') }),
@@ -111,6 +139,19 @@ describe('writeMergedDictionaries', () => {
     expect(merged.content).toMatchObject({
       translation: { en: { title: 'B' } },
     });
+    expect(loggedMessages).toEqual([]);
+  });
+
+  it('does not warn when the location decides which value is kept', async () => {
+    await merge([
+      buildDictionary('src/a/home.content.ts', { title: translation('A') }),
+      buildDictionary(
+        'src/b/home.content.ts',
+        { title: translation('B') },
+        { location: 'remote' }
+      ),
+    ]);
+
     expect(loggedMessages).toEqual([]);
   });
 
