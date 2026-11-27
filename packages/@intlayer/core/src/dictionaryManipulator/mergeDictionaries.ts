@@ -218,10 +218,18 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
     }
   }
 
+  // Remote (CMS) declarations carry no `importMode`: keep the one declared by
+  // the highest-priority dictionary that sets it, or the build would fall back
+  // to the global mode and skip this dictionary's per-locale chunks.
+  const importMode = dictionaries.find(
+    (dictionary) => dictionary.importMode !== undefined
+  )?.importMode;
+
   const mergedDictionary: Dictionary = {
     key: dictionaries[0].key,
     content: mergedContent,
     ...(mergedMetadata !== undefined && { metadata: mergedMetadata }),
+    ...(importMode !== undefined && { importMode }),
     localIds,
   };
 

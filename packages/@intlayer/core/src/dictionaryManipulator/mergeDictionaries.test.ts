@@ -24,6 +24,57 @@ describe('mergeDictionaries', () => {
     expect(merged.content).toBe('test1');
   });
 
+  it('keeps the importMode declared by a local dictionary merged with a remote one', () => {
+    const key = 'test-import-mode-merge';
+
+    const remote = {
+      key,
+      content: { title: 'remote' },
+      localId: `${key}::remote::id`,
+    } satisfies Dictionary;
+
+    const local = {
+      key,
+      importMode: 'dynamic',
+      content: { title: 'local' },
+      localId: `${key}::local::file`,
+    } satisfies Dictionary;
+
+    expect(mergeDictionaries([local, remote]).importMode).toBe('dynamic');
+    expect(mergeDictionaries([remote, local]).importMode).toBe('dynamic');
+  });
+
+  it('prefers the importMode of the first dictionary declaring one', () => {
+    const key = 'test-import-mode-priority';
+
+    const first = {
+      key,
+      importMode: 'fetch',
+      content: 'first',
+      localId: `${key}::local::first`,
+    } satisfies Dictionary;
+
+    const second = {
+      key,
+      importMode: 'static',
+      content: 'second',
+      localId: `${key}::local::second`,
+    } satisfies Dictionary;
+
+    expect(mergeDictionaries([first, second]).importMode).toBe('fetch');
+  });
+
+  it('omits importMode when no dictionary declares one', () => {
+    const key = 'test-import-mode-absent';
+
+    const merged = mergeDictionaries([
+      { key, content: 'first', localId: `${key}::local::first` },
+      { key, content: 'second', localId: `${key}::local::second` },
+    ]);
+
+    expect(merged).not.toHaveProperty('importMode');
+  });
+
   it('should consider the first dictionary first for merging objects', () => {
     const key = 'test-array-index-merge';
 

@@ -424,8 +424,8 @@ export type QualifiedMergedDictionaryOutput = Record<
 
 /**
  * Writes the dynamic chunks and entry points of qualified dictionaries
- * (collections, variants — possibly combined) in
- * `importMode: 'dynamic'`.
+ * (collections, variants — possibly combined), read by `importMode: 'dynamic'`
+ * call sites and by `getIntlayerAsync` in every import mode.
  *
  * Each entry is reduced to one per-locale chunk written to a path nested by
  * dimension — `json/{key}/{seg1}/{seg2}/{locale}.json` — and a single
