@@ -502,7 +502,7 @@ jobs:
   tauri:
     needs: [targets, validate]
     if: needs.targets.outputs.version-release == 'true' || (github.event_name == 'push' && github.ref_type == 'tag') || inputs.target == 'tauri'
-    name: 💻 Tauri app (${{ matrix.platform }})
+    name: 💻 Tauri app
     permissions:
       contents: write
     strategy:
@@ -788,7 +788,11 @@ jobs:
   selfhost-build:
     needs: [targets, validate]
     if: needs.targets.outputs.version-release == 'true' || inputs.target == 'selfhost'
-    name: 🐳 Build ${{ matrix.image }} ${{ matrix.platform }}
+    # No matrix expression in matrix job names: a skipped job is never expanded
+    # and shows `${{ matrix.image }}` verbatim. GitHub appends the matrix values
+    # itself, e.g. "🐳 Build image (cms-frontend, linux/amd64)", so the matrix
+    # holds only `image` and `platform`; everything else derives from them.
+    name: 🐳 Build image
     # One job per image and platform, each on a runner of that architecture.
     # Building arm64 through QEMU on an amd64 runner emulates the whole toolchain
     # (bun install, turbo, the Vite build and the prerender crawl) and takes
@@ -796,26 +800,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # `image` is the published name; `target` the matching Dockerfile stage.
         image: [cms-frontend, cms-backend, cms-all]
         platform: [linux/amd64, linux/arm64]
-        include:
-          - image: cms-frontend
-            target: app
-          - image: cms-backend
-            target: backend
-          - image: cms-all
-            target: all-in-one
-          - platform: linux/amd64
-            runner: ubuntu-latest
-            arch: linux-amd64
-          - platform: linux/arm64
-            runner: ubuntu-24.04-arm
-            arch: linux-arm64
-    runs-on: ${{ matrix.runner }}
+    runs-on: ${{ matrix.platform == 'linux/arm64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
     permissions:
       contents: read
       packages: write
+    env:
+      # Dockerfile stage of the published image.
+      SELFHOST_TARGET: ${{ matrix.image == 'cms-frontend' && 'app' || matrix.image == 'cms-backend' && 'backend' || 'all-in-one' }}
+      # Cache scope and digest artifact suffix.
+      SELFHOST_ARCH: ${{ matrix.platform == 'linux/arm64' && 'linux-arm64' || 'linux-amd64' }}
 
     steps:
       - name: 🔎 Check platform is requested
@@ -879,7 +874,7 @@ jobs:
         with:
           context: .
           file: docker/selfhost/Dockerfile
-          target: ${{ matrix.target }}
+          target: ${{ env.SELFHOST_TARGET }}
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,"name=${{ steps.registries.outputs.images }}",push-by-digest=true,name-canonical=true,push=true
@@ -887,11 +882,11 @@ jobs:
           # The builder stages are identical across the three targets, so every
           # image of a platform reads the caches written by the other two.
           cache-from: |
-            type=gha,scope=${{ matrix.image }}-${{ matrix.arch }}
-            type=gha,scope=cms-frontend-${{ matrix.arch }}
-            type=gha,scope=cms-backend-${{ matrix.arch }}
-            type=gha,scope=cms-all-${{ matrix.arch }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.image }}-${{ matrix.arch }}
+            type=gha,scope=${{ matrix.image }}-${{ env.SELFHOST_ARCH }}
+            type=gha,scope=cms-frontend-${{ env.SELFHOST_ARCH }}
+            type=gha,scope=cms-backend-${{ env.SELFHOST_ARCH }}
+            type=gha,scope=cms-all-${{ env.SELFHOST_ARCH }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}-${{ env.SELFHOST_ARCH }}
 
       - name: 📤 Export digest
         if: steps.requested.outputs.enabled == 'true'
@@ -905,14 +900,14 @@ jobs:
         if: steps.requested.outputs.enabled == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: digests-${{ matrix.image }}-${{ matrix.arch }}
+          name: digests-${{ matrix.image }}-${{ env.SELFHOST_ARCH }}
           path: ${{ runner.temp }}/digests/*
           if-no-files-found: error
           retention-days: 1
 
   selfhost-manifest:
     needs: [targets, selfhost-build]
-    name: 🐳 Publish ${{ matrix.image }} manifest
+    name: 🐳 Publish manifest
     strategy:
       fail-fast: false
       matrix:
