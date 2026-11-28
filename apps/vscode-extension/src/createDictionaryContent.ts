@@ -1,12 +1,11 @@
-import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
 import { basename, extname, relative } from 'node:path';
 import { extractDictionaryInfo } from '@intlayer/babel';
 import { getConfiguration } from '@intlayer/config/node';
 import {
-  detectFormatCommand,
   getContentDeclarationFileTemplate,
+  runFormatCommand,
 } from '@intlayer/engine/cli';
 import {
   getExtensionFromFormat,
@@ -134,23 +133,7 @@ export const generateDictionaryContent = async (format: ContentFileFormat) => {
 
   await writeFile(absolutePath, fileData, 'utf8');
 
-  try {
-    if (configOptions.require) {
-      const formatCommand = detectFormatCommand(
-        configuration,
-        configOptions.require
-      );
-
-      if (formatCommand) {
-        execSync(formatCommand.replace('{{file}}', absolutePath), {
-          stdio: 'inherit',
-          cwd: configuration.system.baseDir,
-        });
-      }
-    }
-  } catch (error) {
-    console.error(error);
-  }
+  runFormatCommand(absolutePath, configuration);
 
   await window.showInformationMessage(`Dictionary created: ${relativePath}`);
 

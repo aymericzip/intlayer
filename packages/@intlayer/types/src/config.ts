@@ -1410,6 +1410,14 @@ export type ContentConfig = {
    * Example:
    *
    * ```bash
+   * npx oxfmt {{file}}
+   * ```
+   *
+   * ```bash
+   * vp fmt {{file}}
+   * ```
+   *
+   * ```bash
    * npx prettier --write {{file}}
    * ```
    *
@@ -1426,6 +1434,11 @@ export type ContentConfig = {
    * ```
    *
    * Intlayer will replace the {{file}} with the path of the file to format.
+   *
+   * If not set, Intlayer runs the first formatter declared in the project
+   * `package.json` (or the workspace root one) and installed locally: oxfmt,
+   * Prettier, Biome, Vite+ (`vp fmt`), then ESLint. Formatting is skipped
+   * when none is installed.
    *
    * Default: undefined
    */
