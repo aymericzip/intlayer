@@ -42,7 +42,7 @@ jobs:
       - name: 🧪 Test npm release workflow
         run: |
           bun run tsc -p scripts/tsconfig.json
-          bun test scripts/npm-release.test.ts scripts/check-version-alignment.test.ts
+          bun test scripts/npm-release.test.ts scripts/check-version-alignment.test.ts scripts/check-extension-releases.test.ts
       - name: Archive tested package outputs
         if: inputs.build-context && inputs.build-context != 'none'
         env:

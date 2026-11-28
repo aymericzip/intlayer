@@ -45,6 +45,18 @@
 #                                    scope, for the `intlayer` publisher
 #   OPEN_VSX_ACCESS_TOKEN            open-vsx.org token, `intlayer` namespace
 #
+# The browser extension (packages/@intlayer/chrome-extension) goes to the
+# Chrome Web Store and addons.mozilla.org, which review every upload. Repository
+# secrets:
+#   CHROME_EXTENSION_ID, CHROME_CLIENT_ID, CHROME_CLIENT_SECRET,
+#   CHROME_REFRESH_TOKEN                     Chrome Web Store API OAuth client
+#   FIREFOX_JWT_ISSUER, FIREFOX_JWT_SECRET   addons.mozilla.org API keys
+#
+# Stores refuse a version number twice, so `check-vscode` and `check-browser`
+# compare the release version with what each store holds (latest upload, in
+# review included, when credentials allow) and only the stores behind are
+# packaged and uploaded (scripts/check-extension-releases.ts).
+#
 # The self-host images (docker/selfhost/Dockerfile) go to GHCR
 # (ghcr.io/<owner>/intlayer/<name>) and, when DOCKERHUB_USERNAME and
 # DOCKERHUB_TOKEN are set, Docker Hub (intlayer/<name>):
@@ -71,18 +83,22 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: Release target
+        description: Release target (all = npm, crates.io, VS Code and browser stores, each only where behind)
         type: choice
-        options: [npm, china, tauri, vscode, selfhost]
-        default: npm
+        options: [all, npm, vscode, browser, tauri, selfhost, china]
+        default: all
       dry-run:
-        description: Dry run for npm, crates.io or VS Code
+        description: Dry run for npm, crates.io, VS Code or browser stores
         type: boolean
         default: false
       pre-release:
         description: Publish a VS Code pre-release
         type: boolean
         default: false
+      chrome-auto-publish:
+        description: Submit the Chrome Web Store upload for review (off = draft only)
+        type: boolean
+        default: true
       tag:
         description: Additional self-host image tag
         type: string
@@ -91,10 +107,15 @@ on:
         type: string
         default: linux/amd64,linux/arm64
 
-concurrency: release-${{ github.ref }}-${{ inputs.target || 'npm' }}
+# Version bumps and `all` share the npm group: both publish npm packages.
+concurrency: release-${{ github.ref }}-${{ inputs.target == 'all' && 'npm' || inputs.target || 'npm' }}
 
 permissions:
   contents: read
+
+env:
+  # One VSIX per platform; `check-vscode` expects each of them in both stores.
+  VSCODE_TARGETS: win32-x64 win32-arm64 linux-x64 linux-arm64 alpine-x64 alpine-arm64 darwin-x64 darwin-arm64
 
 jobs:
   targets:
@@ -102,7 +123,12 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.check.outputs.version }}
-      version-release: ${{ steps.check.outputs.changed == 'true' && github.event_name == 'push' && github.ref_type == 'branch' }}
+      version-release: ${{ steps.release.outputs.full }}
+      npm: ${{ steps.release.outputs.npm }}
+      vscode: ${{ steps.release.outputs.vscode }}
+      browser: ${{ steps.release.outputs.browser }}
+      tauri: ${{ steps.release.outputs.tauri }}
+      selfhost: ${{ steps.release.outputs.selfhost }}
       china: ${{ steps.website.outputs.changed == 'true' || inputs.target == 'china' }}
       # Tag pushes and manual runs always report `changed`.
       validate: ${{ steps.check.outputs.changed == 'true' || steps.website.outputs.changed == 'true' }}
@@ -119,6 +145,35 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           REF_TYPE: ${{ github.ref_type }}
           BEFORE_SHA: ${{ github.event.before }}
+
+      # A version bump on main releases every target; a manual run releases
+      # its own, `all` covering the targets that skip what is already out.
+      - name: 🎯 Resolve release targets
+        id: release
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          VERSION_CHANGED: ${{ steps.check.outputs.changed }}
+          VERSION: ${{ steps.check.outputs.version }}
+          TARGET: ${{ inputs.target }}
+        run: |
+          full=false
+          if [ "$EVENT_NAME" = push ] && [ "$REF_TYPE" = branch ] && [ "$VERSION_CHANGED" = true ]; then
+            full=true
+          fi
+          echo "full=$full" | tee -a "$GITHUB_OUTPUT"
+
+          for target in npm vscode browser tauri selfhost; do
+            selected=$full
+            if [ "$TARGET" = "$target" ]; then selected=true; fi
+            case "$TARGET:$target" in all:npm | all:vscode | all:browser) selected=true ;; esac
+            if [ "$target" = tauri ] && [ "$EVENT_NAME" = push ] && [ "$REF_TYPE" = tag ]; then
+              selected=true
+            fi
+            # Extension stores reject semver pre-release identifiers (9.6.0-canary.1).
+            case "$target:$VERSION" in vscode:*-* | browser:*-*) selected=false ;; esac
+            echo "$target=$selected" | tee -a "$GITHUB_OUTPUT"
+          done
 
       - name: 🥡 Setup bun for release validation
         if: steps.check.outputs.changed == 'true'
@@ -151,11 +206,11 @@ jobs:
     uses: ./.github/workflows/build_and_test.yaml
     with:
       skip: ${{ needs.targets.outputs.validate != 'true' }}
-      build-context: ${{ needs.targets.outputs.version-release == 'true' && 'release' || inputs.target == 'selfhost' && 'none' || inputs.target || github.ref_type == 'tag' && 'tauri' || 'china' }}
+      build-context: ${{ (needs.targets.outputs.version-release == 'true' || inputs.target == 'all') && 'release' || inputs.target == 'selfhost' && 'none' || inputs.target || github.ref_type == 'tag' && 'tauri' || 'china' }}
 
   check-npm:
     needs: targets
-    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'npm'
+    if: needs.targets.outputs.npm == 'true'
     runs-on: ubuntu-latest
     outputs:
       needed: ${{ steps.registry.outputs.needed }}
@@ -321,7 +376,7 @@ jobs:
       contents: read
       id-token: write
     needs: [targets, validate]
-    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'npm'
+    if: needs.targets.outputs.npm == 'true'
 
     name: 🦀 Publish to crates.io
     runs-on: ubuntu-latest
@@ -501,7 +556,7 @@ jobs:
 
   tauri:
     needs: [targets, validate]
-    if: needs.targets.outputs.version-release == 'true' || (github.event_name == 'push' && github.ref_type == 'tag') || inputs.target == 'tauri'
+    if: needs.targets.outputs.tauri == 'true'
     name: 💻 Tauri app
     permissions:
       contents: write
@@ -679,11 +734,29 @@ jobs:
           releaseDraft: false
           prerelease: false
 
-  # `targets` already blocks a version that drifts from the root one; the
-  # Marketplace also rejects pre-release identifiers (9.6.0-canary.1).
+  check-vscode:
+    needs: targets
+    if: needs.targets.outputs.vscode == 'true'
+    name: 🔎 Check VS Code stores
+    runs-on: ubuntu-latest
+    outputs:
+      needed: ${{ steps.stores.outputs.needed }}
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.5
+
+      - name: 🔎 Compare with the Marketplace and Open VSX
+        id: stores
+        run: bun scripts/check-extension-releases.ts vscode
+
   vscode-package:
-    needs: [targets, validate]
-    if: ${{ (needs.targets.outputs.version-release == 'true' || inputs.target == 'vscode') && !contains(needs.targets.outputs.version, '-') }}
+    needs: [validate, check-vscode]
+    if: inputs.dry-run || needs.check-vscode.outputs.needed == 'true'
     name: 🧩 Package VS Code extension
     runs-on: ubuntu-latest
     steps:
@@ -711,8 +784,7 @@ jobs:
           PRE_RELEASE_FLAG: ${{ inputs.pre-release && '--pre-release' || '' }}
         run: |
           mkdir -p vsix
-          for target in win32-x64 win32-arm64 linux-x64 linux-arm64 \
-            alpine-x64 alpine-arm64 darwin-x64 darwin-arm64; do
+          for target in $VSCODE_TARGETS; do
             echo "::group::$target"
             VSCE_TARGET="$target" node_modules/.bin/vsce package \
               --no-dependencies \
@@ -785,9 +857,98 @@ jobs:
           make_latest: false
           prerelease: ${{ inputs.pre-release || false }}
 
+  check-browser:
+    needs: targets
+    if: needs.targets.outputs.browser == 'true'
+    name: 🔎 Check browser stores
+    runs-on: ubuntu-latest
+    outputs:
+      chrome: ${{ steps.stores.outputs.chrome }}
+      firefox: ${{ steps.stores.outputs.firefox }}
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.5
+
+      - name: 🔎 Compare with the Chrome Web Store and addons.mozilla.org
+        id: stores
+        run: bun scripts/check-extension-releases.ts browser
+        env:
+          CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+
+  publish-chrome:
+    needs: [validate, check-browser]
+    if: inputs.dry-run || needs.check-browser.outputs.chrome == 'true'
+    name: 🌐 Publish to Chrome Web Store
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.5
+
+      - uses: ./.github/actions/restore-workspaces
+
+      - name: 📦 Zip extension
+        run: |
+          (cd packages/@intlayer/chrome-extension/dist && zip -r "$GITHUB_WORKSPACE/extension-chrome.zip" . -x '*/.*' '.*')
+          ls -lh extension-chrome.zip
+
+      # Push events leave the input empty: only an explicit `false` keeps the
+      # upload as a draft.
+      - name: 🚀 Upload to Chrome Web Store
+        if: ${{ !inputs.dry-run }}
+        env:
+          CHROME_AUTO_PUBLISH: ${{ inputs.chrome-auto-publish }}
+          EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+        run: |
+          auto_publish_flag=--auto-publish
+          if [ "$CHROME_AUTO_PUBLISH" = false ]; then auto_publish_flag=; fi
+          bunx chrome-webstore-upload-cli@3 upload --source extension-chrome.zip $auto_publish_flag
+
+  publish-firefox:
+    needs: [validate, check-browser]
+    if: inputs.dry-run || needs.check-browser.outputs.firefox == 'true'
+    name: 🦊 Publish to Firefox Add-ons
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - uses: ./.github/actions/restore-workspaces
+
+      - name: 📦 Zip extension
+        run: |
+          (cd packages/@intlayer/chrome-extension/dist && zip -r "$GITHUB_WORKSPACE/extension-firefox.zip" . -x '*/.*' '.*')
+          ls -lh extension-firefox.zip
+
+      - name: 🦊 Upload to addons.mozilla.org
+        if: ${{ !inputs.dry-run }}
+        uses: wdzeng/firefox-addon@v1
+        with:
+          addon-guid: i18n-scanner@intlayer.org
+          xpi-path: extension-firefox.zip
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
+
   selfhost-build:
     needs: [targets, validate]
-    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'selfhost'
+    if: needs.targets.outputs.selfhost == 'true'
     # No matrix expression in matrix job names: a skipped job is never expanded
     # and shows `${{ matrix.image }}` verbatim. GitHub appends the matrix values
     # itself, e.g. "🐳 Build image (cms-frontend, linux/amd64)", so the matrix
@@ -1000,6 +1161,8 @@ jobs:
         china,
         tauri,
         vscode-package,
+        publish-chrome,
+        publish-firefox,
       ]
     if: ${{ !cancelled() && needs.targets.outputs.validate == 'true' && needs.validate.result == 'success' && !contains(needs.*.result, 'failure') }}
     name: 🧹 Remove build context
