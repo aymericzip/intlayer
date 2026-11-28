@@ -225,16 +225,26 @@ describe('runFormatCommand', () => {
   it('runs the command on the file', () => {
     const projectDirectory = createProjectDirectory();
     const filePath = join(projectDirectory, 'file.content.json');
+    const formatterPath = join(projectDirectory, 'formatter.mjs');
+    const warn = vi.fn();
     writeFileSync(filePath, '');
+    // A script file, not `node -e`: Bun's `node` shim (`bun --bun`) drops the
+    // arguments following an `-e` script
+    writeFileSync(
+      formatterPath,
+      "import { writeFileSync } from 'node:fs';\nwriteFileSync(process.argv.at(-1), 'formatted');\n"
+    );
 
     runFormatCommand(
       filePath,
       createConfiguration(
         projectDirectory,
-        `node -e "require('node:fs').writeFileSync(process.argv[1], 'formatted')" "{{file}}"`
+        `node "${formatterPath}" "{{file}}"`,
+        warn
       )
     );
 
+    expect(warn).not.toHaveBeenCalled();
     expect(readFileSync(filePath, 'utf-8')).toBe('formatted');
   });
 
