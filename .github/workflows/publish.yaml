@@ -35,6 +35,29 @@
 #     Repository name:      intlayer
 #     Workflow filename:    publish.yaml
 #     Environment:          crates-io
+#
+# The VS Code extension (apps/vscode-extension) is published as one VSIX per
+# platform to the VS Code Marketplace and Open VSX, with a
+# `vscode-extension-v<version>` GitHub release holding the files. Pre-release
+# versions (9.6.0-canary.1) are skipped: the Marketplace only accepts
+# major.minor.patch. Repository secrets:
+#   VS_CODE_MARKEPLACE_ACCESS_TOKEN  Azure DevOps token, "Marketplace > Manage"
+#                                    scope, for the `intlayer` publisher
+#   OPEN_VSX_ACCESS_TOKEN            open-vsx.org token, `intlayer` namespace
+#
+# The self-host images (docker/selfhost/Dockerfile) go to GHCR
+# (ghcr.io/<owner>/intlayer/<name>) and, when DOCKERHUB_USERNAME and
+# DOCKERHUB_TOKEN are set, Docker Hub (intlayer/<name>):
+#   cms-frontend  dashboard only                                  (--target app)
+#   cms-backend   API only, with Chromium                     (--target backend)
+#   cms-all       app + backend + MongoDB + Redis + MinIO  (--target all-in-one)
+# Their browser-facing VITE_* URLs keep the localhost defaults, so they are
+# reached on http://localhost:3000 (docs/docs/en/self_hosting.md).
+#
+# Release targets are plain jobs, not reusable workflows: GitHub never resolves
+# the jobs of a skipped reusable-workflow call and draws them as "Waiting for
+# pending jobs" forever. `validate` is the only reusable call left: it is
+# always called and skips from the inside.
 
 name: 📦 Build, test and release
 
@@ -81,6 +104,8 @@ jobs:
       version: ${{ steps.check.outputs.version }}
       version-release: ${{ steps.check.outputs.changed == 'true' && github.event_name == 'push' && github.ref_type == 'branch' }}
       china: ${{ steps.website.outputs.changed == 'true' || inputs.target == 'china' }}
+      # Tag pushes and manual runs always report `changed`.
+      validate: ${{ steps.check.outputs.changed == 'true' || steps.website.outputs.changed == 'true' }}
     steps:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
@@ -96,13 +121,13 @@ jobs:
           BEFORE_SHA: ${{ github.event.before }}
 
       - name: 🥡 Setup bun for release validation
-        if: steps.check.outputs.changed == 'true' || github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+        if: steps.check.outputs.changed == 'true'
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.5
 
       - name: 🔎 Check release version alignment
-        if: steps.check.outputs.changed == 'true' || github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+        if: steps.check.outputs.changed == 'true'
         run: bun scripts/check-version-alignment.ts
 
       - name: Check website changes in the push
@@ -117,11 +142,15 @@ jobs:
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
 
+  # Every job needing `validate` is gated on `targets` outputs that imply
+  # `validate == 'true'`, so a skipped build never lets a release through
+  # untested.
   validate:
     needs: targets
-    if: needs.targets.outputs.version-release == 'true' || needs.targets.outputs.china == 'true' || github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+    if: ${{ !cancelled() }}
     uses: ./.github/workflows/build_and_test.yaml
     with:
+      skip: ${{ needs.targets.outputs.validate != 'true' }}
       build-context: ${{ needs.targets.outputs.version-release == 'true' && 'release' || inputs.target == 'selfhost' && 'none' || inputs.target || github.ref_type == 'tag' && 'tauri' || 'china' }}
 
   check-npm:
@@ -354,44 +383,620 @@ jobs:
   china:
     needs: [targets, validate]
     if: needs.targets.outputs.china == 'true'
-    uses: ./.github/workflows/deploy-website-china.yaml
-    secrets: inherit
+    name: 🇨🇳 Deploy Chinese website
+    runs-on: ubuntu-latest
+    # Push and manual `china` runs sit in different release groups: queue their
+    # deploys so they never restart the VPS server concurrently.
+    concurrency:
+      group: deploy-website-china
+      cancel-in-progress: false
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - uses: ./.github/actions/install-workspaces
+        with:
+          workspace: website-tanstack
+      - uses: ./.github/actions/restore-workspaces
+
+      - name: 📝 Configure Production Environment for China
+        run: |
+          cat << 'EOF' > apps/website/.env.production.local
+          IS_CHINA=true
+          VITE_DOMAIN=${{ secrets.VITE_DOMAIN || 'intlayer.cn' }}
+          VITE_URL=${{ secrets.VITE_URL || 'https://intlayer.cn' }}
+          VITE_EDITOR_URL=${{ secrets.VITE_EDITOR_URL || 'https://intlayer.cn' }}
+          VITE_CMS_URL=${{ secrets.VITE_CMS_URL || 'https://app.intlayer.org' }}
+          VITE_BACKEND_DOMAIN=${{ secrets.VITE_BACKEND_DOMAIN || 'back.intlayer.org' }}
+          VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL || 'https://back.intlayer.org' }}
+          VITE_ENABLE_SERVICE_WORKER=true
+          VITE_BAIDU_PUSH_TOKEN=${{ secrets.VITE_BAIDU_PUSH_TOKEN || 'igBZ4IS2CwB7KRmZ' }}
+          INTLAYER_BACKEND_URL=${{ secrets.INTLAYER_BACKEND_URL || 'https://back.intlayer.org' }}
+          EOF
+
+      - name: 🚀 Build Website
+        working-directory: apps/website
+        env:
+          IS_CHINA: 'true'
+          NODE_ENV: production
+          NODE_OPTIONS: '--max_old_space_size=8192'
+        run: |
+          bun run build
+
+      - name: 📦 Bundle Runtime & Archive (.output + @intlayer/docs)
+        run: |
+          # docs.entry.mjs reads docs markdown files from filesystem at runtime
+          mkdir -p apps/website/.output/server/node_modules/@intlayer
+          cp -r docs apps/website/.output/server/node_modules/@intlayer/docs
+
+          # Create compressed archive
+          tar -czf output.tar.gz -C apps/website .output
+
+          echo "Archive generated successfully:"
+          ls -lh output.tar.gz
+
+      - name: 📤 Copy Archive to VPS via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_CHINA_HOST }}
+          username: ${{ secrets.VPS_USER || 'root' }}
+          password: ${{ secrets.VPS_CHINA_PASSWORD }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          source: 'output.tar.gz'
+          target: ${{ secrets.VPS_DIR || '/opt/website-tanstack' }}
+          strip_components: 0
+
+      - name: 🔄 Extract and Restart Server on VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_CHINA_HOST }}
+          username: ${{ secrets.VPS_USER || 'root' }}
+          password: ${{ secrets.VPS_CHINA_PASSWORD }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            set -e
+            TARGET_DIR="${{ secrets.VPS_DIR || '/opt/website-tanstack' }}"
+            BUN_BIN="${{ secrets.VPS_BUN_PATH || '/root/.bun/bin/bun' }}"
+
+            mkdir -p "$TARGET_DIR"
+            cd "$TARGET_DIR"
+
+            if [ ! -f "output.tar.gz" ]; then
+              echo "❌ Error: output.tar.gz not found in $TARGET_DIR"
+              exit 1
+            fi
+
+            echo "📦 Extracting new build..."
+            rm -rf .output/
+            tar -xzf output.tar.gz
+            rm -f output.tar.gz
+
+            echo "🔄 Restarting application..."
+            # Stop previous process via pidfile if available
+            if [ -f app.pid ]; then
+              kill -9 $(cat app.pid) 2>/dev/null || true
+              rm -f app.pid
+            fi
+
+            # Safely stop any running bun server process (excluding the current SSH shell)
+            for pid in $(pgrep -f '[b]un.*\.output/server/index\.mjs' 2>/dev/null || true); do
+              if [ "$pid" != "$$" ] && [ "$pid" != "$PPID" ]; then
+                echo "Stopping old instance (PID: $pid)..."
+                kill -9 "$pid" 2>/dev/null || true
+              fi
+            done
+
+            # Launch server in background detached from SSH terminal
+            nohup env PORT=3000 HOSTNAME=0.0.0.0 NODE_ENV=production "$BUN_BIN" run .output/server/index.mjs </dev/null > server.log 2>&1 &
+            echo $! > app.pid
+
+            sleep 3
+            echo "📄 Server log output:"
+            cat server.log | tail -n 25
 
   tauri:
     needs: [targets, validate]
     if: needs.targets.outputs.version-release == 'true' || (github.event_name == 'push' && github.ref_type == 'tag') || inputs.target == 'tauri'
+    name: 💻 Tauri app (${{ matrix.platform }})
     permissions:
       contents: write
-    uses: ./.github/workflows/tauri-app-release.yaml
-    secrets: inherit
+    strategy:
+      # Let the other platforms finish (and publish) when one of them fails.
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
 
-  vscode:
+    # Code-signing secrets. When a secret is not configured in the repo it
+    # resolves to an empty string, and the matching signing step is skipped,
+    # so the corresponding artifact is simply built unsigned (green build).
+    #
+    # The Apple secrets and the AppImage `SIGN*` variables are deliberately
+    # NOT exported here: the Tauri bundler treats an empty `APPLE_CERTIFICATE`
+    # as a certificate to import (fails with `SecKeychainItemImport`), and
+    # linuxdeploy-plugin-appimage treats an empty `SIGN` as "sign" (fails with
+    # `failed to run linuxdeploy`). They are exported by the platform steps
+    # below only when the matching secret is actually configured.
+    env:
+      # --- Windows (code-signing certificate) ---
+      WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+      WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+      # --- Linux (AppImage GPG signing) ---
+      LINUX_SIGN_GPG_PRIVATE_KEY: ${{ secrets.LINUX_SIGN_GPG_PRIVATE_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install libvips (macOS)
+        if: matrix.platform == 'macos-latest'
+        run: brew install vips
+
+      - name: Install Linux system dependencies
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libvips-dev
+
+      - uses: ./.github/actions/install-workspaces
+        with:
+          workspace: app
+      - uses: ./.github/actions/restore-workspaces
+
+      - name: Get app version
+        id: get_version
+        shell: bash
+        run: |
+          VERSION=$(bun -e "console.log(JSON.parse(require('fs').readFileSync('apps/app/package.json', 'utf-8')).version)")
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+
+      # Windows: decode the base64 .pfx from the secret and import it into the
+      # current-user certificate store so signtool can find it by thumbprint.
+      # The thumbprint is read from the imported certificate and written to a
+      # generated config passed via `--config`. Tauri auto-merges the committed
+      # `tauri.windows.conf.json` (digest algorithm, timestamp URL); that file
+      # must NOT set `certificateThumbprint`, otherwise Tauri tries to sign
+      # even when no certificate is configured and signtool fails.
+      - name: Import Windows signing certificate
+        id: windows_signing
+        if: matrix.platform == 'windows-latest' && env.WINDOWS_CERTIFICATE != ''
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path certificate | Out-Null
+          Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
+          certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+          Remove-Item -Path certificate/tempCert.txt
+          $importedCertificates = Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+          $signingCertificate = @($importedCertificates | Where-Object { $_.HasPrivateKey }) | Select-Object -First 1
+          if (-not $signingCertificate) {
+            Write-Output "::error::WINDOWS_CERTIFICATE contains no certificate with a private key; signtool cannot sign with it"
+            exit 1
+          }
+          Write-Output "Signing with certificate '$($signingCertificate.Subject)' (thumbprint $($signingCertificate.Thumbprint))"
+          $signingConfig = @{ bundle = @{ windows = @{ certificateThumbprint = $signingCertificate.Thumbprint } } }
+          $signingConfigPath = Join-Path $env:RUNNER_TEMP 'tauri.windows.signing.conf.json'
+          $signingConfig | ConvertTo-Json -Depth 10 | Set-Content -Path $signingConfigPath
+          "args=--config $signingConfigPath" >> $env:GITHUB_OUTPUT
+
+      # macOS: expose the Apple Developer ID signing + notarization secrets to
+      # the Tauri bundler only when the certificate is configured. Without it
+      # the app is built unsigned instead of failing on the keychain import.
+      - name: Export Apple signing secrets (macOS)
+        if: matrix.platform == 'macos-latest'
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          if [ -z "$APPLE_CERTIFICATE" ]; then
+            echo "APPLE_CERTIFICATE secret is not set: building the macOS app unsigned"
+            exit 0
+          fi
+
+          # Preflight: run the exact `security import` the Tauri bundler runs, so
+          # a broken certificate fails here instead of after the Rust compile.
+          # Observed `security import` messages:
+          #  - "One or more parameters ... not valid": the decoded .p12 is empty
+          #  - "MAC verification failed": wrong APPLE_CERTIFICATE_PASSWORD, or the
+          #    .p12 was exported with OpenSSL 3 defaults (re-export with
+          #    `openssl pkcs12 -export -legacy` or from Keychain Access)
+          #  - "Unknown format in import": not a .p12 (e.g. a .cer) or truncated
+          preflight_dir="$(mktemp -d)"
+          preflight_keychain="$preflight_dir/preflight.keychain-db"
+          if ! printf '%s' "$APPLE_CERTIFICATE" | tr -d '[:space:]' | base64 -d -o "$preflight_dir/cert.p12"; then
+            echo "::error::APPLE_CERTIFICATE is not valid base64"
+            exit 1
+          fi
+          if [ ! -s "$preflight_dir/cert.p12" ]; then
+            echo "::error::APPLE_CERTIFICATE decodes to an empty file: the secret is blank or whitespace-only"
+            exit 1
+          fi
+          security create-keychain -p preflight "$preflight_keychain"
+          if ! security import "$preflight_dir/cert.p12" -P "$APPLE_CERTIFICATE_PASSWORD" -k "$preflight_keychain" -T /usr/bin/codesign; then
+            echo "::error::macOS cannot import the APPLE_CERTIFICATE .p12 (see the security message above). 'MAC verification failed' = wrong APPLE_CERTIFICATE_PASSWORD or a .p12 exported by OpenSSL 3 (re-export with 'openssl pkcs12 -export -legacy'); 'Unknown format' = not a .p12 or truncated base64."
+            security delete-keychain "$preflight_keychain"
+            rm -rf "$preflight_dir"
+            exit 1
+          fi
+          security delete-keychain "$preflight_keychain"
+          rm -rf "$preflight_dir"
+
+          for name in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID; do
+            value="${!name}"
+            if [ -n "$value" ]; then
+              delimiter="EOF_$(openssl rand -hex 8)"
+              printf '%s<<%s\n%s\n%s\n' "$name" "$delimiter" "$value" "$delimiter" >> "$GITHUB_ENV"
+            fi
+          done
+
+      # Linux: import the GPG private key used to sign the AppImage and enable
+      # signing in linuxdeploy-plugin-appimage / appimagetool. `SIGN` must not
+      # exist at all when unsigned: the plugin only checks that it is set.
+      - name: Import GPG signing key (Linux)
+        if: matrix.platform == 'ubuntu-latest' && env.LINUX_SIGN_GPG_PRIVATE_KEY != ''
+        env:
+          LINUX_SIGN_GPG_KEY_ID: ${{ secrets.LINUX_SIGN_GPG_KEY_ID }}
+          LINUX_SIGN_GPG_PASSPHRASE: ${{ secrets.LINUX_SIGN_GPG_PASSPHRASE }}
+        run: |
+          echo "$LINUX_SIGN_GPG_PRIVATE_KEY" | gpg --batch --import
+          {
+            echo "SIGN=1"
+            echo "SIGN_KEY=$LINUX_SIGN_GPG_KEY_ID"
+            echo "APPIMAGETOOL_SIGN_PASSPHRASE=$LINUX_SIGN_GPG_PASSPHRASE"
+            echo "APPIMAGETOOL_FORCE_SIGN=1"
+          } >> "$GITHUB_ENV"
+
+      - name: Build and publish Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: apps/app
+          tauriScript: bunx tauri
+          # `--verbose` (Linux): at the default log level the bundler discards
+          # linuxdeploy's stderr and only reports "failed to run linuxdeploy".
+          # `--config` (Windows): merges the signing settings when a
+          # certificate is configured; empty otherwise.
+          args: ${{ matrix.platform == 'ubuntu-latest' && '--verbose' || '' }} ${{ steps.windows_signing.outputs.args }}
+          tagName: ${{ steps.get_version.outputs.version }}
+          releaseName: '${{ steps.get_version.outputs.version }}'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: false
+          prerelease: false
+
+  # `targets` already blocks a version that drifts from the root one; the
+  # Marketplace also rejects pre-release identifiers (9.6.0-canary.1).
+  vscode-package:
     needs: [targets, validate]
-    if: needs.targets.outputs.version-release == 'true' || inputs.target == 'vscode'
-    permissions:
-      contents: write
-    uses: ./.github/workflows/publish-vscode-extension.yaml
-    with:
-      dry-run: ${{ inputs.dry-run || false }}
-      pre-release: ${{ inputs.pre-release || false }}
-    secrets: inherit
+    if: ${{ (needs.targets.outputs.version-release == 'true' || inputs.target == 'vscode') && !contains(needs.targets.outputs.version, '-') }}
+    name: 🧩 Package VS Code extension
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
 
-  selfhost:
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      # Native bindings for every platform, not just the runner's, so each
+      # target below can ship the ones matching its VSCE_TARGET.
+      - uses: ./.github/actions/install-workspaces
+        with:
+          workspace: intlayer-vs-code-extension
+          all-platforms: 'true'
+      - uses: ./.github/actions/restore-workspaces
+
+      # `vsce package` runs the `vscode:prepublish` script (tsdown compile),
+      # which copies only the VSCE_TARGET native bindings into dist/.
+      - name: 📦 Package every target
+        working-directory: apps/vscode-extension
+        env:
+          PRE_RELEASE_FLAG: ${{ inputs.pre-release && '--pre-release' || '' }}
+        run: |
+          mkdir -p vsix
+          for target in win32-x64 win32-arm64 linux-x64 linux-arm64 \
+            alpine-x64 alpine-arm64 darwin-x64 darwin-arm64; do
+            echo "::group::$target"
+            VSCE_TARGET="$target" node_modules/.bin/vsce package \
+              --no-dependencies \
+              --target "$target" \
+              $PRE_RELEASE_FLAG \
+              --out "vsix/intlayer-vs-code-extension-$target.vsix"
+
+            echo "Native bindings in VSIX:"
+            unzip -l "vsix/intlayer-vs-code-extension-$target.vsix" \
+              | awk '{print $4}' | grep -E 'node_modules/@(esbuild|oxc-parser)/' \
+              | cut -d/ -f4-5 | sort -u
+            echo "::endgroup::"
+          done
+          ls -la vsix
+
+      - name: 💾 Save VSIX to GitHub Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: intlayer-vscode-extension
+          path: apps/vscode-extension/vsix/*.vsix
+          if-no-files-found: error
+          retention-days: 1
+
+  vscode-publish:
+    needs: [targets, vscode-package]
+    if: ${{ !inputs.dry-run }}
+    name: 🧩 Publish VS Code extension
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub release holding the VSIX files
+    steps:
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: ⬇️ Download VSIX
+        uses: actions/download-artifact@v4
+        with:
+          name: intlayer-vscode-extension
+          path: vsix
+
+      - name: 🧩 Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VS_CODE_MARKEPLACE_ACCESS_TOKEN }}
+          PRE_RELEASE_FLAG: ${{ inputs.pre-release && '--pre-release' || '' }}
+        run: >
+          npx --yes @vscode/vsce@4 publish
+          --skip-duplicate
+          $PRE_RELEASE_FLAG
+          --packagePath vsix/*.vsix
+
+      - name: 🧩 Publish to Open VSX
+        env:
+          OVSX_PAT: ${{ secrets.OPEN_VSX_ACCESS_TOKEN }}
+          PRE_RELEASE_FLAG: ${{ inputs.pre-release && '--pre-release' || '' }}
+        run: >
+          npx --yes ovsx@1 publish
+          --skip-duplicate
+          $PRE_RELEASE_FLAG
+          --packagePath vsix/*.vsix
+
+      # Separate tag: `v<version>` belongs to the Tauri app release
+      - name: 🏷️ Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: vscode-extension-v${{ needs.targets.outputs.version }}
+          name: VS Code extension v${{ needs.targets.outputs.version }}
+          files: vsix/*.vsix
+          make_latest: false
+          prerelease: ${{ inputs.pre-release || false }}
+
+  selfhost-build:
     needs: [targets, validate]
     if: needs.targets.outputs.version-release == 'true' || inputs.target == 'selfhost'
+    name: 🐳 Build ${{ matrix.image }} ${{ matrix.platform }}
+    # One job per image and platform, each on a runner of that architecture.
+    # Building arm64 through QEMU on an amd64 runner emulates the whole toolchain
+    # (bun install, turbo, the Vite build and the prerender crawl) and takes
+    # hours; a native arm64 runner builds it in about the same time as amd64.
+    strategy:
+      fail-fast: false
+      matrix:
+        # `image` is the published name; `target` the matching Dockerfile stage.
+        image: [cms-frontend, cms-backend, cms-all]
+        platform: [linux/amd64, linux/arm64]
+        include:
+          - image: cms-frontend
+            target: app
+          - image: cms-backend
+            target: backend
+          - image: cms-all
+            target: all-in-one
+          - platform: linux/amd64
+            runner: ubuntu-latest
+            arch: linux-amd64
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+            arch: linux-arm64
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/selfhost-container-release.yaml
-    with:
-      version: ${{ needs.targets.outputs.version }}
-      tag: ${{ inputs.tag || '' }}
-      platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
-    secrets: inherit
 
+    steps:
+      - name: 🔎 Check platform is requested
+        id: requested
+        env:
+          PLATFORMS: ${{ inputs.platforms || 'linux/amd64,linux/arm64' }}
+          PLATFORM: ${{ matrix.platform }}
+        run: |
+          if [[ ",${PLATFORMS// /}," == *",${PLATFORM},"* ]]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::${PLATFORM} is not in the requested platforms (${PLATFORMS}); skipping."
+          fi
+
+      - name: ⬇️ Checkout
+        if: steps.requested.outputs.enabled == 'true'
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Set up Docker Buildx
+        if: steps.requested.outputs.enabled == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔎 Resolve target registries
+        id: registries
+        if: steps.requested.outputs.enabled == 'true'
+        run: bash .github/scripts/resolve-selfhost-images.sh
+        env:
+          IMAGE_NAME: ${{ matrix.image }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: 🔑 Log in to GHCR
+        if: steps.requested.outputs.enabled == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔑 Log in to Docker Hub
+        if: steps.requested.outputs.enabled == 'true' && steps.registries.outputs.dockerhub == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: 🏷️ Compute labels
+        id: meta
+        if: steps.requested.outputs.enabled == 'true'
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.registries.outputs.images }}
+
+      # Pushed by digest only: tags are attached once every platform is built,
+      # when the manifest job assembles the multi-arch manifest list.
+      - name: 🏗️ Build & push by digest
+        id: build
+        if: steps.requested.outputs.enabled == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/selfhost/Dockerfile
+          target: ${{ matrix.target }}
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,"name=${{ steps.registries.outputs.images }}",push-by-digest=true,name-canonical=true,push=true
+          provenance: false
+          # The builder stages are identical across the three targets, so every
+          # image of a platform reads the caches written by the other two.
+          cache-from: |
+            type=gha,scope=${{ matrix.image }}-${{ matrix.arch }}
+            type=gha,scope=cms-frontend-${{ matrix.arch }}
+            type=gha,scope=cms-backend-${{ matrix.arch }}
+            type=gha,scope=cms-all-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}-${{ matrix.arch }}
+
+      - name: 📤 Export digest
+        if: steps.requested.outputs.enabled == 'true'
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          mkdir -p "${RUNNER_TEMP}/digests"
+          touch "${RUNNER_TEMP}/digests/${DIGEST#sha256:}"
+
+      - name: 📤 Upload digest
+        if: steps.requested.outputs.enabled == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ matrix.image }}-${{ matrix.arch }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  selfhost-manifest:
+    needs: [targets, selfhost-build]
+    name: 🐳 Publish ${{ matrix.image }} manifest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [cms-frontend, cms-backend, cms-all]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE_TAG: ${{ inputs.tag || '' }}
+      IMAGE_VERSION: ${{ needs.targets.outputs.version }}
+
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: 📥 Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digests-${{ matrix.image }}-*
+          merge-multiple: true
+
+      - name: 🛠️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔎 Resolve target registries
+        id: registries
+        run: bash .github/scripts/resolve-selfhost-images.sh
+        env:
+          IMAGE_NAME: ${{ matrix.image }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: 🔑 Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔑 Log in to Docker Hub
+        if: steps.registries.outputs.dockerhub == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: 🏷️ Compute tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.registries.outputs.images }}
+          tags: |
+            type=raw,value=latest
+            type=raw,value=${{ env.IMAGE_TAG }},enable=${{ env.IMAGE_TAG != '' }}
+            type=raw,value=${{ env.IMAGE_VERSION }},enable=${{ env.IMAGE_TAG == '' && env.IMAGE_VERSION != '' }}
+            type=raw,value=v${{ env.IMAGE_VERSION }},enable=${{ env.IMAGE_TAG == '' && env.IMAGE_VERSION != '' }}
+            type=sha,format=short
+
+      # Every per-platform digest was pushed to every registry, so the manifest
+      # list can be assembled from the GHCR copies and tagged into each of them.
+      - name: 🧩 Create manifest list & push
+        working-directory: ${{ runner.temp }}/digests
+        env:
+          GHCR_IMAGE: ${{ steps.registries.outputs.ghcr_image }}
+        run: |
+          docker buildx imagetools create \
+            $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf "${GHCR_IMAGE}@sha256:%s " *)
+
+      - name: 🔍 Inspect published image
+        env:
+          GHCR_IMAGE: ${{ steps.registries.outputs.ghcr_image }}
+        run: docker buildx imagetools inspect "${GHCR_IMAGE}:latest"
+
+  # Deletes this run's package archives once every job reading them is done.
+  # Kept after a failure, so "Re-run failed jobs" can still restore them.
   cleanup-context:
     needs:
       [
+        targets,
         validate,
         check-npm,
         build-packages,
@@ -399,9 +1004,20 @@ jobs:
         promote,
         china,
         tauri,
-        vscode,
+        vscode-package,
       ]
-    if: ${{ !cancelled() && needs.validate.result == 'success' && !contains(needs.*.result, 'failure') }}
+    if: ${{ !cancelled() && needs.targets.outputs.validate == 'true' && needs.validate.result == 'success' && !contains(needs.*.result, 'failure') }}
+    name: 🧹 Remove build context
+    runs-on: ubuntu-latest
     permissions:
       actions: write
-    uses: ./.github/workflows/cleanup-build-context.yaml
+    steps:
+      - name: 🧹 Delete this run's package archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ids=$(gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?per_page=100" \
+            --jq ".artifacts[] | select(.name == \"workspace-build\" or .name == \"npm-release-$GITHUB_RUN_ID\") | .id")
+          for id in $ids; do
+            gh api --method DELETE "repos/$GITHUB_REPOSITORY/actions/artifacts/$id"
+          done

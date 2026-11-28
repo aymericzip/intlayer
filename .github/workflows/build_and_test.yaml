@@ -9,13 +9,20 @@ on:
         description: Package outputs required by downstream jobs
         type: string
         default: none
+      # Callers pass this instead of an `if:` on the calling job: GitHub never
+      # resolves the jobs of a skipped reusable-workflow call and shows them as
+      # "Waiting for pending jobs" forever.
+      skip:
+        description: Skip the build while still reporting it as skipped
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
 jobs:
   build:
-    if: ${{ github.repository_owner == 'aymericzip' && (github.event_name != 'pull_request' || github.actor != 'github-actions') }}
+    if: ${{ github.repository_owner == 'aymericzip' && !inputs.skip && (github.event_name != 'pull_request' || github.actor != 'github-actions') }}
     name: 🔨 Build & Test
     runs-on: ubuntu-latest
     steps:

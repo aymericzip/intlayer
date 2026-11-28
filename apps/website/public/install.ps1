@@ -326,8 +326,8 @@ function Write-CustomDomainNotice {
 }
 
 # ============================================================== desktop mode
-# Downloads the latest Windows installer from the GitHub release that
-# .github/workflows/tauri-app-release.yaml publishes.
+# Downloads the latest Windows installer from the GitHub release that the
+# `tauri` job of .github/workflows/publish.yaml publishes.
 function Invoke-Desktop {
   Write-Step 'Looking up the latest desktop release'
   try {

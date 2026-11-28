@@ -383,8 +383,8 @@ EOF
 }
 
 # ============================================================== desktop mode
-# Downloads the latest desktop build from the GitHub release that
-# .github/workflows/tauri-app-release.yaml publishes, picking the asset that
+# Downloads the latest desktop build from the GitHub release that the `tauri`
+# job of .github/workflows/publish.yaml publishes, picking the asset that
 # matches this OS and CPU. The app talks to the Intlayer Cloud out of the box.
 run_desktop() {
   os="$(uname -s)"

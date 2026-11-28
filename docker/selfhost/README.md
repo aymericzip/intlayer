@@ -10,8 +10,8 @@ Dockerfile with three targets:
 | `cms-backend`  | `backend`    | API (Fastify on Bun) + Chromium                                  | `docker-compose.yml`, Kubernetes, Swarm… |
 
 Published on every version bump to Docker Hub as `intlayer/<name>` (mirrored on
-GHCR as `ghcr.io/aymericzip/intlayer/<name>`) by
-`.github/workflows/selfhost-container-release.yaml`.
+GHCR as `ghcr.io/aymericzip/intlayer/<name>`) by the
+`selfhost-*` jobs of `.github/workflows/publish.yaml`.
 
 Users install either shape through `https://intlayer.org/install.sh` (macOS /
 Linux), `install.ps1` (Windows) or `npx intlayer init infra`; both installers

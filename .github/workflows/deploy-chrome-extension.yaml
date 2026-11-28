@@ -29,14 +29,18 @@ jobs:
           bun-version: 1.4.5
       - run: bun scripts/check-version-alignment.ts
 
+  # Always called and skipped from inside: GitHub never resolves the jobs of a
+  # skipped reusable-workflow call and shows them as "Waiting for pending jobs".
   validate:
     needs: check-version-alignment
+    if: ${{ !cancelled() }}
     uses: ./.github/workflows/build_and_test.yaml
     with:
+      skip: ${{ needs.check-version-alignment.result != 'success' }}
       build-context: browser
 
   publish-chrome:
-    needs: validate
+    needs: [check-version-alignment, validate]
     name: 🌐 Chrome Web Store
     if: ${{ github.event_name == 'release' || github.event.inputs.target == 'all' || github.event.inputs.target == 'chrome' }}
     runs-on: ubuntu-latest
@@ -71,7 +75,7 @@ jobs:
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
 
   publish-firefox:
-    needs: validate
+    needs: [check-version-alignment, validate]
     name: 🦊 Mozilla AMO (Firefox)
     if: ${{ github.event_name == 'release' || github.event.inputs.target == 'all' || github.event.inputs.target == 'firefox' }}
     runs-on: ubuntu-latest
@@ -98,9 +102,22 @@ jobs:
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
 
+  # Deletes this run's package archive once both stores are done. Kept after a
+  # failure, so "Re-run failed jobs" can still restore it.
   cleanup-context:
-    needs: [validate, publish-chrome, publish-firefox]
-    if: ${{ !cancelled() && needs.validate.result == 'success' && !contains(needs.*.result, 'failure') }}
+    needs: [check-version-alignment, validate, publish-chrome, publish-firefox]
+    if: ${{ !cancelled() && needs.check-version-alignment.result == 'success' && needs.validate.result == 'success' && !contains(needs.*.result, 'failure') }}
+    name: 🧹 Remove build context
+    runs-on: ubuntu-latest
     permissions:
       actions: write
-    uses: ./.github/workflows/cleanup-build-context.yaml
+    steps:
+      - name: 🧹 Delete this run's package archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ids=$(gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?per_page=100" \
+            --jq '.artifacts[] | select(.name == "workspace-build") | .id')
+          for id in $ids; do
+            gh api --method DELETE "repos/$GITHUB_REPOSITORY/actions/artifacts/$id"
+          done
