@@ -16,17 +16,49 @@ import {
   readReleaseManifest,
 } from './npm-release-utils.ts';
 
+/** npm refused a dist-tag change: retrying cannot succeed. */
+export class DistTagPermissionError extends Error {}
+
 /**
  * Runs npm without invoking build, pack, or package lifecycle scripts.
  * @param {string[]} commandArguments
  * @returns {Promise<boolean>}
+ * @throws {DistTagPermissionError} when npm refuses the dist-tag credential
  */
 const runNpm = (commandArguments: string[]): Promise<boolean> =>
-  new Promise((resolveResult) => {
-    const child = spawn('npm', commandArguments, { stdio: 'inherit' });
+  new Promise((resolveResult, rejectResult) => {
+    const child = spawn('npm', commandArguments, {
+      stdio: ['inherit', 'inherit', 'pipe'],
+    });
+    let errorOutput = '';
+    child.stderr.on('data', (chunk: Buffer) => {
+      process.stderr.write(chunk);
+      errorOutput += chunk.toString();
+    });
     child.on('error', () => resolveResult(false));
-    child.on('close', (code) => resolveResult(code === 0));
+    child.on('close', (code) => {
+      const isRefusedDistTag =
+        code !== 0 &&
+        commandArguments[0] === 'dist-tag' &&
+        /npm error code E40[13]\b/.test(errorOutput);
+      if (isRefusedDistTag) {
+        rejectResult(new DistTagPermissionError(commandArguments.join(' ')));
+        return;
+      }
+      resolveResult(code === 0);
+    });
   });
+
+/** Lists packages in the step summary and returns the error to throw. */
+const reportFailure = (title: string, packageList: string) => {
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    appendFileSync(
+      process.env.GITHUB_STEP_SUMMARY,
+      `### ❌ ${title}\n\n${packageList}\n`
+    );
+  }
+  return new Error(`${title}:\n${packageList}`);
+};
 
 type PublishReleaseOptions = {
   phase: 'staging' | 'promote';
@@ -82,9 +114,14 @@ export const publishNpmRelease = async ({
     }
   }
 
+  /** Formats packages as a markdown list of `name@version`. */
+  const formatPackageList = (packageVersions: PackageVersion[]) =>
+    packageVersions.map(({ name }) => `- ${name}@${version}`).join('\n');
+
   let pending = packages;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     console.log(`🚀 ${phase}: attempt ${attempt}/${maxAttempts}`);
+    const forbiddenPackages: PackageVersion[] = [];
     const results = await mapConcurrent(pending, async (packageVersion) => {
       const packageLabel = `${packageVersion.name}@${version}`;
       if (phase === 'promote') {
@@ -94,15 +131,20 @@ export const publishNpmRelease = async ({
         console.log(
           `${dryRun ? '[dry-run] ' : ''}${packageLabel} → ${targetTag}`
         );
-        return dryRun
-          ? true
-          : executeNpm([
-              'dist-tag',
-              'add',
-              packageLabel,
-              targetTag,
-              ...registryArguments,
-            ]);
+        if (dryRun) return true;
+        try {
+          return await executeNpm([
+            'dist-tag',
+            'add',
+            packageLabel,
+            targetTag,
+            ...registryArguments,
+          ]);
+        } catch (error) {
+          if (!(error instanceof DistTagPermissionError)) throw error;
+          forbiddenPackages.push(packageVersion);
+          return false;
+        }
       }
       if (!dryRun && !(await canStage(packageVersion))) {
         console.log(
@@ -122,6 +164,12 @@ export const publishNpmRelease = async ({
         ...(dryRun ? ['--dry-run'] : []),
       ]);
     });
+    if (forbiddenPackages.length > 0) {
+      throw reportFailure(
+        'npm refused dist-tag changes (401/403). Renew the NPM_TOKEN GitHub secret, then re-run the promote job',
+        formatPackageList(forbiddenPackages)
+      );
+    }
     if (phase === 'staging' && !dryRun) {
       pending = await getMissingPackages();
     } else if (phase === 'promote' && !dryRun) {
@@ -149,17 +197,9 @@ export const publishNpmRelease = async ({
     }
   }
 
-  const missingList = pending
-    .map(({ name }) => `- ${name}@${version}`)
-    .join('\n');
-  if (process.env.GITHUB_STEP_SUMMARY) {
-    appendFileSync(
-      process.env.GITHUB_STEP_SUMMARY,
-      `### ❌ npm ${phase} incomplete after ${maxAttempts} attempts\n\n${missingList}\n`
-    );
-  }
-  throw new Error(
-    `npm ${phase} failed after ${maxAttempts} attempts:\n${missingList}`
+  throw reportFailure(
+    `npm ${phase} failed after ${maxAttempts} attempts`,
+    formatPackageList(pending)
   );
 };
 

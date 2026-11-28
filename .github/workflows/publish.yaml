@@ -9,8 +9,22 @@
 #     Repository:           intlayer
 #     Workflow filename:    publish.yaml   (must match this file name exactly)
 #     Environment name:     npm
-#     Allowed actions:      npm publish AND npm dist-tag
-#                           (dist-tag access is disabled by default)
+#     Allowed actions:      npm publish
+#
+# Moving `staging` to `latest` does not use OIDC: enabling "npm dist-tag" on
+# every trusted publisher costs one 2FA challenge per package. The promote job
+# uses a granular token instead, created once (one 2FA challenge, 90 days max):
+#   npx npm@latest token create --name intlayer-promote --packages-all \
+#     --packages-and-scopes-permission read-write-stage-only --bypass-2fa \
+#     --expires 90
+#   gh secret set NPM_TOKEN --env npm-promote   (or repo-level)
+# Stage-only tokens cannot publish versions but can still change dist-tags.
+#
+# GitHub environments:
+#   npm          No required reviewers: the OIDC identity npm trusts, so
+#                staging publishes without approval.
+#   npm-promote  Required reviewers. Reads NPM_TOKEN; approving it is the
+#                only review, the move from `staging` to `latest`.
 #
 # The `intlayer-swc-plugin` crate is published to crates.io the same way
 # (trusted publishing through OIDC, no `CARGO_REGISTRY_TOKEN` secret).
@@ -223,16 +237,28 @@ jobs:
         env:
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
 
+  # The only review of an npm release, once staging is complete. No `id-token`:
+  # npm would otherwise exchange OIDC for a credential without dist-tag access
+  # and ignore NPM_TOKEN.
   promote:
     permissions:
       contents: read
-      id-token: write
     needs: publish
     if: ${{ !cancelled() && needs.publish.result == 'success' }}
     name: 🏷️ Promote complete npm release
     runs-on: ubuntu-latest
-    environment: npm
+    environment: npm-promote
     steps:
+      - name: 🔐 Check promote token
+        if: ${{ !inputs.dry-run }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo '::error::NPM_TOKEN secret is missing (repository or npm-promote environment, see the header of publish.yaml)'
+            exit 1
+          fi
+
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
 
@@ -247,10 +273,6 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
 
-      # OIDC dist-tag operations need npm >= 11.21.0 (or >= 12.2.0 on v12).
-      - name: ⬆️ Update npm
-        run: npm install -g npm@latest && npm --version
-
       - name: ⬇️ Restore release archives
         uses: actions/download-artifact@v4
         with:
@@ -262,6 +284,7 @@ jobs:
       - name: 🏷️ Promote dist-tags
         run: bun run publish:ci:promote
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUBLISH_DRY_RUN: ${{ inputs.dry-run || false }}
 
   publish-crate:

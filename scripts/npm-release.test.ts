@@ -22,7 +22,10 @@ import {
   validateReleaseVersions,
 } from './npm-release-utils.ts';
 import { prepareNpmRelease } from './prepare-npm-release.ts';
-import { publishNpmRelease } from './publish-npm-release.ts';
+import {
+  DistTagPermissionError,
+  publishNpmRelease,
+} from './publish-npm-release.ts';
 
 const { version } = readWorkspacePackage();
 
@@ -290,6 +293,32 @@ describe('prepared npm release', () => {
       })
     ).rejects.toThrow('after 2 attempts');
     expect(calls).toBe(4);
+  });
+
+  test('stops after one attempt when npm refuses dist-tag access', async () => {
+    const promoted = new Set<string>();
+    let delays = 0;
+    const promotion = publishNpmRelease({
+      phase: 'promote',
+      directory,
+      checkPublished: async () => true,
+      checkPromoted: async ({ name }) => promoted.has(name),
+      executeNpm: async ([, , packageLabel]) => {
+        if (packageLabel?.startsWith(packages[1].name)) {
+          throw new DistTagPermissionError(packageLabel);
+        }
+        promoted.add(packages[0].name);
+        return true;
+      },
+      wait: async () => {
+        delays++;
+      },
+    });
+    await expect(promotion).rejects.toThrow(
+      `npm refused dist-tag changes (401/403). Renew the NPM_TOKEN GitHub secret, then re-run the promote job:\n- ${packages[1].name}@${version}`
+    );
+    expect(promoted).toEqual(new Set([packages[0].name]));
+    expect(delays).toBe(0);
   });
 
   test('dry run publishes with --dry-run and performs no registry checks or tag writes', async () => {
