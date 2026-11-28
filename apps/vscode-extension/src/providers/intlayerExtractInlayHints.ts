@@ -21,7 +21,7 @@ import {
   onDidChangeDictionaries,
 } from '../utils/cacheInvalidation';
 import {
-  detectDocumentContent,
+  detectUnextractedContent,
   isDocumentCompilerEnabled,
 } from '../utils/detectDocumentContent';
 
@@ -101,7 +101,7 @@ const createProvider = (
 
     try {
       [detected, isCompilerEnabled] = await Promise.all([
-        detectDocumentContent(document),
+        detectUnextractedContent(document),
         isDocumentCompilerEnabled(document),
       ]);
     } catch (error) {
@@ -143,7 +143,10 @@ const createProvider = (
   },
 });
 
-/** End-of-line `Extract · Ignore` hints on the hardcoded strings of components. */
+/**
+ * End-of-line `Extract · Ignore` hints on the hardcoded strings of components
+ * the compiler has not extracted yet.
+ */
 export const intlayerExtractInlayHintsProvider = (): Disposable[] => {
   const changeEmitter = new EventEmitter<void>();
   const refresh = () => changeEmitter.fire();

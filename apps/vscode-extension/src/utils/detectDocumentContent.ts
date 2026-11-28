@@ -4,6 +4,8 @@ import {
   type ExtractableContent,
 } from '@intlayer/babel';
 import type { TextDocument } from 'vscode';
+import { excludeExtractedContent } from './excludeExtractedContent';
+import { getDocumentCompilerTextFields } from './findCompilerTextTarget';
 import { findProjectRoot } from './findProjectRoot';
 import { getCachedConfig, isContentDeclarationFile } from './intlayerCache';
 
@@ -34,6 +36,24 @@ export const detectDocumentContent = async (
   if (isContentDeclarationFile(filePath, configuration)) return [];
 
   return detectExtractableContent(document.getText(), filePath, configuration);
+};
+
+/**
+ * The hardcoded strings of a component not extracted yet: the compiler
+ * (`saveComponents: false`) leaves the strings it extracted in the source.
+ */
+export const detectUnextractedContent = async (
+  document: TextDocument
+): Promise<ExtractableContent[]> => {
+  const detectedContent = await detectDocumentContent(document);
+  const projectDir = findProjectRoot(dirname(document.uri.fsPath));
+
+  if (detectedContent.length === 0 || !projectDir) return detectedContent;
+
+  return excludeExtractedContent(
+    detectedContent,
+    await getDocumentCompilerTextFields(document, projectDir)
+  );
 };
 
 /**

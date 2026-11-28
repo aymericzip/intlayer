@@ -1,4 +1,5 @@
 import {
+  type CompilerTextField,
   collectCompilerTextFields,
   findCompilerTextAtOffset,
   toComponentFilePath,
@@ -11,6 +12,29 @@ import {
 } from './intlayerCache';
 
 /**
+ * Source-locale text fields of the dictionaries the compiler extracted from
+ * `document`, i.e. whose `componentFilePath` is this document.
+ */
+export const getDocumentCompilerTextFields = async (
+  document: TextDocument,
+  projectDir: string
+): Promise<CompilerTextField[]> => {
+  const configuration = await getCachedConfig(projectDir);
+  const componentFilePath = toComponentFilePath(
+    configuration.system.baseDir,
+    document.uri.fsPath
+  );
+  const dictionaries = (
+    await getAllCachedUnmergedDictionaries(configuration)
+  ).filter((dictionary) => dictionary.componentFilePath === componentFilePath);
+
+  return collectCompilerTextFields(
+    dictionaries,
+    configuration.internationalization.defaultLocale
+  );
+};
+
+/**
  * The compiler-extracted string under the cursor (`compiler.saveComponents:
  * false` leaves the raw text in the component), as a usage target. Matched by
  * the source-locale text of the dictionaries whose `componentFilePath` is this
@@ -21,24 +45,14 @@ export const findCompilerTextTarget = async (
   position: Position,
   projectDir: string
 ): Promise<UsageTarget | null> => {
-  const configuration = await getCachedConfig(projectDir);
-  const componentFilePath = toComponentFilePath(
-    configuration.system.baseDir,
-    document.uri.fsPath
-  );
-  const dictionaries = (
-    await getAllCachedUnmergedDictionaries(configuration)
-  ).filter((dictionary) => dictionary.componentFilePath === componentFilePath);
+  const fields = await getDocumentCompilerTextFields(document, projectDir);
 
-  if (dictionaries.length === 0) return null;
+  if (fields.length === 0) return null;
 
   const match = findCompilerTextAtOffset(
     document.getText(),
     document.offsetAt(position),
-    collectCompilerTextFields(
-      dictionaries,
-      configuration.internationalization.defaultLocale
-    )
+    fields
   );
 
   return match
